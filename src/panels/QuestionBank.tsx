@@ -1,27 +1,23 @@
 import { useState } from 'react';
-import { questionBank } from '../data';
 import { useGraphStore } from '../store/useGraph';
 
 export default function QuestionBank() {
-  const [questions, setQuestions] = useState([...questionBank]);
+  const questions = useGraphStore((s) => s.questions);
   const [newQuestion, setNewQuestion] = useState('');
   const [showAddForm, setShowAddForm] = useState(false);
   const addNotification = useGraphStore((s) => s.addNotification);
+  const toggleQuestion = useGraphStore((s) => s.toggleQuestion);
+  const addQuestion = useGraphStore((s) => s.addQuestion);
 
   const handleQuestionClick = (q: (typeof questions)[0]) => {
-    setQuestions((prev) =>
-      prev.map((item) =>
-        item.id === q.id ? { ...item, answered: !item.answered } : item,
-      ),
-    );
+    toggleQuestion(q.id);
     addNotification(`触发推理: ${q.text}`, 'info');
   };
 
   const handleAddQuestion = () => {
     const trimmed = newQuestion.trim();
     if (!trimmed) return;
-    const newId = 'q' + Date.now();
-    setQuestions((prev) => [...prev, { id: newId, text: trimmed, answered: false, status: 'pending' } as any]);
+    addQuestion(trimmed);
     setNewQuestion('');
     setShowAddForm(false);
     addNotification('问题已添加到问题库', 'success');

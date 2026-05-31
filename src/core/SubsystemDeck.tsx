@@ -1,21 +1,21 @@
 import React, { useEffect, useRef } from 'react';
-import { subSystems } from '../data';
 import { useGraphStore } from '../store/useGraph';
 
 export default function SubsystemDeck() {
   const canvasRefs = useRef<(HTMLCanvasElement | null)[]>([]);
   const addNotification = useGraphStore((s) => s.addNotification);
+  const subSystems = useGraphStore((s) => s.subSystems);
 
   useEffect(() => {
     const anims: number[] = [];
     canvasRefs.current.forEach((canvas, idx) => {
-      if (!canvas) return;
+      const ss = subSystems[idx];
+      if (!canvas || !ss) return;
       const ctx = canvas.getContext('2d')!;
       const dpr = window.devicePixelRatio || 1;
       const w = (canvas.width = canvas.clientWidth * dpr);
       const h = (canvas.height = canvas.clientHeight * dpr);
       ctx.scale(dpr, dpr);
-      const ss = subSystems[idx];
       const color = ss.color;
       const displayW = w / dpr;
       const displayH = h / dpr;
@@ -61,7 +61,7 @@ export default function SubsystemDeck() {
       draw();
     });
     return () => anims.forEach((a) => cancelAnimationFrame(a));
-  }, []);
+  }, [subSystems]);
 
   return (
     <>

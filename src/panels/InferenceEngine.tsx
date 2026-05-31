@@ -1,10 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { inferenceEngine, inferenceResponses } from '../data';
+import { inferenceEngine } from '../data';
 import { useGraphStore } from '../store/useGraph';
 
 export default function InferenceEngine() {
   const addNotification = useGraphStore((s) => s.addNotification);
-  const [inputValue, setInputValue] = useState(inferenceEngine.currentQuestion);
+  const inferenceResponses = useGraphStore((s) => s.inferenceResponses);
+  const [inputValue, setInputValue] = useState('说说 MVCC 的实现原理？');
   const [steps, setSteps] = useState<{ label: string; sublabel: string; color: string }[]>([]);
   const [status, setStatus] = useState('⚡ 正在语义关系自动组织推理...');
   const [progressDone, setProgressDone] = useState(0);
@@ -77,7 +78,7 @@ export default function InferenceEngine() {
         }, 15);
       }
     }, 800);
-  }, [stopAll]);
+  }, [inferenceResponses, stopAll]);
 
   const stopInference = () => {
     stopAll();

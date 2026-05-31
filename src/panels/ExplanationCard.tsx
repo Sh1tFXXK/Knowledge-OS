@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { nodeExplanations } from '../data';
 import { useGraphStore } from '../store/useGraph';
 
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
+  const nodeExplanations = useGraphStore((s) => s.nodeExplanations);
   const [activeTab, setActiveTab] = useState('定义');
 
   const explanation = selectedNodeId ? nodeExplanations[selectedNodeId] : null;
