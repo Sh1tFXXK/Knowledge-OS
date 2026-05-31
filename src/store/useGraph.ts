@@ -39,6 +39,58 @@ function genId(prefix: string): string {
   return `${prefix}_${Date.now()}_${Math.random().toString(36).slice(2, 6)}`;
 }
 
+const TREE_STORAGE_KEY = 'knowledge-os:universe-tree';
+
+function hasBrowserStorage(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    return typeof window.localStorage !== 'undefined';
+  } catch {
+    return false;
+  }
+}
+
+function isTreeNode(value: unknown): value is TreeNode {
+  if (!value || typeof value !== 'object') return false;
+
+  const node = value as Partial<TreeNode>;
+  const children = node.children;
+
+  return (
+    typeof node.id === 'string' &&
+    typeof node.name === 'string' &&
+    typeof node.count === 'number' &&
+    typeof node.icon === 'string' &&
+    (children === undefined || (Array.isArray(children) && children.every(isTreeNode)))
+  );
+}
+
+function loadStoredTree(): TreeNode {
+  if (!hasBrowserStorage()) return cloneTree(universeTree);
+
+  try {
+    const stored = window.localStorage.getItem(TREE_STORAGE_KEY);
+    if (!stored) return cloneTree(universeTree);
+
+    const parsed = JSON.parse(stored);
+    return isTreeNode(parsed) ? parsed : cloneTree(universeTree);
+  } catch (error) {
+    console.warn('Failed to load universe tree from localStorage:', error);
+    return cloneTree(universeTree);
+  }
+}
+
+function persistTree(tree: TreeNode): void {
+  if (!hasBrowserStorage()) return;
+
+  try {
+    window.localStorage.setItem(TREE_STORAGE_KEY, JSON.stringify(tree));
+  } catch (error) {
+    console.warn('Failed to persist universe tree to localStorage:', error);
+  }
+}
+
 interface GraphState {
   // 图谱数据
   axioms: GraphNode[];
@@ -90,7 +142,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   edges: initialEdges,
   selectedNodeId: null,
   hoveredNodeId: null,
-  treeData: cloneTree(universeTree),
+  treeData: loadStoredTree(),
   notifications: [],
   theme: 'dark',
   currentPerspective: null,
@@ -226,6 +278,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
       });
       parent.expanded = true;
     }
+    persistTree(newTree);
     set({ treeData: newTree });
   },
 
@@ -235,6 +288,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
     const parent = findParent(newTree, nodeId);
     if (parent && parent.children) {
       parent.children = parent.children.filter(c => c.id !== nodeId);
+      persistTree(newTree);
       set({ treeData: newTree });
     }
   },
@@ -245,6 +299,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
     const node = findNodeById(newTree, nodeId);
     if (node) {
       node.name = newLabel;
+      persistTree(newTree);
       set({ treeData: newTree });
     }
   },
