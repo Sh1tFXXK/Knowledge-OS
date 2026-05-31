@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useCallback, CSSProperties } from 'react';
+import { useState, useMemo, useCallback, useEffect, CSSProperties } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { perspectives } from '../data';
 import type { TreeNode } from '../types';
@@ -163,6 +163,11 @@ export default function UniverseTree() {
   const addChildNode = useGraphStore(s => s.addChildNode);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
   const renameTreeNode = useGraphStore(s => s.renameTreeNode);
+  const loadTreeData = useGraphStore(s => s.loadTreeData);
+
+  useEffect(() => {
+    void loadTreeData();
+  }, [loadTreeData]);
 
   const [search, setSearch] = useState('');
   const [showAddRoot, setShowAddRoot] = useState(false);

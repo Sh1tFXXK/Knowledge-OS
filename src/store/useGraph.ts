@@ -40,6 +40,7 @@ function genId(prefix: string): string {
 }
 
 const TREE_STORAGE_KEY = 'knowledge-os:universe-tree';
+const TREE_FILE_ENDPOINT = '/api/universe-tree';
 
 function hasBrowserStorage(): boolean {
   if (typeof window === 'undefined') return false;
@@ -66,7 +67,7 @@ function isTreeNode(value: unknown): value is TreeNode {
   );
 }
 
-function loadStoredTree(): TreeNode {
+function loadCachedTree(): TreeNode {
   if (!hasBrowserStorage()) return cloneTree(universeTree);
 
   try {
@@ -81,7 +82,7 @@ function loadStoredTree(): TreeNode {
   }
 }
 
-function persistTree(tree: TreeNode): void {
+function persistTreeCache(tree: TreeNode): void {
   if (!hasBrowserStorage()) return;
 
   try {
@@ -89,6 +90,45 @@ function persistTree(tree: TreeNode): void {
   } catch (error) {
     console.warn('Failed to persist universe tree to localStorage:', error);
   }
+}
+
+async function loadTreeFromFile(): Promise<TreeNode | null> {
+  if (typeof fetch === 'undefined') return null;
+
+  try {
+    const response = await fetch(TREE_FILE_ENDPOINT, { cache: 'no-store' });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const parsed = await response.json();
+    return isTreeNode(parsed) ? parsed : null;
+  } catch (error) {
+    console.warn('Failed to load universe tree from file API:', error);
+    return null;
+  }
+}
+
+async function persistTreeToFile(tree: TreeNode): Promise<void> {
+  if (typeof fetch === 'undefined') return;
+
+  try {
+    const response = await fetch(TREE_FILE_ENDPOINT, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tree),
+    });
+
+    if (!response.ok && response.status !== 404) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+  } catch (error) {
+    console.warn('Failed to persist universe tree to file API:', error);
+  }
+}
+
+function persistTree(tree: TreeNode): void {
+  persistTreeCache(tree);
+  void persistTreeToFile(tree);
 }
 
 interface GraphState {
@@ -130,6 +170,7 @@ interface GraphState {
   getAllNodes: () => GraphNode[];
 
   // 树 Actions
+  loadTreeData: () => Promise<void>;
   addChildNode: (parentId: string, label: string) => void;
   removeTreeNode: (nodeId: string) => void;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
@@ -142,7 +183,7 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   edges: initialEdges,
   selectedNodeId: null,
   hoveredNodeId: null,
-  treeData: loadStoredTree(),
+  treeData: loadCachedTree(),
   notifications: [],
   theme: 'dark',
   currentPerspective: null,
@@ -262,6 +303,14 @@ export const useGraphStore = create<GraphState>((set, get) => ({
   },
 
   // ===== 树操作 =====
+  loadTreeData: async () => {
+    const fileTree = await loadTreeFromFile();
+    if (!fileTree) return;
+
+    persistTreeCache(fileTree);
+    set({ treeData: fileTree });
+  },
+
   addChildNode: (parentId, label) => {
     const state = get();
     const newTree = cloneTree(state.treeData);
