@@ -1,13 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { inferenceEngine } from '../data';
 import { useGraphStore } from '../store/useGraph';
 
 export default function InferenceEngine() {
-  const addNotification = useGraphStore((s) => s.addNotification);
   const inferenceResponses = useGraphStore((s) => s.inferenceResponses);
-  const [inputValue, setInputValue] = useState('说说 MVCC 的实现原理？');
+  const [inputValue, setInputValue] = useState('');
   const [steps, setSteps] = useState<{ label: string; sublabel: string; color: string }[]>([]);
-  const [status, setStatus] = useState('⚡ 正在语义关系自动组织推理...');
+  const [status, setStatus] = useState('等待输入问题');
   const [progressDone, setProgressDone] = useState(0);
   const [answer, setAnswer] = useState('');
   const [showAnswer, setShowAnswer] = useState(false);
@@ -31,21 +29,26 @@ export default function InferenceEngine() {
     setStatus('⚡ 正在分析问题语义...');
     setProgressDone(0);
 
-    // Find matching response string
-    let responseAnswer = inferenceResponses['default'];
+    let responseAnswer = '';
     for (const key of Object.keys(inferenceResponses)) {
       if (key !== 'default' && question.includes(key)) {
         responseAnswer = inferenceResponses[key];
         break;
       }
     }
+    if (!responseAnswer) responseAnswer = inferenceResponses.default || '';
 
-    // Use inferenceEngine.steps (React data format: { label, description })
-    const stepsData = inferenceEngine.steps.map((s: any, idx: number) => ({
-      label: s.label,
-      sublabel: s.description || '',
-      color: ['#8b5cf6', '#a855f7', '#06b6d4', '#f59e0b'][idx % 4],
-    }));
+    if (!responseAnswer) {
+      setIsRunning(false);
+      setStatus('暂无可用推理材料');
+      return;
+    }
+
+    const stepsData = [
+      { label: '语义检索', sublabel: '查找相关知识', color: '#8b5cf6' },
+      { label: '关系遍历', sublabel: '组织上下文', color: '#a855f7' },
+      { label: '答案生成', sublabel: '汇总结果', color: '#06b6d4' },
+    ];
 
     const totalSteps = stepsData.length;
     let stepIndex = 0;
@@ -91,11 +94,6 @@ export default function InferenceEngine() {
   };
 
   useEffect(() => {
-    // Initial render with steps from data
-    setSteps(inferenceEngine.steps.map((s: any) => ({ label: s.label, sublabel: s.sublabel, color: s.color })));
-  }, []);
-
-  useEffect(() => {
     return () => stopAll();
   }, [stopAll]);
 
@@ -130,7 +128,7 @@ export default function InferenceEngine() {
               onKeyDown={handleKeyDown}
               placeholder="输入你的问题..."
             />
-            <button className="btn btn-stop" id="btn-stop-inference" onClick={stopInference}>⏹ 停止推理</button>
+            <button className="btn btn-stop" id="btn-stop-inference" onClick={stopInference} disabled={!isRunning}>⏹ 停止推理</button>
           </div>
         </div>
         <div className="inference-path">

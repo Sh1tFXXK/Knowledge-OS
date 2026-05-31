@@ -19,6 +19,7 @@ export default function ReasoningKernel() {
   const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
   const setHoveredNode = useGraphStore((s) => s.setHoveredNode);
   const addNotification = useGraphStore((s) => s.addNotification);
+  const isKernelEmpty = axioms.length + mechanisms.length + conclusions.length === 0;
 
   const dragRef = useRef<any>(null);
   const hoveredRef = useRef<string | null>(null);
@@ -300,6 +301,25 @@ export default function ReasoningKernel() {
         <h2>中心 · 推理内核</h2>
         <p>五个隐喻 · 一个定理 · 无限递归</p>
       </div>
+
+      {isKernelEmpty && (
+        <div
+          className="text-muted"
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            pointerEvents: 'none',
+            fontSize: 13,
+            fontStyle: 'italic',
+            zIndex: 3,
+          }}
+        >
+          推理内核为空
+        </div>
+      )}
 
       <canvas
         ref={canvasRef}

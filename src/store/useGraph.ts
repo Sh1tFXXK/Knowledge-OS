@@ -10,16 +10,7 @@ import type {
   Question,
   SubSystem,
 } from '../types';
-import {
-  graphNodes as initialNodes,
-  graphEdges as initialEdges,
-  perspectives,
-  universeTree,
-  nodeExplanations as initialNodeExplanations,
-  questionBank as initialQuestionBank,
-  inferenceResponses as initialInferenceResponses,
-  subSystems as initialSubSystems,
-} from '../data';
+import { perspectives, universeTree } from '../data';
 
 // 递归工具：在树中查找节点
 function findNodeById(root: TreeNode, id: string): TreeNode | null {
@@ -249,40 +240,19 @@ interface GraphState {
 }
 
 const cachedTreeData = loadCachedTree();
-const graphIdsMissingFromCachedTree = getMappedGraphIdsMissingFromTree(cachedTreeData);
-const initialGraphNodes = [
-  ...initialNodes.axioms,
-  ...initialNodes.mechanisms,
-  ...initialNodes.conclusions,
-];
-const cachedTreePruneKeywords = new Set(
-  getNodeLabelKeywords(initialGraphNodes, graphIdsMissingFromCachedTree).map(normalizeKeyword),
-);
 
 export const useGraphStore = create<GraphState>((set, get) => ({
-  axioms: initialNodes.axioms.filter((node) => !graphIdsMissingFromCachedTree.has(node.id)),
-  mechanisms: initialNodes.mechanisms.filter((node) => !graphIdsMissingFromCachedTree.has(node.id)),
-  conclusions: initialNodes.conclusions.filter((node) => !graphIdsMissingFromCachedTree.has(node.id)),
-  edges: initialEdges.filter(
-    (edge) =>
-      !graphIdsMissingFromCachedTree.has(edge.source) &&
-      !graphIdsMissingFromCachedTree.has(edge.target),
-  ),
+  axioms: [],
+  mechanisms: [],
+  conclusions: [],
+  edges: [],
   selectedNodeId: null,
   hoveredNodeId: null,
   treeData: cachedTreeData,
-  nodeExplanations: removeRecordKeys(initialNodeExplanations, graphIdsMissingFromCachedTree),
-  questions: initialQuestionBank.filter(
-    (question) => !textMatchesKeywords(question.text, cachedTreePruneKeywords),
-  ),
-  inferenceResponses: Object.fromEntries(
-    Object.entries(initialInferenceResponses).filter(
-      ([key]) => key === 'default' || !textMatchesKeywords(key, cachedTreePruneKeywords),
-    ),
-  ),
-  subSystems: initialSubSystems.filter(
-    (system) => !textMatchesKeywords(system.name, cachedTreePruneKeywords),
-  ),
+  nodeExplanations: {},
+  questions: [],
+  inferenceResponses: {},
+  subSystems: [],
   notifications: [],
   theme: 'dark',
   currentPerspective: null,
@@ -479,17 +449,18 @@ export const useGraphStore = create<GraphState>((set, get) => ({
 
     const state = get();
     const graphIdsToRemove = getMappedGraphIdsMissingFromTree(fileTree);
+    const allNodes = [...state.axioms, ...state.mechanisms, ...state.conclusions];
     const keywords = new Set(
-      getNodeLabelKeywords(initialGraphNodes, graphIdsToRemove).map(normalizeKeyword),
+      getNodeLabelKeywords(allNodes, graphIdsToRemove).map(normalizeKeyword),
     );
 
     persistTreeCache(fileTree);
     set({
       treeData: fileTree,
-      axioms: initialNodes.axioms.filter((node) => !graphIdsToRemove.has(node.id)),
-      mechanisms: initialNodes.mechanisms.filter((node) => !graphIdsToRemove.has(node.id)),
-      conclusions: initialNodes.conclusions.filter((node) => !graphIdsToRemove.has(node.id)),
-      edges: initialEdges.filter(
+      axioms: state.axioms.filter((node) => !graphIdsToRemove.has(node.id)),
+      mechanisms: state.mechanisms.filter((node) => !graphIdsToRemove.has(node.id)),
+      conclusions: state.conclusions.filter((node) => !graphIdsToRemove.has(node.id)),
+      edges: state.edges.filter(
         (edge) => !graphIdsToRemove.has(edge.source) && !graphIdsToRemove.has(edge.target),
       ),
       selectedNodeId:
@@ -500,16 +471,14 @@ export const useGraphStore = create<GraphState>((set, get) => ({
         state.hoveredNodeId && graphIdsToRemove.has(state.hoveredNodeId)
           ? null
           : state.hoveredNodeId,
-      nodeExplanations: removeRecordKeys(initialNodeExplanations, graphIdsToRemove),
-      questions: initialQuestionBank.filter(
-        (question) => !textMatchesKeywords(question.text, keywords),
-      ),
+      nodeExplanations: removeRecordKeys(state.nodeExplanations, graphIdsToRemove),
+      questions: state.questions.filter((question) => !textMatchesKeywords(question.text, keywords)),
       inferenceResponses: Object.fromEntries(
-        Object.entries(initialInferenceResponses).filter(
+        Object.entries(state.inferenceResponses).filter(
           ([key]) => key === 'default' || !textMatchesKeywords(key, keywords),
         ),
       ),
-      subSystems: initialSubSystems.filter(
+      subSystems: state.subSystems.filter(
         (system) => !textMatchesKeywords(system.name, keywords),
       ),
     });

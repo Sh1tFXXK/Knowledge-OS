@@ -27,8 +27,6 @@ export default function QuestionBank() {
     if (e.key === 'Enter') handleAddQuestion();
   };
 
-  const answeredCount = questions.filter((q) => q.answered || (q as any).status === 'answered').length;
-
   return (
     <>
       {/* Header */}
@@ -44,6 +42,11 @@ export default function QuestionBank() {
 
       {/* Question List */}
       <div className="question-list" id="question-list">
+        {questions.length === 0 && (
+          <div className="text-muted" style={{ padding: '8px', fontSize: 11, fontStyle: 'italic' }}>
+            问题库为空
+          </div>
+        )}
         {questions.map((q) => (
           <div
             key={q.id}
