@@ -1,0 +1,98 @@
+:root {
+    /* 基础配色 */
+    --bg-deep: #05080f;
+    --bg-mid: #0a1020;
+    --bg-top: #141e3a;
+    --axiom: #4ab8ff;
+    --mech: #a06ce0;
+    --concl: #ffb454;
+    --text: #dfe7f5;
+    --text-dim: #8a98ba;
+    --line: rgba(120, 160, 255, 0.14);
+    --dash: rgba(120, 160, 255, 0.26);
+
+    /* 1:1 实测栅格参数 (基于 1536x1024) */
+    --col-left: 260px;
+    --col-right: 400px;
+    --row-top: 52px;
+    --row-bottom: 64px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-deep); /* 确保背景不是白色 */
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.app-container {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: var(--row-top) 1fr var(--row-bottom);
+    /* 还原定稿图的径向渐变辉光 */
+    background: radial-gradient(820px 460px at 50% 28%, var(--bg-top) 0%, var(--bg-mid) 56%, var(--bg-deep) 100%);
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: var(--col-left) 1fr var(--col-right);
+    min-height: 0;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+    gap: 8px;
+    min-height: 0;
+}
+
+.left-border { border-right: 1px solid var(--line); }
+.right-border { border-left: 1px solid var(--line); }
+
+/* 中间区 62% / 13% / 25% */
+.center-content {
+    display: grid;
+    grid-template-rows: 62% 13% 25%;
+    padding: 8px;
+    gap: 8px;
+    min-height: 0;
+}
+
+/* 占位组件通用样式 */
+.placeholder-box {
+    border: 1px dashed var(--dash);
+    border-radius: 12px;
+    background: rgba(30, 45, 85, 0.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.topbar-mock,
+.bottombar-mock {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  background: rgba(14,20,38,.6);
+}
+
+.universe-tree::-webkit-scrollbar { width: 4px; }
+.universe-tree::-webkit-scrollbar-thumb { background: rgba(120, 160, 255, 0.1); border-radius: 10px; }
+.tree-item:hover { background: rgba(255, 255, 255, 0.05) !important; color: #dfe7f5 !important; }
+.tree-item.selected { box-shadow: inset 0 0 10px rgba(110, 231, 255, 0.1); border-left: 2px solid #4ab8ff; }
+
+.box-label {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    font-size: 10px;
+    color: var(--axiom);
+    border: 0.5px solid var(--axiom);
+    padding: 1px 6px;
+    border-radius: 4px;
+}

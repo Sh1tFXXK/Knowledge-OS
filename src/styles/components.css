@@ -1,0 +1,544 @@
+/* Knowledge OS - Components
+============================================ */
+
+/* ========== Inference Engine ========== */
+.inference-engine .input-group {
+  display: flex;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-md);
+}
+
+.inference-engine .input-group .input {
+  flex: 1;
+  padding-right: 36px;
+}
+
+.inference-engine .input-group .btn-stop {
+  background: var(--accent-red-dim);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--accent-red);
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.inference-path {
+  margin-bottom: var(--space-sm);
+}
+
+.inference-path-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.inference-steps {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.inference-step {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.inference-step .step-sub {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  margin-left: 2px;
+}
+
+.inference-arrow {
+  color: var(--text-tertiary);
+  font-size: 10px;
+}
+
+.inference-status {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-sm);
+  padding: 6px 8px;
+  background: var(--bg-card);
+  border-radius: var(--radius-sm);
+}
+
+.inference-status .status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  animation: statusBlink 1.5s infinite;
+}
+
+.inference-status .dots-anim::after {
+  content: '...';
+  animation: cursorBlink 1s infinite;
+}
+
+/* Progress dots */
+.inference-progress {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: var(--space-sm);
+}
+
+.inference-progress .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-tertiary);
+  transition: all var(--transition-fast);
+}
+
+.inference-progress .dot.filled {
+  background: var(--accent-purple);
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.4);
+}
+
+.inference-progress .dot-line {
+  width: 12px;
+  height: 1.5px;
+  background: var(--border-secondary);
+}
+
+.inference-progress .dot-line.active {
+  background: var(--accent-purple);
+}
+
+/* ========== Explanation Card ========== */
+.explanation-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.explanation-card-header {
+  padding: var(--space-sm) var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.explanation-card-node {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.explanation-card-node .node-en {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-left: 4px;
+}
+
+/* Tabs */
+.card-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-secondary);
+}
+
+.card-tab {
+  flex: 1;
+  padding: 6px 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  border-bottom: 2px solid transparent;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  font-family: var(--font-sans);
+}
+
+.card-tab:hover {
+  color: var(--text-primary);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.card-tab.active {
+  color: var(--accent-purple);
+  border-bottom-color: var(--accent-purple);
+  font-weight: 500;
+}
+
+.card-content {
+  padding: var(--space-md);
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.card-content p {
+  margin-bottom: var(--space-sm);
+}
+
+.card-note {
+  display: flex;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  font-size: 11px;
+}
+
+.card-note-label {
+  color: var(--accent-purple);
+  font-weight: 500;
+  flex-shrink: 0;
+  min-width: 32px;
+}
+
+.card-note-text {
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.card-footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--border-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+/* ========== Question Bank ========== */
+.question-bank-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.question-count {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+}
+
+.question-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.question-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: 5px var(--space-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.question-item:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+
+.question-text {
+  flex: 1;
+  font-size: 11px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.question-status {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.question-status.answered {
+  background: var(--accent-green-dim);
+  color: var(--accent-green);
+}
+
+.question-status.pending {
+  background: var(--accent-amber-dim);
+  color: var(--accent-amber);
+}
+
+.question-add {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px var(--space-sm);
+  font-size: 11px;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+  margin-top: 4px;
+}
+
+.question-add:hover {
+  color: var(--accent-purple);
+}
+
+/* ========== Relation Network Mini ========== */
+.relation-network-mini {
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.relation-network-canvas {
+  height: 100px;
+  position: relative;
+}
+
+.relation-network-footer {
+  padding: var(--space-xs) var(--space-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--border-secondary);
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+/* ========== Semantic Relations List ========== */
+.semantic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.semantic-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.semantic-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ========== Rule Composer ========== */
+.rule-composer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(10, 10, 18, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md) var(--space-lg);
+  max-width: 90%;
+}
+
+.rule-composer-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.05em;
+}
+
+.rule-composer-title .title-en {
+  color: var(--text-tertiary);
+  font-weight: 400;
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.rule-cards {
+  display: flex;
+  gap: var(--space-sm);
+  overflow-x: auto;
+}
+
+.rule-card {
+  min-width: 160px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  transition: border-color var(--transition-fast);
+}
+
+.rule-card:hover {
+  border-color: var(--border-active);
+}
+
+/* ========== Bottom Subsystem titles ========== */
+.bottom-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bottom-section-title .title-en {
+  font-size: 9px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+/* Sub-system mini graph */
+.subsystem-mini-canvas {
+  width: 100%;
+  height: 45px;
+}
+
+/* ========== Panel Toggle Buttons ========== */
+.panel-toggle {
+  position: absolute;
+  z-index: 50;
+  width: 20px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border-secondary);
+  cursor: pointer;
+  font-size: 10px;
+  color: var(--text-tertiary);
+  transition: all var(--transition-fast);
+}
+
+.panel-toggle:hover {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+/* ========== Header Tab Buttons ========== */
+.header-tab-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-secondary);
+}
+
+.header-tab-btn {
+  padding: 4px 10px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all var(--transition-fast);
+}
+
+.header-tab-btn.active {
+  background: var(--accent-purple);
+  color: #fff;
+}
+
+.header-tab-btn:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+/* ========== Search Match Highlight ========== */
+.tree-node-row.search-match {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+.tree-node-row.search-match .tree-node-label {
+  color: var(--accent-purple);
+  font-weight: 500;
+}
+
+/* ========== Modal ========== */
+#modal-overlay {
+  backdrop-filter: blur(4px);
+}
+
+#modal-body select.input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239896a8' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+  cursor: pointer;
+}
+
+/* ========== Notification Toast ========== */
+@keyframes notifSlide {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* ========== Question Item Active ========== */
+.question-item:active {
+  background: rgba(139, 92, 246, 0.12);
+  transform: scale(0.98);
+}
+
+/* ========== Rule Card Selected ========== */
+.rule-card.selected,
+.rule-card[style*="border-color"] {
+  box-shadow: 0 0 12px rgba(139, 92, 246, 0.2);
+}
+
+/* ========== Subsystem Card Active ========== */
+.subsystem-card:active {
+  transform: scale(0.97);
+}
+
+.subsystem-card[style*="border-color"] {
+  background: var(--bg-card-hover) !important;
+}
+
+/* ========== Card Footer Hover ========== */
+.card-footer span {
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.card-footer span:hover {
+  color: var(--accent-purple);
+}
+
+/* ========== Inference Answer ========== */
+#inference-answer {
+  transition: all var(--transition-normal);
+}
+
+#inference-answer:not(:empty) {
+  border-color: var(--accent-purple) !important;
+}
