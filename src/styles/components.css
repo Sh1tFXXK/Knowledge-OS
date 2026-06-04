@@ -240,21 +240,53 @@
 .question-list {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .question-item {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-  padding: 5px var(--space-sm);
+  padding: 6px var(--space-sm);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: background var(--transition-fast);
+  transition: all var(--transition-fast);
+  border: 1px solid transparent;
+  position: relative;
 }
 
 .question-item:hover {
-  background: rgba(139, 92, 246, 0.06);
+  background: rgba(139, 92, 246, 0.08);
+  border-color: rgba(139, 92, 246, 0.2);
+}
+
+.question-item:hover .question-actions {
+  opacity: 1;
+}
+
+.question-item.question-editing {
+  background: rgba(139, 92, 246, 0.1);
+  border-color: rgba(139, 92, 246, 0.4);
+  cursor: default;
+}
+
+.question-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.question-icon.status-answered {
+  filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.6));
+}
+
+.question-icon.status-forgot {
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6));
+}
+
+.question-icon.status-pending {
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.6));
 }
 
 .question-text {
@@ -262,13 +294,66 @@
   font-size: 11px;
   color: var(--text-primary);
   line-height: 1.4;
+  cursor: pointer;
+}
+
+.question-actions {
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.btn-icon-sm {
+  padding: 2px 6px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  font-family: var(--font-sans);
+}
+
+.btn-icon-sm:hover {
+  background: var(--accent-purple-dim);
+  color: var(--accent-purple);
 }
 
 .question-status {
   font-size: 9px;
-  padding: 2px 6px;
-  border-radius: 3px;
+  padding: 2px 7px;
+  border-radius: 4px;
   flex-shrink: 0;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.question-status.status-answered {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.question-status.status-pending {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.question-status.status-forgot {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.question-item.question-answered {
+  opacity: 0.85;
+}
+
+.question-item.question-forgot {
+  background: rgba(239, 68, 68, 0.05);
 }
 
 .question-status.answered {
@@ -289,12 +374,16 @@
   font-size: 11px;
   color: var(--text-tertiary);
   cursor: pointer;
-  transition: color var(--transition-fast);
+  transition: all var(--transition-fast);
   margin-top: 4px;
+  border: 1px dashed rgba(139, 92, 246, 0.3);
+  border-radius: var(--radius-sm);
 }
 
 .question-add:hover {
   color: var(--accent-purple);
+  background: rgba(139, 92, 246, 0.05);
+  border-color: var(--accent-purple);
 }
 
 /* ========== Relation Network Mini ========== */
@@ -344,34 +433,71 @@
 }
 
 /* ========== Rule Composer ========== */
+/* 不再使用 position:absolute — 已移入 .center-bottom 正常文档流 */
 .rule-composer {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  background: rgba(10, 10, 18, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-lg);
-  padding: var(--space-md) var(--space-lg);
-  max-width: 90%;
+  width: 100%;
+  flex-shrink: 0;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-secondary);
+  box-sizing: border-box;
+}
+
+.rule-composer-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px var(--space-md);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  text-align: left;
+}
+
+.rule-composer-toggle .title-en {
+  color: var(--text-tertiary);
+  font-weight: 400;
+  font-size: 10px;
+}
+
+.rule-composer-count {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  margin-left: 4px;
+}
+
+.rule-composer-chevron {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.rule-composer-body {
+  padding: 0 var(--space-md) var(--space-sm);
+  max-height: 88px;
+  overflow-y: auto;
 }
 
 .rule-composer-title {
   font-size: 11px;
   font-weight: 600;
   color: var(--text-secondary);
-  text-align: center;
   margin-bottom: var(--space-sm);
   letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .rule-composer-title .title-en {
   color: var(--text-tertiary);
   font-weight: 400;
   font-size: 10px;
-  margin-left: 4px;
 }
 
 .rule-cards {
@@ -417,6 +543,68 @@
 .subsystem-mini-canvas {
   width: 100%;
   height: 45px;
+}
+
+/* ========== Subsystem Deck 容器 ========== */
+/* SubsystemDeck 内部原来是横向 bottom-left + bottom-center，
+   现在用 .subsystem-deck 包裹，改为纵向排列 */
+.subsystem-deck {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  flex: 1;
+  min-height: 0;
+  padding: 6px var(--space-md);
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.subsystem-deck-label {
+  flex-shrink: 0;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.subsystem-deck-path {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subsystem-deck-chips {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  max-width: 45%;
+}
+
+.subsystem-chip {
+  padding: 3px 8px;
+  font-size: 10px;
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-secondary);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  transition: border-color var(--transition-fast);
+}
+
+.subsystem-chip:hover {
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.subsystem-deck-hint {
+  font-size: 10px;
+  flex-shrink: 0;
+  font-style: italic;
 }
 
 /* ========== Panel Toggle Buttons ========== */
@@ -500,7 +688,7 @@
 /* ========== Notification Toast ========== */
 @keyframes notifSlide {
   from { transform: translateX(100%); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+  to   { transform: translateX(0);    opacity: 1; }
 }
 
 /* ========== Question Item Active ========== */

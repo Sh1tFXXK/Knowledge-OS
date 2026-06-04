@@ -11,6 +11,8 @@ export default function BottomBar() {
   const theme = useGraphStore((s) => s.theme);
   const getAllNodes = useGraphStore((s) => s.getAllNodes);
   const edges = useGraphStore((s) => s.edges);
+  const listKnowledgeNodes = useGraphStore((s) => s.listKnowledgeNodes);
+  const addKnowledgeEdge = useGraphStore((s) => s.addKnowledgeEdge);
 
   // Node dialog state
   const [showNodeDialog, setShowNodeDialog] = useState(false);
@@ -21,9 +23,30 @@ export default function BottomBar() {
   const [showEdgeDialog, setShowEdgeDialog] = useState(false);
   const [edgeSource, setEdgeSource] = useState('');
   const [edgeTarget, setEdgeTarget] = useState('');
-  const [edgeType, setEdgeType] = useState('uses');
+  const [edgeType, setEdgeType] = useState('belongs-to');
+  const [showPoolEdgeDialog, setShowPoolEdgeDialog] = useState(false);
+  const [poolEdgeSource, setPoolEdgeSource] = useState('');
+  const [poolEdgeTarget, setPoolEdgeTarget] = useState('');
+  const [poolEdgeType, setPoolEdgeType] = useState('belongs-to');
+  const poolNodes = listKnowledgeNodes();
 
   const inputClass = 'input';
+
+  const handleAddPoolEdge = useCallback(() => {
+    if (!poolEdgeSource || !poolEdgeTarget) {
+      addNotification('请选择源与目标知识节点', 'warning');
+      return;
+    }
+    if (poolEdgeSource === poolEdgeTarget) {
+      addNotification('源与目标不能相同', 'warning');
+      return;
+    }
+    addKnowledgeEdge(poolEdgeSource, poolEdgeTarget, poolEdgeType);
+    addNotification('边表关系已添加', 'success');
+    setShowPoolEdgeDialog(false);
+    setPoolEdgeSource('');
+    setPoolEdgeTarget('');
+  }, [poolEdgeSource, poolEdgeTarget, poolEdgeType, addKnowledgeEdge, addNotification]);
 
   const handleAddNode = useCallback(() => {
     const name = nodeName.trim();
@@ -224,17 +247,18 @@ export default function BottomBar() {
 
   return (
     <>
-      {/* Label */}
-      <div className="toolbar-group">
-        <span className="toolbar-btn" style={{ fontWeight: 600, color: 'var(--text-secondary)', cursor: 'default' }}>快捷操作 (Quick Actions)</span>
+      {/* Quick Actions Label */}
+      <div className="toolbar-actions">
+        <span className="toolbar-label">⚡ 快速操作 (Quick Actions)</span>
+        <div className="toolbar-divider" />
 
         {/* New Node */}
         {showNodeDialog ? (
           <>
             <input
               className={inputClass}
-              style={{ width: 100 }}
-              placeholder="输入节点名称..."
+              style={{ width: 100, fontSize: 11 }}
+              placeholder="节点名称..."
               value={nodeName}
               onChange={(e) => setNodeName(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleAddNode()}
@@ -244,87 +268,125 @@ export default function BottomBar() {
               value={nodeZone}
               onChange={(e) => setNodeZone(e.target.value as Zone)}
               className={inputClass}
-              style={{ width: 90 }}
+              style={{ width: 90, fontSize: 11 }}
             >
-              <option value="axiom">公理区 (定义/常识)</option>
-              <option value="mechanism">机制区 (过程/方法)</option>
-              <option value="conclusion">结论区 (性质/能力)</option>
+              <option value="axiom">公理区</option>
+              <option value="mechanism">机制区</option>
+              <option value="conclusion">结论区</option>
             </select>
-            <button onClick={handleAddNode} className="btn btn-primary btn-sm">创建节点</button>
-            <button onClick={() => { setShowNodeDialog(false); setNodeName(''); }} className="toolbar-btn" style={{ color: 'var(--accent-red)' }}>✕</button>
+            <button onClick={handleAddNode} className="toolbar-item toolbar-item-primary">
+              <span className="item-icon">✓</span>
+            </button>
+            <button onClick={() => { setShowNodeDialog(false); setNodeName(''); }} className="toolbar-item">
+              <span className="item-icon">✕</span>
+            </button>
           </>
         ) : (
-          <button onClick={() => setShowNodeDialog(true)} className="toolbar-btn" data-action="new-node">🔗 新建节点</button>
+          <button onClick={() => setShowNodeDialog(true)} className="toolbar-item" title="新建节点">
+            <span className="item-icon">➕</span>
+            <span>新建节点</span>
+          </button>
         )}
 
-        {/* New Relation */}
-        {showEdgeDialog ? (
+        {/* Pool Edge Relation */}
+        {showPoolEdgeDialog ? (
           <>
-            <input
-              className={inputClass}
-              style={{ width: 100 }}
-              placeholder="源节点ID"
-              value={edgeSource}
-              onChange={(e) => setEdgeSource(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleAddEdge()}
-              autoFocus
-            />
-            <input
-              className={inputClass}
-              style={{ width: 100 }}
-              placeholder="目标节点ID"
-              value={edgeTarget}
-              onChange={(e) => setEdgeTarget(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleAddEdge()}
-            />
             <select
-              value={edgeType}
-              onChange={(e) => setEdgeType(e.target.value)}
               className={inputClass}
-              style={{ width: 85 }}
+              style={{ width: 110, fontSize: 11 }}
+              value={poolEdgeSource}
+              onChange={(e) => setPoolEdgeSource(e.target.value)}
             >
-              <option value="uses">使用 (uses)</option>
-              <option value="references">引用 (references)</option>
-              <option value="depends_on">依赖 (depends on)</option>
-              <option value="derives">派生 (derives)</option>
-              <option value="conflicts">冲突 (conflicts)</option>
-              <option value="collaborates">协同 (collaborates)</option>
+              <option value="">源知识…</option>
+              {poolNodes.map((n) => (
+                <option key={n.id} value={n.id}>{n.label}</option>
+              ))}
             </select>
-            <button onClick={handleAddEdge} className="btn btn-primary btn-sm">创建关系</button>
-            <button onClick={() => { setShowEdgeDialog(false); setEdgeSource(''); setEdgeTarget(''); }} className="toolbar-btn" style={{ color: 'var(--accent-red)' }}>✕</button>
+            <select
+              className={inputClass}
+              style={{ width: 110, fontSize: 11 }}
+              value={poolEdgeTarget}
+              onChange={(e) => setPoolEdgeTarget(e.target.value)}
+            >
+              <option value="">目标知识…</option>
+              {poolNodes.map((n) => (
+                <option key={n.id} value={n.id}>{n.label}</option>
+              ))}
+            </select>
+            <select
+              className={inputClass}
+              style={{ width: 100, fontSize: 11 }}
+              value={poolEdgeType}
+              onChange={(e) => setPoolEdgeType(e.target.value)}
+            >
+              <option value="belongs-to">属于</option>
+              <option value="depends-on">依赖</option>
+              <option value="leads-to">导致</option>
+              <option value="enables">支撑</option>
+              <option value="needs-for">需要</option>
+            </select>
+            <button onClick={handleAddPoolEdge} className="toolbar-item toolbar-item-primary">
+              <span className="item-icon">✓</span>
+            </button>
+            <button onClick={() => setShowPoolEdgeDialog(false)} className="toolbar-item">
+              <span className="item-icon">✕</span>
+            </button>
           </>
         ) : (
-          <button onClick={() => setShowEdgeDialog(true)} className="toolbar-btn" data-action="new-relation">📋 新建关系</button>
+          <button
+            onClick={() => {
+              setShowPoolEdgeDialog(true);
+              if (poolNodes[0]) {
+                setPoolEdgeSource(poolNodes[0].id);
+                setPoolEdgeTarget(poolNodes[1]?.id ?? poolNodes[0].id);
+              }
+            }}
+            className="toolbar-item"
+            title="创建知识关系"
+          >
+            <span className="item-icon">🔗</span>
+            <span>创建关系</span>
+          </button>
         )}
+
+        <button onClick={handleImport} className="toolbar-item" title="导入学习手册">
+          <span className="item-icon">📥</span>
+          <span>导入学习手册</span>
+        </button>
+
+        <button onClick={handleFocusCurrent} className="toolbar-item" title="聚焦当前节点">
+          <span className="item-icon">🎯</span>
+          <span>聚焦当前</span>
+        </button>
+
+        <button onClick={handleAnalyze} className="toolbar-item" title="分析图谱统计">
+          <span className="item-icon">📊</span>
+          <span>图谱分析</span>
+        </button>
+
+        <button onClick={handleExportMD} className="toolbar-item" title="生成Markdown文档">
+          <span className="item-icon">💾</span>
+          <span>生成文档</span>
+        </button>
+
+        <button onClick={handleExportJSON} className="toolbar-item" title="导出当前视图">
+          <span className="item-icon">📖</span>
+          <span>导出视图</span>
+        </button>
       </div>
 
-      <div className="toolbar-sep" />
-
-      <div className="toolbar-group">
-        <button onClick={handleImport} className="toolbar-btn" data-action="import">🌌 导入宇宙</button>
-        <button onClick={handleFocusCurrent} className="toolbar-btn" data-action="focus">📦 聚焦当前</button>
-      </div>
-
-      <div className="toolbar-sep" />
-
-      <div className="toolbar-group">
-        <button onClick={handleCompare} className="toolbar-btn" data-action="compare">📊 对比图谱</button>
-        <button onClick={handleAnalyze} className="toolbar-btn" data-action="analyze">🔍 图谱分析</button>
-        <button onClick={handleGroupByZone} className="toolbar-btn" data-action="group">📂 能力分组</button>
-      </div>
-
-      <div className="toolbar-sep" />
-
-      <div className="toolbar-group">
-        <button onClick={handleExportMD} className="toolbar-btn" data-action="gen-doc">📄 生成文档</button>
-        <button onClick={handleExportJSON} className="toolbar-btn" data-action="export">📤 导出图谱</button>
-      </div>
-
-      <div className="toolbar-spacer" />
-
-      <div className="toolbar-group">
-        <button onClick={handleSmartLayout} className="toolbar-btn" data-action="layout">布局: 智能布局</button>
-        <button onClick={toggleTheme} className="toolbar-btn" data-action="theme">主题: 星际深空</button>
+      {/* Right Side Status */}
+      <div className="toolbar-status">
+        <span className="toolbar-item" style={{ cursor: 'default', opacity: 0.7 }}>
+          <span className="item-icon">👤</span>
+          <span style={{ fontSize: 10 }}>在线布局</span>
+        </span>
+        <button onClick={handleSmartLayout} className="toolbar-item" title="智能布局">
+          <span className="item-icon">🎨</span>
+        </button>
+        <button onClick={toggleTheme} className="toolbar-item" title="切换主题">
+          <span className="item-icon">{theme === 'dark' ? '🌙' : '☀️'}</span>
+        </button>
       </div>
     </>
   );

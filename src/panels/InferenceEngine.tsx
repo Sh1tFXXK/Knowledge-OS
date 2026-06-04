@@ -98,7 +98,7 @@ export default function InferenceEngine() {
   }, [stopAll]);
 
   return (
-    <>
+    <div className="right-section">
       <div className="right-section-header">
         <div className="right-section-title">
           <span>🧠</span><span>解答引擎</span>
@@ -174,6 +174,6 @@ export default function InferenceEngine() {
           {answer}
         </div>
       </div>
-    </>
+    </div>
   );
 }
