@@ -1,0 +1,488 @@
+{
+  "nodes": [
+    {
+      "id": "lock_mechanism",
+      "label": "锁机制",
+      "role": "mechanism",
+      "dimensions": ["transaction", "performance"],
+      "card": {
+        "nodeId": "lock_mechanism",
+        "title": "锁机制",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "保证并发访问时的数据一致性，通过锁定资源阻止并发冲突。MySQL 的锁按操作类型分为读锁（共享锁）和写锁（排他锁），按粒度分为表级锁、行级锁、页面锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "锁的获取：事务请求锁 → 检查兼容性 → 授予或等待\n锁的释放：事务结束时自动释放\n锁升级：某些情况下行锁可能升级为表锁\n死锁检测：InnoDB 自动检测死锁并回滚代价小的事务"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "锁粒度越细并发度越高但开销越大；不同存储引擎支持的锁类型不同；锁等待可能导致性能下降；死锁是行级锁的固有问题。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "《MySQL 技术内幕：InnoDB 存储引擎》 · MySQL 官方文档 · lock0lock.cc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "shared_lock",
+      "label": "共享锁（读锁）",
+      "role": "axiom",
+      "dimensions": ["transaction"],
+      "card": {
+        "nodeId": "shared_lock",
+        "title": "共享锁（读锁）",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "允许多个事务同时读取同一资源的锁。用 S 锁表示。多个事务可以同时持有同一资源的共享锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "加锁：SELECT ... LOCK IN SHARE MODE（或 FOR SHARE）\n兼容性：共享锁与共享锁兼容，但与排他锁互斥\n释放：事务提交或回滚时释放"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "只能读不能写；在有其他事务持有排他锁时会阻塞；可能导致死锁。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "数据库系统概念 · InnoDB 锁实现"
+          }
+        ]
+      }
+    },
+    {
+      "id": "exclusive_lock",
+      "label": "排他锁（写锁）",
+      "role": "axiom",
+      "dimensions": ["transaction"],
+      "card": {
+        "nodeId": "exclusive_lock",
+        "title": "排他锁（写锁）",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "独占锁，只允许一个事务访问资源。用 X 锁表示。持有排他锁的事务既能读也能写。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "加锁：UPDATE、DELETE、INSERT 自动加排他锁；SELECT ... FOR UPDATE 显式加锁\n兼容性：与任何锁都互斥\n释放：事务提交或回滚时释放"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "会阻塞其他所有锁请求；并发度最低；可能导致死锁。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "数据库系统概念 · InnoDB 锁实现"
+          }
+        ]
+      }
+    },
+    {
+      "id": "table_lock",
+      "label": "表级锁",
+      "role": "mechanism",
+      "dimensions": ["performance"],
+      "card": {
+        "nodeId": "table_lock",
+        "title": "表级锁",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "对整张表加锁。MyISAM 默认使用表级锁，InnoDB 在某些情况下也会使用（如 ALTER TABLE）。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "加锁：LOCK TABLES table_name READ/WRITE\n特点：\n- 开销小：无需为每行维护锁信息\n- 加锁快：一次性锁定整张表\n- 不会死锁：粒度大，锁冲突少\n- 锁冲突概率最高：整表被锁\n- 并发度最低：同时只能一个写操作"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "适合查询为主的场景；不适合高并发写入；MyISAM 的写操作会阻塞所有读操作。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "MySQL 官方文档 · MyISAM 存储引擎"
+          }
+        ]
+      }
+    },
+    {
+      "id": "row_lock",
+      "label": "行级锁",
+      "role": "mechanism",
+      "dimensions": ["transaction", "performance"],
+      "card": {
+        "nodeId": "row_lock",
+        "title": "行级锁",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "只锁定表中的某一行或某几行。InnoDB 默认使用行级锁，是最细粒度的锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "加锁：根据索引条件锁定匹配的行\n特点：\n- 开销大：需要为每行维护锁信息\n- 加锁慢：需要定位到具体行\n- 会死锁：多个事务交叉锁定\n- 锁冲突概率最低：只锁定需要的行\n- 并发度最高：不同行可并发访问\n\n类型：\n- Record Lock：锁定单条索引记录\n- Gap Lock：锁定索引间隙\n- Next-Key Lock：Record + Gap，防止幻读"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "必须通过索引检索，否则升级为表锁；锁信息占用内存；需要处理死锁；间隙锁可能影响插入性能。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "《MySQL 技术内幕：InnoDB 存储引擎》 · lock0lock.cc"
+          }
+        ]
+      }
+    },
+    {
+      "id": "page_lock",
+      "label": "页面锁",
+      "role": "mechanism",
+      "dimensions": ["performance"],
+      "card": {
+        "nodeId": "page_lock",
+        "title": "页面锁",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "锁定一个数据页（通常 16KB），介于表锁和行锁之间的粒度。BDB 存储引擎支持页面锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "特点：\n- 开销：介于表锁和行锁之间\n- 加锁速度：中等\n- 会死锁：是\n- 锁冲突概率：中等\n- 并发度：一般\n\n适用场景：数据访问具有局部性（同一页内的数据经常一起访问）"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "使用较少，主流存储引擎（InnoDB/MyISAM）不支持；在某些特定场景下是表锁和行锁的折中方案。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "BDB 存储引擎文档"
+          }
+        ]
+      }
+    },
+    {
+      "id": "optimistic_lock",
+      "label": "乐观锁",
+      "role": "mechanism",
+      "dimensions": ["performance"],
+      "card": {
+        "nodeId": "optimistic_lock",
+        "title": "乐观锁",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "假设并发冲突概率低，不在读取时加锁，而在更新时检查数据是否被修改过。本质是一种冲突检测机制，不是真正的数据库锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "实现方式：\n1. 版本号机制：增加 version 字段\n   UPDATE ... SET ..., version=version+1 WHERE id=? AND version=?\n\n2. 时间戳机制：增加 update_time 字段\n   UPDATE ... SET ..., update_time=NOW() WHERE id=? AND update_time=?\n\n流程：\n- 读取数据时记录版本号\n- 更新时检查版本号是否变化\n- 版本号不一致则更新失败，需重试"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "适合读多写少的场景；冲突频繁时会导致大量重试；需要应用层处理冲突；无法解决幻读问题。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "并发控制理论 · 应用层实现模式"
+          }
+        ]
+      }
+    },
+    {
+      "id": "pessimistic_lock",
+      "label": "悲观锁",
+      "role": "mechanism",
+      "dimensions": ["transaction"],
+      "card": {
+        "nodeId": "pessimistic_lock",
+        "title": "悲观锁",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "假设并发冲突概率高，在读取数据时就加锁，阻止其他事务修改。共享锁和排他锁都属于悲观锁。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "实现方式：\n1. SELECT ... FOR UPDATE（排他锁）\n2. SELECT ... LOCK IN SHARE MODE（共享锁）\n\n流程：\n- 开启事务\n- 加锁读取数据\n- 执行业务逻辑\n- 更新数据\n- 提交事务释放锁"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "适合写多读少的场景；会降低并发性能；可能导致死锁；需要合理设计事务粒度。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "数据库锁理论 · InnoDB 锁实现"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lock_engine_support",
+      "label": "存储引擎锁支持",
+      "role": "conclusion",
+      "dimensions": ["storage"],
+      "card": {
+        "nodeId": "lock_engine_support",
+        "title": "存储引擎锁支持",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "不同 MySQL 存储引擎支持的锁类型不同，直接影响并发性能和事务隔离能力。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "InnoDB：\n- 支持：行锁（Record/Gap/Next-Key）、表锁、意向锁\n- 默认：行锁\n- 特点：高并发，支持事务\n\nMyISAM：\n- 支持：表锁\n- 特点：开销小，不支持事务\n\nMEMORY：\n- 支持：表锁\n- 特点：数据存内存，快速但易丢失\n\nBDB：\n- 支持：页面锁、表锁\n- 特点：已废弃"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "引擎选择需权衡并发性、一致性、性能；InnoDB 是 MySQL 5.5+ 默认引擎，适合大多数场景。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "MySQL 官方文档 · 存储引擎对比"
+          }
+        ]
+      }
+    },
+    {
+      "id": "lock_granularity_comparison",
+      "label": "锁粒度对比",
+      "role": "conclusion",
+      "dimensions": ["performance"],
+      "card": {
+        "nodeId": "lock_granularity_comparison",
+        "title": "锁粒度对比",
+        "tabs": [
+          {
+            "id": "def",
+            "label": "定义",
+            "content": "锁粒度指锁定资源的范围大小，是锁机制设计的核心权衡维度。"
+          },
+          {
+            "id": "mech",
+            "label": "机制",
+            "content": "对比表：\n\n| 锁类型 | 开销 | 加锁速度 | 死锁 | 锁冲突概率 | 并发度 |\n|--------|------|----------|------|------------|--------|\n| 表级锁 | 小   | 快       | 不会 | 最高       | 最低   |\n| 行级锁 | 大   | 慢       | 会   | 最低       | 最高   |\n| 页面锁 | 中等 | 中等     | 会   | 中等       | 一般   |\n\n选择原则：\n- 读多写少 → 表锁（MyISAM）\n- 高并发写 → 行锁（InnoDB）\n- 局部访问 → 页锁（较少用）"
+          },
+          {
+            "id": "bound",
+            "label": "边界",
+            "content": "没有绝对最优，需根据业务特征选择；现代应用大多选择 InnoDB 行锁以支持高并发。"
+          },
+          {
+            "id": "source",
+            "label": "来源",
+            "content": "《高性能 MySQL》 · 锁机制设计理论"
+          }
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "lock_mechanism",
+      "target": "shared_lock",
+      "type": "contains",
+      "label": "包含",
+      "dimensions": ["transaction"]
+    },
+    {
+      "source": "lock_mechanism",
+      "target": "exclusive_lock",
+      "type": "contains",
+      "label": "包含",
+      "dimensions": ["transaction"]
+    },
+    {
+      "source": "lock_mechanism",
+      "target": "table_lock",
+      "type": "contains",
+      "label": "包含",
+      "dimensions": ["performance"]
+    },
+    {
+      "source": "lock_mechanism",
+      "target": "row_lock",
+      "type": "contains",
+      "label": "包含",
+      "dimensions": ["transaction", "performance"]
+    },
+    {
+      "source": "lock_mechanism",
+      "target": "page_lock",
+      "type": "contains",
+      "label": "包含",
+      "dimensions": ["performance"]
+    },
+    {
+      "source": "shared_lock",
+      "target": "pessimistic_lock",
+      "type": "is-a",
+      "label": "属于",
+      "dimensions": ["transaction"]
+    },
+    {
+      "source": "exclusive_lock",
+      "target": "pessimistic_lock",
+      "type": "is-a",
+      "label": "属于",
+      "dimensions": ["transaction"]
+    },
+    {
+      "source": "row_lock",
+      "target": "lock_granularity_comparison",
+      "type": "compared-in",
+      "label": "对比",
+      "dimensions": ["performance"]
+    },
+    {
+      "source": "table_lock",
+      "target": "lock_granularity_comparison",
+      "type": "compared-in",
+      "label": "对比",
+      "dimensions": ["performance"]
+    },
+    {
+      "source": "page_lock",
+      "target": "lock_granularity_comparison",
+      "type": "compared-in",
+      "label": "对比",
+      "dimensions": ["performance"]
+    },
+    {
+      "source": "demo_innodb",
+      "target": "row_lock",
+      "type": "supports",
+      "label": "支持",
+      "dimensions": ["storage", "transaction"]
+    },
+    {
+      "source": "lock_engine_support",
+      "target": "table_lock",
+      "type": "describes",
+      "label": "描述",
+      "dimensions": ["storage"]
+    },
+    {
+      "source": "lock_engine_support",
+      "target": "row_lock",
+      "type": "describes",
+      "label": "描述",
+      "dimensions": ["storage"]
+    },
+    {
+      "source": "row_lock",
+      "target": "deadlock",
+      "type": "leads-to",
+      "label": "可能导致",
+      "dimensions": ["transaction"]
+    },
+    {
+      "source": "optimistic_lock",
+      "target": "version_control",
+      "type": "needs-for",
+      "label": "需要",
+      "dimensions": ["performance"]
+    }
+  ],
+  "questions": [
+    {
+      "text": "请说一下数据库锁的种类？",
+      "relatedNodeId": "lock_mechanism",
+      "answer": "数据库锁可以从三个维度分类：\n\n**按操作类型分：**\n1. 共享锁（读锁/S锁）：允许多个事务同时读取\n2. 排他锁（写锁/X锁）：独占访问，阻止其他所有锁\n\n**按锁粒度分：**\n1. 表级锁：锁定整张表，开销小，并发度低\n2. 行级锁：锁定单行或多行，开销大，并发度高\n3. 页面锁：锁定一个数据页（16KB），介于表锁和行锁之间\n\n**按策略分：**\n1. 乐观锁：不加锁，通过版本号检测冲突（应用层实现）\n2. 悲观锁：读取时加锁，防止并发冲突（数据库层实现）\n\n此外，InnoDB 还有意向锁、间隙锁（Gap Lock）、Next-Key Lock 等特殊锁类型。"
+    },
+    {
+      "text": "MySQL 不同存储引擎分别支持什么锁？",
+      "relatedNodeId": "lock_engine_support",
+      "answer": "InnoDB：支持行锁（Record/Gap/Next-Key）、表锁、意向锁，默认使用行锁；\nMyISAM：仅支持表锁；\nMEMORY：仅支持表锁；\nBDB：支持页面锁和表锁（已废弃）。"
+    },
+    {
+      "text": "共享锁（读锁）和排他锁（写锁）的区别是什么？",
+      "relatedNodeId": "shared_lock",
+      "answer": "共享锁（S锁）：允许多个事务同时读取同一资源，多个共享锁可以共存，但与排他锁互斥；\n排他锁（X锁）：独占锁，只允许一个事务访问，既能读也能写，与任何锁都互斥。"
+    },
+    {
+      "text": "为什么多个读锁可以共存，但写锁会阻断其他锁？",
+      "relatedNodeId": "exclusive_lock",
+      "answer": "读操作不会修改数据，多个事务同时读取不会产生数据不一致；\n写操作会修改数据，如果允许并发会产生脏读、不可重复读等问题，因此写锁必须独占资源。"
+    },
+    {
+      "text": "表级锁、行级锁、页面锁在开销、死锁、并发度上如何对比？",
+      "relatedNodeId": "lock_granularity_comparison",
+      "answer": "表级锁：开销小、加锁快、不会死锁、锁冲突概率最高、并发度最低；\n行级锁：开销大、加锁慢、会死锁、锁冲突概率最低、并发度最高；\n页面锁：各项指标居中。"
+    },
+    {
+      "text": "哪种锁粒度最容易发生锁冲突？哪种并发度最高？",
+      "relatedNodeId": "lock_granularity_comparison",
+      "answer": "表级锁最容易发生锁冲突，因为锁定整张表，任何对表的操作都会冲突；\n行级锁并发度最高，因为只锁定需要的行，不同行可以并发访问。"
+    },
+    {
+      "text": "乐观锁和悲观锁的本质区别是什么？",
+      "relatedNodeId": "pessimistic_lock",
+      "answer": "悲观锁：假设冲突概率高，读取时就加锁，属于数据库层面的真正锁机制；\n乐观锁：假设冲突概率低，不加锁，通过版本号或时间戳在更新时检测冲突，是应用层的冲突检测机制。"
+    },
+    {
+      "text": "乐观锁通常如何实现冲突检测？",
+      "relatedNodeId": "optimistic_lock",
+      "answer": "1. 版本号机制：增加 version 字段，更新时检查版本号是否变化；\n2. 时间戳机制：增加 update_time 字段，更新时检查时间戳是否变化。\n冲突时更新失败，需要重试。"
+    },
+    {
+      "text": "共享锁和排他锁属于乐观锁还是悲观锁？",
+      "relatedNodeId": "pessimistic_lock",
+      "answer": "属于悲观锁。它们在读取数据时就加锁，假设并发冲突概率高，通过锁机制阻止其他事务访问。"
+    },
+    {
+      "text": "InnoDB 默认用的是行锁还是表锁？",
+      "relatedNodeId": "row_lock",
+      "answer": "InnoDB 默认使用行锁。但如果查询没有使用索引，或使用了不恰当的索引，可能会退化为表锁。"
+    },
+    {
+      "text": "行级锁为什么并发度高但可能死锁？",
+      "relatedNodeId": "row_lock",
+      "answer": "并发度高：因为锁粒度最小，只锁定需要的行，不同行可以并发访问；\n可能死锁：多个事务可能交叉持有和等待对方的行锁，形成循环等待，导致死锁。InnoDB 会自动检测并回滚代价小的事务。"
+    }
+  ]
+}

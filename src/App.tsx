@@ -2,6 +2,7 @@ import { useGraphStore } from './store/useGraph';
 import './styles/main.css';
 import './styles/layout.css';
 import './styles/components.css';
+import './styles/database.css';
 
 import TopBar from './layout/TopBar';
 import BottomBar from './layout/BottomBar';
@@ -9,101 +10,109 @@ import UniverseTree from './layout/UniverseTree';
 import ReasoningKernel from './core/ReasoningKernel';
 import RuleComposer from './core/RuleComposer';
 import SubsystemDeck from './core/SubsystemDeck';
-import InferenceEngine from './panels/InferenceEngine';
-import ExplanationCard from './panels/ExplanationCard';
-import QuestionBank from './panels/QuestionBank';
-import RelationNetwork from './panels/RelationNetwork';
+import RightSidePanel from './layout/RightSidePanel';
+import NodeDatabase from './components/NodeDatabase';
+import QuestionDatabase from './components/QuestionDatabase';
+
+// 导入知识导入工具（暴露到 window 对象）
+import './utils/importLockKnowledge';
 
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
+  const activeView = useGraphStore((s) => s.activeView);
 
   return (
     <div id="app">
-      {/* Header */}
+      {/* ── 顶栏 ── */}
       <header className="header" id="header">
         <TopBar />
       </header>
 
-      {/* Left Panel */}
+      {/* ── 左侧：目录树 ── */}
       <aside className="left-panel" id="left-panel">
         <UniverseTree />
       </aside>
 
-      {/* Center Area — B: ReasoningKernel + C: RuleComposer */}
+      {/* ── 中间：主可视化区 ── */}
       <main className="center-area" id="center-area">
-        <ReasoningKernel />
-        <RuleComposer />
+        {activeView === 'database' ? (
+          <section className="center-full" id="center-full">
+            <NodeDatabase />
+          </section>
+        ) : activeView === 'questions' ? (
+          <section className="center-full" id="center-full">
+            <QuestionDatabase />
+          </section>
+        ) : (
+          <>
+            {/* 上半：漏斗图独占，不被遮挡 */}
+            <section className="center-hero" id="center-hero">
+              <ReasoningKernel />
+            </section>
+
+            {/* 下半：规则条紧接漏斗图下方，子系统卡片在最底 */}
+            <section className="center-bottom" id="center-bottom">
+              <RuleComposer />
+              <SubsystemDeck />
+            </section>
+          </>
+        )}
       </main>
 
-      {/* Right Panel */}
-      <aside className="right-panel" id="right-panel">
-        <div className="right-section" id="inference-section">
-          <InferenceEngine />
-        </div>
-        <div className="right-section" id="explanation-section">
-          <ExplanationCard />
-        </div>
-        <div className="right-section" id="question-section">
-          <QuestionBank />
-        </div>
-        <div className="right-section" id="relation-section">
-          <RelationNetwork />
-        </div>
-      </aside>
+      <RightSidePanel />
 
-      {/* Bottom Panel — D: Subsystem Deck */}
-      <section className="bottom-panel" id="bottom-panel">
-        <SubsystemDeck />
-      </section>
-
-      {/* Toolbar */}
+      {/* ── 底栏工具条 ── */}
       <footer className="toolbar" id="toolbar">
         <BottomBar />
       </footer>
 
-      {/* Notification Toast List */}
-      <div id="notification-container" style={{
-        position: 'fixed',
-        top: 52,
-        right: 16,
-        zIndex: 9999,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8,
-        pointerEvents: 'none',
-      }}>
+      {/* ── 通知 Toast ── */}
+      <div
+        id="notification-container"
+        style={{
+          position: 'fixed',
+          bottom: 48,
+          right: 16,
+          zIndex: 9999,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+          pointerEvents: 'none',
+        }}
+      >
         {notifications.map((n) => {
           const colorMap: Record<string, string> = {
-            info: '#8b5cf6',
+            info:    '#8b5cf6',
             success: '#10b981',
             warning: '#f59e0b',
-            error: '#ef4444',
+            error:   '#ef4444',
           };
           const iconMap: Record<string, string> = {
-            info: 'ℹ️',
+            info:    'ℹ️',
             success: '✅',
             warning: '⚠️',
-            error: '❌',
+            error:   '❌',
           };
           const color = colorMap[n.type] || '#8b5cf6';
           return (
             <div
               key={n.id}
               style={{
-                padding: '8px 16px',
-                background: 'var(--bg-card)',
-                border: `1px solid ${color}40`,
-                borderLeft: `3px solid ${color}`,
-                borderRadius: 8,
-                fontSize: 12,
-                color: 'var(--text-primary)',
-                boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-                pointerEvents: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
-                minWidth: 200,
+                background:     'rgba(15,15,25,0.95)',
+                border:         `1px solid ${color}40`,
+                borderLeft:     `3px solid ${color}`,
+                borderRadius:   8,
+                padding:        '10px 14px',
+                display:        'flex',
+                alignItems:     'center',
+                gap:            8,
+                fontSize:       13,
+                color:          '#e2e8f0',
                 backdropFilter: 'blur(12px)',
+                boxShadow:      `0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px ${color}20`,
+                maxWidth:       320,
+                pointerEvents:  'auto',
+                animation:      'slideInRight 0.3s ease',
               }}
             >
               <span>{iconMap[n.type]}</span>

@@ -1,16 +1,11 @@
-import { useState, useMemo, useRef, useCallback, CSSProperties } from 'react';
+import { useState, useMemo, useCallback, useRef, CSSProperties } from 'react';
 import { useGraphStore } from '../store/useGraph';
-import { perspectives } from '../data';
+import { BUILTIN_DIMENSIONS } from '../knowledge/defaults';
+import { resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
+import { countTreeNodes } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
 
-const TREE_TO_GRAPH: Record<string, string> = {
-  'visibility': 'n-visibility',
-  'read-view': 'n-readview',
-  'version-chain': 'n-vchain',
-  'undo-log': 'n-version',
-  'isolation': 'n-isolation',
-  'acid': 'n-transaction',
-};
+type AddKind = 'folder' | 'knowledge' | 'link';
 
 /* ---- Context Menu ---- */
 function ContextMenu({
@@ -74,8 +69,9 @@ const TreeItem = ({
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(node.name);
   const hasChildren = !!(node.children && node.children.length > 0);
-  const graphId = TREE_TO_GRAPH[node.id] || null;
-  const isSelected = graphId === selectedNodeId;
+  const poolId = resolvePoolIdFromTreeNode(node);
+  const isKnowledgeLeaf = !!poolId;
+  const isSelected = poolId === selectedNodeId;
   const isSearchMatch = !!(searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleContextMenu = (e: React.MouseEvent) => {
@@ -120,7 +116,12 @@ const TreeItem = ({
             onClick={e => e.stopPropagation()}
           />
         ) : (
-          <span className="tree-node-label">{node.name}</span>
+          <span className="tree-node-label">
+            {node.name}
+            {isKnowledgeLeaf && (
+              <span className="tree-node-ref" title="引用节点池"> ·⛓</span>
+            )}
+          </span>
         )}
         {node.count != null && <span className="tree-node-count">{node.count}</span>}
       </div>
@@ -156,19 +157,54 @@ const TreeItem = ({
 export default function UniverseTree() {
   const treeData = useGraphStore(s => s.treeData);
   const selectedNodeId = useGraphStore(s => s.selectedNodeId);
-  const setSelectedNode = useGraphStore(s => s.setSelectedNode);
+  const selectTreeEntry = useGraphStore(s => s.selectTreeEntry);
   const addNotification = useGraphStore(s => s.addNotification);
   const setCurrentPerspective = useGraphStore(s => s.setCurrentPerspective);
   const currentPerspective = useGraphStore(s => s.currentPerspective);
-  const addChildNode = useGraphStore(s => s.addChildNode);
+  const addTreeFolder = useGraphStore(s => s.addTreeFolder);
+  const addTreeRef = useGraphStore(s => s.addTreeRef);
+  const createKnowledgeAndLink = useGraphStore(s => s.createKnowledgeAndLink);
+  const listKnowledgeNodes = useGraphStore(s => s.listKnowledgeNodes);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
-  const renameTreeNode = useGraphStore(s => s.renameTreeNode);
+  const exportKnowledgeJson = useGraphStore(s => s.exportKnowledgeJson);
+  const importKnowledgeJson = useGraphStore(s => s.importKnowledgeJson);
+  const resetAllKnowledge = useGraphStore(s => s.resetAllKnowledge);
+  const loadDemoData = useGraphStore(s => s.loadDemoData);
+  const perspectives = useGraphStore(s => s.perspectives);
+  const dimensionLenses = perspectives.length > 0 ? perspectives : BUILTIN_DIMENSIONS;
 
   const [search, setSearch] = useState('');
+  const [showPerspectives, setShowPerspectives] = useState(false);
+  const [showTreeTools, setShowTreeTools] = useState(false);
   const [showAddRoot, setShowAddRoot] = useState(false);
   const [newRootName, setNewRootName] = useState('');
   const [modal, setModal] = useState<{ type: 'add' | 'delete'; targetId: string; targetName: string } | null>(null);
   const [modalInput, setModalInput] = useState('');
+  const [addKind, setAddKind] = useState<AddKind>('folder');
+  const [linkKnowledgeId, setLinkKnowledgeId] = useState('');
+  const poolNodes = listKnowledgeNodes();
+  const importInputRef = useRef<HTMLInputElement>(null);
+
+  const handleExport = () => {
+    const json = exportKnowledgeJson();
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `knowledge-os-${Date.now()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    addNotification('已导出 JSON', 'success');
+  };
+
+  const handleImportFile = (file: File) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const ok = importKnowledgeJson(String(reader.result ?? ''));
+      addNotification(ok ? '导入成功' : 'JSON 格式无效', ok ? 'success' : 'error');
+    };
+    reader.readAsText(file);
+  };
 
   const filteredTree = useMemo(() => {
     if (!search.trim()) return treeData;
@@ -187,16 +223,15 @@ export default function UniverseTree() {
   }, [search, treeData]);
 
   const handleSelect = (treeId: string) => {
-    const graphId = TREE_TO_GRAPH[treeId];
-    if (graphId) {
-      setSelectedNode(graphId);
-    }
+    selectTreeEntry(treeId);
   };
 
   const handleAddChild = (parentId: string) => {
     const parent = findNodeName(treeData, parentId);
     setModal({ type: 'add', targetId: parentId, targetName: parent });
     setModalInput('');
+    setAddKind('folder');
+    setLinkKnowledgeId(poolNodes[0]?.id ?? '');
   };
 
   const handleRename = (_nodeId: string) => {};
@@ -209,8 +244,17 @@ export default function UniverseTree() {
   const confirmModal = () => {
     if (!modal) return;
     if (modal.type === 'add' && modalInput.trim()) {
-      addChildNode(modal.targetId, modalInput.trim());
-      addNotification(`已添加: ${modalInput.trim()}`, 'success');
+      const name = modalInput.trim();
+      if (addKind === 'folder') {
+        addTreeFolder(modal.targetId, name);
+        addNotification(`已添加文件夹: ${name}`, 'success');
+      } else if (addKind === 'knowledge') {
+        createKnowledgeAndLink(modal.targetId, name);
+        addNotification(`已创建知识并引用: ${name}`, 'success');
+      } else if (addKind === 'link' && linkKnowledgeId) {
+        addTreeRef(modal.targetId, name, linkKnowledgeId);
+        addNotification(`已引用节点池: ${name}`, 'success');
+      }
     } else if (modal.type === 'delete') {
       removeTreeNode(modal.targetId);
       addNotification(`已删除: ${modal.targetName}`, 'warning');
@@ -221,8 +265,8 @@ export default function UniverseTree() {
 
   const submitRootNode = () => {
     if (newRootName.trim()) {
-      addChildNode(treeData.id, newRootName.trim());
-      addNotification(`已添加根节点: ${newRootName.trim()}`, 'success');
+      addTreeFolder(treeData.id, newRootName.trim());
+      addNotification(`已添加分类: ${newRootName.trim()}`, 'success');
       setNewRootName('');
       setShowAddRoot(false);
     }
@@ -231,11 +275,37 @@ export default function UniverseTree() {
   return (
     <>
       <div className="left-panel-header">
-        <h3><span>📂</span><span>宇宙目录</span><span className="text-xs text-muted">(Universe Tree)</span></h3>
-        <span className="count">{countNodes(treeData)}</span>
-        <button className="btn btn-sm" style={{ marginLeft: 8, fontSize: 14, padding: '0 6px' }}
-          onClick={() => setShowAddRoot(!showAddRoot)} title="新建根节点">＋</button>
+        <h3><span>📂</span><span>目录</span></h3>
+        <span className="count">{countTreeNodes(treeData)}</span>
+        <button
+          type="button"
+          className="btn btn-sm tree-tools-btn"
+          onClick={() => setShowTreeTools((v) => !v)}
+          title="工具"
+        >
+          ⋯
+        </button>
       </div>
+
+      {showTreeTools && (
+        <div className="tree-tools-bar">
+          <button type="button" className="btn btn-sm" onClick={() => setShowAddRoot(!showAddRoot)}>＋</button>
+          <button type="button" className="btn btn-sm" onClick={() => {
+            if (window.confirm('加载演示数据将覆盖当前内容？')) loadDemoData();
+          }}>演示</button>
+          <button type="button" className="btn btn-sm" onClick={handleExport}>导出</button>
+          <button type="button" className="btn btn-sm" onClick={() => importInputRef.current?.click()}>导入</button>
+          <button type="button" className="btn btn-sm" style={{ color: '#ef4444' }} onClick={() => {
+            if (window.confirm('清空全部数据？')) resetAllKnowledge();
+          }}>清空</button>
+          <input ref={importInputRef} type="file" accept=".json,application/json" hidden
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) handleImportFile(file);
+              e.target.value = '';
+            }} />
+        </div>
+      )}
 
       {showAddRoot && (
         <div style={{ display: 'flex', gap: 4, padding: '4px 8px' }}>
@@ -262,23 +332,48 @@ export default function UniverseTree() {
           onRename={handleRename} onDelete={handleDelete} />
       </div>
 
-      <div className="perspectives-section">
-        <div className="left-panel-header">
-          <h3><span>🔮</span><span>多维投影面</span><span className="text-xs text-muted">(Perspectives)</span></h3>
+      <div className="perspectives-section perspectives-section--enhanced">
+        <div className="perspectives-header">
+          <span className="perspectives-label">🔮 多维视图 (Perspectives)</span>
         </div>
-        <div id="perspectives-container">
-          {perspectives.map(p => {
+        <div className="perspectives-grid">
+          {dimensionLenses.map((p) => {
             const isActive = currentPerspective?.id === p.id;
             return (
-              <div key={p.id} className={`perspective-item${isActive ? ' active' : ''}`}
-                onClick={() => { setCurrentPerspective(isActive ? null : p); }}
-                style={{ color: isActive ? p.color : undefined }}>
-                <span className="perspective-dot" style={{ background: p.color }} />
-                <span className="perspective-name">{p.name}</span>
-                <span className="perspective-count">{Math.floor(Math.random() * 30 + 5)}</span>
-              </div>
+              <button
+                key={p.id}
+                className={`perspective-orb${isActive ? ' active' : ''}`}
+                onClick={() => setCurrentPerspective(isActive ? null : p)}
+                style={{
+                  '--orb-color': p.color,
+                } as React.CSSProperties}
+                title={`${p.name} (${p.nameEn})${(p as any).description ? '\n' + (p as any).description : ''}`}
+              >
+                <span className="orb-label">{p.name}</span>
+              </button>
             );
           })}
+        </div>
+
+        {/* 坐标系统显示 */}
+        <div className="coordinate-system">
+          <div className="coordinate-header">
+            <span>📍 当前位置 (You are here)</span>
+          </div>
+          <div className="coordinate-display">
+            <div className="coordinate-item">
+              <span className="coord-label">X</span>
+              <span className="coord-value">12.38</span>
+            </div>
+            <div className="coordinate-item">
+              <span className="coord-label">Y</span>
+              <span className="coord-value">9.46</span>
+            </div>
+            <div className="coordinate-item">
+              <span className="coord-label">Z</span>
+              <span className="coord-value">2.57</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -294,15 +389,60 @@ export default function UniverseTree() {
               {modal.type === 'add' ? `新建子节点 → ${modal.targetName}` : `删除确认`}
             </h3>
             {modal.type === 'add' ? (
-              <div style={{ display: 'flex', gap: 8 }}>
-                <input className="input" value={modalInput} onChange={e => setModalInput(e.target.value)}
-                  placeholder="输入节点名称..." autoFocus style={{ flex: 1 }}
-                  onKeyDown={e => { if (e.key === 'Enter') confirmModal(); if (e.key === 'Escape') { setModal(null); setModalInput(''); } }} />
-                <button className="btn btn-primary btn-sm" onClick={confirmModal}>确认</button>
-                <button className="btn btn-sm" onClick={() => { setModal(null); setModalInput(''); }}>取消</button>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                  {([
+                    ['folder', '文件夹'],
+                    ['knowledge', '新建知识'],
+                    ['link', '引用已有'],
+                  ] as const).map(([kind, label]) => (
+                    <button
+                      key={kind}
+                      type="button"
+                      className={`btn btn-sm${addKind === kind ? ' btn-primary' : ''}`}
+                      onClick={() => setAddKind(kind)}
+                    >
+                      {label}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  className="input"
+                  value={modalInput}
+                  onChange={e => setModalInput(e.target.value)}
+                  placeholder={addKind === 'link' ? '目录显示名称' : '名称'}
+                  autoFocus
+                  onKeyDown={e => {
+                    if (e.key === 'Enter') confirmModal();
+                    if (e.key === 'Escape') { setModal(null); setModalInput(''); }
+                  }}
+                />
+                {addKind === 'link' && (
+                  <select
+                    className="input"
+                    value={linkKnowledgeId}
+                    onChange={e => setLinkKnowledgeId(e.target.value)}
+                  >
+                    {poolNodes.length === 0 ? (
+                      <option value="">节点池为空，请先「新建知识」</option>
+                    ) : (
+                      poolNodes.map(n => (
+                        <option key={n.id} value={n.id}>{n.label} ({n.id})</option>
+                      ))
+                    )}
+                  </select>
+                )}
+                <p style={{ fontSize: 11, color: '#8a98ba', margin: 0 }}>
+                  {addKind === 'folder' && '仅导航分类，不含解释卡。'}
+                  {addKind === 'knowledge' && '在节点池创建一份知识，并在此路径添加引用。'}
+                  {addKind === 'link' && '同一知识可被多条目录路径引用（多对多）。'}
+                </p>
+                <div style={{ display: 'flex', gap: 8 }}>
+                  <button className="btn btn-primary btn-sm" onClick={confirmModal}>确认</button>
+                  <button className="btn btn-sm" onClick={() => { setModal(null); setModalInput(''); }}>取消</button>
+                </div>
               </div>
-            ) : (
-              <>
+            ) : (              <>
                 <p style={{ fontSize: 12, color: '#8a98ba', marginBottom: 16 }}>
                   确定删除 <strong style={{ color: '#ef4444' }}>{modal.targetName}</strong> 及其所有子节点吗？此操作不可撤销。
                 </p>
@@ -329,12 +469,4 @@ function findNodeName(root: TreeNode, id: string): string {
     }
   }
   return id;
-}
-
-function countNodes(node: TreeNode): number {
-  let count = 1;
-  if (node.children) {
-    node.children.forEach(c => { count += countNodes(c); });
-  }
-  return count;
 }

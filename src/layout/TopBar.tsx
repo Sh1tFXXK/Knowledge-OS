@@ -1,35 +1,30 @@
-import { useState } from 'react';
 import { useGraphStore } from '../store/useGraph';
+import { getTreePathNames } from '../knowledge/treeUtils';
 
 const VIEWS = [
-  { icon: '🌌', label: '宇宙视图', id: 'universe' },
-  { icon: '⚙️', label: '系统视图', id: 'system' },
-  { icon: '🔗', label: '关系视图', id: 'relation' },
-  { icon: '💎', label: '能力视图', id: 'ability', active: true },
-  { icon: '📅', label: '时间线视图', id: 'timeline' },
-  { icon: '📊', label: '多维视图', id: 'multi' },
-  { icon: '🤖', label: 'AI 助理', id: 'ai' },
-];
-
-const BREADCRUMB = ['Universe', 'Computer Science', 'Backend', 'Database', 'MySQL', 'Transaction', 'MVCC'];
-
-const TOPICS = [
-  { id: 'concurrency', label: '并发控制' },
-  { id: 'visibility', label: '可见性' },
-  { id: 'version', label: '版本管理' },
-  { id: 'isolation', label: '隔离策略' },
+  { icon: '🌌', label: '宇宙视图', labelEn: 'Universe Tree', id: 'universe' },
+  { icon: '🗄️', label: '节点库', labelEn: 'Node Database', id: 'database' },
+  { icon: '❓', label: '问题库', labelEn: 'Question Database', id: 'questions' },
+  { icon: '🔧', label: '系统视图', labelEn: 'System View', id: 'system' },
+  { icon: '🔗', label: '关系视图', labelEn: 'Relation View', id: 'relation' },
+  { icon: '⚡', label: '能力规则', labelEn: 'Ability Rules', id: 'ability' },
+  { icon: '⏱️', label: '时间线', labelEn: 'Timeline', id: 'timeline' },
+  { icon: '🎭', label: '多维共存', labelEn: 'Multi-Perspective', id: 'multi' },
 ];
 
 export default function TopBar() {
-  const [activeTopic, setActiveTopic] = useState('concurrency');
   const activeView = useGraphStore((s) => s.activeView);
   const setActiveView = useGraphStore((s) => s.setActiveView);
-  const addNotification = useGraphStore((s) => s.addNotification);
+  const treeData = useGraphStore((s) => s.treeData);
+  const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
+  const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
+  const nodePool = useGraphStore((s) => s.nodePool);
 
-  const handleViewClick = (view: (typeof VIEWS)[0]) => {
-    setActiveView(view.id);
-    addNotification(`已切换到 ${view.label}`, 'info');
-  };
+  const breadcrumb = selectedTreeNodeId
+    ? getTreePathNames(treeData, selectedTreeNodeId)
+    : selectedNodeId && nodePool[selectedNodeId]
+      ? [nodePool[selectedNodeId].label]
+      : [treeData.name];
 
   return (
     <>
@@ -42,48 +37,52 @@ export default function TopBar() {
         </div>
       </div>
 
-      {/* View Navigation */}
+      {/* View Tabs */}
       <nav className="header-nav">
         {VIEWS.map((v) => (
           <button
             key={v.id}
-            className={`header-nav-item${(v.active && !activeView) || activeView === v.id ? ' active' : ''}`}
-            data-view={v.id}
-            onClick={() => handleViewClick(v)}
+            type="button"
+            className={`header-nav-item${activeView === v.id ? ' active' : ''}`}
+            title={v.labelEn}
+            onClick={() => setActiveView(v.id)}
           >
-            <span className="nav-icon">{v.icon}</span><span>{v.label}</span>
+            <span className="nav-icon">{v.icon}</span>
+            <span className="nav-label">{v.label}</span>
           </button>
         ))}
       </nav>
 
-      {/* Breadcrumb */}
+      {/* Breadcrumb Navigation */}
       <div className="header-breadcrumb" id="header-breadcrumb">
-        {BREADCRUMB.map((b, i) => (
+        {breadcrumb.map((b, i) => (
           <span key={i}>
-            <span className={i === BREADCRUMB.length - 1 ? 'active' : ''} data-crumb={i}>{b}</span>
-            {i < BREADCRUMB.length - 1 && <span className="sep">›</span>}
+            <span className={i === breadcrumb.length - 1 ? 'active' : ''}>{b}</span>
+            {i < breadcrumb.length - 1 && <span className="sep">›</span>}
           </span>
         ))}
       </div>
 
-      {/* Header Actions */}
+      {/* Right Actions */}
       <div className="header-actions">
-        {/* Topic Tabs */}
-        <div className="header-tab-group">
-          {TOPICS.map((t) => (
-            <button
-              key={t.id}
-              className={`header-tab-btn${activeTopic === t.id ? ' active' : ''}`}
-              data-topic={t.id}
-              onClick={() => setActiveTopic(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
+        <button className="btn-icon" title="搜索">
+          <span>🔍</span>
+        </button>
+        <button className="btn-icon" title="3D模式">
+          <span>🎲</span>
+        </button>
+        <button className="btn-icon" title="全屏">
+          <span>⛶</span>
+        </button>
+        <button className="btn-icon" title="通知">
+          <span>🔔</span>
+        </button>
+        <button className="btn-icon" title="设置">
+          <span>⚙️</span>
+        </button>
+        <div className="header-user" title="Visionary">
+          V
         </div>
-
-        {/* User Avatar */}
-        <div className="header-user" title="Visionary">V</div>
       </div>
     </>
   );
