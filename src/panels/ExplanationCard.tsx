@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGraphStore } from '../store/useGraph';
+import { findTreeNodeById } from '../knowledge/treeUtils';
 import type { ExplanationTab } from '../types';
 
 export default function ExplanationCard() {
@@ -10,9 +11,11 @@ export default function ExplanationCard() {
   const updateKnowledgeTab = useGraphStore((s) => s.updateKnowledgeTab);
   const updatePathSupplementContent = useGraphStore((s) => s.updatePathSupplementContent);
   const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
-  const createKnowledgeAndLink = useGraphStore((s) => s.createKnowledgeAndLink);
+  const linkTreeToKnowledge = useGraphStore((s) => s.linkTreeToKnowledge);
+  const selectTreeEntry = useGraphStore((s) => s.selectTreeEntry);
   const addNotification = useGraphStore((s) => s.addNotification);
   const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
+  const treeData = useGraphStore((s) => s.treeData);
   const nodeMeta = useGraphStore((s) =>
     selectedNodeId ? s.nodePool[selectedNodeId] : undefined,
   );
@@ -21,6 +24,11 @@ export default function ExplanationCard() {
   const supplement = getTreeSupplement();
   const [activeTab, setActiveTab] = useState('');
   const [newLabel, setNewLabel] = useState('');
+  const selectedTreeNode = selectedTreeNodeId
+    ? findTreeNodeById(treeData, selectedTreeNodeId)
+    : null;
+  const suggestedLabel = selectedTreeNode?.name.trim() ?? '';
+  const createLabel = (newLabel.trim() || suggestedLabel).trim();
 
   useEffect(() => {
     if (explanation?.tabs[0]) {
@@ -30,6 +38,44 @@ export default function ExplanationCard() {
       setActiveTab('');
     }
   }, [selectedNodeId, selectedTreeNodeId, explanation?.nodeId]);
+
+  useEffect(() => {
+    if (explanation || !selectedTreeNodeId) return;
+    setNewLabel(suggestedLabel);
+  }, [explanation, selectedTreeNodeId, suggestedLabel]);
+
+  const handleCreateForCurrentTree = () => {
+    if (!selectedTreeNodeId) return;
+    if (!createLabel) {
+      addNotification('请先填写知识名称', 'warning');
+      return;
+    }
+
+    const id = addKnowledgeNode(createLabel);
+    if (!id) {
+      addNotification('创建失败：知识名称为空', 'warning');
+      return;
+    }
+
+    linkTreeToKnowledge(selectedTreeNodeId, id);
+    selectTreeEntry(selectedTreeNodeId);
+    addNotification(`已创建并绑定当前目录项: ${createLabel}`, 'success');
+    setNewLabel('');
+  };
+
+  const handleCreateInPool = () => {
+    const label = newLabel.trim();
+    if (!label) {
+      addNotification('请先填写知识名称', 'warning');
+      return;
+    }
+
+    const id = addKnowledgeNode(label);
+    if (id) {
+      addNotification(`已加入节点池: ${label}`, 'success');
+      setNewLabel('');
+    }
+  };
 
   const supplementTabs = supplement?.tabs ?? [];
   const pathTab: ExplanationTab | null =
@@ -82,33 +128,23 @@ export default function ExplanationCard() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             <input
               className="input"
-              placeholder="知识名称，如 SQL语句"
+              placeholder={suggestedLabel || '知识名称，如 SQL语句'}
               value={newLabel}
               onChange={(e) => setNewLabel(e.target.value)}
             />
             {selectedTreeNodeId ? (
               <button
                 className="btn btn-primary btn-sm"
-                onClick={() => {
-                  const id = createKnowledgeAndLink(selectedTreeNodeId, newLabel);
-                  if (id) {
-                    addNotification(`已创建并关联: ${newLabel}`, 'success');
-                    setNewLabel('');
-                  }
-                }}
+                disabled={!createLabel}
+                onClick={handleCreateForCurrentTree}
               >
-                创建知识并关联到当前目录项
+                创建知识并绑定当前目录项
               </button>
             ) : (
               <button
                 className="btn btn-primary btn-sm"
-                onClick={() => {
-                  const id = addKnowledgeNode(newLabel);
-                  if (id) {
-                    addNotification(`已加入节点池: ${newLabel}`, 'success');
-                    setNewLabel('');
-                  }
-                }}
+                disabled={!newLabel.trim()}
+                onClick={handleCreateInPool}
               >
                 仅加入节点池
               </button>

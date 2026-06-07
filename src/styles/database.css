@@ -218,6 +218,16 @@
   transform: none;
 }
 
+.question-card-selected {
+  border-color: var(--accent-purple);
+  background: rgba(139, 92, 246, 0.08);
+  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25);
+}
+
+.database-table tr.row-selected td {
+  background: rgba(139, 92, 246, 0.1);
+}
+
 .node-card-header,
 .question-card-header {
   display: flex;
@@ -261,4 +271,120 @@
   color: var(--text-primary);
   line-height: 1.5;
   margin: 0;
+}
+
+.question-answer-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: default;
+}
+
+.question-answer-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.answer-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+}
+
+.answer-builder-head,
+.answer-step-main,
+.question-answer-actions,
+.answer-step-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.answer-builder-head {
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.answer-node-select {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+}
+
+.answer-step-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.answer-step-empty {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  padding: 6px 0;
+}
+
+.answer-step-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+}
+
+.answer-step-main {
+  min-width: 0;
+}
+
+.answer-step-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.14);
+  color: var(--accent-purple);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.answer-step-label {
+  flex: 1;
+  min-width: 0;
+  color: var(--text-primary);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.answer-step-actions {
+  display: flex;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.answer-step-note {
+  font-size: 11px;
+}
+
+.question-answer-textarea {
+  font-size: 11px;
+  line-height: 1.6;
+  resize: vertical;
+  min-height: 104px;
+}
+
+.question-answer-actions {
+  justify-content: flex-end;
 }

@@ -4,7 +4,6 @@ import { useGraphStore } from '../store/useGraph';
 type Zone = 'axiom' | 'mechanism' | 'conclusion';
 
 export default function BottomBar() {
-  const addNode = useGraphStore((s) => s.addNode);
   const addEdge = useGraphStore((s) => s.addEdge);
   const addNotification = useGraphStore((s) => s.addNotification);
   const toggleTheme = useGraphStore((s) => s.toggleTheme);
@@ -12,7 +11,12 @@ export default function BottomBar() {
   const getAllNodes = useGraphStore((s) => s.getAllNodes);
   const edges = useGraphStore((s) => s.edges);
   const listKnowledgeNodes = useGraphStore((s) => s.listKnowledgeNodes);
+  const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
+  const createKnowledgeAndLink = useGraphStore((s) => s.createKnowledgeAndLink);
   const addKnowledgeEdge = useGraphStore((s) => s.addKnowledgeEdge);
+  const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
+  const focusNodeId = useGraphStore((s) => s.focusNodeId);
+  const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
 
   // Node dialog state
   const [showNodeDialog, setShowNodeDialog] = useState(false);
@@ -54,32 +58,28 @@ export default function BottomBar() {
       addNotification('节点名称不能为空', 'warning');
       return;
     }
-    const id = `n-custom-${Date.now()}`;
-    const zoneColors: Record<Zone, string> = {
-      axiom: '#8b5cf6',
-      mechanism: '#ec4899',
-      conclusion: '#06b6d4',
-    };
-    const zoneYMap: Record<Zone, number> = { axiom: 0.15, mechanism: 0.38, conclusion: 0.58 };
-    addNode(
-      {
-        id,
-        label: name,
-        x: 0.3 + Math.random() * 0.4,
-        y: (zoneYMap[nodeZone] || 0.3) + (Math.random() - 0.5) * 0.08,
-        color: zoneColors[nodeZone],
-        size: 30,
-        zone: nodeZone,
-        phase: Math.random() * Math.PI * 2,
-        glow: true,
-        description: name,
-      },
-      nodeZone,
-    );
+    const id = selectedTreeNodeId
+      ? createKnowledgeAndLink(selectedTreeNodeId, name)
+      : addKnowledgeNode(name);
+    if (!id) return;
+    updateKnowledgeNodeMeta(id, { role: nodeZone });
+    if (!selectedTreeNodeId && focusNodeId && focusNodeId !== id) {
+      addKnowledgeEdge(focusNodeId, id, 'belongs-to', 'contains');
+    }
     addNotification(`节点 "${name}" 已创建`, 'success');
     setNodeName('');
     setShowNodeDialog(false);
-  }, [nodeName, nodeZone, addNode, addNotification]);
+  }, [
+    nodeName,
+    nodeZone,
+    selectedTreeNodeId,
+    createKnowledgeAndLink,
+    addKnowledgeNode,
+    updateKnowledgeNodeMeta,
+    focusNodeId,
+    addKnowledgeEdge,
+    addNotification,
+  ]);
 
   const handleAddEdge = useCallback(() => {
     const src = edgeSource.trim();

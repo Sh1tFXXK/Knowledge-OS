@@ -4,36 +4,36 @@ import { extractSubgraph } from '../knowledge/extractSubgraph';
 import { getTreePathNames } from '../knowledge/treeUtils';
 
 export default function SubsystemDeck() {
-  const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
+  const focusNodeId = useGraphStore((s) => s.focusNodeId);
   const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
   const treeData = useGraphStore((s) => s.treeData);
   const nodePool = useGraphStore((s) => s.nodePool);
   const knowledgeEdges = useGraphStore((s) => s.knowledgeEdges);
   const dimension = useGraphStore((s) => s.currentPerspective?.id ?? 'all');
-  const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const openCard = useGraphStore((s) => s.openCard);
 
   const neighborPack = useMemo(
     () =>
       extractSubgraph(nodePool, knowledgeEdges, {
-        focus: selectedNodeId,
+        focus: focusNodeId,
         scope: 'neighbor',
         dimension,
       }),
-    [nodePool, knowledgeEdges, selectedNodeId, dimension],
+    [nodePool, knowledgeEdges, focusNodeId, dimension],
   );
 
   const neighbors = useMemo(() => {
-    if (!selectedNodeId) return [];
+    if (!focusNodeId) return [];
     return neighborPack.nodes
-      .filter((n) => n.id !== selectedNodeId)
+      .filter((n) => n.id !== focusNodeId)
       .slice(0, 3);
-  }, [neighborPack.nodes, selectedNodeId]);
+  }, [neighborPack.nodes, focusNodeId]);
 
   const locationPath =
     selectedTreeNodeId && treeData
       ? getTreePathNames(treeData, selectedTreeNodeId).join(' › ')
-      : selectedNodeId && nodePool[selectedNodeId]
-        ? nodePool[selectedNodeId].label
+      : focusNodeId && nodePool[focusNodeId]
+        ? nodePool[focusNodeId].label
         : treeData.name;
 
   return (
@@ -49,7 +49,7 @@ export default function SubsystemDeck() {
               key={n.id}
               type="button"
               className="subsystem-chip"
-              onClick={() => setSelectedNode(n.id)}
+              onClick={() => openCard(n.id)}
             >
               {n.label}
             </button>

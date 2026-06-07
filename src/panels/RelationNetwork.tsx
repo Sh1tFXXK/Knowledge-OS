@@ -36,11 +36,11 @@ interface Particle {
 }
 
 /* ── 力导向常数 ──────────────────────────────────────────── */
-const REPULSE  = 5000;
-const ATTRACT  = 0.025;
-const CENTER_K = 0.010;
-const DAMPING  = 0.80;
-const LINK_LEN = 120;
+const REPULSE  = 9000;
+const ATTRACT  = 0.022;
+const CENTER_K = 0.008;
+const DAMPING  = 0.82;
+const LINK_LEN = 140;
 const DT       = 0.55;
 const MAX_V    = 8;
 
@@ -53,15 +53,18 @@ export default function RelationNetwork() {
   const nodePool        = useGraphStore((s) => s.nodePool);
   const knowledgeEdges  = useGraphStore((s) => s.knowledgeEdges);
   const selectedNodeId  = useGraphStore((s) => s.selectedNodeId);
-  const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const focusNodeId     = useGraphStore((s) => s.focusNodeId);
+  const openCard        = useGraphStore((s) => s.openCard);
   const dimension       = useGraphStore((s) => s.currentPerspective?.id ?? 'all');
 
-  /* 提取全局子图 */
+  /* 关系网：有焦点时只显示邻域子图，避免全局过密 */
   const pack = useMemo(
     () => extractSubgraph(nodePool, knowledgeEdges, {
-      focus: selectedNodeId, scope: 'global', dimension,
+      focus: focusNodeId,
+      scope: focusNodeId ? 'neighbor' : 'global',
+      dimension,
     }),
-    [nodePool, knowledgeEdges, selectedNodeId, dimension],
+    [nodePool, knowledgeEdges, focusNodeId, dimension],
   );
 
   /* SVG 容器尺寸 */
@@ -319,7 +322,7 @@ export default function RelationNetwork() {
               style={{ cursor: 'grab' }}
               opacity={isDimmed ? 0.25 : 1}
               onMouseDown={(e) => onMouseDown(e, p.id)}
-              onClick={() => setSelectedNode(isSelected ? null : p.id)}
+              onClick={() => openCard(isSelected ? null : p.id)}
             >
               {isSelected && (
                 <circle cx={p.x} cy={p.y} r={r + 10} fill="none"

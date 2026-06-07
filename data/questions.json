@@ -1,0 +1,147 @@
+[
+  {
+    "id": "demo_q1",
+    "text": "说说 MVCC 的实现原理？",
+    "answered": true
+  },
+  {
+    "id": "demo_q2",
+    "text": "什么是 Read View？",
+    "answered": false
+  },
+  {
+    "id": "demo_q3",
+    "text": "RR 与 RC 在 MVCC 下的区别？",
+    "answered": false
+  },
+  {
+    "id": "demo_q4",
+    "text": "B+树和哈希索引的区别是什么？",
+    "answered": true
+  },
+  {
+    "id": "demo_q5",
+    "text": "InnoDB 和 MyISAM 有什么不同？",
+    "answered": true
+  },
+  {
+    "id": "demo_q7",
+    "text": "Redo Log 和 Binlog 的区别？",
+    "answered": false
+  },
+  {
+    "id": "demo_q8",
+    "text": "Buffer Pool 的 LRU 算法如何工作？",
+    "answered": false
+  },
+  {
+    "id": "demo_q9",
+    "text": "如何优化慢查询？",
+    "answered": true
+  },
+  {
+    "id": "demo_q10",
+    "text": "JOIN 的执行算法有哪些？",
+    "answered": false
+  },
+  {
+    "id": "demo_q11",
+    "text": "PostgreSQL 的 MVCC 和 MySQL 有什么不同？",
+    "answered": false
+  },
+  {
+    "id": "demo_q12",
+    "text": "Redis 为什么这么快？",
+    "answered": true
+  },
+  {
+    "id": "q_lock_1",
+    "text": "MySQL 有哪些锁类型？",
+    "answered": true,
+    "relatedNodeId": "demo_lock",
+    "answer": "MySQL 数据库由于其自身架构的特点，存在多种数据存储引擎，不同存储引擎支持不同的锁机制。\n\n【按存储引擎】\nMyISAM 和 MEMORY 存储引擎采用表级锁；\nInnoDB 存储引擎既支持行级锁，也支持表级锁，默认情况下采用行级锁；\nBDB 采用的是页面锁，也支持表级锁。\n\n【按数据操作的类型分】\n读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。\n写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。\n\n【按数据操作的粒度分】\n表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。\n行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。\n页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。\n\n【按操作性能分】\n乐观锁：一般的实现方式是对记录数据版本进行比对，在数据更新提交的时候才会进行冲突检测，如果发现冲突了，则提示错误信息。\n悲观锁：在对一条数据修改的时候，为了避免同时被其他人修改，在修改数据之前先锁定，再修改的控制方式。共享锁和排他锁是悲观锁的不同实现，但都属于悲观锁范畴。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_2",
+    "text": "什么是共享锁（读锁）？",
+    "answered": true,
+    "relatedNodeId": "demo_shared_lock",
+    "answer": "读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。\n\n共享锁（S Lock）允许多个事务同时持有，读读不互斥；但与排他锁互斥——有写锁时不能再加读锁。属于悲观锁的一种实现。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_3",
+    "text": "什么是排他锁（写锁）？",
+    "answered": true,
+    "relatedNodeId": "demo_exclusive_lock",
+    "answer": "写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。\n\n排他锁（X Lock）持有时，其他事务无法获取该数据的读锁或写锁，保证写操作完整性。UPDATE / DELETE / SELECT ... FOR UPDATE 会自动加排他锁。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_4",
+    "text": "共享锁和排他锁有什么区别？",
+    "answered": true,
+    "relatedNodeId": "demo_shared_lock",
+    "answer": "共享锁（读锁）：多个读操作可以同时进行，读读不互斥。\n排他锁（写锁）：写操作完成前阻断其他读写，读写、写写均互斥。\n\n简记：读锁允许多读共存；写锁独占，阻断一切其他访问。两者互斥——同一数据不能同时持有共享锁和排他锁。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_5",
+    "text": "什么是表级锁？",
+    "answered": true,
+    "relatedNodeId": "demo_table_lock",
+    "answer": "表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。\n\nMyISAM 和 MEMORY 存储引擎默认采用表级锁。读操作加表共享锁（READ），写操作加表排他锁（WRITE），同一时刻只允许一种。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_6",
+    "text": "什么是行级锁？",
+    "answered": true,
+    "relatedNodeId": "demo_row_lock",
+    "answer": "行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。\n\nInnoDB 默认采用行级锁，仅锁定被操作的数据行。通过索引实现；若未命中索引则退化为表锁。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_7",
+    "text": "行级锁为什么会发生死锁？",
+    "answered": true,
+    "relatedNodeId": "demo_deadlock",
+    "answer": "行级锁会出现死锁，表级锁不会。\n\n原因：多个事务以不同顺序锁定不同行时，可能形成循环等待——事务 A 持有行 1 等待行 2，事务 B 持有行 2 等待行 1，互相阻塞即死锁。InnoDB 使用等待图算法检测死锁，并回滚代价最小的事务。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_8",
+    "text": "乐观锁是如何实现冲突检测的？",
+    "answered": true,
+    "relatedNodeId": "demo_optimistic",
+    "answer": "乐观锁：一般的实现方式是对记录数据版本进行比对，在数据更新提交的时候才会进行冲突检测，如果发现冲突了，则提示错误信息。\n\n典型实现：version 版本号字段或 timestamp 时间戳，提交时执行 UPDATE ... WHERE version = old_version，影响行数为 0 则冲突。适合读多写少场景。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_9",
+    "text": "悲观锁包含哪些具体实现？",
+    "answered": true,
+    "relatedNodeId": "demo_pessimistic",
+    "answer": "悲观锁：在对一条数据修改的时候，为了避免同时被其他人修改，在修改数据之前先锁定，再修改的控制方式。\n\n具体实现包括共享锁（读锁）和排他锁（写锁），两者都属于悲观锁范畴——读取或写入时先加锁，持有至事务结束。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  },
+  {
+    "id": "q_lock_10",
+    "text": "InnoDB 默认使用什么锁？",
+    "answered": true,
+    "relatedNodeId": "demo_row_lock",
+    "answer": "InnoDB 存储引擎既支持行级锁，也支持表级锁，默认情况下采用行级锁。\n\nMyISAM 和 MEMORY 仅支持表级锁；BDB 采用页面锁，也支持表级锁。InnoDB 行级锁通过索引实现，并发度最高，但可能出现死锁。",
+    "createdAt": 1780812181640,
+    "updatedAt": 1780812181640
+  }
+]

@@ -89,9 +89,14 @@ function scopeNodeIds(
   if (!focus || !nodePool[focus]) return new Set();
 
   if (scope === 'local') {
-    return collectNodeIds(focus, edges, 2, (e, hop) =>
-      hop === 0 ? true : REASONING_TYPES.has(e.type),
-    );
+    // 漏斗镜头：焦点 + 仅直接相连的推理边邻居（星形，不扩散到兄弟节点）
+    const ids = new Set<string>([focus]);
+    for (const e of edges) {
+      if (!REASONING_TYPES.has(e.type)) continue;
+      if (e.source === focus) ids.add(e.target);
+      if (e.target === focus) ids.add(e.source);
+    }
+    return ids;
   }
 
   if (scope === 'neighbor') {

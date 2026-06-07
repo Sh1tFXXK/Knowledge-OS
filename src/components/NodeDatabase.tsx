@@ -9,7 +9,8 @@ type GroupBy = 'none' | 'role' | 'dimension' | 'shared';
 
 export default function NodeDatabase() {
   const nodePool = useGraphStore((s) => s.nodePool);
-  const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const perspectives = useGraphStore((s) => s.perspectives);
+  const openCard = useGraphStore((s) => s.openCard);
   const removeKnowledgeNode = useGraphStore((s) => s.removeKnowledgeNode);
   const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
   const addNotification = useGraphStore((s) => s.addNotification);
@@ -21,6 +22,13 @@ export default function NodeDatabase() {
   const [groupBy, setGroupBy] = useState<GroupBy>('none');
   const [filterRole, setFilterRole] = useState<string>('all');
   const [filterDimension, setFilterDimension] = useState<string>('all');
+
+  // 收集所有存在的维度（动态从节点中提取）
+  const allDimensions = useMemo(() => {
+    const dims = new Set<string>();
+    Object.values(nodePool).forEach((n) => n.dimensions?.forEach((d) => dims.add(d)));
+    return [...dims].sort();
+  }, [nodePool]);
 
   // 获取所有节点
   const nodes = useMemo(() => {
@@ -123,7 +131,7 @@ export default function NodeDatabase() {
   }, [sortedNodes, groupBy]);
 
   const handleNodeClick = (nodeId: string) => {
-    setSelectedNode(nodeId);
+    openCard(nodeId);
     addNotification('已定位到节点', 'success');
   };
 
@@ -177,9 +185,9 @@ export default function NodeDatabase() {
             style={{ width: 120, fontSize: 11 }}
           >
             <option value="all">所有维度</option>
-            <option value="transaction">事务</option>
-            <option value="storage">存储</option>
-            <option value="performance">性能</option>
+            {allDimensions.map((dim) => (
+              <option key={dim} value={dim}>{dim}</option>
+            ))}
           </select>
 
           <select

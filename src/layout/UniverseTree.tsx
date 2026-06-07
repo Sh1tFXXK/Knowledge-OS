@@ -1,6 +1,5 @@
 import { useState, useMemo, useCallback, useRef, CSSProperties } from 'react';
 import { useGraphStore } from '../store/useGraph';
-import { BUILTIN_DIMENSIONS } from '../knowledge/defaults';
 import { resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
 import { countTreeNodes } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
@@ -10,11 +9,12 @@ type AddKind = 'folder' | 'knowledge' | 'link';
 /* ---- Context Menu ---- */
 function ContextMenu({
   x, y, nodeId, hasChildren, onClose,
-  onAdd, onRename, onDelete,
+  onAdd, onRename, onDelete, onAddQuestion,
 }: {
   x: number; y: number; nodeId: string; hasChildren: boolean;
   onClose: () => void;
   onAdd: () => void; onRename: () => void; onDelete: () => void;
+  onAddQuestion: () => void;
 }) {
   return (
     <div
@@ -29,6 +29,10 @@ function ContextMenu({
       <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#dfe7f5' }}
         onClick={() => { onAdd(); onClose(); }}>
         ＋ 新建子节点
+      </div>
+      <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#dfe7f5' }}
+        onClick={() => { onAddQuestion(); onClose(); }}>
+        ❓ 添加问题
       </div>
       <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#dfe7f5' }}
         onClick={() => { onRename(); onClose(); }}>
@@ -54,6 +58,7 @@ const TreeItem = ({
   onAddChild,
   onRename,
   onDelete,
+  onAddQuestion,
 }: {
   node: TreeNode;
   level?: number;
@@ -62,7 +67,8 @@ const TreeItem = ({
   searchQuery: string;
   onAddChild: (parentId: string) => void;
   onRename: (nodeId: string) => void;
-  onDelete: (nodeId: string) => void;
+  onDelete: (nodeId: string, label: string) => void;
+  onAddQuestion: (treeNodeId: string, label: string) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(level < 5);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
@@ -132,6 +138,7 @@ const TreeItem = ({
             <TreeItem key={child.id} node={child} level={level + 1}
               selectedNodeId={selectedNodeId} onSelect={onSelect}
               searchQuery={searchQuery} onAddChild={onAddChild}
+              onAddQuestion={onAddQuestion}
               onRename={onRename} onDelete={onDelete} />
           ))}
         </div>
@@ -144,8 +151,9 @@ const TreeItem = ({
             hasChildren={hasChildren}
             onClose={() => setContextMenu(null)}
             onAdd={() => onAddChild(node.id)}
+            onAddQuestion={() => onAddQuestion(node.id, node.name)}
             onRename={handleRename}
-            onDelete={() => onDelete(node.id)}
+            onDelete={() => onDelete(node.id, node.name)}
           />
         </>
       )}
@@ -159,8 +167,7 @@ export default function UniverseTree() {
   const selectedNodeId = useGraphStore(s => s.selectedNodeId);
   const selectTreeEntry = useGraphStore(s => s.selectTreeEntry);
   const addNotification = useGraphStore(s => s.addNotification);
-  const setCurrentPerspective = useGraphStore(s => s.setCurrentPerspective);
-  const currentPerspective = useGraphStore(s => s.currentPerspective);
+  const addQuestion = useGraphStore(s => s.addQuestion);
   const addTreeFolder = useGraphStore(s => s.addTreeFolder);
   const addTreeRef = useGraphStore(s => s.addTreeRef);
   const createKnowledgeAndLink = useGraphStore(s => s.createKnowledgeAndLink);
@@ -170,8 +177,6 @@ export default function UniverseTree() {
   const importKnowledgeJson = useGraphStore(s => s.importKnowledgeJson);
   const resetAllKnowledge = useGraphStore(s => s.resetAllKnowledge);
   const loadDemoData = useGraphStore(s => s.loadDemoData);
-  const perspectives = useGraphStore(s => s.perspectives);
-  const dimensionLenses = perspectives.length > 0 ? perspectives : BUILTIN_DIMENSIONS;
 
   const [search, setSearch] = useState('');
   const [showPerspectives, setShowPerspectives] = useState(false);
@@ -234,11 +239,17 @@ export default function UniverseTree() {
     setLinkKnowledgeId(poolNodes[0]?.id ?? '');
   };
 
+  const handleAddQuestionToNode = (treeNodeId: string, label: string) => {
+    const question = prompt(`为「${label}」添加问题：`);
+    if (!question?.trim()) return;
+    addQuestion(question.trim(), treeNodeId);
+    addNotification(`问题已关联到「${label}」`, 'success');
+  };
+
   const handleRename = (_nodeId: string) => {};
 
-  const handleDelete = (nodeId: string) => {
-    const node = findNodeName(treeData, nodeId);
-    setModal({ type: 'delete', targetId: nodeId, targetName: node });
+  const handleDelete = (nodeId: string, label: string) => {
+    setModal({ type: 'delete', targetId: nodeId, targetName: label });
   };
 
   const confirmModal = () => {
@@ -291,8 +302,8 @@ export default function UniverseTree() {
         <div className="tree-tools-bar">
           <button type="button" className="btn btn-sm" onClick={() => setShowAddRoot(!showAddRoot)}>＋</button>
           <button type="button" className="btn btn-sm" onClick={() => {
-            if (window.confirm('加载演示数据将覆盖当前内容？')) loadDemoData();
-          }}>演示</button>
+            if (window.confirm('将用内置知识库覆盖当前内容，是否继续？')) loadDemoData();
+          }}>重置库</button>
           <button type="button" className="btn btn-sm" onClick={handleExport}>导出</button>
           <button type="button" className="btn btn-sm" onClick={() => importInputRef.current?.click()}>导入</button>
           <button type="button" className="btn btn-sm" style={{ color: '#ef4444' }} onClick={() => {
@@ -329,52 +340,8 @@ export default function UniverseTree() {
         <TreeItem node={filteredTree} level={0}
           selectedNodeId={selectedNodeId} onSelect={handleSelect}
           searchQuery={search} onAddChild={handleAddChild}
+          onAddQuestion={handleAddQuestionToNode}
           onRename={handleRename} onDelete={handleDelete} />
-      </div>
-
-      <div className="perspectives-section perspectives-section--enhanced">
-        <div className="perspectives-header">
-          <span className="perspectives-label">🔮 多维视图 (Perspectives)</span>
-        </div>
-        <div className="perspectives-grid">
-          {dimensionLenses.map((p) => {
-            const isActive = currentPerspective?.id === p.id;
-            return (
-              <button
-                key={p.id}
-                className={`perspective-orb${isActive ? ' active' : ''}`}
-                onClick={() => setCurrentPerspective(isActive ? null : p)}
-                style={{
-                  '--orb-color': p.color,
-                } as React.CSSProperties}
-                title={`${p.name} (${p.nameEn})${(p as any).description ? '\n' + (p as any).description : ''}`}
-              >
-                <span className="orb-label">{p.name}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* 坐标系统显示 */}
-        <div className="coordinate-system">
-          <div className="coordinate-header">
-            <span>📍 当前位置 (You are here)</span>
-          </div>
-          <div className="coordinate-display">
-            <div className="coordinate-item">
-              <span className="coord-label">X</span>
-              <span className="coord-value">12.38</span>
-            </div>
-            <div className="coordinate-item">
-              <span className="coord-label">Y</span>
-              <span className="coord-value">9.46</span>
-            </div>
-            <div className="coordinate-item">
-              <span className="coord-label">Z</span>
-              <span className="coord-value">2.57</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Custom Modal */}

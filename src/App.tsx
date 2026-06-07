@@ -8,8 +8,6 @@ import TopBar from './layout/TopBar';
 import BottomBar from './layout/BottomBar';
 import UniverseTree from './layout/UniverseTree';
 import ReasoningKernel from './core/ReasoningKernel';
-import RuleComposer from './core/RuleComposer';
-import SubsystemDeck from './core/SubsystemDeck';
 import RightSidePanel from './layout/RightSidePanel';
 import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
@@ -20,6 +18,7 @@ import './utils/importLockKnowledge';
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
   const activeView = useGraphStore((s) => s.activeView);
+  const setActiveView = useGraphStore((s) => s.setActiveView);
 
   return (
     <div id="app">
@@ -28,37 +27,38 @@ export default function App() {
         <TopBar />
       </header>
 
-      {/* ── 左侧：目录树 ── */}
+      {/* ── 左侧：目录树（永远显示） ── */}
       <aside className="left-panel" id="left-panel">
         <UniverseTree />
       </aside>
 
-      {/* ── 中间：主可视化区 ── */}
+      {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
         {activeView === 'database' ? (
-          <section className="center-full" id="center-full">
+          <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <h2 style={{ margin: 0, fontSize: 15 }}>🗄️ 节点库</h2>
+              <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
+            </div>
             <NodeDatabase />
           </section>
         ) : activeView === 'questions' ? (
-          <section className="center-full" id="center-full">
+          <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <h2 style={{ margin: 0, fontSize: 15 }}>❓ 问题库</h2>
+              <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
+            </div>
             <QuestionDatabase />
           </section>
         ) : (
-          <>
-            {/* 上半：漏斗图独占，不被遮挡 */}
-            <section className="center-hero" id="center-hero">
-              <ReasoningKernel />
-            </section>
-
-            {/* 下半：规则条紧接漏斗图下方，子系统卡片在最底 */}
-            <section className="center-bottom" id="center-bottom">
-              <RuleComposer />
-              <SubsystemDeck />
-            </section>
-          </>
+          /* 默认：永远显示推理内核（核心视图） */
+          <section className="center-view" id="center-view">
+            <ReasoningKernel />
+          </section>
         )}
       </main>
 
+      {/* ── 右侧：详情解释卡 + 关系网 ── */}
       <RightSidePanel />
 
       {/* ── 底栏工具条 ── */}

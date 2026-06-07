@@ -56,10 +56,19 @@ export interface KnowledgeNode {
   id: string;
   label: string;
   shared?: boolean;
+  locked?: boolean;
   tags?: string[];
   role?: KnowledgeRole;
   /** 多维视角标签（左侧切面过滤） */
   dimensions?: string[];
+  /** 知识点自定义维度选项卡（分类树视图） */
+  viewDimensions?: Array<{
+    id: string;
+    name: string;
+    color: string;
+    hint?: string;
+    children?: Array<{ label: string; desc?: string; nodeId?: string }>;
+  }>;
   card: NodeExplanation;
 }
 
@@ -155,12 +164,19 @@ export interface NodeExplanation {
   notes?: string;
 }
 
+export interface QuestionAnswerStep {
+  nodeId: string;
+  note?: string;
+}
+
 export interface Question {
   id: string;
   text: string;
   answered: boolean;
-  /** 关联的知识节点 ID（可选） */
+  /** 关联的知识节点 ID 或目录项 ID（可选） */
   relatedNodeId?: string;
+  /** 组成答案的有序知识节点引用 */
+  answerSteps?: QuestionAnswerStep[];
   /** 答案内容（可选） */
   answer?: string;
   /** 创建时间 */

@@ -2,14 +2,9 @@ import { useGraphStore } from '../store/useGraph';
 import { getTreePathNames } from '../knowledge/treeUtils';
 
 const VIEWS = [
-  { icon: '🌌', label: '宇宙视图', labelEn: 'Universe Tree', id: 'universe' },
+  { icon: '🌌', label: '视图', labelEn: 'Universe View', id: 'universe' },
   { icon: '🗄️', label: '节点库', labelEn: 'Node Database', id: 'database' },
   { icon: '❓', label: '问题库', labelEn: 'Question Database', id: 'questions' },
-  { icon: '🔧', label: '系统视图', labelEn: 'System View', id: 'system' },
-  { icon: '🔗', label: '关系视图', labelEn: 'Relation View', id: 'relation' },
-  { icon: '⚡', label: '能力规则', labelEn: 'Ability Rules', id: 'ability' },
-  { icon: '⏱️', label: '时间线', labelEn: 'Timeline', id: 'timeline' },
-  { icon: '🎭', label: '多维共存', labelEn: 'Multi-Perspective', id: 'multi' },
 ];
 
 export default function TopBar() {
@@ -65,19 +60,7 @@ export default function TopBar() {
 
       {/* Right Actions */}
       <div className="header-actions">
-        <button className="btn-icon" title="搜索">
-          <span>🔍</span>
-        </button>
-        <button className="btn-icon" title="3D模式">
-          <span>🎲</span>
-        </button>
-        <button className="btn-icon" title="全屏">
-          <span>⛶</span>
-        </button>
-        <button className="btn-icon" title="通知">
-          <span>🔔</span>
-        </button>
-        <button className="btn-icon" title="设置">
+        <button className="btn-icon" title="设置" onClick={() => {}}>
           <span>⚙️</span>
         </button>
         <div className="header-user" title="Visionary">

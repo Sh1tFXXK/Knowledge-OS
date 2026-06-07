@@ -1,0 +1,2284 @@
+{
+  "demo_sql": {
+    "id": "demo_sql",
+    "label": "SQL语句",
+    "shared": true,
+    "dimensions": [
+      "transaction",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_sql",
+      "title": "SQL语句",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "结构化查询语言，用于关系型数据库的增删改查与模式定义。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "声明式：描述「要什么」由优化器生成执行计划。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "各库存在方言差异；不适用于非关系型存储。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "ISO/IEC 9075 · 各数据库官方文档"
+        }
+      ]
+    }
+  },
+  "demo_transaction": {
+    "id": "demo_transaction",
+    "label": "事务",
+    "role": "axiom",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_transaction",
+      "title": "事务",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "数据库操作的逻辑单元，满足 ACID。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "Redo/Undo 保证持久性与原子性；锁与 MVCC 保证隔离。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "长事务会放大锁与版本链压力。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "数据库系统概念 · SQL 标准"
+        }
+      ]
+    }
+  },
+  "demo_isolation": {
+    "id": "demo_isolation",
+    "label": "隔离级别",
+    "role": "axiom",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_isolation",
+      "title": "隔离级别",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "定义事务间隔离程度：RU / RC / RR / Serializable。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "InnoDB 默认 RR，结合 MVCC 与 Next-Key Lock。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "级别越高一致性越强，并发通常越低。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "SQL:1992 · MySQL 文档"
+        }
+      ]
+    }
+  },
+  "demo_mvcc": {
+    "id": "demo_mvcc",
+    "label": "MVCC",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_mvcc",
+      "title": "MVCC",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "多版本并发控制：通过多版本实现非锁定读。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "Undo Log 存旧版本；Read View 定快照；可见性算法判读。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "需配合 purge；RC 与 RR 下 Read View 策略不同。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 实现 · 《MySQL 技术内幕》"
+        }
+      ]
+    }
+  },
+  "demo_undo": {
+    "id": "demo_undo",
+    "label": "Undo Log",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_undo",
+      "title": "Undo Log",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "存储数据行历史版本，支持回滚与一致性读。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "更新时旧行写入 Undo，roll_pointer 串联版本链。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "过长 Undo 链影响 purge 与空间。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB Undo 表空间"
+        }
+      ]
+    }
+  },
+  "demo_vchain": {
+    "id": "demo_vchain",
+    "label": "版本链",
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_vchain",
+      "title": "版本链",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "同一行多版本通过 roll_pointer 串成单向链表。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "新版本在数据页，旧版本经指针指向 Undo。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "链过长时遍历成本上升。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 行格式"
+        }
+      ]
+    }
+  },
+  "demo_readview": {
+    "id": "demo_readview",
+    "label": "Read View",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_readview",
+      "title": "Read View",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "快照读时的事务视图：活跃事务列表与 trx 边界。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "含 m_ids、min_trx_id、max_trx_id、creator_trx_id。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "RR 下首次 SELECT 创建；RC 下每次 SELECT 新建。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "read0read.cc"
+        }
+      ]
+    }
+  },
+  "demo_visibility": {
+    "id": "demo_visibility",
+    "label": "可见性判断",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_visibility",
+      "title": "可见性判断",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "根据 Read View 与行 trx_id 判定版本是否对当前事务可见。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "trx_id 与 min/max/m_ids 比较决定可见/不可见/沿链找。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "规则随隔离级别变化。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "row0sel.cc"
+        }
+      ]
+    }
+  },
+  "demo_snapshot": {
+    "id": "demo_snapshot",
+    "label": "快照读",
+    "role": "conclusion",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_snapshot",
+      "title": "快照读",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "普通 SELECT 读历史版本，不加锁。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "由 MVCC + Read View + 版本链定位可见版本。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "与当前读（锁定读）相对。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "Consistent Nonlocking Read"
+        }
+      ]
+    }
+  },
+  "demo_undo_sys": {
+    "id": "demo_undo_sys",
+    "label": "Undo Log 子系统",
+    "role": "subsystem",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_undo_sys",
+      "title": "Undo Log 子系统",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "InnoDB 中负责 Undo 写入、回滚段与 purge 协同的子模块集合。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "与事务提交顺序、purge 线程交互。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "Undo 表空间满会导致阻塞。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 内部模块"
+        }
+      ]
+    }
+  },
+  "demo_vchain_sys": {
+    "id": "demo_vchain_sys",
+    "label": "版本链子系统",
+    "role": "subsystem",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_vchain_sys",
+      "title": "版本链子系统",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "维护行级版本链构建、遍历与清理的模块边界。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "与 Undo、Read View、可见性规则耦合。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "—"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB"
+        }
+      ]
+    }
+  },
+  "demo_acid": {
+    "id": "demo_acid",
+    "label": "ACID",
+    "role": "axiom",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_acid",
+      "title": "ACID",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "原子性、一致性、隔离性、持久性四大特性。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "通过 Undo/Redo Log、锁、MVCC 等机制保证。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "严格 ACID 可能影响性能，需权衡。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "事务处理概念与技术"
+        }
+      ]
+    }
+  },
+  "demo_lock": {
+    "id": "demo_lock",
+    "label": "锁机制",
+    "locked": true,
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "viewDimensions": [
+      {
+        "id": "grain",
+        "name": "按锁粒度",
+        "color": "#E58522",
+        "hint": "粒度越细并发越高，开销越大；表锁不会死锁，行锁会。\n完整对比见\"锁粒度对比\"节点。",
+        "children": [
+          {
+            "label": "表级锁",
+            "nodeId": "demo_table_lock"
+          },
+          {
+            "label": "行级锁",
+            "nodeId": "demo_row_lock"
+          },
+          {
+            "label": "页面锁",
+            "nodeId": "demo_page_lock"
+          },
+          {
+            "label": "锁粒度对比",
+            "nodeId": "demo_lock_compare"
+          }
+        ]
+      },
+      {
+        "id": "engine",
+        "name": "按存储引擎",
+        "color": "#58B2DC",
+        "hint": "不同引擎默认锁粒度不同；引擎→锁的映射见各引擎节点。",
+        "children": [
+          {
+            "label": "MyISAM",
+            "nodeId": "demo_myisam"
+          },
+          {
+            "label": "MEMORY"
+          },
+          {
+            "label": "InnoDB",
+            "nodeId": "demo_innodb"
+          },
+          {
+            "label": "BDB"
+          }
+        ]
+      },
+      {
+        "id": "type",
+        "name": "按操作类型",
+        "color": "#B481BB",
+        "hint": "读锁可共存，写锁排他——决定并发读写能否同时进行。",
+        "children": [
+          {
+            "label": "共享锁",
+            "nodeId": "demo_shared_lock"
+          },
+          {
+            "label": "排他锁",
+            "nodeId": "demo_exclusive_lock"
+          }
+        ]
+      },
+      {
+        "id": "strategy",
+        "name": "按锁策略",
+        "color": "#00AA90",
+        "hint": "悲观锁先锁后改；乐观锁靠版本比对延后冲突检测。",
+        "children": [
+          {
+            "label": "乐观锁",
+            "nodeId": "demo_optimistic"
+          },
+          {
+            "label": "悲观锁",
+            "nodeId": "demo_pessimistic"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "demo_lock",
+      "title": "锁机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "保证并发访问时数据一致性的核心机制，通过控制数据访问顺序避免冲突。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "InnoDB 支持行锁、表锁、间隙锁、Next-Key Lock；按粒度/类型/策略可分四个维度。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "锁粒度越细并发越高，但开销越大；死锁需靠事务顺序和索引设计规避。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 锁实现 · MySQL 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_deadlock": {
+    "id": "demo_deadlock",
+    "label": "死锁检测",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_deadlock",
+      "title": "死锁检测",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "多个事务循环等待对方持有的锁导致永久阻塞。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "InnoDB 维护事务等待图（wait-for graph），每次加锁请求时检测图中是否存在环，若存在则选择回滚代价最小的事务（undo 行数最少）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "合理的事务顺序（按主键升序更新）和缩短持锁时间可大幅减少死锁。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 死锁检测算法 · lock0lock.cc"
+        }
+      ]
+    }
+  },
+  "demo_table_lock": {
+    "id": "demo_table_lock",
+    "label": "表级锁",
+    "locked": true,
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_table_lock",
+      "title": "表级锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对整张表加锁，所有行共享同一把锁。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "读锁允许并发读、阻塞写；写锁阻塞所有读写。DDL 操作隐式加表锁。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "无 Gap Lock 概念（整表即边界）；加锁顺序是全序，不会形成循环等待。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL LOCK TABLES 语法"
+        }
+      ]
+    }
+  },
+  "demo_row_lock": {
+    "id": "demo_row_lock",
+    "label": "行级锁",
+    "locked": true,
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_row_lock",
+      "title": "行级锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对索引记录加锁，仅影响被访问的行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "Record Lock 锁索引记录，Gap Lock 锁间隙，Next-Key Lock 锁记录+前间隙。基于索引实现——未命中索引则升级为表锁。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "同一事务可持有多个行锁——不同事务以不同顺序锁定行时，可能形成循环等待。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 官方文档 · row0sel.cc"
+        }
+      ]
+    }
+  },
+  "demo_page_lock": {
+    "id": "demo_page_lock",
+    "label": "页面锁",
+    "locked": true,
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_page_lock",
+      "title": "页面锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对数据页加锁，一页通常包含多行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "BDB 引擎同时支持页面锁与表锁。MySQL 5.1 后 BDB 废弃；NDB Cluster 内部仍用页面锁。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "多个事务以不同顺序锁页面时可能形成循环等待。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "BDB 引擎文档 · NDB Cluster 内部"
+        }
+      ]
+    }
+  },
+  "demo_lock_compare": {
+    "id": "demo_lock_compare",
+    "label": "锁粒度对比",
+    "role": "plain",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_lock_compare",
+      "title": "锁粒度对比",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "表锁粒度最大 → 行锁粒度最小 → 页面锁居中。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "【开销】：表锁开销最小 ← 页面锁居中 ← 行锁开销最大。粒度越细，加锁需要检查的记录越多，开销越大。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "【并发度】：表锁并发最低 ← 页面锁居中 ← 行锁并发最高。粒度越细，阻塞范围越小，并发越高。\n【死锁风险】：表锁不会死锁（全序加锁）← 页面锁可能死锁 ← 行锁最易死锁（多行交叉锁定）。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 官方文档 · 数据库系统概念"
+        }
+      ]
+    }
+  },
+  "demo_shared_lock": {
+    "id": "demo_shared_lock",
+    "label": "共享锁",
+    "locked": true,
+    "role": "axiom",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_shared_lock",
+      "title": "共享锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "允许多个事务同时持有的读锁（S Lock），共享锁之间不互斥。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "SELECT ... LOCK IN SHARE MODE（MySQL 8.0 后为 FOR SHARE）显式加共享锁。普通 SELECT（快照读）不加任何锁。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "共享锁与排他锁互斥——有写锁时不能再加读锁；有读锁时不能再加写锁。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 锁类型 · MySQL 8.0 SELECT 语法"
+        }
+      ]
+    }
+  },
+  "demo_exclusive_lock": {
+    "id": "demo_exclusive_lock",
+    "label": "排他锁",
+    "locked": true,
+    "role": "axiom",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_exclusive_lock",
+      "title": "排他锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "持有时阻断其他事务读锁和写锁的独占锁（X Lock）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "UPDATE / DELETE / INSERT 自动加排他锁；SELECT ... FOR UPDATE 显式加排他锁。排他锁持有至事务提交或回滚。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "任何两个排他锁不能共存；排他锁阻塞共享锁。保证写操作的串行化完整性。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 官方文档 · MySQL 8.0 锁定读"
+        }
+      ]
+    }
+  },
+  "demo_optimistic": {
+    "id": "demo_optimistic",
+    "label": "乐观锁",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "viewDimensions": [
+      {
+        "id": "impl",
+        "name": "实现方式",
+        "color": "#00AA90",
+        "hint": "乐观锁的两种典型实现：版本号 vs 时间戳",
+        "children": [
+          {
+            "label": "version 版本号",
+            "desc": "最常用，整数字段递增",
+            "nodeId": "demo_optimistic"
+          },
+          {
+            "label": "timestamp 时间戳",
+            "desc": "精度依赖系统时钟",
+            "nodeId": "demo_optimistic"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "demo_optimistic",
+      "title": "乐观锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "不在读取时加锁，仅在提交更新时做冲突检测的并发控制策略。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "实现方式：version 版本号字段（UPDATE ... WHERE version = old_version）或 timestamp 时间戳。提交时检测影响行数——为 0 表示被他人修改，回滚重试。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "假设冲突概率低，不持有锁——事务执行期间其他事务可自由读写同一数据。检测失败时整个事务需重试。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "《数据库系统概念》· 业界通用模式"
+        }
+      ]
+    }
+  },
+  "demo_pessimistic": {
+    "id": "demo_pessimistic",
+    "label": "悲观锁",
+    "role": "mechanism",
+    "dimensions": [
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_pessimistic",
+      "title": "悲观锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "假设冲突概率高，读取数据时即加锁，持有直到事务结束的并发控制策略。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "读取前先获取锁——共享锁允许并发读，排他锁独占。锁在事务 COMMIT 或 ROLLBACK 时释放。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "锁持有期间阻塞其他事务对同一数据的冲突操作。持锁顺序不当可能形成循环等待→死锁。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "《数据库系统概念》· InnoDB 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_btree": {
+    "id": "demo_btree",
+    "label": "B+树索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "viewDimensions": [
+      {
+        "id": "structure",
+        "name": "按数据结构",
+        "color": "#E58522",
+        "hint": "不同数据结构决定索引的查询能力和存储方式。",
+        "children": [
+          {
+            "label": "B+树",
+            "desc": "范围查询·有序",
+            "nodeId": "demo_btree"
+          },
+          {
+            "label": "哈希",
+            "desc": "等值查询·O(1)",
+            "nodeId": "demo_hash"
+          },
+          {
+            "label": "全文",
+            "desc": "文本搜索",
+            "nodeId": "demo_fulltext_index"
+          }
+        ]
+      },
+      {
+        "id": "storage_type",
+        "name": "按存储特性",
+        "color": "#58B2DC",
+        "hint": "聚簇索引决定数据的物理存储顺序；二级索引引主键。InnoDB 必须有聚簇索引。",
+        "children": [
+          {
+            "label": "聚簇索引",
+            "desc": "数据即索引",
+            "nodeId": "demo_clustered_index"
+          },
+          {
+            "label": "二级索引",
+            "desc": "引主键回表",
+            "nodeId": "demo_secondary_index"
+          },
+          {
+            "label": "覆盖索引",
+            "desc": "不回表·索引覆盖",
+            "nodeId": "demo_covering_index"
+          }
+        ]
+      },
+      {
+        "id": "constraint",
+        "name": "按约束类型",
+        "color": "#B481BB",
+        "hint": "约束不同决定索引的去重和查询行为。主键索引同时是聚簇索引的默认候选。",
+        "children": [
+          {
+            "label": "主键索引",
+            "desc": "非空唯一·聚簇默认"
+          },
+          {
+            "label": "唯一索引",
+            "desc": "允许NULL唯一",
+            "nodeId": "demo_unique_index"
+          },
+          {
+            "label": "普通索引",
+            "desc": "加速查询·可重复"
+          }
+        ]
+      },
+      {
+        "id": "optimization",
+        "name": "按查询优化",
+        "color": "#00AA90",
+        "hint": "组合索引遵循最左前缀原则；前缀索引牺牲等值换取空间。",
+        "children": [
+          {
+            "label": "组合索引",
+            "desc": "多列·最左前缀",
+            "nodeId": "demo_composite_index"
+          },
+          {
+            "label": "前缀索引",
+            "desc": "截断长字段·省空间"
+          },
+          {
+            "label": "覆盖索引",
+            "desc": "查询列全在索引中",
+            "nodeId": "demo_covering_index"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "demo_btree",
+      "title": "B+树索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "平衡多路搜索树，叶子节点存储数据或指针。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "非叶节点只存键值和指针，所有数据在叶子层有序排列。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "适合范围查询，但插入删除可能引起分裂合并。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "数据结构与算法 · InnoDB 索引实现"
+        }
+      ]
+    }
+  },
+  "demo_hash": {
+    "id": "demo_hash",
+    "label": "哈希索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_hash",
+      "title": "哈希索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过哈希函数将键映射到存储位置。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "O(1) 等值查询，但不支持范围查询和排序。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "InnoDB 自适应哈希索引，Memory 引擎支持显式创建。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 索引类型"
+        }
+      ]
+    }
+  },
+  "demo_clustered_index": {
+    "id": "demo_clustered_index",
+    "label": "聚簇索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_clustered_index",
+      "title": "聚簇索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "索引的叶子节点直接存储整行数据，数据按索引键有序排列。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "InnoDB 中主键默认作为聚簇索引；无主键时选第一个唯一非空索引，都没有则生成隐藏 row_id。二级索引叶子存主键值，需回表查聚簇索引。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "一张表只能有一个聚簇索引——数据只能按一种顺序物理存储。插入乱序主键（如 UUID）会导致页分裂。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 官方文档 · 《MySQL 技术内幕》"
+        }
+      ]
+    }
+  },
+  "demo_secondary_index": {
+    "id": "demo_secondary_index",
+    "label": "二级索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_secondary_index",
+      "title": "二级索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "非聚簇索引，叶子节点存储索引键和对应的主键值。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "查询先走二级索引找到主键，再回表查聚簇索引获取完整行。SELECT 全部命中索引列时可避免回表（覆盖索引）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "回表是随机 IO——索引不覆盖时性能下降明显。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB 索引结构"
+        }
+      ]
+    }
+  },
+  "demo_covering_index": {
+    "id": "demo_covering_index",
+    "label": "覆盖索引",
+    "role": "conclusion",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_covering_index",
+      "title": "覆盖索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "查询所需的所有列都在索引中，无需回表即可返回结果。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "二级索引的叶子存主键值，若 SELECT 列 + WHERE 列全在索引内，直接使用索引数据即可满足查询。EXPLAIN 中 Extra = Using index。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "索引越宽覆盖能力越强，但写入开销越大。适合高频少列查询。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 索引优化 · EXPLAIN 文档"
+        }
+      ]
+    }
+  },
+  "demo_composite_index": {
+    "id": "demo_composite_index",
+    "label": "组合索引",
+    "role": "mechanism",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_composite_index",
+      "title": "组合索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "包含多个列的索引，按列顺序构建搜索树。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "遵循最左前缀原则——从第一列开始，不能跳过中间列。WHERE a=1 AND b=2 可用 (a,b) 索引；WHERE b=2 不可用。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "列顺序取决于查询模式：等值条件在前，范围条件在后。冗余索引会增加写入开销。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 官方文档 · 索引优化"
+        }
+      ]
+    }
+  },
+  "demo_unique_index": {
+    "id": "demo_unique_index",
+    "label": "唯一索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_unique_index",
+      "title": "唯一索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "保证索引列的值在表中唯一，允许 NULL（多个 NULL 不冲突）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "与普通索引结构相同，但插入/更新时检查唯一性。主键是特殊的唯一索引（NOT NULL + 唯一）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "唯一检查在行锁范围内进行——RC 下可能出现幻读唯一冲突。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 约束与索引"
+        }
+      ]
+    }
+  },
+  "demo_fulltext_index": {
+    "id": "demo_fulltext_index",
+    "label": "全文索引",
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_fulltext_index",
+      "title": "全文索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "用于文本内容的关键词搜索，支持自然语言和布尔模式。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "倒排索引结构——分词后每个词指向包含它的文档。InnoDB 5.6+ 支持，MyISAM 旧版独占。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "中文需配合 ngram parser 或第三方分词器。LIKE %x% 不走全文索引。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 全文索引文档"
+        }
+      ]
+    }
+  },
+  "demo_innodb": {
+    "id": "demo_innodb",
+    "label": "InnoDB",
+    "role": "subsystem",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_innodb",
+      "title": "InnoDB",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "MySQL 8.0 开始移除 MyISAM，InnoDB 成为唯一内置事务引擎。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "聚簇索引存储——主键有序组织，二级索引引主键。MVCC 非锁定读；Redo/Undo 崩溃恢复。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "默认行级锁粒度——仅锁定索引命中的记录。高并发下吞吐最高，内存开销较大。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_myisam": {
+    "id": "demo_myisam",
+    "label": "MyISAM",
+    "role": "subsystem",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_myisam",
+      "title": "MyISAM",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "非事务引擎，每个表存为三个文件：.frm / .MYD / .MYI。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "非聚簇存储——数据文件和索引文件分离，索引叶子存数据偏移。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "仅支持表级锁——SELECT 加读锁不阻塞读，但有写锁时全部阻塞。InnoDB 5.6 前独占全文索引。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_redolog": {
+    "id": "demo_redolog",
+    "label": "Redo Log",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_redolog",
+      "title": "Redo Log",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "重做日志，记录物理修改操作，保证持久性。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "WAL（Write-Ahead Logging）机制，先写日志再写磁盘。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "循环写入，checkpoint 机制控制刷盘。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB Redo Log"
+        }
+      ]
+    }
+  },
+  "demo_binlog": {
+    "id": "demo_binlog",
+    "label": "Binlog",
+    "role": "mechanism",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_binlog",
+      "title": "Binlog",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "二进制日志，记录逻辑 SQL 操作，用于复制和恢复。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "三种格式：Statement、Row、Mixed。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "Server 层实现，所有引擎共享。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 复制机制"
+        }
+      ]
+    }
+  },
+  "demo_buffer": {
+    "id": "demo_buffer",
+    "label": "Buffer Pool",
+    "role": "mechanism",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_buffer",
+      "title": "Buffer Pool",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "InnoDB 内存缓冲区，缓存数据页和索引页。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "LRU 算法管理页面置换，预读机制提升性能。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "大小影响命中率，需根据负载调优。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "InnoDB Buffer Pool"
+        }
+      ]
+    }
+  },
+  "demo_query": {
+    "id": "demo_query",
+    "label": "查询优化",
+    "role": "conclusion",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_query",
+      "title": "查询优化",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过索引、执行计划、统计信息等提升查询性能。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "优化器基于成本模型选择最优执行路径。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "需结合 EXPLAIN 分析和索引设计。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 查询优化"
+        }
+      ]
+    }
+  },
+  "demo_join": {
+    "id": "demo_join",
+    "label": "JOIN 连接",
+    "shared": true,
+    "dimensions": [
+      "transaction",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_join",
+      "title": "JOIN 连接",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "多表查询，包括内连接、外连接、交叉连接。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "嵌套循环、哈希连接、排序合并等算法。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "小表驱动大表，合理使用索引。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "SQL 标准 · MySQL JOIN"
+        }
+      ]
+    }
+  },
+  "demo_subquery": {
+    "id": "demo_subquery",
+    "label": "子查询",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_subquery",
+      "title": "子查询",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "嵌套在其他查询中的查询，包括标量、行、表子查询。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "关联子查询和非关联子查询，优化器可能改写为 JOIN。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "某些情况性能不佳，可考虑改写。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "SQL 子查询优化"
+        }
+      ]
+    }
+  },
+  "demo_postgres": {
+    "id": "demo_postgres",
+    "label": "PostgreSQL",
+    "role": "subsystem",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ],
+    "card": {
+      "nodeId": "demo_postgres",
+      "title": "PostgreSQL",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "开源对象关系型数据库，功能强大，扩展性好。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "支持复杂数据类型、全文检索、JSON、窗口函数等。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "MVCC 实现与 MySQL 不同，使用 VACUUM 清理。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "PostgreSQL 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_redis": {
+    "id": "demo_redis",
+    "label": "Redis",
+    "role": "subsystem",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_redis",
+      "title": "Redis",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "内存键值数据库，支持多种数据结构。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "单线程模型，通过 IO 多路复用实现高性能。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "适合缓存、会话、排行榜等场景。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "Redis 官方文档"
+        }
+      ]
+    }
+  },
+  "demo_mongodb": {
+    "id": "demo_mongodb",
+    "label": "MongoDB",
+    "role": "subsystem",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_mongodb",
+      "title": "MongoDB",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "面向文档的 NoSQL 数据库，数据以 JSON 格式存储。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "灵活的 Schema，支持复制集和分片。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "适合非结构化数据和快速迭代。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MongoDB 官方文档"
+        }
+      ]
+    }
+  },
+  "n_97x8s5dv": {
+    "id": "n_97x8s5dv",
+    "label": "存储引擎",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_sm0vv4ex",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "InnoDB",
+            "nodeId": "demo_innodb"
+          },
+          {
+            "label": "MyISAM",
+            "nodeId": "demo_myisam"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_97x8s5dv",
+      "title": "存储引擎",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"存储引擎\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_0xxb9cqy": {
+    "id": "n_0xxb9cqy",
+    "label": "索引",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_4cqy1f1t",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "B+树索引",
+            "nodeId": "demo_btree"
+          },
+          {
+            "label": "哈希索引",
+            "nodeId": "demo_hash"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_0xxb9cqy",
+      "title": "索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"索引\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_ag24bbkc": {
+    "id": "n_ag24bbkc",
+    "label": "事务",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_cu7hvicv",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "ACID",
+            "nodeId": "demo_acid"
+          },
+          {
+            "label": "隔离级别",
+            "nodeId": "demo_isolation"
+          },
+          {
+            "label": "MVCC",
+            "nodeId": "demo_mvcc"
+          },
+          {
+            "label": "锁机制",
+            "nodeId": "demo_lock"
+          },
+          {
+            "label": "死锁检测",
+            "nodeId": "demo_deadlock"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_ag24bbkc",
+      "title": "事务",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"事务\" 分类目录，包含 5 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_adbe2q9j": {
+    "id": "n_adbe2q9j",
+    "label": "日志系统",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_y44zkzct",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "Redo Log",
+            "nodeId": "demo_redolog"
+          },
+          {
+            "label": "Binlog",
+            "nodeId": "demo_binlog"
+          },
+          {
+            "label": "Undo Log",
+            "nodeId": "demo_undo"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_adbe2q9j",
+      "title": "日志系统",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"日志系统\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_s7t5dbya": {
+    "id": "n_s7t5dbya",
+    "label": "性能优化",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_5pewz42l",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "Buffer Pool",
+            "nodeId": "demo_buffer"
+          },
+          {
+            "label": "查询优化",
+            "nodeId": "demo_query"
+          },
+          {
+            "label": "JOIN 优化",
+            "nodeId": "demo_join"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_s7t5dbya",
+      "title": "性能优化",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"性能优化\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_8s66vwo1": {
+    "id": "n_8s66vwo1",
+    "label": "MySQL",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_bjprehlm",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "SQL语法",
+            "nodeId": "demo_sql"
+          },
+          {
+            "label": "存储引擎",
+            "nodeId": "n_97x8s5dv"
+          },
+          {
+            "label": "索引",
+            "nodeId": "n_0xxb9cqy"
+          },
+          {
+            "label": "事务",
+            "nodeId": "n_ag24bbkc"
+          },
+          {
+            "label": "日志系统",
+            "nodeId": "n_adbe2q9j"
+          },
+          {
+            "label": "性能优化",
+            "nodeId": "n_s7t5dbya"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_8s66vwo1",
+      "title": "MySQL",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"MySQL\" 分类目录，包含 6 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_2vbkwr8v": {
+    "id": "n_2vbkwr8v",
+    "label": "PostgreSQL",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_9d6vbg8w",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "SQL语法",
+            "nodeId": "demo_sql"
+          },
+          {
+            "label": "MVCC 实现",
+            "nodeId": "demo_postgres"
+          },
+          {
+            "label": "JOIN 连接",
+            "nodeId": "demo_join"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_2vbkwr8v",
+      "title": "PostgreSQL",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"PostgreSQL\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_21yoee5g": {
+    "id": "n_21yoee5g",
+    "label": "NoSQL",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_gsvjl9vm",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "Redis",
+            "nodeId": "demo_redis"
+          },
+          {
+            "label": "MongoDB",
+            "nodeId": "demo_mongodb"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_21yoee5g",
+      "title": "NoSQL",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"NoSQL\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_u4va719e": {
+    "id": "n_u4va719e",
+    "label": "数据库",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_u4fv3f7f",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "MySQL",
+            "nodeId": "n_8s66vwo1"
+          },
+          {
+            "label": "PostgreSQL",
+            "nodeId": "n_2vbkwr8v"
+          },
+          {
+            "label": "NoSQL",
+            "nodeId": "n_21yoee5g"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_u4va719e",
+      "title": "数据库",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"数据库\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_6dgtsmpj": {
+    "id": "n_6dgtsmpj",
+    "label": "数据结构",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_3qej2z39",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "B+树",
+            "nodeId": "demo_btree"
+          },
+          {
+            "label": "哈希表",
+            "nodeId": "demo_hash"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_6dgtsmpj",
+      "title": "数据结构",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"数据结构\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_9hr0nvvv": {
+    "id": "n_9hr0nvvv",
+    "label": "算法与数据结构",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_zasyxj3j",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "数据结构",
+            "nodeId": "n_6dgtsmpj"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_9hr0nvvv",
+      "title": "算法与数据结构",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"算法与数据结构\" 分类目录，包含 1 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_55jiel25": {
+    "id": "n_55jiel25",
+    "label": "计算机科学",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_k9icrz01",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "数据库",
+            "nodeId": "n_u4va719e"
+          },
+          {
+            "label": "算法与数据结构",
+            "nodeId": "n_9hr0nvvv"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_55jiel25",
+      "title": "计算机科学",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"计算机科学\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  },
+  "n_a03cv4sd": {
+    "id": "n_a03cv4sd",
+    "label": "知识宇宙",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "n_x4ad2prf",
+        "name": "子项",
+        "color": "#8b5cf6",
+        "children": [
+          {
+            "label": "计算机科学",
+            "nodeId": "n_55jiel25"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_a03cv4sd",
+      "title": "知识宇宙",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "\"知识宇宙\" 分类目录，包含 1 个知识节点和 0 个子目录。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "作为分类节点组织相关知识，不承载具体机制。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分类范围由子项定义。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "自动生成的分类节点。"
+        }
+      ]
+    }
+  }
+}

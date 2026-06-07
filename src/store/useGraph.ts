@@ -8,6 +8,7 @@ import type {
   TreeNode,
   NodeExplanation,
   Question,
+  QuestionAnswerStep,
   SubSystem,
   KnowledgeNode,
   KnowledgeEdge,
@@ -31,18 +32,168 @@ import {
   exportAppStateJson,
   parseImportedAppState,
 } from '../knowledge/persist';
-import { createEmptyAppState, type PersistedAppState } from '../knowledge/state';
+import { createEmptyAppState, APP_STATE_VERSION, type PersistedAppState } from '../knowledge/state';
+import { createInitialAppState } from '../knowledge/demoSeed';
 import {
   appendTreeChild,
   cloneTree,
+  collectTreeNodes,
+  findTreeParent,
   findTreeNodeById,
   removeTreeChild,
   updateTreeNode,
 } from '../knowledge/treeUtils';
-import { resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
+import { resolvePoolIdFromTree, resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
+import {
+  createTreeBindingEdge,
+  removeTreeBindingEdgesForTreeIds,
+} from '../knowledge/treeBinding';
+import {
+  pickQuestionForFocus,
+  questionsForNode,
+  resolveQuestionForNode,
+} from '../knowledge/questionLink';
+import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
 
 const loadedApp = loadPersistedAppState();
 const initialApp = loadedApp;
+
+const TREE_STORAGE_KEY = 'knowledge-os:universe-tree';
+const TREE_FILE_ENDPOINT = '/api/universe-tree';
+
+const TREE_TO_GRAPH_IDS: Record<string, string[]> = {
+  acid: ['n-transaction'],
+  isolation: ['n-isolation'],
+  'undo-log': ['n-version'],
+  'version-chain': ['n-vchain', 'n-vercontrol'],
+  'read-view': ['n-readview'],
+  visibility: ['n-visibility', 'n-vischeck'],
+};
+
+function collectTreeNodes(node: TreeNode): TreeNode[] {
+  return [node, ...(node.children ? node.children.flatMap(collectTreeNodes) : [])];
+}
+
+function normalizeKeyword(value: string): string {
+  return value.trim().toLowerCase();
+}
+
+function textMatchesKeywords(text: string, keywords: Set<string>): boolean {
+  const normalized = normalizeKeyword(text);
+  return Array.from(keywords).some((keyword) => keyword && normalized.includes(keyword));
+}
+
+function getNodeLabelKeywords(nodes: GraphNode[], ids: Set<string>): string[] {
+  return nodes
+    .filter((node) => ids.has(node.id))
+    .flatMap((node) => [node.label, node.description].filter(Boolean) as string[]);
+}
+
+function removeRecordKeys<T>(record: Record<string, T>, keys: Set<string>): Record<string, T> {
+  return Object.fromEntries(Object.entries(record).filter(([key]) => !keys.has(key)));
+}
+
+function collectTreeIds(node: TreeNode): Set<string> {
+  return new Set(collectTreeNodes(node).map((treeNode) => treeNode.id));
+}
+
+function getMappedGraphIdsMissingFromTree(tree: TreeNode): Set<string> {
+  const treeIds = collectTreeIds(tree);
+  return new Set(
+    Object.entries(TREE_TO_GRAPH_IDS)
+      .filter(([treeId]) => !treeIds.has(treeId))
+      .flatMap(([, graphIds]) => graphIds),
+  );
+}
+
+function hasBrowserStorage(): boolean {
+  if (typeof window === 'undefined') return false;
+
+  try {
+    return typeof window.localStorage !== 'undefined';
+  } catch {
+    return false;
+  }
+}
+
+function isTreeNode(value: unknown): value is TreeNode {
+  if (!value || typeof value !== 'object') return false;
+
+  const node = value as Partial<TreeNode>;
+  const children = node.children;
+
+  return (
+    typeof node.id === 'string' &&
+    typeof node.name === 'string' &&
+    typeof node.count === 'number' &&
+    typeof node.icon === 'string' &&
+    (children === undefined || (Array.isArray(children) && children.every(isTreeNode)))
+  );
+}
+
+function loadCachedTree(): TreeNode {
+  if (!hasBrowserStorage()) return cloneTree(universeTree);
+
+  try {
+    const stored = window.localStorage.getItem(TREE_STORAGE_KEY);
+    if (!stored) return cloneTree(universeTree);
+
+    const parsed = JSON.parse(stored);
+    return isTreeNode(parsed) ? parsed : cloneTree(universeTree);
+  } catch (error) {
+    console.warn('Failed to load universe tree from localStorage:', error);
+    return cloneTree(universeTree);
+  }
+}
+
+function persistTreeCache(tree: TreeNode): void {
+  if (!hasBrowserStorage()) return;
+
+  try {
+    window.localStorage.setItem(TREE_STORAGE_KEY, JSON.stringify(tree));
+  } catch (error) {
+    console.warn('Failed to persist universe tree to localStorage:', error);
+  }
+}
+
+async function loadTreeFromFile(): Promise<TreeNode | null> {
+  if (typeof fetch === 'undefined') return null;
+
+  try {
+    const response = await fetch(TREE_FILE_ENDPOINT, { cache: 'no-store' });
+    if (response.status === 404) return null;
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+    const parsed = await response.json();
+    return isTreeNode(parsed) ? parsed : null;
+  } catch (error) {
+    console.warn('Failed to load universe tree from file API:', error);
+    return null;
+  }
+}
+
+async function persistTreeToFile(tree: TreeNode): Promise<void> {
+  if (typeof fetch === 'undefined') return;
+
+  try {
+    const response = await fetch(TREE_FILE_ENDPOINT, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(tree),
+    });
+
+    if (!response.ok && response.status !== 404) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+  } catch (error) {
+    console.warn('Failed to persist universe tree to file API:', error);
+  }
+}
+
+function persistTree(tree: TreeNode): void {
+  persistTreeCache(tree);
+  void persistTreeToFile(tree);
+}
 
 interface GraphState {
   axioms: GraphNode[];
@@ -52,6 +203,8 @@ interface GraphState {
   selectedNodeId: string | null;
   selectedTreeNodeId: string | null;
   focusNodeId: string | null;
+  /** 右侧问题详情面板当前展示的问题 */
+  selectedQuestionId: string | null;
   hoveredNodeId: string | null;
 
   treeData: TreeNode;
@@ -71,7 +224,11 @@ interface GraphState {
   history: Array<{ action: string; data: unknown }>;
 
   setSelectedNode: (id: string | null) => void;
+  /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
+  /** @alias setSelectedNodeOnly */
+  openCard: (id: string | null) => void;
+  setSelectedQuestion: (id: string | null) => void;
   selectTreeEntry: (treeNodeId: string) => void;
   getTreeSupplement: () => TreeRefSupplement | null;
   getKnowledgeExplanation: () => NodeExplanation | null;
@@ -91,6 +248,11 @@ interface GraphState {
     id: string,
     patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags'>>,
   ) => void;
+  updateKnowledgeNodeLabel: (id: string, label: string) => void;
+  updateKnowledgeViewDimensions: (
+    id: string,
+    viewDimensions: NonNullable<KnowledgeNode['viewDimensions']>,
+  ) => void;
 
   addNode: (node: GraphNode, zone: 'axiom' | 'mechanism' | 'conclusion') => void;
   removeNode: (id: string) => void;
@@ -106,12 +268,14 @@ interface GraphState {
   setActiveView: (view: string) => void;
   undo: () => void;
   getAllNodes: () => GraphNode[];
+  toggleQuestion: (id: string) => void;
+  addQuestion: (text: string) => void;
 
   toggleQuestion: (id: string) => void;
   addQuestion: (text: string, relatedNodeId?: string) => void;
   removeQuestion: (id: string) => void;
   updateQuestion: (id: string, text: string) => void;
-  answerQuestion: (id: string, answer: string) => void;
+  answerQuestion: (id: string, answer: string, answerSteps?: QuestionAnswerStep[]) => void;
   linkQuestionToNode: (questionId: string, nodeId: string) => void;
   addRule: (rule: Rule) => void;
 
@@ -153,7 +317,7 @@ interface GraphState {
 
 function snapshotState(state: GraphState): PersistedAppState {
   return {
-    version: 1,
+    version: APP_STATE_VERSION,
     treeData: state.treeData,
     nodePool: state.nodePool,
     knowledgeEdges: state.knowledgeEdges,
@@ -193,7 +357,16 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     inferenceResponses: data.inferenceResponses,
     selectedNodeId: null,
     selectedTreeNodeId: null,
+    selectedQuestionId: null,
   });
+}
+
+function appendUniqueKnowledgeEdge(
+  edges: KnowledgeEdge[],
+  edge: KnowledgeEdge | null,
+): KnowledgeEdge[] {
+  if (!edge) return edges;
+  return [...edges.filter((item) => item.id !== edge.id), edge];
 }
 
 export const useGraphStore = create<GraphState>((set, get) => {
@@ -207,6 +380,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
   selectedNodeId: null,
   selectedTreeNodeId: null,
   focusNodeId: null,
+  selectedQuestionId: null,
   hoveredNodeId: null,
   treeData: initialApp.treeData,
   nodePool: initialApp.nodePool,
@@ -219,18 +393,37 @@ export const useGraphStore = create<GraphState>((set, get) => {
   notifications: [],
   theme: 'dark',
   currentPerspective: null,
-  activeView: 'ability',
+  activeView: 'universe',
   history: [],
 
-  setSelectedNode: (id) => set({ selectedNodeId: id, focusNodeId: id, selectedTreeNodeId: null }),
+  setSelectedNode: (id) => {
+    const state = get();
+    set({
+      selectedNodeId: id,
+      focusNodeId: id,
+      selectedTreeNodeId: null,
+      selectedQuestionId: pickQuestionForFocus(state.questions, id),
+    });
+  },
 
   setSelectedNodeOnly: (id) => set({ selectedNodeId: id }),
+
+  openCard: (id) => {
+    if (id === null) {
+      set({ selectedNodeId: null });
+      return;
+    }
+    set({ selectedNodeId: id });
+  },
+
+  setSelectedQuestion: (id) => set({ selectedQuestionId: id }),
 
   selectTreeEntry: (treeNodeId) => {
     const state = get();
     const treeNode = findTreeNodeById(state.treeData, treeNodeId);
     if (!treeNode) return;
     const nodeId = resolvePoolIdFromTreeNode(treeNode);
+    const focusNodeId = nodeId ?? treeNodeId;  // 文件夹用自身 treeNodeId 也能关联问题
 
     // 提取子图数据并填入 graph
     const view = extractSubgraph(state.nodePool, state.knowledgeEdges, {
@@ -270,7 +463,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
     set({
       selectedTreeNodeId: treeNodeId,
       selectedNodeId: nodeId,
-      focusNodeId: nodeId,
+      focusNodeId: focusNodeId,
+      selectedQuestionId: pickQuestionForFocus(state.questions, focusNodeId),
       axioms,
       mechanisms,
       conclusions,
@@ -295,7 +489,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
   extractView: (scope) => {
     const state = get();
     return extractSubgraph(state.nodePool, state.knowledgeEdges, {
-      focus: state.selectedNodeId,
+      focus: state.focusNodeId,
       scope,
       dimension: state.currentPerspective?.id ?? 'all',
     });
@@ -318,9 +512,72 @@ export const useGraphStore = create<GraphState>((set, get) => {
   updateKnowledgeNodeMeta: (id, patch) => {
     const state = get();
     const node = state.nodePool[id];
-    if (!node) return;
+    if (!node || node.locked) return;
     const nodePool = { ...state.nodePool, [id]: { ...node, ...patch } };
     set({ nodePool });
+    persist();
+  },
+
+  updateKnowledgeNodeLabel: (id, label) => {
+    const trimmed = label.trim();
+    if (!trimmed) return;
+    const state = get();
+    const node = state.nodePool[id];
+    if (!node || node.locked) return;
+    const card = { ...node.card, title: trimmed };
+    const nodePool = {
+      ...state.nodePool,
+      [id]: { ...node, label: trimmed, card },
+    };
+    set({ nodePool });
+    persist();
+  },
+
+  updateKnowledgeViewDimensions: (id, viewDimensions) => {
+    const state = get();
+    const node = state.nodePool[id];
+    if (!node || node.locked) return;
+    const nodePool = {
+      ...state.nodePool,
+      [id]: { ...node, viewDimensions },
+    };
+
+    // 联动树：viewDimensions 的 children.nodeId 同步为树的子节点
+    let treeData = state.treeData;
+    const allChildNodeIds = new Set<string>();
+    for (const dim of viewDimensions) {
+      for (const child of dim.children ?? []) {
+        if (child.nodeId) allChildNodeIds.add(child.nodeId);
+      }
+    }
+
+    // 找到 nodeRef 指向此节点的 tree node
+    function syncTree(node: TreeNode): TreeNode {
+      if (node.nodeRef === id && allChildNodeIds.size > 0) {
+        const existingChildIds = new Set((node.children ?? []).map((c) => c.id));
+        const newChildren = [...(node.children ?? [])];
+        for (const nodeId of allChildNodeIds) {
+          const poolNode = nodePool[nodeId];
+          if (!poolNode) continue;
+          const treeChildId = `tree_syn_${nodeId}`;
+          if (!existingChildIds.has(treeChildId)) {
+            newChildren.push({
+              id: treeChildId,
+              name: poolNode.label,
+              count: 0,
+              icon: '📄',
+              nodeRef: nodeId,
+            });
+          }
+        }
+        return { ...node, children: newChildren, expanded: true };
+      }
+      if (!node.children) return node;
+      return { ...node, children: node.children.map(syncTree) };
+    }
+    treeData = syncTree(treeData);
+
+    set({ nodePool, treeData });
     persist();
   },
 
@@ -345,6 +602,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
   removeNode: (id) => {
     const state = get();
+    const graphIdsToRemove = new Set([id]);
+    const allNodes = [...state.axioms, ...state.mechanisms, ...state.conclusions];
+    const keywords = new Set(
+      [id, ...getNodeLabelKeywords(allNodes, graphIdsToRemove)].map(normalizeKeyword),
+    );
     const prev = {
       axioms: state.axioms,
       mechanisms: state.mechanisms,
@@ -353,6 +615,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       selectedNodeId: state.selectedNodeId,
       hoveredNodeId: state.hoveredNodeId,
     };
+
     set({
       axioms: state.axioms.filter((n) => n.id !== id),
       mechanisms: state.mechanisms.filter((n) => n.id !== id),
@@ -466,26 +729,46 @@ export const useGraphStore = create<GraphState>((set, get) => {
   addQuestion: (text, relatedNodeId) => {
     const trimmed = text.trim();
     if (!trimmed) return;
+    const state = get();
+    const normalizedRelatedNodeId = relatedNodeId
+      ? state.nodePool[relatedNodeId]
+        ? relatedNodeId
+        : resolvePoolIdFromTree(state.treeData, relatedNodeId) ?? relatedNodeId
+      : undefined;
+    const newId = genId('q');
     set((s) => ({
       questions: [
         ...s.questions,
         {
-          id: genId('q'),
+          id: newId,
           text: trimmed,
           answered: false,
-          relatedNodeId,
+          relatedNodeId: normalizedRelatedNodeId,
           createdAt: Date.now(),
           updatedAt: Date.now(),
         },
       ],
+      selectedQuestionId:
+        normalizedRelatedNodeId && normalizedRelatedNodeId === s.focusNodeId
+          ? newId
+          : s.selectedQuestionId,
     }));
     persist();
   },
 
   removeQuestion: (id) => {
-    set((s) => ({
-      questions: s.questions.filter((q) => q.id !== id),
-    }));
+    set((s) => {
+      const removed = s.questions.find((q) => q.id === id);
+      const nextQuestions = s.questions.filter((q) => q.id !== id);
+      let selectedQuestionId = s.selectedQuestionId;
+      if (selectedQuestionId === id) {
+        const siblings = removed?.relatedNodeId
+          ? questionsForNode(nextQuestions, removed.relatedNodeId)
+          : [];
+        selectedQuestionId = siblings[0]?.id ?? pickQuestionForFocus(nextQuestions, s.focusNodeId);
+      }
+      return { questions: nextQuestions, selectedQuestionId };
+    });
     persist();
   },
 
@@ -500,11 +783,24 @@ export const useGraphStore = create<GraphState>((set, get) => {
     persist();
   },
 
-  answerQuestion: (id, answer) => {
+  answerQuestion: (id, answer, answerSteps) => {
+    const state = get();
+    const normalizedAnswerSteps =
+      answerSteps === undefined
+        ? undefined
+        : normalizeQuestionAnswerSteps(answerSteps, state.nodePool);
     set((s) => ({
       questions: s.questions.map((q) =>
         q.id === id
-          ? { ...q, answer: answer.trim(), answered: true, updatedAt: Date.now() }
+          ? {
+              ...q,
+              answer: answer.trim(),
+              answered: true,
+              ...(normalizedAnswerSteps !== undefined
+                ? { answerSteps: normalizedAnswerSteps }
+                : {}),
+              updatedAt: Date.now(),
+            }
           : q,
       ),
     }));
@@ -547,10 +843,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
   },
 
   loadDemoData: () => {
-    const demo = createEmptyAppState();
-    applyPersisted(set, demo);
-    persistAppState(demo);
-    get().addNotification('已加载演示数据（数据库知识体系）', 'success');
+    const fresh = createInitialAppState();
+    applyPersisted(set, fresh);
+    persistAppState(fresh);
+    get().addNotification('已恢复内置知识库（数据库知识体系）', 'success');
   },
 
   addKnowledgeNode: (label, shared = false) => {
@@ -568,12 +864,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
   updateKnowledgeCard: (knowledgeId, patch) => {
     const state = get();
     const existing = state.nodePool[knowledgeId];
-    if (!existing) return;
+    if (!existing || existing.locked) return;
     const card = { ...existing.card, ...patch };
-    if (patch.title) existing.label = patch.title;
+    const label = patch.title?.trim() || existing.label;
     const nodePool = {
       ...state.nodePool,
-      [knowledgeId]: { ...existing, label: card.title, card },
+      [knowledgeId]: { ...existing, label, card: { ...card, title: label } },
     };
     set({ nodePool });
     persist();
@@ -600,22 +896,44 @@ export const useGraphStore = create<GraphState>((set, get) => {
       (e) => e.source !== knowledgeId && e.target !== knowledgeId,
     );
 
-    // 3. 清除目录树中的引用
-    const treeData = cloneTree(state.treeData);
-    const clearRef = (node: TreeNode) => {
-      if (node.nodeRef === knowledgeId) node.nodeRef = undefined;
-      node.children?.forEach(clearRef);
+    // 3. 级联删除目录中所有引用此节点的纯引用项
+    //    纯引用（nodeRef 存在且无 children）→ 删除
+    //    有子节点的引用 → 清除 nodeRef 变为文件夹
+    //    文件夹（无 nodeRef）→ 不处理
+    const cascadeRemoveRefs = (node: TreeNode): TreeNode | null => {
+      const cleanedChildren = node.children
+        ?.map(cascadeRemoveRefs)
+        .filter((child): child is TreeNode => child !== null) ?? [];
+      // 如果当前节点是引用此知识的纯引用（无子节点），删除它
+      if (node.nodeRef === knowledgeId && (!node.children || node.children.length === 0)) {
+        return null;
+      }
+      // 如果当前节点引用此知识但有子节点，清除引用变文件夹
+      if (node.nodeRef === knowledgeId) {
+        return { ...node, nodeRef: undefined, children: cleanedChildren };
+      }
+      return {
+        ...node,
+        children: node.children ? cleanedChildren : undefined,
+      };
     };
-    clearRef(treeData);
+    const treeData = cascadeRemoveRefs(cloneTree(state.treeData)) ?? state.treeData;
+    const selectedTreeNodeId =
+      state.selectedTreeNodeId && findTreeNodeById(treeData, state.selectedTreeNodeId)
+        ? state.selectedTreeNodeId
+        : null;
 
-    // 4. 删除或清除相关问题的关联（不删除问题本身，只清除关联）
-    const questions = state.questions.map((q) =>
-      (q as any).relatedNodeId === knowledgeId
-        ? { ...q, relatedNodeId: undefined }
-        : q
-    );
+    // 4. 删除或清除相关问题的关联
+    const questions = state.questions.map((q) => {
+      const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);
+      return {
+        ...q,
+        relatedNodeId: q.relatedNodeId === knowledgeId ? undefined : q.relatedNodeId,
+        ...(answerSteps ? { answerSteps } : {}),
+      };
+    });
 
-    // 5. 删除相关的推理响应（使用节点的 label 作为 key）
+    // 5. 删除相关的推理响应
     const deletedNode = state.nodePool[knowledgeId];
     const inferenceResponses = { ...state.inferenceResponses };
     if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
@@ -630,6 +948,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       inferenceResponses,
       selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
       focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
+      selectedTreeNodeId,
     });
     persist();
   },
@@ -652,7 +971,15 @@ export const useGraphStore = create<GraphState>((set, get) => {
     const entry = createTreeRef(trimmed, knowledgeId);
     if (supplement) entry.supplement = supplement;
     const treeData = appendTreeChild(state.treeData, parentId, entry);
-    set({ treeData });
+    const bindingEdge = createTreeBindingEdge({
+      tree: state.treeData,
+      nodePool: state.nodePool,
+      parentTreeId: parentId,
+      childTreeId: entry.id,
+      childKnowledgeId: knowledgeId,
+    });
+    const knowledgeEdges = appendUniqueKnowledgeEdge(state.knowledgeEdges, bindingEdge);
+    set({ treeData, knowledgeEdges });
     persist();
   },
 
@@ -684,8 +1011,37 @@ export const useGraphStore = create<GraphState>((set, get) => {
   linkTreeToKnowledge: (treeNodeId, knowledgeId) => {
     if (!get().nodePool[knowledgeId]) return;
     const state = get();
+    const parent = findTreeParent(state.treeData, treeNodeId);
     const treeData = updateTreeNode(state.treeData, treeNodeId, { nodeRef: knowledgeId });
-    set({ treeData });
+    const treeIds = new Set([treeNodeId]);
+    let knowledgeEdges = removeTreeBindingEdgesForTreeIds(state.knowledgeEdges, treeIds);
+    knowledgeEdges = appendUniqueKnowledgeEdge(
+      knowledgeEdges,
+      parent
+        ? createTreeBindingEdge({
+            tree: treeData,
+            nodePool: state.nodePool,
+            parentTreeId: parent.id,
+            childTreeId: treeNodeId,
+            childKnowledgeId: knowledgeId,
+          })
+        : null,
+    );
+    const linkedNode = findTreeNodeById(treeData, treeNodeId);
+    for (const child of linkedNode?.children ?? []) {
+      if (!child.nodeRef) continue;
+      knowledgeEdges = appendUniqueKnowledgeEdge(
+        knowledgeEdges,
+        createTreeBindingEdge({
+          tree: treeData,
+          nodePool: state.nodePool,
+          parentTreeId: treeNodeId,
+          childTreeId: child.id,
+          childKnowledgeId: child.nodeRef,
+        }),
+      );
+    }
+    set({ treeData, knowledgeEdges });
     persist();
   },
 
@@ -696,8 +1052,16 @@ export const useGraphStore = create<GraphState>((set, get) => {
   removeTreeNode: (nodeId) => {
     const state = get();
     if (state.treeData.id === nodeId) return;
+    const removedNode = findTreeNodeById(state.treeData, nodeId);
+    const removedTreeIds = new Set(
+      removedNode ? collectTreeNodes(removedNode).map((node) => node.id) : [nodeId],
+    );
     const nextTree = removeTreeChild(state.treeData, nodeId);
     if (!nextTree) return;
+    const knowledgeEdges = removeTreeBindingEdgesForTreeIds(
+      state.knowledgeEdges,
+      removedTreeIds,
+    );
 
     const clearSelection =
       state.selectedTreeNodeId === nodeId ||
@@ -706,6 +1070,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     set({
       treeData: nextTree,
+      knowledgeEdges,
       history: [
         ...state.history,
         {
@@ -720,7 +1085,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         },
       ],
       ...(clearSelection
-        ? { selectedTreeNodeId: null, selectedNodeId: null }
+        ? { selectedTreeNodeId: null, selectedNodeId: null, focusNodeId: null }
         : {}),
     });
     persist();

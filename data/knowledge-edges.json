@@ -1,0 +1,536 @@
+[
+  {
+    "id": "demo_e1",
+    "source": "demo_transaction",
+    "target": "demo_isolation",
+    "type": "belongs-to",
+    "label": "属于",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e2",
+    "source": "demo_isolation",
+    "target": "demo_mvcc",
+    "type": "enables",
+    "label": "支撑",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e3",
+    "source": "demo_mvcc",
+    "target": "demo_undo",
+    "type": "needs-for",
+    "label": "需要",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e4",
+    "source": "demo_undo",
+    "target": "demo_vchain",
+    "type": "leads-to",
+    "label": "导致",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e5",
+    "source": "demo_mvcc",
+    "target": "demo_readview",
+    "type": "needs-for",
+    "label": "需要",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e6",
+    "source": "demo_readview",
+    "target": "demo_visibility",
+    "type": "leads-to",
+    "label": "导致",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e7",
+    "source": "demo_visibility",
+    "target": "demo_snapshot",
+    "type": "enables",
+    "label": "支撑",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e8",
+    "source": "demo_vchain",
+    "target": "demo_visibility",
+    "type": "depends-on",
+    "label": "依赖",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e9",
+    "source": "demo_undo_sys",
+    "target": "demo_undo",
+    "type": "belongs-to",
+    "label": "属于",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e10",
+    "source": "demo_vchain_sys",
+    "target": "demo_vchain",
+    "type": "belongs-to",
+    "label": "属于",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e11",
+    "source": "demo_mvcc",
+    "target": "demo_undo_sys",
+    "type": "depends-on",
+    "label": "依赖",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e12",
+    "source": "demo_mvcc",
+    "target": "demo_vchain_sys",
+    "type": "depends-on",
+    "label": "依赖",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e13",
+    "source": "demo_sql",
+    "target": "demo_transaction",
+    "type": "belongs-to",
+    "label": "属于",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e14",
+    "source": "demo_transaction",
+    "target": "demo_acid",
+    "type": "belongs-to",
+    "label": "属于",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e15",
+    "source": "demo_acid",
+    "target": "demo_redolog",
+    "type": "needs-for",
+    "label": "需要",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e16",
+    "source": "demo_acid",
+    "target": "demo_undo",
+    "type": "needs-for",
+    "label": "需要",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e17",
+    "source": "demo_isolation",
+    "target": "demo_lock",
+    "type": "needs-for",
+    "label": "需要",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e18",
+    "source": "demo_lock",
+    "target": "demo_deadlock",
+    "type": "leads-to",
+    "label": "可能导致",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e19",
+    "source": "demo_innodb",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "实现",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e20",
+    "source": "demo_innodb",
+    "target": "demo_btree",
+    "type": "belongs-to",
+    "label": "使用",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e21",
+    "source": "demo_innodb",
+    "target": "demo_buffer",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e22",
+    "source": "demo_btree",
+    "target": "demo_query",
+    "type": "enables",
+    "label": "支撑",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e23",
+    "source": "demo_hash",
+    "target": "demo_query",
+    "type": "enables",
+    "label": "支撑",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e24",
+    "source": "demo_sql",
+    "target": "demo_join",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e25",
+    "source": "demo_sql",
+    "target": "demo_subquery",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e26",
+    "source": "demo_binlog",
+    "target": "demo_redolog",
+    "type": "depends-on",
+    "label": "协同",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e27",
+    "source": "demo_buffer",
+    "target": "demo_query",
+    "type": "enables",
+    "label": "加速",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e28",
+    "source": "demo_postgres",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "实现",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e30",
+    "source": "demo_lock",
+    "target": "demo_table_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e31",
+    "source": "demo_lock",
+    "target": "demo_row_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e32",
+    "source": "demo_lock",
+    "target": "demo_page_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e41",
+    "source": "demo_lock_compare",
+    "target": "demo_table_lock",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e42",
+    "source": "demo_lock_compare",
+    "target": "demo_row_lock",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e43",
+    "source": "demo_lock_compare",
+    "target": "demo_page_lock",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e44",
+    "source": "demo_innodb",
+    "target": "demo_row_lock",
+    "type": "uses",
+    "label": "默认使用",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e45",
+    "source": "demo_myisam",
+    "target": "demo_table_lock",
+    "type": "uses",
+    "label": "使用",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e33",
+    "source": "demo_lock",
+    "target": "demo_shared_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e34",
+    "source": "demo_lock",
+    "target": "demo_exclusive_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e35",
+    "source": "demo_lock",
+    "target": "demo_optimistic",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e36",
+    "source": "demo_lock",
+    "target": "demo_pessimistic",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e37",
+    "source": "demo_pessimistic",
+    "target": "demo_shared_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e38",
+    "source": "demo_pessimistic",
+    "target": "demo_exclusive_lock",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e39",
+    "source": "demo_row_lock",
+    "target": "demo_deadlock",
+    "type": "leads-to",
+    "label": "可能导致",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "demo_e50",
+    "source": "demo_btree",
+    "target": "demo_clustered_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e51",
+    "source": "demo_btree",
+    "target": "demo_secondary_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e52",
+    "source": "demo_btree",
+    "target": "demo_covering_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e53",
+    "source": "demo_btree",
+    "target": "demo_composite_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e54",
+    "source": "demo_btree",
+    "target": "demo_unique_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e55",
+    "source": "demo_btree",
+    "target": "demo_fulltext_index",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e56",
+    "source": "demo_btree",
+    "target": "demo_hash",
+    "type": "compares",
+    "label": "对比",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e57",
+    "source": "demo_clustered_index",
+    "target": "demo_secondary_index",
+    "type": "depends-on",
+    "label": "回表依赖",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e58",
+    "source": "demo_secondary_index",
+    "target": "demo_covering_index",
+    "type": "enables",
+    "label": "可避免回表",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e59",
+    "source": "demo_innodb",
+    "target": "demo_clustered_index",
+    "type": "belongs-to",
+    "label": "默认使用",
+    "dimensions": [
+      "storage"
+    ]
+  }
+]

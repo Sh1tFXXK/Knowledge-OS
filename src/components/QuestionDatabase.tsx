@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useGraphStore } from '../store/useGraph';
-import type { Question } from '../types';
+import type { QuestionAnswerStep } from '../types';
+import QuestionAnswerEditor from './QuestionAnswerEditor';
 
 type ViewMode = 'table' | 'cards';
 type SortBy = 'text' | 'status' | 'created';
@@ -10,15 +11,20 @@ type GroupBy = 'none' | 'status' | 'keyword';
 export default function QuestionDatabase() {
   const questions = useGraphStore((s) => s.questions);
   const nodePool = useGraphStore((s) => s.nodePool);
-  const setSelectedNode = useGraphStore((s) => s.setSelectedNode);
+  const focusNodeId = useGraphStore((s) => s.focusNodeId);
+  const selectedQuestionId = useGraphStore((s) => s.selectedQuestionId);
+  const openCard = useGraphStore((s) => s.openCard);
+  const setSelectedQuestion = useGraphStore((s) => s.setSelectedQuestion);
+  const addQuestion = useGraphStore((s) => s.addQuestion);
   const addNotification = useGraphStore((s) => s.addNotification);
   const toggleQuestion = useGraphStore((s) => s.toggleQuestion);
   const removeQuestion = useGraphStore((s) => s.removeQuestion);
   const updateQuestion = useGraphStore((s) => s.updateQuestion);
   const answerQuestion = useGraphStore((s) => s.answerQuestion);
-  const linkQuestionToNode = useGraphStore((s) => s.linkQuestionToNode);
 
   const [viewMode, setViewMode] = useState<ViewMode>('table');
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newQuestion, setNewQuestion] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortBy>('text');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
@@ -27,7 +33,6 @@ export default function QuestionDatabase() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
   const [editingAnswerId, setEditingAnswerId] = useState<string | null>(null);
-  const [editAnswer, setEditAnswer] = useState('');
 
   // 扩展问题数据，添加状态
   const questionsWithStatus = useMemo(() => {
@@ -99,8 +104,14 @@ export default function QuestionDatabase() {
           break;
         case 'keyword':
           // 根据关键词分组
-          const keywords = ['MVCC', 'SQL', '索引', '事务', 'InnoDB', 'B+树', '优化'];
-          const found = keywords.find(kw => q.text.includes(kw));
+          const keywords = [...new Set(
+            Object.values(nodePool).flatMap((n) => [
+              n.label,
+              ...(n.dimensions ?? []),
+              ...(n.tags ?? []),
+            ])
+          )].slice(0, 12);
+          const found = keywords.find(kw => q.text.toLowerCase().includes(kw.toLowerCase()));
           groupKey = found || '其他问题';
           break;
       }
@@ -115,14 +126,14 @@ export default function QuestionDatabase() {
   }, [sortedQuestions, groupBy]);
 
   const handleQuestionClick = (q: typeof sortedQuestions[0]) => {
-    // 如果有关联节点，直接跳转
+    setSelectedQuestion(q.id);
+
     if (q.relatedNodeId && nodePool[q.relatedNodeId]) {
-      setSelectedNode(q.relatedNodeId);
-      addNotification(`已定位到关联知识点: ${nodePool[q.relatedNodeId].label}`, 'success');
+      openCard(q.relatedNodeId);
+      addNotification(`已选中问题并打开解释卡: ${nodePool[q.relatedNodeId].label}`, 'success');
       return;
     }
 
-    // 查找相关节点
     const questionText = q.text.toLowerCase();
     let foundNodeId: string | null = null;
 
@@ -135,11 +146,18 @@ export default function QuestionDatabase() {
     }
 
     if (foundNodeId) {
-      setSelectedNode(foundNodeId);
-      addNotification(`已定位到相关知识点`, 'success');
-    } else {
-      addNotification(`未找到相关知识点`, 'info');
+      openCard(foundNodeId);
+      addNotification('已选中问题并打开关联解释卡', 'success');
     }
+  };
+
+  const handleAddQuestion = () => {
+    const trimmed = newQuestion.trim();
+    if (!trimmed) return;
+    addQuestion(trimmed, focusNodeId ?? undefined);
+    setNewQuestion('');
+    setShowAddForm(false);
+    addNotification('问题已添加到问题库', 'success');
   };
 
   const handleToggleStatus = (id: string, e: React.MouseEvent) => {
@@ -193,22 +211,18 @@ export default function QuestionDatabase() {
   const handleStartAnswerEdit = (q: typeof sortedQuestions[0], e: React.MouseEvent) => {
     e.stopPropagation();
     setEditingAnswerId(q.id);
-    setEditAnswer(q.answer || '');
   };
 
-  const handleSaveAnswer = () => {
+  const handleSaveAnswer = (answer: string, steps: QuestionAnswerStep[]) => {
     if (editingAnswerId) {
-      const trimmed = editAnswer.trim();
-      answerQuestion(editingAnswerId, trimmed);
+      answerQuestion(editingAnswerId, answer, steps);
       setEditingAnswerId(null);
-      setEditAnswer('');
       addNotification('答案已保存', 'success');
     }
   };
 
   const handleCancelAnswerEdit = () => {
     setEditingAnswerId(null);
-    setEditAnswer('');
   };
 
   const getRelatedNodeLabel = (q: typeof sortedQuestions[0]) => {
@@ -257,6 +271,37 @@ export default function QuestionDatabase() {
         </div>
 
         <div className="toolbar-right">
+          {showAddForm ? (
+            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
+              <input
+                className="input"
+                value={newQuestion}
+                onChange={(e) => setNewQuestion(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleAddQuestion();
+                  if (e.key === 'Escape') setShowAddForm(false);
+                }}
+                placeholder="输入新问题..."
+                autoFocus
+                style={{ width: 220, fontSize: 11 }}
+              />
+              <button type="button" className="btn btn-primary btn-sm" onClick={handleAddQuestion}>
+                添加
+              </button>
+              <button type="button" className="btn btn-sm" onClick={() => setShowAddForm(false)}>
+                取消
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-sm"
+              onClick={() => setShowAddForm(true)}
+              title={focusNodeId ? '关联当前目录知识点' : '新建问题'}
+            >
+              + 新建问题
+            </button>
+          )}
           <button
             className={`btn-icon${viewMode === 'table' ? ' active' : ''}`}
             onClick={() => setViewMode('table')}
@@ -337,31 +382,24 @@ export default function QuestionDatabase() {
                       return (
                         <tr key={q.id}>
                           <td colSpan={5}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                              <div style={{ fontSize: 11, color: 'var(--text-secondary)', fontWeight: 500 }}>
-                                {q.text}
-                              </div>
-                              <textarea
-                                className="input"
-                                value={editAnswer}
-                                onChange={(e) => setEditAnswer(e.target.value)}
-                                placeholder="输入答案..."
-                                autoFocus
-                                rows={4}
-                                style={{ fontSize: 11, resize: 'vertical' }}
-                              />
-                              <div style={{ display: 'flex', gap: 4, justifyContent: 'flex-end' }}>
-                                <button onClick={handleSaveAnswer} className="btn btn-primary btn-sm">✓ 保存答案</button>
-                                <button onClick={handleCancelAnswerEdit} className="btn btn-sm">✕ 取消</button>
-                              </div>
-                            </div>
+                            <QuestionAnswerEditor
+                              question={q}
+                              nodePool={nodePool}
+                              onSave={handleSaveAnswer}
+                              onCancel={handleCancelAnswerEdit}
+                            />
                           </td>
                         </tr>
                       );
                     }
 
                     return (
-                      <tr key={q.id} onClick={() => handleQuestionClick(q)} style={{ cursor: 'pointer' }}>
+                      <tr
+                        key={q.id}
+                        className={q.id === selectedQuestionId ? 'row-selected' : undefined}
+                        onClick={() => handleQuestionClick(q)}
+                        style={{ cursor: 'pointer' }}
+                      >
                         <td>{q.text}</td>
                         <td>
                           <span className={`status-badge status-${q.status}`}>
@@ -467,22 +505,12 @@ export default function QuestionDatabase() {
                   if (isEditingAnswer) {
                     return (
                       <div key={q.id} className="question-card question-card-editing">
-                        <div style={{ fontSize: 11, color: 'var(--text-secondary)', fontWeight: 500, marginBottom: 8 }}>
-                          {q.text}
-                        </div>
-                        <textarea
-                          className="input"
-                          value={editAnswer}
-                          onChange={(e) => setEditAnswer(e.target.value)}
-                          placeholder="输入答案..."
-                          autoFocus
-                          rows={4}
-                          style={{ fontSize: 11, resize: 'vertical', marginBottom: 8 }}
+                        <QuestionAnswerEditor
+                          question={q}
+                          nodePool={nodePool}
+                          onSave={handleSaveAnswer}
+                          onCancel={handleCancelAnswerEdit}
                         />
-                        <div style={{ display: 'flex', gap: 4, justifyContent: 'flex-end' }}>
-                          <button onClick={handleSaveAnswer} className="btn btn-primary btn-sm">✓ 保存答案</button>
-                          <button onClick={handleCancelAnswerEdit} className="btn btn-sm">✕ 取消</button>
-                        </div>
                       </div>
                     );
                   }
@@ -490,7 +518,7 @@ export default function QuestionDatabase() {
                   return (
                     <div
                       key={q.id}
-                      className="question-card"
+                      className={`question-card${q.id === selectedQuestionId ? ' question-card-selected' : ''}`}
                       onClick={() => handleQuestionClick(q)}
                     >
                       <div className="question-card-header">
