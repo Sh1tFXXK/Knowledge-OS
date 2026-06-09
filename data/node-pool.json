@@ -309,40 +309,6 @@
       ]
     }
   },
-  "demo_undo_sys": {
-    "id": "demo_undo_sys",
-    "label": "Undo Log 子系统",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "card": {
-      "nodeId": "demo_undo_sys",
-      "title": "Undo Log 子系统",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "InnoDB 中负责 Undo 写入、回滚段与 purge 协同的子模块集合。"
-        },
-        {
-          "id": "mech",
-          "label": "机制",
-          "content": "与事务提交顺序、purge 线程交互。"
-        },
-        {
-          "id": "bound",
-          "label": "边界",
-          "content": "Undo 表空间满会导致阻塞。"
-        },
-        {
-          "id": "source",
-          "label": "来源",
-          "content": "InnoDB 内部模块"
-        }
-      ]
-    }
-  },
   "demo_vchain_sys": {
     "id": "demo_vchain_sys",
     "label": "版本链子系统",
@@ -415,7 +381,7 @@
   "demo_lock": {
     "id": "demo_lock",
     "label": "锁机制",
-    "locked": true,
+    "locked": false,
     "role": "mechanism",
     "dimensions": [
       "transaction",
@@ -565,7 +531,7 @@
   "demo_table_lock": {
     "id": "demo_table_lock",
     "label": "表级锁",
-    "locked": true,
+    "locked": false,
     "role": "mechanism",
     "dimensions": [
       "transaction",
@@ -601,7 +567,7 @@
   "demo_row_lock": {
     "id": "demo_row_lock",
     "label": "行级锁",
-    "locked": true,
+    "locked": false,
     "role": "mechanism",
     "dimensions": [
       "transaction",
@@ -637,7 +603,7 @@
   "demo_page_lock": {
     "id": "demo_page_lock",
     "label": "页面锁",
-    "locked": true,
+    "locked": false,
     "role": "mechanism",
     "dimensions": [
       "storage"
@@ -707,7 +673,7 @@
   "demo_shared_lock": {
     "id": "demo_shared_lock",
     "label": "共享锁",
-    "locked": true,
+    "locked": false,
     "role": "axiom",
     "dimensions": [
       "transaction"
@@ -742,7 +708,7 @@
   "demo_exclusive_lock": {
     "id": "demo_exclusive_lock",
     "label": "排他锁",
-    "locked": true,
+    "locked": false,
     "role": "axiom",
     "dimensions": [
       "transaction"
@@ -880,18 +846,19 @@
         "children": [
           {
             "label": "B+树",
-            "desc": "范围查询·有序",
             "nodeId": "demo_btree"
           },
           {
             "label": "哈希",
-            "desc": "等值查询·O(1)",
             "nodeId": "demo_hash"
           },
           {
             "label": "全文",
-            "desc": "文本搜索",
             "nodeId": "demo_fulltext_index"
+          },
+          {
+            "label": "索引对比",
+            "nodeId": "demo_index_compare"
           }
         ]
       },
@@ -1367,6 +1334,40 @@
       ]
     }
   },
+  "demo_query": {
+    "id": "demo_query",
+    "label": "查询优化",
+    "role": "mechanism",
+    "dimensions": [
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_query",
+      "title": "查询优化",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过索引选择、执行计划优化、SQL 重写等手段提升查询效率。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "优化器基于统计信息选择最优执行计划；覆盖索引避免回表；条件下推减少数据量。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "优化器可能选错索引；统计信息过期导致次优计划；部分 SQL 模式无法优化。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 优化器文档 · 高性能MySQL"
+        }
+      ]
+    }
+  },
   "demo_buffer": {
     "id": "demo_buffer",
     "label": "Buffer Pool",
@@ -1398,40 +1399,6 @@
           "id": "source",
           "label": "来源",
           "content": "InnoDB Buffer Pool"
-        }
-      ]
-    }
-  },
-  "demo_query": {
-    "id": "demo_query",
-    "label": "查询优化",
-    "role": "conclusion",
-    "dimensions": [
-      "performance"
-    ],
-    "card": {
-      "nodeId": "demo_query",
-      "title": "查询优化",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "通过索引、执行计划、统计信息等提升查询性能。"
-        },
-        {
-          "id": "mech",
-          "label": "机制",
-          "content": "优化器基于成本模型选择最优执行路径。"
-        },
-        {
-          "id": "bound",
-          "label": "边界",
-          "content": "需结合 EXPLAIN 分析和索引设计。"
-        },
-        {
-          "id": "source",
-          "label": "来源",
-          "content": "MySQL 查询优化"
         }
       ]
     }
@@ -1626,6 +1593,10 @@
           {
             "label": "MyISAM",
             "nodeId": "demo_myisam"
+          },
+          {
+            "label": "引擎对比",
+            "nodeId": "demo_engine_compare"
           }
         ]
       }
@@ -1637,22 +1608,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"存储引擎\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+          "content": "\"存储引擎\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1686,22 +1657,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"索引\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+          "content": "\"索引\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1747,22 +1718,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"事务\" 分类目录，包含 5 个知识节点和 0 个子目录。"
+          "content": "\"事务\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1800,22 +1771,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"日志系统\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+          "content": "\"日志系统\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1853,22 +1824,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"性能优化\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+          "content": "\"性能优化\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1918,22 +1889,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"MySQL\" 分类目录，包含 6 个知识节点和 0 个子目录。"
+          "content": "\"MySQL\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -1971,22 +1942,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"PostgreSQL\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+          "content": "\"PostgreSQL\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -2020,22 +1991,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"NoSQL\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+          "content": "\"NoSQL\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -2073,22 +2044,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"数据库\" 分类目录，包含 3 个知识节点和 0 个子目录。"
+          "content": "\"数据库\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -2122,22 +2093,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"数据结构\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+          "content": "\"数据结构\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -2167,22 +2138,22 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"算法与数据结构\" 分类目录，包含 1 个知识节点和 0 个子目录。"
+          "content": "\"算法与数据结构\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
         }
       ]
     }
@@ -2216,22 +2187,317 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"计算机科学\" 分类目录，包含 2 个知识节点和 0 个子目录。"
+          "content": "\"计算机科学\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
+        }
+      ]
+    }
+  },
+  "react_export_import": {
+    "id": "react_export_import",
+    "label": "React 导入导出",
+    "role": "mechanism",
+    "layoutHint": {
+      "x": 0.5,
+      "y": 0.35,
+      "color": "#61DAFB",
+      "size": 36
+    },
+    "dimensions": [
+      "react",
+      "architecture"
+    ],
+    "viewDimensions": [
+      {
+        "id": "export_types",
+        "name": "导出方式",
+        "color": "#61DAFB",
+        "hint": "定义组件如何暴露给外部模块。",
+        "children": [
+          {
+            "label": "export default",
+            "desc": "默认导出",
+            "nodeId": "react_default_export"
+          },
+          {
+            "label": "export function",
+            "desc": "命名导出",
+            "nodeId": "react_named_export"
+          },
+          {
+            "label": "混合导出",
+            "desc": "default + named"
+          }
+        ]
+      },
+      {
+        "id": "import_types",
+        "name": "导入方式",
+        "color": "#8b5cf6",
+        "hint": "根据导出类型选择匹配的导入语法。",
+        "children": [
+          {
+            "label": "import X",
+            "desc": "匹配默认导出",
+            "nodeId": "react_default_export"
+          },
+          {
+            "label": "import { X }",
+            "desc": "匹配命名导出",
+            "nodeId": "react_named_export"
+          },
+          {
+            "label": "import X, { Y }",
+            "desc": "混合导入"
+          },
+          {
+            "label": "import { X as Z }",
+            "desc": "重命名导入",
+            "nodeId": "react_import_aliasing"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_export_import",
+      "title": "React 导入导出机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "React 项目通过 ES6 模块系统（import/export）实现组件的组合、重用和代码组织。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "导出使组件在当前文件外可用；导入允许其他文件引用这些组件。通常根组件名为 App.jsx。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "必须在文件顶层导出；组件名首字母通常大写以符合 JSX 规范。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "React 官方文档 · MDN Modules"
+        }
+      ]
+    }
+  },
+  "react_default_export": {
+    "id": "react_default_export",
+    "label": "默认导出",
+    "role": "axiom",
+    "layoutHint": {
+      "x": 0.35,
+      "y": 0.15,
+      "color": "#8b5cf6",
+      "size": 28
+    },
+    "dimensions": [
+      "react"
+    ],
+    "viewDimensions": [
+      {
+        "id": "def_syntax",
+        "name": "默认模式语法",
+        "color": "#8b5cf6",
+        "hint": "每个文件限一个导出项。",
+        "children": [
+          {
+            "label": "行内导出",
+            "desc": "export default function Cat() {...}"
+          },
+          {
+            "label": "末尾导出",
+            "desc": "export default Cat;"
+          },
+          {
+            "label": "常规导入",
+            "desc": "import Cat from './Cat';"
+          },
+          {
+            "label": "重命名导入",
+            "desc": "import MyKitty from './Cat';"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_default_export",
+      "title": "默认导出 (Default Export)",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "每个模块（文件）只能有一个的主要导出项，使用 `export default` 关键字。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "导入时不需要花括号，可以自定义导入名称。示例：`import MyCat from './Cat'`。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "由于每个文件限一个，适合主要职责单一的组件文件。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "ECMAScript 2015 (ES6) 规范"
+        }
+      ]
+    }
+  },
+  "react_named_export": {
+    "id": "react_named_export",
+    "label": "命名导出",
+    "role": "axiom",
+    "layoutHint": {
+      "x": 0.65,
+      "y": 0.15,
+      "color": "#ec4899",
+      "size": 28
+    },
+    "dimensions": [
+      "react"
+    ],
+    "viewDimensions": [
+      {
+        "id": "named_syntax",
+        "name": "命名模式语法",
+        "color": "#ec4899",
+        "hint": "必须使用花括号且名称匹配。",
+        "children": [
+          {
+            "label": "声明导出",
+            "desc": "export function Dog() {...}"
+          },
+          {
+            "label": "列表导出",
+            "desc": "export { Cat, Dog };"
+          },
+          {
+            "label": "解构导入",
+            "desc": "import { Dog } from './Animals';"
+          },
+          {
+            "label": "别名导入",
+            "desc": "import { Dog as Fido }",
+            "nodeId": "react_import_aliasing"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_named_export",
+      "title": "命名导出 (Named Export)",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "一个模块可以导出多个项，每个项必须有唯一的名称。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "导入时必须使用花括号 `{}`，且名称必须与导出时完全匹配（除非重命名）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "适用于组件库、工具函数集合等包含多个导出项的文件。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "ES6 模块规范"
+        }
+      ]
+    }
+  },
+  "react_import_aliasing": {
+    "id": "react_import_aliasing",
+    "label": "导入重命名",
+    "role": "mechanism",
+    "layoutHint": {
+      "x": 0.8,
+      "y": 0.3,
+      "color": "#f59e0b",
+      "size": 24
+    },
+    "dimensions": [
+      "react"
+    ],
+    "card": {
+      "nodeId": "react_import_aliasing",
+      "title": "导入重命名 (as 关键字)",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在导入时使用 `as` 术语为组件指定一个别名。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "语法：`import { Original as Alias } from './file'`。用于解决命名冲突或语境优化。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "仅在当前文件中有效，不影响原始导出名称。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JS 模块规范"
+        }
+      ]
+    }
+  },
+  "n_web_dev": {
+    "id": "n_web_dev",
+    "label": "Web 开发",
+    "role": "subsystem",
+    "dimensions": [],
+    "viewDimensions": [
+      {
+        "id": "web_frameworks",
+        "name": "前端框架",
+        "color": "#61DAFB",
+        "children": [
+          {
+            "label": "React",
+            "nodeId": "react_export_import"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "n_web_dev",
+      "title": "Web 开发",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "构建互联网应用的技术体系，包括前端、后端与工具链。"
         }
       ]
     }
@@ -2261,22 +2527,738 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"知识宇宙\" 分类目录，包含 1 个知识节点和 0 个子目录。"
+          "content": "\"知识宇宙\" 知识节点，作为该层级的核心聚合节点。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "作为分类节点组织相关知识，不承载具体机制。"
+          "content": "作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。"
         },
         {
           "id": "bound",
           "label": "边界",
-          "content": "分类范围由子项定义。"
+          "content": "边界范围由其包含的子知识点以及关联的邻居节点共同界定。"
         },
         {
           "id": "source",
           "label": "来源",
-          "content": "自动生成的分类节点。"
+          "content": "自动生成的知识节点。"
+        }
+      ]
+    }
+  },
+  "demo_index_compare": {
+    "id": "demo_index_compare",
+    "label": "索引对比",
+    "role": "plain",
+    "dimensions": [
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "demo_index_compare",
+      "title": "索引对比",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对比 B+树、哈希、全文等不同索引结构的适用场景与性能特性。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "【B+树】：全能型，支持等值、范围、排序，IO次数少（扇出大）。\n【哈希】：极致等值查询（O(1)），不支持范围与排序，存在哈希冲突。\n【全文】：针对关键词检索，使用倒排索引，适合复杂文本匹配。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "选择依据：高频范围查询选 B+树；仅点对点查询选哈希；大文本搜索选全文。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 官方文档 · 数据库索引设计与优化"
+        }
+      ]
+    }
+  },
+  "demo_engine_compare": {
+    "id": "demo_engine_compare",
+    "label": "存储引擎对比",
+    "role": "plain",
+    "dimensions": [
+      "storage"
+    ],
+    "card": {
+      "nodeId": "demo_engine_compare",
+      "title": "存储引擎对比",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对比 InnoDB 与 MyISAM 在架构、功能与并发控制上的差异。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "【InnoDB】：支持事务（ACID）、行级锁、外键；聚簇索引存储。崩溃恢复强（Redo Log）。\n【MyISAM】：不支持事务；仅支持表级锁；非聚簇存储。插入速度快，内存消耗低。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "现代应用首选 InnoDB。MyISAM 仅限只读/高频插入且无需事务的特殊场景（如日志分析，但现在多被 ClickHouse 等取代）。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "MySQL 8.0 官方手册"
+        }
+      ]
+    }
+  },
+  "react_conditional_rendering": {
+    "id": "react_conditional_rendering",
+    "label": "条件式渲染",
+    "role": "mechanism",
+    "dimensions": [
+      "frontend"
+    ],
+    "viewDimensions": [
+      {
+        "id": "rendering_mechanisms",
+        "name": "渲染机制",
+        "color": "#61DAFB",
+        "hint": "根据条件动态显示内容的三种核心机制。",
+        "children": [
+          {
+            "label": "if 语句",
+            "desc": "最基础的多分支判断或提前返回模式",
+            "nodeId": "react_conditional_if"
+          },
+          {
+            "label": "三元操作符 (?:)",
+            "desc": "适用于 JSX 内部的二选一内联计算",
+            "nodeId": "react_conditional_ternary"
+          },
+          {
+            "label": "逻辑与 (&&)",
+            "desc": "适用于 JSX 内部单分支有无判断，注意 0 陷阱",
+            "nodeId": "react_conditional_and"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_conditional_rendering",
+      "title": "条件式渲染",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "React 中的条件式渲染允许你创建动态用户界面。它用于根据你的应用中的某些条件或状态显示不同的内容。"
+        },
+        {
+          "id": "mech",
+          "label": "概述",
+          "content": "使用条件式渲染的最常见方法包括：使用 `if` 语句、三元 `(?:)` 操作符和逻辑与 `(&&)` 操作符。\n\n在当前扁平节点系统中，我们已将每种条件式渲染机制单独拆分为独立的知识节点。请分别展开子节点以获取详尽的机制剖析、运行示例以及边界警告。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "React 官方参考文档 & 社区最佳实践指南"
+        }
+      ]
+    }
+  },
+  "react_conditional_if": {
+    "id": "react_conditional_if",
+    "label": "if 语句条件渲染",
+    "role": "mechanism",
+    "dimensions": [
+      "frontend"
+    ],
+    "viewDimensions": [
+      {
+        "id": "if_spec",
+        "name": "if 语句细节",
+        "color": "#ffb11b",
+        "hint": "经典 JavaScript 分支结构在组件主体中的应用。",
+        "children": [
+          {
+            "label": "提前返回 (Early Return)",
+            "desc": "如果满足条件，在函数体顶部提前返回组件"
+          },
+          {
+            "label": "多分支 if-else if",
+            "desc": "可用于复杂的、超过两个状态的多端界面分支"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_conditional_if",
+      "title": "if 语句渲染",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "原理",
+          "content": "条件式渲染最简单的形式使用 JavaScript 的 `if` 语句。由于 JSX 本身是语法糖（最终编译为 `React.createElement` 函数调用），因此不能直接嵌套在 JSX 的大括号内。所以，`if` 语句通常用在组件的主体部分，在 `return` 之前执行逻辑判断或进行**提前返回（Early Return）**。"
+        },
+        {
+          "id": "mech",
+          "label": "代码示例",
+          "content": "以下是基于 `isLoggedIn` 属性进行条件式渲染的示例：\n\n```jsx\nfunction Greeting({ isLoggedIn }) {\n  if (isLoggedIn) {\n    return <h1>Welcome back!</h1>;\n  }\n  return <h1>Please sign in</h1>;\n}\n```\n在此示例中，Greeting 组件查看 `isLoggedIn` 属性。如果它是 `true`，则提前返回欢迎消息，否则提示用户登录。\n\n在父级组件内使用 Greeting：\n```jsx\nfunction App() {\n  return (\n    <div className=\"App\">\n      <Greeting isLoggedIn={false} />\n    </div>\n  );\n}\n```"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "React 官方参考文档 & 社区最佳实践指南"
+        }
+      ]
+    }
+  },
+  "react_conditional_ternary": {
+    "id": "react_conditional_ternary",
+    "label": "三元操作符条件渲染",
+    "role": "mechanism",
+    "dimensions": [
+      "frontend"
+    ],
+    "viewDimensions": [
+      {
+        "id": "ternary_spec",
+        "name": "三元操作符细节",
+        "color": "#10b981",
+        "hint": "二值条件式内联 JSX 的完美契合方式。",
+        "children": [
+          {
+            "label": "内联渲染",
+            "desc": "直接嵌入 JSX 标签块内部，使代码紧凑"
+          },
+          {
+            "label": "嵌套三元（不推荐）",
+            "desc": "多层三元嵌套破坏可读性，此时应重构为 if 语句"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_conditional_ternary",
+      "title": "三元操作符 (?:) 渲染",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "原理",
+          "content": "三元操作符 `(?:)` 是一个表达式，因此它允许我们直接在 JSX 中进行**内联条件式渲染**。对于两个逻辑分支（二选一）的场景，它能够使 JSX 的层级更紧凑、代码更简洁直观。"
+        },
+        {
+          "id": "mech",
+          "label": "代码示例",
+          "content": "利用三元操作符，你可以将前述 `if` 判断改写为紧凑的单行内联表达式：\n\n```jsx\nfunction Greeting({ isLoggedIn }) {\n  return <h1>{isLoggedIn ? \"Welcome back!\" : \"Please sign in.\"}</h1>;\n}\n```\n三元操作符在检查 `isLoggedIn` 的真假值后，直接在 `{}` 内计算并渲染对应的消息分支。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "React 官方参考文档 & 社区最佳实践指南"
+        }
+      ]
+    }
+  },
+  "react_conditional_and": {
+    "id": "react_conditional_and",
+    "label": "逻辑与 (&&) 条件渲染",
+    "role": "mechanism",
+    "dimensions": [
+      "frontend"
+    ],
+    "viewDimensions": [
+      {
+        "id": "and_spec",
+        "name": "逻辑与 && 细节",
+        "color": "#ef4444",
+        "hint": "单分支渲染机制与 JavaScript 短路求值行为特性。",
+        "children": [
+          {
+            "label": "短路求值",
+            "desc": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
+          },
+          {
+            "label": "隐式零值渲染陷阱",
+            "desc": "左侧为 0 时会渲染出字符 0！"
+          },
+          {
+            "label": "安全转换（布尔化）",
+            "desc": "使用 >0 判断或双重否定 !!"
+          }
+        ]
+      }
+    ],
+    "card": {
+      "nodeId": "react_conditional_and",
+      "title": "逻辑与 (&&) 操作符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "原理",
+          "content": "逻辑与 `(&&)` 操作符用于**单分支条件渲染**（即当满足条件时渲染某内容，不满足条件时则不渲染任何内容）。它利用了 JavaScript 逻辑运算的短路求值（Short-circuit Evaluation）特性。"
+        },
+        {
+          "id": "mech",
+          "label": "代码示例",
+          "content": "如果 `message` 属性存在，则在界面中包裹并展示一个段落：\n\n```jsx\nfunction Notification({ message }) {\n  return (\n    <div>\n      {message && <p>{message}</p>}\n    </div>\n  );\n}\n```\n在此示例中，段落元素仅在 `message` 属性为真值时才被渲染。如果 `message` 为假值（如空字符串、`null` 或 `undefined`），该表达式会计算为假值，React 则不会向屏幕渲染任何内容。"
+        },
+        {
+          "id": "bound",
+          "label": "0 的渲染陷阱",
+          "content": "在使用 `&&` 操作符时，如果左侧表达式评估为假值（例如空字符串、null、undefined 或 0），右侧的元素就不会被渲染。\n\n【⚠️ 危险：假值 0 的渲染陷阱】\n如果左侧的表达式结果是数字 `0`，**React 仍会把数字 `0` 渲染到屏幕上**！这是因为 `0` 是一个有效的 React 节点。为了避免在 UI 上不小心暴露出多余 of \"0\"，请务必确保左侧表达式是明确的布尔值。\n\n*   **正例（明确的布尔判断）**：`{count > 0 && <p>{count}</p>}`\n*   **反例（隐式零值渲染陷阱）**：`{count && <p>{count}</p>}`（当 count 为 0 时，会在界面显示数字 0）"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "React 官方参考文档 & 社区最佳实践指南"
+        }
+      ]
+    }
+  },
+  "k_1781002610469_nik1ek": {
+    "id": "k_1781002610469_nik1ek",
+    "label": "Page",
+    "card": {
+      "nodeId": "k_1781002610469_nik1ek",
+      "title": "Page",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "整个innoDB存储的基本构件，InnoDB磁盘管理的最小单位"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    },
+    "viewDimensions": [
+      {
+        "id": "dim_1781002635297",
+        "name": "page结构",
+        "color": "#E58522",
+        "children": [
+          {
+            "label": "File Header",
+            "desc": "文件头，描述页信息",
+            "nodeId": "k_1781003561186_d5ngg6"
+          },
+          {
+            "label": "Page Header",
+            "desc": "页头，页的状态",
+            "nodeId": "k_1781005790853_943e43"
+          },
+          {
+            "label": "User Records",
+            "desc": "用户记录，存储数据行记录",
+            "nodeId": "k_1781005866277_bj0eht"
+          },
+          {
+            "label": "Free Space",
+            "nodeId": "k_1781008350988_rhnwyk"
+          }
+        ]
+      },
+      {
+        "id": "dim_1781002914120",
+        "name": "分类",
+        "color": "#58B2DC",
+        "children": [
+          {
+            "label": "事务数据页",
+            "nodeId": "k_1781003339612_gly0rm"
+          },
+          {
+            "label": "系统页",
+            "nodeId": "k_1781003318112_lryll2"
+          },
+          {
+            "label": "数据页（B+ tree）",
+            "nodeId": "k_1781002876731_3ct76l"
+          },
+          {
+            "label": "Undo页",
+            "nodeId": "k_1781003299034_og1pqa"
+          }
+        ]
+      }
+    ],
+    "role": "mechanism",
+    "dimensions": []
+  },
+  "k_1781002876731_3ct76l": {
+    "id": "k_1781002876731_3ct76l",
+    "label": "数据页（B+ tree）",
+    "card": {
+      "nodeId": "k_1781002876731_3ct76l",
+      "title": "数据页（B+ tree）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781003299034_og1pqa": {
+    "id": "k_1781003299034_og1pqa",
+    "label": "Undo页",
+    "card": {
+      "nodeId": "k_1781003299034_og1pqa",
+      "title": "Undo页",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781003318112_lryll2": {
+    "id": "k_1781003318112_lryll2",
+    "label": "系统页",
+    "card": {
+      "nodeId": "k_1781003318112_lryll2",
+      "title": "系统页",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781003339612_gly0rm": {
+    "id": "k_1781003339612_gly0rm",
+    "label": "事务数据页",
+    "card": {
+      "nodeId": "k_1781003339612_gly0rm",
+      "title": "事务数据页",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781003561186_d5ngg6": {
+    "id": "k_1781003561186_d5ngg6",
+    "label": "File Header",
+    "card": {
+      "nodeId": "k_1781003561186_d5ngg6",
+      "title": "File Header",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "文件头，描述页信息"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781005790853_943e43": {
+    "id": "k_1781005790853_943e43",
+    "label": "Page Header",
+    "card": {
+      "nodeId": "k_1781005790853_943e43",
+      "title": "Page Header",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "页头，页的状态"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781005866277_bj0eht": {
+    "id": "k_1781005866277_bj0eht",
+    "label": "User Records",
+    "card": {
+      "nodeId": "k_1781005866277_bj0eht",
+      "title": "User Records",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "用户记录，存储数据行记录"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781008350988_rhnwyk": {
+    "id": "k_1781008350988_rhnwyk",
+    "label": "Free Space",
+    "card": {
+      "nodeId": "k_1781008350988_rhnwyk",
+      "title": "Free Space",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781008515280_bvqrs9": {
+    "id": "k_1781008515280_bvqrs9",
+    "label": "File Trailer",
+    "card": {
+      "nodeId": "k_1781008515280_bvqrs9",
+      "title": "File Trailer",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781008568811_xsf4qa": {
+    "id": "k_1781008568811_xsf4qa",
+    "label": "Page Directory",
+    "card": {
+      "nodeId": "k_1781008568811_xsf4qa",
+      "title": "Page Directory",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781008748598_72gaz3": {
+    "id": "k_1781008748598_72gaz3",
+    "label": "FILE_PAGE_PREV",
+    "card": {
+      "nodeId": "k_1781008748598_72gaz3",
+      "title": "FILE_PAGE_PREV",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781008786381_wiun1h": {
+    "id": "k_1781008786381_wiun1h",
+    "label": "FILE_PAGE_NEXT",
+    "card": {
+      "nodeId": "k_1781008786381_wiun1h",
+      "title": "FILE_PAGE_NEXT",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
         }
       ]
     }

@@ -1,0 +1,139 @@
+[
+  {
+    "id": "layer:app-entry",
+    "name": "应用入口与编排层",
+    "description": "React 应用根组件与入口文件，负责全局布局编排、视图切换路由、通知系统、store 初始化调用。App.tsx 组合所有布局/面板/核心组件，main.tsx 将根组件挂载到 DOM。",
+    "nodeIds": [
+      "file:src/main.tsx",
+      "file:src/App.tsx"
+    ]
+  },
+  {
+    "id": "layer:state-management",
+    "name": "状态管理层",
+    "description": "基于 Zustand 的中央全局状态管理 store（980行），管理 nodePool（知识节点池）、knowledgeEdges（知识边）、treeData（目录树）、视图状态（activeView/focusNodeId/selectedNodeId）、问题系统、推理规则、通知系统、透视维度。提供完整 CRUD action、持久化编排、导入导出、演示数据加载等所有业务逻辑。",
+    "nodeIds": [
+      "file:src/store/useGraph.ts"
+    ]
+  },
+  {
+    "id": "layer:type-definitions",
+    "name": "类型定义层",
+    "description": "TypeScript 接口与类型定义，定义核心知识数据模型（KnowledgeNode/KnowledgeEdge/TreeNode 三表分离架构）、解释卡系统（NodeExplanation/ExplanationTab）、问题系统（Question/QuestionAnswerStep）、推理系统（InferenceEngine/Rule/SubSystem）、视口系统（ViewDataPack/ViewNode/ViewEdge）、推理漏斗角色（KnowledgeRole）、多维视角（Perspective）等所有核心类型。env.d.ts 提供 React/CSS 模块环境类型声明。",
+    "nodeIds": [
+      "file:src/types.ts",
+      "file:src/env.d.ts"
+    ]
+  },
+  {
+    "id": "layer:knowledge-engine",
+    "name": "知识引擎层",
+    "description": "知识数据模型、持久化、图算法与工具函数层。包含：子图提取引擎 extractSubgraph（BFS 多跳节点采集、邻接表构建、维度过滤、dimmed 状态计算、角色排序、scope 解析）、树操作工具 treeUtils（不可变 CRUD）、树-节点绑定 treeBinding（nodeRef 引用）、树选择解析 treeSelection、问题-节点关联 questionLink、答案合成器 answerComposer、状态定义 state（PersistedAppState/GraphSlice）、工厂函数 defaults（genId/createKnowledgeNode/createKnowledgeEdge/树条目创建）、localStorage 持久化 persist（load/persist/clear/export/import + 类型守卫 + 版本迁移）、文件 API 持久化 filePersistence、演示数据加载 demoSeed、barrel 出口 index。",
+    "nodeIds": [
+      "file:src/knowledge/extractSubgraph.ts",
+      "file:src/knowledge/treeSelection.ts",
+      "file:src/knowledge/treeUtils.ts",
+      "file:src/knowledge/questionLink.ts",
+      "file:src/knowledge/index.ts",
+      "file:src/knowledge/state.ts",
+      "file:src/knowledge/defaults.ts",
+      "file:src/knowledge/persist.ts",
+      "file:src/knowledge/filePersistence.ts",
+      "file:src/knowledge/demoSeed.ts",
+      "file:src/knowledge/answerComposer.ts",
+      "file:src/knowledge/treeBinding.ts"
+    ]
+  },
+  {
+    "id": "layer:core-visualization",
+    "name": "核心可视化层",
+    "description": "中心 B 区知识图谱可视化组件与布局算法。包含：ReasoningKernel 主镜头编排容器（组合 DimensionCanvas + SubsystemStrip）、FunnelCanvas 三区推理漏斗 SVG 视图（公理/机制/结论分层排布 + hover/select 高亮 + 行内编辑）、funnelLayout 漏斗布局算法（纯函数计算 SVG 坐标）、DimensionCanvas SVG 多维分类树画布（维度选项卡 + 4 层编辑态）、SubsystemStrip 递归子系统卡片条（迷你 SVG 知识图谱 + 桥接装饰线）、subsystemData 纯数据提取函数（圆形布局算法 + SubsystemCardData 构建）、RuleComposer 可组合推理规则编辑器、SubsystemDeck 子系统邻域导航面板（面包屑 + 关系芯片）。",
+    "nodeIds": [
+      "file:src/core/ReasoningKernel.tsx",
+      "file:src/core/FunnelCanvas.tsx",
+      "file:src/core/funnelLayout.ts",
+      "file:src/core/DimensionCanvas.tsx",
+      "file:src/core/SubsystemStrip.tsx",
+      "file:src/core/subsystemData.ts",
+      "file:src/core/RuleComposer.tsx",
+      "file:src/core/SubsystemDeck.tsx"
+    ]
+  },
+  {
+    "id": "layer:ui-components",
+    "name": "UI 组件层",
+    "description": "全部用户界面 React 组件，分为三个子目录：layout（TopBar 顶栏导航/视图切换/面包屑、BottomBar 底栏工具/节点边添加/图统计/导入导出/演示数据/自动布局、UniverseTree 左侧目录树/右键菜单/递归渲染/搜索过滤/模态框/导入导出、RightSidePanel 右侧面板容器/QuickAnswer/QuickAdd）、panels（ExplanationCard 知识解释卡多 Tab 编辑/label/role/dimensions 编辑/树绑定、InferenceEngine 推理引擎动画面板/关键词匹配/分步推理、RelationNetwork 力导向关系网络 SVG 可视化/粒子物理模拟/拖拽、QuestionBank 问题详情面板/同级导航/内联编辑）、components（NodeDatabase 知识节点库表格/卡片视图/排序过滤分组/删除、QuestionAnswerEditor 分步答案编辑器/节点引用/草稿生成、QuestionDatabase 问题库面板/视图切换/搜索过滤排序分组/内联编辑、ViewDataList 视口数据列表）。",
+    "nodeIds": [
+      "file:src/layout/TopBar.tsx",
+      "file:src/layout/BottomBar.tsx",
+      "file:src/layout/UniverseTree.tsx",
+      "file:src/layout/RightSidePanel.tsx",
+      "file:src/panels/ExplanationCard.tsx",
+      "file:src/panels/InferenceEngine.tsx",
+      "file:src/panels/RelationNetwork.tsx",
+      "file:src/panels/QuestionBank.tsx",
+      "file:src/components/NodeDatabase.tsx",
+      "file:src/components/QuestionAnswerEditor.tsx",
+      "file:src/components/QuestionDatabase.tsx",
+      "file:src/components/ViewDataList.tsx"
+    ]
+  },
+  {
+    "id": "layer:styles",
+    "name": "样式层",
+    "description": "CSS 样式文件，采用分层设计：main.css 全局样式重置与基础变量、tokens.css CSS 自定义属性/令牌（颜色/间距/字体）、layout.css 三栏布局（左树/中主视图/右面板）、components.css 通用组件样式（按钮/输入框/卡片/标签页）、database.css 数据库视图样式（表格/卡片/搜索栏）、animations.css 动画样式（滑入/淡入）。",
+    "nodeIds": [
+      "file:src/styles/main.css",
+      "file:src/styles/tokens.css",
+      "file:src/styles/layout.css",
+      "file:src/styles/components.css",
+      "file:src/styles/database.css",
+      "file:src/styles/animations.css"
+    ]
+  },
+  {
+    "id": "layer:data-infrastructure",
+    "name": "数据与基础设施层",
+    "description": "持久化数据文件、构建脚本、测试文件、配置文件与静态资源。包含：data/ 目录 7 个 JSON 数据文件（node-pool 节点池、knowledge-edges 边表、tree-data 目录树、universe-tree 副本、questions 问题库、subsystems 子系统、inference-responses 推理缓存）、scripts/ 目录 5 个工具脚本（answer-composer.test 答案合成器测试、tree-binding.test 目录绑定测试、question-link.test 问题关联测试、make-all-nodes 迁移脚本、export-data 数据导出）、配置文件（package.json 项目清单、vite.config.js Vite 配置+数据 API 中间件、tsconfig.json/tsconfig.node.json TypeScript 编译配置、skills-lock.json Agent skills 锁定）、public/clear-storage.html 调试工具页、Vite 预打包第三方依赖缓存。",
+    "nodeIds": [
+      "file:data/inference-responses.json",
+      "file:data/knowledge-edges.json",
+      "file:data/node-pool.json",
+      "file:data/questions.json",
+      "file:data/subsystems.json",
+      "file:data/tree-data.json",
+      "file:data/universe-tree.json",
+      "file:scripts/question-link.test.mjs",
+      "file:scripts/answer-composer.test.mjs",
+      "file:scripts/tree-binding.test.mjs",
+      "file:scripts/make-all-nodes.ts",
+      "file:scripts/export-data.ts",
+      "file:public/clear-storage.html",
+      "file:package.json",
+      "file:skills-lock.json",
+      "file:tsconfig.json",
+      "file:tsconfig.node.json",
+      "file:vite.config.js",
+      "file:.vite/deps/react-CoTh1R2n.js",
+      "file:.vite/deps/react-dom_client.js",
+      "file:.vite/deps/react.js",
+      "file:.vite/deps/react_jsx-dev-runtime.js",
+      "file:.vite/deps/zustand.js",
+      "file:.vite/deps_temp_468e8849/react-CoTh1R2n.js",
+      "file:.vite/deps_temp_468e8849/react-dom_client.js",
+      "file:.vite/deps_temp_468e8849/react.js",
+      "file:.vite/deps_temp_468e8849/react_jsx-dev-runtime.js",
+      "file:.vite/deps_temp_468e8849/zustand.js",
+      "file:.vite/deps_temp_469ef3d8/react-CoTh1R2n.js",
+      "file:.vite/deps_temp_469ef3d8/react-dom_client.js",
+      "file:.vite/deps_temp_469ef3d8/react.js",
+      "file:.vite/deps_temp_469ef3d8/react_jsx-dev-runtime.js",
+      "file:.vite/deps_temp_469ef3d8/zustand.js",
+      "file:.vite/deps_temp_fcede173/react-CoTh1R2n.js",
+      "file:.vite/deps_temp_fcede173/react-dom_client.js",
+      "file:.vite/deps_temp_fcede173/react.js",
+      "file:.vite/deps_temp_fcede173/react_jsx-dev-runtime.js",
+      "file:.vite/deps_temp_fcede173/zustand.js"
+    ]
+  }
+]

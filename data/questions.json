@@ -109,15 +109,6 @@
     "updatedAt": 1780812181640
   },
   {
-    "id": "q_lock_7",
-    "text": "行级锁为什么会发生死锁？",
-    "answered": true,
-    "relatedNodeId": "demo_deadlock",
-    "answer": "行级锁会出现死锁，表级锁不会。\n\n原因：多个事务以不同顺序锁定不同行时，可能形成循环等待——事务 A 持有行 1 等待行 2，事务 B 持有行 2 等待行 1，互相阻塞即死锁。InnoDB 使用等待图算法检测死锁，并回滚代价最小的事务。",
-    "createdAt": 1780812181640,
-    "updatedAt": 1780812181640
-  },
-  {
     "id": "q_lock_8",
     "text": "乐观锁是如何实现冲突检测的？",
     "answered": true,
@@ -143,5 +134,58 @@
     "answer": "InnoDB 存储引擎既支持行级锁，也支持表级锁，默认情况下采用行级锁。\n\nMyISAM 和 MEMORY 仅支持表级锁；BDB 采用页面锁，也支持表级锁。InnoDB 行级锁通过索引实现，并发度最高，但可能出现死锁。",
     "createdAt": 1780812181640,
     "updatedAt": 1780812181640
+  },
+  {
+    "id": "rq_q1",
+    "text": "React 中如何进行默认导出？",
+    "answered": true,
+    "relatedNodeId": "react_default_export",
+    "answer": "使用 `export default ComponentName` 语法。每个文件只能有一个默认导出，导入时可以自定义名称且不需要花括号。",
+    "createdAt": 1780831200000,
+    "updatedAt": 1780831200000
+  },
+  {
+    "id": "rq_q2",
+    "text": "一个 React 文件可以有多个默认导出吗？",
+    "answered": true,
+    "relatedNodeId": "react_default_export",
+    "answer": "不可以。每个模块（文件）只能有一个默认导出。如果需要导出多个项，应使用命名导出。",
+    "createdAt": 1780831200000,
+    "updatedAt": 1780831200000
+  },
+  {
+    "id": "rq_q3",
+    "text": "如何导入一个被重命名的命名组件？",
+    "answered": true,
+    "relatedNodeId": "react_import_aliasing",
+    "answer": "在导入时使用 `as` 关键字。例如：`import { OriginalComponent as NewName } from './file'`。",
+    "createdAt": 1780831200000,
+    "updatedAt": 1780831200000
+  },
+  {
+    "id": "rq_q4",
+    "text": "混合导出（默认+命名）在导入时有什么语法要求？",
+    "answered": true,
+    "relatedNodeId": "react_export_import",
+    "answer": "默认导出必须排在最前面，且不在花括号内；命名导出紧随其后，放在花括号 `{}` 中。例如：`import Default, { Named1, Named2 } from './file'`。",
+    "createdAt": 1780831200000,
+    "updatedAt": 1780831200000
+  },
+  {
+    "id": "rq_q5",
+    "text": "React 组件中的条件式渲染是如何工作的？",
+    "answered": true,
+    "relatedNodeId": "react_conditional_rendering",
+    "answer": "React 中的条件式渲染允许根据应用的状态或属性动态显示不同的内容。\n\n【常见实现方式】\n1. **if 语句**：最基础的形式，通常用于组件顶部的提前返回（Early Return）。\n2. **三元操作符 (?:)**：适用于 JSX 内联条件渲染，形式紧凑，如 `{isLoggedIn ? <Welcome /> : <Login />}`。\n3. **逻辑与 (&&) 操作符**：当满足条件时渲染某内容，不满足时不渲染任何内容，如 `{message && <p>{message}</p>}`。\n\n【防范警告（0 的渲染陷阱）】\n在使用 `&&` 操作符时，如果左侧的值为数字 `0`，React 仍会将 `0` 渲染到屏幕上！为了避免显示多余的 \"0\"，应当将左侧转换为明确的布尔值，例如使用 `{count > 0 && <p>{count}</p>}` 而非 `{count && <p>{count}</p>}`。",
+    "createdAt": 1780844254426,
+    "updatedAt": 1780844254426
+  },
+  {
+    "id": "q_1780844254426_jti56i",
+    "text": "如何将 Props 从父组件传递到子组件中 React？",
+    "answered": false,
+    "relatedNodeId": "react_export_import",
+    "createdAt": 1780844254426,
+    "updatedAt": 1780844254426
   }
 ]

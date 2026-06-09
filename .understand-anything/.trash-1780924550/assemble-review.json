@@ -1,0 +1,67 @@
+{
+  "issues": [
+    "CRITICAL: src/types.ts has no dedicated file node (id='file:src/types.ts'). It is the most imported file in the project — useGraph.ts, defaults.ts, state.ts, persist.ts, demoSeed.ts, treeBinding.ts, answerComposer.ts, UniverseTree.tsx, ExplanationCard.tsx, and ViewDataList.tsx all import from '../types'. The assembler dropped 4 edges targeting 'file:src/types.ts' per the merge report. The 6 batch1 sub-nodes (batch1_knowledge_data_model, batch1_question_system, batch1_inference_system, batch1_explanation_card, batch1_view_system, batch1_knowledge_role_funnel) all claim filePath='src/types.ts' but are semantic decomposition nodes, not the actual file node. No standard imports edges exist from any consumer file to any of these batch1 sub-nodes.",
+    "CRITICAL: 18 nodes are missing the 'type' field entirely. These are all batch1 conceptual nodes (batch1_knowledge_data_model through batch1_persistence_architecture). Every node in the graph must have a 'type' field for correct rendering and filtering.",
+    "MISSING FILES: scripts/dimension-canvas-editing.test.mjs and scripts/explanation-card-binding.test.mjs exist in the repository but have no nodes in the graph. These are tracked test scripts.",
+    "MISSING FILES: 11 source files only exist as batch1 virtual nodes with IDs like 'file:batch1_*' instead of standard 'file:src/...' format. Affected: src/knowledge/answerComposer.ts, src/knowledge/defaults.ts, src/knowledge/demoSeed.ts, src/knowledge/filePersistence.ts, src/knowledge/persist.ts, src/knowledge/state.ts, src/knowledge/treeBinding.ts, src/components/QuestionAnswerEditor.tsx, src/components/QuestionDatabase.tsx, src/components/ViewDataList.tsx, scripts/export-data.ts. These 11 files have no standard file node, making them invisible to import-edge linking from the rest of the graph.",
+    "MISSING IMPORT EDGES: The central store (file:src/store/useGraph.ts) has recovered importMap edges to extractSubgraph.ts, questionLink.ts, treeSelection.ts, and treeUtils.ts, but critically MISSING imports edges to: (a) src/types.ts — imports ~15 type definitions, (b) src/knowledge/defaults.ts — uses createKnowledgeNode/createKnowledgeEdge/genId, (c) src/knowledge/persist.ts — uses persistAppState/loadPersistedAppState, (d) src/knowledge/state.ts — imports PersistedAppState/GraphSlice types.",
+    "MISSING IMPORT EDGES: The knowledge layer files with only batch1 nodes have no incoming imports edges from their consumers. For example: batch1_question_editor imports from batch1_answer_composer via a batch1 edge, but there is no edge showing that UniverseTree.tsx or ExplanationCard.tsx import from defaults.ts or treeUtils.ts (the treeUtils.ts edge exists because it has a standard node).",
+    "28 Vite cache/dependency nodes pollute the graph. These represent 5 vendor modules (react, react-dom, react-jsx-runtime, zustand) duplicated across 4 stale cache directories (.vite/deps/, .vite/deps_temp_468e8849/, .vite/deps_temp_469ef3d8/, .vite/deps_temp_fcede173/) plus 4 metadata/package.json nodes. These are build artifacts, not source code. 25 are effectively duplicate representations of the same 5 modules.",
+    "Misclassified nodes: 'document:index.html' is the project's HTML entry point but typed as 'document' instead of 'file'. '.claude/settings.json', '.understand-anything/.understandignore', and '.understand-anything/config.json' are tool config files typed as 'document' but are noise in the knowledge graph."
+  ],
+  "warnings": [
+    "14 .agents/skills/*/SKILL.md nodes are agent skill definitions, not project code. They add 14 document nodes unrelated to the codebase architecture.",
+    "The merge report indicates 18 complexity values defaulted from None to 'moderate' — all batch1 nodes have complexity='moderate' which may not reflect actual complexity (e.g., extractSubgraph.ts is correctly 'complex' via its standard node but batch1_answer_composer is uniformly 'moderate').",
+    "Edge type inconsistency: 'depends-on' (7 edges, batch1 convention) vs 'depends_on' (13 edges, standard convention). These are semantically identical but use different naming conventions.",
+    "No edges exist from any standard file node to any batch1-only file node (e.g., no edge from file:src/layout/RightSidePanel.tsx to file:batch1_question_editor even though RightSidePanel likely uses QuestionAnswerEditor). The batch1 and standard node ecosystems are disconnected except through the shared extractSubgraph/treeUtils nodes that happen to have standard nodes.",
+    "src/core/ReasoningKernel.tsx.bak exists on disk but is not tracked in git. Its absence from the graph is acceptable but the file scanner should not have picked it up. Not an issue per se, but indicates the scanner may be picking up untracked backup files.",
+    "Recovered importMap edges for vite cache modules create 16 edges between build artifacts. These are technically correct (vite bundles do import from each other) but are structural noise."
+  ],
+  "statistics": {
+    "totalNodes": 189,
+    "totalEdges": 212,
+    "nodesByType": {
+      "file": 65,
+      "document": 45,
+      "function": 37,
+      "class": 20,
+      "NO_TYPE": 18,
+      "config": 4
+    },
+    "edgesByType": {
+      "imports": 68,
+      "contains": 61,
+      "calls": 50,
+      "depends_on": 13,
+      "depends-on": 7,
+      "part-of": 5,
+      "produces": 2,
+      "delegates-to": 1,
+      "uses": 1,
+      "producer-consumer": 1,
+      "reads": 1,
+      "consumes": 1,
+      "realizes": 1
+    },
+    "notes": {
+      "viteCacheNodes": 28,
+      "batch1NodesMissingType": 18,
+      "filesWithoutStandardNode": 11,
+      "missingFileNodes": 3,
+      "duplicateNodeIds": 0,
+      "danglingEdges": 0
+    }
+  },
+  "recommendations": [
+    "P0: Create standard file node 'file:src/types.ts' and rewire all imports edges from consumer files (useGraph.ts, defaults.ts, state.ts, persist.ts, demoSeed.ts, treeBinding.ts, answerComposer.ts, UniverseTree.tsx, ExplanationCard.tsx, ViewDataList.tsx) to point to it instead of being dropped.",
+    "P0: Add 'type' field to all 18 batch1 nodes. The type should be 'file' for nodes that map to actual source files (11 of 18) and 'concept' or 'module' for the 6 types.ts decomposition nodes and 1 architectural concept node.",
+    "P1: Generate standard 'file:src/...' nodes for the 11 files that only have batch1 virtual nodes. Link them bidirectionally: the batch1 virtual node should have a 'decomposes' or 'details' edge to the standard file node, and the standard file node should have a 'contains' edge to its batch1 sub-nodes. This bridges the two naming ecosystems.",
+    "P1: Add the 2 missing test script nodes (scripts/dimension-canvas-editing.test.mjs, scripts/explanation-card-binding.test.mjs) with imports edges to their modules under test.",
+    "P2: Normalize edge type naming — consolidate 'depends-on' and 'depends_on' into a single convention. The batch1 convention uses kebab-case ('depends-on', 'part-of', 'delegates-to', 'producer-consumer') while standard edges use snake_case ('depends_on', 'calls', 'imports', 'contains'). Pick one and remap.",
+    "P2: Filter out .vite/deps* nodes from the graph. These are build cache artifacts. If version-pinning information is needed, keep at most one copy per module in the active .vite/deps/ directory.",
+    "P2: Filter out .agents/skills/* and tool config files (.claude/, .understand-anything/config.json) or add them to .understandignore. They are not part of the project codebase.",
+    "P3: Recover the dropped imports edges that the assembler could not fix: specifically the 4 edges targeting 'file:src/types.ts' and any others that were dropped. After creating the standard types.ts node, these can be restored.",
+    "P3: Add missing imports edges from useGraph.ts to defaults.ts, persist.ts, and state.ts to complete the central store's dependency graph.",
+    "P3: Reclassify 'document:index.html' to type 'file' since it is the application HTML entry point, not a documentation file."
+  ]
+}

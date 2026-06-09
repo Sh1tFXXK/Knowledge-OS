@@ -30,7 +30,7 @@ export function resolveTreeBindingTarget(
 ): string | null {
   const node = findTreeNodeById(tree, treeNodeId);
   if (!node) return null;
-  return node.nodeRef ?? node.id;
+  return node.nodeRef;
 }
 
 export function createTreeBindingEdge({

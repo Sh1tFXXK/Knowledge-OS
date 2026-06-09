@@ -1,0 +1,1006 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 4,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "src/core/DimensionCanvas.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 502,
+      "nonEmptyLines": 466,
+      "functions": [
+        {
+          "name": "DimensionCanvas",
+          "startLine": 26,
+          "endLine": 366,
+          "params": [
+            "{ node, viewDimensions }"
+          ]
+        },
+        {
+          "name": "resolveNodeIdByLabel",
+          "startLine": 368,
+          "endLine": 380,
+          "params": [
+            "label",
+            "nodePool"
+          ]
+        },
+        {
+          "name": "DimTree",
+          "startLine": 382,
+          "endLine": 502,
+          "params": [
+            "{\n  dim,\n  rootLabel,\n  selectedNodeId,\n  hoveredChild,\n  onHover,\n  onChildClick,\n  onChildEdit,\n}"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "DimensionCanvas",
+          "line": 26,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 27
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 28
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 29
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 30
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 31
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 32
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useGraphStore",
+          "lineNumber": 33
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 35
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 36
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 37
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 38
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 39
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 40
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 41
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 42
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 43
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "(node.dimensions ?? []).join",
+          "lineNumber": 43
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 44
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 45
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 46
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 47
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 48
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 49
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useState",
+          "lineNumber": 50
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useEffect",
+          "lineNumber": 53
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDims",
+          "lineNumber": 54
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "viewDimensions.find",
+          "lineNumber": 55
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setActiveDim",
+          "lineNumber": 56
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "useEffect",
+          "lineNumber": 61
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftLabel",
+          "lineNumber": 62
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftRole",
+          "lineNumber": 63
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDimensions",
+          "lineNumber": 64
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "(node.dimensions ?? []).join",
+          "lineNumber": 64
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDefinition",
+          "lineNumber": 65
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "dims.find",
+          "lineNumber": 72
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "newName.trim",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "Date.now",
+          "lineNumber": 77
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "nextColor",
+          "lineNumber": 78
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setDims",
+          "lineNumber": 80
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "updateKnowledgeViewDimensions",
+          "lineNumber": 81
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setActiveDim",
+          "lineNumber": 82
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setNewName",
+          "lineNumber": 83
+        },
+        {
+          "caller": "handleAdd",
+          "callee": "setAdding",
+          "lineNumber": 84
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "dims.filter",
+          "lineNumber": 88
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "setDims",
+          "lineNumber": 89
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "updateKnowledgeViewDimensions",
+          "lineNumber": 90
+        },
+        {
+          "caller": "handleDelete",
+          "callee": "setActiveDim",
+          "lineNumber": 91
+        },
+        {
+          "caller": "handleChildClick",
+          "callee": "resolveNodeIdByLabel",
+          "lineNumber": 95
+        },
+        {
+          "caller": "handleChildClick",
+          "callee": "openCard",
+          "lineNumber": 98
+        },
+        {
+          "caller": "startEdit",
+          "callee": "setDraftLabel",
+          "lineNumber": 102
+        },
+        {
+          "caller": "startEdit",
+          "callee": "setDraftRole",
+          "lineNumber": 103
+        },
+        {
+          "caller": "startEdit",
+          "callee": "setDraftDimensions",
+          "lineNumber": 104
+        },
+        {
+          "caller": "startEdit",
+          "callee": "(node.dimensions ?? []).join",
+          "lineNumber": 104
+        },
+        {
+          "caller": "startEdit",
+          "callee": "setDraftDefinition",
+          "lineNumber": 105
+        },
+        {
+          "caller": "startEdit",
+          "callee": "setEditing",
+          "lineNumber": 106
+        },
+        {
+          "caller": "cancelEdit",
+          "callee": "setEditing",
+          "lineNumber": 110
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "draftLabel.trim",
+          "lineNumber": 114
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "updateKnowledgeNodeLabel",
+          "lineNumber": 117
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "updateKnowledgeNodeMeta",
+          "lineNumber": 118
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "draftDimensions\n        .split(',')\n        .map((item) => item.trim())\n        .filter",
+          "lineNumber": 120
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "draftDimensions\n        .split(',')\n        .map",
+          "lineNumber": 120
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "draftDimensions\n        .split",
+          "lineNumber": 120
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "item.trim",
+          "lineNumber": 122
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "updateKnowledgeTab",
+          "lineNumber": 128
+        },
+        {
+          "caller": "saveEdit",
+          "callee": "setEditing",
+          "lineNumber": 131
+        },
+        {
+          "caller": "startDimEdit",
+          "callee": "setEditingDimId",
+          "lineNumber": 135
+        },
+        {
+          "caller": "startDimEdit",
+          "callee": "setDraftDimName",
+          "lineNumber": 136
+        },
+        {
+          "caller": "startDimEdit",
+          "callee": "setDraftDimHint",
+          "lineNumber": 137
+        },
+        {
+          "caller": "cancelDimEdit",
+          "callee": "setEditingDimId",
+          "lineNumber": 141
+        },
+        {
+          "caller": "cancelDimEdit",
+          "callee": "setDraftDimName",
+          "lineNumber": 142
+        },
+        {
+          "caller": "cancelDimEdit",
+          "callee": "setDraftDimHint",
+          "lineNumber": 143
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "draftDimName.trim",
+          "lineNumber": 148
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "dims.map",
+          "lineNumber": 150
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "draftDimHint.trim",
+          "lineNumber": 152
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "setDims",
+          "lineNumber": 155
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "updateKnowledgeViewDimensions",
+          "lineNumber": 156
+        },
+        {
+          "caller": "saveDimEdit",
+          "callee": "cancelDimEdit",
+          "lineNumber": 157
+        },
+        {
+          "caller": "startChildEdit",
+          "callee": "setEditingChild",
+          "lineNumber": 161
+        },
+        {
+          "caller": "startChildEdit",
+          "callee": "setDraftChildLabel",
+          "lineNumber": 162
+        },
+        {
+          "caller": "startChildEdit",
+          "callee": "setDraftChildDesc",
+          "lineNumber": 163
+        },
+        {
+          "caller": "cancelChildEdit",
+          "callee": "setEditingChild",
+          "lineNumber": 167
+        },
+        {
+          "caller": "cancelChildEdit",
+          "callee": "setDraftChildLabel",
+          "lineNumber": 168
+        },
+        {
+          "caller": "cancelChildEdit",
+          "callee": "setDraftChildDesc",
+          "lineNumber": 169
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "draftChildLabel.trim",
+          "lineNumber": 174
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "dims.map",
+          "lineNumber": 176
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "draftChildDesc.trim",
+          "lineNumber": 184
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "setDims",
+          "lineNumber": 188
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "updateKnowledgeViewDimensions",
+          "lineNumber": 189
+        },
+        {
+          "caller": "saveChildEdit",
+          "callee": "cancelChildEdit",
+          "lineNumber": 190
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftLabel",
+          "lineNumber": 210
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftRole",
+          "lineNumber": 216
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "EDITABLE_ROLES.map",
+          "lineNumber": 218
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDimensions",
+          "lineNumber": 225
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDefinition",
+          "lineNumber": 231
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "dims.map",
+          "lineNumber": 243
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setActiveDim",
+          "lineNumber": 250
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "e.stopPropagation",
+          "lineNumber": 261
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "startDimEdit",
+          "lineNumber": 261
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "e.stopPropagation",
+          "lineNumber": 265
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "handleDelete",
+          "lineNumber": 265
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setAdding",
+          "lineNumber": 273
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDimName",
+          "lineNumber": 282
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftDimHint",
+          "lineNumber": 288
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setNewName",
+          "lineNumber": 306
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "handleAdd",
+          "lineNumber": 308
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setAdding",
+          "lineNumber": 309
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setNewName",
+          "lineNumber": 309
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setAdding",
+          "lineNumber": 314
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setNewName",
+          "lineNumber": 314
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "startChildEdit",
+          "lineNumber": 331
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftChildLabel",
+          "lineNumber": 347
+        },
+        {
+          "caller": "DimensionCanvas",
+          "callee": "setDraftChildDesc",
+          "lineNumber": 353
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "label.split('/')[0].trim",
+          "lineNumber": 372
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "label.split",
+          "lineNumber": 372
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "Object.entries",
+          "lineNumber": 373
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "label.trim",
+          "lineNumber": 374
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "Object.entries",
+          "lineNumber": 376
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "label.includes",
+          "lineNumber": 377
+        },
+        {
+          "caller": "resolveNodeIdByLabel",
+          "callee": "kn.label.includes",
+          "lineNumber": 377
+        },
+        {
+          "caller": "DimTree",
+          "callee": "Math.max",
+          "lineNumber": 408
+        },
+        {
+          "caller": "DimTree",
+          "callee": "kids.map",
+          "lineNumber": 442
+        },
+        {
+          "caller": "DimTree",
+          "callee": "onHover",
+          "lineNumber": 452
+        },
+        {
+          "caller": "DimTree",
+          "callee": "onHover",
+          "lineNumber": 453
+        },
+        {
+          "caller": "DimTree",
+          "callee": "onChildClick",
+          "lineNumber": 454
+        },
+        {
+          "caller": "DimTree",
+          "callee": "e.stopPropagation",
+          "lineNumber": 488
+        },
+        {
+          "caller": "DimTree",
+          "callee": "onChildEdit",
+          "lineNumber": 489
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/core/ReasoningKernel.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 33,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "ReasoningKernel",
+          "startLine": 6,
+          "endLine": 33,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "ReasoningKernel",
+          "line": 6,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "ReasoningKernel",
+          "callee": "useGraphStore",
+          "lineNumber": 7
+        },
+        {
+          "caller": "ReasoningKernel",
+          "callee": "useGraphStore",
+          "lineNumber": 8
+        }
+      ],
+      "metrics": {
+        "importCount": 3,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/core/SubsystemStrip.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 94,
+      "nonEmptyLines": 86,
+      "functions": [
+        {
+          "name": "SubsystemStrip",
+          "startLine": 9,
+          "endLine": 94,
+          "params": [
+            "{ focusNodeId }"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "SubsystemStrip",
+          "line": 9,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "SubsystemStrip",
+          "callee": "useGraphStore",
+          "lineNumber": 10
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "useGraphStore",
+          "lineNumber": 11
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "useGraphStore",
+          "lineNumber": 12
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "useMemo",
+          "lineNumber": 14
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "getSubsystemCards",
+          "lineNumber": 15
+        },
+        {
+          "caller": "handleCardClick",
+          "callee": "openCard",
+          "lineNumber": 20
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "cards.map",
+          "lineNumber": 30
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "Math.max",
+          "lineNumber": 31
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "cards.map",
+          "lineNumber": 48
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "handleCardClick",
+          "lineNumber": 54
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "sub.es.map",
+          "lineNumber": 57
+        },
+        {
+          "caller": "SubsystemStrip",
+          "callee": "sub.pts.map",
+          "lineNumber": 71
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/core/subsystemData.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 101,
+      "nonEmptyLines": 88,
+      "functions": [
+        {
+          "name": "roleColor",
+          "startLine": 22,
+          "endLine": 24,
+          "params": [
+            "role"
+          ]
+        },
+        {
+          "name": "getSubsystemCards",
+          "startLine": 27,
+          "endLine": 47,
+          "params": [
+            "focusId",
+            "nodePool",
+            "edges",
+            "limit"
+          ]
+        },
+        {
+          "name": "buildCard",
+          "startLine": 49,
+          "endLine": 101,
+          "params": [
+            "id",
+            "nodePool",
+            "edges"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "getSubsystemCards",
+          "line": 27,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "getSubsystemCards",
+          "callee": "edges\n    .filter((e) => e.source === focusId && nodePool[e.target])\n    .map",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "edges\n    .filter",
+          "lineNumber": 33
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "edges.find",
+          "lineNumber": 37
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "edges\n        .filter((e) => e.source === parentEdge.source && e.target !== focusId && nodePool[e.target])\n        .map",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "edges\n        .filter",
+          "lineNumber": 39
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "[...new Set([...childIds, ...siblingIds])].slice",
+          "lineNumber": 44
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "ids.map",
+          "lineNumber": 46
+        },
+        {
+          "caller": "getSubsystemCards",
+          "callee": "buildCard",
+          "lineNumber": 46
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localIds.add",
+          "lineNumber": 57
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localIds.add",
+          "lineNumber": 58
+        },
+        {
+          "caller": "buildCard",
+          "callee": "[...localIds].filter((nid) => nodePool[nid]).slice",
+          "lineNumber": 61
+        },
+        {
+          "caller": "buildCard",
+          "callee": "[...localIds].filter",
+          "lineNumber": 61
+        },
+        {
+          "caller": "buildCard",
+          "callee": "edges.filter",
+          "lineNumber": 62
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localIds.has",
+          "lineNumber": 63
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localIds.has",
+          "lineNumber": 63
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localNodes.map",
+          "lineNumber": 67
+        },
+        {
+          "caller": "buildCard",
+          "callee": "Math.round",
+          "lineNumber": 73
+        },
+        {
+          "caller": "buildCard",
+          "callee": "Math.cos",
+          "lineNumber": 73
+        },
+        {
+          "caller": "buildCard",
+          "callee": "Math.round",
+          "lineNumber": 74
+        },
+        {
+          "caller": "buildCard",
+          "callee": "Math.sin",
+          "lineNumber": 74
+        },
+        {
+          "caller": "buildCard",
+          "callee": "localNodes.map",
+          "lineNumber": 78
+        },
+        {
+          "caller": "buildCard",
+          "callee": "idxMap.get",
+          "lineNumber": 81
+        },
+        {
+          "caller": "buildCard",
+          "callee": "idxMap.get",
+          "lineNumber": 82
+        },
+        {
+          "caller": "buildCard",
+          "callee": "es.push",
+          "lineNumber": 83
+        },
+        {
+          "caller": "buildCard",
+          "callee": "es.push",
+          "lineNumber": 86
+        },
+        {
+          "caller": "buildCard",
+          "callee": "defTab.slice",
+          "lineNumber": 94
+        },
+        {
+          "caller": "buildCard",
+          "callee": "roleColor",
+          "lineNumber": 95
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 1,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    }
+  ]
+}

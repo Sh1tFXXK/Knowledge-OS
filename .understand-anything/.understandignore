@@ -1,0 +1,29 @@
+# .understandignore — 要排除分析的文件的模式
+# 语法: 同 .gitignore (glob, # 注释, ! 取反, / 后缀表示目录)
+# 以下是建议 — 取消注释以激活。
+# 使用 ! 前缀强制包含被默认排除的项目。
+#
+# 内置默认（除非取反，否则始终排除）:
+#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, 等
+#
+# --- 来自 .gitignore (取消注释以排除) ---
+
+# *.swp
+# *.swo
+# *.agent
+# .claude
+# npm-debug.log*
+# .DS_Store
+# Thumbs.db
+# *_[0-9]*_[0-9]*_[0-9]*.tsx
+# *_[0-9]*_[0-9]*_[0-9]*.ts
+
+# --- 检测到的目录 (取消注释以排除) ---
+
+# scripts/
+
+# --- 测试文件模式 (取消注释以排除) ---
+
+# *.test.*
+# *.spec.*
+# *.snap

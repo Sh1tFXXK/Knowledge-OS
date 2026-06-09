@@ -1,0 +1,282 @@
+{
+  "scriptCompleted": true,
+  "filesAnalyzed": 3,
+  "filesSkipped": [],
+  "results": [
+    {
+      "path": "scripts/question-link.test.mjs",
+      "language": "javascript",
+      "fileCategory": "code",
+      "totalLines": 40,
+      "nonEmptyLines": 30,
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 0,
+        "functionCount": 0,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/knowledge/questionLink.ts",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 30,
+      "nonEmptyLines": 27,
+      "functions": [
+        {
+          "name": "questionsForNode",
+          "startLine": 4,
+          "endLine": 6,
+          "params": [
+            "questions",
+            "nodeId"
+          ]
+        },
+        {
+          "name": "pickQuestionForFocus",
+          "startLine": 9,
+          "endLine": 15,
+          "params": [
+            "questions",
+            "focusNodeId"
+          ]
+        },
+        {
+          "name": "resolveQuestionForNode",
+          "startLine": 20,
+          "endLine": 30,
+          "params": [
+            "questions",
+            "nodeId",
+            "currentId"
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "name": "questionsForNode",
+          "line": 4,
+          "isDefault": false
+        },
+        {
+          "name": "pickQuestionForFocus",
+          "line": 9,
+          "isDefault": false
+        },
+        {
+          "name": "resolveQuestionForNode",
+          "line": 20,
+          "isDefault": false
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "questionsForNode",
+          "callee": "questions.filter",
+          "lineNumber": 5
+        },
+        {
+          "caller": "pickQuestionForFocus",
+          "callee": "questionsForNode",
+          "lineNumber": 14
+        },
+        {
+          "caller": "resolveQuestionForNode",
+          "callee": "questionsForNode",
+          "lineNumber": 26
+        },
+        {
+          "caller": "resolveQuestionForNode",
+          "callee": "related.some",
+          "lineNumber": 28
+        }
+      ],
+      "metrics": {
+        "importCount": 1,
+        "exportCount": 3,
+        "functionCount": 3,
+        "classCount": 0
+      }
+    },
+    {
+      "path": "src/panels/QuestionBank.tsx",
+      "language": "typescript",
+      "fileCategory": "code",
+      "totalLines": 216,
+      "nonEmptyLines": 195,
+      "functions": [
+        {
+          "name": "QuestionBank",
+          "startLine": 5,
+          "endLine": 216,
+          "params": []
+        }
+      ],
+      "exports": [
+        {
+          "name": "QuestionBank",
+          "line": 5,
+          "isDefault": true
+        }
+      ],
+      "callGraph": [
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 6
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 7
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 8
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 9
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 10
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 11
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 12
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 13
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useGraphStore",
+          "lineNumber": 14
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useState",
+          "lineNumber": 16
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useState",
+          "lineNumber": 17
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useMemo",
+          "lineNumber": 19
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "questions.find",
+          "lineNumber": 20
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "useMemo",
+          "lineNumber": 24
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "questionsForNode",
+          "lineNumber": 27
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "siblingQuestions.findIndex",
+          "lineNumber": 31
+        },
+        {
+          "caller": "handleOpenRelatedNode",
+          "callee": "openCard",
+          "lineNumber": 44
+        },
+        {
+          "caller": "handleOpenRelatedNode",
+          "callee": "addNotification",
+          "lineNumber": 45
+        },
+        {
+          "caller": "handlePrev",
+          "callee": "setSelectedQuestion",
+          "lineNumber": 51
+        },
+        {
+          "caller": "handleNext",
+          "callee": "setSelectedQuestion",
+          "lineNumber": 57
+        },
+        {
+          "caller": "handleStartAnswerEdit",
+          "callee": "setEditAnswer",
+          "lineNumber": 63
+        },
+        {
+          "caller": "handleStartAnswerEdit",
+          "callee": "setEditingAnswer",
+          "lineNumber": 64
+        },
+        {
+          "caller": "handleSaveAnswer",
+          "callee": "answerQuestion",
+          "lineNumber": 69
+        },
+        {
+          "caller": "handleSaveAnswer",
+          "callee": "setEditingAnswer",
+          "lineNumber": 70
+        },
+        {
+          "caller": "handleSaveAnswer",
+          "callee": "addNotification",
+          "lineNumber": 71
+        },
+        {
+          "caller": "handleCancelAnswerEdit",
+          "callee": "setEditingAnswer",
+          "lineNumber": 75
+        },
+        {
+          "caller": "handleCancelAnswerEdit",
+          "callee": "setEditAnswer",
+          "lineNumber": 76
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "setActiveView",
+          "lineNumber": 117
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "setEditAnswer",
+          "lineNumber": 184
+        },
+        {
+          "caller": "QuestionBank",
+          "callee": "setActiveView",
+          "lineNumber": 208
+        }
+      ],
+      "metrics": {
+        "importCount": 2,
+        "exportCount": 1,
+        "functionCount": 1,
+        "classCount": 0
+      }
+    }
+  ]
+}

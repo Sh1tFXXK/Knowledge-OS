@@ -1,25 +1,30 @@
 {
-  "name": "fonted",
-  "version": "1.0.0",
-  "description": "",
+  "name": "knowledge-os",
+  "version": "3.0.0",
+  "description": "A multidimensional knowledge graph system for database internals.",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node scripts/tree-binding.test.mjs && node scripts/answer-composer.test.mjs && node scripts/question-link.test.mjs",
+    "test:all": "for f in scripts/*.test.mjs; do node \"$f\"; done"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "npx": "^10.2.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@types/node": "^25.9.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
     "typescript": "^6.0.3",
-    "vite": "^8.0.14"
+    "vite": "^8.0.16"
   }
 }

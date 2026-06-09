@@ -1,0 +1,246 @@
+{
+  "nodes": [
+    {
+      "id": "file:src/core/DimensionCanvas.tsx",
+      "type": "file",
+      "name": "DimensionCanvas.tsx",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "SVG 多维分类树画布：管理维度选项卡、分类子节点编辑（4层编辑态）、17个 useState",
+      "tags": [
+        "多维视图",
+        "SVG",
+        "分类树",
+        "可视化"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/core/ReasoningKernel.tsx",
+      "type": "file",
+      "name": "ReasoningKernel.tsx",
+      "filePath": "src/core/ReasoningKernel.tsx",
+      "summary": "中心主镜头编排容器：组合 DimensionCanvas + SubsystemStrip，处理空状态",
+      "tags": [
+        "编排",
+        "入口",
+        "容器",
+        "轻量"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/core/SubsystemStrip.tsx",
+      "type": "file",
+      "name": "SubsystemStrip.tsx",
+      "filePath": "src/core/SubsystemStrip.tsx",
+      "summary": "递归子系统卡片条：含迷你 SVG 知识图谱和桥接装饰线",
+      "tags": [
+        "子系统",
+        "卡片",
+        "递归",
+        "可视化"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/core/subsystemData.ts",
+      "type": "file",
+      "name": "subsystemData.ts",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "纯数据提取函数：圆形布局算法，从 nodePool+edges 构建 SubsystemCardData",
+      "tags": [
+        "数据提取",
+        "布局算法",
+        "纯函数"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "class",
+      "name": "DimensionCanvas",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "多维分类树画布组件（SVG 渲染）",
+      "tags": [
+        "react",
+        "组件",
+        "SVG"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "type": "class",
+      "name": "ReasoningKernel",
+      "filePath": "src/core/ReasoningKernel.tsx",
+      "summary": "中心主镜头组件",
+      "tags": [
+        "react",
+        "组件",
+        "容器"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "class",
+      "name": "SubsystemStrip",
+      "filePath": "src/core/SubsystemStrip.tsx",
+      "summary": "子系统卡片条组件",
+      "tags": [
+        "react",
+        "组件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/DimensionCanvas.tsx:resolveNodeIdByLabel",
+      "type": "function",
+      "name": "resolveNodeIdByLabel",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "按标签解析节点 ID",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/core/DimensionCanvas.tsx:DimTree",
+      "type": "function",
+      "name": "DimTree",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "维度分类树 SVG 子组件",
+      "tags": [
+        "react",
+        "SVG",
+        "子组件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:getSubsystemCards",
+      "type": "function",
+      "name": "getSubsystemCards",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "收集焦点节点的子系统卡片数据",
+      "tags": [
+        "数据提取"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:buildCard",
+      "type": "function",
+      "name": "buildCard",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "构建单张子系统卡片数据",
+      "tags": [
+        "数据构建"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:roleColor",
+      "type": "function",
+      "name": "roleColor",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "角色颜色映射",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/core/DimensionCanvas.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/core/SubsystemStrip.tsx",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "file:src/core/subsystemData.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/subsystemData.ts",
+      "target": "file:src/types.ts",
+      "type": "imports",
+      "weight": 0.7
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "function:src/core/DimensionCanvas.tsx:DimTree",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "file:src/core/subsystemData.ts",
+      "target": "function:src/core/subsystemData.ts:getSubsystemCards",
+      "type": "contains",
+      "weight": 1
+    },
+    {
+      "source": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "target": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "calls",
+      "weight": 0.8
+    },
+    {
+      "source": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "target": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "calls",
+      "weight": 0.8
+    }
+  ]
+}

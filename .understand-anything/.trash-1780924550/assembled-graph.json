@@ -1,0 +1,3319 @@
+{
+  "version": "1.0.0",
+  "project": {
+    "name": "knowledge-os",
+    "languages": [
+      "css",
+      "html",
+      "javascript",
+      "json",
+      "markdown",
+      "typescript"
+    ],
+    "frameworks": [
+      "React",
+      "Vite",
+      "Zustand"
+    ],
+    "description": "多维知识图谱系统，用于数据库内核知识学习——三栏布局（目录树/可视化/解释卡），三表分离数据模型（nodePool/knowledgeEdges/treeData），SVG 分类树+力导图双视图",
+    "analyzedAt": "2026-06-08T13:07:32.763Z",
+    "gitCommitHash": "e3e6895dd7daa40851323d1ba8f27c0b11f3e5e9"
+  },
+  "nodes": [
+    {
+      "id": "file:src/App.tsx",
+      "type": "file",
+      "name": "App.tsx",
+      "filePath": "src/App.tsx",
+      "summary": "应用根组件，负责全局布局编排：顶栏、左侧目录树、中间主视图区（推理内核/节点库/问题库切换）、右侧面板、底栏工具栏及通知 Toast 系统。通过 useEffect 调用 store 初始化。",
+      "tags": [
+        "React",
+        "根组件",
+        "layout",
+        "通知系统",
+        "视图切换"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/NodeDatabase.tsx",
+      "type": "file",
+      "name": "NodeDatabase.tsx",
+      "filePath": "src/components/NodeDatabase.tsx",
+      "summary": "知识节点库面板，提供对全局 nodePool 的表格/卡片两种视图模式，支持按名称、角色、创建时间排序，按角色、维度分组，按文本和维度过滤。支持节点点击打开详情、删除节点操作。",
+      "tags": [
+        "React",
+        "节点管理",
+        "database",
+        "table view",
+        "卡片视图",
+        "排序",
+        "筛选"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/core/RuleComposer.tsx",
+      "type": "file",
+      "name": "RuleComposer.tsx",
+      "filePath": "src/core/RuleComposer.tsx",
+      "summary": "可组合推理规则编辑器，支持添加/查看规则。每条规则包含多行前提与单行结论，可选中并用于推理引擎链式推导。折叠面板 UI。",
+      "tags": [
+        "React",
+        "推理规则",
+        "rule engine",
+        "可组合规则",
+        "前提/结论"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/core/SubsystemDeck.tsx",
+      "type": "file",
+      "name": "SubsystemDeck.tsx",
+      "filePath": "src/core/SubsystemDeck.tsx",
+      "summary": "子系统导航面板，显示当前焦点节点的位置路径（面包屑），并通过 extractSubgraph 提取邻域节点显示为可点击的关系芯片，支持快速跳转。",
+      "tags": [
+        "React",
+        "subsystem",
+        "邻域导航",
+        "extractSubgraph",
+        "路径面包屑"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/extractSubgraph.ts",
+      "type": "file",
+      "name": "extractSubgraph.ts",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "统一子图提取引擎，核心 API 为 extractSubgraph。支持四种作用域（global/local/neighbor/focused）和维度过滤，内含 BFS 多跳节点采集、邻接表构建、dimmed 状态计算、角色布局排序。四个视图共用此出口。",
+      "tags": [
+        "knowledge graph",
+        "子图提取",
+        "BFS",
+        "邻接表",
+        "维度过滤",
+        "graph algorithm",
+        "scope"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/knowledge/treeSelection.ts",
+      "type": "file",
+      "name": "treeSelection.ts",
+      "filePath": "src/knowledge/treeSelection.ts",
+      "summary": "树节点到知识节点池 ID 的解析桥接。resolvePoolIdFromTreeNode 读取 nodeRef 字段，resolvePoolIdFromTree 先通过 ID 查找树节点再解析。",
+      "tags": [
+        "knowledge graph",
+        "树选择",
+        "nodeRef",
+        "ID 解析",
+        "tree-to-pool"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/treeUtils.ts",
+      "type": "file",
+      "name": "treeUtils.ts",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "树数据结构操作工具集，提供不可变风格的 CRUD 操作：克隆、查找（by id/parent）、收集、计数、更新、追加子节点、移除子节点、设置补充内容、获取名称路径（面包屑用）。所有修改返回新树。",
+      "tags": [
+        "knowledge graph",
+        "tree",
+        "不可变操作",
+        "CRUD",
+        "递归",
+        "面包屑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/layout/BottomBar.tsx",
+      "type": "file",
+      "name": "BottomBar.tsx",
+      "filePath": "src/layout/BottomBar.tsx",
+      "summary": "底部工具栏，提供：添加知识节点（指定名称和分区 zone）、添加知识边（节点池内或自由 ID）、图指标统计（密度/度数/分布）、JSON 导出（含全量备份和仅边ID两种）、图数据导入、演示数据加载、数据重置、自动布局（随机/环形）。",
+      "tags": [
+        "React",
+        "工具栏",
+        "节点添加",
+        "边管理",
+        "JSON 导出",
+        "图统计",
+        "数据导入",
+        "layout"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/layout/RightSidePanel.tsx",
+      "type": "file",
+      "name": "RightSidePanel.tsx",
+      "filePath": "src/layout/RightSidePanel.tsx",
+      "summary": "右侧面板容器，组合 ExplanationCard、问题列表（与焦点节点联动）、QuickAnswer 问答组件及 RelationNetwork。内嵌 QuickAdd 小组件用于快速添加问题。",
+      "tags": [
+        "React",
+        "右侧面板",
+        "explanation card",
+        "问题管理",
+        "问答",
+        "组合布局"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/layout/TopBar.tsx",
+      "type": "file",
+      "name": "TopBar.tsx",
+      "filePath": "src/layout/TopBar.tsx",
+      "summary": "顶部导航栏，显示 Knowledge OS logo、三个视图切换 Tab（Universe/节点库/问题库）、树节点面包屑路径导航、设置按钮和用户头像。",
+      "tags": [
+        "React",
+        "顶栏",
+        "导航",
+        "视图切换",
+        "面包屑"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/layout/UniverseTree.tsx",
+      "type": "file",
+      "name": "UniverseTree.tsx",
+      "filePath": "src/layout/UniverseTree.tsx",
+      "summary": "左侧目录树组件，含：TreeItem 递归渲染（展开/折叠/搜索高亮）、右键 ContextMenu（添加/重命名/删除/提问）、模态框（新建知识/引用已有/确认删除）、根节点创建、JSON 导入导出、演示数据加载、重置、搜索过滤、inline 重命名。",
+      "tags": [
+        "React",
+        "树组件",
+        "context menu",
+        "递归渲染",
+        "文件导入导出",
+        "搜索过滤"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/main.tsx",
+      "type": "file",
+      "name": "main.tsx",
+      "filePath": "src/main.tsx",
+      "summary": "应用入口文件，使用 ReactDOM.createRoot 将 App 组件挂载到 #root DOM 节点，包裹 React.StrictMode 并导入全局样式。",
+      "tags": [
+        "React",
+        "入口文件",
+        "main",
+        "ReactDOM",
+        "StrictMode"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/panels/ExplanationCard.tsx",
+      "type": "file",
+      "name": "ExplanationCard.tsx",
+      "filePath": "src/panels/ExplanationCard.tsx",
+      "summary": "知识解释卡面板，为选中节点提供：多 Tab 编辑（含路径补充和知识解释混合显示）、label 重命名、维度标签编辑、角色（role）选择、知识节点创建与树节点绑定、内容编辑与保存。",
+      "tags": [
+        "React",
+        "解释卡",
+        "知识编辑",
+        "Tab 面板",
+        "维度编辑",
+        "role 管理",
+        "树绑定"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/panels/InferenceEngine.tsx",
+      "type": "file",
+      "name": "InferenceEngine.tsx",
+      "filePath": "src/panels/InferenceEngine.tsx",
+      "summary": "推理引擎面板，模拟逐步推理过程。支持输入自然语言问题，基于 nodePool 中的知识节点和响应模板进行关键词匹配，通过 setInterval 动画展示推理步骤和进度条，最终输出答案。包含停止和重新运行控制。",
+      "tags": [
+        "React",
+        "推理引擎",
+        "inference",
+        "动画推理",
+        "关键词匹配",
+        "setInterval"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/panels/RelationNetwork.tsx",
+      "type": "file",
+      "name": "RelationNetwork.tsx",
+      "filePath": "src/panels/RelationNetwork.tsx",
+      "summary": "力导向关系网络可视化面板。使用 requestAnimationFrame 驱动粒子物理模拟（斥力+引力+阻尼），将 extractSubgraph 产生的节点/边渲染为 SVG。支持拖拽节点、节点颜色按角色区分、边按类型着色、ResizeObserver 自适应容器大小。",
+      "tags": [
+        "React",
+        "力导向图",
+        "force-directed",
+        "SVG",
+        "粒子物理模拟",
+        "graph visualization",
+        "拖拽"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/store/useGraph.ts",
+      "type": "file",
+      "name": "useGraph.ts",
+      "filePath": "src/store/useGraph.ts",
+      "summary": "中央 Zustand 状态管理 store（980行），管理全局状态：nodePool（知识节点池）、knowledgeEdges（知识边）、treeData（目录树）、视图状态（activeView/focusNodeId/selectedNodeId）、问题系统、推理规则、通知系统、透视维度。提供完整的 CRUD action、持久化（persistAppState/文件持久化）、树操作（addTreeEntry/removeTreeNode/renameTreeNode）、图统计、导入导出、演示数据加载。",
+      "tags": [
+        "Zustand",
+        "状态管理",
+        "store",
+        "持久化",
+        "CRUD",
+        "nodePool",
+        "knowledge edges",
+        "树管理",
+        "全局状态"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/App.tsx:App",
+      "type": "class",
+      "name": "App",
+      "filePath": "src/App.tsx",
+      "summary": "应用根 React 组件，编排整体布局：条件渲染视图（ReasoningKernel/NodeDatabase/QuestionDatabase），固定布局顶栏/左侧树/右侧面板/底栏，渲染通知 Toast 列表。",
+      "tags": [
+        "React",
+        "component",
+        "根组件",
+        "布局编排",
+        "条件渲染"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/components/NodeDatabase.tsx:NodeDatabase",
+      "type": "class",
+      "name": "NodeDatabase",
+      "filePath": "src/components/NodeDatabase.tsx",
+      "summary": "知识节点数据库 React 组件，支持表格/卡片视图切换，多维度过滤（文本搜索/角色/维度/分组），可排序，点击节点打开详情、删除节点。",
+      "tags": [
+        "React",
+        "component",
+        "数据库视图",
+        "节点过滤",
+        "分组"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/core/RuleComposer.tsx:RuleComposer",
+      "type": "class",
+      "name": "RuleComposer",
+      "filePath": "src/core/RuleComposer.tsx",
+      "summary": "推理规则编辑器 React 组件，折叠面板展示已有规则，提供前提/结论输入表单，支持选中规则。",
+      "tags": [
+        "React",
+        "component",
+        "规则编辑",
+        "推理"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/core/SubsystemDeck.tsx:SubsystemDeck",
+      "type": "class",
+      "name": "SubsystemDeck",
+      "filePath": "src/core/SubsystemDeck.tsx",
+      "summary": "子系统导航面板 React 组件，显示当前位置路径和邻域节点快捷入口芯片。",
+      "tags": [
+        "React",
+        "component",
+        "subsystem",
+        "导航"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/layout/BottomBar.tsx:BottomBar",
+      "type": "class",
+      "name": "BottomBar",
+      "filePath": "src/layout/BottomBar.tsx",
+      "summary": "底部工具栏 React 组件，提供节点/边添加对话框、图统计指标面板、JSON 导入导出（全量+精简）、重置、自动布局等功能。",
+      "tags": [
+        "React",
+        "component",
+        "工具栏",
+        "数据管理"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "type": "class",
+      "name": "RightSidePanel",
+      "filePath": "src/layout/RightSidePanel.tsx",
+      "summary": "右侧面板容器 React 组件，组合解释卡、焦点关联问题列表和关系网络视图。",
+      "tags": [
+        "React",
+        "component",
+        "面板容器",
+        "布局"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/layout/RightSidePanel.tsx:QuickAnswer",
+      "type": "class",
+      "name": "QuickAnswer",
+      "filePath": "src/layout/RightSidePanel.tsx",
+      "summary": "快速问答小组件，支持展开查看问题详情、编辑/保存答案、新建问题。与焦点节点联动。",
+      "tags": [
+        "React",
+        "component",
+        "问答",
+        "问题编辑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/layout/RightSidePanel.tsx:QuickAdd",
+      "type": "class",
+      "name": "QuickAdd",
+      "filePath": "src/layout/RightSidePanel.tsx",
+      "summary": "快速添加小组件，提供折叠/展开输入框用于添加新问题，支持 Enter 确认和 Escape 取消。",
+      "tags": [
+        "React",
+        "component",
+        "快速添加",
+        "输入框"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/layout/TopBar.tsx:TopBar",
+      "type": "class",
+      "name": "TopBar",
+      "filePath": "src/layout/TopBar.tsx",
+      "summary": "顶部导航 React 组件，渲染 logo、三视图 Tab 切换按钮和面包屑路径导航。",
+      "tags": [
+        "React",
+        "component",
+        "导航栏",
+        "视图切换"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "type": "class",
+      "name": "UniverseTree",
+      "filePath": "src/layout/UniverseTree.tsx",
+      "summary": "目录树主 React 组件（161-417行），管理树的增删改查、搜索过滤、导入导出、模态框状态、演示数据加载。",
+      "tags": [
+        "React",
+        "component",
+        "树管理",
+        "模态框",
+        "导入导出"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/layout/UniverseTree.tsx:ContextMenu",
+      "type": "class",
+      "name": "ContextMenu",
+      "filePath": "src/layout/UniverseTree.tsx",
+      "summary": "树节点右键菜单 React 组件，提供添加子节点/提问/重命名/删除操作入口。",
+      "tags": [
+        "React",
+        "component",
+        "context menu",
+        "右键菜单"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/layout/UniverseTree.tsx:TreeItem",
+      "type": "class",
+      "name": "TreeItem",
+      "filePath": "src/layout/UniverseTree.tsx",
+      "summary": "树节点项 React 组件（52-158行），递归渲染子节点，支持展开折叠、搜索高亮、右键菜单、inline 重命名编辑。",
+      "tags": [
+        "React",
+        "component",
+        "递归渲染",
+        "树节点",
+        "inline 编辑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/panels/ExplanationCard.tsx:ExplanationCard",
+      "type": "class",
+      "name": "ExplanationCard",
+      "filePath": "src/panels/ExplanationCard.tsx",
+      "summary": "知识解释卡 React 组件，编辑选中节点的 label/role/dimensions，管理多 Tab 内容（路径补充+知识解释），支持创建绑定知识节点。",
+      "tags": [
+        "React",
+        "component",
+        "解释卡",
+        "Tab 编辑",
+        "知识绑定"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/panels/InferenceEngine.tsx:InferenceEngine",
+      "type": "class",
+      "name": "InferenceEngine",
+      "filePath": "src/panels/InferenceEngine.tsx",
+      "summary": "推理引擎 React 组件，提供自然语言问题输入、关键词匹配推理、分步动画展示推理过程和最终结论。",
+      "tags": [
+        "React",
+        "component",
+        "推理引擎",
+        "动画",
+        "step-by-step"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "type": "class",
+      "name": "RelationNetwork",
+      "filePath": "src/panels/RelationNetwork.tsx",
+      "summary": "力导向关系网络 React 组件，SVG 渲染知识图谱，粒子物理模拟实现节点排斥/吸引/阻尼，支持拖拽交互和自适应容器。",
+      "tags": [
+        "React",
+        "component",
+        "力导向图",
+        "SVG",
+        "粒子模拟"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "type": "function",
+      "name": "extractSubgraph",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "子图提取主函数，接收 nodePool、edges 和 ExtractParams（focus/scope/dimension），通过 scopeNodeIds 确定节点集合，过滤边，构建 ViewNode/ViewEdge，计算 dimmed 状态，按角色排序，返回 ViewDataPack。",
+      "tags": [
+        "knowledge graph",
+        "子图提取",
+        "scope",
+        "dimension",
+        "核心导出"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:buildAdjacency",
+      "type": "function",
+      "name": "buildAdjacency",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "构建无向邻接表，将 KnowledgeEdge 数组转为 Map<nodeId, KnowledgeEdge[]>，用于 BFS 遍历。",
+      "tags": [
+        "graph algorithm",
+        "邻接表",
+        "辅助函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:matchesDimension",
+      "type": "function",
+      "name": "matchesDimension",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "判断节点标签是否匹配指定维度，dimension 为 'all' 时始终匹配。",
+      "tags": [
+        "维度匹配",
+        "过滤",
+        "辅助函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:isDimmed",
+      "type": "function",
+      "name": "isDimmed",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "判断节点/边在指定维度下是否应被淡化显示，非 all 维度且不匹配时返回 true。",
+      "tags": [
+        "维度淡化",
+        "dimmed",
+        "视觉过滤"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:collectNodeIds",
+      "type": "function",
+      "name": "collectNodeIds",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "从焦点节点出发 BFS 多跳扩散，采集所有可达节点 ID，支持自定义 edgeFilter。",
+      "tags": [
+        "BFS",
+        "graph traversal",
+        "多跳",
+        "节点采集"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:scopeNodeIds",
+      "type": "function",
+      "name": "scopeNodeIds",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "根据 scope（global/local/neighbor）和 focus 确定有效节点集合。local 为漏斗镜头（仅直接推理边邻居），neighbor 为 2 跳子系统邻域。",
+      "tags": [
+        "scope",
+        "作用域解析",
+        "local/neighbor/global"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:layoutForScope",
+      "type": "function",
+      "name": "layoutForScope",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "根据 scope 返回布局提示：local→funnel，neighbor→neighbor，其他→force。",
+      "tags": [
+        "布局提示",
+        "layout hint",
+        "scope mapping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/extractSubgraph.ts:roleLayoutOrder",
+      "type": "function",
+      "name": "roleLayoutOrder",
+      "filePath": "src/knowledge/extractSubgraph.ts",
+      "summary": "将 KnowledgeRole 映射为布局排序权重：axiom=0, mechanism=1, conclusion=2, subsystem=3, plain=4。",
+      "tags": [
+        "角色排序",
+        "layout order",
+        "role mapping"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTreeNode",
+      "type": "function",
+      "name": "resolvePoolIdFromTreeNode",
+      "filePath": "src/knowledge/treeSelection.ts",
+      "summary": "从树节点读取 nodeRef 字段返回节点池 ID，单向绑定解析。",
+      "tags": [
+        "树选择",
+        "nodeRef",
+        "ID 解析"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTree",
+      "type": "function",
+      "name": "resolvePoolIdFromTree",
+      "filePath": "src/knowledge/treeSelection.ts",
+      "summary": "在整棵树中按 treeNodeId 查找节点，再调用 resolvePoolIdFromTreeNode 解析节点池 ID。",
+      "tags": [
+        "树选择",
+        "ID 查找",
+        "nodeRef 解析"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:cloneTree",
+      "type": "function",
+      "name": "cloneTree",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "深克隆整棵目录树，递归复制所有子节点，用于不可变更新。",
+      "tags": [
+        "tree",
+        "深克隆",
+        "不可变",
+        "递归"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "function",
+      "name": "findTreeNodeById",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "在目录树中按 ID 深度优先搜索节点。",
+      "tags": [
+        "tree",
+        "DFS",
+        "查找"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:findTreeParent",
+      "type": "function",
+      "name": "findTreeParent",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "查找指定子节点的父节点，通过遍历子节点列表匹配。",
+      "tags": [
+        "tree",
+        "父节点查找"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:collectTreeNodes",
+      "type": "function",
+      "name": "collectTreeNodes",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "递归收集树中所有节点为扁平数组，包含自身和所有后代。",
+      "tags": [
+        "tree",
+        "flatMap",
+        "节点收集"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:countTreeNodes",
+      "type": "function",
+      "name": "countTreeNodes",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "统计树中节点总数，委托 collectTreeNodes 后取长度。",
+      "tags": [
+        "tree",
+        "计数",
+        "统计"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:updateTreeNode",
+      "type": "function",
+      "name": "updateTreeNode",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "更新指定节点的属性（name/nodeRef/supplement/icon），克隆树后通过 Object.assign 合并。",
+      "tags": [
+        "tree",
+        "更新",
+        "不可变"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:appendTreeChild",
+      "type": "function",
+      "name": "appendTreeChild",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "向指定父节点追加子节点，自动设置 expanded 为 true。",
+      "tags": [
+        "tree",
+        "追加节点",
+        "展开"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:removeTreeChild",
+      "type": "function",
+      "name": "removeTreeChild",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "从树中移除指定节点（通过查找父节点后过滤子节点列表）。根节点不删除返回 null。",
+      "tags": [
+        "tree",
+        "删除节点",
+        "过滤"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:setTreeSupplement",
+      "type": "function",
+      "name": "setTreeSupplement",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "设置树节点的 supplement 补充内容字段，委托 updateTreeNode。",
+      "tags": [
+        "tree",
+        "supplement",
+        "知识补充"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/treeUtils.ts:getTreePathNames",
+      "type": "function",
+      "name": "getTreePathNames",
+      "filePath": "src/knowledge/treeUtils.ts",
+      "summary": "从根到目标节点收集名称路径数组，用于面包屑导航，内部递归 walk。",
+      "tags": [
+        "tree",
+        "路径",
+        "面包屑"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/layout/UniverseTree.tsx:findNodeName",
+      "type": "function",
+      "name": "findNodeName",
+      "filePath": "src/layout/UniverseTree.tsx",
+      "summary": "在树中按 ID 递归查找节点名称，辅助函数。",
+      "tags": [
+        "tree",
+        "名称查找",
+        "辅助函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/panels/RelationNetwork.tsx:eColor",
+      "type": "function",
+      "name": "eColor",
+      "filePath": "src/panels/RelationNetwork.tsx",
+      "summary": "边类型到颜色的映射函数，按关系类型（belongs-to/leads-to/depends-on 等）返回不同颜色。",
+      "tags": [
+        "力导向图",
+        "edge color",
+        "关系着色"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/panels/RelationNetwork.tsx:rColor",
+      "type": "function",
+      "name": "rColor",
+      "filePath": "src/panels/RelationNetwork.tsx",
+      "summary": "节点角色到颜色的映射函数，按 KnowledgeRole 返回显示颜色。",
+      "tags": [
+        "力导向图",
+        "role color",
+        "角色着色"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/panels/RelationNetwork.tsx:clamp",
+      "type": "function",
+      "name": "clamp",
+      "filePath": "src/panels/RelationNetwork.tsx",
+      "summary": "数值边界钳制函数，将值限制在 [lo, hi] 范围内，用于粒子位置约束。",
+      "tags": [
+        "力导向图",
+        "clamp",
+        "数值约束"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store/useGraph.ts:snapshotState",
+      "type": "function",
+      "name": "snapshotState",
+      "filePath": "src/store/useGraph.ts",
+      "summary": "从 store state 提取持久化快照数据，包含 nodePool/knowledgeEdges/treeData/questions/rules 等。",
+      "tags": [
+        "Zustand",
+        "持久化",
+        "快照",
+        "数据序列化"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store/useGraph.ts:applyPersisted",
+      "type": "function",
+      "name": "applyPersisted",
+      "filePath": "src/store/useGraph.ts",
+      "summary": "从持久化数据恢复 store 状态，调用 set 批量写入。",
+      "tags": [
+        "Zustand",
+        "持久化",
+        "数据恢复"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store/useGraph.ts:appendUniqueKnowledgeEdge",
+      "type": "function",
+      "name": "appendUniqueKnowledgeEdge",
+      "filePath": "src/store/useGraph.ts",
+      "summary": "向知识边数组追加边，自动去重（按 source/target/type 组合过滤已存在边）。",
+      "tags": [
+        "知识边",
+        "去重",
+        "追加"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "function",
+      "name": "useGraphStore",
+      "filePath": "src/store/useGraph.ts",
+      "summary": "Zustand store hook（232行创建），管理全局状态和方法：nodePool CRUD、knowledgeEdges 管理、treeData 操作、视图/焦点/选中状态、问题系统、推理规则、通知系统、维度透视、持久化、导入导出、演示数据。项目最核心模块。",
+      "tags": [
+        "Zustand",
+        "store",
+        "hook",
+        "全局状态",
+        "核心模块"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/core/DimensionCanvas.tsx",
+      "type": "file",
+      "name": "DimensionCanvas.tsx",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "SVG 多维分类树画布：管理维度选项卡、分类子节点编辑（4层编辑态）、17个 useState",
+      "tags": [
+        "多维视图",
+        "SVG",
+        "分类树",
+        "可视化"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/core/ReasoningKernel.tsx",
+      "type": "file",
+      "name": "ReasoningKernel.tsx",
+      "filePath": "src/core/ReasoningKernel.tsx",
+      "summary": "中心主镜头编排容器：组合 DimensionCanvas + SubsystemStrip，处理空状态",
+      "tags": [
+        "编排",
+        "入口",
+        "容器",
+        "轻量"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/core/SubsystemStrip.tsx",
+      "type": "file",
+      "name": "SubsystemStrip.tsx",
+      "filePath": "src/core/SubsystemStrip.tsx",
+      "summary": "递归子系统卡片条：含迷你 SVG 知识图谱和桥接装饰线",
+      "tags": [
+        "子系统",
+        "卡片",
+        "递归",
+        "可视化"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/core/subsystemData.ts",
+      "type": "file",
+      "name": "subsystemData.ts",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "纯数据提取函数：圆形布局算法，从 nodePool+edges 构建 SubsystemCardData",
+      "tags": [
+        "数据提取",
+        "布局算法",
+        "纯函数"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "class",
+      "name": "DimensionCanvas",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "多维分类树画布组件（SVG 渲染）",
+      "tags": [
+        "react",
+        "组件",
+        "SVG"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "type": "class",
+      "name": "ReasoningKernel",
+      "filePath": "src/core/ReasoningKernel.tsx",
+      "summary": "中心主镜头组件",
+      "tags": [
+        "react",
+        "组件",
+        "容器"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "class",
+      "name": "SubsystemStrip",
+      "filePath": "src/core/SubsystemStrip.tsx",
+      "summary": "子系统卡片条组件",
+      "tags": [
+        "react",
+        "组件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/DimensionCanvas.tsx:resolveNodeIdByLabel",
+      "type": "function",
+      "name": "resolveNodeIdByLabel",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "按标签解析节点 ID",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/core/DimensionCanvas.tsx:DimTree",
+      "type": "function",
+      "name": "DimTree",
+      "filePath": "src/core/DimensionCanvas.tsx",
+      "summary": "维度分类树 SVG 子组件",
+      "tags": [
+        "react",
+        "SVG",
+        "子组件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:getSubsystemCards",
+      "type": "function",
+      "name": "getSubsystemCards",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "收集焦点节点的子系统卡片数据",
+      "tags": [
+        "数据提取"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:buildCard",
+      "type": "function",
+      "name": "buildCard",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "构建单张子系统卡片数据",
+      "tags": [
+        "数据构建"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/core/subsystemData.ts:roleColor",
+      "type": "function",
+      "name": "roleColor",
+      "filePath": "src/core/subsystemData.ts",
+      "summary": "角色颜色映射",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/questionLink.ts",
+      "type": "file",
+      "name": "questionLink.ts",
+      "filePath": "src/knowledge/questionLink.ts",
+      "summary": "问题-节点关联工具：questionsForNode / pickQuestionForFocus / resolveQuestionForNode",
+      "tags": [
+        "问题",
+        "关联",
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/panels/QuestionBank.tsx",
+      "type": "file",
+      "name": "QuestionBank.tsx",
+      "filePath": "src/panels/QuestionBank.tsx",
+      "summary": "问题详情面板：同级题导航、状态标签、内联答案编辑、关联知识点跳转",
+      "tags": [
+        "问题",
+        "面板",
+        "UI",
+        "编辑"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/question-link.test.mjs",
+      "type": "file",
+      "name": "question-link.test.mjs",
+      "filePath": "scripts/question-link.test.mjs",
+      "summary": "questionLink 模块单元测试（9个case，Node assert）",
+      "tags": [
+        "测试",
+        "单元测试",
+        "问题"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/questionLink.ts:questionsForNode",
+      "type": "function",
+      "name": "questionsForNode",
+      "filePath": "src/knowledge/questionLink.ts",
+      "summary": "按 relatedNodeId 过滤问题",
+      "tags": [
+        "过滤",
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/questionLink.ts:pickQuestionForFocus",
+      "type": "function",
+      "name": "pickQuestionForFocus",
+      "filePath": "src/knowledge/questionLink.ts",
+      "summary": "焦点切换时取节点第一题",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "function:src/knowledge/questionLink.ts:resolveQuestionForNode",
+      "type": "function",
+      "name": "resolveQuestionForNode",
+      "filePath": "src/knowledge/questionLink.ts",
+      "summary": "三段策略决定保留/切换问题",
+      "tags": [
+        "工具函数"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/panels/QuestionBank.tsx:QuestionBank",
+      "type": "class",
+      "name": "QuestionBank",
+      "filePath": "src/panels/QuestionBank.tsx",
+      "summary": "问题详情面板组件",
+      "tags": [
+        "react",
+        "组件",
+        "面板"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "document:COMPLETE_VERIFICATION_GUIDE.md",
+      "type": "document",
+      "name": "COMPLETE_VERIFICATION_GUIDE.md",
+      "filePath": "COMPLETE_VERIFICATION_GUIDE.md",
+      "summary": "完整验证指南",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DATA_FLOW_FIX.md",
+      "type": "document",
+      "name": "DATA_FLOW_FIX.md",
+      "filePath": "DATA_FLOW_FIX.md",
+      "summary": "数据流修复说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:DEMO_DATA_SUMMARY.md",
+      "type": "document",
+      "name": "DEMO_DATA_SUMMARY.md",
+      "filePath": "DEMO_DATA_SUMMARY.md",
+      "summary": "演示数据总结",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:FINAL_SUMMARY.md",
+      "type": "document",
+      "name": "FINAL_SUMMARY.md",
+      "filePath": "FINAL_SUMMARY.md",
+      "summary": "项目最终总结",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:FIX_DEMO_DATA.md",
+      "type": "document",
+      "name": "FIX_DEMO_DATA.md",
+      "filePath": "FIX_DEMO_DATA.md",
+      "summary": "演示数据修复说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:FIX_GRAPH_CLICK_BEHAVIOR.md",
+      "type": "document",
+      "name": "FIX_GRAPH_CLICK_BEHAVIOR.md",
+      "filePath": "FIX_GRAPH_CLICK_BEHAVIOR.md",
+      "summary": "图谱点击行为修复说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:FIX_RIGHT_PANEL_LAYOUT.md",
+      "type": "document",
+      "name": "FIX_RIGHT_PANEL_LAYOUT.md",
+      "filePath": "FIX_RIGHT_PANEL_LAYOUT.md",
+      "summary": "右侧面板布局修复说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:HANDOFF.md",
+      "type": "document",
+      "name": "HANDOFF.md",
+      "filePath": "HANDOFF.md",
+      "summary": "项目交接文档",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:HOW_TO_SEE_DATA.md",
+      "type": "document",
+      "name": "HOW_TO_SEE_DATA.md",
+      "filePath": "HOW_TO_SEE_DATA.md",
+      "summary": "数据查看指南",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:IMPLEMENTATION_SUMMARY.md",
+      "type": "document",
+      "name": "IMPLEMENTATION_SUMMARY.md",
+      "filePath": "IMPLEMENTATION_SUMMARY.md",
+      "summary": "实现总结",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:LOCK_KNOWLEDGE_REDESIGN.md",
+      "type": "document",
+      "name": "LOCK_KNOWLEDGE_REDESIGN.md",
+      "filePath": "LOCK_KNOWLEDGE_REDESIGN.md",
+      "summary": "锁知识重新设计说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:MULTIDIMENSIONAL_GUIDE.md",
+      "type": "document",
+      "name": "MULTIDIMENSIONAL_GUIDE.md",
+      "filePath": "MULTIDIMENSIONAL_GUIDE.md",
+      "summary": "多维知识图谱使用指南",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:NODE_DATABASE_FEATURE.md",
+      "type": "document",
+      "name": "NODE_DATABASE_FEATURE.md",
+      "filePath": "NODE_DATABASE_FEATURE.md",
+      "summary": "节点库功能说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:QUESTION_CRUD_FEATURE.md",
+      "type": "document",
+      "name": "QUESTION_CRUD_FEATURE.md",
+      "filePath": "QUESTION_CRUD_FEATURE.md",
+      "summary": "问题CRUD功能说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:QUESTION_DATABASE_FEATURE.md",
+      "type": "document",
+      "name": "QUESTION_DATABASE_FEATURE.md",
+      "filePath": "QUESTION_DATABASE_FEATURE.md",
+      "summary": "问题库功能说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:QUESTION_JUMP_FEATURE.md",
+      "type": "document",
+      "name": "QUESTION_JUMP_FEATURE.md",
+      "filePath": "QUESTION_JUMP_FEATURE.md",
+      "summary": "问题跳转功能说明",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:README.md",
+      "type": "document",
+      "name": "README.md",
+      "filePath": "README.md",
+      "summary": "项目简介（Knowledge OS）",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:RECOVERED_CONVERSATION.md",
+      "type": "document",
+      "name": "RECOVERED_CONVERSATION.md",
+      "filePath": "RECOVERED_CONVERSATION.md",
+      "summary": "恢复的对话记录",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:RECOVERED_CONVERSATION_FULL.md",
+      "type": "document",
+      "name": "RECOVERED_CONVERSATION_FULL.md",
+      "filePath": "RECOVERED_CONVERSATION_FULL.md",
+      "summary": "恢复的完整对话记录",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:index.html",
+      "type": "document",
+      "name": "index.html",
+      "filePath": "index.html",
+      "summary": "index.html",
+      "tags": [
+        "文档",
+        "markdown",
+        "changelog"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:package.json",
+      "type": "config",
+      "name": "package.json",
+      "filePath": "package.json",
+      "summary": "项目清单：依赖 React 19、Zustand 5、Vite 8、TypeScript 6",
+      "tags": [
+        "npm",
+        "依赖管理",
+        "项目配置"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:skills-lock.json",
+      "type": "config",
+      "name": "skills-lock.json",
+      "filePath": "skills-lock.json",
+      "summary": "Agent skills 锁定版本配置",
+      "tags": [
+        "skills",
+        "配置"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.json",
+      "type": "config",
+      "name": "tsconfig.json",
+      "filePath": "tsconfig.json",
+      "summary": "TypeScript 编译配置",
+      "tags": [
+        "typescript",
+        "编译配置"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "config:tsconfig.node.json",
+      "type": "config",
+      "name": "tsconfig.node.json",
+      "filePath": "tsconfig.node.json",
+      "summary": "TypeScript Node 编译配置（脚本用）",
+      "tags": [
+        "typescript",
+        "node"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/inference-responses.json",
+      "type": "file",
+      "name": "inference-responses.json",
+      "filePath": "data/inference-responses.json",
+      "summary": "推理引擎响应数据（~6KB）",
+      "tags": [
+        "数据",
+        "json",
+        "推理"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/knowledge-edges.json",
+      "type": "file",
+      "name": "knowledge-edges.json",
+      "filePath": "data/knowledge-edges.json",
+      "summary": "知识边表：节点间的关系数据（~11KB）",
+      "tags": [
+        "数据",
+        "json",
+        "边表",
+        "关系"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/node-pool.json",
+      "type": "file",
+      "name": "node-pool.json",
+      "filePath": "data/node-pool.json",
+      "summary": "知识节点池：所有知识实体的全局唯一存储（~70KB）",
+      "tags": [
+        "数据",
+        "json",
+        "节点池",
+        "知识库"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/questions.json",
+      "type": "file",
+      "name": "questions.json",
+      "filePath": "data/questions.json",
+      "summary": "问题库数据：预设问题列表（~9KB）",
+      "tags": [
+        "数据",
+        "json",
+        "问题"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/subsystems.json",
+      "type": "file",
+      "name": "subsystems.json",
+      "filePath": "data/subsystems.json",
+      "summary": "子系统数据（~573B）",
+      "tags": [
+        "数据",
+        "json",
+        "子系统"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/tree-data.json",
+      "type": "file",
+      "name": "tree-data.json",
+      "filePath": "data/tree-data.json",
+      "summary": "目录树数据：导航结构（~18KB）",
+      "tags": [
+        "数据",
+        "json",
+        "目录树",
+        "导航"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:data:data/universe-tree.json",
+      "type": "file",
+      "name": "universe-tree.json",
+      "filePath": "data/universe-tree.json",
+      "summary": "宇宙树数据副本（~18KB）",
+      "tags": [
+        "数据",
+        "json",
+        "目录树"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/animations.css",
+      "type": "file",
+      "name": "animations.css",
+      "filePath": "src/styles/animations.css",
+      "summary": "动画样式（滑入/淡入等）",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/components.css",
+      "type": "file",
+      "name": "components.css",
+      "filePath": "src/styles/components.css",
+      "summary": "组件样式（按钮/输入框/卡片/标签页等）",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/database.css",
+      "type": "file",
+      "name": "database.css",
+      "filePath": "src/styles/database.css",
+      "summary": "数据库视图样式（表格/卡片/搜索栏）",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/layout.css",
+      "type": "file",
+      "name": "layout.css",
+      "filePath": "src/styles/layout.css",
+      "summary": "三栏布局样式（左/中/右）",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/main.css",
+      "type": "file",
+      "name": "main.css",
+      "filePath": "src/styles/main.css",
+      "summary": "全局样式重置与基础变量",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/styles/tokens.css",
+      "type": "file",
+      "name": "tokens.css",
+      "filePath": "src/styles/tokens.css",
+      "summary": "CSS 自定义属性/令牌（颜色/间距/字体）",
+      "tags": [
+        "样式",
+        "css"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.claude/settings.json",
+      "type": "document",
+      "name": "settings.json",
+      "filePath": ".claude/settings.json",
+      "summary": "设计文档",
+      "tags": [
+        "skill",
+        "agent",
+        "文档"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.understand-anything/.understandignore",
+      "type": "document",
+      "name": ".understandignore",
+      "filePath": ".understand-anything/.understandignore",
+      "summary": "设计文档",
+      "tags": [
+        "skill",
+        "agent",
+        "文档"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "document:.understand-anything/config.json",
+      "type": "document",
+      "name": "config.json",
+      "filePath": ".understand-anything/config.json",
+      "summary": "设计文档",
+      "tags": [
+        "skill",
+        "agent",
+        "文档"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/core/FunnelCanvas.tsx",
+      "type": "file",
+      "name": "FunnelCanvas.tsx",
+      "filePath": "src/core/FunnelCanvas.tsx",
+      "summary": "三区漏斗 SVG 视图：公理/机制/结论区分层排布，支持 hover/select 高亮、行内编辑",
+      "tags": [
+        "漏斗",
+        "SVG",
+        "可视化",
+        "视图"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/core/funnelLayout.ts",
+      "type": "file",
+      "name": "funnelLayout.ts",
+      "filePath": "src/core/funnelLayout.ts",
+      "summary": "漏斗布局算法：纯函数，根据节点数量和角色计算 SVG 坐标",
+      "tags": [
+        "布局算法",
+        "纯函数",
+        "数学"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/knowledge/index.ts",
+      "type": "file",
+      "name": "index.ts",
+      "filePath": "src/knowledge/index.ts",
+      "summary": "知识层 barrel 入口：re-export 7 个子模块",
+      "tags": [
+        "barrel",
+        "入口",
+        "模块"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/env.d.ts",
+      "type": "file",
+      "name": "env.d.ts",
+      "filePath": "src/env.d.ts",
+      "summary": "TypeScript 环境类型声明（React/CSS 模块）",
+      "tags": [
+        "typescript",
+        "类型声明",
+        "环境"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:vite.config.js",
+      "type": "file",
+      "name": "vite.config.js",
+      "filePath": "vite.config.js",
+      "summary": "Vite 配置 + 自定义数据文件 API 中间件（GET/PUT /api/data）",
+      "tags": [
+        "vite",
+        "配置",
+        "api",
+        "中间件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/answer-composer.test.mjs",
+      "type": "file",
+      "name": "answer-composer.test.mjs",
+      "filePath": "scripts/answer-composer.test.mjs",
+      "summary": "答案组合器测试：normalizeQuestionAnswerSteps + composeQuestionAnswerDraft",
+      "tags": [
+        "测试",
+        "答案",
+        "单元测试"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/tree-binding.test.mjs",
+      "type": "file",
+      "name": "tree-binding.test.mjs",
+      "filePath": "scripts/tree-binding.test.mjs",
+      "summary": "目录绑定测试：resolveTreeBindingTarget + createTreeBindingEdge",
+      "tags": [
+        "测试",
+        "目录",
+        "绑定"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:scripts/make-all-nodes.ts",
+      "type": "file",
+      "name": "make-all-nodes.ts",
+      "filePath": "scripts/make-all-nodes.ts",
+      "summary": "递归目录转节点池迁移脚本",
+      "tags": [
+        "脚本",
+        "迁移",
+        "工具"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:public/clear-storage.html",
+      "type": "file",
+      "name": "clear-storage.html",
+      "filePath": "public/clear-storage.html",
+      "summary": "调试用：清除 localStorage 的独立页面",
+      "tags": [
+        "调试",
+        "工具",
+        "html"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "class:src/core/FunnelCanvas.tsx:FunnelCanvas",
+      "type": "class",
+      "name": "FunnelCanvas",
+      "filePath": "src/core/FunnelCanvas.tsx",
+      "summary": "漏斗画布组件",
+      "tags": [
+        "react",
+        "组件",
+        "SVG"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "function:src/core/funnelLayout.ts:layoutFunnelZone",
+      "type": "function",
+      "name": "layoutFunnelZone",
+      "filePath": "src/core/funnelLayout.ts",
+      "summary": "区域漏斗布局核心算法",
+      "tags": [
+        "布局算法"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/types.ts",
+      "type": "file",
+      "name": "types.ts",
+      "filePath": "src/types.ts",
+      "summary": "中央类型定义：GraphNode/GraphEdge/TreeNode/KnowledgeNode/KnowledgeEdge/NodeExplanation/Question/ViewDataPack 等全类型，三表分离架构核心",
+      "tags": [
+        "类型定义",
+        "typescript",
+        "接口",
+        "核心"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/knowledge/answerComposer.ts",
+      "type": "file",
+      "name": "answerComposer.ts",
+      "filePath": "src/knowledge/answerComposer.ts",
+      "summary": "答案组合器：从 QuestionAnswerStep 序列生成答案草稿，normalizeQuestionAnswerSteps + composeQuestionAnswerDraft",
+      "tags": [
+        "答案",
+        "组合",
+        "工具"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/defaults.ts",
+      "type": "file",
+      "name": "defaults.ts",
+      "filePath": "src/knowledge/defaults.ts",
+      "summary": "工厂函数：createKnowledgeNode/createKnowledgeEdge/createTreeEntry/createEmptyExplanation/genId/BUILTIN_DIMENSIONS",
+      "tags": [
+        "工厂",
+        "默认值",
+        "工具"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/knowledge/demoSeed.ts",
+      "type": "file",
+      "name": "demoSeed.ts",
+      "filePath": "src/knowledge/demoSeed.ts",
+      "summary": "演示数据加载器：从 6 个 JSON 数据文件构建初始应用状态",
+      "tags": [
+        "演示",
+        "数据",
+        "种子"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/knowledge/filePersistence.ts",
+      "type": "file",
+      "name": "filePersistence.ts",
+      "filePath": "src/knowledge/filePersistence.ts",
+      "summary": "文件持久化：通过 Vite 中间件 GET/PUT /api/data 读写 JSON 文件",
+      "tags": [
+        "持久化",
+        "文件",
+        "api"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/persist.ts",
+      "type": "file",
+      "name": "persist.ts",
+      "filePath": "src/knowledge/persist.ts",
+      "summary": "localStorage 持久化：loadPersistedAppState/persistAppState/exportAppStateJson/parseImportedAppState",
+      "tags": [
+        "持久化",
+        "localStorage",
+        "导入导出"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/state.ts",
+      "type": "file",
+      "name": "state.ts",
+      "filePath": "src/knowledge/state.ts",
+      "summary": "应用状态类型定义：PersistedAppState/GraphSlice/APP_STATE_VERSION/三表分离数据模型",
+      "tags": [
+        "状态",
+        "类型",
+        "模型"
+      ],
+      "complexity": "simple"
+    },
+    {
+      "id": "file:src/knowledge/treeBinding.ts",
+      "type": "file",
+      "name": "treeBinding.ts",
+      "filePath": "src/knowledge/treeBinding.ts",
+      "summary": "目录-知识边绑定：createTreeBindingEdge/removeTreeBindingEdgesForTreeIds，treebind:* 边自动维护",
+      "tags": [
+        "绑定",
+        "目录",
+        "边"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/QuestionAnswerEditor.tsx",
+      "type": "file",
+      "name": "QuestionAnswerEditor.tsx",
+      "filePath": "src/components/QuestionAnswerEditor.tsx",
+      "summary": "答案编辑器组件：基于 answerSteps 的结构化答案编辑，支持节点添加/排序/备注",
+      "tags": [
+        "答案",
+        "编辑器",
+        "组件"
+      ],
+      "complexity": "moderate"
+    },
+    {
+      "id": "file:src/components/QuestionDatabase.tsx",
+      "type": "file",
+      "name": "QuestionDatabase.tsx",
+      "filePath": "src/components/QuestionDatabase.tsx",
+      "summary": "问题库视图：搜索/过滤/排序/分组，表格和卡片两种模式",
+      "tags": [
+        "问题库",
+        "视图",
+        "CRUD"
+      ],
+      "complexity": "complex"
+    },
+    {
+      "id": "file:src/components/ViewDataList.tsx",
+      "type": "file",
+      "name": "ViewDataList.tsx",
+      "filePath": "src/components/ViewDataList.tsx",
+      "summary": "视图数据列表：展示 ViewDataPack 的节点和边数据",
+      "tags": [
+        "视图",
+        "列表",
+        "数据"
+      ],
+      "complexity": "simple"
+    }
+  ],
+  "edges": [
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/App.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "class:src/App.tsx:App",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/TopBar.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/BottomBar.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/UniverseTree.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/layout/RightSidePanel.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/components/NodeDatabase.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "class:src/App.tsx:App",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/components/NodeDatabase.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/components/NodeDatabase.tsx",
+      "target": "class:src/components/NodeDatabase.tsx:NodeDatabase",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/RuleComposer.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/RuleComposer.tsx",
+      "target": "class:src/core/RuleComposer.tsx:RuleComposer",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "class:src/core/SubsystemDeck.tsx:SubsystemDeck",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:buildAdjacency",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:matchesDimension",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:isDimmed",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:collectNodeIds",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:scopeNodeIds",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:layoutForScope",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "function:src/knowledge/extractSubgraph.ts:roleLayoutOrder",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "target": "function:src/knowledge/extractSubgraph.ts:scopeNodeIds",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "target": "function:src/knowledge/extractSubgraph.ts:isDimmed",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "target": "function:src/knowledge/extractSubgraph.ts:roleLayoutOrder",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "target": "function:src/knowledge/extractSubgraph.ts:layoutForScope",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:scopeNodeIds",
+      "target": "function:src/knowledge/extractSubgraph.ts:collectNodeIds",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:collectNodeIds",
+      "target": "function:src/knowledge/extractSubgraph.ts:buildAdjacency",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/extractSubgraph.ts:isDimmed",
+      "target": "function:src/knowledge/extractSubgraph.ts:matchesDimension",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeSelection.ts",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeSelection.ts",
+      "target": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTreeNode",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeSelection.ts",
+      "target": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTree",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTree",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTree",
+      "target": "function:src/knowledge/treeSelection.ts:resolvePoolIdFromTreeNode",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:cloneTree",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeParent",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:collectTreeNodes",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:countTreeNodes",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:updateTreeNode",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:appendTreeChild",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:removeTreeChild",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:setTreeSupplement",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeUtils.ts",
+      "target": "function:src/knowledge/treeUtils.ts:getTreePathNames",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:countTreeNodes",
+      "target": "function:src/knowledge/treeUtils.ts:collectTreeNodes",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:updateTreeNode",
+      "target": "function:src/knowledge/treeUtils.ts:cloneTree",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:updateTreeNode",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:appendTreeChild",
+      "target": "function:src/knowledge/treeUtils.ts:cloneTree",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:appendTreeChild",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:removeTreeChild",
+      "target": "function:src/knowledge/treeUtils.ts:cloneTree",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:removeTreeChild",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeParent",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "function:src/knowledge/treeUtils.ts:setTreeSupplement",
+      "target": "function:src/knowledge/treeUtils.ts:updateTreeNode",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/BottomBar.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/BottomBar.tsx",
+      "target": "class:src/layout/BottomBar.tsx:BottomBar",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/panels/ExplanationCard.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/panels/RelationNetwork.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "class:src/layout/RightSidePanel.tsx:QuickAnswer",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "class:src/layout/RightSidePanel.tsx:QuickAdd",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/TopBar.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/TopBar.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/TopBar.tsx",
+      "target": "class:src/layout/TopBar.tsx:TopBar",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "class:src/layout/UniverseTree.tsx:ContextMenu",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "class:src/layout/UniverseTree.tsx:TreeItem",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "function:src/layout/UniverseTree.tsx:findNodeName",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/ExplanationCard.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/ExplanationCard.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/ExplanationCard.tsx",
+      "target": "class:src/panels/ExplanationCard.tsx:ExplanationCard",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/InferenceEngine.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/InferenceEngine.tsx",
+      "target": "class:src/panels/InferenceEngine.tsx:InferenceEngine",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "function:src/panels/RelationNetwork.tsx:eColor",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "function:src/panels/RelationNetwork.tsx:rColor",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "function:src/panels/RelationNetwork.tsx:clamp",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "function:src/store/useGraph.ts:snapshotState",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "function:src/store/useGraph.ts:applyPersisted",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "function:src/store/useGraph.ts:appendUniqueKnowledgeEdge",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "class:src/layout/TopBar.tsx:TopBar",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "class:src/layout/BottomBar.tsx:BottomBar",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/App.tsx:App",
+      "target": "class:src/components/NodeDatabase.tsx:NodeDatabase",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/components/NodeDatabase.tsx:NodeDatabase",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/RuleComposer.tsx:RuleComposer",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/SubsystemDeck.tsx:SubsystemDeck",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/SubsystemDeck.tsx:SubsystemDeck",
+      "target": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/SubsystemDeck.tsx:SubsystemDeck",
+      "target": "function:src/knowledge/treeUtils.ts:getTreePathNames",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/BottomBar.tsx:BottomBar",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "target": "class:src/panels/ExplanationCard.tsx:ExplanationCard",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "target": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/RightSidePanel.tsx:RightSidePanel",
+      "target": "class:src/layout/RightSidePanel.tsx:QuickAnswer",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/TopBar.tsx:TopBar",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/TopBar.tsx:TopBar",
+      "target": "function:src/knowledge/treeUtils.ts:getTreePathNames",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "target": "function:src/knowledge/treeUtils.ts:countTreeNodes",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "target": "class:src/layout/UniverseTree.tsx:TreeItem",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "target": "class:src/layout/UniverseTree.tsx:ContextMenu",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/layout/UniverseTree.tsx:UniverseTree",
+      "target": "function:src/layout/UniverseTree.tsx:findNodeName",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/ExplanationCard.tsx:ExplanationCard",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/ExplanationCard.tsx:ExplanationCard",
+      "target": "function:src/knowledge/treeUtils.ts:findTreeNodeById",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/InferenceEngine.tsx:InferenceEngine",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "target": "function:src/store/useGraph.ts:useGraphStore",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "target": "function:src/knowledge/extractSubgraph.ts:extractSubgraph",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "target": "function:src/panels/RelationNetwork.tsx:eColor",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "target": "function:src/panels/RelationNetwork.tsx:rColor",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/panels/RelationNetwork.tsx:RelationNetwork",
+      "target": "function:src/panels/RelationNetwork.tsx:clamp",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/extractSubgraph.ts",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/treeSelection.ts",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/RelationNetwork.tsx",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/panels/ExplanationCard.tsx",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/panels/RelationNetwork.tsx",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/treeSelection.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/UniverseTree.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/layout/TopBar.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/ExplanationCard.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemDeck.tsx",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "depends_on",
+      "weight": 0.5,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/core/DimensionCanvas.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/core/SubsystemStrip.tsx",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "file:src/core/subsystemData.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/ReasoningKernel.tsx",
+      "target": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/SubsystemStrip.tsx",
+      "target": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/DimensionCanvas.tsx",
+      "target": "function:src/core/DimensionCanvas.tsx:DimTree",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/subsystemData.ts",
+      "target": "function:src/core/subsystemData.ts:getSubsystemCards",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "target": "class:src/core/DimensionCanvas.tsx:DimensionCanvas",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "class:src/core/ReasoningKernel.tsx:ReasoningKernel",
+      "target": "class:src/core/SubsystemStrip.tsx:SubsystemStrip",
+      "type": "calls",
+      "weight": 0.8,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/QuestionBank.tsx",
+      "target": "file:src/knowledge/questionLink.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/QuestionBank.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:scripts/question-link.test.mjs",
+      "target": "file:src/knowledge/questionLink.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/questionLink.ts",
+      "target": "function:src/knowledge/questionLink.ts:questionsForNode",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/questionLink.ts",
+      "target": "function:src/knowledge/questionLink.ts:pickQuestionForFocus",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/knowledge/questionLink.ts",
+      "target": "function:src/knowledge/questionLink.ts:resolveQuestionForNode",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/panels/QuestionBank.tsx",
+      "target": "class:src/panels/QuestionBank.tsx:QuestionBank",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/FunnelCanvas.tsx",
+      "target": "file:src/core/funnelLayout.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/FunnelCanvas.tsx",
+      "target": "file:src/knowledge/extractSubgraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/FunnelCanvas.tsx",
+      "target": "file:src/store/useGraph.ts",
+      "type": "imports",
+      "weight": 0.7,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/FunnelCanvas.tsx",
+      "target": "class:src/core/FunnelCanvas.tsx:FunnelCanvas",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/core/funnelLayout.ts",
+      "target": "function:src/core/funnelLayout.ts:layoutFunnelZone",
+      "type": "contains",
+      "weight": 1,
+      "direction": "forward"
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/core/ReasoningKernel.tsx",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/styles/components.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/styles/database.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/styles/layout.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/App.tsx",
+      "target": "file:src/styles/main.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/layout/RightSidePanel.tsx",
+      "target": "file:src/knowledge/questionLink.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/animations.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/components.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/layout.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/main.tsx",
+      "target": "file:src/styles/main.css",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/questionLink.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/treeSelection.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    },
+    {
+      "source": "file:src/store/useGraph.ts",
+      "target": "file:src/knowledge/treeUtils.ts",
+      "type": "imports",
+      "direction": "forward",
+      "weight": 0.7,
+      "recoveredFromImportMap": true
+    }
+  ],
+  "layers": [
+    {
+      "id": "layer:app-entry",
+      "name": "应用入口与编排层",
+      "description": "React 应用根组件与入口文件，负责全局布局编排、视图切换路由、通知系统、store 初始化调用。App.tsx 组合所有布局/面板/核心组件，main.tsx 将根组件挂载到 DOM。",
+      "nodeIds": [
+        "file:src/main.tsx",
+        "file:src/App.tsx"
+      ]
+    },
+    {
+      "id": "layer:state-management",
+      "name": "状态管理层",
+      "description": "基于 Zustand 的中央全局状态管理 store（980行），管理 nodePool（知识节点池）、knowledgeEdges（知识边）、treeData（目录树）、视图状态（activeView/focusNodeId/selectedNodeId）、问题系统、推理规则、通知系统、透视维度。提供完整 CRUD action、持久化编排、导入导出、演示数据加载等所有业务逻辑。",
+      "nodeIds": [
+        "file:src/store/useGraph.ts"
+      ]
+    },
+    {
+      "id": "layer:type-definitions",
+      "name": "类型定义层",
+      "description": "TypeScript 接口与类型定义，定义核心知识数据模型（KnowledgeNode/KnowledgeEdge/TreeNode 三表分离架构）、解释卡系统（NodeExplanation/ExplanationTab）、问题系统（Question/QuestionAnswerStep）、推理系统（InferenceEngine/Rule/SubSystem）、视口系统（ViewDataPack/ViewNode/ViewEdge）、推理漏斗角色（KnowledgeRole）、多维视角（Perspective）等所有核心类型。env.d.ts 提供 React/CSS 模块环境类型声明。",
+      "nodeIds": [
+        "file:src/types.ts",
+        "file:src/env.d.ts"
+      ]
+    },
+    {
+      "id": "layer:knowledge-engine",
+      "name": "知识引擎层",
+      "description": "知识数据模型、持久化、图算法与工具函数层。包含：子图提取引擎 extractSubgraph（BFS 多跳节点采集、邻接表构建、维度过滤、dimmed 状态计算、角色排序、scope 解析）、树操作工具 treeUtils（不可变 CRUD）、树-节点绑定 treeBinding（nodeRef 引用）、树选择解析 treeSelection、问题-节点关联 questionLink、答案合成器 answerComposer、状态定义 state（PersistedAppState/GraphSlice）、工厂函数 defaults（genId/createKnowledgeNode/createKnowledgeEdge/树条目创建）、localStorage 持久化 persist（load/persist/clear/export/import + 类型守卫 + 版本迁移）、文件 API 持久化 filePersistence、演示数据加载 demoSeed、barrel 出口 index。",
+      "nodeIds": [
+        "file:src/knowledge/extractSubgraph.ts",
+        "file:src/knowledge/treeSelection.ts",
+        "file:src/knowledge/treeUtils.ts",
+        "file:src/knowledge/questionLink.ts",
+        "file:src/knowledge/index.ts",
+        "file:src/knowledge/state.ts",
+        "file:src/knowledge/defaults.ts",
+        "file:src/knowledge/persist.ts",
+        "file:src/knowledge/filePersistence.ts",
+        "file:src/knowledge/demoSeed.ts",
+        "file:src/knowledge/answerComposer.ts",
+        "file:src/knowledge/treeBinding.ts"
+      ]
+    },
+    {
+      "id": "layer:core-visualization",
+      "name": "核心可视化层",
+      "description": "中心 B 区知识图谱可视化组件与布局算法。包含：ReasoningKernel 主镜头编排容器（组合 DimensionCanvas + SubsystemStrip）、FunnelCanvas 三区推理漏斗 SVG 视图（公理/机制/结论分层排布 + hover/select 高亮 + 行内编辑）、funnelLayout 漏斗布局算法（纯函数计算 SVG 坐标）、DimensionCanvas SVG 多维分类树画布（维度选项卡 + 4 层编辑态）、SubsystemStrip 递归子系统卡片条（迷你 SVG 知识图谱 + 桥接装饰线）、subsystemData 纯数据提取函数（圆形布局算法 + SubsystemCardData 构建）、RuleComposer 可组合推理规则编辑器、SubsystemDeck 子系统邻域导航面板（面包屑 + 关系芯片）。",
+      "nodeIds": [
+        "file:src/core/ReasoningKernel.tsx",
+        "file:src/core/FunnelCanvas.tsx",
+        "file:src/core/funnelLayout.ts",
+        "file:src/core/DimensionCanvas.tsx",
+        "file:src/core/SubsystemStrip.tsx",
+        "file:src/core/subsystemData.ts",
+        "file:src/core/RuleComposer.tsx",
+        "file:src/core/SubsystemDeck.tsx"
+      ]
+    },
+    {
+      "id": "layer:ui-components",
+      "name": "UI 组件层",
+      "description": "全部用户界面 React 组件，分为三个子目录：layout（TopBar 顶栏导航/视图切换/面包屑、BottomBar 底栏工具/节点边添加/图统计/导入导出/演示数据/自动布局、UniverseTree 左侧目录树/右键菜单/递归渲染/搜索过滤/模态框/导入导出、RightSidePanel 右侧面板容器/QuickAnswer/QuickAdd）、panels（ExplanationCard 知识解释卡多 Tab 编辑/label/role/dimensions 编辑/树绑定、InferenceEngine 推理引擎动画面板/关键词匹配/分步推理、RelationNetwork 力导向关系网络 SVG 可视化/粒子物理模拟/拖拽、QuestionBank 问题详情面板/同级导航/内联编辑）、components（NodeDatabase 知识节点库表格/卡片视图/排序过滤分组/删除、QuestionAnswerEditor 分步答案编辑器/节点引用/草稿生成、QuestionDatabase 问题库面板/视图切换/搜索过滤排序分组/内联编辑、ViewDataList 视口数据列表）。",
+      "nodeIds": [
+        "file:src/layout/TopBar.tsx",
+        "file:src/layout/BottomBar.tsx",
+        "file:src/layout/UniverseTree.tsx",
+        "file:src/layout/RightSidePanel.tsx",
+        "file:src/panels/ExplanationCard.tsx",
+        "file:src/panels/InferenceEngine.tsx",
+        "file:src/panels/RelationNetwork.tsx",
+        "file:src/panels/QuestionBank.tsx",
+        "file:src/components/NodeDatabase.tsx",
+        "file:src/components/QuestionAnswerEditor.tsx",
+        "file:src/components/QuestionDatabase.tsx",
+        "file:src/components/ViewDataList.tsx"
+      ]
+    },
+    {
+      "id": "layer:styles",
+      "name": "样式层",
+      "description": "CSS 样式文件，采用分层设计：main.css 全局样式重置与基础变量、tokens.css CSS 自定义属性/令牌（颜色/间距/字体）、layout.css 三栏布局（左树/中主视图/右面板）、components.css 通用组件样式（按钮/输入框/卡片/标签页）、database.css 数据库视图样式（表格/卡片/搜索栏）、animations.css 动画样式（滑入/淡入）。",
+      "nodeIds": [
+        "file:src/styles/main.css",
+        "file:src/styles/tokens.css",
+        "file:src/styles/layout.css",
+        "file:src/styles/components.css",
+        "file:src/styles/database.css",
+        "file:src/styles/animations.css"
+      ]
+    },
+    {
+      "id": "layer:data-infrastructure",
+      "name": "数据与基础设施层",
+      "description": "持久化数据文件、构建脚本、测试文件、配置文件与静态资源。包含：data/ 目录 7 个 JSON 数据文件（node-pool 节点池、knowledge-edges 边表、tree-data 目录树、universe-tree 副本、questions 问题库、subsystems 子系统、inference-responses 推理缓存）、scripts/ 目录 5 个工具脚本（answer-composer.test 答案合成器测试、tree-binding.test 目录绑定测试、question-link.test 问题关联测试、make-all-nodes 迁移脚本、export-data 数据导出）、配置文件（package.json 项目清单、vite.config.js Vite 配置+数据 API 中间件、tsconfig.json/tsconfig.node.json TypeScript 编译配置、skills-lock.json Agent skills 锁定）、public/clear-storage.html 调试工具页、Vite 预打包第三方依赖缓存。",
+      "nodeIds": [
+        "file:data:data/inference-responses.json",
+        "file:data:data/knowledge-edges.json",
+        "file:data:data/node-pool.json",
+        "file:data:data/questions.json",
+        "file:data:data/subsystems.json",
+        "file:data:data/tree-data.json",
+        "file:data:data/universe-tree.json",
+        "file:scripts/question-link.test.mjs",
+        "file:scripts/answer-composer.test.mjs",
+        "file:scripts/tree-binding.test.mjs",
+        "file:scripts/make-all-nodes.ts",
+        "file:public/clear-storage.html",
+        "config:package.json",
+        "config:skills-lock.json",
+        "config:tsconfig.json",
+        "config:tsconfig.node.json",
+        "file:vite.config.js",
+        "document:COMPLETE_VERIFICATION_GUIDE.md",
+        "document:DATA_FLOW_FIX.md",
+        "document:DEMO_DATA_SUMMARY.md",
+        "document:FINAL_SUMMARY.md",
+        "document:FIX_DEMO_DATA.md",
+        "document:FIX_GRAPH_CLICK_BEHAVIOR.md",
+        "document:FIX_RIGHT_PANEL_LAYOUT.md",
+        "document:HANDOFF.md",
+        "document:HOW_TO_SEE_DATA.md",
+        "document:IMPLEMENTATION_SUMMARY.md",
+        "document:LOCK_KNOWLEDGE_REDESIGN.md",
+        "document:MULTIDIMENSIONAL_GUIDE.md",
+        "document:NODE_DATABASE_FEATURE.md",
+        "document:QUESTION_CRUD_FEATURE.md",
+        "document:QUESTION_DATABASE_FEATURE.md",
+        "document:QUESTION_JUMP_FEATURE.md",
+        "document:README.md",
+        "document:RECOVERED_CONVERSATION.md",
+        "document:RECOVERED_CONVERSATION_FULL.md",
+        "document:index.html",
+        "document:.claude/settings.json",
+        "document:.understand-anything/.understandignore",
+        "document:.understand-anything/config.json"
+      ]
+    }
+  ],
+  "tour": [
+    {
+      "order": 1,
+      "title": "项目概览",
+      "description": "Knowledge-OS 是一个多维知识图谱系统，用于探索数据库内部原理。基于 React + TypeScript + Vite + Zustand 构建，通过三栏布局提供知识宇宙导航、可视化推理和问题管理功能。",
+      "nodeIds": [
+        "document:README.md",
+        "config:package.json",
+        "document:index.html"
+      ]
+    },
+    {
+      "order": 2,
+      "title": "应用入口与三栏布局",
+      "description": "main.tsx 通过 ReactDOM.createRoot 将 App 组件挂载到 #root 节点。App.tsx 是根组件，编排三栏布局：左侧 UniverseTree 目录树、中间主视图区（推理内核/节点库/问题库切换）、右侧面板（解释卡+关系网络），加上顶栏和底栏工具栏。",
+      "nodeIds": [
+        "file:src/main.tsx",
+        "file:src/App.tsx"
+      ]
+    },
+    {
+      "order": 3,
+      "title": "数据模型：三表分离架构",
+      "description": "types.ts 定义所有核心类型（KnowledgeNode、KnowledgeEdge、TreeNode 等），实现三表分离：nodePool（节点池 Record 存储知识实体本体）、knowledgeEdges（边表存储实体间关系）、treeData（树结构提供导航目录）。state.ts 定义 PersistedAppState 顶层状态结构和图切片 GraphSlice，版本号当前为 3。",
+      "nodeIds": [
+        "file:src/types.ts",
+        "file:src/knowledge/state.ts"
+      ]
+    },
+    {
+      "order": 4,
+      "title": "状态管理中枢",
+      "description": "useGraph.ts（约 980 行）是 Zustand 中央 store，管理全局状态和所有业务逻辑：nodePool/knowledgeEdges/treeData 的完整 CRUD、视图切换与焦点管理、问题系统、推理规则、通知系统、维度透视、持久化调度、导入导出和演示数据加载。是整个应用的逻辑中心。",
+      "nodeIds": [
+        "file:src/store/useGraph.ts"
+      ]
+    },
+    {
+      "order": 5,
+      "title": "核心可视化：推理内核与多维画布",
+      "description": "ReasoningKernel.tsx 是中间主视图的编排容器，组合 DimensionCanvas（SVG 多维分类树画布）和 SubsystemStrip（子系统卡片条）。DimensionCanvas 通过 SVG 递归渲染维度分类树，支持 4 层编辑态和 17 个 useState 管理交互状态，是可视化体系的核心画布。",
+      "nodeIds": [
+        "file:src/core/ReasoningKernel.tsx",
+        "file:src/core/DimensionCanvas.tsx"
+      ]
+    },
+    {
+      "order": 6,
+      "title": "双层知识持久化",
+      "description": "persist.ts 提供浏览器 localStorage 持久化（单键全量存储），含类型守卫和 v2→v3 版本迁移。filePersistence.ts 通过 Vite 中间件 /api/data 端点读写 6 个独立 JSON 数据文件，实现服务端文件持久化。两者共享 PersistedAppState 数据结构，实现本地与文件双重备份。",
+      "nodeIds": [
+        "file:src/knowledge/persist.ts",
+        "file:src/knowledge/filePersistence.ts"
+      ]
+    },
+    {
+      "order": 7,
+      "title": "数据驱动：内置数据库知识体系",
+      "description": "demoSeed.ts 从 data/ 目录的 6 个 JSON 数据文件构建初始应用状态，实现数据与代码分离。node-pool.json（~70KB）是全局节点池的唯一数据源，包含数据库领域核心知识点（事务、MVCC、锁机制、Buffer Pool 等），所有知识实体在此集中管理。",
+      "nodeIds": [
+        "file:src/knowledge/demoSeed.ts",
+        "file:data:data/node-pool.json"
+      ]
+    }
+  ]
+}

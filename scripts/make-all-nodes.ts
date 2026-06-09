@@ -67,10 +67,10 @@ function ensureNodeRef(treeNode: any): string | null {
         nodeId,
         title: treeNode.name,
         tabs: [
-          { id: 'def', label: '定义', content: `"${treeNode.name}" 分类目录，包含 ${withNode.length} 个知识节点和 ${withoutNode.length} 个子目录。` },
-          { id: 'mech', label: '机制', content: '作为分类节点组织相关知识，不承载具体机制。' },
-          { id: 'bound', label: '边界', content: '分类范围由子项定义。' },
-          { id: 'source', label: '来源', content: '自动生成的分类节点。' },
+          { id: 'def', label: '定义', content: `"${treeNode.name}" 知识节点，作为该层级的核心聚合节点。` },
+          { id: 'mech', label: '机制', content: '作为知识网络中的汇聚与关联节点，组织和关联其下的所有子知识点。' },
+          { id: 'bound', label: '边界', content: '边界范围由其包含的子知识点以及关联的邻居节点共同界定。' },
+          { id: 'source', label: '来源', content: '自动生成的知识节点。' },
         ],
       },
     };

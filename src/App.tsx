@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useGraphStore } from './store/useGraph';
 import './styles/main.css';
 import './styles/layout.css';
@@ -12,13 +13,15 @@ import RightSidePanel from './layout/RightSidePanel';
 import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
 
-// 导入知识导入工具（暴露到 window 对象）
-import './utils/importLockKnowledge';
-
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
   const activeView = useGraphStore((s) => s.activeView);
   const setActiveView = useGraphStore((s) => s.setActiveView);
+  const initialize = useGraphStore((s) => s.initialize);
+
+  useEffect(() => {
+    void initialize();
+  }, [initialize]);
 
   return (
     <div id="app">

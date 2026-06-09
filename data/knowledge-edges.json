@@ -80,16 +80,6 @@
     ]
   },
   {
-    "id": "demo_e9",
-    "source": "demo_undo_sys",
-    "target": "demo_undo",
-    "type": "belongs-to",
-    "label": "属于",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "demo_e10",
     "source": "demo_vchain_sys",
     "target": "demo_vchain",
@@ -97,17 +87,6 @@
     "label": "属于",
     "dimensions": [
       "storage"
-    ]
-  },
-  {
-    "id": "demo_e11",
-    "source": "demo_mvcc",
-    "target": "demo_undo_sys",
-    "type": "depends-on",
-    "label": "依赖",
-    "dimensions": [
-      "storage",
-      "transaction"
     ]
   },
   {
@@ -171,16 +150,6 @@
     ]
   },
   {
-    "id": "demo_e18",
-    "source": "demo_lock",
-    "target": "demo_deadlock",
-    "type": "leads-to",
-    "label": "可能导致",
-    "dimensions": [
-      "transaction"
-    ]
-  },
-  {
     "id": "demo_e19",
     "source": "demo_innodb",
     "target": "demo_mvcc",
@@ -201,46 +170,6 @@
     ]
   },
   {
-    "id": "demo_e21",
-    "source": "demo_innodb",
-    "target": "demo_buffer",
-    "type": "belongs-to",
-    "label": "包含",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "demo_e22",
-    "source": "demo_btree",
-    "target": "demo_query",
-    "type": "enables",
-    "label": "支撑",
-    "dimensions": [
-      "performance"
-    ]
-  },
-  {
-    "id": "demo_e23",
-    "source": "demo_hash",
-    "target": "demo_query",
-    "type": "enables",
-    "label": "支撑",
-    "dimensions": [
-      "performance"
-    ]
-  },
-  {
-    "id": "demo_e24",
-    "source": "demo_sql",
-    "target": "demo_join",
-    "type": "belongs-to",
-    "label": "包含",
-    "dimensions": [
-      "transaction"
-    ]
-  },
-  {
     "id": "demo_e25",
     "source": "demo_sql",
     "target": "demo_subquery",
@@ -256,26 +185,6 @@
     "target": "demo_redolog",
     "type": "depends-on",
     "label": "协同",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "demo_e27",
-    "source": "demo_buffer",
-    "target": "demo_query",
-    "type": "enables",
-    "label": "加速",
-    "dimensions": [
-      "performance"
-    ]
-  },
-  {
-    "id": "demo_e28",
-    "source": "demo_postgres",
-    "target": "demo_mvcc",
-    "type": "belongs-to",
-    "label": "实现",
     "dimensions": [
       "storage"
     ]
@@ -423,16 +332,6 @@
     ]
   },
   {
-    "id": "demo_e39",
-    "source": "demo_row_lock",
-    "target": "demo_deadlock",
-    "type": "leads-to",
-    "label": "可能导致",
-    "dimensions": [
-      "transaction"
-    ]
-  },
-  {
     "id": "demo_e50",
     "source": "demo_btree",
     "target": "demo_clustered_index",
@@ -532,5 +431,173 @@
     "dimensions": [
       "storage"
     ]
+  },
+  {
+    "id": "demo_e60",
+    "source": "demo_index_compare",
+    "target": "demo_btree",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e61",
+    "source": "demo_index_compare",
+    "target": "demo_hash",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "demo_e62",
+    "source": "demo_index_compare",
+    "target": "demo_fulltext_index",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e63",
+    "source": "demo_engine_compare",
+    "target": "demo_innodb",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "demo_e64",
+    "source": "demo_engine_compare",
+    "target": "demo_myisam",
+    "type": "compares",
+    "label": "对比项",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "re_e1",
+    "source": "react_export_import",
+    "target": "react_default_export",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "re_e2",
+    "source": "react_export_import",
+    "target": "react_named_export",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "re_e3",
+    "source": "react_named_export",
+    "target": "react_import_aliasing",
+    "type": "leads-to",
+    "label": "支持重命名",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "re_e4",
+    "source": "react_conditional_rendering",
+    "target": "react_conditional_if",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "re_e5",
+    "source": "react_conditional_rendering",
+    "target": "react_conditional_ternary",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "re_e6",
+    "source": "react_conditional_rendering",
+    "target": "react_conditional_and",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "react"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_1781002610481_dmlbtq",
+    "source": "n_8s66vwo1",
+    "target": "k_1781002610469_nik1ek",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781003299044_31k1ba",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781003299034_og1pqa",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781003339620_wu6w8z",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781003339612_gly0rm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781008350997_yd94lf",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781008350988_rhnwyk",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781008515290_fvvfk9",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781008515280_bvqrs9",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781008568823_5cz6ak",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781008568811_xsf4qa",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_syn_k_1781003561186_d5ngg6:tree_1781008748606_epie7w",
+    "source": "k_1781003561186_d5ngg6",
+    "target": "k_1781008748598_72gaz3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_syn_k_1781003561186_d5ngg6:tree_1781008786391_s6csqq",
+    "source": "k_1781003561186_d5ngg6",
+    "target": "k_1781008786381_wiun1h",
+    "type": "belongs-to",
+    "label": "contains"
   }
 ]

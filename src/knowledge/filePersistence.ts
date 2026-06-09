@@ -1,0 +1,79 @@
+import type { PersistedAppState } from './state';
+import { APP_STATE_VERSION } from './state';
+import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question, SubSystem, Rule, Perspective } from '../types';
+
+const FILES = {
+  treeData: 'tree-data.json',
+  nodePool: 'node-pool.json',
+  knowledgeEdges: 'knowledge-edges.json',
+  questions: 'questions.json',
+  subSystems: 'subsystems.json',
+  inferenceResponses: 'inference-responses.json',
+};
+
+async function fetchFile<T>(filename: string, fallback: T): Promise<T> {
+  try {
+    const res = await fetch(`/api/data?file=${filename}`, { cache: 'no-store' });
+    if (res.status === 404) return fallback;
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json() as T;
+  } catch (e) {
+    console.error(`Failed to fetch ${filename}`, e);
+    return fallback;
+  }
+}
+
+async function saveFile<T>(filename: string, data: T): Promise<void> {
+  try {
+    const res = await fetch(`/api/data?file=${filename}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data, null, 2),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  } catch (e) {
+    console.error(`Failed to save ${filename}`, e);
+  }
+}
+
+export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> {
+  const [
+    treeData,
+    nodePool,
+    knowledgeEdges,
+    questions,
+    subSystems,
+    inferenceResponses,
+  ] = await Promise.all([
+    fetchFile<TreeNode | null>(FILES.treeData, null),
+    fetchFile<Record<string, KnowledgeNode> | null>(FILES.nodePool, null),
+    fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
+    fetchFile<Question[] | null>(FILES.questions, null),
+    fetchFile<SubSystem[] | null>(FILES.subSystems, null),
+    fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
+  ]);
+
+  const state: Partial<PersistedAppState> = {
+    version: APP_STATE_VERSION,
+  };
+
+  if (treeData) state.treeData = treeData;
+  if (nodePool) state.nodePool = nodePool;
+  if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
+  if (questions) state.questions = questions;
+  if (subSystems) state.subSystems = subSystems;
+  if (inferenceResponses) state.inferenceResponses = inferenceResponses;
+
+  return state;
+}
+
+export async function saveStateToFiles(state: PersistedAppState): Promise<void> {
+  await Promise.all([
+    saveFile(FILES.treeData, state.treeData),
+    saveFile(FILES.nodePool, state.nodePool),
+    saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
+    saveFile(FILES.questions, state.questions),
+    saveFile(FILES.subSystems, state.subSystems),
+    saveFile(FILES.inferenceResponses, state.inferenceResponses),
+  ]);
+}

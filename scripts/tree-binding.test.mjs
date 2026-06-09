@@ -35,6 +35,7 @@ const tree = {
   name: 'Root',
   count: 0,
   icon: 'R',
+  nodeRef: 'k-root',
   children: [
     {
       id: 'tree-parent',
@@ -46,25 +47,17 @@ const tree = {
         { id: 'tree-child', name: 'Child', count: 0, icon: 'C', nodeRef: 'k-child' },
       ],
     },
-    {
-      id: 'folder',
-      name: 'Folder',
-      count: 0,
-      icon: 'F',
-      children: [
-        { id: 'folder-child', name: 'Folder Child', count: 0, icon: 'C', nodeRef: 'k-child' },
-      ],
-    },
   ],
 };
 
 const nodePool = {
+  'k-root': { id: 'k-root', label: 'Root', dimensions: [], card: { nodeId: 'k-root', title: 'Root', tabs: [] } },
   'k-parent': { id: 'k-parent', label: 'Parent', dimensions: ['system'], card: { nodeId: 'k-parent', title: 'Parent', tabs: [] } },
   'k-child': { id: 'k-child', label: 'Child', dimensions: ['system', 'detail'], card: { nodeId: 'k-child', title: 'Child', tabs: [] } },
 };
 
 assert.equal(resolveTreeBindingTarget(tree, 'tree-child'), 'k-child');
-assert.equal(resolveTreeBindingTarget(tree, 'folder'), 'folder');
+assert.equal(resolveTreeBindingTarget(tree, 'tree-parent'), 'k-parent');
 
 const edge = createTreeBindingEdge({
   tree,
@@ -87,8 +80,8 @@ assert.equal(
   createTreeBindingEdge({
     tree,
     nodePool,
-    parentTreeId: 'folder',
-    childTreeId: 'folder-child',
+    parentTreeId: 'non-existent',
+    childTreeId: 'tree-child',
     childKnowledgeId: 'k-child',
   }),
   null,

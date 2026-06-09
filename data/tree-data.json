@@ -11,13 +11,88 @@
       "count": 0,
       "icon": "💻",
       "expanded": true,
+      "nodeRef": "n_55jiel25",
       "children": [
+        {
+          "id": "demo_web",
+          "name": "Web 开发",
+          "count": 0,
+          "icon": "🌐",
+          "expanded": true,
+          "nodeRef": "n_web_dev",
+          "children": [
+            {
+              "id": "react_root",
+              "name": "React",
+              "count": 0,
+              "icon": "⚛️",
+              "expanded": true,
+              "nodeRef": "react_export_import",
+              "children": [
+                {
+                  "id": "react_tree_export",
+                  "name": "组件导出与导入",
+                  "count": 0,
+                  "icon": "📤",
+                  "nodeRef": "react_export_import",
+                  "children": [
+                    {
+                      "id": "react_tree_default",
+                      "name": "默认导出",
+                      "count": 0,
+                      "icon": "🎯",
+                      "nodeRef": "react_default_export"
+                    },
+                    {
+                      "id": "react_tree_named",
+                      "name": "命名导出",
+                      "count": 0,
+                      "icon": "🏷️",
+                      "nodeRef": "react_named_export"
+                    }
+                  ]
+                },
+                {
+                  "id": "react_tree_conditional",
+                  "name": "条件式渲染",
+                  "count": 0,
+                  "icon": "🔀",
+                  "nodeRef": "react_conditional_rendering",
+                  "children": [
+                    {
+                      "id": "react_tree_cond_if",
+                      "name": "if 语句",
+                      "count": 0,
+                      "icon": "❓",
+                      "nodeRef": "react_conditional_if"
+                    },
+                    {
+                      "id": "react_tree_cond_ternary",
+                      "name": "三元操作符 (?:)",
+                      "count": 0,
+                      "icon": "⚖️",
+                      "nodeRef": "react_conditional_ternary"
+                    },
+                    {
+                      "id": "react_tree_cond_and",
+                      "name": "逻辑与 (&&)",
+                      "count": 0,
+                      "icon": "🔗",
+                      "nodeRef": "react_conditional_and"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
         {
           "id": "demo_db",
           "name": "数据库",
           "count": 0,
           "icon": "🗄️",
           "expanded": true,
+          "nodeRef": "n_u4va719e",
           "children": [
             {
               "id": "demo_mysql",
@@ -62,6 +137,13 @@
                       "count": 0,
                       "icon": "📦",
                       "nodeRef": "demo_myisam"
+                    },
+                    {
+                      "id": "demo_tree_engine_compare",
+                      "name": "引擎对比",
+                      "count": 0,
+                      "icon": "⚖️",
+                      "nodeRef": "demo_engine_compare"
                     }
                   ],
                   "nodeRef": "n_97x8s5dv"
@@ -131,6 +213,13 @@
                       "count": 0,
                       "icon": "#️⃣",
                       "nodeRef": "demo_hash"
+                    },
+                    {
+                      "id": "demo_tree_index_compare",
+                      "name": "索引对比",
+                      "count": 0,
+                      "icon": "⚖️",
+                      "nodeRef": "demo_index_compare"
                     }
                   ],
                   "nodeRef": "n_0xxb9cqy"
@@ -260,13 +349,6 @@
                           "nodeRef": "demo_pessimistic"
                         }
                       ]
-                    },
-                    {
-                      "id": "demo_tree_deadlock",
-                      "name": "死锁检测",
-                      "count": 0,
-                      "icon": "💀",
-                      "nodeRef": "demo_deadlock"
                     }
                   ],
                   "nodeRef": "n_ag24bbkc"
@@ -303,87 +385,125 @@
                   "nodeRef": "n_adbe2q9j"
                 },
                 {
-                  "id": "demo_tree_perf",
-                  "name": "性能优化",
+                  "id": "tree_1781002610481_dmlbtq",
+                  "name": "Page",
                   "count": 0,
-                  "icon": "🚀",
-                  "expanded": false,
+                  "icon": "📄",
+                  "nodeRef": "k_1781002610469_nik1ek",
                   "children": [
                     {
-                      "id": "demo_tree_buffer",
-                      "name": "Buffer Pool",
+                      "id": "tree_1781003299044_31k1ba",
+                      "name": "Undo页",
                       "count": 0,
-                      "icon": "💾",
-                      "nodeRef": "demo_buffer"
+                      "icon": "📄",
+                      "nodeRef": "k_1781003299034_og1pqa"
                     },
                     {
-                      "id": "demo_tree_query",
-                      "name": "查询优化",
+                      "id": "tree_1781003339620_wu6w8z",
+                      "name": "事务数据页",
                       "count": 0,
-                      "icon": "⚡",
-                      "nodeRef": "demo_query"
+                      "icon": "📄",
+                      "nodeRef": "k_1781003339612_gly0rm"
                     },
                     {
-                      "id": "demo_tree_join",
-                      "name": "JOIN 优化",
+                      "id": "tree_syn_k_1781003561186_d5ngg6",
+                      "name": "File Header",
                       "count": 0,
-                      "icon": "🔗",
-                      "nodeRef": "demo_join"
+                      "icon": "📄",
+                      "nodeRef": "k_1781003561186_d5ngg6",
+                      "children": [
+                        {
+                          "id": "tree_1781008748606_epie7w",
+                          "name": "FILE_PAGE_PREV",
+                          "count": 0,
+                          "icon": "📄",
+                          "nodeRef": "k_1781008748598_72gaz3"
+                        },
+                        {
+                          "id": "tree_1781008786391_s6csqq",
+                          "name": "FILE_PAGE_NEXT",
+                          "count": 0,
+                          "icon": "📄",
+                          "nodeRef": "k_1781008786381_wiun1h"
+                        }
+                      ],
+                      "expanded": true
+                    },
+                    {
+                      "id": "tree_syn_k_1781005790853_943e43",
+                      "name": "Page Header",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781005790853_943e43"
+                    },
+                    {
+                      "id": "tree_syn_k_1781005866277_bj0eht",
+                      "name": "User Records",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781005866277_bj0eht"
+                    },
+                    {
+                      "id": "tree_1781008350997_yd94lf",
+                      "name": "Free Space",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781008350988_rhnwyk"
+                    },
+                    {
+                      "id": "tree_1781008515290_fvvfk9",
+                      "name": "File Trailer",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781008515280_bvqrs9"
+                    },
+                    {
+                      "id": "tree_1781008568823_5cz6ak",
+                      "name": "Page Directory",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781008568811_xsf4qa"
+                    },
+                    {
+                      "id": "tree_syn_k_1781003339612_gly0rm",
+                      "name": "事务数据页",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781003339612_gly0rm"
+                    },
+                    {
+                      "id": "tree_syn_k_1781003318112_lryll2",
+                      "name": "系统页",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781003318112_lryll2"
+                    },
+                    {
+                      "id": "tree_syn_k_1781008350988_rhnwyk",
+                      "name": "Free Space",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781008350988_rhnwyk"
+                    },
+                    {
+                      "id": "tree_syn_k_1781002876731_3ct76l",
+                      "name": "数据页（B+ tree）",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781002876731_3ct76l"
+                    },
+                    {
+                      "id": "tree_syn_k_1781003299034_og1pqa",
+                      "name": "Undo页",
+                      "count": 0,
+                      "icon": "📄",
+                      "nodeRef": "k_1781003299034_og1pqa"
                     }
                   ],
-                  "nodeRef": "n_s7t5dbya"
+                  "expanded": true
                 }
               ],
               "nodeRef": "n_8s66vwo1"
-            },
-            {
-              "id": "demo_pg",
-              "name": "PostgreSQL",
-              "count": 0,
-              "icon": "🐘",
-              "expanded": true,
-              "children": [
-                {
-                  "id": "demo_tree_sql_pg",
-                  "name": "SQL语法",
-                  "count": 0,
-                  "icon": "📜",
-                  "nodeRef": "demo_sql",
-                  "supplement": {
-                    "tabs": [
-                      {
-                        "id": "dialect",
-                        "label": "PostgreSQL方言",
-                        "content": "分页：`LIMIT/OFFSET`；窗口函数更强；支持 CTE 和递归查询；RETURNING 子句。"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "id": "demo_tree_pg_mvcc",
-                  "name": "MVCC 实现",
-                  "count": 0,
-                  "icon": "👁️",
-                  "nodeRef": "demo_postgres",
-                  "supplement": {
-                    "tabs": [
-                      {
-                        "id": "mvcc",
-                        "label": "PG MVCC",
-                        "content": "PostgreSQL 使用 VACUUM 清理旧版本，与 MySQL 的 purge 机制不同。"
-                      }
-                    ]
-                  }
-                },
-                {
-                  "id": "demo_tree_pg_join",
-                  "name": "JOIN 连接",
-                  "count": 0,
-                  "icon": "🔗",
-                  "nodeRef": "demo_join"
-                }
-              ],
-              "nodeRef": "n_2vbkwr8v"
             },
             {
               "id": "demo_nosql",
@@ -391,6 +511,7 @@
               "count": 0,
               "icon": "🔥",
               "expanded": false,
+              "nodeRef": "n_21yoee5g",
               "children": [
                 {
                   "id": "demo_tree_redis",
@@ -406,47 +527,11 @@
                   "icon": "🍃",
                   "nodeRef": "demo_mongodb"
                 }
-              ],
-              "nodeRef": "n_21yoee5g"
+              ]
             }
-          ],
-          "nodeRef": "n_u4va719e"
-        },
-        {
-          "id": "demo_algo",
-          "name": "算法与数据结构",
-          "count": 0,
-          "icon": "🧮",
-          "expanded": false,
-          "children": [
-            {
-              "id": "demo_tree_struct",
-              "name": "数据结构",
-              "count": 0,
-              "icon": "📊",
-              "children": [
-                {
-                  "id": "demo_tree_btree_algo",
-                  "name": "B+树",
-                  "count": 0,
-                  "icon": "🌳",
-                  "nodeRef": "demo_btree"
-                },
-                {
-                  "id": "demo_tree_hash_algo",
-                  "name": "哈希表",
-                  "count": 0,
-                  "icon": "#️⃣",
-                  "nodeRef": "demo_hash"
-                }
-              ],
-              "nodeRef": "n_6dgtsmpj"
-            }
-          ],
-          "nodeRef": "n_9hr0nvvv"
+          ]
         }
-      ],
-      "nodeRef": "n_55jiel25"
+      ]
     }
   ],
   "nodeRef": "n_a03cv4sd"

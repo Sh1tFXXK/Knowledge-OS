@@ -44,18 +44,22 @@ export function createEmptyTreeRoot(): TreeNode {
     count: 0,
     icon: '🌌',
     expanded: true,
+    nodeRef: 'n_a03cv4sd',
     children: [],
   };
 }
 
-export function createTreeFolder(name: string, icon = '📁'): TreeNode {
+export function createTreeEntry(
+  name: string,
+  nodeRef: string,
+  icon = '📄',
+): TreeNode {
   return {
     id: genId('tree'),
     name,
     count: 0,
     icon,
-    expanded: false,
-    children: [],
+    nodeRef,
   };
 }
 
@@ -73,19 +77,5 @@ export function createKnowledgeEdge(
     type,
     label: label ?? type,
     dimensions,
-  };
-}
-
-export function createTreeRef(
-  name: string,
-  nodeRef: string,
-  icon = '📄',
-): TreeNode {
-  return {
-    id: genId('tree'),
-    name,
-    count: 0,
-    icon,
-    nodeRef,
   };
 }

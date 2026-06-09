@@ -31,6 +31,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
   const updateKnowledgeTab = useGraphStore((s) => s.updateKnowledgeTab);
   const updateKnowledgeViewDimensions = useGraphStore((s) => s.updateKnowledgeViewDimensions);
+  const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
+  const removeKnowledgeNode = useGraphStore((s) => s.removeKnowledgeNode);
 
   const [activeDim, setActiveDim] = useState(viewDimensions[0]?.id ?? '');
   const [dims, setDims] = useState<DimDef[]>(viewDimensions);
@@ -48,6 +50,9 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   const [editingChild, setEditingChild] = useState<{ dimId: string; index: number } | null>(null);
   const [draftChildLabel, setDraftChildLabel] = useState('');
   const [draftChildDesc, setDraftChildDesc] = useState('');
+  const [boundNodeId, setBoundNodeId] = useState<string>('');
+  const [bindSearch, setBindSearch] = useState<string>('');
+  const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
 
   // 联动：外部 viewDimensions 变化时同步本地状态
   useEffect(() => {
@@ -159,30 +164,91 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
 
   const startChildEdit = (dimId: string, index: number, child: DimChild) => {
     setEditingChild({ dimId, index });
-    setDraftChildLabel(child.label);
-    setDraftChildDesc(child.desc ?? '');
+    const isPlaceholder = child.label === '（空）' || child.label === '＋ 新增子项';
+    setDraftChildLabel(isPlaceholder ? '' : child.label);
+    setDraftChildDesc(isPlaceholder ? '' : (child.desc ?? ''));
+    setBoundNodeId(child.nodeId ?? '');
+
+    // 初始化搜索词与下拉态
+    const boundNode = child.nodeId ? nodePool[child.nodeId] : null;
+    setBindSearch(boundNode ? boundNode.label : '');
+    setShowSuggestions(false);
   };
 
   const cancelChildEdit = () => {
     setEditingChild(null);
     setDraftChildLabel('');
     setDraftChildDesc('');
+    setBoundNodeId('');
+    setBindSearch('');
+    setShowSuggestions(false);
   };
 
   const saveChildEdit = () => {
     if (!editingChild) return;
     const label = draftChildLabel.trim();
     if (!label) return;
+    const desc = draftChildDesc.trim();
+
+    const activeDimDef = dims.find((d) => d.id === editingChild.dimId);
+    if (!activeDimDef) return;
+
+    const children = [...(activeDimDef.children ?? [])];
+    const existing = children[editingChild.index];
+
+    // 优先使用用户选择绑定的现有节点 ID，如果是空字符串，则表示创建全新独立节点
+    let targetNodeId = boundNodeId;
+
+    if (targetNodeId) {
+      // 联动节点库：已存在对应节点，更新名称与内容
+      updateKnowledgeNodeLabel(targetNodeId, label);
+      updateKnowledgeTab(targetNodeId, 'def', desc);
+    } else {
+      // 联动节点库：若不存在，则在节点库中创建全新节点
+      const newId = addKnowledgeNode(label);
+      if (newId) {
+        targetNodeId = newId;
+        updateKnowledgeTab(targetNodeId, 'def', desc);
+      }
+    }
+
+    if (!targetNodeId) return;
+
     const next = dims.map((dim) => {
       if (dim.id !== editingChild.dimId) return dim;
-      const children = [...(dim.children ?? [])];
-      const existing = children[editingChild.index];
-      if (!existing) return dim;
-      children[editingChild.index] = {
-        ...existing,
+      const nextChildren = [...(dim.children ?? [])];
+      const updatedChild = {
         label,
-        desc: draftChildDesc.trim() || undefined,
+        desc: desc || undefined,
+        nodeId: targetNodeId,
       };
+      if (existing) {
+        nextChildren[editingChild.index] = updatedChild;
+      } else {
+        nextChildren.push(updatedChild);
+      }
+      return { ...dim, children: nextChildren };
+    });
+
+    setDims(next);
+    updateKnowledgeViewDimensions(node.id, next);
+    cancelChildEdit();
+  };
+
+  const deleteChild = () => {
+    if (!editingChild) return;
+    const activeDimDef = dims.find((d) => d.id === editingChild.dimId);
+    if (activeDimDef) {
+      const existing = (activeDimDef.children ?? [])[editingChild.index];
+      // 联动节点库：级联从节点库中删除该节点，保持数据整洁一致
+      if (existing?.nodeId) {
+        removeKnowledgeNode(existing.nodeId);
+      }
+    }
+
+    const next = dims.map((dim) => {
+      if (dim.id !== editingChild.dimId) return dim;
+      const children = (dim.children ?? []).filter((_, i) => i !== editingChild.index);
       return { ...dim, children };
     });
     setDims(next);
@@ -329,6 +395,7 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
             onHover={setHoveredChild}
             onChildClick={handleChildClick}
             onChildEdit={(index, child) => startChildEdit(cur.id, index, child)}
+            nodePool={nodePool}
           />
         ) : (
           <div className="dc-empty">
@@ -338,28 +405,284 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         {cur?.hint && (
           <div className="dc-hint-bar">{cur.hint}</div>
         )}
-        {editingChild && editingChild.dimId === activeDim && (
-          <div className="dc-child-edit-panel">
-            <div className="dc-child-edit-title">编辑分类节点</div>
-            <input
-              className="input dc-edit-input"
-              value={draftChildLabel}
-              onChange={(e) => setDraftChildLabel(e.target.value)}
-              placeholder="分类节点名称"
-            />
-            <textarea
-              className="input dc-child-desc-input"
-              value={draftChildDesc}
-              onChange={(e) => setDraftChildDesc(e.target.value)}
-              placeholder="分类节点描述"
-              rows={2}
-            />
-            <div className="dc-edit-actions">
-              <button type="button" className="btn btn-primary btn-sm" onClick={saveChildEdit}>保存分类节点</button>
-              <button type="button" className="btn btn-sm" onClick={cancelChildEdit}>取消</button>
+        {editingChild && editingChild.dimId === activeDim && (() => {
+          const activeDimDef = dims.find(d => d.id === editingChild.dimId);
+          const children = activeDimDef?.children ?? [];
+          const existing = children[editingChild.index];
+          const isEdit = editingChild.index < children.length;
+
+          return (
+            <div className="dc-child-edit-panel">
+              <div className="dc-child-edit-title">
+                {isEdit ? '编辑分类节点' : '添加分类节点'}
+              </div>
+
+              {/* 🔗 Existing Node Binding Dropdown */}
+              <div
+                className="dc-child-bind-row"
+                style={{
+                  gridColumn: '1 / -1',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '6px',
+                  marginBottom: '4px',
+                  background: 'rgba(255, 255, 255, 0.02)',
+                  padding: '10px',
+                  borderRadius: '6px',
+                  border: '1px dashed var(--border-secondary)',
+                  position: 'relative',
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '6px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ fontSize: '11px', color: 'var(--text-secondary)', fontWeight: 600 }}>
+                      🔗 搜索并关联目录中的现有知识节点
+                    </span>
+                    <span style={{ fontSize: '10px', color: 'var(--text-tertiary)' }}>
+                      (输入关键字模糊搜索，支持万级节点秒级极速过滤)
+                    </span>
+                  </div>
+                  {boundNodeId ? (
+                    <span
+                      style={{
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        background: 'rgba(229, 133, 34, 0.15)',
+                        color: 'var(--primary)',
+                        border: '1px solid rgba(229, 133, 34, 0.3)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      已关联目录节点: {nodePool[boundNodeId]?.label ?? '已关联'}
+                    </span>
+                  ) : (
+                    <span
+                      style={{
+                        fontSize: '9px',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        background: 'rgba(255, 255, 255, 0.05)',
+                        color: 'var(--text-secondary)',
+                        border: '1px solid var(--border-secondary)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      创建新独立节点
+                    </span>
+                  )}
+                </div>
+
+                <div style={{ position: 'relative', width: '100%' }}>
+                  <input
+                    type="text"
+                    className="input"
+                    style={{
+                      fontSize: '12px',
+                      height: '28px',
+                      padding: '0 28px 0 24px',
+                      width: '100%',
+                      background: 'var(--bg-card)',
+                      color: 'var(--text-primary)',
+                      borderColor: 'var(--border-secondary)',
+                      borderRadius: '4px',
+                      outline: 'none',
+                    }}
+                    placeholder="🔍 输入名称搜索目录页节点（如：InnoDB Page, Transaction 等）"
+                    value={bindSearch}
+                    onChange={(e) => {
+                      setBindSearch(e.target.value);
+                      setShowSuggestions(true);
+                    }}
+                    onFocus={() => setShowSuggestions(true)}
+                  />
+                  <span style={{ position: 'absolute', left: '8px', top: '7px', fontSize: '11px', color: 'var(--text-tertiary)' }}>🔍</span>
+                  {bindSearch && (
+                    <button
+                      type="button"
+                      style={{
+                        position: 'absolute',
+                        right: '8px',
+                        top: '6px',
+                        background: 'none',
+                        border: 'none',
+                        color: 'var(--text-tertiary)',
+                        cursor: 'pointer',
+                        fontSize: '12px',
+                        padding: '0 4px',
+                      }}
+                      onClick={() => {
+                        setBindSearch('');
+                        setBoundNodeId('');
+                        setShowSuggestions(true);
+                      }}
+                    >
+                      ×
+                    </button>
+                  )}
+                </div>
+
+                {showSuggestions && (
+                  <>
+                    <div
+                      style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        zIndex: 998,
+                      }}
+                      onClick={() => setShowSuggestions(false)}
+                    />
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: '100%',
+                        left: '10px',
+                        right: '10px',
+                        maxHeight: '180px',
+                        overflowY: 'auto',
+                        background: 'var(--bg-secondary, #1d1d28)',
+                        border: '1px solid var(--border-secondary)',
+                        borderRadius: '4px',
+                        marginTop: '4px',
+                        boxShadow: '0 8px 24px rgba(0,0,0,0.6)',
+                        zIndex: 999,
+                      }}
+                    >
+                      {(() => {
+                        const query = bindSearch.trim().toLowerCase();
+                        const filtered = Object.values(nodePool)
+                          .filter((n) => n.id !== node.id) // 不能绑定自己
+                          .filter((n) => {
+                            if (!query) return true;
+                            return n.label.toLowerCase().includes(query);
+                          })
+                          .sort((a, b) => a.label.localeCompare(b.label, 'zh-CN'))
+                          .slice(0, 50); // 截取前 50 项，保证万级节点也拥有极佳的流畅度与性能
+
+                        if (filtered.length === 0) {
+                          return (
+                            <div style={{ padding: '8px 10px', fontSize: '11px', color: 'var(--text-tertiary)' }}>
+                              没有找到匹配的目录节点
+                            </div>
+                          );
+                        }
+
+                        return (
+                          <>
+                            {!query && (
+                              <div
+                                style={{
+                                  padding: '6px 10px',
+                                  fontSize: '10px',
+                                  color: 'var(--primary)',
+                                  borderBottom: '1px solid var(--border-secondary)',
+                                  background: 'rgba(255,255,255,0.01)',
+                                  fontWeight: 600,
+                                }}
+                              >
+                                💡 请在上方输入框搜索，或从推荐的前 50 个节点中选择：
+                              </div>
+                            )}
+                            {filtered.map((n) => {
+                              const isSelected = n.id === boundNodeId;
+                              return (
+                                <div
+                                  key={n.id}
+                                  style={{
+                                    padding: '8px 10px',
+                                    fontSize: '11px',
+                                    cursor: 'pointer',
+                                    background: isSelected ? 'rgba(229, 133, 34, 0.12)' : 'transparent',
+                                    color: isSelected ? 'var(--primary)' : 'var(--text-primary)',
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                    borderBottom: '1px solid rgba(255,255,255,0.02)',
+                                    transition: 'background 0.1s ease',
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    if (!isSelected) e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    if (!isSelected) e.currentTarget.style.background = 'transparent';
+                                  }}
+                                  onClick={() => {
+                                    setBoundNodeId(n.id);
+                                    setBindSearch(n.label);
+                                    setDraftChildLabel(n.label);
+                                    setDraftChildDesc(n.card.tabs[0]?.content ?? '');
+                                    setShowSuggestions(false);
+                                  }}
+                                >
+                                  <span style={{ fontWeight: isSelected ? 600 : 400 }}>
+                                    {n.label}
+                                  </span>
+                                  <span style={{ fontSize: '9px', color: 'var(--text-tertiary)', opacity: 0.8 }}>
+                                    {n.role ? `[${n.role}]` : ''}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </>
+                        );
+                      })()}
+                    </div>
+                  </>
+                )}
+              </div>
+
+              <input
+                className="input dc-edit-input"
+                value={draftChildLabel}
+                onChange={(e) => setDraftChildLabel(e.target.value)}
+                placeholder="分类节点名称"
+              />
+              <textarea
+                className="input dc-child-desc-input"
+                value={draftChildDesc}
+                onChange={(e) => setDraftChildDesc(e.target.value)}
+                placeholder="分类节点描述"
+                rows={2}
+              />
+              <div className="dc-edit-actions">
+                <button type="button" className="btn btn-primary btn-sm" onClick={saveChildEdit}>
+                  保存分类节点
+                </button>
+                {isEdit && (
+                  <button
+                    type="button"
+                    className="btn btn-sm"
+                    style={{
+                      background: 'rgba(239, 68, 68, 0.15)',
+                      color: '#ef4444',
+                      borderColor: 'rgba(239, 68, 68, 0.35)',
+                      transition: 'all 0.15s ease',
+                    }}
+                    onClick={deleteChild}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#ef4444';
+                      e.currentTarget.style.color = '#fff';
+                      e.currentTarget.style.borderColor = '#ef4444';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(239, 68, 68, 0.15)';
+                      e.currentTarget.style.color = '#ef4444';
+                      e.currentTarget.style.borderColor = 'rgba(239, 68, 68, 0.35)';
+                    }}
+                  >
+                    删除子项
+                  </button>
+                )}
+                <button type="button" className="btn btn-sm" onClick={cancelChildEdit}>
+                  取消
+                </button>
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );
@@ -387,6 +710,7 @@ function DimTree({
   onHover,
   onChildClick,
   onChildEdit,
+  nodePool,
 }: {
   dim: DimDef;
   rootLabel: string;
@@ -395,11 +719,19 @@ function DimTree({
   onHover: (i: number | null) => void;
   onChildClick: (child: DimChild) => void;
   onChildEdit: (index: number, child: DimChild) => void;
+  nodePool: Record<string, KnowledgeNode>;
 }) {
   const col = dim.color;
+  // 过滤掉 nodeId 指向不存在节点的 children（防御悬空引用）
   const kids: DimChild[] = dim.children?.length
-    ? dim.children
-    : [{ label: '（空）', desc: '补充子项' }];
+    ? dim.children.filter(c => !c.nodeId || nodePool[c.nodeId])
+    : [];
+  const isEmpty = kids.length === 0;
+  if (isEmpty) {
+    kids.push({ label: '（空）', desc: '补充子项' });
+  } else {
+    kids.push({ label: '＋ 新增子项', desc: '添加新的分类' });
+  }
   const n = kids.length;
 
   const MIN_SLOT = 200;
@@ -441,17 +773,25 @@ function DimTree({
 
         {kids.map((c, i) => {
           const cx = padX + slot * (i + 0.5);
-          const clickable = !!(c.nodeId || c.label !== '（空）');
+          const isFallback = c.label === '（空）';
+          const isAddPlaceholder = c.label === '＋ 新增子项';
+          const clickable = !!(c.nodeId || (!isFallback && !isAddPlaceholder));
           const isHover = hoveredChild === i;
           const isSelected = !!(c.nodeId && c.nodeId === selectedNodeId);
           const active = isHover || isSelected;
           return (
             <g
               key={i}
-              style={{ cursor: clickable ? 'pointer' : 'default' }}
+              style={{ cursor: (clickable || isFallback || isAddPlaceholder) ? 'pointer' : 'default' }}
               onMouseEnter={() => onHover(i)}
               onMouseLeave={() => onHover(null)}
-              onClick={() => clickable && onChildClick(c)}
+              onClick={() => {
+                if (isFallback || isAddPlaceholder) {
+                  onChildEdit(i, c);
+                } else if (clickable) {
+                  onChildClick(c);
+                }
+              }}
             >
               <path
                 d={`M${rootX} ${rootY + 22} L${rootX} ${my} L${cx} ${my} L${cx} ${cy - boxH / 2}`}
@@ -467,6 +807,7 @@ function DimTree({
                   : 'var(--bg-card, #1d1d28)'}
                 stroke={active ? col : `color-mix(in srgb, ${col} 55%, transparent)`}
                 strokeWidth={isSelected ? 2 : active ? 1.8 : 1.2}
+                strokeDasharray={(isFallback || isAddPlaceholder) ? "4 3" : undefined}
               />
               <text x={cx} y={cy - (c.desc ? 12 : 2)} textAnchor="middle"
                 fontSize={12} fontWeight={600} fill="currentColor">
@@ -478,10 +819,16 @@ function DimTree({
                   {c.desc}
                 </text>
               )}
-              {clickable && (
+              {isAddPlaceholder ? (
+                <title>点击添加分类子项</title>
+              ) : isFallback ? (
+                <title>点击编辑以补充子项</title>
+              ) : clickable ? (
                 <title>{c.label}{c.desc ? ` — ${c.desc}` : ''}（点击查看解释卡）</title>
+              ) : (
+                <title>{c.label}{c.desc ? ` — ${c.desc}` : ''}</title>
               )}
-              {clickable && active && (
+              {!isAddPlaceholder && active && (
                 <g
                   transform={`translate(${cx + boxW / 2 - 34},${cy - boxH / 2 + 8})`}
                   onClick={(e) => {
