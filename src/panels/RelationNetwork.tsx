@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo, useCallback } from 'react';
+import React, { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { extractSubgraph } from '../knowledge/extractSubgraph';
 
@@ -48,6 +48,16 @@ function clamp(v: number, lo: number, hi: number) {
   return v < lo ? lo : v > hi ? hi : v;
 }
 
+/* ── 降噪：计算每个节点的出现在边中的次数（degree） ──────── */
+function computeDegreeMap(edgeList: Array<{ source: string; target: string }>): Map<string, number> {
+  const deg = new Map<string, number>();
+  for (const e of edgeList) {
+    deg.set(e.source, (deg.get(e.source) ?? 0) + 1);
+    deg.set(e.target, (deg.get(e.target) ?? 0) + 1);
+  }
+  return deg;
+}
+
 /* ───────────────────────────────────────────────────────── */
 export default function RelationNetwork() {
   const nodePool        = useGraphStore((s) => s.nodePool);
@@ -57,8 +67,20 @@ export default function RelationNetwork() {
   const openCard        = useGraphStore((s) => s.openCard);
   const dimension       = useGraphStore((s) => s.currentPerspective?.id ?? 'all');
 
+  /* ── 降噪开关 ─────────────────────────────────────────── */
+  const [noiseFilter, setNoiseFilter] = useState<'off' | 'isolate' | 'weak'>(
+    () => (localStorage.getItem('rn_noiseFilter') as 'off' | 'isolate' | 'weak') ?? 'isolate'
+  );
+  const cycleFilter = () => {
+    setNoiseFilter((prev) => {
+      const next = prev === 'off' ? 'isolate' : prev === 'isolate' ? 'weak' : 'off';
+      localStorage.setItem('rn_noiseFilter', next);
+      return next;
+    });
+  };
+
   /* 关系网：有焦点时只显示邻域子图，避免全局过密 */
-  const pack = useMemo(
+  const rawPack = useMemo(
     () => extractSubgraph(nodePool, knowledgeEdges, {
       focus: focusNodeId,
       scope: focusNodeId ? 'neighbor' : 'global',
@@ -66,6 +88,40 @@ export default function RelationNetwork() {
     }),
     [nodePool, knowledgeEdges, focusNodeId, dimension],
   );
+
+  /* ── 降噪过滤：仅在 global scope（无 focus）时生效 ──── */
+  const pack = useMemo(() => {
+    if (focusNodeId || noiseFilter === 'off') return rawPack;
+
+    const degMap = computeDegreeMap(rawPack.edges);
+    const minDeg = noiseFilter === 'weak' ? 2 : 1;   // isolate=去孤岛(deg<1), weak=去弱连接(deg<2)
+
+    const keepIds = new Set(
+      rawPack.nodes
+        .filter((n) => {
+          if (n.isFocus) return true;                 // 焦点节点永远保留
+          const deg = degMap.get(n.id) ?? 0;
+          return deg >= minDeg;
+        })
+        .map((n) => n.id)
+    );
+
+    const filteredNodes = rawPack.nodes.filter((n) => keepIds.has(n.id));
+    const filteredEdges = rawPack.edges.filter(
+      (e) => keepIds.has(e.source) && keepIds.has(e.target)
+    );
+
+    return {
+      ...rawPack,
+      nodes: filteredNodes,
+      edges: filteredEdges,
+      meta: {
+        ...rawPack.meta,
+        nodeCount: filteredNodes.length,
+        edgeCount: filteredEdges.length,
+      },
+    };
+  }, [rawPack, focusNodeId, noiseFilter]);
 
   /* SVG 容器尺寸 */
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -240,118 +296,159 @@ export default function RelationNetwork() {
   const isEmpty   = pack.nodes.length === 0;
   const edgeKeys  = Object.keys(EDGE_COLOR);
 
+  /* 降噪统计：被过滤掉了多少节点 */
+  const filteredCount = !focusNodeId && noiseFilter !== 'off'
+    ? rawPack.nodes.length - pack.nodes.length
+    : 0;
+
+  const filterLabel: Record<typeof noiseFilter, string> = {
+    off:      '全量',
+    isolate:  '去孤岛',
+    weak:     '去弱连',
+  };
+  const filterIcon: Record<typeof noiseFilter, string> = {
+    off:      '◉',
+    isolate:  '◎',
+    weak:     '⊙',
+  };
+
   return (
     <div className="right-section relation-panel">
-    <div
-      ref={wrapRef}
-      className="relation-panel-canvas"
-    >
 
-      {isEmpty && (
-        <div style={{
-          position: 'absolute', inset: 0, display: 'flex', alignItems: 'center',
-          justifyContent: 'center', fontSize: 12, color: 'rgba(148,163,184,0.4)',
-          textAlign: 'center', padding: 32, zIndex: 1, pointerEvents: 'none',
-        }}>
-          暂无节点数据<br />请先在左侧加载知识库
+      {/* ── 降噪控制栏 ─────────────────────────────────────── */}
+      {!focusNodeId && (
+        <div className="rn-noise-bar">
+          <button
+            type="button"
+            className={`rn-noise-btn rn-noise-btn--${noiseFilter}`}
+            onClick={cycleFilter}
+            title="切换降噪模式：全量 → 去孤岛 → 去弱连 → 全量"
+          >
+            <span>{filterIcon[noiseFilter]}</span>
+            <span>{filterLabel[noiseFilter]}</span>
+          </button>
+          {filteredCount > 0 && (
+            <span className="rn-noise-stat">
+              已过滤 {filteredCount} 个孤立节点
+            </span>
+          )}
+          <span className="rn-noise-hint">
+            {rawPack.nodes.length} 节点 · {rawPack.edges.length} 边
+            {noiseFilter !== 'off' && ` → 显示 ${pack.nodes.length} 节点`}
+          </span>
         </div>
       )}
 
-      <svg
-        ref={svgRef}
-        width="100%"
-        height="100%"
-        style={{ display: 'block', cursor: dragRef.current ? 'grabbing' : 'default' }}
+      <div
+        ref={wrapRef}
+        className="relation-panel-canvas"
       >
-        <defs>
-          {edgeKeys.map((type) => (
-            <marker key={type} id={`rn-arr-${type}`} viewBox="0 0 10 10"
+        {isEmpty && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            flexDirection: 'column', gap: 8,
+            fontSize: 12, opacity: 0.4, pointerEvents: 'none',
+          }}>
+            暂无节点数据<br />请先在左侧加载知识库
+          </div>
+        )}
+
+        <svg
+          ref={svgRef}
+          width="100%"
+          height="100%"
+          style={{ display: 'block', userSelect: 'none' }}
+        >
+          <defs>
+            {edgeKeys.map((type) => (
+              <marker key={type} id={`rn-arr-${type}`} viewBox="0 0 10 10"
+                refX="18" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill={EDGE_COLOR[type]} opacity={0.75} />
+              </marker>
+            ))}
+            <marker id="rn-arr-default" viewBox="0 0 10 10"
               refX="18" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill={EDGE_COLOR[type]} opacity={0.75} />
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" opacity={0.6} />
             </marker>
-          ))}
-          <marker id="rn-arr-default" viewBox="0 0 10 10"
-            refX="18" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-            <path d="M 0 0 L 10 5 L 0 10 z" fill="#6b7280" opacity={0.6} />
-          </marker>
-          <filter id="rn-glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="3" result="b" />
-            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
+            <filter id="rn-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b" />
+              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+            </filter>
+          </defs>
 
-        {/* 边 */}
-        {pack.edges.map((e) => {
-          const from = posMap.get(e.source);
-          const to   = posMap.get(e.target);
-          if (!from || !to) return null;
-          const color = eColor(e.type);
-          const mk    = edgeKeys.includes(e.type) ? e.type : 'default';
-          const mx    = (from.x + to.x) / 2;
-          const my    = (from.y + to.y) / 2 - 18;
-          return (
-            <g key={e.id} opacity={e.dimmed ? 0.15 : 0.75}>
-              <path
-                d={`M ${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}`}
-                fill="none"
-                stroke={color}
-                strokeWidth={1.4}
-                strokeDasharray={e.dimmed ? '4 4' : undefined}
-                markerEnd={`url(#rn-arr-${mk})`}
-              />
-              {e.label && (
-                <text x={mx} y={my - 3} textAnchor="middle" fontSize={8}
-                  fill={color} opacity={0.75} style={{ pointerEvents: 'none' }}>
-                  {e.label}
-                </text>
-              )}
-            </g>
-          );
-        })}
+          {/* 边 */}
+          {pack.edges.map((e) => {
+            const from = posMap.get(e.source);
+            const to   = posMap.get(e.target);
+            if (!from || !to) return null;
+            const color = eColor(e.type);
+            const mk    = edgeKeys.includes(e.type) ? e.type : 'default';
+            const mx    = (from.x + to.x) / 2;
+            const my    = (from.y + to.y) / 2 - 18;
+            return (
+              <g key={e.id} opacity={e.dimmed ? 0.15 : 0.75}>
+                <path
+                  d={`M ${from.x} ${from.y} Q ${mx} ${my} ${to.x} ${to.y}`}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth={1.4}
+                  strokeDasharray={e.dimmed ? '4 4' : undefined}
+                  markerEnd={`url(#rn-arr-${mk})`}
+                />
+                {e.label && (
+                  <text x={mx} y={my - 3} textAnchor="middle" fontSize={8}
+                    fill={color} opacity={0.75} style={{ pointerEvents: 'none' }}>
+                    {e.label}
+                  </text>
+                )}
+              </g>
+            );
+          })}
 
-        {/* 节点 */}
-        {particles.map((p) => {
-          const isSelected = p.id === selectedNodeId;
-          const nodeData   = pack.nodes.find((n) => n.id === p.id);
-          const isDimmed   = nodeData?.dimmed ?? false;
-          const color      = rColor(p.role);
-          const r          = p.isFocus ? 18 : p.shared ? 14 : 12;
-          return (
-            <g
-              key={p.id}
-              style={{ cursor: 'grab' }}
-              opacity={isDimmed ? 0.25 : 1}
-              onMouseDown={(e) => onMouseDown(e, p.id)}
-              onClick={() => openCard(isSelected ? null : p.id)}
-            >
-              {isSelected && (
-                <circle cx={p.x} cy={p.y} r={r + 10} fill="none"
-                  stroke={color} strokeWidth={1.5} strokeDasharray="3 5"
-                  opacity={0.6} filter="url(#rn-glow)" />
-              )}
-              <circle cx={p.x} cy={p.y} r={r}
-                fill={`${color}22`} stroke={color}
-                strokeWidth={isSelected ? 2.5 : 1.5} />
-              {p.isFocus && (
-                <circle cx={p.x} cy={p.y} r={5} fill={color} opacity={0.9} />
-              )}
-              {p.shared && (
-                <text x={p.x + r - 2} y={p.y - r + 4} fontSize={8}
-                  fill="#f59e0b" textAnchor="middle" style={{ pointerEvents: 'none' }}>
-                  ⟳
+          {/* 节点 */}
+          {particles.map((p) => {
+            const isSelected = p.id === selectedNodeId;
+            const nodeData   = pack.nodes.find((n) => n.id === p.id);
+            const isDimmed   = nodeData?.dimmed ?? false;
+            const color      = rColor(p.role);
+            const r          = p.isFocus ? 18 : p.shared ? 14 : 12;
+            return (
+              <g
+                key={p.id}
+                style={{ cursor: 'pointer' }}
+                opacity={isDimmed ? 0.25 : 1}
+                onMouseDown={(e) => onMouseDown(e, p.id)}
+                onClick={() => openCard(isSelected ? null : p.id)}
+              >
+                {isSelected && (
+                  <circle cx={p.x} cy={p.y} r={r + 10} fill="none"
+                    stroke={color} strokeWidth={1.5} strokeDasharray="3 5"
+                    opacity={0.6} filter="url(#rn-glow)" />
+                )}
+                <circle cx={p.x} cy={p.y} r={r}
+                  fill={`${color}22`} stroke={color}
+                  strokeWidth={isSelected ? 2.5 : 1.5} />
+                {p.isFocus && (
+                  <circle cx={p.x} cy={p.y} r={5} fill={color} opacity={0.9} />
+                )}
+                {p.shared && (
+                  <text x={p.x + r - 2} y={p.y - r + 4} fontSize={8}
+                    fill="#f59e0b" textAnchor="middle" style={{ pointerEvents: 'none' }}>
+                    ⟳
+                  </text>
+                )}
+                <text x={p.x} y={p.y + r + 13} textAnchor="middle" fontSize={10}
+                  fill={isSelected ? color : 'rgba(226,232,240,0.82)'}
+                  fontWeight={isSelected ? 700 : 400}
+                  style={{ pointerEvents: 'none' }}>
+                  {p.label.length > 8 ? p.label.slice(0, 7) + '…' : p.label}
                 </text>
-              )}
-              <text x={p.x} y={p.y + r + 13} textAnchor="middle" fontSize={10}
-                fill={isSelected ? color : 'rgba(226,232,240,0.82)'}
-                fontWeight={isSelected ? 700 : 400}
-                style={{ pointerEvents: 'none', userSelect: 'none' }}>
-                {p.label.length > 8 ? p.label.slice(0, 7) + '…' : p.label}
-              </text>
-            </g>
-          );
-        })}
-      </svg>
-    </div>
+              </g>
+            );
+          })}
+        </svg>
+      </div>
     </div>
   );
 }

@@ -11,6 +11,7 @@ import treeDataRaw from '../../data/tree-data.json';
 import questionsData from '../../data/questions.json';
 import inferenceResponsesData from '../../data/inference-responses.json';
 import subsystemsData from '../../data/subsystems.json';
+import { migrateNodePool } from './migrateViewDimensions';
 
 function demoGraphSlice(): PersistedAppState['graph'] {
   const mk = (
@@ -62,9 +63,9 @@ function demoGraphSlice(): PersistedAppState['graph'] {
 
 export function createInitialAppState(): PersistedAppState {
   return {
-    version: 3,
+    version: 4,
     treeData: treeDataRaw as TreeNode,
-    nodePool: nodePoolData as Record<string, KnowledgeNode>,
+    nodePool: migrateNodePool(nodePoolData as Record<string, KnowledgeNode>),
     knowledgeEdges: knowledgeEdgesData as KnowledgeEdge[],
     graph: demoGraphSlice(),
     rules: [],

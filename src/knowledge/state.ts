@@ -23,7 +23,7 @@ import type {
 } from '../types';
 import { createInitialAppState } from './demoSeed';
 
-export const APP_STATE_VERSION = 3 as const;
+export const APP_STATE_VERSION = 4 as const;
 
 export interface GraphSlice {
   axioms: GraphNode[];

@@ -389,80 +389,125 @@
     ],
     "viewDimensions": [
       {
-        "id": "grain",
-        "name": "按锁粒度",
+        "id": "lock_composition",
+        "name": "多维分类",
         "color": "#E58522",
-        "hint": "粒度越细并发越高，开销越大；表锁不会死锁，行锁会。\n完整对比见\"锁粒度对比\"节点。",
-        "children": [
+        "hint": "同一批锁原子，按粒度/引擎/操作/策略四套规矩分别投影；粒度对比矩阵归属本节点结论区，子节点引用并高亮自己。",
+        "sections": [
           {
-            "label": "表级锁",
-            "nodeId": "demo_table_lock"
+            "id": "lock_grain_grid",
+            "title": "按锁粒度",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_table_lock"
+              },
+              {
+                "nodeId": "demo_row_lock"
+              },
+              {
+                "nodeId": "demo_page_lock"
+              }
+            ]
           },
           {
-            "label": "行级锁",
-            "nodeId": "demo_row_lock"
+            "id": "lock_engine_grid",
+            "title": "按存储引擎",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_myisam"
+              },
+              {
+                "nodeId": "k_auto_1hl4cg6"
+              },
+              {
+                "nodeId": "demo_innodb"
+              },
+              {
+                "nodeId": "k_auto_pysvvf"
+              }
+            ]
           },
           {
-            "label": "页面锁",
-            "nodeId": "demo_page_lock"
+            "id": "lock_type_grid",
+            "title": "按操作类型",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_shared_lock"
+              },
+              {
+                "nodeId": "demo_exclusive_lock"
+              }
+            ]
           },
           {
-            "label": "锁粒度对比",
-            "nodeId": "demo_lock_compare"
-          }
-        ]
-      },
-      {
-        "id": "engine",
-        "name": "按存储引擎",
-        "color": "#58B2DC",
-        "hint": "不同引擎默认锁粒度不同；引擎→锁的映射见各引擎节点。",
-        "children": [
-          {
-            "label": "MyISAM",
-            "nodeId": "demo_myisam"
+            "id": "lock_strategy_grid",
+            "title": "按锁策略",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_optimistic"
+              },
+              {
+                "nodeId": "demo_pessimistic"
+              }
+            ]
           },
           {
-            "label": "MEMORY"
-          },
-          {
-            "label": "InnoDB",
-            "nodeId": "demo_innodb"
-          },
-          {
-            "label": "BDB"
-          }
-        ]
-      },
-      {
-        "id": "type",
-        "name": "按操作类型",
-        "color": "#B481BB",
-        "hint": "读锁可共存，写锁排他——决定并发读写能否同时进行。",
-        "children": [
-          {
-            "label": "共享锁",
-            "nodeId": "demo_shared_lock"
-          },
-          {
-            "label": "排他锁",
-            "nodeId": "demo_exclusive_lock"
-          }
-        ]
-      },
-      {
-        "id": "strategy",
-        "name": "按锁策略",
-        "color": "#00AA90",
-        "hint": "悲观锁先锁后改；乐观锁靠版本比对延后冲突检测。",
-        "children": [
-          {
-            "label": "乐观锁",
-            "nodeId": "demo_optimistic"
-          },
-          {
-            "label": "悲观锁",
-            "nodeId": "demo_pessimistic"
+            "id": "lock_grain_matrix",
+            "title": "锁粒度对比",
+            "layout": "matrix",
+            "config": {
+              "columns": [
+                {
+                  "key": "grain",
+                  "label": "粒度"
+                },
+                {
+                  "key": "cost",
+                  "label": "开销"
+                },
+                {
+                  "key": "deadlock",
+                  "label": "死锁"
+                },
+                {
+                  "key": "concurrency",
+                  "label": "并发"
+                }
+              ]
+            },
+            "atoms": [
+              {
+                "nodeId": "demo_table_lock",
+                "attrs": {
+                  "grain": "粗",
+                  "cost": "低",
+                  "deadlock": "不会",
+                  "concurrency": "低"
+                }
+              },
+              {
+                "nodeId": "demo_page_lock",
+                "attrs": {
+                  "grain": "中",
+                  "cost": "中",
+                  "deadlock": "会",
+                  "concurrency": "中"
+                }
+              },
+              {
+                "nodeId": "demo_row_lock",
+                "attrs": {
+                  "grain": "细",
+                  "cost": "高",
+                  "deadlock": "会",
+                  "concurrency": "高"
+                }
+              }
+            ]
           }
         ]
       }
@@ -754,16 +799,21 @@
         "name": "实现方式",
         "color": "#00AA90",
         "hint": "乐观锁的两种典型实现：版本号 vs 时间戳",
-        "children": [
+        "sections": [
           {
-            "label": "version 版本号",
-            "desc": "最常用，整数字段递增",
-            "nodeId": "demo_optimistic"
-          },
-          {
-            "label": "timestamp 时间戳",
-            "desc": "精度依赖系统时钟",
-            "nodeId": "demo_optimistic"
+            "id": "impl_main",
+            "title": "实现方式",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_optimistic",
+                "desc": "最常用，整数字段递增"
+              },
+              {
+                "nodeId": "demo_optimistic",
+                "desc": "精度依赖系统时钟"
+              }
+            ]
           }
         ]
       }
@@ -843,22 +893,25 @@
         "name": "按数据结构",
         "color": "#E58522",
         "hint": "不同数据结构决定索引的查询能力和存储方式。",
-        "children": [
+        "sections": [
           {
-            "label": "B+树",
-            "nodeId": "demo_btree"
-          },
-          {
-            "label": "哈希",
-            "nodeId": "demo_hash"
-          },
-          {
-            "label": "全文",
-            "nodeId": "demo_fulltext_index"
-          },
-          {
-            "label": "索引对比",
-            "nodeId": "demo_index_compare"
+            "id": "structure_main",
+            "title": "按数据结构",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_btree"
+              },
+              {
+                "nodeId": "demo_hash"
+              },
+              {
+                "nodeId": "demo_fulltext_index"
+              },
+              {
+                "nodeId": "demo_index_compare"
+              }
+            ]
           }
         ]
       },
@@ -867,21 +920,25 @@
         "name": "按存储特性",
         "color": "#58B2DC",
         "hint": "聚簇索引决定数据的物理存储顺序；二级索引引主键。InnoDB 必须有聚簇索引。",
-        "children": [
+        "sections": [
           {
-            "label": "聚簇索引",
-            "desc": "数据即索引",
-            "nodeId": "demo_clustered_index"
-          },
-          {
-            "label": "二级索引",
-            "desc": "引主键回表",
-            "nodeId": "demo_secondary_index"
-          },
-          {
-            "label": "覆盖索引",
-            "desc": "不回表·索引覆盖",
-            "nodeId": "demo_covering_index"
+            "id": "storage_type_main",
+            "title": "按存储特性",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_clustered_index",
+                "desc": "数据即索引"
+              },
+              {
+                "nodeId": "demo_secondary_index",
+                "desc": "引主键回表"
+              },
+              {
+                "nodeId": "demo_covering_index",
+                "desc": "不回表·索引覆盖"
+              }
+            ]
           }
         ]
       },
@@ -890,19 +947,25 @@
         "name": "按约束类型",
         "color": "#B481BB",
         "hint": "约束不同决定索引的去重和查询行为。主键索引同时是聚簇索引的默认候选。",
-        "children": [
+        "sections": [
           {
-            "label": "主键索引",
-            "desc": "非空唯一·聚簇默认"
-          },
-          {
-            "label": "唯一索引",
-            "desc": "允许NULL唯一",
-            "nodeId": "demo_unique_index"
-          },
-          {
-            "label": "普通索引",
-            "desc": "加速查询·可重复"
+            "id": "constraint_main",
+            "title": "按约束类型",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_va5371",
+                "desc": "非空唯一·聚簇默认"
+              },
+              {
+                "nodeId": "demo_unique_index",
+                "desc": "允许NULL唯一"
+              },
+              {
+                "nodeId": "k_auto_yb9yyu",
+                "desc": "加速查询·可重复"
+              }
+            ]
           }
         ]
       },
@@ -911,20 +974,25 @@
         "name": "按查询优化",
         "color": "#00AA90",
         "hint": "组合索引遵循最左前缀原则；前缀索引牺牲等值换取空间。",
-        "children": [
+        "sections": [
           {
-            "label": "组合索引",
-            "desc": "多列·最左前缀",
-            "nodeId": "demo_composite_index"
-          },
-          {
-            "label": "前缀索引",
-            "desc": "截断长字段·省空间"
-          },
-          {
-            "label": "覆盖索引",
-            "desc": "查询列全在索引中",
-            "nodeId": "demo_covering_index"
+            "id": "optimization_main",
+            "title": "按查询优化",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_composite_index",
+                "desc": "多列·最左前缀"
+              },
+              {
+                "nodeId": "k_auto_es1cgt",
+                "desc": "截断长字段·省空间"
+              },
+              {
+                "nodeId": "demo_covering_index",
+                "desc": "查询列全在索引中"
+              }
+            ]
           }
         ]
       }
@@ -1585,18 +1653,22 @@
         "id": "n_sm0vv4ex",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "InnoDB",
-            "nodeId": "demo_innodb"
-          },
-          {
-            "label": "MyISAM",
-            "nodeId": "demo_myisam"
-          },
-          {
-            "label": "引擎对比",
-            "nodeId": "demo_engine_compare"
+            "id": "n_sm0vv4ex_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_innodb"
+              },
+              {
+                "nodeId": "demo_myisam"
+              },
+              {
+                "nodeId": "demo_engine_compare"
+              }
+            ]
           }
         ]
       }
@@ -1638,14 +1710,19 @@
         "id": "n_4cqy1f1t",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "B+树索引",
-            "nodeId": "demo_btree"
-          },
-          {
-            "label": "哈希索引",
-            "nodeId": "demo_hash"
+            "id": "n_4cqy1f1t_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_btree"
+              },
+              {
+                "nodeId": "demo_hash"
+              }
+            ]
           }
         ]
       }
@@ -1687,26 +1764,28 @@
         "id": "n_cu7hvicv",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "ACID",
-            "nodeId": "demo_acid"
-          },
-          {
-            "label": "隔离级别",
-            "nodeId": "demo_isolation"
-          },
-          {
-            "label": "MVCC",
-            "nodeId": "demo_mvcc"
-          },
-          {
-            "label": "锁机制",
-            "nodeId": "demo_lock"
-          },
-          {
-            "label": "死锁检测",
-            "nodeId": "demo_deadlock"
+            "id": "n_cu7hvicv_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_acid"
+              },
+              {
+                "nodeId": "demo_isolation"
+              },
+              {
+                "nodeId": "demo_mvcc"
+              },
+              {
+                "nodeId": "demo_lock"
+              },
+              {
+                "nodeId": "demo_deadlock"
+              }
+            ]
           }
         ]
       }
@@ -1748,18 +1827,22 @@
         "id": "n_y44zkzct",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "Redo Log",
-            "nodeId": "demo_redolog"
-          },
-          {
-            "label": "Binlog",
-            "nodeId": "demo_binlog"
-          },
-          {
-            "label": "Undo Log",
-            "nodeId": "demo_undo"
+            "id": "n_y44zkzct_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_redolog"
+              },
+              {
+                "nodeId": "demo_binlog"
+              },
+              {
+                "nodeId": "demo_undo"
+              }
+            ]
           }
         ]
       }
@@ -1801,18 +1884,22 @@
         "id": "n_5pewz42l",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "Buffer Pool",
-            "nodeId": "demo_buffer"
-          },
-          {
-            "label": "查询优化",
-            "nodeId": "demo_query"
-          },
-          {
-            "label": "JOIN 优化",
-            "nodeId": "demo_join"
+            "id": "n_5pewz42l_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_buffer"
+              },
+              {
+                "nodeId": "demo_query"
+              },
+              {
+                "nodeId": "demo_join"
+              }
+            ]
           }
         ]
       }
@@ -1854,30 +1941,31 @@
         "id": "n_bjprehlm",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "SQL语法",
-            "nodeId": "demo_sql"
-          },
-          {
-            "label": "存储引擎",
-            "nodeId": "n_97x8s5dv"
-          },
-          {
-            "label": "索引",
-            "nodeId": "n_0xxb9cqy"
-          },
-          {
-            "label": "事务",
-            "nodeId": "n_ag24bbkc"
-          },
-          {
-            "label": "日志系统",
-            "nodeId": "n_adbe2q9j"
-          },
-          {
-            "label": "性能优化",
-            "nodeId": "n_s7t5dbya"
+            "id": "n_bjprehlm_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_sql"
+              },
+              {
+                "nodeId": "n_97x8s5dv"
+              },
+              {
+                "nodeId": "n_0xxb9cqy"
+              },
+              {
+                "nodeId": "n_ag24bbkc"
+              },
+              {
+                "nodeId": "n_adbe2q9j"
+              },
+              {
+                "nodeId": "n_s7t5dbya"
+              }
+            ]
           }
         ]
       }
@@ -1919,18 +2007,22 @@
         "id": "n_9d6vbg8w",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "SQL语法",
-            "nodeId": "demo_sql"
-          },
-          {
-            "label": "MVCC 实现",
-            "nodeId": "demo_postgres"
-          },
-          {
-            "label": "JOIN 连接",
-            "nodeId": "demo_join"
+            "id": "n_9d6vbg8w_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_sql"
+              },
+              {
+                "nodeId": "demo_postgres"
+              },
+              {
+                "nodeId": "demo_join"
+              }
+            ]
           }
         ]
       }
@@ -1972,14 +2064,19 @@
         "id": "n_gsvjl9vm",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "Redis",
-            "nodeId": "demo_redis"
-          },
-          {
-            "label": "MongoDB",
-            "nodeId": "demo_mongodb"
+            "id": "n_gsvjl9vm_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_redis"
+              },
+              {
+                "nodeId": "demo_mongodb"
+              }
+            ]
           }
         ]
       }
@@ -2021,18 +2118,22 @@
         "id": "n_u4fv3f7f",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "MySQL",
-            "nodeId": "n_8s66vwo1"
-          },
-          {
-            "label": "PostgreSQL",
-            "nodeId": "n_2vbkwr8v"
-          },
-          {
-            "label": "NoSQL",
-            "nodeId": "n_21yoee5g"
+            "id": "n_u4fv3f7f_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "n_8s66vwo1"
+              },
+              {
+                "nodeId": "n_2vbkwr8v"
+              },
+              {
+                "nodeId": "n_21yoee5g"
+              }
+            ]
           }
         ]
       }
@@ -2074,14 +2175,19 @@
         "id": "n_3qej2z39",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "B+树",
-            "nodeId": "demo_btree"
-          },
-          {
-            "label": "哈希表",
-            "nodeId": "demo_hash"
+            "id": "n_3qej2z39_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_btree"
+              },
+              {
+                "nodeId": "demo_hash"
+              }
+            ]
           }
         ]
       }
@@ -2123,10 +2229,16 @@
         "id": "n_zasyxj3j",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "数据结构",
-            "nodeId": "n_6dgtsmpj"
+            "id": "n_zasyxj3j_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "n_6dgtsmpj"
+              }
+            ]
           }
         ]
       }
@@ -2168,14 +2280,19 @@
         "id": "n_k9icrz01",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "数据库",
-            "nodeId": "n_u4va719e"
-          },
-          {
-            "label": "算法与数据结构",
-            "nodeId": "n_9hr0nvvv"
+            "id": "n_k9icrz01_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "n_u4va719e"
+              },
+              {
+                "nodeId": "n_9hr0nvvv"
+              }
+            ]
           }
         ]
       }
@@ -2227,20 +2344,25 @@
         "name": "导出方式",
         "color": "#61DAFB",
         "hint": "定义组件如何暴露给外部模块。",
-        "children": [
+        "sections": [
           {
-            "label": "export default",
-            "desc": "默认导出",
-            "nodeId": "react_default_export"
-          },
-          {
-            "label": "export function",
-            "desc": "命名导出",
-            "nodeId": "react_named_export"
-          },
-          {
-            "label": "混合导出",
-            "desc": "default + named"
+            "id": "export_types_main",
+            "title": "导出方式",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "react_default_export",
+                "desc": "默认导出"
+              },
+              {
+                "nodeId": "react_named_export",
+                "desc": "命名导出"
+              },
+              {
+                "nodeId": "k_auto_g7wfdd",
+                "desc": "default + named"
+              }
+            ]
           }
         ]
       },
@@ -2249,25 +2371,29 @@
         "name": "导入方式",
         "color": "#8b5cf6",
         "hint": "根据导出类型选择匹配的导入语法。",
-        "children": [
+        "sections": [
           {
-            "label": "import X",
-            "desc": "匹配默认导出",
-            "nodeId": "react_default_export"
-          },
-          {
-            "label": "import { X }",
-            "desc": "匹配命名导出",
-            "nodeId": "react_named_export"
-          },
-          {
-            "label": "import X, { Y }",
-            "desc": "混合导入"
-          },
-          {
-            "label": "import { X as Z }",
-            "desc": "重命名导入",
-            "nodeId": "react_import_aliasing"
+            "id": "import_types_main",
+            "title": "导入方式",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "react_default_export",
+                "desc": "匹配默认导出"
+              },
+              {
+                "nodeId": "react_named_export",
+                "desc": "匹配命名导出"
+              },
+              {
+                "nodeId": "k_auto_1gqanov",
+                "desc": "混合导入"
+              },
+              {
+                "nodeId": "react_import_aliasing",
+                "desc": "重命名导入"
+              }
+            ]
           }
         ]
       }
@@ -2318,22 +2444,29 @@
         "name": "默认模式语法",
         "color": "#8b5cf6",
         "hint": "每个文件限一个导出项。",
-        "children": [
+        "sections": [
           {
-            "label": "行内导出",
-            "desc": "export default function Cat() {...}"
-          },
-          {
-            "label": "末尾导出",
-            "desc": "export default Cat;"
-          },
-          {
-            "label": "常规导入",
-            "desc": "import Cat from './Cat';"
-          },
-          {
-            "label": "重命名导入",
-            "desc": "import MyKitty from './Cat';"
+            "id": "def_syntax_main",
+            "title": "默认模式语法",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_figgbw",
+                "desc": "export default function Cat() {...}"
+              },
+              {
+                "nodeId": "k_auto_bdlo12",
+                "desc": "export default Cat;"
+              },
+              {
+                "nodeId": "k_auto_afmuju",
+                "desc": "import Cat from './Cat';"
+              },
+              {
+                "nodeId": "k_auto_l6ipg1",
+                "desc": "import MyKitty from './Cat';"
+              }
+            ]
           }
         ]
       }
@@ -2384,23 +2517,29 @@
         "name": "命名模式语法",
         "color": "#ec4899",
         "hint": "必须使用花括号且名称匹配。",
-        "children": [
+        "sections": [
           {
-            "label": "声明导出",
-            "desc": "export function Dog() {...}"
-          },
-          {
-            "label": "列表导出",
-            "desc": "export { Cat, Dog };"
-          },
-          {
-            "label": "解构导入",
-            "desc": "import { Dog } from './Animals';"
-          },
-          {
-            "label": "别名导入",
-            "desc": "import { Dog as Fido }",
-            "nodeId": "react_import_aliasing"
+            "id": "named_syntax_main",
+            "title": "命名模式语法",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_14sf5e5",
+                "desc": "export function Dog() {...}"
+              },
+              {
+                "nodeId": "k_auto_142cy8w",
+                "desc": "export { Cat, Dog };"
+              },
+              {
+                "nodeId": "k_auto_1ayw78b",
+                "desc": "import { Dog } from './Animals';"
+              },
+              {
+                "nodeId": "react_import_aliasing",
+                "desc": "import { Dog as Fido }"
+              }
+            ]
           }
         ]
       }
@@ -2482,10 +2621,16 @@
         "id": "web_frameworks",
         "name": "前端框架",
         "color": "#61DAFB",
-        "children": [
+        "sections": [
           {
-            "label": "React",
-            "nodeId": "react_export_import"
+            "id": "web_frameworks_main",
+            "title": "前端框架",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "react_export_import"
+              }
+            ]
           }
         ]
       }
@@ -2512,10 +2657,16 @@
         "id": "n_x4ad2prf",
         "name": "子项",
         "color": "#8b5cf6",
-        "children": [
+        "sections": [
           {
-            "label": "计算机科学",
-            "nodeId": "n_55jiel25"
+            "id": "n_x4ad2prf_main",
+            "title": "子项",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "n_55jiel25"
+              }
+            ]
           }
         ]
       }
@@ -2629,21 +2780,25 @@
         "name": "渲染机制",
         "color": "#61DAFB",
         "hint": "根据条件动态显示内容的三种核心机制。",
-        "children": [
+        "sections": [
           {
-            "label": "if 语句",
-            "desc": "最基础的多分支判断或提前返回模式",
-            "nodeId": "react_conditional_if"
-          },
-          {
-            "label": "三元操作符 (?:)",
-            "desc": "适用于 JSX 内部的二选一内联计算",
-            "nodeId": "react_conditional_ternary"
-          },
-          {
-            "label": "逻辑与 (&&)",
-            "desc": "适用于 JSX 内部单分支有无判断，注意 0 陷阱",
-            "nodeId": "react_conditional_and"
+            "id": "rendering_mechanisms_main",
+            "title": "渲染机制",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "react_conditional_if",
+                "desc": "最基础的多分支判断或提前返回模式"
+              },
+              {
+                "nodeId": "react_conditional_ternary",
+                "desc": "适用于 JSX 内部的二选一内联计算"
+              },
+              {
+                "nodeId": "react_conditional_and",
+                "desc": "适用于 JSX 内部单分支有无判断，注意 0 陷阱"
+              }
+            ]
           }
         ]
       }
@@ -2683,14 +2838,21 @@
         "name": "if 语句细节",
         "color": "#ffb11b",
         "hint": "经典 JavaScript 分支结构在组件主体中的应用。",
-        "children": [
+        "sections": [
           {
-            "label": "提前返回 (Early Return)",
-            "desc": "如果满足条件，在函数体顶部提前返回组件"
-          },
-          {
-            "label": "多分支 if-else if",
-            "desc": "可用于复杂的、超过两个状态的多端界面分支"
+            "id": "if_spec_main",
+            "title": "if 语句细节",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_g1oyi4",
+                "desc": "如果满足条件，在函数体顶部提前返回组件"
+              },
+              {
+                "nodeId": "k_auto_140h0oi",
+                "desc": "可用于复杂的、超过两个状态的多端界面分支"
+              }
+            ]
           }
         ]
       }
@@ -2730,14 +2892,21 @@
         "name": "三元操作符细节",
         "color": "#10b981",
         "hint": "二值条件式内联 JSX 的完美契合方式。",
-        "children": [
+        "sections": [
           {
-            "label": "内联渲染",
-            "desc": "直接嵌入 JSX 标签块内部，使代码紧凑"
-          },
-          {
-            "label": "嵌套三元（不推荐）",
-            "desc": "多层三元嵌套破坏可读性，此时应重构为 if 语句"
+            "id": "ternary_spec_main",
+            "title": "三元操作符细节",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_n9n437",
+                "desc": "直接嵌入 JSX 标签块内部，使代码紧凑"
+              },
+              {
+                "nodeId": "k_auto_wziud0",
+                "desc": "多层三元嵌套破坏可读性，此时应重构为 if 语句"
+              }
+            ]
           }
         ]
       }
@@ -2777,18 +2946,25 @@
         "name": "逻辑与 && 细节",
         "color": "#ef4444",
         "hint": "单分支渲染机制与 JavaScript 短路求值行为特性。",
-        "children": [
+        "sections": [
           {
-            "label": "短路求值",
-            "desc": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
-          },
-          {
-            "label": "隐式零值渲染陷阱",
-            "desc": "左侧为 0 时会渲染出字符 0！"
-          },
-          {
-            "label": "安全转换（布尔化）",
-            "desc": "使用 >0 判断或双重否定 !!"
+            "id": "and_spec_main",
+            "title": "逻辑与 && 细节",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_auto_1p7kxpz",
+                "desc": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
+              },
+              {
+                "nodeId": "k_auto_xbksij",
+                "desc": "左侧为 0 时会渲染出字符 0！"
+              },
+              {
+                "nodeId": "k_auto_nm6bj0",
+                "desc": "使用 >0 判断或双重否定 !!"
+              }
+            ]
           }
         ]
       }
@@ -2851,51 +3027,125 @@
     },
     "viewDimensions": [
       {
-        "id": "dim_1781002635297",
+        "id": "page_structure",
         "name": "page结构",
         "color": "#E58522",
-        "children": [
+        "hint": "16KB 物理空间内，每个原子以真实 offset/size 占位",
+        "sections": [
           {
-            "label": "File Header",
-            "desc": "文件头，描述页信息",
-            "nodeId": "k_1781003561186_d5ngg6"
+            "id": "page_16kb_stack",
+            "title": "16KB 物理布局",
+            "layout": "stack",
+            "config": {
+              "total": 16384,
+              "unit": "B"
+            },
+            "atoms": [
+              {
+                "nodeId": "k_1781003561186_d5ngg6",
+                "attrs": {
+                  "offset": 0,
+                  "size": 38
+                }
+              },
+              {
+                "nodeId": "k_1781005790853_943e43",
+                "attrs": {
+                  "offset": 38,
+                  "size": 56
+                }
+              },
+              {
+                "nodeId": "k_1781026368980_68t0s0",
+                "attrs": {
+                  "offset": 94,
+                  "size": 26
+                }
+              },
+              {
+                "nodeId": "k_1781005866277_bj0eht",
+                "attrs": {
+                  "offset": 120,
+                  "size": 12000
+                }
+              },
+              {
+                "nodeId": "k_1781008350988_rhnwyk",
+                "attrs": {
+                  "offset": 12120,
+                  "size": 3500
+                }
+              },
+              {
+                "nodeId": "k_1781008568811_xsf4qa",
+                "attrs": {
+                  "offset": 15620,
+                  "size": 756
+                }
+              },
+              {
+                "nodeId": "k_1781008515280_bvqrs9",
+                "attrs": {
+                  "offset": 16376,
+                  "size": 8
+                }
+              }
+            ]
           },
           {
-            "label": "Page Header",
-            "desc": "页头，页的状态",
-            "nodeId": "k_1781005790853_943e43"
+            "id": "page_link_chain",
+            "title": "页间双向链表",
+            "layout": "chain",
+            "atoms": [
+              {
+                "nodeId": "k_1781008748598_72gaz3"
+              },
+              {
+                "nodeId": "k_1781002610469_nik1ek"
+              },
+              {
+                "nodeId": "k_1781008786381_wiun1h"
+              }
+            ]
           },
           {
-            "label": "User Records",
-            "desc": "用户记录，存储数据行记录",
-            "nodeId": "k_1781005866277_bj0eht"
-          },
-          {
-            "label": "Free Space",
-            "nodeId": "k_1781008350988_rhnwyk"
+            "id": "page_category_grid",
+            "title": "页类型分类",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_1781003339612_gly0rm"
+              },
+              {
+                "nodeId": "k_1781003318112_lryll2"
+              },
+              {
+                "nodeId": "k_1781002876731_3ct76l"
+              },
+              {
+                "nodeId": "k_1781003299034_og1pqa"
+              }
+            ]
           }
-        ]
-      },
-      {
-        "id": "dim_1781002914120",
-        "name": "分类",
-        "color": "#58B2DC",
-        "children": [
+        ],
+        "groups": [
           {
-            "label": "事务数据页",
-            "nodeId": "k_1781003339612_gly0rm"
+            "id": "page_group_row_record",
+            "label": "行记录",
+            "nodeId": "k_1781107266786_b2goai",
+            "members": [
+              "k_1781026368980_68t0s0",
+              "k_1781005866277_bj0eht"
+            ]
           },
           {
-            "label": "系统页",
-            "nodeId": "k_1781003318112_lryll2"
-          },
-          {
-            "label": "数据页（B+ tree）",
-            "nodeId": "k_1781002876731_3ct76l"
-          },
-          {
-            "label": "Undo页",
-            "nodeId": "k_1781003299034_og1pqa"
+            "id": "page_group_common",
+            "label": "通用部分",
+            "nodeId": "k_1781027323338_n7l44z",
+            "members": [
+              "k_1781003561186_d5ngg6",
+              "k_1781008515280_bvqrs9"
+            ]
           }
         ]
       }
@@ -3244,6 +3494,786 @@
           "id": "def",
           "label": "定义",
           "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781026368980_68t0s0": {
+    "id": "k_1781026368980_68t0s0",
+    "label": "Infimum + Supremum",
+    "card": {
+      "nodeId": "k_1781026368980_68t0s0",
+      "title": "Infimum + Supremum",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "两个伪行记录，Infimum（下确界）记录比该页中任何主键值都要小的值，Supremum（上确界）记录比该页中任何主键值都要大的值，这个伪记录分别构成了页中记录的边界。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781027323338_n7l44z": {
+    "id": "k_1781027323338_n7l44z",
+    "label": "通用部分",
+    "card": {
+      "nodeId": "k_1781027323338_n7l44z",
+      "title": "通用部分",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "主要指文件头和文件尾，"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "将页的内容进行封装，通过文件头和文件尾校验的CheckSum方式来确保页的传输是完整的。\n其中比较重要的是在文件头中的FIL_PAGE_PREV和FIL_PAGE_NEXT字段，通过这两个字段，我们可以找到该页的上一页和下一页，实际上所有页通过两个字段可以形成一条双向链表"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781027784235_rqeejq": {
+    "id": "k_1781027784235_rqeejq",
+    "label": "数据目录部分",
+    "card": {
+      "nodeId": "k_1781027784235_rqeejq",
+      "title": "数据目录部分",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "页目录，存储用户记录的相对位置"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "数据页中行记录按照主键值由小到大顺序串联成一个单链表(页中记录是以单向链表的形式进行存储的)，且单链表的链表头为最小记录，链表尾为最\n大记录。并且为了更快速地定位到指定的行记录，通过PageDirectory实现目录的功能，借助PageDirectory使用二分法快速找到需要查找的\n行记录。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781061621077_9c8e4h": {
+    "id": "k_1781061621077_9c8e4h",
+    "label": "记录部分",
+    "card": {
+      "nodeId": "k_1781061621077_9c8e4h",
+      "title": "记录部分",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "页的主要作用是存储记录，所以“最小和最大记录”和“用户记录”部分占了页结构的主要空间。另外空闲空间是个灵活的部分，当有新的记录插入时，会从空闲空间中进行分配用于存储新记录"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781107266786_b2goai": {
+    "id": "k_1781107266786_b2goai",
+    "label": "行记录",
+    "card": {
+      "nodeId": "k_1781107266786_b2goai",
+      "title": "行记录",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_1hl4cg6": {
+    "id": "k_auto_1hl4cg6",
+    "label": "MEMORY",
+    "card": {
+      "nodeId": "k_auto_1hl4cg6",
+      "title": "MEMORY",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_pysvvf": {
+    "id": "k_auto_pysvvf",
+    "label": "BDB",
+    "card": {
+      "nodeId": "k_auto_pysvvf",
+      "title": "BDB",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_va5371": {
+    "id": "k_auto_va5371",
+    "label": "主键索引",
+    "card": {
+      "nodeId": "k_auto_va5371",
+      "title": "主键索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "非空唯一·聚簇默认"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_yb9yyu": {
+    "id": "k_auto_yb9yyu",
+    "label": "普通索引",
+    "card": {
+      "nodeId": "k_auto_yb9yyu",
+      "title": "普通索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "加速查询·可重复"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_es1cgt": {
+    "id": "k_auto_es1cgt",
+    "label": "前缀索引",
+    "card": {
+      "nodeId": "k_auto_es1cgt",
+      "title": "前缀索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "截断长字段·省空间"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_g7wfdd": {
+    "id": "k_auto_g7wfdd",
+    "label": "混合导出",
+    "card": {
+      "nodeId": "k_auto_g7wfdd",
+      "title": "混合导出",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "default + named"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_1gqanov": {
+    "id": "k_auto_1gqanov",
+    "label": "import X, { Y }",
+    "card": {
+      "nodeId": "k_auto_1gqanov",
+      "title": "import X, { Y }",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "混合导入"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_figgbw": {
+    "id": "k_auto_figgbw",
+    "label": "行内导出",
+    "card": {
+      "nodeId": "k_auto_figgbw",
+      "title": "行内导出",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "export default function Cat() {...}"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_bdlo12": {
+    "id": "k_auto_bdlo12",
+    "label": "末尾导出",
+    "card": {
+      "nodeId": "k_auto_bdlo12",
+      "title": "末尾导出",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "export default Cat;"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_afmuju": {
+    "id": "k_auto_afmuju",
+    "label": "常规导入",
+    "card": {
+      "nodeId": "k_auto_afmuju",
+      "title": "常规导入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "import Cat from './Cat';"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_l6ipg1": {
+    "id": "k_auto_l6ipg1",
+    "label": "重命名导入",
+    "card": {
+      "nodeId": "k_auto_l6ipg1",
+      "title": "重命名导入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "import MyKitty from './Cat';"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_14sf5e5": {
+    "id": "k_auto_14sf5e5",
+    "label": "声明导出",
+    "card": {
+      "nodeId": "k_auto_14sf5e5",
+      "title": "声明导出",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "export function Dog() {...}"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_142cy8w": {
+    "id": "k_auto_142cy8w",
+    "label": "列表导出",
+    "card": {
+      "nodeId": "k_auto_142cy8w",
+      "title": "列表导出",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "export { Cat, Dog };"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_1ayw78b": {
+    "id": "k_auto_1ayw78b",
+    "label": "解构导入",
+    "card": {
+      "nodeId": "k_auto_1ayw78b",
+      "title": "解构导入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "import { Dog } from './Animals';"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_g1oyi4": {
+    "id": "k_auto_g1oyi4",
+    "label": "提前返回 (Early Return)",
+    "card": {
+      "nodeId": "k_auto_g1oyi4",
+      "title": "提前返回 (Early Return)",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "如果满足条件，在函数体顶部提前返回组件"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_140h0oi": {
+    "id": "k_auto_140h0oi",
+    "label": "多分支 if-else if",
+    "card": {
+      "nodeId": "k_auto_140h0oi",
+      "title": "多分支 if-else if",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "可用于复杂的、超过两个状态的多端界面分支"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_n9n437": {
+    "id": "k_auto_n9n437",
+    "label": "内联渲染",
+    "card": {
+      "nodeId": "k_auto_n9n437",
+      "title": "内联渲染",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "直接嵌入 JSX 标签块内部，使代码紧凑"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_wziud0": {
+    "id": "k_auto_wziud0",
+    "label": "嵌套三元（不推荐）",
+    "card": {
+      "nodeId": "k_auto_wziud0",
+      "title": "嵌套三元（不推荐）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "多层三元嵌套破坏可读性，此时应重构为 if 语句"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_1p7kxpz": {
+    "id": "k_auto_1p7kxpz",
+    "label": "短路求值",
+    "card": {
+      "nodeId": "k_auto_1p7kxpz",
+      "title": "短路求值",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_xbksij": {
+    "id": "k_auto_xbksij",
+    "label": "隐式零值渲染陷阱",
+    "card": {
+      "nodeId": "k_auto_xbksij",
+      "title": "隐式零值渲染陷阱",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "左侧为 0 时会渲染出字符 0！"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_auto_nm6bj0": {
+    "id": "k_auto_nm6bj0",
+    "label": "安全转换（布尔化）",
+    "card": {
+      "nodeId": "k_auto_nm6bj0",
+      "title": "安全转换（布尔化）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "使用 >0 判断或双重否定 !!"
         },
         {
           "id": "mech",

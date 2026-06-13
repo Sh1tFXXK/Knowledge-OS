@@ -254,7 +254,7 @@ export default function UniverseTree() {
     addNotification(`问题已关联到「${label}」`, 'success');
   };
 
-  const handleRename = (_nodeId: string) => {};
+  const handleRename = (_nodeId: string) => { };
 
   const handleDelete = (nodeId: string, label: string) => {
     setModal({ type: 'delete', targetId: nodeId, targetName: label });
@@ -412,15 +412,15 @@ export default function UniverseTree() {
                   <button className="btn btn-sm" onClick={() => { setModal(null); setModalInput(''); }}>取消</button>
                 </div>
               </div>
-            ) : (              <>
-                <p style={{ fontSize: 12, color: '#8a98ba', marginBottom: 16 }}>
-                  确定删除 <strong style={{ color: '#ef4444' }}>{modal.targetName}</strong> 及其所有子节点吗？此操作不可撤销。
-                </p>
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <button className="btn btn-sm" style={{ color: '#ef4444', borderColor: '#ef4444' }} onClick={confirmModal}>确认删除</button>
-                  <button className="btn btn-primary btn-sm" onClick={() => setModal(null)}>取消</button>
-                </div>
-              </>
+            ) : (<>
+              <p style={{ fontSize: 12, color: '#8a98ba', marginBottom: 16 }}>
+                确定删除 <strong style={{ color: '#ef4444' }}>{modal.targetName}</strong> 及其所有子节点吗？此操作不可撤销。
+              </p>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="btn btn-sm" style={{ color: '#ef4444', borderColor: '#ef4444' }} onClick={confirmModal}>确认删除</button>
+                <button className="btn btn-primary btn-sm" onClick={() => setModal(null)}>取消</button>
+              </div>
+            </>
             )}
           </div>
         </div>

@@ -2,21 +2,33 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const sourcePath = path.resolve('src/core/DimensionCanvas.tsx');
-const source = fs.readFileSync(sourcePath, 'utf8');
+const dcSource = fs.readFileSync(path.resolve('src/core/DimensionCanvas.tsx'), 'utf8');
+const rendererSource = fs.readFileSync(path.resolve('src/core/sections/SectionRenderer.tsx'), 'utf8');
 
-assert.match(source, /updateKnowledgeNodeLabel/);
-assert.match(source, /updateKnowledgeNodeMeta/);
-assert.match(source, /updateKnowledgeTab/);
-assert.match(source, /updateKnowledgeViewDimensions/);
-assert.match(source, /dc-edit-action/);
-assert.match(source, /dc-chip-edit/);
-assert.match(source, /dc-child-edit-panel/);
-assert.match(source, /onChildEdit/);
-assert.match(source, /placeholder="节点名称"/);
-assert.match(source, /placeholder="维度名称"/);
-assert.match(source, /placeholder="分类节点名称"/);
-assert.doesNotMatch(source, /addKnowledgeEdge/);
-assert.doesNotMatch(source, /removeKnowledgeEdge/);
+// ── DimensionCanvas assertions ────────────────────────────────────────────
+assert.match(dcSource, /resolveSectionAtoms/, 'resolveSectionAtoms import missing');
+assert.match(dcSource, /SectionRenderer/, 'SectionRenderer usage missing');
+assert.match(dcSource, /GroupOverlay/, 'GroupOverlay usage missing');
+assert.match(dcSource, /updateKnowledgeViewDimensions/, 'updateKnowledgeViewDimensions missing');
+assert.match(dcSource, /onAtomEdit/, 'onAtomEdit prop missing');
+assert.match(dcSource, /dc-child-edit-panel/, 'dc-child-edit-panel class missing');
+// Five layout options must be listed
+assert.match(dcSource, /'stack'/, "layout 'stack' missing");
+assert.match(dcSource, /'grid'/, "layout 'grid' missing");
+assert.match(dcSource, /'tree'/, "layout 'tree' missing");
+assert.match(dcSource, /'chain'/, "layout 'chain' missing");
+assert.match(dcSource, /'matrix'/, "layout 'matrix' missing");
+// Binding desc placeholder must indicate projection-only scope
+assert.match(dcSource, /投影特化描述/, '投影特化描述 placeholder missing');
+// Must NOT touch graph structure from dimension editing
+assert.doesNotMatch(dcSource, /addKnowledgeEdge/, 'addKnowledgeEdge must not appear in DimensionCanvas');
+assert.doesNotMatch(dcSource, /removeKnowledgeEdge/, 'removeKnowledgeEdge must not appear in DimensionCanvas');
+
+// ── SectionRenderer assertions ────────────────────────────────────────────
+assert.match(rendererSource, /stack:\s*StackSection/, "LAYOUT_RENDERERS missing 'stack'");
+assert.match(rendererSource, /grid:\s*GridSection/, "LAYOUT_RENDERERS missing 'grid'");
+assert.match(rendererSource, /tree:\s*TreeSection/, "LAYOUT_RENDERERS missing 'tree'");
+assert.match(rendererSource, /chain:\s*ChainSection/, "LAYOUT_RENDERERS missing 'chain'");
+assert.match(rendererSource, /matrix:\s*MatrixSection/, "LAYOUT_RENDERERS missing 'matrix'");
 
 console.log('dimension canvas editing checks passed');

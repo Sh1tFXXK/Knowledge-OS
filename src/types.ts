@@ -51,6 +51,47 @@ export interface TreeNode {
 /** 推理漏斗中的层级角色（B 区局部镜头布局用） */
 export type KnowledgeRole = 'axiom' | 'mechanism' | 'conclusion' | 'subsystem' | 'plain';
 
+export type AtomAttrValue = string | number;
+
+/** A projection-space binding to a node-pool atom. */
+export interface AtomBinding {
+  nodeId: string;
+  attrs?: Record<string, AtomAttrValue>;
+  desc?: string;
+}
+
+export type SectionLayout = 'stack' | 'grid' | 'tree' | 'chain' | 'matrix';
+
+export interface ViewSection {
+  id: string;
+  title?: string;
+  layout: SectionLayout;
+  config?: {
+    total?: number;
+    unit?: string;
+    columns?: Array<{ key: string; label: string }>;
+    tagQuery?: string[];
+  };
+  atoms: AtomBinding[];
+}
+
+/** Semantic group overlay across one or more rendered sections. */
+export interface SemanticGroup {
+  id: string;
+  label: string;
+  nodeId?: string;
+  members: string[];
+}
+
+export interface ViewDimension {
+  id: string;
+  name: string;
+  color: string;
+  hint?: string;
+  sections: ViewSection[];
+  groups?: SemanticGroup[];
+}
+
 /** 节点池中的知识实体（全局唯一存储；解释卡只读 card/label 等自身字段） */
 export interface KnowledgeNode {
   id: string;
@@ -61,14 +102,8 @@ export interface KnowledgeNode {
   role?: KnowledgeRole;
   /** 多维视角标签（左侧切面过滤） */
   dimensions?: string[];
-  /** 知识点自定义维度选项卡（分类树视图） */
-  viewDimensions?: Array<{
-    id: string;
-    name: string;
-    color: string;
-    hint?: string;
-    children?: Array<{ label: string; desc?: string; nodeId?: string }>;
-  }>;
+  /** Projection dimensions. Dimensions reference nodePool atoms; they do not own them. */
+  viewDimensions?: ViewDimension[];
   card: NodeExplanation;
 }
 

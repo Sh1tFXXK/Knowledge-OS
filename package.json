@@ -7,13 +7,14 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/tree-binding.test.mjs && node scripts/answer-composer.test.mjs && node scripts/question-link.test.mjs",
+    "test": "node scripts/tree-binding.test.mjs && node scripts/answer-composer.test.mjs && node scripts/question-link.test.mjs && node scripts/dimension-canvas-editing.test.mjs && node scripts/explanation-card-binding.test.mjs",
     "test:all": "for f in scripts/*.test.mjs; do node \"$f\"; done"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "claude": "^0.1.1",
     "npx": "^10.2.2",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",

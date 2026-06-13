@@ -1,6 +1,7 @@
 import type { PersistedAppState } from './state';
 import { APP_STATE_VERSION } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question, SubSystem, Rule, Perspective } from '../types';
+import { migrateNodePool } from './migrateViewDimensions';
 
 const FILES = {
   treeData: 'tree-data.json',
@@ -58,7 +59,7 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   };
 
   if (treeData) state.treeData = treeData;
-  if (nodePool) state.nodePool = nodePool;
+  if (nodePool) state.nodePool = migrateNodePool(nodePool);
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
   if (subSystems) state.subSystems = subSystems;

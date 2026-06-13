@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { findTreeNodeById } from '../knowledge/treeUtils';
-import type { ExplanationTab } from '../types';
+import { findMatrixProjections, type MatrixProjection } from '../knowledge/projection';
+import type { ExplanationTab, KnowledgeNode } from '../types';
 
 // Inline formatting helper for bold (**text**) and inline code (`code`)
-function renderInlineFormatting(text: string): React.ReactNode {
-  const parts: React.ReactNode[] = [];
+function renderInlineFormatting(text: string): any {
+  const parts: any[] = [];
   let currentIndex = 0;
   
   // Combine both patterns into one to match in order
@@ -189,6 +190,57 @@ function MarkdownView({ content }: { content: string }) {
   );
 }
 
+function ProjectionReferences({
+  currentNodeId,
+  nodePool,
+  projections,
+  onOpenOwner,
+}: {
+  currentNodeId: string;
+  nodePool: Record<string, KnowledgeNode>;
+  projections: MatrixProjection[];
+  onOpenOwner: (nodeId: string) => void;
+}) {
+  return (
+    <div className="projection-ref-block">
+      <div className="projection-ref-title">结论引用</div>
+      {projections.map((projection) => {
+        const columns = projection.section.config?.columns ?? [];
+        return (
+          <div key={`${projection.ownerId}:${projection.dimension.id}:${projection.section.id}`} className="projection-ref-card">
+            <button type="button" className="projection-ref-owner" onClick={() => onOpenOwner(projection.ownerId)}>
+              {projection.owner.label} / {projection.section.title ?? projection.dimension.name}
+            </button>
+            <table className="projection-ref-table">
+              <thead>
+                <tr>
+                  <th>节点</th>
+                  {columns.map((column) => <th key={column.key}>{column.label}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {projection.section.atoms.map((atom) => {
+                  const node = nodePool[atom.nodeId];
+                  if (!node) return null;
+                  const active = atom.nodeId === currentNodeId;
+                  return (
+                    <tr key={atom.nodeId} className={active ? 'is-active' : ''}>
+                      <td>{node.label}</td>
+                      {columns.map((column) => (
+                        <td key={column.key}>{String(atom.attrs?.[column.key] ?? '—')}</td>
+                      ))}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
@@ -202,6 +254,8 @@ export default function ExplanationCard() {
   const addNotification = useGraphStore((s) => s.addNotification);
   const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
   const treeData = useGraphStore((s) => s.treeData);
+  const nodePool = useGraphStore((s) => s.nodePool);
+  const openCard = useGraphStore((s) => s.openCard);
   const nodeMeta = useGraphStore((s) =>
     selectedNodeId ? s.nodePool[selectedNodeId] : undefined,
   );
@@ -304,6 +358,9 @@ export default function ExplanationCard() {
 
   const activeContent =
     allTabs.find((t) => (t.id || t.label) === activeTab) || allTabs[0];
+  const matrixProjections = selectedNodeId
+    ? findMatrixProjections(nodePool, selectedNodeId)
+    : [];
   const isPoolTab =
     !!explanation &&
     !!activeContent &&
@@ -325,7 +382,7 @@ export default function ExplanationCard() {
               className="input"
               placeholder={suggestedLabel || '知识名称，如 SQL语句'}
               value={newLabel}
-              onChange={(e) => setNewLabel(e.target.value)}
+              onChange={(e: any) => setNewLabel(e.target.value)}
             />
             {selectedTreeNodeId ? (
               <button
@@ -426,7 +483,7 @@ export default function ExplanationCard() {
                 }}
                 value={activeContent.content}
                 placeholder={`填写「${activeContent.label}」…`}
-                onChange={(e) =>
+                onChange={(e: any) =>
                   selectedNodeId &&
                   updateKnowledgeTab(selectedNodeId, activeContent.id, e.target.value)
                 }
@@ -449,13 +506,22 @@ export default function ExplanationCard() {
                 }}
                 value={activeContent?.content ?? ''}
                 placeholder="填写此导航路径下的补充说明（方言、上下文等）…"
-                onChange={(e) => updatePathSupplementContent(selectedTreeNodeId, e.target.value)}
+                onChange={(e: any) => updatePathSupplementContent(selectedTreeNodeId, e.target.value)}
               />
             ) : (
               <p className="text-muted">{activeContent?.content || '无内容'}</p>
             )
           ) : (
             <MarkdownView content={activeContent?.content ?? ''} />
+          )}
+
+          {selectedNodeId && matrixProjections.length > 0 && (
+            <ProjectionReferences
+              currentNodeId={selectedNodeId}
+              nodePool={nodePool}
+              projections={matrixProjections}
+              onOpenOwner={openCard}
+            />
           )}
 
 

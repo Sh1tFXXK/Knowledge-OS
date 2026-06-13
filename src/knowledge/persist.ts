@@ -5,6 +5,7 @@ import {
   type GraphSlice,
   type PersistedAppState,
 } from './state';
+import { migrateAppState } from './migrateViewDimensions';
 
 const STORAGE_KEY = 'knowledge-os:app-state-v1';
 
@@ -39,7 +40,7 @@ function isKnowledgeEdges(value: unknown): value is import('../types').Knowledge
 
 function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
   const empty = createEmptyAppState();
-  return {
+  return migrateAppState({
     ...empty,
     ...raw,
     version: APP_STATE_VERSION,
@@ -47,13 +48,37 @@ function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
     nodePool: (raw.nodePool as Record<string, KnowledgeNode>) || empty.nodePool,
     knowledgeEdges: (raw.knowledgeEdges as any[]) || [],
     questions: (raw.questions as any[]) || [],
-  } as PersistedAppState;
+  } as PersistedAppState);
 }
 
 function isPersistedAppState(value: unknown): value is PersistedAppState {
   if (!value || typeof value !== 'object') return false;
   const s = value as PersistedAppState;
-  return s.version === APP_STATE_VERSION || s.version === 2;
+  return s.version === APP_STATE_VERSION || s.version === 3 || s.version === 2;
+}
+
+const RADICAL_MAP: Record<string, string> = {
+  '\u2f42': '文', // ⽂ -> 文
+  '\u2eda': '页', // ⻚ -> 页
+  '\u2f8f': '行', // ⾏ -> 行
+  '\u2f45': '方', // ⽅ -> 方
+  '\u2f50': '比', // ⽐ -> 比
+  '\u2f00': '一', // ⼀ -> 一
+  '\u2f29': '小', // ⼩ -> 小
+  '\u2f24': '大', // ⼤ -> 大
+  '\u2f6c': '目', // ⽬ -> 目
+  '\u2f64': '用', // ⽤ -> 用
+  '\u2f06': '二', // ⼆ -> 二
+  '\u2f0a': '入', // ⼊ -> 入
+};
+
+function cleanRadicals(str: string): string {
+  let res = '';
+  for (let i = 0; i < str.length; i++) {
+    const char = str[i];
+    res += RADICAL_MAP[char] || char;
+  }
+  return res;
 }
 
 export function loadPersistedAppState(): PersistedAppState | null {
@@ -62,9 +87,10 @@ export function loadPersistedAppState(): PersistedAppState | null {
   try {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (raw) {
-      const parsed = JSON.parse(raw);
+      const cleanedRaw = cleanRadicals(raw);
+      const parsed = JSON.parse(cleanedRaw);
       if (isPersistedAppState(parsed)) {
-        return parsed;
+        return migrateAppState(parsed);
       }
       if (parsed && typeof parsed === 'object' && parsed.treeData) {
         return normalizeAppState(parsed as Record<string, unknown>);
@@ -101,7 +127,7 @@ export function exportAppStateJson(state: PersistedAppState): string {
 export function parseImportedAppState(json: string): PersistedAppState | null {
   try {
     const parsed = JSON.parse(json);
-    if (isPersistedAppState(parsed)) return parsed;
+    if (isPersistedAppState(parsed)) return migrateAppState(parsed);
     if (parsed && typeof parsed === 'object' && parsed.treeData) {
       return normalizeAppState(parsed as Record<string, unknown>);
     }

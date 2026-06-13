@@ -48,11 +48,13 @@
 ## 还没做什么
 
 ### 需要继续的工作
-1. **问题区缺少 CSS 样式** — `right-questions-list` / `right-question-item` / `rq-*` 等类在 `components.css` 中无对应样式，右侧面板问题区渲染可能不美观
+1. ~~**问题区缺少 CSS 样式**~~ — ✅ 已修复（2026-06-12）：`components.css` 大规模重写时误删了 `right-questions-list` / `rq-*`、`subsystem-strip*` / `subsystem-card-v2*` 基础样式和 `btn-icon-sm`，已从 git HEAD 恢复并补充 `right-section-count` / `dc-stack-section` / `dc-matrix-section`
 2. **关系比较性知识** — `锁粒度对比` 节点已建立，但 `知识宇宙` 中尚无其他比较节点（如"索引对比"、"引擎对比"）
-3. **test/tests** — 无任何自动测试
+3. **test/tests** — 仅有 scripts/*.test.mjs 三个数据层测试，无 UI 测试
 4. **taste-skill 集成** — 已安装 13 个 skill，尚未在知识库前端设计上应用
 5. **QuestionStrip.tsx 已删除** — 如需恢复中心视图内问题条，需要重建或从 git 恢复
+6. **死代码清理** — `FunnelCanvas` / `RuleComposer` / `SubsystemDeck` / `panels/QuestionBank` / `ViewDataList` 已无任何 import（中心视图改为 DimensionCanvas + SubsystemStrip 后弃用），其样式也已随 CSS 重写删除，可考虑删除这些组件文件
+7. **旧文件 TS 报错** — `tsc --noEmit` 在旧组件（RelationNetwork/NodeDatabase/QuestionDatabase/UniverseTree 等）有约 200 个历史报错（untyped useState 泛型、隐式 any），新模块（DimensionCanvas/sections/projection/useGraph）全部干净；vite build 不受影响
 
 ### 已知问题
 - `nodepool 维度过滤下拉` 的维度列表现由 `nodePool` 动态提取，但 `allDimensions` hook 放在 JSX 中间位置可能有问题（已修复过但仍需验证）
