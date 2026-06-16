@@ -1,0 +1,305 @@
+<style>
+  .ko-compare {
+    display: grid;
+    grid-template-columns: minmax(280px, .9fr) minmax(560px, 1.5fr);
+    gap: 22px;
+    align-items: stretch;
+  }
+
+  .ko-panel {
+    border: 1px solid rgba(148, 163, 184, .26);
+    border-radius: 12px;
+    background: linear-gradient(180deg, rgba(15, 23, 42, .72), rgba(15, 23, 42, .44));
+    padding: 16px;
+    min-height: 520px;
+  }
+
+  .ko-panel h3 {
+    margin: 0 0 8px;
+  }
+
+  .ko-panel-note {
+    color: rgba(226, 232, 240, .68);
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+
+  .ko-tabbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+
+  .ko-tab {
+    border: 1px solid rgba(148, 163, 184, .24);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .05);
+    color: rgba(226, 232, 240, .72);
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .ko-tab.is-on {
+    background: #6d5df6;
+    color: white;
+    border-color: #6d5df6;
+  }
+
+  .ko-single-axis {
+    border: 1px solid rgba(148, 163, 184, .16);
+    border-radius: 10px;
+    padding: 14px;
+    background: rgba(2, 6, 23, .42);
+  }
+
+  .ko-single-axis-title {
+    color: rgba(226, 232, 240, .82);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .ko-columns-only {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .ko-column-only {
+    min-height: 250px;
+    border: 1px solid rgba(148, 163, 184, .18);
+    border-radius: 8px;
+    background: rgba(15, 23, 42, .62);
+    padding: 10px;
+  }
+
+  .ko-column-head {
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .ko-node {
+    position: relative;
+    border: 1.5px solid var(--col);
+    background: color-mix(in srgb, var(--col) 18%, rgba(15, 23, 42, .88));
+    color: rgba(248, 250, 252, .94);
+    border-radius: 7px;
+    min-height: 42px;
+    padding: 9px 8px 8px 13px;
+    margin-bottom: 8px;
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  .ko-node::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    border-radius: 6px 0 0 6px;
+    background: var(--row, transparent);
+  }
+
+  .ko-node small {
+    display: block;
+    margin-top: 4px;
+    color: rgba(226, 232, 240, .58);
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .ko-blind {
+    margin-top: 16px;
+    border-top: 1px solid rgba(148, 163, 184, .16);
+    padding-top: 14px;
+    color: rgba(248, 113, 113, .88);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .ko-matrix-wrap {
+    overflow-x: auto;
+  }
+
+  .ko-matrix {
+    display: grid;
+    grid-template-columns: 76px repeat(3, minmax(150px, 1fr));
+    grid-template-rows: 44px repeat(3, 128px);
+    gap: 8px;
+    min-width: 620px;
+  }
+
+  .ko-axis-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: rgba(148, 163, 184, .08);
+    border: 1px solid rgba(148, 163, 184, .14);
+    color: rgba(226, 232, 240, .62);
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .ko-col-head,
+  .ko-row-head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--line) 18%, rgba(15, 23, 42, .86));
+    color: rgba(248, 250, 252, .92);
+    font-weight: 800;
+    font-size: 13px;
+  }
+
+  .ko-row-head {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .ko-cell {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 8px;
+    border: 1px solid rgba(148, 163, 184, .14);
+    border-radius: 8px;
+    background: rgba(2, 6, 23, .32);
+    padding: 9px;
+  }
+
+  .ko-empty {
+    border-style: dashed;
+    background:
+      linear-gradient(135deg, transparent 0 47%, rgba(148, 163, 184, .13) 48% 52%, transparent 53% 100%),
+      rgba(2, 6, 23, .18);
+    color: rgba(226, 232, 240, .34);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+
+  .ko-ribbon-note {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .ko-mini {
+    border: 1px solid rgba(148, 163, 184, .16);
+    border-radius: 8px;
+    padding: 10px;
+    color: rgba(226, 232, 240, .72);
+    font-size: 12px;
+    line-height: 1.45;
+    background: rgba(255, 255, 255, .035);
+  }
+
+  .ko-mini strong {
+    display: block;
+    color: rgba(248, 250, 252, .94);
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 920px) {
+    .ko-compare {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<h2>正交矩阵视图：所有分类轴同时可见</h2>
+<p class="subtitle">左边是现在的互斥维度切换，右边是建议落地的矩阵投影。请重点看右边是否符合“一眼看出，不切换”。</p>
+
+<div class="ko-compare">
+  <div class="ko-panel">
+    <h3>当前结构：Tab 式 Dimension</h3>
+    <p class="ko-panel-note">维度 g、k、m 是互斥页面。你能看清一个视角，但另一个视角会消失。</p>
+
+    <div class="ko-tabbar">
+      <span class="ko-tab is-on">维度 g</span>
+      <span class="ko-tab">维度 k</span>
+      <span class="ko-tab">+ Dimension</span>
+    </div>
+
+    <div class="ko-single-axis">
+      <div class="ko-single-axis-title">只显示 g：h / i / j</div>
+      <div class="ko-columns-only">
+        <div class="ko-column-only">
+          <div class="ko-column-head" style="color:#9d8cff">h</div>
+          <div class="ko-node" style="--col:#7c6cff">a<small>h</small></div>
+          <div class="ko-node" style="--col:#7c6cff">b<small>h</small></div>
+        </div>
+        <div class="ko-column-only">
+          <div class="ko-column-head" style="color:#57d4a2">i</div>
+          <div class="ko-node" style="--col:#22b981">c<small>i</small></div>
+          <div class="ko-node" style="--col:#22b981">d<small>i</small></div>
+        </div>
+        <div class="ko-column-only">
+          <div class="ko-column-head" style="color:#f3bd67">j</div>
+          <div class="ko-node" style="--col:#d58b2d">e<small>j</small></div>
+          <div class="ko-node" style="--col:#d58b2d">f<small>j</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ko-blind">问题：k 维度的 l / ... 不在这张画面里。用户必须切换，才知道 a、b 是否同属 l。</div>
+  </div>
+
+  <div class="ko-panel" data-choice="orthogonal-matrix" onclick="toggleSelect(this)">
+    <h3>建议结构：正交矩阵 + 节点色带叠加</h3>
+    <p class="ko-panel-note">横轴固定主维度 g，纵轴固定第二维 k。节点卡片同时携带列色、左色带和文本标签。</p>
+
+    <div class="ko-matrix-wrap">
+      <div class="ko-matrix">
+        <div class="ko-axis-label">k × g</div>
+        <div class="ko-col-head" style="--line:#7c6cff">h (a,b)</div>
+        <div class="ko-col-head" style="--line:#22b981">i (c,d)</div>
+        <div class="ko-col-head" style="--line:#d58b2d">j (e,f)</div>
+
+        <div class="ko-row-head" style="--line:#df6844">l (a,b)</div>
+        <div class="ko-cell">
+          <div class="ko-node" style="--col:#7c6cff;--row:#df6844">a<small>h · l</small></div>
+          <div class="ko-node" style="--col:#7c6cff;--row:#df6844">b<small>h · l</small></div>
+        </div>
+        <div class="ko-cell ko-empty">-</div>
+        <div class="ko-cell ko-empty">-</div>
+
+        <div class="ko-row-head" style="--line:#7a8595">未归类</div>
+        <div class="ko-cell ko-empty">-</div>
+        <div class="ko-cell">
+          <div class="ko-node" style="--col:#22b981">c<small>i</small></div>
+          <div class="ko-node" style="--col:#22b981">d<small>i</small></div>
+        </div>
+        <div class="ko-cell">
+          <div class="ko-node" style="--col:#d58b2d">e<small>j</small></div>
+          <div class="ko-node" style="--col:#d58b2d">f<small>j</small></div>
+        </div>
+
+        <div class="ko-row-head" style="--line:#7a8595">未来 k2</div>
+        <div class="ko-cell ko-empty">-</div>
+        <div class="ko-cell ko-empty">-</div>
+        <div class="ko-cell ko-empty">-</div>
+      </div>
+    </div>
+
+    <div class="ko-ribbon-note">
+      <div class="ko-mini"><strong>列编码</strong>边框/背景表示主维度 g：h、i、j。</div>
+      <div class="ko-mini"><strong>行编码</strong>行位置 + 左侧色带表示第二维 k：l、未归类、未来行。</div>
+      <div class="ko-mini"><strong>扩展编码</strong>第三维以后放右色带或角标，不改变主矩阵。</div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>我建议的落地边界</h3>
+  <p class="subtitle">先把它作为 DimensionCanvas 内的一个新 section layout，而不是改全局知识模型：节点仍然只引用 nodePool，矩阵只是投影视图。</p>
+</div>

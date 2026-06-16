@@ -298,7 +298,37 @@ export const useGraphStore = create<GraphState>((set, get) => {
         set({ selectedNodeId: null });
         return;
       }
-      set({ selectedNodeId: id });
+      // Update focusNodeId so RelationNetwork and questions follow the opened card,
+      // but leave selectedTreeNodeId (left-panel cursor) untouched.
+      const state = get();
+      const view = extractSubgraph(state.nodePool, state.knowledgeEdges, {
+        focus: id,
+        scope: 'neighbor',
+        dimension: state.currentPerspective?.id ?? 'all',
+      });
+      const axioms: GraphNode[] = [];
+      const mechanisms: GraphNode[] = [];
+      const conclusions: GraphNode[] = [];
+      const edges: GraphEdge[] = view.edges.map((e) => ({
+        id: e.id, source: e.source, target: e.target, type: e.type, label: e.label,
+      }));
+      for (const n of view.nodes) {
+        const gn: GraphNode = {
+          id: n.id, label: n.label, x: 0, y: 0,
+          color: n.role === 'axiom' ? '#ff6b6b' : n.role === 'subsystem' ? '#8b5cf6' : '#58B2DC',
+          size: n.id === id ? 14 : 9, zone: (n.role === 'axiom' ? 'axiom' : n.role === 'conclusion' ? 'conclusion' : 'mechanism') as GraphNode['zone'],
+          phase: 0, glow: n.id === id,
+        };
+        if (n.role === 'axiom') axioms.push(gn);
+        else if (n.role === 'conclusion') conclusions.push(gn);
+        else mechanisms.push(gn);
+      }
+      set({
+        selectedNodeId: id,
+        focusNodeId: id,
+        axioms, mechanisms, conclusions, edges,
+        selectedQuestionId: pickQuestionForFocus(state.questions, id),
+      });
     },
 
     setSelectedQuestion: (id) => set({ selectedQuestionId: id }),
@@ -451,41 +481,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         [id]: { ...node, viewDimensions: cleanDimensions },
       };
 
-      // 目录联动：把维度内所有显式绑定的 nodeId 同步为目录树子节点
-      const allAtomNodeIds = new Set<string>();
-      for (const dim of cleanDimensions) {
-        for (const section of dim.sections) {
-          for (const atom of section.atoms) {
-            allAtomNodeIds.add(atom.nodeId);
-          }
-        }
-      }
-      function syncTree(treeNode: TreeNode): TreeNode {
-        if (treeNode.nodeRef === id && allAtomNodeIds.size > 0) {
-          const existingChildIds = new Set((treeNode.children ?? []).map((c) => c.id));
-          const newChildren = [...(treeNode.children ?? [])];
-          for (const nodeId of allAtomNodeIds) {
-            const poolNode = nodePool[nodeId];
-            if (!poolNode) continue;
-            const treeChildId = `tree_syn_${nodeId}`;
-            if (!existingChildIds.has(treeChildId)) {
-              newChildren.push({
-                id: treeChildId,
-                name: poolNode.label,
-                count: 0,
-                icon: '📄',
-                nodeRef: nodeId,
-              });
-            }
-          }
-          return { ...treeNode, children: newChildren, expanded: true };
-        }
-        if (!treeNode.children) return treeNode;
-        return { ...treeNode, children: treeNode.children.map(syncTree) };
-      }
-      const treeData = syncTree(state.treeData);
-
-      set({ nodePool, treeData });
+      set({ nodePool });
       persist();
     },
 

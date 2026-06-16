@@ -60,7 +60,29 @@ export interface AtomBinding {
   desc?: string;
 }
 
-export type SectionLayout = 'stack' | 'grid' | 'tree' | 'chain' | 'matrix';
+export type SectionLayout = 'stack' | 'grid' | 'tree' | 'chain' | 'matrix' | 'btree';
+
+/** B+ 树实例结构：一个磁盘块（页）。键/指针是结构数据，不是知识概念。 */
+export interface BPlusTreeNode {
+  /** 磁盘块号 / 页号 */
+  id: number;
+  /** 叶子节点：只存键；内部节点：键作路由分隔符 */
+  leaf: boolean;
+  /** 内部节点=路由键；叶子=实际键 */
+  keys: number[];
+  /** 内部节点=子块号（长度 = keys.length + 1）；叶子留空（链表由 leafChain 表达） */
+  ptrs: number[];
+}
+
+/** 一棵 B+ 树实例。挂在 ViewSection.config.btree 上，由 BPlusTreeSection 渲染。 */
+export interface BPlusTreeData {
+  /** 分支因子（每个内部节点最多多少子指针） */
+  fanout: number;
+  nodes: BPlusTreeNode[];
+  rootId: number;
+  /** 叶子双向链表顺序（块号），从左到右键递增 */
+  leafChain: number[];
+}
 
 export interface ViewSection {
   id: string;
@@ -71,6 +93,11 @@ export interface ViewSection {
     unit?: string;
     columns?: Array<{ key: string; label: string }>;
     tagQuery?: string[];
+    /** Span projection: which atom attr encodes position/extent (default: offset/size). Domain-specific, never universal. */
+    positionAttr?: string;
+    extentAttr?: string;
+    /** B+ 树实例结构（layout === 'btree' 时由 BPlusTreeSection 读取）。 */
+    btree?: BPlusTreeData;
   };
   atoms: AtomBinding[];
 }
@@ -83,11 +110,19 @@ export interface SemanticGroup {
   members: string[];
 }
 
+export interface ClassificationScopeMeta {
+  id: string;
+  name: string;
+  target: 'object' | 'parts' | 'children';
+  targetLabel?: string;
+}
+
 export interface ViewDimension {
   id: string;
   name: string;
   color: string;
   hint?: string;
+  scope?: ClassificationScopeMeta;
   sections: ViewSection[];
   groups?: SemanticGroup[];
 }

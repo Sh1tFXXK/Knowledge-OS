@@ -13,6 +13,7 @@ type LegacyViewDimension = {
   name: string;
   color: string;
   hint?: string;
+  scope?: ViewDimension['scope'];
   children?: LegacyDimChild[];
   sections?: ViewSection[];
   groups?: ViewDimension['groups'];
@@ -81,6 +82,7 @@ export function migrateNodePool(
           name: dim.name,
           color: dim.color,
           hint: dim.hint,
+          scope: dim.scope,
           sections: dim.sections.map((section) => ({
             ...section,
             atoms: section.atoms.filter((atom) => !!pool[atom.nodeId]),
@@ -108,6 +110,7 @@ export function migrateNodePool(
         name: dim.name,
         color: dim.color,
         hint: dim.hint,
+        scope: dim.scope,
         sections: [
           {
             id: `${dim.id}_main`,

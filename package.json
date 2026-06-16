@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node scripts/tree-binding.test.mjs && node scripts/answer-composer.test.mjs && node scripts/question-link.test.mjs && node scripts/dimension-canvas-editing.test.mjs && node scripts/explanation-card-binding.test.mjs",
-    "test:all": "for f in scripts/*.test.mjs; do node \"$f\"; done"
+    "test": "node --test \"scripts/*.test.mjs\"",
+    "test:all": "node --test \"scripts/*.test.mjs\""
   },
   "keywords": [],
   "author": "",

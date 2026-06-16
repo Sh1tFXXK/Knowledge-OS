@@ -4,6 +4,7 @@ import { StackSection } from './StackSection';
 import { TreeSection } from './TreeSection';
 import { ChainSection } from './ChainSection';
 import { MatrixSection } from './MatrixSection';
+import { BPlusTreeSection } from './BPlusTreeSection';
 
 export type AtomRectMap = Map<string, DOMRect>;
 
@@ -30,6 +31,7 @@ export const LAYOUT_RENDERERS: Record<SectionLayout, SectionComponent> = {
   tree: TreeSection,
   chain: ChainSection,
   matrix: MatrixSection,
+  btree: BPlusTreeSection,
 };
 
 export function SectionRenderer(props: SectionProps) {

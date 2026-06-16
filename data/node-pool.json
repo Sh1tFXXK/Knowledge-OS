@@ -939,6 +939,154 @@
                 "desc": "不回表·索引覆盖"
               }
             ]
+          },
+          {
+            "id": "sec_1781628695505",
+            "title": "btree",
+            "layout": "btree",
+            "atoms": [],
+            "config": {
+              "btree": {
+                "fanout": 3,
+                "rootId": 1,
+                "nodes": [
+                  {
+                    "id": 1,
+                    "leaf": false,
+                    "keys": [
+                      17,
+                      35
+                    ],
+                    "ptrs": [
+                      2,
+                      3,
+                      4
+                    ]
+                  },
+                  {
+                    "id": 2,
+                    "leaf": false,
+                    "keys": [
+                      8,
+                      12
+                    ],
+                    "ptrs": [
+                      5,
+                      6,
+                      7
+                    ]
+                  },
+                  {
+                    "id": 3,
+                    "leaf": false,
+                    "keys": [
+                      23,
+                      30
+                    ],
+                    "ptrs": [
+                      8,
+                      9
+                    ]
+                  },
+                  {
+                    "id": 4,
+                    "leaf": false,
+                    "keys": [
+                      65,
+                      87
+                    ],
+                    "ptrs": [
+                      10,
+                      11,
+                      12
+                    ]
+                  },
+                  {
+                    "id": 5,
+                    "leaf": true,
+                    "keys": [
+                      3,
+                      5,
+                      7
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 6,
+                    "leaf": true,
+                    "keys": [
+                      9,
+                      11
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 7,
+                    "leaf": true,
+                    "keys": [
+                      13,
+                      15
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 8,
+                    "leaf": true,
+                    "keys": [
+                      19,
+                      21
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 9,
+                    "leaf": true,
+                    "keys": [
+                      26,
+                      28
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 10,
+                    "leaf": true,
+                    "keys": [
+                      41,
+                      55
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 11,
+                    "leaf": true,
+                    "keys": [
+                      70,
+                      80
+                    ],
+                    "ptrs": []
+                  },
+                  {
+                    "id": 12,
+                    "leaf": true,
+                    "keys": [
+                      90,
+                      95
+                    ],
+                    "ptrs": []
+                  }
+                ],
+                "leafChain": [
+                  5,
+                  6,
+                  7,
+                  8,
+                  9,
+                  10,
+                  11,
+                  12
+                ]
+              }
+            }
           }
         ]
       },
@@ -1210,12 +1358,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "保证索引列的值在表中唯一，允许 NULL（多个 NULL 不冲突）。"
+          "content": "数据列不允许重复，允许为NULL值， 一个表允许多个列创建唯一索引"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": "与普通索引结构相同，但插入/更新时检查唯一性。主键是特殊的唯一索引（NOT NULL + 唯一）。"
+          "content": "可以通过ALTER  TABLE  table_name  ADD  UNIQUE(column); 创建唯一索引\n可以通过ALTER TABLE table_name ADD UNIQUE(column1,column2); 创建唯一组合索引 "
         },
         {
           "id": "bound",
@@ -1708,19 +1856,44 @@
     "viewDimensions": [
       {
         "id": "n_4cqy1f1t",
-        "name": "子项",
+        "name": "类型",
         "color": "#8b5cf6",
         "sections": [
           {
             "id": "n_4cqy1f1t_main",
-            "title": "子项",
+            "title": "类型",
             "layout": "grid",
             "atoms": [
               {
-                "nodeId": "demo_btree"
+                "nodeId": "k_auto_va5371",
+                "desc": "非空唯一·聚簇默认"
               },
               {
-                "nodeId": "demo_hash"
+                "nodeId": "demo_unique_index",
+                "desc": "保证索引列的值在表中唯一，允许 NULL（多个 NULL 不冲突）。"
+              },
+              {
+                "nodeId": "k_auto_yb9yyu",
+                "desc": "加速查询·可重复"
+              },
+              {
+                "nodeId": "demo_fulltext_index",
+                "desc": "用于文本内容的关键词搜索，支持自然语言和布尔模式。"
+              }
+            ]
+          },
+          {
+            "id": "sec_1781625190156",
+            "title": "数据结构",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_btree",
+                "desc": "平衡多路搜索树，叶子节点存储数据或指针。"
+              },
+              {
+                "nodeId": "demo_hash",
+                "desc": "通过哈希函数将键映射到存储位置。"
               }
             ]
           }
@@ -1734,7 +1907,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"索引\" 知识节点，作为该层级的核心聚合节点。"
+          "content": "索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。 索引是一种数据结构。数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用B树及其变种 B+树。 更通俗的说，索引就相当于目录。为了方便查找书中的内容，通过对内容建立索引形成目录。索引是一 个文件，它是要占据物理空间的。"
         },
         {
           "id": "mech",
@@ -3006,7 +3179,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "整个innoDB存储的基本构件，InnoDB磁盘管理的最小单位"
+          "content": "整个innoDB存储的基本构件，InnoDB磁盘管理的最小单位  Page Size"
         },
         {
           "id": "mech",
@@ -3027,103 +3200,129 @@
     },
     "viewDimensions": [
       {
-        "id": "page_structure",
-        "name": "page结构",
-        "color": "#E58522",
-        "hint": "16KB 物理空间内，每个原子以真实 offset/size 占位",
+        "id": "page_type",
+        "name": "按页类型",
+        "color": "#00AA90",
+        "scope": {
+          "id": "page_object",
+          "name": "Page 整体",
+          "target": "object",
+          "targetLabel": "Page"
+        },
         "sections": [
           {
-            "id": "page_16kb_stack",
-            "title": "16KB 物理布局",
-            "layout": "stack",
-            "config": {
-              "total": 16384,
-              "unit": "B"
-            },
-            "atoms": [
-              {
-                "nodeId": "k_1781003561186_d5ngg6",
-                "attrs": {
-                  "offset": 0,
-                  "size": 38
-                }
-              },
-              {
-                "nodeId": "k_1781005790853_943e43",
-                "attrs": {
-                  "offset": 38,
-                  "size": 56
-                }
-              },
-              {
-                "nodeId": "k_1781026368980_68t0s0",
-                "attrs": {
-                  "offset": 94,
-                  "size": 26
-                }
-              },
-              {
-                "nodeId": "k_1781005866277_bj0eht",
-                "attrs": {
-                  "offset": 120,
-                  "size": 12000
-                }
-              },
-              {
-                "nodeId": "k_1781008350988_rhnwyk",
-                "attrs": {
-                  "offset": 12120,
-                  "size": 3500
-                }
-              },
-              {
-                "nodeId": "k_1781008568811_xsf4qa",
-                "attrs": {
-                  "offset": 15620,
-                  "size": 756
-                }
-              },
-              {
-                "nodeId": "k_1781008515280_bvqrs9",
-                "attrs": {
-                  "offset": 16376,
-                  "size": 8
-                }
-              }
-            ]
-          },
-          {
-            "id": "page_link_chain",
-            "title": "页间双向链表",
-            "layout": "chain",
-            "atoms": [
-              {
-                "nodeId": "k_1781008748598_72gaz3"
-              },
-              {
-                "nodeId": "k_1781002610469_nik1ek"
-              },
-              {
-                "nodeId": "k_1781008786381_wiun1h"
-              }
-            ]
-          },
-          {
-            "id": "page_category_grid",
-            "title": "页类型分类",
+            "id": "page_type_main",
+            "title": "按页类型",
             "layout": "grid",
             "atoms": [
-              {
-                "nodeId": "k_1781003339612_gly0rm"
-              },
-              {
-                "nodeId": "k_1781003318112_lryll2"
-              },
               {
                 "nodeId": "k_1781002876731_3ct76l"
               },
               {
                 "nodeId": "k_1781003299034_og1pqa"
+              },
+              {
+                "nodeId": "k_1781003318112_lryll2"
+              },
+              {
+                "nodeId": "k_1781003339612_gly0rm"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "page_structure",
+        "name": "按功能大类",
+        "color": "#E58522",
+        "scope": {
+          "id": "page_parts",
+          "name": "Page 内部结构",
+          "target": "parts",
+          "targetLabel": "Page.parts"
+        },
+        "sections": [
+          {
+            "id": "page_parts_atoms",
+            "title": "组成部分",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_1781003561186_d5ngg6"
+              },
+              {
+                "nodeId": "k_1781005790853_943e43"
+              },
+              {
+                "nodeId": "k_1781026368980_68t0s0"
+              },
+              {
+                "nodeId": "k_1781005866277_bj0eht"
+              },
+              {
+                "nodeId": "k_1781008350988_rhnwyk"
+              },
+              {
+                "nodeId": "k_1781008568811_xsf4qa"
+              },
+              {
+                "nodeId": "k_1781008515280_bvqrs9"
+              }
+            ]
+          }
+        ],
+        "groups": [
+          {
+            "id": "page_group_common",
+            "label": "通用部分",
+            "nodeId": "k_1781027323338_n7l44z",
+            "members": [
+              "k_1781003561186_d5ngg6",
+              "k_1781005790853_943e43",
+              "k_1781008515280_bvqrs9"
+            ]
+          },
+          {
+            "id": "page_group_directory",
+            "label": "目录部分",
+            "nodeId": "k_1781027784235_rqeejq",
+            "members": [
+              "k_1781008568811_xsf4qa"
+            ]
+          },
+          {
+            "id": "page_group_records",
+            "label": "记录部分",
+            "nodeId": "k_1781061621077_9c8e4h",
+            "members": [
+              "k_1781026368980_68t0s0",
+              "k_1781005866277_bj0eht",
+              "k_1781008350988_rhnwyk"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "page_record_shape",
+        "name": "按记录形态",
+        "color": "#58B2DC",
+        "scope": {
+          "id": "page_parts",
+          "name": "Page 内部结构",
+          "target": "parts",
+          "targetLabel": "Page.parts"
+        },
+        "sections": [
+          {
+            "id": "page_record_shape_atoms",
+            "title": "记录形态",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_1781026368980_68t0s0"
+              },
+              {
+                "nodeId": "k_1781005866277_bj0eht"
               }
             ]
           }
@@ -3136,15 +3335,6 @@
             "members": [
               "k_1781026368980_68t0s0",
               "k_1781005866277_bj0eht"
-            ]
-          },
-          {
-            "id": "page_group_common",
-            "label": "通用部分",
-            "nodeId": "k_1781027323338_n7l44z",
-            "members": [
-              "k_1781003561186_d5ngg6",
-              "k_1781008515280_bvqrs9"
             ]
           }
         ]
@@ -3283,12 +3473,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "文件头，描述页信息"
+          "content": "文件头，描述页信息  38 字节"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "File Header字段⽤于记录Page的头信息，其中⽐较重要的是FIL_PAGE_PREV和FIL_PAGE_NEXT字段，通过这两个字段，我们可以找到该⻚的上⼀⻚和下⼀⻚，实际上所有⻚通过两个字段可以形成⼀条双向链表。"
         },
         {
           "id": "bound",
@@ -3313,12 +3503,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "页头，页的状态"
+          "content": "页头，页的状态  56字节"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "⽤于记录Page的状态信息。"
         },
         {
           "id": "bound",
@@ -3373,12 +3563,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "空闲记录，页中还没有被使用的空间"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "，被删除的⾏记录会被记录成空闲空间"
         },
         {
           "id": "bound",
@@ -3403,12 +3593,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "文件尾，校验页是否完整"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "存储⽤于检测数据完整性的校验和等数据"
         },
         {
           "id": "bound",
@@ -3433,7 +3623,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "页目录，存储用户记录的相对位置，记录着与⼆叉查找相关的信息"
         },
         {
           "id": "mech",
@@ -3523,12 +3713,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "两个伪行记录，Infimum（下确界）记录比该页中任何主键值都要小的值，Supremum（上确界）记录比该页中任何主键值都要大的值，这个伪记录分别构成了页中记录的边界。"
+          "content": "26字节，最大和最小记录，这是两个虚拟的行记录"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "两个伪行记录，Infimum（下确界）记录比该页中任何主键值都要小的值，Supremum（上确界）记录比该页中任何主键值都要大的值，这个伪记录分别构成了页中记录的边界。"
         },
         {
           "id": "bound",
@@ -3624,6 +3814,36 @@
           "id": "bound",
           "label": "边界",
           "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1781180000000_spcprt": {
+    "id": "k_1781180000000_spcprt",
+    "label": "空间部分",
+    "card": {
+      "nodeId": "k_1781180000000_spcprt",
+      "title": "空间部分",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "页内尚未分配给用户记录或页目录的可用空间，对应 Free Space。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "插入新记录时，InnoDB 会从 Free Space 中分配空间；随着记录增删和页目录增长，这部分空间会动态变化。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "空间部分不是固定长度区域，通常位于用户记录和 Page Directory 之间。"
         },
         {
           "id": "source",
@@ -3733,7 +3953,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "非空唯一·聚簇默认"
+          "content": "数据列不允许重复，不允许为NULL， 一个表只能有一个主键。"
         },
         {
           "id": "mech",
@@ -3763,12 +3983,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "加速查询·可重复"
+          "content": "基本的索引类型，没有唯一性的限制，允许为NULL值"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "可以通过ALTER TABLE table_name ADD INDEX index_name(column); 创建普通索引 \n可以通过ALTER TABLE table_name ADD INDEX index_name(column1,column2,column3); 创建组合索引"
         },
         {
           "id": "bound",

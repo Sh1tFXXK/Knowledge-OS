@@ -1,11 +1,7 @@
 import type { AtomBinding } from '../../types';
 import type { SectionProps } from './SectionRenderer';
 import { useAtomRect } from './useAtomRect';
-
-function numericAttr(atom: AtomBinding, key: string): number | null {
-  const value = atom.attrs?.[key];
-  return typeof value === 'number' && Number.isFinite(value) ? value : null;
-}
+import { readExtent, readPosition, readSpanConfig } from '../../knowledge/physicalProjection';
 
 interface StackSegment {
   atom: AtomBinding;
@@ -21,6 +17,7 @@ function resolveStackSegments(
   atoms: AtomBinding[],
   nodePool: SectionProps['nodePool'],
   total: number,
+  spanConfig: ReturnType<typeof readSpanConfig>,
 ): { segments: StackSegment[]; canvasHeight: number } {
   const minReadable = 46;
   const minGap = 2;
@@ -28,8 +25,8 @@ function resolveStackSegments(
   let cursor = 0;
 
   const segments = atoms.map((atom, index) => {
-    const offset = numericAttr(atom, 'offset') ?? (index / Math.max(atoms.length, 1)) * total;
-    const size = numericAttr(atom, 'size') ?? total / Math.max(atoms.length, 1);
+    const offset = readPosition(atom, spanConfig) ?? (index / Math.max(atoms.length, 1)) * total;
+    const size = readExtent(atom, spanConfig) ?? total / Math.max(atoms.length, 1);
     const scaledTop = Math.max(0, (offset / total) * baseHeight);
     const scaledHeight = Math.max(1, (size / total) * baseHeight);
     const height = Math.max(minReadable, scaledHeight);
@@ -65,11 +62,12 @@ export function StackSection({
   onToggleGroupAtom,
   registerAtomRect,
 }: SectionProps) {
-  const total = section.config?.total;
+  const spanConfig = readSpanConfig(section);
+  const total = spanConfig.total ?? 0;
   const hasCoordinates =
-    typeof total === 'number' &&
+    spanConfig.total !== null &&
     total > 0 &&
-    atoms.some((atom) => numericAttr(atom, 'offset') !== null || numericAttr(atom, 'size') !== null);
+    atoms.some((atom) => readPosition(atom, spanConfig) !== null || readExtent(atom, spanConfig) !== null);
 
   if (!hasCoordinates) {
     return (
@@ -81,6 +79,7 @@ export function StackSection({
             label={nodePool[atom.nodeId]?.label ?? atom.nodeId}
             color={dimension.color}
             unit={section.config?.unit}
+            spanConfig={spanConfig}
             selected={selectedNodeId === atom.nodeId}
             groupSelected={groupSelectedIds.has(atom.nodeId)}
             onOpen={() => onAtomClick(atom.nodeId)}
@@ -94,7 +93,7 @@ export function StackSection({
     );
   }
 
-  const { segments, canvasHeight } = resolveStackSegments(atoms, nodePool, total);
+  const { segments, canvasHeight } = resolveStackSegments(atoms, nodePool, total, spanConfig);
 
   return (
     <div className="dc-section-body dc-stack-section">
@@ -112,6 +111,7 @@ export function StackSection({
               label={segment.label}
               color={dimension.color}
               unit={section.config?.unit}
+              spanConfig={spanConfig}
               selected={selectedNodeId === atom.nodeId}
               groupSelected={groupSelectedIds.has(atom.nodeId)}
               onOpen={() => onAtomClick(atom.nodeId)}
@@ -134,6 +134,7 @@ function StackBlock({
   label,
   color,
   unit,
+  spanConfig,
   selected,
   groupSelected,
   onOpen,
@@ -148,6 +149,7 @@ function StackBlock({
   label: string;
   color: string;
   unit?: string;
+  spanConfig: ReturnType<typeof readSpanConfig>;
   selected: boolean;
   groupSelected: boolean;
   onOpen: () => void;
@@ -158,8 +160,8 @@ function StackBlock({
   expanded?: boolean;
 }) {
   const ref = useAtomRect(atom.nodeId, registerAtomRect);
-  const offset = numericAttr(atom, 'offset');
-  const size = numericAttr(atom, 'size');
+  const offset = readPosition(atom, spanConfig);
+  const size = readExtent(atom, spanConfig);
   const meta = offset !== null || size !== null
     ? [offset !== null ? `@${offset}${unit ?? ''}` : null, size !== null ? `${size}${unit ?? ''}` : null]
         .filter(Boolean)

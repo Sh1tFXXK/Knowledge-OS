@@ -3,26 +3,53 @@ import { useGraphStore } from '../store/useGraph';
 import type {
   AtomAttrValue,
   AtomBinding,
+  ClassificationScopeMeta,
   KnowledgeNode,
   SectionLayout,
   ViewDimension,
   ViewSection,
 } from '../types';
 import { resolveSectionAtoms } from '../knowledge/projection';
+import { readSpanConfig, spanKeyLabel } from '../knowledge/physicalProjection';
 import { SectionRenderer, type AtomRectMap } from './sections/SectionRenderer';
 import { GroupOverlay } from './sections/GroupOverlay';
+import { SemanticFieldView } from './sections/SemanticFieldView';
+import {
+  OrthogonalMatrixView,
+  type OrthogonalAtomEditTarget,
+  type OrthogonalCategoryEditTarget,
+} from './sections/OrthogonalMatrixView';
 
 interface Props {
   node: KnowledgeNode;
   viewDimensions: ViewDimension[];
 }
 
-interface AtomEditTarget {
-  sectionId: string;
-  nodeId?: string;
-}
+interface AtomEditTarget extends OrthogonalAtomEditTarget {}
+interface CategoryEditTarget extends OrthogonalCategoryEditTarget {}
 
-const LAYOUT_OPTIONS: SectionLayout[] = ['stack', 'grid', 'tree', 'chain', 'matrix'];
+const LAYOUT_OPTIONS: SectionLayout[] = ['stack', 'grid', 'tree', 'chain', 'matrix', 'btree'];
+
+/** 新建 btree Section 时附带的示例 B+ 树（3 层，fanout 3），可覆盖为真实实例。 */
+const SAMPLE_BPLUS_TREE = {
+  fanout: 3,
+  rootId: 1,
+  nodes: [
+    { id: 1, leaf: false, keys: [17, 35], ptrs: [2, 3, 4] },
+    { id: 2, leaf: false, keys: [8, 12], ptrs: [5, 6, 7] },
+    { id: 3, leaf: false, keys: [23, 30], ptrs: [8, 9] },
+    { id: 4, leaf: false, keys: [65, 87], ptrs: [10, 11, 12] },
+    { id: 5, leaf: true, keys: [3, 5, 7], ptrs: [] },
+    { id: 6, leaf: true, keys: [9, 11], ptrs: [] },
+    { id: 7, leaf: true, keys: [13, 15], ptrs: [] },
+    { id: 8, leaf: true, keys: [19, 21], ptrs: [] },
+    { id: 9, leaf: true, keys: [26, 28], ptrs: [] },
+    { id: 10, leaf: true, keys: [41, 55], ptrs: [] },
+    { id: 11, leaf: true, keys: [70, 80], ptrs: [] },
+    { id: 12, leaf: true, keys: [90, 95], ptrs: [] },
+  ],
+  leafChain: [5, 6, 7, 8, 9, 10, 11, 12],
+};
 const PALETTE = ['#E58522', '#58B2DC', '#B481BB', '#00AA90', '#F17C67', '#FFB11B', '#86C166'];
 
 function parseAttrValue(value: string): AtomAttrValue {
@@ -45,12 +72,25 @@ function draftToAttrs(draft: Record<string, string>): AtomBinding['attrs'] {
   return entries.length ? Object.fromEntries(entries) : undefined;
 }
 
+function renameDimensionWithPrimarySection(dim: ViewDimension, name: string): ViewDimension {
+  const sections = dim.sections.map((section, index) => {
+    const isAutoPrimarySection = index === 0 && section.id === `${dim.id}_main`;
+    const title = section.title?.trim() ?? '';
+    const shouldSyncTitle =
+      isAutoPrimarySection &&
+      (title === '' || title === dim.name || title.startsWith('Standard '));
+
+    return shouldSyncTitle ? { ...section, title: name } : section;
+  });
+
+  return { ...dim, name, sections };
+}
+
 export default function DimensionCanvas({ node, viewDimensions }: Props) {
   const nodePool = useGraphStore((s) => s.nodePool);
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
-  const openCard = useGraphStore((s) => s.openCard);
+  const setSelectedNodeOnly = useGraphStore((s) => s.setSelectedNodeOnly);
   const updateKnowledgeViewDimensions = useGraphStore((s) => s.updateKnowledgeViewDimensions);
-  const updateKnowledgeNodeLabel = useGraphStore((s) => s.updateKnowledgeNodeLabel);
   const updateKnowledgeTab = useGraphStore((s) => s.updateKnowledgeTab);
   const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
   const addNotification = useGraphStore((s) => s.addNotification);
@@ -61,6 +101,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   const [newDimName, setNewDimName] = useState('');
   const [renamingDimId, setRenamingDimId] = useState(null as string | null);
   const [renameDimName, setRenameDimName] = useState('');
+  const [editingCategory, setEditingCategory] = useState(null as CategoryEditTarget | null);
+  const [categoryLabelDraft, setCategoryLabelDraft] = useState('');
   const [addingSection, setAddingSection] = useState(false);
   const [newSectionTitle, setNewSectionTitle] = useState('');
   const [newSectionLayout, setNewSectionLayout] = useState('grid' as SectionLayout);
@@ -87,6 +129,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         : viewDimensions[0]?.id ?? '',
     );
     setGroupSelectedIds(new Set() as Set<string>);
+    setEditingCategory(null);
+    setCategoryLabelDraft('');
     setAtomRects(new Map());
   }, [node.id, viewDimensions]);
 
@@ -98,6 +142,7 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   };
 
   const handleStartRenameDim = (dim: ViewDimension) => {
+    setActiveDimId(dim.id);
     setRenamingDimId(dim.id);
     setRenameDimName(dim.name);
   };
@@ -106,7 +151,7 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     const name = renameDimName.trim();
     if (name && renamingDimId) {
       commitDims(dimsList.map((dim: ViewDimension) =>
-        dim.id === renamingDimId ? { ...dim, name } : dim,
+        dim.id === renamingDimId ? renameDimensionWithPrimarySection(dim, name) : dim,
       ));
     }
     setRenamingDimId(null);
@@ -118,14 +163,19 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     commitDims(dimsList.map((dim: ViewDimension) => (dim.id === activeDim.id ? updater(dim) : dim)));
   };
 
-  const handleAddDimension = () => {
-    const name = newDimName.trim();
+  const updateDimensionById = (dimensionId: string, updater: (dim: ViewDimension) => ViewDimension) => {
+    commitDims(dimsList.map((dim: ViewDimension) => (dim.id === dimensionId ? updater(dim) : dim)));
+  };
+
+  const createDimension = (rawName: string, scope: ClassificationScopeMeta | undefined = activeDim?.scope) => {
+    const name = rawName.trim();
     if (!name) return;
     const id = `dim_${Date.now()}`;
     const nextDim: ViewDimension = {
       id,
       name,
       color: PALETTE[dimsList.length % PALETTE.length],
+      scope,
       sections: [
         {
           id: `${id}_main`,
@@ -138,14 +188,66 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     const next = [...dimsList, nextDim];
     commitDims(next);
     setActiveDimId(id);
+    return id;
+  };
+
+  const handleAddDimension = () => {
+    const id = createDimension(newDimName);
+    if (!id) return;
     setNewDimName('');
     setAddingDim(false);
+  };
+
+  const handleAddBandRow = (scope?: ClassificationScopeMeta) => {
+    createDimension(`Standard ${dimsList.length + 1}`, scope);
   };
 
   const handleDeleteDimension = (id: string) => {
     const next = dimsList.filter((dim: ViewDimension) => dim.id !== id);
     commitDims(next);
     if (activeDimId === id) setActiveDimId(next[0]?.id ?? '');
+    if (renamingDimId === id) {
+      setRenamingDimId(null);
+      setRenameDimName('');
+    }
+    if (editingCategory?.dimensionId === id) {
+      setEditingCategory(null);
+      setCategoryLabelDraft('');
+    }
+  };
+
+  const handleRenameBandRow = (dimensionId: string) => {
+    const dim = dimsList.find((item: ViewDimension) => item.id === dimensionId);
+    if (dim) handleStartRenameDim(dim);
+  };
+
+  const startCategoryEdit = (target: CategoryEditTarget) => {
+    setActiveDimId(target.dimensionId);
+    setEditingCategory(target);
+    setCategoryLabelDraft(target.label);
+  };
+
+  const commitCategoryEdit = () => {
+    if (!editingCategory) return;
+    const label = categoryLabelDraft.trim();
+    if (!label) return;
+
+    updateDimensionById(editingCategory.dimensionId, (dim) => ({
+      ...dim,
+      sections: dim.sections.map((section) =>
+        !editingCategory.groupId && section.id === editingCategory.sectionId
+          ? { ...section, title: label }
+          : section,
+      ),
+      groups: editingCategory.groupId
+        ? dim.groups?.map((group) =>
+          group.id === editingCategory.groupId ? { ...group, label } : group,
+        )
+        : dim.groups,
+    }));
+
+    setEditingCategory(null);
+    setCategoryLabelDraft('');
   };
 
   const handleAddSection = () => {
@@ -161,7 +263,9 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         ? { columns: [{ key: 'value', label: 'Value' }] }
         : newSectionLayout === 'stack'
           ? { unit: 'B' }
-          : undefined,
+          : newSectionLayout === 'btree'
+            ? { btree: SAMPLE_BPLUS_TREE }
+            : undefined,
     };
     updateActiveDim((dim) => ({ ...dim, sections: [...dim.sections, section] }));
     setAddingSection(false);
@@ -193,23 +297,92 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   };
 
   const handleAtomClick = (nodeId: string) => {
-    openCard(selectedNodeId === nodeId ? null : nodeId);
+    setSelectedNodeOnly(selectedNodeId === nodeId ? null : nodeId);
   };
 
-  const startAtomEdit = (sectionId: string, nodeId?: string) => {
-    const section = activeDim?.sections.find((item) => item.id === sectionId);
-    const existing = nodeId ? section?.atoms.find((atom) => atom.nodeId === nodeId) : undefined;
-    const poolNode = nodeId ? nodePool[nodeId] : undefined;
-    setEditingAtom({ sectionId, nodeId });
-    setDraftNodeId(nodeId ?? '');
+  const startAtomEdit = (target: AtomEditTarget | string, nodeId?: string) => {
+    const resolvedTarget: AtomEditTarget =
+      typeof target === 'string'
+        ? { dimensionId: activeDim?.id ?? '', sectionId: target, nodeId }
+        : target;
+    const targetDim = dimsList.find((dim) => dim.id === resolvedTarget.dimensionId) ?? activeDim;
+    const section = targetDim?.sections.find((item) => item.id === resolvedTarget.sectionId);
+    const targetNodeId = resolvedTarget.nodeId;
+    const existing = targetNodeId ? section?.atoms.find((atom) => atom.nodeId === targetNodeId) : undefined;
+    const poolNode = targetNodeId ? nodePool[targetNodeId] : undefined;
+    setEditingAtom(resolvedTarget);
+    setDraftNodeId(targetNodeId ?? '');
     setDraftLabel(poolNode?.label ?? '');
     setDraftSearch(poolNode?.label ?? '');
     setDraftDesc(existing?.desc ?? poolNode?.card.tabs[0]?.content ?? '');
     setDraftAttrs(attrsToDraft(existing?.attrs));
   };
 
+  const bindAtomToSection = (section: ViewSection, nextAtom: AtomBinding, previousNodeId?: string): ViewSection => {
+    const existingIndex = section.atoms.findIndex((atom) => atom.nodeId === (previousNodeId ?? nextAtom.nodeId));
+    if (existingIndex === -1) {
+      if (section.atoms.some((atom) => atom.nodeId === nextAtom.nodeId)) return section;
+      return { ...section, atoms: [...section.atoms, nextAtom] };
+    }
+    const atoms = [...section.atoms];
+    atoms[existingIndex] = nextAtom;
+    return { ...section, atoms };
+  };
+
+  const addMemberToGroup = (dim: ViewDimension, groupId: string | undefined, nodeId: string): ViewDimension => {
+    if (!groupId || groupId.endsWith('_ungrouped')) return dim;
+    return {
+      ...dim,
+      groups: dim.groups?.map((group) =>
+        group.id === groupId && !group.members.includes(nodeId)
+          ? { ...group, members: [...group.members, nodeId] }
+          : group,
+      ),
+    };
+  };
+
+  const saveAtomToDimensions = (target: AtomEditTarget, nextAtom: AtomBinding) => {
+    const next = dimsList.map((dim) => {
+      let nextDim = dim;
+
+      if (dim.id === target.dimensionId) {
+        nextDim = addMemberToGroup({
+          ...nextDim,
+          sections: nextDim.sections.map((section) =>
+            section.id === target.sectionId
+              ? bindAtomToSection(section, nextAtom, target.nodeId)
+              : section,
+          ),
+        }, target.groupId, nextAtom.nodeId);
+      }
+
+      const shouldBindSecondary =
+        target.secondaryDimensionId &&
+        target.secondarySectionId &&
+        dim.id === target.secondaryDimensionId &&
+        (target.secondaryDimensionId !== target.dimensionId || target.secondarySectionId !== target.sectionId);
+
+      if (shouldBindSecondary) {
+        nextDim = addMemberToGroup({
+          ...nextDim,
+          sections: nextDim.sections.map((section) =>
+            section.id === target.secondarySectionId
+              ? bindAtomToSection(section, { nodeId: nextAtom.nodeId }, target.nodeId)
+              : section,
+          ),
+        }, target.secondaryGroupId, nextAtom.nodeId);
+      } else if (target.secondaryDimensionId && dim.id === target.secondaryDimensionId) {
+        nextDim = addMemberToGroup(nextDim, target.secondaryGroupId, nextAtom.nodeId);
+      }
+
+      return nextDim;
+    });
+
+    commitDims(next);
+  };
+
   const saveAtomEdit = () => {
-    if (!editingAtom || !activeDim) return;
+    if (!editingAtom) return;
     const label = draftLabel.trim();
     if (!label) return;
 
@@ -230,19 +403,7 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
       attrs: draftToAttrs(draftAttrs),
     };
 
-    updateActiveDim((dim) => ({
-      ...dim,
-      sections: dim.sections.map((section) => {
-        if (section.id !== editingAtom.sectionId) return section;
-        const existingIndex = section.atoms.findIndex((atom) => atom.nodeId === editingAtom.nodeId);
-        if (existingIndex === -1) {
-          return { ...section, atoms: [...section.atoms, nextAtom] };
-        }
-        const atoms = [...section.atoms];
-        atoms[existingIndex] = nextAtom;
-        return { ...section, atoms };
-      }),
-    }));
+    saveAtomToDimensions(editingAtom, nextAtom);
 
     setEditingAtom(null);
     setDraftNodeId('');
@@ -254,7 +415,7 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
 
   const removeAtomBinding = () => {
     if (!editingAtom?.nodeId) return;
-    updateActiveDim((dim) => ({
+    updateDimensionById(editingAtom.dimensionId, (dim) => ({
       ...dim,
       sections: dim.sections.map((section) =>
         section.id === editingAtom.sectionId
@@ -320,6 +481,14 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
       .sort((a, b) => a.label.localeCompare(b.label, 'zh-CN'))
       .slice(0, 8);
   }, [groupNodeSearch, nodePool]);
+
+  const semanticField = useMemo(() => {
+    if (!activeDim) return null;
+    const section = activeDim.sections.find((item: ViewSection) => item.layout === 'stack');
+    if (!section) return null;
+    const atoms = resolveSectionAtoms(section, nodePool);
+    return atoms.length ? { section, atoms } : null;
+  }, [activeDim, nodePool]);
 
   return (
     <div className="dimension-canvas">
@@ -394,6 +563,36 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         </div>
       )}
 
+      {editingCategory && (
+        <div className="dc-addrow">
+          <input
+            className="input"
+            value={categoryLabelDraft}
+            autoFocus
+            onChange={(event: any) => setCategoryLabelDraft(event.target.value)}
+            onKeyDown={(event: any) => {
+              if (event.key === 'Enter') commitCategoryEdit();
+              if (event.key === 'Escape') {
+                setEditingCategory(null);
+                setCategoryLabelDraft('');
+              }
+            }}
+            placeholder="Category label"
+          />
+          <button type="button" className="btn btn-primary" onClick={commitCategoryEdit}>Save category</button>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => {
+              setEditingCategory(null);
+              setCategoryLabelDraft('');
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      )}
+
       {activeDim ? (
         <div className="dc-sections-wrap" ref={overlayRef}>
           <div className="dc-dimension-intro">
@@ -439,42 +638,59 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
             </div>
           )}
 
-          {activeDim.sections.map((section: ViewSection) => {
-            const atoms = resolveSectionAtoms(section, nodePool);
-            return (
-              <section key={section.id} className="dc-section">
-                <div className="dc-section-head" style={{ borderColor: activeDim.color }}>
-                  <input
-                    className="dc-section-title-input"
-                    value={section.title ?? ''}
-                    placeholder={section.layout}
-                    onChange={(event: any) => updateSection(section.id, { title: event.target.value })}
-                  />
-                  <span className="dc-section-layout">{section.layout}</span>
-                  <button type="button" className="dc-section-delete" onClick={() => deleteSection(section.id)}>Delete</button>
-                </div>
-                <SectionRenderer
-                  section={section}
-                  atoms={atoms}
-                  dimension={activeDim}
-                  nodePool={nodePool}
-                  selectedNodeId={selectedNodeId}
-                  groupSelectedIds={groupSelectedIds}
-                  onAtomClick={handleAtomClick}
-                  onAtomEdit={startAtomEdit}
-                  onToggleGroupAtom={toggleGroupAtom}
-                  registerAtomRect={registerAtomRect}
-                />
-              </section>
-            );
-          })}
-
-          <GroupOverlay
-            groups={activeDim.groups ?? []}
-            atomRects={atomRects}
-            containerRef={overlayRef}
-            onGroupClick={handleAtomClick}
+          <OrthogonalMatrixView
+            dimensions={dimsList}
+            nodePool={nodePool}
+            selectedNodeId={selectedNodeId}
+            groupSelectedIds={groupSelectedIds}
+            onAtomClick={handleAtomClick}
+            onAtomEdit={startAtomEdit}
+            onAtomHeaderEdit={startAtomEdit}
+            onCategoryEdit={startCategoryEdit}
+            onAddRow={handleAddBandRow}
+            onRenameRow={handleRenameBandRow}
+            onDeleteRow={handleDeleteDimension}
+            onToggleGroupAtom={toggleGroupAtom}
+            registerAtomRect={registerAtomRect}
           />
+
+          {semanticField && (
+            <SemanticFieldView
+              dimension={activeDim}
+              section={semanticField.section}
+              atoms={semanticField.atoms}
+              nodePool={nodePool}
+              selectedNodeId={selectedNodeId}
+              groupSelectedIds={groupSelectedIds}
+              onAtomClick={handleAtomClick}
+              onAtomEdit={startAtomEdit}
+              onToggleGroupAtom={toggleGroupAtom}
+              registerAtomRect={registerAtomRect}
+            />
+          )}
+
+          {!semanticField && (
+            <DimensionSections
+              dimension={activeDim}
+              nodePool={nodePool}
+              selectedNodeId={selectedNodeId}
+              groupSelectedIds={groupSelectedIds}
+              onAtomClick={handleAtomClick}
+              onAtomEdit={startAtomEdit}
+              onToggleGroupAtom={toggleGroupAtom}
+              registerAtomRect={registerAtomRect}
+              updateSection={updateSection}
+              deleteSection={deleteSection}
+            />
+          )}
+          {!semanticField && (
+            <GroupOverlay
+              groups={activeDim.groups ?? []}
+              atomRects={atomRects}
+              containerRef={overlayRef}
+              onGroupClick={handleAtomClick}
+            />
+          )}
         </div>
       ) : (
         <div className="dc-empty">No dimensions yet.</div>
@@ -524,13 +740,17 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
           <textarea className="input dc-child-desc-input" value={draftDesc} onChange={(event: any) => setDraftDesc(event.target.value)} rows={2} placeholder="投影特化描述（仅本视图）" />
 
           {(() => {
-            const section = activeDim?.sections.find((item: ViewSection) => item.id === editingAtom.sectionId);
+            const editingDimension = dimsList.find((dim) => dim.id === editingAtom.dimensionId);
+            const section = editingDimension?.sections.find((item: ViewSection) => item.id === editingAtom.sectionId);
             if (!section) return null;
             if (section.layout === 'stack') {
+              const spanConfig = readSpanConfig(section);
+              const positionLabel = spanKeyLabel(spanConfig.positionKey, 'Position');
+              const extentLabel = spanKeyLabel(spanConfig.extentKey, 'Extent');
               return (
                 <div className="dc-attrs-grid">
-                  <label>Offset <input className="input" value={draftAttrs.offset ?? ''} onChange={(event: any) => setDraftAttrs((prev: Record<string, string>) => ({ ...prev, offset: event.target.value }))} /></label>
-                  <label>Size <input className="input" value={draftAttrs.size ?? ''} onChange={(event: any) => setDraftAttrs((prev: Record<string, string>) => ({ ...prev, size: event.target.value }))} /></label>
+                  <label>{positionLabel} <input className="input" value={draftAttrs[spanConfig.positionKey] ?? ''} onChange={(event: any) => setDraftAttrs((prev: Record<string, string>) => ({ ...prev, [spanConfig.positionKey]: event.target.value }))} /></label>
+                  <label>{extentLabel} <input className="input" value={draftAttrs[spanConfig.extentKey] ?? ''} onChange={(event: any) => setDraftAttrs((prev: Record<string, string>) => ({ ...prev, [spanConfig.extentKey]: event.target.value }))} /></label>
                 </div>
               );
             }
@@ -558,5 +778,63 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         </div>
       )}
     </div>
+  );
+}
+
+function DimensionSections({
+  dimension,
+  nodePool,
+  selectedNodeId,
+  groupSelectedIds,
+  onAtomClick,
+  onAtomEdit,
+  onToggleGroupAtom,
+  registerAtomRect,
+  updateSection,
+  deleteSection,
+}: {
+  dimension: ViewDimension;
+  nodePool: Record<string, KnowledgeNode>;
+  selectedNodeId: string | null;
+  groupSelectedIds: Set<string>;
+  onAtomClick: (nodeId: string) => void;
+  onAtomEdit: (sectionId: string, nodeId?: string) => void;
+  onToggleGroupAtom: (nodeId: string) => void;
+  registerAtomRect: (nodeId: string, rect: DOMRect | null) => void;
+  updateSection: (sectionId: string, patch: Partial<ViewSection>) => void;
+  deleteSection: (sectionId: string) => void;
+}) {
+  return (
+    <>
+      {dimension.sections.map((section: ViewSection) => {
+        const atoms = resolveSectionAtoms(section, nodePool);
+        return (
+          <section key={section.id} className="dc-section">
+            <div className="dc-section-head" style={{ borderColor: dimension.color }}>
+              <input
+                className="dc-section-title-input"
+                value={section.title ?? ''}
+                placeholder={section.layout}
+                onChange={(event: any) => updateSection(section.id, { title: event.target.value })}
+              />
+              <span className="dc-section-layout">{section.layout}</span>
+              <button type="button" className="dc-section-delete" onClick={() => deleteSection(section.id)}>Delete</button>
+            </div>
+            <SectionRenderer
+              section={section}
+              atoms={atoms}
+              dimension={dimension}
+              nodePool={nodePool}
+              selectedNodeId={selectedNodeId}
+              groupSelectedIds={groupSelectedIds}
+              onAtomClick={onAtomClick}
+              onAtomEdit={onAtomEdit}
+              onToggleGroupAtom={onToggleGroupAtom}
+              registerAtomRect={registerAtomRect}
+            />
+          </section>
+        );
+      })}
+    </>
   );
 }

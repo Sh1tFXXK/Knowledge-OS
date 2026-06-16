@@ -9,6 +9,16 @@ const rendererSource = fs.readFileSync(path.resolve('src/core/sections/SectionRe
 assert.match(dcSource, /resolveSectionAtoms/, 'resolveSectionAtoms import missing');
 assert.match(dcSource, /SectionRenderer/, 'SectionRenderer usage missing');
 assert.match(dcSource, /GroupOverlay/, 'GroupOverlay usage missing');
+assert.match(
+  dcSource,
+  /<SemanticFieldView[\s\S]*registerAtomRect=\{registerAtomRect\}/,
+  'SemanticFieldView atoms must still register rects',
+);
+assert.match(
+  dcSource,
+  /!\s*semanticField\s*&&\s*\(\s*<GroupOverlay/,
+  'GroupOverlay must not render on top of SemanticFieldView',
+);
 assert.match(dcSource, /updateKnowledgeViewDimensions/, 'updateKnowledgeViewDimensions missing');
 assert.match(dcSource, /onAtomEdit/, 'onAtomEdit prop missing');
 assert.match(dcSource, /dc-child-edit-panel/, 'dc-child-edit-panel class missing');
