@@ -1,10 +1,16 @@
-import { useState, useMemo, useCallback, useRef, CSSProperties } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, CSSProperties } from 'react';
 import { useGraphStore } from '../store/useGraph';
 
 import { countTreeNodes } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
 
 type AddKind = 'knowledge' | 'link';
+const TREE_NODE_DRAG_TYPE = 'application/x-knowledge-os-tree-node';
+
+interface UniverseTreeProps {
+  isCollapsed: boolean;
+  onToggleCollapsed: () => void;
+}
 
 /* ---- Context Menu ---- */
 function ContextMenu({
@@ -61,6 +67,12 @@ const TreeItem = ({
   onRename,
   onDelete,
   onAddQuestion,
+  draggingTreeNodeId,
+  dropTargetTreeNodeId,
+  onDragStartNode,
+  onDragEndNode,
+  onDragOverNode,
+  onDropNode,
 }: {
   node: TreeNode;
   level?: number;
@@ -71,8 +83,14 @@ const TreeItem = ({
   onRename: (nodeId: string) => void;
   onDelete: (nodeId: string, label: string) => void;
   onAddQuestion: (treeNodeId: string, label: string) => void;
+  draggingTreeNodeId: string | null;
+  dropTargetTreeNodeId: string | null;
+  onDragStartNode: (nodeId: string) => void;
+  onDragEndNode: () => void;
+  onDragOverNode: (nodeId: string) => void;
+  onDropNode: (nodeId: string, nextParentId: string) => void;
 }) => {
-  const [isOpen, setIsOpen] = useState(level < 5);
+  const [isOpen, setIsOpen] = useState(node.expanded ?? level < 5);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(node.name);
@@ -80,6 +98,13 @@ const TreeItem = ({
   const poolId = node.nodeRef;
   const isSelected = poolId === selectedNodeId;
   const isSearchMatch = !!(searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const isDragging = draggingTreeNodeId === node.id;
+  const isDropTarget = dropTargetTreeNodeId === node.id && draggingTreeNodeId !== node.id;
+  const canDrag = level > 0 && !editing;
+
+  useEffect(() => {
+    if (node.expanded) setIsOpen(true);
+  }, [node.expanded]);
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -101,13 +126,50 @@ const TreeItem = ({
     setEditing(false);
   };
 
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!canDrag) return;
+    e.stopPropagation();
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData(TREE_NODE_DRAG_TYPE, node.id);
+    e.dataTransfer.setData('text/plain', node.id);
+    onDragStartNode(node.id);
+  };
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    e.preventDefault();
+    e.stopPropagation();
+    e.dataTransfer.dropEffect = 'move';
+    if (hasChildren) setIsOpen(true);
+    onDragOverNode(node.id);
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const draggedId = e.dataTransfer.getData(TREE_NODE_DRAG_TYPE) || draggingTreeNodeId;
+    if (draggedId) onDropNode(draggedId, node.id);
+  };
+
   return (
     <div className="tree-node">
       <div
-        className={['tree-node-row', isSelected ? 'active' : '', isSearchMatch ? 'search-match' : ''].filter(Boolean).join(' ')}
+        className={[
+          'tree-node-row',
+          isSelected ? 'active' : '',
+          isSearchMatch ? 'search-match' : '',
+          isDragging ? 'dragging' : '',
+          isDropTarget ? 'drop-target' : '',
+        ].filter(Boolean).join(' ')}
+        data-tree-node-id={node.id}
+        draggable={canDrag}
         style={{ '--depth': level } as CSSProperties}
         onClick={() => { onSelect(node.id); }}
         onContextMenu={handleContextMenu}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        onDragEnd={onDragEndNode}
       >
         <span
           className={`tree-node-toggle ${hasChildren ? (isOpen ? 'expanded' : '') : 'empty'}`}
@@ -147,7 +209,13 @@ const TreeItem = ({
               selectedNodeId={selectedNodeId} onSelect={onSelect}
               searchQuery={searchQuery} onAddChild={onAddChild}
               onAddQuestion={onAddQuestion}
-              onRename={onRename} onDelete={onDelete} />
+              onRename={onRename} onDelete={onDelete}
+              draggingTreeNodeId={draggingTreeNodeId}
+              dropTargetTreeNodeId={dropTargetTreeNodeId}
+              onDragStartNode={onDragStartNode}
+              onDragEndNode={onDragEndNode}
+              onDragOverNode={onDragOverNode}
+              onDropNode={onDropNode} />
           ))}
         </div>
       )}
@@ -171,7 +239,7 @@ const TreeItem = ({
 };
 
 /* ---- Main Component ---- */
-export default function UniverseTree() {
+export default function UniverseTree({ isCollapsed, onToggleCollapsed }: UniverseTreeProps) {
   const treeData = useGraphStore(s => s.treeData);
   const selectedNodeId = useGraphStore(s => s.selectedNodeId);
   const selectTreeEntry = useGraphStore(s => s.selectTreeEntry);
@@ -181,6 +249,7 @@ export default function UniverseTree() {
   const createKnowledgeAndLink = useGraphStore(s => s.createKnowledgeAndLink);
   const listKnowledgeNodes = useGraphStore(s => s.listKnowledgeNodes);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
+  const moveTreeNode = useGraphStore(s => s.moveTreeNode);
   const exportKnowledgeJson = useGraphStore(s => s.exportKnowledgeJson);
   const importKnowledgeJson = useGraphStore(s => s.importKnowledgeJson);
   const resetAllKnowledge = useGraphStore(s => s.resetAllKnowledge);
@@ -195,6 +264,8 @@ export default function UniverseTree() {
   const [modalInput, setModalInput] = useState('');
   const [addKind, setAddKind] = useState<AddKind>('knowledge');
   const [linkKnowledgeId, setLinkKnowledgeId] = useState('');
+  const [draggingTreeNodeId, setDraggingTreeNodeId] = useState<string | null>(null);
+  const [dropTargetTreeNodeId, setDropTargetTreeNodeId] = useState<string | null>(null);
   const poolNodes = listKnowledgeNodes();
   const importInputRef = useRef<HTMLInputElement>(null);
 
@@ -260,6 +331,30 @@ export default function UniverseTree() {
     setModal({ type: 'delete', targetId: nodeId, targetName: label });
   };
 
+  const handleDragStartNode = useCallback((nodeId: string) => {
+    setDraggingTreeNodeId(nodeId);
+    setDropTargetTreeNodeId(null);
+  }, []);
+
+  const handleDragEndNode = useCallback(() => {
+    setDraggingTreeNodeId(null);
+    setDropTargetTreeNodeId(null);
+  }, []);
+
+  const handleDropNode = useCallback((nodeId: string, nextParentId: string) => {
+    const targetName = findNodeName(treeData, nextParentId);
+    const moved = moveTreeNode(nodeId, nextParentId);
+    setDraggingTreeNodeId(null);
+    setDropTargetTreeNodeId(null);
+
+    if (moved) {
+      addNotification(`已移动到: ${targetName}`, 'success');
+      return;
+    }
+
+    addNotification('无法移动到该目录位置', 'warning');
+  }, [addNotification, moveTreeNode, treeData]);
+
   const confirmModal = () => {
     if (!modal) return;
     if (modal.type === 'add' && modalInput.trim()) {
@@ -288,11 +383,32 @@ export default function UniverseTree() {
     }
   };
 
+  if (isCollapsed) {
+    return (
+      <button
+        type="button"
+        className="left-panel-collapsed-toggle"
+        onClick={onToggleCollapsed}
+        title="展开目录"
+      >
+        目
+      </button>
+    );
+  }
+
   return (
     <>
       <div className="left-panel-header">
         <h3><span>🧬</span><span>节点树</span></h3>
         <span className="count">{countTreeNodes(treeData)}</span>
+        <button
+          type="button"
+          className="btn btn-sm tree-collapse-btn"
+          onClick={onToggleCollapsed}
+          title="收起目录"
+        >
+          ‹
+        </button>
         <button
           type="button"
           className="btn btn-sm tree-tools-btn"
@@ -346,7 +462,13 @@ export default function UniverseTree() {
           selectedNodeId={selectedNodeId} onSelect={handleSelect}
           searchQuery={search} onAddChild={handleAddChild}
           onAddQuestion={handleAddQuestionToNode}
-          onRename={handleRename} onDelete={handleDelete} />
+          onRename={handleRename} onDelete={handleDelete}
+          draggingTreeNodeId={draggingTreeNodeId}
+          dropTargetTreeNodeId={dropTargetTreeNodeId}
+          onDragStartNode={handleDragStartNode}
+          onDragEndNode={handleDragEndNode}
+          onDragOverNode={setDropTargetTreeNodeId}
+          onDropNode={handleDropNode} />
       </div>
 
       {/* Custom Modal */}

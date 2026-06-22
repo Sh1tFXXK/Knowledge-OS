@@ -239,7 +239,9 @@ for (const stale of ['obj["type"]', 'row[3]', 'switch (cell']) {
   assert.doesNotMatch(orthogonalView, new RegExp(stale.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')), `string/positional architecture marker remains: ${stale}`);
 }
 
-const pageNode = Object.values(nodePool).find((node) => node.label === 'Page');
+const pageNode = Object.values(nodePool).find((node) =>
+  node.viewDimensions?.some((dim) => dim.id === 'page_type'),
+);
 assert.ok(pageNode, 'Page node missing from node pool');
 const pageTypeDimension = pageNode.viewDimensions?.find((dim) => dim.id === 'page_type');
 assert.ok(pageTypeDimension, 'Page object-level type dimension missing');

@@ -29,6 +29,13 @@ export function findTreeParent(root: TreeNode, childId: string): TreeNode | null
   return null;
 }
 
+export interface MoveTreeNodeResult {
+  tree: TreeNode;
+  movedNode: TreeNode;
+  previousParentId: string;
+  nextParentId: string;
+}
+
 export function collectTreeNodes(node: TreeNode): TreeNode[] {
   return [node, ...(node.children ? node.children.flatMap(collectTreeNodes) : [])];
 }
@@ -66,6 +73,42 @@ export function removeTreeChild(root: TreeNode, nodeId: string): TreeNode | null
   if (!parent?.children) return next;
   parent.children = parent.children.filter((c) => c.id !== nodeId);
   return next;
+}
+
+export function moveTreeNode(
+  root: TreeNode,
+  nodeId: string,
+  nextParentId: string,
+): MoveTreeNodeResult | null {
+  if (root.id === nodeId || nodeId === nextParentId) return null;
+
+  const currentParent = findTreeParent(root, nodeId);
+  const movingNode = findTreeNodeById(root, nodeId);
+  const nextParent = findTreeNodeById(root, nextParentId);
+
+  if (!currentParent || !movingNode || !nextParent) return null;
+  if (currentParent.id === nextParentId) return null;
+  if (findTreeNodeById(movingNode, nextParentId)) return null;
+
+  const next = cloneTree(root);
+  const clonedCurrentParent = findTreeParent(next, nodeId);
+  const clonedNextParent = findTreeNodeById(next, nextParentId);
+  if (!clonedCurrentParent?.children || !clonedNextParent) return null;
+
+  const movingIndex = clonedCurrentParent.children.findIndex((child) => child.id === nodeId);
+  if (movingIndex < 0) return null;
+
+  const [movedNode] = clonedCurrentParent.children.splice(movingIndex, 1);
+  if (!clonedNextParent.children) clonedNextParent.children = [];
+  clonedNextParent.children.push(movedNode);
+  clonedNextParent.expanded = true;
+
+  return {
+    tree: next,
+    movedNode,
+    previousParentId: currentParent.id,
+    nextParentId,
+  };
 }
 
 export function setTreeSupplement(

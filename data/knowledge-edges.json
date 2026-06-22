@@ -100,16 +100,6 @@
     ]
   },
   {
-    "id": "demo_e13",
-    "source": "demo_sql",
-    "target": "demo_transaction",
-    "type": "belongs-to",
-    "label": "属于",
-    "dimensions": [
-      "transaction"
-    ]
-  },
-  {
     "id": "demo_e14",
     "source": "demo_transaction",
     "target": "demo_acid",
@@ -117,16 +107,6 @@
     "label": "属于",
     "dimensions": [
       "transaction"
-    ]
-  },
-  {
-    "id": "demo_e15",
-    "source": "demo_acid",
-    "target": "demo_redolog",
-    "type": "needs-for",
-    "label": "需要",
-    "dimensions": [
-      "storage"
     ]
   },
   {
@@ -165,26 +145,6 @@
     "target": "demo_btree",
     "type": "belongs-to",
     "label": "使用",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "demo_e25",
-    "source": "demo_sql",
-    "target": "demo_subquery",
-    "type": "belongs-to",
-    "label": "包含",
-    "dimensions": [
-      "transaction"
-    ]
-  },
-  {
-    "id": "demo_e26",
-    "source": "demo_binlog",
-    "target": "demo_redolog",
-    "type": "depends-on",
-    "label": "协同",
     "dimensions": [
       "storage"
     ]
@@ -433,38 +393,6 @@
     ]
   },
   {
-    "id": "demo_e60",
-    "source": "demo_index_compare",
-    "target": "demo_btree",
-    "type": "compares",
-    "label": "对比项",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "demo_e61",
-    "source": "demo_index_compare",
-    "target": "demo_hash",
-    "type": "compares",
-    "label": "对比项",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "demo_e62",
-    "source": "demo_index_compare",
-    "target": "demo_fulltext_index",
-    "type": "compares",
-    "label": "对比项",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "demo_e63",
     "source": "demo_engine_compare",
     "target": "demo_innodb",
@@ -545,8 +473,50 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:tree_1781002610481_dmlbtq",
-    "source": "n_8s66vwo1",
+    "id": "treebind:demo_cs:tree_1781894134786_k26g6t",
+    "source": "n_55jiel25",
+    "target": "k_1781894134776_ddvce4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781894134786_k26g6t:tree_1781894839025_6d99x8",
+    "source": "k_1781894134776_ddvce4",
+    "target": "k_1781894839013_cccyxm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781894839025_6d99x8:tree_1781894862919_8174bo",
+    "source": "k_1781894839013_cccyxm",
+    "target": "k_1781894862909_gbhvf4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781955169566_hm1zn5:tree_1781957394119_gf9kqt",
+    "source": "k_1781955169559_qqibnd",
+    "target": "k_1781957394111_3pyff0",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781957147855_aou9i1:tree_1781957944272_bdbbp4",
+    "source": "k_1781957147845_69qktj",
+    "target": "k_1781957944264_lxfajw",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781957147855_aou9i1:tree_1781957954408_06xkno",
+    "source": "k_1781957147845_69qktj",
+    "target": "k_1781957954400_w4s3ew",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781901655951_f9mavo:tree_1781002610481_dmlbtq",
+    "source": "k_1781901655940_k6m1w4",
     "target": "k_1781002610469_nik1ek",
     "type": "belongs-to",
     "label": "contains"
@@ -608,6 +578,13 @@
     "label": "contains"
   },
   {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781180000000_spcprt",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781180000000_spcprt",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
     "id": "treebind:tree_1781002610481_dmlbtq:tree_1781107266795_9y7n00",
     "source": "k_1781002610469_nik1ek",
     "target": "k_1781107266786_b2goai",
@@ -641,5 +618,6381 @@
     "target": "k_1781008350988_rhnwyk",
     "type": "belongs-to",
     "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781973454544_joldg6:tree_1781973525859_7n8wgf",
+    "source": "k_1781973454533_dxlfk0",
+    "target": "k_1781973525852_iln1l6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781973454544_joldg6:tree_1781973534935_dheelk",
+    "source": "k_1781973454533_dxlfk0",
+    "target": "k_1781973534927_8crdmn",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781973454544_joldg6:tree_1781973542503_b0uudt",
+    "source": "k_1781973454533_dxlfk0",
+    "target": "k_1781973542495_r3d6d3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781973454544_joldg6:tree_1781973550340_kbxsab",
+    "source": "k_1781973454533_dxlfk0",
+    "target": "k_1781973550332_eg2f23",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781974703676_n8p88d",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781974703663_4k3grq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781974733355_ni0yvq",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781974733348_6b1lb3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781002610481_dmlbtq:tree_1781974756582_irtlsp",
+    "source": "k_1781002610469_nik1ek",
+    "target": "k_1781974756575_ldbdtp",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781901655951_f9mavo:tree_1781976251213_tgm4pn",
+    "source": "k_1781901655940_k6m1w4",
+    "target": "k_1781976251206_ymj3if",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781901655951_f9mavo:tree_1782008098294_hsntsy",
+    "source": "k_1781901655940_k6m1w4",
+    "target": "k_1782008098285_y7alsw",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782008098294_hsntsy:tree_1782008422987_mtgjsl",
+    "source": "k_1782008098285_y7alsw",
+    "target": "k_1782008422980_88k1fb",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781901655951_f9mavo:tree_1782008551230_f571n8",
+    "source": "k_1781901655940_k6m1w4",
+    "target": "k_1782008551222_xs2oyj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781901655951_f9mavo:tree_1782008637404_0asmig",
+    "source": "k_1781901655940_k6m1w4",
+    "target": "k_1782008637396_62wc7w",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:demo_tree_undo",
+    "source": "demo_mvcc",
+    "target": "demo_undo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:demo_tree_vchain",
+    "source": "demo_mvcc",
+    "target": "demo_vchain",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:demo_tree_rv",
+    "source": "demo_mvcc",
+    "target": "demo_readview",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:demo_tree_vis",
+    "source": "demo_mvcc",
+    "target": "demo_visibility",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "innodb_mvcc_e3",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "demo_vchain",
+    "type": "enables",
+    "label": "串联版本",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "innodb_mvcc_e4",
+    "source": "innodb_mvcc_undo_log_types",
+    "target": "demo_undo",
+    "type": "belongs-to",
+    "label": "细化",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "innodb_mvcc_e5",
+    "source": "innodb_mvcc_purge",
+    "target": "innodb_mvcc_undo_log_types",
+    "type": "depends-on",
+    "label": "等待丢弃",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_innodb_mvcc_hidden_columns",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_hidden_columns",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_innodb_mvcc_undo_log_types",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_undo_log_types",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_innodb_mvcc_purge",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_purge",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_mvcc_secondary_index_existing",
+    "source": "demo_mvcc",
+    "target": "demo_secondary_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_hidden_columns_edge",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_hidden_columns",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_undo_types_edge",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_undo_log_types",
+    "type": "needs-for",
+    "label": "依赖",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_purge_edge",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_purge",
+    "type": "depends-on",
+    "label": "依赖清理",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "mvcc_secondary_existing_edge",
+    "source": "demo_mvcc",
+    "target": "demo_secondary_index",
+    "type": "depends-on",
+    "label": "二级索引差异",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "secondary_clustered_mvcc_edge",
+    "source": "demo_secondary_index",
+    "target": "demo_clustered_index",
+    "type": "depends-on",
+    "label": "MVCC 回查",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "secondary_covering_mvcc_edge",
+    "source": "demo_secondary_index",
+    "target": "demo_covering_index",
+    "type": "depends-on",
+    "label": "覆盖索引边界",
+    "dimensions": [
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_innodb_mvcc_hidden_columns:tree_innodb_mvcc_db_trx_id",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_trx_id",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_innodb_mvcc_hidden_columns:tree_innodb_mvcc_db_roll_ptr",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_roll_ptr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_innodb_mvcc_hidden_columns:tree_innodb_mvcc_db_row_id",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_row_id",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_innodb_mvcc_hidden_columns:tree_innodb_mvcc_delete_mark",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_delete_mark",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "mvcc_field_edge_trx",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_trx_id",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_field_edge_roll_ptr",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_roll_ptr",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mvcc_field_edge_row_id",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_db_row_id",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_field_edge_delete_mark",
+    "source": "innodb_mvcc_hidden_columns",
+    "target": "innodb_mvcc_delete_mark",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "mvcc_trx_visibility_edge",
+    "source": "innodb_mvcc_db_trx_id",
+    "target": "demo_visibility",
+    "type": "enables",
+    "label": "判断可见性",
+    "dimensions": [
+      "transaction"
+    ]
+  },
+  {
+    "id": "mvcc_roll_ptr_vchain_edge",
+    "source": "innodb_mvcc_db_roll_ptr",
+    "target": "demo_vchain",
+    "type": "enables",
+    "label": "连接版本链",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_roll_ptr_undo_edge",
+    "source": "innodb_mvcc_db_roll_ptr",
+    "target": "demo_undo",
+    "type": "depends-on",
+    "label": "指向 undo",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mvcc_row_id_clustered_edge",
+    "source": "innodb_mvcc_db_row_id",
+    "target": "demo_clustered_index",
+    "type": "depends-on",
+    "label": "自动聚集索引",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mvcc_delete_mark_purge_edge",
+    "source": "innodb_mvcc_delete_mark",
+    "target": "innodb_mvcc_purge",
+    "type": "depends-on",
+    "label": "等待清理",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "mvcc_delete_mark_secondary_edge",
+    "source": "innodb_mvcc_delete_mark",
+    "target": "demo_secondary_index",
+    "type": "depends-on",
+    "label": "影响二级索引读取",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_1782024439082_66hqde",
+    "source": "demo_mvcc",
+    "target": "k_1782024439070_bvfq6r",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_1782024448026_vs0xa9",
+    "source": "demo_mvcc",
+    "target": "k_1782024448012_sl16gv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_1782029522092_ftrpjm",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "k_1782029522089_047znr",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_1782029546714_55rw3o",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "k_1782029546712_okgd59",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_1782029566472_xe5dn7",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "k_1782029566469_60woxz",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_1782029599321_qf857v",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "k_1782029599317_nn6hzg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_1782029655812_5aw5v9",
+    "source": "k_1782029643146_aumkky",
+    "target": "k_1782029655809_1yi7ql",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_1782029674615_ugqym7",
+    "source": "k_1782029643146_aumkky",
+    "target": "k_1782029674610_l6hlzo",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_file_myd",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_file_myd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_file_myi",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_file_myi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_file_ibd",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_file_ibd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_file_ibdata",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_file_ibdata",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_file_ibdata1",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_file_ibdata1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_mysql_file_ib_logfile0",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "mysql_file_ib_logfile0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_mysql_file_ib_logfile1",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "mysql_file_ib_logfile1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_runtime_files:tree_mysql_file_pid",
+    "source": "mysql_runtime_files",
+    "target": "mysql_file_pid",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_runtime_files:tree_mysql_file_socket",
+    "source": "mysql_runtime_files",
+    "target": "mysql_file_socket",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_file_myd_myisam_edge",
+    "source": "demo_myisam",
+    "target": "mysql_file_myd",
+    "type": "uses",
+    "label": "数据文件",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_file_myi_myisam_edge",
+    "source": "demo_myisam",
+    "target": "mysql_file_myi",
+    "type": "uses",
+    "label": "索引文件",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_file_ibd_innodb_edge",
+    "source": "demo_innodb",
+    "target": "mysql_file_ibd",
+    "type": "uses",
+    "label": "独享表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_ibd_file_per_table_edge",
+    "source": "k_1781957276819_mp7zfl",
+    "target": "mysql_file_ibd",
+    "type": "uses",
+    "label": ".ibd 承载",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_ibdata_innodb_edge",
+    "source": "demo_innodb",
+    "target": "mysql_file_ibdata",
+    "type": "uses",
+    "label": "共享表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_ibdata_system_edge",
+    "source": "k_1781940147478_6d75y4",
+    "target": "mysql_file_ibdata",
+    "type": "uses",
+    "label": "系统表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_ibdata1_system_edge",
+    "source": "k_1781940147478_6d75y4",
+    "target": "mysql_file_ibdata1",
+    "type": "uses",
+    "label": "常见系统表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_ibdata1_undo_edge",
+    "source": "mysql_file_ibdata1",
+    "target": "k_1781955169559_qqibnd",
+    "type": "relates-to",
+    "label": "可承载 Undo 信息",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_iblog0_redo_edge",
+    "source": "k_1781957518600_aibqeg",
+    "target": "mysql_file_ib_logfile0",
+    "type": "uses",
+    "label": "redo log 文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_file_iblog1_redo_edge",
+    "source": "k_1781957518600_aibqeg",
+    "target": "mysql_file_ib_logfile1",
+    "type": "uses",
+    "label": "redo log 文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_runtime_pid_edge",
+    "source": "mysql_runtime_files",
+    "target": "mysql_file_pid",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_runtime_socket_edge",
+    "source": "mysql_runtime_files",
+    "target": "mysql_file_socket",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_1782031329846_2d0kta",
+    "source": "k_1782029643146_aumkky",
+    "target": "k_1782031329838_mcap8c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_1782032149182_6wye1y",
+    "source": "n_8s66vwo1",
+    "target": "k_1782032149173_bli3vq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032149182_6wye1y:tree_1782029470431_3q1gtw",
+    "source": "k_1782032149173_bli3vq",
+    "target": "k_1782029470422_yfa3u9",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029470431_3q1gtw:tree_1782029505240_be11k0",
+    "source": "k_1782029470422_yfa3u9",
+    "target": "k_1782029505237_7y8fh8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029470431_3q1gtw:tree_1782029618566_mlxtmr",
+    "source": "k_1782029470422_yfa3u9",
+    "target": "k_1782029618563_7rrguo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029470431_3q1gtw:tree_1782029643149_9klslf",
+    "source": "k_1782029470422_yfa3u9",
+    "target": "k_1782029643146_aumkky",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029470431_3q1gtw:tree_mysql_runtime_files",
+    "source": "k_1782029470422_yfa3u9",
+    "target": "mysql_runtime_files",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782032149182_6wye1y:tree_1782032135569_1697f8",
+    "source": "k_1782032149173_bli3vq",
+    "target": "k_1782032135560_tng3v4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032149182_6wye1y:tree_1782032090364_9w1h5q",
+    "source": "k_1782032149173_bli3vq",
+    "target": "k_1782032090352_a1ehd0",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032135569_1697f8:tree_1782032242238_ym9m1l",
+    "source": "k_1782032135560_tng3v4",
+    "target": "k_1782032242225_z23eqn",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032149182_6wye1y:tree_1782032275690_fgvswo",
+    "source": "k_1782032149173_bli3vq",
+    "target": "k_1782032275682_61auc4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782032572623_wczbh3",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782032572614_mi65fj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782032936994_e5wpwn",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782032936985_6uwpnx",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782033172539_wxvnr8",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782033172524_cjmm5c",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782033245881_cdsjoq",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782033245872_81floi",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782033508073_oe4mt0",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782033508063_xspnmd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_1782033743159_jh8j3j",
+    "source": "k_1782032275682_61auc4",
+    "target": "k_1782033743150_vbish8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781957518607_s9sdgk:tree_1782039521340_1axhon",
+    "source": "k_1781957518600_aibqeg",
+    "target": "k_1782039521326_u1lzlc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781957518607_s9sdgk:tree_1782039569738_n5b5f7",
+    "source": "k_1781957518600_aibqeg",
+    "target": "k_1782039569724_10ii46",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782032149182_6wye1y:tree_mysql_glossary_group_architecture",
+    "source": "k_1782032149173_bli3vq",
+    "target": "mysql_glossary_group_architecture",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_client_13u3vh",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_client_13u3vh",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_client_side_prepared_statement_1czk27",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_client_side_prepared_statement_1czk27",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_connection_fqlzvd",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_connection_fqlzvd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_connection_pool_n47x4p",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_h20fqa9t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_connection_string_1hyrot",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_connection_string_1hyrot",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_data_dictionary_7mpxs7",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_nsqweksd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_database_18s5pr",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_lc7qrne8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_information_schema_1e5xsn",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_qus727rl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_instance_374yaa",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_12jqwwcl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_option_1sc73x",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_option_1sc73x",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_port_ydif8m",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_port_ydif8m",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_process_17jcdb",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_plyim9pi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_pthreads_qfb7k4",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_pthreads_qfb7k4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_schema_mvyb06",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_8yoqxtuu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_server_hxzydu",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_xhmtog57",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_server_side_prepared_statement_1g5uc6",
+    "source": "mysql_glossary_group_architecture",
+    "target": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_architecture:tree_mysql_glossary_architecture_thread_18y9ld",
+    "source": "mysql_glossary_group_architecture",
+    "target": "k_dict_n7rueozw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782033172539_wxvnr8:tree_mysql_glossary_group_sql_objects",
+    "source": "k_1782033172524_cjmm5c",
+    "target": "mysql_glossary_group_sql_objects",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_atomic_ddl_l48qcc",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_atomic_ddl_l48qcc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_base_column_jjprw2",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_base_column_jjprw2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_child_table_1l6dvq",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_child_table_1l6dvq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_column_1w8y14",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_lepgecnd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_column_index_q4bbvv",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_column_index_q4bbvv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_column_prefix_15o687",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_column_prefix_15o687",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_compact_row_format_16fa2a",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_compact_row_format_16fa2a",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_compressed_row_format_11axki",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_compressed_row_format_11axki",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_compressed_table_zx6vsg",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_compressed_table_zx6vsg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_constraint_1f3aaf",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_constraint_1f3aaf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_cursor_1r1jyf",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_a7bwz8vl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_ddl_vnea0r",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_73wtge24",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_delete_ssf22y",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_qvf5c9q7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_delete_buffering_15389r",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_delete_buffering_15389r",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_dml_w81ria",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_qv4sloxd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_dynamic_cursor_u1pzzs",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_dynamic_cursor_u1pzzs",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_dynamic_row_format_1pdso5",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_dynamic_row_format_1pdso5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_dynamic_sql_1uh61p",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_p7los2aq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_file_per_table_c2gueo",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_file_per_table_c2gueo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_fixed_row_format_ti21b0",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_fixed_row_format_ti21b0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_foreign_key_constraint_p6gdbr",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_foreign_key_constraint_p6gdbr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_full_table_scan_1mgdax",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_jan17ieo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_general_tablespace_300irr",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_general_tablespace_300irr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_generated_column_mjwnp8",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_reul960o",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_generated_stored_column_1nr7fq",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_generated_stored_column_1nr7fq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_generated_virtual_column_1faoe5",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_generated_virtual_column_1faoe5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_global_temporary_tablespace_fptac5",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_1781957954400_w4s3ew",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_implicit_row_lock_ac6u2d",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_implicit_row_lock_ac6u2d",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_innodb_file_per_table_1w525y",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_innodb_file_per_table_1w525y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_insert_1j45e0",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_pzcms560",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_insert_buffer_1xx0p8",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_insert_buffer_1xx0p8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_insert_buffering_m9lmge",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_insert_buffering_m9lmge",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_insert_intention_lock_1pnwh6",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_insert_intention_lock_1pnwh6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_intrinsic_temporary_table_1sl3hr",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_intrinsic_temporary_table_1sl3hr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_libmysql_d5nkre",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_libmysql_d5nkre",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_libmysqlclient_1ofbnd",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_libmysqlclient_1ofbnd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_libmysqld_rpbwgq",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_libmysqld_rpbwgq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_materialized_view_w9mv1z",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_1sj5w4mj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_midpoint_insertion_strategy_a74b95",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_midpoint_insertion_strategy_a74b95",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mixed_mode_insert_1pvj4c",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mixed_mode_insert_1pvj4c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mm_mysql_45ec9v",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mm_mysql_45ec9v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysql_tiyegt",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "n_8s66vwo1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysql_enterprise_backup_bh86yi",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysql_enterprise_backup_bh86yi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysqlbackup_command_1gjf0a",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysqlbackup_command_1gjf0a",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysqlclient_1fp9hd",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysqlclient_1fp9hd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysqld_q7qv17",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysqld_q7qv17",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysqldb_1k0vb5",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysqldb_1k0vb5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_mysqldump_1p1msf",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_mysqldump_1p1msf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_non_repeatable_read_1elhzg",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_c9sxzvqt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_nosql_6bctra",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "n_21yoee5g",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_not_null_constraint_1op7sq",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_not_null_constraint_1op7sq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_off_page_column_i7tqi8",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_off_page_column_i7tqi8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_online_ddl_1ewv4d",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_4m05mgz6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_parent_table_yqeba1",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_parent_table_yqeba1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_redundant_row_format_kd9bbp",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_redundant_row_format_kd9bbp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_repeatable_read_17hefz",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_4zr5j9bz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_row_ivs7sr",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_2uq4y41u",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_row_format_sx5u2m",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_ihguu98m",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_row_lock_10ekby",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "demo_row_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_row_based_replication_uiayeb",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_row_based_replication_uiayeb",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_row_level_locking_8qka75",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_fb1f2eh2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_selectivity_4k9ksu",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_selectivity_4k9ksu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_session_temporary_tablespace_f5y6v2",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_1781957944264_lxfajw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_shared_tablespace_1q68ln",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_shared_tablespace_1q68ln",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_sql_b7cm7",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_ej0gabn2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_sqlstate_16aqrw",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_sqlstate_16aqrw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_stored_generated_column_j7jiqj",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_stored_generated_column_j7jiqj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_stored_object_od8fkh",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_stored_object_od8fkh",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_stored_program_mzfpca",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_stored_program_mzfpca",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_stored_routine_kiddr6",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_stored_routine_kiddr6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_system_tablespace_1oykj7",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_1781940147478_6d75y4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_table_kp9xpb",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_7dvcv51p",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_table_lock_15y9vl",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_table_lock_15y9vl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_table_scan_46wuu8",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_2kzoxeef",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_table_statistics_1c30y8",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_table_statistics_1c30y8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_table_type_1wu89y",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_table_type_1wu89y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_tablespace_19qsiz",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_umbo5ime",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_temporary_table_8l5t2g",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_6rxmba95",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_temporary_tablespace_r0ckum",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_temporary_tablespace_r0ckum",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_transportable_tablespace_1685qd",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_transportable_tablespace_1685qd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_truncate_idm853",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_ntqiff2s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_unique_constraint_cvzep",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_unique_constraint_cvzep",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_view_1oxysc",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_lm90vzok",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_virtual_column_1kv95i",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "k_dict_7okhi5j5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_sql_objects:tree_mysql_glossary_sql_objects_virtual_generated_column_1smsm1",
+    "source": "mysql_glossary_group_sql_objects",
+    "target": "mysql_glossary_virtual_generated_column_1smsm1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_index:tree_mysql_glossary_group_indexes_access",
+    "source": "n_0xxb9cqy",
+    "target": "mysql_glossary_group_indexes_access",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_adaptive_hash_index_1jte7z",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_4yz2io0y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_b_tree_stzlcw",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_cx2nh25x",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_cardinality_pwsm7z",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_n9s627ij",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_clustered_index_1qdkg5",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_clustered_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_composite_index_duhrko",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_composite_index_duhrko",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_concatenated_index_zs31t2",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_concatenated_index_zs31t2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_covering_index_1jxxng",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_covering_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_descending_index_1j7tn3",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_descending_index_1j7tn3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_fast_index_creation_ekp3zs",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_fast_index_creation_ekp3zs",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_foreign_key_180685",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_lnpi0qrg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_full_text_search_16dcha",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_full_text_search_16dcha",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_fulltext_index_5r59uf",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_fulltext_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_hash_index_i09vdl",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_hash",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_2ibbmz",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_i70ksr9s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_cache_dopbb5",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_index_cache_dopbb5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_condition_pushdown_tudely",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_index_condition_pushdown_tudely",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_hint_1nr0pl",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_index_hint_1nr0pl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_prefix_5c836t",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_index_prefix_5c836t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_index_statistics_1ge74j",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_index_statistics_1ge74j",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_inverted_index_spkkuc",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_inverted_index_spkkuc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_partial_index_q6zw36",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_722bh2j6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_prefix_1xzwgc",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_prefix_1xzwgc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_primary_key_1ltx05",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_xxkp8lkc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_search_index_18jlmz",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_search_index_18jlmz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_secondary_index_1nq9n2",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_secondary_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_unique_index_1rwmik",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "demo_unique_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_unique_key_38xa3d",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "k_dict_rdm2280v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_indexes_access:tree_mysql_glossary_indexes_access_virtual_index_sm95n4",
+    "source": "mysql_glossary_group_indexes_access",
+    "target": "mysql_glossary_virtual_index_sm95n4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_mvcc:tree_mysql_glossary_group_mvcc_undo",
+    "source": "demo_mvcc",
+    "target": "mysql_glossary_group_mvcc_undo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_consistent_read_gsmmdj",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_consistent_read_gsmmdj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_db_roll_ptr_dkw2tu",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "innodb_mvcc_db_roll_ptr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_db_row_id_21afyg",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "innodb_mvcc_db_row_id",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_db_trx_id_11x08x",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "innodb_mvcc_db_trx_id",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_innodb_multi_versioning_7oz499",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_insert_undo_log_1yrj7c",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_insert_undo_log_1yrj7c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_multiversion_concurrency_control_7ovhyw",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_mvcc_3cna60",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_non_locking_read_12iidl",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_non_locking_read_12iidl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_purge_qwcxs4",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "innodb_mvcc_purge",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_purge_buffering_1ckv1x",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_purge_buffering_1ckv1x",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_purge_lag_1p6pyp",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_purge_lag_1p6pyp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_purge_operation_1gd8oh",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "innodb_mvcc_purge",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_purge_thread_8xnck4",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_purge_thread_8xnck4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_read_view_ff1lmy",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "demo_readview",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_rollback_segment_40xjnc",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_rollback_segment_40xjnc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_semi_consistent_read_luof7q",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_semi_consistent_read_luof7q",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_snapshot_btwo7h",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "k_dict_xbipt5q1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_undo_1v3fpn",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "k_dict_jw1sc90t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_undo_buffer_jg11o3",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_undo_buffer_jg11o3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_undo_log_jerqux",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "demo_undo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_undo_log_segment_pbdi2c",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_undo_log_segment_pbdi2c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_undo_tablespace_so71lf",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_undo_tablespace_so71lf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_mvcc_undo:tree_mysql_glossary_mvcc_undo_update_undo_log_yphxzo",
+    "source": "mysql_glossary_group_mvcc_undo",
+    "target": "mysql_glossary_update_undo_log_yphxzo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_tx:tree_mysql_glossary_group_transactions_locks",
+    "source": "n_ag24bbkc",
+    "target": "mysql_glossary_group_transactions_locks",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_acid_oy4eeg",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "demo_acid",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_auto_increment_locking_lrps8v",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_auto_increment_locking_lrps8v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_autocommit_1i1bl1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_el0p7j55",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_commit_e8dse4",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_xnl4u9m0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_deadlock_1nqb24",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_mq68vpwg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_deadlock_detection_i0fsqj",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "demo_deadlock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_dirty_read_oo29up",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_t83fdwoc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_exclusive_lock_ksqz5a",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_exclusive_lock_ksqz5a",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_gap_lock_1gfoi1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_gap_lock_1gfoi1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_global_transaction_4i1f06",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_global_transaction_4i1f06",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_group_commit_1j0b7f",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_ggnkee68",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_intention_exclusive_lock_1rd4p1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_intention_exclusive_lock_1rd4p1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_intention_lock_1ejpzi",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_intention_lock_1ejpzi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_intention_shared_lock_4x8ciz",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_intention_shared_lock_4x8ciz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_isolation_level_1k2iqd",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "demo_isolation",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_key_block_size_u1i5bm",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_key_block_size_u1i5bm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_latch_ndipdp",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_kgntvds7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_lock_1ubtvl",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_0qdjq28r",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_lock_escalation_fzd7gr",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_nqeoggvl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_lock_mode_h31or1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_lock_mode_h31or1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_locking_1ofljy",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_locking_1ofljy",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_locking_read_16dto0",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_locking_read_16dto0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_metadata_lock_qiqw4n",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_metadata_lock_qiqw4n",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_mini_transaction_ly3edv",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_mini_transaction_ly3edv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_mutex_6ryres",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_mutex_6ryres",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_next_key_lock_awfwu5",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_m5qakvks",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_nonblocking_i_o_h65z9a",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_nonblocking_i_o_h65z9a",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_phantom_18qvj1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_8o426b5j",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_read_committed_1s4s31",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_o0jw5g8p",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_read_uncommitted_1mq4g7",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_3dltrcza",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_read_only_transaction_2kf2kq",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_read_only_transaction_2kf2kq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_record_lock_1pixn1",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_record_lock_1pixn1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_rollback_ymikxp",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_rmz7dcm0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_rollback_pointer_w2llys",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "innodb_mvcc_db_roll_ptr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_rw_lock_1c4qu9",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_rw_lock_1c4qu9",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_savepoint_1b3dtn",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_tr918oc6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_serializable_nwnvo2",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_i1g9hhj8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_shared_lock_62zotv",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_yvuxhe74",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_transaction_wh1m3n",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "demo_transaction",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_transaction_id_1aa5a7",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "mysql_glossary_transaction_id_1aa5a7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_transactions_locks:tree_mysql_glossary_transactions_locks_two_phase_commit_niz30g",
+    "source": "mysql_glossary_group_transactions_locks",
+    "target": "k_dict_qbyc557y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029643149_9klslf:tree_mysql_glossary_group_tablespaces_files",
+    "source": "k_1782029643146_aumkky",
+    "target": "mysql_glossary_group_tablespaces_files",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_arm_file_ufam2l",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_arm_file_ufam2l",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_arz_file_1iyj60",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_arz_file_1iyj60",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_cfg_file_1wfa77",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_cfg_file_1wfa77",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_frm_file_1hjx8f",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1782029674610_l6hlzo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibd_file_13fhdv",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_ibd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibz_file_tz3hbm",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_ibz_file_tz3hbm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_mrg_file_2synx7",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_mrg_file_2synx7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_myd_file_10lurd",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_myd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_myi_file_1blt62",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_myi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_opt_file_1w9809",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_opt_file_1w9809",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_par_file_rzlrrm",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_par_file_rzlrrm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_clean_page_gmm78h",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1781962829528_eqvypd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_configuration_file_cocz91",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1782029618563_7rrguo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_data_directory_zrepzq",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_data_directory_zrepzq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_data_files_c3p5t2",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1782029643146_aumkky",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_dirty_page_pdayg2",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_dict_rjl6lkaz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_file_format_199bjh",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_file_format_199bjh",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ib_logfile_1p12fu",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_ib_logfile_1p12fu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ib_file_set_18odgx",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_ib_file_set_18odgx",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibbackup_logfile_1vewn2",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_ibbackup_logfile_1vewn2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibdata_file_13jlvk",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_ibdata",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibdata1_file_xdpejp",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_ibdata1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_ibtmp_file_18e04h",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_ibtmp_file_18e04h",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_log_file_xvkp5p",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1782029505237_7y8fh8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_neighbor_page_1t6aj7",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_neighbor_page_1t6aj7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_option_file_gsqytm",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_option_file_gsqytm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_overflow_page_1x8lkk",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_overflow_page_1x8lkk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_page_zw7mnq",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "k_1781002610469_nik1ek",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_page_cleaner_20exxg",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_page_cleaner_20exxg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_page_size_1tjy75",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_page_size_1tjy75",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_pid_file_1uldrk",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_pid",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_socket_file_czez6a",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_file_socket",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_space_id_1kjxje",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_space_id_1kjxje",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_sparse_file_1cutkz",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_sparse_file_1cutkz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_torn_page_1kprbq",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_torn_page_1kprbq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_tablespaces_files:tree_mysql_glossary_tablespaces_files_transparent_page_compression_j4ufzm",
+    "source": "mysql_glossary_group_tablespaces_files",
+    "target": "mysql_glossary_transparent_page_compression_j4ufzm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782029505240_be11k0:tree_mysql_glossary_group_logs_recovery",
+    "source": "k_1782029505237_7y8fh8",
+    "target": "mysql_glossary_group_logs_recovery",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_adaptive_flushing_19588u",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_adaptive_flushing_19588u",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_checkpoint_1ws4vp",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_dict_t52tzaq2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_crash_recovery_139bco",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_crash_recovery_139bco",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_doublewrite_buffer_flioi3",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_doublewrite_buffer_flioi3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_flush_1dnigf",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_flush_1dnigf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_flush_list_4dbpn3",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_1782008551222_xs2oyj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_fuzzy_checkpointing_1cxy9s",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_fuzzy_checkpointing_1cxy9s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_general_query_log_b1yq0h",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_1782029546712_okgd59",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_log_hkgn69",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_dict_5d4mlf9q",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_log_buffer_1j1ngs",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_1781901899060_670apc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_log_group_1a3bsl",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_log_group_1a3bsl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_logical_lhuook",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_logical_lhuook",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_logical_backup_1eo6ai",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_dict_wv1o918s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_point_in_time_recovery_eadx3e",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_point_in_time_recovery_eadx3e",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_redo_1vo98z",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_redo_1vo98z",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_redo_log_1w8d7o",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_1781957518600_aibqeg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_redo_log_archiving_1ugqxo",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_redo_log_archiving_1ugqxo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_restore_1p9rz6",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "k_dict_lin6ue94",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_logs_recovery:tree_mysql_glossary_logs_recovery_sharp_checkpoint_1tnux9",
+    "source": "mysql_glossary_group_logs_recovery",
+    "target": "mysql_glossary_sharp_checkpoint_1tnux9",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_mysql_glossary_group_replication_ha",
+    "source": "n_8s66vwo1",
+    "target": "mysql_glossary_group_replication_ha",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_failover_1990rp",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "k_dict_mfu28h3v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_master_1k7935",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "mysql_glossary_master_1k7935",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_master_thread_11thmi",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "mysql_glossary_master_thread_11thmi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_replica_7pskdj",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "mysql_glossary_replica_7pskdj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_replication_10vg2u",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "k_dict_sctomy1z",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_slave_1gawbp",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "k_dict_kpjg49hn",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_source_7ps15k",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "mysql_glossary_source_7ps15k",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_replication_ha:tree_mysql_glossary_replication_ha_statement_based_replication_xyynye",
+    "source": "mysql_glossary_group_replication_ha",
+    "target": "mysql_glossary_statement_based_replication_xyynye",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782032275690_fgvswo:tree_mysql_glossary_group_optimizer_performance",
+    "source": "k_1782032275682_61auc4",
+    "target": "mysql_glossary_group_optimizer_performance",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_buffer_zw97y3",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_muxlhpv2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_buffer_pool_154phd",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "demo_buffer",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_buffer_pool_instance_m5jqpe",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_buffer_pool_instance_m5jqpe",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_cache_an863p",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_1782027235624_gtvo1k",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_change_buffer_z00gpp",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_1781901890734_vckmz5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_change_buffering_y1y18j",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_change_buffering_y1y18j",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_dictionary_object_cache_1jwkoz",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_dictionary_object_cache_1jwkoz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_memcached_1xsw3t",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_fbl127ld",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_optimizer_1qyzn0",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_rs1y2xku",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_performance_schema_2whr7k",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_pqd2sd20",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_persistent_statistics_2n5ydn",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_persistent_statistics_2n5ydn",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_query_execution_plan_17fdf4",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_query_execution_plan_17fdf4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_read_ahead_1khyqr",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_read_ahead_1khyqr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_scalability_d5afjw",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_scalability_d5afjw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_sort_buffer_1x3j60",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "mysql_glossary_sort_buffer_1x3j60",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_statistics_1ky31f",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_rkijwolw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_warm_up_zuktzp",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_ee6jgxn1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_optimizer_performance:tree_mysql_glossary_optimizer_performance_workload_brbrmk",
+    "source": "mysql_glossary_group_optimizer_performance",
+    "target": "k_dict_vd39b68k",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782032135569_1697f8:tree_mysql_glossary_group_connectors_api",
+    "source": "k_1782032135560_tng3v4",
+    "target": "mysql_glossary_group_connectors_api",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_net_1q25ey",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_net_1h05w3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_ado_net_ieyqc",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_ado_net_ieyqc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_api_y14yjr",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_api_y14yjr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_application_programming_interface_api_73cc6c",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_application_programming_interface_api_73cc6c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_asp_net_lyjnke",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_asp_net_lyjnke",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_c_api_1wuwxq",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_c_api_1wuwxq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_client_libraries_1l6z2y",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_client_libraries_1l6z2y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_ijze9c",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_ijze9c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_c_rs92y0",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_c_rs92y0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_j_avxtph",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_j_avxtph",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_net_1h05w3",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_net_1h05w3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_odbc_1qan6g",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_odbc_1qan6g",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_connector_php_1rej45",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_php_1rej45",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_early_adopter_518cax",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_early_adopter_518cax",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_java_uspy11",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_java_uspy11",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_jdbc_14hlls",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_jdbc_14hlls",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_myodbc_drivers_g6kz24",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_myodbc_drivers_g6kz24",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_native_c_api_19tz94",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_native_c_api_19tz94",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_odbc_1yixlx",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "k_dict_fwv3kkzy",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_perl_6buxo8",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_perl_6buxo8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_perl_api_knrawo",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_perl_api_knrawo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_php_18dydc",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_connector_php_1rej45",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_php_api_1ldhpf",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_php_api_1ldhpf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_python_1r8306",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "k_dict_qttpkbhf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_python_api_2amn13",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_python_api_2amn13",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_ruby_17cue0",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_ruby_17cue0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_ruby_api_1c5kjx",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_ruby_api_1c5kjx",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_connectors_api:tree_mysql_glossary_connectors_api_visual_studio_1ydsbo",
+    "source": "mysql_glossary_group_connectors_api",
+    "target": "mysql_glossary_visual_studio_1ydsbo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_mysql_glossary_group_security_auth",
+    "source": "n_8s66vwo1",
+    "target": "mysql_glossary_group_security_auth",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_authentication_server_1njohk",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_authentication_server_1njohk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_principal_1llz4f",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_principal_1llz4f",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_service_principal_name_4syyjd",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_service_principal_name_4syyjd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_service_ticket_oqmgfc",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_service_ticket_oqmgfc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_ssl_j67t6l",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "k_dict_dedl7dno",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_ticket_granting_server_1cuy2c",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_ticket_granting_server_1cuy2c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_ticket_granting_ticket_14xqfb",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_ticket_granting_ticket_14xqfb",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_truststore_rgbyfy",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_truststore_rgbyfy",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_security_auth:tree_mysql_glossary_security_auth_user_principal_name_daz6wj",
+    "source": "mysql_glossary_group_security_auth",
+    "target": "mysql_glossary_user_principal_name_daz6wj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782032936994_e5wpwn:tree_mysql_glossary_group_backup_operations",
+    "source": "k_1782032936985_6uwpnx",
+    "target": "mysql_glossary_group_backup_operations",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_backup_e2afhb",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "k_dict_vg1hm4yv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_clean_shutdown_1rucqm",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_clean_shutdown_1rucqm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_cold_backup_ix7sbr",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "k_dict_88aa29dg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_fast_shutdown_7rxpbn",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "k_dict_hcbepdud",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_full_backup_1pi94c",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_full_backup_1pi94c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_hot_backup_18b4gb",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "k_dict_z9h14mh0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_incremental_backup_3gko1n",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_incremental_backup_3gko1n",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_partial_backup_bplu20",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_partial_backup_bplu20",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_physical_backup_1o7b7v",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_physical_backup_1o7b7v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_prepared_backup_19htae",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_prepared_backup_19htae",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_raw_backup_1s82jm",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_raw_backup_1s82jm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_shutdown_1wugu2",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "k_dict_jwcd61u4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_slow_shutdown_1tqzdr",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_slow_shutdown_1tqzdr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_startup_154aqa",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_startup_154aqa",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_troubleshooting_1zw5wx",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_troubleshooting_1zw5wx",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_backup_operations:tree_mysql_glossary_backup_operations_warm_backup_1sjsyn",
+    "source": "mysql_glossary_group_backup_operations",
+    "target": "mysql_glossary_warm_backup_1sjsyn",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782033172539_wxvnr8:tree_mysql_glossary_group_text_spatial_charset",
+    "source": "k_1782033172524_cjmm5c",
+    "target": "mysql_glossary_group_text_spatial_charset",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_ansi_1dsa5n",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "k_dict_ij1x57s1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_blind_query_expansion_17xip3",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_blind_query_expansion_17xip3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_repertoire_jo0oic",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_repertoire_jo0oic",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_stemming_w8xwzt",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_stemming_w8xwzt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_stopword_ztgqhp",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_stopword_ztgqhp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_text_collection_1180cq",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_text_collection_1180cq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_text_spatial_charset:tree_mysql_glossary_text_spatial_charset_unicode_fwfjuo",
+    "source": "mysql_glossary_group_text_spatial_charset",
+    "target": "mysql_glossary_unicode_fwfjuo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_mysql_glossary_group_misc",
+    "source": "n_8s66vwo1",
+    "target": "mysql_glossary_group_misc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_aio_xewe9c",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_aio_xewe9c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_apply_a6xv7f",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_apply_a6xv7f",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_as_h5mr7x",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_as_h5mr7x",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_assembly_9y51lx",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_assembly_9y51lx",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_asynchronous_i_o_1c6jsd",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_asynchronous_i_o_1c6jsd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_atomic_1jyxbu",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_atomic_1jyxbu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_atomic_instruction_xxdtb4",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_atomic_instruction_xxdtb4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_auto_increment_4a14nm",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_rszan9vp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_availability_o9h2qe",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_availability_o9h2qe",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_backticks_5z2ws",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_backticks_5z2ws",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_beta_1cp3ef",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_beta_1cp3ef",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_blob_lhrk4q",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_blob_lhrk4q",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_bottleneck_ehdgmu",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_bottleneck_ehdgmu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_bounce_e9awxp",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_bounce_e9awxp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_buddy_allocator_bcohkm",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_buddy_allocator_bcohkm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_built_in_1x46sj",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_built_in_1x46sj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_business_rules_1jttaq",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_business_rules_1jttaq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_c_1iy8fe",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_c_1iy8fe",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_c_15ku39",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_c_15ku39",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_c_cy8cuo",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_c_cy8cuo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_checksum_qnrmvm",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_checksum_qnrmvm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_clob_kn7shj",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_clob_kn7shj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_command_interceptor_1f58ii",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_command_interceptor_1f58ii",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_compression_gbxfjp",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_compression_gbxfjp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_compression_failure_8kmcfr",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_compression_failure_8kmcfr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_concurrency_uoyivs",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_concurrency_uoyivs",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_counter_17gzh9",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_counter_17gzh9",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_cpu_bound_1lxhya",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_cpu_bound_1lxhya",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_crash_7aq2mw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_crash_7aq2mw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_crud_1ihm43",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_crud_1ihm43",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_data_definition_language_4fjtzo",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_data_definition_language_4fjtzo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_data_manipulation_language_fxdb4s",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_data_manipulation_language_fxdb4s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_data_warehouse_fjl68a",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_o5254svl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_dcl_v2qsj8",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_7w36vehk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_ddex_provider_133gs8",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_ddex_provider_133gs8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_denormalized_y8sq0n",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_denormalized_y8sq0n",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_disk_based_15w8id",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_disk_based_15w8id",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_disk_bound_1eazx6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_disk_bound_1eazx6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_document_id_mwd5w1",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_document_id_mwd5w1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_drop_1b2jxc",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_t6m62us4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_dsn_4y9a4q",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_dsn_4y9a4q",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_eiffel_75vlru",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_eiffel_75vlru",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_embedded_yxsdnj",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_embedded_yxsdnj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_eviction_1b3reo",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_eviction_1b3reo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_exception_interceptor_nqrl4t",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_exception_interceptor_nqrl4t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_extent_16v5kw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_extent_16v5kw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_fill_factor_1buqx5",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_jmpy3jq2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_fts_1x0dll",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_fts_1x0dll",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_ga_ql2xt1",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_ga_ql2xt1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_gac_1g5bbw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_gac_1g5bbw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_gap_k039an",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_gap_k039an",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_glassfish_1nimhl",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_glassfish_1nimhl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_guid_bmsoy4",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_guid_bmsoy4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_hdd_eb2rxz",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_hdd_eb2rxz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_heartbeat_1aiai3",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_heartbeat_1aiai3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_high_water_mark_1g6jcp",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_high_water_mark_1g6jcp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_history_list_16r63i",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_history_list_16r63i",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_hole_punching_r6u429",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_hole_punching_r6u429",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_host_1ctymw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_host_1ctymw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_hot_1yorp3",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_hot_1yorp3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_i_o_bound_9k72or",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_i_o_bound_9k72or",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_ilist_16p50m",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_ilist_16p50m",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_infimum_record_1jiz41",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_infimum_record_1jiz41",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_innovation_series_1rj8dd",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_innovation_series_1rj8dd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_instrumentation_1v9bxz",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_instrumentation_1v9bxz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_interceptor_15rsbd",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_interceptor_15rsbd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_iops_1go6rk",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_iops_1go6rk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_j2ee_1n1o93",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_j2ee_1n1o93",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_jboss_1q1ojv",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_jboss_1q1ojv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_jndi_1tonay",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_jndi_1tonay",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_join_1jt36g",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_duk4xptw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_kdc_1821ki",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_kdc_1821ki",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_key_distribution_center_fhraw7",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_key_distribution_center_fhraw7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_keystore_1khbxb",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_keystore_1khbxb",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_lifecycle_interceptor_1djjb0",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_lifecycle_interceptor_1djjb0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_list_3lo6m9",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_list_3lo6m9",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_load_balancing_ee4rhm",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_load_balancing_ee4rhm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_localhost_d4md6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_localhost_d4md6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_loose_tt5csa",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_loose_tt5csa",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_low_water_mark_b3ceyk",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_low_water_mark_b3ceyk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_lru_1mxcfz",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_lru_1mxcfz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_lsn_1ffk0r",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_g7onhohj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_lts_series_lpbljr",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_lts_series_lpbljr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_mdl_braceg",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_mdl_braceg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_medium_trust_113pv6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_medium_trust_113pv6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_merge_1fgj0o",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_s1u2tlxt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_metrics_counter_1tynuw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_metrics_counter_1tynuw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_mono_oszvd6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_mono_oszvd6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_mtr_1mopoo",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_mtr_1mopoo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_multi_core_1ks4nn",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_multi_core_1ks4nn",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_my_cnf_v2use8",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_my_cnf_v2use8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_my_ini_1giw6m",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_my_ini_1giw6m",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_natural_key_tddcrt",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_natural_key_tddcrt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_normalized_4n509k",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_normalized_4n509k",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_null_fxpzqc",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_fxoirizf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_oltp_ux4hk2",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_zu4iv9d4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_online_13svqm",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_online_13svqm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_optimistic_1gdvw6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_optimistic_1gdvw6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_partial_trust_rcrlto",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_partial_trust_rcrlto",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_pessimistic_l0bpvy",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_pessimistic_l0bpvy",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_physical_117gzf",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_physical_117gzf",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_pitr_1c3mpc",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_zjinmyz3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_plan_stability_70vxat",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_plan_stability_70vxat",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_prepared_statement_1tfqdw",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_prepared_statement_1tfqdw",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_pseudo_record_xtcw23",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_pseudo_record_xtcw23",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_query_1x19b6",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_olg8goh1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_quiesce_1ujs11",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_quiesce_1ujs11",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_r_tree_1w9375",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_r_tree_1w9375",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_raid_147yhu",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_mb72ps2c",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_random_dive_1sbv22",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_random_dive_1sbv22",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_read_phenomena_n0vs4m",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_read_phenomena_n0vs4m",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_referential_integrity_1h5037",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_1a3p1hdq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_relational_1yoaip",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_relational_1yoaip",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_relevance_1schdd",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_relevance_1schdd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_scale_out_1fhx7h",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_scale_out_1fhx7h",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_scale_up_1y6pkm",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_scale_up_1y6pkm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_sdi_8vlmf5",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_sdi_8vlmf5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_segment_1vmvly",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_segment_1vmvly",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_serialized_dictionary_information_sdi_1ee69u",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_serialized_dictionary_information_sdi_1ee69u",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_servlet_12jp4v",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_servlet_12jp4v",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_spin_2ipmhl",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_spin_2ipmhl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_spn_qxzu3s",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_spn_qxzu3s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_spring_1ng89l",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_spring_1ng89l",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_ssd_gyazmt",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_ssd_gyazmt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_st_tow98i",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_st_tow98i",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_statement_interceptor_1d641l",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_statement_interceptor_1d641l",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_strict_mode_y6y4gv",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_strict_mode_y6y4gv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_sublist_12kt6o",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_sublist_12kt6o",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_supremum_record_1pbwmi",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_supremum_record_1pbwmi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_surrogate_key_1eh6qu",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_xb5t6pmm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_synthetic_key_1drbjs",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_synthetic_key_1drbjs",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tcl_1yc19t",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_tcl_1yc19t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tgs_1xzcjp",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_tgs_1xzcjp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tgt_1w1fbu",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_tgt_1w1fbu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tomcat_10qwey",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_tomcat_10qwey",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tps_ej1ya6",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_tps_ej1ya6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_tuple_14mt1k",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_ek50h609",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_upn_1drxl0",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_upn_1drxl0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_variable_length_type_1satcr",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_variable_length_type_1satcr",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_victim_18xqeg",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_victim_18xqeg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_wait_1229eo",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_wait_1229eo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_write_combining_154ozi",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_write_combining_154ozi",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_xa_qnowpe",
+    "source": "mysql_glossary_group_misc",
+    "target": "k_dict_n5wdsgcu",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_misc:tree_mysql_glossary_misc_young_ohocw3",
+    "source": "mysql_glossary_group_misc",
+    "target": "mysql_glossary_young_ohocw3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_mvcc:innodb_mvcc_db_trx_id",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_db_trx_id",
+    "type": "uses",
+    "label": "隐藏字段",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_mvcc:innodb_mvcc_db_roll_ptr",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_db_roll_ptr",
+    "type": "uses",
+    "label": "版本链指针",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_mvcc:innodb_mvcc_db_row_id",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_db_row_id",
+    "type": "uses",
+    "label": "隐藏行 ID",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_mvcc:innodb_mvcc_purge",
+    "source": "demo_mvcc",
+    "target": "innodb_mvcc_purge",
+    "type": "depends-on",
+    "label": "等待清理",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_myisam:mysql_file_myd",
+    "source": "demo_myisam",
+    "target": "mysql_file_myd",
+    "type": "uses",
+    "label": "数据文件",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_myisam:mysql_file_myi",
+    "source": "demo_myisam",
+    "target": "mysql_file_myi",
+    "type": "uses",
+    "label": "索引文件",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_innodb:mysql_file_ibd",
+    "source": "demo_innodb",
+    "target": "mysql_file_ibd",
+    "type": "uses",
+    "label": "独享表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_innodb:mysql_file_ibdata",
+    "source": "demo_innodb",
+    "target": "mysql_file_ibdata",
+    "type": "uses",
+    "label": "共享表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "mysql_glossary:demo_innodb:mysql_file_ibdata1",
+    "source": "demo_innodb",
+    "target": "mysql_file_ibdata1",
+    "type": "uses",
+    "label": "系统表空间文件",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781901655951_f9mavo",
+    "source": "demo_innodb",
+    "target": "k_1781901655940_k6m1w4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781901890744_0vz1hw",
+    "source": "demo_innodb",
+    "target": "k_1781901890734_vckmz5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781901899069_b0n7cj",
+    "source": "demo_innodb",
+    "target": "k_1781901899060_670apc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781940147491_825s8i",
+    "source": "demo_innodb",
+    "target": "k_1781940147478_6d75y4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781954386817_5yctdd",
+    "source": "demo_innodb",
+    "target": "k_1781954386810_6g1bo3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781955169566_hm1zn5",
+    "source": "demo_innodb",
+    "target": "k_1781955169559_qqibnd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781956849089_su4u2j",
+    "source": "demo_innodb",
+    "target": "k_1781956849081_12h1hp",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781957147855_aou9i1",
+    "source": "demo_innodb",
+    "target": "k_1781957147845_69qktj",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781957276826_sptyfy",
+    "source": "demo_innodb",
+    "target": "k_1781957276819_mp7zfl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781957518607_s9sdgk",
+    "source": "demo_innodb",
+    "target": "k_1781957518600_aibqeg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:tree_1781973454544_joldg6",
+    "source": "demo_innodb",
+    "target": "k_1781973454533_dxlfk0",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:demo_tree_mvcc",
+    "source": "demo_innodb",
+    "target": "demo_mvcc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_mysql_glossary_group_storage_engines",
+    "source": "n_8s66vwo1",
+    "target": "mysql_glossary_group_storage_engines",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_compressed_backup_12f16e",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "mysql_glossary_compressed_backup_12f16e",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_dynamic_statement_1evhmv",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "mysql_glossary_dynamic_statement_1evhmv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_innodb_autoinc_lock_mode_a8q16t",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_innodb_lock_wait_timeout_1puppm",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "mysql_glossary_innodb_lock_wait_timeout_1puppm",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_innodb_strict_mode_axkeg1",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "mysql_glossary_innodb_strict_mode_axkeg1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_mysql_glossary_storage_engines_storage_engine_1hoihw",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "n_97x8s5dv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:demo_tree_innodb",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "demo_innodb",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:demo_tree_myisam",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "demo_myisam",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:demo_tree_engine_compare",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "demo_engine_compare",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_group_storage_engines:tree_1781976016457_xjj5mm",
+    "source": "mysql_glossary_group_storage_engines",
+    "target": "k_1781976016450_ggvuc3",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_db:tree_mysql_glossary_storage_engines_in_memory_database_1swh47",
+    "source": "n_u4va719e",
+    "target": "mysql_glossary_in_memory_database_1swh47",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage",
+      "performance"
+    ]
   }
 ]

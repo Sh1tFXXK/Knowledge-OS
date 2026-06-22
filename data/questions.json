@@ -204,5 +204,46 @@
     "createdAt": 1781624629967,
     "updatedAt": 1781624641924,
     "answer": "第一范式：每个列都不可以再拆分。\n第二范式：在第一范式的基础上，非主键列完全依赖于主键，而不能是依赖于主键的一部分。\n第三范式：在第二范式的基础上，非主键列只依赖于主键，不依赖于其他非主键。"
+  },
+  {
+    "id": "q_1781974796693_ku0o1i",
+    "text": "InnoDB如何管理Page⻚？",
+    "answered": false,
+    "relatedNodeId": "k_1781002610469_nik1ek",
+    "createdAt": 1781974796693,
+    "updatedAt": 1781974796693
+  },
+  {
+    "id": "q_1782039235084_72linh",
+    "text": "undo log、redo log、bin log的作⽤是什么？",
+    "answered": false,
+    "relatedNodeId": "k_1781957394111_3pyff0",
+    "createdAt": 1782039235084,
+    "updatedAt": 1782039235084
+  },
+  {
+    "id": "q_1782039861961_szg4zn",
+    "text": "bin log的作⽤",
+    "answered": false,
+    "relatedNodeId": "k_1782029566469_60woxz",
+    "createdAt": 1782039861961,
+    "updatedAt": 1782039861961
+  },
+  {
+    "id": "q_1782039872139_tfhile",
+    "text": "1.主从复制：在主库中开启Binlog功能，这样主库就可以把Binlog传递给 从库，从库拿到Binlog后实现数据恢复达到主从数据⼀致性。 2.数据恢复：通过mysqlbinlog⼯具来恢复数据。",
+    "answered": false,
+    "relatedNodeId": "k_1782029566469_60woxz",
+    "createdAt": 1782039872139,
+    "updatedAt": 1782039872139
+  },
+  {
+    "id": "q_1782039902980_xoxopi",
+    "text": "redo log的作⽤",
+    "answered": true,
+    "relatedNodeId": "k_1781957518600_aibqeg",
+    "createdAt": 1782039902980,
+    "updatedAt": 1782039922556,
+    "answer": "mysql每执⾏⼀条DML语句，先将记录写⼊redo log buffer。后续某个时间点再⼀次性将多个操作记录写到redo log file。当故障发⽣致使内存数据丢失后，InnoDB会在重启时，经过重放redo，将Page恢复到崩溃之前的状态通过Redo log可以实现事务的持久性。"
   }
 ]

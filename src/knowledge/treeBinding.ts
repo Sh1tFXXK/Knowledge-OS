@@ -63,6 +63,40 @@ export function createTreeBindingEdge({
   };
 }
 
+export function createMovedTreeBindingEdges({
+  tree,
+  nodePool,
+  movedTreeId,
+  nextParentTreeId,
+}: {
+  tree: TreeNode;
+  nodePool: Record<string, KnowledgeNode>;
+  movedTreeId: string;
+  nextParentTreeId: string;
+}): KnowledgeEdge[] {
+  const movedTreeNode = findTreeNodeById(tree, movedTreeId);
+  if (!movedTreeNode?.nodeRef) return [];
+
+  return [
+    createTreeBindingEdge({
+      tree,
+      nodePool,
+      parentTreeId: nextParentTreeId,
+      childTreeId: movedTreeId,
+      childKnowledgeId: movedTreeNode.nodeRef,
+    }),
+    ...(movedTreeNode.children ?? []).map((child) =>
+      createTreeBindingEdge({
+        tree,
+        nodePool,
+        parentTreeId: movedTreeId,
+        childTreeId: child.id,
+        childKnowledgeId: child.nodeRef,
+      }),
+    ),
+  ].filter((edge): edge is KnowledgeEdge => edge !== null);
+}
+
 export function isTreeBindingEdgeForTreeIds(
   edge: KnowledgeEdge,
   treeIds: Set<string>,

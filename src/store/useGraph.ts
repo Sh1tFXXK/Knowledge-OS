@@ -39,12 +39,14 @@ import {
   collectTreeNodes,
   findTreeParent,
   findTreeNodeById,
+  moveTreeNode as moveTreeNodeInTree,
   removeTreeChild,
   updateTreeNode,
 } from '../knowledge/treeUtils';
 import { resolvePoolIdFromTree, resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
 import {
   createTreeBindingEdge,
+  createMovedTreeBindingEdges,
   removeTreeBindingEdgesForTreeIds,
 } from '../knowledge/treeBinding';
 import {
@@ -170,6 +172,7 @@ interface GraphState {
   linkTreeToKnowledge: (treeNodeId: string, knowledgeId: string) => void;
 
   removeTreeNode: (nodeId: string) => void;
+  moveTreeNode: (nodeId: string, nextParentId: string) => boolean;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
 
   /** @deprecated 璇风敤 createKnowledgeAndLink */
@@ -1062,6 +1065,34 @@ export const useGraphStore = create<GraphState>((set, get) => {
         ],
       });
       persist();
+    },
+
+    moveTreeNode: (nodeId, nextParentId) => {
+      const state = get();
+      const moved = moveTreeNodeInTree(state.treeData, nodeId, nextParentId);
+      if (!moved) return false;
+
+      const movedTreeIds = new Set([nodeId]);
+      let knowledgeEdges = removeTreeBindingEdgesForTreeIds(
+        state.knowledgeEdges,
+        movedTreeIds,
+      );
+
+      for (const edge of createMovedTreeBindingEdges({
+        tree: moved.tree,
+        nodePool: state.nodePool,
+        movedTreeId: nodeId,
+        nextParentTreeId: nextParentId,
+      })) {
+        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      }
+
+      set({
+        treeData: moved.tree,
+        knowledgeEdges,
+      });
+      persist();
+      return true;
     },
 
     renameTreeNode: (nodeId, newLabel) => {

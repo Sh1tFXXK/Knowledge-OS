@@ -1,4 +1,10 @@
-import { useEffect } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type CSSProperties,
+  type MouseEvent as ReactMouseEvent,
+} from 'react';
 import { useGraphStore } from './store/useGraph';
 import './styles/main.css';
 import './styles/layout.css';
@@ -13,26 +19,73 @@ import RightSidePanel from './layout/RightSidePanel';
 import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
 
+const LEFT_PANEL_MIN_WIDTH = 180;
+const LEFT_PANEL_MAX_WIDTH = 560;
+const LEFT_PANEL_COLLAPSED_WIDTH = 42;
+
+function clampLeftPanelWidth(width: number): number {
+  return Math.min(LEFT_PANEL_MAX_WIDTH, Math.max(LEFT_PANEL_MIN_WIDTH, width));
+}
+
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
   const activeView = useGraphStore((s) => s.activeView);
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const initialize = useGraphStore((s) => s.initialize);
+  const [leftPanelWidth, setLeftPanelWidth] = useState(260);
+  const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
 
   useEffect(() => {
     void initialize();
   }, [initialize]);
 
+  const startLeftPanelResize = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsLeftPanelCollapsed(false);
+
+    const startX = event.clientX;
+    const startWidth = leftPanelWidth;
+
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const nextWidth = startWidth + moveEvent.clientX - startX;
+      setLeftPanelWidth(clampLeftPanelWidth(nextWidth));
+    };
+
+    const handleMouseUp = () => {
+      document.body.classList.remove('is-resizing-left-panel');
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.body.classList.add('is-resizing-left-panel');
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  }, [leftPanelWidth]);
+
+  const appStyle = {
+    '--left-panel-width': `${isLeftPanelCollapsed ? LEFT_PANEL_COLLAPSED_WIDTH : leftPanelWidth}px`,
+  } as CSSProperties;
+
   return (
-    <div id="app">
+    <div id="app" style={appStyle}>
       {/* ── 顶栏 ── */}
       <header className="header" id="header">
         <TopBar />
       </header>
 
       {/* ── 左侧：目录树（永远显示） ── */}
-      <aside className="left-panel" id="left-panel">
-        <UniverseTree />
+      <aside className={`left-panel${isLeftPanelCollapsed ? ' left-panel--collapsed' : ''}`} id="left-panel">
+        <UniverseTree
+          isCollapsed={isLeftPanelCollapsed}
+          onToggleCollapsed={() => setIsLeftPanelCollapsed((value) => !value)}
+        />
+        {!isLeftPanelCollapsed && (
+          <div
+            className="left-panel-resize-handle"
+            onMouseDown={startLeftPanelResize}
+            title="拖动调整目录宽度"
+          />
+        )}
       </aside>
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
