@@ -3370,3 +3370,1027 @@
   flex-shrink: 0;
   min-width: 60px;
 }
+
+/* ========== Mechanism Lens ========== */
+.mechanism-lens {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  padding: 14px;
+  gap: 12px;
+  background:
+    linear-gradient(135deg, rgba(8, 14, 24, 0.96), rgba(12, 16, 25, 0.98)),
+    radial-gradient(circle at 24% 14%, rgba(20, 184, 166, 0.08), transparent 32%),
+    radial-gradient(circle at 76% 20%, rgba(245, 158, 11, 0.07), transparent 34%),
+    var(--bg-primary);
+}
+
+.mechanism-lens-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.mechanism-title-block {
+  min-width: 0;
+}
+
+.mechanism-eyebrow {
+  display: block;
+  margin-bottom: 4px;
+  color: #5eead4;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.mechanism-title-block h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.mechanism-title-block p {
+  margin: 5px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.35;
+  max-width: 72ch;
+}
+
+.mechanism-controls {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.mechanism-play-button {
+  width: 32px;
+  height: 28px;
+  justify-content: center;
+  padding: 0;
+}
+
+.mechanism-progress {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.mechanism-progress div {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #14b8a6, #f59e0b);
+  transition: width 180ms ease;
+}
+
+.mechanism-workbench {
+  display: grid;
+  grid-template-columns: minmax(1000px, 1fr) minmax(236px, 280px);
+  gap: 12px;
+  min-height: 0;
+  flex: 1;
+  overflow-x: auto;
+}
+
+.mechanism-stage {
+  position: relative;
+  min-height: 610px;
+  overflow: auto;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 8px;
+  background:
+    linear-gradient(rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.045) 1px, transparent 1px),
+    #0a0f18;
+  background-size: 36px 36px;
+}
+
+.innodb-canvas {
+  min-width: 980px;
+  min-height: 600px;
+  display: grid;
+  grid-template-rows: minmax(408px, 1fr) auto;
+  gap: 14px;
+  padding: 16px;
+}
+
+.innodb-map {
+  position: relative;
+  display: grid;
+  grid-template-columns: 350px 104px minmax(420px, 1fr);
+  gap: 14px;
+  min-height: 408px;
+}
+
+.innodb-domain,
+.innodb-physical-layer {
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.52);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.innodb-domain {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+}
+
+.innodb-domain--memory {
+  background:
+    linear-gradient(180deg, rgba(15, 118, 110, 0.16), rgba(15, 23, 42, 0.55)),
+    rgba(9, 20, 28, 0.84);
+}
+
+.innodb-domain--disk {
+  background:
+    linear-gradient(180deg, rgba(180, 83, 9, 0.13), rgba(15, 23, 42, 0.55)),
+    rgba(16, 20, 26, 0.86);
+}
+
+.innodb-domain-header,
+.innodb-layer-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.innodb-domain-header span,
+.innodb-layer-head span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.innodb-domain-header strong,
+.innodb-layer-head strong {
+  flex-shrink: 0;
+  color: rgba(203, 213, 225, 0.58);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.innodb-memory-grid {
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr);
+  gap: 10px;
+  min-height: 284px;
+}
+
+.innodb-ahi,
+.innodb-buffer-pool,
+.innodb-change-buffer,
+.innodb-log-buffer,
+.innodb-os-cache,
+.innodb-disk-object,
+.innodb-physical-card {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background: rgba(11, 18, 30, 0.76);
+  color: var(--text-primary);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    opacity 160ms ease;
+}
+
+.innodb-ahi,
+.innodb-buffer-pool,
+.innodb-log-buffer {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.innodb-ahi {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  align-items: center;
+  justify-items: center;
+  min-width: 0;
+  padding: 10px 8px;
+  background: rgba(26, 38, 42, 0.9);
+}
+
+.innodb-ahi > span {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  color: rgba(226, 232, 240, 0.78);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+}
+
+.innodb-ahi-slots {
+  display: grid;
+  grid-template-columns: repeat(2, 16px);
+  gap: 7px;
+  margin-top: 10px;
+}
+
+.innodb-buffer-pool {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  background:
+    linear-gradient(180deg, rgba(20, 184, 166, 0.08), rgba(15, 23, 42, 0.72)),
+    rgba(12, 21, 32, 0.92);
+}
+
+.innodb-object-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-width: 0;
+}
+
+.innodb-object-title span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgba(248, 250, 252, 0.94);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.innodb-object-title small {
+  flex-shrink: 0;
+  color: rgba(148, 163, 184, 0.74);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.1;
+  text-align: right;
+}
+
+.innodb-page-grid {
+  display: grid;
+  gap: 7px;
+}
+
+.innodb-page-grid--pool {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.innodb-page-grid--change {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.innodb-page-grid--log {
+  grid-template-columns: repeat(6, 1fr);
+}
+
+.innodb-page-cell {
+  display: block;
+  aspect-ratio: 1;
+  min-width: 0;
+  border: 1px solid rgba(125, 211, 252, 0.2);
+  border-radius: 4px;
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.innodb-page-cell.clean {
+  background: rgba(148, 163, 184, 0.18);
+}
+
+.innodb-page-cell.warm {
+  background: rgba(45, 212, 191, 0.34);
+  border-color: rgba(94, 234, 212, 0.34);
+}
+
+.innodb-page-cell.hot,
+.innodb-page-cell.dirty {
+  background: rgba(15, 118, 110, 0.9);
+  border-color: rgba(94, 234, 212, 0.5);
+}
+
+.innodb-page-cell.dirty {
+  background: rgba(245, 158, 11, 0.76);
+  border-color: rgba(251, 191, 36, 0.58);
+}
+
+.innodb-change-buffer {
+  margin-top: auto;
+  padding: 10px;
+  border-style: dashed;
+  background: rgba(7, 21, 26, 0.7);
+}
+
+.innodb-log-buffer {
+  display: grid;
+  grid-template-columns: 108px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  padding: 11px;
+  background: rgba(18, 24, 34, 0.84);
+}
+
+.innodb-io-column {
+  position: relative;
+  display: grid;
+  grid-template-rows: 74px 1fr 74px;
+  align-items: center;
+  justify-items: center;
+  min-width: 0;
+}
+
+.innodb-io-column::before {
+  content: "";
+  position: absolute;
+  top: 34px;
+  bottom: 34px;
+  left: 50%;
+  width: 54px;
+  transform: translateX(-50%);
+  border: 1px dashed rgba(203, 213, 225, 0.22);
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(226, 232, 240, 0.09),
+      rgba(226, 232, 240, 0.09) 12px,
+      transparent 12px,
+      transparent 22px
+    ),
+    rgba(226, 232, 240, 0.06);
+}
+
+.innodb-flow {
+  position: relative;
+  z-index: 1;
+  height: 30px;
+  width: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(226, 232, 240, 0.76);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.innodb-flow::before,
+.innodb-flow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.innodb-flow::before {
+  left: 0;
+  right: 14px;
+  height: 2px;
+  background: rgba(148, 163, 184, 0.32);
+}
+
+.innodb-flow::after {
+  right: 4px;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 12px solid rgba(148, 163, 184, 0.46);
+}
+
+.innodb-flow span {
+  position: relative;
+  z-index: 1;
+  padding: 4px 8px;
+  border: 1px solid rgba(20, 184, 166, 0.22);
+  border-radius: 4px;
+  background: rgba(8, 13, 20, 0.88);
+}
+
+.innodb-flow--redo {
+  align-self: end;
+}
+
+.innodb-os-cache {
+  position: relative;
+  z-index: 1;
+  width: 74px;
+  min-height: 218px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-style: dashed;
+  background: rgba(226, 232, 240, 0.08);
+  color: rgba(226, 232, 240, 0.84);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.innodb-disk-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
+  gap: 10px;
+  min-height: 0;
+}
+
+.innodb-disk-object {
+  min-width: 0;
+  padding: 11px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(20, 25, 31, 0.82);
+}
+
+.innodb-disk-object--system,
+.innodb-disk-object--doublewrite,
+.innodb-disk-object--undo,
+.innodb-disk-object--redo {
+  border-style: dashed;
+}
+
+.innodb-disk-object--redo {
+  grid-column: 1 / -1;
+  max-width: 250px;
+  justify-self: center;
+}
+
+.innodb-disk-nested {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.035);
+  color: rgba(226, 232, 240, 0.86);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.innodb-file-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: end;
+}
+
+.innodb-file-glyph,
+.innodb-log-glyph {
+  min-width: 0;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: rgba(226, 232, 240, 0.78);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-align: center;
+}
+
+.innodb-file-glyph::before {
+  content: "";
+  width: 36px;
+  height: 44px;
+  border: 2px solid rgba(94, 234, 212, 0.56);
+  border-radius: 3px;
+  background:
+    linear-gradient(90deg, transparent 11px, rgba(94, 234, 212, 0.5) 11px 13px, transparent 13px),
+    repeating-linear-gradient(
+      180deg,
+      rgba(148, 163, 184, 0.22),
+      rgba(148, 163, 184, 0.22) 3px,
+      transparent 3px,
+      transparent 7px
+    ),
+    rgba(8, 20, 24, 0.8);
+}
+
+.innodb-file-glyph > span {
+  display: none;
+}
+
+.innodb-file-glyph small,
+.innodb-log-glyph small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.innodb-log-glyph::before {
+  content: "";
+  width: 42px;
+  height: 48px;
+  border: 2px solid rgba(96, 165, 250, 0.58);
+  border-radius: 4px;
+  background:
+    radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.4) 0 8px, transparent 9px),
+    linear-gradient(rgba(96, 165, 250, 0.22), rgba(96, 165, 250, 0.04)),
+    rgba(10, 18, 28, 0.9);
+}
+
+.innodb-log-glyph strong {
+  margin-top: -34px;
+  padding: 2px 5px;
+  border: 1px solid rgba(96, 165, 250, 0.48);
+  border-radius: 3px;
+  background: rgba(8, 13, 20, 0.9);
+  color: rgba(226, 232, 240, 0.9);
+  font-size: 8px;
+}
+
+.innodb-overlap-files,
+.innodb-stack-files {
+  display: grid;
+  gap: 6px;
+  color: rgba(226, 232, 240, 0.8);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.innodb-overlap-files {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.innodb-overlap-files span,
+.innodb-stack-files span {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.035);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.innodb-physical-layer {
+  padding: 12px;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.86), rgba(10, 15, 23, 0.92)),
+    rgba(10, 15, 23, 0.92);
+}
+
+.innodb-physical-chain {
+  display: grid;
+  grid-template-columns:
+    minmax(136px, 1fr) 24px
+    minmax(136px, 1fr) 24px
+    minmax(170px, 1.25fr) 24px
+    minmax(136px, 1fr) 24px
+    minmax(132px, 0.9fr);
+  gap: 8px;
+  align-items: stretch;
+  margin-top: 12px;
+}
+
+.innodb-physical-card {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 8px;
+  min-height: 142px;
+  padding: 10px;
+}
+
+.innodb-physical-card--tablespace {
+  background: rgba(8, 47, 73, 0.36);
+}
+
+.innodb-physical-card--segment {
+  background: rgba(88, 28, 135, 0.22);
+}
+
+.innodb-physical-card--extent {
+  background: rgba(14, 116, 144, 0.22);
+}
+
+.innodb-physical-card--page {
+  background: rgba(63, 98, 18, 0.22);
+}
+
+.innodb-physical-card--row {
+  background: rgba(22, 101, 52, 0.24);
+}
+
+.innodb-physical-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.innodb-physical-title span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.innodb-physical-title small {
+  flex-shrink: 0;
+  color: rgba(203, 213, 225, 0.62);
+  font-size: 10px;
+}
+
+.innodb-physical-arrow {
+  position: relative;
+  align-self: center;
+  height: 2px;
+  background: rgba(239, 68, 68, 0.74);
+}
+
+.innodb-physical-arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  transform: translateY(-50%);
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid rgba(239, 68, 68, 0.86);
+}
+
+.innodb-preview-stack,
+.innodb-preview-extents,
+.innodb-preview-pages,
+.innodb-preview-rows,
+.innodb-preview-row-fields {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.innodb-preview-stack span,
+.innodb-preview-extents span,
+.innodb-preview-pages span,
+.innodb-preview-rows span,
+.innodb-preview-row-fields span {
+  min-width: 0;
+  min-height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  color: rgba(226, 232, 240, 0.82);
+  font-size: 10px;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.innodb-preview-stack span {
+  background: rgba(251, 146, 60, 0.74);
+}
+
+.innodb-preview-extents {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.innodb-preview-extents span {
+  min-height: 42px;
+  background: rgba(253, 186, 116, 0.58);
+}
+
+.innodb-preview-pages {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.innodb-preview-pages span {
+  background: rgba(196, 181, 253, 0.34);
+}
+
+.innodb-preview-rows {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.innodb-preview-rows span {
+  min-height: 28px;
+  background: rgba(132, 204, 22, 0.58);
+}
+
+.innodb-preview-row-fields span {
+  min-height: 22px;
+  justify-content: flex-start;
+  padding: 0 8px;
+  background: rgba(22, 163, 74, 0.75);
+  font-family: var(--font-mono);
+}
+
+.innodb-ahi.is-active,
+.innodb-ahi.is-traversed,
+.innodb-buffer-pool.is-active,
+.innodb-buffer-pool.is-traversed,
+.innodb-change-buffer.is-active,
+.innodb-change-buffer.is-traversed,
+.innodb-log-buffer.is-active,
+.innodb-log-buffer.is-traversed,
+.innodb-os-cache.is-active,
+.innodb-os-cache.is-traversed,
+.innodb-disk-object.is-active,
+.innodb-disk-object.is-traversed,
+.innodb-disk-nested.is-active,
+.innodb-disk-nested.is-traversed,
+.innodb-physical-card.is-active,
+.innodb-physical-card.is-traversed {
+  border-color: rgba(20, 184, 166, 0.72);
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.18),
+    0 14px 40px rgba(20, 184, 166, 0.1);
+}
+
+.innodb-ahi.is-mutated,
+.innodb-buffer-pool.is-mutated,
+.innodb-change-buffer.is-mutated,
+.innodb-log-buffer.is-mutated,
+.innodb-os-cache.is-mutated,
+.innodb-disk-object.is-mutated,
+.innodb-disk-nested.is-mutated,
+.innodb-physical-card.is-mutated {
+  border-color: rgba(245, 158, 11, 0.76);
+  box-shadow:
+    0 0 0 1px rgba(245, 158, 11, 0.2),
+    0 14px 40px rgba(245, 158, 11, 0.1);
+}
+
+.innodb-ahi.is-guarded,
+.innodb-buffer-pool.is-guarded,
+.innodb-change-buffer.is-guarded,
+.innodb-log-buffer.is-guarded,
+.innodb-os-cache.is-guarded,
+.innodb-disk-object.is-guarded,
+.innodb-disk-nested.is-guarded,
+.innodb-physical-card.is-guarded,
+.innodb-preview-row-fields span.is-guarded {
+  border-color: rgba(244, 114, 182, 0.74);
+  box-shadow:
+    0 0 0 1px rgba(244, 114, 182, 0.18),
+    0 14px 40px rgba(244, 114, 182, 0.1);
+}
+
+.innodb-ahi.is-persisted,
+.innodb-buffer-pool.is-persisted,
+.innodb-change-buffer.is-persisted,
+.innodb-log-buffer.is-persisted,
+.innodb-os-cache.is-persisted,
+.innodb-disk-object.is-persisted,
+.innodb-disk-nested.is-persisted,
+.innodb-physical-card.is-persisted {
+  border-color: rgba(34, 197, 94, 0.7);
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.18),
+    0 14px 40px rgba(34, 197, 94, 0.1);
+}
+
+.innodb-flow.is-active::before,
+.innodb-flow.is-traversed::before {
+  background: #14b8a6;
+  box-shadow: 0 0 18px rgba(20, 184, 166, 0.55);
+}
+
+.innodb-flow.is-active::after,
+.innodb-flow.is-traversed::after {
+  border-left-color: #14b8a6;
+}
+
+.innodb-flow.is-mutated::before {
+  background: #f59e0b;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.5);
+}
+
+.innodb-flow.is-mutated::after {
+  border-left-color: #f59e0b;
+}
+
+.innodb-flow.is-persisted::before {
+  background: #22c55e;
+  box-shadow: 0 0 18px rgba(34, 197, 94, 0.46);
+}
+
+.innodb-flow.is-persisted::after {
+  border-left-color: #22c55e;
+}
+
+.mechanism-side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(280px, 100%);
+  min-height: 0;
+}
+
+.mechanism-current-step {
+  flex-shrink: 0;
+  padding: 12px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.mechanism-step-count {
+  margin-bottom: 6px;
+  color: #f59e0b;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.mechanism-current-step h3 {
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.mechanism-route {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.mechanism-route span {
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--text-secondary);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mechanism-route span:nth-child(2) {
+  color: #5eead4;
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.mechanism-timeline {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  list-style: none;
+}
+
+.mechanism-timeline li {
+  min-height: 0;
+}
+
+.mechanism-timeline button {
+  width: 100%;
+  min-height: 36px;
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  transition: background 140ms ease, color 140ms ease, border-color 140ms ease;
+}
+
+.mechanism-timeline button:hover,
+.mechanism-timeline button.is-selected {
+  border-color: rgba(20, 184, 166, 0.32);
+  background: rgba(20, 184, 166, 0.08);
+  color: var(--text-primary);
+}
+
+.mechanism-timeline button span:last-child {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+}
+
+.mechanism-timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.mechanism-timeline-dot.is-active,
+.mechanism-timeline-dot.is-traversed {
+  background: #14b8a6;
+}
+
+.mechanism-timeline-dot.is-mutated {
+  background: #f59e0b;
+}
+
+.mechanism-timeline-dot.is-guarded {
+  background: #f472b6;
+}
+
+.mechanism-timeline-dot.is-persisted {
+  background: #22c55e;
+}
+
+.mechanism-relation-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.mechanism-relation-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 3px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 6px;
+  color: var(--text-tertiary);
+  background: rgba(255, 255, 255, 0.025);
+  font-family: var(--font-mono);
+  font-size: 10px;
+}
+
+.mechanism-relation-pill.is-active,
+.mechanism-relation-pill.is-traversed {
+  border-color: rgba(20, 184, 166, 0.56);
+  color: #5eead4;
+}
+
+.mechanism-relation-pill.is-mutated {
+  border-color: rgba(245, 158, 11, 0.58);
+  color: #f59e0b;
+}
+
+.mechanism-relation-pill.is-guarded {
+  border-color: rgba(236, 72, 153, 0.58);
+  color: #f472b6;
+}
+
+.mechanism-relation-pill.is-persisted {
+  border-color: rgba(16, 185, 129, 0.58);
+  color: #22c55e;
+}
+
+@media (max-width: 980px) {
+  .mechanism-workbench {
+    grid-template-columns: minmax(760px, 1fr);
+  }
+
+  .mechanism-stage {
+    min-height: 560px;
+  }
+
+  .innodb-canvas {
+    min-width: 940px;
+  }
+
+  .innodb-map {
+    grid-template-columns: 328px 96px minmax(400px, 1fr);
+  }
+
+  .innodb-physical-chain {
+    grid-template-columns:
+      minmax(132px, 1fr) 20px
+      minmax(132px, 1fr) 20px
+      minmax(156px, 1.15fr) 20px
+      minmax(132px, 1fr) 20px
+      minmax(128px, 0.9fr);
+  }
+
+  .mechanism-side {
+    min-height: 260px;
+    width: min(280px, 100%);
+  }
+}

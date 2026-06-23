@@ -18,6 +18,7 @@ import ReasoningKernel from './core/ReasoningKernel';
 import RightSidePanel from './layout/RightSidePanel';
 import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
+import MechanismLensPanel from './components/MechanismLensPanel';
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -105,6 +106,10 @@ export default function App() {
               <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
             </div>
             <QuestionDatabase />
+          </section>
+        ) : activeView === 'mechanism' ? (
+          <section className="center-view" id="center-view">
+            <MechanismLensPanel />
           </section>
         ) : (
           /* 默认：永远显示推理内核（核心视图） */

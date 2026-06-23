@@ -106,8 +106,68 @@ const expectedPlacements = [
   },
   {
     ref: 'k_dict_73wtge24',
-    pathIncludes: ['mysql_topic_sql_objects', 'tree_1782033172539_wxvnr8'],
-    message: 'DDL belongs under the SQL interface hierarchy',
+    pathIncludes: ['mysql_topic_sql_objects', 'tree_1782033172539_wxvnr8', 'mysql_sql_statement_types'],
+    message: 'DDL belongs under SQL statement types',
+  },
+  {
+    ref: 'k_dict_7dvcv51p',
+    pathIncludes: ['mysql_topic_sql_objects', 'tree_1782230482973_dgay97', 'mysql_sql_table_structure'],
+    message: 'table belongs under table structure',
+  },
+  {
+    ref: 'mysql_glossary_ilist_16p50m',
+    pathIncludes: ['mysql_topic_indexes_access', 'demo_tree_fulltext'],
+    message: 'ilist belongs under full-text indexes',
+  },
+  {
+    ref: 'k_dict_xxkp8lkc',
+    pathIncludes: ['mysql_topic_indexes_access', 'mysql_index_key_integrity'],
+    message: 'primary key belongs under key integrity',
+  },
+  {
+    ref: 'k_dict_i70ksr9s',
+    pathIncludes: ['mysql_topic_indexes_access', 'mysql_index_basics'],
+    message: 'index belongs under index basics',
+  },
+  {
+    ref: 'mysql_glossary_index_hint_1nr0pl',
+    pathIncludes: ['mysql_topic_indexes_access', 'mysql_index_access_paths'],
+    message: 'index hint belongs under access paths',
+  },
+  {
+    ref: 'k_dict_xnl4u9m0',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_tx_lifecycle'],
+    message: 'commit belongs under transaction lifecycle',
+  },
+  {
+    ref: 'k_dict_t83fdwoc',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_tx_read_phenomena'],
+    message: 'dirty read belongs under read phenomena',
+  },
+  {
+    ref: 'demo_deadlock',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_tx_waits_deadlocks'],
+    message: 'deadlock detection belongs under waits and deadlocks',
+  },
+  {
+    ref: 'mysql_glossary_gap_lock_1gfoi1',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_lock_range_insert'],
+    message: 'gap lock belongs under range locks',
+  },
+  {
+    ref: 'mysql_glossary_intention_exclusive_lock_1rd4p1',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_lock_intention'],
+    message: 'intention exclusive lock belongs under intention locks',
+  },
+  {
+    ref: 'mysql_glossary_metadata_lock_qiqw4n',
+    pathIncludes: ['mysql_topic_transactions_locks', 'mysql_lock_metadata'],
+    message: 'metadata lock belongs under metadata locks',
+  },
+  {
+    ref: 'mysql_glossary_nonblocking_i_o_h65z9a',
+    pathIncludes: ['mysql_topic_optimizer_performance'],
+    message: 'nonblocking I/O does not belong under locks',
   },
   {
     ref: 'mysql_glossary_connector_j_avxtph',
@@ -134,6 +194,22 @@ for (const { ref, pathIncludes, message } of expectedPlacements) {
   });
   assert.ok(placed, message);
   assert.notEqual(parents.get(placed.id)?.name, '术语索引', `${message}: parent must be real taxonomy`);
+}
+
+const refinedRootIds = [
+  'tree_1782033172539_wxvnr8',
+  'demo_tree_tx',
+  'demo_tree_lock',
+  'demo_tree_index',
+];
+for (const refinedRootId of refinedRootIds) {
+  const node = findTreeNode(mysqlRoot, refinedRootId);
+  assert.ok(node, `${refinedRootId} must exist`);
+  assert.deepEqual(
+    (node.children ?? []).filter((child) => child.id.startsWith('mysql_term_')).map((child) => child.id),
+    [],
+    `${refinedRootId} should group terms through real sublayers`,
+  );
 }
 
 const uncategorized = findTreeNode(tree, 'mysql_topic_uncategorized');

@@ -3,6 +3,7 @@ import { getTreePathNames } from '../knowledge/treeUtils';
 
 const VIEWS = [
   { icon: '🌌', label: '视图', labelEn: 'Universe View', id: 'universe' },
+  { icon: 'M', label: '机制', labelEn: 'Mechanism Lens', id: 'mechanism' },
   { icon: '🗄️', label: '节点库', labelEn: 'Node Database', id: 'database' },
   { icon: '❓', label: '问题库', labelEn: 'Question Database', id: 'questions' },
 ];
