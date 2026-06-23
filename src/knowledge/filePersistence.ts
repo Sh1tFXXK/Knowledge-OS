@@ -1,5 +1,5 @@
 import type { PersistedAppState } from './state';
-import { APP_STATE_VERSION } from './state';
+import { APP_STATE_VERSION, createEmptyAppState } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question, SubSystem, Rule, Perspective } from '../types';
 import { migrateNodePool } from './migrateViewDimensions';
 
@@ -66,6 +66,32 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   if (inferenceResponses) state.inferenceResponses = inferenceResponses;
 
   return state;
+}
+
+export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
+  const fileState = await loadStateFromFiles();
+  const emptyState = createEmptyAppState();
+
+  return {
+    ...emptyState,
+    ...fileState,
+    version: APP_STATE_VERSION,
+    graph: {
+      ...emptyState.graph,
+      ...(fileState.graph ?? {}),
+    },
+    treeData: fileState.treeData ?? emptyState.treeData,
+    nodePool: fileState.nodePool ?? emptyState.nodePool,
+    knowledgeEdges: fileState.knowledgeEdges ?? emptyState.knowledgeEdges,
+    questions: fileState.questions ?? emptyState.questions,
+    rules: fileState.rules ?? emptyState.rules,
+    perspectives: fileState.perspectives ?? emptyState.perspectives,
+    subSystems: fileState.subSystems ?? emptyState.subSystems,
+    inferenceResponses: {
+      ...emptyState.inferenceResponses,
+      ...(fileState.inferenceResponses ?? {}),
+    },
+  };
 }
 
 export async function saveStateToFiles(state: PersistedAppState): Promise<void> {

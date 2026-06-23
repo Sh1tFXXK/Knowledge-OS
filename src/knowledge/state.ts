@@ -21,7 +21,6 @@ import type {
   SubSystem,
   TreeNode,
 } from '../types';
-import { createInitialAppState } from './demoSeed';
 
 export const APP_STATE_VERSION = 4 as const;
 
@@ -47,5 +46,29 @@ export interface PersistedAppState {
 
 /** 应用初始知识库（数据库知识体系 + 锁机制细粒度节点） */
 export function createEmptyAppState(): PersistedAppState {
-  return createInitialAppState();
+  return {
+    version: APP_STATE_VERSION,
+    treeData: {
+      id: 'universe',
+      name: 'Knowledge Universe',
+      count: 0,
+      icon: 'K',
+      expanded: true,
+      nodeRef: 'empty-root',
+      children: [],
+    },
+    nodePool: {},
+    knowledgeEdges: [],
+    graph: {
+      axioms: [],
+      mechanisms: [],
+      conclusions: [],
+      edges: [],
+    },
+    questions: [],
+    rules: [],
+    perspectives: [],
+    subSystems: [],
+    inferenceResponses: {},
+  };
 }

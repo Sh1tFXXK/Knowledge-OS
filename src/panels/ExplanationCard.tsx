@@ -1,8 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { findTreeNodeById } from '../knowledge/treeUtils';
 import { findMatrixProjections, type MatrixProjection } from '../knowledge/projection';
-import type { ExplanationTab, KnowledgeNode, KnowledgeRole } from '../types';
+import type { ExplanationTab, KnowledgeNode } from '../types';
 
 // Inline formatting helper for bold (**text**) and inline code (`code`)
 function renderInlineFormatting(text: string): any {
@@ -252,31 +252,17 @@ export default function ExplanationCard() {
   const linkTreeToKnowledge = useGraphStore((s) => s.linkTreeToKnowledge);
   const selectTreeEntry = useGraphStore((s) => s.selectTreeEntry);
   const addNotification = useGraphStore((s) => s.addNotification);
-  const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
   const treeData = useGraphStore((s) => s.treeData);
   const nodePool = useGraphStore((s) => s.nodePool);
   const openCard = useGraphStore((s) => s.openCard);
   const nodeMeta = useGraphStore((s) =>
     selectedNodeId ? s.nodePool[selectedNodeId] : undefined,
   );
-
-  const knowledgeEdges = useGraphStore((s) => s.knowledgeEdges);
-  const updateKnowledgeNodeLabel = useGraphStore((s) => s.updateKnowledgeNodeLabel);
-
   const explanation = getKnowledgeExplanation();
   const supplement = getTreeSupplement();
   const [activeTab, setActiveTab] = useState('');
   const [newLabel, setNewLabel] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const [editingMeta, setEditingMeta] = useState(false);
-  const [metaLabel, setMetaLabel] = useState('');
-  const [metaRole, setMetaRole] = useState('plain' as KnowledgeRole);
-  const [metaTags, setMetaTags] = useState('');
-
-  const edgeCount = useMemo(() => {
-    if (!selectedNodeId) return 0;
-    return knowledgeEdges.filter((e) => e.source === selectedNodeId || e.target === selectedNodeId).length;
-  }, [selectedNodeId, knowledgeEdges]);
 
   const selectedTreeNode = selectedTreeNodeId
     ? findTreeNodeById(treeData, selectedTreeNodeId)
@@ -431,86 +417,16 @@ export default function ExplanationCard() {
 
       <div className="explanation-card">
         <div className="explanation-card-header" style={{ padding: '8px 12px', flexDirection: 'column', alignItems: 'stretch', gap: 6 }}>
-          {editingMeta ? (
-            <div className="ec-meta-edit">
-              <input
-                className="input"
-                value={metaLabel}
-                onChange={(e: any) => setMetaLabel(e.target.value)}
-                placeholder="节点名称"
-                style={{ fontSize: 13, fontWeight: 600 }}
-              />
-              <div className="ec-meta-row">
-                <label style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>角色</label>
-                <select
-                  className="input"
-                  style={{ fontSize: 11 }}
-                  value={metaRole}
-                  onChange={(e: any) => setMetaRole(e.target.value as KnowledgeRole)}
-                >
-                  {(['plain', 'axiom', 'mechanism', 'conclusion', 'subsystem'] as KnowledgeRole[]).map((r) => (
-                    <option key={r} value={r}>{r}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="ec-meta-row">
-                <label style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>标签 (逗号分隔)</label>
-                <input
-                  className="input"
-                  style={{ fontSize: 11 }}
-                  value={metaTags}
-                  onChange={(e: any) => setMetaTags(e.target.value)}
-                  placeholder="tag1, tag2"
-                />
-              </div>
-              <div className="ec-meta-row">
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={() => {
-                    if (selectedNodeId) {
-                      if (metaLabel.trim()) updateKnowledgeNodeLabel(selectedNodeId, metaLabel.trim());
-                      updateKnowledgeNodeMeta(selectedNodeId, {
-                        role: metaRole,
-                        tags: metaTags.split(',').map((t: string) => t.trim()).filter(Boolean),
-                      });
-                    }
-                    setEditingMeta(false);
-                  }}
-                >保存</button>
-                <button type="button" className="btn btn-sm" onClick={() => setEditingMeta(false)}>取消</button>
-              </div>
+          <div className="ec-meta-view">
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
+              <span className="explanation-card-node" style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                {explanation.title}
+              </span>
+              {nodeMeta?.role && nodeMeta.role !== 'plain' && (
+                <span className={`role-badge role-${nodeMeta.role}`} style={{ flexShrink: 0 }}>{nodeMeta.role}</span>
+              )}
             </div>
-          ) : (
-            <div className="ec-meta-view">
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                <span className="explanation-card-node" style={{ flex: 1, minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                  {explanation.title}
-                </span>
-                {nodeMeta?.role && nodeMeta.role !== 'plain' && (
-                  <span className={`role-badge role-${nodeMeta.role}`} style={{ flexShrink: 0 }}>{nodeMeta.role}</span>
-                )}
-                <span
-                  className="btn-icon-sm"
-                  title="编辑节点基本信息"
-                  style={{ cursor: 'pointer', flexShrink: 0 }}
-                  onClick={() => {
-                    setMetaLabel(nodeMeta?.label ?? explanation.title);
-                    setMetaRole(nodeMeta?.role ?? 'plain');
-                    setMetaTags((nodeMeta?.tags ?? []).join(', '));
-                    setEditingMeta(true);
-                  }}
-                >✎</span>
-              </div>
-              <div className="ec-meta-chips">
-                <span className="ec-chip ec-chip--id" title="节点 ID">{selectedNodeId?.slice(0, 18)}</span>
-                <span className="ec-chip ec-chip--edges" title="关联边数">⇄ {edgeCount}</span>
-                {(nodeMeta?.tags ?? []).map((tag) => (
-                  <span key={tag} className="ec-chip ec-chip--tag">{tag}</span>
-                ))}
-              </div>
-            </div>
-          )}
+          </div>
           {/* Edit / Read Mode Switcher */}
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <button

@@ -25,14 +25,12 @@ import {
 } from '../knowledge/defaults';
 import { extractSubgraph } from '../knowledge/extractSubgraph';
 import {
-  loadPersistedAppState,
   persistAppState,
   clearPersistedAppState,
   exportAppStateJson,
   parseImportedAppState,
 } from '../knowledge/persist';
 import { createEmptyAppState, APP_STATE_VERSION, type PersistedAppState } from '../knowledge/state';
-import { createInitialAppState } from '../knowledge/demoSeed';
 import {
   appendTreeChild,
   cloneTree,
@@ -54,7 +52,7 @@ import {
   questionsForNode,
 } from '../knowledge/questionLink';
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
-import { loadStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
+import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 
 const initialApp = createEmptyAppState();
@@ -146,7 +144,7 @@ interface GraphState {
   exportKnowledgeJson: () => string;
   importKnowledgeJson: (json: string) => boolean;
   resetAllKnowledge: () => void;
-  loadDemoData: () => void;
+  loadDemoData: () => Promise<void>;
 
   /** 鑺傜偣姹狅細鏂板缓鐭ヨ瘑瀹炰綋 */
   addKnowledgeNode: (label: string, shared?: boolean) => string;
@@ -265,17 +263,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
     history: [],
 
     initialize: async () => {
-      const fileState = await loadStateFromFiles();
-      const demoState = createInitialAppState();
-
-      const finalState: PersistedAppState = {
-        ...demoState,
-        ...fileState,
-        nodePool: fileState.nodePool || demoState.nodePool,
-        inferenceResponses: { ...demoState.inferenceResponses, ...(fileState.inferenceResponses || {}) },
-      };
-
-      applyPersisted(set, finalState);
+      const fileState = await loadCompleteStateFromFiles();
+      applyPersisted(set, fileState);
       get().addNotification('Knowledge loaded from local files', 'info');
     },
 
@@ -745,8 +734,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persistAppState(fresh);
     },
 
-    loadDemoData: () => {
-      const fresh = createInitialAppState();
+    loadDemoData: async () => {
+      const fresh = await loadCompleteStateFromFiles();
       applyPersisted(set, fresh);
       persistAppState(fresh);
       get().addNotification('Demo knowledge restored', 'success');
