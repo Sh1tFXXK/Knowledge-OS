@@ -28,11 +28,13 @@ function loadTsModule(relativePath) {
 }
 
 const {
+  cloneTreeWithNewIds,
   findTreeNodeById,
   moveTreeNode,
 } = loadTsModule('src/knowledge/treeUtils.ts');
 
 const {
+  createTreeBindingEdgesForSubtree,
   createMovedTreeBindingEdges,
   removeTreeBindingEdgesForTreeIds,
 } = loadTsModule('src/knowledge/treeBinding.ts');
@@ -119,5 +121,33 @@ assert.deepEqual(JSON.parse(JSON.stringify(replacementEdges.map((edge) => edge.i
 assert.equal(replacementEdges[0].source, 'k-d');
 assert.equal(replacementEdges[0].target, 'k-b');
 assert.deepEqual(JSON.parse(JSON.stringify(replacementEdges[0].dimensions)), ['d', 'b']);
+
+let copyIndex = 0;
+const copied = cloneTreeWithNewIds(findTreeNodeById(tree, 'tree-b'), () => `copy-${copyIndex++}`);
+assert.equal(copied.id, 'copy-0');
+assert.equal(copied.nodeRef, 'k-b');
+assert.equal(copied.children[0].id, 'copy-1');
+assert.equal(copied.children[0].nodeRef, 'k-c');
+
+const treeWithCopy = {
+  ...tree,
+  children: tree.children.map((child) =>
+    child.id === 'tree-d' ? { ...child, children: [copied] } : child,
+  ),
+};
+
+const copiedEdges = createTreeBindingEdgesForSubtree({
+  tree: treeWithCopy,
+  nodePool,
+  rootTreeId: copied.id,
+  parentTreeId: 'tree-d',
+});
+
+assert.deepEqual(JSON.parse(JSON.stringify(copiedEdges.map((edge) => edge.id))), [
+  'treebind:tree-d:copy-0',
+  'treebind:copy-0:copy-1',
+]);
+assert.equal(copiedEdges[0].source, 'k-d');
+assert.equal(copiedEdges[0].target, 'k-b');
 
 console.log('tree reparenting checks passed');

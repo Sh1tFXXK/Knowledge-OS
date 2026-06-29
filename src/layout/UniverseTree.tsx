@@ -1,10 +1,26 @@
 import { useState, useMemo, useCallback, useEffect, useRef, CSSProperties } from 'react';
 import { useGraphStore } from '../store/useGraph';
 
-import { countTreeNodes } from '../knowledge/treeUtils';
+import { countTreeNodes, findTreeNodeById, findTreeParent } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
 
 type AddKind = 'knowledge' | 'link';
+type DirectoryTransferAction = 'move' | 'copy';
+type DirectoryTransferDialogState = {
+  action: DirectoryTransferAction;
+  sourceIds: string[];
+  sourceQuery: string;
+  targetQuery: string;
+  targetId: string;
+};
+
+interface TreeDirectoryOption {
+  id: string;
+  name: string;
+  path: string;
+  depth: number;
+}
+
 const TREE_NODE_DRAG_TYPE = 'application/x-knowledge-os-tree-node';
 
 interface UniverseTreeProps {
@@ -15,14 +31,16 @@ interface UniverseTreeProps {
 /* ---- Context Menu ---- */
 function ContextMenu({
   x, y, nodeId, hasChildren, onClose,
-  onAdd, onRename, onDelete, onAddQuestion,
-  canDelete = true,
+  onAdd, onRename, onDelete, onAddQuestion, onMove, onCopy,
+  canDelete = true, canMove = true, canCopy = true,
 }: {
   x: number; y: number; nodeId: string; hasChildren: boolean;
   onClose: () => void;
   onAdd: () => void; onRename: () => void; onDelete: () => void;
+  onMove: () => void;
+  onCopy: () => void;
   onAddQuestion: () => void;
-  canDelete?: boolean;
+  canDelete?: boolean; canMove?: boolean; canCopy?: boolean;
 }) {
   return (
     <div
@@ -46,6 +64,18 @@ function ContextMenu({
         onClick={() => { onRename(); onClose(); }}>
         ✎ 重命名
       </div>
+      {canMove && (
+        <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#dfe7f5' }}
+          onClick={() => { onMove(); onClose(); }}>
+          移动到...
+        </div>
+      )}
+      {canCopy && (
+        <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#dfe7f5' }}
+          onClick={() => { onCopy(); onClose(); }}>
+          复制到...
+        </div>
+      )}
       {canDelete && (
         <div style={{ padding: '6px 14px', cursor: 'pointer', color: '#ef4444' }}
           onClick={() => { onDelete(); onClose(); }}>
@@ -61,11 +91,15 @@ const TreeItem = ({
   node,
   level = 0,
   selectedNodeId,
+  selectedTreeIds,
   onSelect,
+  onToggleSelection,
   searchQuery,
   onAddChild,
   onRename,
   onDelete,
+  onMove,
+  onCopy,
   onAddQuestion,
   draggingTreeNodeId,
   dropTargetTreeNodeId,
@@ -77,11 +111,15 @@ const TreeItem = ({
   node: TreeNode;
   level?: number;
   selectedNodeId: string | null;
+  selectedTreeIds: ReadonlySet<string>;
   onSelect: (treeId: string) => void;
+  onToggleSelection: (treeId: string) => void;
   searchQuery: string;
   onAddChild: (parentId: string) => void;
   onRename: (nodeId: string) => void;
   onDelete: (nodeId: string, label: string) => void;
+  onMove: (nodeId: string, label: string) => void;
+  onCopy: (nodeId: string, label: string) => void;
   onAddQuestion: (treeNodeId: string, label: string) => void;
   draggingTreeNodeId: string | null;
   dropTargetTreeNodeId: string | null;
@@ -91,20 +129,62 @@ const TreeItem = ({
   onDropNode: (nodeId: string, nextParentId: string) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(node.expanded ?? level < 5);
+  const [openedByDrag, setOpenedByDrag] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(node.name);
+  const dragCloseTimerRef = useRef<number | null>(null);
   const hasChildren = !!(node.children && node.children.length > 0);
   const poolId = node.nodeRef;
   const isSelected = poolId === selectedNodeId;
+  const isBulkSelected = selectedTreeIds.has(node.id);
   const isSearchMatch = !!(searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const isDragging = draggingTreeNodeId === node.id;
   const isDropTarget = dropTargetTreeNodeId === node.id && draggingTreeNodeId !== node.id;
   const canDrag = level > 0 && !editing;
+  const canBulkSelect = level > 0;
 
   useEffect(() => {
     if (node.expanded) setIsOpen(true);
   }, [node.expanded]);
+
+  useEffect(() => {
+    if (draggingTreeNodeId) return;
+    if (dragCloseTimerRef.current !== null) {
+      window.clearTimeout(dragCloseTimerRef.current);
+      dragCloseTimerRef.current = null;
+    }
+    if (openedByDrag) {
+      setIsOpen(false);
+      setOpenedByDrag(false);
+    }
+  }, [draggingTreeNodeId, openedByDrag]);
+
+  useEffect(() => () => {
+    if (dragCloseTimerRef.current !== null) window.clearTimeout(dragCloseTimerRef.current);
+  }, []);
+
+  const openForDragFocus = () => {
+    if (!hasChildren || isOpen) return;
+    setIsOpen(true);
+    setOpenedByDrag(true);
+  };
+
+  const cancelDragAutoClose = () => {
+    if (dragCloseTimerRef.current === null) return;
+    window.clearTimeout(dragCloseTimerRef.current);
+    dragCloseTimerRef.current = null;
+  };
+
+  const scheduleDragAutoClose = () => {
+    if (!openedByDrag) return;
+    cancelDragAutoClose();
+    dragCloseTimerRef.current = window.setTimeout(() => {
+      setIsOpen(false);
+      setOpenedByDrag(false);
+      dragCloseTimerRef.current = null;
+    }, 120);
+  };
 
   const handleContextMenu = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -135,28 +215,54 @@ const TreeItem = ({
     onDragStartNode(node.id);
   };
 
+  const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    e.preventDefault();
+    e.stopPropagation();
+    cancelDragAutoClose();
+    openForDragFocus();
+    onDragOverNode(node.id);
+  };
+
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
     e.preventDefault();
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
-    if (hasChildren) setIsOpen(true);
+    cancelDragAutoClose();
+    openForDragFocus();
     onDragOverNode(node.id);
+  };
+
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
+    e.stopPropagation();
+    scheduleDragAutoClose();
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    cancelDragAutoClose();
+    setOpenedByDrag(false);
     const draggedId = e.dataTransfer.getData(TREE_NODE_DRAG_TYPE) || draggingTreeNodeId;
     if (draggedId) onDropNode(draggedId, node.id);
   };
 
   return (
-    <div className="tree-node">
+    <div
+      className="tree-node"
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
       <div
         className={[
           'tree-node-row',
           isSelected ? 'active' : '',
+          isBulkSelected ? 'bulk-selected' : '',
           isSearchMatch ? 'search-match' : '',
           isDragging ? 'dragging' : '',
           isDropTarget ? 'drop-target' : '',
@@ -167,10 +273,21 @@ const TreeItem = ({
         onClick={() => { onSelect(node.id); }}
         onContextMenu={handleContextMenu}
         onDragStart={handleDragStart}
-        onDragOver={handleDragOver}
-        onDrop={handleDrop}
         onDragEnd={onDragEndNode}
       >
+        {canBulkSelect && (
+          <input
+            type="checkbox"
+            className="tree-node-select"
+            checked={isBulkSelected}
+            aria-label={`选择 ${node.name}`}
+            onChange={(e) => {
+              e.stopPropagation();
+              onToggleSelection(node.id);
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+        )}
         <span
           className={`tree-node-toggle ${hasChildren ? (isOpen ? 'expanded' : '') : 'empty'}`}
           onClick={(e) => {
@@ -206,10 +323,13 @@ const TreeItem = ({
         <div className={`tree-node-children${isOpen ? '' : ' collapsed'}`}>
           {node.children!.map(child => (
             <TreeItem key={child.id} node={child} level={level + 1}
-              selectedNodeId={selectedNodeId} onSelect={onSelect}
+              selectedNodeId={selectedNodeId}
+              selectedTreeIds={selectedTreeIds}
+              onSelect={onSelect}
+              onToggleSelection={onToggleSelection}
               searchQuery={searchQuery} onAddChild={onAddChild}
               onAddQuestion={onAddQuestion}
-              onRename={onRename} onDelete={onDelete}
+              onRename={onRename} onDelete={onDelete} onMove={onMove} onCopy={onCopy}
               draggingTreeNodeId={draggingTreeNodeId}
               dropTargetTreeNodeId={dropTargetTreeNodeId}
               onDragStartNode={onDragStartNode}
@@ -226,11 +346,15 @@ const TreeItem = ({
           <ContextMenu x={contextMenu.x} y={contextMenu.y} nodeId={node.id}
             hasChildren={hasChildren}
             canDelete={level > 0}
+            canMove={level > 0}
+            canCopy={level > 0}
             onClose={() => setContextMenu(null)}
             onAdd={() => onAddChild(node.id)}
             onAddQuestion={() => onAddQuestion(node.id, node.name)}
             onRename={handleRename}
             onDelete={() => onDelete(node.id, node.name)}
+            onMove={() => onMove(node.id, node.name)}
+            onCopy={() => onCopy(node.id, node.name)}
           />
         </>
       )}
@@ -250,6 +374,7 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const listKnowledgeNodes = useGraphStore(s => s.listKnowledgeNodes);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
   const moveTreeNode = useGraphStore(s => s.moveTreeNode);
+  const copyTreeNode = useGraphStore(s => s.copyTreeNode);
   const exportKnowledgeJson = useGraphStore(s => s.exportKnowledgeJson);
   const importKnowledgeJson = useGraphStore(s => s.importKnowledgeJson);
   const resetAllKnowledge = useGraphStore(s => s.resetAllKnowledge);
@@ -264,10 +389,13 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const [modalInput, setModalInput] = useState('');
   const [addKind, setAddKind] = useState<AddKind>('knowledge');
   const [linkKnowledgeId, setLinkKnowledgeId] = useState('');
+  const [transferDialog, setTransferDialog] = useState<DirectoryTransferDialogState | null>(null);
+  const [selectedTreeNodeIds, setSelectedTreeNodeIds] = useState<Set<string>>(() => new Set());
   const [draggingTreeNodeId, setDraggingTreeNodeId] = useState<string | null>(null);
   const [dropTargetTreeNodeId, setDropTargetTreeNodeId] = useState<string | null>(null);
   const poolNodes = listKnowledgeNodes();
   const importInputRef = useRef<HTMLInputElement>(null);
+  const directoryOptions = useMemo(() => collectDirectoryOptions(treeData), [treeData]);
 
   const handleExport = () => {
     const json = exportKnowledgeJson();
@@ -306,9 +434,72 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     return filterNode(treeData) || treeData;
   }, [search, treeData]);
 
+  const selectedTreeIds = useMemo(
+    () => normalizeSelectedTreeIds(treeData, [...selectedTreeNodeIds]),
+    [selectedTreeNodeIds, treeData],
+  );
+  const selectedTreeIdSet = useMemo(() => new Set(selectedTreeIds), [selectedTreeIds]);
+  const selectedTreeCount = selectedTreeIds.length;
+
+  useEffect(() => {
+    setSelectedTreeNodeIds((current) => {
+      const normalized = normalizeSelectedTreeIds(treeData, [...current]);
+      return areSetsEqual(current, normalized) ? current : new Set(normalized);
+    });
+  }, [treeData]);
+
+  const transferSourceIds = useMemo(
+    () => transferDialog ? normalizeSelectedTreeIds(treeData, transferDialog.sourceIds) : [],
+    [transferDialog, treeData],
+  );
+  const transferActionLabel = transferDialog?.action === 'copy' ? '复制' : '移动';
+
+  const transferSourceOptions = useMemo(() => {
+    if (!transferDialog) return [];
+    return filterDirectoryOptions(
+      directoryOptions.filter((option) => option.depth > 0),
+      transferDialog.sourceQuery,
+    ).slice(0, 60);
+  }, [directoryOptions, transferDialog]);
+
+  const transferTargetOptions = useMemo(() => {
+    if (!transferDialog || transferSourceIds.length === 0) return [];
+    return filterDirectoryOptions(
+      directoryOptions.filter((option) =>
+        !isInvalidDirectoryTransferTarget(
+          treeData,
+          transferDialog.action,
+          transferSourceIds,
+          option.id,
+        ),
+      ),
+      transferDialog.targetQuery,
+    ).slice(0, 80);
+  }, [directoryOptions, transferDialog, transferSourceIds, treeData]);
+
+  const selectedTransferSources = transferSourceIds
+    .map((sourceId) => directoryOptions.find((option) => option.id === sourceId))
+    .filter((option): option is TreeDirectoryOption => Boolean(option));
+  const selectedTransferTarget = transferDialog?.targetId
+    ? directoryOptions.find((option) => option.id === transferDialog.targetId) ?? null
+    : null;
+
   const handleSelect = (treeId: string) => {
     selectTreeEntry(treeId);
   };
+
+  const handleToggleTreeSelection = useCallback((treeId: string) => {
+    setSelectedTreeNodeIds((current) => {
+      const next = new Set(current);
+      if (next.has(treeId)) next.delete(treeId);
+      else next.add(treeId);
+      return new Set(normalizeSelectedTreeIds(treeData, [...next]));
+    });
+  }, [treeData]);
+
+  const clearTreeSelection = useCallback(() => {
+    setSelectedTreeNodeIds(new Set());
+  }, []);
 
   const handleAddChild = (parentId: string) => {
     const parent = findNodeName(treeData, parentId);
@@ -330,6 +521,33 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const handleDelete = (nodeId: string, label: string) => {
     setModal({ type: 'delete', targetId: nodeId, targetName: label });
   };
+
+  const handleCopy = useCallback((nodeId: string) => {
+    setTransferDialog({
+      action: 'copy',
+      sourceIds: normalizeSelectedTreeIds(treeData, [nodeId]),
+      sourceQuery: '',
+      targetQuery: '',
+      targetId: '',
+    });
+  }, [treeData]);
+
+  const handleOpenTransferDialog = useCallback((
+    action: DirectoryTransferAction,
+    sourceIds: string[],
+  ) => {
+    setTransferDialog({
+      action,
+      sourceIds: normalizeSelectedTreeIds(treeData, sourceIds),
+      sourceQuery: '',
+      targetQuery: '',
+      targetId: '',
+    });
+  }, [treeData]);
+
+  const handleOpenMoveDialog = useCallback((sourceId = '') => {
+    handleOpenTransferDialog('move', sourceId ? [sourceId] : []);
+  }, [handleOpenTransferDialog]);
 
   const handleDragStartNode = useCallback((nodeId: string) => {
     setDraggingTreeNodeId(nodeId);
@@ -354,6 +572,56 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
 
     addNotification('无法移动到该目录位置', 'warning');
   }, [addNotification, moveTreeNode, treeData]);
+
+  const handleConfirmTransfer = useCallback(() => {
+    if (!transferDialog?.targetId || transferSourceIds.length === 0) return;
+    if (isInvalidDirectoryTransferTarget(
+      treeData,
+      transferDialog.action,
+      transferSourceIds,
+      transferDialog.targetId,
+    )) {
+      addNotification(`无法${transferActionLabel}到该目录位置`, 'warning');
+      return;
+    }
+
+    const targetName = findNodeName(treeData, transferDialog.targetId);
+    let changedCount = 0;
+    for (const sourceId of transferSourceIds) {
+      const changed = transferDialog.action === 'copy'
+        ? copyTreeNode(sourceId, transferDialog.targetId)
+        : moveTreeNode(sourceId, transferDialog.targetId);
+      if (changed) changedCount += 1;
+    }
+
+    if (changedCount > 0) {
+      addNotification(`已${transferActionLabel} ${changedCount} 个目录到: ${targetName}`, 'success');
+      setTransferDialog(null);
+      clearTreeSelection();
+      return;
+    }
+
+    addNotification(`无法${transferActionLabel}到该目录位置`, 'warning');
+  }, [
+    addNotification,
+    clearTreeSelection,
+    copyTreeNode,
+    moveTreeNode,
+    transferActionLabel,
+    transferDialog,
+    transferSourceIds,
+    treeData,
+  ]);
+
+  const handleDeleteSelected = useCallback(() => {
+    if (selectedTreeIds.length === 0) return;
+    const confirmed = window.confirm(`删除选中的 ${selectedTreeIds.length} 个目录及其所有子目录吗？此操作不可撤销。`);
+    if (!confirmed) return;
+
+    for (const sourceId of selectedTreeIds) removeTreeNode(sourceId);
+    addNotification(`已删除 ${selectedTreeIds.length} 个目录`, 'warning');
+    clearTreeSelection();
+  }, [addNotification, clearTreeSelection, removeTreeNode, selectedTreeIds]);
 
   const confirmModal = () => {
     if (!modal) return;
@@ -427,6 +695,8 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
           }}>重置库</button>
           <button type="button" className="btn btn-sm" onClick={handleExport}>导出</button>
           <button type="button" className="btn btn-sm" onClick={() => importInputRef.current?.click()}>导入</button>
+          <button type="button" className="btn btn-sm" onClick={() => handleOpenTransferDialog('move', selectedTreeIds)}>移动目录</button>
+          <button type="button" className="btn btn-sm" disabled={selectedTreeCount === 0} onClick={() => handleOpenTransferDialog('copy', selectedTreeIds)}>复制目录</button>
           <button type="button" className="btn btn-sm" style={{ color: '#ef4444' }} onClick={() => {
             if (window.confirm('清空全部数据？')) resetAllKnowledge();
           }}>清空</button>
@@ -436,6 +706,16 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
               if (file) handleImportFile(file);
               e.target.value = '';
             }} />
+        </div>
+      )}
+
+      {selectedTreeCount > 0 && (
+        <div className="tree-selection-bar">
+          <span className="tree-selection-count">已选 {selectedTreeCount} 个目录</span>
+          <button type="button" className="btn btn-sm" onClick={() => handleOpenTransferDialog('move', selectedTreeIds)}>移动</button>
+          <button type="button" className="btn btn-sm" onClick={() => handleOpenTransferDialog('copy', selectedTreeIds)}>复制</button>
+          <button type="button" className="btn btn-sm tree-selection-danger" onClick={handleDeleteSelected}>删除</button>
+          <button type="button" className="btn btn-sm" onClick={clearTreeSelection}>清除</button>
         </div>
       )}
 
@@ -459,10 +739,15 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
 
       <div className="tree-container" id="tree-container">
         <TreeItem node={filteredTree} level={0}
-          selectedNodeId={selectedNodeId} onSelect={handleSelect}
+          selectedNodeId={selectedNodeId}
+          selectedTreeIds={selectedTreeIdSet}
+          onSelect={handleSelect}
+          onToggleSelection={handleToggleTreeSelection}
           searchQuery={search} onAddChild={handleAddChild}
           onAddQuestion={handleAddQuestionToNode}
           onRename={handleRename} onDelete={handleDelete}
+          onMove={handleOpenMoveDialog}
+          onCopy={handleCopy}
           draggingTreeNodeId={draggingTreeNodeId}
           dropTargetTreeNodeId={dropTargetTreeNodeId}
           onDragStartNode={handleDragStartNode}
@@ -470,6 +755,123 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
           onDragOverNode={setDropTargetTreeNodeId}
           onDropNode={handleDropNode} />
       </div>
+
+      {transferDialog && (
+        <div style={{ position: 'fixed', inset: 0, zIndex: 11000, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.5)' }}
+          onClick={() => setTransferDialog(null)}>
+          <div style={{
+            background: 'var(--bg-card, #141e3a)', border: '1px solid rgba(120,160,255,0.3)', borderRadius: 12,
+            padding: 20, width: 520, maxWidth: 'calc(100vw - 32px)', boxShadow: '0 20px 60px rgba(0,0,0,0.5)'
+          }} onClick={e => e.stopPropagation()}>
+            <h3 style={{ fontSize: 14, fontWeight: 600, color: '#dfe7f5', marginBottom: 12 }}>
+              {transferActionLabel}目录
+            </h3>
+            <div style={{ display: 'grid', gap: 14 }}>
+              <div style={{ display: 'grid', gap: 6 }}>
+                <label style={{ fontSize: 11, color: '#8a98ba' }}>源目录</label>
+                {selectedTransferSources.length > 0 && (
+                  <div style={{ display: 'grid', gap: 4, fontSize: 12, color: '#dfe7f5', lineHeight: 1.5 }}>
+                    {selectedTransferSources.slice(0, 4).map((option) => (
+                      <div key={option.id}>{option.path}</div>
+                    ))}
+                    {selectedTransferSources.length > 4 && (
+                      <div style={{ color: '#8a98ba' }}>还有 {selectedTransferSources.length - 4} 个目录</div>
+                    )}
+                  </div>
+                )}
+                <input
+                  className="input"
+                  value={transferDialog.sourceQuery}
+                  onChange={e => setTransferDialog((state) => state ? {
+                    ...state,
+                    sourceQuery: e.target.value,
+                  } : state)}
+                  placeholder={`搜索要${transferActionLabel}的目录`}
+                  autoFocus={transferSourceIds.length === 0}
+                />
+                <div style={{ maxHeight: 132, overflow: 'auto', border: '1px solid rgba(120,160,255,0.16)', borderRadius: 8 }}>
+                  {transferSourceOptions.length === 0 ? (
+                    <div style={{ padding: 10, fontSize: 12, color: '#8a98ba' }}>无匹配目录</div>
+                  ) : transferSourceOptions.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={`btn btn-sm${transferSourceIds.includes(option.id) ? ' btn-primary' : ''}`}
+                      style={{ width: '100%', justifyContent: 'flex-start', border: 0, borderRadius: 0 }}
+                      onClick={() => setTransferDialog((state) => {
+                        if (!state) return state;
+                        const nextSourceIds = state.sourceIds.includes(option.id)
+                          ? state.sourceIds.filter((sourceId) => sourceId !== option.id)
+                          : [...state.sourceIds, option.id];
+                        return {
+                          ...state,
+                          sourceIds: normalizeSelectedTreeIds(treeData, nextSourceIds),
+                          sourceQuery: option.name,
+                          targetId: '',
+                        };
+                      })}
+                    >
+                      {option.path}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: 'grid', gap: 6 }}>
+                <label style={{ fontSize: 11, color: '#8a98ba' }}>目标父目录</label>
+                {selectedTransferTarget && (
+                  <div style={{ fontSize: 12, color: '#dfe7f5', lineHeight: 1.5 }}>
+                    {selectedTransferTarget.path}
+                  </div>
+                )}
+                <input
+                  className="input"
+                  value={transferDialog.targetQuery}
+                  onChange={e => setTransferDialog((state) => state ? {
+                    ...state,
+                    targetQuery: e.target.value,
+                    targetId: '',
+                  } : state)}
+                  placeholder="搜索目标父目录"
+                  disabled={transferSourceIds.length === 0}
+                />
+                <div style={{ maxHeight: 160, overflow: 'auto', border: '1px solid rgba(120,160,255,0.16)', borderRadius: 8 }}>
+                  {transferSourceIds.length === 0 ? (
+                    <div style={{ padding: 10, fontSize: 12, color: '#8a98ba' }}>先选择源目录</div>
+                  ) : transferTargetOptions.length === 0 ? (
+                    <div style={{ padding: 10, fontSize: 12, color: '#8a98ba' }}>无可用目标</div>
+                  ) : transferTargetOptions.map((option) => (
+                    <button
+                      key={option.id}
+                      type="button"
+                      className={`btn btn-sm${transferDialog.targetId === option.id ? ' btn-primary' : ''}`}
+                      style={{ width: '100%', justifyContent: 'flex-start', border: 0, borderRadius: 0 }}
+                      onClick={() => setTransferDialog((state) => state ? {
+                        ...state,
+                        targetId: option.id,
+                        targetQuery: option.name,
+                      } : state)}
+                    >
+                      {option.path}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+                <button className="btn btn-sm" onClick={() => setTransferDialog(null)}>取消</button>
+                <button
+                  className="btn btn-primary btn-sm"
+                  disabled={transferSourceIds.length === 0 || !transferDialog.targetId}
+                  onClick={handleConfirmTransfer}
+                >
+                  确认{transferActionLabel}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Custom Modal */}
       {modal && (
@@ -561,4 +963,83 @@ function findNodeName(root: TreeNode, id: string): string {
     }
   }
   return id;
+}
+
+function collectDirectoryOptions(root: TreeNode): TreeDirectoryOption[] {
+  const options: TreeDirectoryOption[] = [];
+  const walk = (node: TreeNode, trail: string[], depth: number) => {
+    const path = [...trail, node.name];
+    options.push({
+      id: node.id,
+      name: node.name,
+      path: path.join(' / '),
+      depth,
+    });
+    for (const child of node.children ?? []) walk(child, path, depth + 1);
+  };
+  walk(root, [], 0);
+  return options;
+}
+
+function filterDirectoryOptions(
+  options: TreeDirectoryOption[],
+  query: string,
+): TreeDirectoryOption[] {
+  const q = query.trim().toLowerCase();
+  if (!q) return options;
+  return options.filter((option) =>
+    option.name.toLowerCase().includes(q) || option.path.toLowerCase().includes(q),
+  );
+}
+
+function normalizeSelectedTreeIds(root: TreeNode, ids: string[]): string[] {
+  const selected = new Set(ids.filter((id) => id !== root.id));
+  const normalized: string[] = [];
+
+  const walk = (node: TreeNode, hasSelectedAncestor: boolean) => {
+    const isSelected = selected.has(node.id);
+    if (isSelected && !hasSelectedAncestor) normalized.push(node.id);
+    for (const child of node.children ?? []) walk(child, hasSelectedAncestor || isSelected);
+  };
+
+  walk(root, false);
+  return normalized;
+}
+
+function areSetsEqual(set: ReadonlySet<string>, values: string[]): boolean {
+  if (set.size !== values.length) return false;
+  return values.every((value) => set.has(value));
+}
+
+function isInvalidDirectoryTransferTarget(
+  root: TreeNode,
+  action: DirectoryTransferAction,
+  sourceIds: string[],
+  targetId: string,
+): boolean {
+  const normalizedSourceIds = normalizeSelectedTreeIds(root, sourceIds);
+  if (!targetId || normalizedSourceIds.length === 0) return true;
+
+  let hasEffectiveMove = action === 'copy';
+  for (const sourceId of normalizedSourceIds) {
+    if (sourceId === targetId) return true;
+    const source = findTreeNodeById(root, sourceId);
+    if (!source) return true;
+    if (findTreeNodeById(source, targetId)) return true;
+
+    const currentParent = findTreeParent(root, sourceId);
+    if (action === 'move' && currentParent?.id !== targetId) {
+      hasEffectiveMove = true;
+    }
+  }
+
+  return !hasEffectiveMove;
+}
+
+function isInvalidManualMoveTarget(
+  root: TreeNode,
+  sourceId: string,
+  targetId: string,
+): boolean {
+  return isInvalidDirectoryTransferTarget(root, 'move', [sourceId], targetId);
 }

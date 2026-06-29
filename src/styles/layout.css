@@ -323,6 +323,10 @@ body.is-resizing-left-panel {
   border-right: 2px solid var(--accent-purple);
 }
 
+.tree-node-row.bulk-selected {
+  background: rgba(6, 182, 212, 0.10);
+}
+
 .tree-node-row[draggable="true"] {
   cursor: grab;
 }
@@ -355,6 +359,15 @@ body.is-resizing-left-panel {
 
 .tree-node-toggle.empty {
   visibility: hidden;
+}
+
+.tree-node-select {
+  width: 13px;
+  height: 13px;
+  margin: 0 2px 0 0;
+  flex-shrink: 0;
+  accent-color: var(--accent-cyan);
+  cursor: pointer;
 }
 
 .tree-node-icon {
@@ -568,6 +581,27 @@ body.is-resizing-left-panel {
   gap: 4px;
   padding: 4px var(--space-md) var(--space-sm);
   border-bottom: 1px solid var(--border-secondary);
+}
+
+.tree-selection-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 6px var(--space-md);
+  border-bottom: 1px solid var(--border-secondary);
+  background: rgba(6, 182, 212, 0.06);
+}
+
+.tree-selection-count {
+  margin-right: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.tree-selection-danger {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.55);
 }
 
 .tree-tools-btn {

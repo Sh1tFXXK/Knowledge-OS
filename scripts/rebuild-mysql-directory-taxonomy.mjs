@@ -11,385 +11,395 @@ const NODE_POOL_PATH = path.join(DATA_DIR, 'node-pool.json');
 const EDGES_PATH = path.join(DATA_DIR, 'knowledge-edges.json');
 
 const MYSQL_TREE_ID = 'demo_mysql';
-const GLOSSARY_ROOT_ID = 'mysql_glossary_root';
+const THEORY_PARENT_TREE_ID = 'universe';
 const IMPORT_TAG = 'mysql-glossary';
 const TREE_BINDING_EDGE_PREFIX = 'treebind:';
 
-const TOPICS = [
-  {
-    id: 'architecture',
-    name: '总览与体系结构',
-    icon: 'A',
-    desc: 'MySQL 的整体分层、实例、服务端、配置、连接入口和全局结构。',
-    manualIds: ['mysql_architecture_overview', 'tree_1782029618566_mlxtmr'],
-    patterns: [
-      /mysql|server|instance|database|schema|data dictionary|metadata|system variable|configuration|parser|sql interface|option|online|embedded|built-in|innovation series|lts series|ga|beta|host|localhost|my\.cnf|my\.ini|loose_|port|process|thread|pthreads/i,
-    ],
-  },
-  {
-    id: 'sql_objects',
-    name: 'SQL、表与数据对象',
-    icon: 'S',
-    desc: 'SQL 语言、表、列、行、视图、约束、存储对象、查询语句和关系模型。',
-    manualIds: [
-      'tree_1782033172539_wxvnr8',
-      'tree_1782033245881_cdsjoq',
-      { id: 'tree_1782230482973_dgay97', optional: true },
-    ],
-    patterns: [
-      /\bsql\b|sqlstate|no-?sql|table|column|row|tuple|view|constraint|generated|stored|routine|trigger|cursor|ddl|dml|dcl|tcl|data definition language|data manipulation language|select|insert|update|delete|drop|truncate|crud|query|join|prepared statement|backticks|business rules|normalized|denormalized|relational|null|data warehouse|materialized view|temporary table|schema object|statement|\blist\b|\bsublist\b|merge|strict mode|auto-increment|^as$/i,
-    ],
-  },
-  {
-    id: 'storage_engines',
-    name: '存储引擎',
-    icon: 'E',
-    desc: '存储引擎族、引擎差异以及 MyISAM、MEMORY 等非 InnoDB 引擎。',
-    manualIds: [
-      'tree_1782032090364_9w1h5q',
-      'demo_tree_myisam',
-      { id: 'demo_tree_engine_compare', optional: true },
-      'tree_1781976016457_xjj5mm',
-    ],
-    patterns: [/storage engine|myisam|archive|memory|ndb|engine/i],
-  },
-  {
-    id: 'innodb_internals',
-    name: 'InnoDB 内部结构',
-    icon: 'I',
-    desc: 'InnoDB 的页、表空间、缓冲、Redo、Undo、MVCC、行格式和物理文件结构。',
-    manualIds: ['demo_tree_innodb', 'tree_1782029643149_9klslf'],
-    patterns: [
-      /innodb|mvcc|multi-?version|multiversion|read view|undo|rollback segment|db_trx_id|db_roll_ptr|db_row_id|purge|consistent read|non-locking read|snapshot|history list|version chain|tablespace|page|segment|extent|file|\.arm|\.arz|\.myd|\.myi|\.ibd|ibdata|ib_logfile|data directory|data files|system tablespace|file-per-table|space id|pid|socket|sparse file|infimum|supremum|pseudo-record|variable-length|blob|clob|sdi|serialized dictionary information|checksum|hdd|ssd|raid|buddy allocator|hole punching|disk-based|physical|compression|compressed/i,
-    ],
-  },
-  {
-    id: 'indexes_access',
-    name: '索引与访问路径',
-    icon: 'X',
-    desc: 'B-tree、聚簇索引、二级索引、全文索引、哈希索引、键和扫描访问路径。',
-    manualIds: ['demo_tree_index'],
-    patterns: [
-      /index|b-?tree|r-?tree|clustered|secondary|covering|fulltext|fts|hash|scan|search index|index prefix|index hint|cardinality|selectivity|primary key|foreign key|unique key|natural key|surrogate key|synthetic key|referential integrity|prefix|random dive|guid|\bilist\b|key_block_size/i,
-    ],
-  },
-  {
-    id: 'transactions_locks',
-    name: '事务、隔离与锁',
-    icon: 'T',
-    desc: 'ACID、事务生命周期、隔离级别、锁模式、死锁、读现象和并发控制。',
-    manualIds: ['demo_tree_tx', 'tree_1782150385479_z7i0s5', 'demo_tree_lock', 'demo_tree_iso'],
-    patterns: [
-      /transaction|acid|atomic|concurrency|autocommit|commit|rollback|isolation|\b(?:lock|locking)\b|deadlock|phantom|dirty read|non-repeatable|repeatable read|read committed|read uncommitted|serializable|savepoint|latch|mutex|rw-lock|victim|wait|read phenomena|optimistic|pessimistic|xa|auto-increment locking|innodb_autoinc_lock_mode|gap|mdl|\bblocking\b/i,
-    ],
-  },
-  {
-    id: 'logs_recovery',
-    name: '日志、恢复与持久化',
-    icon: 'L',
-    desc: 'Redo、Binlog、查询日志、检查点、刷盘、崩溃恢复和持久化保障。',
-    manualIds: ['tree_1782029505240_be11k0'],
-    patterns: [
-      /log|redo|binary log|binlog|relay log|query log|slow query|general query|checkpoint|flush|flushing|crash|crash recovery|durability|doublewrite|restore|recovery|torn page|lsn|mtr|pitr|point-in-time/i,
-    ],
-  },
-  {
-    id: 'optimizer_performance',
-    name: '优化器、缓存与性能',
-    icon: 'P',
-    desc: '优化器、执行计划、缓存、缓冲池、统计信息、I/O、吞吐和扩展能力。',
-    manualIds: ['tree_1782033508073_oe4mt0', 'tree_1782033743159_jh8j3j'],
-    patterns: [
-      /optimizer|execution plan|query execution plan|cache|buffer|buffer pool|change buffer|adaptive|statistics|performance|scalability|scale up|scale out|read-ahead|warm up|workload|cost|metrics|counter|disk-bound|cpu-bound|i\/o-bound|multi-core|bottleneck|load balancing|plan stability|instrumentation|lru|eviction|midpoint insertion|fill factor|hot|young|aio|asynchronous i\/o|nonblocking i\/o|non-blocking i\/o|iops|tps|write combining|atomic instruction|spin|high-water|low-water|oltp/i,
-    ],
-  },
-  {
-    id: 'replication_ha',
-    name: '复制与高可用',
-    icon: 'R',
-    desc: '主从/源副本、复制、组复制、集群、GTID、心跳和故障切换。',
-    manualIds: [],
-    patterns: [
-      /replication|replica|source|slave|master|gtid|group replication|cluster|router|failover|availability|heartbeat|apply|high availability/i,
-    ],
-  },
-  {
-    id: 'connectors_api',
-    name: '连接器、API 与客户端',
-    icon: 'C',
-    desc: 'API、Connector、JDBC、ODBC、客户端库、语言绑定和应用端集成。',
-    manualIds: ['tree_1782032135569_1697f8'],
-    patterns: [
-      /api|connector|jdbc|odbc|client|connection|client librar|native c api|c api|libmysql|libmysqld|mysqlclient|mysqldb|mm\.mysql|perl|php|python|ruby|java|ado|\.net|visual studio|application programming interface|mono|asp\.net|servlet|tomcat|spring|assembly|ddex|dsn|gac|glassfish|j2ee|jboss|jndi|interceptor|provider|command interceptor|exception interceptor|lifecycle interceptor|statement interceptor|tcl|^c$|c#|c\+\+|eiffel/i,
-    ],
-  },
-  {
-    id: 'security_auth',
-    name: '安全、账号与认证',
-    icon: 'U',
-    desc: '账号、权限、认证、SSL/TLS、Kerberos、票据、密钥和安全主体。',
-    manualIds: [],
-    patterns: [
-      /security|ssl|tls|auth|password|privilege|principal|kerberos|ticket|truststore|keystore|key distribution center|kdc|user principal|service principal|spn|tgs|tgt|upn|partial trust|medium trust|grant|role/i,
-    ],
-  },
-  {
-    id: 'backup_operations',
-    name: '备份、运维与诊断',
-    icon: 'B',
-    desc: '备份、恢复、导入导出、启动关闭、诊断、维护和管理工具。',
-    manualIds: ['tree_1782032936994_e5wpwn'],
-    patterns: [
-      /backup|mysqlbackup|mysqldump|restore|import|export|startup|shutdown|troubleshooting|diagnostic|maintenance|hot backup|warm backup|cold backup|partial backup|full backup|raw backup|logical backup|physical backup|quiesce|bounce|compressed backup|prepared backup/i,
-    ],
-  },
-  {
-    id: 'text_spatial_charset',
-    name: '全文、空间与字符处理',
-    icon: 'F',
-    desc: '全文检索、停用词、词干、空间数据、字符集、排序规则和 Unicode。',
-    manualIds: [],
-    patterns: [
-      /full-?text|fulltext|fts|stopword|stemming|text collection|spatial|geometry|gis|character set|charset|collation|unicode|ansi|repertoire|relevance|document id/i,
-    ],
-  },
-  {
-    id: 'uncategorized',
-    name: '待归类',
-    icon: '?',
-    desc: '语义不足或跨域过强的词条，保留为人工复核入口。',
-    manualIds: [],
-    patterns: [],
-  },
+const GENERATED_THEORY_NODE_PREFIXES = ['theory_domain_', 'school_', 'theory_layer_', 'mysql_domain_', 'mysql_theory_'];
+const GENERATED_ITEM_NODE_PREFIXES = [
+  'mysql_topic_',
+  'mysql_domain_',
+  'mysql_theory_',
+  'theory_domain_',
+  'theory_layer_',
+  'school_',
+  'mysql_glossary_group_',
+  'mysql_glossary_section_',
 ];
 
-const TOPIC_BY_ID = new Map(TOPICS.map((topic) => [topic.id, topic]));
-const PRIORITY_TOPIC_IDS = [
-  'backup_operations',
-  'security_auth',
-  'connectors_api',
-  'replication_ha',
-  'logs_recovery',
-  'transactions_locks',
-  'indexes_access',
-  'innodb_internals',
-  'storage_engines',
-  'text_spatial_charset',
-  'optimizer_performance',
-  'sql_objects',
-  'architecture',
-];
-
-const GENERATED_TREE_ID_PREFIXES = [
-  'tree_mysql_glossary_group_',
-  'mysql_term_',
-  'mysql_sql_',
-  'mysql_index_',
-  'mysql_tx_',
-  'mysql_lock_',
-];
-
-const REFINEMENT_GROUPS_BY_TOPIC = new Map([
-  [
-    'sql_objects',
-    [
-      {
-        id: 'mysql_sql_statement_types',
-        parentIds: ['tree_1782033172539_wxvnr8'],
-        name: 'SQL 语句类型',
-        icon: 'S',
-        desc: 'DDL、DML、DCL、CRUD 以及插入、更新、删除、截断等语句类别。',
-      },
-      {
-        id: 'mysql_sql_query_execution',
-        parentIds: ['tree_1782033172539_wxvnr8'],
-        name: '查询与语句执行',
-        icon: 'Q',
-        desc: '查询、连接、预处理语句、动态语句和游标等 SQL 执行入口。',
-      },
-      {
-        id: 'mysql_sql_syntax_modes',
-        parentIds: ['tree_1782033172539_wxvnr8'],
-        name: '语法、模式与标识符',
-        icon: 'Y',
-        desc: 'SQL 标识符、NULL、严格模式、SQLState 和语法辅助概念。',
-      },
-      {
-        id: 'mysql_sql_table_structure',
-        parentIds: ['tree_1782230482973_dgay97', 'tree_1782033172539_wxvnr8'],
-        name: '表、列与行',
-        icon: 'T',
-        desc: '表、列、行、元组、临时表、父子表和自增列等表结构概念。',
-      },
-      {
-        id: 'mysql_sql_row_formats',
-        parentIds: ['tree_1782230482973_dgay97', 'tree_1782033172539_wxvnr8'],
-        name: '行格式',
-        icon: 'R',
-        desc: 'InnoDB 表行在磁盘上的格式及其具体变体。',
-      },
-      {
-        id: 'mysql_sql_views_generated_columns',
-        parentIds: ['tree_1782230482973_dgay97', 'tree_1782033172539_wxvnr8'],
-        name: '视图与生成列',
-        icon: 'V',
-        desc: '视图、物化视图、虚拟列、存储列和生成列。',
-      },
-      {
-        id: 'mysql_sql_constraints_model',
-        parentIds: ['tree_1782230482973_dgay97', 'tree_1782033172539_wxvnr8'],
-        name: '约束与关系模型',
-        icon: 'C',
-        desc: '约束、唯一性、业务规则、规范化和关系模型概念。',
-      },
-      {
-        id: 'mysql_sql_programming_objects',
-        parentIds: ['tree_1782033172539_wxvnr8'],
-        name: '存储程序对象',
-        icon: 'P',
-        desc: '存储程序、存储例程、触发器和存储对象。',
-      },
-    ],
-  ],
-  [
-    'indexes_access',
-    [
-      {
-        id: 'mysql_index_basics',
-        parentIds: ['demo_tree_index'],
-        name: '索引基础概念',
-        icon: 'B',
-        desc: '索引本身及其通用概念入口。',
-      },
-      {
-        id: 'mysql_index_key_integrity',
-        parentIds: ['demo_tree_index'],
-        name: '键与完整性约束',
-        icon: 'K',
-        desc: '主键、外键、唯一键、自然键、代理键和参照完整性。',
-      },
-      {
-        id: 'mysql_index_access_paths',
-        parentIds: ['demo_tree_index'],
-        name: '扫描与访问路径',
-        icon: 'P',
-        desc: '表扫描、全表扫描、索引提示、随机探查和索引条件下推。',
-      },
-      {
-        id: 'mysql_index_prefix_statistics',
-        parentIds: ['demo_tree_index'],
-        name: '前缀、统计与选择性',
-        icon: 'N',
-        desc: '索引前缀、列前缀、基数、选择性和索引统计信息。',
-      },
-      {
-        id: 'mysql_index_operations',
-        parentIds: ['demo_tree_index'],
-        name: '索引维护与存储',
-        icon: 'M',
-        desc: '索引创建、索引缓存、虚拟索引、降序索引和块大小选项。',
-      },
-      {
-        id: 'mysql_index_other_structures',
-        parentIds: ['demo_tree_index'],
-        name: '其他索引结构',
-        icon: 'O',
-        desc: 'R-tree、倒排索引等不属于常规 B+Tree 或哈希索引的结构。',
-      },
-    ],
-  ],
-  [
-    'transactions_locks',
-    [
-      {
-        id: 'mysql_tx_lifecycle',
-        parentIds: ['demo_tree_tx'],
-        name: '事务生命周期',
-        icon: 'L',
-        desc: '事务开始、自动提交、提交、回滚、保存点、只读事务和事务标识。',
-      },
-      {
-        id: 'mysql_tx_commit_coordination',
-        parentIds: ['demo_tree_tx'],
-        name: '提交协调与分布式事务',
-        icon: 'C',
-        desc: 'XA、两阶段提交、组提交和全局事务。',
-      },
-      {
-        id: 'mysql_tx_mvcc_undo',
-        parentIds: ['demo_tree_tx'],
-        name: 'Undo 与版本链',
-        icon: 'U',
-        desc: '回滚段、DB_ROLL_PTR、mini-transaction 与事务版本链相关结构。',
-      },
-      {
-        id: 'mysql_tx_concurrency_control',
-        parentIds: ['demo_tree_tx'],
-        name: '并发控制',
-        icon: 'N',
-        desc: '事务并发控制策略和并发访问的总览概念。',
-      },
-      {
-        id: 'mysql_tx_read_phenomena',
-        parentIds: ['tree_1782150385479_z7i0s5'],
-        name: '读现象',
-        icon: 'R',
-        desc: '脏读、不可重复读、幻读以及锁定读、非锁定读。',
-      },
-      {
-        id: 'mysql_tx_waits_deadlocks',
-        parentIds: ['tree_1782150385479_z7i0s5'],
-        name: '等待与死锁',
-        icon: 'D',
-        desc: '等待、死锁检测、受害者选择和锁等待超时。',
-      },
-      {
-        id: 'mysql_lock_range_insert',
-        parentIds: ['demo_tree_lock'],
-        name: '范围锁与插入锁',
-        icon: 'G',
-        desc: '间隙锁、临键锁、插入意向锁和间隙相关概念。',
-      },
-      {
-        id: 'mysql_lock_intention',
-        parentIds: ['demo_tree_lock'],
-        name: '意向锁',
-        icon: 'I',
-        desc: '意向共享锁、意向排他锁和意向锁模式。',
-      },
-      {
-        id: 'mysql_lock_auto_increment',
-        parentIds: ['demo_tree_lock'],
-        name: '自增锁',
-        icon: 'A',
-        desc: '自增锁和 InnoDB 自增锁模式。',
-      },
-      {
-        id: 'mysql_lock_metadata',
-        parentIds: ['demo_tree_lock'],
-        name: '元数据锁',
-        icon: 'M',
-        desc: 'MDL 与元数据锁。',
-      },
-      {
-        id: 'mysql_lock_latches',
-        parentIds: ['demo_tree_lock'],
-        name: '闩锁与内存同步',
-        icon: 'H',
-        desc: 'latch、mutex、rw-lock 等内部同步结构。',
-      },
-      {
-        id: 'mysql_lock_modes',
-        parentIds: ['demo_tree_lock'],
-        name: '锁模式与锁操作',
-        icon: 'O',
-        desc: '锁模式、锁定、锁升级和锁定读等操作层概念。',
-      },
-    ],
-  ],
+const SCHOOL_IDS = new Map([
+  ['数学', 'school_mathematics'],
+  ['逻辑', 'school_logic'],
+  ['数据库理论', 'school_database_theory'],
+  ['计算理论', 'school_computation_theory'],
+  ['系统', 'school_systems'],
+  ['安全', 'school_security'],
+  ['程序语言', 'school_programming_languages'],
+  ['信息检索', 'school_information_retrieval'],
+  ['现实约定', 'school_real_world_conventions'],
 ]);
 
-const BACKUP_TERM_TREE_ID = 'mysql_term_backup_operations_backup_1o1dnn';
+const MYSQL_IMPLEMENTATION_TOPIC_IDS = new Set([
+  'mysql_topic_architecture',
+  'mysql_topic_innodb_internals',
+  'mysql_topic_logs_recovery',
+  'mysql_topic_optimizer_performance',
+  'mysql_topic_replication_ha',
+  'mysql_topic_connectors_api',
+  'mysql_topic_security_auth',
+  'mysql_topic_backup_operations',
+]);
+
+const MYSQL_IMPLEMENTATION_TREE_IDS = new Set([
+  'demo_tree_innodb',
+  'demo_tree_tx',
+  'demo_tree_lock',
+  'demo_tree_iso',
+  'demo_tree_mvcc',
+  'demo_tree_engine',
+  'demo_tree_myisam',
+  'demo_tree_redis',
+  'demo_tree_mongodb',
+]);
+
+const IMPLEMENTATION_TEXT_PATTERNS = [
+  /\bmysql\b/i,
+  /\binnodb\b/i,
+  /\bmyisam\b/i,
+  /\bmysqld\b/i,
+  /\bmysqlbackup\b/i,
+  /\bmysqldump\b/i,
+  /\bmysqlx\b/i,
+  /\bconnector\/?/i,
+  /\bjdbc\b/i,
+  /\bodbc\b/i,
+  /\bado\.net\b/i,
+  /\bc api\b/i,
+  /\bperformance schema\b/i,
+  /\binformation_schema\b/i,
+  /\bndb\b/i,
+  /\bmy\.cnf\b/i,
+  /\bmy\.ini\b/i,
+  /\bibdata\b/i,
+  /\bib_logfile\b/i,
+  /\.ibd\b/i,
+  /\.myd\b/i,
+  /\.myi\b/i,
+  /\bdb_trx_id\b/i,
+  /\bdb_roll_ptr\b/i,
+  /\bdb_row_id\b/i,
+  /\bread view\b/i,
+  /\bundo tablespace\b/i,
+  /\bdoublewrite\b/i,
+  /\bchange buffer\b/i,
+  /\bcaching_sha2_password\b/i,
+  /mysql|innodb|myisam|存储引擎|表空间|缓冲池|变更缓冲|双写|撤销表空间|读视图|隐藏字段|数据目录|配置文件|客户端连接器|备份|运维|诊断|账号|认证|复制与高可用|日志、恢复与持久化/i,
+];
+
+const DOMAINS = [
+  {
+    id: 'set_theory',
+    school: '数学',
+    name: '集合论',
+    icon: '1',
+    desc: '关系模型的集合语义：关系、元组、表、模式和数据库对象的集合化表达。',
+    patterns: [/\bset\b|relational model|relational|relation\b|tuple|\bschema\b|\bdatabase\b|\btable\b|primary key|关系模型|关系型|元组|表、列与行|^表$|主键/i],
+  },
+  {
+    id: 'first_order_logic',
+    school: '逻辑',
+    name: '一阶谓词逻辑',
+    icon: '2',
+    desc: 'SQL WHERE、JOIN 条件、谓词、约束和逻辑运算的语义基础。',
+    patterns: [/predicate|where|condition|logical operator|boolean|truth|filter|constraint|business rules|unique key|unique constraint|谓词|条件|逻辑|约束|业务规则|唯一键/i],
+  },
+  {
+    id: 'relational_algebra',
+    school: '数据库理论',
+    name: '关系代数',
+    icon: '3',
+    desc: 'SQL 查询计算模型：选择、投影、连接、集合运算和查询变换。',
+    patterns: [/\bjoin\b|\bselect\b|projection|\bproject\b|union|intersect|except|\bquery\b|merge|\bview\b|materialized|surrogate key|查询|连接|选择|投影|视图|物化视图|代理键/i],
+  },
+  {
+    id: 'graph_theory',
+    school: '数学',
+    name: '图论',
+    icon: '4',
+    desc: 'join 图、wait-for 图、依赖图和引用完整性网络。',
+    patterns: [/graph|wait-for|dependency|dependent|foreign key|referential integrity|parent table|child table|图|依赖|外键|引用完整性/i],
+  },
+  {
+    id: 'formal_languages_automata',
+    school: '计算理论',
+    name: '形式语言理论 / 自动机理论',
+    icon: '5',
+    desc: 'SQL 文法、语法、标识符、语句类型和模式规则。',
+    patterns: [/syntax|grammar|\bsql\b|sqlstate|ddl|dml|dcl|tcl|statement|identifier|backticks|strict mode|data definition language|data manipulation language|data control language|\binsert\b|\bupdate\b|\bdelete\b|\bdrop\b|\btruncate\b|crud|dynamic sql|语法|语句|标识符|数据定义语言|数据操纵语言|数据控制语言|截断|严格模式|预处理语句|动态/i],
+  },
+  {
+    id: 'type_theory',
+    school: '逻辑',
+    name: '类型理论',
+    icon: '6',
+    desc: '数据类型、domain、类型边界、可变长度类型和类型转换。',
+    patterns: [/data type|\btype\b|variable-length|blob|clob|\benum\b|\bdomain\b|\bcast\b|coercion|auto-increment|auto_increment|类型|生成列|虚拟列|基础列|存储生成列|可变长度|自增/i],
+  },
+  {
+    id: 'three_valued_logic',
+    school: '逻辑',
+    name: '三值逻辑',
+    icon: '7',
+    desc: 'NULL、UNKNOWN、NOT NULL 约束和 SQL 布尔表达式的三值语义。',
+    patterns: [/\bnull\b|unknown|three-valued|three valued|not null|空值|未知/i],
+  },
+  {
+    id: 'normalization_theory',
+    school: '数据库理论',
+    name: '规范化理论',
+    icon: '8',
+    desc: '1NF 到 BCNF、规范化、反规范化、函数依赖和 schema 设计。',
+    patterns: [/normal form|normalization|normalized|denormalized|functional dependency|schema design|规范化|反规范化/i],
+  },
+  {
+    id: 'statistics',
+    school: '数学',
+    name: '统计学',
+    icon: '9',
+    desc: '直方图、ANALYZE、基数、表统计、持久统计和指标计数。',
+    patterns: [/statistics|histogram|analyze|cardinality|table statistics|persistent statistics|metrics counter|\bcounter\b|统计|基数|直方图|计数器/i],
+  },
+  {
+    id: 'probability',
+    school: '数学',
+    name: '概率论',
+    icon: 'P',
+    desc: '选择率估算、代价模型、随机探查和优化器不确定性建模。',
+    patterns: [/selectivity|\bcost\b|cost model|random dive|estimate|estimation|probability|选择性|代价|随机探查|估算/i],
+  },
+  {
+    id: 'numerical_analysis',
+    school: '数学',
+    name: '数值分析',
+    icon: 'N',
+    desc: 'DECIMAL、精度、舍入、浮点和数值表示边界。',
+    patterns: [/decimal|floating|\bfloat\b|\bdouble\b|rounding|\bround\b|numeric|precision|ieee 754/i],
+  },
+  {
+    id: 'information_theory',
+    school: '数学',
+    name: '信息论',
+    icon: 'I',
+    desc: '压缩、校验和、编码密度、页压缩和行编码。',
+    patterns: [/compression|compressed|checksum|crc|encoding|encoded|row encoding|page compression|transparent page compression|压缩|校验|编码/i],
+  },
+  {
+    id: 'queueing_theory',
+    school: '数学',
+    name: '排队论',
+    icon: 'Q',
+    desc: '连接池、线程池、吞吐、瓶颈、等待队列和负载均衡。',
+    patterns: [/connection pool|thread pool|queue|throughput|bottleneck|load balancing|workload|scalability|scale out|scale up|tps|iops|队列|吞吐|瓶颈|连接池|线程池|负载均衡|工作负载|可伸缩|向外扩展|向上扩展/i],
+  },
+  {
+    id: 'algorithms',
+    school: '计算理论',
+    name: '算法理论',
+    icon: 'A',
+    desc: '排序、扫描、连接算法、读预取和执行计划中的算法选择。',
+    patterns: [/filesort|sort buffer|merge join|hash join|algorithm|read-ahead|\bscan\b|full table scan|table scan|query execution plan|算法|排序|扫描|预读/i],
+  },
+  {
+    id: 'data_structures',
+    school: '计算理论',
+    name: '数据结构理论',
+    icon: 'D',
+    desc: 'B+ 树、哈希表、索引、LRU/LFU、列表、页目录和缓冲结构。',
+    patterns: [/b\+?tree|b-tree|btree|r-tree|hash index|hash table|bloom|\bindex\b|clustered|secondary|covering|lru|lfu|\blist\b|sublist|buffer pool|change buffer|adaptive hash|page directory|free list|\bleaf\b|\btree\b|索引|b\+树|哈希|列表|页目录|缓冲池|变更缓冲区/i],
+  },
+  {
+    id: 'compiler_principles',
+    school: '程序语言',
+    name: '编译原理',
+    icon: 'C',
+    desc: '词法/语法分析、解析器、AST、CBO 优化器和迭代器执行模型。',
+    patterns: [/parser|\bparse\b|ast|optimizer|execution plan|query plan|iterator|execution model|prepared statement|statement interceptor|sql interface|解析器|优化器|执行计划/i],
+  },
+  {
+    id: 'concurrency_theory',
+    school: '系统',
+    name: '并发理论',
+    icon: 'L',
+    desc: '锁、闩锁、互斥、读写锁、死锁检测、等待和并发控制。',
+    patterns: [/\block\b|locking|latch|mutex|semaphore|deadlock|\bwait\b|concurrency|rw-lock|victim|blocking|optimistic|pessimistic|gap lock|next-key|metadata lock|auto-increment locking|shared lock|exclusive lock|锁|闩锁|互斥|死锁|等待|并发|共享锁|排他锁/i],
+  },
+  {
+    id: 'complexity_theory',
+    school: '计算理论',
+    name: '计算复杂性理论',
+    icon: 'X',
+    desc: 'join ordering、搜索空间、启发式、复杂度和优化器取舍。',
+    patterns: [/np-hard|np hard|join ordering|heuristic|search space|complexity|plan stability/i],
+  },
+  {
+    id: 'operating_systems',
+    school: '系统',
+    name: '操作系统理论',
+    icon: 'O',
+    desc: '进程、线程、虚拟内存、文件系统、I/O、启动关闭和本机资源语义。',
+    patterns: [/operating system|virtual memory|paging|\bthread\b|\bprocess\b|ipc|file system|filesystem|\bfile\b|\bdirectory\b|pid|hdd|ssd|\bdisk\b|i\/o|aio|nonblocking|shutdown|startup|my\.cnf|my\.ini|option file|configuration|\bpath\b|进程|线程|文件系统|文件|目录|磁盘|启动|关闭|配置/i],
+  },
+  {
+    id: 'computer_architecture',
+    school: '系统',
+    name: '计算机体系结构',
+    icon: 'H',
+    desc: '补码、IEEE 754、CPU cache line、NUMA、多核和原子指令。',
+    patterns: [/cpu|cache line|numa|ieee 754|two's complement|twos complement|\bbinary\b|multi-core|atomic instruction|\bspin\b|多核|原子|自旋/i],
+  },
+  {
+    id: 'storage_systems',
+    school: '系统',
+    name: '存储系统理论',
+    icon: 'S',
+    desc: 'WAL、页、表空间、redo/undo、doublewrite buffer 和物理存储布局。',
+    patterns: [/wal|\bpage\b|tablespace|doublewrite|\bredo\b|\bundo\b|\bbuffer\b|buffering|data file|space id|extent|segment|row format|\brecord\b|innodb|myisam|memory engine|storage engine|disk-based|physical|file-per-table|ibdata|ib_logfile|\.(?:arm|arz|cfg|frm|ibd|ibz|mrg|myd|myi|opt|par)\b|sdi|checkpoint|compact|dynamic|redundant|compressed|\brow\b|\bcolumn\b|temporary table|页|表空间|重做|撤销|缓冲|缓冲区|记录|段|区段|行格式|数据文件|存储引擎|紧凑|动态行|冗余|压缩|行|列|临时表/i],
+  },
+  {
+    id: 'transaction_theory',
+    school: '数据库理论',
+    name: '事务理论',
+    icon: 'T',
+    desc: 'ACID、2PL、MVCC、可串行化、隔离级别和事务生命周期。',
+    patterns: [/acid|\btransaction\b|mvcc|multiversion|multi-version|isolation|serializable|read committed|repeatable read|read uncommitted|consistent read|\bsnapshot\b|autocommit|\bcommit\b|\brollback\b|savepoint|\bxa\b|two-phase commit|\b2pl\b|read view|read phenomena|phantom|dirty read|non-repeatable|事务|隔离|提交|回滚|快照|读视图|读现象|当前读|快照读|锁定读|非锁定读|幻读|脏读|可串行化|多版本/i],
+  },
+  {
+    id: 'recovery_theory',
+    school: '数据库理论',
+    name: '恢复理论',
+    icon: 'R',
+    desc: 'ARIES、redo/undo log、checkpoint、crash recovery、backup 和 restore。',
+    patterns: [/aries|recovery|crash|redo log|undo log|binlog|binary log|relay log|query log|slow query log|general query log|checkpoint|flush|flushing|purge|\brestore\b|\bbackup\b|mysqldump|mysqlbackup|point-in-time|pitr|torn page|durability|恢复|崩溃|日志|检查点|备份|还原|刷盘|清理|持久/i],
+  },
+  {
+    id: 'distributed_systems',
+    school: '系统',
+    name: '分布式系统理论',
+    icon: 'D',
+    desc: '主从复制、GTID、组复制、集群、故障切换、共识和 CAP 权衡。',
+    patterns: [/replication|replica|\bsource\b|\bslave\b|\bmaster\b|gtid|paxos|consensus|\bcap\b|cluster|group replication|failover|high availability|\bavailability\b|heartbeat|distributed|router|global transaction|复制|副本|主从|集群|故障切换|高可用|可用性|分布式/i],
+  },
+  {
+    id: 'network_protocols',
+    school: '系统',
+    name: '网络协议',
+    icon: 'W',
+    desc: 'TCP/IP、C/S 模型、连接、端口、主机、本地连接和 MySQL wire protocol。',
+    patterns: [/\btcp\b|\bip\b|wire protocol|\bprotocol\b|client\/server|client-server|\bconnection\b|\bconnect\b|\bport\b|\bhost\b|localhost|\bserver\b|\bclient\b|dsn|\bsocket\b|\bnetwork\b|mysqlx|网络|网络连接|连接字符串|端口|主机|本地主机|服务器|客户端|协议|socket/i],
+  },
+  {
+    id: 'cryptography',
+    school: '安全',
+    name: '密码学',
+    icon: 'K',
+    desc: 'caching_sha2_password、TLS、哈希、密钥、证书、Kerberos 和认证票据。',
+    patterns: [/crypto|password|sha|sha2|tls|ssl|certificate|keystore|truststore|kerberos|ticket|principal|key distribution center|\bkdc\b|spn|tgs|tgt|upn|authentication|\btrust\b|密码|密钥|证书|认证|票据|主体|信任/i],
+  },
+  {
+    id: 'access_control',
+    school: '安全',
+    name: '访问控制理论（RBAC）',
+    icon: 'B',
+    desc: 'GRANT/REVOKE、角色、权限、账户和最小权限模型。',
+    patterns: [/rbac|\bgrant\b|revoke|privilege|\brole\b|\baccount\b|\buser\b|access control|least privilege|permission|权限|角色|账户|用户|授权|访问控制/i],
+  },
+  {
+    id: 'programming_language_theory',
+    school: '程序语言',
+    name: '程序设计语言理论',
+    icon: 'P',
+    desc: '存储过程、触发器、游标、类型强制转换、API 和语言绑定。',
+    patterns: [/stored program|stored routine|stored object|routine|trigger|cursor|procedure|\bfunction\b|\bapi\b|connector|jdbc|odbc|client librar|\blanguage\b|php|python|java|ruby|perl|c api|c#|c\+\+|ado|\.net|visual studio|servlet|spring|tomcat|j2ee|jndi|provider|interceptor|assembly|\bcast\b|coercion|存储程序|存储例程|存储对象|触发器|游标|接口|连接器|驱动|应用程序|语言|程序集/i],
+  },
+  {
+    id: 'regular_expression_theory',
+    school: '程序语言',
+    name: '正则表达式理论',
+    icon: 'E',
+    desc: 'REGEXP 操作符、正则表达式语法和匹配自动机。',
+    patterns: [/regexp|regular expression/i],
+  },
+  {
+    id: 'information_retrieval',
+    school: '信息检索',
+    name: '信息检索理论',
+    icon: 'F',
+    desc: 'FULLTEXT、分词、倒排索引、BM25、相关性、停用词和词干提取。',
+    patterns: [/full-?text|fulltext|\bfts\b|inverted index|\bilist\b|stopword|stemming|relevance|bm25|document id|text collection|query expansion|search index|全文|倒排|停用词|词干|相关性|文档|搜索/i],
+  },
+  {
+    id: 'calendar_systems',
+    school: '现实约定',
+    name: '历法系统（公历/格里历）',
+    icon: 'G',
+    desc: 'DATE、DATETIME、年/月/日边界和公历日期约定。',
+    patterns: [/calendar|gregorian|\bdate\b|datetime|\byear\b|\bmonth\b|\bday\b|日期|公历/i],
+  },
+  {
+    id: 'character_encoding_standards',
+    school: '现实约定',
+    name: '字符编码标准（Unicode/UTF-8）',
+    icon: 'U',
+    desc: 'Unicode、UTF-8、CHAR/VARCHAR、character set 和 collation 排序规则。',
+    patterns: [/unicode|utf-?8|character set|charset|collation|repertoire|\bchar\b|varchar|ascii|ansi|字符集|字符|排序规则|编码/i],
+  },
+  {
+    id: 'timezone_standards',
+    school: '现实约定',
+    name: '时区标准（IANA tzdata）',
+    icon: 'Z',
+    desc: 'TIMESTAMP、时区、IANA tzdata 和时间转换约定。',
+    patterns: [/time zone|timezone|iana|tzdata|\btimestamp\b/i],
+  },
+];
+
+const DOMAIN_BY_ID = new Map(DOMAINS.map((domain) => [domain.id, domain]));
+
+const PRIORITY_DOMAIN_IDS = [
+  'timezone_standards',
+  'calendar_systems',
+  'character_encoding_standards',
+  'regular_expression_theory',
+  'information_retrieval',
+  'access_control',
+  'concurrency_theory',
+  'cryptography',
+  'distributed_systems',
+  'recovery_theory',
+  'transaction_theory',
+  'storage_systems',
+  'data_structures',
+  'statistics',
+  'probability',
+  'numerical_analysis',
+  'information_theory',
+  'queueing_theory',
+  'computer_architecture',
+  'network_protocols',
+  'operating_systems',
+  'compiler_principles',
+  'formal_languages_automata',
+  'type_theory',
+  'three_valued_logic',
+  'normalization_theory',
+  'algorithms',
+  'complexity_theory',
+  'graph_theory',
+  'relational_algebra',
+  'first_order_logic',
+  'set_theory',
+  'programming_language_theory',
+];
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -397,7 +407,7 @@ function readJson(filePath) {
 
 function readJsonFromGit(refPath) {
   try {
-    return JSON.parse(execFileSync('git', ['show', refPath], { cwd: ROOT, encoding: 'utf8' }));
+    return JSON.parse(execFileSync('git', ['show', refPath], { cwd: ROOT, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 }));
   } catch {
     return null;
   }
@@ -405,6 +415,10 @@ function readJsonFromGit(refPath) {
 
 function writeJson(filePath, data) {
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+}
+
+function cloneJson(value) {
+  return JSON.parse(JSON.stringify(value));
 }
 
 function unique(values) {
@@ -447,12 +461,17 @@ function firstDefinition(node) {
 
 function extractEnglishTerms(node) {
   const content = firstDefinition(node);
-  const terms = [...content.matchAll(/^英文：(.+)$/gm)].map((match) => match[1].trim());
-  return terms.length ? terms : [node.label];
+  const terms = [...content.matchAll(/^英文[:：]\s*(.+)$/gm)].map((match) => match[1].trim());
+  if (terms.length) return terms;
+
+  const labelParts = String(node.label ?? '').split('/').map((part) => part.trim()).filter(Boolean);
+  if (labelParts.length > 1) return [labelParts.at(-1)];
+  return [node.label ?? node.id];
 }
 
 function itemText(node) {
   return unique([
+    node.id,
     node.label,
     node.card?.title,
     ...extractEnglishTerms(node),
@@ -461,31 +480,141 @@ function itemText(node) {
     .toLowerCase();
 }
 
-function classifyTerm(node) {
-  const text = itemText(node);
-  if (/atomic instruction/.test(text)) return 'optimizer_performance';
-
-  for (const topicId of PRIORITY_TOPIC_IDS) {
-    const topic = TOPIC_BY_ID.get(topicId);
-    if (topic?.patterns.some((pattern) => pattern.test(text))) return topicId;
-  }
-  return 'uncategorized';
+function isGeneratedTheoryNodeId(id) {
+  return GENERATED_THEORY_NODE_PREFIXES.some((prefix) => id.startsWith(prefix));
 }
 
-function isGeneratedTreeEntry(node) {
-  return GENERATED_TREE_ID_PREFIXES.some((prefix) => node.id.startsWith(prefix));
+function isGeneratedItemNodeId(id) {
+  return GENERATED_ITEM_NODE_PREFIXES.some((prefix) => id.startsWith(prefix));
 }
 
-function cloneTreeWithoutGeneratedEntries(node, overrides = {}) {
-  const children = (node.children ?? [])
-    .filter((child) => !isGeneratedTreeEntry(child))
-    .map((child) => cloneTreeWithoutGeneratedEntries(child));
+function collectMysqlTreeItems(nodePool, mysqlRoot) {
+  const ids = collectTreeNodes(mysqlRoot)
+    .map((node) => node.nodeRef)
+    .filter((nodeId) => nodeId && nodeId !== mysqlRoot.nodeRef)
+    .filter((nodeId) => nodePool[nodeId])
+    .filter((nodeId) => !isGeneratedItemNodeId(nodeId));
 
-  return {
-    ...node,
-    ...overrides,
-    children: children.length > 0 ? children : undefined,
+  return ids;
+}
+
+function implementationPathRefIds(mysqlRoot) {
+  const refs = new Set();
+  const walk = (node, inImplementationPath) => {
+    const nextInImplementationPath =
+      inImplementationPath ||
+      MYSQL_IMPLEMENTATION_TOPIC_IDS.has(node.id) ||
+      MYSQL_IMPLEMENTATION_TREE_IDS.has(node.id);
+
+    if (nextInImplementationPath && node.nodeRef) refs.add(node.nodeRef);
+    for (const child of node.children ?? []) walk(child, nextInImplementationPath);
   };
+  walk(mysqlRoot, false);
+  return refs;
+}
+
+function collectTaggedGlossaryItems(nodePool) {
+  return Object.values(nodePool)
+    .filter((node) => (node.tags ?? []).includes(IMPORT_TAG))
+    .filter((node) => !isGeneratedItemNodeId(node.id))
+    .map((node) => node.id);
+}
+
+function collectKnowledgeItems(nodePool, mysqlRoot) {
+  const orderedIds = [...new Set([
+    ...collectMysqlTreeItems(nodePool, mysqlRoot),
+    ...collectTaggedGlossaryItems(nodePool),
+  ])];
+
+  return orderedIds
+    .map((nodeId) => ({ nodeId, node: nodePool[nodeId] }))
+    .filter((item) => item.node?.card)
+    .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'));
+}
+
+function isImplementationItem(item, implementationRefs) {
+  if (implementationRefs.has(item.nodeId)) return true;
+  const text = itemText(item.node);
+  return IMPLEMENTATION_TEXT_PATTERNS.some((pattern) => pattern.test(text));
+}
+
+function partitionKnowledgeItems(items, mysqlRoot) {
+  const implementationRefs = implementationPathRefIds(mysqlRoot);
+  const implementationItems = [];
+  const theoryItems = [];
+
+  for (const item of items) {
+    if (isImplementationItem(item, implementationRefs)) implementationItems.push(item);
+    else theoryItems.push(item);
+  }
+
+  return { implementationItems, theoryItems };
+}
+
+function currentMysqlTreeWasReplaced(mysqlRoot) {
+  const childIds = (mysqlRoot.children ?? []).map((child) => child.id);
+  return childIds.length > 0 && childIds.every((id) => id.startsWith('mysql_domain_'));
+}
+
+function mysqlTopLevelIdsChanged(mysqlRoot, baselineMysqlRoot) {
+  const currentIds = (mysqlRoot.children ?? []).map((child) => child.id);
+  const baselineIds = (baselineMysqlRoot?.children ?? []).map((child) => child.id);
+  if (baselineIds.length === 0) return false;
+  if (currentIds.length !== baselineIds.length) return true;
+  return currentIds.some((id, index) => id !== baselineIds[index]);
+}
+
+function restoreMissingNodePoolEntries(nodePool, sourceNodePool, treeRoot) {
+  for (const treeNode of collectTreeNodes(treeRoot)) {
+    if (!treeNode.nodeRef) continue;
+    if (nodePool[treeNode.nodeRef]) continue;
+    if (sourceNodePool?.[treeNode.nodeRef]) {
+      nodePool[treeNode.nodeRef] = cloneJson(sourceNodePool[treeNode.nodeRef]);
+    }
+  }
+}
+
+function restoreMysqlTreeIfNeeded(tree, nodePool) {
+  const mysqlRoot = findTreeNode(tree, MYSQL_TREE_ID);
+  if (!mysqlRoot) throw new Error('MySQL tree root not found.');
+
+  const baselineTree = readJsonFromGit(`HEAD:${path.relative(ROOT, TREE_PATH).replaceAll(path.sep, '/')}`);
+  const baselineNodePool = readJsonFromGit(`HEAD:${path.relative(ROOT, NODE_POOL_PATH).replaceAll(path.sep, '/')}`);
+  const baselineMysqlRoot = baselineTree ? findTreeNode(baselineTree, MYSQL_TREE_ID) : null;
+  const shouldRestoreTree =
+    currentMysqlTreeWasReplaced(mysqlRoot) ||
+    mysqlTopLevelIdsChanged(mysqlRoot, baselineMysqlRoot);
+  const hasMissingRefs = collectTreeNodes(mysqlRoot).some((node) => node.nodeRef && !nodePool[node.nodeRef]);
+  if (!shouldRestoreTree && !hasMissingRefs) return mysqlRoot;
+
+  if (shouldRestoreTree && !baselineMysqlRoot?.children?.length) {
+    throw new Error('Cannot restore MySQL tree: baseline MySQL tree not found.');
+  }
+
+  if (shouldRestoreTree) {
+    mysqlRoot.children = cloneJson(baselineMysqlRoot.children);
+    mysqlRoot.expanded = baselineMysqlRoot.expanded ?? true;
+  }
+  restoreMissingNodePoolEntries(nodePool, baselineNodePool, mysqlRoot);
+  return mysqlRoot;
+}
+
+function fallbackDomainId(node) {
+  const dimensions = node.dimensions ?? [];
+  if (dimensions.includes('security')) return 'access_control';
+  if (dimensions.includes('transaction')) return 'transaction_theory';
+  if (dimensions.includes('performance')) return 'compiler_principles';
+  if (dimensions.includes('storage')) return 'storage_systems';
+  return 'operating_systems';
+}
+
+function classifyItem(item) {
+  const text = itemText(item.node);
+  for (const domainId of PRIORITY_DOMAIN_IDS) {
+    const domain = DOMAIN_BY_ID.get(domainId);
+    if (domain?.patterns.some((pattern) => pattern.test(text))) return domainId;
+  }
+  return fallbackDomainId(item.node);
 }
 
 function treeEntry(id, name, nodeRef, icon, children = undefined, expanded = false) {
@@ -495,13 +624,48 @@ function treeEntry(id, name, nodeRef, icon, children = undefined, expanded = fal
   return entry;
 }
 
-function upsertNode(nodePool, id, title, desc, role = 'subsystem') {
+function domainNodeId(domain) {
+  return `theory_domain_${domain.id}`;
+}
+
+function termTreeId(domain, item) {
+  const english = extractEnglishTerms(item.node)[0] ?? item.node.label;
+  return `mysql_term_${domain.id}_${slugify(english)}_${hash32(item.nodeId).slice(0, 6)}`;
+}
+
+function upsertDomainNode(nodePool, domain, itemCount) {
+  const id = domainNodeId(domain);
   const existing = nodePool[id];
   nodePool[id] = {
     ...(existing ?? {}),
     id,
+    label: domain.name,
+    role: 'subsystem',
+    dimensions: unique([...(existing?.dimensions ?? []), 'storage']),
+    tags: unique([...(existing?.tags ?? []), 'mysql', 'directory-taxonomy']),
+    card: {
+      ...(existing?.card ?? {}),
+      nodeId: id,
+      title: domain.name,
+      tabs: [
+        {
+          id: 'def',
+          label: '定义',
+          content: `独立门派：${domain.school}\n\n${domain.desc}\n\n当前归入 ${itemCount} 个知识节点。`,
+        },
+      ],
+    },
+  };
+}
+
+function upsertTheoryNode(nodePool, id, title, desc, itemCount = null) {
+  const existing = nodePool[id];
+  const countLine = itemCount === null ? '' : `\n\n当前归入 ${itemCount} 个 MySQL 知识节点。`;
+  nodePool[id] = {
+    ...(existing ?? {}),
+    id,
     label: title,
-    role,
+    role: 'subsystem',
     dimensions: unique([...(existing?.dimensions ?? []), 'storage']),
     tags: unique([...(existing?.tags ?? []), 'mysql', 'directory-taxonomy']),
     card: {
@@ -512,258 +676,102 @@ function upsertNode(nodePool, id, title, desc, role = 'subsystem') {
         {
           id: 'def',
           label: '定义',
-          content: desc,
+          content: `${desc}${countLine}`,
         },
       ],
     },
   };
 }
 
-function collectGlossaryTerms(nodePool) {
-  const root = nodePool[GLOSSARY_ROOT_ID];
-  const az = root?.viewDimensions?.find((dim) => dim.id === 'mysql_glossary_az');
-  if (!az) {
-    return Object.values(nodePool)
-      .filter((node) => {
-        if (!(node.tags ?? []).includes(IMPORT_TAG)) return false;
-        if (node.id === GLOSSARY_ROOT_ID) return false;
-        if (node.id.startsWith('mysql_glossary_group_')) return false;
-        if (node.id.startsWith('mysql_glossary_section_')) return false;
-        if (node.id.startsWith('mysql_topic_')) return false;
-        return true;
-      })
-      .map((node) => ({ nodeId: node.id, node }))
-      .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'));
-  }
-
-  const orderedIds = [];
-  for (const section of az.sections ?? []) {
-    for (const atom of section.atoms ?? []) {
-      if (!nodePool[atom.nodeId]) continue;
-      if (!orderedIds.includes(atom.nodeId)) orderedIds.push(atom.nodeId);
-    }
-  }
-
-  return orderedIds.map((nodeId) => ({ nodeId, node: nodePool[nodeId] }));
+function schoolNodeId(school) {
+  const id = SCHOOL_IDS.get(school);
+  if (!id) throw new Error(`Missing school id for ${school}`);
+  return id;
 }
 
-function manualSpecFor(value) {
-  return typeof value === 'string' ? { id: value, optional: false } : { optional: false, ...value };
+function makeDomainTree(nodePool, domain, items) {
+  upsertDomainNode(nodePool, domain, items.length);
+  const children = items
+    .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'))
+    .map((item) => {
+      const icon = (item.node.tags ?? []).includes(IMPORT_TAG) ? 'T' : 'K';
+      return treeEntry(termTreeId(domain, item), item.node.label, item.nodeId, icon);
+    });
+
+  return treeEntry(domainNodeId(domain), domain.name, domainNodeId(domain), domain.icon, children, true);
 }
 
-function makeManualNode(nodePool, sourceMysqlTree, fallbackMysqlTree, value) {
-  const { id, optional } = manualSpecFor(value);
+function makeSchoolTrees(nodePool, grouped) {
+  const schools = unique(DOMAINS.map((domain) => domain.school));
 
-  if (id === 'mysql_architecture_overview') {
-    const original =
-      findTreeNode(sourceMysqlTree, 'tree_1782032149182_6wye1y') ??
-      findTreeNode(sourceMysqlTree, 'mysql_architecture_overview') ??
-      findTreeNode(fallbackMysqlTree, 'tree_1782032149182_6wye1y') ??
-      findTreeNode(fallbackMysqlTree, 'mysql_architecture_overview');
-    if (!original) throw new Error('Missing MySQL Server overview tree node.');
-    return treeEntry(id, 'MySQL Server 分层总览', original.nodeRef, 'A');
+  // Deduplicate items across domains: if an item appears in multiple domains, keep only the first occurrence
+  const seenNodeIds = new Set();
+  for (const domain of DOMAINS) {
+    const items = grouped.get(domain.id) ?? [];
+    const deduplicatedItems = items.filter((item) => {
+      if (seenNodeIds.has(item.nodeId)) return false;
+      seenNodeIds.add(item.nodeId);
+      return true;
+    });
+    grouped.set(domain.id, deduplicatedItems);
   }
 
-  const node = findTreeNode(sourceMysqlTree, id) ?? findTreeNode(fallbackMysqlTree, id);
-  if (!node) {
-    if (optional) return null;
-    throw new Error(`Missing manual tree node: ${id}`);
-  }
-  if (node.nodeRef && !nodePool[node.nodeRef]) {
-    throw new Error(`Manual tree node ${id} references missing nodePool entry ${node.nodeRef}`);
-  }
+  return schools.map((school) => {
+    const schoolDomains = DOMAINS.filter((domain) => domain.school === school);
+    const schoolItems = schoolDomains.flatMap((domain) => grouped.get(domain.id) ?? []);
+    const id = schoolNodeId(school);
 
-  return cloneTreeWithoutGeneratedEntries(node);
+    upsertTheoryNode(
+      nodePool,
+      id,
+      school,
+      `${school}是一门独立知识门派；这里收录从具体实现中抽离出的通用概念引用，不隶属于 MySQL。`,
+      schoolItems.length,
+    );
+
+    return treeEntry(
+      id,
+      school,
+      id,
+      'S',
+      schoolDomains.map((domain) => makeDomainTree(nodePool, domain, grouped.get(domain.id) ?? [])),
+      true,
+    );
+  });
 }
 
-function makeTermEntry(topic, item) {
-  return treeEntry(
-    `mysql_term_${topic.id}_${slugify(extractEnglishTerms(item.node)[0] ?? item.node.label)}_${hash32(item.nodeId).slice(0, 6)}`,
-    item.node.label,
-    item.nodeId,
-    'T',
-  );
+function isGeneratedTheoryTreeEntry(node) {
+  return isGeneratedTheoryNodeId(node.id) || node.id.startsWith('mysql_term_');
 }
 
-function findTreeNodeInForest(children, id) {
-  for (const child of children) {
-    const found = findTreeNode(child, id);
-    if (found) return found;
-  }
-  return null;
+function removeGeneratedTheoryTreeEntries(root) {
+  if (!root.children) return;
+  root.children = root.children.filter((child) => !isGeneratedTheoryTreeEntry(child));
+  for (const child of root.children) removeGeneratedTheoryTreeEntries(child);
 }
 
-function ensureRefinementGroups(nodePool, children, topicId) {
-  for (const group of REFINEMENT_GROUPS_BY_TOPIC.get(topicId) ?? []) {
-    upsertNode(nodePool, group.id, group.name, group.desc);
-    const parent = group.parentIds.map((id) => findTreeNodeInForest(children, id)).find(Boolean);
-    if (!parent || findTreeNode(parent, group.id)) continue;
-
-    parent.children = [...(parent.children ?? []), treeEntry(group.id, group.name, group.id, group.icon)];
-    parent.expanded = true;
-  }
+function insertSchoolTrees(tree, schoolTrees) {
+  removeGeneratedTheoryTreeEntries(tree);
+  const parent = findTreeNode(tree, THEORY_PARENT_TREE_ID) ?? tree;
+  parent.children = [...(parent.children ?? []), ...schoolTrees];
+  parent.expanded = true;
 }
 
-function resolveSqlTermParentId(text) {
-  if (/row format|compact row format|redundant row format|dynamic row format|fixed row format/.test(text)) {
-    return 'mysql_sql_row_formats';
-  }
-  if (/generated|virtual column|stored generated column|view|materialized view/.test(text)) {
-    return 'mysql_sql_views_generated_columns';
-  }
-  if (/stored program|stored object|stored routine|routine|trigger/.test(text)) {
-    return 'mysql_sql_programming_objects';
-  }
-  if (
-    /data definition language|\bddl\b|data manipulation language|\bdml\b|\bdcl\b|\btcl\b|crud|insert|update|delete|drop|truncate|merge|mixed-mode insert/.test(
-      text,
-    )
-  ) {
-    return 'mysql_sql_statement_types';
-  }
-  if (/query|join|prepared statement|dynamic sql|dynamic statement|cursor/.test(text)) {
-    return 'mysql_sql_query_execution';
-  }
-  if (
-    /table|column|row|tuple|base column|parent table|child table|temporary table|intrinsic temporary table|auto-increment/.test(
-      text,
-    )
-  ) {
-    return 'mysql_sql_table_structure';
-  }
-  if (/constraint|business rules|normalized|denormalized|relational|data warehouse|no-?sql/.test(text)) {
-    return 'mysql_sql_constraints_model';
-  }
-  if (/\bsql\b|sqlstate|strict mode|backticks|\bas\b|null|\blist\b|\bsublist\b/.test(text)) {
-    return 'mysql_sql_syntax_modes';
+function pruneMovedTheoryRefsFromMysql(node, movedTheoryRefs, preservedTreeIds = new Set()) {
+  const nextChildren = [];
+  for (const child of node.children ?? []) {
+    const prunedChild = pruneMovedTheoryRefsFromMysql(child, movedTheoryRefs, preservedTreeIds);
+    if (prunedChild) nextChildren.push(prunedChild);
   }
 
-  return 'tree_1782033172539_wxvnr8';
-}
+  const isMovedLeafRef = node.nodeRef && movedTheoryRefs.has(node.nodeRef);
+  const shouldPreserve = preservedTreeIds.has(node.id) || node.id === MYSQL_TREE_ID;
+  if (isMovedLeafRef && nextChildren.length === 0 && !shouldPreserve) return null;
+  if (isMovedLeafRef && nextChildren.length > 0 && !shouldPreserve) delete node.nodeRef;
 
-function resolveIndexTermParentId(text) {
-  if (/^索引 \/ index\s/.test(text) || /^index\s/.test(text)) return 'mysql_index_basics';
-  if (/clustered/.test(text)) return 'demo_tree_clustered';
-  if (/secondary/.test(text)) return 'demo_tree_secondary';
-  if (/covering/.test(text)) return 'demo_tree_covering';
-  if (/composite|concatenated|column index/.test(text)) return 'demo_tree_composite';
-  if (/unique index/.test(text)) return 'demo_tree_unique';
-  if (/full-?text|fulltext|\bfts\b|inverted index|search index|ilist/.test(text)) return 'demo_tree_fulltext';
-  if (/adaptive hash|hash index/.test(text)) return 'demo_tree_hash';
-  if (/b-?tree/.test(text)) return 'demo_tree_btree';
-  if (/r-?tree/.test(text)) return 'mysql_index_other_structures';
-  if (
-    /primary key|foreign key|unique key|natural key|surrogate key|synthetic key|referential integrity|foreign key constraint|guid/.test(
-      text,
-    )
-  ) {
-    return 'mysql_index_key_integrity';
-  }
-  if (/table scan|full table scan|\bscan\b|index hint|index condition pushdown|random dive/.test(text)) {
-    return 'mysql_index_access_paths';
-  }
-  if (/prefix|cardinality|selectivity|statistics/.test(text)) {
-    return 'mysql_index_prefix_statistics';
-  }
-  if (/partial index|descending index|fast index creation|index cache|virtual index|key_block_size/.test(text)) {
-    return 'mysql_index_operations';
-  }
-
-  return 'demo_tree_index';
-}
-
-function resolveTransactionLockTermParentId(text) {
-  if (/dirty read|non-repeatable read|phantom|read phenomena|locking read|non-locking read/.test(text)) {
-    return 'mysql_tx_read_phenomena';
-  }
-  if (/read committed|read uncommitted|repeatable read|serializable/.test(text)) {
-    return 'demo_tree_iso';
-  }
-  if (/deadlock|victim|\bwait\b|innodb_lock_wait_timeout/.test(text)) {
-    return 'mysql_tx_waits_deadlocks';
-  }
-  if (/intention shared lock|intention exclusive lock|intention lock/.test(text)) return 'mysql_lock_intention';
-  if (/shared lock/.test(text)) return 'demo_tree_shared_lock';
-  if (/exclusive lock/.test(text)) return 'demo_tree_exclusive_lock';
-  if (/table lock/.test(text)) return 'demo_tree_table_lock';
-  if (/row-level locking|row lock|record lock|implicit row lock/.test(text)) return 'demo_tree_row_lock';
-  if (/optimistic/.test(text)) return 'demo_tree_optimistic';
-  if (/pessimistic/.test(text)) return 'demo_tree_pessimistic';
-  if (/gap lock|next-key lock|insert intention lock|\bgap\b/.test(text)) return 'mysql_lock_range_insert';
-  if (/auto-increment locking|innodb_autoinc_lock_mode/.test(text)) return 'mysql_lock_auto_increment';
-  if (/metadata lock|\bmdl\b/.test(text)) return 'mysql_lock_metadata';
-  if (/latch|mutex|rw-lock/.test(text)) return 'mysql_lock_latches';
-  if (/lock mode|lock escalation|\b(?:locking|locking read)\b/.test(text)) return 'mysql_lock_modes';
-  if (/rollback segment|db_roll_ptr|mini-transaction|undo/.test(text)) return 'mysql_tx_mvcc_undo';
-  if (/xa|two-phase commit|group commit|global transaction/.test(text)) return 'mysql_tx_commit_coordination';
-  if (/acid|atomic ddl|\batomic\b/.test(text)) return 'demo_tree_acid';
-  if (/transaction|autocommit|commit|rollback|savepoint|read-only transaction|transaction id/.test(text)) {
-    return 'mysql_tx_lifecycle';
-  }
-  if (/concurrency/.test(text)) return 'mysql_tx_concurrency_control';
-
-  return 'demo_tree_tx';
-}
-
-function resolveTermParentId(topic, node) {
-  const text = itemText(node);
-
-  if (topic.id === 'sql_objects') return resolveSqlTermParentId(text);
-  if (topic.id === 'indexes_access') return resolveIndexTermParentId(text);
-  if (topic.id === 'transactions_locks') return resolveTransactionLockTermParentId(text);
-  if (topic.id === 'logs_recovery') return 'tree_1782029505240_be11k0';
-  if (topic.id === 'connectors_api') return 'tree_1782032242238_ym9m1l';
-  if (topic.id === 'backup_operations') {
-    if (/hot backup|warm backup|cold backup/.test(text)) return BACKUP_TERM_TREE_ID;
-    return 'tree_1782032936994_e5wpwn';
-  }
-  if (topic.id === 'storage_engines') return 'tree_1782032090364_9w1h5q';
-
-  if (topic.id === 'innodb_internals') {
-    if (/file|\.arm|\.arz|\.myd|\.myi|\.ibd|ibdata|ib_logfile|data directory|data files|pid|socket/i.test(text)) {
-      return 'tree_1782029643149_9klslf';
-    }
-    return 'demo_tree_innodb';
-  }
-
-  if (topic.id === 'optimizer_performance') {
-    if (/cache|buffer|lru|eviction|warm up|read-ahead/i.test(text)) {
-      return 'tree_1782033743159_jh8j3j';
-    }
-    return 'tree_1782033508073_oe4mt0';
-  }
-
-  return null;
-}
-
-function makeTopicTree(nodePool, oldMysqlTree, currentMysqlTree, topic, groupedTerms) {
-  const topicNodeId = `mysql_topic_${topic.id}`;
-  upsertNode(nodePool, topicNodeId, topic.name, topic.desc);
-
-  const manualChildren = topic.manualIds
-    .map((id) => makeManualNode(nodePool, oldMysqlTree, currentMysqlTree, id))
-    .filter(Boolean);
-  const manualRefs = new Set(collectTreeNodes(treeEntry('tmp', 'tmp', undefined, '', manualChildren)).map((node) => node.nodeRef));
-  const termItems = (groupedTerms.get(topic.id) ?? [])
-    .filter((item) => !manualRefs.has(item.nodeId))
-    .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'));
-
-  const children = [...manualChildren];
-  ensureRefinementGroups(nodePool, children, topic.id);
-
-  for (const item of termItems) {
-    const termEntry = makeTermEntry(topic, item);
-    const parentId = resolveTermParentId(topic, item.node);
-    const parent = parentId ? findTreeNodeInForest(children, parentId) : null;
-    if (parent) {
-      parent.children = [...(parent.children ?? []), termEntry];
-      parent.expanded = true;
-    } else {
-      children.push(termEntry);
-    }
-  }
-
-  return treeEntry(`mysql_topic_${topic.id}`, topic.name, topicNodeId, topic.icon, children, true);
+  node.children = nextChildren.length ? nextChildren : undefined;
+  if (nextChildren.length) node.expanded = true;
+  return node;
 }
 
 function makeTreeBindingEdge(parent, child, nodePool) {
@@ -821,31 +829,32 @@ function assertUniqueTreeIds(root) {
   }
 }
 
+function removeOldDomainNodes(nodePool) {
+  for (const id of Object.keys(nodePool)) {
+    if (isGeneratedTheoryNodeId(id)) delete nodePool[id];
+  }
+}
+
 function main() {
   const tree = readJson(TREE_PATH);
   const nodePool = readJson(NODE_POOL_PATH);
   const edges = readJson(EDGES_PATH);
 
-  const mysqlRoot = findTreeNode(tree, MYSQL_TREE_ID);
-  if (!mysqlRoot) throw new Error('MySQL tree root not found.');
+  const mysqlRoot = restoreMysqlTreeIfNeeded(tree, nodePool);
+  const items = collectKnowledgeItems(nodePool, mysqlRoot);
+  const { implementationItems, theoryItems } = partitionKnowledgeItems(items, mysqlRoot);
+  const grouped = new Map(DOMAINS.map((domain) => [domain.id, []]));
+  for (const item of theoryItems) grouped.get(classifyItem(item)).push(item);
 
-  const baselineTree = readJsonFromGit(`HEAD:${path.relative(ROOT, TREE_PATH).replaceAll(path.sep, '/')}`);
-  const sourceMysqlTree = findTreeNode(baselineTree ?? tree, MYSQL_TREE_ID) ?? mysqlRoot;
-  const oldTreeIds = new Set(collectTreeNodes(mysqlRoot).map((node) => node.id));
-
-  const groupedTerms = new Map(TOPICS.map((topic) => [topic.id, []]));
-  for (const item of collectGlossaryTerms(nodePool)) {
-    groupedTerms.get(classifyTerm(item.node)).push(item);
-  }
-
-  mysqlRoot.children = TOPICS.map((topic) => makeTopicTree(nodePool, sourceMysqlTree, mysqlRoot, topic, groupedTerms));
-  mysqlRoot.expanded = true;
+  removeOldDomainNodes(nodePool);
+  pruneMovedTheoryRefsFromMysql(mysqlRoot, new Set(theoryItems.map((item) => item.nodeId)), new Set([MYSQL_TREE_ID, ...MYSQL_IMPLEMENTATION_TOPIC_IDS]));
+  const schoolTrees = makeSchoolTrees(nodePool, grouped);
+  insertSchoolTrees(tree, schoolTrees);
 
   assertUniqueTreeIds(tree);
 
-  const nextTreeIds = new Set(collectTreeNodes(mysqlRoot).map((node) => node.id));
-  const nextEdges = removeTreeBindingEdges(edges, oldTreeIds, nextTreeIds);
-  nextEdges.push(...makeTreeBindingEdges(mysqlRoot, nodePool));
+  const nextEdges = edges.filter((edge) => !edge.id.startsWith(TREE_BINDING_EDGE_PREFIX));
+  nextEdges.push(...makeTreeBindingEdges(tree, nodePool));
 
   writeJson(NODE_POOL_PATH, nodePool);
   writeJson(TREE_PATH, tree);
@@ -855,12 +864,17 @@ function main() {
   console.log(
     JSON.stringify(
       {
-        topics: TOPICS.map((topic) => ({
-          id: topic.id,
-          name: topic.name,
-          terms: groupedTerms.get(topic.id)?.length ?? 0,
+        domains: DOMAINS.map((domain) => ({
+          id: domain.id,
+          school: domain.school,
+          name: domain.name,
+          items: grouped.get(domain.id)?.length ?? 0,
         })),
-        treeEntries: collectTreeNodes(mysqlRoot).length,
+        knowledgeItems: items.length,
+        implementationItems: implementationItems.length,
+        theoryItems: theoryItems.length,
+        mysqlTreeEntries: collectTreeNodes(mysqlRoot).length,
+        schoolTreeEntries: schoolTrees.flatMap(collectTreeNodes).length,
         totalNodes: Object.keys(nodePool).length,
         totalEdges: nextEdges.length,
       },

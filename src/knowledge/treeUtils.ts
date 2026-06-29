@@ -7,6 +7,19 @@ export function cloneTree(node: TreeNode): TreeNode {
   };
 }
 
+export function cloneTreeWithNewIds(
+  node: TreeNode,
+  createId: () => string,
+): TreeNode {
+  return {
+    ...node,
+    id: createId(),
+    children: node.children
+      ? node.children.map((child) => cloneTreeWithNewIds(child, createId))
+      : undefined,
+  };
+}
+
 export function findTreeNodeById(root: TreeNode, id: string): TreeNode | null {
   if (root.id === id) return root;
   if (root.children) {

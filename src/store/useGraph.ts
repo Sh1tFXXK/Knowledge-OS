@@ -34,6 +34,7 @@ import { createEmptyAppState, APP_STATE_VERSION, type PersistedAppState } from '
 import {
   appendTreeChild,
   cloneTree,
+  cloneTreeWithNewIds,
   collectTreeNodes,
   findTreeParent,
   findTreeNodeById,
@@ -44,6 +45,7 @@ import {
 import { resolvePoolIdFromTree, resolvePoolIdFromTreeNode } from '../knowledge/treeSelection';
 import {
   createTreeBindingEdge,
+  createTreeBindingEdgesForSubtree,
   createMovedTreeBindingEdges,
   removeTreeBindingEdgesForTreeIds,
 } from '../knowledge/treeBinding';
@@ -171,6 +173,7 @@ interface GraphState {
 
   removeTreeNode: (nodeId: string) => void;
   moveTreeNode: (nodeId: string, nextParentId: string) => boolean;
+  copyTreeNode: (nodeId: string, nextParentId: string) => boolean;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
 
   /** @deprecated 璇风敤 createKnowledgeAndLink */
@@ -1080,6 +1083,33 @@ export const useGraphStore = create<GraphState>((set, get) => {
         treeData: moved.tree,
         knowledgeEdges,
       });
+      persist();
+      return true;
+    },
+
+    copyTreeNode: (nodeId, nextParentId) => {
+      const state = get();
+      if (state.treeData.id === nodeId || nodeId === nextParentId) return false;
+
+      const source = findTreeNodeById(state.treeData, nodeId);
+      const targetParent = findTreeNodeById(state.treeData, nextParentId);
+      if (!source || !targetParent) return false;
+      if (findTreeNodeById(source, nextParentId)) return false;
+
+      const copiedNode = cloneTreeWithNewIds(source, () => genId('tree'));
+      const treeData = appendTreeChild(state.treeData, nextParentId, copiedNode);
+      let knowledgeEdges = state.knowledgeEdges;
+
+      for (const edge of createTreeBindingEdgesForSubtree({
+        tree: treeData,
+        nodePool: state.nodePool,
+        rootTreeId: copiedNode.id,
+        parentTreeId: nextParentId,
+      })) {
+        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      }
+
+      set({ treeData, knowledgeEdges });
       persist();
       return true;
     },
