@@ -1167,7 +1167,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**哈希索引 / hash index**\n英文：hash index\n中文：哈希索引\n\n一种用于使用相等运算符而非范围运算符（如大于或 BETWEEN）的 index 类型。它适用于 MEMORY 表。虽然由于历史原因，哈希索引是 MEMORY 表的默认选项，但该存储引擎也支持 B-tree 索引，这通常是通用查询的更好选择。\n\n\"MySQL 包含这种索引类型的一个变体，adaptive hash index，该索引会根据运行时条件在需要时自动为InnoDB 表构建。\"\n\n\"另见 自适应哈希索引, B树, 索引, InnoDB。\"\n\n来源：原始行：1185；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_hash_index\n\n**已有补充：定义**\n通过哈希函数将键映射到存储位置。\n\n**已有补充：机制**\nO(1) 等值查询，但不支持范围查询和排序。\n\n**已有补充：边界**\nInnoDB 自适应哈希索引，Memory 引擎支持显式创建。\n\n**已有补充：来源**\nMySQL 索引类型"
+          "content": "一种用于使用相等运算符而非范围运算符（如大于或 BETWEEN）的 index 类型。它适用于 MEMORY 表。虽然由于历史原因，哈希索引是 MEMORY 表的默认选项，但该存储引擎也支持 B-tree 索引，这通常是通用查询的更好选择。\n\n\"MySQL 包含这种索引类型的一个变体，adaptive hash index，该索引会根据运行时条件在需要时自动为InnoDB 表构建。\"\n\n**已有补充：定义**\n通过哈希函数将键映射到存储位置。\n\n**已有补充：机制**\nO(1) 等值查询，但不支持范围查询和排序。\n\n**已有补充：边界**\nInnoDB 自适应哈希索引，Memory 引擎支持显式创建。\n\n**已有补充：来源**\nMySQL 索引类型"
         },
         {
           "id": "mech",
@@ -1206,7 +1206,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**聚簇索引 / clustered index**\n英文：clustered index\n中文：聚簇索引\n\nInnoDB术语指的是primary key索引。InnoDB表存储是基于主键列的值进行组织的，以加速涉及主键列的查询和排序。为了获得最佳性能，请根据性能关键查询仔细选择主键列。由于修改聚簇索引的列是一项代价高昂的操作，因此选择不常更新或从不更新的主列。\n\n在Oracle数据库产品中，这种类型的表被称为index-organized table。\n\n另请参见索引、主键、二级索引。\n\n来源：原始行：435；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_clustered_index\n\n**已有补充：定义**\n索引的叶子节点直接存储整行数据，数据按索引键有序排列。\n\n**已有补充：机制**\nInnoDB 中主键默认作为聚簇索引；无主键时选第一个唯一非空索引，都没有则生成隐藏 row_id。二级索引叶子存主键值，需回表查聚簇索引。\n\n**已有补充：边界**\n一张表只能有一个聚簇索引——数据只能按一种顺序物理存储。插入乱序主键（如 UUID）会导致页分裂。\n\n**已有补充：来源**\nInnoDB 官方文档 · 《MySQL 技术内幕》"
+          "content": "InnoDB术语指的是primary key索引。InnoDB表存储是基于主键列的值进行组织的，以加速涉及主键列的查询和排序。为了获得最佳性能，请根据性能关键查询仔细选择主键列。由于修改聚簇索引的列是一项代价高昂的操作，因此选择不常更新或从不更新的主列。\n\n在Oracle数据库产品中，这种类型的表被称为index-organized table。\n\n另请参见索引、主键、二级索引。\n\n来源：原始行：435；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_clustered_index\n\n**已有补充：定义**\n索引的叶子节点直接存储整行数据，数据按索引键有序排列。\n\n**已有补充：机制**\nInnoDB 中主键默认作为聚簇索引；无主键时选第一个唯一非空索引，都没有则生成隐藏 row_id。二级索引叶子存主键值，需回表查聚簇索引。\n\n**已有补充：边界**\n一张表只能有一个聚簇索引——数据只能按一种顺序物理存储。插入乱序主键（如 UUID）会导致页分裂。\n\n**已有补充：来源**\nInnoDB 官方文档 · 《MySQL 技术内幕》"
         },
         {
           "id": "mech",
@@ -1246,7 +1246,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**二级索引 / secondary index**\n英文：secondary index\n中文：二级索引\n\n二级索引是 InnoDB 索引的一种类型，表示表中部分列的索引。一个 InnoDB 表可以没有二级索引，也可以有一个或多个二级索引。它与 clustered index（聚簇索引）相对；聚簇索引是每个 InnoDB 表必需的，并存储表中所有列的数据。\n\n二级索引可以满足只需要索引列取值的查询。对于更复杂的查询，它可以先识别表中相关的行，再通过聚簇索引查找取回完整行数据。\n\n另见：clustered index、index。\n\n来源：原始行：2788；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_secondary_index\n\n**已有补充：定义**\n非聚簇索引，叶子节点存储索引键和对应的主键值。\n\n**已有补充：机制**\n查询先走二级索引找到主键，再回表查聚簇索引获取完整行。SELECT 全部命中索引列时可避免回表（覆盖索引）。\n\n**已有补充：边界**\n回表是随机 IO——索引不覆盖时性能下降明显。\n\n**已有补充：来源**\nInnoDB 索引结构"
+          "content": "二级索引是 InnoDB 索引的一种类型，表示表中部分列的索引。一个 InnoDB 表可以没有二级索引，也可以有一个或多个二级索引。它与 clustered index（聚簇索引）相对；聚簇索引是每个 InnoDB 表必需的，并存储表中所有列的数据。\n\n二级索引可以满足只需要索引列取值的查询。对于更复杂的查询，它可以先识别表中相关的行，再通过聚簇索引查找取回完整行数据。\n\n\n\n**已有补充：定义**\n非聚簇索引，叶子节点存储索引键和对应的主键值。\n\n**已有补充：机制**\n查询先走二级索引找到主键，再回表查聚簇索引获取完整行。SELECT 全部命中索引列时可避免回表（覆盖索引）。\n\n**已有补充：边界**\n回表是随机 IO——索引不覆盖时性能下降明显。\n\n**已有补充：来源**\nInnoDB 索引结构"
         },
         {
           "id": "mech",
@@ -1286,7 +1286,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**覆盖索引 / covering index**\n英文：covering index\n中文：覆盖索引\n\n一个包含查询检索到的所有列的index。查询未使用索引值作为指针来查找完整的表行，而是从索引结构中返回值，从而节省磁盘I/O。InnoDB能够对比MyISAM更多的索引应用此优化技术，因为InnoDB的secondary\nindexes也包含primary key列。InnoDB不能对由事务修改的表的查询应用该技术，直到该事务结束。\n\n任何column index或composite index在给定合适的查询时都可以充当覆盖索引。设计你的索引和查询，以在可能的地方利用这一优化技术。\n\n另请参见列索引，复合索引，索引，主键，二级索引。\n\n来源：原始行：633；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_covering_index\n\n**已有补充：定义**\n查询所需的所有列都在索引中，无需回表即可返回结果。\n\n**已有补充：机制**\n二级索引的叶子存主键值，若 SELECT 列 + WHERE 列全在索引内，直接使用索引数据即可满足查询。EXPLAIN 中 Extra = Using index。\n\n**已有补充：边界**\n索引越宽覆盖能力越强，但写入开销越大。适合高频少列查询。\n\n**已有补充：来源**\nMySQL 索引优化 · EXPLAIN 文档"
+          "content": "一个包含查询检索到的所有列的index。查询未使用索引值作为指针来查找完整的表行，而是从索引结构中返回值，从而节省磁盘I/O。InnoDB能够对比MyISAM更多的索引应用此优化技术，因为InnoDB的secondary indexes也包含primary key列。InnoDB不能对由事务修改的表的查询应用该技术，直到该事务结束。\n\n任何column index或composite index在给定合适的查询时都可以充当覆盖索引。设计你的索引和查询，以在可能的地方利用这一优化技术。\n\n另请参见列索引，复合索引，索引，主键，二级索引。\n\n**已有补充：定义**\n查询所需的所有列都在索引中，无需回表即可返回结果。\n\n**已有补充：机制**\n二级索引的叶子存主键值，若 SELECT 列 + WHERE 列全在索引内，直接使用索引数据即可满足查询。EXPLAIN 中 Extra = Using index。\n\n**已有补充：边界**\n索引越宽覆盖能力越强，但写入开销越大。适合高频少列查询。\n\n**已有补充：来源**\nMySQL 索引优化 · EXPLAIN 文档"
         },
         {
           "id": "mech",
@@ -1398,7 +1398,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**全文索引 / FULLTEXT index**\n英文：FULLTEXT index\n中文：全文索引\n\n在MySQLfull-text search机制中，保存search index的一种特殊类型的index。代表列值中的词，省略了任何被指定为stopwords的词。最初仅可用于MyISAM表。从MySQL 5.6.4开始，它也可用于InnoDB表。\n\n另请参见 全文本搜索， 索引， InnoDB， 搜索索引， 停用词。\n\n来源：原始行：1081；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fulltext_index\n\n**已有补充：定义**\n用于文本内容的关键词搜索，支持自然语言和布尔模式。\n\n**已有补充：机制**\n倒排索引结构——分词后每个词指向包含它的文档。InnoDB 5.6+ 支持，MyISAM 旧版独占。\n\n**已有补充：边界**\n中文需配合 ngram parser 或第三方分词器。LIKE %x% 不走全文索引。\n\n**已有补充：来源**\nMySQL 全文索引文档"
+          "content": "在MySQLfull-text search机制中，保存search index的一种特殊类型的index。代表列值中的词，省略了任何被指定为stopwords的词。最初仅可用于MyISAM表。从MySQL 5.6.4开始，它也可用于InnoDB表。\n\n**已有补充：定义**\n用于文本内容的关键词搜索，支持自然语言和布尔模式。\n\n**已有补充：机制**\n倒排索引结构——分词后每个词指向包含它的文档。InnoDB 5.6+ 支持，MyISAM 旧版独占。\n\n"
         },
         {
           "id": "mech",
@@ -2379,10 +2379,6 @@
                 "desc": "另一种指代**system tablespace**或**general tablespace**的方式。通用表空间是在MySQL 5.7中引入的。多个表可以存在于同一共享表空间中。只有一个表可以存在于_file-per-table_的表空"
               },
               {
-                "nodeId": "k_dict_ej0gabn2",
-                "desc": "结构化查询语言是执行数据库操作的标准。通常分为以下几个类别： **DDL**， **DML**，以及 **queries**。MySQL 包括一些 额外的语句类别，如 **replication**。有关 SQL 语法的构建模块，请参见 ["
-              },
-              {
                 "nodeId": "mysql_glossary_sqlstate_16aqrw",
                 "desc": "由 **JDBC**标准定义的错误代码，用于使用**Connector/J** 的应用程序进行异常处理。 请参见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary."
               },
@@ -2413,10 +2409,6 @@
               {
                 "nodeId": "mysql_glossary_table_lock_15y9vl",
                 "desc": "一种锁定机制，防止任何其他**transaction**访问表。`InnoDB`努力通过使用诸如**online DDL**、**row locks**和**consistent reads**等技术，使此类锁定变得不必要，以处理**DML"
-              },
-              {
-                "nodeId": "k_dict_2kzoxeef",
-                "desc": "查看[完整表扫描](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_full_table_scan)。"
               },
               {
                 "nodeId": "mysql_glossary_table_statistics_1c30y8",
@@ -6540,7 +6532,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**自适应哈希 / adaptive hash index**\n英文：adaptive hash index\n中文：自适应哈希\n\n一个用于`InnoDB`表的优化，可以通过在内存中构建**hash index**来加速使用`=`和`IN`运算符的查找。MySQL监视`InnoDB`表的索引搜索，如果查询可能从哈希索引中受益，则自动为频繁访问的索引**pages**构建一个。在某种程度上，自适应哈希索引在运行时配置MySQL，以利用充足的主内存，更接近主内存数据库的体系结构。此功能由[`innodb_adaptive_hash_index`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_adaptive_hash_index)配置选项控制。由于此功能仅对某些工作负载有利而对其他工作负载没有影响，并且用于哈希索引的内存在**buffer pool**中保留，因此通常应该分别启用和禁用此功能进行基准测试。\n\n哈希索引始终是基于表上现有的**B-tree**索引构建的。MySQL可以在定义的B树键的任何长度前缀上构建哈希索引，具体取决于对索引的搜索模式。哈希索引可以是部分的；整个B树索引不需要缓存在缓冲池中。\n\n另请参见[B树](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_b_tree)，[缓冲池](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_buffer_pool)，[哈希索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_hash_index)，[页面](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_page)，[二级索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_secondary_index)。\n\n来源：原始行：37；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_adaptive_hash_index"
+          "content": "一个用于`InnoDB`表的优化，可以通过在内存中构建**hash index**来加速使用`=`和`IN`运算符的查找。MySQL监视`InnoDB`表的索引搜索，如果查询可能从哈希索引中受益，则自动为频繁访问的索引**pages**构建一个。在某种程度上，自适应哈希索引在运行时配置MySQL，以利用充足的主内存，更接近主内存数据库的体系结构。此功能由[`innodb_adaptive_hash_index`]配置选项控制。由于此功能仅对某些工作负载有利而对其他工作负载没有影响，并且用于哈希索引的内存在**buffer pool**中保留，因此通常应该分别启用和禁用此功能进行基准测试。\n\n哈希索引始终是基于表上现有的**B-tree**索引构建的。MySQL可以在定义的B树键的任何长度前缀上构建哈希索引，具体取决于对索引的搜索模式。哈希索引可以是部分的；整个B树索引不需要缓存在缓冲池中。\n\n"
         }
       ]
     },
@@ -6822,7 +6814,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**B树 / B-tree**\n英文：B-tree\n中文：B树\n\n一种在数据库索引中广泛使用的树形数据结构。该结构始终保持排序，从而能够快速查找精确匹配（等于运算符）和范围（例如，大于、小于以及`BETWEEN`运算符）。这种类型的索引对大多数存储引擎可用，例如[`InnoDB`](https://dev.mysql.com/doc/refman/8.4/en/innodb-storage-engine.html \"Chapter 17 The InnoDB Storage Engine\")和[`MyISAM`](https://dev.mysql.com/doc/refman/8.4/en/myisam-storage-engine.html \"18.2 The MyISAM Storage Engine\")。\n\n因为B树节点可以有许多子节点，B树与二叉树不同，后者每个节点限制为2个子节点。\n\n与 **hash index** 对比，后者仅在 [`MEMORY`](https://dev.mysql.com/doc/refman/8.4/en/memory-storage-engine.html \"18.3 The MEMORY Storage Engine\") 存储引擎中可用。`MEMORY` 存储引擎还可以使用 B-tree 索引，如果某些查询使用范围操作符，您应该为 `MEMORY` 表选择 B-tree 索引。\n\n“B-tree”一词的使用意在指代一般的索引设计类别。MySQL 存储引擎使用的 B-tree 结构可以视为变种，因为它们具有经典 B-tree 设计中不存在的复杂性。有关相关信息，请参见 `InnoDB` 页面结构 [Fil Header](https://dev.mysql.com/doc/internals/en/innodb-fil-header.html) 部分的 [MySQL Internals Manual](https://dev.mysql.com/doc/internals/en/index.html)。\n\n另见 [哈希索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_hash_index)。\n\n来源：原始行：179；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_b_tree"
+          "content": "一种在数据库索引中广泛使用的树形数据结构。该结构始终保持排序，从而能够快速查找精确匹配（等于运算符）和范围（例如，大于、小于以及`BETWEEN`运算符）。这种类型的索引对大多数存储引擎可用，例如[`InnoDB`]和[`MyISAM`]。\n\n因为B树节点可以有许多子节点，B树与二叉树不同，后者每个节点限制为2个子节点。\n\n与 **hash index** 对比，后者仅在[`MEMORY`] 存储引擎中可用。`MEMORY` 存储引擎还可以使用 B-tree 索引，如果某些查询使用范围操作符，您应该为 `MEMORY` 表选择 B-tree 索引。\n\n“B-tree”一词的使用意在指代一般的索引设计类别。MySQL 存储引擎使用的 B-tree 结构可以视为变种，因为它们具有经典 B-tree 设计中不存在的复杂性。\n另见 [哈希索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_hash_index)。\n\n来源：原始行：179；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_b_tree"
         }
       ]
     },
@@ -8038,7 +8030,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**数据控制语言 / DCL**\n英文：DCL\n中文：数据控制语言\n\n数据控制语言，一组用于管理特权的 **SQL**语句。在 MySQL 中，包括 [`GRANT`](https://dev.mysql.com/doc/refman/8.4/en/grant.html \"15.7.1.6 GRANT Statement\") 和 [`REVOKE`](https://dev.mysql.com/doc/refman/8.4/en/revoke.html \"15.7.1.8 REVOKE Statement\") 语句。与**DDL**和**DML** 对比。\n\n另请参见 [DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_ddl), [DML](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dml), [SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_sql).\n\n来源：原始行：725；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dcl"
+          "content": "数据控制语言，一组用于管理特权的 **SQL**语句。在 MySQL 中，包括 [`GRANT`] 和 [`REVOKE`]语句。\n\n"
         }
       ]
     },
@@ -8060,7 +8052,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**数据定义语言 / DDL**\n英文：DDL\n中文：数据定义语言\n\n数据定义语言是一组用于操作数据库本身而非单个表行的 **SQL**语句。包括所有形式的 `CREATE`、`ALTER` 和 `DROP` 语句。还包括 `TRUNCATE` 语句，因为它的工作方式与 ``DELETE   FROM _`table_name`_`` 语句不同，即使最终效果相似。\n\n\"DDL语句会自动**commit**当前  **transaction**；它们无法  **rolled back**。\"\n\n`InnoDB`\n[在线 DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_online_ddl \"online DDL\") 功能  提高了 创建  索引, [`DROP INDEX`](https://dev.mysql.com/doc/refman/8.4/en/drop-index.html \"15.1.27 DROP INDEX Statement\") 和  许多类型的 [`ALTER TABLE`](https://dev.mysql.com/doc/refman/8.4/en/alter-table.html \"15.1.9 ALTER TABLE Statement\")  操作的性能。有关更多信息，请参见 [第 17.12 节， “InnoDB 和在线 DDL”](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl.html \"17.12 InnoDB and Online DDL\")。此外， `InnoDB`\n[每表文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_file_per_table \"file-per-table\")\n设置可以影响 删除  表 和 截断  表 操作的行为。\n\n与**DML**和**DCL**对比。\n\n另见[提交](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_commit)，[DCL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dcl)，[DML](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dml)，[每表文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_file_per_table)，[回滚](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback)，[SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_sql)，[事务](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_transaction)。\n\n来源：原始行：738；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ddl"
+          "content": "数据定义语言是一组用于操作数据库本身而非单个表行的 **SQL**语句。包括所有形式的 `CREATE`、`ALTER` 和 `DROP` 语句。还包括 `TRUNCATE` 语句，因为它的工作方式与 ``DELETE   FROM _`table_name`_`` 语句不同，即使最终效果相似。\n\n\"DDL语句会自动**commit**当前  **transaction**；它们无法  **rolled back**。\"\n\n`InnoDB`\n[在线 DDL] 功能  提高了 创建  索引, [`DROP INDEX`] 和  许多类型的 [`ALTER TABLE`] 操作的性能。有关更多信息，请参见 [第 17.12 节， “InnoDB 和在线 DDL”]。此外， `InnoDB`\n[每表文件]\n设置可以影响删除表和截断表操作的行为。\n\n"
         }
       ]
     },
@@ -8110,7 +8102,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**删除 / delete**\n英文：delete\n中文：删除\n\n当 `InnoDB` 处理一个  `DELETE` 语句时，行立即被标记为删除，并且不再被查询返回。存储将在稍后的某个时间被回收，在称为 **purge** 操作的定期垃圾收集期间。对于删除大量数据，相关操作及其自身性能特征是  TRUNCATE 和  DROP。\n\n另请参见 [删除](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_drop)，[清除](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_purge)，[截断](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_truncate)。\n\n来源：原始行：777；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_delete"
+          "content": "当 `InnoDB` 处理一个  `DELETE` 语句时，行立即被标记为删除，并且不再被查询返回。存储将在稍后的某个时间被回收，在称为 **purge** 操作的定期垃圾收集期间。对于删除大量数据，相关操作及其自身性能特征是  TRUNCATE 和  DROP。\n\n"
         }
       ]
     },
@@ -8394,7 +8386,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**数据操纵语言 / DML**\n英文：DML\n中文：数据操纵语言\n\n数据操作语言，一组执行 **SQL**、[`INSERT`](https://dev.mysql.com/doc/refman/8.4/en/insert.html \"15.2.7 INSERT Statement\") 和 [`UPDATE`](https://dev.mysql.com/doc/refman/8.4/en/update.html \"15.2.17 UPDATE Statement\") 操作的 [`DELETE`](https://dev.mysql.com/doc/refman/8.4/en/delete.html \"15.2.2 DELETE Statement\") 语句。 [`SELECT`](https://dev.mysql.com/doc/refman/8.4/en/select.html \"15.2.13 SELECT Statement\") 语句有时被视为 DML 语句，因为 `SELECT ... FOR UPDATE` 形式会面临与 **locking**相关的相同考虑，像 [`INSERT`](https://dev.mysql.com/doc/refman/8.4/en/insert.html \"15.2.7 INSERT Statement\")、[`UPDATE`](https://dev.mysql.com/doc/refman/8.4/en/update.html \"15.2.17 UPDATE Statement\") 和 [`DELETE`](https://dev.mysql.com/doc/refman/8.4/en/delete.html \"15.2.2 DELETE Statement\")。\n\n针对一个 `InnoDB` 表的 DML 语句在**transaction**的上下文中操作，因此它们的效果可以作为一个整体被**committed**或**rolled back**。\n\n与 **DDL**和**DCL** 对比。\n\n另请参见 [commit](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_commit), [DCL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dcl), [DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_ddl), [locking](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_locking), [rollback](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback), [SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_sql), [transaction](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_transaction).\n\n来源：原始行：847；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dml"
+          "content": "数据操作语言，一组执行 **SQL**、[`INSERT`] 和 [`UPDATE`]操作的 [`DELETE`] 语句。 [`SELECT`]语句有时被视为 DML 语句，因为 `SELECT ... FOR UPDATE` 形式会面临与 **locking**相关的相同考虑，像 [`INSERT`]、[`UPDATE`]和 [`DELETE`]。\n\n针对一个 `InnoDB` 表的 DML 语句在**transaction**的上下文中操作，因此它们的效果可以作为一个整体被**committed**或**rolled back**。\n\n"
         }
       ]
     },
@@ -8509,7 +8501,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**落下 / drop**\n英文：drop\n中文：落下\n\n一种**DDL**操作，它通过如[`DROP TABLE`](https://dev.mysql.com/doc/refman/8.4/en/drop-table.html \"15.1.32 DROP TABLE Statement\")或[`DROP INDEX`](https://dev.mysql.com/doc/refman/8.4/en/drop-index.html \"15.1.27 DROP INDEX Statement\")这样的语句来删除一个模式对象。它在内部映射到一个[`ALTER TABLE`](https://dev.mysql.com/doc/refman/8.4/en/alter-table.html \"15.1.9 ALTER TABLE Statement\")语句。从`InnoDB`的角度来看，这类操作的性能考虑涉及到**data dictionary**被锁定的时间，以确保相关对象都得到更新，以及更新内存结构（如**buffer pool**）所需的时间。对于一个**table**，删除操作与**truncate**操作（[`TRUNCATE TABLE`](https://dev.mysql.com/doc/refman/8.4/en/truncate-table.html \"15.1.37 TRUNCATE TABLE Statement\")语句）具有略微不同的特征。\n\n另请参阅 [缓冲池](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_buffer_pool), [数据字典](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_data_dictionary), [DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_ddl), [表](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_table), [截断](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_truncate)。\n\n来源：原始行：872；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_drop"
+          "content": "一种**DDL**操作，它通过如[`DROP TABLE`]或[`DROP INDEX`]这样的语句来删除一个模式对象。它在内部映射到一个[`ALTER TABLE`]语句。从`InnoDB`的角度来看，这类操作的性能考虑涉及到**data dictionary**被锁定的时间，以确保相关对象都得到更新，以及更新内存结构（如**buffer pool**）所需的时间。对于一个**table**，删除操作与**truncate**操作（[`TRUNCATE TABLE`]语句）具有略微不同的特征。\n\n"
         }
       ]
     },
@@ -8564,7 +8556,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**动态 SQL / dynamic SQL**\n英文：dynamic SQL\n中文：动态 SQL\n\n“一个功能，可以让你使用更健壮、安全和高效的方法创建和执行 **prepared statements**，以替代简单地将语句的各部分连接成字符串变量的技术。”\n\n另请参见[预处理语句](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_prepared_statement)。\n\n来源：原始行：904；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_sql"
+          "content": "“一个功能，可以让你使用更健壮、安全和高效的方法创建和执行 **prepared statements**，以替代简单地将语句的各部分连接成字符串变量的技术。”\n"
         }
       ]
     },
@@ -9473,7 +9465,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**外键 / foreign key**\n英文：foreign key\n中文：外键\n\nA type of pointer relationship, between rows in separate InnoDB tables. The foreign key relationship is defined on one column in both the parent table and the child table.\n\n除了能够快速查找相关信息，外键还通过防止这些指针在数据插入、更新和删除时变得无效，帮助维护referential\nintegrity。这种强制机制是一种constraint。如果关联的外键值在另一个表中不存在，则指向另一个表的行无法插入。如果一行被删除或其外键值发生更改，而另一个表中的行指向该外键值，则可以设置外键以防止删除，使另一个表中的相应列值变为null，或自动删除另一个表中的相应行。\n\n设计normalized数据库的一个阶段是识别重复的数据，将这些数据分离到新表中，并设置外键关系，以便多个表可以像单个表一样进行查询，使用join操作。\n\n另请参见 子表， 外键约束， 连接， 标准化， NULL， 父表， 参照完整性， 关系型。\n\n来源：原始行：1044；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_foreign_key"
+          "content": "A type of pointer relationship, between rows in separate InnoDB tables. The foreign key relationship is defined on one column in both the parent table and the child table.\n\n除了能够快速查找相关信息，外键还通过防止这些指针在数据插入、更新和删除时变得无效，帮助维护referential\nintegrity。这种强制机制是一种constraint。如果关联的外键值在另一个表中不存在，则指向另一个表的行无法插入。如果一行被删除或其外键值发生更改，而另一个表中的行指向该外键值，则可以设置外键以防止删除，使另一个表中的相应列值变为null，或自动删除另一个表中的相应行。\n\n设计normalized数据库的一个阶段是识别重复的数据，将这些数据分离到新表中，并设置外键关系，以便多个表可以像单个表一样进行查询，使用join操作。\n\n另请参见 子表， 外键约束， 连接， 标准化， NULL， 父表， 参照完整性， 关系型。\n\n来源：原始行：1044；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_foreign_key"
         }
       ]
     },
@@ -12549,7 +12541,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**LSN**\n英文：LSN\n中文：LSN\n\n“日志序列号”的缩写 “log sequence number”。这个任意的、\n不断增加的值代表一个时间点，对应于\n在 redo\nlog 中记录的操作。\n（这个时间点与 transaction 边界无关；\n它可以落在一个或多个事务的中间。）它在\nInnoDB 内部用于\ncrash recovery 和管理\nbuffer pool。\n\n在 MySQL 5.6.3 之前，LSN 是一个 4 字节的无符号整数。\n在 MySQL 5.6.3 中，当重做日志文件大小限制从 4GB 增加到 512GB 时，LSN 变成了 8 字节的无符号整数，\n因为需要额外的字节来存储额外的大小信息。\n构建在 MySQL 5.6.3 或更高版本上的应用程序如果使用 LSN 值，\n应该使用 64 位变量而不是 32 位变量来存储和比较 LSN 值。\n\n在 MySQL Enterprise Backup 产品中，您可以\n指定一个 LSN，以表示从该时间点开始进行\nincremental backup。相关的 LSN 由\nmysqlbackup 命令的输出显示。\n一旦您拥有与完整备份时间相对应的 LSN，您可以指定该值来进行后续增量备份，其输出\n包含下一个增量备份的另一个 LSN。\n\n另见 缓冲池、崩溃恢复、增量备份、MySQL Enterprise Backup、重做日志、事务。\n\n来源：原始行：1706；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_lsn"
+          "content": "“日志序列号”的缩写 “log sequence number”。这个任意的、不断增加的值代表一个时间点，对应于在 redolog 中记录的操作。\n（这个时间点与 transaction 边界无关；\n它可以落在一个或多个事务的中间。）它在\nInnoDB 内部用于crash recovery 和管理\nbuffer pool。\n\n在 MySQL 5.6.3 之前，LSN 是一个 4 字节的无符号整数。\n在 MySQL 5.6.3 中，当重做日志文件大小限制从 4GB 增加到 512GB 时，LSN 变成了 8 字节的无符号整数，\n因为需要额外的字节来存储额外的大小信息。\n构建在 MySQL 5.6.3 或更高版本上的应用程序如果使用 LSN 值，应该使用 64 位变量而不是 32 位变量来存储和比较 LSN 值。\n\n在 MySQL Enterprise Backup 产品中，您可以\n指定一个 LSN，以表示从该时间点开始进行\nincremental backup。相关的 LSN 由\nmysqlbackup 命令的输出显示。\n一旦您拥有与完整备份时间相对应的 LSN，您可以指定该值来进行后续增量备份，其输出包含下一个增量备份的另一个 LSN。\n"
         }
       ]
     },
@@ -13027,7 +13019,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**合并 / merge**\n英文：merge\n中文：合并\n\n要将更改应用于缓存到内存中的数据，例如当页面被引入到buffer\npool时，以及记录在change buffer中的任何适用更改都被纳入到缓冲池中的页面。更新的数据最终通过flush机制写入tablespace。\n\n另请参阅 缓冲池，更改缓冲区，刷新，表空间。\n\n来源：原始行：1783；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_merge"
+          "content": "要将更改应用于缓存到内存中的数据，例如当页面被引入到buffer pool时，以及记录在change buffer中的任何适用更改都被纳入到缓冲池中的页面。更新的数据最终通过flush机制写入tablespace。\n\n"
         }
       ]
     },
@@ -14199,7 +14191,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**在线 DDL / online DDL**\n英文：online DDL\n中文：在线 DDL\n\n一个在 `InnoDB` 表执行 **DDL** （主要是 [`ALTER TABLE`](https://dev.mysql.com/doc/refman/8.4/en/alter-table.html \"15.1.9 ALTER TABLE Statement\")）操作时，提升性能、并发性和可用性的功能。有关详细信息，请参见 [第 17.12 节，“InnoDB 和在线 DDL”](https://dev.mysql.com/doc/refman/8.4/en/innodb-online-ddl.html \"17.12 InnoDB and Online DDL\")。\n\n操作的细节根据类型的不同而有所变化。在某些情况下，当[`ALTER TABLE`](https://dev.mysql.com/doc/refman/8.4/en/alter-table.html \"15.1.9 ALTER TABLE Statement\")正在进行时，表可以被同时修改。该操作可能无需进行表复制，或者使用一种特殊优化的表复制类型。在就地操作中，DML 日志空间的使用由[`innodb_online_alter_log_max_size`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_online_alter_log_max_size)配置选项控制。\n\n此功能是 MySQL 5.5 中**Fast\nIndex Creation**功能的增强。\n\n另请参见 [DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_ddl), [快速索引创建](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_fast_index_creation), [在线](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_online)。\n\n来源：原始行：2045；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_online_ddl"
+          "content": "一个在 `InnoDB` 表执行 **DDL** （主要是 `ALTER TABLE`操作时，提升性能、并发性和可用性的功能。\n\n操作的细节根据类型的不同而有所变化。在某些情况下，当[`ALTER TABLE`]正在进行时，表可以被同时修改。该操作可能无需进行表复制，或者使用一种特殊优化的表复制类型。在就地操作中，DML 日志空间的使用由[`innodb_online_alter_log_max_size`]配置选项控制。\n\n此功能是 MySQL 5.5 中**Fast Index Creation**功能的增强。\n\n"
         }
       ]
     },
@@ -14283,7 +14275,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**优化器 / optimizer**\n英文：optimizer\n中文：优化器\n\nMySQL 组件，它确定最佳\n**indexes**和\n**join**顺序，以用于\n**query**，基于相关\n**tables**的特征和数据分布。\n\n另见 [索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_index)， [连接](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_join)， [查询](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_query)， [表](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_table)。\n\n来源：原始行：2068；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_optimizer"
+          "content": "MySQL 组件，它确定最佳**indexes**和\n**join**顺序，以用于**query**，基于相关\n**tables**的特征和数据分布。\n"
         }
       ]
     },
@@ -14668,7 +14660,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**部分索引 / partial index**\n英文：partial index\n中文：部分索引\n\n一个 **index**仅表示列值的一部分，通常是前 N 个字符（即**prefix**）的一段长 `VARCHAR` 值。\n\n另请参见 [索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_index)， [索引前缀](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_index_prefix)。\n\n来源：原始行：2180；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_partial_index"
+          "content": "一个 **index**仅表示列值的一部分，通常是前 N 个字符（即**prefix**）的一段长 `VARCHAR` 值。\n"
         }
       ]
     },
@@ -14814,30 +14806,6 @@
     "role": "plain",
     "dimensions": [
       "transaction",
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ]
-  },
-  "k_dict_ej0gabn2": {
-    "id": "k_dict_ej0gabn2",
-    "label": "SQL",
-    "card": {
-      "nodeId": "k_dict_ej0gabn2",
-      "title": "SQL",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "结构化查询语言是执行数据库操作的标准。通常分为以下几个类别：**DDL**，**DML**，以及\n**queries**。MySQL 包括一些额外的语句类别，如**replication**。"
-        }
-      ]
-    },
-    "role": "plain",
-    "dimensions": [
       "storage"
     ],
     "tags": [
@@ -15256,7 +15224,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**Python**\n英文：Python\n中文：Python\n\n一种用于广泛领域的编程语言，从 Unix 脚本到大规模应用程序。包括运行时类型、内置高级数据类型、面向对象特性以及丰富的标准库。通常用作不同语言之间组件的 “粘合剂”。MySQL **Python API**是开源的**MySQLdb** 模块。\n\n另见[MySQLdb](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysqldb)，[Python API](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_python_api)。\n\n来源：原始行：2378；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_python"
+          "content": "一种用于广泛领域的编程语言，从 Unix 脚本到大规模应用程序。包括运行时类型、内置高级数据类型、面向对象特性以及丰富的标准库。通常用作不同语言之间组件的 “粘合剂”。MySQL **Python API**是开源的**MySQLdb** 模块。\n"
         }
       ]
     },
@@ -15812,7 +15780,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**全表扫描 / full table scan**\n英文：full table scan\n中文：全表扫描\n\n一种操作，需要读取一个表的全部内容，而不仅仅是使用index选择的部分。通常在小查找表上执行，或者在数据仓库场景中使用大型表，聚合和分析所有可用数据。这些操作发生的频率以及表相对于可用内存的大小，对查询优化和管理buffer pool中使用的算法有影响。\n\n索引的目的在于允许在大表中查找特定值或值范围，从而在可行的情况下避免全表扫描。\n\n另请参见 缓冲池， 索引。\n\n来源：原始行：1069；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_full_table_scan"
+          "content": "一种操作，需要读取一个表的全部内容，而不仅仅是使用index选择的部分。通常在小查找表上执行，或者在数据仓库场景中使用大型表，聚合和分析所有可用数据。这些操作发生的频率以及表相对于可用内存的大小，对查询优化和管理buffer pool中使用的算法有影响。\n\n索引的目的在于允许在大表中查找特定值或值范围，从而在可行的情况下避免全表扫描。\n\n"
         }
       ]
     },
@@ -19670,30 +19638,6 @@
       "mysql-glossary"
     ]
   },
-  "k_dict_2kzoxeef": {
-    "id": "k_dict_2kzoxeef",
-    "label": "表扫描 / table scan",
-    "card": {
-      "nodeId": "k_dict_2kzoxeef",
-      "title": "表扫描 / table scan",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**表扫描 / table scan**\n英文：table scan\n中文：表扫描\n\n查看[完整表扫描](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_full_table_scan)。\n\n来源：原始行：3225；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_table_scan"
-        }
-      ]
-    },
-    "role": "plain",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ]
-  },
   "k_dict_n857awcz": {
     "id": "k_dict_n857awcz",
     "label": "Table-Level Locking",
@@ -20110,7 +20054,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**截断 / truncate**\n英文：truncate\n中文：截断\n\n一种 **DDL**操作，它移除\n整个表的内容，同时保留表和\n相关索引。与**drop**对比。尽管在概念上与没有\n`WHERE` 子句的 `DELETE` 语句具有相同结果，但在背后操作的方式不同： `InnoDB` 创建一个新的空\n表，删除旧表，然后将新表重命名为取代旧表。由于这是DDL操作，\n无法被**rolled back**。\n\n如果被截断的表包含\n**foreign keys**，指向\n另一张表，截断操作会使用一种较慢的方法\n逐行删除，这样在被引用表中\n可以根据需要删除对应行，通过任何\n`ON DELETE CASCADE` 子句。（MySQL 5.5及更高版本不允许使用这种较慢的截断形式，如果涉及外键则会返回错误。在这种情况下，请使用\n`DELETE` 语句。\n\n另请参见 [DDL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_ddl)， [删除](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_drop)， [外键](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_foreign_key)， [回滚](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback)。\n\n来源：原始行：3387；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_truncate"
+          "content": "一种 **DDL**操作，它移除整个表的内容，同时保留表和相关索引。与**drop**对比。尽管在概念上与没有`WHERE` 子句的 `DELETE` 语句具有相同结果，但在背后操作的方式不同： `InnoDB` 创建一个新的空表，删除旧表，然后将新表重命名为取代旧表。由于这是DDL操作，无法被**rolled back**。\n\n如果被截断的表包含**foreign keys**，指向\n另一张表，截断操作会使用一种较慢的方法逐行删除，这样在被引用表中可以根据需要删除对应行，通过任何`ON DELETE CASCADE` 子句。（MySQL 5.5及更高版本不允许使用这种较慢的截断形式，如果涉及外键则会返回错误。在这种情况下，请使用`DELETE` 语句。\n"
         }
       ]
     },
@@ -21018,7 +20962,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**预热 / warm up**\n英文：warm up\n中文：预热\n\n在启动后，使系统在典型\n**workload**下运行一段时间，以便\n**buffer\npool**和其他内存区域被填充，如同在正常情况下。这一过程在 MySQL 服务器重新启动或遭遇新工作负载时，随着时间的推移自然而然发生.\n\n通常，在进行性能测试之前，您需要运行一定时间的工作负载，以预热缓冲池，以确保在多次运行中获得一致的结果；否则，在第一次运行时，性能可能会低于正常水平。\n\n在 MySQL 5.6 中，您可以通过启用 [`innodb_buffer_pool_dump_at_shutdown`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_dump_at_shutdown) 和 [`innodb_buffer_pool_load_at_startup`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_buffer_pool_load_at_startup) 配置选项，加速热身过程，以在重启后将缓冲池的内容重新加载到内存中。这些选项在 MySQL 5.7 中默认启用。请参见 [第 17.8.3.6 节，“保存和恢复缓冲池状态”](https://dev.mysql.com/doc/refman/8.4/en/innodb-preload-buffer-pool.html \"17.8.3.6 Saving and Restoring the Buffer Pool State\")。\n\n另见 [缓冲池](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_buffer_pool)， [工作负载](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_workload)。\n\n来源：原始行：3611；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_warm_up"
+          "content": "在启动后，使系统在典型**workload**下运行一段时间，以便**buffer pool**和其他内存区域被填充，如同在正常情况下。这一过程在 MySQL 服务器重新启动或遭遇新工作负载时，随着时间的推移自然而然发生.\n\n通常，在进行性能测试之前，您需要运行一定时间的工作负载，以预热缓冲池，以确保在多次运行中获得一致的结果；否则，在第一次运行时，性能可能会低于正常水平。\n\n在 MySQL 5.6 中，您可以通过启用 [`innodb_buffer_pool_dump_at_shutdown`] 和 [`innodb_buffer_pool_load_at_startup`] 配置选项，加速热身过程，以在重启后将缓冲池的内容重新加载到内存中。这些选项在 MySQL 5.7 中默认启用。请参见 [第 17.8.3.6 节，“保存和恢复缓冲池状态”]。\n\n"
         }
       ]
     },
@@ -21185,7 +21129,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**分布式事务 / XA 协议 / XA**\n英文：XA\n中文：分布式事务 / XA 协议\n\n一个标准接口，用于协调分布式\n**transactions**，允许多个\n数据库参与事务，同时保持\n**ACID** 合规性。有关详细信息，请参见 [第15.3.8节，“XA事务”](https://dev.mysql.com/doc/refman/8.4/en/xa.html \"15.3.8 XA Transactions\")。\n\n\"XA 分布式事务支持默认启用。\"\n\n另请参阅[ACID](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_acid)、[二进制日志](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_binary_log)、[提交](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_commit)、[事务](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_transaction)、[两阶段提交](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_two_phase_commit)。\n\n来源：原始行：3642；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_xa"
+          "content": "分布式事务是指事务的参与者和支持者的服务器，资源服务器，事务管理器，分别位于分布式系统的不同节点上，保证不同数据的一致性。"
         }
       ]
     },
@@ -33164,10 +33108,6 @@
                 "desc": "另一种指代**system tablespace**或**general tablespace**的方式。通用表空间是在MySQL 5.7中引入的。多个表可以存在于同一共享表空间中。只有一个表可以存在于_file-per-table_的表空"
               },
               {
-                "nodeId": "k_dict_ej0gabn2",
-                "desc": "结构化查询语言是执行数据库操作的标准。通常分为以下几个类别： **DDL**， **DML**，以及 **queries**。MySQL 包括一些 额外的语句类别，如 **replication**。有关 SQL 语法的构建模块，请参见 ["
-              },
-              {
                 "nodeId": "mysql_glossary_sqlstate_16aqrw",
                 "desc": "由 **JDBC**标准定义的错误代码，用于使用**Connector/J** 的应用程序进行异常处理。 请参见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary."
               },
@@ -33198,10 +33138,6 @@
               {
                 "nodeId": "mysql_glossary_table_lock_15y9vl",
                 "desc": "一种锁定机制，防止任何其他**transaction**访问表。`InnoDB`努力通过使用诸如**online DDL**、**row locks**和**consistent reads**等技术，使此类锁定变得不必要，以处理**DML"
-              },
-              {
-                "nodeId": "k_dict_2kzoxeef",
-                "desc": "查看[完整表扫描](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_full_table_scan)。"
               },
               {
                 "nodeId": "mysql_glossary_table_statistics_1c30y8",
@@ -33577,10 +33513,6 @@
               {
                 "nodeId": "mysql_glossary_selectivity_4k9ksu",
                 "desc": "选择性是描述数据分布的属性，计算方式是某列中不同值的数量（cardinality，基数）除以表中的记录数。高选择性意味着该列的值相对唯一，通常可以通过索引高效检索。 如果你或查询优化器能够预测 `WHERE` 子句中的某个条件只匹配表中少量"
-              },
-              {
-                "nodeId": "k_dict_2kzoxeef",
-                "desc": "查看[完整表扫描](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_full_table_scan)。"
               }
             ]
           }
@@ -36001,29 +35933,6 @@
       ]
     }
   },
-  "mysql_tx_commit_coordination": {
-    "id": "mysql_tx_commit_coordination",
-    "label": "提交协调与分布式事务",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "directory-taxonomy"
-    ],
-    "card": {
-      "nodeId": "mysql_tx_commit_coordination",
-      "title": "提交协调与分布式事务",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "XA、两阶段提交、组提交和全局事务。"
-        }
-      ]
-    }
-  },
   "mysql_tx_mvcc_undo": {
     "id": "mysql_tx_mvcc_undo",
     "label": "Undo 与版本链",
@@ -36256,7 +36165,7 @@
   },
   "mysql_topic_sql_objects": {
     "id": "mysql_topic_sql_objects",
-    "label": "SQL、表与数据对象",
+    "label": "SQL",
     "role": "subsystem",
     "dimensions": [
       "storage"
@@ -36267,7 +36176,7 @@
     ],
     "card": {
       "nodeId": "mysql_topic_sql_objects",
-      "title": "SQL、表与数据对象",
+      "title": "SQL",
       "tabs": [
         {
           "id": "def",
@@ -36319,29 +36228,6 @@
           "id": "def",
           "label": "定义",
           "content": "InnoDB 的页、表空间、缓冲、Redo、Undo、MVCC、行格式和物理文件结构。"
-        }
-      ]
-    }
-  },
-  "mysql_topic_transactions_locks": {
-    "id": "mysql_topic_transactions_locks",
-    "label": "事务、隔离与锁",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "directory-taxonomy"
-    ],
-    "card": {
-      "nodeId": "mysql_topic_transactions_locks",
-      "title": "事务、隔离与锁",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "ACID、事务生命周期、隔离级别、锁模式、死锁、读现象和并发控制。"
         }
       ]
     }
@@ -37008,7 +36894,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "程序语言是一门独立知识门派；这里收录从具体实现中抽离出的通用概念引用，不隶属于 MySQL。\n\n当前归入 7 个 MySQL 知识节点。"
+          "content": ""
         }
       ]
     }
@@ -37284,7 +37170,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：安全\n\ncaching_sha2_password、TLS、哈希、密钥、证书、Kerberos 和认证票据。\n\n当前归入 1 个知识节点。"
+          "content": "caching_sha2_password、TLS、哈希、密钥、证书、Kerberos 和认证票据。\n"
         }
       ]
     }
@@ -37307,7 +37193,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：安全\n\nGRANT/REVOKE、角色、权限、账户和最小权限模型。\n\n当前归入 0 个知识节点。"
+          "content": "GRANT/REVOKE、角色、权限、账户和最小权限模型。\n"
         }
       ]
     }
@@ -37446,6 +37332,2856 @@
           "id": "def",
           "label": "定义",
           "content": "独立门派：现实约定\n\nTIMESTAMP、时区、IANA tzdata 和时间转换约定。\n\n当前归入 0 个知识节点。"
+        }
+      ]
+    }
+  },
+  "k_1782724755094_uqst5g": {
+    "id": "k_1782724755094_uqst5g",
+    "label": "关系模型",
+    "card": {
+      "nodeId": "k_1782724755094_uqst5g",
+      "title": "关系模型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782746457581_30q8ao": {
+    "id": "k_1782746457581_30q8ao",
+    "label": "java",
+    "card": {
+      "nodeId": "k_1782746457581_30q8ao",
+      "title": "java",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782748382034_b8a1a9": {
+    "id": "k_1782748382034_b8a1a9",
+    "label": "类型系统",
+    "card": {
+      "nodeId": "k_1782748382034_b8a1a9",
+      "title": "类型系统",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782748910899_dtrnpe": {
+    "id": "k_1782748910899_dtrnpe",
+    "label": "数据类型",
+    "card": {
+      "nodeId": "k_1782748910899_dtrnpe",
+      "title": "数据类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749047493_w36knu": {
+    "id": "k_1782749047493_w36knu",
+    "label": "整数类型",
+    "card": {
+      "nodeId": "k_1782749047493_w36knu",
+      "title": "整数类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749263813_199twh": {
+    "id": "k_1782749263813_199twh",
+    "label": "实数类型",
+    "card": {
+      "nodeId": "k_1782749263813_199twh",
+      "title": "实数类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749276682_qsjks8": {
+    "id": "k_1782749276682_qsjks8",
+    "label": "字符串类型",
+    "card": {
+      "nodeId": "k_1782749276682_qsjks8",
+      "title": "字符串类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749287355_2zl67c": {
+    "id": "k_1782749287355_2zl67c",
+    "label": "枚举类型",
+    "card": {
+      "nodeId": "k_1782749287355_2zl67c",
+      "title": "枚举类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749694486_vyrfzy": {
+    "id": "k_1782749694486_vyrfzy",
+    "label": "jvm",
+    "card": {
+      "nodeId": "k_1782749694486_vyrfzy",
+      "title": "jvm",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Java Virtual Machine"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782749726658_e7lq2o": {
+    "id": "k_1782749726658_e7lq2o",
+    "label": "spring",
+    "card": {
+      "nodeId": "k_1782749726658_e7lq2o",
+      "title": "spring",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782793389266_8caigh": {
+    "id": "k_1782793389266_8caigh",
+    "label": "数据类型",
+    "card": {
+      "nodeId": "k_1782793389266_8caigh",
+      "title": "数据类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782793401051_nyxsei": {
+    "id": "k_1782793401051_nyxsei",
+    "label": "基本类型",
+    "card": {
+      "nodeId": "k_1782793401051_nyxsei",
+      "title": "基本类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782793417791_nvare3": {
+    "id": "k_1782793417791_nvare3",
+    "label": "引用类型",
+    "card": {
+      "nodeId": "k_1782793417791_nvare3",
+      "title": "引用类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在Java中，引用类型的变量非常类似于C/C++的指针。引用类型指向一个对象，指向对象的变量是引用变量。这些变量在声明时被指定为一个特定的类型，比如 Employee、Puppy 等。变量一旦声明后，类型就不能被改变了。\n对象、数组都是引用数据类型。\n所有引用类型的默认值都是null。\n一个引用变量可以用来引用任何与之兼容的类型。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782794616728_i5obct": {
+    "id": "k_1782794616728_i5obct",
+    "label": "运行时数据区",
+    "card": {
+      "nodeId": "k_1782794616728_i5obct",
+      "title": "运行时数据区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "内存模型\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782798780082_yrsuje": {
+    "id": "k_1782798780082_yrsuje",
+    "label": "程序计数器",
+    "card": {
+      "nodeId": "k_1782798780082_yrsuje",
+      "title": "程序计数器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "当前线程字节码执行位置"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782798788671_3fjikg": {
+    "id": "k_1782798788671_3fjikg",
+    "label": "虚拟机栈",
+    "card": {
+      "nodeId": "k_1782798788671_3fjikg",
+      "title": "虚拟机栈",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "栈帧、局部变量表、操作数栈"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782798797768_ye8a51": {
+    "id": "k_1782798797768_ye8a51",
+    "label": "本地方法栈",
+    "card": {
+      "nodeId": "k_1782798797768_ye8a51",
+      "title": "本地方法栈",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "服务于 native 方法"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782798808568_5vubd8": {
+    "id": "k_1782798808568_5vubd8",
+    "label": "方法区",
+    "card": {
+      "nodeId": "k_1782798808568_5vubd8",
+      "title": "方法区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "类信息、常量、静态变量、JIT 代码"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782798814309_j3jj7c": {
+    "id": "k_1782798814309_j3jj7c",
+    "label": "堆",
+    "card": {
+      "nodeId": "k_1782798814309_j3jj7c",
+      "title": "堆",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "存放对象实例和数组"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782804303119_9whpjj": {
+    "id": "k_1782804303119_9whpjj",
+    "label": "参数",
+    "card": {
+      "nodeId": "k_1782804303119_9whpjj",
+      "title": "参数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782809150059_ibx5gd": {
+    "id": "k_1782809150059_ibx5gd",
+    "label": "字节码",
+    "card": {
+      "nodeId": "k_1782809150059_ibx5gd",
+      "title": "字节码",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "因为JVM针对各种操作系统和平台都进行了定制，无论在什么平台，都可以通过javac命令将一个.java文件编译成固定格式的字节码（.class文件）供JVM使用。之所以被称为字节码，是因为.class文件是由十六进制值组成的，JVM以两个十六进制值为一组，就是以字节为单位进行读取"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782809243195_ntzmm2": {
+    "id": "k_1782809243195_ntzmm2",
+    "label": "魔数",
+    "card": {
+      "nodeId": "k_1782809243195_ntzmm2",
+      "title": "魔数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "所有的.class文件的前4个字节都是魔数，魔数以一个固定值：0xCAFEBABE，放在文件的开头，JVM就可以根据这个文件的开头来判断这个文件是否可能是一个.class文件，如果是以这个开头，才会往后执行下面的操作，这个魔数的固定值是Java之父James Gosling指定的，意为CafeBabe（咖啡宝贝）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782809305431_5meyed": {
+    "id": "k_1782809305431_5meyed",
+    "label": "版本号",
+    "card": {
+      "nodeId": "k_1782809305431_5meyed",
+      "title": "版本号",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "版本号是魔术之后的4个字节，前两个字节表示次版本号（Minor Version），后两个字节表示主版本号（Major Version），上面的0000 0032，次版本号0000转为十进制是0，主版本号0032转为十进制50，对应java版本映射关系，可以看到对应的java版本号是1.6"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782809424650_c6xo8d": {
+    "id": "k_1782809424650_c6xo8d",
+    "label": "常量池",
+    "card": {
+      "nodeId": "k_1782809424650_c6xo8d",
+      "title": "常量池",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "紧接着主版本号之后的字节为常量池入口，常量池中有两类常量：字面量和符号引用，。常量池整体分为两个部分：常量池计数器以及常量池数据区"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810101915_qea50y": {
+    "id": "k_1782810101915_qea50y",
+    "label": "主版本号",
+    "card": {
+      "nodeId": "k_1782810101915_qea50y",
+      "title": "主版本号",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810113591_p7ab1i": {
+    "id": "k_1782810113591_p7ab1i",
+    "label": "次版本号",
+    "card": {
+      "nodeId": "k_1782810113591_p7ab1i",
+      "title": "次版本号",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810274459_fc4dll": {
+    "id": "k_1782810274459_fc4dll",
+    "label": "字面量",
+    "card": {
+      "nodeId": "k_1782810274459_fc4dll",
+      "title": "字面量",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "字面量是代码中申明为Final的常量值"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810454317_uh43xj": {
+    "id": "k_1782810454317_uh43xj",
+    "label": "符号引用",
+    "card": {
+      "nodeId": "k_1782810454317_uh43xj",
+      "title": "符号引用",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "符号引用是如类和接口的全局限定名、字段的名称和描述符、方法的名称和描述符"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810488481_ahot6h": {
+    "id": "k_1782810488481_ahot6h",
+    "label": "常量池计数器",
+    "card": {
+      "nodeId": "k_1782810488481_ahot6h",
+      "title": "常量池计数器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810495660_w3vt9q": {
+    "id": "k_1782810495660_w3vt9q",
+    "label": "常量池数据区",
+    "card": {
+      "nodeId": "k_1782810495660_w3vt9q",
+      "title": "常量池数据区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810550706_10mcmg": {
+    "id": "k_1782810550706_10mcmg",
+    "label": "访问标志",
+    "card": {
+      "nodeId": "k_1782810550706_10mcmg",
+      "title": "访问标志",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "常量池结束后的两个字节，描述的是类还是接口，以及是否被Public、Abstract、Final等修饰符修饰，JVM规范规定了9种访问标示（Access_Flag）JVM是通过按位或操作来描述所有的访问标示的，比如类的修饰符是Public Final，则对应的访问修饰符的值为ACC_PUBLIC | ACC_FINAL，即0x0001 |\n0x0010=0x0011"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810659762_nmwkrk": {
+    "id": "k_1782810659762_nmwkrk",
+    "label": "当前类索引",
+    "card": {
+      "nodeId": "k_1782810659762_nmwkrk",
+      "title": "当前类索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "访问标志后的两个字节，描述的是当前类的全限定名，这两个字节保存的值是常量池中的索引值，根据索引值就能在常量池中找到这个类的全限定名"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782810994704_o4tysd": {
+    "id": "k_1782810994704_o4tysd",
+    "label": "父类索引",
+    "card": {
+      "nodeId": "k_1782810994704_o4tysd",
+      "title": "父类索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "当前类名后的两个字节，描述的父类的全限定名，也是保存的常量池中的索引值"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782811075312_xd5lmc": {
+    "id": "k_1782811075312_xd5lmc",
+    "label": "接口索引",
+    "card": {
+      "nodeId": "k_1782811075312_xd5lmc",
+      "title": "接口索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "父类名称后的两个字节，是接口计数器，描述了该类或者父类实现的接口数量，紧接着的n个字节是所有接口名称的字符串常量的索引值"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782811325682_r4gbq4": {
+    "id": "k_1782811325682_r4gbq4",
+    "label": "字段表",
+    "card": {
+      "nodeId": "k_1782811325682_r4gbq4",
+      "title": "字段表",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "用于描述类和接口中声明的变量，包含类级别的变量和实例变量，但是不包含方法内部声明的局部变\n量，字段表也分为两个部分，第一部分是两个字节，描述字段个数，第二部分是每个字段的详细信息fields_info"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782811715001_nk3z9u": {
+    "id": "k_1782811715001_nk3z9u",
+    "label": "方法表",
+    "card": {
+      "nodeId": "k_1782811715001_nk3z9u",
+      "title": "方法表",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "字段表结束后为方法表，方法表也分为两个部分，第一个部分是两个字节表述方法的个数，第二部分是每个方法的详细信息\n方法的访问信息比较复杂，包括方法的访问标志、方法名、方法的描述符和方法的属性："
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782811740570_hdoie7": {
+    "id": "k_1782811740570_hdoie7",
+    "label": "附加属性",
+    "card": {
+      "nodeId": "k_1782811740570_hdoie7",
+      "title": "附加属性",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "字节码的最后一部分，该项存放了在该文件中类或接口所定义属性的基本信息。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782812528662_wzvpbe": {
+    "id": "k_1782812528662_wzvpbe",
+    "label": "类加载器",
+    "card": {
+      "nodeId": "k_1782812528662_wzvpbe",
+      "title": "类加载器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782812543566_42no1w": {
+    "id": "k_1782812543566_42no1w",
+    "label": "Bootstrap类加载器",
+    "card": {
+      "nodeId": "k_1782812543566_42no1w",
+      "title": "Bootstrap类加载器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "启动类加载器主要加载的是JVM自身需要的类，这个类加载使用C++语言实现的，没有父类，是虚拟机自身的一部分，它负责将<JAVA_HOME>/lib路径下的核心类库或-Xbootclasspath参数指定的路径下的jar包加载到内存中，注意必由于虚拟机是按照文件名识别加载jar包的，如rt.jar，如果文件名不被虚拟机识别，即使把jar包丢到lib目录下也是没有作用的(出于安全考虑，Bootstrap启动类加载器只加载包名为java、javax、sun等开头"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782812719415_bhdt0s": {
+    "id": "k_1782812719415_bhdt0s",
+    "label": "Extention类加载器",
+    "card": {
+      "nodeId": "k_1782812719415_bhdt0s",
+      "title": "Extention类加载器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "扩展类加载器是指Sun公司实现的sun.misc.Launcher$ExtClassLoader类，由Java语言实现的，父类加载器为null，是Launcher的静态内部类，它负责加载<JAVA_HOME>/lib/ext目录下或者由系统变量-Djava.ext.dir指定位路径中的类库，开发者可以直接使用标准扩展类加载器"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782812912050_z5a5sp": {
+    "id": "k_1782812912050_z5a5sp",
+    "label": "Application类加载器",
+    "card": {
+      "nodeId": "k_1782812912050_z5a5sp",
+      "title": "Application类加载器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "称应用程序加载器是指Sun公司实现的sun.misc.Launcher$AppClassLoader。父类加载器为ExtClassLoader，它负责加载系统类路径java -classpath或-D java.class.path指定路径下的类库，也就是我们经常用到的classpath路径，开发者可以直接使用系统类加载器，一般情况下该类加载是程序中默认的类加载器，通过ClassLoader#getSystemClassLoader()方法可以获取到该类加载器"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813014267_u5zv9z": {
+    "id": "k_1782813014267_u5zv9z",
+    "label": "Custom自定义类加载器",
+    "card": {
+      "nodeId": "k_1782813014267_u5zv9z",
+      "title": "Custom自定义类加载器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "应用程序可以自定义类加载器，父类加载器为AppClassLoader"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813819683_ntjiho": {
+    "id": "k_1782813819683_ntjiho",
+    "label": "byte",
+    "card": {
+      "nodeId": "k_1782813819683_ntjiho",
+      "title": "byte",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "byte 数据类型是8位、有符号的，以二进制补码表示的整数；\n最小值是 -128（-2^7）；\n最大值是 127（2^7-1）；\n默认值是 0；\nbyte 类型用在大型数组中节约空间，主要代替整数，因为 byte 变量占用的空间只有 int 类型的四分之一；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813876473_f9kgq2": {
+    "id": "k_1782813876473_f9kgq2",
+    "label": "short",
+    "card": {
+      "nodeId": "k_1782813876473_f9kgq2",
+      "title": "short",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "short 数据类型是 16 位、有符号的以二进制补码表示的整数\n最小值是 -32768（-2^15）；\n最大值是 32767（2^15 - 1）；\nShort 数据类型也可以像 byte 那样节省空间。一个short变量是int型变量所占空间的二分之一；\n默认值是 0；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813900716_0oixi3": {
+    "id": "k_1782813900716_0oixi3",
+    "label": "int",
+    "card": {
+      "nodeId": "k_1782813900716_0oixi3",
+      "title": "int",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "int 数据类型是32位、有符号的以二进制补码表示的整数；\n最小值是 -2,147,483,648（-2^31）；\n最大值是 2,147,483,647（2^31 - 1）；\n一般地整型变量默认为 int 类型；\n默认值是 0 ；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813922894_kmrc5z": {
+    "id": "k_1782813922894_kmrc5z",
+    "label": "long",
+    "card": {
+      "nodeId": "k_1782813922894_kmrc5z",
+      "title": "long",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "long 数据类型是 64 位、有符号的以二进制补码表示的整数；\n最小值是 -9,223,372,036,854,775,808（-2^63）；\n最大值是 9,223,372,036,854,775,807（2^63 -1）；\n这种类型主要使用在需要比较大整数的系统上；\n默认值是 0L；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813951272_huivnu": {
+    "id": "k_1782813951272_huivnu",
+    "label": "float",
+    "card": {
+      "nodeId": "k_1782813951272_huivnu",
+      "title": "float",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；\nfloat 在储存大型浮点数组的时候可节省内存空间；\n默认值是 0.0f；\n浮点数不能用来表示精确的值，如货币；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782813973111_a25i2a": {
+    "id": "k_1782813973111_a25i2a",
+    "label": "double",
+    "card": {
+      "nodeId": "k_1782813973111_a25i2a",
+      "title": "double",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "double 数据类型是双精度、64 位、符合 IEEE 754 标准的浮点数；\n浮点数的默认类型为 double 类型；\ndouble类型同样不能表示精确的值，如货币；\n默认值是 0.0d"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782814002747_fldlbm": {
+    "id": "k_1782814002747_fldlbm",
+    "label": "boolean",
+    "card": {
+      "nodeId": "k_1782814002747_fldlbm",
+      "title": "boolean",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "boolean数据类型表示一位的信息；\n只有两个取值：true 和 false；\n这种类型只作为一种标志来记录 true/false 情况；\n默认值是 false；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782814020917_u54b3z": {
+    "id": "k_1782814020917_u54b3z",
+    "label": "char",
+    "card": {
+      "nodeId": "k_1782814020917_u54b3z",
+      "title": "char",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "char 类型是一个单一的 16 位 Unicode 字符；\n最小值是 \\u0000（十进制等效值为 0）；\n最大值是 \\uffff（即为 65535）；\nchar 数据类型可以储存任何字符；"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782814122467_l5rgvz": {
+    "id": "k_1782814122467_l5rgvz",
+    "label": "常量",
+    "card": {
+      "nodeId": "k_1782814122467_l5rgvz",
+      "title": "常量",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "常量在程序运行时是不能被修改的。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782819889564_1cc93v": {
+    "id": "k_1782819889564_1cc93v",
+    "label": "class",
+    "card": {
+      "nodeId": "k_1782819889564_1cc93v",
+      "title": "class",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782819901124_7wm0iq": {
+    "id": "k_1782819901124_7wm0iq",
+    "label": "interface",
+    "card": {
+      "nodeId": "k_1782819901124_7wm0iq",
+      "title": "interface",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782819920656_qzzmfs": {
+    "id": "k_1782819920656_qzzmfs",
+    "label": "enum",
+    "card": {
+      "nodeId": "k_1782819920656_qzzmfs",
+      "title": "enum",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Java 枚举是一个特殊的类，一般表示一组常量，比如一年的 4 个季节，一年的 12 个月份，一个星期的 7 天，方向有东南西北等。Java 枚举类使用 enum 关键字来定义，各个常量使用逗号 , 来分割。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820135634_80r6cv": {
+    "id": "k_1782820135634_80r6cv",
+    "label": "field",
+    "card": {
+      "nodeId": "k_1782820135634_80r6cv",
+      "title": "field",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820141514_7toivl": {
+    "id": "k_1782820141514_7toivl",
+    "label": "method",
+    "card": {
+      "nodeId": "k_1782820141514_7toivl",
+      "title": "method",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820155561_n3ma3o": {
+    "id": "k_1782820155561_n3ma3o",
+    "label": "constructor",
+    "card": {
+      "nodeId": "k_1782820155561_n3ma3o",
+      "title": "constructor",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820185793_jpet7h": {
+    "id": "k_1782820185793_jpet7h",
+    "label": "类加载机制",
+    "card": {
+      "nodeId": "k_1782820185793_jpet7h",
+      "title": "类加载机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 把 `.class` 文件加载到内存，对数据进行校验、转换、解析和初始化，最终形成可直接使用的 Java 类型。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820272019_wtb7gb": {
+    "id": "k_1782820272019_wtb7gb",
+    "label": "修饰符",
+    "card": {
+      "nodeId": "k_1782820272019_wtb7gb",
+      "title": "修饰符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820357471_875aqe": {
+    "id": "k_1782820357471_875aqe",
+    "label": "加载Loading",
+    "card": {
+      "nodeId": "k_1782820357471_875aqe",
+      "title": "加载Loading",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "读取二进制字节流，生成运行时结构，创建`Class` 对象\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782820374682_ipugsy": {
+    "id": "k_1782820374682_ipugsy",
+    "label": "连接Linking",
+    "card": {
+      "nodeId": "k_1782820374682_ipugsy",
+      "title": "连接Linking",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826366835_whaav6": {
+    "id": "k_1782826366835_whaav6",
+    "label": "卸载Unloading",
+    "card": {
+      "nodeId": "k_1782826366835_whaav6",
+      "title": "卸载Unloading",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826391040_p5q1jk": {
+    "id": "k_1782826391040_p5q1jk",
+    "label": "初始化Initalization",
+    "card": {
+      "nodeId": "k_1782826391040_p5q1jk",
+      "title": "初始化Initalization",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "执行类变量显式赋值和静态代码块"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826400092_ru8rnk": {
+    "id": "k_1782826400092_ru8rnk",
+    "label": "使用Using",
+    "card": {
+      "nodeId": "k_1782826400092_ru8rnk",
+      "title": "使用Using",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826425922_5pjthq": {
+    "id": "k_1782826425922_5pjthq",
+    "label": "验证Verification",
+    "card": {
+      "nodeId": "k_1782826425922_5pjthq",
+      "title": "验证Verification",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "校验字节码合法性与安全性"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826452083_aw2bvo": {
+    "id": "k_1782826452083_aw2bvo",
+    "label": "准备Preparation",
+    "card": {
+      "nodeId": "k_1782826452083_aw2bvo",
+      "title": "准备Preparation",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "为类变量分配内存并设置默认值"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782826471510_sd2aui": {
+    "id": "k_1782826471510_sd2aui",
+    "label": "解析Resolution",
+    "card": {
+      "nodeId": "k_1782826471510_sd2aui",
+      "title": "解析Resolution",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "将符号引用替换为直接引用"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782829209297_ul6awg": {
+    "id": "k_1782829209297_ul6awg",
+    "label": "双亲委派机制",
+    "card": {
+      "nodeId": "k_1782829209297_ul6awg",
+      "title": "双亲委派机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "双亲委派模式是在Java 1.2后引入的，其工作原理的是，如果一个类加载器收到了类加载请求，它并不会自己先去加载，而是把这个请求委托给父类的加载器去执行，如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器，如果父类加载器可以完成类加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782833214639_nueg1f": {
+    "id": "k_1782833214639_nueg1f",
+    "label": "软件工程",
+    "card": {
+      "nodeId": "k_1782833214639_nueg1f",
+      "title": "软件工程",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782834118965_n5r1fr": {
+    "id": "k_1782834118965_n5r1fr",
+    "label": "面向对象",
+    "card": {
+      "nodeId": "k_1782834118965_n5r1fr",
+      "title": "面向对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782835092322_77nqn7": {
+    "id": "k_1782835092322_77nqn7",
+    "label": "抽象数据类型（ADT）理论",
+    "card": {
+      "nodeId": "k_1782835092322_77nqn7",
+      "title": "抽象数据类型（ADT）理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782836111549_qetpvx": {
+    "id": "k_1782836111549_qetpvx",
+    "label": "类",
+    "card": {
+      "nodeId": "k_1782836111549_qetpvx",
+      "title": "类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "定义对象的蓝图，包括属性和方法。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782836326581_x58ung": {
+    "id": "k_1782836326581_x58ung",
+    "label": "对象（Object）",
+    "card": {
+      "nodeId": "k_1782836326581_x58ung",
+      "title": "对象（Object）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782836341604_zkovkp": {
+    "id": "k_1782836341604_zkovkp",
+    "label": "方法（Method）",
+    "card": {
+      "nodeId": "k_1782836341604_zkovkp",
+      "title": "方法（Method）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782836361135_5lhb2w": {
+    "id": "k_1782836361135_5lhb2w",
+    "label": "成员内部类",
+    "card": {
+      "nodeId": "k_1782836361135_5lhb2w",
+      "title": "成员内部类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "定义在类内部的非静态类，就是成员内部类"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782839308180_a8qh4o": {
+    "id": "k_1782839308180_a8qh4o",
+    "label": "栈",
+    "card": {
+      "nodeId": "k_1782839308180_a8qh4o",
+      "title": "栈",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782839313525_2saytt": {
+    "id": "k_1782839313525_2saytt",
+    "label": "堆",
+    "card": {
+      "nodeId": "k_1782839313525_2saytt",
+      "title": "堆",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782839325259_0qtru5": {
+    "id": "k_1782839325259_0qtru5",
+    "label": "树",
+    "card": {
+      "nodeId": "k_1782839325259_0qtru5",
+      "title": "树",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782839332724_q6xuqx": {
+    "id": "k_1782839332724_q6xuqx",
+    "label": "图",
+    "card": {
+      "nodeId": "k_1782839332724_q6xuqx",
+      "title": "图",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782839418326_8320ve": {
+    "id": "k_1782839418326_8320ve",
+    "label": "垃圾回收算法",
+    "card": {
+      "nodeId": "k_1782839418326_8320ve",
+      "title": "垃圾回收算法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782844777265_l38xf2": {
+    "id": "k_1782844777265_l38xf2",
+    "label": "可计算性理论",
+    "card": {
+      "nodeId": "k_1782844777265_l38xf2",
+      "title": "可计算性理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782846767165_l599je": {
+    "id": "k_1782846767165_l599je",
+    "label": "java并发编程/JUC",
+    "card": {
+      "nodeId": "k_1782846767165_l599je",
+      "title": "java并发编程/JUC",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782846826286_ekdql8": {
+    "id": "k_1782846826286_ekdql8",
+    "label": "AQS",
+    "card": {
+      "nodeId": "k_1782846826286_ekdql8",
+      "title": "AQS",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "AQS 是一个具体的 Java 类（java.util.concurrent.locks.AbstractQueuedSynchronizer），它的身份非常明确：Java 标准库的一个工程组件。它通过一个 volatile int state 变量表示同步状态，用一个 CLH（Craig, Landin, and Hagersten）变体的 FIFO 双向队列来管理等待获取锁的线程。开发者继承 AQS 并实现少量方法（如 tryAcquire/tryRelease），就能快速构建出各种同步器。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782928521555_m3qum5": {
+    "id": "k_1782928521555_m3qum5",
+    "label": "CAS",
+    "card": {
+      "nodeId": "k_1782928521555_m3qum5",
+      "title": "CAS",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CAS，全称为Compare and  Swap，即比较-替换。假设有三个操作数  "
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782928696595_fflhq1": {
+    "id": "k_1782928696595_fflhq1",
+    "label": "锁",
+    "card": {
+      "nodeId": "k_1782928696595_fflhq1",
+      "title": "锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782928703651_dpqbc4": {
+    "id": "k_1782928703651_dpqbc4",
+    "label": "乐观锁",
+    "card": {
+      "nodeId": "k_1782928703651_dpqbc4",
+      "title": "乐观锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "乐观锁就是用户修改数据时心态很乐观，不管别人修改不修改数据，我都不上锁，我修改的时候判断下数据有没有发生变化，没发生变化我就认为更新成功，发生变化了就不认为更新成功我再去重试之前的动作直到更新成功"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782928843737_biclf4": {
+    "id": "k_1782928843737_biclf4",
+    "label": "悲观锁",
+    "card": {
+      "nodeId": "k_1782928843737_biclf4",
+      "title": "悲观锁",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "悲观锁就是用户修改数据时看起来很悲观，保守态度，担心别的用户会同时修改这条数据，所以每次修改时会提前把这条数据锁定起来，只有自己可修改（但别的用户可以读），等自己修改完了再释放锁"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782928892375_1vgg04": {
+    "id": "k_1782928892375_1vgg04",
+    "label": "丢失更新",
+    "card": {
+      "nodeId": "k_1782928892375_1vgg04",
+      "title": "丢失更新",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "一个事务的更新结果覆盖了其它事务的更新结果，即所谓的更新丢失"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782930904543_kxi0uk": {
+    "id": "k_1782930904543_kxi0uk",
+    "label": "触发器",
+    "card": {
+      "nodeId": "k_1782930904543_kxi0uk",
+      "title": "触发器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Trigger，一种特殊类型的存储过程，它不是由用户或应用程序显式调用的。它自动激活以响应数据库表上的特定事件：insert，update，delete。\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782930954484_nwtfg7": {
+    "id": "k_1782930954484_nwtfg7",
+    "label": "存储过程",
+    "card": {
+      "nodeId": "k_1782930954484_nwtfg7",
+      "title": "存储过程",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "一组为了完成特定功能的预编译的sql语句集合。它像一个自定义的函数或子程序，存储在数据库服务器端。用户通过指定存储过程的名称并给出参数（如果需要）来显式调用它执行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782931280830_ktho55": {
+    "id": "k_1782931280830_ktho55",
+    "label": "创建 create",
+    "card": {
+      "nodeId": "k_1782931280830_ktho55",
+      "title": "创建 create",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782931298743_77z8dz": {
+    "id": "k_1782931298743_77z8dz",
+    "label": "修改 alter",
+    "card": {
+      "nodeId": "k_1782931298743_77z8dz",
+      "title": "修改 alter",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782931436091_nitl7a": {
+    "id": "k_1782931436091_nitl7a",
+    "label": "新生代 Yong Generation",
+    "card": {
+      "nodeId": "k_1782931436091_nitl7a",
+      "title": "新生代 Yong Generation",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782931459541_ztt6cy": {
+    "id": "k_1782931459541_ztt6cy",
+    "label": "老年代 Old  Generation",
+    "card": {
+      "nodeId": "k_1782931459541_ztt6cy",
+      "title": "老年代 Old  Generation",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1782931475509_dlbrrp": {
+    "id": "k_1782931475509_dlbrrp",
+    "label": "Eden区",
+    "card": {
+      "nodeId": "k_1782931475509_dlbrrp",
+      "title": "Eden区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
         }
       ]
     }

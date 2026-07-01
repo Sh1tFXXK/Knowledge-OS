@@ -341,26 +341,6 @@ body.is-resizing-left-panel {
   outline-offset: -1px;
 }
 
-.tree-node-toggle {
-  width: 14px;
-  height: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
-  color: var(--text-tertiary);
-  transition: transform var(--transition-fast);
-  flex-shrink: 0;
-}
-
-.tree-node-toggle.expanded {
-  transform: rotate(90deg);
-}
-
-.tree-node-toggle.empty {
-  visibility: hidden;
-}
-
 .tree-node-select {
   width: 13px;
   height: 13px;
@@ -371,10 +351,65 @@ body.is-resizing-left-panel {
 }
 
 .tree-node-icon {
-  font-size: 13px;
   flex-shrink: 0;
   width: 18px;
-  text-align: center;
+  height: 16px;
+  position: relative;
+}
+
+.tree-node-icon--folder {
+  cursor: pointer;
+}
+
+.tree-node-icon--folder::before {
+  content: '';
+  position: absolute;
+  left: 1px;
+  top: 4px;
+  width: 16px;
+  height: 11px;
+  border-radius: 2px;
+  background: #f2b84b;
+  box-shadow: inset 0 -1px 0 rgba(60, 36, 0, 0.22);
+}
+
+.tree-node-icon--folder::after {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  width: 8px;
+  height: 4px;
+  border-radius: 2px 2px 0 0;
+  background: #ffd36a;
+}
+
+.tree-node-icon--folder.is-open::before {
+  background: #ffca5b;
+}
+
+.tree-node-icon--file::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  width: 11px;
+  height: 14px;
+  border: 1px solid rgba(138, 152, 186, 0.78);
+  border-radius: 2px;
+  background: rgba(223, 231, 245, 0.08);
+}
+
+.tree-node-icon--file::after {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 2px;
+  width: 4px;
+  height: 4px;
+  border-left: 1px solid rgba(138, 152, 186, 0.78);
+  border-bottom: 1px solid rgba(138, 152, 186, 0.78);
+  background: var(--bg-secondary);
 }
 
 .tree-node-label {

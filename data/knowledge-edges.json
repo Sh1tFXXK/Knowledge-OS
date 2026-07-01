@@ -1773,210 +1773,6 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:mysql_topic_transactions_locks",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_transactions_locks",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql_topic_transactions_locks:demo_tree_tx",
-    "source": "mysql_topic_transactions_locks",
-    "target": "n_ag24bbkc",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_tx:mysql_tx_commit_coordination",
-    "source": "n_ag24bbkc",
-    "target": "mysql_tx_commit_coordination",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_tx:mysql_tx_mvcc_undo",
-    "source": "n_ag24bbkc",
-    "target": "mysql_tx_mvcc_undo",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql_topic_transactions_locks:demo_tree_lock",
-    "source": "mysql_topic_transactions_locks",
-    "target": "demo_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_shared_lock",
-    "source": "demo_lock",
-    "target": "demo_shared_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_exclusive_lock",
-    "source": "demo_lock",
-    "target": "demo_exclusive_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_table_lock",
-    "source": "demo_lock",
-    "target": "demo_table_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_row_lock",
-    "source": "demo_lock",
-    "target": "demo_row_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_page_lock",
-    "source": "demo_lock",
-    "target": "demo_page_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_optimistic",
-    "source": "demo_lock",
-    "target": "demo_optimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_pessimistic",
-    "source": "demo_lock",
-    "target": "demo_pessimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_range_insert",
-    "source": "demo_lock",
-    "target": "mysql_lock_range_insert",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_intention",
-    "source": "demo_lock",
-    "target": "mysql_lock_intention",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_auto_increment",
-    "source": "demo_lock",
-    "target": "mysql_lock_auto_increment",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_metadata",
-    "source": "demo_lock",
-    "target": "mysql_lock_metadata",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_latches",
-    "source": "demo_lock",
-    "target": "mysql_lock_latches",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_lock_modes",
-    "source": "demo_lock",
-    "target": "mysql_lock_modes",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:demo_mysql:mysql_topic_logs_recovery",
     "source": "n_8s66vwo1",
     "target": "mysql_topic_logs_recovery",
@@ -2301,46 +2097,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_graph_theory:mysql_term_graph_theory_referential_integrity_64yv3n",
-    "source": "theory_domain_graph_theory",
-    "target": "k_dict_1a3p1hdq",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_graph_theory:mysql_term_graph_theory_view_16hqds",
-    "source": "theory_domain_graph_theory",
-    "target": "k_dict_lm90vzok",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_graph_theory:mysql_term_graph_theory_foreign_key_1desvj",
-    "source": "theory_domain_graph_theory",
-    "target": "k_dict_lnpi0qrg",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_graph_theory:mysql_term_graph_theory_materialized_view_f4bpat",
-    "source": "theory_domain_graph_theory",
-    "target": "k_dict_1sj5w4mj",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:school_mathematics:theory_domain_statistics",
     "source": "school_mathematics",
     "target": "theory_domain_statistics",
@@ -2453,16 +2209,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_first_order_logic:mysql_term_first_order_logic_unique_key_16tawx",
-    "source": "theory_domain_first_order_logic",
-    "target": "k_dict_rdm2280v",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:school_logic:theory_domain_type_theory",
     "source": "school_logic",
     "target": "theory_domain_type_theory",
@@ -2504,36 +2250,6 @@
     ]
   },
   {
-    "id": "treebind:universe:school_database_theory",
-    "source": "n_a03cv4sd",
-    "target": "school_database_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_database_theory:theory_domain_normalization_theory",
-    "source": "school_database_theory",
-    "target": "theory_domain_normalization_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_database_theory:theory_domain_transaction_theory",
-    "source": "school_database_theory",
-    "target": "theory_domain_transaction_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_savepoint_6b5mc4",
     "source": "theory_domain_transaction_theory",
     "target": "k_dict_tr918oc6",
@@ -2548,28 +2264,6 @@
     "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_non_repeatable_read_12s3xs",
     "source": "theory_domain_transaction_theory",
     "target": "k_dict_c9sxzvqt",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_read_uncommitted_1ntfd7",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_3dltrcza",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_read_committed_62od40",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_o0jw5g8p",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -2597,27 +2291,6 @@
     "dimensions": [
       "storage",
       "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_serializable_bj5rus",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_i1g9hhj8",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_repeatable_read_1yswtz",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_4zr5j9bz",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
     ]
   },
   {
@@ -2732,16 +2405,6 @@
     ]
   },
   {
-    "id": "treebind:school_database_theory:theory_domain_recovery_theory",
-    "source": "school_database_theory",
-    "target": "theory_domain_recovery_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_recovery_theory:mysql_term_recovery_theory_restore_1htywc",
     "source": "theory_domain_recovery_theory",
     "target": "k_dict_lin6ue94",
@@ -2777,265 +2440,6 @@
     "id": "treebind:theory_domain_recovery_theory:mysql_term_recovery_theory_pitr_584i5q",
     "source": "theory_domain_recovery_theory",
     "target": "k_dict_zjinmyz3",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:universe:school_computation_theory",
-    "source": "n_a03cv4sd",
-    "target": "school_computation_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_computation_theory:theory_domain_formal_languages_automata",
-    "source": "school_computation_theory",
-    "target": "theory_domain_formal_languages_automata",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_insert_lqc3eo",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_pzcms560",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_truncate_18ucvi",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_ntqiff2s",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_drop_4xayhb",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_t6m62us4",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_delete_v8lrgm",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_qvf5c9q7",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_dml_16qewn",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_qv4sloxd",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_ddl_1pevm4",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_73wtge24",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_dcl_15jd89",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_7w36vehk",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_online_ddl_1iq4t2",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_4m05mgz6",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_formal_languages_automata:mysql_term_formal_languages_automata_sql_1ehf60",
-    "source": "theory_domain_formal_languages_automata",
-    "target": "k_dict_ej0gabn2",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_computation_theory:theory_domain_algorithms",
-    "source": "school_computation_theory",
-    "target": "theory_domain_algorithms",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_algorithms:mysql_term_algorithms_table_scan_1na3c6",
-    "source": "theory_domain_algorithms",
-    "target": "k_dict_2kzoxeef",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_algorithms:mysql_term_algorithms_full_table_scan_fe66ws",
-    "source": "theory_domain_algorithms",
-    "target": "k_dict_jan17ieo",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:school_computation_theory:theory_domain_data_structures",
-    "source": "school_computation_theory",
-    "target": "theory_domain_data_structures",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_partial_index_yi6w3v",
-    "source": "theory_domain_data_structures",
-    "target": "k_dict_722bh2j6",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_covering_index_1sxnyw",
-    "source": "theory_domain_data_structures",
-    "target": "demo_covering_index",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_hash_index_1p2w9j",
-    "source": "theory_domain_data_structures",
-    "target": "demo_hash",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_index_qwtxk8",
-    "source": "theory_domain_data_structures",
-    "target": "k_dict_i70ksr9s",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_unique_index_vi4xvf",
-    "source": "theory_domain_data_structures",
-    "target": "demo_unique_index",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_adaptive_hash_index_n8kdz0",
-    "source": "theory_domain_data_structures",
-    "target": "k_dict_4yz2io0y",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_b_tree_1pns38",
-    "source": "theory_domain_data_structures",
-    "target": "k_dict_cx2nh25x",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_computation_theory:theory_domain_complexity_theory",
-    "source": "school_computation_theory",
-    "target": "theory_domain_complexity_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:universe:school_programming_languages",
-    "source": "n_a03cv4sd",
-    "target": "school_programming_languages",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_programming_languages:theory_domain_compiler_principles",
-    "source": "school_programming_languages",
-    "target": "theory_domain_compiler_principles",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -3098,147 +2502,9 @@
     ]
   },
   {
-    "id": "treebind:school_programming_languages:theory_domain_programming_language_theory",
-    "source": "school_programming_languages",
-    "target": "theory_domain_programming_language_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_programming_language_theory:mysql_term_programming_language_theory_cursor_1dm61e",
     "source": "theory_domain_programming_language_theory",
     "target": "k_dict_a7bwz8vl",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_programming_language_theory:mysql_term_programming_language_theory_python_pwtz9q",
-    "source": "theory_domain_programming_language_theory",
-    "target": "k_dict_qttpkbhf",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_programming_languages:theory_domain_regular_expression_theory",
-    "source": "school_programming_languages",
-    "target": "theory_domain_regular_expression_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:universe:school_systems",
-    "source": "n_a03cv4sd",
-    "target": "school_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_systems:theory_domain_concurrency_theory",
-    "source": "school_systems",
-    "target": "theory_domain_concurrency_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_shared_lock_pfppmy",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_yvuxhe74",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_next_key_lock_27ftdr",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_m5qakvks",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_latch_a6nwvw",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_kgntvds7",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_deadlock_y1d9j4",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_mq68vpwg",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_deadlock_detection_1blwg9",
-    "source": "theory_domain_concurrency_theory",
-    "target": "demo_deadlock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_lock_escalation_wxvty5",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_nqeoggvl",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_row_level_locking_1vza7q",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_fb1f2eh2",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
-    "id": "treebind:school_systems:theory_domain_operating_systems",
-    "source": "school_systems",
-    "target": "theory_domain_operating_systems",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -3297,26 +2563,6 @@
     ]
   },
   {
-    "id": "treebind:school_systems:theory_domain_computer_architecture",
-    "source": "school_systems",
-    "target": "theory_domain_computer_architecture",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_systems:theory_domain_storage_systems",
-    "source": "school_systems",
-    "target": "theory_domain_storage_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_undo_1dnbbn",
     "source": "theory_domain_storage_systems",
     "target": "k_dict_jw1sc90t",
@@ -3325,16 +2571,6 @@
     "dimensions": [
       "storage",
       "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_dynamic_sql_k3tetr",
-    "source": "theory_domain_storage_systems",
-    "target": "k_dict_p7los2aq",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
     ]
   },
   {
@@ -3461,16 +2697,6 @@
     ]
   },
   {
-    "id": "treebind:school_systems:theory_domain_distributed_systems",
-    "source": "school_systems",
-    "target": "theory_domain_distributed_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_distributed_systems:mysql_term_distributed_systems_slave_1ku5ai",
     "source": "theory_domain_distributed_systems",
     "target": "k_dict_kpjg49hn",
@@ -3512,26 +2738,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_distributed_systems:mysql_term_distributed_systems_clustered_index_1fifyb",
-    "source": "theory_domain_distributed_systems",
-    "target": "demo_clustered_index",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_systems:theory_domain_network_protocols",
-    "source": "school_systems",
-    "target": "theory_domain_network_protocols",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_network_protocols:mysql_term_network_protocols_server_18q8qi",
     "source": "theory_domain_network_protocols",
     "target": "k_dict_xhmtog57",
@@ -3562,17 +2768,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_cryptography:mysql_term_cryptography_ssl_ykk31j",
-    "source": "theory_domain_cryptography",
-    "target": "k_dict_dedl7dno",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "security"
-    ]
-  },
-  {
     "id": "treebind:school_security:theory_domain_access_control",
     "source": "school_security",
     "target": "theory_domain_access_control",
@@ -3596,16 +2791,6 @@
     "id": "treebind:school_information_retrieval:theory_domain_information_retrieval",
     "source": "school_information_retrieval",
     "target": "theory_domain_information_retrieval",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_information_retrieval:mysql_term_information_retrieval_fulltext_index_17is78",
-    "source": "theory_domain_information_retrieval",
-    "target": "demo_fulltext_index",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -3660,18 +2845,6 @@
     "label": "contains",
     "dimensions": [
       "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql_term_transaction_theory_lsn_1sk4q6:demo_tree_iso",
-    "source": "k_dict_g7onhohj",
-    "target": "demo_isolation",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "storage",
-      "performance"
     ]
   },
   {
@@ -3754,28 +2927,8 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_relational_algebra:mysql_term_graph_theory_referential_integrity_64yv3n",
-    "source": "theory_domain_relational_algebra",
-    "target": "k_dict_1a3p1hdq",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_relational_algebra:mysql_term_graph_theory_view_16hqds",
-    "source": "theory_domain_relational_algebra",
-    "target": "k_dict_lm90vzok",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_relational_algebra:mysql_term_graph_theory_foreign_key_1desvj",
-    "source": "theory_domain_relational_algebra",
+    "id": "treebind:tree_1782724755130_q7o3yo:mysql_term_graph_theory_foreign_key_1desvj",
+    "source": "k_1782724755094_uqst5g",
     "target": "k_dict_lnpi0qrg",
     "type": "belongs-to",
     "label": "contains",
@@ -3784,13 +2937,1534 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_relational_algebra:mysql_term_graph_theory_materialized_view_f4bpat",
-    "source": "theory_domain_relational_algebra",
+    "id": "treebind:theory_domain_transaction_theory:demo_tree_iso",
+    "source": "theory_domain_transaction_theory",
+    "target": "demo_isolation",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782724755130_q7o3yo:mysql_term_graph_theory_view_16hqds",
+    "source": "k_1782724755094_uqst5g",
+    "target": "k_dict_lm90vzok",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782724755130_q7o3yo:mysql_term_graph_theory_referential_integrity_64yv3n",
+    "source": "k_1782724755094_uqst5g",
+    "target": "k_dict_1a3p1hdq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782724755130_q7o3yo:mysql_term_graph_theory_materialized_view_f4bpat",
+    "source": "k_1782724755094_uqst5g",
     "target": "k_dict_1sj5w4mj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782724755130_q7o3yo:mysql_term_first_order_logic_unique_key_16tawx",
+    "source": "k_1782724755094_uqst5g",
+    "target": "k_dict_rdm2280v",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
       "storage"
     ]
+  },
+  {
+    "id": "treebind:demo_mysql:demo_tree_tx",
+    "source": "n_8s66vwo1",
+    "target": "n_ag24bbkc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_tx:mysql_tx_mvcc_undo",
+    "source": "n_ag24bbkc",
+    "target": "mysql_tx_mvcc_undo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:demo_tree_lock",
+    "source": "n_8s66vwo1",
+    "target": "demo_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_shared_lock",
+    "source": "demo_lock",
+    "target": "demo_shared_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_exclusive_lock",
+    "source": "demo_lock",
+    "target": "demo_exclusive_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_table_lock",
+    "source": "demo_lock",
+    "target": "demo_table_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_row_lock",
+    "source": "demo_lock",
+    "target": "demo_row_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_page_lock",
+    "source": "demo_lock",
+    "target": "demo_page_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_optimistic",
+    "source": "demo_lock",
+    "target": "demo_optimistic",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:demo_tree_pessimistic",
+    "source": "demo_lock",
+    "target": "demo_pessimistic",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_range_insert",
+    "source": "demo_lock",
+    "target": "mysql_lock_range_insert",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_intention",
+    "source": "demo_lock",
+    "target": "mysql_lock_intention",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_auto_increment",
+    "source": "demo_lock",
+    "target": "mysql_lock_auto_increment",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_metadata",
+    "source": "demo_lock",
+    "target": "mysql_lock_metadata",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_latches",
+    "source": "demo_lock",
+    "target": "mysql_lock_latches",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_lock_modes",
+    "source": "demo_lock",
+    "target": "mysql_lock_modes",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_1782748910933_jw2hib",
+    "source": "n_8s66vwo1",
+    "target": "k_1782748910899_dtrnpe",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782748910933_jw2hib:tree_1782749047525_u9banq",
+    "source": "k_1782748910899_dtrnpe",
+    "target": "k_1782749047493_w36knu",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748910933_jw2hib:tree_1782749263847_2ggaio",
+    "source": "k_1782748910899_dtrnpe",
+    "target": "k_1782749263813_199twh",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748910933_jw2hib:tree_1782749276715_o5ibln",
+    "source": "k_1782748910899_dtrnpe",
+    "target": "k_1782749276682_qsjks8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748910933_jw2hib:tree_1782749287389_5385em",
+    "source": "k_1782748910899_dtrnpe",
+    "target": "k_1782749287355_2zl67c",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_dml_16qewn:mysql_term_formal_languages_automata_insert_lqc3eo",
+    "source": "k_dict_qv4sloxd",
+    "target": "k_dict_pzcms560",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_dml_16qewn:mysql_term_formal_languages_automata_delete_v8lrgm",
+    "source": "k_dict_qv4sloxd",
+    "target": "k_dict_qvf5c9q7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_ddl_1pevm4:mysql_term_formal_languages_automata_drop_4xayhb",
+    "source": "k_dict_73wtge24",
+    "target": "k_dict_t6m62us4",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_ddl_1pevm4:mysql_term_formal_languages_automata_truncate_18ucvi",
+    "source": "k_dict_73wtge24",
+    "target": "k_dict_ntqiff2s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_term_data_structures_index_qwtxk8",
+    "source": "n_8s66vwo1",
+    "target": "k_dict_i70ksr9s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_data_structures_partial_index_yi6w3v",
+    "source": "k_dict_i70ksr9s",
+    "target": "k_dict_722bh2j6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_data_structures_hash_index_1p2w9j",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_hash",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_data_structures_covering_index_1sxnyw",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_covering_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_data_structures_unique_index_vi4xvf",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_unique_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:demo_tree_secondary",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_secondary_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_distributed_systems_clustered_index_1fifyb",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_clustered_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_data_structures_index_qwtxk8:mysql_term_information_retrieval_fulltext_index_17is78",
+    "source": "k_dict_i70ksr9s",
+    "target": "demo_fulltext_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_sql_statement_types",
+    "source": "mysql_topic_sql_objects",
+    "target": "mysql_sql_statement_types",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_sql_statement_types:mysql_term_formal_languages_automata_dcl_15jd89",
+    "source": "mysql_sql_statement_types",
+    "target": "k_dict_7w36vehk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_sql_statement_types:mysql_term_formal_languages_automata_ddl_1pevm4",
+    "source": "mysql_sql_statement_types",
+    "target": "k_dict_73wtge24",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:mysql_sql_statement_types:mysql_term_formal_languages_automata_dml_16qewn",
+    "source": "mysql_sql_statement_types",
+    "target": "k_dict_qv4sloxd",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_sql_query_execution",
+    "source": "mysql_topic_sql_objects",
+    "target": "mysql_sql_query_execution",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_sql_query_execution:mysql_term_algorithms_full_table_scan_fe66ws",
+    "source": "mysql_sql_query_execution",
+    "target": "k_dict_jan17ieo",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_sql_syntax_modes",
+    "source": "mysql_topic_sql_objects",
+    "target": "mysql_sql_syntax_modes",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_sql_programming_objects",
+    "source": "mysql_topic_sql_objects",
+    "target": "mysql_sql_programming_objects",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_term_storage_systems_dynamic_sql_k3tetr",
+    "source": "mysql_topic_sql_objects",
+    "target": "k_dict_p7los2aq",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:school_database_theory",
+    "source": "n_55jiel25",
+    "target": "school_database_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_database_theory:theory_domain_normalization_theory",
+    "source": "school_database_theory",
+    "target": "theory_domain_normalization_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_database_theory:theory_domain_transaction_theory",
+    "source": "school_database_theory",
+    "target": "theory_domain_transaction_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_database_theory:theory_domain_recovery_theory",
+    "source": "school_database_theory",
+    "target": "theory_domain_recovery_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_database_theory:tree_1782724755130_q7o3yo",
+    "source": "school_database_theory",
+    "target": "k_1782724755094_uqst5g",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:school_programming_languages",
+    "source": "n_55jiel25",
+    "target": "school_programming_languages",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_programming_languages:theory_domain_compiler_principles",
+    "source": "school_programming_languages",
+    "target": "theory_domain_compiler_principles",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_programming_languages:theory_domain_programming_language_theory",
+    "source": "school_programming_languages",
+    "target": "theory_domain_programming_language_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_programming_languages:theory_domain_regular_expression_theory",
+    "source": "school_programming_languages",
+    "target": "theory_domain_regular_expression_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782748382111_c2udec:tree_1782793389309_62md98",
+    "source": "k_1782748382034_b8a1a9",
+    "target": "k_1782793389266_8caigh",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1782793401091_5e6p7u",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1782793401051_nyxsei",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1782793417825_zc42yu",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1782793417791_nvare3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1782794616780_kxlup2",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1782794616728_i5obct",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782794616780_kxlup2:tree_1782798780122_r35vd1",
+    "source": "k_1782794616728_i5obct",
+    "target": "k_1782798780082_yrsuje",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782794616780_kxlup2:tree_1782798788702_6k0vb3",
+    "source": "k_1782794616728_i5obct",
+    "target": "k_1782798788671_3fjikg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782794616780_kxlup2:tree_1782798797802_dxy71v",
+    "source": "k_1782794616728_i5obct",
+    "target": "k_1782798797768_ye8a51",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782794616780_kxlup2:tree_1782798808606_2c4ae2",
+    "source": "k_1782794616728_i5obct",
+    "target": "k_1782798808568_5vubd8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782794616780_kxlup2:tree_1782798814350_qiq392",
+    "source": "k_1782794616728_i5obct",
+    "target": "k_1782798814309_j3jj7c",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1782804303157_ui2kzf",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1782804303119_9whpjj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782809243248_7q92j2",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782809243195_ntzmm2",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782809305477_ii9tmd",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782809305431_5meyed",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782809424701_thjieq",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782809424650_c6xo8d",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809305477_ii9tmd:tree_1782810101965_zd3co2",
+    "source": "k_1782809305431_5meyed",
+    "target": "k_1782810101915_qea50y",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809305477_ii9tmd:tree_1782810113651_ileghi",
+    "source": "k_1782809305431_5meyed",
+    "target": "k_1782810113591_p7ab1i",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809424701_thjieq:tree_1782810274526_yozg28",
+    "source": "k_1782809424650_c6xo8d",
+    "target": "k_1782810274459_fc4dll",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809424701_thjieq:tree_1782810454375_2s22qb",
+    "source": "k_1782809424650_c6xo8d",
+    "target": "k_1782810454317_uh43xj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809424701_thjieq:tree_1782810488543_468oy1",
+    "source": "k_1782809424650_c6xo8d",
+    "target": "k_1782810488481_ahot6h",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809424701_thjieq:tree_1782810495731_3edun8",
+    "source": "k_1782809424650_c6xo8d",
+    "target": "k_1782810495660_w3vt9q",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782810550793_qcczc2",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782810550706_10mcmg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782810659965_srsohx",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782810659762_nmwkrk",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782810994759_9uuf6x",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782810994704_o4tysd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782811075372_va9orn",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782811075312_xd5lmc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782811325734_2lx392",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782811325682_r4gbq4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782811715060_04x719",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782811715001_nk3z9u",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782809150150_a1neqh:tree_1782811740629_p7jx70",
+    "source": "k_1782809150059_ibx5gd",
+    "target": "k_1782811740570_hdoie7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1782812528712_gtd8d8",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1782812528662_wzvpbe",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782812528712_gtd8d8:tree_1782812543631_c57i6j",
+    "source": "k_1782812528662_wzvpbe",
+    "target": "k_1782812543566_42no1w",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782812528712_gtd8d8:tree_1782812719464_o9cvlq",
+    "source": "k_1782812528662_wzvpbe",
+    "target": "k_1782812719415_bhdt0s",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782812528712_gtd8d8:tree_1782812912113_rtwh7t",
+    "source": "k_1782812528662_wzvpbe",
+    "target": "k_1782812912050_z5a5sp",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782812528712_gtd8d8:tree_1782813014341_h3985i",
+    "source": "k_1782812528662_wzvpbe",
+    "target": "k_1782813014267_u5zv9z",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813819726_30bmec",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813819683_ntjiho",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813876508_15dfxs",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813876473_f9kgq2",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813900863_41b58b",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813900716_0oixi3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813922930_0xiawq",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813922894_kmrc5z",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813951312_jzp80c",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813951272_huivnu",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813973151_7l404n",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782813973111_a25i2a",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782814002801_qlk43z",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782814002747_fldlbm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782814020958_n2un3r",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1782814020917_u54b3z",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1782814122510_vtuz4a",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1782814122467_l5rgvz",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793417825_zc42yu:tree_1782819889603_38q309",
+    "source": "k_1782793417791_nvare3",
+    "target": "k_1782819889564_1cc93v",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793417825_zc42yu:tree_1782819901153_rcpgkp",
+    "source": "k_1782793417791_nvare3",
+    "target": "k_1782819901124_7wm0iq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793417825_zc42yu:tree_1782819920689_83wx5c",
+    "source": "k_1782793417791_nvare3",
+    "target": "k_1782819920656_qzzmfs",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782819889603_38q309:tree_1782820135666_7l3s2i",
+    "source": "k_1782819889564_1cc93v",
+    "target": "k_1782820135634_80r6cv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782819889603_38q309:tree_1782820141557_obzp1v",
+    "source": "k_1782819889564_1cc93v",
+    "target": "k_1782820141514_7toivl",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782819889603_38q309:tree_1782820155600_n8g1l9",
+    "source": "k_1782819889564_1cc93v",
+    "target": "k_1782820155561_n3ma3o",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782819889603_38q309:tree_1782820272058_6r8i2j",
+    "source": "k_1782819889564_1cc93v",
+    "target": "k_1782820272019_wtb7gb",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782820357511_ldq7x6",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782820357471_875aqe",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782820374718_3vlvr2",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782820374682_ipugsy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782826366868_c9a0di",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782826366835_whaav6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782826391087_vpws9z",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782826391040_p5q1jk",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782826400123_5jbb3l",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782826400092_ru8rnk",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820374718_3vlvr2:tree_1782826425965_wcrgw3",
+    "source": "k_1782820374682_ipugsy",
+    "target": "k_1782826425922_5pjthq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820374718_3vlvr2:tree_1782826452119_15la64",
+    "source": "k_1782820374682_ipugsy",
+    "target": "k_1782826452083_aw2bvo",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820374718_3vlvr2:tree_1782826471562_lmopqc",
+    "source": "k_1782820374682_ipugsy",
+    "target": "k_1782826471510_sd2aui",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1782829209351_29uqtm",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1782829209297_ul6awg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_next_key_lock_27ftdr",
+    "source": "demo_lock",
+    "target": "k_dict_m5qakvks",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:school_programming_languages:tree_1782833214675_r6mivn",
+    "source": "school_programming_languages",
+    "target": "k_1782833214639_nueg1f",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782833214675_r6mivn:tree_1782746457614_osttpr",
+    "source": "k_1782833214639_nueg1f",
+    "target": "k_1782746457581_30q8ao",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782748382111_c2udec",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782748382034_b8a1a9",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782749694516_2ntoss",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782749694486_vyrfzy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782749726688_0hrpnu",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782749726658_e7lq2o",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782809150150_a1neqh",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782809150059_ibx5gd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782820185830_vuzuox",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782820185793_jpet7h",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782833214675_r6mivn:tree_1782834119007_8gxoi9",
+    "source": "k_1782833214639_nueg1f",
+    "target": "k_1782834118965_n5r1fr",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1782835092355_wjr8kz",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1782835092322_77nqn7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782836111618_p636b2",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782836111549_qetpvx",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782836111618_p636b2:tree_1782836326627_cic5is",
+    "source": "k_1782836111549_qetpvx",
+    "target": "k_1782836326581_x58ung",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782836111618_p636b2:tree_1782836341646_2m8rwn",
+    "source": "k_1782836111549_qetpvx",
+    "target": "k_1782836341604_zkovkp",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782836111618_p636b2:tree_1782836361186_971962",
+    "source": "k_1782836111549_qetpvx",
+    "target": "k_1782836361135_5lhb2w",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_cs:school_systems",
+    "source": "n_55jiel25",
+    "target": "school_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_concurrency_theory",
+    "source": "school_systems",
+    "target": "theory_domain_concurrency_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_operating_systems",
+    "source": "school_systems",
+    "target": "theory_domain_operating_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_computer_architecture",
+    "source": "school_systems",
+    "target": "theory_domain_computer_architecture",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_storage_systems",
+    "source": "school_systems",
+    "target": "theory_domain_storage_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_distributed_systems",
+    "source": "school_systems",
+    "target": "theory_domain_distributed_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_systems:theory_domain_network_protocols",
+    "source": "school_systems",
+    "target": "theory_domain_network_protocols",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_network_protocols:mysql_term_cryptography_ssl_ykk31j",
+    "source": "theory_domain_network_protocols",
+    "target": "k_dict_dedl7dno",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "security"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_shared_lock_pfppmy",
+    "source": "demo_lock",
+    "target": "k_dict_yvuxhe74",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_latch_a6nwvw",
+    "source": "demo_lock",
+    "target": "k_dict_kgntvds7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_deadlock_y1d9j4",
+    "source": "demo_lock",
+    "target": "k_dict_mq68vpwg",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_deadlock_detection_1blwg9",
+    "source": "demo_lock",
+    "target": "demo_deadlock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_lock_escalation_wxvty5",
+    "source": "demo_lock",
+    "target": "k_dict_nqeoggvl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_lock:mysql_term_concurrency_theory_row_level_locking_1vza7q",
+    "source": "demo_lock",
+    "target": "k_dict_fb1f2eh2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_iso:mysql_term_transaction_theory_repeatable_read_1yswtz",
+    "source": "demo_isolation",
+    "target": "k_dict_4zr5j9bz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_iso:mysql_term_transaction_theory_serializable_bj5rus",
+    "source": "demo_isolation",
+    "target": "k_dict_i1g9hhj8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_iso:mysql_term_transaction_theory_read_uncommitted_1ntfd7",
+    "source": "demo_isolation",
+    "target": "k_dict_3dltrcza",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_iso:mysql_term_transaction_theory_read_committed_62od40",
+    "source": "demo_isolation",
+    "target": "k_dict_o0jw5g8p",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_tree_innodb:mysql_term_data_structures_adaptive_hash_index_n8kdz0",
+    "source": "demo_innodb",
+    "target": "k_dict_4yz2io0y",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:school_computation_theory",
+    "source": "n_55jiel25",
+    "target": "school_computation_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_computation_theory:theory_domain_formal_languages_automata",
+    "source": "school_computation_theory",
+    "target": "theory_domain_formal_languages_automata",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_computation_theory:theory_domain_complexity_theory",
+    "source": "school_computation_theory",
+    "target": "theory_domain_complexity_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:theory_domain_algorithms",
+    "source": "n_55jiel25",
+    "target": "theory_domain_algorithms",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_algorithms:tree_1782839418364_5ll0y7",
+    "source": "theory_domain_algorithms",
+    "target": "k_1782839418326_8320ve",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:theory_domain_data_structures",
+    "source": "n_55jiel25",
+    "target": "theory_domain_data_structures",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:mysql_term_data_structures_b_tree_1pns38",
+    "source": "theory_domain_data_structures",
+    "target": "k_dict_cx2nh25x",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:tree_1782839308221_zr5f83",
+    "source": "theory_domain_data_structures",
+    "target": "k_1782839308180_a8qh4o",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:tree_1782839313564_czidcp",
+    "source": "theory_domain_data_structures",
+    "target": "k_1782839313525_2saytt",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:tree_1782839325297_jyhkmi",
+    "source": "theory_domain_data_structures",
+    "target": "k_1782839325259_0qtru5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:tree_1782839332773_duo15k",
+    "source": "theory_domain_data_structures",
+    "target": "k_1782839332724_q6xuqx",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_computation_theory:tree_1782844777296_6d260w",
+    "source": "school_computation_theory",
+    "target": "k_1782844777265_l38xf2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782846767208_uw6zxc",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782846767165_l599je",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782846767208_uw6zxc:tree_1782846826333_n3pk78",
+    "source": "k_1782846767165_l599je",
+    "target": "k_1782846826286_ekdql8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782833214675_r6mivn:mysql_term_programming_language_theory_python_pwtz9q",
+    "source": "k_1782833214639_nueg1f",
+    "target": "k_dict_qttpkbhf",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:theory_domain_concurrency_theory:tree_1782928521585_eiocii",
+    "source": "theory_domain_concurrency_theory",
+    "target": "k_1782928521555_m3qum5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1782928696623_almc5c",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1782928696595_fflhq1",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782928696623_almc5c:tree_1782928703685_fuj7ev",
+    "source": "k_1782928696595_fflhq1",
+    "target": "k_1782928703651_dpqbc4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782928696623_almc5c:tree_1782928843771_cmjyzt",
+    "source": "k_1782928696595_fflhq1",
+    "target": "k_1782928843737_biclf4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:tree_1782930904575_6o3gdc",
+    "source": "mysql_topic_sql_objects",
+    "target": "k_1782930904543_kxi0uk",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:tree_1782930954515_g9b5bl",
+    "source": "mysql_topic_sql_objects",
+    "target": "k_1782930954484_nwtfg7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_ddl_1pevm4:mysql_term_formal_languages_automata_online_ddl_1iq4t2",
+    "source": "k_dict_73wtge24",
+    "target": "k_dict_4m05mgz6",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_ddl_1pevm4:tree_1782931280860_y6q5x3",
+    "source": "k_dict_73wtge24",
+    "target": "k_1782931280830_ktho55",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_term_formal_languages_automata_ddl_1pevm4:tree_1782931298775_jqv87a",
+    "source": "k_dict_73wtge24",
+    "target": "k_1782931298743_77z8dz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "transaction",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782798814350_qiq392:tree_1782931436121_inszy7",
+    "source": "k_1782798814309_j3jj7c",
+    "target": "k_1782931436091_nitl7a",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782798814350_qiq392:tree_1782931459569_07u2gy",
+    "source": "k_1782798814309_j3jj7c",
+    "target": "k_1782931459541_ztt6cy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782931436121_inszy7:tree_1782931475540_5ce8ex",
+    "source": "k_1782931436091_nitl7a",
+    "target": "k_1782931475509_dlbrrp",
+    "type": "belongs-to",
+    "label": "contains"
   }
 ]

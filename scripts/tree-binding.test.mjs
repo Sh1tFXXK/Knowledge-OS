@@ -34,17 +34,15 @@ const tree = {
   id: 'root',
   name: 'Root',
   count: 0,
-  icon: 'R',
   nodeRef: 'k-root',
   children: [
     {
       id: 'tree-parent',
       name: 'Parent',
       count: 0,
-      icon: 'P',
       nodeRef: 'k-parent',
       children: [
-        { id: 'tree-child', name: 'Child', count: 0, icon: 'C', nodeRef: 'k-child' },
+        { id: 'tree-child', name: 'Child', count: 0, nodeRef: 'k-child' },
       ],
     },
   ],

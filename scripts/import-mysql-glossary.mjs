@@ -565,10 +565,9 @@ function primaryGroupId(entry) {
   return classifyEntry(entry)[0] ?? 'misc';
 }
 
-function treeEntry(id, name, nodeRef, icon, children, expanded = false) {
-  const entry = { id, name, count: 0, icon, nodeRef };
+function treeEntry(id, name, nodeRef, children) {
+  const entry = { id, name, count: 0, nodeRef };
   if (children) entry.children = children;
-  if (expanded) entry.expanded = true;
   return entry;
 }
 
@@ -589,7 +588,6 @@ function replaceChild(root, parentId, child) {
   if (index >= 0) children[index] = child;
   else children.push(child);
   parent.children = children;
-  parent.expanded = true;
 }
 
 function removeOldImportTreeEntries(root) {
@@ -860,7 +858,6 @@ function main() {
           `tree_mysql_glossary_${group.id}_${slugify(entry.english)}_${hash32(entry.english).slice(0, 6)}`,
           labelFor(entry),
           nodeId,
-          'T',
         ),
       );
 
@@ -868,9 +865,7 @@ function main() {
       groupTreeId(group.id),
       supplementTreeName(group),
       groupNodeId(group.id),
-      'K',
       children,
-      false,
     );
   });
 

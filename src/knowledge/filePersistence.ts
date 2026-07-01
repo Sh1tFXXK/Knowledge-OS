@@ -2,6 +2,7 @@ import type { PersistedAppState } from './state';
 import { APP_STATE_VERSION, createEmptyAppState } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question, SubSystem, Rule, Perspective } from '../types';
 import { migrateNodePool } from './migrateViewDimensions';
+import { normalizeTreeNode } from './treeUtils';
 
 const FILES = {
   treeData: 'tree-data.json',
@@ -58,7 +59,7 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     version: APP_STATE_VERSION,
   };
 
-  if (treeData) state.treeData = treeData;
+  if (treeData) state.treeData = normalizeTreeNode(treeData);
   if (nodePool) state.nodePool = migrateNodePool(nodePool);
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
@@ -80,7 +81,7 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
       ...emptyState.graph,
       ...(fileState.graph ?? {}),
     },
-    treeData: fileState.treeData ?? emptyState.treeData,
+    treeData: normalizeTreeNode(fileState.treeData ?? emptyState.treeData),
     nodePool: fileState.nodePool ?? emptyState.nodePool,
     knowledgeEdges: fileState.knowledgeEdges ?? emptyState.knowledgeEdges,
     questions: fileState.questions ?? emptyState.questions,
@@ -96,7 +97,7 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
 
 export async function saveStateToFiles(state: PersistedAppState): Promise<void> {
   await Promise.all([
-    saveFile(FILES.treeData, state.treeData),
+    saveFile(FILES.treeData, normalizeTreeNode(state.treeData)),
     saveFile(FILES.nodePool, state.nodePool),
     saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
     saveFile(FILES.questions, state.questions),

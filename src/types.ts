@@ -38,7 +38,6 @@ export interface TreeNode {
   id: string;
   name: string;
   count: number;
-  icon: string;
   expanded?: boolean;
   active?: boolean;
   /** 指向节点池中的知识 ID；目录只存引用，不存知识本体 */

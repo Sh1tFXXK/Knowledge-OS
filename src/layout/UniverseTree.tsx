@@ -128,7 +128,8 @@ const TreeItem = ({
   onDragOverNode: (nodeId: string) => void;
   onDropNode: (nodeId: string, nextParentId: string) => void;
 }) => {
-  const [isOpen, setIsOpen] = useState(node.expanded ?? level < 5);
+  const isTreeRoot = level === 0;
+  const [isOpen, setIsOpen] = useState(isTreeRoot);
   const [openedByDrag, setOpenedByDrag] = useState(false);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [editing, setEditing] = useState(false);
@@ -143,10 +144,6 @@ const TreeItem = ({
   const isDropTarget = dropTargetTreeNodeId === node.id && draggingTreeNodeId !== node.id;
   const canDrag = level > 0 && !editing;
   const canBulkSelect = level > 0;
-
-  useEffect(() => {
-    if (node.expanded) setIsOpen(true);
-  }, [node.expanded]);
 
   useEffect(() => {
     if (draggingTreeNodeId) return;
@@ -165,7 +162,7 @@ const TreeItem = ({
   }, []);
 
   const openForDragFocus = () => {
-    if (!hasChildren || isOpen) return;
+    if (!hasChildren || isOpen || isTreeRoot) return;
     setIsOpen(true);
     setOpenedByDrag(true);
   };
@@ -289,17 +286,27 @@ const TreeItem = ({
           />
         )}
         <span
-          className={`tree-node-toggle ${hasChildren ? (isOpen ? 'expanded' : '') : 'empty'}`}
+          className={[
+            'tree-node-icon',
+            hasChildren ? 'tree-node-icon--folder' : 'tree-node-icon--file',
+            hasChildren && isOpen ? 'is-open' : '',
+          ].filter(Boolean).join(' ')}
+          role={hasChildren && !isTreeRoot ? 'button' : 'img'}
+          tabIndex={hasChildren && !isTreeRoot ? 0 : undefined}
+          aria-label={hasChildren ? (isOpen ? 'Expanded folder' : 'Collapsed folder') : 'File'}
+          aria-expanded={hasChildren ? isOpen : undefined}
           onClick={(e) => {
-            if (hasChildren) {
-              e.stopPropagation();
-              setIsOpen(!isOpen);
-            }
+            if (!hasChildren || isTreeRoot) return;
+            e.stopPropagation();
+            setIsOpen(!isOpen);
           }}
-        >
-          ▶
-        </span>
-        <span className="tree-node-icon">{node.icon}</span>
+          onKeyDown={(e) => {
+            if (!hasChildren || isTreeRoot || (e.key !== 'Enter' && e.key !== ' ')) return;
+            e.preventDefault();
+            e.stopPropagation();
+            setIsOpen(!isOpen);
+          }}
+        />
         {editing ? (
           <input
             className="input"

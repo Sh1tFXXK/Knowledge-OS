@@ -43,29 +43,26 @@ const tree = {
   id: 'root',
   name: 'Root',
   count: 0,
-  icon: 'R',
   nodeRef: 'k-root',
   children: [
     {
       id: 'tree-a',
       name: 'A',
       count: 0,
-      icon: 'A',
       nodeRef: 'k-a',
       children: [
         {
           id: 'tree-b',
           name: 'B',
           count: 0,
-          icon: 'B',
           nodeRef: 'k-b',
           children: [
-            { id: 'tree-c', name: 'C', count: 0, icon: 'C', nodeRef: 'k-c' },
+            { id: 'tree-c', name: 'C', count: 0, nodeRef: 'k-c' },
           ],
         },
       ],
     },
-    { id: 'tree-d', name: 'D', count: 0, icon: 'D', nodeRef: 'k-d' },
+    { id: 'tree-d', name: 'D', count: 0, nodeRef: 'k-d' },
   ],
 };
 
@@ -88,7 +85,7 @@ assert.equal(moved.previousParentId, 'tree-a');
 assert.equal(moved.nextParentId, 'tree-d');
 assert.equal(findTreeNodeById(moved.tree, 'tree-a').children.length, 0);
 assert.equal(findTreeNodeById(moved.tree, 'tree-d').children[0].id, 'tree-b');
-assert.equal(findTreeNodeById(moved.tree, 'tree-d').expanded, true);
+assert.equal(findTreeNodeById(moved.tree, 'tree-d').expanded, undefined);
 assert.equal(findTreeNodeById(moved.tree, 'tree-b').children[0].id, 'tree-c');
 assert.notEqual(moved.tree, tree);
 

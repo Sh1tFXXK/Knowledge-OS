@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+﻿import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -593,7 +593,6 @@ function restoreMysqlTreeIfNeeded(tree, nodePool) {
 
   if (shouldRestoreTree) {
     mysqlRoot.children = cloneJson(baselineMysqlRoot.children);
-    mysqlRoot.expanded = baselineMysqlRoot.expanded ?? true;
   }
   restoreMissingNodePoolEntries(nodePool, baselineNodePool, mysqlRoot);
   return mysqlRoot;
@@ -617,10 +616,9 @@ function classifyItem(item) {
   return fallbackDomainId(item.node);
 }
 
-function treeEntry(id, name, nodeRef, icon, children = undefined, expanded = false) {
-  const entry = { id, name, count: 0, icon, nodeRef };
+function treeEntry(id, name, nodeRef, children = undefined) {
+  const entry = { id, name, count: 0, nodeRef };
   if (children?.length) entry.children = children;
-  if (expanded) entry.expanded = true;
   return entry;
 }
 
@@ -693,12 +691,9 @@ function makeDomainTree(nodePool, domain, items) {
   upsertDomainNode(nodePool, domain, items.length);
   const children = items
     .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'))
-    .map((item) => {
-      const icon = (item.node.tags ?? []).includes(IMPORT_TAG) ? 'T' : 'K';
-      return treeEntry(termTreeId(domain, item), item.node.label, item.nodeId, icon);
-    });
+    .map((item) => treeEntry(termTreeId(domain, item), item.node.label, item.nodeId));
 
-  return treeEntry(domainNodeId(domain), domain.name, domainNodeId(domain), domain.icon, children, true);
+  return treeEntry(domainNodeId(domain), domain.name, domainNodeId(domain), children);
 }
 
 function makeSchoolTrees(nodePool, grouped) {
@@ -733,9 +728,7 @@ function makeSchoolTrees(nodePool, grouped) {
       id,
       school,
       id,
-      'S',
       schoolDomains.map((domain) => makeDomainTree(nodePool, domain, grouped.get(domain.id) ?? [])),
-      true,
     );
   });
 }
@@ -754,7 +747,6 @@ function insertSchoolTrees(tree, schoolTrees) {
   removeGeneratedTheoryTreeEntries(tree);
   const parent = findTreeNode(tree, THEORY_PARENT_TREE_ID) ?? tree;
   parent.children = [...(parent.children ?? []), ...schoolTrees];
-  parent.expanded = true;
 }
 
 function pruneMovedTheoryRefsFromMysql(node, movedTheoryRefs, preservedTreeIds = new Set()) {
@@ -770,7 +762,6 @@ function pruneMovedTheoryRefsFromMysql(node, movedTheoryRefs, preservedTreeIds =
   if (isMovedLeafRef && nextChildren.length > 0 && !shouldPreserve) delete node.nodeRef;
 
   node.children = nextChildren.length ? nextChildren : undefined;
-  if (nextChildren.length) node.expanded = true;
   return node;
 }
 

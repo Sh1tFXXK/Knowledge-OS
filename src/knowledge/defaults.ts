@@ -42,8 +42,6 @@ export function createEmptyTreeRoot(): TreeNode {
     id: 'universe',
     name: '知识宇宙',
     count: 0,
-    icon: '🌌',
-    expanded: true,
     nodeRef: 'n_a03cv4sd',
     children: [],
   };
@@ -52,13 +50,11 @@ export function createEmptyTreeRoot(): TreeNode {
 export function createTreeEntry(
   name: string,
   nodeRef: string,
-  icon = '📄',
 ): TreeNode {
   return {
     id: genId('tree'),
     name,
     count: 0,
-    icon,
     nodeRef,
   };
 }

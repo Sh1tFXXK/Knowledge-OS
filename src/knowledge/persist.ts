@@ -6,6 +6,7 @@ import {
   type PersistedAppState,
 } from './state';
 import { migrateAppState } from './migrateViewDimensions';
+import { normalizeTreeNode } from './treeUtils';
 
 const STORAGE_KEY = 'knowledge-os:app-state-v1';
 
@@ -24,8 +25,7 @@ function isTreeNode(value: unknown): value is TreeNode {
   return (
     typeof node.id === 'string' &&
     typeof node.name === 'string' &&
-    typeof node.count === 'number' &&
-    typeof node.icon === 'string'
+    typeof node.count === 'number'
   );
 }
 
@@ -40,7 +40,7 @@ function isKnowledgeEdges(value: unknown): value is import('../types').Knowledge
 
 function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
   const empty = createEmptyAppState();
-  return migrateAppState({
+  const migrated = migrateAppState({
     ...empty,
     ...raw,
     version: APP_STATE_VERSION,
@@ -49,6 +49,10 @@ function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
     knowledgeEdges: (raw.knowledgeEdges as any[]) || [],
     questions: (raw.questions as any[]) || [],
   } as PersistedAppState);
+  return {
+    ...migrated,
+    treeData: normalizeTreeNode(migrated.treeData),
+  };
 }
 
 function isPersistedAppState(value: unknown): value is PersistedAppState {
@@ -90,7 +94,11 @@ export function loadPersistedAppState(): PersistedAppState | null {
       const cleanedRaw = cleanRadicals(raw);
       const parsed = JSON.parse(cleanedRaw);
       if (isPersistedAppState(parsed)) {
-        return migrateAppState(parsed);
+        const migrated = migrateAppState(parsed);
+        return {
+          ...migrated,
+          treeData: normalizeTreeNode(migrated.treeData),
+        };
       }
       if (parsed && typeof parsed === 'object' && parsed.treeData) {
         return normalizeAppState(parsed as Record<string, unknown>);
@@ -105,10 +113,15 @@ export function loadPersistedAppState(): PersistedAppState | null {
 
 export function persistAppState(state: PersistedAppState): void {
   if (!hasStorage()) return;
+  const normalizedState = {
+    ...state,
+    treeData: normalizeTreeNode(state.treeData),
+    version: APP_STATE_VERSION,
+  };
   try {
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ ...state, version: APP_STATE_VERSION }),
+      JSON.stringify(normalizedState),
     );
   } catch (e) {
     console.warn('Failed to persist app state to localStorage', e);
@@ -121,13 +134,22 @@ export function clearPersistedAppState(): void {
 }
 
 export function exportAppStateJson(state: PersistedAppState): string {
-  return JSON.stringify(state, null, 2);
+  return JSON.stringify({
+    ...state,
+    treeData: normalizeTreeNode(state.treeData),
+  }, null, 2);
 }
 
 export function parseImportedAppState(json: string): PersistedAppState | null {
   try {
     const parsed = JSON.parse(json);
-    if (isPersistedAppState(parsed)) return migrateAppState(parsed);
+    if (isPersistedAppState(parsed)) {
+      const migrated = migrateAppState(parsed);
+      return {
+        ...migrated,
+        treeData: normalizeTreeNode(migrated.treeData),
+      };
+    }
     if (parsed && typeof parsed === 'object' && parsed.treeData) {
       return normalizeAppState(parsed as Record<string, unknown>);
     }

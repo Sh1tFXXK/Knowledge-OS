@@ -7,15 +7,29 @@ export function cloneTree(node: TreeNode): TreeNode {
   };
 }
 
+export function normalizeTreeNode(node: TreeNode): TreeNode {
+  const {
+    expanded: _expanded,
+    icon: _icon,
+    children,
+    ...rest
+  } = node as TreeNode & { icon?: string };
+  return {
+    ...rest,
+    children: children ? children.map(normalizeTreeNode) : undefined,
+  };
+}
+
 export function cloneTreeWithNewIds(
   node: TreeNode,
   createId: () => string,
 ): TreeNode {
+  const { children, ...rest } = normalizeTreeNode(node);
   return {
-    ...node,
+    ...rest,
     id: createId(),
-    children: node.children
-      ? node.children.map((child) => cloneTreeWithNewIds(child, createId))
+    children: children
+      ? children.map((child) => cloneTreeWithNewIds(child, createId))
       : undefined,
   };
 }
@@ -60,7 +74,7 @@ export function countTreeNodes(node: TreeNode): number {
 export function updateTreeNode(
   root: TreeNode,
   nodeId: string,
-  patch: Partial<Pick<TreeNode, 'name' | 'nodeRef' | 'supplement' | 'icon'>>,
+  patch: Partial<Pick<TreeNode, 'name' | 'nodeRef' | 'supplement'>>,
 ): TreeNode {
   const next = cloneTree(root);
   const target = findTreeNodeById(next, nodeId);
@@ -75,7 +89,6 @@ export function appendTreeChild(root: TreeNode, parentId: string, child: TreeNod
   if (!parent) return root;
   if (!parent.children) parent.children = [];
   parent.children.push(child);
-  parent.expanded = true;
   return next;
 }
 
@@ -114,7 +127,6 @@ export function moveTreeNode(
   const [movedNode] = clonedCurrentParent.children.splice(movingIndex, 1);
   if (!clonedNextParent.children) clonedNextParent.children = [];
   clonedNextParent.children.push(movedNode);
-  clonedNextParent.expanded = true;
 
   return {
     tree: next,

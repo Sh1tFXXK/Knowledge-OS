@@ -204,10 +204,9 @@ function classifyNode(node) {
   return 'misc';
 }
 
-function treeEntry(id, name, nodeRef, icon, children, expanded = false) {
-  const entry = { id, name, count: 0, icon, nodeRef };
+function treeEntry(id, name, nodeRef, children) {
+  const entry = { id, name, count: 0, nodeRef };
   if (children) entry.children = children;
-  if (expanded) entry.expanded = true;
   return entry;
 }
 
@@ -228,7 +227,6 @@ function replaceChild(root, parentId, child) {
   if (index >= 0) children[index] = child;
   else children.push(child);
   parent.children = children;
-  parent.expanded = true;
 }
 
 function collectTreeNodes(node) {
@@ -530,13 +528,11 @@ function main() {
       groupTreeId(group.id),
       group.name,
       groupNodeId(group.id),
-      'K',
       items.map((item) =>
         treeEntry(
           `tree_mysql_glossary_${group.id}_${slugify(extractEnglishTerms(item.node)[0] ?? item.node.label)}_${hash32(item.nodeId).slice(0, 6)}`,
           item.node.label,
           item.nodeId,
-          'T',
         ),
       ),
     ),
@@ -546,9 +542,7 @@ function main() {
     GLOSSARY_TREE_ROOT_ID,
     'MySQL 词汇表（知识结构）',
     GLOSSARY_ROOT_ID,
-    'G',
     groupTrees,
-    true,
   );
 
   replaceChild(tree, MYSQL_TREE_ID, glossaryTree);

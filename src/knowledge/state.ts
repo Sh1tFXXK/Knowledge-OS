@@ -52,8 +52,6 @@ export function createEmptyAppState(): PersistedAppState {
       id: 'universe',
       name: 'Knowledge Universe',
       count: 0,
-      icon: 'K',
-      expanded: true,
       nodeRef: 'empty-root',
       children: [],
     },
