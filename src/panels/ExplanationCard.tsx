@@ -1,6 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useGraphStore } from '../store/useGraph';
-import { findTreeNodeById } from '../knowledge/treeUtils';
+import {
+  collectTreeReferencesByNodeRef,
+  findTreeNodeById,
+  type TreeNodeReference,
+} from '../knowledge/treeUtils';
 import { findMatrixProjections, type MatrixProjection } from '../knowledge/projection';
 import type { ExplanationTab, KnowledgeNode } from '../types';
 
@@ -47,6 +51,25 @@ function renderInlineFormatting(text: string): any {
   }
 
   return parts.length > 0 ? <>{parts}</> : text;
+}
+
+function compactText(text: string, max = 88): string {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  return normalized.length > max ? `${normalized.slice(0, max)}...` : normalized;
+}
+
+function contextPathLabel(reference: TreeNodeReference): string {
+  const visiblePath = reference.path.slice(1);
+  const parentPath = visiblePath.length > 1 ? visiblePath.slice(0, -1) : visiblePath;
+  return parentPath.join(' / ') || reference.name;
+}
+
+function contextFullPath(reference: TreeNodeReference): string {
+  return reference.path.slice(1).join(' / ') || reference.name;
+}
+
+function primaryContextContent(reference: TreeNodeReference): string {
+  return reference.supplement?.tabs?.[0]?.content?.trim() ?? '';
 }
 
 // Beautiful Premium Markdown & Codeblock Viewer Component
@@ -241,11 +264,106 @@ function ProjectionReferences({
   );
 }
 
+function ContextCutGrid({
+  contexts,
+  activeContextId,
+  selectedTreeNodeId,
+  showDetail,
+  onPickContext,
+  onOpenTreeContext,
+}: {
+  contexts: TreeNodeReference[];
+  activeContextId: string | null;
+  selectedTreeNodeId: string | null;
+  showDetail: boolean;
+  onPickContext: (treeNodeId: string) => void;
+  onOpenTreeContext: (treeNodeId: string) => void;
+}) {
+  const [showAll, setShowAll] = useState(false);
+  const visibleLimit = 6;
+  const activeContext = contexts.find((context) => context.treeNodeId === activeContextId) ?? contexts[0];
+  const activeIsHidden =
+    !!activeContext &&
+    contexts.slice(0, visibleLimit).every((context) => context.treeNodeId !== activeContext.treeNodeId);
+  const baseVisibleContexts = showAll ? contexts : contexts.slice(0, visibleLimit);
+  const visibleContexts =
+    !showAll && activeIsHidden
+      ? [...baseVisibleContexts.slice(0, Math.max(visibleLimit - 1, 0)), activeContext]
+      : baseVisibleContexts;
+  const remainingCount = Math.max(contexts.length - visibleContexts.length, 0);
+
+  useEffect(() => {
+    setShowAll(false);
+  }, [contexts]);
+
+  if (contexts.length === 0) return null;
+
+  return (
+    <section className="context-cut-block" aria-label="领域具体化">
+      <div className="context-cut-head">
+        <div>
+          <div className="context-cut-title">领域具体化</div>
+          <div className="context-cut-subtitle">{contexts.length} 个目录引用同一概念</div>
+        </div>
+        {contexts.length > visibleLimit && (
+          <button type="button" className="context-cut-more" onClick={() => setShowAll((value: boolean) => !value)}>
+            {showAll ? '收起' : `更多 ${remainingCount}`}
+          </button>
+        )}
+      </div>
+
+      <div className="context-cut-grid">
+        {visibleContexts.map((context) => {
+          const isActive = context.treeNodeId === activeContext?.treeNodeId;
+          const isSelectedPath = context.treeNodeId === selectedTreeNodeId;
+          const summary = primaryContextContent(context) || context.supplement?.notes || '该领域尚未写具体化解释';
+          return (
+            <button
+              key={context.treeNodeId}
+              type="button"
+              className={`context-cut-card${isActive ? ' is-active' : ''}`}
+              onClick={() => onPickContext(context.treeNodeId)}
+            >
+              <span className="context-cut-domain">{contextPathLabel(context)}</span>
+              <span className="context-cut-name">{context.name}</span>
+              <span className="context-cut-summary">{compactText(summary)}</span>
+              {isSelectedPath && <span className="context-cut-current">当前路径</span>}
+            </button>
+          );
+        })}
+      </div>
+
+      {showDetail && activeContext && (
+        <div className="context-cut-detail">
+          <div className="context-cut-detail-head">
+            <div>
+              <div className="context-cut-detail-title">{activeContext.name}</div>
+              <div className="context-cut-detail-path">{contextFullPath(activeContext)}</div>
+            </div>
+            <button
+              type="button"
+              className="context-cut-open"
+              onClick={() => onOpenTreeContext(activeContext.treeNodeId)}
+              disabled={activeContext.treeNodeId === selectedTreeNodeId}
+            >
+              定位目录
+            </button>
+          </div>
+          {primaryContextContent(activeContext) ? (
+            <MarkdownView content={primaryContextContent(activeContext)} />
+          ) : (
+            <p className="text-muted context-cut-empty">这个领域还没有具体化解释。</p>
+          )}
+        </div>
+      )}
+    </section>
+  );
+}
+
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
   const getKnowledgeExplanation = useGraphStore((s) => s.getKnowledgeExplanation);
-  const getTreeSupplement = useGraphStore((s) => s.getTreeSupplement);
   const updateKnowledgeTab = useGraphStore((s) => s.updateKnowledgeTab);
   const updatePathSupplementContent = useGraphStore((s) => s.updatePathSupplementContent);
   const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
@@ -259,14 +377,21 @@ export default function ExplanationCard() {
     selectedNodeId ? s.nodePool[selectedNodeId] : undefined,
   );
   const explanation = getKnowledgeExplanation();
-  const supplement = getTreeSupplement();
   const [activeTab, setActiveTab] = useState('');
+  const [activeContextTreeId, setActiveContextTreeId] = useState(null as string | null);
   const [newLabel, setNewLabel] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   const selectedTreeNode = selectedTreeNodeId
     ? findTreeNodeById(treeData, selectedTreeNodeId)
     : null;
+  const contextRefs: TreeNodeReference[] = useMemo(
+    () => (selectedNodeId ? collectTreeReferencesByNodeRef(treeData, selectedNodeId) : []),
+    [selectedNodeId, treeData],
+  );
+  const activeContext: TreeNodeReference | null =
+    contextRefs.find((context) => context.treeNodeId === activeContextTreeId) ?? contextRefs[0] ?? null;
+  const activeContextSupplement = activeContext?.supplement ?? null;
   const suggestedLabel = selectedTreeNode?.name.trim() ?? '';
   const createLabel = (newLabel.trim() || suggestedLabel).trim();
 
@@ -290,6 +415,28 @@ export default function ExplanationCard() {
     if (explanation || !selectedTreeNodeId) return;
     setNewLabel(suggestedLabel);
   }, [explanation, selectedTreeNodeId, suggestedLabel]);
+
+  useEffect(() => {
+    if (!selectedNodeId) {
+      setActiveContextTreeId(null);
+      return;
+    }
+
+    const selectedTreeContext = selectedTreeNodeId
+      ? contextRefs.find((context) => context.treeNodeId === selectedTreeNodeId)
+      : undefined;
+    const fallbackContextId = selectedTreeContext?.treeNodeId ?? contextRefs[0]?.treeNodeId ?? null;
+
+    setActiveContextTreeId((current: string | null) => {
+      if (selectedTreeContext && current !== selectedTreeContext.treeNodeId) {
+        return selectedTreeContext.treeNodeId;
+      }
+      if (current && contextRefs.some((context) => context.treeNodeId === current)) {
+        return current;
+      }
+      return fallbackContextId;
+    });
+  }, [contextRefs, selectedNodeId, selectedTreeNodeId]);
 
   const handleCreateForCurrentTree = () => {
     if (!selectedTreeNodeId) return;
@@ -324,9 +471,9 @@ export default function ExplanationCard() {
     }
   };
 
-  const supplementTabs = supplement?.tabs ?? [];
+  const supplementTabs: ExplanationTab[] = activeContextSupplement?.tabs ?? [];
   const pathTab: ExplanationTab | null =
-    explanation && selectedTreeNodeId
+    explanation && activeContext
       ? supplementTabs[0] ?? {
           id: 'path',
           label: '路径补充',
@@ -489,7 +636,7 @@ export default function ExplanationCard() {
                   updateKnowledgeTab(selectedNodeId, activeContent.id, e.target.value)
                 }
               />
-            ) : isPathTab && selectedTreeNodeId ? (
+            ) : isPathTab && activeContext ? (
               <textarea
                 className="input"
                 style={{
@@ -507,13 +654,24 @@ export default function ExplanationCard() {
                 }}
                 value={activeContent?.content ?? ''}
                 placeholder="填写此导航路径下的补充说明（方言、上下文等）…"
-                onChange={(e: any) => updatePathSupplementContent(selectedTreeNodeId, e.target.value)}
+                onChange={(e: any) => updatePathSupplementContent(activeContext.treeNodeId, e.target.value)}
               />
             ) : (
               <p className="text-muted">{activeContent?.content || '无内容'}</p>
             )
           ) : (
             <MarkdownView content={activeContent?.content ?? ''} />
+          )}
+
+          {selectedNodeId && contextRefs.length > 0 && (
+            <ContextCutGrid
+              contexts={contextRefs}
+              activeContextId={activeContext?.treeNodeId ?? null}
+              selectedTreeNodeId={selectedTreeNodeId}
+              showDetail={!isPathTab && !isEditing}
+              onPickContext={setActiveContextTreeId}
+              onOpenTreeContext={selectTreeEntry}
+            />
           )}
 
           {selectedNodeId && matrixProjections.length > 0 && (
@@ -527,7 +685,7 @@ export default function ExplanationCard() {
 
 
 
-          {(explanation.notes || supplement?.notes) && (
+          {(explanation.notes || activeContextSupplement?.notes) && (
             <div
               className="card-note-container"
               style={{ borderTop: '1px solid var(--border-secondary)', marginTop: 16, paddingTop: 12, paddingBottom: 4 }}
@@ -538,10 +696,10 @@ export default function ExplanationCard() {
                   <span className="card-note-text">{explanation.notes}</span>
                 </div>
               )}
-              {supplement?.notes && (
+              {activeContextSupplement?.notes && (
                 <div className="card-note">
                   <span className="card-note-label">路径:</span>
-                  <span className="card-note-text">{supplement.notes}</span>
+                  <span className="card-note-text">{activeContextSupplement.notes}</span>
                 </div>
               )}
             </div>

@@ -954,26 +954,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_db:demo_mysql",
-    "source": "n_u4va719e",
-    "target": "n_8s66vwo1",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_architecture",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_architecture",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql_topic_architecture:mysql_architecture_overview",
     "source": "mysql_topic_architecture",
     "target": "k_1782032149173_bli3vq",
@@ -994,26 +974,6 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:mysql_topic_sql_objects",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_sql_objects",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_storage_engines",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_storage_engines",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql_topic_storage_engines:tree_1782032090364_9w1h5q",
     "source": "mysql_topic_storage_engines",
     "target": "k_1782032090352_a1ehd0",
@@ -1027,16 +987,6 @@
     "id": "treebind:mysql_topic_storage_engines:demo_tree_myisam",
     "source": "mysql_topic_storage_engines",
     "target": "demo_myisam",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_innodb_internals",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_innodb_internals",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -1773,16 +1723,6 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:mysql_topic_logs_recovery",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_logs_recovery",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql_topic_logs_recovery:tree_1782029505240_be11k0",
     "source": "mysql_topic_logs_recovery",
     "target": "k_1782029505237_7y8fh8",
@@ -1860,39 +1800,9 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:mysql_topic_optimizer_performance",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_optimizer_performance",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql_topic_optimizer_performance:tree_1782033508073_oe4mt0",
     "source": "mysql_topic_optimizer_performance",
     "target": "k_1782033508063_xspnmd",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_replication_ha",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_replication_ha",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_connectors_api",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_connectors_api",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -1918,26 +1828,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_mysql:mysql_topic_security_auth",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_security_auth",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_topic_backup_operations",
-    "source": "n_8s66vwo1",
-    "target": "mysql_topic_backup_operations",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql_topic_backup_operations:tree_1782032936994_e5wpwn",
     "source": "mysql_topic_backup_operations",
     "target": "k_1782032936985_6uwpnx",
@@ -1945,50 +1835,6 @@
     "label": "contains",
     "dimensions": [
       "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_db:demo_nosql",
-    "source": "n_u4va719e",
-    "target": "n_21yoee5g",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_nosql:demo_tree_redis",
-    "source": "n_21yoee5g",
-    "target": "demo_redis",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_nosql:demo_tree_mongodb",
-    "source": "n_21yoee5g",
-    "target": "demo_mongodb",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_db:tree_mysql_glossary_storage_engines_in_memory_database_1swh47",
-    "source": "n_u4va719e",
-    "target": "mysql_glossary_in_memory_database_1swh47",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "transaction",
-      "storage",
-      "performance"
     ]
   },
   {
@@ -2502,16 +2348,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_programming_language_theory:mysql_term_programming_language_theory_cursor_1dm61e",
-    "source": "theory_domain_programming_language_theory",
-    "target": "k_dict_a7bwz8vl",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_operating_systems:mysql_term_operating_systems_shutdown_qpv53w",
     "source": "theory_domain_operating_systems",
     "target": "k_dict_jwcd61u4",
@@ -2818,26 +2654,6 @@
     ]
   },
   {
-    "id": "treebind:school_real_world_conventions:theory_domain_character_encoding_standards",
-    "source": "school_real_world_conventions",
-    "target": "theory_domain_character_encoding_standards",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_character_encoding_standards:mysql_term_character_encoding_standards_ansi_su18oi",
-    "source": "theory_domain_character_encoding_standards",
-    "target": "k_dict_ij1x57s1",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:school_real_world_conventions:theory_domain_timezone_standards",
     "source": "school_real_world_conventions",
     "target": "theory_domain_timezone_standards",
@@ -2979,16 +2795,6 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:demo_tree_tx",
-    "source": "n_8s66vwo1",
-    "target": "n_ag24bbkc",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:demo_tree_tx:mysql_tx_mvcc_undo",
     "source": "n_ag24bbkc",
     "target": "mysql_tx_mvcc_undo",
@@ -2996,18 +2802,6 @@
     "label": "contains",
     "dimensions": [
       "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:demo_tree_lock",
-    "source": "n_8s66vwo1",
-    "target": "demo_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "transaction",
-      "performance"
     ]
   },
   {
@@ -3163,16 +2957,6 @@
     ]
   },
   {
-    "id": "treebind:demo_mysql:tree_1782748910933_jw2hib",
-    "source": "n_8s66vwo1",
-    "target": "k_1782748910899_dtrnpe",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:tree_1782748910933_jw2hib:tree_1782749047525_u9banq",
     "source": "k_1782748910899_dtrnpe",
     "target": "k_1782749047493_w36knu",
@@ -3243,17 +3027,6 @@
     "dimensions": [
       "transaction",
       "storage"
-    ]
-  },
-  {
-    "id": "treebind:demo_mysql:mysql_term_data_structures_index_qwtxk8",
-    "source": "n_8s66vwo1",
-    "target": "k_dict_i70ksr9s",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage",
-      "performance"
     ]
   },
   {
@@ -3497,33 +3270,6 @@
     ]
   },
   {
-    "id": "treebind:school_programming_languages:theory_domain_programming_language_theory",
-    "source": "school_programming_languages",
-    "target": "theory_domain_programming_language_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_programming_languages:theory_domain_regular_expression_theory",
-    "source": "school_programming_languages",
-    "target": "theory_domain_regular_expression_theory",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:tree_1782748382111_c2udec:tree_1782793389309_62md98",
-    "source": "k_1782748382034_b8a1a9",
-    "target": "k_1782793389266_8caigh",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
     "id": "treebind:tree_1782793389309_62md98:tree_1782793401091_5e6p7u",
     "source": "k_1782793389266_8caigh",
     "target": "k_1782793401051_nyxsei",
@@ -3576,13 +3322,6 @@
     "id": "treebind:tree_1782794616780_kxlup2:tree_1782798814350_qiq392",
     "source": "k_1782794616728_i5obct",
     "target": "k_1782798814309_j3jj7c",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782749694516_2ntoss:tree_1782804303157_ui2kzf",
-    "source": "k_1782749694486_vyrfzy",
-    "target": "k_1782804303119_9whpjj",
     "type": "belongs-to",
     "label": "contains"
   },
@@ -3734,62 +3473,6 @@
     "label": "contains"
   },
   {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813819726_30bmec",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813819683_ntjiho",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813876508_15dfxs",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813876473_f9kgq2",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813900863_41b58b",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813900716_0oixi3",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813922930_0xiawq",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813922894_kmrc5z",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813951312_jzp80c",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813951272_huivnu",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782813973151_7l404n",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782813973111_a25i2a",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782814002801_qlk43z",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782814002747_fldlbm",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782793401091_5e6p7u:tree_1782814020958_n2un3r",
-    "source": "k_1782793401051_nyxsei",
-    "target": "k_1782814020917_u54b3z",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
     "id": "treebind:tree_1782793389309_62md98:tree_1782814122510_vtuz4a",
     "source": "k_1782793389266_8caigh",
     "target": "k_1782814122467_l5rgvz",
@@ -3937,23 +3620,9 @@
     "label": "contains"
   },
   {
-    "id": "treebind:tree_1782746457614_osttpr:tree_1782748382111_c2udec",
-    "source": "k_1782746457581_30q8ao",
-    "target": "k_1782748382034_b8a1a9",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
     "id": "treebind:tree_1782746457614_osttpr:tree_1782749694516_2ntoss",
     "source": "k_1782746457581_30q8ao",
     "target": "k_1782749694486_vyrfzy",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782746457614_osttpr:tree_1782749726688_0hrpnu",
-    "source": "k_1782746457581_30q8ao",
-    "target": "k_1782749726658_e7lq2o",
     "type": "belongs-to",
     "label": "contains"
   },
@@ -3968,20 +3637,6 @@
     "id": "treebind:tree_1782746457614_osttpr:tree_1782820185830_vuzuox",
     "source": "k_1782746457581_30q8ao",
     "target": "k_1782820185793_jpet7h",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782833214675_r6mivn:tree_1782834119007_8gxoi9",
-    "source": "k_1782833214639_nueg1f",
-    "target": "k_1782834118965_n5r1fr",
-    "type": "belongs-to",
-    "label": "contains"
-  },
-  {
-    "id": "treebind:tree_1782834119007_8gxoi9:tree_1782835092355_wjr8kz",
-    "source": "k_1782834118965_n5r1fr",
-    "target": "k_1782835092322_77nqn7",
     "type": "belongs-to",
     "label": "contains"
   },
@@ -4017,16 +3672,6 @@
     "id": "treebind:demo_cs:school_systems",
     "source": "n_55jiel25",
     "target": "school_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:school_systems:theory_domain_concurrency_theory",
-    "source": "school_systems",
-    "target": "theory_domain_concurrency_theory",
     "type": "belongs-to",
     "label": "contains",
     "dimensions": [
@@ -4262,16 +3907,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_algorithms:tree_1782839418364_5ll0y7",
-    "source": "theory_domain_algorithms",
-    "target": "k_1782839418326_8320ve",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:demo_cs:theory_domain_data_structures",
     "source": "n_55jiel25",
     "target": "theory_domain_data_structures",
@@ -4361,16 +3996,6 @@
     "target": "k_dict_qttpkbhf",
     "type": "belongs-to",
     "label": "contains"
-  },
-  {
-    "id": "treebind:theory_domain_concurrency_theory:tree_1782928521585_eiocii",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_1782928521555_m3qum5",
-    "type": "belongs-to",
-    "label": "contains",
-    "dimensions": [
-      "storage"
-    ]
   },
   {
     "id": "treebind:tree_1782746457614_osttpr:tree_1782928696623_almc5c",
@@ -4464,6 +4089,2078 @@
     "id": "treebind:tree_1782931436121_inszy7:tree_1782931475540_5ce8ex",
     "source": "k_1782931436091_nitl7a",
     "target": "k_1782931475509_dlbrrp",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_cs:theory_domain_character_encoding_standards",
+    "source": "n_55jiel25",
+    "target": "theory_domain_character_encoding_standards",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_character_encoding_standards:mysql_term_character_encoding_standards_ansi_su18oi",
+    "source": "theory_domain_character_encoding_standards",
+    "target": "k_dict_ij1x57s1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql_topic_sql_objects:mysql_term_programming_language_theory_cursor_1dm61e",
+    "source": "mysql_topic_sql_objects",
+    "target": "k_dict_a7bwz8vl",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782833214675_r6mivn:tree_1783091687296_213anx",
+    "source": "k_1782833214639_nueg1f",
+    "target": "k_1783091687266_9tecxo",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783091687296_213anx:tree_1783091712144_tbcujz",
+    "source": "k_1783091687266_9tecxo",
+    "target": "k_1783091712114_5yyjrv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:universe:tree_1783092583559_g7caty",
+    "source": "n_a03cv4sd",
+    "target": "k_1783092583533_0w9787",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:theory_domain_data_structures:tree_1782835092355_wjr8kz",
+    "source": "theory_domain_data_structures",
+    "target": "k_1782835092322_77nqn7",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1783093717625_xh4qeo",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1783093717594_y3gttn",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:theory_domain_computer_architecture:tree_1783096007030_po6jn6",
+    "source": "theory_domain_computer_architecture",
+    "target": "k_1783096007006_rgpwn2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1781894134786_k26g6t:tree_1783096608825_9mpjo2",
+    "source": "k_1781894134776_ddvce4",
+    "target": "k_1783096608797_3rf6xc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781894134786_k26g6t:tree_1783096626404_wejzw5",
+    "source": "k_1781894134776_ddvce4",
+    "target": "k_1783096626380_5ujbbs",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782798788702_6k0vb3:tree_1783099702264_6tiwt5",
+    "source": "k_1782798788671_3fjikg",
+    "target": "k_1783099702235_p1pa94",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1783101878501_k2j7ub",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1783101878467_d26xhv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783101878501_k2j7ub:tree_1783102308343_rbna6s",
+    "source": "k_1783101878467_d26xhv",
+    "target": "k_1783102308317_h8s41c",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783101878501_k2j7ub:tree_1783102320902_r9xuxg",
+    "source": "k_1783101878467_d26xhv",
+    "target": "k_1783102320876_5ginrg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783101878501_k2j7ub:tree_1783102332942_a0jn80",
+    "source": "k_1783101878467_d26xhv",
+    "target": "k_1783102332914_poqlbm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782931436121_inszy7:tree_1783103959743_ogwxtd",
+    "source": "k_1782931436091_nitl7a",
+    "target": "k_1783103959715_nbih6n",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783103959743_ogwxtd:tree_1783103969479_p2yron",
+    "source": "k_1783103959715_nbih6n",
+    "target": "k_1783103969455_rj0nro",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783103959743_ogwxtd:tree_1783103977167_5k63d1",
+    "source": "k_1783103959715_nbih6n",
+    "target": "k_1783103977143_ayoa75",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1783104722622_il21p3",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1783104722598_hdfb8o",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783104722622_il21p3:tree_1783104987454_z3pl7o",
+    "source": "k_1783104722598_hdfb8o",
+    "target": "k_1783104987426_s5wmh0",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783104722622_il21p3:tree_1783104999025_6rrg5u",
+    "source": "k_1783104722598_hdfb8o",
+    "target": "k_1783104999001_trg3a1",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783104722622_il21p3:tree_1783106326972_d38frh",
+    "source": "k_1783104722598_hdfb8o",
+    "target": "k_1783106326946_m9gxsx",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783099702264_6tiwt5:tree_1783107186995_40a0vl",
+    "source": "k_1783099702235_p1pa94",
+    "target": "k_1783107186969_vbsod9",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783099702264_6tiwt5:tree_1783107207571_cq71u4",
+    "source": "k_1783099702235_p1pa94",
+    "target": "k_1783107207547_lxjap6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783099702264_6tiwt5:tree_1783107227918_8ck3tn",
+    "source": "k_1783099702235_p1pa94",
+    "target": "k_1783107227892_dqq4ek",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783099702264_6tiwt5:tree_1783107234851_8lkmd9",
+    "source": "k_1783099702235_p1pa94",
+    "target": "k_1783107234826_gtq04l",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782798808606_2c4ae2:tree_1783107284602_7l8hzq",
+    "source": "k_1782798808568_5vubd8",
+    "target": "k_1783107284577_bbdtnv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783102308343_rbna6s:tree_1783145301884_oyisjh",
+    "source": "k_1783102308317_h8s41c",
+    "target": "k_1783145301858_3023d5",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783145301884_oyisjh:tree_1783145419551_zeyooi",
+    "source": "k_1783145301858_3023d5",
+    "target": "k_1783145419527_y4cdsv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783145301884_oyisjh:tree_1783145445643_rteqfj",
+    "source": "k_1783145301858_3023d5",
+    "target": "k_1783145445616_i2xe19",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783145301884_oyisjh:tree_1783145458280_z9udhz",
+    "source": "k_1783145301858_3023d5",
+    "target": "k_1783145458254_5xki8d",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783145301884_oyisjh:tree_1783145492671_kv583c",
+    "source": "k_1783145301858_3023d5",
+    "target": "k_1783145492646_kbstjs",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783145301884_oyisjh:tree_1783145503065_wfhe69",
+    "source": "k_1783145301858_3023d5",
+    "target": "k_1783145503039_yrmhnh",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783102308343_rbna6s:tree_1783145536073_fainrb",
+    "source": "k_1783102308317_h8s41c",
+    "target": "k_1783145536047_wqowkv",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1783154640935_cmorrp",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1783154640901_0cwole",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783154640935_cmorrp:tree_1783154915255_9pnxdt",
+    "source": "k_1783154640901_0cwole",
+    "target": "k_1783154915218_vc5xqg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783154640935_cmorrp:tree_1783154938380_h0ikq3",
+    "source": "k_1783154640901_0cwole",
+    "target": "k_1783154938346_xy9o6y",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1783155226103_7cmeo1",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1783155226069_2ffro6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783096608825_9mpjo2:tree_1783155775454_dmuoc3",
+    "source": "k_1783096608797_3rf6xc",
+    "target": "k_1783155775417_2xvd9n",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783096608825_9mpjo2:tree_1783157221230_hungj5",
+    "source": "k_1783096608797_3rf6xc",
+    "target": "k_1783157221196_esfnre",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783096608825_9mpjo2:tree_1783157247463_q2hnrn",
+    "source": "k_1783096608797_3rf6xc",
+    "target": "k_1783157247430_n6ubvn",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783096608825_9mpjo2:tree_1783157274734_po0bzr",
+    "source": "k_1783096608797_3rf6xc",
+    "target": "k_1783157274694_odbiuu",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_gc_reachability",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_gc_reachability",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_gc_algos",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_gc_algos",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_jit",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_jit",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_cms",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_cms",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_mem_leak",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_mem_leak",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_exception",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_exception",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_class_unload",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_class_unload",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_meta_perm",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_meta_perm",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_jdk_jre",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_jdk_jre",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_stack_exception",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_stack_exception",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_interview_edge_k_jvm_tuning",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_jvm_tuning",
+    "type": "belongs-to",
+    "label": "包含",
+    "dimensions": [
+      "jvm",
+      "interview"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_reachability",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_reachability",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_gc_roots",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_gc_roots",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_strong_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_strong_ref",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_soft_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_soft_ref",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_weak_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_weak_ref",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_phantom_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_phantom_ref",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_ref_queue",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_ref_queue",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_mark_sweep",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_mark_sweep",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_copying",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_copying",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_mark_compact",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_mark_compact",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_hotspot_detect",
+    "source": "k_jvm_jit",
+    "target": "k_atom_hotspot_detect",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_c1_compiler",
+    "source": "k_jvm_jit",
+    "target": "k_atom_c1_compiler",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_c2_compiler",
+    "source": "k_jvm_jit",
+    "target": "k_atom_c2_compiler",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_tiered_comp",
+    "source": "k_jvm_jit",
+    "target": "k_atom_tiered_comp",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_method_inline",
+    "source": "k_jvm_jit",
+    "target": "k_atom_method_inline",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_escape_analysis",
+    "source": "k_jvm_jit",
+    "target": "k_atom_escape_analysis",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_exception_table",
+    "source": "k_jvm_exception",
+    "target": "k_atom_exception_table",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_stack_unwind",
+    "source": "k_jvm_exception",
+    "target": "k_atom_stack_unwind",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_permgen",
+    "source": "k_jvm_meta_perm",
+    "target": "k_atom_permgen",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_metaspace",
+    "source": "k_jvm_meta_perm",
+    "target": "k_atom_metaspace",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_cms_initial_mark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_initial_mark",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_cms_concurrent_mark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_concurrent_mark",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_cms_remark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_remark",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_cms_concurrent_sweep",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_concurrent_sweep",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_storeload",
+    "source": "k_1783093717594_y3gttn",
+    "target": "k_atom_storeload",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_loadload",
+    "source": "k_1783093717594_y3gttn",
+    "target": "k_atom_loadload",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_storestore",
+    "source": "k_1783093717594_y3gttn",
+    "target": "k_atom_storestore",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_loadstore",
+    "source": "k_1783093717594_y3gttn",
+    "target": "k_atom_loadstore",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "jvm_atomic_edge_k_atom_safepoint",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_atom_safepoint",
+    "type": "belongs-to",
+    "label": "原子概念",
+    "dimensions": [
+      "jvm",
+      "interview",
+      "atomic"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_exception:tree_jvm_stack_exception",
+    "source": "k_jvm_exception",
+    "target": "k_jvm_stack_exception",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_stack_exception:tree_1783161122837_nkq9xz",
+    "source": "k_jvm_stack_exception",
+    "target": "k_1783161122808_6s1zvz",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_stack_exception:tree_1783161157004_tiqbhc",
+    "source": "k_jvm_stack_exception",
+    "target": "k_1783161156973_zxi5x2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_distributed_systems:tree_1783170416796_or2qe7",
+    "source": "theory_domain_distributed_systems",
+    "target": "k_1783170416767_yaym2f",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_cms:tree_atomic_k_atom_cms_initial_mark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_initial_mark",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_cms:tree_atomic_k_atom_cms_concurrent_mark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_concurrent_mark",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_cms:tree_atomic_k_atom_cms_remark",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_remark",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_cms:tree_atomic_k_atom_cms_concurrent_sweep",
+    "source": "k_jvm_cms",
+    "target": "k_atom_cms_concurrent_sweep",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783164062011_ijx49l:tree_1783171646639_dd9nwd",
+    "source": "k_1783164061982_dy3jas",
+    "target": "k_1783171646604_yn33rr",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783164062011_ijx49l:tree_1783171669963_tmpwi4",
+    "source": "k_1783164061982_dy3jas",
+    "target": "k_1783171669928_46ncd4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783164003471_tzhibi:tree_jvm_cms",
+    "source": "k_1783164003442_wm9ajj",
+    "target": "k_jvm_cms",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783164003471_tzhibi:tree_1783171541470_v3ht5u",
+    "source": "k_1783164003442_wm9ajj",
+    "target": "k_1783171541433_akjz47",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783164003471_tzhibi:tree_1783171576620_ez1pk7",
+    "source": "k_1783164003442_wm9ajj",
+    "target": "k_1783171576583_0k6kre",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783164003471_tzhibi:tree_1783171609427_qdaf8w",
+    "source": "k_1783164003442_wm9ajj",
+    "target": "k_1783171609391_x3bqux",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_jvm_gc_algos:tree_atomic_k_atom_mark_sweep",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_mark_sweep",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_algos:tree_atomic_k_atom_copying",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_copying",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_algos:tree_atomic_k_atom_mark_compact",
+    "source": "k_jvm_gc_algos",
+    "target": "k_atom_mark_compact",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_gc_roots",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_gc_roots",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_strong_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_strong_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_soft_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_soft_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_weak_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_weak_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_phantom_ref",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_phantom_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_atomic_k_atom_ref_queue",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_atom_ref_queue",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_jvm_gc_algos:tree_1783171867587_9kqnbk",
+    "source": "k_jvm_gc_algos",
+    "target": "k_1783171867549_lp5mbv",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782749694516_2ntoss:tree_1783173221043_ydhr9m",
+    "source": "k_1782749694486_vyrfzy",
+    "target": "k_1783173221009_ygz927",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782820185830_vuzuox:tree_1783173688379_ffab9p",
+    "source": "k_1782820185793_jpet7h",
+    "target": "k_1783173688342_6b8756",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_1783174457097_rymt7n",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_1783174457059_sy9hs8",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:school_programming_languages:tree_1783183396985_1hmv5z",
+    "source": "school_programming_languages",
+    "target": "k_1783183396947_46zdou",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783183396985_1hmv5z:tree_1782834119007_8gxoi9",
+    "source": "k_1783183396947_46zdou",
+    "target": "k_1782834118965_n5r1fr",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783167530009_81diwm",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783167529977_jal59j",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783167541281_d5khnt",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783167541244_d3d092",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783167551389_pb80c2",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783167551355_1zzuyq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783167907462_zlt3zh",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783167907433_5q9erq",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1783184152433_7f17af",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1783184152399_h2bnjm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782746457614_osttpr:tree_1783184196963_vc0k3u",
+    "source": "k_1782746457581_30q8ao",
+    "target": "k_1783184196932_cpprvi",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783184803336_zgc1z2",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783184803301_75p0j1",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184803336_zgc1z2:tree_1783167884489_ez9t07",
+    "source": "k_1783184803301_75p0j1",
+    "target": "k_1783167884457_fbgsdd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184803336_zgc1z2:tree_1783167897046_phaeih",
+    "source": "k_1783184803301_75p0j1",
+    "target": "k_1783167897008_j9oxtc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:school_programming_languages:tree_1783185477996_d9fdmu",
+    "source": "school_programming_languages",
+    "target": "k_1783185477965_twyxez",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783185477996_d9fdmu:tree_1783185524989_x6149u",
+    "source": "k_1783185477965_twyxez",
+    "target": "k_1783185524955_jmpw8e",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783185524989_x6149u:tree_1783185488678_93h8nm",
+    "source": "k_1783185524955_jmpw8e",
+    "target": "k_1783185488648_yobuxy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783185488678_93h8nm:tree_1783167860272_sx3j60",
+    "source": "k_1783185488648_yobuxy",
+    "target": "k_1783167860244_04xrp4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783185477996_d9fdmu:tree_1783186255448_ehdt38",
+    "source": "k_1783185477965_twyxez",
+    "target": "k_1783186255415_ir9mlw",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783186255448_ehdt38:tree_1783186425166_crond2",
+    "source": "k_1783186255415_ir9mlw",
+    "target": "k_1783186425134_v31qjt",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783186425166_crond2:tree_1783186880584_3rlmu0",
+    "source": "k_1783186425134_v31qjt",
+    "target": "k_1783186880545_vcool8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783186425166_crond2:tree_1783190919578_mbom36",
+    "source": "k_1783186425134_v31qjt",
+    "target": "k_1783190919547_xy3xo7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783167551389_pb80c2:tree_1783191702392_rgrtzl",
+    "source": "k_1783167551355_1zzuyq",
+    "target": "k_1783191702364_0jj8qu",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783191702392_rgrtzl:tree_1783167737303_sqev75",
+    "source": "k_1783191702364_0jj8qu",
+    "target": "k_1783167737276_jlh50j",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783191702392_rgrtzl:tree_1783191721199_8kutfs",
+    "source": "k_1783191702364_0jj8qu",
+    "target": "k_1783191721172_1z8bir",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783167551389_pb80c2:tree_1783191752098_95mq11",
+    "source": "k_1783167551355_1zzuyq",
+    "target": "k_1783191752067_f7u3yy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783191752098_95mq11:tree_1783183435991_77dpb7",
+    "source": "k_1783191752067_f7u3yy",
+    "target": "k_1783183435962_lom0xc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783191752098_95mq11:tree_1783191777497_e2spic",
+    "source": "k_1783191752067_f7u3yy",
+    "target": "k_1783191777469_n9jlip",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783185477996_d9fdmu:tree_1782748382111_c2udec",
+    "source": "k_1783185477965_twyxez",
+    "target": "k_1782748382034_b8a1a9",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748382111_c2udec:tree_1782793389309_62md98",
+    "source": "k_1782748382034_b8a1a9",
+    "target": "k_1782793389266_8caigh",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748382111_c2udec:tree_1783167918864_8cl4fw",
+    "source": "k_1782748382034_b8a1a9",
+    "target": "k_1783167918831_zqk4a6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748382111_c2udec:tree_1783186382417_sqdkpp",
+    "source": "k_1782748382034_b8a1a9",
+    "target": "k_1783186382386_06a7l7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782748382111_c2udec:tree_1783191024422_f8kzw9",
+    "source": "k_1782748382034_b8a1a9",
+    "target": "k_1783191024388_6wm19u",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:school_computation_theory:tree_1783229929739_iq2eps",
+    "source": "school_computation_theory",
+    "target": "k_1783229929708_1i1he2",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783233120003_noszdk",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783233119967_ia2k7e",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782833214675_r6mivn:tree_1783235593713_9a5j44",
+    "source": "k_1782833214639_nueg1f",
+    "target": "k_1783235593684_pob0bg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184803336_zgc1z2:tree_1783238652456_r0xift",
+    "source": "k_1783184803301_75p0j1",
+    "target": "k_1783238652426_mxnh6v",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184803336_zgc1z2:tree_1783238676338_un175q",
+    "source": "k_1783184803301_75p0j1",
+    "target": "k_1783238676302_ggr3kg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1783241972555_r15lcv",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1783241972525_r9d594",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1783242081882_momfg0",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1783242081853_1rz9pi",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242081882_momfg0:tree_1782813900863_41b58b",
+    "source": "k_1783242081853_1rz9pi",
+    "target": "k_1782813900716_0oixi3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813900863_41b58b:tree_1783087848566_d62icb",
+    "source": "k_1782813900716_0oixi3",
+    "target": "k_1783087848544_mpfic6",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242081882_momfg0:tree_1782813876508_15dfxs",
+    "source": "k_1783242081853_1rz9pi",
+    "target": "k_1782813876473_f9kgq2",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813876508_15dfxs:tree_1783087834374_s5xzth",
+    "source": "k_1782813876473_f9kgq2",
+    "target": "k_1783087834350_gmpg3u",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242081882_momfg0:tree_1782813922930_0xiawq",
+    "source": "k_1783242081853_1rz9pi",
+    "target": "k_1782813922894_kmrc5z",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813922930_0xiawq:tree_1783087856858_n4z294",
+    "source": "k_1782813922894_kmrc5z",
+    "target": "k_1783087856834_zelajj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242081882_momfg0:tree_1782813819726_30bmec",
+    "source": "k_1783242081853_1rz9pi",
+    "target": "k_1782813819683_ntjiho",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813819726_30bmec:tree_1783087818349_fu8wez",
+    "source": "k_1782813819683_ntjiho",
+    "target": "k_1783087818322_st7eoj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783241972555_r15lcv:tree_1782814020958_n2un3r",
+    "source": "k_1783241972525_r9d594",
+    "target": "k_1782814020917_u54b3z",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782814020958_n2un3r:tree_1783087909396_76n2vh",
+    "source": "k_1782814020917_u54b3z",
+    "target": "k_1783087909368_sxmcqe",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1783242173581_5ukcg4",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1783242173553_yf00vd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242173581_5ukcg4:tree_1782813951312_jzp80c",
+    "source": "k_1783242173553_yf00vd",
+    "target": "k_1782813819683_ntjiho",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813951312_jzp80c:tree_1783087864958_upthbo",
+    "source": "k_1782813819683_ntjiho",
+    "target": "k_1783087864934_n0yzzj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242173581_5ukcg4:tree_1782813973151_7l404n",
+    "source": "k_1783242173553_yf00vd",
+    "target": "k_1782813973111_a25i2a",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782813973151_7l404n:tree_1783087878229_egpsrd",
+    "source": "k_1782813973111_a25i2a",
+    "target": "k_1783087878206_r1e7p8",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793401091_5e6p7u:tree_1783242320640_9fmver",
+    "source": "k_1782793401051_nyxsei",
+    "target": "k_1783242320610_hy6yui",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242320640_9fmver:tree_1782814002801_qlk43z",
+    "source": "k_1783242320610_hy6yui",
+    "target": "k_1782814002747_fldlbm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782814002801_qlk43z:tree_1783087884910_dhu1jy",
+    "source": "k_1782814002747_fldlbm",
+    "target": "k_1783087884886_wy66ig",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1783242458324_m6v54p",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1783242458293_jvz8tc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1783242586488_23xu0w",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1783242586458_lc8wra",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242586488_23xu0w:tree_1783242597073_6nry42",
+    "source": "k_1783242586458_lc8wra",
+    "target": "k_1783242597042_wnhkxs",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242586488_23xu0w:tree_1783242603197_ww7xet",
+    "source": "k_1783242586458_lc8wra",
+    "target": "k_1783242603167_6cwn1r",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783242586488_23xu0w:tree_1783242608339_70d7ld",
+    "source": "k_1783242586458_lc8wra",
+    "target": "k_1783242608308_6xygyf",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782793389309_62md98:tree_1783242642455_3ise1v",
+    "source": "k_1782793389266_8caigh",
+    "target": "k_1783242642426_oz4jm3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_cs:tree_1783249623591_yidl1o",
+    "source": "n_55jiel25",
+    "target": "k_1783249623557_8m2rjj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783249623591_yidl1o:tree_1783249680780_bgqrr4",
+    "source": "k_1783249623557_8m2rjj",
+    "target": "k_1783249680752_eglr74",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_architecture",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_architecture",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_sql_objects",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_sql_objects",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_storage_engines",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_storage_engines",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_innodb_internals",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_innodb_internals",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_logs_recovery",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_logs_recovery",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_optimizer_performance",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_optimizer_performance",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_replication_ha",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_replication_ha",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_connectors_api",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_connectors_api",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_security_auth",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_security_auth",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_topic_backup_operations",
+    "source": "n_8s66vwo1",
+    "target": "mysql_topic_backup_operations",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:demo_tree_tx",
+    "source": "n_8s66vwo1",
+    "target": "n_ag24bbkc",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:demo_tree_lock",
+    "source": "n_8s66vwo1",
+    "target": "demo_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:tree_1782748910933_jw2hib",
+    "source": "n_8s66vwo1",
+    "target": "k_1782748910899_dtrnpe",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_mysql:mysql_term_data_structures_index_qwtxk8",
+    "source": "n_8s66vwo1",
+    "target": "k_dict_i70ksr9s",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_db:tree_1783250367523_grlbm6",
+    "source": "n_u4va719e",
+    "target": "k_1783250367496_zv2crw",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250367523_grlbm6:tree_1783250218983_d5353r",
+    "source": "k_1783250367496_zv2crw",
+    "target": "k_1783250218905_21uook",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250367523_grlbm6:tree_1783250122275_mmljuf",
+    "source": "k_1783250367496_zv2crw",
+    "target": "k_1783250122245_2rg7bc",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250122275_mmljuf:demo_mysql",
+    "source": "k_1783250122245_2rg7bc",
+    "target": "n_8s66vwo1",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783250367523_grlbm6:demo_nosql",
+    "source": "k_1783250367496_zv2crw",
+    "target": "n_21yoee5g",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_nosql:demo_tree_redis",
+    "source": "n_21yoee5g",
+    "target": "demo_redis",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_nosql:demo_tree_mongodb",
+    "source": "n_21yoee5g",
+    "target": "demo_mongodb",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "performance",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_nosql:mysql_term_compiler_principles_memcached_t5vrj4",
+    "source": "n_21yoee5g",
+    "target": "k_dict_fbl127ld",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:demo_db:tree_1783250387114_cn55cf",
+    "source": "n_u4va719e",
+    "target": "k_1783250387082_pp338r",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250387114_cn55cf:tree_1783250411576_amv1j2",
+    "source": "k_1783250387082_pp338r",
+    "target": "k_1783250411548_9x4h5g",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250387114_cn55cf:tree_1783250520336_5d17c2",
+    "source": "k_1783250387082_pp338r",
+    "target": "k_1783250520307_j25py7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783250387114_cn55cf:tree_1783250593570_ci875p",
+    "source": "k_1783250387082_pp338r",
+    "target": "k_1783250593540_v2w5hy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1782834119007_8gxoi9:tree_1783253570052_bch36k",
+    "source": "k_1782834118965_n5r1fr",
+    "target": "k_1783253570024_91h099",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783238652456_r0xift:tree_1783191969919_vupgfj",
+    "source": "k_1783238652426_mxnh6v",
+    "target": "k_1783191969892_8qes36",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783249623591_yidl1o:tree_1783257348421_tx6k6r",
+    "source": "k_1783249623557_8m2rjj",
+    "target": "k_1783257348387_zpwgyz",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257380007_lpw6o6",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257379975_3dbm5v",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257388709_0r3dmm",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257388677_uxt2vm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257396152_vjlh5h",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257396123_5jl7e4",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257466416_mv4ll5",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257466386_qkloru",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257472852_p2hjqx",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257472821_qkhnyb",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257348421_tx6k6r:tree_1783257957803_34ddqj",
+    "source": "k_1783257348387_zpwgyz",
+    "target": "k_1783257957775_eue1y7",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257957803_34ddqj:tree_1783258053064_ltiiyp",
+    "source": "k_1783257957775_eue1y7",
+    "target": "k_1783258053033_qytxe3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257957803_34ddqj:tree_1783258090783_kvlt3o",
+    "source": "k_1783257957775_eue1y7",
+    "target": "k_1783258090747_vznnof",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257957803_34ddqj:tree_1783257371822_95li8t",
+    "source": "k_1783257957775_eue1y7",
+    "target": "k_1783257371791_411u3j",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257371822_95li8t:tree_1783259399634_l2rp8f",
+    "source": "k_1783257371791_411u3j",
+    "target": "k_1783259399604_jb6ieg",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_cs:tree_1783260209337_u6gsoz",
+    "source": "n_55jiel25",
+    "target": "k_1783260209305_4t111y",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783260209337_u6gsoz:tree_1783260261382_58eohv",
+    "source": "k_1783260209305_4t111y",
+    "target": "k_1783260261343_z00bvp",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257371822_95li8t:tree_1783184829948_b8gb6e",
+    "source": "k_1783257371791_411u3j",
+    "target": "k_1783184829912_usl41q",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184829948_b8gb6e:tree_1783260678065_vnjkev",
+    "source": "k_1783184829912_usl41q",
+    "target": "k_1783260678029_y1d6ko",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184829948_b8gb6e:tree_1783260831372_03v20k",
+    "source": "k_1783184829912_usl41q",
+    "target": "k_1783260831339_eyvsen",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184829948_b8gb6e:tree_1783260916629_h92k98",
+    "source": "k_1783184829912_usl41q",
+    "target": "k_1783260916600_msucmn",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184829948_b8gb6e:tree_1783260946088_4iuiui",
+    "source": "k_1783184829912_usl41q",
+    "target": "k_1783260946053_mylhzl",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783184829948_b8gb6e:tree_1783261004938_v8bu4d",
+    "source": "k_1783184829912_usl41q",
+    "target": "k_1783261004905_nf1mq3",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257371822_95li8t:tree_1783261196055_2pg8vt",
+    "source": "k_1783257371791_411u3j",
+    "target": "k_1783261196020_ghnkvf",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257371822_95li8t:tree_1783261245067_5b9xpo",
+    "source": "k_1783257371791_411u3j",
+    "target": "k_1783261245033_1y4e86",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783257371822_95li8t:tree_1783261320704_q1ourb",
+    "source": "k_1783257371791_411u3j",
+    "target": "k_1783261320670_urrcnt",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:demo_cs:theory_domain_concurrency_theory",
+    "source": "n_55jiel25",
+    "target": "theory_domain_concurrency_theory",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_concurrency_theory:tree_1782928521585_eiocii",
+    "source": "theory_domain_concurrency_theory",
+    "target": "k_1782928521555_m3qum5",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:tree_1783262074786_xnuwj2",
+    "source": "n_55jiel25",
+    "target": "k_1783262074753_i3dpmd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1781894134786_k26g6t:tree_1783263380057_57s6hh",
+    "source": "k_1781894134776_ddvce4",
+    "target": "k_1783263380028_2hhr2a",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_jvm_gc_algos:tree_1783263986105_03b3bh",
+    "source": "k_jvm_gc_algos",
+    "target": "k_1783263986077_nrp20e",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783263380057_57s6hh:tree_1783171786694_r8028l",
+    "source": "k_1783263380028_2hhr2a",
+    "target": "k_1783171786650_rheusm",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783171786694_r8028l:tree_1783164062011_ijx49l",
+    "source": "k_1783171786650_rheusm",
+    "target": "k_1783164061982_dy3jas",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783171786694_r8028l:tree_1783164003471_tzhibi",
+    "source": "k_1783171786650_rheusm",
+    "target": "k_1783164003442_wm9ajj",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783171786694_r8028l:tree_jvm_gc_algos",
+    "source": "k_1783171786650_rheusm",
+    "target": "k_jvm_gc_algos",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783171786694_r8028l:tree_jvm_gc_reachability",
+    "source": "k_1783171786650_rheusm",
+    "target": "k_jvm_gc_reachability",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783174457097_rymt7n:tree_1783264835105_oxk2pv",
+    "source": "k_1783174457059_sy9hs8",
+    "target": "k_1783264835076_nc6pkd",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783174457097_rymt7n:tree_1783264865063_0xo127",
+    "source": "k_1783174457059_sy9hs8",
+    "target": "k_1783264865034_zdpirw",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_jvm_gc_reachability:tree_1783264901125_rlyl58",
+    "source": "k_jvm_gc_reachability",
+    "target": "k_1783264901088_1s02ir",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1783264901125_rlyl58:tree_1783171290335_i1egql",
+    "source": "k_1783264901088_1s02ir",
+    "target": "k_1783171290294_ib0kwi",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783264901125_rlyl58:tree_atomic_k_atom_reachability",
+    "source": "k_1783264901088_1s02ir",
+    "target": "k_atom_reachability",
+    "type": "belongs-to",
+    "label": "contains",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1781894134786_k26g6t:tree_1783265159050_8mkdlr",
+    "source": "k_1781894134776_ddvce4",
+    "target": "k_1783265159022_nzdh2q",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783265159050_8mkdlr:tree_1783265195287_mq7wpn",
+    "source": "k_1783265159022_nzdh2q",
+    "target": "k_1783265195251_6su1dy",
+    "type": "belongs-to",
+    "label": "contains"
+  },
+  {
+    "id": "treebind:tree_1783249623591_yidl1o:tree_1783269128178_4sg6ge",
+    "source": "k_1783249623557_8m2rjj",
+    "target": "k_1783269128142_jpub7v",
     "type": "belongs-to",
     "label": "contains"
   }

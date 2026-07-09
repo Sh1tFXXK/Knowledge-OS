@@ -1,5 +1,12 @@
 import type { TreeNode, TreeRefSupplement } from '../types';
 
+export interface TreeNodeReference {
+  treeNodeId: string;
+  name: string;
+  path: string[];
+  supplement?: TreeRefSupplement;
+}
+
 export function cloneTree(node: TreeNode): TreeNode {
   return {
     ...node,
@@ -65,6 +72,31 @@ export interface MoveTreeNodeResult {
 
 export function collectTreeNodes(node: TreeNode): TreeNode[] {
   return [node, ...(node.children ? node.children.flatMap(collectTreeNodes) : [])];
+}
+
+export function collectTreeReferencesByNodeRef(
+  root: TreeNode,
+  nodeRef: string,
+): TreeNodeReference[] {
+  const references: TreeNodeReference[] = [];
+
+  const walk = (node: TreeNode, path: string[]) => {
+    const nextPath = [...path, node.name];
+    if (node.nodeRef === nodeRef) {
+      references.push({
+        treeNodeId: node.id,
+        name: node.name,
+        path: nextPath,
+        supplement: node.supplement,
+      });
+    }
+    for (const child of node.children ?? []) {
+      walk(child, nextPath);
+    }
+  };
+
+  walk(root, []);
+  return references;
 }
 
 export function countTreeNodes(node: TreeNode): number {

@@ -2470,10 +2470,6 @@
                 "desc": "通过 **prepared statement**创建和执行的**dynamic SQL**。 另请参见[动态SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_d"
               },
               {
-                "nodeId": "mysql_glossary_in_memory_database_1swh47",
-                "desc": "一种将数据保存在内存中的数据库系统，以避免由于磁盘 I/O 和磁盘块与内存区域之间的转换而导致的开销。一些内存数据库牺牲了持久性（设计哲学中 “D” 代表的 ACID），并且易于受到硬件、电力和其他类型故障的影响，使它们更适合只读操作。其他"
-              },
-              {
                 "nodeId": "demo_innodb",
                 "desc": "一个MySQL组件，结合了高性能和transactional能力，实现可靠性、健壮性和并发访问。它体现了ACID设计哲学。 表示为一个storage engine；它处理使用ENGINE=INNODB子句创建或修改的表。请参见 Chapte"
               },
@@ -4258,7 +4254,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"数据库\" 知识节点，作为该层级的核心聚合节点。"
+          "content": "数据库（英语：database），简而言之可视为数字化的文件柜——存储电子文件的处所，用户可以对文件中的资料执行新增、截取、更新、删除等操作[。\n\n所谓“数据库”是以一定方式储存在一起、能予多个用户共享、具有尽可能小的冗余度、与应用程序彼此独立的数据集合。"
         },
         {
           "id": "mech",
@@ -4417,7 +4413,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"计算机科学\" 知识节点，作为该层级的核心聚合节点。"
+          "content": "计算机科学（英语：computer science，缩写为CS）是系统性研究信息与计算的理论基础以及它们在计算机系统中如何实现与应用的实用技术的学科"
         },
         {
           "id": "mech",
@@ -27860,32 +27856,6 @@
       ]
     }
   },
-  "mysql_glossary_in_memory_database_1swh47": {
-    "id": "mysql_glossary_in_memory_database_1swh47",
-    "label": "内存数据库 / in-memory database",
-    "role": "plain",
-    "dimensions": [
-      "transaction",
-      "storage",
-      "performance"
-    ],
-    "tags": [
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_in_memory_database_1swh47",
-      "title": "内存数据库 / in-memory database",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "一种将数据保存在内存中的数据库系统，以避免由于磁盘 I/O 和磁盘块与内存区域之间的转换而导致的开销。一些内存数据库牺牲了持久性（设计哲学中 “D” 代表的 ACID），并且易于受到硬件、电力和其他类型故障的影响，使它们更适合只读操作。其他内存数据库确实使用持久性机制，例如将更改记录到磁盘或者使用非易失性存储器。\n\nMySQL 的一些功能应对同类内存密集型处理，包括 InnoDB buffer pool、adaptive hash index 和 read-only transaction 优化、MEMORY 存储引擎、MyISAM 键缓存和 MySQL 查询缓存。\n\n另请参见 ACID, 自适应哈希索引, 缓冲池, 基于磁盘, 只读事务。\n\n来源：原始行：1312；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_in_memory_database"
-        }
-      ]
-    }
-  },
   "mysql_glossary_incremental_backup_3gko1n": {
     "id": "mysql_glossary_incremental_backup_3gko1n",
     "label": "增量备份 / incremental backup",
@@ -33260,10 +33230,6 @@
                 "desc": "通过 **prepared statement**创建和执行的**dynamic SQL**。 另请参见[动态SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_d"
               },
               {
-                "nodeId": "mysql_glossary_in_memory_database_1swh47",
-                "desc": "一种将数据保存在内存中的数据库系统，以避免由于磁盘 I/O 和磁盘块与内存区域之间的转换而导致的开销。一些内存数据库牺牲了持久性（设计哲学中 “D” 代表的 ACID），并且易于受到硬件、电力和其他类型故障的影响，使它们更适合只读操作。其他"
-              },
-              {
                 "nodeId": "demo_innodb",
                 "desc": "一个MySQL组件，结合了高性能和transactional能力，实现可靠性、健壮性和并发访问。它体现了ACID设计哲学。 表示为一个storage engine；它处理使用ENGINE=INNODB子句创建或修改的表。请参见 Chapte"
               },
@@ -36809,7 +36775,7 @@
   },
   "theory_domain_algorithms": {
     "id": "theory_domain_algorithms",
-    "label": "算法理论",
+    "label": "算法",
     "role": "subsystem",
     "dimensions": [
       "storage"
@@ -36820,19 +36786,19 @@
     ],
     "card": {
       "nodeId": "theory_domain_algorithms",
-      "title": "算法理论",
+      "title": "算法",
       "tabs": [
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：计算理论\n\n排序、扫描、连接算法、读预取和执行计划中的算法选择。\n\n当前归入 2 个知识节点。"
+          "content": "算法（英语：algorithm），在数学（算学）和计算机科学中指一个被定义好的、计算机可施行其指示的有限步骤或次序。"
         }
       ]
     }
   },
   "theory_domain_data_structures": {
     "id": "theory_domain_data_structures",
-    "label": "数据结构理论",
+    "label": "数据结构",
     "role": "subsystem",
     "dimensions": [
       "storage"
@@ -36843,12 +36809,12 @@
     ],
     "card": {
       "nodeId": "theory_domain_data_structures",
-      "title": "数据结构理论",
+      "title": "数据结构",
       "tabs": [
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：计算理论\n\nB+ 树、哈希表、索引、LRU/LFU、列表、页目录和缓冲结构。\n\n当前归入 7 个知识节点。"
+          "content": "数据结构（英语：data structure）是计算机中存储、组织数据的方式"
         }
       ]
     }
@@ -36918,52 +36884,6 @@
           "id": "def",
           "label": "定义",
           "content": "独立门派：程序语言\n\n词法/语法分析、解析器、AST、CBO 优化器和迭代器执行模型。\n\n当前归入 5 个知识节点。"
-        }
-      ]
-    }
-  },
-  "theory_domain_programming_language_theory": {
-    "id": "theory_domain_programming_language_theory",
-    "label": "程序设计语言理论",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "directory-taxonomy"
-    ],
-    "card": {
-      "nodeId": "theory_domain_programming_language_theory",
-      "title": "程序设计语言理论",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "独立门派：程序语言\n\n存储过程、触发器、游标、类型强制转换、API 和语言绑定。\n\n当前归入 2 个知识节点。"
-        }
-      ]
-    }
-  },
-  "theory_domain_regular_expression_theory": {
-    "id": "theory_domain_regular_expression_theory",
-    "label": "正则表达式理论",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "mysql",
-      "directory-taxonomy"
-    ],
-    "card": {
-      "nodeId": "theory_domain_regular_expression_theory",
-      "title": "正则表达式理论",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "独立门派：程序语言\n\nREGEXP 操作符、正则表达式语法和匹配自动机。\n\n当前归入 0 个知识节点。"
         }
       ]
     }
@@ -37055,7 +36975,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：系统\n\n补码、IEEE 754、CPU cache line、NUMA、多核和原子指令。\n\n当前归入 0 个知识节点。"
+          "content": "补码、IEEE 754、CPU cache line、NUMA、多核和原子指令。\n"
         }
       ]
     }
@@ -37078,7 +36998,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：系统\n\nWAL、页、表空间、redo/undo、doublewrite buffer 和物理存储布局。\n\n当前归入 14 个知识节点。"
+          "content": "WAL、页、表空间、redo/undo、doublewrite buffer 和物理存储布局。\n"
         }
       ]
     }
@@ -37239,7 +37159,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：信息检索\n\nFULLTEXT、分词、倒排索引、BM25、相关性、停用词和词干提取。\n\n当前归入 1 个知识节点。"
+          "content": "FULLTEXT、分词、倒排索引、BM25、相关性、停用词和词干提取。\n"
         }
       ]
     }
@@ -37308,7 +37228,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "独立门派：现实约定\n\nUnicode、UTF-8、CHAR/VARCHAR、character set 和 collation 排序规则。\n\n当前归入 1 个知识节点。"
+          "content": "Unicode、UTF-8、CHAR/VARCHAR、character set 和 collation 排序规则。\n"
         }
       ]
     }
@@ -37376,7 +37296,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "Java是一种广泛使用的计算机编程语言，拥有跨平台、面向对象、泛型编程的特性，广泛应用于企业级Web应用开发和移动应用开发。"
         },
         {
           "id": "mech",
@@ -37406,7 +37326,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "类型系统（英语：type system）用于定义如何将编程语言中的数值和表达式归类为许多不同的类型，如何操作这些类型，这些类型如何互相作用。类型可以确认一个值或者一组值具有特定的意义和目的（虽然某些类型，如抽象类型和函数类型，在程序运行中，可能不表示为值）。类型系统在各种语言之间有非常大的不同，也许，最主要的差异存在于编译时期的语法，以及运行时期的操作实现方式。"
         },
         {
           "id": "mech",
@@ -37586,37 +37506,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "Java Virtual Machine"
-        },
-        {
-          "id": "mech",
-          "label": "机制",
-          "content": ""
-        },
-        {
-          "id": "bound",
-          "label": "边界",
-          "content": ""
-        },
-        {
-          "id": "source",
-          "label": "来源",
-          "content": ""
-        }
-      ]
-    }
-  },
-  "k_1782749726658_e7lq2o": {
-    "id": "k_1782749726658_e7lq2o",
-    "label": "spring",
-    "card": {
-      "nodeId": "k_1782749726658_e7lq2o",
-      "title": "spring",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": ""
+          "content": "Java Virtual Machine JVM 是一个运行 Java 字节码的抽象计算机（规范/软件），当它被启动执行时，会以一个操作系统进程的形式存在。"
         },
         {
           "id": "mech",
@@ -37646,7 +37536,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "在程序设计的类型系统中，数据类型（英语：Data type），又称资料型态、资料型别，是用来约束数据的解释。"
         },
         {
           "id": "mech",
@@ -37668,15 +37558,15 @@
   },
   "k_1782793401051_nyxsei": {
     "id": "k_1782793401051_nyxsei",
-    "label": "基本类型",
+    "label": "原始类型",
     "card": {
       "nodeId": "k_1782793401051_nyxsei",
-      "title": "基本类型",
+      "title": "原始类型",
       "tabs": [
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "在计算机科学中，原始类型（英语：Primitive type）有别于复合类型，是由编程语言提供的数据类型，作为建立基础。根据语言及其实现，在电脑的存储器中，原始类型可能没有与对象一对一的对应。\n\nPrimitive type也有称作内置类型、基础类型或者基本类型。"
         },
         {
           "id": "mech",
@@ -37856,7 +37746,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "类信息、常量、静态变量、JIT 代码"
+          "content": "又称非堆区，用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器优化后的JIT 代码，1.7的永久代和1.8的元空间都是方法区的一种实现"
         },
         {
           "id": "mech",
@@ -37887,36 +37777,6 @@
           "id": "def",
           "label": "定义",
           "content": "存放对象实例和数组"
-        },
-        {
-          "id": "mech",
-          "label": "机制",
-          "content": ""
-        },
-        {
-          "id": "bound",
-          "label": "边界",
-          "content": ""
-        },
-        {
-          "id": "source",
-          "label": "来源",
-          "content": ""
-        }
-      ]
-    }
-  },
-  "k_1782804303119_9whpjj": {
-    "id": "k_1782804303119_9whpjj",
-    "label": "参数",
-    "card": {
-      "nodeId": "k_1782804303119_9whpjj",
-      "title": "参数",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": ""
         },
         {
           "id": "mech",
@@ -38456,7 +38316,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "实现通过类的全限定名获取该类的二进制字节流的代码块叫做类加载器。"
         },
         {
           "id": "mech",
@@ -39121,7 +38981,7 @@
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "通过一个类的全限定名获取该类的二进制流\n将该二进制流中的静态存储结构转化为方法区运行时数据结构\n在内存中生成该类的Class对象，作为该类的数据访问入口"
         },
         {
           "id": "bound",
@@ -39271,7 +39131,7 @@
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "文件格式验证：验证字节流是否符合Class文件规范\n元数据验证：对字节码描述的信息进行语义分析\n字节码验证：通过验证数据流和控制流，确定程序语义是否正确\n符号引用验证：确保解析动作能正确执行"
         },
         {
           "id": "bound",
@@ -39301,7 +39161,7 @@
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "为类的静态变量分配内存并将其初始化为默认值，在方法区中进行分配。 public static int value=123; // 在准备阶段value初始值为0，在初始化阶段才会变为123"
         },
         {
           "id": "bound",
@@ -39331,7 +39191,7 @@
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "完成符号引用到直接引用的转换动作。解析动作不一定在初始化之前完成，也有可能在初始化之后。"
         },
         {
           "id": "bound",
@@ -39416,12 +39276,12 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "面向对象程序设计（英语：Object-oriented programming，缩写：OOP）是种具有对象概念的编程典范，同时也是一种程序开发的抽象方针。它可能包含数据、特性、代码与方法。对象则指的是类（class）的实例。它将对象作为程序的基本单元，将程序和数据封装其中，以提高软件的重用性、灵活性和扩展性，对象里的程序可以访问及经常修改对象相关系的数据。在面向对象程序编程里，计算机程序会被设计成彼此相关的对象。"
         },
         {
           "id": "mech",
           "label": "机制",
-          "content": ""
+          "content": "面向对象程序编程的定义是使用“对象”来做设计，但并非所有的编程语言都直接支持“面向对象程序编程”相关技术与结构。对于OOP的准确定义及其本意存在着不少争论。通常，OOP被理解为一种将程序分解为封装数据及相关操作的模块而进行的编程方式。有别于其它编程方式，OOP中的与某数据类型相关的一系列操作都被有机地封装到该数据类型当中，而非散放于其外，因而OOP中的数据类型不仅有着状态，还有着相关的行为。\n\n面向对象的构建要素由三个部分组成，实例、类和元数据，元数据会存储构建所需要的一切信息。从关系上看，类与实例为一对多关系，类和元数据为一对一关系，实例会指向类，类会指向元数据，这种关系最终构成了所有面向对象的基类(object)。\n\nOOP理论，及与之同名的OOP实践相结合创造出了新的一个编程架构；OOP思想被广泛认为是非常有用的，以致一套新的编程范型被创造了出来。（其它的编程范型例如函数式编程或过程式编程专注于程序运行的过程，而逻辑编程专注于引发程序代码执行的断言）。对面向模拟系统的语言（如：SIMULA 67）的研究及对高可靠性系统架构（如：高性能操作系统和CPU的架构）的研究最终导致了OOP的诞生。其中由Deborah J. Armstrong进行的长达40年之久的计算机著作调查中，显示出了一系列面向对象程序设计的基本理论。\n\n分享非面向对象程序前身语言\n面向对象程序设计通常共享高阶编程语言的低端功能。可用于建构一个程序的基本工具包括：\n\n变量：能存储一些内置类型的信息如整数与字符，也有些是数据结构像是字符串、串列与散列表等包含内置或复合的变量如指针。\n程序：也称为函数、方法或例程，是指输入数据产生输出结果，现代语言还包含结构化编程结构如程序循环与条件。"
         },
         {
           "id": "bound",
@@ -39446,7 +39306,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": ""
+          "content": "只从\"能做什么操作\"来定义一个数据类型，而完全不管它\"内部怎么实现\"​。它把\"是什么（行为/接口）\"和\"怎么做（存储/实现）\"彻底分开。"
         },
         {
           "id": "mech",
@@ -39682,36 +39542,6 @@
     "card": {
       "nodeId": "k_1782839332724_q6xuqx",
       "title": "图",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": ""
-        },
-        {
-          "id": "mech",
-          "label": "机制",
-          "content": ""
-        },
-        {
-          "id": "bound",
-          "label": "边界",
-          "content": ""
-        },
-        {
-          "id": "source",
-          "label": "来源",
-          "content": ""
-        }
-      ]
-    }
-  },
-  "k_1782839418326_8320ve": {
-    "id": "k_1782839418326_8320ve",
-    "label": "垃圾回收算法",
-    "card": {
-      "nodeId": "k_1782839418326_8320ve",
-      "title": "垃圾回收算法",
       "tabs": [
         {
           "id": "def",
@@ -40167,6 +39997,6048 @@
           "id": "def",
           "label": "定义",
           "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087818322_st7eoj": {
+    "id": "k_1783087818322_st7eoj",
+    "label": "Byte",
+    "card": {
+      "nodeId": "k_1783087818322_st7eoj",
+      "title": "Byte",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087834350_gmpg3u": {
+    "id": "k_1783087834350_gmpg3u",
+    "label": "Short",
+    "card": {
+      "nodeId": "k_1783087834350_gmpg3u",
+      "title": "Short",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087848544_mpfic6": {
+    "id": "k_1783087848544_mpfic6",
+    "label": "Integer",
+    "card": {
+      "nodeId": "k_1783087848544_mpfic6",
+      "title": "Integer",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087856834_zelajj": {
+    "id": "k_1783087856834_zelajj",
+    "label": "Long",
+    "card": {
+      "nodeId": "k_1783087856834_zelajj",
+      "title": "Long",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087864934_n0yzzj": {
+    "id": "k_1783087864934_n0yzzj",
+    "label": "Float",
+    "card": {
+      "nodeId": "k_1783087864934_n0yzzj",
+      "title": "Float",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087878206_r1e7p8": {
+    "id": "k_1783087878206_r1e7p8",
+    "label": "Double",
+    "card": {
+      "nodeId": "k_1783087878206_r1e7p8",
+      "title": "Double",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087884886_wy66ig": {
+    "id": "k_1783087884886_wy66ig",
+    "label": "Boolean",
+    "card": {
+      "nodeId": "k_1783087884886_wy66ig",
+      "title": "Boolean",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783087909368_sxmcqe": {
+    "id": "k_1783087909368_sxmcqe",
+    "label": "Char、acter",
+    "card": {
+      "nodeId": "k_1783087909368_sxmcqe",
+      "title": "Char、acter",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783091687266_9tecxo": {
+    "id": "k_1783091687266_9tecxo",
+    "label": "软件设计",
+    "card": {
+      "nodeId": "k_1783091687266_9tecxo",
+      "title": "软件设计",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783091712114_5yyjrv": {
+    "id": "k_1783091712114_5yyjrv",
+    "label": "设计模式",
+    "card": {
+      "nodeId": "k_1783091712114_5yyjrv",
+      "title": "设计模式",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783092583533_0w9787": {
+    "id": "k_1783092583533_0w9787",
+    "label": "物理",
+    "card": {
+      "nodeId": "k_1783092583533_0w9787",
+      "title": "物理",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783093717594_y3gttn": {
+    "id": "k_1783093717594_y3gttn",
+    "label": "内存可见性",
+    "card": {
+      "nodeId": "k_1783093717594_y3gttn",
+      "title": "内存可见性",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "一个线程对共享变量的修改，能不能被其他线程\"及时看到\"​。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783096007006_rgpwn2": {
+    "id": "k_1783096007006_rgpwn2",
+    "label": "CPU多级缓存",
+    "card": {
+      "nodeId": "k_1783096007006_rgpwn2",
+      "title": "CPU多级缓存",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783096608797_3rf6xc": {
+    "id": "k_1783096608797_3rf6xc",
+    "label": "内存屏障",
+    "card": {
+      "nodeId": "k_1783096608797_3rf6xc",
+      "title": "内存屏障",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "内存屏障（Memory Barrier）是一种 CPU 指令或 JVM 层面的同步机制，用于控制特定指令的执行顺序，以及保证内存可见性，防止编译器、CPU 的指令重排序优化对多线程程序正确性产生影响。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783096626380_5ujbbs": {
+    "id": "k_1783096626380_5ujbbs",
+    "label": "指令重排序",
+    "card": {
+      "nodeId": "k_1783096626380_5ujbbs",
+      "title": "指令重排序",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783099702235_p1pa94": {
+    "id": "k_1783099702235_p1pa94",
+    "label": "栈帧",
+    "card": {
+      "nodeId": "k_1783099702235_p1pa94",
+      "title": "栈帧",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783101878467_d26xhv": {
+    "id": "k_1783101878467_d26xhv",
+    "label": "对象",
+    "card": {
+      "nodeId": "k_1783101878467_d26xhv",
+      "title": "对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783102308317_h8s41c": {
+    "id": "k_1783102308317_h8s41c",
+    "label": "对象头",
+    "card": {
+      "nodeId": "k_1783102308317_h8s41c",
+      "title": "对象头",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "【对象头】包含 MarkWord（哈希码、GC 分代年龄、锁状态标志、偏向线程 ID、偏向时间戳）和类型指针（指向类元数据，64 位系统开启压缩指针占 4 字节）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "字段排列顺序：long/double > int/float > short/char > byte/boolean > 引用类型；父类字段在子类之前。JVM 可能重排字段以减少对齐填充。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783102320876_5ginrg": {
+    "id": "k_1783102320876_5ginrg",
+    "label": "实例数据",
+    "card": {
+      "nodeId": "k_1783102320876_5ginrg",
+      "title": "实例数据",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "【实例数据】存储对象所有字段值（含父类字段），基本类型优先排列，父类字段在子类之前。 "
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783102332914_poqlbm": {
+    "id": "k_1783102332914_poqlbm",
+    "label": "对齐填充",
+    "card": {
+      "nodeId": "k_1783102332914_poqlbm",
+      "title": "对齐填充",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 要求对象大小必须是 8 字节的整数倍"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783103959715_nbih6n": {
+    "id": "k_1783103959715_nbih6n",
+    "label": "Survivor区",
+    "card": {
+      "nodeId": "k_1783103959715_nbih6n",
+      "title": "Survivor区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783103969455_rj0nro": {
+    "id": "k_1783103969455_rj0nro",
+    "label": "from区",
+    "card": {
+      "nodeId": "k_1783103969455_rj0nro",
+      "title": "from区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783103977143_ayoa75": {
+    "id": "k_1783103977143_ayoa75",
+    "label": "to 区",
+    "card": {
+      "nodeId": "k_1783103977143_ayoa75",
+      "title": "to 区",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783104722598_hdfb8o": {
+    "id": "k_1783104722598_hdfb8o",
+    "label": "内存模型",
+    "card": {
+      "nodeId": "k_1783104722598_hdfb8o",
+      "title": "内存模型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "一套抽象的规范。它定义了 Java 虚拟机如何与计算机内存（RAM）协同工作，规定了多个线程如何以及何时可以看到其他线程修改后的共享变量的值。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783104987426_s5wmh0": {
+    "id": "k_1783104987426_s5wmh0",
+    "label": "主内存",
+    "card": {
+      "nodeId": "k_1783104987426_s5wmh0",
+      "title": "主内存",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783104999001_trg3a1": {
+    "id": "k_1783104999001_trg3a1",
+    "label": "本地内存",
+    "card": {
+      "nodeId": "k_1783104999001_trg3a1",
+      "title": "本地内存",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783106326946_m9gxsx": {
+    "id": "k_1783106326946_m9gxsx",
+    "label": "happens-before规则",
+    "card": {
+      "nodeId": "k_1783106326946_m9gxsx",
+      "title": "happens-before规则",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在 JMM 中，如果一个操作执行的结果需要对另一个操作可见，那么这两个操作之间必须存在 happens-before 关系。\n它并不代表时间上的先后顺序，而是一种内存可见性的保证。比如 A happens-before B，意味着 B 执行时，一定能看到 A 之前对变量做的修改。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783107186969_vbsod9": {
+    "id": "k_1783107186969_vbsod9",
+    "label": "局部变量表",
+    "card": {
+      "nodeId": "k_1783107186969_vbsod9",
+      "title": "局部变量表",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "存放方法参数和局部变量"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783107207547_lxjap6": {
+    "id": "k_1783107207547_lxjap6",
+    "label": "操作数栈",
+    "card": {
+      "nodeId": "k_1783107207547_lxjap6",
+      "title": "操作数栈",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "执行字节码指令的工作区（如加减乘除）\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783107227892_dqq4ek": {
+    "id": "k_1783107227892_dqq4ek",
+    "label": "动态链接",
+    "card": {
+      "nodeId": "k_1783107227892_dqq4ek",
+      "title": "动态链接",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "执行方法区中该方法的符号引用"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783107234826_gtq04l": {
+    "id": "k_1783107234826_gtq04l",
+    "label": "返回地址",
+    "card": {
+      "nodeId": "k_1783107234826_gtq04l",
+      "title": "返回地址",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "方法退出后回到的指令位置\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783107284577_bbdtnv": {
+    "id": "k_1783107284577_bbdtnv",
+    "label": "运行时常量池",
+    "card": {
+      "nodeId": "k_1783107284577_bbdtnv",
+      "title": "运行时常量池",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145301858_3023d5": {
+    "id": "k_1783145301858_3023d5",
+    "label": "Mark Word",
+    "card": {
+      "nodeId": "k_1783145301858_3023d5",
+      "title": "Mark Word",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "存储对象自身的运行时元数据，长度在32位系统为32位。64位系统为64位。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145419527_y4cdsv": {
+    "id": "k_1783145419527_y4cdsv",
+    "label": "哈希码",
+    "card": {
+      "nodeId": "k_1783145419527_y4cdsv",
+      "title": "哈希码",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145445616_i2xe19": {
+    "id": "k_1783145445616_i2xe19",
+    "label": "GC 分代年龄",
+    "card": {
+      "nodeId": "k_1783145445616_i2xe19",
+      "title": "GC 分代年龄",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145458254_5xki8d": {
+    "id": "k_1783145458254_5xki8d",
+    "label": "锁状态标志",
+    "card": {
+      "nodeId": "k_1783145458254_5xki8d",
+      "title": "锁状态标志",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145492646_kbstjs": {
+    "id": "k_1783145492646_kbstjs",
+    "label": "线程持有的锁/偏向线程id",
+    "card": {
+      "nodeId": "k_1783145492646_kbstjs",
+      "title": "线程持有的锁/偏向线程id",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145503039_yrmhnh": {
+    "id": "k_1783145503039_yrmhnh",
+    "label": "偏向时间戳",
+    "card": {
+      "nodeId": "k_1783145503039_yrmhnh",
+      "title": "偏向时间戳",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783145536047_wqowkv": {
+    "id": "k_1783145536047_wqowkv",
+    "label": "类型指针",
+    "card": {
+      "nodeId": "k_1783145536047_wqowkv",
+      "title": "类型指针",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "指向方法区中对象的类元数据（Class 对象），JVM 通过它确定对象属于哪个类。64 位系统默认开启压缩指针（-XX:+UseCompressedOops），此时占 4 字节，否则占 8 字节。\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783154640901_0cwole": {
+    "id": "k_1783154640901_0cwole",
+    "label": "内存碎片",
+    "card": {
+      "nodeId": "k_1783154640901_0cwole",
+      "title": "内存碎片",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 的内存碎片是指在堆内存分配和回收过程中，由于对象的不连续分配和释放导致的内存空间被分割成不连续的小块，从而影响内存利用率的现象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783154915218_vc5xqg": {
+    "id": "k_1783154915218_vc5xqg",
+    "label": "内部碎片",
+    "card": {
+      "nodeId": "k_1783154915218_vc5xqg",
+      "title": "内部碎片",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "指分配给对象的内存块内部未被使用的部分。。例如，由于内存对齐要求，一个对象可能只用了 10 字节，但 JVM 分配了 16 字节，这多出的 6 字节就是内部碎片。这种碎片通常较少，且难以避免。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783154938346_xy9o6y": {
+    "id": "k_1783154938346_xy9o6y",
+    "label": "外部碎片",
+    "card": {
+      "nodeId": "k_1783154938346_xy9o6y",
+      "title": "外部碎片",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "这是我们在讨论 GC 时最常指的类型。它是指堆内存中散布在各个存活对象之间的空闲内存块。这些空闲内存块虽然总量可能很大，但因为是分散的、不连续的，所以当需要为一个较大的新对象分配内存时，可能无法找到一块足够大的连续空闲空间来容纳它，从而导致分配失败，即使总的空闲内存远大于该对象的请求大小。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783155226069_2ffro6": {
+    "id": "k_1783155226069_2ffro6",
+    "label": "直接内存",
+    "card": {
+      "nodeId": "k_1783155226069_2ffro6",
+      "title": "直接内存",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "直接内存 (Direct Memory) 是 Java 中一种特殊的内存分配方式，它不由 Java 虚拟机 (JVM) 直接管理，而是通过 Java 代码直接向操作系统申请的内存区域。这部分内存位于 JVM 堆外，因此也被称为\"堆外内存\" (Off-Heap Memory)。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "直接内存主要通过 Java NIO (New I/O) 中的 ByteBuffer 类来操作，特别是通过 ByteBuffer.allocateDirect() 方法分配。它不属于 JVM 堆的一部分，但能显著提升数据传输效率，减少内存拷贝和 GC 压力。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783155775417_2xvd9n": {
+    "id": "k_1783155775417_2xvd9n",
+    "label": "LoadLoad屏障",
+    "card": {
+      "nodeId": "k_1783155775417_2xvd9n",
+      "title": "LoadLoad屏障",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的加载指令（Load）先于屏障后的加载指令执行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783157221196_esfnre": {
+    "id": "k_1783157221196_esfnre",
+    "label": "StoreStore 屏障",
+    "card": {
+      "nodeId": "k_1783157221196_esfnre",
+      "title": "StoreStore 屏障",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的存储指令（Store）先于屏障后的存储指令执行"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783157247430_n6ubvn": {
+    "id": "k_1783157247430_n6ubvn",
+    "label": "LoadStore 屏障",
+    "card": {
+      "nodeId": "k_1783157247430_n6ubvn",
+      "title": "LoadStore 屏障",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的加载指令先于屏障后的存储指令执行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783157274694_odbiuu": {
+    "id": "k_1783157274694_odbiuu",
+    "label": "StoreLoad 屏障",
+    "card": {
+      "nodeId": "k_1783157274694_odbiuu",
+      "title": "StoreLoad 屏障",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的存储指令先于屏障后的加载指令执行，同时会刷新 CPU 缓存，保证存储操作的结果对其他线程可见。这是最强大的一种屏障，开销也较大。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_jvm_gc_reachability": {
+    "id": "k_jvm_gc_reachability",
+    "label": "垃圾回收判定",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_gc_reachability",
+      "title": "垃圾回收判定",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "判断对象是否可回收使用可达性分析算法"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "4 种引用决定回收策略：\n(1) 强引用 → 永不回收\n(2) 软引用 → 内存不足时回收（缓存）\n(3) 弱引用 → GC 必回收（WeakHashMap）\n(4) 虚引用 → 任何时候可能回收（配合引用队列）"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "分代回收：新生代 Eden 创建 → Minor GC 后进 Survivor → 默认 15 次 GC 后进老年代；老年代 Full GC 回收；元空间类卸载回收。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_gc_algos": {
+    "id": "k_jvm_gc_algos",
+    "label": "回收算法",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_gc_algos",
+      "title": "回收算法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "基础算法三种：\n(1) 标记-清除 (Mark-Sweep)：标记后清除，产生内存碎片\n(2) 标记-复制 (Copying)：内存分两块，存活对象复制，无碎片但利用率 50%\n(3) 标记-整理 (Mark-Compact)：存活对象向一端移动，无碎片但整理耗时"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "分代收集：新生代用复制算法（Eden + 2 Survivor 8:1:1）；老年代用标记-清除或标记-整理；元空间类卸载回收。\n\n现代收集器组合：Parallel Scavenge（复制+标记整理）、CMS（复制+并发标记清除）、G1（Region 间复制+标记整理）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_jit": {
+    "id": "k_jvm_jit",
+    "label": "JIT 编译器",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_jvm_jit",
+      "title": "JIT 编译器 / Just-In-Time Compiler",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JIT 是 Java 程序实现高性能的关键组件。解释器逐行解释字节码（启动快但效率低），JIT 将热点代码编译为本地机器码后续直接执行。混合模式兼顾跨平台性和高性能。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "热点探测依据方法调用次数和循环执行次数。\n分层编译：\n- C1 (Client)：轻量级，编译快，简单优化，适合启动敏感场景\n- C2 (Server)：重量级，编译慢，深度优化（循环展开、逃逸分析、寄存器分配），比 C1 快 30%-50%\n代码先 C1 快速编译，持续热点再 C2 重新编译。\n优化技术：方法内联、逃逸分析（栈上分配）、循环展开、冗余消除。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "机器码会被缓存复用；类结构变化时失效重编译。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_cms": {
+    "id": "k_jvm_cms",
+    "label": "CMS 收集器",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_jvm_cms",
+      "title": "CMS 收集器 / Concurrent Mark-Sweep",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CMS 以最短回收停顿时间为目标的老年代垃圾收集器，核心思想是让 GC 与用户线程并发执行，减少 STW。适用于响应时间敏感的场景（如 Web 应用）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "4 个核心阶段：\n1. 初始标记 (STW)：标记 GC Roots 直接关联对象，停顿极短\n2. 并发标记：从根对象追踪所有可达对象，无 STW\n3. 重新标记 (STW)：修正并发标记期间的偏差\n4. 并发清除：清除未标记对象，无 STW，不压缩内存"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "优点：停顿时间短、并发执行。\n缺点：(1) 内存碎片严重（标记-清除不压缩）(2) 占用 CPU 资源 (3) 需预留内存（可能 ConcurrentModeFailure）(4) 产生浮动垃圾。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_mem_leak": {
+    "id": "k_jvm_mem_leak",
+    "label": "内存泄漏排查",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_jvm_mem_leak",
+      "title": "内存泄漏排查 / Memory Leak Troubleshooting",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "内存泄漏典型表现：老年代内存持续增长触发频繁 Full GC、GC 后老年代释放很少、应用响应变慢最终 OOM、堆内存使用率线性上升。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "排查步骤：\n1. 确认泄漏：监控 JVM 内存指标，分析 GC 日志（-XX:+PrintGCDetails）\n2. 捕获快照：接近 OOM 时抓取 .hprof 文件\n3. 分析快照：识别异常对象，查看引用链（被哪些 GCRoot 引用）\n4. 定位修复：常见问题——静态集合未清理、未关闭资源、线程池持有大对象、缓存无过期策略\n\n常用工具：jps/jstat/jmap/jconsole/jvisualvm、MAT、VisualGC、YourKit/JProfiler"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "预防：try-with-resources、WeakHashMap/Guava Cache、避免 static 集合滥用、代码评审、压力测试。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 百度"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_exception": {
+    "id": "k_jvm_exception",
+    "label": "异常处理",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_exception",
+      "title": "异常处理 / Exception Handling",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 使用异常表（Exception Table）机制处理异常，与 try-catch 块一一对应。异常表条目包含 start_pc、end_pc、handler_pc、catch_type 四个字段。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "抛出异常时 JVM 创建异常对象，查找当前方法异常表；未找到则沿调用栈向上（栈展开）直至 main。\n\ntry-catch-finally 字节码实现（JDK 1.6+）采用复制代码策略：将 finally 块代码复制多份插入所有退出路径——try 正常结束、catch 处理后、特殊异常处理器（捕获 any 后 athrow 重新抛出）。\n\n异常表匹配顺序敏感：先捕获 Exception 再捕获 IOException，后者永不生效。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_class_unload": {
+    "id": "k_jvm_class_unload",
+    "label": "类卸载",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_class_unload",
+      "title": "类卸载 / Class Unloading",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "类卸载用于节省内存，防止元空间 OOM。应用场景：Tomcat 热部署、动态代理生成（CGLib、ASM）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "类卸载判定条件（可达性分析）：\n1. 该类的 Class 对象不可达\n2. 加载该类的 ClassLoader 已被回收\n3. 该类没有实例，且未被其他地方引用\n\n打破引用关键：使用自定义类加载器（如 Tomcat 的 WebAppClassLoader），销毁 ClassLoader 实例后其加载的类失去强引用，下次 GC 清理。\n\nBootstrap 和 App ClassLoader 加载的核心类几乎不卸载。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "监控：-XX:+TraceClassLoading -XX:+TraceClassUnloading；jconsole/jvisualvm/Java Mission Control 观察 Metaspace。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_meta_perm": {
+    "id": "k_jvm_meta_perm",
+    "label": "元空间与永久代",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_meta_perm",
+      "title": "元空间与永久代 / Metaspace vs PermGen",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JDK 8 起用元空间 (Metaspace) 替代永久代 (PermGen)。元空间本质是本地内存 (Native Memory) 的一部分。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "永久代问题：(1) 大小固定易 OOM (2) 回收与老年代绑定 Full GC 频繁 (3) HotSpot 特有设计不利于跨 JVM 统一。\n\n元空间优势：(1) 默认无固定上限，动态扩展 (2) 回收独立于老年代 (3) 使用本地内存适合大量类加载 (4) 简化配置（-XX:MetaspaceSize / -XX:MaxMetaspaceSize）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_jdk_jre": {
+    "id": "k_jvm_jdk_jre",
+    "label": "JVM/JRE/JDK",
+    "role": "axiom",
+    "dimensions": [
+      "jvm"
+    ],
+    "card": {
+      "nodeId": "k_jvm_jdk_jre",
+      "title": "JVM/JRE/JDK 关系",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "层级包含关系：JDK 包含 JRE 包含 JVM。\n- JDK (Java Development Kit)：开发工具包，含 JRE + 开发工具（javac、jdb 等）\n- JRE (Java Runtime Environment)：运行时环境，含 JVM + 核心类库（rt.jar）\n- JVM (Java Virtual Machine)：虚拟机，字节码解释/编译为机器指令"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "开发阶段需 JDK（javac 编译）；运行阶段只需 JRE；JVM 屏蔽操作系统差异实现跨平台。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_stack_exception": {
+    "id": "k_jvm_stack_exception",
+    "label": "栈异常",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_jvm_stack_exception",
+      "title": "栈异常",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 栈内存（虚拟机栈和本地方法栈）可能发生两种异常：\n1. StackOverflowError\n2. OutOfMemoryError"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_jvm_tuning": {
+    "id": "k_jvm_tuning",
+    "label": "JVM 参数调优",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_jvm_tuning",
+      "title": "JVM 参数调优 / JVM Tuning",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "堆内存配置：-Xms/-Xmx（初始/最大堆，建议相同）、-Xmn（新生代）、-XX:NewRatio（新生代/老年代比例）、-XX:SurvivorRatio（Eden/Survivor 比例）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "垃圾回收器选择：\n- G1：-XX:+UseG1GC -XX:MaxGCPauseMillis=200（平衡吞吐与延迟）\n- CMS：-XX:+UseConcMarkSweepGC（低延迟）\n- 并行回收器：-XX:+UseParallelGC（高吞吐）\n\n关键参数：-XX:MetaspaceSize、-XX:MaxMetaspaceSize、-Xloggc、-XX:+PrintGCDetails、-XX:+HeapDumpOnOutOfMemoryError、-Xss256k。\n\n调优路径：确定性能目标 → 基准测试 → 参数调整 → 验证效果 → 持续迭代。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "案例：电商 -Xmx12g -XX:+UseG1GC，FullGC 从每小时 5 次降至每天 1 次；Tomcat -Xms120m -Xmx120m，Full GC 降低 80%。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "jvm-interview"
+    ]
+  },
+  "k_atom_reachability": {
+    "id": "k_atom_reachability",
+    "label": "可达性分析算法/引用链法/跟踪垃圾收集",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_reachability",
+      "title": "可达性分析算法/引用链法/跟踪垃圾收集",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机编程中，跟踪垃圾收集（英语： Tracing garbage collection ）是一种自动内存管理的算法，该算法通过分析某些“根”对象的引用关系，来确定需要保留的可访问对象，并释放其余的不可访问对象的内存空间。该算法在实际的软件工程中得到了广泛的应用。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "遍历过程：以 GC Roots 为起点，深度优先/广度优先遍历整个对象图；遍历完成后未被访问到的对象即为不可达对象，可被回收。当一个对象不可达 GC Root 时，不会立马被回收，而是处于死缓阶段，需要经历两次标记：\n\n第一次标记：如果没有与 GC Root 的引用链，标记并筛选是否有必要执行 finalize() 方法\n放入 F-Queue 队列，由 Finalize 线程执行\n第二次标记：GC 对 F-Queue 中的对象进行第二次标记，移除\"即将回收\"集合，等待回收"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "与引用计数法对比：引用计数无法解决循环引用问题，可达性分析可以。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_gc_roots": {
+    "id": "k_atom_gc_roots",
+    "label": "GC Roots",
+    "role": "axiom",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_gc_roots",
+      "title": "GC Roots / GC 根对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "可达性分析算法的起点对象，JVM 规范规定了 5 类 GC Roots。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "5 类 GC Roots：\n1. 虚拟机栈中局部变量表引用的对象\n2. 方法区中类静态属性（static）引用的对象\n3. 方法区中常量（final）引用的对象\n4. 本地方法栈中 JNI 引用的对象\n5. 虚拟机内部引用（Class 对象、异常对象、类加载器等）"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_strong_ref": {
+    "id": "k_atom_strong_ref",
+    "label": "强引用",
+    "role": "axiom",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_strong_ref",
+      "title": "强引用 / Strong Reference",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "最传统的引用类型，类似 Object obj = new Object()。只要强引用还存在，垃圾收集器永远不会回收被引用的对象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "即使内存不足抛出 OOM 也不会回收强引用对象。想回收必须将引用置为 null（obj = null）使其与对象断开。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_soft_ref": {
+    "id": "k_atom_soft_ref",
+    "label": "软引用",
+    "role": "axiom",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_soft_ref",
+      "title": "软引用 / Soft Reference",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "描述还有用但非必需的对象。在系统将要发生内存溢出异常前，会把这些对象列入回收范围进行第二次回收。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "用 SoftReference 类实现。适合做内存敏感的缓存（如网页缓存、图片缓存），内存不足时自动释放。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_weak_ref": {
+    "id": "k_atom_weak_ref",
+    "label": "弱引用",
+    "role": "axiom",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_weak_ref",
+      "title": "弱引用",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "是指不能确保其引用的对象不会被垃圾回收器回收的引用。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "用 WeakReference 类实现。典型应用：WeakHashMap，当 key 不再被强引用时，对应 entry 会被自动清除。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_phantom_ref": {
+    "id": "k_atom_phantom_ref",
+    "label": "虚引用",
+    "role": "axiom",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_phantom_ref",
+      "title": "虚引用",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Java语言中的最弱的引用关系，对象是否有虚引用完全不影响其生存时间，也无法通过虚引用取得对象实例。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "用 PhantomReference 类实现，必须配合引用队列（ReferenceQueue）使用。唯一目的：在对象被回收时收到系统通知，用于跟踪对象被 GC 回收的时机。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_ref_queue": {
+    "id": "k_atom_ref_queue",
+    "label": "引用队列",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_ref_queue",
+      "title": "引用队列 / ReferenceQueue",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "当 SoftReference、WeakReference、PhantomReference 关联的对象被回收后，对应的 Reference 对象会被加入到关联的引用队列中，供程序感知回收事件。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "程序通过轮询 ReferenceQueue 获取被回收的引用对象，做后续清理工作（如清除缓存条目）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_mark_sweep": {
+    "id": "k_atom_mark_sweep",
+    "label": "标记-清除算法",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_mark_sweep",
+      "title": "标记-清除算法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "先暂停整个程序的全部运行线程，让回收线程以单线程进行扫描标记，并进行直接清除回收，然后回收完成后，恢复运行线程。这样会产生大量的空闲空间碎片，和使大容量对象不容易获得连续的内存空间，而造成空间浪费。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "第一阶段从 GC Roots 出发标记存活对象；第二阶段遍历整个堆清除未标记对象。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "缺点：(1) 产生内存碎片（清除后空间不连续）(2) 效率随对象数量增加而降低（两次全堆遍历）"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_copying": {
+    "id": "k_atom_copying",
+    "label": "标记-复制算法",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_copying",
+      "title": "标记-复制算法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "需要程序将所拥有的内存空间分成两个部分。程序运行所需的存储对象先存储在其中一个分区（定义为“分区0”）。同样暂停整个程序的全部运行线程，进行标记后，回收期间将保留的存储对象搬运汇集到另一个分区（定义为“分区1”），完成回收，程序在本次回收后将接下来产生的存储对象会存储到“分区1”。在下一次回收时，两个分区的角色对调。\n\n这种方式非常简单，但是因为只有一个“半空间”（semi-space）被用于分配对象，内存使用相较于其他算法是其两倍。这种技术也叫做“停止并复制”。Cheney算法是改进的半空间分配器。需要程序将所拥有的内存空间分成两个部分。程序运行所需的存储对象先存储在其中一个分区（定义为“分区0”）。同样暂停整个程序的全部运行线程，进行标记后，回收期间将保留的存储对象搬运汇集到另一个分区（定义为“分区1”），完成回收，程序在本次回收后将接下来产生的存储对象会存储到“分区1”。在下一次回收时，两个分区的角色对调。\n\n这种方式非常简单，但是因为只有一个“半空间”（semi-space）被用于分配对象，内存使用相较于其他算法是其两倍。这种技术也叫做“停止并复制”。Cheney算法是改进的半空间分配器。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "复制过程：遍历当前使用块中存活对象 -> 复制到空块 -> 清空原块。复制后内存连续无碎片。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "优点：无内存碎片，分配快。缺点：可用内存减半（利用率 50%），适合对象存活率低的区域（新生代）。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_mark_compact": {
+    "id": "k_atom_mark_compact",
+    "label": "标记-整理算法",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_mark_compact",
+      "title": "标记-整理算法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "和“标记－清除”相似，不同的是，回收期间同时会将保留的存储对象搬运汇集到连续的内存空间，从而整合空闲空间，避免内存碎片化"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "标记存活对象 -> 将存活对象向内存一端滑动整理 -> 清理边界外空间。整理后内存连续无碎片。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "优点：无内存碎片。缺点：整理过程需要移动对象，耗时较长（尤其对象存活率高时）。适合老年代。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_hotspot_detect": {
+    "id": "k_atom_hotspot_detect",
+    "label": "热点探测",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_hotspot_detect",
+      "title": "热点探测 / Hot Spot Detection",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 通过热点探测器识别需要 JIT 编译的热点代码，主要依据方法调用计数器和回边计数器两个指标。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "(1) 方法调用次数：被多次调用的方法标记为热点方法\n(2) 循环执行次数（回边计数）：循环体内部代码因重复执行成为热点\n\n当计数器超过阈值（-XX:CompileThreshold）时触发 JIT 编译。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_c1_compiler": {
+    "id": "k_atom_c1_compiler",
+    "label": "C1 编译器",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_c1_compiler",
+      "title": "C1 编译器 / Client Compiler",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "轻量级 JIT 编译器，以快速编译为核心目标，优先保证编译速度，生成简单优化的机器码。适合对启动速度敏感的场景（客户端应用）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "优化范围：方法内联（有限度）、常量传播、常量折叠、基本块优化（分支合并）、消除冗余操作。\n编译速度：毫秒级。执行效率：中等。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_c2_compiler": {
+    "id": "k_atom_c2_compiler",
+    "label": "C2 编译器",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_c2_compiler",
+      "title": "C2 编译器 / Server Compiler",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "重量级 JIT 编译器，以生成高度优化的机器码为核心目标，编译耗时更长但能进行更深度的优化。适合长期运行的服务器端应用。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "优化范围：深度方法内联（跨多层调用）、循环优化（展开、不变量外提、剥离）、逃逸分析与栈上分配、寄存器分配优化、预测性优化。\n编译速度：几十毫秒+。执行效率：比 C1 快 30%-50%。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_tiered_comp": {
+    "id": "k_atom_tiered_comp",
+    "label": "分层编译",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_tiered_comp",
+      "title": "分层编译 / Tiered Compilation",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "现代 JVM（如 HotSpot）默认启用的编译策略，将编译过程分为多个层次，C1 和 C2 配合工作。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "代码先被 C1 快速编译，保证程序快速启动并进入优化执行阶段；若代码持续被频繁调用（热点中的热点），则由 C2 重新编译，生成更优的机器码。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_method_inline": {
+    "id": "k_atom_method_inline",
+    "label": "方法内联",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_method_inline",
+      "title": "方法内联 / Method Inlining",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JIT 最重要优化之一，将被调用方法的代码直接复制到调用处，消除方法调用开销（栈帧创建、参数传递、返回跳转）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "C1 有限度内联（避免编译耗时过长）；C2 支持深度跨多层调用内联。内联后为进一步优化（如常量折叠、死代码消除）创造条件。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_escape_analysis": {
+    "id": "k_atom_escape_analysis",
+    "label": "逃逸分析",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_escape_analysis",
+      "title": "逃逸分析 / Escape Analysis",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "分析对象动态作用域，判断对象是否可能被当前方法或当前线程外部的代码访问。是 C2 编译器的核心优化技术。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "三种逃逸级别：未逃逸（方法内）、方法逃逸（被外部方法引用）、线程逃逸（被其他线程访问）。\n基于分析结果优化：栈上分配（未逃逸对象分配在栈上随栈帧弹出自动释放，减少 GC 压力）、标量替换、同步消除。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_exception_table": {
+    "id": "k_atom_exception_table",
+    "label": "异常表",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_exception_table",
+      "title": "异常表 / Exception Table",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "class 字节码文件中方法的一部分，为 try 块定义对应的 catch 处理器。是 JVM 异常处理的底层机制，与源代码中的 try-catch 一一对应。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "每个条目 4 个字段：\n(1) start_pc：try 块起始字节码偏移量\n(2) end_pc：try 块结束偏移量\n(3) handler_pc：catch 块起始偏移量\n(4) catch_type：捕获的异常类常量池索引（0 = 捕获所有，用于 finally）\n\nJVM 遍历异常表，检查抛出位置是否在 [start_pc, end_pc) 范围且类型匹配。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "匹配顺序敏感：先 Exception 后 IOException，后者永不生效。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_stack_unwind": {
+    "id": "k_atom_stack_unwind",
+    "label": "栈展开",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_stack_unwind",
+      "title": "栈展开 / Stack Unwinding",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "当当前方法异常表中没有匹配的异常处理器时，JVM 弹出当前栈帧，回到调用方法（上一栈帧），在其异常表中继续查找。这个过程沿调用栈向上进行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "栈展开流程：当前方法无匹配处理器 -> 弹出当前栈帧 -> 回到调用者栈帧 -> 查找调用者异常表 -> 重复直至找到处理器或到达 main 方法 -> 若到 main 仍未找到则线程终止，打印异常堆栈。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 腾讯"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_permgen": {
+    "id": "k_atom_permgen",
+    "label": "永久代",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_permgen",
+      "title": "永久代 / PermGen",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JDK 8 之前 JVM 用于存储类元数据（类结构、方法信息、常量池等）的内存区域，是 HotSpot 虚拟机特有的设计。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "大小固定（默认 64MB-1GB），通过 -XX:PermSize 和 -XX:MaxPermSize 设置。加载大量类（Spring/Hibernate）时易触发 OOM: PermGen space。回收与老年代绑定，Full GC 频繁。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "JDK 8 起被元空间 (Metaspace) 替代。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_metaspace": {
+    "id": "k_atom_metaspace",
+    "label": "元空间",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_metaspace",
+      "title": "元空间 / Metaspace",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JDK 8 起替代永久代的类元数据存储区域，本质是本地内存（Native Memory）的一部分，不再受 JVM 堆大小限制。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "默认无固定上限（仅受物理内存限制），JVM 根据类加载情况自动调整大小。回收独立于老年代，仅针对无用类（满足类卸载条件）回收。配置参数：-XX:MetaspaceSize（初始阈值）、-XX:MaxMetaspaceSize（最大限制，可选）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 阿里"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_cms_initial_mark": {
+    "id": "k_atom_cms_initial_mark",
+    "label": "初始标记",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_cms_initial_mark",
+      "title": "初始标记 / Initial Mark",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CMS 垃圾收集器的第一阶段，STW（Stop The World）。快速标记 GC Roots 直接关联的对象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "仅标记根对象，不深入追踪引用链，因此停顿时间极短（通常毫秒级）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_cms_concurrent_mark": {
+    "id": "k_atom_cms_concurrent_mark",
+    "label": "并发标记",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_cms_concurrent_mark",
+      "title": "并发标记 / Concurrent Mark",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CMS 第二阶段，与用户线程并发执行，无 STW。从初始标记的根对象出发，追踪所有可达对象，标记出所有存活对象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "GC 线程与用户线程同时运行。用户线程可能修改对象引用（创建新对象、断开引用），导致部分标记结果不准确，由后续重新标记阶段修正。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_cms_remark": {
+    "id": "k_atom_cms_remark",
+    "label": "重新标记",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_cms_remark",
+      "title": "重新标记 / Remark",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CMS 第三阶段，STW。修正并发标记阶段因用户线程操作导致的标记偏差（漏标或错标）。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "通过增量更新或原始快照（SATB）等算法高效修正。停顿时间比初始标记长，但远短于 Full GC。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_cms_concurrent_sweep": {
+    "id": "k_atom_cms_concurrent_sweep",
+    "label": "并发清除",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_cms_concurrent_sweep",
+      "title": "并发清除 / Concurrent Sweep",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "CMS 第四阶段，与用户线程并发执行，无 STW。清除所有未被标记的对象（垃圾对象），释放内存空间。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "仅清除垃圾，不压缩内存，因此会产生内存碎片。用户线程仍在分配内存，可能产生浮动垃圾（本次无法回收，留到下次 GC）。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_storeload": {
+    "id": "k_atom_storeload",
+    "label": "StoreLoad 屏障",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_storeload",
+      "title": "StoreLoad 屏障 / StoreLoad Barrier",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的存储指令（Store）先于屏障后的加载指令（Load）执行，同时刷新 CPU 缓存，保证存储操作结果对其他线程可见。是 4 种内存屏障中最强大的一种，开销也最大。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "volatile 写操作后插入 StoreLoad 屏障，确保写结果对其他线程可见；synchronized 退出时插入 StoreLoad 屏障，确保同步块内修改被其他线程看到。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_loadload": {
+    "id": "k_atom_loadload",
+    "label": "LoadLoad 屏障",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_loadload",
+      "title": "LoadLoad 屏障 / LoadLoad Barrier",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的加载指令（Load）先于屏障后的加载指令执行。防止读操作之间的重排序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "volatile 读操作前插入 LoadLoad 屏障，确保读取到最新内存数据（失效缓存）；进入 synchronized 块时插入类似屏障，确保读取到共享变量最新值。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_storestore": {
+    "id": "k_atom_storestore",
+    "label": "StoreStore 屏障",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_storestore",
+      "title": "StoreStore 屏障 / StoreStore Barrier",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的存储指令（Store）先于屏障后的存储指令执行。防止写操作之间的重排序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "volatile 写操作后插入 StoreStore 屏障，防止写操作被重排序到后面的指令；退出 synchronized 块时插入类似屏障，确保修改对其他线程可见。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_loadstore": {
+    "id": "k_atom_loadstore",
+    "label": "LoadStore 屏障",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage"
+    ],
+    "card": {
+      "nodeId": "k_atom_loadstore",
+      "title": "LoadStore 屏障 / LoadStore Barrier",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "确保屏障前的加载指令（Load）先于屏障后的存储指令（Store）执行。防止读操作与后续写操作之间的重排序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "volatile 读操作前插入 LoadStore 屏障，确保读取最新数据且防止读操作被重排序到后面的写指令之前。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题 V2 · 京东"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_atom_safepoint": {
+    "id": "k_atom_safepoint",
+    "label": "安全点",
+    "role": "mechanism",
+    "dimensions": [
+      "jvm",
+      "storage",
+      "performance"
+    ],
+    "card": {
+      "nodeId": "k_atom_safepoint",
+      "title": "安全点 / Safepoint",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 程序执行过程中的特定位置，线程到达安全点后可以安全地暂停（STW），用于 GC、偏向锁撤销、Deoptimization 等需要全局暂停的操作。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": "安全点位置选择：方法调用、循环回边等长时间执行的指令处。JVM 采用主动式中断（轮询标志位）让线程在安全点主动暂停。\nGC 时所有线程必须到达最近的安全点后才能开始 STW 操作。"
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "安全点太少导致 STW 等待时间长；安全点太多影响性能（轮询开销）。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": "JVM 面试专题"
+        }
+      ]
+    },
+    "tags": [
+      "jvm",
+      "interview",
+      "atomic-concept"
+    ]
+  },
+  "k_1783161122808_6s1zvz": {
+    "id": "k_1783161122808_6s1zvz",
+    "label": "StackOverflowError",
+    "card": {
+      "nodeId": "k_1783161122808_6s1zvz",
+      "title": "StackOverflowError",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "栈深度超过最大深度（无限递归、方法调用层级过深）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783161156973_zxi5x2": {
+    "id": "k_1783161156973_zxi5x2",
+    "label": "OutOfMemoryError",
+    "card": {
+      "nodeId": "k_1783161156973_zxi5x2",
+      "title": "OutOfMemoryError",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "栈无法动态扩展（内存不足）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783164003442_wm9ajj": {
+    "id": "k_1783164003442_wm9ajj",
+    "label": "垃圾收集器GC",
+    "card": {
+      "nodeId": "k_1783164003442_wm9ajj",
+      "title": "垃圾收集器GC",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783164061982_dy3jas": {
+    "id": "k_1783164061982_dy3jas",
+    "label": "垃圾回收机制",
+    "card": {
+      "nodeId": "k_1783164061982_dy3jas",
+      "title": "垃圾回收机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在 java 中，程序员不需要显示地去释放一个对象的内存，而是由虚拟机自行执行。在 JVM 中，有一个垃圾回收线程，它是低优先级的，在正常情况下不会执行，只有在虚拟机空闲或者当前堆内存不足时，才会触发执行，扫描那些没有被任何引用的对象，并将它们添加到要回收的集合中，进行回收"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167529977_jal59j": {
+    "id": "k_1783167529977_jal59j",
+    "label": "封装",
+    "card": {
+      "nodeId": "k_1783167529977_jal59j",
+      "title": "封装",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "将数据和操作数据的方法绑定在一起，隐藏内部实现细节，对外提供统一接口。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167541244_d3d092": {
+    "id": "k_1783167541244_d3d092",
+    "label": "继承",
+    "card": {
+      "nodeId": "k_1783167541244_d3d092",
+      "title": "继承",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "子类可以继承父类的属性和方法，并可以扩展或重写父类功能。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167551355_1zzuyq": {
+    "id": "k_1783167551355_1zzuyq",
+    "label": "多态",
+    "card": {
+      "nodeId": "k_1783167551355_1zzuyq",
+      "title": "多态",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "同一操作作用于不同对象，可以有不同的解释和执行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167737276_jlh50j": {
+    "id": "k_1783167737276_jlh50j",
+    "label": "重载",
+    "card": {
+      "nodeId": "k_1783167737276_jlh50j",
+      "title": "重载",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "同类中方法名相同但参数不同"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167860244_04xrp4": {
+    "id": "k_1783167860244_04xrp4",
+    "label": "局部变量",
+    "card": {
+      "nodeId": "k_1783167860244_04xrp4",
+      "title": "局部变量",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167884457_fbgsdd": {
+    "id": "k_1783167884457_fbgsdd",
+    "label": "成员变量",
+    "card": {
+      "nodeId": "k_1783167884457_fbgsdd",
+      "title": "成员变量",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167897008_j9oxtc": {
+    "id": "k_1783167897008_j9oxtc",
+    "label": "实例方法",
+    "card": {
+      "nodeId": "k_1783167897008_j9oxtc",
+      "title": "实例方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167907433_5q9erq": {
+    "id": "k_1783167907433_5q9erq",
+    "label": "静态方法",
+    "card": {
+      "nodeId": "k_1783167907433_5q9erq",
+      "title": "静态方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783167918831_zqk4a6": {
+    "id": "k_1783167918831_zqk4a6",
+    "label": "接口",
+    "card": {
+      "nodeId": "k_1783167918831_zqk4a6",
+      "title": "接口",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783170416767_yaym2f": {
+    "id": "k_1783170416767_yaym2f",
+    "label": "BASE理论",
+    "card": {
+      "nodeId": "k_1783170416767_yaym2f",
+      "title": "BASE理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171290294_ib0kwi": {
+    "id": "k_1783171290294_ib0kwi",
+    "label": "引用计数法",
+    "card": {
+      "nodeId": "k_1783171290294_ib0kwi",
+      "title": "引用计数法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "引用计数（英语：reference counting，RC）是计算机编程语言中的一种内存管理技术，是指将资源（可以是对象、内存或磁盘空间等等）的被引用次数保存起来，当被引用次数变为零时就将其释放的过程。使用引用计数技术可以实现自动资源管理的目的。同时引用计数还可以指使用引用计数技术回收未使用资源的垃圾回收算法。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171541433_akjz47": {
+    "id": "k_1783171541433_akjz47",
+    "label": "并行收集器",
+    "card": {
+      "nodeId": "k_1783171541433_akjz47",
+      "title": "并行收集器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "串行收集器使用一个单独的线程进行收集，GC时服务有停顿时间"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171576583_0k6kre": {
+    "id": "k_1783171576583_0k6kre",
+    "label": "串行收集器",
+    "card": {
+      "nodeId": "k_1783171576583_0k6kre",
+      "title": "串行收集器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "次要回收中使用多线程来执行"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171609391_x3bqux": {
+    "id": "k_1783171609391_x3bqux",
+    "label": "G1收集器",
+    "card": {
+      "nodeId": "k_1783171609391_x3bqux",
+      "title": "G1收集器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "从整体来看是基于\"标记—整理\"算法实现的收集器，从局部（两个Region之间）上来看是基于\"复制\"算法实现的"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171646604_yn33rr": {
+    "id": "k_1783171646604_yn33rr",
+    "label": "Minor GC",
+    "card": {
+      "nodeId": "k_1783171646604_yn33rr",
+      "title": "Minor GC",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "新生代内存不够用时候发生 Minor GC 也叫 YGC"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171669928_46ncd4": {
+    "id": "k_1783171669928_46ncd4",
+    "label": "Full GC",
+    "card": {
+      "nodeId": "k_1783171669928_46ncd4",
+      "title": "Full GC",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "JVM 内存不够的时候发生 Full GC"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171786650_rheusm": {
+    "id": "k_1783171786650_rheusm",
+    "label": "垃圾回收",
+    "card": {
+      "nodeId": "k_1783171786650_rheusm",
+      "title": "垃圾回收",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机科学中，垃圾回收（英语：Garbage Collection，缩写为GC）是指一种自动的存储器管理机制。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783171867549_lp5mbv": {
+    "id": "k_1783171867549_lp5mbv",
+    "label": "分代收集",
+    "card": {
+      "nodeId": "k_1783171867549_lp5mbv",
+      "title": "分代收集",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "由于“复制”算法对于存活时间长，大容量的储存对象需要耗费更多的移动时间，和存在储存对象的存活时间的差异。需要程序将所拥有的内存空间分成若干分区，并标记为年轻代空间和年老代空间。程序运行所需的存储对象会先存放在年轻代分区，年轻代分区会较为频密进行较为激进垃圾回收行为，每次回收完成幸存的存储对象内的寿命计数器加一。当年轻代分区存储对象的寿命计数器达到一定阈值或存储对象的占用空间超过一定阈值时，则被移动到年老代空间，年老代空间会较少运行垃圾回收行为。一般情况下，还有永久代的空间，用于涉及程序整个运行生命周期的对象存储，例如运行代码、数据常量等，该空间通常不进行垃圾回收的操作。 通过分代，存活在局限域，小容量，寿命短的存储对象会被快速回收；存活在全局域，大容量，寿命长的存储对象就较少被回收行为处理干扰。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783173221009_ygz927": {
+    "id": "k_1783173221009_ygz927",
+    "label": "调试工具",
+    "card": {
+      "nodeId": "k_1783173221009_ygz927",
+      "title": "调试工具",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "jmap、jstack、jconsole、jhat\njstack：可以看当前栈的情况\njmap：查看内存\njhat：进行 dump 堆的信息\nmat（eclipse的也要了解一下）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783173688342_6b8756": {
+    "id": "k_1783173688342_6b8756",
+    "label": "卸载",
+    "card": {
+      "nodeId": "k_1783173688342_6b8756",
+      "title": "卸载",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783174457059_sy9hs8": {
+    "id": "k_1783174457059_sy9hs8",
+    "label": "收集器实现",
+    "card": {
+      "nodeId": "k_1783174457059_sy9hs8",
+      "title": "收集器实现",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783183396947_46zdou": {
+    "id": "k_1783183396947_46zdou",
+    "label": "编程范式",
+    "card": {
+      "nodeId": "k_1783183396947_46zdou",
+      "title": "编程范式",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "编程范型、编程范式或程序设计法（英语：programming paradigm），是软件工程中的一类典型的编程风格，指对计算机程序实现进行概念化和结构化的相对高阶的方式。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783183435962_lom0xc": {
+    "id": "k_1783183435962_lom0xc",
+    "label": "重写",
+    "card": {
+      "nodeId": "k_1783183435962_lom0xc",
+      "title": "重写",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在方法名，参数列表，返回类型(除过子类中方法的返回值是父类中方法返回值的子类时)都相同的情况下， 对方法体进行修改或重写，这就是重写。但要注意子类函数的访问修饰权限不能少于父类的。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783184152399_h2bnjm": {
+    "id": "k_1783184152399_h2bnjm",
+    "label": "JDK",
+    "card": {
+      "nodeId": "k_1783184152399_h2bnjm",
+      "title": "JDK",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": " JDK 是Java Development Kit，它是功能齐全的Java SDK。它拥有JRE所拥有 的一切，还有编译器（javac）和工具（如javadoc和jdb）。它能够创建和编 译程序"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783184196932_cpprvi": {
+    "id": "k_1783184196932_cpprvi",
+    "label": "JRE",
+    "card": {
+      "nodeId": "k_1783184196932_cpprvi",
+      "title": "JRE",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": " JRE 是 Java运行时环境。它是运行已编译 Java 程序所需的所有内容的集合， 包括 Java虚拟机（JVM），Java类库，java命令和其他的一些基础构件。但 是，它不能用于创建新程序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783184803301_75p0j1": {
+    "id": "k_1783184803301_75p0j1",
+    "label": "类与对象",
+    "card": {
+      "nodeId": "k_1783184803301_75p0j1",
+      "title": "类与对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783184829912_usl41q": {
+    "id": "k_1783184829912_usl41q",
+    "label": "构造方法",
+    "card": {
+      "nodeId": "k_1783184829912_usl41q",
+      "title": "构造方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在类别基础的面向对象程序设计中，构造器（英语： Constructor，有时简称 ctor），别称：构造方法、构造函数、建构子、构造函数）是一个类里用于建立对象的特殊子程序。它能初始化一个新建的对象，并时常会接受参数用以设置实例变量。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783185477965_twyxez": {
+    "id": "k_1783185477965_twyxez",
+    "label": "编程语言理论",
+    "card": {
+      "nodeId": "k_1783185477965_twyxez",
+      "title": "编程语言理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783185488648_yobuxy": {
+    "id": "k_1783185488648_yobuxy",
+    "label": "执行模型",
+    "card": {
+      "nodeId": "k_1783185488648_yobuxy",
+      "title": "执行模型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783185524955_jmpw8e": {
+    "id": "k_1783185524955_jmpw8e",
+    "label": "运行时理论",
+    "card": {
+      "nodeId": "k_1783185524955_jmpw8e",
+      "title": "运行时理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783186255415_ir9mlw": {
+    "id": "k_1783186255415_ir9mlw",
+    "label": "词法与语法",
+    "card": {
+      "nodeId": "k_1783186255415_ir9mlw",
+      "title": "词法与语法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783186382386_06a7l7": {
+    "id": "k_1783186382386_06a7l7",
+    "label": "装箱",
+    "card": {
+      "nodeId": "k_1783186382386_06a7l7",
+      "title": "装箱",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "装箱就是自动将基本数据类型转换为包装器类型"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783186425134_v31qjt": {
+    "id": "k_1783186425134_v31qjt",
+    "label": "标识符",
+    "card": {
+      "nodeId": "k_1783186425134_v31qjt",
+      "title": "标识符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在程序中，我们自己定义的内容，譬如类的名字，方法名称以及变量名称等等。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783186880545_vcool8": {
+    "id": "k_1783186880545_vcool8",
+    "label": "命名规则",
+    "card": {
+      "nodeId": "k_1783186880545_vcool8",
+      "title": "命名规则",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783190919547_xy3xo7": {
+    "id": "k_1783190919547_xy3xo7",
+    "label": "命名规范",
+    "card": {
+      "nodeId": "k_1783190919547_xy3xo7",
+      "title": "命名规范",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191024388_6wm19u": {
+    "id": "k_1783191024388_6wm19u",
+    "label": "拆箱",
+    "card": {
+      "nodeId": "k_1783191024388_6wm19u",
+      "title": "拆箱",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "拆箱就是自动将包装器类型转换为基本数据类型"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191702364_0jj8qu": {
+    "id": "k_1783191702364_0jj8qu",
+    "label": "编译时多态（静态多态）",
+    "card": {
+      "nodeId": "k_1783191702364_0jj8qu",
+      "title": "编译时多态（静态多态）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191721172_1z8bir": {
+    "id": "k_1783191721172_1z8bir",
+    "label": "运算符重载",
+    "card": {
+      "nodeId": "k_1783191721172_1z8bir",
+      "title": "运算符重载",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191752067_f7u3yy": {
+    "id": "k_1783191752067_f7u3yy",
+    "label": "运行时多态（动态多态）",
+    "card": {
+      "nodeId": "k_1783191752067_f7u3yy",
+      "title": "运行时多态（动态多态）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191777469_n9jlip": {
+    "id": "k_1783191777469_n9jlip",
+    "label": "向上转型",
+    "card": {
+      "nodeId": "k_1783191777469_n9jlip",
+      "title": "向上转型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783191969892_8qes36": {
+    "id": "k_1783191969892_8qes36",
+    "label": "抽象类",
+    "card": {
+      "nodeId": "k_1783191969892_8qes36",
+      "title": "抽象类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "抽象类被定义为永远不会也不能被实例化为具体的对象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783229929708_1i1he2": {
+    "id": "k_1783229929708_1i1he2",
+    "label": "量子电脑理论",
+    "card": {
+      "nodeId": "k_1783229929708_1i1he2",
+      "title": "量子电脑理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783233119967_ia2k7e": {
+    "id": "k_1783233119967_ia2k7e",
+    "label": "抽象性",
+    "card": {
+      "nodeId": "k_1783233119967_ia2k7e",
+      "title": "抽象性",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "抽象（Abstraction）是简化复杂的现实问题的途径，它可以为具体问题找到最恰当的类定义，并且可以在最恰当的继承级别解释问题。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783235593684_pob0bg": {
+    "id": "k_1783235593684_pob0bg",
+    "label": "编程语言",
+    "card": {
+      "nodeId": "k_1783235593684_pob0bg",
+      "title": "编程语言",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783238652426_mxnh6v": {
+    "id": "k_1783238652426_mxnh6v",
+    "label": "类",
+    "card": {
+      "nodeId": "k_1783238652426_mxnh6v",
+      "title": "类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "类（英语：class）在面向对象编程中是一种面向对象计算机编程语言的构造，是创建对象的蓝图，描述了所创建的对象共同的特性和方法。\n\n类的更严格的定义是由某种特定的元数据所组成的内聚的包。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783238676302_ggr3kg": {
+    "id": "k_1783238676302_ggr3kg",
+    "label": "对象",
+    "card": {
+      "nodeId": "k_1783238676302_ggr3kg",
+      "title": "对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Object：是类的实例（Instance）在计算机科学中，对象（英语：object，台湾译作物件）是一个存储器地址，其中拥有值，这个地址可能有标识符指向此处。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783241972525_r9d594": {
+    "id": "k_1783241972525_r9d594",
+    "label": "字符",
+    "card": {
+      "nodeId": "k_1783241972525_r9d594",
+      "title": "字符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在电脑和电信领域中，字符（character）是一个信息单位。对使用字母系统或音节文字等自然语言，它大约对应为一个音位、类音位的单位或符号。简单来讲就是一个汉字、假名、韩文字……，或是一个英文、其他西方语言的字母。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242081853_1rz9pi": {
+    "id": "k_1783242081853_1rz9pi",
+    "label": "整数",
+    "card": {
+      "nodeId": "k_1783242081853_1rz9pi",
+      "title": "整数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机科学中，整数的概念指数学上整数的一个有限子集。它也称为整数数据类型，或简称整型数、整型。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242173553_yf00vd": {
+    "id": "k_1783242173553_yf00vd",
+    "label": "浮点数",
+    "card": {
+      "nodeId": "k_1783242173553_yf00vd",
+      "title": "浮点数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "浮点是一种实数的近似数值表示法，由一个有效数字（即尾数）乘以特定基数的整数次指数（幂数）构成。以这种表示法表示的数值称为浮点数（floating-point number）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242320610_hy6yui": {
+    "id": "k_1783242320610_hy6yui",
+    "label": "布尔",
+    "card": {
+      "nodeId": "k_1783242320610_hy6yui",
+      "title": "布尔",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "布尔（英语：Boolean）是计算机科学中的逻辑数据类型，以发明布尔代数的数学家乔治·布尔为名。它是只有两种值的原始类型，通常是真和假。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242458293_jvz8tc": {
+    "id": "k_1783242458293_jvz8tc",
+    "label": "复合类型",
+    "card": {
+      "nodeId": "k_1783242458293_jvz8tc",
+      "title": "复合类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "复合类型是一种数据类型，它可以原始类型和其它的复合类型所构成。构成一个复合类型的动作，又称作组合。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242586458_lc8wra": {
+    "id": "k_1783242586458_lc8wra",
+    "label": "无解释的",
+    "card": {
+      "nodeId": "k_1783242586458_lc8wra",
+      "title": "无解释的",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242597042_wnhkxs": {
+    "id": "k_1783242597042_wnhkxs",
+    "label": "比特",
+    "card": {
+      "nodeId": "k_1783242597042_wnhkxs",
+      "title": "比特",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242603167_6cwn1r": {
+    "id": "k_1783242603167_6cwn1r",
+    "label": "字节",
+    "card": {
+      "nodeId": "k_1783242603167_6cwn1r",
+      "title": "字节",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242608308_6xygyf": {
+    "id": "k_1783242608308_6xygyf",
+    "label": "字",
+    "card": {
+      "nodeId": "k_1783242608308_6xygyf",
+      "title": "字",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783242642426_oz4jm3": {
+    "id": "k_1783242642426_oz4jm3",
+    "label": "字符串",
+    "card": {
+      "nodeId": "k_1783242642426_oz4jm3",
+      "title": "字符串",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "字符串（英语：string），是由零个或多个字符组成的有限序列。它是编程语言中表示文本的数据类型。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783249623557_8m2rjj": {
+    "id": "k_1783249623557_8m2rjj",
+    "label": "程序设计",
+    "card": {
+      "nodeId": "k_1783249623557_8m2rjj",
+      "title": "程序设计",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "计算机程序设计，或称程序设计，是给程序解决出特定问题的过程，"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783249680752_eglr74": {
+    "id": "k_1783249680752_eglr74",
+    "label": "变量",
+    "card": {
+      "nodeId": "k_1783249680752_eglr74",
+      "title": "变量",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在程序设计中，变量（英语：Variable，scalar）是指一个抽象的存储地址，它含有了被称为一个值的某种已知或未知的信息量，并且配对了关联的符号名称。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250122245_2rg7bc": {
+    "id": "k_1783250122245_2rg7bc",
+    "label": "关系数据库",
+    "card": {
+      "nodeId": "k_1783250122245_2rg7bc",
+      "title": "关系数据库",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250218905_21uook": {
+    "id": "k_1783250218905_21uook",
+    "label": "键值数据库",
+    "card": {
+      "nodeId": "k_1783250218905_21uook",
+      "title": "键值数据库",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "键-值数据库（Key–value database），或键-值存储，是设计用来存储、检索和管理关联数组的数据存储范式，关联数组是现今更常称为“字典”或散列表的一种数据结构。字典包含对对象或记录的一个收集，依次、记录内有多个不同的“域”或称字段，再次、每个字段都包含数据。这些记录使用唯一标识这个记录的“键”来存储和检索，键还用来在数据库中快速的找到数据。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250367496_zv2crw": {
+    "id": "k_1783250367496_zv2crw",
+    "label": "分类",
+    "card": {
+      "nodeId": "k_1783250367496_zv2crw",
+      "title": "分类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250387082_pp338r": {
+    "id": "k_1783250387082_pp338r",
+    "label": "数据库模型",
+    "card": {
+      "nodeId": "k_1783250387082_pp338r",
+      "title": "数据库模型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对象模型\n层次模型（轻量级数据访问协议）\n网状模型（大型数据储存）\n关系模型\n面向对象模型\n半结构化模型\n平面模型（表格模型，一般在形式上是一个二维数组。如表格模型数据Excel)"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250411548_9x4h5g": {
+    "id": "k_1783250411548_9x4h5g",
+    "label": "架构",
+    "card": {
+      "nodeId": "k_1783250411548_9x4h5g",
+      "title": "架构",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "架构（英语：Schema）又称模式，台湾翻译为纲要，在数据库系统中是形式语言描述的一种结构，是对象的集合，"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250520307_j25py7": {
+    "id": "k_1783250520307_j25py7",
+    "label": "数据库索引",
+    "card": {
+      "nodeId": "k_1783250520307_j25py7",
+      "title": "数据库索引",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "数据库索引，通常简称为索引，是数据库管理系统中使用的数据结构"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783250593540_v2w5hy": {
+    "id": "k_1783250593540_v2w5hy",
+    "label": "数据库事务",
+    "card": {
+      "nodeId": "k_1783250593540_v2w5hy",
+      "title": "数据库事务",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783252307603_sueh2u": {
+    "id": "k_1783252307603_sueh2u",
+    "label": "消息传递",
+    "card": {
+      "nodeId": "k_1783252307603_sueh2u",
+      "title": "消息传递",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783253570024_91h099": {
+    "id": "k_1783253570024_91h099",
+    "label": "动态配置与消息传递机制",
+    "card": {
+      "nodeId": "k_1783253570024_91h099",
+      "title": "动态配置与消息传递机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "定义上动态配置是指方法会随着实例动态的改变。而消息传递机制（Message Passing）是指一个对象通过接受消息、处理消息、传出消息或使用其他类的方法来实现一定功能。如：大黄可以通过吠引起人的注意，从而导致一系列的事发生。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257348387_zpwgyz": {
+    "id": "k_1783257348387_zpwgyz",
+    "label": "程序架构",
+    "card": {
+      "nodeId": "k_1783257348387_zpwgyz",
+      "title": "程序架构",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "关于在各种编程语言中使用的基本元素、指令及陈述。这不包括一般的概念或程序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257371791_411u3j": {
+    "id": "k_1783257371791_411u3j",
+    "label": "方法",
+    "card": {
+      "nodeId": "k_1783257371791_411u3j",
+      "title": "方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "面向对象编程中，方法（英语：Method）指的是类别（所谓的类方法、静态方法或工厂方法）、或者是对象（所谓的实例方法）两者其中之一的一种子程序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257379975_3dbm5v": {
+    "id": "k_1783257379975_3dbm5v",
+    "label": "控制流程",
+    "card": {
+      "nodeId": "k_1783257379975_3dbm5v",
+      "title": "控制流程",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "控制流程（也称为流程控制）是电脑运算领域的用语，意指在程序执行时，个别的指令（或是陈述、子程序）执行或求值的顺序。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257388677_uxt2vm": {
+    "id": "k_1783257388677_uxt2vm",
+    "label": "数据类型",
+    "card": {
+      "nodeId": "k_1783257388677_uxt2vm",
+      "title": "数据类型",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257396123_5jl7e4": {
+    "id": "k_1783257396123_5jl7e4",
+    "label": "运算符",
+    "card": {
+      "nodeId": "k_1783257396123_5jl7e4",
+      "title": "运算符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257466386_qkloru": {
+    "id": "k_1783257466386_qkloru",
+    "label": "类",
+    "card": {
+      "nodeId": "k_1783257466386_qkloru",
+      "title": "类",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257472821_qkhnyb": {
+    "id": "k_1783257472821_qkhnyb",
+    "label": "运算符",
+    "card": {
+      "nodeId": "k_1783257472821_qkhnyb",
+      "title": "运算符",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783257957775_eue1y7": {
+    "id": "k_1783257957775_eue1y7",
+    "label": "子程序",
+    "card": {
+      "nodeId": "k_1783257957775_eue1y7",
+      "title": "子程序",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机科学中，子程序（subroutine, subprogram, callable unit），是一个大型程序中的某部分代码，由一个或多个语句块组成。它负责完成某项特定任务，而且相较于其他代码，具备相对的独立性。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783258053033_qytxe3": {
+    "id": "k_1783258053033_qytxe3",
+    "label": "函数",
+    "card": {
+      "nodeId": "k_1783258053033_qytxe3",
+      "title": "函数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "函数（function）是一种子程序，利用函数名称，可以接收回传值。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783258090747_vznnof": {
+    "id": "k_1783258090747_vznnof",
+    "label": "过程",
+    "card": {
+      "nodeId": "k_1783258090747_vznnof",
+      "title": "过程",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "过程（procedure）是一种子程序，它能够接受不同的引数，来执行某些特别的动作"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": "函数与过程在某些编程语言中是被分开的，但是在C语言中，所有过程都是函数，这两者被认为是相同的。这有可能造成一些副作用，特别是在回传值是void数据类型时。"
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783259399604_jb6ieg": {
+    "id": "k_1783259399604_jb6ieg",
+    "label": "析构函数",
+    "card": {
+      "nodeId": "k_1783259399604_jb6ieg",
+      "title": "析构函数",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "析构函数（英语：Destructor，有时简称 dtor）在面向对象程序设计里是一个方法，当对象的生命周期结束时，它会自动地被调用执行。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260209305_4t111y": {
+    "id": "k_1783260209305_4t111y",
+    "label": "软件符号和工具",
+    "card": {
+      "nodeId": "k_1783260209305_4t111y",
+      "title": "软件符号和工具",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260261343_z00bvp": {
+    "id": "k_1783260261343_z00bvp",
+    "label": "函数库",
+    "card": {
+      "nodeId": "k_1783260261343_z00bvp",
+      "title": "函数库",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "函数库（英语：library）是在计算机科学中用于开发软件的子程序集合。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260678029_y1d6ko": {
+    "id": "k_1783260678029_y1d6ko",
+    "label": "参数化构造器",
+    "card": {
+      "nodeId": "k_1783260678029_y1d6ko",
+      "title": "参数化构造器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "接收参数的构造器被称为参数化构造器"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260831339_eyvsen": {
+    "id": "k_1783260831339_eyvsen",
+    "label": "缺省构造器",
+    "card": {
+      "nodeId": "k_1783260831339_eyvsen",
+      "title": "缺省构造器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "缺省构造函数是C++及其他一些面向对象程序设计语言中，对象的不需要参数即可调用的构造函数"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260916600_msucmn": {
+    "id": "k_1783260916600_msucmn",
+    "label": "转换构造器",
+    "card": {
+      "nodeId": "k_1783260916600_msucmn",
+      "title": "转换构造器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "转换构造器可定义从用户定义或内置类型转换成用户定义类型的作业。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783260946053_mylhzl": {
+    "id": "k_1783260946053_mylhzl",
+    "label": "复制构造器",
+    "card": {
+      "nodeId": "k_1783260946053_mylhzl",
+      "title": "复制构造器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "复制构造器（英语：Copy constructor）是C++编程语言中的一种特别的构造器，习惯上用来建立一个全新的对象，这个全新的对象相当于已存在对象的副本。这个构造器只有一个参数（引数）：就是用来复制对象的引用（常用const修饰）。构造器也可以有更多的参数，但除了最左第一个参数是该类别的引用类别型外，其它参数必须有默认值。\n\n"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783261004905_nf1mq3": {
+    "id": "k_1783261004905_nf1mq3",
+    "label": "移动构造器",
+    "card": {
+      "nodeId": "k_1783261004905_nf1mq3",
+      "title": "移动构造器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "移动构造函数（英语：Move constructor）是 C++11 中新增的一种构造函数，用来避免多余的分配新内存——复制——销毁旧内存的操作。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783261196020_ghnkvf": {
+    "id": "k_1783261196020_ghnkvf",
+    "label": "抽象方法",
+    "card": {
+      "nodeId": "k_1783261196020_ghnkvf",
+      "title": "抽象方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "是一个虚设代码的方法，它没有实现。它通常用来占住一个位置，让子类或者以此为原型的对象重载，并实现出相应的抽象方法。如此一来，抽象方法有助于明确表明一部分架构。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783261245033_1y4e86": {
+    "id": "k_1783261245033_1y4e86",
+    "label": "访问方法",
+    "card": {
+      "nodeId": "k_1783261245033_1y4e86",
+      "title": "访问方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通常是一个小型、简单的，并提供一个用来从程序的其它部分访问对象状态的方法。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783261320670_urrcnt": {
+    "id": "k_1783261320670_urrcnt",
+    "label": "静态（共享/类别）方法",
+    "card": {
+      "nodeId": "k_1783261320670_urrcnt",
+      "title": "静态（共享/类别）方法",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "方法可能宣告为静态的（在Visual Basic里是shared，在Object Pascal里是class），即静态方法活动于类别层次，而非物理层次。静态方法不能触及一个特定的类实例（也就是不能触及this、self、Me等等）"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783262074753_i3dpmd": {
+    "id": "k_1783262074753_i3dpmd",
+    "label": "软件管理",
+    "card": {
+      "nodeId": "k_1783262074753_i3dpmd",
+      "title": "软件管理",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783263380028_2hhr2a": {
+    "id": "k_1783263380028_2hhr2a",
+    "label": "内存管理",
+    "card": {
+      "nodeId": "k_1783263380028_2hhr2a",
+      "title": "内存管理",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "内存管理，是指软件运行时对计算机主存储器资源的分配和使用的技术。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783263986077_nrp20e": {
+    "id": "k_1783263986077_nrp20e",
+    "label": "增量回收器",
+    "card": {
+      "nodeId": "k_1783263986077_nrp20e",
+      "title": "增量回收器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "需要程序将所拥有的内存空间分成若干分区。程序运行所需的存储对象会分布在这些分区中，每次只对其中一个分区进行回收操作，从而避免暂停所有正在运行的线程来进行回收，允许部分线程在不影响回收行为下保持运行，并且降低回收时间，增加程序响应速度。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783264835076_nc6pkd": {
+    "id": "k_1783264835076_nc6pkd",
+    "label": "引用计数收集器",
+    "card": {
+      "nodeId": "k_1783264835076_nc6pkd",
+      "title": "引用计数收集器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "最早的也是最简单的垃圾回收实现方法，这种方法为占用物理空间的对象附加一个计数器，当有其他对象引用这个对象时计数器加一，反之引用解除时减一。这种算法会定期检查尚未被回收的对象的计数器，为零的话则回收其所占物理空间，因为此时的对象已经无法访问。这种方法无法回收循环引用的存储对象。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783264865034_zdpirw": {
+    "id": "k_1783264865034_zdpirw",
+    "label": "跟踪收集器",
+    "card": {
+      "nodeId": "k_1783264865034_zdpirw",
+      "title": "跟踪收集器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "近现代的垃圾回收实现方法，这种算法会定期遍历它管理的内存空间，从若干根储存对象开始查找与之相关的存储对象，然后标记其余的没有关联的存储对象，最后回收这些没有关联的存储对象占用的内存空间。"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783264901088_1s02ir": {
+    "id": "k_1783264901088_1s02ir",
+    "label": "如何判断对象可以被回收",
+    "card": {
+      "nodeId": "k_1783264901088_1s02ir",
+      "title": "如何判断对象可以被回收",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": ""
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783265159022_nzdh2q": {
+    "id": "k_1783265159022_nzdh2q",
+    "label": "不可访问内存",
+    "card": {
+      "nodeId": "k_1783265159022_nzdh2q",
+      "title": "不可访问内存",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机科学中，不可访问内存是指一组没有任何可访问指针指向的由计算机程序进行动态分配的内存块"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783265195251_6su1dy": {
+    "id": "k_1783265195251_6su1dy",
+    "label": "不可访问对象",
+    "card": {
+      "nodeId": "k_1783265195251_6su1dy",
+      "title": "不可访问对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "指没有可访问引用型指向的动态分配对象"
+        },
+        {
+          "id": "mech",
+          "label": "机制",
+          "content": ""
+        },
+        {
+          "id": "bound",
+          "label": "边界",
+          "content": ""
+        },
+        {
+          "id": "source",
+          "label": "来源",
+          "content": ""
+        }
+      ]
+    }
+  },
+  "k_1783269128142_jpub7v": {
+    "id": "k_1783269128142_jpub7v",
+    "label": "引用",
+    "card": {
+      "nodeId": "k_1783269128142_jpub7v",
+      "title": "引用",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在计算机科学中，引用（英语：reference）是指一个可以让程序间接访问存储器或其他存储设备中一特定资料的值，该数据可以为变量或记录。"
         },
         {
           "id": "mech",

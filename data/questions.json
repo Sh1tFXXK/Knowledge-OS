@@ -272,5 +272,248 @@
     "createdAt": 1782829740266,
     "updatedAt": 1782829764716,
     "answer": "1、适合索引的列是出现在where字句中的列，或者连接子句中指定的列\n2、基数较小的表，索引效果差，没必要创建索引\n3、在选择索引列的时候，越短越好，可以指定某些列的一部分，没必要用全部字段的值\n4、不要给表中的每一个字段都创建索引，并不是索引越多越好\n5、定义有外键的数据列一定要创建索引\n6、更新频繁的字段不要有索引\n7、创建索引的列不要过多，可以创建组合索引，但是组合索引的列的个数不建议太多\n8、大文本、大对象不要创建索引"
+  },
+  {
+    "id": "q_1783101902754_yj9681",
+    "text": "java对象的创建过程",
+    "answered": true,
+    "relatedNodeId": "k_1783101878467_d26xhv",
+    "createdAt": 1783101902754,
+    "updatedAt": 1783102184582,
+    "answer": "1，jvm遇到一条新建对象的指令时，首先检查这个指令的参数是否能在常量池中定义到一个类的符号引用，然后加载这个类。\n2.为对象分配内存，一种办法“指针碰撞”，一种办法“空闲列表”，最终常用的办法“本地线程缓冲分配”\n3.将对象头外的对象内存空间初始化为0 \n4 对对象头进行必要设置"
+  },
+  {
+    "id": "q_1783155014624_5olryc",
+    "text": "内存碎片的危害",
+    "answered": true,
+    "relatedNodeId": "k_1783154640901_0cwole",
+    "createdAt": 1783155014624,
+    "updatedAt": 1783155026826,
+    "answer": "(1) 导致 Full GC：当由于碎片无法分配大对象时，JVM 会不得不提前触发一次昂贵的 Full GC，试图整合出连续空间。 (2) 抛出 OutOfMemoryError：即使堆内存还有空闲，如果 FullGC 后仍然无法获得足够的连续空间，JVM 会抛出 OutOfMemoryError: Java heap space 错误。 (3) 降低性能：内存不连续会影响局部性原理，可能降低 CPU 缓存命中率。"
+  },
+  {
+    "id": "q_1783155112854_a5jkb8",
+    "text": "jdk版本变化",
+    "answered": true,
+    "relatedNodeId": "k_1782798808568_5vubd8",
+    "createdAt": 1783155112854,
+    "updatedAt": 1783155119916,
+    "answer": "JDK 版本实现变化：\n\nJDK 6：采用永久代（PermGen）实现，完全独立于堆内存，存储类信息、静态变量、字符串常量池等\nJDK 7：开始\"去永久代\"优化，将字符串常量池和静态变量移至堆内存，但类信息仍保留在永久代\nJDK 8+：彻底移除永久代，改用元空间（Metaspace）实现，使用本地内存存储类元数据，仅字符串常量池保留在堆中\n变更原因：\n\n永久代大小受限易引发 OOM，元空间使用系统内存可动态扩展\n字符串常量池移至堆内存可受益于堆的 GC 机制\nHotSpot 与其他 JVM（如 JRockit）实现统一"
+  },
+  {
+    "id": "q_1783155336005_3t16y6",
+    "text": "直接内存与堆内存的区别",
+    "answered": true,
+    "relatedNodeId": "k_1783155226069_2ffro6",
+    "createdAt": 1783155336005,
+    "updatedAt": 1783155346243,
+    "answer": "堆内存 (Heap Memory)：\n\n管理方式：由 JVM 管理，是 Java 对象的主要存储区域\nGC 影响：受 JVM 垃圾回收器管理，GC 时会暂停应用程序 (STW)\nI/O 效率：进行 I/O 操作时需要额外进行一次内存拷贝（堆→直接内存）\n分配方式：通过 new 关键字或反射等方式分配\n回收方式：由 JVM 垃圾回收器自动回收\n内存限制：受限于 JVM 启动参数 (如 -Xmx) 设置的堆大小\n安全性：相对安全，GC 机制可有效防止内存泄漏\n直接内存 (Direct Memory)：\n\n管理方式：直接向操作系统申请，不受 JVM 管理\nGC 影响：不受 GC 管理，GC 时不会暂停应用程序\nI/O 效率：直接与操作系统进行数据传输，避免了内存拷贝\n分配方式：通常通过 ByteBuffer.allocateDirect() 或 Unsafe 类分配\n回收方式：需要手动释放或依赖 Cleaner 机制进行回收\n内存限制：受限于本机总内存和操作系统寻址空间\n安全性：存在内存泄漏风险，需要开发者谨慎管理"
+  },
+  {
+    "id": "q_1783155454273_1k53yj",
+    "text": "如何管理直接内存",
+    "answered": true,
+    "relatedNodeId": "k_1783155226069_2ffro6",
+    "createdAt": 1783155454273,
+    "updatedAt": 1783155477441,
+    "answer": "1、分配方式：主要通过 ByteBuffer.allocateDirect() 方法分配，底层实际上是通过 Unsafe 类的 allocateMemory 方法或者操作系统本地 API (如 mmap) 来实现。\n\n2、回收机制：\n\n直接内存不受 JVM 垃圾回收器管理，需要手动释放\n可以通过 Cleaner 机制进行回收\n不正确的使用可能导致内存泄漏，最终耗尽系统内存\n3、最佳实践：\n\n适用于需要频繁与操作系统交互或需要较大内存空间的场景，如网络编程、文件 IO 等\n对于频繁的小对象分配，直接内存可能引入不必要的开销\n需要监控直接内存使用情况，避免内存泄漏\n可以通过 -XX 参数限制直接内存的最大使用量"
+  },
+  {
+    "id": "q_1783155542837_z7jx8w",
+    "text": "什么是类的初始化时机？",
+    "answered": true,
+    "relatedNodeId": "k_1782826391040_p5q1jk",
+    "createdAt": 1783155542837,
+    "updatedAt": 1783155627999,
+    "answer": "一、Java 虚拟机规范严格规定了有且只有以下 6 种情况必须立即对类进行初始化。\n\n1、new 指令：使用 new 关键字实例化对象时 2、静态字段访问：读取或设置类的静态字段（被 final 修饰且已在编译期放入常量池的静态字段除外）时 3、静态方法调用：调用类的静态方法时 4、反射调用：使用 java.lang.reflect 包方法对类进行反射调用时 5、父类类初始化：初始化子类时，如果父类尚未初始化，会先触发父类初始化 6、主类初始化：虚拟机启动时指定的包含 main() 方法的主类"
+  },
+  {
+    "id": "q_1783155632572_nv2y3d",
+    "text": "类加载和类初始化有什么区别",
+    "answered": true,
+    "relatedNodeId": "k_1782826391040_p5q1jk",
+    "createdAt": 1783155632572,
+    "updatedAt": 1783155694876,
+    "answer": "1、时序关系：类初始化是类加载的最后阶段\n 2、触发条件：类加载时机由 JVM 实现决定，而初始化时机由规范严格规定\n3、内容差异：\n\n类加载主要完成二进制数据读取和基础验证\n类初始化主要执行静态变量赋值和静态代码块 \n4、被动引用：某些引用方式（如通过子类访问父类静态字段）会触发类加载但不触发初始化 \n5、线程安全：初始化阶段是线程安全的，而加载阶段不一定是"
+  },
+  {
+    "id": "q_1783157324456_f1fmdg",
+    "text": "JVM 如何使用内存屏障",
+    "answered": true,
+    "relatedNodeId": "k_1782749694486_vyrfzy",
+    "createdAt": 1783157324456,
+    "updatedAt": 1783157342072,
+    "answer": "1、volatile 关键字的实现 当变量被声明为 volatile 时，JVM 会在其读写操作前后插入内存屏障： (1) 写操作（Store）后插入 StoreStore 屏障和 StoreLoad 屏障，确保： - 该写操作的结果对其他线程可见（通过刷新缓存）。 - 防止写操作被重排序到后面的指令。 (2) 读操作（Load）前插入 LoadLoad 屏障和 LoadStore 屏障，确保： - 读取到最新的内存数据（通过失效缓存）。 - 防止读操作被重排序到前面的指令。\n\n如果没有 volatile（即没有内存屏障），可能会出现：\n\n线程 2 看不到 flag 已变为 true，导致无限循环\n即使看到 flag 为 true，也可能看不到 value = 100 的更新\n2、synchronized 同步块\n\n进入 synchronized 块时，JVM 会插入类似 LoadLoad、LoadStore 的屏障，确保读取到共享变量的最新值；\n退出 synchronized 块时，会插入类似 StoreStore、StoreLoad 的屏障，确保当前线程的修改被其他线程可见。\n3、锁和并发工具类 JUC（java.util.concurrent）中的锁（如 ReentrantLock）、原子类（如 AtomicInteger）等，其内部实现也依赖内存屏障来保证线程安全，例如通过 Unsafe 类的 putOrderedXXX、getAndAddXXX 等方法间接使用内存屏障。"
+  },
+  {
+    "id": "q_jvm_01_mem_model",
+    "text": "简述一下 JVM 的内存模型",
+    "answered": true,
+    "relatedNodeId": "k_1782794616728_i5obct",
+    "answer": "内存模型（运行时数据区）分为线程共享区域和线程私有区域。\n\n一、线程共享区域：\n1. 堆 (Heap)：存放对象实例和数组，GC 主要区域，分新生代（Eden + Survivor From/To，8:1:1）和老年代。异常：OutOfMemoryError。\n2. 方法区 (Method Area)：存储类信息、常量、静态变量、JIT 编译后代码。JDK 1.7 永久代，JDK 1.8+ 元空间（本地内存）。含运行时常量池。异常：OutOfMemoryError。\n\n二、线程私有区域：\n1. 程序计数器：存储下一条待执行指令地址，唯一不会 OOM 的区域。\n2. 虚拟机栈：存储方法调用的栈帧（局部变量表、操作数栈、动态链接、返回地址）。异常：StackOverflowError、OutOfMemoryError。\n3. 本地方法栈：为 Native 方法服务，异常同虚拟机栈。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_02_heap_stack",
+    "text": "说说堆和栈的区别",
+    "answered": true,
+    "relatedNodeId": "k_1782798814309_j3jj7c",
+    "answer": "1、根本性质：栈是线程私有，每线程一个，存储方法栈帧；堆是线程共享，整个 JVM 一个，存储对象实例和数组。\n2、存储内容：栈存栈帧（局部变量表、操作数栈、动态链接、返回地址）；堆存对象实例（含字段）和数组，字符串常量池也在堆中。\n3、生命周期：栈自动管理（方法调用压栈、返回弹栈），不涉及 GC；堆由 GC 管理，对象不可达时回收。\n4、线程安全：栈天然线程安全；堆非线程安全，需 synchronized/volatile 保证并发。\n5、异常：栈 StackOverflowError（深度递归）、OOM；堆 OOM: Java heap space、GC Overhead limit exceeded。\n6、碎片化：栈无碎片（LIFO）；堆可能产生碎片，现代 GC（G1/ZGC/Shenandoah）会压缩。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_04_gc_reachability",
+    "text": "如何判断对象可以被回收",
+    "answered": true,
+    "relatedNodeId": "k_jvm_gc_reachability",
+    "answer": "1、可达性分析算法：从 GC Roots 出发遍历引用链，若对象与 GC Roots 无路径则可回收。\nGC Roots 包括：虚拟机栈局部变量、方法区静态属性引用、方法区常量引用、本地方法栈 JNI 引用、虚拟机内部引用。\n\n2、4 种引用决定回收策略：\n(1) 强引用 → 永不回收\n(2) 软引用 → 内存不足时回收（缓存）\n(3) 弱引用 → GC 必回收（WeakHashMap）\n(4) 虚引用 → 任何时候可能回收（配合引用队列）\n\n3、分代回收：新生代 Eden 创建 → Minor GC 后进 Survivor → 默认 15 次 GC 后进老年代；老年代 Full GC 回收；元空间类卸载回收。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_05_gc_algos",
+    "text": "你知道哪些垃圾收集算法",
+    "answered": true,
+    "relatedNodeId": "k_jvm_gc_algos",
+    "answer": "一、基础算法：\n1. 标记-清除 (Mark-Sweep)：标记后清除，产生内存碎片，效率随对象数增加而降低。\n2. 标记-复制 (Copying)：内存分两块，存活对象复制到另一块，无碎片但利用率 50%，适合存活率低的区域。\n3. 标记-整理 (Mark-Compact)：存活对象向一端移动，无碎片但整理耗时。\n\n二、分代收集：\n- 新生代：复制算法（Eden + 2 Survivor 8:1:1）\n- 老年代：标记-清除或标记-整理\n- 元空间：类卸载回收\n\n三、现代收集器组合：\n- Parallel Scavenge：新生代复制 + 老年代标记-整理\n- CMS：新生代复制 + 老年代并发标记-清除\n- G1：Region 间复制 + 标记-整理混合",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_06_meta_perm",
+    "text": "虚拟机为什么使用元空间替换了永久代",
+    "answered": true,
+    "relatedNodeId": "k_jvm_meta_perm",
+    "answer": "JDK 8 起用元空间 (Metaspace) 替代永久代 (PermGen)。\n\n一、永久代问题：\n1. 内存溢出风险：大小固定（64MB-1GB），加载大量类（Spring/Hibernate）易触发 OOM: PermGen space\n2. 垃圾回收效率低：回收与老年代绑定，Full GC 频繁\n3. 与 JVM 耦合过紧：HotSpot 特有设计，不利于跨 JVM 统一\n\n二、元空间优势：\n1. 内存动态扩展：默认无固定上限（仅受物理内存限制）\n2. 垃圾回收更高效：独立于老年代，仅针对无用类回收\n3. 与本地内存整合：适合大量类加载场景（微服务、动态代理）\n4. 简化配置：仅需 -XX:MetaspaceSize 和 -XX:MaxMetaspaceSize",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_07_jit",
+    "text": "JVM 中的即时编译器（JIT）如何工作？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_jit",
+    "answer": "JIT 是 Java 实现高性能的关键组件。\n\n1、解释执行与编译执行结合：解释器逐行解释字节码（启动快但效率低），JIT 将热点代码编译为本地机器码后续直接执行。混合模式兼顾跨平台性和高性能。\n\n2、热点探测：依据方法调用次数和循环执行次数。\n\n3、分层编译：\n- C1 (Client)：轻量级，编译快，简单优化，适合启动敏感场景\n- C2 (Server)：重量级，编译慢，深度优化（循环展开、逃逸分析、寄存器分配），比 C1 快 30%-50%\n代码先 C1 快速编译，持续热点再 C2 重新编译。\n\n4、优化技术：方法内联、逃逸分析（栈上分配）、循环展开、冗余消除。\n\n5、机器码缓存复用，类结构变化时失效重编译。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_09_mem_leak",
+    "text": "如何排查和解决 JVM 内存泄漏问题？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_mem_leak",
+    "answer": "一、典型表现：老年代持续增长触发频繁 Full GC、GC 后释放很少、应用变慢最终 OOM、堆内存线性上升。\n\n二、排查步骤：\n1. 确认泄漏：监控 JVM 内存指标，分析 GC 日志（-XX:+PrintGCDetails）\n2. 捕获快照：接近 OOM 时抓取 .hprof 文件\n3. 分析快照：识别异常对象，查看引用链\n4. 定位修复：常见问题——静态集合未清理、未关闭资源、线程池持有大对象、缓存无过期策略\n\n三、常用工具：\n- JDK 自带：jps、jstat、jmap、jconsole/jvisualvm\n- 第三方：MAT (Eclipse Memory Analyzer)、VisualGC、YourKit/JProfiler\n\n四、预防：try-with-resources、WeakHashMap/Guava Cache、避免 static 集合滥用、代码评审、压力测试。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_10_cms",
+    "text": "简述 CMS 垃圾收集器的工作流程，它有什么优缺点？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_cms",
+    "answer": "CMS 以最短回收停顿时间为目标的老年代收集器，让 GC 与用户线程并发执行。\n\n一、4 个核心阶段：\n1. 初始标记 (STW)：标记 GC Roots 直接关联对象，停顿极短\n2. 并发标记：从根对象追踪所有可达对象，无 STW\n3. 重新标记 (STW)：修正并发标记期间的偏差\n4. 并发清除：清除未标记对象，无 STW，不压缩内存\n\n二、优点：\n(1) 停顿时间短，适合响应时间敏感场景\n(2) 并发执行，不阻塞业务\n\n三、缺点：\n(1) 内存碎片严重（标记-清除不压缩）\n(2) 占用 CPU 资源\n(3) 需预留内存（可能 ConcurrentModeFailure）\n(4) 产生浮动垃圾",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_12_stack_exception",
+    "text": "JVM 的栈内存中发生异常如何避免？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_stack_exception",
+    "answer": "避免方法：\n1. 优化递归逻辑（确保终止条件，或改用迭代）\n2. 控制方法调用深度，减少嵌套层级\n3. 调整 JVM 参数（-Xss256k 增大栈内存）\n4. 代码审查与压力测试（静态分析工具检查潜在无限递归）",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783161237231
+  },
+  {
+    "id": "q_jvm_14_tuning",
+    "text": "如何调优 JVM 参数以提高应用性能？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_tuning",
+    "answer": "一、堆内存配置：\n- -Xms/-Xmx：初始/最大堆内存（建议相同），如 -Xms4g -Xmx4g\n- -Xmn：新生代大小（建议占堆 1/3~1/4）\n- -XX:NewRatio：新生代/老年代比例（默认 1:2）\n- -XX:SurvivorRatio：Eden/Survivor 比例（默认 8:1:1）\n\n二、垃圾回收器选择：\n- G1：-XX:+UseG1GC -XX:MaxGCPauseMillis=200（平衡吞吐与延迟）\n- CMS：-XX:+UseConcMarkSweepGC（低延迟）\n- 并行回收器：-XX:+UseParallelGC（高吞吐）\n\n三、关键参数：-XX:MetaspaceSize、-XX:MaxMetaspaceSize、-Xloggc、-XX:+PrintGCDetails、-XX:+HeapDumpOnOutOfMemoryError、-Xss256k。\n\n四、案例：电商 -Xmx12g -XX:+UseG1GC，FullGC 从每小时 5 次降至每天 1 次；Tomcat -Xms120m -Xmx120m，Full GC 降低 80%。\n\n调优路径：确定性能目标 → 基准测试 → 参数调整 → 验证效果 → 持续迭代。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_16_jdk_jre",
+    "text": "JVM、JRE 和 JDK 之间的关系是什么？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_jdk_jre",
+    "answer": "层级包含关系：JDK 包含 JRE 包含 JVM。\n\n1. JDK (Java Development Kit)：Java 开发工具包，包含 JRE + 开发工具（编译器 javac、调试器 jdb 等）和基础类库，用于开发和编译 Java 程序。\n\n2. JRE (Java Runtime Environment)：Java 运行时环境，包含 JVM + 核心类库（如 rt.jar），用于运行已编译的 Java 程序，不含开发工具。\n\n3. JVM (Java Virtual Machine)：Java 虚拟机，负责将字节码（.class 文件）解释或编译为机器指令，实现跨平台运行。核心功能包括内存管理、垃圾回收等。\n\n使用场景：开发阶段需安装 JDK（javac 编译）；运行阶段只需 JRE；JVM 屏蔽操作系统差异，确保一次编译到处运行。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_18_exception",
+    "text": "JVM 如何处理异常？try-catch-finally 结构在字节码层面是如何实现的？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_exception",
+    "answer": "第一部分：JVM 异常处理机制\nJVM 使用异常表（Exception Table）处理异常。异常表条目包含 start_pc、end_pc、handler_pc、catch_type。\n1. 抛出异常：JVM 创建异常对象，停止当前方法执行，查找异常处理器。\n2. 查找处理器：查看当前方法异常表，检查指令位置是否在 [start_pc, end_pc) 范围且异常类型匹配。匹配顺序敏感（先 Exception 后 IOException，后者永不生效）。\n3. 未找到：沿调用栈向上（栈展开）直至 main，线程终止。\n\n第二部分：try-catch-finally 字节码实现（JDK 1.6+）\n采用复制代码策略：将 finally 块代码复制多份插入所有退出路径：\n- 第一份：try 块正常结束之后\n- 第二份：catch 块处理完异常之后\n- 第三份：特殊异常处理器（捕获 any），执行 finally 后用 athrow 重新抛出\n异常表条目保证即使在 catch 块内发生新异常，finally 依然执行。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_19_what_jvm",
+    "text": "JVM 是什么？为什么需要 JVM？",
+    "answered": true,
+    "relatedNodeId": "k_1782749694486_vyrfzy",
+    "answer": "1. JVM 是什么？\nJVM (Java Virtual Machine) 是一个虚拟计算机，通过软件模拟在各种物理计算机和操作系统上运行，是 Java 实现一次编写到处运行的关键。\n三个层面理解：\n(1) 规范 (Specification)：Oracle 发布的官方标准文档\n(2) 实现 (Implementation)：如 HotSpot VM、J9 VM、Zing VM\n(3) 运行实例 (Instance)：java 命令启动的 JVM 进程\n核心工作流程：Java 源码 → javac 编译 → 字节码 → JVM 读取/验证/执行 → JIT 编译为本地机器码。\n\n2. 为什么需要 JVM？\n(1) 平台无关性（最核心）：一次编译到处运行，JVM 屏蔽操作系统差异\n(2) 自动内存管理：内置 GC，无需手动 malloc/free\n(3) 稳定运行时环境：字节码验证（安全沙箱）、标准库、JNI 支持\n(4) 代码优化：JIT 编译器监控热点代码，动态编译优化，长期运行性能接近 C/C++",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_jvm_20_class_unload",
+    "text": "JVM 如何进行类卸载？",
+    "answered": true,
+    "relatedNodeId": "k_jvm_class_unload",
+    "answer": "1. 为什么需要类卸载？\n节省内存，防止元空间 OOM。场景：Tomcat 热部署、动态代理生成（CGLib、ASM）。\n\n2. 类卸载判定条件（可达性分析）：\n(1) 该类的 Class 对象不可达\n(2) 加载该类的 ClassLoader 已被回收\n(3) 该类没有实例，且未被其他地方引用\n\n3. 如何打破引用？\n关键在于自定义类加载器（如 Tomcat 的 WebAppClassLoader）：\n(1) WebAppClassLoader 加载类\n(2) 应用卸载时销毁 WebAppClassLoader 实例\n(3) ClassLoader 不可达被回收\n(4) 其加载的类失去强引用\n(5) 下次 GC 清理类数据\n\n4. 哪些类通常不会卸载？\n(1) Bootstrap 和 App ClassLoader 加载的核心类（java.lang.* 等）\n(2) 被单例模式长期持有的类\n(3) 作为 GC Root 的对象所在的类\n\n5. 监控：-XX:+TraceClassLoading -XX:+TraceClassUnloading；jconsole/jvisualvm/Java Mission Control 观察 Metaspace。",
+    "createdAt": 1783158440403,
+    "updatedAt": 1783158440403
+  },
+  {
+    "id": "q_1783172869805_ucn9rw",
+    "text": "Safepoint 位置",
+    "answered": true,
+    "relatedNodeId": "k_atom_safepoint",
+    "createdAt": 1783172869805,
+    "updatedAt": 1783172884920,
+    "answer": "循环的末尾（防止大循环的时候一直不进入 safepoint，而其他线程在等待它进入 safepoint）\n方法返回前\n调用方法的 call 之后\n抛出异常的位置"
+  },
+  {
+    "id": "q_1783174752393_7u4y97",
+    "text": "简述 java 内存分配与回收策略以及 Minor GC 和 Major GC",
+    "answered": true,
+    "relatedNodeId": "k_1783104722598_hdfb8o",
+    "createdAt": 1783174752393,
+    "updatedAt": 1783174766200,
+    "answer": "对象优先在堆的 Eden 区分配。\n大对象直接进入老年代。\n长期存活的对象将直接进入老年代。\n当 Eden 区没有足够的空间进行分配时，虚拟机会执行一次 Minor GC。\n\nMinor GC：通常发生在新生代的 Eden 区，在这个区的对象生存期短，往往发生 GC 的频率较高，回收速度比较快\nFull GC / Major GC：发生在老年代，一般情况下触发老年代 GC 的时候不会触发 Minor GC，但通过配置可以在 Full GC 之前进行一次 Minor GC，这样可以加快老年代的回收速度"
+  },
+  {
+    "id": "q_1783183609893_8xdbpk",
+    "text": "面向对象和面向过程的区别",
+    "answered": true,
+    "relatedNodeId": "k_1783183396947_46zdou",
+    "createdAt": 1783183609893,
+    "updatedAt": 1783183649991,
+    "answer": "面向过程 优点： 性能比面向对象高，因为类调用时需要实例化，开销比较大，比较消耗 资源;比如单片机、嵌入式开发、Linux/Unix 等一般采用面向过程开发，性能是 最重要的因素。 \n缺点： 没有面向对象易维护、易复用、易扩展 \n面向对象 \n优点： 易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特 性，可以设计出低耦合的系统，使系统更加灵活、更加易于维护 \n缺点： 性能比面向过程低"
+  },
+  {
+    "id": "q_1783184243531_q7wrgv",
+    "text": "Oracle JDK 和 OpenJDK 的对比",
+    "answered": true,
+    "relatedNodeId": "k_1783184152399_h2bnjm",
+    "createdAt": 1783184243531,
+    "updatedAt": 1783184473813,
+    "answer": "Oracle JDK 版本将每三年发布一次，而OpenJDK版本每三个月发布一 次；\n\nOpenJDK 是一个参考模型并且是完全开源的，而Oracle JDK 是 OpenJDK的一个实现，并不是完全开源的；\n\nOracle JDK 比 OpenJDK 更稳定。OpenJDK和Oracle JDK 的代码几乎 相同，但Oracle JDK 有更多的类和一些错误修复。因此，如果您想开发 企业/商业软件，我建议您选择Oracle JDK，因为它经过了彻底的测试和 稳定。某些情况下，有些人提到在使用OpenJDK 可能会遇到了许多应 用程序崩溃的问题，但是，只需切换到Oracle JDK 就可以解决问题；\n\n顶级公司正在使用Oracle JDK，例如Android Studio，Minecraft 和 IntelliJ IDEA 开发工具，其中 Open JDK 不太受欢迎；\n\n在响应性和JVM 性能方面，Oracle JDK 与OpenJDK相比提供了更好的 性能；\n\nOracle JDK 不会为即将发布的版本提供长期支持，用户每次都必须通过 更新到最新版本获得支持来获取最新版本；\n\nOracle JDK 根据二进制代码许可协议获得许可，而 OpenJDK根据GPL v2 许可获得许可。"
+  },
+  {
+    "id": "q_1783184499334_ymly3g",
+    "text": "java和c++的区别",
+    "answered": true,
+    "relatedNodeId": "k_1782746457581_30q8ao",
+    "createdAt": 1783184499334,
+    "updatedAt": 1783184538764,
+    "answer": "都是面向对象的语言，都支持封装、继承和多态  \nJava 不提供指针来直接访问内存，程序内存更加安全  \nJava 的类是单继承的，C++ 支持多重继承；虽然 Java 的类不可以多 继承，但是接口可以多继承。\n\nJava 有自动内存管理机制，不需要程序员手动释放无用内存"
   }
 ]

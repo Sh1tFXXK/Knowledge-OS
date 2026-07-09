@@ -3,14 +3,109 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
+const DATA_FILES = Object.freeze({
+  treeData: 'tree-data.json',
+  nodePool: 'node-pool.json',
+  knowledgeEdges: 'knowledge-edges.json',
+  questions: 'questions.json',
+  subSystems: 'subsystems.json',
+  inferenceResponses: 'inference-responses.json',
+});
+const DATA_FILE_NAMES = new Set(Object.values(DATA_FILES));
+const RETRYABLE_FS_ERROR_CODES = new Set(['EBUSY', 'EPERM', 'EACCES', 'UNKNOWN']);
+const writeQueues = new Map();
+
+function isRecordPayload(value) {
+  return !!value && typeof value === 'object' && !Array.isArray(value);
+}
+
+const DATA_PAYLOAD_VALIDATORS = new Map([
+  [DATA_FILES.treeData, isRecordPayload],
+  [DATA_FILES.nodePool, isRecordPayload],
+  [DATA_FILES.knowledgeEdges, Array.isArray],
+  [DATA_FILES.questions, Array.isArray],
+  [DATA_FILES.subSystems, Array.isArray],
+  [DATA_FILES.inferenceResponses, isRecordPayload],
+]);
 
 function isDataPayload(filename, body) {
-  if (!body || typeof body !== 'object') return false;
-  // Basic validation: must be an object or array depending on the file
-  if (filename === 'knowledge-edges.json' || filename === 'questions.json' || filename === 'subsystems.json') {
-    return Array.isArray(body);
+  const validate = DATA_PAYLOAD_VALIDATORS.get(filename);
+  return validate ? validate(body) : false;
+}
+
+function resolveDataFile(filename) {
+  if (!DATA_FILE_NAMES.has(filename)) return null;
+  const filePath = path.resolve(DATA_DIR, filename);
+  const relativePath = path.relative(DATA_DIR, filePath);
+  if (relativePath.startsWith('..') || path.isAbsolute(relativePath)) {
+    return null;
   }
-  return true; // Simplified for other files
+  return filePath;
+}
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function isRetryableFsError(error) {
+  return error && RETRYABLE_FS_ERROR_CODES.has(error.code);
+}
+
+async function withFsRetry(action) {
+  const maxAttempts = 5;
+  for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
+    try {
+      return await action();
+    } catch (error) {
+      if (!isRetryableFsError(error) || attempt === maxAttempts - 1) {
+        throw error;
+      }
+      await delay(25 * (attempt + 1));
+    }
+  }
+}
+
+function createTempPath(filePath) {
+  const tempName = [
+    `.${path.basename(filePath)}`,
+    process.pid,
+    Date.now(),
+    Math.random().toString(36).slice(2),
+    'tmp',
+  ].join('.');
+  return path.join(path.dirname(filePath), tempName);
+}
+
+async function writeJsonFile(filePath, body) {
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  const tempPath = createTempPath(filePath);
+  const serialized = `${JSON.stringify(body, null, 2)}\n`;
+
+  try {
+    await withFsRetry(() => fs.writeFile(tempPath, serialized, 'utf8'));
+    await withFsRetry(() => fs.rename(tempPath, filePath));
+  } catch (error) {
+    await fs.rm(tempPath, { force: true }).catch(() => {});
+    throw error;
+  }
+}
+
+function enqueueFileWrite(filePath, body) {
+  const previousWrite = writeQueues.get(filePath) ?? Promise.resolve();
+  const nextWrite = previousWrite
+    .catch(() => undefined)
+    .then(() => writeJsonFile(filePath, body));
+
+  writeQueues.set(filePath, nextWrite);
+  void nextWrite
+    .finally(() => {
+      if (writeQueues.get(filePath) === nextWrite) {
+        writeQueues.delete(filePath);
+      }
+    })
+    .catch(() => {});
+
+  return nextWrite;
 }
 
 function sendJson(res, statusCode, body) {
@@ -23,7 +118,9 @@ function readJsonBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
 
-    req.on('data', chunk => chunks.push(chunk));
+    req.on('data', chunk => {
+      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+    });
     req.on('error', reject);
     req.on('end', () => {
       try {
@@ -48,8 +145,8 @@ function dataFileApi() {
         return;
       }
 
-      const filePath = path.join(DATA_DIR, filename);
-      if (!filePath.startsWith(DATA_DIR)) {
+      const filePath = resolveDataFile(filename);
+      if (!filePath) {
         sendJson(res, 403, { error: 'Access denied.' });
         return;
       }
@@ -78,8 +175,7 @@ function dataFileApi() {
             return;
           }
 
-          await fs.mkdir(path.dirname(filePath), { recursive: true });
-          await fs.writeFile(filePath, `${JSON.stringify(body, null, 2)}\n`, 'utf8');
+          await enqueueFileWrite(filePath, body);
           sendJson(res, 200, { ok: true, file: filename });
           return;
         }
@@ -93,7 +189,8 @@ function dataFileApi() {
 
         sendJson(res, 405, { error: 'Method not allowed.' });
       } catch (error) {
-        next(error);
+        console.error('[data-file-api] Request failed', error);
+        sendJson(res, 500, { error: 'Data file API request failed.' });
       }
     });
   };
