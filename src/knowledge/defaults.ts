@@ -1,7 +1,5 @@
 import type { KnowledgeEdge, KnowledgeNode, NodeExplanation, Perspective, TreeNode } from '../types';
 
-export const EXPLANATION_TAB_LABELS = ['定义', '机制', '边界', '来源'] as const;
-
 /** 内置维度切面（镜头滤镜定义，非知识内容） */
 export const BUILTIN_DIMENSIONS: Perspective[] = [
   { id: 'all', name: '全部', nameEn: 'All', color: '#94a3b8' },
@@ -16,15 +14,16 @@ export function genId(prefix: string): string {
 }
 
 export function createEmptyExplanation(nodeId: string, title: string): NodeExplanation {
-  const tabIds = ['def', 'mech', 'bound', 'source'] as const;
   return {
     nodeId,
     title,
-    tabs: EXPLANATION_TAB_LABELS.map((label, i) => ({
-      id: tabIds[i],
-      label,
-      content: '',
-    })),
+    tabs: [
+      {
+        id: 'def',
+        label: '定义',
+        content: '',
+      },
+    ],
   };
 }
 
