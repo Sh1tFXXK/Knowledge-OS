@@ -98,7 +98,7 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
 export async function saveStateToFiles(state: PersistedAppState): Promise<void> {
   await Promise.all([
     saveFile(FILES.treeData, normalizeTreeNode(state.treeData)),
-    saveFile(FILES.nodePool, state.nodePool),
+    saveFile(FILES.nodePool, migrateNodePool(state.nodePool)),
     saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
     saveFile(FILES.questions, state.questions),
     saveFile(FILES.subSystems, state.subSystems),

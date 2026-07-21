@@ -119,7 +119,13 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
   const [atomRects, setAtomRects] = useState(() => new Map() as AtomRectMap);
 
   const overlayRef = useRef(null) as { current: HTMLDivElement | null };
+  const dimbarRef = useRef(null) as { current: HTMLDivElement | null };
   const dimsList = dims as ViewDimension[];
+
+  // 工具: 等待下一帧后执行 (确保 React 已把新 DOM 渲染出来)
+  const rafScroll = (fn: () => void) => {
+    requestAnimationFrame(() => requestAnimationFrame(fn));
+  };
 
   useEffect(() => {
     setDims(viewDimensions);
@@ -196,6 +202,12 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     if (!id) return;
     setNewDimName('');
     setAddingDim(false);
+
+    // 新维度 chip 出现在 dimbar 末尾，自动滚到它（应对横向换行后超出可见区）
+    rafScroll(() => {
+      const chip = dimbarRef.current?.querySelector(`[data-dim-id="${id}"]`) as HTMLElement | null;
+      chip?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'end' });
+    });
   };
 
   const handleAddBandRow = (scope?: ClassificationScopeMeta) => {
@@ -271,6 +283,12 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     setAddingSection(false);
     setNewSectionTitle('');
     setNewSectionLayout('grid');
+
+    // 自动滚动到新加的 section（在 dc-sections-wrap 内）
+    rafScroll(() => {
+      const el = overlayRef.current?.querySelector(`[data-section-id="${id}"]`) as HTMLElement | null;
+      el?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    });
   };
 
   const updateSection = (sectionId: string, patch: Partial<ViewSection>) => {
@@ -500,11 +518,12 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
       </div>
 
       <div className="dc-control-bar">
-        <div className="dc-dimbar">
+        <div className="dc-dimbar" ref={dimbarRef}>
           {dimsList.map((dim: ViewDimension) => (
             <button
               key={dim.id}
               type="button"
+              data-dim-id={dim.id}
               className={`dc-chip ${dim.id === activeDim?.id ? 'on' : ''}`}
               style={dim.id === activeDim?.id ? { background: dim.color, borderColor: dim.color } : {}}
               onClick={() => setActiveDimId(dim.id)}
@@ -540,61 +559,88 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
         </div>
       </div>
 
+      {/* ── 模态框：添加维度 ── */}
       {addingDim && (
-        <div className="dc-addrow">
-          <input className="input" value={newDimName} onChange={(event: any) => setNewDimName(event.target.value)} placeholder="Dimension name" />
-          <button type="button" className="btn btn-primary" onClick={handleAddDimension}>Add</button>
-          <button type="button" className="btn btn-ghost" onClick={() => setAddingDim(false)}>Cancel</button>
+        <div className="dc-modal-overlay" onClick={() => setAddingDim(false)}>
+          <div className="dc-modal" onClick={(e: any) => e.stopPropagation()}>
+            <div className="dc-modal-title">＋ 添加维度</div>
+            <div className="dc-modal-body">
+              <input
+                className="input dc-modal-input"
+                value={newDimName}
+                autoFocus
+                onChange={(event: any) => setNewDimName(event.target.value)}
+                onKeyDown={(event: any) => {
+                  if (event.key === 'Enter') handleAddDimension();
+                  if (event.key === 'Escape') setAddingDim(false);
+                }}
+                placeholder="维度名称（如：物理层 / 逻辑层 / 时序）"
+              />
+            </div>
+            <div className="dc-modal-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => setAddingDim(false)}>Cancel</button>
+              <button type="button" className="btn btn-primary" onClick={handleAddDimension}>Add</button>
+            </div>
+          </div>
         </div>
       )}
 
+      {/* ── 模态框：重命名维度 ── */}
       {renamingDimId && (
-        <div className="dc-addrow">
-          <input
-            className="input"
-            value={renameDimName}
-            autoFocus
-            onChange={(event: any) => setRenameDimName(event.target.value)}
-            onKeyDown={(event: any) => { if (event.key === 'Enter') handleCommitRenameDim(); if (event.key === 'Escape') { setRenamingDimId(null); setRenameDimName(''); } }}
-            placeholder="维度名称"
-          />
-          <button type="button" className="btn btn-primary" onClick={handleCommitRenameDim}>Rename</button>
-          <button type="button" className="btn btn-ghost" onClick={() => { setRenamingDimId(null); setRenameDimName(''); }}>Cancel</button>
+        <div className="dc-modal-overlay" onClick={() => { setRenamingDimId(null); setRenameDimName(''); }}>
+          <div className="dc-modal" onClick={(e: any) => e.stopPropagation()}>
+            <div className="dc-modal-title">✎ 重命名维度</div>
+            <div className="dc-modal-body">
+              <input
+                className="input dc-modal-input"
+                value={renameDimName}
+                autoFocus
+                onChange={(event: any) => setRenameDimName(event.target.value)}
+                onKeyDown={(event: any) => {
+                  if (event.key === 'Enter') handleCommitRenameDim();
+                  if (event.key === 'Escape') { setRenamingDimId(null); setRenameDimName(''); }
+                }}
+                placeholder="新的维度名称"
+              />
+            </div>
+            <div className="dc-modal-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => { setRenamingDimId(null); setRenameDimName(''); }}>Cancel</button>
+              <button type="button" className="btn btn-primary" onClick={handleCommitRenameDim}>Rename</button>
+            </div>
+          </div>
         </div>
       )}
 
+      {/* ── 模态框：编辑分类标签 ── */}
       {editingCategory && (
-        <div className="dc-addrow">
-          <input
-            className="input"
-            value={categoryLabelDraft}
-            autoFocus
-            onChange={(event: any) => setCategoryLabelDraft(event.target.value)}
-            onKeyDown={(event: any) => {
-              if (event.key === 'Enter') commitCategoryEdit();
-              if (event.key === 'Escape') {
-                setEditingCategory(null);
-                setCategoryLabelDraft('');
-              }
-            }}
-            placeholder="Category label"
-          />
-          <button type="button" className="btn btn-primary" onClick={commitCategoryEdit}>Save category</button>
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => {
-              setEditingCategory(null);
-              setCategoryLabelDraft('');
-            }}
-          >
-            Cancel
-          </button>
+        <div className="dc-modal-overlay" onClick={() => { setEditingCategory(null); setCategoryLabelDraft(''); }}>
+          <div className="dc-modal" onClick={(e: any) => e.stopPropagation()}>
+            <div className="dc-modal-title">✎ 编辑分类标签</div>
+            <div className="dc-modal-body">
+              <input
+                className="input dc-modal-input"
+                value={categoryLabelDraft}
+                autoFocus
+                onChange={(event: any) => setCategoryLabelDraft(event.target.value)}
+                onKeyDown={(event: any) => {
+                  if (event.key === 'Enter') commitCategoryEdit();
+                  if (event.key === 'Escape') { setEditingCategory(null); setCategoryLabelDraft(''); }
+                }}
+                placeholder="Category label"
+              />
+            </div>
+            <div className="dc-modal-actions">
+              <button type="button" className="btn btn-ghost" onClick={() => { setEditingCategory(null); setCategoryLabelDraft(''); }}>Cancel</button>
+              <button type="button" className="btn btn-primary" onClick={commitCategoryEdit}>Save</button>
+            </div>
+          </div>
         </div>
       )}
 
       {activeDim ? (
-        <div className="dc-sections-wrap" ref={overlayRef}>
+        <>
+          {/* dimension-intro / 输入条 / 组创建条 移到 sections-wrap 外部,
+              避免被滚动容器挡住——用户浏览下方 section 时输入框始终可见 */}
           <div className="dc-dimension-intro">
             <span className="dc-cap-name">{activeDim.name}</span>
             {activeDim.hint && <span className="dc-cap-shape">{activeDim.hint}</span>}
@@ -602,13 +648,33 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
           </div>
 
           {addingSection && (
-            <div className="dc-section-create">
-              <input className="input" value={newSectionTitle} onChange={(event: any) => setNewSectionTitle(event.target.value)} placeholder="Section title" />
-              <select className="input" value={newSectionLayout} onChange={(event: any) => setNewSectionLayout(event.target.value as SectionLayout)}>
-                {LAYOUT_OPTIONS.map((layout) => <option key={layout} value={layout}>{layout}</option>)}
-              </select>
-              <button type="button" className="btn btn-primary btn-sm" onClick={handleAddSection}>Add section</button>
-              <button type="button" className="btn btn-sm" onClick={() => setAddingSection(false)}>Cancel</button>
+            <div className="dc-modal-overlay" onClick={() => setAddingSection(false)}>
+              <div className="dc-modal" onClick={(e: any) => e.stopPropagation()}>
+                <div className="dc-modal-title">＋ 添加 Section</div>
+                <div className="dc-modal-body dc-modal-body--col">
+                  <input
+                    className="input dc-modal-input"
+                    value={newSectionTitle}
+                    autoFocus
+                    onChange={(event: any) => setNewSectionTitle(event.target.value)}
+                    onKeyDown={(event: any) => {
+                      if (event.key === 'Enter') handleAddSection();
+                      if (event.key === 'Escape') setAddingSection(false);
+                    }}
+                    placeholder="Section 标题"
+                  />
+                  <label className="dc-modal-field">
+                    <span className="dc-modal-field-label">布局类型</span>
+                    <select className="input" value={newSectionLayout} onChange={(event: any) => setNewSectionLayout(event.target.value as SectionLayout)}>
+                      {LAYOUT_OPTIONS.map((layout) => <option key={layout} value={layout}>{layout}</option>)}
+                    </select>
+                  </label>
+                </div>
+                <div className="dc-modal-actions">
+                  <button type="button" className="btn btn-ghost" onClick={() => setAddingSection(false)}>Cancel</button>
+                  <button type="button" className="btn btn-primary" onClick={handleAddSection}>Add section</button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -638,60 +704,62 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
             </div>
           )}
 
-          <OrthogonalMatrixView
-            dimensions={dimsList}
-            nodePool={nodePool}
-            selectedNodeId={selectedNodeId}
-            groupSelectedIds={groupSelectedIds}
-            onAtomClick={handleAtomClick}
-            onAtomEdit={startAtomEdit}
-            onAtomHeaderEdit={startAtomEdit}
-            onCategoryEdit={startCategoryEdit}
-            onAddRow={handleAddBandRow}
-            onRenameRow={handleRenameBandRow}
-            onDeleteRow={handleDeleteDimension}
-            onToggleGroupAtom={toggleGroupAtom}
-            registerAtomRect={registerAtomRect}
-          />
-
-          {semanticField && (
-            <SemanticFieldView
-              dimension={activeDim}
-              section={semanticField.section}
-              atoms={semanticField.atoms}
+          <div className="dc-sections-wrap" ref={overlayRef}>
+            <OrthogonalMatrixView
+              dimensions={dimsList}
               nodePool={nodePool}
               selectedNodeId={selectedNodeId}
               groupSelectedIds={groupSelectedIds}
               onAtomClick={handleAtomClick}
               onAtomEdit={startAtomEdit}
+              onAtomHeaderEdit={startAtomEdit}
+              onCategoryEdit={startCategoryEdit}
+              onAddRow={handleAddBandRow}
+              onRenameRow={handleRenameBandRow}
+              onDeleteRow={handleDeleteDimension}
               onToggleGroupAtom={toggleGroupAtom}
               registerAtomRect={registerAtomRect}
             />
-          )}
 
-          {!semanticField && (
-            <DimensionSections
-              dimension={activeDim}
-              nodePool={nodePool}
-              selectedNodeId={selectedNodeId}
-              groupSelectedIds={groupSelectedIds}
-              onAtomClick={handleAtomClick}
-              onAtomEdit={startAtomEdit}
-              onToggleGroupAtom={toggleGroupAtom}
-              registerAtomRect={registerAtomRect}
-              updateSection={updateSection}
-              deleteSection={deleteSection}
-            />
-          )}
-          {!semanticField && (
-            <GroupOverlay
-              groups={activeDim.groups ?? []}
-              atomRects={atomRects}
-              containerRef={overlayRef}
-              onGroupClick={handleAtomClick}
-            />
-          )}
-        </div>
+            {semanticField && (
+              <SemanticFieldView
+                dimension={activeDim}
+                section={semanticField.section}
+                atoms={semanticField.atoms}
+                nodePool={nodePool}
+                selectedNodeId={selectedNodeId}
+                groupSelectedIds={groupSelectedIds}
+                onAtomClick={handleAtomClick}
+                onAtomEdit={startAtomEdit}
+                onToggleGroupAtom={toggleGroupAtom}
+                registerAtomRect={registerAtomRect}
+              />
+            )}
+
+            {!semanticField && (
+              <DimensionSections
+                dimension={activeDim}
+                nodePool={nodePool}
+                selectedNodeId={selectedNodeId}
+                groupSelectedIds={groupSelectedIds}
+                onAtomClick={handleAtomClick}
+                onAtomEdit={startAtomEdit}
+                onToggleGroupAtom={toggleGroupAtom}
+                registerAtomRect={registerAtomRect}
+                updateSection={updateSection}
+                deleteSection={deleteSection}
+              />
+            )}
+            {!semanticField && (
+              <GroupOverlay
+                groups={activeDim.groups ?? []}
+                atomRects={atomRects}
+                containerRef={overlayRef}
+                onGroupClick={handleAtomClick}
+              />
+            )}
+          </div>
+        </>
       ) : (
         <div className="dc-empty">No dimensions yet.</div>
       )}
@@ -809,7 +877,7 @@ function DimensionSections({
       {dimension.sections.map((section: ViewSection) => {
         const atoms = resolveSectionAtoms(section, nodePool);
         return (
-          <section key={section.id} className="dc-section">
+          <section key={section.id} data-section-id={section.id} className="dc-section">
             <div className="dc-section-head" style={{ borderColor: dimension.color }}>
               <input
                 className="dc-section-title-input"

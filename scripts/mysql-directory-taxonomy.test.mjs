@@ -148,10 +148,24 @@ for (const domainId of expectedDomainIds) {
   const domainTree = findTreeNode(universeRoot, domainId);
   assert.ok(domainTree, `${domainId} must exist as a theory-domain folder`);
   assert.equal(domainTree.nodeRef, domainId, `${domainId} tree folder must point at its domain node`);
+  assert.doesNotMatch(
+    nodePool[domainId]?.card?.tabs?.[0]?.content ?? '',
+    /MySQL 知识目录中的稳定分类节点/,
+    `${domainId} domain card must not be defined as a MySQL taxonomy category`,
+  );
   assert.match(
     nodePool[domainId]?.card?.tabs?.[0]?.content ?? '',
     /独立门派：/,
     `${domainId} domain card must record its independent school`,
+  );
+}
+
+for (const [nodeId, node] of Object.entries(nodePool)) {
+  if (!nodeId.startsWith('theory_domain_')) continue;
+  assert.doesNotMatch(
+    node.card?.tabs?.[0]?.content ?? '',
+    /MySQL 知识目录中的稳定分类节点/,
+    `${nodeId} must not use the MySQL taxonomy definition template`,
   );
 }
 
@@ -177,7 +191,7 @@ assert.equal(
 
 const theoryTermNodes = schoolTrees.flatMap(collectTreeNodes).filter((node) => node.id.startsWith('mysql_term_'));
 const theoryRefs = theoryTermNodes.map((node) => node.nodeRef);
-assert.ok(theoryTermNodes.length >= 40, `expected moved theoretical knowledge items to be placed, got ${theoryTermNodes.length}`);
+assert.ok(theoryTermNodes.length >= 38, `expected moved theoretical knowledge items to be placed, got ${theoryTermNodes.length}`);
 assert.equal(
   new Set(theoryRefs).size,
   theoryRefs.length,

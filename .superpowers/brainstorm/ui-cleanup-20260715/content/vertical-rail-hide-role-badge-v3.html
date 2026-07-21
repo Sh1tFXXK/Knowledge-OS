@@ -1,0 +1,109 @@
+<style>
+  .decision-wrap { max-width: 760px; margin: 0 auto; }
+  .decision-note {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin: 18px 0;
+  }
+  .decision-note div {
+    padding: 10px 12px;
+    border: 1px solid #303442;
+    border-radius: 6px;
+    background: #171920;
+  }
+  .decision-note b { display: block; color: #f2f4f8; font-size: 12px; margin-bottom: 3px; }
+  .decision-note span { color: #8e94a3; font-size: 11px; }
+  .panel {
+    overflow: hidden;
+    border: 1px solid #303442;
+    border-radius: 8px;
+    background: #0b0d14;
+    color: #c8ccd7;
+    font: 12px/1.45 system-ui, sans-serif;
+    box-shadow: 0 18px 50px rgba(7, 8, 14, .28);
+  }
+  .panel-head,
+  .context-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    border-bottom: 1px solid #232632;
+  }
+  .panel-head b { color: #f2f4f8; }
+  .panel-head span { color: #8d93a3; font-size: 11px; }
+  .context-line { justify-content: flex-start; padding-block: 7px; color: #9298a8; font-size: 11px; }
+  .rail-layout { display: grid; grid-template-columns: 78px minmax(0, 1fr); min-height: 410px; }
+  .rail { padding: 9px 7px; border-right: 1px solid #272a35; background: #0d0f16; }
+  .rail span {
+    display: block;
+    padding: 8px;
+    margin-bottom: 3px;
+    border-radius: 4px;
+    color: #777d8d;
+  }
+  .rail .active { color: #ece9ff; background: #25213b; box-shadow: inset 2px 0 #7c6ee6; }
+  .rail .add { margin-top: 8px; color: #626879; border: 1px dashed #2c303b; text-align: center; }
+  .rail-content { padding: 12px 14px; min-width: 0; }
+  .section-label { margin-bottom: 6px; color: #6f7585; font-size: 9px; text-transform: uppercase; }
+  .tags, .subnav { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { padding: 3px 8px; border: 1px solid #2e5960; border-radius: 999px; color: #69b7c5; background: #102126; }
+  .add-tag { padding: 3px 6px; color: #676d7d; }
+  .subnav { margin-top: 14px; padding-bottom: 12px; border-bottom: 1px solid #242833; }
+  .subnav span { padding: 5px 9px; border-radius: 4px; color: #8e94a3; background: #171a23; border: 1px solid #2a2e3a; }
+  .subnav .active { color: #f0edff; background: #25213c; border-color: #554c96; }
+  .copy { margin: 16px 0; max-width: 58ch; color: #b7bbc6; font-size: 13px; line-height: 1.78; }
+  .lens { padding: 10px; border-left: 2px solid #6359c9; background: #11131b; }
+  .lens b { display: block; color: #dedfea; margin-bottom: 3px; }
+  .lens small { color: #707687; }
+  .approval {
+    margin-top: 18px;
+    padding: 13px 15px;
+    border: 1px solid #544d89;
+    border-radius: 7px;
+    background: #211e32;
+    color: #dcd8ff;
+    cursor: pointer;
+    text-align: center;
+  }
+  .approval:hover, .approval.selected { background: #2a2541; border-color: #7c6ee6; }
+  @media (max-width: 700px) { .decision-note { grid-template-columns: 1fr; } }
+</style>
+
+<div class="decision-wrap">
+  <h2>C 方案修订：只隐藏标题角色标签</h2>
+  <p class="subtitle">主导航中的“机制”页面保留；标题区不再重复显示角色“机制”。</p>
+
+  <div class="decision-note">
+    <div><b>主导航</b><span>定义 / 机制 / 边界 / 来源 / 路径</span></div>
+    <div><b>标题区</b><span>只显示当前环境，不显示角色标签</span></div>
+    <div><b>数据</b><span>角色和机制页面内容都不删除</span></div>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head"><b>解释卡</b><span>编辑</span></div>
+    <div class="context-line">代码 / 字节码</div>
+    <div class="rail-layout">
+      <nav class="rail">
+        <span class="active">定义</span>
+        <span>机制</span>
+        <span>边界</span>
+        <span>来源</span>
+        <span>路径</span>
+        <span class="add">＋ 页面</span>
+      </nav>
+      <div class="rail-content">
+        <div class="section-label">Supertag</div>
+        <div class="tags"><span class="tag">#字节码</span><span class="tag">#JVM</span><span class="add-tag">＋</span></div>
+        <div class="subnav"><span class="active">通用定义</span><span>Java</span><span>编译器</span><span>＋</span></div>
+        <p class="copy">字节码是经过编译、但与特定机器代码无关的中间表示，需要虚拟机或解释器继续执行。</p>
+        <div class="lens"><b>领域镜头</b><small>计算机科学 / 代码 / 字节码</small></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="approval" data-choice="approve-vertical-hide-role-badge" onclick="toggleSelect(this)">
+    确认采用这个版本
+  </div>
+</div>

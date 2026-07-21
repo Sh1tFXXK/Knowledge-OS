@@ -12,20 +12,26 @@ import './styles/components.css';
 import './styles/database.css';
 
 import TopBar from './layout/TopBar';
-import BottomBar from './layout/BottomBar';
 import UniverseTree from './layout/UniverseTree';
 import ReasoningKernel from './core/ReasoningKernel';
 import RightSidePanel from './layout/RightSidePanel';
 import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
 import MechanismLensPanel from './components/MechanismLensPanel';
+import SupertagLibrary from './components/SupertagLibrary';
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
 const LEFT_PANEL_COLLAPSED_WIDTH = 42;
+const RIGHT_PANEL_MIN_WIDTH = 280;
+const RIGHT_PANEL_MAX_WIDTH = 680;
 
 function clampLeftPanelWidth(width: number): number {
   return Math.min(LEFT_PANEL_MAX_WIDTH, Math.max(LEFT_PANEL_MIN_WIDTH, width));
+}
+
+function clampRightPanelWidth(width: number): number {
+  return Math.min(RIGHT_PANEL_MAX_WIDTH, Math.max(RIGHT_PANEL_MIN_WIDTH, width));
 }
 
 export default function App() {
@@ -34,6 +40,7 @@ export default function App() {
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const initialize = useGraphStore((s) => s.initialize);
   const [leftPanelWidth, setLeftPanelWidth] = useState(260);
+  const [rightPanelWidth, setRightPanelWidth] = useState(360);
   const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
 
   useEffect(() => {
@@ -63,8 +70,31 @@ export default function App() {
     window.addEventListener('mouseup', handleMouseUp);
   }, [leftPanelWidth]);
 
+  const startRightPanelResize = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+
+    const startX = event.clientX;
+    const startWidth = rightPanelWidth;
+
+    const handleMouseMove = (moveEvent: MouseEvent) => {
+      const nextWidth = startWidth + startX - moveEvent.clientX;
+      setRightPanelWidth(clampRightPanelWidth(nextWidth));
+    };
+
+    const handleMouseUp = () => {
+      document.body.classList.remove('is-resizing-right-panel');
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.body.classList.add('is-resizing-right-panel');
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  }, [rightPanelWidth]);
+
   const appStyle = {
     '--left-panel-width': `${isLeftPanelCollapsed ? LEFT_PANEL_COLLAPSED_WIDTH : leftPanelWidth}px`,
+    '--right-panel-width': `${rightPanelWidth}px`,
   } as CSSProperties;
 
   return (
@@ -107,6 +137,14 @@ export default function App() {
             </div>
             <QuestionDatabase />
           </section>
+        ) : activeView === 'supertags' ? (
+          <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+              <h2 style={{ margin: 0, fontSize: 15 }}># Supertag 库</h2>
+              <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
+            </div>
+            <SupertagLibrary />
+          </section>
         ) : activeView === 'mechanism' ? (
           <section className="center-view" id="center-view">
             <MechanismLensPanel />
@@ -120,19 +158,14 @@ export default function App() {
       </main>
 
       {/* ── 右侧：详情解释卡 + 关系网 ── */}
-      <RightSidePanel />
-
-      {/* ── 底栏工具条 ── */}
-      <footer className="toolbar" id="toolbar">
-        <BottomBar />
-      </footer>
+      <RightSidePanel onResizeStart={startRightPanelResize} />
 
       {/* ── 通知 Toast ── */}
       <div
         id="notification-container"
         style={{
           position: 'fixed',
-          bottom: 48,
+          bottom: 16,
           right: 16,
           zIndex: 9999,
           display: 'flex',

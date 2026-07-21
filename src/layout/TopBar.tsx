@@ -1,11 +1,13 @@
 import { useGraphStore } from '../store/useGraph';
 import { getTreePathNames } from '../knowledge/treeUtils';
+import type { AppView } from '../types';
 
-const VIEWS = [
-  { icon: '🌌', label: '视图', labelEn: 'Universe View', id: 'universe' },
+const VIEWS: ReadonlyArray<{ icon: string; label: string; labelEn: string; id: AppView }> = [
+  { icon: '🌐', label: '视图', labelEn: 'Universe View', id: 'universe' },
   { icon: 'M', label: '机制', labelEn: 'Mechanism Lens', id: 'mechanism' },
-  { icon: '🗄️', label: '节点库', labelEn: 'Node Database', id: 'database' },
-  { icon: '❓', label: '问题库', labelEn: 'Question Database', id: 'questions' },
+  { icon: 'DB', label: '节点库', labelEn: 'Node Database', id: 'database' },
+  { icon: '?', label: '问题库', labelEn: 'Question Database', id: 'questions' },
+  { icon: 'ST', label: 'Supertag库', labelEn: 'Supertag Library', id: 'supertags' },
 ];
 
 export default function TopBar() {
@@ -24,7 +26,6 @@ export default function TopBar() {
 
   return (
     <>
-      {/* Logo */}
       <div className="header-logo">
         <div className="header-logo-icon">K</div>
         <div>
@@ -33,36 +34,33 @@ export default function TopBar() {
         </div>
       </div>
 
-      {/* View Tabs */}
       <nav className="header-nav">
-        {VIEWS.map((v) => (
+        {VIEWS.map((view) => (
           <button
-            key={v.id}
+            key={view.id}
             type="button"
-            className={`header-nav-item${activeView === v.id ? ' active' : ''}`}
-            title={v.labelEn}
-            onClick={() => setActiveView(v.id)}
+            className={`header-nav-item${activeView === view.id ? ' active' : ''}`}
+            title={view.labelEn}
+            onClick={() => setActiveView(view.id)}
           >
-            <span className="nav-icon">{v.icon}</span>
-            <span className="nav-label">{v.label}</span>
+            <span className="nav-icon">{view.icon}</span>
+            <span className="nav-label">{view.label}</span>
           </button>
         ))}
       </nav>
 
-      {/* Breadcrumb Navigation */}
       <div className="header-breadcrumb" id="header-breadcrumb">
-        {breadcrumb.map((b, i) => (
-          <span key={i}>
-            <span className={i === breadcrumb.length - 1 ? 'active' : ''}>{b}</span>
-            {i < breadcrumb.length - 1 && <span className="sep">›</span>}
+        {breadcrumb.map((item, index) => (
+          <span key={`${item}:${index}`}>
+            <span className={index === breadcrumb.length - 1 ? 'active' : ''}>{item}</span>
+            {index < breadcrumb.length - 1 && <span className="sep">/</span>}
           </span>
         ))}
       </div>
 
-      {/* Right Actions */}
       <div className="header-actions">
         <button className="btn-icon" title="设置" onClick={() => {}}>
-          <span>⚙️</span>
+          <span>⚙</span>
         </button>
         <div className="header-user" title="Visionary">
           V

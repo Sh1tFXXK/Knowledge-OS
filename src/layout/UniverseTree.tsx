@@ -22,6 +22,8 @@ interface TreeDirectoryOption {
 }
 
 const TREE_NODE_DRAG_TYPE = 'application/x-knowledge-os-tree-node';
+/** 拖拽悬停多久后才自动展开目标文件夹（毫秒）；过短易误开，过长难用 */
+const DRAG_EXPAND_DWELL_MS = 650;
 
 interface UniverseTreeProps {
   isCollapsed: boolean;
@@ -135,6 +137,7 @@ const TreeItem = ({
   const [editing, setEditing] = useState(false);
   const [editValue, setEditValue] = useState(node.name);
   const dragCloseTimerRef = useRef<number | null>(null);
+  const dragExpandTimerRef = useRef<number | null>(null);
   const hasChildren = !!(node.children && node.children.length > 0);
   const poolId = node.nodeRef;
   const isSelected = poolId === selectedNodeId;
@@ -145,8 +148,15 @@ const TreeItem = ({
   const canDrag = level > 0 && !editing;
   const canBulkSelect = level > 0;
 
+  const cancelDragExpand = () => {
+    if (dragExpandTimerRef.current === null) return;
+    window.clearTimeout(dragExpandTimerRef.current);
+    dragExpandTimerRef.current = null;
+  };
+
   useEffect(() => {
     if (draggingTreeNodeId) return;
+    cancelDragExpand();
     if (dragCloseTimerRef.current !== null) {
       window.clearTimeout(dragCloseTimerRef.current);
       dragCloseTimerRef.current = null;
@@ -158,6 +168,7 @@ const TreeItem = ({
   }, [draggingTreeNodeId, openedByDrag]);
 
   useEffect(() => () => {
+    cancelDragExpand();
     if (dragCloseTimerRef.current !== null) window.clearTimeout(dragCloseTimerRef.current);
   }, []);
 
@@ -167,6 +178,16 @@ const TreeItem = ({
     setOpenedByDrag(true);
   };
 
+  /** 停留足够久才展开；快速划过不展开 */
+  const scheduleDragExpand = () => {
+    if (!hasChildren || isOpen || isTreeRoot) return;
+    if (dragExpandTimerRef.current !== null) return;
+    dragExpandTimerRef.current = window.setTimeout(() => {
+      dragExpandTimerRef.current = null;
+      openForDragFocus();
+    }, DRAG_EXPAND_DWELL_MS);
+  };
+
   const cancelDragAutoClose = () => {
     if (dragCloseTimerRef.current === null) return;
     window.clearTimeout(dragCloseTimerRef.current);
@@ -174,6 +195,7 @@ const TreeItem = ({
   };
 
   const scheduleDragAutoClose = () => {
+    cancelDragExpand();
     if (!openedByDrag) return;
     cancelDragAutoClose();
     dragCloseTimerRef.current = window.setTimeout(() => {
@@ -217,7 +239,7 @@ const TreeItem = ({
     e.preventDefault();
     e.stopPropagation();
     cancelDragAutoClose();
-    openForDragFocus();
+    scheduleDragExpand();
     onDragOverNode(node.id);
   };
 
@@ -227,7 +249,7 @@ const TreeItem = ({
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
     cancelDragAutoClose();
-    openForDragFocus();
+    scheduleDragExpand();
     onDragOverNode(node.id);
   };
 
@@ -241,6 +263,7 @@ const TreeItem = ({
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    cancelDragExpand();
     cancelDragAutoClose();
     setOpenedByDrag(false);
     const draggedId = e.dataTransfer.getData(TREE_NODE_DRAG_TYPE) || draggingTreeNodeId;

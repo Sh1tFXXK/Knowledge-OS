@@ -12,10 +12,14 @@ import type {
   SubSystem,
   KnowledgeNode,
   KnowledgeEdge,
+  ExplanationPage,
+  ExplanationTab,
+  ExplanationTitleTarget,
   TreeRefSupplement,
   Rule,
   ViewScope,
   ViewDataPack,
+  AppView,
 } from '../types';
 import {
   createKnowledgeNode,
@@ -58,6 +62,152 @@ import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/fileP
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 
 const initialApp = createEmptyAppState();
+const DEFINITION_TAB_ID = 'def';
+
+function defaultPageForTab(tab: NodeExplanation['tabs'][number]): ExplanationPage {
+  return {
+    id: tab.id,
+    label: tab.id === DEFINITION_TAB_ID ? '通用定义' : '通用页面',
+    content: tab.content,
+  };
+}
+
+function pagesForTab(card: NodeExplanation, tab: NodeExplanation['tabs'][number]): ExplanationPage[] {
+  if (tab.pages?.length) return tab.pages;
+  const legacyPages = tab.id === DEFINITION_TAB_ID ? card.definitionPages : undefined;
+  return legacyPages?.length ? legacyPages : [defaultPageForTab(tab)];
+}
+
+function patchTabPages(
+  card: NodeExplanation,
+  tabId: string,
+  pages: ExplanationPage[],
+): Partial<Pick<NodeExplanation, 'tabs' | 'definitionPages'>> {
+  const tabs = mapTabRecursive(card.tabs, tabId, (tab) => ({
+    ...tab,
+    content: pages[0]?.content ?? tab.content,
+    pages,
+  }));
+  return tabId === DEFINITION_TAB_ID && card.definitionPages
+    ? { tabs, definitionPages: pages }
+    : { tabs };
+}
+
+// ===================== 递归树遍历工具 =====================
+// ExplanationTab 与 ExplanationPage 都支持无限递归（tabs[].tabs[] 与 pages[].pages[]）。
+// 以下工具函数在树中按 ID 查找/变换/删除节点，路径用 ID 数组表示（从根到目标）。
+
+/** 在 Tab 树中按 ID 查找 Tab 节点。 */
+function findTabRecursive(tabs: ExplanationTab[], tabId: string): ExplanationTab | null {
+  for (const tab of tabs) {
+    if (tab.id === tabId) return tab;
+    if (tab.tabs) {
+      const found = findTabRecursive(tab.tabs, tabId);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+/** 在 Tab 树中按 ID 查找路径（从根到目标，包含目标本身）。找不到返回 null。 */
+function findTabPath(tabs: ExplanationTab[], tabId: string): ExplanationTab[] | null {
+  for (const tab of tabs) {
+    if (tab.id === tabId) return [tab];
+    if (tab.tabs) {
+      const subPath = findTabPath(tab.tabs, tabId);
+      if (subPath) return [tab, ...subPath];
+    }
+  }
+  return null;
+}
+
+/** 在 Tab 树中变换匹配 ID 的节点（返回新树，不修改原树）。 */
+function mapTabRecursive(
+  tabs: ExplanationTab[],
+  tabId: string,
+  fn: (tab: ExplanationTab) => ExplanationTab,
+): ExplanationTab[] {
+  return tabs.map((tab) => {
+    if (tab.id === tabId) return fn(tab);
+    if (tab.tabs) return { ...tab, tabs: mapTabRecursive(tab.tabs, tabId, fn) };
+    return tab;
+  });
+}
+
+/** 在 Tab 树中删除匹配 ID 的节点（返回新树）。 */
+function removeTabRecursive(tabs: ExplanationTab[], tabId: string): ExplanationTab[] {
+  return tabs
+    .filter((tab) => tab.id !== tabId)
+    .map((tab) => (tab.tabs ? { ...tab, tabs: removeTabRecursive(tab.tabs, tabId) } : tab));
+}
+
+/** 在 Page 树中按 ID 查找 Page 节点。 */
+function findPageRecursive(pages: ExplanationPage[], pageId: string): ExplanationPage | null {
+  for (const page of pages) {
+    if (page.id === pageId) return page;
+    if (page.pages) {
+      const found = findPageRecursive(page.pages, pageId);
+      if (found) return found;
+    }
+  }
+  return null;
+}
+
+/** 在 Page 树中按 ID 查找路径（从根到目标，包含目标本身）。 */
+function findPagePath(pages: ExplanationPage[], pageId: string): ExplanationPage[] | null {
+  for (const page of pages) {
+    if (page.id === pageId) return [page];
+    if (page.pages) {
+      const subPath = findPagePath(page.pages, pageId);
+      if (subPath) return [page, ...subPath];
+    }
+  }
+  return null;
+}
+
+/** 在 Page 树中变换匹配 ID 的节点（返回新树，不修改原树）。 */
+function mapPageRecursive(
+  pages: ExplanationPage[],
+  pageId: string,
+  fn: (page: ExplanationPage) => ExplanationPage,
+): ExplanationPage[] {
+  return pages.map((page) => {
+    if (page.id === pageId) return fn(page);
+    if (page.pages) return { ...page, pages: mapPageRecursive(page.pages, pageId, fn) };
+    return page;
+  });
+}
+
+/** 在 Page 树中删除匹配 ID 的节点（返回新树）。 */
+function removePageRecursive(pages: ExplanationPage[], pageId: string): ExplanationPage[] {
+  return pages
+    .filter((page) => page.id !== pageId)
+    .map((page) => (page.pages ? { ...page, pages: removePageRecursive(page.pages, pageId) } : page));
+}
+
+/** 给 Page 树的某个节点追加一个子页面（返回新树）。 */
+function appendChildPage(
+  pages: ExplanationPage[],
+  parentPageId: string,
+  child: ExplanationPage,
+): ExplanationPage[] {
+  return mapPageRecursive(pages, parentPageId, (page) => ({
+    ...page,
+    pages: [...(page.pages ?? []), child],
+  }));
+}
+
+/** 给 Tab 树的某个节点追加一个子 Tab（返回新树）。 */
+function appendChildTab(
+  tabs: ExplanationTab[],
+  parentTabId: string,
+  child: ExplanationTab,
+): ExplanationTab[] {
+  return mapTabRecursive(tabs, parentTabId, (tab) => ({
+    ...tab,
+    tabs: [...(tab.tabs ?? []), child],
+  }));
+}
 
 interface GraphState {
   axioms: GraphNode[];
@@ -84,7 +234,7 @@ interface GraphState {
   notifications: NotificationItem[];
   theme: ThemeType;
   currentPerspective: Perspective | null;
-  activeView: string;
+  activeView: AppView;
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
@@ -131,7 +281,7 @@ interface GraphState {
   setTheme: (theme: ThemeType) => void;
   toggleTheme: () => void;
   setCurrentPerspective: (p: Perspective | null) => void;
-  setActiveView: (view: string) => void;
+  setActiveView: (view: AppView) => void;
   undo: () => void;
   getAllNodes: () => GraphNode[];
 
@@ -152,9 +302,27 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<Pick<NodeExplanation, 'title' | 'tabs' | 'notes'>>,
+    patch: Partial<Pick<NodeExplanation, 'title' | 'tabs' | 'definitionPages' | 'notes'>>,
   ) => void;
+  addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
+  removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
+  renameKnowledgeTab: (knowledgeId: string, tabId: string, label: string) => void;
+  addKnowledgeTabPage: (
+    knowledgeId: string,
+    tabId: string,
+    label: string,
+    parentPageId?: string | null,
+  ) => string | null;
+  removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
+  updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
+  renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
+  updateExplanationTitleWeight: (
+    knowledgeId: string,
+    target: ExplanationTitleTarget,
+    weight: number,
+  ) => void;
+  mergeExplanationTitle: (knowledgeId: string, target: ExplanationTitleTarget) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   listKnowledgeNodes: () => KnowledgeNode[];
 
@@ -770,6 +938,63 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
+    addKnowledgeTab: (knowledgeId, label, parentTabId = null) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      const trimmedLabel = label.trim();
+      if (!existing || existing.locked || !trimmedLabel) return null;
+
+      const idPrefix = `${knowledgeId}-tab-`;
+      let tabId = `${idPrefix}${Date.now()}`;
+      let suffix = 1;
+      // ID 在整棵 Tab 树中保持唯一（包含子 Tab）
+      const allTabIds = new Set<string>();
+      const collectIds = (tabs: ExplanationTab[]) => {
+        for (const t of tabs) {
+          allTabIds.add(t.id);
+          if (t.tabs) collectIds(t.tabs);
+        }
+      };
+      collectIds(existing.card.tabs);
+      while (allTabIds.has(tabId)) {
+        tabId = `${idPrefix}${Date.now()}-${suffix}`;
+        suffix += 1;
+      }
+
+      const newTab: ExplanationTab = { id: tabId, label: trimmedLabel, content: '' };
+
+      if (parentTabId) {
+        // 加为子 Tab
+        const parentExists = findTabRecursive(existing.card.tabs, parentTabId);
+        if (!parentExists) return null;
+        const tabs = appendChildTab(existing.card.tabs, parentTabId, newTab);
+        get().updateKnowledgeCard(knowledgeId, { tabs });
+      } else {
+        // 加为顶层 Tab
+        get().updateKnowledgeCard(knowledgeId, {
+          tabs: [...existing.card.tabs, newTab],
+        });
+      }
+      return tabId;
+    },
+
+    removeKnowledgeTab: (knowledgeId, tabId) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing || existing.locked) return;
+      // def Tab 永远不允许删
+      if (tabId === DEFINITION_TAB_ID) return;
+      // 顶层只有一个 Tab 且要删的就是它，不允许
+      const isTopLevel = existing.card.tabs.some((t) => t.id === tabId);
+      if (isTopLevel && existing.card.tabs.length <= 1) return;
+      // 递归查找并删除（支持删子 Tab）
+      const before = JSON.stringify(existing.card.tabs);
+      const nextTabs = removeTabRecursive(existing.card.tabs, tabId);
+      const after = JSON.stringify(nextTabs);
+      if (before === after) return;
+      get().updateKnowledgeCard(knowledgeId, { tabs: nextTabs });
+    },
+
     updateKnowledgeTab: (knowledgeId, tabId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -778,10 +1003,195 @@ export const useGraphStore = create<GraphState>((set, get) => {
         get().addNotification('节点已锁定，不可编辑', 'warning');
         return;
       }
-      const tabs = existing.card.tabs.map((t) =>
-        t.id === tabId ? { ...t, content } : t,
-      );
+      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, content }));
       get().updateKnowledgeCard(knowledgeId, { tabs });
+    },
+
+    renameKnowledgeTab: (knowledgeId, tabId, label) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      const trimmedLabel = label.trim();
+      if (!existing || !trimmedLabel) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, label: trimmedLabel }));
+      if (tabs.every((tab, index) => tab === existing.card.tabs[index])) return;
+      get().updateKnowledgeCard(knowledgeId, { tabs });
+    },
+
+    addKnowledgeTabPage: (knowledgeId, tabId, label, parentPageId = null) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      const trimmedLabel = label.trim();
+      if (!existing || existing.locked || !trimmedLabel) return null;
+
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return null;
+      const pages = pagesForTab(existing.card, tab);
+
+      const pageIdPrefix = `${knowledgeId}-${tabId}-page-`;
+      let pageId = `${pageIdPrefix}${Date.now()}`;
+      let suffix = 1;
+      // ID 在整棵 Page 树中保持唯一
+      const allPageIds = new Set<string>();
+      const collectIds = (list: ExplanationPage[]) => {
+        for (const p of list) {
+          allPageIds.add(p.id);
+          if (p.pages) collectIds(p.pages);
+        }
+      };
+      collectIds(pages);
+      while (allPageIds.has(pageId)) {
+        pageId = `${pageIdPrefix}${Date.now()}-${suffix}`;
+        suffix += 1;
+      }
+
+      const newPage: ExplanationPage = { id: pageId, label: trimmedLabel, content: '' };
+
+      let nextPages: ExplanationPage[];
+      if (parentPageId) {
+        // 加为子 Page
+        const parentExists = findPageRecursive(pages, parentPageId);
+        if (!parentExists) return null;
+        nextPages = appendChildPage(pages, parentPageId, newPage);
+      } else {
+        // 加为顶层 Page（在该 Tab 下）
+        nextPages = [...pages, newPage];
+      }
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+      return pageId;
+    },
+
+    removeKnowledgeTabPage: (knowledgeId, tabId, pageId) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing || existing.locked) return;
+
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      // def Page 不允许删（业务约束）
+      if (pageId === DEFINITION_TAB_ID) return;
+      // 递归删除
+      const nextPages = removePageRecursive(pages, pageId);
+      const before = JSON.stringify(pages);
+      const after = JSON.stringify(nextPages);
+      if (before === after) return;
+      // 删完保证至少有一个 Page
+      if (nextPages.length === 0) return;
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+    },
+
+    updateKnowledgeTabPage: (knowledgeId, tabId, pageId, content) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, content }));
+      if (nextPages.every((page, index) => page === pages[index])) return;
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+    },
+
+    renameKnowledgeTabPage: (knowledgeId, tabId, pageId, label) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      const trimmedLabel = label.trim();
+      if (!existing || !trimmedLabel) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, label: trimmedLabel }));
+      if (nextPages.every((page, index) => page === pages[index])) return;
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+    },
+
+    updateExplanationTitleWeight: (knowledgeId, target, weight) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing || existing.locked || !Number.isFinite(weight) || weight <= 0) return;
+
+      if (target.kind === 'tab') {
+        const tabs = mapTabRecursive(existing.card.tabs, target.tabId, (tab) => ({
+          ...tab,
+          weight,
+        }));
+        get().updateKnowledgeCard(knowledgeId, { tabs });
+        return;
+      }
+
+      const tab = findTabRecursive(existing.card.tabs, target.tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, target.pageId, (page) => ({
+        ...page,
+        weight,
+      }));
+      get().updateKnowledgeCard(
+        knowledgeId,
+        patchTabPages(existing.card, target.tabId, nextPages),
+      );
+    },
+
+    mergeExplanationTitle: (knowledgeId, target) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing || existing.locked) return;
+
+      if (target.kind === 'tab') {
+        const tab = findTabRecursive(existing.card.tabs, target.tabId);
+        if (!tab) return;
+
+        const storedPages = tab.pages?.length
+          ? tab.pages
+          : target.tabId === DEFINITION_TAB_ID
+            ? existing.card.definitionPages
+            : undefined;
+        const tabs = mapTabRecursive(existing.card.tabs, target.tabId, (current) => {
+          if (current.tabs?.length) return { ...current, tabs: undefined };
+          if (!storedPages?.length) return current;
+          return {
+            ...current,
+            content: storedPages[0]?.content ?? current.content,
+            pages: undefined,
+          };
+        });
+        get().updateKnowledgeCard(knowledgeId, {
+          tabs,
+          ...(target.tabId === DEFINITION_TAB_ID && storedPages?.length
+            ? { definitionPages: undefined }
+            : {}),
+        });
+        return;
+      }
+
+      const tab = findTabRecursive(existing.card.tabs, target.tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, target.pageId, (page) => ({
+        ...page,
+        pages: undefined,
+      }));
+      get().updateKnowledgeCard(
+        knowledgeId,
+        patchTabPages(existing.card, target.tabId, nextPages),
+      );
     },
 
     removeKnowledgeNode: (knowledgeId) => {

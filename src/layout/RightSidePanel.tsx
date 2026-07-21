@@ -1,12 +1,16 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type MouseEvent as ReactMouseEvent } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { questionsForNode } from '../knowledge/questionLink';
 import ExplanationCard from '../panels/ExplanationCard';
-import RelationNetwork from '../panels/RelationNetwork';
+import RelationNetworkSkeleton from '../panels/RelationNetworkSkeleton';
 import type { Question, NotificationItem } from '../types';
 
-/** 右侧面板：解释卡 → 问题 → 关系网 */
-export default function RightSidePanel() {
+/** 右侧面板：解释卡 → 问题 → 关系网占位 */
+export default function RightSidePanel({
+  onResizeStart,
+}: {
+  onResizeStart: (event: ReactMouseEvent<HTMLDivElement>) => void;
+}) {
   const focusNodeId = useGraphStore((s) => s.focusNodeId);
   const questions = useGraphStore((s) => s.questions);
   const selectedQuestionId = useGraphStore((s) => s.selectedQuestionId);
@@ -27,6 +31,11 @@ export default function RightSidePanel() {
 
   return (
     <aside className="right-panel" id="right-panel">
+      <div
+        className="right-panel-resize-handle"
+        onMouseDown={onResizeStart}
+        title="拖动调整右栏宽度"
+      />
       <div className="right-panel-body">
         <ExplanationCard />
 
@@ -81,7 +90,7 @@ export default function RightSidePanel() {
           />
         </div>
 
-        <RelationNetwork />
+        <RelationNetworkSkeleton />
       </div>
     </aside>
   );

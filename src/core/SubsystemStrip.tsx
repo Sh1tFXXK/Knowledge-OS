@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import { getSubsystemCards, type SubsystemCardData } from './subsystemData';
 import { collectProjectedNodeIds } from '../knowledge/projection';
@@ -11,6 +11,7 @@ export default function SubsystemStrip({ focusNodeId }: Props) {
   const nodePool       = useGraphStore((s) => s.nodePool);
   const knowledgeEdges = useGraphStore((s) => s.knowledgeEdges);
   const openCard       = useGraphStore((s) => s.openCard);
+  const [expanded, setExpanded] = useState(false);
 
   // ── 联动：读取当前焦点节点的 viewDimensions，提取所有已绑定的 subsystem nodeId ──
   const dimLinkedSubsystems = useMemo(() => {
@@ -36,7 +37,7 @@ export default function SubsystemStrip({ focusNodeId }: Props) {
   if (cards.length === 0) return null;
 
   return (
-    <div className="subsystem-strip">
+    <div className={`subsystem-strip${expanded ? ' subsystem-strip--expanded' : ''}`}>
       <div className="subsystem-strip-bridge" aria-hidden>
         <svg width="100%" height="28" viewBox="0 0 800 28" preserveAspectRatio="none">
           <line x1="400" y1="0" x2="400" y2="14"
@@ -57,11 +58,20 @@ export default function SubsystemStrip({ focusNodeId }: Props) {
       <div className="subsystem-strip-head">
         <span className="subsystem-strip-title">递归子系统</span>
         <span className="subsystem-strip-sub">平行微缩宇宙 · 结构固定，无限递归</span>
+        <span className="subsystem-strip-count">{cards.length} 个</span>
         {dimLinkedSubsystems.size > 0 && (
           <span className="subsystem-strip-dim-badge">
             🔗 {dimLinkedSubsystems.size} 个已关联维度
           </span>
         )}
+        <button
+          type="button"
+          className="subsystem-strip-toggle"
+          onClick={() => setExpanded((value: boolean) => !value)}
+          title={expanded ? '收起子系统条' : '展开查看全部子系统'}
+        >
+          {expanded ? '⇣ 收起' : '⇡ 展开'}
+        </button>
       </div>
 
       <div className="subsystem-strip-grid">

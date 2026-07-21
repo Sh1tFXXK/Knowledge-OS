@@ -70,7 +70,9 @@ function isMigratedDimension(dim: LegacyViewDimension): dim is ViewDimension {
 export function migrateNodePool(
   inputPool: Record<string, KnowledgeNode>,
 ): Record<string, KnowledgeNode> {
-  const pool: Record<string, KnowledgeNode> = { ...inputPool };
+  const pool: Record<string, KnowledgeNode> = Object.fromEntries(
+    Object.entries(inputPool).map(([id, node]) => [id, node]),
+  );
 
   for (const [nodeId, node] of Object.entries(inputPool)) {
     if (!node.viewDimensions?.length) continue;
@@ -123,7 +125,7 @@ export function migrateNodePool(
     });
 
     pool[nodeId] = {
-      ...node,
+      ...pool[nodeId],
       viewDimensions: migrated,
     };
   }

@@ -28,6 +28,8 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
+export type AppView = 'universe' | 'mechanism' | 'database' | 'questions' | 'supertags';
+
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
 export interface TreeRefSupplement {
   tabs?: ExplanationTab[];
@@ -225,10 +227,33 @@ export interface InferenceEngine {
   answer: string;
 }
 
-export interface ExplanationTab {
+export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
+  /** Relative share of the parent split axis. Undefined is equal share. */
+  weight?: number;
+  /**
+   * 子页面（无限递归）。
+   * - 顶部横向页签支持多层堆叠：选中一个 page 后，下一行渲染它的子页面。
+   * - 旧数据没有此字段时按 undefined 处理，等同于叶子页面。
+   */
+  pages?: ExplanationPage[];
+}
+
+/** Stable, typed address for a mutable title node in an explanation tree. */
+export type ExplanationTitleTarget =
+  | { kind: 'tab'; tabId: string }
+  | { kind: 'page'; tabId: string; pageId: string };
+
+export interface ExplanationTab extends ExplanationPage {
+  /**
+   * 子 Tab（无限递归）。
+   * - 左侧纵向页签渲染为树形：子 Tab 缩进显示在父 Tab 下方。
+   * - 旧数据没有此字段时按 undefined 处理，等同于叶子 Tab。
+   */
+  tabs?: ExplanationTab[];
+  /** pages 继承自 ExplanationPage，作为该 Tab 下的横向页签（可继续递归）。 */
 }
 
 /** 解释卡字段：仅「节点是什么」，不含关系 */
@@ -236,6 +261,8 @@ export interface NodeExplanation {
   nodeId: string;
   title: string;
   tabs: ExplanationTab[];
+  /** Legacy storage for definition child pages; new pages live on their parent tab. */
+  definitionPages?: ExplanationPage[];
   notes?: string;
 }
 
