@@ -231,8 +231,6 @@ export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
-  /** Relative share of the parent split axis. Undefined is equal share. */
-  weight?: number;
   /**
    * 子页面（无限递归）。
    * - 顶部横向页签支持多层堆叠：选中一个 page 后，下一行渲染它的子页面。
@@ -240,11 +238,6 @@ export interface ExplanationPage {
    */
   pages?: ExplanationPage[];
 }
-
-/** Stable, typed address for a mutable title node in an explanation tree. */
-export type ExplanationTitleTarget =
-  | { kind: 'tab'; tabId: string }
-  | { kind: 'page'; tabId: string; pageId: string };
 
 export interface ExplanationTab extends ExplanationPage {
   /**

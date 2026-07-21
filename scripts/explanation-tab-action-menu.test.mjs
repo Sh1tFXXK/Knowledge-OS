@@ -7,19 +7,28 @@ function readProjectFile(filePath) {
   return fs.readFileSync(path.resolve(filePath), 'utf8');
 }
 
-test('recursive title cells expose one compact structural action menu', () => {
-  const source = readProjectFile('src/panels/explanation/RecursiveTitleMatrix.tsx');
+test('explanation tabs use one shared action menu instead of crowded action buttons', () => {
+  const source = readProjectFile('src/panels/ExplanationCard.tsx');
   const styles = readProjectFile('src/styles/components.css');
 
-  assert.match(source, /className="title-matrix-tools-trigger"/);
-  assert.match(source, /className="title-matrix-tools-menu"/);
-  assert.match(source, />分裂</);
-  assert.match(source, />添加同级</);
-  assert.match(source, />编辑标题</);
-  assert.match(source, />\s*合并\s*</);
+  assert.match(source, /function ItemActionMenu/);
+  assert.match(source, /className="explanation-item-menu-trigger"/);
+  assert.match(source, /className="explanation-item-menu"/);
+  assert.match(source, /新增子页/);
+  assert.match(source, /重命名/);
   assert.match(source, /删除/);
-  assert.match(source, /className="title-matrix-weight-control"/);
-  assert.match(styles, /\.title-matrix-tools-trigger\s*\{/);
-  assert.match(styles, /\.title-matrix-tools-menu\s*\{/);
-  assert.match(styles, /\.title-matrix-weight-control\s*\{/);
+  assert.doesNotMatch(source, /className="card-tab-add-child"/);
+  assert.doesNotMatch(source, /className="definition-page-add-child"/);
+  assert.doesNotMatch(source, /className="card-tab-close"/);
+  assert.doesNotMatch(source, /className="definition-page-close"/);
+  assert.match(styles, /\.explanation-item-menu-trigger\s*\{/);
+  assert.match(styles, /\.explanation-item-menu\s*\{/);
+  assert.match(
+    styles,
+    /\.definition-pages-multirow\s*\{[\s\S]*margin:\s*-13px -13px -10px[\s\S]*width:\s*calc\(100% \+ 26px\)/,
+  );
+  assert.match(
+    styles,
+    /\.card-content > \.markdown-view\s*\{[\s\S]*margin:\s*-10px -13px 96px[\s\S]*min-height:\s*185px[\s\S]*width:\s*calc\(100% \+ 26px\)/,
+  );
 });

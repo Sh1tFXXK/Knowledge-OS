@@ -14,7 +14,6 @@ import type {
   KnowledgeEdge,
   ExplanationPage,
   ExplanationTab,
-  ExplanationTitleTarget,
   TreeRefSupplement,
   Rule,
   ViewScope,
@@ -317,12 +316,6 @@ interface GraphState {
   removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
   renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
-  updateExplanationTitleWeight: (
-    knowledgeId: string,
-    target: ExplanationTitleTarget,
-    weight: number,
-  ) => void;
-  mergeExplanationTitle: (knowledgeId: string, target: ExplanationTitleTarget) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   listKnowledgeNodes: () => KnowledgeNode[];
 
@@ -1120,78 +1113,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (nextPages.every((page, index) => page === pages[index])) return;
 
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-    },
-
-    updateExplanationTitleWeight: (knowledgeId, target, weight) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked || !Number.isFinite(weight) || weight <= 0) return;
-
-      if (target.kind === 'tab') {
-        const tabs = mapTabRecursive(existing.card.tabs, target.tabId, (tab) => ({
-          ...tab,
-          weight,
-        }));
-        get().updateKnowledgeCard(knowledgeId, { tabs });
-        return;
-      }
-
-      const tab = findTabRecursive(existing.card.tabs, target.tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      const nextPages = mapPageRecursive(pages, target.pageId, (page) => ({
-        ...page,
-        weight,
-      }));
-      get().updateKnowledgeCard(
-        knowledgeId,
-        patchTabPages(existing.card, target.tabId, nextPages),
-      );
-    },
-
-    mergeExplanationTitle: (knowledgeId, target) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked) return;
-
-      if (target.kind === 'tab') {
-        const tab = findTabRecursive(existing.card.tabs, target.tabId);
-        if (!tab) return;
-
-        const storedPages = tab.pages?.length
-          ? tab.pages
-          : target.tabId === DEFINITION_TAB_ID
-            ? existing.card.definitionPages
-            : undefined;
-        const tabs = mapTabRecursive(existing.card.tabs, target.tabId, (current) => {
-          if (current.tabs?.length) return { ...current, tabs: undefined };
-          if (!storedPages?.length) return current;
-          return {
-            ...current,
-            content: storedPages[0]?.content ?? current.content,
-            pages: undefined,
-          };
-        });
-        get().updateKnowledgeCard(knowledgeId, {
-          tabs,
-          ...(target.tabId === DEFINITION_TAB_ID && storedPages?.length
-            ? { definitionPages: undefined }
-            : {}),
-        });
-        return;
-      }
-
-      const tab = findTabRecursive(existing.card.tabs, target.tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      const nextPages = mapPageRecursive(pages, target.pageId, (page) => ({
-        ...page,
-        pages: undefined,
-      }));
-      get().updateKnowledgeCard(
-        knowledgeId,
-        patchTabPages(existing.card, target.tabId, nextPages),
-      );
     },
 
     removeKnowledgeNode: (knowledgeId) => {

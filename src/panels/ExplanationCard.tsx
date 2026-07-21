@@ -22,12 +22,10 @@ import {
 import type {
   ExplanationPage,
   ExplanationTab,
-  ExplanationTitleTarget,
   NodeExplanation,
 } from '../types';
 import MarkdownView from './explanation/MarkdownView';
 import ProjectionReferences from './explanation/ProjectionReferences';
-import RecursiveTitleMatrix from './explanation/RecursiveTitleMatrix';
 import SupertagPanel from './explanation/SupertagPanel';
 
 function contextParentPathLabel(reference: TreeNodeReference): string {
@@ -45,6 +43,11 @@ function contextEnvironmentLabel(reference: TreeNodeReference): string {
 const SYSTEM_TAB_IDS = {
   definition: 'def',
 } as const;
+const HIDDEN_LEGACY_TAB_IDS = new Set(['mech', 'bound', 'source']);
+
+function isVisibleMainTab(tab: ExplanationTab): boolean {
+  return !HIDDEN_LEGACY_TAB_IDS.has(tab.id);
+}
 
 function defaultPageForTab(tab: ExplanationTab): ExplanationPage {
   return {
@@ -60,6 +63,334 @@ function pagesForTab(explanation: NodeExplanation, tab: ExplanationTab): Explana
   return legacyPages?.length ? legacyPages : [defaultPageForTab(tab)];
 }
 
+interface ActionMenuSelection {
+  kind: 'tab' | 'page';
+  id: string;
+}
+
+type ActionMenuTarget = ActionMenuSelection | null;
+
+interface ItemActionMenuProps {
+  label: string;
+  isOpen: boolean;
+  isActive: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+  onAddChild: () => void;
+  onRename?: () => void;
+  onDelete?: () => void;
+}
+
+function ItemActionMenu({
+  label,
+  isOpen,
+  isActive,
+  onToggle,
+  onClose,
+  onAddChild,
+  onRename,
+  onDelete,
+}: ItemActionMenuProps) {
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const [menuPosition, setMenuPosition] = useState<CSSProperties>({ top: 0, left: 0 });
+
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    const updatePosition = () => {
+      const trigger = triggerRef.current;
+      if (!trigger) return;
+
+      const rect = trigger.getBoundingClientRect();
+      const menuWidth = menuRef.current?.offsetWidth ?? 148;
+      const menuHeight = menuRef.current?.offsetHeight ?? 104;
+      const viewportGap = 8;
+      const controlGap = 5;
+      const opensRight = rect.right + controlGap + menuWidth <= window.innerWidth - viewportGap;
+      const left = opensRight
+        ? rect.right + controlGap
+        : Math.max(viewportGap, rect.left - menuWidth - controlGap);
+      const top = Math.min(
+        Math.max(viewportGap, rect.top),
+        Math.max(viewportGap, window.innerHeight - menuHeight - viewportGap),
+      );
+
+      setMenuPosition({ top, left });
+    };
+
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    window.addEventListener('scroll', updatePosition, true);
+    return () => {
+      window.removeEventListener('resize', updatePosition);
+      window.removeEventListener('scroll', updatePosition, true);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const focusFrame = window.requestAnimationFrame(() => menuRef.current?.focus());
+    const handlePointerDown = (event: PointerEvent) => {
+      if (
+        !triggerRef.current?.contains(event.target as Node) &&
+        !menuRef.current?.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      event.preventDefault();
+      onClose();
+      window.requestAnimationFrame(() => triggerRef.current?.focus());
+    };
+
+    document.addEventListener('pointerdown', handlePointerDown, true);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener('pointerdown', handlePointerDown, true);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isOpen, onClose]);
+
+  const runAction = (action: () => void) => {
+    onClose();
+    action();
+  };
+
+  return (
+    <span
+      className={`explanation-item-menu-root${isActive ? ' is-active' : ''}${isOpen ? ' is-open' : ''}`}
+    >
+      <button
+        ref={triggerRef}
+        type="button"
+        className="explanation-item-menu-trigger"
+        aria-label={`${label}的更多操作`}
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+        title="更多操作"
+        onClick={(event) => {
+          event.stopPropagation();
+          onToggle();
+        }}
+      >
+        <span aria-hidden="true">⋯</span>
+      </button>
+      {isOpen &&
+        createPortal(
+          <div
+            ref={menuRef}
+            className="explanation-item-menu"
+            role="menu"
+            aria-label={`${label}操作`}
+            style={menuPosition}
+            tabIndex={-1}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button type="button" role="menuitem" onClick={() => runAction(onAddChild)}>
+              <span aria-hidden="true">＋</span>
+              <span>新增子页</span>
+            </button>
+            {onRename && (
+              <button type="button" role="menuitem" onClick={() => runAction(onRename)}>
+                <span aria-hidden="true">✎</span>
+                <span>重命名</span>
+              </button>
+            )}
+            {onDelete && (
+              <button
+                type="button"
+                role="menuitem"
+                className="is-danger"
+                onClick={() => runAction(onDelete)}
+              >
+                <span aria-hidden="true">×</span>
+                <span>删除</span>
+              </button>
+            )}
+          </div>,
+          document.body,
+        )}
+    </span>
+  );
+}
+
+interface TabTreeItemProps {
+  tab: ExplanationTab;
+  depth: number;
+  activeTab: string;
+  expandedTabs: Record<string, boolean>;
+  renamingTabId: string | null;
+  renamingTabLabel: string;
+  addingChildTabParent: string | null;
+  newChildTabLabel: string;
+  canRemove: boolean;
+  isTopLevel: boolean;
+  openActionMenu: ActionMenuTarget;
+  onToggleActionMenu: (target: ActionMenuSelection) => void;
+  onCloseActionMenu: () => void;
+  onToggleExpand: (tabId: string) => void;
+  onSelectTab: (tab: ExplanationTab) => void;
+  onBeginRename: (tab: ExplanationTab) => void;
+  onCancelRename: () => void;
+  onCommitRename: () => void;
+  onRenamingLabelChange: (value: string) => void;
+  onRemoveTab: (tabId: string) => void;
+  onBeginAddChild: (tabId: string) => void;
+  onCancelAddChild: () => void;
+  onCommitAddChild: () => void;
+  onNewChildLabelChange: (value: string) => void;
+}
+
+function TabTreeItem(props: TabTreeItemProps) {
+  const {
+    tab,
+    depth,
+    activeTab,
+    expandedTabs,
+    renamingTabId,
+    renamingTabLabel,
+    addingChildTabParent,
+    newChildTabLabel,
+    canRemove,
+    isTopLevel,
+    openActionMenu,
+    onToggleActionMenu,
+    onCloseActionMenu,
+    onToggleExpand,
+    onSelectTab,
+    onBeginRename,
+    onCancelRename,
+    onCommitRename,
+    onRenamingLabelChange,
+    onRemoveTab,
+    onBeginAddChild,
+    onCancelAddChild,
+    onCommitAddChild,
+    onNewChildLabelChange,
+  } = props;
+  const tabId = tab.id || tab.label;
+  const hasChildren = !!tab.tabs?.length;
+  const isExpanded = expandedTabs[tabId] ?? false;
+  const isActive = tabId === activeTab;
+  const isRenaming = renamingTabId === tab.id;
+  const isAddingChild = addingChildTabParent === tab.id;
+
+  return (
+    <div className="card-tab-subtree">
+      <div
+        className={`card-tab-item${isRenaming ? ' is-renaming' : ''}`}
+        style={{ paddingLeft: depth * 3 + 1 }}
+      >
+        {hasChildren ? (
+          <button
+            type="button"
+            className={`card-tab-arrow${isExpanded ? ' is-expanded' : ''}`}
+            aria-label={isExpanded ? '折叠子页签' : '展开子页签'}
+            title={isExpanded ? '折叠' : '展开'}
+            onClick={(event) => {
+              event.stopPropagation();
+              onToggleExpand(tabId);
+            }}
+          >
+            {isExpanded ? '▾' : '▸'}
+          </button>
+        ) : (
+          <span className="card-tab-arrow is-leaf" aria-hidden="true" />
+        )}
+        {isRenaming ? (
+          <form
+            className="card-tab-rename-form"
+            onSubmit={(event) => {
+              event.preventDefault();
+              onCommitRename();
+            }}
+          >
+            <input
+              className="card-tab-rename-input"
+              value={renamingTabLabel}
+              autoFocus
+              onFocus={(event) => event.currentTarget.select()}
+              onChange={(event) => onRenamingLabelChange(event.target.value)}
+              onBlur={onCommitRename}
+              onKeyDown={(event) => {
+                if (event.key === 'Escape') {
+                  event.preventDefault();
+                  onCancelRename();
+                }
+              }}
+            />
+          </form>
+        ) : (
+          <button
+            type="button"
+            className={`card-tab${isActive ? ' active' : ''}`}
+            aria-current={isActive ? 'page' : undefined}
+            title={tab.label}
+            onDoubleClick={() => onBeginRename(tab)}
+            onClick={() => onSelectTab(tab)}
+          >
+            {tab.label}
+          </button>
+        )}
+        {!isRenaming && (
+          <ItemActionMenu
+            label={tab.label}
+            isOpen={openActionMenu?.kind === 'tab' && openActionMenu.id === tab.id}
+            isActive={isActive}
+            onToggle={() => onToggleActionMenu({ kind: 'tab', id: tab.id })}
+            onClose={onCloseActionMenu}
+            onAddChild={() => onBeginAddChild(tab.id)}
+            onRename={isTopLevel && tab.id ? () => onBeginRename(tab) : undefined}
+            onDelete={canRemove ? () => onRemoveTab(tab.id) : undefined}
+          />
+        )}
+      </div>
+      {isAddingChild && (
+        <form
+          className="card-tab-add-form"
+          style={{ marginLeft: (depth + 1) * 3 + 1 }}
+          onSubmit={(event) => {
+            event.preventDefault();
+            onCommitAddChild();
+          }}
+        >
+          <input
+            className="card-tab-add-input"
+            value={newChildTabLabel}
+            placeholder="子页签名称"
+            autoFocus
+            onChange={(event) => onNewChildLabelChange(event.target.value)}
+            onKeyDown={(event) => {
+              if (event.key === 'Escape') {
+                event.preventDefault();
+                onCancelAddChild();
+              }
+            }}
+          />
+          <button type="submit" className="card-tab-add-confirm" aria-label="添加子页签" title="添加子页签">
+            ✓
+          </button>
+        </form>
+      )}
+      {hasChildren && isExpanded && tab.tabs?.map((child) => (
+        <TabTreeItem
+          key={child.id || child.label}
+          {...props}
+          tab={child}
+          depth={depth + 1}
+          canRemove={true}
+          isTopLevel={false}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const selectedTreeNodeId = useGraphStore((s) => s.selectedTreeNodeId);
@@ -72,9 +403,6 @@ export default function ExplanationCard() {
   const removeKnowledgeTabPage = useGraphStore((s) => s.removeKnowledgeTabPage);
   const updateKnowledgeTabPage = useGraphStore((s) => s.updateKnowledgeTabPage);
   const renameKnowledgeTabPage = useGraphStore((s) => s.renameKnowledgeTabPage);
-  const updateKnowledgeCard = useGraphStore((s) => s.updateKnowledgeCard);
-  const updateExplanationTitleWeight = useGraphStore((s) => s.updateExplanationTitleWeight);
-  const mergeExplanationTitle = useGraphStore((s) => s.mergeExplanationTitle);
   const updateKnowledgeNodeMeta = useGraphStore((s) => s.updateKnowledgeNodeMeta);
   const updatePathSupplementContent = useGraphStore((s) => s.updatePathSupplementContent);
   const addKnowledgeNode = useGraphStore((s) => s.addKnowledgeNode);
@@ -123,7 +451,7 @@ export default function ExplanationCard() {
   const activeContextSupplement = activeContext?.supplement ?? null;
   const suggestedLabel = selectedTreeNode?.name.trim() ?? '';
   const createLabel = (newLabel.trim() || suggestedLabel).trim();
-  const visibleTabs = explanation?.tabs ?? [];
+  const visibleTabs = (explanation?.tabs ?? []).filter(isVisibleMainTab);
 
   // 计算 activeTab 在 Tab 树中的路径（如果是顶层 Tab 或子 Tab）
   const activeTabPath = useMemo(() => {
@@ -364,61 +692,6 @@ export default function ExplanationCard() {
     cancelRenamePage();
   };
 
-  const handleMatrixAddTab = (label: string, parentTabId: string | null) => {
-    if (!selectedNodeId) return;
-    const tabId = addKnowledgeTab(selectedNodeId, label, parentTabId);
-    if (!tabId) return;
-    setActiveTab(tabId);
-    setActivePageId(tabId);
-    setIsEditing(false);
-  };
-
-  const handleMatrixAddPage = (
-    tabId: string,
-    label: string,
-    parentPageId: string | null,
-  ) => {
-    if (!selectedNodeId) return;
-    const pageId = addKnowledgeTabPage(selectedNodeId, tabId, label, parentPageId);
-    if (!pageId) return;
-    setActiveTab(tabId);
-    setActivePageId(pageId);
-    setIsEditing(false);
-  };
-
-  const handleMatrixDelete = (target: ExplanationTitleTarget) => {
-    if (!selectedNodeId || !explanation) return;
-    if (target.kind === 'tab') {
-      handleRemoveTab(target.tabId);
-      return;
-    }
-
-    const tabPath = findTabPath(explanation.tabs, target.tabId);
-    const tab = tabPath?.[tabPath.length - 1];
-    if (!tab) return;
-    const pages = pagesForTab(explanation, tab);
-    removeKnowledgeTabPage(selectedNodeId, target.tabId, target.pageId);
-    if (activePageId === target.pageId) {
-      const remaining = pages.filter((page) => page.id !== target.pageId);
-      setActiveTab(target.tabId);
-      setActivePageId(remaining[0]?.id ?? target.tabId);
-      setIsEditing(false);
-    }
-  };
-
-  const handleMatrixMerge = (target: ExplanationTitleTarget) => {
-    if (!selectedNodeId) return;
-    mergeExplanationTitle(selectedNodeId, target);
-    if (target.kind === 'tab') {
-      setActiveTab(target.tabId);
-      setActivePageId(target.tabId);
-    } else {
-      setActiveTab(target.tabId);
-      setActivePageId(target.pageId);
-    }
-    setIsEditing(false);
-  };
-
   // 选中节点切换时重置状态
   useEffect(() => {
     setIsEditing(false);
@@ -579,45 +852,278 @@ export default function ExplanationCard() {
         </div>
 
         <div className="explanation-card-body">
-          <RecursiveTitleMatrix
-            explanation={explanation}
-            visibleTabs={visibleTabs}
-            pathTitles={pathTabsForDisplay.map((tab) => ({
-              id: tab.id || tab.label,
-              label: tab.label,
-            }))}
-            activeTabId={activeTab}
-            activePageId={activePageId}
-            onSelectTab={handleSelectTab}
-            onSelectPage={(tabId, pageId) => {
-              setActiveTab(tabId);
-              setActivePageId(pageId);
-              setIsEditing(false);
-            }}
-            onSelectPath={(pathId) => {
-              setActiveTab(pathId);
-              setActivePageId('');
-              setIsEditing(false);
-            }}
-            onRenameRoot={(label) =>
-              selectedNodeId && updateKnowledgeCard(selectedNodeId, { title: label })
-            }
-            onRenameTab={(tabId, label) =>
-              selectedNodeId && renameKnowledgeTab(selectedNodeId, tabId, label)
-            }
-            onRenamePage={(tabId, pageId, label) =>
-              selectedNodeId && renameKnowledgeTabPage(selectedNodeId, tabId, pageId, label)
-            }
-            onAddTab={handleMatrixAddTab}
-            onAddPage={handleMatrixAddPage}
-            onDelete={handleMatrixDelete}
-            onMerge={handleMatrixMerge}
-            onWeightChange={(target, weight) =>
-              selectedNodeId && updateExplanationTitleWeight(selectedNodeId, target, weight)
-            }
-          />
+          <nav className="card-tabs" aria-label="解释页">
+            {visibleTabs.map((tab) => {
+              const tabId = tab.id || tab.label;
+              const canRemove =
+                tabId !== SYSTEM_TAB_IDS.definition && visibleTabs.length > 1;
+              return (
+                <TabTreeItem
+                  key={tabId}
+                  tab={tab}
+                  depth={0}
+                  activeTab={activeTab}
+                  expandedTabs={expandedTabs}
+                  renamingTabId={renamingTabId}
+                  renamingTabLabel={renamingTabLabel}
+                  addingChildTabParent={addingChildTabParent}
+                  newChildTabLabel={newChildTabLabel}
+                  canRemove={canRemove}
+                  isTopLevel={true}
+                  openActionMenu={openActionMenu}
+                  onToggleActionMenu={toggleActionMenu}
+                  onCloseActionMenu={() => setOpenActionMenu(null)}
+                  onToggleExpand={handleToggleExpand}
+                  onSelectTab={handleSelectTab}
+                  onBeginRename={beginRenameTab}
+                  onCancelRename={cancelRenameTab}
+                  onCommitRename={commitRenameTab}
+                  onRenamingLabelChange={setRenamingTabLabel}
+                  onRemoveTab={handleRemoveTab}
+                  onBeginAddChild={(parentId) => {
+                    setAddingChildTabParent(parentId);
+                    setNewChildTabLabel('');
+                    setExpandedTabs((prev) => ({ ...prev, [parentId]: true }));
+                  }}
+                  onCancelAddChild={() => {
+                    setAddingChildTabParent(null);
+                    setNewChildTabLabel('');
+                  }}
+                  onCommitAddChild={handleAddChildTab}
+                  onNewChildLabelChange={setNewChildTabLabel}
+                />
+              );
+            })}
+
+            {pathTabsForDisplay.map((tab) => {
+              const tabId = tab.id || tab.label;
+              const isActive = tabId === activeTab;
+              return (
+                <div key={tabId} className="card-tab-item path-tab-item">
+                  <span className="card-tab-arrow is-leaf" aria-hidden="true" />
+                  <button
+                    type="button"
+                    className={`card-tab${isActive ? ' active' : ''}`}
+                    aria-current={isActive ? 'page' : undefined}
+                    title={tab.label}
+                    onClick={() => {
+                      setActiveTab(tabId);
+                      setActivePageId('');
+                      setIsEditing(false);
+                    }}
+                  >
+                    {tab.label}
+                  </button>
+                </div>
+              );
+            })}
+
+            {isAddingTab ? (
+              <form
+                className="card-tab-add-form"
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  handleAddTab();
+                }}
+              >
+                <input
+                  className="card-tab-add-input"
+                  value={newTabLabel}
+                  placeholder="页面名称"
+                  autoFocus
+                  onChange={(event) => setNewTabLabel(event.target.value)}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Escape') {
+                      setIsAddingTab(false);
+                      setNewTabLabel('');
+                    }
+                  }}
+                />
+                <button
+                  type="submit"
+                  className="card-tab-add-confirm"
+                  aria-label="添加页面"
+                  title="添加页面"
+                >
+                  ✓
+                </button>
+              </form>
+            ) : (
+              <button
+                type="button"
+                className="card-tab-add"
+                onClick={() => setIsAddingTab(true)}
+              >
+                + 页
+              </button>
+            )}
+          </nav>
 
           <div className="card-content" id="card-content-body">
+            {isPagedTab && pageRows.length > 0 && (
+              <section className="definition-pages definition-pages-multirow" aria-label="页面">
+                {pageRows.map((row, rowIdx) => (
+                  <div
+                    key={rowIdx}
+                    className="definition-page-row"
+                    style={{ marginLeft: rowIdx * 6 }}
+                  >
+                    {row.pages.map((page) => {
+                      const isActive = page.id === row.activePageId;
+                      const isRenaming = renamingPageId === page.id;
+                      const isAddingChild = addingChildPageParent === page.id;
+                      const isDefinitionPage = page.id === SYSTEM_TAB_IDS.definition;
+                      const canRemovePage =
+                        !isDefinitionPage &&
+                        rowIdx === 0 &&
+                        pageTabs.length > 1;
+                      const canRemoveChildPage = !isDefinitionPage && rowIdx > 0;
+                      return (
+                        <div
+                          key={page.id}
+                          className={`definition-page-item${isActive ? ' is-active' : ''}`}
+                        >
+                          {isRenaming ? (
+                            <form
+                              className="definition-page-rename-form"
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                commitRenamePage();
+                              }}
+                            >
+                              <input
+                                className="definition-page-rename-input"
+                                value={renamingPageLabel}
+                                autoFocus
+                                onFocus={(event) => event.currentTarget.select()}
+                                onChange={(event) => setRenamingPageLabel(event.target.value)}
+                                onBlur={commitRenamePage}
+                                onKeyDown={(event) => {
+                                  if (event.key === 'Escape') {
+                                    event.preventDefault();
+                                    cancelRenamePage();
+                                  }
+                                }}
+                              />
+                            </form>
+                          ) : (
+                            <button
+                              type="button"
+                              className={`definition-page-tab${isActive ? ' active' : ''}`}
+                              aria-current={isActive ? 'page' : undefined}
+                              title={page.label}
+                              onDoubleClick={() => beginRenamePage(page)}
+                              onClick={() => {
+                                setActivePageId(page.id);
+                                setIsEditing(false);
+                              }}
+                            >
+                              {page.label}
+                            </button>
+                          )}
+                          {!isRenaming && (
+                            <ItemActionMenu
+                              label={page.label}
+                              isOpen={
+                                openActionMenu?.kind === 'page' &&
+                                openActionMenu.id === page.id
+                              }
+                              isActive={isActive}
+                              onToggle={() => toggleActionMenu({ kind: 'page', id: page.id })}
+                              onClose={() => setOpenActionMenu(null)}
+                              onAddChild={() => {
+                                setAddingChildPageParent(page.id);
+                                setNewChildPageLabel('');
+                              }}
+                              onRename={
+                                isDefinitionPage ? undefined : () => beginRenamePage(page)
+                              }
+                              onDelete={
+                                canRemovePage || canRemoveChildPage
+                                  ? () => handleRemovePage(page.id)
+                                  : undefined
+                              }
+                            />
+                          )}
+                          {isAddingChild && (
+                            <form
+                              className="definition-page-add-form definition-page-add-child-form"
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                handleAddPage(page.id);
+                              }}
+                            >
+                              <input
+                                className="definition-page-add-input"
+                                value={newChildPageLabel}
+                                placeholder="子页名称"
+                                autoFocus
+                                onChange={(event) => setNewChildPageLabel(event.target.value)}
+                                onKeyDown={(event) => {
+                                  if (event.key === 'Escape') {
+                                    event.preventDefault();
+                                    setAddingChildPageParent(null);
+                                    setNewChildPageLabel('');
+                                  }
+                                }}
+                              />
+                              <button
+                                type="submit"
+                                className="definition-page-add-confirm"
+                                aria-label="添加子页"
+                                title="添加子页"
+                              >
+                                ✓
+                              </button>
+                            </form>
+                          )}
+                        </div>
+                      );
+                    })}
+                    {rowIdx === 0 && isAddingPage ? (
+                      <form
+                        className="definition-page-add-form"
+                        onSubmit={(event) => {
+                          event.preventDefault();
+                          handleAddPage(null);
+                        }}
+                      >
+                        <input
+                          className="definition-page-add-input"
+                          value={newPageLabel}
+                          placeholder="页面名称"
+                          autoFocus
+                          onChange={(event) => setNewPageLabel(event.target.value)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Escape') {
+                              setIsAddingPage(false);
+                              setNewPageLabel('');
+                            }
+                          }}
+                        />
+                        <button
+                          type="submit"
+                          className="definition-page-add-confirm"
+                          aria-label="添加页面"
+                          title="添加页面"
+                        >
+                          ✓
+                        </button>
+                      </form>
+                    ) : rowIdx === 0 ? (
+                      <button
+                        type="button"
+                        className="definition-page-add"
+                        onClick={() => setIsAddingPage(true)}
+                      >
+                        +
+                      </button>
+                    ) : null}
+                  </div>
+                ))}
+              </section>
+            )}
+
             {isEditing ? (
               isPagedTab && activePageTab && activeLeafPage ? (
                 <textarea
