@@ -4,6 +4,7 @@ import type { AppView } from '../types';
 
 const VIEWS: ReadonlyArray<{ icon: string; label: string; labelEn: string; id: AppView }> = [
   { icon: '🌐', label: '视图', labelEn: 'Universe View', id: 'universe' },
+  { icon: 'IX', label: '索引', labelEn: 'Explanation Index', id: 'index' },
   { icon: 'M', label: '机制', labelEn: 'Mechanism Lens', id: 'mechanism' },
   { icon: 'DB', label: '节点库', labelEn: 'Node Database', id: 'database' },
   { icon: '?', label: '问题库', labelEn: 'Question Database', id: 'questions' },

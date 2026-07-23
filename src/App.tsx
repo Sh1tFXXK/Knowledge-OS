@@ -19,6 +19,7 @@ import NodeDatabase from './components/NodeDatabase';
 import QuestionDatabase from './components/QuestionDatabase';
 import MechanismLensPanel from './components/MechanismLensPanel';
 import SupertagLibrary from './components/SupertagLibrary';
+import ExplanationIndexView from './core/ExplanationIndexView';
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -121,7 +122,11 @@ export default function App() {
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
-        {activeView === 'database' ? (
+        {activeView === 'index' ? (
+          <section className="center-view" id="center-view">
+            <ExplanationIndexView />
+          </section>
+        ) : activeView === 'database' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
               <h2 style={{ margin: 0, fontSize: 15 }}>🗄️ 节点库</h2>

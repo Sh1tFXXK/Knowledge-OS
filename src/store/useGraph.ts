@@ -19,7 +19,10 @@ import type {
   ViewScope,
   ViewDataPack,
   AppView,
+  ExplanationIndexSelection,
+  ExplanationSelection,
 } from '../types';
+import { ExplanationSelectionKind } from '../types';
 import {
   createKnowledgeNode,
   createKnowledgeEdge,
@@ -59,6 +62,12 @@ import {
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
 import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
+import {
+  applyExplanationIndexOperation as mutateExplanationIndex,
+  setExplanationIndexItemTags,
+  type ExplanationIndexOperation,
+} from '../knowledge/explanationIndexMutations';
+import { areSupertagsEqual, normalizeSupertags } from '../knowledge/supertags';
 
 const initialApp = createEmptyAppState();
 const DEFINITION_TAB_ID = 'def';
@@ -216,6 +225,7 @@ interface GraphState {
   selectedNodeId: string | null;
   selectedTreeNodeId: string | null;
   focusNodeId: string | null;
+  activeExplanationSelection: ExplanationSelection | null;
   /** 鍙充晶闂璇︽儏闈㈡澘褰撳墠灞曠ず鐨勯棶棰?*/
   selectedQuestionId: string | null;
   hoveredNodeId: string | null;
@@ -244,6 +254,15 @@ interface GraphState {
   /** @alias setSelectedNodeOnly */
   openCard: (id: string | null) => void;
   setSelectedQuestion: (id: string | null) => void;
+  setActiveExplanationSelection: (selection: ExplanationSelection | null) => void;
+  applyExplanationIndexOperation: (
+    selection: ExplanationIndexSelection,
+    operation: ExplanationIndexOperation,
+  ) => boolean;
+  setExplanationIndexTags: (
+    selection: ExplanationIndexSelection,
+    tags: readonly string[],
+  ) => boolean;
   selectTreeEntry: (treeNodeId: string) => void;
   getTreeSupplement: () => TreeRefSupplement | null;
   getKnowledgeExplanation: () => NodeExplanation | null;
@@ -384,6 +403,7 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     selectedNodeId: null,
     selectedTreeNodeId: null,
     selectedQuestionId: null,
+    activeExplanationSelection: null,
   });
 }
 
@@ -411,6 +431,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     selectedTreeNodeId: null,
     focusNodeId: null,
     selectedQuestionId: null,
+    activeExplanationSelection: null,
     hoveredNodeId: null,
     treeData: initialApp.treeData,
     nodePool: initialApp.nodePool,
@@ -444,14 +465,20 @@ export const useGraphStore = create<GraphState>((set, get) => {
         focusNodeId: id,
         selectedTreeNodeId: null,
         selectedQuestionId: pickQuestionForFocus(state.questions, id),
+        activeExplanationSelection: null,
       });
     },
 
-    setSelectedNodeOnly: (id) => set({ selectedNodeId: id }),
+    setSelectedNodeOnly: (id) =>
+      set((state) => ({
+        selectedNodeId: id,
+        activeExplanationSelection:
+          state.selectedNodeId === id ? state.activeExplanationSelection : null,
+      })),
 
     openCard: (id) => {
       if (id === null) {
-        set({ selectedNodeId: null });
+        set({ selectedNodeId: null, activeExplanationSelection: null });
         return;
       }
       // Update focusNodeId so RelationNetwork and questions follow the opened card,
@@ -484,10 +511,71 @@ export const useGraphStore = create<GraphState>((set, get) => {
         focusNodeId: id,
         axioms, mechanisms, conclusions, edges,
         selectedQuestionId: pickQuestionForFocus(state.questions, id),
+        activeExplanationSelection:
+          state.selectedNodeId === id ? state.activeExplanationSelection : null,
       });
     },
 
     setSelectedQuestion: (id) => set({ selectedQuestionId: id }),
+
+    setActiveExplanationSelection: (selection) =>
+      set({ activeExplanationSelection: selection }),
+
+    applyExplanationIndexOperation: (selection, operation) => {
+      const state = get();
+      const existing = state.nodePool[selection.nodeId];
+      if (!existing || existing.locked) return false;
+      const result = mutateExplanationIndex(existing.card, selection, operation, genId);
+      if (!result.changed) return false;
+
+      const nodePool = {
+        ...state.nodePool,
+        [existing.id]: {
+          ...existing,
+          label: result.explanation.title,
+          card: result.explanation,
+        },
+      };
+      set({
+        nodePool,
+        activeExplanationSelection: result.selection,
+      });
+      persist();
+      return true;
+    },
+
+    setExplanationIndexTags: (selection, values) => {
+      const state = get();
+      const existing = state.nodePool[selection.nodeId];
+      if (!existing || existing.locked) return false;
+      const tags = normalizeSupertags(values);
+
+      if (selection.kind === ExplanationSelectionKind.Root) {
+        if (areSupertagsEqual(existing.tags ?? [], tags)) return false;
+        set({
+          nodePool: {
+            ...state.nodePool,
+            [existing.id]: {
+              ...existing,
+              tags: tags.length > 0 ? tags : undefined,
+            },
+          },
+        });
+        persist();
+        return true;
+      }
+
+      const card = setExplanationIndexItemTags(existing.card, selection, tags);
+      if (card === existing.card) return false;
+      set({
+        nodePool: {
+          ...state.nodePool,
+          [existing.id]: { ...existing, card },
+        },
+      });
+      persist();
+      return true;
+    },
 
     selectTreeEntry: (treeNodeId) => {
       const state = get();
@@ -536,6 +624,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         selectedNodeId: nodeId,
         focusNodeId: focusNodeId,
         selectedQuestionId: pickQuestionForFocus(state.questions, focusNodeId),
+        activeExplanationSelection: null,
         axioms,
         mechanisms,
         conclusions,

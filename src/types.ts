@@ -28,7 +28,7 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-export type AppView = 'universe' | 'mechanism' | 'database' | 'questions' | 'supertags';
+export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags';
 
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
 export interface TreeRefSupplement {
@@ -231,6 +231,9 @@ export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
+  tags?: string[];
+  /** 在同级排列轴上的相对占比；旧数据缺省为 1。 */
+  weight?: number;
   /**
    * 子页面（无限递归）。
    * - 顶部横向页签支持多层堆叠：选中一个 page 后，下一行渲染它的子页面。
@@ -248,6 +251,34 @@ export interface ExplanationTab extends ExplanationPage {
   tabs?: ExplanationTab[];
   /** pages 继承自 ExplanationPage，作为该 Tab 下的横向页签（可继续递归）。 */
 }
+
+export enum ExplanationSelectionKind {
+  Root = 'root',
+  Content = 'content',
+  Path = 'path',
+}
+
+export interface ExplanationRootSelection {
+  kind: ExplanationSelectionKind.Root;
+  nodeId: string;
+}
+
+export interface ExplanationContentSelection {
+  kind: ExplanationSelectionKind.Content;
+  nodeId: string;
+  tabId: string;
+  pageId: string | null;
+}
+
+export interface ExplanationPathSelection {
+  kind: ExplanationSelectionKind.Path;
+  nodeId: string;
+  treeNodeId: string;
+  tabId: string;
+}
+
+export type ExplanationIndexSelection = ExplanationRootSelection | ExplanationContentSelection;
+export type ExplanationSelection = ExplanationIndexSelection | ExplanationPathSelection;
 
 /** 解释卡字段：仅「节点是什么」，不含关系 */
 export interface NodeExplanation {
