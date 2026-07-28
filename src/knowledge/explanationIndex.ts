@@ -22,7 +22,6 @@ export interface ExplanationIndexNode {
   id: string;
   kind: ExplanationIndexNodeKind;
   label: string;
-  tags: string[];
   weight: number;
   selection: ExplanationIndexSelection;
   children: ExplanationIndexNode[];
@@ -46,7 +45,6 @@ function pageNode(nodeId: string, tabId: string, page: ExplanationPage): Explana
     id: `page:${tabId}:${page.id}`,
     kind: ExplanationIndexNodeKind.Page,
     label: page.label,
-    tags: page.tags ?? [],
     weight: page.weight ?? 1,
     selection: {
       kind: ExplanationSelectionKind.Content,
@@ -72,7 +70,6 @@ function tabNode(
     id: `tab:${tab.id}`,
     kind: ExplanationIndexNodeKind.Tab,
     label: tab.label,
-    tags: tab.tags ?? [],
     weight: tab.weight ?? 1,
     selection: {
       kind: ExplanationSelectionKind.Content,
@@ -84,15 +81,11 @@ function tabNode(
   };
 }
 
-export function buildExplanationIndex(
-  explanation: NodeExplanation,
-  rootTags: readonly string[] = [],
-): ExplanationIndexNode {
+export function buildExplanationIndex(explanation: NodeExplanation): ExplanationIndexNode {
   return {
     id: `root:${explanation.nodeId}`,
     kind: ExplanationIndexNodeKind.Root,
     label: explanation.title,
-    tags: [...rootTags],
     weight: 1,
     selection: {
       kind: ExplanationSelectionKind.Root,
@@ -106,9 +99,14 @@ export function buildExplanationIndex(
 
 export function defaultExplanationSelection(
   explanation: NodeExplanation,
-): ExplanationContentSelection | null {
+): ExplanationIndexSelection | null {
   const firstTab = explanation.tabs.find(isVisibleExplanationTab);
-  if (!firstTab) return null;
+  if (!firstTab) {
+    return {
+      kind: ExplanationSelectionKind.Root,
+      nodeId: explanation.nodeId,
+    };
+  }
   const firstPage = explicitPagesForTab(explanation, firstTab)[0];
   return {
     kind: ExplanationSelectionKind.Content,

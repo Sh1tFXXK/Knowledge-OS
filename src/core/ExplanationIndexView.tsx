@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+﻿import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import {
   buildExplanationIndex,
   countExplanationIndexNodes,
@@ -73,11 +73,8 @@ function IndexNode({
   const isActive = isExplanationSelectionActive(activeSelection, node.selection);
   const containsActive = containsActiveSelection(node, activeSelection);
   const hasChildren = node.children.length > 0;
-  const visibleTags = node.tags.slice(0, 2);
-  const hiddenTagCount = node.tags.length - visibleTags.length;
-  const nodeTitle = node.tags.length > 0
-    ? `${node.label || '未命名'}\n${node.tags.map((tag) => `#${tag}`).join(' ')}`
-    : node.label || '未命名';
+
+  const nodeTitle = node.label || '未命名';
 
   const title = (
     <div
@@ -85,8 +82,8 @@ function IndexNode({
     >
       <button
         type="button"
-        className={`${hasChildren ? 'explanation-index-parent-title' : 'explanation-index-leaf'}${node.tags.length > 0 ? ' has-tags' : ''}`}
         aria-current={isActive ? 'page' : undefined}
+        className={`${hasChildren ? 'explanation-index-parent-title' : 'explanation-index-leaf'}`}
         title={nodeTitle}
         onClick={() => onSelect(node.selection)}
         onDoubleClick={() => {
@@ -96,23 +93,7 @@ function IndexNode({
         }}
       >
         <span className="explanation-index-label">{node.label || '未命名'}</span>
-        {hasChildren && node.tags.length > 0 && (
-          <span className="explanation-index-tag-count" aria-label={`${node.tags.length} 个 super tag`}>
-            #{node.tags.length}
-          </span>
-        )}
-        {!hasChildren && node.tags.length > 0 && (
-          <span className="explanation-index-cell-tags" aria-label={`Super tags: ${node.tags.join(', ')}`}>
-            {visibleTags.map((tag) => (
-              <span className="explanation-index-cell-tag" key={tag}>{tag}</span>
-            ))}
-            {hiddenTagCount > 0 && (
-              <span className="explanation-index-cell-tag explanation-index-cell-tag--more">
-                +{hiddenTagCount}
-              </span>
-            )}
-          </span>
-        )}
+
       </button>
       {editable && isActive && !isEditing && (
         <button
@@ -222,7 +203,7 @@ export default function ExplanationIndexView() {
   }, [activeSelection, contextReferences, selectedTreeNodeId]);
   const pathTabs = activePathContext?.supplement?.tabs ?? [];
   const index = useMemo(
-    () => (node ? buildExplanationIndex(node.card, node.tags ?? []) : null),
+    () => (node ? buildExplanationIndex(node.card) : null),
     [node],
   );
   const titleCount = useMemo(
@@ -309,14 +290,14 @@ export default function ExplanationIndexView() {
   const handleAddTag = () => {
     const tag = normalizeSupertag(tagDraft);
     if (!tag) return;
-    setIndexTags(currentSelection, [...selectedIndexNode.tags, tag]);
+    setIndexTags(currentSelection, [...(node?.tags ?? []), tag]);
     setTagDraft('');
   };
 
   const handleRemoveTag = (tag: string) => {
     setIndexTags(
       currentSelection,
-      selectedIndexNode.tags.filter((item) => item !== tag),
+      (node?.tags ?? []).filter((item) => item !== tag),
     );
   };
 
@@ -392,9 +373,9 @@ export default function ExplanationIndexView() {
       </div>
 
       <div className="explanation-index-editor-tags">
-        {selectedIndexNode.tags.length > 0 && (
+        {(node?.tags ?? []).length > 0 && (
           <div className="explanation-index-editor-tag-list" aria-label="当前 super tags">
-            {selectedIndexNode.tags.map((tag) => (
+            {(node?.tags ?? []).map((tag) => (
               <span className="explanation-index-editor-tag" key={tag}>
                 <span>{tag}</span>
                 <button

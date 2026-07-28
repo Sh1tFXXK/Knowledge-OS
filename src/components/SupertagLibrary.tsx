@@ -1,54 +1,51 @@
 import { useMemo, useState } from 'react';
+import { collectTreeReferencesByNodeRef } from '../knowledge/treeUtils';
+import {
+  collectSupertagMaterialGroups,
+  supertagMaterialSignature,
+  SupertagMaterialKind,
+  type SupertagMaterial,
+} from '../knowledge/supertagMaterials';
 import { useGraphStore } from '../store/useGraph';
-import type { KnowledgeNode } from '../types';
+import MarkdownView from '../panels/explanation/MarkdownView';
 
-interface SupertagGroup {
-  tag: string;
-  nodes: KnowledgeNode[];
+enum SupertagLibraryMode {
+  Materials = 'materials',
+  Compare = 'compare',
 }
 
-function firstContent(node: KnowledgeNode): string {
-  const tab = node.card.tabs.find((item) => item.content.trim());
-  return tab?.content.replace(/\s+/g, ' ').trim() ?? '';
+function compactText(text: string, max = 180): string {
+  const normalized = text.replace(/\s+/g, ' ').trim();
+  return normalized.length > max ? `${normalized.slice(0, max)}...` : normalized;
 }
 
-function compactText(text: string, max = 150): string {
-  return text.length > max ? `${text.slice(0, max)}...` : text;
+function materialKindLabel(kind: SupertagMaterialKind): string {
+  if (kind === SupertagMaterialKind.Tab) return '标题';
+  if (kind === SupertagMaterialKind.Page) return '子页';
+  return '节点';
 }
 
-function roleLabel(role: KnowledgeNode['role']): string {
-  if (role === 'axiom') return '公理';
-  if (role === 'mechanism') return '机制';
-  if (role === 'conclusion') return '结论';
-  if (role === 'subsystem') return '子系统';
-  return '普通';
+function materialPathLabel(material: SupertagMaterial): string {
+  return material.path.length > 0 ? material.path.join(' / ') : '节点表述';
 }
 
 export default function SupertagLibrary() {
-  const nodePool = useGraphStore((s) => s.nodePool);
-  const openCard = useGraphStore((s) => s.openCard);
-  const addNotification = useGraphStore((s) => s.addNotification);
+  const nodePool = useGraphStore((state) => state.nodePool);
+  const treeData = useGraphStore((state) => state.treeData);
+  const openCard = useGraphStore((state) => state.openCard);
+  const setActiveExplanationSelection = useGraphStore(
+    (state) => state.setActiveExplanationSelection,
+  );
+  const selectedSupertag = useGraphStore((state) => state.selectedSupertag);
+  const openSupertag = useGraphStore((state) => state.openSupertag);
+  const addNotification = useGraphStore((state) => state.addNotification);
   const [query, setQuery] = useState('');
-  const [selectedTag, setSelectedTag] = useState('');
+  const [mode, setMode] = useState(SupertagLibraryMode.Materials);
 
-  const groups = useMemo<SupertagGroup[]>(() => {
-    const byTag = new Map<string, KnowledgeNode[]>();
-
-    Object.values(nodePool).forEach((node) => {
-      node.tags?.forEach((rawTag) => {
-        const tag = rawTag.trim();
-        if (!tag) return;
-        byTag.set(tag, [...(byTag.get(tag) ?? []), node]);
-      });
-    });
-
-    return [...byTag.entries()]
-      .map(([tag, nodes]) => ({
-        tag,
-        nodes: [...nodes].sort((a, b) => a.label.localeCompare(b.label, 'zh-CN')),
-      }))
-      .sort((a, b) => b.nodes.length - a.nodes.length || a.tag.localeCompare(b.tag, 'zh-CN'));
-  }, [nodePool]);
+  const groups = useMemo(
+    () => collectSupertagMaterialGroups(nodePool),
+    [nodePool],
+  );
 
   const filteredGroups = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -56,19 +53,43 @@ export default function SupertagLibrary() {
 
     return groups.filter((group) => {
       if (group.tag.toLowerCase().includes(normalizedQuery)) return true;
-      return group.nodes.some((node) =>
-        node.label.toLowerCase().includes(normalizedQuery) ||
-        firstContent(node).toLowerCase().includes(normalizedQuery),
+      return group.materials.some((material) =>
+        material.nodeLabel.toLowerCase().includes(normalizedQuery) ||
+        material.label.toLowerCase().includes(normalizedQuery) ||
+        material.content.toLowerCase().includes(normalizedQuery),
       );
     });
   }, [groups, query]);
 
   const activeGroup =
-    filteredGroups.find((group) => group.tag === selectedTag) ?? filteredGroups[0] ?? null;
+    filteredGroups.find((group) => group.tag === selectedSupertag) ?? filteredGroups[0] ?? null;
 
-  const handleOpenNode = (node: KnowledgeNode) => {
-    openCard(node.id);
-    addNotification(`已打开 ${node.label}`, 'success');
+  const domainPathsByNode = useMemo(() => {
+    const paths = new Map<string, string[]>();
+    for (const material of activeGroup?.materials ?? []) {
+      if (paths.has(material.nodeId)) continue;
+      const domains = collectTreeReferencesByNodeRef(treeData, material.nodeId)
+        .map((reference) => reference.path.slice(1, -1).join(' / '))
+        .filter(Boolean);
+      paths.set(material.nodeId, [...new Set(domains)]);
+    }
+    return paths;
+  }, [activeGroup, treeData]);
+
+  const signatureCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const material of activeGroup?.materials ?? []) {
+      const signature = supertagMaterialSignature(material);
+      if (!signature) continue;
+      counts.set(signature, (counts.get(signature) ?? 0) + 1);
+    }
+    return counts;
+  }, [activeGroup]);
+
+  const handleOpenMaterial = (material: SupertagMaterial) => {
+    openCard(material.nodeId);
+    setActiveExplanationSelection(material.selection);
+    addNotification(`已打开 ${material.nodeLabel}`, 'success');
   };
 
   return (
@@ -78,70 +99,136 @@ export default function SupertagLibrary() {
           <input
             className="input supertag-library-search"
             value={query}
-            placeholder="搜索 supertag 或节点..."
+            placeholder="搜索 super tag 或材料..."
             onChange={(event) => setQuery(event.target.value)}
           />
         </div>
         <div className="toolbar-right">
           <span className="supertag-library-count">
-            {filteredGroups.length} 个 supertag · {filteredGroups.reduce((sum, group) => sum + group.nodes.length, 0)} 个材料
+            {filteredGroups.length} 个 super tag · {filteredGroups.reduce((sum, group) => sum + group.materials.length, 0)} 个材料
           </span>
         </div>
       </div>
 
       {filteredGroups.length === 0 ? (
-        <div className="supertag-library-empty">
-          暂无 supertag
-        </div>
+        <div className="supertag-library-empty">暂无 super tag</div>
       ) : (
         <div className="supertag-library-body">
-          <aside className="supertag-index" aria-label="Supertag 列表">
+          <aside className="supertag-index" aria-label="Super tag 列表">
             {filteredGroups.map((group) => (
               <button
                 key={group.tag}
                 type="button"
                 className={`supertag-index-item${activeGroup?.tag === group.tag ? ' is-active' : ''}`}
-                onClick={() => setSelectedTag(group.tag)}
+                onClick={() => openSupertag(group.tag)}
               >
                 <span className="supertag-index-name">{group.tag}</span>
-                <span className="supertag-index-count">{group.nodes.length}</span>
+                <span className="supertag-index-count">{group.materials.length}</span>
               </button>
             ))}
           </aside>
 
-          <section className="supertag-detail" aria-label="Supertag 材料">
+          <section className="supertag-detail" aria-label="Super tag 材料">
             {activeGroup && (
               <>
                 <div className="supertag-detail-head">
                   <div>
                     <h3>{activeGroup.tag}</h3>
-                    <p>{activeGroup.nodes.length} 个材料挂在这个 supertag 上</p>
+                    <p>{activeGroup.materials.length} 段材料 · {activeGroup.nodeCount} 个领域知识节点</p>
+                  </div>
+                  <div className="supertag-mode-switch" role="tablist" aria-label="展示方式">
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={mode === SupertagLibraryMode.Materials}
+                      className={mode === SupertagLibraryMode.Materials ? 'is-active' : ''}
+                      onClick={() => setMode(SupertagLibraryMode.Materials)}
+                    >
+                      材料
+                    </button>
+                    <button
+                      type="button"
+                      role="tab"
+                      aria-selected={mode === SupertagLibraryMode.Compare}
+                      className={mode === SupertagLibraryMode.Compare ? 'is-active' : ''}
+                      onClick={() => setMode(SupertagLibraryMode.Compare)}
+                    >
+                      对比
+                    </button>
                   </div>
                 </div>
 
-                <div className="supertag-material-grid">
-                  {activeGroup.nodes.map((node) => {
-                    const preview = firstContent(node);
-                    return (
-                      <button
-                        key={node.id}
-                        type="button"
-                        className="supertag-material-card"
-                        onClick={() => handleOpenNode(node)}
-                      >
-                        <span className="supertag-material-head">
-                          <strong>{node.label}</strong>
-                          <span className={`role-badge role-${node.role ?? 'plain'}`}>
-                            {roleLabel(node.role)}
+                {mode === SupertagLibraryMode.Materials ? (
+                  <div className="supertag-material-grid">
+                    {activeGroup.materials.map((material) => {
+                      const preview = compactText(material.content);
+                      const domains = domainPathsByNode.get(material.nodeId) ?? [];
+                      return (
+                        <button
+                          key={`${material.tag}:${material.id}`}
+                          type="button"
+                          className="supertag-material-card"
+                          onClick={() => handleOpenMaterial(material)}
+                        >
+                          <span className="supertag-material-head">
+                            <strong>{material.nodeLabel}</strong>
+                            <span className="supertag-material-kind">
+                              {materialKindLabel(material.kind)}
+                            </span>
                           </span>
-                        </span>
-                        <span className="supertag-material-preview">
-                          {compactText(preview) || '暂无卡片内容'}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                          <span className="supertag-material-location">
+                            {materialPathLabel(material)}
+                          </span>
+                          {domains.length > 0 && (
+                            <span className="supertag-material-domain">{domains.join(' · ')}</span>
+                          )}
+                          <span className="supertag-material-preview">
+                            {preview || '暂无正文'}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="supertag-comparison" role="list">
+                    {activeGroup.materials.map((material) => {
+                      const signature = supertagMaterialSignature(material);
+                      const sameCount = signature ? signatureCounts.get(signature) ?? 0 : 0;
+                      const domains = domainPathsByNode.get(material.nodeId) ?? [];
+                      return (
+                        <article
+                          key={`${material.tag}:${material.id}`}
+                          className="supertag-comparison-column"
+                          role="listitem"
+                        >
+                          <header>
+                            <button
+                              type="button"
+                              title={`打开 ${material.nodeLabel}`}
+                              onClick={() => handleOpenMaterial(material)}
+                            >
+                              {material.nodeLabel}
+                            </button>
+                            <span className={sameCount > 1 ? 'is-shared' : 'is-distinct'}>
+                              {sameCount > 1 ? `${sameCount} 段一致` : '独有表述'}
+                            </span>
+                          </header>
+                          <div className="supertag-comparison-meta">
+                            <strong>{materialPathLabel(material)}</strong>
+                            {domains.length > 0 && <span>{domains.join(' · ')}</span>}
+                          </div>
+                          <div className="supertag-comparison-content">
+                            {material.content.trim() ? (
+                              <MarkdownView content={material.content} />
+                            ) : (
+                              <p className="text-muted">暂无正文</p>
+                            )}
+                          </div>
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
               </>
             )}
           </section>

@@ -368,7 +368,7 @@ export default function QuestionDatabase() {
                                   if (e.key === 'Escape') handleCancelEdit();
                                 }}
                                 autoFocus
-                                style={{ flex: 1, fontSize: 11 }}
+                                style={{ flex: 1, fontSize: 13 }}
                               />
                               <button onClick={handleSaveEdit} className="btn btn-primary btn-sm">✓</button>
                               <button onClick={handleCancelEdit} className="btn btn-sm">✕</button>
@@ -410,7 +410,7 @@ export default function QuestionDatabase() {
                           {relatedLabel ? (
                             <span
                               style={{
-                                fontSize: 10,
+                                fontSize: 11,
                                 padding: '2px 6px',
                                 background: 'var(--accent-blue-dim)',
                                 color: 'var(--accent-blue)',
@@ -422,16 +422,16 @@ export default function QuestionDatabase() {
                               🔗 {relatedLabel}
                             </span>
                           ) : (
-                            <span style={{ fontSize: 10, color: 'var(--text-tertiary)' }}>-</span>
+                            <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>-</span>
                           )}
                         </td>
                         <td>
                           {q.answer ? (
-                            <span style={{ fontSize: 10, color: 'var(--accent-green)' }}>
+                            <span style={{ fontSize: 11, color: 'var(--accent-green)' }}>
                               ✓ 已填写
                             </span>
                           ) : (
-                            <span style={{ fontSize: 10, color: 'var(--text-tertiary)' }}>-</span>
+                            <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>-</span>
                           )}
                         </td>
                         <td onClick={(e) => e.stopPropagation()}>
@@ -492,7 +492,7 @@ export default function QuestionDatabase() {
                             if (e.key === 'Escape') handleCancelEdit();
                           }}
                           autoFocus
-                          style={{ flex: 1, fontSize: 11, marginBottom: 8 }}
+                          style={{ flex: 1, fontSize: 13, marginBottom: 8 }}
                         />
                         <div style={{ display: 'flex', gap: 4 }}>
                           <button onClick={handleSaveEdit} className="btn btn-primary btn-sm">✓ 保存</button>
@@ -566,7 +566,7 @@ export default function QuestionDatabase() {
                           <div style={{ marginTop: 8 }}>
                             <span
                               style={{
-                                fontSize: 10,
+                                fontSize: 11,
                                 padding: '2px 6px',
                                 background: 'var(--accent-blue-dim)',
                                 color: 'var(--accent-blue)',
@@ -588,7 +588,7 @@ export default function QuestionDatabase() {
                               padding: '6px 8px',
                               background: 'var(--bg-secondary)',
                               borderRadius: '4px',
-                              fontSize: 10,
+                              fontSize: 12,
                               color: 'var(--text-tertiary)',
                               maxHeight: '60px',
                               overflow: 'hidden',

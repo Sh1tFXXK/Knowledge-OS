@@ -1,14 +1,23 @@
-export default function SupertagPanel({ tags }: { tags: readonly string[] }) {
+﻿export default function SupertagPanel({
+  tags,
+  onOpenTag,
+}: {
+  tags: readonly string[];
+  onOpenTag: (tag: string) => void;
+}) {
   return (
     <div className="supertag-strip">
       {tags.map((tag) => (
-        <span
+        <button
+          type="button"
           key={tag}
-          className="concept-supertag concept-supertag--readonly"
-          title={`super tag: ${tag}`}
+          className="concept-supertag concept-supertag--link"
+          aria-label={`在 Supertag 库中查看 ${tag}`}
+          title={`在 Supertag 库中查看 ${tag}`}
+          onClick={() => onOpenTag(tag)}
         >
           {tag}
-        </span>
+        </button>
       ))}
     </div>
   );

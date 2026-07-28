@@ -131,7 +131,11 @@ assert.deepEqual(
 );
 
 assert.deepEqual(
-  schoolTrees.flatMap((school) => (school.children ?? []).map((domain) => domain.id)).toSorted(),
+  schoolTrees
+    .flatMap((school) => (school.children ?? [])
+      .filter((domain) => domain.id.startsWith('theory_domain_'))
+      .map((domain) => domain.id))
+    .toSorted(),
   expectedDomainIds.toSorted(),
 );
 

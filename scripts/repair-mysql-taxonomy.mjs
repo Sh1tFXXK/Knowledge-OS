@@ -323,7 +323,8 @@ if (!universeRoot) {
   throw new Error('universe root not found');
 }
 
-const extraSchoolChildren = [];
+const preservedSchoolChildren = new Map();
+const preservedDomainNodes = new Map();
 const schoolNodes = new Map();
 
 for (const schoolId of expectedSchoolIds) {
@@ -335,10 +336,14 @@ for (const schoolId of expectedSchoolIds) {
   detached.nodeRef = detached.nodeRef || schoolId;
   detached.children = [];
   for (const child of preservedChildren) {
-    if (!expectedDomainIds.has(child.id)) {
-      extraSchoolChildren.push(child);
+    if (expectedDomainIds.has(child.id) && !preservedDomainNodes.has(child.id)) {
+      preservedDomainNodes.set(child.id, child);
     }
   }
+  preservedSchoolChildren.set(
+    schoolId,
+    preservedChildren.filter((child) => !expectedDomainIds.has(child.id)),
+  );
   schoolNodes.set(schoolId, detached);
 }
 
@@ -347,16 +352,21 @@ for (const [schoolId, domainIds] of schoolDomainMap) {
   const school = schoolNodes.get(schoolId);
   for (const domainId of domainIds) {
     ensureDomainCard(domainId, schoolLabel);
-    const domain = detachTreeNode(universeRoot, domainId) ?? createTreeNode(domainId, domainLabels.get(domainId) ?? domainId);
+    const domain = preservedDomainNodes.get(domainId)
+      ?? detachTreeNode(universeRoot, domainId)
+      ?? createTreeNode(domainId, domainLabels.get(domainId) ?? domainId);
     domain.nodeRef = domain.nodeRef || domainId;
     school.children.push(domain);
   }
 }
 
+for (const schoolId of expectedSchoolIds) {
+  schoolNodes.get(schoolId).children.push(...(preservedSchoolChildren.get(schoolId) ?? []));
+}
+
 universeRoot.children = [
   ...(universeRoot.children ?? []),
   ...expectedSchoolIds.map((schoolId) => schoolNodes.get(schoolId)),
-  ...extraSchoolChildren,
 ];
 
 ensureChildRef(

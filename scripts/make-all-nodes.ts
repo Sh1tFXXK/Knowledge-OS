@@ -11,7 +11,6 @@ const nodePool = JSON.parse(fs.readFileSync(path.join(dataDir, 'node-pool.json')
 const treeData = JSON.parse(fs.readFileSync(path.join(dataDir, 'tree-data.json'), 'utf8')) as any;
 const questions = JSON.parse(fs.readFileSync(path.join(dataDir, 'questions.json'), 'utf8')) as any[];
 const inferenceResponses = JSON.parse(fs.readFileSync(path.join(dataDir, 'inference-responses.json'), 'utf8')) as Record<string, string>;
-const subsystems = JSON.parse(fs.readFileSync(path.join(dataDir, 'subsystems.json'), 'utf8')) as any[];
 
 function genId(): string {
   return 'n_' + Math.random().toString(36).slice(2, 10);
@@ -106,7 +105,6 @@ ensureNodeRef(treeData);
 // 写回
 fs.writeFileSync(path.join(dataDir, 'node-pool.json'), JSON.stringify(nodePool, null, 2));
 fs.writeFileSync(path.join(dataDir, 'tree-data.json'), JSON.stringify(treeData, null, 2));
-fs.writeFileSync(path.join(dataDir, 'universe-tree.json'), JSON.stringify(treeData, null, 2));
 
 console.log('Done!');
 console.log('Total nodes in pool:', Object.keys(nodePool).length);

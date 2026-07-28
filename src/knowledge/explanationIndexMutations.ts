@@ -304,7 +304,7 @@ function splitItem(
   childCount: number,
   createId: (prefix: string) => string,
 ): ExplanationIndexMutationResult {
-  if (!Number.isInteger(childCount) || childCount < 2) return unchanged(explanation, selection);
+  if (!Number.isInteger(childCount) || childCount < 1) return unchanged(explanation, selection);
 
   if (selection.kind === ExplanationSelectionKind.Root) {
     if (explanation.tabs.length > 0) return unchanged(explanation, selection);
@@ -348,7 +348,13 @@ function addSibling(
   selection: ExplanationIndexSelection,
   createId: (prefix: string) => string,
 ): ExplanationIndexMutationResult {
-  if (selection.kind === ExplanationSelectionKind.Root) return unchanged(explanation, selection);
+  if (selection.kind === ExplanationSelectionKind.Root) {
+    const sibling = createBlankTab(createId('tab'));
+    return changed(
+      { ...explanation, tabs: [...explanation.tabs, sibling] },
+      contentSelection(explanation.nodeId, sibling.id, null),
+    );
+  }
 
   if (selection.pageId === null) {
     const sibling = createBlankTab(createId('tab'));
@@ -383,16 +389,16 @@ export function canRemoveExplanationIndexSelection(
 ): boolean {
   if (selection.kind === ExplanationSelectionKind.Root) return false;
   if (selection.pageId === null) {
-    if (selection.tabId === DEFINITION_TAB_ID) return false;
-    const isTopLevel = explanation.tabs.some((tab) => tab.id === selection.tabId);
-    return !isTopLevel || explanation.tabs.length > 1;
+    if (selection.tabId === DEFINITION_TAB_ID) {
+      return explanation.tabs.some((tab) => tab.id === selection.tabId);
+    }
+    return true;
   }
-  if (selection.pageId === DEFINITION_TAB_ID) return false;
   const tab = findTab(explanation.tabs, selection.tabId);
   if (!tab) return false;
   const location = findPageLocation(explicitPagesForTab(explanation, tab), selection.pageId);
   if (!location) return false;
-  return location.parentPageId !== null || location.siblings.length > 1;
+  return true;
 }
 
 function removeItem(

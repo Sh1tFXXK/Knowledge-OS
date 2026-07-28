@@ -17,13 +17,7 @@ export function createEmptyExplanation(nodeId: string, title: string): NodeExpla
   return {
     nodeId,
     title,
-    tabs: [
-      {
-        id: 'def',
-        label: '定义',
-        content: '',
-      },
-    ],
+    tabs: [],
   };
 }
 

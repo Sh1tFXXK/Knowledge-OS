@@ -9,7 +9,6 @@ import type {
   NodeExplanation,
   Question,
   QuestionAnswerStep,
-  SubSystem,
   KnowledgeNode,
   KnowledgeEdge,
   ExplanationPage,
@@ -67,7 +66,11 @@ import {
   setExplanationIndexItemTags,
   type ExplanationIndexOperation,
 } from '../knowledge/explanationIndexMutations';
-import { areSupertagsEqual, normalizeSupertags } from '../knowledge/supertags';
+import {
+  areSupertagsEqual,
+  normalizeSupertag,
+  normalizeSupertags,
+} from '../knowledge/supertags';
 
 const initialApp = createEmptyAppState();
 const DEFINITION_TAB_ID = 'def';
@@ -236,7 +239,6 @@ interface GraphState {
 
   questions: Question[];
   inferenceResponses: Record<string, string>;
-  subSystems: SubSystem[];
   rules: Rule[];
   perspectives: Perspective[];
 
@@ -244,6 +246,7 @@ interface GraphState {
   theme: ThemeType;
   currentPerspective: Perspective | null;
   activeView: AppView;
+  selectedSupertag: string | null;
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
@@ -300,6 +303,7 @@ interface GraphState {
   toggleTheme: () => void;
   setCurrentPerspective: (p: Perspective | null) => void;
   setActiveView: (view: AppView) => void;
+  openSupertag: (tag: string) => void;
   undo: () => void;
   getAllNodes: () => GraphNode[];
 
@@ -320,8 +324,11 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<Pick<NodeExplanation, 'title' | 'tabs' | 'definitionPages' | 'notes'>>,
+    patch: Partial<
+      Pick<NodeExplanation, 'title' | 'rootContent' | 'tabs' | 'definitionPages' | 'notes'>
+    >,
   ) => void;
+  updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
   addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
   removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
@@ -375,7 +382,6 @@ function snapshotState(state: GraphState): PersistedAppState {
     questions: state.questions,
     rules: state.rules,
     perspectives: state.perspectives,
-    subSystems: state.subSystems,
     inferenceResponses: state.inferenceResponses,
   };
 }
@@ -398,7 +404,6 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     questions: data.questions,
     rules: data.rules,
     perspectives: data.perspectives,
-    subSystems: data.subSystems,
     inferenceResponses: data.inferenceResponses,
     selectedNodeId: null,
     selectedTreeNodeId: null,
@@ -438,13 +443,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
     knowledgeEdges: initialApp.knowledgeEdges,
     questions: initialApp.questions,
     inferenceResponses: initialApp.inferenceResponses,
-    subSystems: initialApp.subSystems,
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
     notifications: [],
     theme: 'dark',
     currentPerspective: null,
     activeView: 'universe',
+    selectedSupertag: null,
     history: [],
 
     initialize: async () => {
@@ -818,6 +823,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
     toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
     setCurrentPerspective: (p) => set({ currentPerspective: p }),
     setActiveView: (view) => set({ activeView: view }),
+    openSupertag: (tag) => {
+      const selectedSupertag = normalizeSupertag(tag);
+      if (!selectedSupertag) return;
+      set({ selectedSupertag, activeView: 'supertags' });
+    },
 
     undo: () => {
       const state = get();
@@ -1064,11 +1074,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
       if (!existing || existing.locked) return;
-      // def Tab 永远不允许删
-      if (tabId === DEFINITION_TAB_ID) return;
-      // 顶层只有一个 Tab 且要删的就是它，不允许
       const isTopLevel = existing.card.tabs.some((t) => t.id === tabId);
-      if (isTopLevel && existing.card.tabs.length <= 1) return;
+      if (tabId === DEFINITION_TAB_ID && !isTopLevel) return;
       // 递归查找并删除（支持删子 Tab）
       const before = JSON.stringify(existing.card.tabs);
       const nextTabs = removeTabRecursive(existing.card.tabs, tabId);
@@ -1087,6 +1094,17 @@ export const useGraphStore = create<GraphState>((set, get) => {
       }
       const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, content }));
       get().updateKnowledgeCard(knowledgeId, { tabs });
+    },
+
+    updateKnowledgeRootContent: (knowledgeId, content) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      get().updateKnowledgeCard(knowledgeId, { rootContent: content });
     },
 
     renameKnowledgeTab: (knowledgeId, tabId, label) => {

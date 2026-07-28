@@ -6,7 +6,6 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const TREE_PATH = path.join(DATA_DIR, 'tree-data.json');
-const UNIVERSE_TREE_PATH = path.join(DATA_DIR, 'universe-tree.json');
 const NODE_POOL_PATH = path.join(DATA_DIR, 'node-pool.json');
 const EDGES_PATH = path.join(DATA_DIR, 'knowledge-edges.json');
 
@@ -849,7 +848,6 @@ function main() {
 
   writeJson(NODE_POOL_PATH, nodePool);
   writeJson(TREE_PATH, tree);
-  writeJson(UNIVERSE_TREE_PATH, tree);
   writeJson(EDGES_PATH, nextEdges);
 
   console.log(

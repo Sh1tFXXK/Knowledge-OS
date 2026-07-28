@@ -23,7 +23,7 @@
  * 说明:
  *   - 抓取使用 Wikipedia Action API (action=parse, prop=wikitext)，保留原文语言，不翻译。
  *   - 章节结构按维基原文 == / === 标题层级映射为节点树：文章标题为根节点(挂到 --parent 下)，
- *     H2(==) 为子节点，H3(===) 为孙节点，依此类推。
+ *     H2(==) 为子节点，H3(===) 为孙节点，依此类推；正文列表项只进入解释卡索引页。
  *   - 黑名单章节(参见/外部链接/参考文献/延伸阅读等)不建节点，但保留在 Markdown 文档中。
  *   - 幂等：相同 URL 重复导入会更新而非重复创建（节点 id 与树结构按文章 slug 稳定生成）。
  *   - --dry-run 只抓取并打印预览，不写入任何文件。
@@ -460,7 +460,7 @@ export function extractKeywords(sectionTree) {
     const re = /\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g;
     let m;
     while ((m = re.exec(text)) !== null) {
-      const target = m[1].trim().replace(/_/g, ' ');
+      const target = m[1].split('#')[0].trim().replace(/_/g, ' ');
       if (NS_RE.test(target)) continue;
       if (target.length < 2 || target.length > 40) continue;
       keywords.add(target);
@@ -786,9 +786,70 @@ function shouldPreserveTitle(t) {
   return compact.length >= 2 && compact.length <= 8 && /[A-Z]/.test(compact) && compact === compact.toUpperCase();
 }
 
-/** 去掉 markdown 链接的 URL，只保留显示文本：[text](url) → text。 */
-function stripLinkUrls(md) {
-  return md.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');
+function readMarkdownLinkAt(markdown, start) {
+  if (markdown[start] !== '[') return null;
+  const labelEnd = markdown.indexOf('](', start + 1);
+  if (labelEnd < 0 || markdown.slice(start, labelEnd).includes('\n')) return null;
+
+  let depth = 1;
+  let cursor = labelEnd + 2;
+  while (cursor < markdown.length && depth > 0) {
+    if (markdown[cursor] === '(') depth += 1;
+    if (markdown[cursor] === ')') depth -= 1;
+    cursor += 1;
+  }
+  if (depth !== 0) return null;
+
+  return {
+    label: markdown.slice(start + 1, labelEnd),
+    url: markdown.slice(labelEnd + 2, cursor - 1),
+    end: cursor,
+  };
+}
+
+/** 去掉 markdown 链接的 URL，只保留显示文本；支持 URL 内的成对括号。 */
+function stripLinkUrls(markdown) {
+  let out = '';
+  let cursor = 0;
+
+  while (cursor < markdown.length) {
+    const link = readMarkdownLinkAt(markdown, cursor);
+    if (!link) {
+      out += markdown[cursor];
+      cursor += 1;
+      continue;
+    }
+    out += link.label;
+    cursor = link.end;
+  }
+
+  return out;
+}
+
+function wikipediaTagsFromMarkdown(markdown) {
+  const tags = new Set();
+  let cursor = 0;
+  while (cursor < markdown.length) {
+    const link = readMarkdownLinkAt(markdown, cursor);
+    if (!link) {
+      cursor += 1;
+      continue;
+    }
+
+    try {
+      const url = new URL(link.url);
+      if (url.hostname.endsWith('.wikipedia.org') && url.pathname.startsWith('/wiki/')) {
+        const title = decodeURIComponent(url.pathname.slice('/wiki/'.length))
+          .replace(/_/g, ' ')
+          .trim();
+        if (title) tags.add(title);
+      }
+    } catch {
+      // Ignore malformed or non-URL markdown destinations.
+    }
+    cursor = link.end;
+  }
+  return [...tags];
 }
 
 // ---------------------------------------------------------------------------
@@ -807,19 +868,21 @@ function bulletListToPages(markdown, idPrefix) {
     const m = line.match(/^(\s*)- (.+)$/);
     if (!m) continue;
     const depth = Math.floor(m[1].length / 2);
-    const content = m[2].trim();
+    const markdownContent = m[2].trim();
+    const content = stripLinkUrls(markdownContent);
+    const tags = wikipediaTagsFromMarkdown(markdownContent);
 
-    // 从 [text](url) 或纯文本中提取标签
-    const linkMatch = content.match(/^\[([^\]]+)\]/);
-    const label = linkMatch
-      ? linkMatch[1]
-      : content.split(/\s*[–—-]\s*/)[0].trim();
+    const label = content
+      .split(/\s+(?:[–—-])\s+/)[0]
+      .replace(/^[*_`\s]+|[*_`\s:]+$/g, '')
+      .trim();
 
     pageIdx++;
     const page = {
       id: `${idPrefix}_p${pageIdx}`,
       label: label || `项 ${pageIdx}`,
       content,
+      ...(tags.length > 0 ? { tags } : {}),
     };
 
     // 弹栈到 depth-1 层
@@ -847,7 +910,7 @@ function bulletListToPages(markdown, idPrefix) {
  * 根节点卡片按章节层级生成 tab（H2）→ pages（H3+），接入索引视图。
  * 返回 { nodes, articleSlug, articleIdPrefix, keywords }。
  */
-async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
+export async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
   const date = new Date().toISOString().slice(0, 10);
   const articleSlug = slugify(`${lang}_${title}`);
   const articleIdPrefix = `k_wiki_${articleSlug}`;
@@ -863,39 +926,10 @@ async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
 
   const rootLabel = doTranslate && !shouldPreserveTitle(title) ? await translateText(title, lang) : title;
   const rootBody = await maybeTranslate(wikitextToMarkdown(sectionTree.body.join('\n'), lang) || '（无导语）', lang, doTranslate);
+  const leadKeywords = extractKeywords({ body: sectionTree.body, children: [] });
 
   const nodes = [];
   let idx = 0;
-
-  /** 把列表项 page 递归转为子节点（挂到目录树，条目按层级分类）。 */
-  function createBulletNodes(pages, bParentId, bParentTreeId) {
-    const out = [];
-    for (let i = 0; i < pages.length; i++) {
-      const pg = pages[i];
-      const bId = `${bParentId}_b${i + 1}`;
-      const bTreeId = `${bParentTreeId}_b${i + 1}`;
-      out.push({
-        id: bId,
-        label: pg.label,
-        parentId: bParentId,
-        treeId: bTreeId,
-        treeName: pg.label,
-        tags: [pg.label],
-        card: {
-          nodeId: bId,
-          title: pg.label,
-          tabs: [
-            { id: 'def', label: '定义', content: pg.content },
-            { id: 'source', label: '来源', content: wikiUrlStr },
-          ],
-        },
-      });
-      if (pg.pages && pg.pages.length > 0) {
-        out.push(...createBulletNodes(pg.pages, bId, bTreeId));
-      }
-    }
-    return out;
-  }
 
   /**
    * 递归：为每个非黑名单章节创建子节点（供目录树导航）
@@ -930,17 +964,14 @@ async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
           nodeId: id,
           title: label,
           tabs: [
-            { id: 'def', label: '定义', content: bodyPlain },
+            { id: 'def', label: '定义', content: bodyPlain, tags: sectionKeywords },
             { id: 'source', label: '来源', content: `${wikiUrlStr}#${anchor}` },
           ],
         },
       });
 
-      // 列表项 → 子节点（目录树按层级分类）
-      const bulletPages = bulletListToPages(bodyPlain, `sec_${myIdx}`);
-      if (bulletPages.length > 0) {
-        nodes.push(...createBulletNodes(bulletPages, id, treeId));
-      }
+      // 列表项属于本节解释卡的内部索引，不扩张目录树。
+      const bulletPages = bulletListToPages(bodyMd, `sec_${myIdx}`);
 
       // 递归子章节 → pages
       const subPages = ch.children.length > 0
@@ -953,6 +984,7 @@ async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
         id: `sec_${myIdx}`,
         label,
         content: bodyPlain,
+        tags: sectionKeywords,
         ...(allPages.length > 0 ? { pages: allPages } : {}),
       });
     }
@@ -963,7 +995,7 @@ async function buildNodes(sectionTree, lang, title, wikiUrlStr, doTranslate) {
 
   // 根节点：定义 tab + 章节 tabs + 来源 tab + 外部链接 tab
   const rootTabs = [
-    { id: 'def', label: '定义', content: stripLinkUrls(rootBody) },
+    { id: 'def', label: '定义', content: stripLinkUrls(rootBody), tags: leadKeywords },
     ...sectionTabs,
     { id: 'source', label: '来源', content: sourceStr },
   ];
@@ -1029,33 +1061,53 @@ function findTreeNode(tree, nodeRef) {
   return null;
 }
 
-/**
- * 把节点挂到 --parent 指定的树节点下。
- * 幂等：该文章根节点按 nodeRef 去重更新；其下子树每次重建（清掉同文章旧子节点再重挂），
- * 保证与最新维基结构一致，不残留。
- */
-export function applyImport(pool, tree, nodes, parentNodeRef, articleIdPrefix, keywords = []) {
+function findTreeNodeById(tree, treeNodeId) {
+  if (tree.id === treeNodeId) return tree;
+  for (const child of tree.children ?? []) {
+    const found = findTreeNodeById(child, treeNodeId);
+    if (found) return found;
+  }
+  return null;
+}
+
+function findTreeParentById(tree, childTreeNodeId) {
+  if ((tree.children ?? []).some((child) => child.id === childTreeNodeId)) return tree;
+  for (const child of tree.children ?? []) {
+    const found = findTreeParentById(child, childTreeNodeId);
+    if (found) return found;
+  }
+  return null;
+}
+
+function relocateGeneratedRoot(tree, parent, rootTreeNodeId) {
+  const existingRoot = findTreeNodeById(tree, rootTreeNodeId);
+  if (!existingRoot) return;
+  if (existingRoot.id === parent.id || findTreeNodeById(existingRoot, parent.id)) {
+    throw new Error('不能把导入内容挂载到它自身或它的子目录中');
+  }
+  const currentParent = findTreeParentById(tree, rootTreeNodeId);
+  if (!currentParent || currentParent.id === parent.id) return;
+  currentParent.children = currentParent.children.filter((child) => child.id !== rootTreeNodeId);
+  parent.children ??= [];
+  parent.children.push(existingRoot);
+}
+
+function applyImportToParent(pool, parent, nodes, articleIdPrefix, keywords) {
   const desiredNodeIds = new Set(nodes.map((node) => node.id));
   for (const id of Object.keys(pool)) {
     const belongsToArticle = id === articleIdPrefix || id.startsWith(`${articleIdPrefix}_s`);
     if (belongsToArticle && !desiredNodeIds.has(id)) delete pool[id];
   }
 
-  for (const n of nodes) {
-    const tags = n.id === articleIdPrefix
-      ? ['wikipedia', 'wikipedia-import', ...keywords]
-      : ['wikipedia', 'wikipedia-import', ...(n.tags || [])];
-    ensureNode(pool, n.id, n.label, n.card, tags);
+  for (const node of nodes) {
+    const tags = [...new Set(node.id === articleIdPrefix ? keywords : (node.tags || []))];
+    ensureNode(pool, node.id, node.label, node.card, tags);
   }
 
-  const parent = findTreeNode(tree, parentNodeRef);
-  if (!parent) {
-    throw new Error(`父节点 nodeRef="${parentNodeRef}" 未在 tree-data.json 中找到`);
-  }
   parent.children ??= [];
-
   const rootNode = nodes[0];
-  let rootTree = parent.children.find((c) => c.nodeRef === rootNode.id);
+  const generatedTreePrefix = rootNode.treeId;
+  let rootTree = parent.children.find((child) => child.id === rootNode.treeId);
   if (!rootTree) {
     rootTree = { id: rootNode.treeId, name: rootNode.treeName, count: 0, nodeRef: rootNode.id, children: [] };
     parent.children.push(rootTree);
@@ -1066,18 +1118,47 @@ export function applyImport(pool, tree, nodes, parentNodeRef, articleIdPrefix, k
   }
 
   function mountChildren(treeNode, parentNodeId) {
-    const desired = nodes.filter((n) => n.parentId === parentNodeId);
-    // 清掉本文章旧子节点，保留非本文章的（用户手动添加的）
+    const desired = nodes.filter((node) => node.parentId === parentNodeId);
     treeNode.children = (treeNode.children ?? []).filter(
-      (c) => !c.nodeRef || !c.nodeRef.startsWith(articleIdPrefix),
+      (child) => !child.id.startsWith(`${generatedTreePrefix}_s`),
     );
-    for (const ch of desired) {
-      const child = { id: ch.treeId, name: ch.treeName, count: 0, nodeRef: ch.id, children: [] };
+    for (const childNode of desired) {
+      const child = {
+        id: childNode.treeId,
+        name: childNode.treeName,
+        count: 0,
+        nodeRef: childNode.id,
+        children: [],
+      };
       treeNode.children.push(child);
-      mountChildren(child, ch.id);
+      mountChildren(child, childNode.id);
     }
   }
   mountChildren(rootTree, rootNode.id);
+}
+
+/**
+ * 把节点挂到 --parent 指定的树节点下。
+ * 幂等：该文章根节点按生成的 tree id 去重更新；其下子树每次重建（清掉同文章旧子节点再重挂），
+ * 保证与最新维基结构一致，不残留。
+ */
+export function applyImport(pool, tree, nodes, parentNodeRef, articleIdPrefix, keywords = []) {
+  const parent = findTreeNode(tree, parentNodeRef);
+  if (!parent) {
+    throw new Error(`父节点 nodeRef="${parentNodeRef}" 未在 tree-data.json 中找到`);
+  }
+  relocateGeneratedRoot(tree, parent, nodes[0].treeId);
+  applyImportToParent(pool, parent, nodes, articleIdPrefix, keywords);
+}
+
+/** 按目录项 id 精确挂载，供前端目录选择使用。 */
+export function applyImportAtTreeNode(pool, tree, nodes, parentTreeNodeId, articleIdPrefix, keywords = []) {
+  const parent = findTreeNodeById(tree, parentTreeNodeId);
+  if (!parent) {
+    throw new Error(`父目录 treeNodeId="${parentTreeNodeId}" 未在 tree-data.json 中找到`);
+  }
+  relocateGeneratedRoot(tree, parent, nodes[0].treeId);
+  applyImportToParent(pool, parent, nodes, articleIdPrefix, keywords);
 }
 
 // ---------------------------------------------------------------------------

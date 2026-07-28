@@ -1,6 +1,10 @@
+import { useState } from 'react';
+import { FileUp, Link2, Settings } from 'lucide-react';
 import { useGraphStore } from '../store/useGraph';
 import { getTreePathNames } from '../knowledge/treeUtils';
 import type { AppView } from '../types';
+import LinkImportDialog from '../components/LinkImportDialog';
+import DocumentImportDialog from '../components/DocumentImportDialog';
 
 const VIEWS: ReadonlyArray<{ icon: string; label: string; labelEn: string; id: AppView }> = [
   { icon: '🌐', label: '视图', labelEn: 'Universe View', id: 'universe' },
@@ -12,6 +16,8 @@ const VIEWS: ReadonlyArray<{ icon: string; label: string; labelEn: string; id: A
 ];
 
 export default function TopBar() {
+  const [isLinkImportOpen, setIsLinkImportOpen] = useState(false);
+  const [isDocumentImportOpen, setIsDocumentImportOpen] = useState(false);
   const activeView = useGraphStore((s) => s.activeView);
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const treeData = useGraphStore((s) => s.treeData);
@@ -60,13 +66,37 @@ export default function TopBar() {
       </div>
 
       <div className="header-actions">
-        <button className="btn-icon" title="设置" onClick={() => {}}>
-          <span>⚙</span>
+        <button
+          type="button"
+          className="header-import-action"
+          title="导入 PDF 或 Markdown 文档"
+          onClick={() => setIsDocumentImportOpen(true)}
+        >
+          <FileUp size={14} />
+          <span>文档导入</span>
+        </button>
+        <button
+          type="button"
+          className="header-import-action"
+          title="从网页链接导入"
+          onClick={() => setIsLinkImportOpen(true)}
+        >
+          <Link2 size={14} />
+          <span>链接导入</span>
+        </button>
+        <button type="button" className="btn-icon" title="设置" onClick={() => {}}>
+          <Settings size={15} />
         </button>
         <div className="header-user" title="Visionary">
           V
         </div>
       </div>
+
+      <LinkImportDialog isOpen={isLinkImportOpen} onClose={() => setIsLinkImportOpen(false)} />
+      <DocumentImportDialog
+        isOpen={isDocumentImportOpen}
+        onClose={() => setIsDocumentImportOpen(false)}
+      />
     </>
   );
 }

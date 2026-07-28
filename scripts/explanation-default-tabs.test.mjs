@@ -16,11 +16,9 @@ async function loadDefaultsModule() {
   return import(`data:text/javascript;base64,${encoded}`);
 }
 
-test('new explanations start with only the definition tab', async () => {
+test('new explanations start without preset child tabs', async () => {
   const { createEmptyExplanation } = await loadDefaultsModule();
   const explanation = createEmptyExplanation('k_java', 'Java');
 
-  assert.deepEqual(explanation.tabs, [
-    { id: 'def', label: '定义', content: '' },
-  ]);
+  assert.deepEqual(explanation.tabs, []);
 });

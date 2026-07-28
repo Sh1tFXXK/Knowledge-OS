@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+﻿import { useEffect, useMemo, useState } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import {
   collectTreeReferencesByNodeRef,
@@ -23,6 +23,7 @@ export default function ExplanationCard() {
   const getKnowledgeExplanation = useGraphStore((state) => state.getKnowledgeExplanation);
   const updateKnowledgeTab = useGraphStore((state) => state.updateKnowledgeTab);
   const updateKnowledgeTabPage = useGraphStore((state) => state.updateKnowledgeTabPage);
+  const updateKnowledgeRootContent = useGraphStore((state) => state.updateKnowledgeRootContent);
   const updatePathSupplementContent = useGraphStore(
     (state) => state.updatePathSupplementContent,
   );
@@ -33,6 +34,7 @@ export default function ExplanationCard() {
   const treeData = useGraphStore((state) => state.treeData);
   const nodePool = useGraphStore((state) => state.nodePool);
   const openCard = useGraphStore((state) => state.openCard);
+  const openSupertag = useGraphStore((state) => state.openSupertag);
   const activeExplanationSelection = useGraphStore(
     (state) => state.activeExplanationSelection,
   );
@@ -99,7 +101,10 @@ export default function ExplanationCard() {
           (tab) => (tab.id || tab.label) === activeSelection.tabId,
         ) ?? null
       : null;
-  const activeContent = activePathTab?.content ?? activePage?.content ?? activeTab?.content ?? '';
+  const activeContent =
+    activeSelection?.kind === ExplanationSelectionKind.Root
+      ? (explanation.rootContent ?? '')
+      : (activePathTab?.content ?? activePage?.content ?? activeTab?.content ?? '');
   const activeTags =
     activeSelection?.kind === ExplanationSelectionKind.Root
       ? nodeMeta?.tags ?? []
@@ -166,8 +171,11 @@ export default function ExplanationCard() {
             (tab) => (tab.id || tab.label) === activeExplanationSelection.tabId,
           ),
       );
+    const isValidRootSelection =
+      activeExplanationSelection?.kind === ExplanationSelectionKind.Root &&
+      activeExplanationSelection.nodeId === selectedNodeId;
 
-    if (!isValidContentSelection && !isValidPathSelection) {
+    if (!isValidContentSelection && !isValidPathSelection && !isValidRootSelection) {
       setActiveExplanationSelection(defaultExplanationSelection(explanation));
     }
     // Selection initialization only follows node or directory-context changes.
@@ -227,7 +235,7 @@ export default function ExplanationCard() {
       <div className="explanation-card">
         <div className="explanation-card-header explanation-card-header--compact">
           <div className="explanation-card-supertag-inline" aria-label="当前方格 super tags">
-            <SupertagPanel tags={activeTags} />
+            <SupertagPanel tags={activeTags} onOpenTag={openSupertag} />
           </div>
 
           <button
@@ -242,7 +250,17 @@ export default function ExplanationCard() {
         <div className="explanation-card-body explanation-card-body--content-only">
           <div className="card-content" id="card-content-body">
             {isEditing ? (
-              activeSelection?.kind === ExplanationSelectionKind.Path &&
+              activeSelection?.kind === ExplanationSelectionKind.Root ? (
+                <textarea
+                  className="explanation-editor"
+                  value={explanation.rootContent ?? ''}
+                  placeholder="填写概念总述..."
+                  onChange={(event) => {
+                    if (!selectedNodeId) return;
+                    updateKnowledgeRootContent(selectedNodeId, event.target.value);
+                  }}
+                />
+              ) : activeSelection?.kind === ExplanationSelectionKind.Path &&
               activePathTab &&
               activeContext ? (
                 <textarea

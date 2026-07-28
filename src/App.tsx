@@ -10,6 +10,7 @@ import './styles/main.css';
 import './styles/layout.css';
 import './styles/components.css';
 import './styles/database.css';
+import './styles/link-import.css';
 
 import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';

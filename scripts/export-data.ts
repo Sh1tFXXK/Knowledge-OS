@@ -10,7 +10,6 @@ fs.writeFileSync(path.join(dataDir, 'knowledge-edges.json'), JSON.stringify(stat
 fs.writeFileSync(path.join(dataDir, 'tree-data.json'), JSON.stringify(state.treeData, null, 2));
 fs.writeFileSync(path.join(dataDir, 'questions.json'), JSON.stringify(state.questions, null, 2));
 fs.writeFileSync(path.join(dataDir, 'inference-responses.json'), JSON.stringify(state.inferenceResponses, null, 2));
-fs.writeFileSync(path.join(dataDir, 'subsystems.json'), JSON.stringify(state.subSystems, null, 2));
 
 console.log('Exported!');
 console.log('Nodes:', Object.keys(state.nodePool).length);

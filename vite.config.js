@@ -1,6 +1,7 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { linkImportApi } from './scripts/import/link-import-api.mjs';
 
 const DATA_DIR = path.resolve(process.cwd(), 'data');
 const DATA_FILES = Object.freeze({
@@ -8,7 +9,6 @@ const DATA_FILES = Object.freeze({
   nodePool: 'node-pool.json',
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
-  subSystems: 'subsystems.json',
   inferenceResponses: 'inference-responses.json',
 });
 const DATA_FILE_NAMES = new Set(Object.values(DATA_FILES));
@@ -24,7 +24,6 @@ const DATA_PAYLOAD_VALIDATORS = new Map([
   [DATA_FILES.nodePool, isRecordPayload],
   [DATA_FILES.knowledgeEdges, Array.isArray],
   [DATA_FILES.questions, Array.isArray],
-  [DATA_FILES.subSystems, Array.isArray],
   [DATA_FILES.inferenceResponses, isRecordPayload],
 ]);
 
@@ -202,12 +201,18 @@ function dataFileApi() {
   };
 }
 
-export default defineConfig({
-  plugins: [dataFileApi()],
-  server: {
-    watch: {
-      ignored: ['**/data/**'],
+export default defineConfig(({ mode }) => {
+  const importEnv = {
+    ...process.env,
+    ...loadEnv(mode, process.cwd(), 'KNOWLEDGE_OS_'),
+  };
+  return {
+    plugins: [dataFileApi(), linkImportApi(process.cwd(), importEnv)],
+    server: {
+      watch: {
+        ignored: ['**/data/**'],
+      },
     },
-  },
+  };
 });
 

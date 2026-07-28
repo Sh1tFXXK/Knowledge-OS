@@ -1,6 +1,6 @@
 import type { PersistedAppState } from './state';
 import { APP_STATE_VERSION, createEmptyAppState } from './state';
-import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question, SubSystem, Rule, Perspective } from '../types';
+import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question } from '../types';
 import { migrateNodePool } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
 
@@ -9,7 +9,6 @@ const FILES = {
   nodePool: 'node-pool.json',
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
-  subSystems: 'subsystems.json',
   inferenceResponses: 'inference-responses.json',
 };
 
@@ -44,14 +43,12 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     nodePool,
     knowledgeEdges,
     questions,
-    subSystems,
     inferenceResponses,
   ] = await Promise.all([
     fetchFile<TreeNode | null>(FILES.treeData, null),
     fetchFile<Record<string, KnowledgeNode> | null>(FILES.nodePool, null),
     fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
     fetchFile<Question[] | null>(FILES.questions, null),
-    fetchFile<SubSystem[] | null>(FILES.subSystems, null),
     fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
   ]);
 
@@ -63,7 +60,6 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   if (nodePool) state.nodePool = migrateNodePool(nodePool);
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
-  if (subSystems) state.subSystems = subSystems;
   if (inferenceResponses) state.inferenceResponses = inferenceResponses;
 
   return state;
@@ -87,7 +83,6 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
     questions: fileState.questions ?? emptyState.questions,
     rules: fileState.rules ?? emptyState.rules,
     perspectives: fileState.perspectives ?? emptyState.perspectives,
-    subSystems: fileState.subSystems ?? emptyState.subSystems,
     inferenceResponses: {
       ...emptyState.inferenceResponses,
       ...(fileState.inferenceResponses ?? {}),
@@ -101,7 +96,6 @@ export async function saveStateToFiles(state: PersistedAppState): Promise<void> 
     saveFile(FILES.nodePool, migrateNodePool(state.nodePool)),
     saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
     saveFile(FILES.questions, state.questions),
-    saveFile(FILES.subSystems, state.subSystems),
     saveFile(FILES.inferenceResponses, state.inferenceResponses),
   ]);
 }

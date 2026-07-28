@@ -75,11 +75,14 @@ node scripts/import-wikipedia.mjs https://en.wikipedia.org/wiki/Database --paren
    - 使用 `--translate` 时，将非中文标题与正文分段翻译成中文
    │
    ▼
-5. 按文档结构生成节点树：
+5. 按文档结构生成目录树与解释卡索引：
    - 文章标题 → 根节点（挂到 --parent 下）
    - H2 (==) → 子节点，H3 (===) → 孙节点，依此类推
+   - 正文列表项 → 当前章节的 ExplanationPage，只进入解释卡索引视图，不创建目录节点
    - 黑名单章节（参见/外部链接/参考文献等，中英文+繁简）不建节点
-   - 每个节点 card.tabs：[定义(章节正文), 来源(wiki URL#anchor)]
+   - 每个章节节点 card.tabs：[定义(章节正文), 来源(wiki URL#anchor)]
+   - 文章根节点 card.tabs 按章节层级组织，供 ExplanationIndexView 展示完整内容索引
+   - 内部维基链接按内容归属写入节点、章节 tab 与列表 page 的 `tags`，可直接进入 SuperTag 索引
    │
    ▼
 6. 写入：
@@ -106,7 +109,7 @@ node scripts/import-wikipedia.mjs https://en.wikipedia.org/wiki/Database --paren
         { "id": "source", "label": "来源", "content": "https://zh.wikipedia.org/wiki/...\n整理：维基百科 zh 条目自动抓取转换，2026-07-22" }
       ]
     },
-    "tags": ["wikipedia", "wikipedia-import"]
+    "tags": ["数据模型", "数据库管理系统", "SQL"]
   }
 }
 
@@ -141,7 +144,7 @@ node scripts/import-wikipedia.mjs https://en.wikipedia.org/wiki/Database --paren
 - **翻译是可选的**：默认保留原文；`--translate` 使用 MyMemory 免费 API 机翻，受服务可用性与匿名额度限制，失败片段会保留原文。
 - **专业术语需复核**：全大写缩写会保留原文，但普通术语的机器翻译仍可能不准确。
 - **模板/表格简化处理**：信息框、引用模板、复杂表格被剥离；`{{main|X}}` 等有价值模板转成内联文本。
-- **章节结构忠实映射**：完全按维基原文 `==`/`===` 层级生成节点树，不做内容合并或拆分。
+- **章节结构忠实映射**：按维基原文 `==`/`===` 层级生成目录节点；章节内列表保留为解释卡索引页，避免目录树被条目列表淹没。
 - **黑名单章节不建节点**但保留在 Markdown 文档中（文档完整、节点树精选）。
 
 ## 文件

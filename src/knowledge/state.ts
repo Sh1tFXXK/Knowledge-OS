@@ -18,7 +18,6 @@ import type {
   Perspective,
   Question,
   Rule,
-  SubSystem,
   TreeNode,
 } from '../types';
 
@@ -40,7 +39,6 @@ export interface PersistedAppState {
   questions: Question[];
   rules: Rule[];
   perspectives: Perspective[];
-  subSystems: SubSystem[];
   inferenceResponses: Record<string, string>;
 }
 
@@ -66,7 +64,6 @@ export function createEmptyAppState(): PersistedAppState {
     questions: [],
     rules: [],
     perspectives: [],
-    subSystems: [],
     inferenceResponses: {},
   };
 }

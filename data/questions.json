@@ -535,19 +535,836 @@
     "answer": "都是面向对象的语言，都支持封装、继承和多态  \nJava 不提供指针来直接访问内存，程序内存更加安全  \nJava 的类是单继承的，C++ 支持多重继承；虽然 Java 的类不可以多 继承，但是接口可以多继承。\n\nJava 有自动内存管理机制，不需要程序员手动释放无用内存"
   },
   {
-    "id": "q_1784463077046_f57djn",
-    "text": "什么是spring框架？有哪些模块？",
-    "answered": false,
-    "relatedNodeId": "k_1784445073426_4a834z",
-    "createdAt": 1784463077046,
-    "updatedAt": 1784463077046
+    "id": "q_1784954488087_1nxeeg",
+    "text": "CyclicBarrier与CountDownLatch比较",
+    "answered": true,
+    "relatedNodeId": "k_1784939888323_m0ojte",
+    "createdAt": 1784954488087,
+    "updatedAt": 1784954497867,
+    "answer": "1）CountDownLatch:一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；CyclicBarrier:N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。\n\n2）CountDownLatch:一次性的；CyclicBarrier:可以重复使用。\n\n3）CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的。"
   },
   {
-    "id": "q_1784463240882_41qe3t",
-    "text": "spring 框架好处？",
+    "id": "q_1784978966021_3nnzrq",
+    "text": "static 关键字会改变类中成员的访问权限吗？",
+    "answered": true,
+    "createdAt": 1784978966021,
+    "updatedAt": 1784978983711,
+    "answer": "有些初学的朋友会将java中的 static与 C/C + + static关键字的功能混淆了。在这里只需要记住一点 ： C/C + +中的与 static ， Java static Java中能够影响到访问权限的只有 private、 public、包括包访问权限这几个关键字。看下面的例子就明白了 protected （中的静态C/C + +静态不同，关键字不会影响到变量或者方法的作用域。在 Java中的静态Java私有公共保\n\npublic class Person {\n\npublic String name = \"公共字符串名称李四\";\n\nprivate static String address = \"中国\";\n}\n\n! [](https://github.com/wanggangkun/Big-Data-Interview/blob/master/1.%20Java%E5%9F%BA%E7%A1%80%E7%AF%87/1.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/1.1.7/2.png)\n\n说明静态关键字不能改变变量和方法的访问权限"
+  },
+  {
+    "id": "q_1784983947069_xkkq57",
+    "text": "当出现偏向锁时，hashcode值存在哪里？",
+    "answered": true,
+    "createdAt": 1784983947069,
+    "updatedAt": 1784983970696,
+    "answer": "> 当一个对象已经计算过身份哈希码时，它就无法进入偏向锁状态；\n>\n> 因为偏向锁需要使用hash位来保存线程id，这样的话，就没有额外的空间用来保存hashcode值。\n>\n> 当一个对象当前正处于偏向锁状态，并且需要计算其身份哈希码时，则它的偏向锁会被撤销，并且锁会膨胀为重量锁；"
+  },
+  {
+    "id": "q_web_8c66406b75e1_6d2b553d8a",
+    "text": "双重校验锁实现的单例，已经使用了synchronized，为什么还需要volatile?",
     "answered": false,
+    "createdAt": 1784995985826,
+    "updatedAt": 1784996274796
+  },
+  {
+    "id": "q_web_4a06c6e69a03_2254b4c886",
+    "text": "static关键字会改变类中成员的访问权限吗？",
+    "answered": false,
+    "createdAt": 1784995986456,
+    "updatedAt": 1785029883030
+  },
+  {
+    "id": "q_web_4a06c6e69a03_5d92772187",
+    "text": "能通过this访问静态成员变量吗？",
+    "answered": true,
+    "createdAt": 1784995986456,
+    "updatedAt": 1785249738879,
+    "answer": "```java\npublic class Main {　　\n    static int value = 33;\n\n    public static void main(String args) throws Exception{\n        new Main().printValue();\n    }\n\n    private void printValue(){\n        int value = 3;\n        System.out.println(this.value);\n    }\n}\n```\n\n这段代码输出结果为：33\nthis代表什么？this代表当前对象，那么通过new Main()来调用printValue的话，当前对象就是通过new Main()生成的对象。而static变量是被对象所享有的，因此在printValue中的this.value的值毫无疑问是33。在printValue方法内部的value是局部变量，根本不可能与this关联，所以输出结果是33。在这里永远要记住一点：静态成员变量虽然独立于对象，但是不代表不可以通过对象去访问，所有的静态方法和静态变量都可以通过对象访问（只要访问权限足够）。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_web_4a06c6e69a03_9755e82390",
+    "text": "this代表什么？",
+    "answered": false,
+    "createdAt": 1784995986456,
+    "updatedAt": 1785029883030
+  },
+  {
+    "id": "q_1785042338801_rad1en",
+    "text": "什么是spring boot ？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785042338801,
+    "updatedAt": 1785042344874,
+    "answer": "Spring Boot是Spring开源组织下的子项目，是Spring组件一站式解决方案，主要是简化了使用Spring的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。"
+  },
+  {
+    "id": "q_1785042566281_wc7kxu",
+    "text": "运行 Spring Boot 有哪些方式？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785042566281,
+    "updatedAt": 1785057237664,
+    "answer": "1.直接通过main方法来运行\n2.打成jar通过java -jar的命令运行或者打成war包，然后把这个war放到Web容器中\n3.使用Maven/Gradle插件来运行"
+  },
+  {
+    "id": "q_1785057123754_jfhq3x",
+    "text": "Spring boot有哪些优点？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785057123754,
+    "updatedAt": 1785057150896,
+    "answer": "1.独立运行\n2.简化配置：约定优于配置的理念\n3.自动配置\n4.无代码生成和XML配置\n5.Actuator应用监控"
+  },
+  {
+    "id": "q_1785058687326_4unaod",
+    "text": "SpringBoot中的核心注解",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785058687327,
+    "updatedAt": 1785058702979,
+    "answer": "@SpringBootApplication注解，这个注解是一个组合注解\n4个元注解\n@ComponentScan:默认情况下会扫描当前包及其子包下面所有被@Component注解修饰的java类\n@SpringBootConfiguration：组合了@Configuration这个注解，也就是说明被SpringBootApplication\n所标识的Java类就是一个Java配置类\n@EnableAutoConfiguration：打开自动装配的功能---》META-INF/spring.factories文件中加载需要自\n动注入的Java类"
+  },
+  {
+    "id": "q_1785059298825_20yxcx",
+    "text": "spring有哪些优点？",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785059298825,
+    "updatedAt": 1785059314860,
+    "answer": "轻量级：Spring在大小和透明性方面绝对属于轻量级的，基础版本的Spring框架大约只有2MB。\n控制反转(IOC)：Spring使用控制反转技术实现了松耦合。依赖被注入到对象，而不是创建或寻找依赖对\n象。\n面向切面编程(AOP)：Spring支持面向切面编程，同时把应用的业务逻辑与系统的服务分离开来。\n容器：Spring包含并管理应用程序对象的配置及生命周期。\nMVC框架：Spring的web框架是一个设计优良的web MVC框架，很好的取代了一些web框架。\n事务管理：Spring对下至本地业务上至全局业务(JAT)提供了统一的事务管理接口。\n异常处理：Spring提供一个方便的API将特定技术的异常(由JDBC, Hibernate,或JDO抛出)转化为一致\n的、Unchecked异常。\n扩展性：后续使用的springboot或者springcloud等相关的技术都是在spring基础之上扩展来的，也就是\n说spring能够经久不衰，最关键的点就在于它的扩展性"
+  },
+  {
+    "id": "q_1785059716447_qwq6fh",
+    "text": "spring中用到了哪些设计模式",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785059716447,
+    "updatedAt": 1785059727839,
+    "answer": "单例模式：bean默认都是单例的\n原型模式：指定作用域为prototype\n工厂模式：BeanFactory\n模板方法：postProcessBeanFactory,onRefresh,initPropertyValue\n策略模式：XmlBeanDefinitionReader,PropertiesBeanDefinitionReader\n观察者模式：listener，event，multicast\n适配器模式：Adapter\n装饰者模式：BeanWrapper\n责任链模式：使用aop的时候会先生成一个拦截器链\n代理模式：动态代理\n委托者模式：delegate"
+  },
+  {
+    "id": "q_1785059753783_42vijb",
+    "text": "描述下bean的生命周期？",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785059753783,
+    "updatedAt": 1785059774759,
+    "answer": "1、实例化bean：反射的方式生成对象\n2、填充bean的属性：populateBean(),循环依赖的问题（三级缓存）\n3、调用aware接口相关的方法：invokeAwareMethod(完成\nBeanName,BeanFactory,BeanClassLoader对象的属性设置)\n4、调用BeanPostProcessor中的前置处理方法：使用比较多的有（ApplicationContextPostProcessor,\n设置ApplicationContext,Environment,ResourceLoader,EmbeddValueResolver等对象）\n5、调用initmethod方法：invokeInitmethod(),判断是否实现了initializingBean接口，如果有，调用\nafterPropertiesSet方法，没有就不调用\n6、调用BeanPostProcessor的后置处理方法：spring的aop就是在此处实现的，\nAbstractAutoProxyCreator\n注册Destuction相关的回调接口：钩子函数\n7、获取到完整的对象，可以通过getBean的方式来进行对象的获取\n8、销毁流程，1；判断是否实现了DispoableBean接口，2，调用destroyMethod方法"
+  },
+  {
+    "id": "q_1785130470805_cyjlqp",
+    "text": "Spring框架的事务管理有哪些优点？",
+    "answered": true,
+    "relatedNodeId": "k_1785129602238_j76sr0",
+    "createdAt": 1785130470805,
+    "updatedAt": 1785130485281,
+    "answer": "为不同的事务API如JTA，JDBC，Hibernate，JPA和JDO，提供一个不变的编程模式。\n为编程式事务管理提供了一套简单的API而不是一些复杂的事务API\n支持声明式事务管理。\n和Spring各种数据访问抽象层很好得集成。"
+  },
+  {
+    "id": "q_1785130507054_uuyo7f",
+    "text": "你更倾向用那种事务管理类型？",
+    "answered": true,
+    "relatedNodeId": "k_1785129602238_j76sr0",
+    "createdAt": 1785130507054,
+    "updatedAt": 1785130527723,
+    "answer": "大多数Spring框架的用户选择声明式事务管理，因为它对应用代码的影响最小，因此更符合一个无\n侵入的轻量级容器的思想。声明式事务管理要优于编程式事务管理，虽然比编程式事务管理（这种\n方式允许你通过代码控制事务）少了一点灵活性。唯一不足地方是，最细粒度只能作用到方法级\n别，无法做到像编程式事务那样可以作用到代码块级别。"
+  },
+  {
+    "id": "q_1785165619545_m1fia9",
+    "text": "控制反转(IOC)有什么作用",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785165619545,
+    "updatedAt": 1785165654842,
+    "answer": "管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如\n果依赖关系需要程序猿来维护的话，那是相当头疼的\n解耦，由容器去维护具体的对象\n托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果\n有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的"
+  },
+  {
+    "id": "q_1785165668510_2ho4bh",
+    "text": "IOC的优点是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785165668510,
+    "updatedAt": 1785165682059,
+    "answer": "IOC或依赖注入把应用的代码量降到最低。\n它使应用容易测试，单元测试不再需要单例和JNDI查找机制。\n最小的代价和最小的侵入性使松散耦合得以实现。\nIOC容器支持加载服务时的饿汉式初始化和懒加载。"
+  },
+  {
+    "id": "q_1785166291496_z6nzlh",
+    "text": "Spring框架的设计目标，设计理念，和核心是什么",
+    "answered": true,
     "relatedNodeId": "k_1784445073426_4a834z",
-    "createdAt": 1784463240882,
-    "updatedAt": 1784463240882
+    "createdAt": 1785166291496,
+    "updatedAt": 1785166323275,
+    "answer": "Spring设计目标：Spring为开发者提供一个一站式轻量级应用开发平台；\nSpring设计理念：在JavaEE开发中，支持POJO和JavaBean开发方式，使应用面向接口开发，充分\n支持OOP（面向对象）设计方法；Spring通过IOC容器实现对象耦合关系的管理，并实现依赖反\n转，将对象之间的依赖关系交给IOC容器，实现解耦；\nSpring框架的核心：IOC容器和AOP模块。通过IOC容器管理POJO对象以及他们之间的耦合关系；\n通过AOP以动态非侵入的方式增强服务。\nIOC让相互协作的组件保持松散的耦合，而AOP编程允许你把遍布于应用各层的功能分离出来形成\n可重用的功能组件。"
+  },
+  {
+    "id": "q_1785212553187_ds7wil",
+    "text": "Spring的缺点是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785212553187,
+    "updatedAt": 1785212582766,
+    "answer": "Spring明明一个很轻量级的框架，却给人感觉大而全\nSpring依赖反射，反射影响性能\n使用门槛升高，入门Spring需要较长时间",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785212652560_607na4",
+    "text": "Spring框架中有哪些不同类型的事件",
+    "answered": true,
+    "relatedNodeId": "k_1784445073426_4a834z",
+    "createdAt": 1785212652560,
+    "updatedAt": 1785212694760,
+    "answer": "Spring提供了以下5种标准的事件：\n1.上下文更新事件（ContextRefreshedEvent）：在调用ConﬁgurableApplicationContext接口中的refresh()方法时被触发。\n2.上下文开始事件（ContextStartedEvent）：当容器调用ConﬁgurableApplicationContext的Start()方法开始/重新开始容器时触发该事件。\n3.上下文停止事件（ContextStoppedEvent）：当容器调用ConﬁgurableApplicationContext的Stop()方法停止容器时触发该事件。\n4.上下文关闭事件（ContextClosedEvent）：当ApplicationContext被关闭时触发该事件。容器被关闭时，其管理的所有单例Bean都被销毁。\n5.请求处理事件（RequestHandledEvent）：在Web应用中，当一个http请求（request）结束触发该事件。如果一个bean实现了ApplicationListener接口，当一个ApplicationEvent被发布以后，bean会自动被通知。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785212941125_gem0b0",
+    "text": "Spring应用程序有哪些不同组件？",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785212941125,
+    "updatedAt": 1785212952893,
+    "answer": "接口-定义功能。\nBean类-它包含属性，setter和getter方法，函数等。\nBean配置文件-包含类的信息以及如何配置它们。\nSpring面向切面编程（AOP）-提供面向切面编程的功能。\n用户程序-它使用接口。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785213771222_9sm0jj",
+    "text": "详细讲解一下核心容器（spring context应用上下文)模块",
+    "answered": true,
+    "relatedNodeId": "k_1784445218734_mbutiz",
+    "createdAt": 1785213771222,
+    "updatedAt": 1785213841545,
+    "answer": "这是基本的Spring模块，提供spring框架的基础功能，BeanFactory是任何以spring为基础的应用的核心。Spring框架建立在此模块之上，它使Spring成为一个容器。\nBean工厂是工厂模式的一个实现，提供了控制反转功能，用来把应用的配置和依赖从真正的应用代码中分离。最常用的就是org.springframework.beans.factory.xml.XmlBeanFactory，它根据XML文件中的定义加载beans。该容器从XML文件读取配置元数据并用它去创建一个完全配置的系统或应用。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785214767052_ddpiba",
+    "text": "Spring的IOC支持哪些功能",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785214767052,
+    "updatedAt": 1785214805070,
+    "answer": "Spring的IOC设计支持以下功能：\n其中，最重要的就是依赖注入，从XML的配置上说，即ref标签。对应Spring RuntimeBeanReference对象。\n对于IOC来说，最重要的就是容器。容器管理着Bean的生命周期，控制着Bean的依赖注入。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785214961766_uip9rf",
+    "text": "依赖注入的基本原则",
+    "answered": true,
+    "relatedNodeId": "k_1785214842744_v601y4",
+    "createdAt": 1785214961766,
+    "updatedAt": 1785215005364,
+    "answer": "应用组件不应该负责查找资源或者其他依赖的协作对象。配置对象的工作应该由IOC容器负责，“查找资源”的逻辑应该从应用组件的代码中抽取出来，交给IOC容器负责。容器全权负责组件的装配，它会把符合依赖关系的对象通过属性（JavaBean中的setter）或者是构造器传递给需要的对象。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785215013765_34s9bc",
+    "text": "依赖注入有什么优势",
+    "answered": true,
+    "relatedNodeId": "k_1785214842744_v601y4",
+    "createdAt": 1785215013765,
+    "updatedAt": 1785215037049,
+    "answer": "依赖注入之所以更流行是因为它是一种更可取的方式：让容器全权负责依赖查询，受管组件只需要暴露JavaBean的setter方法或者带参数的构造器或者接口，使容器可以在初始化时组装对象的依赖关系。其与依赖查找方式相比，主要优势为：\n查找定位操作与应用代码完全无关。\n不依赖于容器的API，可以很容易地在任何容器以外使用应用对象。\n不需要特殊的接口，绝大多数对象可以做到完全不必依赖容器。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785215055743_t76oug",
+    "text": "有哪些不同类型的依赖注入实现方式？",
+    "answered": true,
+    "relatedNodeId": "k_1785214842744_v601y4",
+    "createdAt": 1785215055743,
+    "updatedAt": 1785215150932,
+    "answer": "依赖注入是时下最流行的IOC实现方式，依赖注入分为接口注入（Interface Injection），Setter方法注入（Setter Injection）和构造器注入（Constructor Injection）三种方式。其中接口注入由于在灵活性和易用性比较差，现在从Spring4开始已被废弃。\n构造器依赖注入：构造器依赖注入通过容器触发一个类的构造器来实现的，该类有一系列参数，每个参数代表一个对其他类的依赖。\nSetter方法注入：Setter方法注入是容器通过调用无参构造器或无参static工厂方法实例化bean之后，调用该bean的setter方法，即实现了基于setter的依赖注入。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785215295592_cnnyop",
+    "text": "构造器依赖注入和Setter方法注入的区别",
+    "answered": true,
+    "relatedNodeId": "k_1785214842744_v601y4",
+    "createdAt": 1785215295592,
+    "updatedAt": 1785215353615,
+    "answer": "构造函数注入                                     setter注入\n没有部分注入                                     有部分注入\n不会覆盖setter属性                            会覆盖setter属性\n任意修改都会创建一个新实例            任意修改不会创建一个新实例\n适用于设置很多属性                           适用于设置少量属性",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785221685776_fcx5ws",
+    "text": "BeanFactory和ApplicationContext有什么区别？",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785221685776,
+    "updatedAt": 1785221829092,
+    "answer": "BeanFactory和ApplicationContext是Spring的两大核心接口，都可以当做Spring的容器。其中ApplicationContext是BeanFactory的子接口。\n依赖关系  BeanFactory：是Spring里面最底层的接口，包含了各种Bean的定义，读取bean配置文档，管理bean的加载、实例化，控制bean的生命周期，维护bean之间的依赖关系。\nApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提\n供了更完整的框架功能：\n继承MessageSource，因此支持国际化。\n统一的资源文件访问方式。\n提供在监听器中注册bean的事件。\n同时加载多个配置文件。\n载入多个（有继承关系）上下文，使得每一个上下文都专注于一个特定的层次，比如应用的web层。\n加载方式\nBeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean时(调用getBean())，才对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。\nApplicationContext，它是在容器启动时，一次性创建了所有的Bean。这样，在容器启动时，我们就可以发现Spring中存在的配置错误，这样有利于检查所依赖属性是否注入。\nApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。\n相对于基本的BeanFactory，ApplicationContext唯一的不足是占用内存空间。当应用程序配置Bean较多时，程序启动较慢。\n创建方式\nBeanFactory通常以编程的方式被创建，ApplicationContext还能以声明的方式创建，如使用ContextLoader。\n注册方式\nBeanFactory和ApplicationContext都支持BeanPostProcessor、BeanFactoryPostProcessor的使用，但两者之间的区别是：BeanFactory需要手动注册，而ApplicationContext则是自动注册。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785221928456_9kzc5j",
+    "text": "Spring如何设计容器的，BeanFactory和ApplicationContext 的关系详解",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785221928456,
+    "updatedAt": 1785223796655,
+    "answer": "Spring作者Rod Johnson设计了两个接口用以表示容器。\nBeanFactory ，ApplicationContext\nBeanFactory简单粗暴，可以理解为就是个HashMap，Key是BeanName，Value是Bean实例。通常只提供注册（put），获取（get）这两个功能。我们可以称之为“低级容器”。\nApplicationContext可以称之为“高级容器”。因为他比BeanFactory多了更多的功能。他继承了多个接口。因此具备了更多的功能。例如资源的获取，支持多种消息（例如JSP tag的支持），对BeanFactory多了工具级别的支持等待。所以你看他的名字，已经不是BeanFactory之类的工厂了，而是“应用上下文”，代表着整个大容器的所有功能。该接口定义了一个refresh方法，此方法是所有阅读Spring源码的人的最熟悉的方法，用于刷新整个容器，即重新加载/刷新所有的bean。当然，除了这两个大接口，还有其他的辅助接口，这里就不介绍他们了。\nBeanFactory和ApplicationContext的关系\n最上面的是BeanFactory，下面的3个绿色的，都是功能扩展接口，这里就不展开讲。\n看下面的隶属ApplicationContext粉红色的“高级容器”，依赖着“低级容器”，这里说的是依赖，\n不是继承哦。他依赖着“低级容器”的getBean功能。而高级容器有更多的功能：支持不同的信息\n源头，可以访问文件资源，支持应用事件（Observer模式）。\n通常用户看到的就是“高级容器”。但BeanFactory也非常够用啦！\n左边灰色区域的是“低级容器”，只负载加载Bean，获取Bean。容器其他的高级功能是没有的。\n例如上图画的refresh刷新Bean工厂所有配置，生命周期事件回调等。\n小结\n说了这么多，不知道你有没有理解Spring IOC？这里小结一下：IOC在Spring里，只需要低级容\n器就可以实现，2个步骤：\n1.加载配置文件，解析成BeanDeﬁnition放在Map里。\n2.调用getBean的时候，从BeanDeﬁnition所属的Map里，拿出Class对象进行实例化，同时，\n如果有依赖关系，将递归调用getBean方法——完成依赖注入。\n上面就是Spring低级容器（BeanFactory）的IOC。\n至于高级容器ApplicationContext，他包含了低级容器的功能，当他执行refresh模板方法的时\n候，将刷新整个容器的Bean。同时其作为高级容器，包含了太多的功能。一句话，他不仅仅是\nIOC。他支持不同信息源头，支持BeanFactory工具类，支持层级容器，支持访问文件资源，支\n持事件发布通知，支持接口回调等等。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785223805792_8svupg",
+    "text": "ApplicationContext通常的实现是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785131428510_m2nz5f",
+    "createdAt": 1785223805792,
+    "updatedAt": 1785223828834,
+    "answer": "FileSystemXmlApplicationContext：此容器从一个XML文件中加载beans的定义，XML Bean配置文件的全路径名必须提供给它的构造函数。\nClassPathXmlApplicationContext：此容器也从一个XML文件中加载beans的定义，这里，你需要正确设置classpath因为这个容器将在classpath里找bean配置。\nWebXmlApplicationContext：此容器加载一个XML文件，此文件定义了一个WEB应用的所有bean。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785224775263_fjdqwd",
+    "text": "一个Spring Bean定义包含什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785224775264,
+    "updatedAt": 1785224794813,
+    "answer": "一个Spring Bean的定义包含容器必知的所有配置元数据，包括如何创建一个bean，它的生命周期详情及它的依赖",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785224817542_pbhxyd",
+    "text": "Spring配置文件包含了哪些信息",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785224817542,
+    "updatedAt": 1785224832591,
+    "answer": "Spring配置文件是个XML文件，这个文件包含了类信息，描述了如何配置它们，以及如何相互调用。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785224844695_x4ypqa",
+    "text": "Spring基于xml注入bean的几种方式?",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785224844695,
+    "updatedAt": 1785224854290,
+    "answer": "Set方法注入；\n2.构造器注入：\n3.通过index设置参数的位置；\n4.通过type设置参数类型；\n5.静态工厂注入；\n6.实例工厂；",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785224863739_e0vwgj",
+    "text": "你怎样定义类的作用域？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785224863739,
+    "updatedAt": 1785224876879,
+    "answer": "当定义一个在Spring里，我们还能给这个bean声明一个作用域。它可以通过bean定义中的scope属性来定义。如，当Spring要在需要的时候每次生产一个新的bean实例，bean的scope属性被指定为prototype。另一方面，一个bean每次使用的时候必须返回同一个实例，这个bean的scope属性必须设为singleton。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785225077931_8l4xln",
+    "text": "Spring框架中的单例bean是线程安全的吗？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785225077931,
+    "updatedAt": 1785225107925,
+    "answer": "不是，Spring框架中的单例bean不是线程安全的。\nspring中的bean默认是单例模式，spring框架并没有对单例bean进行多线程的封装处理。\n实际上大部分时候spring bean无状态的（比如dao类），所有某种程度上来说bean也是安全\n的，但如果bean有状态的话（比如view model对象），那就要开发者自己去保证线程安全了，\n最简单的就是改变bean的作用域，把“singleton”变更为“prototype”，这样请求bean相当于\nnew Bean()了，所以就可以保证线程安全了。\n有状态就是有数据存储功能。\n无状态就是不会保存数据。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785225146008_zdn07g",
+    "text": "Spring如何处理线程并发问题？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785225146008,
+    "updatedAt": 1785225185683,
+    "answer": "在一般情况下，只有无状态的Bean才可以在多线程环境下共享，在Spring中，绝大部分Bean都可以声明为singleton作用域，因为Spring对一些Bean中非线程安全状态采用ThreadLocal进行处理，解决线程安全问题。\nThreadLocal和线程同步机制都是为了解决多线程中相同变量的访问冲突问题。同步机制采用了“时间换空间”的方式，仅提供一份变量，不同的线程在访问前需要获取锁，没获得锁的线程则需要排队。而ThreadLocal采用了“空间换时间”的方式。\nThreadLocal会为每一个线程提供一个独立的变量副本，从而隔离了多个线程对数据的访问冲突。因为每一个线程都拥有自己的变量副本，从而也就没有必要对该变量进行同步了。ThreadLocal提供了线程安全的共享对象，在编写多线程代码时，可以把不安全的变量封装进ThreadLocal。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785226327357_exspm7",
+    "text": "什么是Spring的内部bean？什么是Spring inner beans？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785226327358,
+    "updatedAt": 1785226347426,
+    "answer": "在Spring框架中，当一个bean仅被用作另一个bean的属性时，它能被声明为一个内部bean。内部bean可以用setter注入“属性”和构造方法注入“构造参数”的方式来实现，内部bean通常是匿名的，它们的Scope一般是prototype。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785227200571_ekzq9m",
+    "text": "什么是bean装配？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785227200571,
+    "updatedAt": 1785227215942,
+    "answer": "装配，或bean装配是指在Spring容器中把bean组装到一起，前提是容器需要知道bean的依赖关系，如何通过依赖注入来把它们装配到一起",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785227570564_f9592n",
+    "text": "什么是bean的自动装配？",
+    "answered": true,
+    "relatedNodeId": "k_1785165721061_hcv0g1",
+    "createdAt": 1785227570564,
+    "updatedAt": 1785227597602,
+    "answer": "在Spring框架中，在配置文件中设定bean的依赖关系是一个很好的机制，Spring容器能够自动装配相互合作的bean，这意味着容器不需要和配置，能通过Bean工厂自动处理bean之间的协作。\n这意味着Spring可以通过向Bean Factory中注入的方式自动搞定bean之间的依赖关系。自动装配可以设置在每个bean上，也可以设定在特定的bean上。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785227962200_94t9n7",
+    "text": "解释不同方式的自动装配，spring自动装配bean有哪些方\r\n式",
+    "answered": true,
+    "relatedNodeId": "k_1785227788717_6671mc",
+    "createdAt": 1785227962200,
+    "updatedAt": 1785228080692,
+    "answer": "在spring中，对象无需自己查找或创建与其关联的其他对象，由容器负责把需要相互协作的对象引用赋予各个对象，使用autowire来配置自动装载模式。\n在Spring框架xml配置中共有5种自动装配：\nno：默认的方式是不进行自动装配的，通过手工设置ref属性来进行装配bean。\nbyName：通过bean的名称进行自动装配，如果一个bean的property与另一bean的name相同，就进行自动装配。\nbyType：通过参数的数据类型进行自动装配。\nconstructor：利用构造函数进行装配，并且构造函数的参数通过byType进行装配。\nautodetect：自动探测，如果有构造方法，通过construct的方式自动装配，否则使用byType的方式自动装配",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228092894_uzlq9i",
+    "text": "使用@Autowired注解自动装配的过程是怎样的？",
+    "answered": true,
+    "relatedNodeId": "k_1785227788717_6671mc",
+    "createdAt": 1785228092894,
+    "updatedAt": 1785228121838,
+    "answer": "使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进行配置，<context:annotation-conﬁg />。\n在启动spring IOC时，容器自动装载了一个AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource或@Inject时，就会在IOC容器自动查找需要的bean，并装配给该对象的属性。在使用@Autowired时，首先在容器中查询对应类型的bean：\n如果查询结果刚好为一个，就将该bean装配给@Autowired指定的数据；\n如果查询的结果不止一个，那么@Autowired会根据名称来查找；\n如果上述查找的结果为空，那么会抛出异常。解决方法时，使用required=false。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228479371_d1lc8y",
+    "text": "自动装配有哪些局限性？",
+    "answered": true,
+    "relatedNodeId": "k_1785227788717_6671mc",
+    "createdAt": 1785228479371,
+    "updatedAt": 1785228506956,
+    "answer": "自动装配的局限性是：\n重写：你仍需用和配置来定义依赖，意味着总要重写自动装配。\n基本数据类型：你不能自动装配简单的属性，如基本数据类型，String字符串，和类。\n模糊特性：自动装配不如显式装配精确，如果有可能，建议使用显式装配。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228521745_awc1h2",
+    "text": "你可以在Spring中注入一个null和一个空字符串吗？",
+    "answered": true,
+    "relatedNodeId": "k_1785227788717_6671mc",
+    "createdAt": 1785228521745,
+    "updatedAt": 1785228528556,
+    "answer": "可以",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228541427_wjganl",
+    "text": "哪些是重要的bean生命周期方法？你能重载它们吗？",
+    "answered": true,
+    "relatedNodeId": "k_1785227788717_6671mc",
+    "createdAt": 1785228541427,
+    "updatedAt": 1785228554716,
+    "answer": "有两个重要的bean生命周期方法，第一个是setup，它是在容器加载bean的时候被调用。第二个方法是teardown它是在容器卸载类的时候被调用。\nbean标签有两个重要的属性（init-method和destroy-method）。用它们你可以自己定制初始化和注销方法。它们也有相应的注解（@PostConstruct和@PreDestroy）。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228587250_dbe73x",
+    "text": "什么是基于Java的Spring注解配置?给一些注解的例子",
+    "answered": true,
+    "relatedNodeId": "k_1785165990050_t7rh0k",
+    "createdAt": 1785228587250,
+    "updatedAt": 1785228628383,
+    "answer": "基于Java的配置，允许你在少量的Java注解的帮助下，进行你的大部分Spring配置而非通过XML文件。\n以@Conﬁguration注解为例，它用来标记类可以当做一个bean的定义，被Spring IOC容器使用。\n另一个例子是@Bean注解，它表示此方法将要返回一个对象，作为一个bean注册进Spring应用上下文\n```java\n@Configuration\npublicclassStudentConfig{\n@Bean\npublicStudentBeanmyStudent(){\nreturnnewStudentBean();\n}\n}\n```",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228676105_i4zwd4",
+    "text": "怎样开启注解装配？",
+    "answered": true,
+    "relatedNodeId": "k_1785165990050_t7rh0k",
+    "createdAt": 1785228676105,
+    "updatedAt": 1785228685590,
+    "answer": "注解装配在默认情况下是不开启的，为了使用注解装配，我们必须在Spring配置文件中配置<context:annotation-config/>元素。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228697545_o8rib7",
+    "text": "@Component, @Controller, @Repository, @Service有何区 别？",
+    "answered": true,
+    "relatedNodeId": "k_1785165990050_t7rh0k",
+    "createdAt": 1785228697545,
+    "updatedAt": 1785228715239,
+    "answer": "@Component：这将java类标记为bean。它是任何Spring管理组件的通用构造型。spring的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。\n@Controller：这将一个类标记为Spring Web MVC控制器。标有它的Bean会自动导入到IOC容器中。\n@Service：此注解是组件注解的特化。它不会对@Component注解提供任何其他行为。您可以在服务层类中使用@Service而不是@Component，因为它以更好的方式指定了意图。\n@Repository：这个注解是具有类似用途和功能的@Component注解的特化。它为DAO提供了额外的好处。它将DAO导入IOC容器，并使未经检查的异常有资格转换为SpringDataAccessException。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785228882701_bkinbx",
+    "text": "@Autowired和@Resource之间的区别",
+    "answered": true,
+    "relatedNodeId": "k_1785228834518_r08hca",
+    "createdAt": 1785228882701,
+    "updatedAt": 1785228912980,
+    "answer": "@Autowired和@Resource可用于：构造函数、成员变量、Setter方法\n@Autowired和@Resource之间的区别在于\n@Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required属性为false）。\n@Resource默认是按照名称来装配注入的，只有当找不到与名称匹配的bean才会按照类型来装配注入。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785231111191_haaks5",
+    "text": "spring DAO有什么用？",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785231111191,
+    "updatedAt": 1785231135512,
+    "answer": "Spring DAO（数据访问对象）使得JDBC，Hibernate或JDO这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785231222402_ifq8tf",
+    "text": "Spring AOP and AspectJ AOP有什么区别？AOP有哪些实现 方式？",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785231222402,
+    "updatedAt": 1785231255497,
+    "answer": "AOP实现的关键在于代理模式，AOP代理主要分为静态代理和动态代理。静态代理的代表为AspectJ；动态代理则以Spring AOP为代表。\n（1）AspectJ是静态代理的增强，所谓静态代理，就是AOP框架会在编译阶段生成AOP代理类，因此也称为编译时增强，他会在编译阶段将AspectJ(切面)织入到Java字节码中，运行的时候就是增强之后的AOP对象\n（2）Spring AOP使用的动态代理，所谓的动态代理就是说AOP框架不会去修改字节码，而是每次运行时在内存中临时为方法生成一个AOP对象，这个AOP对象包含了目标对象的全部方法，并且在特定的切点做了增强处理，并回调原对象的方法。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785231413354_shxoyl",
+    "text": "JDK动态代理和CGLIB动态代理的区别",
+    "answered": true,
+    "relatedNodeId": "k_1785231355339_1plkmy",
+    "createdAt": 1785231413354,
+    "updatedAt": 1785231443343,
+    "answer": "Spring AOP中的动态代理主要有两种方式，JDK动态代理和CGLIB动态代理：\nJDK动态代理只提供接口的代理，不支持类的代理。核心InvocationHandler接口和Proxy类，InvocationHandler通过invoke()方法反射来调用目标类中的代码，动态地将横切逻辑和业务编织在一起；接着，Proxy利用InvocationHandler动态创建一个符合某一接口的的实例,生成目标类的代理对象。\n如果代理类没有实现InvocationHandler接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library），是一个代码生成的类库，可以在运行时动态的生成指定类的一个子类对象，并覆盖其中特定方法并添加增强代码，从而实现AOP。\nCGLIB是通过继承的方式做的动态代理，因此如果某个类被标记为ﬁnal，那么它是无法使用CGLIB做动态代理的。\n静态代理与动态代理区别在于生成AOP代理对象的时机不同，相对来说AspectJ的静态代理方式具有更好的性能，但是AspectJ需要特定的编译器进行处理，而Spring AOP则无需特定的编译器处理。\nInvocationHandler的invoke(Object proxy,Method method,Object[] args)：proxy是最终生成的代理实例; method是被代理目标实例的某个具体方法; args是被代理目标实例某个方法的具体入参,在方法反射调用时使用",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785231900074_g4qn4y",
+    "text": "Spring通知有哪些类型？",
+    "answered": true,
+    "relatedNodeId": "k_1785231719920_7ljzbg",
+    "createdAt": 1785231900074,
+    "updatedAt": 1785231913962,
+    "answer": "在AOP术语中，切面的工作被称为通知，实际上是程序执行时要通过SpringAOP框架触发的代码\n段。\nSpring切面可以应用5种类型的通知：\n1.前置通知（Before）：在目标方法被调用之前调用通知功能；\n2.后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出是什么；\n3.返回通知（After-returning）：在目标方法成功执行之后调用通知；\n4.异常通知（After-throwing）：在目标方法抛出异常后调用通知；\n5.环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行\n自定义的行为。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785232901606_mlpflj",
+    "text": "什么是切面Aspect？",
+    "answered": true,
+    "relatedNodeId": "k_1785231643719_gx45hm",
+    "createdAt": 1785232901607,
+    "updatedAt": 1785233969371,
+    "answer": "aspect由pointcount和advice组成，切面是通知和切点的结合。它既包含了横切逻辑的定义,也包括了连接点的定义. \nSpring AOP就是负责实施切面的框架,它将切面所定义的横切逻辑编织到切面所指定的连接点中. AOP的工作重心在于如何将增强编织目标对象的连接点上,这里包含两个\n工作:\n如何通过pointcut和advice定位到特定的joinpoint上\n如何在advice中编写切面代码.\n可以简单地认为,使用@Aspect注解的类就是切面.",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785234519013_f5ee66",
+    "text": "Spring在运行时通知对象？",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785234519014,
+    "updatedAt": 1785234541249,
+    "answer": "通过在代理类中包裹切面，Spring在运行期把切面织入到Spring管理的bean中。代理封装了目标类，并拦截被通知方法的调用，再把调用转发给真正的目标bean。当代理拦截到方法调用时，在调用目标bean方法之前，会执行切面逻辑。\n直到应用需要被代理的bean时，Spring才创建代理对象。如果使用的是ApplicationContext的话，在ApplicationContext从BeanFactory中加载所有bean的时候，Spring才会创建被代理的对象。因为Spring运行时才创建代理对象，所以我们不需要特殊的编译器来织入SpringAOP的切面。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785234618109_vq1twt",
+    "text": "Spring只支持方法级别的连接点",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785234618109,
+    "updatedAt": 1785234631646,
+    "answer": "因为Spring基于动态代理，所以Spring只支持方法连接点。Spring缺少对字段连接点的支持，而且它不支持构造器连接点。方法之外的连接点拦截功能，我们可以利用Aspect来补充。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785234641651_w2usdb",
+    "text": "在Spring AOP中，关注点和横切关注的区别是什么？在spring aop中concern和cross-cutting concern的不同之处",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785234641651,
+    "updatedAt": 1785234654184,
+    "answer": "关注点（concern）是应用中一个模块的行为，一个关注点可能会被定义成一个我们想实现的一个功能。\n横切关注点（cross-cutting concern）是一个关注点，此关注点是整个应用都会使用的功能，并影响整个应用，比如日志，安全和数据传输，几乎应用的每个模块都需要的功能。因此这些都属于横切关注点。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785234681237_luwtyc",
+    "text": "解释基于XML Schema方式的切面实现",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785234681237,
+    "updatedAt": 1785234688954,
+    "answer": "在这种情况下，切面由常规类以及基于XML的配置实现。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785234696254_d9sliy",
+    "text": "解释基于注解的切面实现",
+    "answered": true,
+    "relatedNodeId": "k_1785231173946_ojp5ux",
+    "createdAt": 1785234696254,
+    "updatedAt": 1785234709216,
+    "answer": "在这种情况下(基于@AspectJ的实现)，涉及到的切面声明的风格与带有java5标注的普通java类一致。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785236490803_pfhba2",
+    "text": "解释对象/关系映射集成模块",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785236490803,
+    "updatedAt": 1785236508346,
+    "answer": "Spring通过提供ORM模块，支持我们在直接JDBC之上使用一个对象/关系映射映射(ORM)工具，\nSpring支持集成主流的ORM框架，如Hiberate，JDO和MyBatis，JPA，TopLink，JDO，OJB等待\n。Spring的事务管理同样支持以上所有ORM框架及JDBC。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785236517194_kkihb1",
+    "text": "在Spring框架中如何更有效地使用JDBC？",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785236517194,
+    "updatedAt": 1785236543998,
+    "answer": "使用Spring JDBC框架，资源管理和错误处理的代价都会被减轻。所以开发者只需写statements和queries从数据存取数据，JDBC也可以在Spring框架提供的模板类的帮助下更有效地被使用，这个模板叫JdbcTemplate",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785236567220_oqu0oc",
+    "text": "解释JDBC抽象和DAO模块",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785236567220,
+    "updatedAt": 1785236582047,
+    "answer": "通过使用JDBC抽象和DAO模块，保证数据库代码的简洁，并能避免数据库资源错误关闭导致的问题，它在各种不同的数据库的错误信息之上，提供了一个统一的异常访问层。它还利用Spring的AOP模块给Spring应用中的对象提供事务管理服务。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785236613653_k5pv2k",
+    "text": "spring DAO有什么用？",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785236613653,
+    "updatedAt": 1785236647404,
+    "answer": "Spring DAO（数据访问对象）使得JDBC，Hibernate或JDO这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785236824867_zlv8ab",
+    "text": "spring JDBC API中存在哪些类？",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785236824867,
+    "updatedAt": 1785237076110,
+    "answer": "JdbcTemplate\nSimpleJdbcTemplate\nNamedParameterJdbcTemplate\nSimpleJdbcInsert\nSimpleJdbcCall",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785237160476_szplrt",
+    "text": "JdbcTemplate是什么",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785237160476,
+    "updatedAt": 1785237204683,
+    "answer": "dbcTemplate类提供了很多便利的方法解决诸如把数据库数据转变成基本数据类型或对象，执行写好的或可调用的数据库操作语句，提供自定义的数据错误处理",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785237213044_np4vq1",
+    "text": "使用Spring通过什么方式访问Hibernate？使用Spring访问 Hibernate的方法有哪些？",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785237213044,
+    "updatedAt": 1785237221871,
+    "answer": "在Spring中有两种方式访问Hibernate：\n使用Hibernate模板和回调进行控制反转\n扩展HibernateDAOSupport并应用AOP拦截器节点",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785238177732_8aq233",
+    "text": "如何通过HibernateDaoSupport将Spring和Hibernate结合起 来？",
+    "answered": true,
+    "relatedNodeId": "k_1784455027875_096te2",
+    "createdAt": 1785238177732,
+    "updatedAt": 1785238186628,
+    "answer": "用Spring的SessionFactory调用LocalSessionFactory。集成过程分三步：\n配置the Hibernate SessionFactory\n继承HibernateDaoSupport实现一个DAO\n在AOP支持的事务中装配",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785238227158_7kiuur",
+    "text": "Spring支持的事务管理类型，spring事务实现方式有哪些？",
+    "answered": true,
+    "relatedNodeId": "k_1785129602238_j76sr0",
+    "createdAt": 1785238227158,
+    "updatedAt": 1785238385070,
+    "answer": "Spring支持两种类型的事务管理：\n编程式事务管理：这意味你通过编程的方式管理事务，给你带来极大的灵活性，但是难维护。\n声明式事务管理：这意味着你可以将业务代码和事务管理分离，你只需用注解和XML配置来管理事务。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785238348282_o1kprx",
+    "text": "Spring事务的实现方式和实现原理",
+    "answered": true,
+    "relatedNodeId": "k_1785129602238_j76sr0",
+    "createdAt": 1785238348282,
+    "updatedAt": 1785238367686,
+    "answer": "Spring事务的本质其实就是数据库对事务的支持，没有数据库的事务支持，spring是无法提供事务功能的。真正的数据库层的事务提交和回滚是通过binlog或者redo log实现的。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785238426154_2bp0h4",
+    "text": "什么是spring?",
+    "answered": true,
+    "relatedNodeId": "k_1785059262643_tziuft",
+    "createdAt": 1785238426154,
+    "updatedAt": 1785238440316,
+    "answer": "Spring是一个轻量级Java开发框架，最早有Rod Johnson创建，目的是为了解决企业级应用开发\n的业务逻辑层和其他各层的耦合问题。它是一个分层的JavaSE/JavaEE full-stack（一站式）轻量级\n开源框架，为开发Java应用程序提供全面的基础架构支持。Spring负责基础架构，因此Java开发者\n可以专注于应用程序的开发。\nSpring最根本的使命是解决企业级应用开发的复杂性，即简化Java开发。\nSpring可以做很多事情，它为企业级开发提供给了丰富的功能，但是这些功能的底层都依赖于它的\n两个核心特性，也就是依赖注入（dependency injection，DI）和面向切面编程（aspect-\noriented programming，AOP）。\n为了降低Java开发的复杂性，Spring采取了以下4种关键策略**\n基于POJO的轻量级和最小侵入性编程；\n通过依赖注入和面向接口实现松耦合；\n基于切面和惯例进行声明式编程；\n通过切面和模板减少样板式代码。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785238502588_elyfjs",
+    "text": "Spring框架中都用到了哪些设计模式？",
+    "answered": true,
+    "relatedNodeId": "k_1784445073426_4a834z",
+    "createdAt": 1785238502588,
+    "updatedAt": 1785238532147,
+    "answer": "工厂模式：BeanFactory就是简单工厂模式的体现，用来创建对象的实例；\n单例模式：Bean默认为单例模式。\n代理模式：Spring的AOP功能用到了JDK的动态代理和CGLIB字节码生成技术；\n模板方法：用来解决代码重复的问题。比如. RestTemplate, JmsTemplate, JpaTemplate。\n观察者模式：定义对象键一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都会得到通知被制动更新，如Spring中listener的实现–ApplicationListener。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246028737_4pffnp",
+    "text": "Spring Boot需要独立的容器运行吗？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246028737,
+    "updatedAt": 1785246041412,
+    "answer": "可以不需要，内置了Tomcat/ Jetty等容器",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246052196_9vvryu",
+    "text": "开启Spring Boot特性有哪几种方式？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246052196,
+    "updatedAt": 1785246064385,
+    "answer": "1.继承spring-boot-starter-parent项目\n2.导入spring-boot-dependencies项目依赖",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246364497_undaz5",
+    "text": "SpringBoot实现热部署有哪几种方式？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246364497,
+    "updatedAt": 1785246374735,
+    "answer": "热部署就是可以不用重新运行SpringBoot项目可以实现操作后台代码自动更新到以运行的项目中\n主要有两种方式：\nSpring Loaded\nSpring-boot-devtools",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246395052_lt6y61",
+    "text": "如何在Spring Boot启动的时候运行一些特定的代码？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246395052,
+    "updatedAt": 1785246408581,
+    "answer": "可以实现接口ApplicationRunner或者CommandLineRunner，这两个接口实现方式一样，它们都只提供了一个run方法",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246880278_eloj3a",
+    "text": "什么是Spring Proﬁles？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246880278,
+    "updatedAt": 1785246897493,
+    "answer": "在项目的开发中，有些配置文件在开发、测试或者生产等不同环境中可能是不同的，例如数据库连接、redis的配置等等。那我们如何在不同环境中自动实现配置的切换呢？Spring给我们提供了proﬁles机制给我们提供的就是来回切换配置文件的功能\nSpring Proﬁles允许用户根据配置文件（dev，test，prod等）来注册bean。因此，当应用程序在开发中运行时，只有某些bean可以加载，而在PRODUCTION中，某些其他bean可以加载。\n假设我们的要求是Swagger文档仅适用于QA环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot使得使用配置文件非常简单。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785246930859_kbddjz",
+    "text": "Spring Boot中如何实现定时任务?",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785246930859,
+    "updatedAt": 1785246943293,
+    "answer": "在Spring Boot中使用定时任务主要有两种不同的方式，一个就是使用Spring中的@Scheduled注解，另一-个则是使用第三方框架Quartz。\n使用Spring中的@Scheduled的方式主要通过@Scheduled注解来实现",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785247494348_ci5h4g",
+    "text": "SpringBoot如何实现打包",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785247494348,
+    "updatedAt": 1785247517575,
+    "answer": "进入项目目录在控制台输入mvn clean package，clean是清空已存在的项目包，package进行打包\n或者点击左边选项栏中的Mavne，先点击clean在点击package",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785247930632_uev5mu",
+    "text": "SpringBoot与SpringCloud区别?",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785247930633,
+    "updatedAt": 1785247946060,
+    "answer": "SpringBoot是快速开发的Spring框架，SpringCloud是完整的微服务框架，SpringCloud依赖于SpringBoot。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785248039929_myew1f",
+    "text": "SpringBoot事务的使用",
+    "answered": true,
+    "relatedNodeId": "k_1785248000563_m7pwwl",
+    "createdAt": 1785248039929,
+    "updatedAt": 1785248054545,
+    "answer": "SpringBoot的事物很简单，首先使用注解EnableTransactionManagement开启事物之后，然后在Service方法上添加注解Transactional便可。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785248218802_r14wgv",
+    "text": "Spring Boot支持哪些日志框架？推荐和默认的日志框架是哪个？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785248218802,
+    "updatedAt": 1785248234652,
+    "answer": "Spring Boot支持Java Util Logging, Log4j2, Lockback作为日志框架，如果你使用Starters启动器，Spring Boot将使用Logback作为默认日志框架，但是不管是那种日志框架他都支持将配置文件输出到控制台或者文件中。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785248330096_k79ii5",
+    "text": "Spring Boot 2.X有什么新特性？与1.X有什么区别？",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785248330096,
+    "updatedAt": 1785248345815,
+    "answer": "配置变更\nJDK版本升级\n第三方类库升级\n响应式Spring编程支持\nHTTP/2支持\n配置属性绑定\n更多改进与加强",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785248479502_aoj272",
+    "text": "spring boot核心配置文件是什么？bootstrap.properties和 application.properties有何区别?",
+    "answered": true,
+    "relatedNodeId": "k_1784510206217_m4qngo",
+    "createdAt": 1785248479502,
+    "updatedAt": 1785248497669,
+    "answer": "单纯做Spring Boot开发，可能不太容易遇到bootstrap.properties配置文件，但是在结合Spring Cloud时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。\nspring boot核心的两个配置文件：\nbootstrap (. yml或者. properties)：boostrap由父ApplicationContext加载的，比applicaton优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在SpringCloud配置就会使用这个文件。且boostrap里面的属性不能被覆盖；\napplication (. yml或者. properties)：由ApplicatonContext加载，用于spring boot项目的自动化配置。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785249629630_pjgbsn",
+    "text": "static关键字会改变类中成员的访问权限吗？",
+    "answered": true,
+    "relatedNodeId": "k_web_4a06c6e69a03",
+    "createdAt": 1785249629630,
+    "updatedAt": 1785249651864,
+    "answer": "有些初学的朋友会将java中的static与C/C++中的static关键字的功能混淆了。在这里只需要记住一点：与C/C++中的static不同，Java中的static关键字不会影响到变量或者方法的作用域。在Java中能够影响到访问权限的只有private、public、protected（包括包访问权限）这几个关键字。看下面的例子就明白了：\n\n```java\npublic class Person {\n\n    public String name = \"李四\";\n\n    private static String address = \"中国\";\n}\n```\n\n说明static关键字不能改变变量和方法的访问权限",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785249777496_qvn8ur",
+    "text": "static能作用于局部变量么？",
+    "answered": true,
+    "relatedNodeId": "k_web_4a06c6e69a03",
+    "createdAt": 1785249777496,
+    "updatedAt": 1785249799464,
+    "answer": "static是不允许用来修饰局部变量。不要问为什么，这是Java语法的规定",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785250862470_vaasj2",
+    "text": "事务注解的本质是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785129602238_j76sr0",
+    "createdAt": 1785250862470,
+    "updatedAt": 1785250885764,
+    "answer": "@Transactional这个注解仅仅是一些（和事务相关的）元数据，在运行时被事务基础设施读取消费，并使用这些元数据来配置bean的事务行为。大致来说具有两方面功能，一是表明该方法要参与事务，二是配置相关属性来定制事务的参与方式和运行行为\n声明式事务主要是得益于Spring AOP。使用一个事务拦截器，在方法调用的前后/周围进行事务性增强（advice），来驱动事务完成。\n@Transactional注解既可以标注在类上，也可以标注在方法上。当在类上时，默认应用到类里的所有方法。如果此时方法上也标注了，则方法上的优先级高。另外注意方法一定要是public的。",
+    "answerSteps": []
   }
 ]

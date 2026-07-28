@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   applyImport,
+  buildNodes,
   buildSectionTree,
   extractExternalLinks,
   extractKeywords,
@@ -73,6 +74,34 @@ test('section parsing keeps hierarchy and recognizes skipped sections', () => {
   assert.equal(isBlacklisted('Models'), false);
 });
 
+test('article lists become explanation index pages without expanding the directory tree', async () => {
+  const tree = buildSectionTree(splitSections([
+    'Lead',
+    '== Models ==',
+    '* [[Record (database)|Record]] - Stored row',
+    '* [[Database table|Table]] - Named relation',
+  ].join('\n')));
+
+  const { nodes } = await buildNodes(
+    tree,
+    'en',
+    'Database',
+    'https://en.wikipedia.org/wiki/Database',
+    false,
+  );
+
+  assert.equal(nodes.length, 2);
+  assert.deepEqual(nodes.map((node) => node.label), ['Database', 'Models']);
+  assert.doesNotMatch(nodes[1].card.tabs[0].content, /wikipedia\.org|\)\s+- Stored row/);
+  assert.deepEqual(nodes[1].card.tabs[0].tags, ['Record (database)', 'Database table']);
+
+  const modelsTab = nodes[0].card.tabs.find((tab) => tab.label === 'Models');
+  assert.deepEqual(modelsTab.pages.map((page) => page.label), ['Record', 'Table']);
+  assert.equal(modelsTab.pages[0].content, 'Record - Stored row');
+  assert.deepEqual(modelsTab.tags, ['Record (database)', 'Database table']);
+  assert.deepEqual(modelsTab.pages[0].tags, ['Record (database)']);
+});
+
 test('reimport replaces the article subtree without duplicating or leaving stale nodes', () => {
   const prefix = 'k_wiki_en_database';
   const pool = {
@@ -121,6 +150,56 @@ test('reimport replaces the article subtree without duplicating or leaving stale
   assert.equal(pool.k_manual.label, 'Manual node');
 });
 
+test('reimport preserves manually owned tree references to imported knowledge', () => {
+  const prefix = 'k_wiki_en_database';
+  const pool = {};
+  const tree = {
+    id: 'root',
+    name: 'Root',
+    nodeRef: 'root-node',
+    children: [{
+      id: 'parent-tree',
+      name: 'Parent',
+      nodeRef: 'parent-node',
+      children: [{
+        id: 'tree_wiki_en_database',
+        name: 'Database',
+        nodeRef: prefix,
+        children: [{
+          id: 'manual-database-models-reference',
+          name: 'Models shortcut',
+          nodeRef: `${prefix}_s1`,
+          children: [],
+        }],
+      }],
+    }],
+  };
+  const nodes = [
+    {
+      id: prefix,
+      label: 'Database',
+      parentId: null,
+      treeId: 'tree_wiki_en_database',
+      treeName: 'Database',
+      card: { nodeId: prefix, title: 'Database', tabs: [] },
+    },
+    {
+      id: `${prefix}_s1`,
+      label: 'Models',
+      parentId: prefix,
+      treeId: 'tree_wiki_en_database_s1',
+      treeName: 'Models',
+      card: { nodeId: `${prefix}_s1`, title: 'Models', tabs: [] },
+    },
+  ];
+
+  applyImport(pool, tree, nodes, 'parent-node', prefix);
+
+  const importedRoot = tree.children[0].children[0];
+  assert.ok(importedRoot.children.some((child) => child.id === 'manual-database-models-reference'));
+  assert.ok(importedRoot.children.some((child) => child.id === 'tree_wiki_en_database_s1'));
+});
+
 test('extractKeywords collects internal link targets as SuperTag candidates', () => {
   const wikitext = [
     'Lead with [[Database]] and [[ACID]] mention.',
@@ -158,7 +237,7 @@ test('extractExternalLinks collects unique external URLs with labels', () => {
   assert.equal(links[1].label, 'Other Resource');
 });
 
-test('applyImport sets content-derived keywords as SuperTags on root node', () => {
+test('applyImport stores only content-derived SuperTags', () => {
   const prefix = 'k_wiki_en_test';
   const pool = {};
   const tree = {
@@ -181,6 +260,6 @@ test('applyImport sets content-derived keywords as SuperTags on root node', () =
 
   applyImport(pool, tree, nodes, 'parent-node', prefix, keywords);
 
-  assert.deepEqual(pool[prefix].tags, ['wikipedia', 'wikipedia-import', 'ACID', 'SQL', 'NoSQL']);
-  assert.deepEqual(pool[`${prefix}_s1`].tags, ['wikipedia', 'wikipedia-import']);
+  assert.deepEqual(pool[prefix].tags, ['ACID', 'SQL', 'NoSQL']);
+  assert.deepEqual(pool[`${prefix}_s1`].tags, []);
 });

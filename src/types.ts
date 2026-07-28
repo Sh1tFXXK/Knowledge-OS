@@ -23,11 +23,6 @@ export interface GraphEdge {
   label: string;
 }
 
-export interface GraphData {
-  nodes: GraphNode[];
-  edges: GraphEdge[];
-}
-
 export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags';
 
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
@@ -209,24 +204,6 @@ export interface Rule {
   result: string;
 }
 
-export interface SubSystem {
-  id: string;
-  name: string;
-  color: string;
-  nodes: number;
-  relations: number;
-}
-
-export interface InferenceStep {
-  label: string;
-  description: string;
-}
-
-export interface InferenceEngine {
-  steps: InferenceStep[];
-  answer: string;
-}
-
 export interface ExplanationPage {
   id: string;
   label: string;
@@ -284,6 +261,8 @@ export type ExplanationSelection = ExplanationIndexSelection | ExplanationPathSe
 export interface NodeExplanation {
   nodeId: string;
   title: string;
+  /** 标题索引根节点下的总述正文（与 tabs 并列，非某个 tab 的内容） */
+  rootContent?: string;
   tabs: ExplanationTab[];
   /** Legacy storage for definition child pages; new pages live on their parent tab. */
   definitionPages?: ExplanationPage[];
@@ -295,10 +274,45 @@ export interface QuestionAnswerStep {
   note?: string;
 }
 
+export enum QuestionKind {
+  Definition = 'definition',
+  Mechanism = 'mechanism',
+  Comparison = 'comparison',
+  Application = 'application',
+  Troubleshooting = 'troubleshooting',
+  Recall = 'recall',
+}
+
+export enum QuestionDifficulty {
+  Basic = 'basic',
+  Intermediate = 'intermediate',
+  Advanced = 'advanced',
+}
+
+export enum QuestionSourceKind {
+  Document = 'document',
+  Web = 'web',
+}
+
+export interface QuestionSource {
+  kind: QuestionSourceKind;
+  /** 稳定来源标识：文档内容哈希或网页 URL。 */
+  sourceId: string;
+  sourceTitle: string;
+  /** 问题在来源文档中的章节标题。 */
+  sectionTitle?: string;
+}
+
 export interface Question {
   id: string;
   text: string;
   answered: boolean;
+  /** 问题考察方式。旧数据缺省时按 Recall 展示。 */
+  kind?: QuestionKind;
+  /** 认知难度。旧数据缺省时按 Basic 展示。 */
+  difficulty?: QuestionDifficulty;
+  /** 自动导入问题的可追溯来源；手工问题可缺省。 */
+  source?: QuestionSource;
   /** 关联的知识节点 ID 或目录项 ID（可选） */
   relatedNodeId?: string;
   /** 组成答案的有序知识节点引用 */
@@ -309,12 +323,6 @@ export interface Question {
   createdAt?: number;
   /** 更新时间 */
   updatedAt?: number;
-}
-
-export interface Coordinates {
-  x: number;
-  y: number;
-  z: number;
 }
 
 export interface NotificationItem {

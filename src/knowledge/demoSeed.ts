@@ -3,14 +3,13 @@
  * 数据与代码分离——修改知识内容只需编辑 ../data/ 下的 JSON 文件。
  */
 import type { PersistedAppState } from './state';
-import type { KnowledgeNode, KnowledgeEdge, TreeNode, Question, SubSystem } from '../types';
+import type { KnowledgeNode, KnowledgeEdge, TreeNode, Question } from '../types';
 
 import nodePoolData from '../../data/node-pool.json';
 import knowledgeEdgesData from '../../data/knowledge-edges.json';
 import treeDataRaw from '../../data/tree-data.json';
 import questionsData from '../../data/questions.json';
 import inferenceResponsesData from '../../data/inference-responses.json';
-import subsystemsData from '../../data/subsystems.json';
 import { migrateNodePool } from './migrateViewDimensions';
 
 function demoGraphSlice(): PersistedAppState['graph'] {
@@ -72,7 +71,6 @@ export function createInitialAppState(): PersistedAppState {
     perspectives: [],
     questions: questionsData as Question[],
     inferenceResponses: inferenceResponsesData as Record<string, string>,
-    subSystems: subsystemsData as SubSystem[],
   };
 }
 
