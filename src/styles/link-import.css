@@ -120,6 +120,46 @@
   color: var(--text-primary);
 }
 
+.document-import-modes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px;
+  margin: 14px 20px 0;
+  padding: 3px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 6px;
+  background: #0b0f14;
+}
+
+.document-import-modes button {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font: 600 11px/1 var(--font-sans);
+  cursor: pointer;
+}
+
+.document-import-modes button:hover:not(:disabled) {
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.document-import-modes button.is-active {
+  background: rgba(6, 182, 212, 0.12);
+  color: #a5f3fc;
+}
+
+.document-import-modes button:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
 .link-import-form,
 .link-import-result {
   padding: 19px 20px 20px;
@@ -164,6 +204,16 @@
 .link-import-field .input:disabled {
   cursor: wait;
   opacity: 0.62;
+}
+
+.java-source-import-path {
+  width: 100%;
+  min-width: 0;
+  font-family: var(--font-mono) !important;
+}
+
+.java-source-import-result-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .document-import-input {
@@ -564,7 +614,7 @@
 .link-import-result-grid {
   display: grid;
   grid-column: 1 / -1;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   margin: 2px 0 0;
   border-block: 1px solid rgba(148, 163, 184, 0.13);
 }

@@ -107,12 +107,9 @@ export function defaultExplanationSelection(
       nodeId: explanation.nodeId,
     };
   }
-  const firstPage = explicitPagesForTab(explanation, firstTab)[0];
   return {
-    kind: ExplanationSelectionKind.Content,
+    kind: ExplanationSelectionKind.Root,
     nodeId: explanation.nodeId,
-    tabId: firstTab.id,
-    pageId: firstPage?.id ?? null,
   };
 }
 

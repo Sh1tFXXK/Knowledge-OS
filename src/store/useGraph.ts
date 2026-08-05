@@ -21,7 +21,7 @@ import type {
   ExplanationIndexSelection,
   ExplanationSelection,
 } from '../types';
-import { ExplanationSelectionKind } from '../types';
+import { ExplanationSelectionKind, TypeRelationKind } from '../types';
 import {
   createKnowledgeNode,
   createKnowledgeEdge,
@@ -35,7 +35,12 @@ import {
   exportAppStateJson,
   parseImportedAppState,
 } from '../knowledge/persist';
-import { createEmptyAppState, APP_STATE_VERSION, type PersistedAppState } from '../knowledge/state';
+import {
+  createEmptyAppState,
+  APP_STATE_VERSION,
+  type KnowledgePointSnapshot,
+  type PersistedAppState,
+} from '../knowledge/state';
 import {
   appendTreeChild,
   cloneTree,
@@ -61,6 +66,19 @@ import {
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
 import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
+import {
+  hasDirectTypeRelation,
+  typeRelationLabel,
+  wouldIntroduceTypeRelationCycle,
+} from '../knowledge/typeRelations';
+import { createKnowledgePointSnapshot } from '../knowledge/timeline';
+import {
+  CONTAINMENT_EDGE_LABEL,
+  CONTAINMENT_EDGE_TYPE,
+  hasDirectContainmentRelation,
+  isManagedContainmentEdge,
+  wouldIntroduceContainmentCycle,
+} from '../knowledge/containment';
 import {
   applyExplanationIndexOperation as mutateExplanationIndex,
   setExplanationIndexItemTags,
@@ -241,12 +259,14 @@ interface GraphState {
   inferenceResponses: Record<string, string>;
   rules: Rule[];
   perspectives: Perspective[];
+  timeline: KnowledgePointSnapshot[];
 
   notifications: NotificationItem[];
   theme: ThemeType;
   currentPerspective: Perspective | null;
   activeView: AppView;
   selectedSupertag: string | null;
+  selectedTimelineSnapshotId: string | null;
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
@@ -281,6 +301,14 @@ interface GraphState {
     dimensions?: string[],
   ) => void;
   removeKnowledgeEdge: (id: string) => void;
+  addTypeRelation: (
+    source: string,
+    target: string,
+    kind: TypeRelationKind,
+  ) => boolean;
+  removeTypeRelation: (id: string) => boolean;
+  addContainmentRelation: (source: string, target: string) => boolean;
+  removeContainmentRelation: (id: string) => boolean;
   updateKnowledgeNodeMeta: (
     id: string,
     patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags'>>,
@@ -303,6 +331,13 @@ interface GraphState {
   toggleTheme: () => void;
   setCurrentPerspective: (p: Perspective | null) => void;
   setActiveView: (view: AppView) => void;
+  createKnowledgePointSnapshot: (
+    knowledgeNodeId: string,
+    title: string,
+    note?: string,
+  ) => string | null;
+  selectTimelineSnapshot: (id: string | null) => void;
+  removeTimelineSnapshot: (id: string) => void;
   openSupertag: (tag: string) => void;
   undo: () => void;
   getAllNodes: () => GraphNode[];
@@ -343,6 +378,8 @@ interface GraphState {
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
   renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
+  /** 删除知识节点并同步移除对应目录项（子目录上移保留） */
+  removeKnowledgeNodeKeepTree: (knowledgeId: string) => void;
   listKnowledgeNodes: () => KnowledgeNode[];
 
   /** 鐩綍锛氫粎瀵艰埅缁撴瀯 */
@@ -383,6 +420,7 @@ function snapshotState(state: GraphState): PersistedAppState {
     rules: state.rules,
     perspectives: state.perspectives,
     inferenceResponses: state.inferenceResponses,
+    timeline: state.timeline,
   };
 }
 
@@ -405,10 +443,12 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     rules: data.rules,
     perspectives: data.perspectives,
     inferenceResponses: data.inferenceResponses,
+    timeline: data.timeline,
     selectedNodeId: null,
     selectedTreeNodeId: null,
     selectedQuestionId: null,
     activeExplanationSelection: null,
+    selectedTimelineSnapshotId: null,
   });
 }
 
@@ -445,11 +485,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
     inferenceResponses: initialApp.inferenceResponses,
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
+    timeline: initialApp.timeline,
     notifications: [],
     theme: 'dark',
     currentPerspective: null,
     activeView: 'universe',
     selectedSupertag: null,
+    selectedTimelineSnapshotId: null,
     history: [],
 
     initialize: async () => {
@@ -625,6 +667,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       });
 
       set({
+        activeView: 'index',
         selectedTreeNodeId: treeNodeId,
         selectedNodeId: nodeId,
         focusNodeId: focusNodeId,
@@ -672,6 +715,85 @@ export const useGraphStore = create<GraphState>((set, get) => {
     removeKnowledgeEdge: (id) => {
       set((s) => ({ knowledgeEdges: s.knowledgeEdges.filter((e) => e.id !== id) }));
       persist();
+    },
+
+    addTypeRelation: (source, target, kind) => {
+      const state = get();
+      const sourceNode = state.nodePool[source];
+      if (!sourceNode || !state.nodePool[target] || sourceNode.locked) {
+        get().addNotification('无法添加类型关系：源节点已锁定或目标不存在', 'warning');
+        return false;
+      }
+      if (hasDirectTypeRelation(state.knowledgeEdges, source, target, kind)) {
+        get().addNotification('已存在相同的类型关系', 'warning');
+        return false;
+      }
+      if (wouldIntroduceTypeRelationCycle(state.knowledgeEdges, source, target)) {
+        get().addNotification('会形成循环：请先删除或调整反向的 extends / implements 关系', 'warning');
+        return false;
+      }
+
+      const edge = createKnowledgeEdge(source, target, kind, typeRelationLabel(kind));
+      set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
+      persist();
+      return true;
+    },
+
+    removeTypeRelation: (id) => {
+      const state = get();
+      const edge = state.knowledgeEdges.find((item) => item.id === id);
+      if (!edge || state.nodePool[edge.source]?.locked) return false;
+      if (edge.type !== TypeRelationKind.Implements && edge.type !== TypeRelationKind.Extends) {
+        return false;
+      }
+
+      set({ knowledgeEdges: state.knowledgeEdges.filter((item) => item.id !== id) });
+      persist();
+      return true;
+    },
+
+    addContainmentRelation: (source, target) => {
+      const state = get();
+      const sourceNode = state.nodePool[source];
+      if (!sourceNode || !state.nodePool[target] || sourceNode.locked) {
+        get().addNotification('无法添加包含关系：源节点已锁定或目标不存在', 'warning');
+        return false;
+      }
+      if (hasDirectContainmentRelation(state.knowledgeEdges, source, target)) {
+        get().addNotification('已存在相同的包含关系', 'warning');
+        return false;
+      }
+      if (wouldIntroduceContainmentCycle(state.knowledgeEdges, source, target)) {
+        get().addNotification('会形成包含循环：请先调整现有的包含关系', 'warning');
+        return false;
+      }
+
+      const edge = createKnowledgeEdge(
+        source,
+        target,
+        CONTAINMENT_EDGE_TYPE,
+        CONTAINMENT_EDGE_LABEL,
+      );
+      set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
+      persist();
+      return true;
+    },
+
+    removeContainmentRelation: (id) => {
+      const state = get();
+      const edge = state.knowledgeEdges.find((item) => item.id === id);
+      if (
+        !edge
+        || state.nodePool[edge.source]?.locked
+        || edge.type !== CONTAINMENT_EDGE_TYPE
+        || isManagedContainmentEdge(edge)
+      ) {
+        return false;
+      }
+
+      set({ knowledgeEdges: state.knowledgeEdges.filter((item) => item.id !== id) });
+      persist();
+      return true;
     },
 
     updateKnowledgeNodeMeta: (id, patch) => {
@@ -823,6 +945,38 @@ export const useGraphStore = create<GraphState>((set, get) => {
     toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
     setCurrentPerspective: (p) => set({ currentPerspective: p }),
     setActiveView: (view) => set({ activeView: view }),
+    createKnowledgePointSnapshot: (knowledgeNodeId, title, note) => {
+      const state = get();
+      const node = state.nodePool[knowledgeNodeId];
+      if (!node) return null;
+      const snapshot = createKnowledgePointSnapshot(
+        node,
+        title,
+        note,
+        genId('snapshot'),
+      );
+      set({
+        timeline: [snapshot, ...state.timeline],
+        selectedTimelineSnapshotId: snapshot.id,
+      });
+      persist();
+      get().addNotification(`已保存知识点版本：${snapshot.title}`, 'success');
+      return snapshot.id;
+    },
+    selectTimelineSnapshot: (id) => {
+      if (id !== null && !get().timeline.some((snapshot) => snapshot.id === id)) return;
+      set({ selectedTimelineSnapshotId: id });
+    },
+    removeTimelineSnapshot: (id) => {
+      const state = get();
+      if (!state.timeline.some((snapshot) => snapshot.id === id)) return;
+      set({
+        timeline: state.timeline.filter((snapshot) => snapshot.id !== id),
+        selectedTimelineSnapshotId:
+          state.selectedTimelineSnapshotId === id ? null : state.selectedTimelineSnapshotId,
+      });
+      persist();
+    },
     openSupertag: (tag) => {
       const selectedSupertag = normalizeSupertag(tag);
       if (!selectedSupertag) return;
@@ -1288,6 +1442,94 @@ export const useGraphStore = create<GraphState>((set, get) => {
         selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
         selectedTreeNodeId,
+      });
+      persist();
+    },
+
+    removeKnowledgeNodeKeepTree: (knowledgeId) => {
+      const state = get();
+      const removedIds = new Set([knowledgeId]);
+
+      const { [knowledgeId]: _, ...rawNodePool } = state.nodePool;
+      const nodePool = Object.entries(rawNodePool).reduce((acc, [id, node]) => {
+        if (node.viewDimensions) {
+          const nextViewDims = removeNodeRefsFromViewDimensions(node.viewDimensions, removedIds);
+          acc[id] = { ...node, viewDimensions: nextViewDims };
+        } else {
+          acc[id] = node;
+        }
+        return acc;
+      }, {} as Record<string, KnowledgeNode>);
+
+      const knowledgeEdges = state.knowledgeEdges.filter(
+        (e) => e.source !== knowledgeId && e.target !== knowledgeId,
+      );
+
+      // 同一个知识点的所有视图共享删除逻辑：对应目录项一并移除，子目录上移保留。
+      const replaceNodeWithChildren = (node: TreeNode, targetId: string): TreeNode => {
+        if (node.id === targetId) {
+          return {
+            ...node,
+            nodeRef: undefined,
+            children: node.children ?? undefined,
+          };
+        }
+        const children = (node.children ?? []).flatMap((child) => {
+          if (child.id === targetId) return child.children ?? [];
+          return [replaceNodeWithChildren(child, targetId)];
+        });
+        return {
+          ...node,
+          children: children.length > 0 ? children : undefined,
+        };
+      };
+      const treeData = replaceNodeWithChildren(cloneTree(state.treeData), knowledgeId);
+
+      const questions = state.questions.map((q) => {
+        const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);
+        return {
+          ...q,
+          relatedNodeId: q.relatedNodeId === knowledgeId ? undefined : q.relatedNodeId,
+          ...(answerSteps ? { answerSteps } : {}),
+        };
+      });
+
+      const deletedNode = state.nodePool[knowledgeId];
+      const inferenceResponses = { ...state.inferenceResponses };
+      if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
+        delete inferenceResponses[deletedNode.label];
+      }
+
+      const removedTreeNodes = collectTreeNodes(state.treeData)
+        .filter((node) => node.nodeRef === knowledgeId);
+      // 删除当前选中节点后自动跳到父目录，避免索引视图空白。
+      let nextSelectedTreeNodeId = state.selectedTreeNodeId;
+      let nextSelectedNodeId = state.selectedNodeId;
+      if (
+        state.selectedNodeId === knowledgeId
+        || removedTreeNodes.some((node) => node.id === state.selectedTreeNodeId)
+      ) {
+        const parent = removedTreeNodes
+          .map((node) => findTreeParent(state.treeData, node.id))
+          .find((candidate) => candidate !== null) ?? null;
+        if (parent) {
+          nextSelectedTreeNodeId = parent.id;
+          nextSelectedNodeId = parent.nodeRef ?? null;
+        } else {
+          nextSelectedTreeNodeId = null;
+          nextSelectedNodeId = null;
+        }
+      }
+
+      set({
+        nodePool,
+        knowledgeEdges,
+        treeData,
+        questions,
+        inferenceResponses,
+        selectedNodeId: nextSelectedNodeId,
+        selectedTreeNodeId: nextSelectedTreeNodeId,
+        focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
       });
       persist();
     },

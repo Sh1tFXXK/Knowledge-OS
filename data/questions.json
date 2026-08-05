@@ -499,15 +499,6 @@
     "answer": "循环的末尾（防止大循环的时候一直不进入 safepoint，而其他线程在等待它进入 safepoint）\n方法返回前\n调用方法的 call 之后\n抛出异常的位置"
   },
   {
-    "id": "q_1783174752393_7u4y97",
-    "text": "简述 java 内存分配与回收策略以及 Minor GC 和 Major GC",
-    "answered": true,
-    "relatedNodeId": "k_1783104722598_hdfb8o",
-    "createdAt": 1783174752393,
-    "updatedAt": 1783174766200,
-    "answer": "对象优先在堆的 Eden 区分配。\n大对象直接进入老年代。\n长期存活的对象将直接进入老年代。\n当 Eden 区没有足够的空间进行分配时，虚拟机会执行一次 Minor GC。\n\nMinor GC：通常发生在新生代的 Eden 区，在这个区的对象生存期短，往往发生 GC 的频率较高，回收速度比较快\nFull GC / Major GC：发生在老年代，一般情况下触发老年代 GC 的时候不会触发 Minor GC，但通过配置可以在 Full GC 之前进行一次 Minor GC，这样可以加快老年代的回收速度"
-  },
-  {
     "id": "q_1783183609893_8xdbpk",
     "text": "面向对象和面向过程的区别",
     "answered": true,
@@ -640,8 +631,9 @@
     "answered": true,
     "relatedNodeId": "k_1785059262643_tziuft",
     "createdAt": 1785059716447,
-    "updatedAt": 1785059727839,
-    "answer": "单例模式：bean默认都是单例的\n原型模式：指定作用域为prototype\n工厂模式：BeanFactory\n模板方法：postProcessBeanFactory,onRefresh,initPropertyValue\n策略模式：XmlBeanDefinitionReader,PropertiesBeanDefinitionReader\n观察者模式：listener，event，multicast\n适配器模式：Adapter\n装饰者模式：BeanWrapper\n责任链模式：使用aop的时候会先生成一个拦截器链\n代理模式：动态代理\n委托者模式：delegate"
+    "updatedAt": 1785337069517,
+    "answer": "单例模式：bean默认都是单例的\n原型模式：指定作用域为prototype\n工厂模式：BeanFactory  简单工厂模式：\n简单工厂模式就是通过工厂根据传递进来的参数决定产生哪个对象。Spring中我们通过getBean方法获取对象的时候根据id或者name获取就是简单工厂模式了。\n工厂方法模式：\n在Spring中我们一般是将Bean的实例化直接交给容器去管理的，实现了使用和创建的分离，这时容器直接管理对象，还有种情况是，bean的创建过程我们交给一个工厂去实现，而Spring容器管理这个工厂。这个就是我们讲的工厂模式，在Spring中有两种实现一种是静态工厂方法模式，一种是动态工厂方法模式。以静态工厂来演示\n模板方法：postProcessBeanFactory,onRefresh,initPropertyValue\n模板模式的核心是父类定义好流程，然后将流程中需要子类实现的方法就抽象话留给子类实现，\nSpring中的JdbcTemplate就是这样的实现。我们知道jdbc的步骤是固定\n加载驱动,\n获取连接通道,\n构建sql语句.\n执行sql语句,\n关闭资源\n在这些步骤中第3步和第四步是不确定的,所以就留给客户实现，而我们实际使用JdbcTemplate的时\n候也确实是只需要构建SQL就可以了.这就是典型的模板模式\n策略模式：XmlBeanDefinitionReader,PropertiesBeanDefinitionReader   策略模式策略模式对应于解决某一个问题的一个算法族，允许用户从该算法族中任选一个算法解决某一问题，同时可以方便的更换算法或者增加新的算法。并且由客户端决定调用哪个算法，spring中在实例化对象的时候用到Strategy模式。XmlBeanDefinitionReader,PropertiesBeanDefinitionReader\n观察者模式：listener，event，multicast\n观察者模式定义的是对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都得到通知并被自动更新。使用比较场景是在监听器中而spring中Observer模式常用的地方也是listener的实现。如ApplicationListener.\n适配器模式：Adapter   将一个类的接口转换成客户希望的另外一个接口。使得原本由于接口不兼容而不能一起工作的那些\n类可以在一起工作。这就是适配器模式。在Spring中在AOP实现中的Advice和interceptor之间的转换就是通过适配器模式实现的。\n装饰者模式：BeanWrapper    装饰者模式又称为包装模式(Wrapper),作用是用来动态的为一个对象增加新的功能。装饰模式是一\n种用于代替继承的技术，无须通过继承增加子类就能扩展对象的新功能。使用对象的关联关系代替继承\n关系，更加灵活，同时避免类型体系的快速膨胀。\nspring中用到的包装器模式在类名上有两种表现：一种是类名中含有Wrapper，另一种是类名中含有Decorator。基本上都是动态地给一个对象添加一些额外的职责。具体的使用在Spring session框架中的SessionRepositoryRequestWrapper使用包装模式对原生的\nrequest的功能进行增强，可以将session中的数据和分布式数据库进行同步，这样即使当前tomcat崩溃，session中的数据也不会丢失。\n责任链模式：使用aop的时候会先生成一个拦截器链      \n代理模式：动态代理\n委托者模式：delegate",
+    "answerSteps": []
   },
   {
     "id": "q_1785059753783_42vijb",
@@ -1365,6 +1357,685 @@
     "createdAt": 1785250862470,
     "updatedAt": 1785250885764,
     "answer": "@Transactional这个注解仅仅是一些（和事务相关的）元数据，在运行时被事务基础设施读取消费，并使用这些元数据来配置bean的事务行为。大致来说具有两方面功能，一是表明该方法要参与事务，二是配置相关属性来定制事务的参与方式和运行行为\n声明式事务主要是得益于Spring AOP。使用一个事务拦截器，在方法调用的前后/周围进行事务性增强（advice），来驱动事务完成。\n@Transactional注解既可以标注在类上，也可以标注在方法上。当在类上时，默认应用到类里的所有方法。如果此时方法上也标注了，则方法上的优先级高。另外注意方法一定要是public的。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785254513009_hx85dk",
+    "text": "集合的特点",
+    "answered": true,
+    "createdAt": 1785254513009,
+    "updatedAt": 1785254524926,
+    "answer": "集合的特点主要有如下两点：\n集合用于存储对象的容器，对象是用来封装数据，对象多了也需要存储集中式管理。\n和数组对比对象的大小不确定。因为集合是可变长度的。数组需要提前定义大小",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785254533147_94ou85",
+    "text": "集合和数组的区别",
+    "answered": true,
+    "createdAt": 1785254533147,
+    "updatedAt": 1785254544726,
+    "answer": "数组是固定长度的；集合可变长度的。\n数组可以存储基本数据类型，也可以存储引用数据类型；集合只能存储引用数据类型。\n数组存储的元素必须是同一个数据类型；集合存储的对象可以是不同数据类型。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785254636771_znbq6x",
+    "text": "使用集合框架的好处",
+    "answered": true,
+    "createdAt": 1785254636771,
+    "updatedAt": 1785254656664,
+    "answer": "1.容量自增长；\n2.提供了高性能的数据结构和算法，使编码更轻松，提高了程序速度和质量；\n3.可以方便地扩展或改写集合，提高代码复用性和可操作性。\n4.通过使用JDK自带的集合类，可以降低代码维护和学习新API成本。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785293393214_fovwxq",
+    "text": "Java集合的快速失败机制“fail-fast”？",
+    "answered": true,
+    "createdAt": 1785293393214,
+    "updatedAt": 1785293441787,
+    "answer": "是java集合的一种错误检测机制，当多个线程对集合进行结构上的改变的操作时，有可能会产生fail-fast机制。\n例如：假设存在两个线程（线程1、线程2），线程1通过Iterator在遍历集合A中的元素，在某个时候线程2修改了集合A的结构（是结构上面的修改，而不是简单的修改集合元素的内容），那么这个时候程序就会抛出ConcurrentModiﬁcationException异常，从而产生fail-fast机制。\n原因：迭代器在遍历时直接访问集合中的内容，并且在遍历过程中使用一个modCount变量。集合在被遍历期间如果内容发生变化，就会改变modCount的值。每当迭代器使用hashNext()/next()遍历下一个元素之前，都会检测modCount变量是否为expectedmodCount值，是的话就返回遍历；否则抛出异常，终止遍历。\n解决办法：\n1.在遍历过程中，所有涉及到改变modCount值得地方全部加上synchronized。\n2.使用CopyOnWriteArrayList来替换ArrayList",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785293502245_6gn4ui",
+    "text": "怎么确保一个集合不能被修改？",
+    "answered": true,
+    "createdAt": 1785293502245,
+    "updatedAt": 1785293513089,
+    "answer": "可以使用Collections. unmodiﬁableCollection(Collection c)方法来创建一个只读集合，这样改变集合的任何操作都会抛出Java. lang. UnsupportedOperationException异常。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785295792313_ls1w85",
+    "text": "为什么需要三级缓存",
+    "answered": true,
+    "relatedNodeId": "k_1785251031271_kd84f6",
+    "createdAt": 1785295792313,
+    "updatedAt": 1785295818045,
+    "answer": "三级缓存主要处理的是AOP的代理对象，存储的是一个ObjectFactory\n三级缓存考虑的是带你对象，而二级缓存考虑的是性能-从三级缓存的工厂里创建出对象，再扔到二级缓存（这样就不用每次都要从工厂里拿）",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785295878675_6lew8z",
+    "text": "没有三级缓存能解决吗？",
+    "answered": true,
+    "relatedNodeId": "k_1785251031271_kd84f6",
+    "createdAt": 1785295878675,
+    "updatedAt": 1785295886736,
+    "answer": "可以",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785295903250_ce45uo",
+    "text": "三级缓存分别什么作用",
+    "answered": false,
+    "relatedNodeId": "k_1785251031271_kd84f6",
+    "createdAt": 1785295903250,
+    "updatedAt": 1785295903250
+  },
+  {
+    "id": "q_1785311847419_etzcne",
+    "text": "迭代器Iterator是什么？",
+    "answered": true,
+    "createdAt": 1785311847419,
+    "updatedAt": 1785312427084,
+    "answer": "Iterator接口提供遍历任何Collection的接口。我们可以从一个Collection中使用迭代器方法来获取迭代器实例。迭代器取代了Java集合框架中的Enumeration，迭代器允许调用者在迭代过程中移除元素",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785335497764_wa8ufa",
+    "text": "Autowired和Resource关键字的区别？",
+    "answered": true,
+    "relatedNodeId": "k_1785165990050_t7rh0k",
+    "createdAt": 1785335497764,
+    "updatedAt": 1785335631201,
+    "answer": "@Resource和@Autowired都是做bean的注入时使用，其实@Resource并不是Spring的注解，它的包是javax.annotation.Resource，需要导入，但是Spring支持该\n注解的注入。\n共同点\n两者都可以写在字段和setter方法上。两者如果都写在字段上，那么就不需要再写setter方法.\n不同点\n@Autowired\n@Autowired为Spring提供的注解，需要导入org.springframework.beans.factory.annotation.Autowired;只按照byType注入。@Autowired注解是按照类型（byType）装配依赖对象，默认情况下它要求依赖对象必须存在，如果允许null值，可以设置它的required属性为false。如果我们想使用按照名称（byName）来装配，可以结合@Qualififier注解一起使用。\n@Resource\n@Resource默认按照ByName自动注入，由J2EE提供，需要导入包javax.annotation.Resource。\n@Resource有两个重要的属性：name和type，而Spring将@Resource注解的name属性解析为bean的名字，而type属性则解析为bean的类型。所以，如果使用name属性，则使用byName的自动注入策略，而使用type属性时则使用byType自动注入策略。如果既不制定name也不制定type属性，这时将通过反射机制使用byName自动注入策略.\n@Resource装配顺序：\n1.如果同时指定了name和type，则从Spring上下文中找到唯一匹配的bean进行装配，找不到则抛出异常。\n2.如果指定了name，则从上下文中查找名称（id）匹配的bean进行装配，找不到则抛出异常。\n3.如果指定了type，则从上下文中找到类似匹配的唯一bean进行装配，找不到或是找到多个，都会抛出异常。\n4.如果既没有指定name，又没有指定type，则自动按照byName方式进行装配；如果没有匹配，则回退为一个原始类型进行匹配，如果匹配则自动装配。\n@Resource的作用相当于@Autowired，只不过@Autowired按照byType自动注入。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785464123367_vrwr4f",
+    "text": "HashSet与HashMap的区别",
+    "answered": true,
+    "relatedNodeId": "k_1785463930010_invjhq",
+    "createdAt": 1785464123367,
+    "updatedAt": 1785464244492,
+    "answer": "HashMap                                                 HashSet\n实现了Map接口                                        实现了Set接口\n存储键值对                                               仅存储对象\n调用put（）向map中添加元素                 调用add（）方法向Set中添加元素\nHashMap使用键（Key）计算Hashcode    HashSet使用成员对象来计算hashcode值，对于两个对象来说hashcode可能相同，所以equals()方法用来判断对象的相等性，如果两个对象不同的话，                               那么返回false\nHashMap相对于HashSet较快，因为它\n是使用唯一的键获取对象                                             HashSet较HashMap来说比较慢",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785469490396_2v68xt",
+    "text": "在Queue中poll()和 remove()有什么区别？",
+    "answered": true,
+    "createdAt": 1785469490397,
+    "updatedAt": 1785469518450,
+    "answer": "相同点：都是返回第一个元素，并在队列中删除返回的对象。\n不同点：如果没有元素poll()会返回null，而remove()会直接抛出NoSuchElementException异常。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785470115758_ju7053",
+    "text": "说一下ArrayList的优缺点",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785470115758,
+    "updatedAt": 1785470139330,
+    "answer": "ArrayList的优点如下：\nArrayList底层以数组实现，是一种随机访问模式。ArrayList实现了RandomAccess接口，因此查找的时候非常快。\nArrayList在顺序添加一个元素的时候非常方便。\nArrayList的缺点如下：\n删除元素的时候，需要做一次元素复制操作。如果要复制的元素很多，那么就会比较耗费性能。\n插入元素的时候，也需要做一次元素复制操作，缺点同上。\nArrayList比较适合顺序添加、随机访问的场景。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785470416829_scl9ql",
+    "text": "如何实现数组和List之间的转换？",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785470416830,
+    "updatedAt": 1785470430465,
+    "answer": "数组转List：使用Arrays. asList(array)进行转换。\nList转数组：使用List自带的toArray()方法。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785470459454_t70ahn",
+    "text": "ArrayList和LinkedList的区别是什么？",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785470459454,
+    "updatedAt": 1785470485154,
+    "answer": "数据结构实现：ArrayList是动态数组的数据结构实现，而LinkedList是双向链表的数据结构实现。\n随机访问效率：ArrayList比LinkedList在随机访问的时候效率要高，因为LinkedList是线性的数据存储方式，所以需要移动指针从前往后依次查找。\n增加和删除效率：在非首尾的增加和删除操作，LinkedList要比ArrayList效率要高，因为ArrayList增删操作要影响数组内的其他数据的下标。\n内存空间占用：LinkedList比ArrayList更占内存，因为LinkedList的节点除了存储数据，还存储了两个引用，一个指向前一个元素，一个指向后一个元素。\n线程安全：ArrayList和LinkedList都是不同步的，也就是不保证线程安全；\n综合来说，在需要频繁读取集合中的元素时，更推荐使用ArrayList，而在插入和删除操作较多时，更推荐使用LinkedList。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785470663430_n87gmm",
+    "text": "ArrayList和Vector的区别是什么？",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785470663430,
+    "updatedAt": 1785470721232,
+    "answer": "这两个类都实现了List接口（List接口继承了Collection接口），他们都是有序集合线程安全：Vector使用了Synchronized来实现线程同步，是线程安全的，而ArrayList是非线程安全的。\n性能：ArrayList在性能方面要优于Vector。\n扩容：ArrayList和Vector都会根据实际的需要动态的调整容量，只不过在Vector扩容每次会增加1倍，而ArrayList只会增加50%。\nVector类的所有方法都是同步的。可以由两个线程安全地访问一个Vector对象、但是一个线程访问Vector的话代码要在同步操作上耗费大量的时间。\nArraylist不是同步的，所以在不需要保证线程安全时时建议使用Arraylist。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785470772832_pmbik3",
+    "text": "List和Set的区别",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_list",
+    "createdAt": 1785470772832,
+    "updatedAt": 1785470808427,
+    "answer": "List , Set都是继承自Collection接口\nList特点：一个有序（元素存入集合的顺序和取出的顺序一致）容器，元素可以重复，可以插入多个null元素，元素都有索引。常用的实现类有ArrayList、LinkedList和Vector。\nSet特点：一个无序（存入和取出顺序有可能不一致）容器，不可以存储重复元素，只允许存入一个null元素，必须保证元素唯一性。Set接口常用实现类是HashSet、LinkedHashSet以及TreeSet。\n另外List支持for循环，也就是通过下标来遍历，也可以用迭代器，但是set只能用迭代，因为他无序，无法用下标来取得想要的值。\nSet和List对比\nSet：检索元素效率低下，删除和插入效率高，插入和删除不会引起元素位置改变。\nList：和数组类似，List可以动态增长，查找元素效率高，插入删除元素效率低，因为会引起其他元素位置改变",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785743459504_c240yt",
+    "text": "Comparable 和Comparator 接口是干什么的？列出它们的区别。",
+    "answered": true,
+    "relatedNodeId": "k_1785742371669_zng9px",
+    "createdAt": 1785743459504,
+    "updatedAt": 1785743530155,
+    "answer": "Java提供了只包含一个compareTo ()方法的Comparable 接口。这个方法可以给两个对象排序。具体来说，它返回负数，0，正数来表明输入对象小于，等于，大于已经存在的对象。\nJava提供了包含compare ()和equals ()两个方法的Comparator 接口。\ncompare ()方法用来给两个输入参数排序，返回负数，0，正数表明第一个参数是小于，等于，大于第二个参数。equals ()方法需要一个对象作为参数，它用来决定输入参数是否和comparator 相等。只有当输入参数也是一个comparator 并且输入参数和当前comparator 的排序结果是相同的时候，这个方法才返回true。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785745192288_c2xkfz",
+    "text": "说说ArrayList ,Vector ,LinkedList 的存储性能和特性。",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785745192288,
+    "updatedAt": 1785745379706,
+    "answer": "ArrayList 和vector 都是使用数组方式存储数据，此数组元素数大于实际存储的数据以便增加和插入元素，它们都允许直接按序号索引元素，但是插入元素要涉及数组元素移动等内存操作，所以索引数据快而插入数据慢，Vector 由于使用了synchronized 方法（线程安全）。\n通常性能上较ArrayList 差，而LinkedList 使用双向链表实现存储，按序号索引数据需要进行前向或后向遍历，但是插入数据时只需要记录本项的前后项即可，所以插入速度较快。\nArrayList 在查找时速度快，LinkedList 在插入与删除时更具优势。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785745918020_9hfkxq",
+    "text": "快速失败(fail-fast)和安全失败(fail-safe)的区别是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785676511176_xvc983",
+    "createdAt": 1785745918020,
+    "updatedAt": 1785745966393,
+    "answer": "Iterator 的安全失败是基于对底层集合做拷贝，因此，它不受源集合上修改的影响。\njava.util包下面的所有的集合类都是快速失败的，而java.util.concurrent 包下面的所有的类都是安全失败的。\n快速失败的迭代器会抛出ConcurrentModificationException 异常，而安全失败的迭代器永远不会抛出这样的异常。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785745997730_yg09ho",
+    "text": "Hashmap 什么时候进行扩容呢？",
+    "answered": true,
+    "relatedNodeId": "k_1785463930010_invjhq",
+    "createdAt": 1785745997730,
+    "updatedAt": 1785746018473,
+    "answer": "当hashmap 中的元素个数超过数组大小loadFactor 时，就会进行数组扩容，loadFactor 的默认值为0.75，也就是说，默认情况下，数组大小为16，那么当hashmap 中元素个数超过160.75=12的时候，就把数组的大小扩展为216=32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以如果我们已经预知hashmap 中元素的个数，那么预设元素的个数能够有效的提高hashmap 的性能。比如说，我们有1000个元素new HashMap (1000)但是理论上来讲new HashMap (1024)更合适，不过上面annegu 已经说过，即使是1000，hashmap 也自动会将其设置为1024。但是new HashMap (1024)还不是更合适的，因为0.75*1000<1000，也就是说为了让0.75*size>1000,我们必须这样new HashMap (2048)才最合适，既考虑了&的问题，也避免了resize 的问题。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785746257595_6wwncp",
+    "text": "HashMap 的工作原理是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785463930010_invjhq",
+    "createdAt": 1785746257596,
+    "updatedAt": 1785746276345,
+    "answer": "Java中的HashMap 是以键值对(key-value )的形式存储元素的。HashMap 需要一个hash函数，它使用hashCode ()和equals ()方法来向集合/从集合添加和检索元素。当调用put()方法的时候，HashMap 会计算key的hash值，然后把键值对存储在集合中合适的索引上。如果key已经存在了，value 会被更新成新值。HashMap 的一些重要的特性是它的容量(capacity ),负载因子(oad factor )和扩容极限(threshold resizing )",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785746306383_wi60xt",
+    "text": "List、Map、Set三个接口，存取元素时，各有什么特点？",
+    "answered": false,
+    "relatedNodeId": "k_1785463930010_invjhq",
+    "createdAt": 1785746306383,
+    "updatedAt": 1785746306383
+  },
+  {
+    "id": "q_1785746604837_agrnfl",
+    "text": "Set里的元素是不能重复的，那么用什么方法来区分重复与否呢？是用==还是\r\nequals ()？它们有何区别？",
+    "answered": true,
+    "relatedNodeId": "k_1785684450180_ry9ixw",
+    "createdAt": 1785746604837,
+    "updatedAt": 1785751857827,
+    "answer": "Set里的元素是不能重复的，元素重复与否是使用iteator()方法进行判断的。\nequals ()和==方法决定引用值是否指向同一对象equals ()在类中被覆盖，为的是当两个分离的对象的内容和类型相配的话，返回真值。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785746784717_znys1a",
+    "text": "两个对象值相同(x.equals (y)==true),但却可有不同的hash code ,这句话对不对？",
+    "answered": true,
+    "relatedNodeId": "k_1785731277675_rog9oy",
+    "createdAt": 1785746784717,
+    "updatedAt": 1785746810419,
+    "answer": "对。如果对象要保存在HashSet 或HashMap 中，它们的equals 相等，那么，它们的hashcode 值就必须相等。\n如果不是要保存在HashSet 或HashMap ,则与hashcode 没有什么关系了，这时候hashcode 不等是可以的，例如arrayList 存储的对象就不用实现hashcode ,当然，我们没有理由不实现，通常都会去实现的。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785746879637_sqp7nf",
+    "text": "heap和stack 有什么区别",
+    "answered": true,
+    "relatedNodeId": "k_1785685491666_w1c8h4",
+    "createdAt": 1785746879637,
+    "updatedAt": 1785746904650,
+    "answer": "Java的内存分为两类，一类是栈内存，一类是堆内存。栈内存是指程序进入一个方法时，会为这个方法单独分配一块私属存储空间，用于存储这个方法内部的局部变量，当这个方法结束时，分配给这个方法的栈会释放，这个栈中的变量也将随之释放。\n堆是与栈作用不同的内存，一般用于存放不放在当前方法栈中的那些数据，例如，使用new创建的对象都放在堆里，所以，它不会随方法的结束而消失。方法中的局部变量使用final 修饰后，放在堆中，而不是栈中。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747232656_xd0tr5",
+    "text": "Java集合类框架的基本接口有哪些？",
+    "answered": true,
+    "relatedNodeId": "k_1785664228019_k7eq57",
+    "createdAt": 1785747232656,
+    "updatedAt": 1785747266539,
+    "answer": "集合类接口指定了一组叫做元素的对象。集合类接口的每一种具体的实现类都可以选择以它自己的方式对元素进行保存和排序。有的集合类允许重复的键，有些不允许。Java集合类提供了一套设计良好的支持对一组对象进行操作的接口和类。Java集合类里面最基本的接口有：\nCollection :代表一组对象，每一个对象都是它的子元素。\nSet:不包含重复元素的Collection 。\nList:有顺序的collection ,并且可以包含重复元素。\nMap:可以把键(key)映射到值(value )的对象，键不能重复。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747375387_2gd38c",
+    "text": "HashSet 和TreeSet 有什么区别？",
+    "answered": true,
+    "relatedNodeId": "k_1785731277675_rog9oy",
+    "createdAt": 1785747375387,
+    "updatedAt": 1785747407276,
+    "answer": "HashSet 是由一个hash表来实现的，因此，它的元素是无序的。add(),removeo ，contain\nTreeSet 是由一个树形的结构来实现的，它里面的元素是有序的。因此，add(),remove (),contains ()方法的时间复杂度是O(logn)。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747435756_h9y32q",
+    "text": "HashSet 的底层实现是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785731277675_rog9oy",
+    "createdAt": 1785747435756,
+    "updatedAt": 1785747456845,
+    "answer": "HashSet 的实现是依赖于HashMap 的，HashSet 的值都是存储在HashMap 中的。在. HashSet 的构造法中会初始化一个HashMap 对象，HashSet 不允许值重复，因此，HashSet 的值是作为HashMap 的key存储在HashMap 中的，当存储的值已经存在时返回false 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747490384_kr6lw7",
+    "text": "LinkedHashMap 的实现原理？",
+    "answered": true,
+    "relatedNodeId": "k_1785669939384_xlof5k",
+    "createdAt": 1785747490384,
+    "updatedAt": 1785747513041,
+    "answer": "LinkedHashMap 也是基于HashMap 实现的，不同的是它定义了一个Entry header ,这个header 不是放在Table 里，它是额外独立出来的。LinkedHashMap 通过继承hashMap 中的Entry ,并添加两个属性Entry before ,after ,和header 结合起来组成一个双向链表，来实现按插入顺序或访问顺序排序。LinkedHashMap 定义了排序模式accessOrder ,该属性为boolean 型变量，对于访问顺序，为true;对于插入顺序，则为false 。一般情况下，不必指定排序模式，其迭代顺序即为默认为插入顺序。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747766083_zs3uvn",
+    "text": "为什么集合类没有实现Cloneable 和Serializable 接口？",
+    "answered": true,
+    "relatedNodeId": "k_1785664228019_k7eq57",
+    "createdAt": 1785747766083,
+    "updatedAt": 1785747781918,
+    "answer": "克隆(cloning )或者是序列化(serialization )的语义和含义是跟具体的实现相关的。因此，应该由集合类的具体实现来决定如何被克隆或者是序列化。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747877571_y1yig4",
+    "text": "Iterator 和Listlterator 的区别是什么？",
+    "answered": true,
+    "relatedNodeId": "k_1785747858308_aoqbr5",
+    "createdAt": 1785747877572,
+    "updatedAt": 1785747899568,
+    "answer": "Iterator 可用来遍历Set和List集合，但是Listlterator 只能用来遍历List。\nIterator 对集合只能是前向遍历，Listlterator 既可以前向也可以后向。\nListlterator 实现了Iterator 接口，并包含其他的功能，比如：增加元素，替换元素，获取前一个和后一个元素的索引，等等。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785747909536_m3nmga",
+    "text": "什么是迭代器(Iterator )?",
+    "answered": true,
+    "relatedNodeId": "k_1785747858308_aoqbr5",
+    "createdAt": 1785747909536,
+    "updatedAt": 1785747917928,
+    "answer": "Iterator 接口提供了很多对集合元素进行迭代的方法。每一个集合类都包含了可以返回迭代器实例的迭代方法。迭代器可以在迭代的过程中删除底层集合的元素，但是不可以直接调用集合的remove (Object Obj )删除，可以通过迭代器的remove ()方法删除。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785751456535_jtlisb",
+    "text": "数组(Array )和列表(ArrayList )有什么区别？什么时候应该使用Array 而不是ArrayList?",
+    "answered": true,
+    "relatedNodeId": "k_demo_java_array_list",
+    "createdAt": 1785751456535,
+    "updatedAt": 1785751477345,
+    "answer": "Array 可以包含基本类型和对象类型，ArrayList 只能包含对象类型。\nArray 大小是固定的，ArrayList 的大小是动态变化的。\nArrayList 处理固定大小的基本数据类型的时候，这种方式相对比较慢。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785751508513_l3s98u",
+    "text": "Java集合类框架的最佳实践有哪些？",
+    "answered": true,
+    "relatedNodeId": "k_1785664228019_k7eq57",
+    "createdAt": 1785751508513,
+    "updatedAt": 1785751533834,
+    "answer": "假如元素的大小是固定的，而且能事先知道，我们就应该用Array 而不是ArrayList 。\n有些集合类允许指定初始容量。因此，如果我们能估计出存储的元素的数目，我们可以设置初始容量来避免重新计算hash值或者是扩容。\n为了类型安全，可读性和健壮性的原因总是要使用泛型。同时，使用泛型还可以避免运行时的ClassCastException 。\n使用JDK提供的不变类(immutable class )作为MMap的键可以避免为我们自己的类实现hashCode ()和equals ()方法。\n编程的时候接口优于实现。\n底层的集合实际上是空的情况下，返回长度是0的集合或者是数组，不要返回null。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785751660353_lyfgt3",
+    "text": "Collection 和Collections 的区别。",
+    "answered": true,
+    "relatedNodeId": "k_1785671910048_sdtfht",
+    "createdAt": 1785751660353,
+    "updatedAt": 1785751675914,
+    "answer": "collection 是集合类的上级接口，继承与它的接口主要是set和list。\ncollections 类是针对集合类的一个帮助类。它提供一系列的静态方法对各种集合的搜索，排序，线程安全化等操作。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785753550970_gvpud6",
+    "text": "乐 观 锁 一 定 就 是 好 的 吗 ？",
+    "answered": true,
+    "relatedNodeId": "k_1782928703651_dpqbc4",
+    "createdAt": 1785753550970,
+    "updatedAt": 1785753597556,
+    "answer": "乐 观 锁 避 免 了 悲 观 锁 独 占 对 象 的 现 象 ， 同 时 也 提 高 了 并 发 性 能 ， 但 它 也有 缺 点 ：\n1.乐 观 锁 只 能 保 证 一 个 共 享 变 量 的 原 子 操 作 。 如 果 多 一 个 或 几 个 变 量 ， 乐观 锁 将 变 得 力 不 从 心 ， 但 互 斥 锁 能 轻 易 解 决 ， 不 管 对 象 数 量 多 少 及 对 象颗 粒 度 大 小 。\n2.长 时 间 自 旋 可 能 导 致 开 销 大 。 假 如C A S长 时 间 不 成 功 而 一 直 自 旋 ， 会给C P U带 来 很 大 的 开 销 。\n3.A B A问 题 。C A S的 核 心 思 想 是 通 过 比 对 内 存 值 与 预 期 值 是 否 一 样 而 判断 内 存 值 是 否 被 改 过 ， 但 这 个 判 断 逻 辑 不 严 谨 ， 假 如 内 存 值 原 来 是A，后 来 被 一 条 线 程 改 为B， 最 后 又 被 改 成 了A， 则C A S认 为 此 内 存 值 并没有 发 生 改 变 ， 但 实 际 上 是 有 被 其 他 线 程 改 过 的 ， 这 种 情 况 对 依 赖 过 程值 的 情 景 的 运 算 结 果 影 响 很 大 。 解 决 的 思 路 是 引 入 版 本 号 ， 每 次 变 量 更新 都 把 版 本 号 加 一",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785761271738_px7l1k",
+    "text": "J a v a中 各 个 线 程 是 怎 么 彼 此 看 到 对 方 的 变 量 的 呢 ？",
+    "answered": true,
+    "relatedNodeId": "k_1784367508652_7bajap",
+    "createdAt": 1785761271738,
+    "updatedAt": 1785761301232,
+    "answer": "J a v a中 定 义 了 主 内存 与 工 作 内 存 的 概 念 ：\n所 有 的 变 量 都 存 储 在 主 内 存 ， 每 条 线 程 还 有 自 己 的 工 作 内 存 ， 保 存 了 被该 线 程 使 用 到 的 变 量 的 主 内 存 副 本 拷 贝 。\n线 程 对 变 量 的 所 有 操 作 （ 读 取 、 赋 值 ） 都 必 须 在 工 作 内 存 中 进 行 ， 不 能直 接 读 写 主 内 存 的 变 量 。 不 同 的 线 程 之 间 也 无 法 直 接 访 问 对 方 工 作 内 存的 变 量 ， 线 程 间 变 量 值 的 传 递 需 要 通 过 主 内 存",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785762960886_mrgu5u",
+    "text": "简述 java 内存分配与回收策略以及 Minor GC 和 Major GC",
+    "answered": true,
+    "relatedNodeId": "k_1784367508652_7bajap",
+    "createdAt": 1785762960886,
+    "updatedAt": 1785762979824,
+    "answer": "对象优先在堆的 Eden 区分配。\n大对象直接进入老年代。\n长期存活的对象将直接进入老年代。\n当 Eden 区没有足够的空间进行分配时，虚拟机会执行一次 Minor GC。\n\nMinor GC：通常发生在新生代的 Eden 区，在这个区的对象生存期短，往往发生 GC 的频率较高，回收速度比较快\nFull GC / Major GC：发生在老年代，一般情况下触发老年代 GC 的时候不会触发 Minor GC，但通过配置可以在 Full GC 之前进行一次 Minor GC，这样可以加快老年代的回收速度",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785766240197_6qpzg2",
+    "text": "什 么 是 可 重 入 性 ， 为 什 么 说S y n c h r o n i z e d是 可 重 入 锁 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785763472042_yd1lxg",
+    "createdAt": 1785766240197,
+    "updatedAt": 1785766569551,
+    "answer": "可 重 入 性 是 锁 的 一 个 基 本 要 求 ， 是 为 了 解 决 自 己 锁 死 自 己 的 情 况 。\n比 如  一 个 类 中 的 同 步 方 法 调 用 另 一 个 同 步 方 法 ， 假 如S y n c h r o n i z e d不 支 持 重 入 ， 进 入m e t h o d 2方 法 时 当 前 线 程 获 得 锁 ，m e t h o d 2方 法 里 面 执 行m e t h o d 1时 当 前 线 程 又 要 去 尝 试 获 取 锁 ， 这时 如 果 不 支 持 重 入 ， 它 就 要 等 释 放 ， 把 自 己 阻 塞 ， 导 致 自 己 锁 死 自 己 。对S y n c h r o n i z e d来 说 ， 可 重 入 性 是 显 而 易 见 的 ， 刚 才 提 到 ， 在 执 行m o n i t o r e n t e r指 令 时 ， 如 果 这 个 对 象 没 有 锁 定 ， 或 者 当 前 线 程 已 经 拥有 了 这 个 对 象 的 锁（ 而 不 是 已 拥 有 了 锁 则 不 能 继 续 获 取 ）， 就 把 锁 的 计数 器+ 1， 其 实 本 质 上 就 通 过 这 种 方 式 实 现 了 可 重 入 性 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785766644025_o21wmr",
+    "text": "J V M对J a v a的 原 生 锁 做 了 哪 些 优 化 ？",
+    "answered": true,
+    "relatedNodeId": "k_1782928696595_fflhq1",
+    "createdAt": 1785766644025,
+    "updatedAt": 1785767293043,
+    "answer": "在J a v a6之 前 ，M o n i t o r的 实 现 完 全 依 赖 底 层 操 作 系 统 的 互 斥 锁 来实 现 ， 也 就 是 我 们 刚 才 在 问 题 二 中 所 阐 述 的 获 取/释 放 锁 的 逻 辑 。\n由 于J a v a层 面 的 线 程 与 操 作 系 统 的 原 生 线 程 有 映 射 关 系 ， 如 果 要 将 一个 线 程 进 行 阻 塞 或 唤 起 都 需 要 操 作 系 统 的 协 助 ， 这 就 需 要 从 用 户 态 切 换到 内 核 态 来 执 行 ， 这 种 切 换 代 价 十 分 昂 贵 ， 很 耗 处 理 器 时 间 ， 现 代J D K中 做 了 大 量 的 优 化 。\n一 种 优 化 是 使 用 自 旋 锁 ， 即 在 把 线 程 进 行 阻 塞 操 作 之 前 先 让 线 程 自 旋 等待 一 段 时 间 ， 可 能 在 等 待 期 间 其 他 线 程 已 经 解 锁 ， 这 时 就 无 需 再 让 线 程执 行 阻 塞 操 作 ， 避 免 了 用 户 态 到 内 核 态 的 切 换 。\n现 代J D K中 还 提 供 了 三 种 不 同 的M o n i t o r实 现 ， 也 就 是 三 种 不 同 的锁 ：\n偏 向 锁 （B i a s e dL o c k i n g）\n轻 量 级 锁\n重 量 级 锁\n这 三 种 锁 使 得J D K得 以 优 化S y n c h r o n i z e d的 运 行 ， 当J V M检 测到 不 同 的 竞 争 状 况 时 ， 会 自 动 切 换 到 适 合 的 锁 实 现 ， 这 就 是 锁 的 升 级 、降 级 。\n当 没 有 竞 争 出 现 时 ， 默 认 会 使 用 偏 向 锁J V M会 利 用C A S操 作 ， 在 对 象 头 上 的M a r kW o r d部 分 设 置 线 程I D， 以 表 示 这 个 对 象 偏 向 于 当 前 线 程 ， 所 以 并 不 涉 及 真 正 的 互 斥 锁 ， 因为 在 很 多 应 用 场 景 中 ， 大 部 分 对 象 生 命 周 期 中 最 多 会 被 一 个 线 程 锁 定 ，使 用 偏 斜 锁 可 以 降 低 无 竞 争 开 销 。\n如 果 有 另 一 线 程 试 图 锁 定 某 个 被 偏 斜 过 的 对 象 ，J V M就 撤 销 偏 斜 锁 ，切 换 到 轻 量 级 锁 实 现 。\n轻 量 级 锁 依 赖C A S操 作M a r kW o r d来 试 图 获 取 锁 ， 如 果 重 试 成 功 ，就 使 用 普 通 的 轻 量 级 锁 ； 否 则 ， 进 一 步 升 级 为 重 量 级 锁 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785767557614_4awl6u",
+    "text": "为 什 么 说S y n c h r o n i z e d是 非 公 平 锁 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785763472042_yd1lxg",
+    "createdAt": 1785767557614,
+    "updatedAt": 1785767577533,
+    "answer": "非 公 平 主 要 表 现 在 获 取 锁 的 行 为 上 ， 并 非 是 按 照 申 请 锁 的 时 间 前 后 给 等待 线 程 分 配 锁 的 ， 每 当 锁 被 释 放 后 ， 任 何 一 个 线 程 都 有 机 会 竞 争 到 锁 ，这 样 做 的 目 的 是 为 了 提 高 执 行 性 能 ， 缺 点 是 可 能 会 产 生 线 程 饥 饿 现 象",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785767884485_rh62pl",
+    "text": "为 什 么 说S y n c h r o n i z e d是 一 个 悲 观 锁 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785763472042_yd1lxg",
+    "createdAt": 1785767884485,
+    "updatedAt": 1785767970608,
+    "answer": "S y n c h r o n i z e d显 然 是 一 个 悲 观 锁 ， 因 为 它 的 并 发 策 略 是 悲 观 的 ：\n不 管 是 否 会 产 生 竞 争 ， 任 何 的 数 据 操 作 都 必 须 要 加 锁 、 用 户 态 核 心 态 转换 、 维 护 锁 计 数 器 和 检 查 是 否 有 被 阻 塞 的 线 程 需 要 被 唤 醒 等 操 作 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785767985923_sn7kqc",
+    "text": "乐 观 锁 的 实 现 原 理 又 是 什 么 ？",
+    "answered": true,
+    "relatedNodeId": "k_1782928703651_dpqbc4",
+    "createdAt": 1785767985923,
+    "updatedAt": 1785768042833,
+    "answer": "随 着 硬 件 指 令 集 的 发 展 ， 我 们 可 以 使 用 基 于 冲 突 检 测 的 乐 观 并 发 策 略 。\n先 进 行 操 作 ， 如 果 没 有 其 他 线 程 征 用 数 据 ， 那 操 作 就 成 功 了 ；\n如 果 共 享 数 据 有 征 用 ， 产 生 了 冲 突 ， 那 就 再 进 行 其 他 的 补 偿 措 施 。 这 种乐 观 的 并 发 策 略 的 许 多 实 现 不 需 要 线 程 挂 起 ， 所 以 被 称 为 非 阻 塞 同 步 。\n乐 观 锁 的 核 心 算 法 是C A S（C o m p a r e a n dS w a p， 比 较 并 交 换 ） ， 它 涉及 到 三 个 操 作 数 ： 内 存 值 、 预 期 值 、 新 值 。 当 且 仅 当 预 期 值 和 内 存 值 相等 时 才 将 内 存 值 修 改 为 新 值 。\n这 样 处 理 的 逻 辑 是 ， 首 先 检 查 某 块 内 存 的 值 是 否 跟 之 前 我 读 取 时 的 一样 ， 如 不 一 样 则 表 示 期 间 此 内 存 值 已 经 被 别 的 线 程 更 改 过 ， 舍 弃 本 次 操作 ， 否 则 说 明 期 间 没 有 其 他 线 程 对 此 内 存 值 操 作 ， 可 以 把 新 值 设 置 给 此块 内 存 。\nC A S具 有 原 子 性 ， 它 的 原 子 性 由C P U硬 件 指 令 实 现 保 证 ， 即 使 用J N I调 用N a t i v e方 法 调 用 由C + +编 写 的 硬 件 级 别 指 令 ，J D K中 提供 了U n s a f e类 执 行 这 些 操 作 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785768148388_quvg1d",
+    "text": "跟S y n c h r o n i z e d相 比 ， 可 重 入 锁R e e n t r a n t L o c k其 实 现 原 理 有 什 么 不 同 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785768120982_k4g3td",
+    "createdAt": 1785768148388,
+    "updatedAt": 1785768177015,
+    "answer": "其 实 ， 锁 的 实 现 原 理 基 本 是 为 了 达 到 一 个 目 的 ：让 所 有 的 线 程 都 能 看 到 某 种 标 记 。\nS y n c h r o n i z e d通 过 在 对 象 头 中 设 置 标 记 实 现 了 这 一 目 的 ， 是 一 种J V M原 生 的 锁 实 现 方 式 ， 而R e e n t r a n t L o c k以 及 所 有 的 基 于L o c k接 口 的实 现 类 ， 都 是 通 过 用 一 个v o l i t i l e修 饰 的i n t型 变 量 ， 并 保 证 每 个 线程 都 能 拥 有 对 该i n t的 可 见 性 和 原 子 修 改 ， 其 本 质 是 基 于 所 谓 的A Q S框 架 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785768209250_op5oo9",
+    "text": "A Q S框 架 是 怎 么 回 事 儿 ？",
+    "answered": true,
+    "relatedNodeId": "k_1782846826286_ekdql8",
+    "createdAt": 1785768209250,
+    "updatedAt": 1785768275302,
+    "answer": "A Q S（A b s t r a c t Q u e u e d S y n c h r o n i z e r类 ） 是 一 个 用 来 构 建 锁 和 同 步 器的 框 架 ， 各 种L o c k包 中 的 锁 （ 常 用 的 有R e e n t r a n t L o c k、R e a d W r i t e L o c k） ， 以 及 其 他 如S e m a p h o r e、C o u n t D o w n L a t c h， 甚\n至 是 早 期 的F u t u r e T a s k等 ， 都 是 基 于A Q S来 构 建 。\n1.A Q S在 内 部 定 义 了 一 个v o l a t i l ei n ts t a t e变 量 ， 表 示 同 步 状 态 ： 当 线程 调 用l o c k方 法 时， 如 果s t a t e = 0， 说 明 没 有 任 何 线 程 占 有 共 享 资 源的 锁 ， 可 以 获 得 锁 并 将s t a t e = 1； 如 果s t a t e = 1， 则 说 明 有 线 程 目 前 正 在\n使 用 共 享 变 量 ， 其 他 线 程 必 须 加 入 同 步 队 列 进 行 等 待 。\n2.A Q S通 过N o d e内 部 类 构 成 的 一 个 双 向 链 表 结 构 的 同 步 队 列 ， 来 完 成 线程 获 取 锁 的 排 队 工 作 ， 当 有 线 程 获 取 锁 失 败 后 ， 就 被 添 加 到 队 列 末 尾 。\noN o d e类 是 对 要 访 问 同 步 代 码 的 线 程 的 封 装 ， 包 含 了 线 程 本 身 及 其 状 态 叫w a i t S t a t u s（ 有 五 种 不 同取 值 ， 分 别 表 示 是 否 被 阻 塞 ， 是 否 等 待 唤 醒 ，是 否 已 经 被 取 消 等 ） ， 每 个N o d e结 点 关 联 其p r e v结 点 和n e x t结\n点 ， 方 便 线 程 释 放 锁 后 快 速 唤 醒 下 一 个 在 等 待 的 线 程 ， 是 一 个F I F O的 过程 。\noN o d e类 有 两 个 常 量 ，S H A R E D和E X C L U S I V E， 分 别 代 表 共 享 模 式 和 独占 模 式 。 所 谓 共 享 模 式 是 一 个 锁 允 许 多 条 线 程 同 时 操 作 （ 信 号 量S e m a p h o r e就 是 基 于A Q S的 共 享 模 式 实 现 的 ） ， 独 占 模 式 是 同 一 个 时间 段 只 能 有 一 个 线 程 对 共 享 资 源 进 行 操 作 ， 多 余 的 请 求 线 程 需 要 排 队 等 待（ 如R e e n t r a n L o c k） 。\n3.A Q S通 过 内 部 类C o n d i t i o n O b j e c t构 建 等 待 队 列 （ 可 有 多 个 ） ， 当C o n d i t i o n调 用w a i t ( )方 法 后 ， 线 程 将 会 加 入 等 待 队 列 中 ， 而 当C o n d i t i o n调 用s i g n a l ( )方 法 后 ， 线 程 将 从 等 待 队 列 转 移 动 同 步 队 列 中进 行 锁 竞 争 。\n4.A Q S和C o n d i t i o n各 自 维 护 了 不 同 的 队 列 ， 在 使 用L o c k和C o n d i t i o n的 时 候 ， 其 实 就 是 两 个 队 列 的 互 相 移 动 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785768509819_x1qoxb",
+    "text": "对 比 下S y n c h r o n i z e d和R e e n t r a n t L o c k 的 异 同",
+    "answered": true,
+    "relatedNodeId": "k_1785768120982_k4g3td",
+    "createdAt": 1785768509819,
+    "updatedAt": 1785768570277,
+    "answer": "R e e n t r a n t L o c k是L o c k的 实 现 类 ， 是 一 个 互 斥 的 同 步 锁 。\n从 功 能 角 度 ，R e e n t r a n t L o c k比S y n c h r o n i z e d的 同 步 操 作 更 精 细（ 因 为 可 以 像 普 通 对 象 一 样 使 用 ） ， 甚 至 实 现S y n c h r o n i z e d没 有 的高 级 功 能 ， 如 ：\n等 待 可 中 断 ： 当 持 有 锁 的 线 程 长 期 不 释 放 锁 的 时 候 ， 正 在 等 待 的 线 程 可以 选 择 放 弃 等 待 ， 对 处 理 执 行 时 间 非 常 长 的 同 步 块 很 有 用 。\n带 超 时 的 获 取 锁 尝 试 ： 在 指 定 的 时 间 范 围 内 获 取 锁 ， 如 果 时 间 到 了 仍 然无 法 获 取 则 返 回 。\n可 以 判 断 是 否 有 线 程 在 排 队 等 待 获 取 锁 。\n可 以 响 应 中 断 请 求 ： 与S y n c h r o n i z e d不 同 ， 当 获 取 到 锁 的 线 程 被 中断 时 ， 能 够 响 应 中 断 ， 中 断 异 常 将 会 被 抛 出 ， 同 时 锁 会 被 释 放 。\n可 以 实 现 公 平 锁 。\n从 锁 释 放 角 度 ，S y n c h r o n i z e d在J V M层 面 上 实 现 的 ， 不 但 可 以 通 过一 些 监 控 工 具 监 控S y n c h r o n i z e d的 锁 定 ， 而 且 在 代 码 执 行 出 现 异 常时 ，J V M会 自 动 释 放 锁 定 ； 但 是 使 用L o c k则 不 行 ，L o c k是 通 过 代码 实 现 的 ， 要 保 证 锁 定 一 定 会 被 释 放 ， 就 必 须 将u n L o c k ( )放 到f i n a l l y { }中 。\n从 性 能 角 度 ，S y n c h r o n i z e d早 期 实 现 比 较 低 效 ， 对 比R e e n t r a n t L o c k， 大 多 数 场 景 性 能 都 相 差 较 大 。但 是 在J a v a6中 对 其 进 行 了 非 常 多 的 改 进 ， 在 竞 争 不 激 烈 时 ，S y n c h r o n i z e d的 性 能 要 优 于R e e t r a n t L o c k； 在 高 竞 争 情 况 下 ，S y n c h r o n i z e d的 性 能 会 下 降 几 十 倍 ， 但 是R e e t r a n t L o c k的 性 能 能 维持 常 态 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785770545036_wimslm",
+    "text": "R e e n t r a n t L o c k是 如 何 实 现 可 重 入 性 的 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785768120982_k4g3td",
+    "createdAt": 1785770545036,
+    "updatedAt": 1785770568444,
+    "answer": "R e e n t r a n t L o c k内 部 自 定 义 了 同 步 器S y n c（S y n c既 实 现 了A Q S，又 实 现 了A O S， 而A O S提 供 了 一 种 互 斥 锁 持 有 的 方 式 ） ， 其 实 就 是加 锁 的 时 候 通 过C A S算 法 ， 将 线 程 对 象 放 到 一 个 双 向 链 表 中 ， 每 次 获取 锁 的 时 候 ， 看 下 当 前 维 护 的 那 个 线 程I D和 当 前 请 求 的 线 程I D是 否一 样 ， 一 样 就 可 重 入 了 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785770669656_32rbpx",
+    "text": "除 了R e e t r a n t L o c k， 你 还 接 触 过J U C中 的 哪 些 并 发 工 具 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785768120982_k4g3td",
+    "createdAt": 1785770669656,
+    "updatedAt": 1785770772317,
+    "answer": "通 常 所 说 的 并 发 包 （J U C） 也 就 是j a v a . u t i l . c o n c u r r e n t及 其 子 包 ， 集中 了J a v a并 发 的 各 种 基 础 工 具 类 ， 具 体 主 要 包 括 几 个 方 面 ：\n提 供 了C o u n t D o w n L a t c h、C y c l i c B a r r i e r、S e m a p h o r e等 ， 比S y n c h r o n i z e d更 加 高 级 ， 可 以 实 现 更 加 丰 富 多 线 程 操 作 的 同 步 结 构 。\n提 供 了C o n c u r r e n t H a s h M a p、 有 序 的C o n c u n r r e n t S k i p L i s t M a p， 或者 通 过 类 似 快 照 机 制 实 现 线 程 安 全 的 动 态 数 组C o p y O n W r i t e A r r a y L i s t等 ， 各 种 线 程 安 全 的 容 器 。\n提 供 了A r r a y B l o c k i n g Q u e u e、S y n c h o r o u s Q u e u e或 针 对 特 定 场 景 的\nP r i o r i t y B l o c k i n g Q u e u e等 ， 各 种 并 发 队 列 实 现 。\n强 大 的E x e c u t o r框 架 ， 可 以 创 建 各 种 不 同 类 型 的 线 程 池 ， 调 度 任 务 运行 等",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785770855986_0kea8t",
+    "text": "请 谈 谈R e a d W r i t e L o c k和S t a m p e d L o c k。",
+    "answered": true,
+    "relatedNodeId": "k_1785768120982_k4g3td",
+    "createdAt": 1785770855986,
+    "updatedAt": 1785770995261,
+    "answer": "虽 然R e e n t r a n t L o c k和S y n c h r o n i z e d简 单 实 用 ， 但 是 行 为 上 有 一定 局 限 性 ， 要 么 不 占 ， 要 么 独 占 。 实 际 应 用 场 景 中 ， 有 时 候 不 需 要 大 量竞 争 的 写 操 作 ， 而 是 以 并 发 读 取 为 主 ， 为 了 进 一 步 优 化 并 发 操 作 的 粒度 ，J a v a提 供 了 读 写 锁 。\n读 写 锁 基 于 的 原 理 是 多 个 读 操 作 不 需 要 互 斥 ， 如 果 读 锁 试 图 锁 定 时 ， 写锁 是 被 某 个 线 程 持 有 ， 读 锁 将 无 法 获 得 ， 而 只 好 等 待 对 方 操 作 结 束 ， 这样 就 可 以 自 动 保 证 不 会 读 取 到 有 争 议 的 数 据 。\nR e a d W r i t e L o c k代 表 了 一 对 锁 ， 读 写 锁 看 起 来 比S y n c h r o n i z e d的 粒 度 似 乎 细 一 些 ， 但 在 实 际 应 用中 ， 其 表 现 也 并 不 尽 如 人 意 ， 主 要 还 是 因 为 相 对 比 较 大 的 开 销 。\n所 以 ，J D K在 后 期 引 入 了S t a m p e d L o c k， 在 提 供 类 似 读 写 锁 的 同 时 ，还 支 持 优 化 读 模 式 。 优 化 读 基 于 假 设 ， 大 多 数 情 况 下 读 操 作 并 不 会 和 写操 作 冲 突 ， 其 逻 辑 是 先 试 着 修 改 ， 然 后 通 过v a l i d a t e方 法 确 认 是 否 进入 了 写 模 式 ， 如 果 没 有 进 入 ， 就 成 功 避 免 了 开 销 ； 如 果 进 入 ， 则 尝 试 获取 读 锁",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785771136260_4wj0jn",
+    "text": "如 何 让J a v a的 线 程 彼 此 同 步 ？ 你 了 解 过 哪 些 同 步 器 ？ 请 分 别 介 绍 下 。",
+    "answered": true,
+    "relatedNodeId": "k_1784367544296_w5eotg",
+    "createdAt": 1785771136260,
+    "updatedAt": 1785771901200,
+    "answer": "J U C中 的 同 步 器 三 个 主 要 的 成 员 ：C o u n t D o w n L a t c h、C y c l i c B a r r i e r和S e m a p h o r e， 通 过 它 们 可 以 方 便 地 实 现 很 多 线 程 之 间 协 作 的 功 能 。C o u n t D o w n L a t c h叫 倒 计 数 ， 允 许 一 个 或 多 个 线 程 等 待 某 些 操 作 完成 。 看 几 个 场 景 ：\n跑 步 比 赛 ， 裁 判 需 要 等 到 所 有 的 运 动 员 （“其 他 线 程”） 都 跑 到 终 点（ 达 到 目 标 ） ， 才 能 去 算 排 名 和 颁 奖 。\n模 拟 并 发 ， 我 需 要 启 动1 0 0个 线 程 去 同 时 访 问 某 一 个 地 址 ， 我 希 望 它们 能 同 时 并 发 ， 而 不 是 一 个 一 个 的 去 执 行 。\n用 法 ：C o u n t D o w n L a t c h构 造 方 法 指 明 计 数 数 量 ， 被 等 待 线 程 调 用c o u n t D o w n将 计 数 器 减1， 等 待 线 程 使 用a w a i t进 行 线 程 等 待 。 C y c l i c B a r r i e r叫 循 环 栅 栏 ， 它 实 现 让 一 组 线 程 等 待 至 某 个 状 态 之 后 再全 部 同 时 执 行 ， 而 且 当 所 有 等 待 线 程 被 释 放 后 ，C y c l i c B a r r i e r可 以 被重 复 使 用 。C y c l i c B a r r i e r的 典 型 应 用 场 景 是 用 来 等 待 并 发 线 程 结 束 。\nC y c l i c B a r r i e r的 主 要 方 法 是a w a i t ( )，a w a i t ( )每 被 调 用 一 次 ， 计 数 便会 减 少1， 并 阻 塞 住 当 前 线 程 。 当 计 数 减 至0时 ， 阻 塞 解 除 ， 所 有 在此C y c l i c B a r r i e r上 面 阻 塞 的 线 程 开 始 运 行 。\n在 这 之 后 ， 如 果 再 次 调 用a w a i t ( )， 计 数 就 又 会 变 成N - 1， 新 一 轮 重 新开 始 ， 这 便 是C y c l i c的 含 义 所 在 。C y c l i c B a r r i e r . a w a i t ( )带 有 返 回值 ， 用 来 表 示 当 前 线 程 是 第 几 个 到 达 这 个B a r r i e r的 线 程 。\nS e m a p h o r e，J a v a版 本 的 信 号 量 实 现 ， 用 于 控 制 同 时 访 问 的 线 程 个数 ， 来 达 到 限 制 通 用 资 源 访 问 的 目 的 ， 其 原 理 是 通 过a c q u i r e ( )获 取 一个 许 可 ， 如 果 没 有 就 等 待 ， 而r e l e a s e ( )释 放 一 个 许 可 。如 果S e m a p h o r e的 数 值 被 初 始 化 为1， 那 么 一 个 线 程 就 可 以 通 过a c q u i r e进 入 互 斥 状 态 ， 本 质 上 和 互 斥 锁 是 非 常 相 似 的 。 但 是 区 别 也 非常 明 显 ， 比 如 互 斥 锁 是 有 持 有 者 的 ， 而 对 于S e m a p h o r e这 种 计 数 器 结构 ， 虽 然 有 类 似 功 能 ， 但 其 实 不 存 在 真 正 意 义 的 持 有 者 ， 除 非 我 们 进 行扩 展 包 装 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785772885753_inwxvu",
+    "text": "C y c l i c B a r r i e r和C o u n t D o w n L a t c h看 起 来 很 相 似 ， 请 对 比下 呢 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785772820347_x6vfp9",
+    "createdAt": 1785772885753,
+    "updatedAt": 1785774165462,
+    "answer": "C o u n t D o w n L a t c h是 不 可 以 重 置 的 ， 所 以 无 法 重 用 ，C y c l i c B a r r i e r没有 这 种 限 制 ， 可 以 重 用 。\nC o u n t D o w n L a t c h的 基 本 操 作 组 合 是c o u n t D o w n / a w a i t， 调 用a w a i t的 线 程 阻 塞 等 待c o u n t D o w n足 够 的 次 数 ， 不 管 你 是 在 一 个 线程 还 是 多个 线 程 里c o u n t D o w n， 只 要 次 数 足 够 即 可 。C y c l i c B a r r i e r的 基 本 操 作 组 合 就 是a w a i t， 当 所 有 的 伙 伴 都 调 用 了a w a i t， 才 会 继 续进 行 任 务 ， 并 自 动 进 行 重 置 。\nC o u n t D o w n L a t c h目 的 是 让 一 个 线 程 等 待 其 他N个 线 程 达 到 某 个 条件 后 ， 自 己 再 去 做 某 个 事 （ 通 过C y c l i c B a r r i e r的 第 二 个 构 造 方 法p u b l i c  C y c l i c B a r r i e r ( i n t  p a r t i e s ,R u n n a b l e b a r r i e r A c t i o n )， 在 新 线程 里 做 事 可 以 达 到 同 样 的 效 果 ） 。 而C y c l i c B a r r i e r的 目 的 是 让N多线 程 互 相 等 待 直 到 所 有 的 都 达 到 某 个 状 态 ， 然 后 这N个 线 程 再 继 续 执行 各 自 后 续 （ 通 过C o u n t D o w n L a t c h在 某 些 场 合 也 能 完 成 类 似 的 效果 ）",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785774416639_x9p5ro",
+    "text": "J a v a中 的 线 程 池 是 如 何 实 现 的 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785415708882_o3okfp",
+    "createdAt": 1785774416639,
+    "updatedAt": 1785774473321,
+    "answer": "在J a v a中 ， 所 谓 的 线 程 池 中 的“线 程”， 其 实 是 被 抽 象 为 了 一 个 静 态内 部 类W o r k e r， 它 基 于A Q S实 现 ， 存 放 在 线 程 池 的H a s h S e t < W o r k e r >w o r k e r s成 员 变 量 中 ；\n而 需 要 执 行 的 任 务 则 存 放 在 成 员 变 量w o r k Q u e u e（B l o c k i n g Q u e u e < R u n n a b l e >w o r k Q u e u e） 中 。这 样 ， 整 个 线 程 池 实 现 的 基 本 思 想 就 是 ： 从w o r k Q u e u e中 不 断 取 出需 要 执 行 的 任 务 ， 放 在W o r k e r s中 进 行 处 理 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785774481811_yz5b6j",
+    "text": "创 建 线 程 池 的 几 个 核 心 构 造 参 数 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785415708882_o3okfp",
+    "createdAt": 1785774481811,
+    "updatedAt": 1785774503530,
+    "answer": "c o r e P o o l S i z e： 线 程 池 的 核 心 线 程 数 。\nm a x i m u m P o o l S i z e： 线 程 池 允 许 的 最 大 线 程 数 。\nk e e p A l i v e T i m e： 超 过 核 心 线 程 数 时 闲 置 线 程 的 存 活 时 间 。\nw o r k Q u e u e： 任 务 执 行 前 保 存 任 务 的 队 列 ， 保 存 由e x e c u t e方 法 提 交的R u n n a b l e任 务 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785774630985_oiszrj",
+    "text": "线 程 池 中 的 线 程 是 怎 么 创 建 的 ？ 是 一 开 始 就 随 着 线 程 池 的 启 动 创 建 好 的 吗 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785415708882_o3okfp",
+    "createdAt": 1785774630986,
+    "updatedAt": 1785774799279,
+    "answer": "线 程 池 默 认 初 始 化 后 不 启 动W o r k e r， 等 待 有 请 求 时 才 启动 。\n每 当 我 们 调 用e x e c u t e ( )方 法 添 加 一 个 任 务 时 ， 线 程 池 会 做 如 下 判断 ：\n如 果 正 在 运 行 的 线 程 数 量 小 于c o r e P o o l S i z e， 那 么 马 上 创 建 线 程 运 行这 个 任 务 ；\n如 果 正 在 运 行 的 线 程 数 量 大 于 或 等 于c o r e P o o l S i z e， 那 么 将 这 个 任 务放 入 队 列 ；\n如 果 这 时 候 队 列 满 了 ， 而 且 正 在 运 行 的 线 程 数 量 小 于m a x i m u m P o o l S i z e， 那 么 还 是 要 创 建 非 核 心 线 程 立 刻 运 行 这 个 任 务 ；\n如 果 队 列 满 了 ， 而 且 正 在 运 行 的 线 程 数 量 大 于 或 等 于m a x i m u m P o o l S i z e， 那 么 线 程 池 会 抛 出 异 常R e j e c t E x e c u t i o n E x c e p t i o n。当 一 个 线 程 完 成 任 务 时 ， 它 会 从 队 列 中 取 下 一 个 任 务 来 执 行 。当 一 个线 程 无 事 可 做 ， 超 过 一 定 的 时 间 （k e e p A l i v e T i m e） 时 ， 线 程 池 会 判断 。\n如 果 当 前 运 行 的 线 程 数 大 于c o r e P o o l S i z e， 那 么 这 个 线 程 就 被 停 掉 。所 以 线 程 池 的 所 有 任 务 完 成 后 ， 它 最 终 会 收 缩 到c o r e P o o l S i z e的 大小 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785776017577_spyhy0",
+    "text": "如 何 在J a v a线 程 池 中 提 交 线 程 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785415708882_o3okfp",
+    "createdAt": 1785776017577,
+    "updatedAt": 1785776146452,
+    "answer": "1 .e x e c u t e ( ):E x e c u t o r S e r v i c e . e x e c u t e方 法 接 收 一 个R u n a b l e实例 ，它 用 来 执 行 一 个 任 务：\nExecutorService.execute(Runable runable)\n2 .s u b m i t ( )：E x e c u t o r S e r v i c e . s u b m i t ( )方 法 返 回 的 是F u t u r e对象 。 可 以 用i s D o n e ( )来 查 询F u t u r e是 否 已 经 完 成 ， 当 任 务 完 成 时 ，它 具 有 一 个 结 果 ， 可 以 调 用g e t ( )来 获 取 结 果 。 也 可 以 不 用\ni s D o n e ( )进 行 检 查 就 直 接 调 用g e t ( )， 在 这 种 情 况 下 ，g e t ( )将 阻 塞 ， 直 至 结 果准 备 就 绪 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785819815851_fwq9s9",
+    "text": "既 然v o l a t i l e能 够 保 证 线 程 间 的 变 量 可 见 性 ， 是 不 是 就 意 味 着 基 于v o l a t i l e变 量 的 运 算 就 是 并 发 安 全 的 ？",
+    "answered": true,
+    "relatedNodeId": "k_web_8c66406b75e1",
+    "createdAt": 1785819815851,
+    "updatedAt": 1785819852233,
+    "answer": "显 然 不 是 的 。 基 于v o l a t i l e变 量 的 运 算 在 并 发 下 不 一 定 是 安 全 的 。\nv o l a t i l e变 量 在 各 个 线 程 的 工 作 内 存 ， 不 存 在 一 致 性 问 题 （ 各 个 线 程 的工 作 内 存 中v o l a t i l e变 量 ， 每 次 使 用 前 都 要 刷 新 到 主 内 存 ） 。\n但 是J a v a里 面 的 运 算 并 非 原 子 操 作 ， 导 致v o l a t i l e变 量 的 运 算 在 并发 下 一 样 是 不 安 全 的",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785819862080_fm9xce",
+    "text": "请 对 比 下v o l a t i l e对 比S y n c h r o n i z e d的 异 同 。",
+    "answered": true,
+    "relatedNodeId": "k_web_8c66406b75e1",
+    "createdAt": 1785819862080,
+    "updatedAt": 1785819885885,
+    "answer": "S y n c h r o n i z e d既 能 保 证 可 见 性 ， 又 能 保 证 原 子 性 ， 而v o l a t i l e只 能保 证 可 见 性 ， 无 法 保 证 原 子 性 。\nT h r e a d L o c a l和S y n c h o n i z e d都 用 于 解 决 多 线 程 并 发 访 问 ， 防 止 任 务在 共 享 资 源 上 产 生 冲 突 。 但 是T h r e a d L o c a l与S y n c h r o n i z e d有 本 质的 区 别 。\nS y n c h r o n i z e d用 于 实 现 同 步 机 制 ， 是 利 用 锁 的 机 制 使 变 量 或 代 码 块 在某 一 时 该 只 能 被 一 个 线 程 访 问 ， 是 一 种“以 时 间 换 空 间”的 方 式 。\n而T h r e a d L o c a l为 每 一 个 线 程 都 提 供 了 变 量 的 副 本 ， 使 得 每 个 线 程 在某 一 时 间 访 问 到 的 并 不 是 同 一 个 对 象 ， 根 除 了 对 变 量 的 共 享 ， 是 一 种“以 空 间 换 时 间”的 方 式 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785820587816_elxlxo",
+    "text": "请 谈 谈T h r e a d L o c a l是 怎 么 解 决 并 发 安 全 的 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785820542850_wvq5hj",
+    "createdAt": 1785820587816,
+    "updatedAt": 1785820611832,
+    "answer": "T h r e a d L o c a l这 是J a v a提 供 的 一 种 保 存 线 程 私 有 信 息 的 机 制 ， 因 为其 在 整 个 线 程 生 命 周 期 内 有 效 ， 所 以 可 以 方 便 地 在 一 个 线 程 关 联 的 不 同业 务 模 块 之 间 传 递 信 息 ， 比 如 事 务I D、C o o k i e等 上 下 文 相 关 信 息 。T h r e a d L o c a l为 每 一 个 线 程 维 护 变 量 的 副 本 ， 把 共 享 数 据 的 可 见 范 围 限制 在 同 一 个 线 程 之 内 ， 其 实 现 原 理 是 ， 在T h r e a d L o c a l类 中 有 一 个M a p， 用 于 存 储 每 一 个 线 程 的 变 量 的 副 本 。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785820906919_gor6by",
+    "text": "很 多 人 都 说 要 慎 用T h r e a d L o c a l， 谈 谈 你 的 理 解 ， 使 用 T h r e a d L o c a l需 要 注 意 些 什 么 ？",
+    "answered": true,
+    "relatedNodeId": "k_1785820542850_wvq5hj",
+    "createdAt": 1785820906919,
+    "updatedAt": 1785820944786,
+    "answer": "使 用T h r e a d L o c a l要 注 意r e m o v e！\nT h r e a d L o c a l的 实 现 是 基 于 一 个 所 谓 的T h r e a d L o c a l M a p， 在T h r e a d L o c a l M a p中 ， 它 的k e y是 一 个 弱 引 用 。\n通 常 弱 引 用 都 会 和 引 用 队 列 配 合 清 理 机 制 使 用 ， 但 是T h r e a d L o c a l是个 例 外 ， 它 并 没 有 这 么 做 。\n这 意 味 着 ， 废 弃 项 目 的 回 收 依 赖 于 显 式 地 触 发 ， 否 则 就 要 等 待 线 程 结束 ， 进 而 回 收 相 应T h r e a d L o c a l M a p！ 这 就 是 很 多O O M的 来 源 ， 所以 通 常 都 会 建 议 ， 应 用 一 定 要 自 己 负 责r e m o v e， 并 且 不 要 和 线 程 池 配合 ， 因 为w o r k e r线 程 往 往 是 不 会 退 出 的",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785821987785_e1i7l4",
+    "text": "现在有T1、T2、T3三个线程，你怎样保证T2在T1执行完\r\n后执行，T3在T2执行完后执 行？",
+    "answered": true,
+    "relatedNodeId": "k_1784367220387_2v9vdv",
+    "createdAt": 1785821987785,
+    "updatedAt": 1785822007131,
+    "answer": "用join方法实现。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785833031587_nl2diy",
+    "text": "如何减少上下文切换",
+    "answered": true,
+    "relatedNodeId": "k_1785831643303_tr9cpn",
+    "createdAt": 1785833031587,
+    "updatedAt": 1785833360680,
+    "answer": "减少上下文切换的方法有无锁并发编程、CAS算法、使用最少线程和使用协程。\n·无锁并发编程。多线程竞争锁时，会引起上下文切换，所以多线程处理数据时，可以用一些办法来避免使用锁，如将数据的ID按照Hash算法取模分段，不同的线程处理不同段的数据。\n·CAS算法。Java的Atomic包使用CAS算法来更新数据，而不需要加锁。\n·使用最少线程。避免创建不需要的线程，比如任务很少，但是创建了很多线程来处理，这样会造成大量线程都处于等待状态。\n·协程：在单线程里实现多任务的调度，并在单线程里维持多个任务间的切换。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785833590015_882gbe",
+    "text": "避免死锁的几个常见方法",
+    "answered": true,
+    "relatedNodeId": "k_dict_mq68vpwg",
+    "createdAt": 1785833590015,
+    "updatedAt": 1785833598904,
+    "answer": "避免一个线程同时获取多个锁。\n·避免一个线程在锁内同时占用多个资源，尽量保证每个锁只占用一个资源。\n·尝试使用定时锁，使用lock.tryLock（timeout）来替代使用内部锁机制。\n·对于数据库锁，加锁和解锁必须在一个数据库连接里，否则会出现解锁失败的情况。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785838459932_pz2pcf",
+    "text": "Java中的每一个对象都可以作为锁。具体表现为以下3种形式。",
+    "answered": true,
+    "relatedNodeId": "k_1785763472042_yd1lxg",
+    "createdAt": 1785838459932,
+    "updatedAt": 1785838472824,
+    "answer": "对于普通同步方法，锁是当前实例对象。\n·对于静态同步方法，锁是当前类的Class对象。\n·对于同步方法块，锁是Synchonized括号里配置的对象。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785838550907_p2lt00",
+    "text": "当一个线程试图访问同步代码块时，它首先必须得到锁，退出或抛出异常时必须释放锁。\r\n那么锁到底存在哪里呢？锁里面会存储什么信息呢？",
+    "answered": true,
+    "relatedNodeId": "k_1782928696595_fflhq1",
+    "createdAt": 1785838550907,
+    "updatedAt": 1785838576819,
+    "answer": "从JVM规范中可以看到Synchonized在JVM里的实现原理，JVM基于进入和退出Monitor对象来实现方法同步和代码块同步，但两者的实现细节不一样。代码块同步是使用monitorenter和monitorexit指令实现的，而方法同步是使用另外一种方式实现的，细节在JVM规范里并没有详细说明。但是，方法的同步同样可以使用这两个指令来实现。\nmonitorenter指令是在编译后插入到同步代码块的开始位置，而monitorexit是插入到方法结束处和异常处，JVM要保证每个monitorenter必须有对应的monitorexit与之配对。任何对象都有一个monitor与之关联，当且一个monitor被持有后，它将处于锁定状态。线程执行到monitorenter指令时，将会尝试获取对象所对应的monitor的所有权，即尝试获得对象的锁。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785840782846_3nihh3",
+    "text": "当处于偏向锁时，hashcode值存在何处？",
+    "answered": true,
+    "relatedNodeId": "k_web_78137b704e08",
+    "createdAt": 1785840782847,
+    "updatedAt": 1785840823279,
+    "answer": "> 当一个对象已经计算过identity hash code，它就无法进入偏向锁状态；\n>\n> 因为偏向锁需要使用hash位来保存线程id，这样的话，就没有额外的空间用来保存hashcode值。\n>\n> 当一个对象当前正处于偏向锁状态，并且需要计算其identity hash code的话，则它的偏向锁会被撤销，并且锁会膨胀为重量锁；",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785847946253_t8l0e1",
+    "text": "锁的优缺点对比",
+    "answered": true,
+    "relatedNodeId": "k_1782928696595_fflhq1",
+    "createdAt": 1785847946253,
+    "updatedAt": 1785848381635,
+    "answer": "\"C:\\Users\\Administrator\\Pictures\\Screenshots\\屏幕截图 2026-08-04 205843.png\"",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785849651014_vh4mnq",
+    "text": "处理器如何实现原子操作",
+    "answered": true,
+    "relatedNodeId": "k_1785823716478_pdtezg",
+    "createdAt": 1785849651014,
+    "updatedAt": 1785853367918,
+    "answer": "32位IA-32处理器使用基于对缓存加锁或总线加锁的方式来实现多处理器之间的原子操作。首先处理器会自动保证基本的内存操作的原子性。处理器保证从系统内存中读取或者写入一个字节是原子的，意思是当一个处理器读取一个字节时，其他处理器不能访问这个字节的内存地址。Pentium 6和最新的处理器能自动保证单处理器对同一个缓存行里进行16/32/64位的操作是原子的，但是复杂的内存操作处理器是不能自动保证其原子性的，比如跨总线宽度、跨多个缓存行和跨页表的访问。但是，处理器提供总线锁定和缓存锁定两个机制来保证复杂内存操作的原子性。（1）使用总线锁保证原子性\n第一个机制是通过总线锁保证原子性。如果多个处理器同时对共享变量进行读改写操作（i++就是经典的读改写操作），那么共享变量就会被多个处理器同时进行操作，这样读改写操作就不是原子的，操作完之后共享变量的值会和期望的不一致。原因可能是多个处理器同时从各自的缓存中读取变量i，分别进行加1操作，然后分别写入系统内存中。那么，想要保证读改写共享变量的操作是原子的，就必须保证CPU1读改写共享变量的时候，CPU2不能操作缓存了该共享变量内存地址的缓存。\n处理器使用总线锁就是来解决这个问题的。所谓总线锁就是使用处理器提供的一个LOCK＃信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住，那么该处理器可以独占共享内存。\n（2）使用缓存锁保证原子性\n第二个机制是通过缓存锁定来保证原子性。在同一时刻，我们只需保证对某个内存地址的操作是原子性即可，但总线锁定把CPU和内存之间的通信锁住了，这使得锁定期间，其他处理器不能操作其他内存地址的数据，所以总线锁定的开销比较大，目前处理器在某些场合下\n使用缓存锁定代替总线锁定来进行优化。\n频繁使用的内存会缓存在处理器的L1、L2和L3高速缓存里，那么原子操作就可以直接在处理器内部缓存中进行，并不需要声明总线锁，在Pentium 6和目前的处理器中可以使用“缓存锁定”的方式来实现复杂的原子性。所谓“缓存锁定”是指内存区域如果被缓存在处理器的缓存\n行中，并且在Lock操作期间被锁定，那么当它执行锁操作回写到内存时，处理器不在总线上声言LOCK＃信号，而是修改内部的内存地址，并允许它的缓存一致性机制来保证操作的原子性，因为缓存一致性机制会阻止同时修改由两个以上处理器缓存的内存区域数据，当其他处\n理器回写已被锁定的缓存行的数据时，会使缓存行无效，在如图2-3所示的例子中，当CPU1修改缓存行中的i时使用了缓存锁定，那么CPU2就不能同时缓存i的缓存行。\n但是有两种情况下处理器不会使用缓存锁定。\n第一种情况是：当操作的数据不能被缓存在处理器内部，或操作的数据跨多个缓存行（cache line）时，则处理器会调用总线锁定。\n第二种情况是：有些处理器不支持缓存锁定。对于Intel 486和Pentium处理器，就算锁定的内存区域在处理器的缓存行中也会调用总线锁定。\n针对以上两个机制，我们通过Intel处理器提供了很多Lock前缀的指令来实现。例如，位测试和修改指令：BTS、BTR、BTC；交换指令XADD、CMPXCHG，以及其他一些操作数和逻辑指令（如ADD、OR）等，被这些指令操作的内存区域就会加锁，导致其他处理器不能同时访问它。",
+    "answerSteps": []
+  },
+  {
+    "id": "q_1785853421685_exk8dc",
+    "text": "Java如何实现原子操作",
+    "answered": true,
+    "relatedNodeId": "k_1785823716478_pdtezg",
+    "createdAt": 1785853421685,
+    "updatedAt": 1785854162730,
+    "answer": "在Java中可以通过锁和循环CAS的方式来实现原子操作。\n（1）使用循环CAS实现原子操作\nJVM中的CAS操作正是利用了处理器提供的CMPXCHG指令实现的。自旋CAS实现的基本思路就是循环进行CAS操作直到成功为止，\n从Java 1.5开始，JDK的并发包里提供了一些类来支持原子操作，如AtomicBoolean（用原子方式更新的boolean值）、AtomicInteger（用原子方式更新的int值）和AtomicLong（用原子方式更新的long值）。这些原子包装类还提供了有用的工具方法，比如以原子的方式将当前值自增1和自减1。\n（2）CAS实现原子操作的三大问题\n在Java并发包中有一些并发框架也使用了自旋CAS的方式来实现原子操作，比如LinkedTransferQueue类的Xfer方法。CAS虽然很高效地解决了原子操作，但是CAS仍然存在三大问题。ABA问题，循环时间长开销大，以及只能保证一个共享变量的原子操作。\n1）ABA问题。因为CAS需要在操作值的时候，检查值有没有发生变化，如果没有发生变化则更新，但是如果一个值原来是A，变成了B，又变成了A，那么使用CAS进行检查时会发现它的值没有发生变化，但是实际上却变化了。ABA问题的解决思路就是使用版本号。在变量前面\n追加上版本号，每次变量更新的时候把版本号加1，那么A→B→A就会变成1A→2B→3A。从Java 1.5开始，JDK的Atomic包里提供了一个类AtomicStampedReference来解决ABA问题。这个类的compareAndSet方法的作用是首先检查当前引用是否等于预期引用，并且检查当前标志是否等于预期标志，如果全部相等，则以原子方式将该引用和该标志的值设置为给定的更新值。\n2）循环时间长开销大。自旋CAS如果长时间不成功，会给CPU带来非常大的执行开销。如果JVM能支持处理器提供的pause指令，那么效率会有一定的提升。pause指令有两个作用：第一，它可以延迟流水线执行指令（de-pipeline），使CPU不会消耗过多的执行资源，延迟的时间取决于具体实现的版本，在一些处理器上延迟时间是零；第二，它可以避免在退出循环的时候因内存顺序冲突（Memory Order Violation）而引起CPU流水线被清空（CPU Pipeline Flush），从而提高CPU的执行效率。\n3）只能保证一个共享变量的原子操作。当对一个共享变量执行操作时，我们可以使用循环CAS的方式来保证原子操作，但是对多个共享变量操作时，循环CAS就无法保证操作的原子性，这个时候就可以用锁。还有一个取巧的办法，就是把多个共享变量合并成一个共享变量来操作。比如，有两个共享变量i＝2，j=a，合并一下ij=2a，然后用CAS来操作ij。从Java 1.5开始，JDK提供了AtomicReference类来保证引用对象之间的原子性，就可以把多个变量放在一个对象里来进行CAS操作。\n（3）使用锁机制实现原子操作\n锁机制保证了只有获得锁的线程才能够操作锁定的内存区域。JVM内部实现了很多种锁机制，有偏向锁、轻量级锁和互斥锁。有意思的是除了偏向锁，JVM实现锁的方式都用了循环CAS，即当一个线程想进入同步块的时候使用循环CAS的方式来获取锁，当它退出同步块的时候使用循环CAS释放锁。",
     "answerSteps": []
   }
 ]

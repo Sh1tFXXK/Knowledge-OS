@@ -21,13 +21,22 @@ import type {
   TreeNode,
 } from '../types';
 
-export const APP_STATE_VERSION = 4 as const;
+export const APP_STATE_VERSION = 6 as const;
 
 export interface GraphSlice {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
   conclusions: GraphNode[];
   edges: GraphEdge[];
+}
+
+export interface KnowledgePointSnapshot {
+  id: string;
+  knowledgeNodeId: string;
+  title: string;
+  capturedAt: number;
+  note?: string;
+  node: KnowledgeNode;
 }
 
 export interface PersistedAppState {
@@ -40,6 +49,7 @@ export interface PersistedAppState {
   rules: Rule[];
   perspectives: Perspective[];
   inferenceResponses: Record<string, string>;
+  timeline: KnowledgePointSnapshot[];
 }
 
 /** 应用初始知识库（数据库知识体系 + 锁机制细粒度节点） */
@@ -65,5 +75,6 @@ export function createEmptyAppState(): PersistedAppState {
     rules: [],
     perspectives: [],
     inferenceResponses: {},
+    timeline: [],
   };
 }

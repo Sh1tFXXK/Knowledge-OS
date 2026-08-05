@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { FileUp, Link2, Settings } from 'lucide-react';
+import { Clock3, FileUp, Link2, Settings } from 'lucide-react';
 import { useGraphStore } from '../store/useGraph';
 import { getTreePathNames } from '../knowledge/treeUtils';
-import type { AppView } from '../types';
 import LinkImportDialog from '../components/LinkImportDialog';
 import DocumentImportDialog from '../components/DocumentImportDialog';
 
-const VIEWS: ReadonlyArray<{ icon: string; label: string; labelEn: string; id: AppView }> = [
+const VIEWS = [
   { icon: '🌐', label: '视图', labelEn: 'Universe View', id: 'universe' },
   { icon: 'IX', label: '索引', labelEn: 'Explanation Index', id: 'index' },
   { icon: 'M', label: '机制', labelEn: 'Mechanism Lens', id: 'mechanism' },
   { icon: 'DB', label: '节点库', labelEn: 'Node Database', id: 'database' },
   { icon: '?', label: '问题库', labelEn: 'Question Database', id: 'questions' },
   { icon: 'ST', label: 'Supertag库', labelEn: 'Supertag Library', id: 'supertags' },
-];
+  { icon: <Clock3 size={14} />, label: '知识点时间线', labelEn: 'Knowledge Point Timeline', id: 'timeline' },
+] as const;
 
 export default function TopBar() {
   const [isLinkImportOpen, setIsLinkImportOpen] = useState(false);
@@ -69,7 +69,7 @@ export default function TopBar() {
         <button
           type="button"
           className="header-import-action"
-          title="导入 PDF 或 Markdown 文档"
+          title="导入任意文件"
           onClick={() => setIsDocumentImportOpen(true)}
         >
           <FileUp size={14} />

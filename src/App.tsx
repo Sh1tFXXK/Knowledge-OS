@@ -11,6 +11,7 @@ import './styles/layout.css';
 import './styles/components.css';
 import './styles/database.css';
 import './styles/link-import.css';
+import './styles/timeline.css';
 
 import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
@@ -21,6 +22,7 @@ import QuestionDatabase from './components/QuestionDatabase';
 import MechanismLensPanel from './components/MechanismLensPanel';
 import SupertagLibrary from './components/SupertagLibrary';
 import ExplanationIndexView from './core/ExplanationIndexView';
+import TimelineView from './components/TimelineView';
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -126,6 +128,10 @@ export default function App() {
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
             <ExplanationIndexView />
+          </section>
+        ) : activeView === 'timeline' ? (
+          <section className="center-view" id="center-view">
+            <TimelineView />
           </section>
         ) : activeView === 'database' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>

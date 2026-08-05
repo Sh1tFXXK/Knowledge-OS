@@ -1,77 +1,103 @@
 # 文档导入标准
 
-本文定义 PDF、Markdown 和网页文档进入 Knowledge OS 时的边界。导入器只接受通过本标准校验的结构化草稿，禁止把整份提取文本直接写入知识节点池。
+> 最新状态：2026-08-05
 
-## 导入流水线
+本文定义普通文档、网页与 Java 源码进入 Knowledge-OS 时的统一边界。任何导入都必须先解析和校验，再更新正式数据文件。
 
-1. **解析**：PDF 提取文本层，Markdown 去除已有 Front Matter 和唯一 H1。
-2. **规范化**：清理页眉、页脚、页码与格式噪音，识别标题层级和问题块。
-3. **分型**：草稿被明确标记为 `article` 或 `question-bank`。
-4. **校验**：检查标题、正文、章节数量、章节深度、内容长度和问题数量。
-5. **落盘**：验证通过后，才由串行导入队列更新正式数据文件。
+## 通用流水线
 
-解析或校验失败时不得写入任何正式数据。
+1. 读取来源并确定来源类型。
+2. 提取正文、标题、层级和来源元数据。
+3. 清理页眉、页脚、引用残留、导航和格式噪音。
+4. 可选地把非中文内容翻译为中文，同时保持代码和 Markdown 结构。
+5. 生成类型化草稿并执行确定性校验。
+6. 通过串行写入队列原子更新数据文件。
+7. 保存规范化原文，保证来源可追溯。
 
-## 存储边界
+解析或校验失败时，不得修改任何正式数据文件。
 
-| 数据 | 唯一存储位置 | 约束 |
-| --- | --- | --- |
-| 规范化全文与来源元数据 | `docs/notes/document-*.md` | 保留可审计原文，不参与目录结构 |
-| 知识正文 | `data/node-pool.json` | 文章根节点与章节节点各自拥有正文 |
-| 目录挂载 | `data/tree-data.json` | 只保存对知识节点的引用，不复制正文 |
-| 导入问题 | `data/questions.json` | 每题独立存储，禁止把问题批量生成为目录节点 |
+## 普通文档
 
-`question-bank` 只创建一个来源知识节点。问题、答案和问题属性进入问题库；完整题库仍保存在 `docs/notes` 以便追溯。
+支持 Markdown、PDF、HTML、DOCX、TXT，以及能够安全解析为 UTF-8 文本的其他文件。
 
-## 文档分型
+- Markdown 移除 Front Matter 和重复主标题。
+- PDF 必须具有可提取文本层，扫描件需要先做 OCR。
+- HTML 使用正文提取和 Markdown 转换，不保留页面导航。
+- DOCX 提取正文结构，不导入附件和批注。
+- 长文本必须存在可识别的章节结构。
+
+普通文档明确分为：
+
+- `article`：生成来源根节点和结构化章节节点。
+- `question-bank`：只生成一个来源节点，问题独立进入 `data/questions.json`。
+
+## 网页与 Wikipedia
+
+网页导入会规范化 URL、限制重定向并拒绝私网目标。GitHub Markdown 使用原始内容地址读取，Wikipedia 保留文章章节结构。
+
+正文经过以下处理：
+
+- 相对链接转换为绝对链接。
+- 图片、引用编号、导航和外部链接残留被清理。
+- 章节标题和内容关键词可成为 SuperTag 候选。
+- 重复导入同一来源时替换受管理子树，不创建重复节点。
+- 手工维护的外部目录引用必须保留。
+
+AI 整理是可选步骤。未配置 `KNOWLEDGE_OS_LLM_API_KEY` 时，确定性解析仍可工作。
+
+## Java 源码
+
+Java 模式接受：
+
+- 单个 `.java` 文件。
+- 递归包含源码的目录。
+- `.zip`、`.jar` 或 JDK `src.zip`。
+- 压缩包内部路径，例如 `openjdk-26!java.base/java/util`。
+
+解析器使用 JDK Compiler Tree API 与 `DocTrees`，不编译用户项目。它提取：
+
+- 来源根、包、顶层类型和嵌套类型。
+- 构造器、方法和成员字段。
+- 类型与成员 Javadoc。
+- 直接 `extends` 和 `implements` 关系。
+
+只持久化直接类型边，传递关系由 `src/knowledge/typeRelations.ts` 推导。范围外但被引用的类型进入该来源的“外部引用类型”分组。
+
+单次最多解析 5,000 个 `.java` 文件和 96 MB 源码；超过边界时必须缩小输入范围。
+
+## 存储所有权
+
+| 数据 | 唯一位置 |
+| --- | --- |
+| 规范化原文与来源元数据 | `docs/notes/` |
+| 知识正文、标签和解释内容 | `data/node-pool.json` |
+| 目录挂载关系 | `data/tree-data.json` |
+| 类型、结构和语义关系 | `data/knowledge-edges.json` |
+| 导入问题 | `data/questions.json` |
+
+Java 源码导入不生成 `docs/notes` 文档，也不进入 `article` 或 `question-bank` 分型。
+
+## 结构限制
 
 ### `article`
 
-- 标题结构映射为知识章节。
-- 超过 3,000 个非空白字符时必须至少包含一个可识别章节。
+- 超过 3,000 个非空白字符时必须至少包含一个章节。
 - 根正文最多 3,000 字符，单章节最多 12,000 字符。
 - 最多 120 个章节，目录深度最多 4 层。
 
 ### `question-bank`
 
-- 至少识别到 3 个明确问题。
+- 至少识别 3 个明确问题。
 - 单次最多导入 200 个问题。
-- 只创建一个来源节点，不把每道题写成知识节点或目录项。
-
-## 问题结构
-
-自动导入的问题使用以下结构：
-
-```ts
-interface Question {
-  id: string;
-  text: string;
-  answered: boolean;
-  kind: QuestionKind;
-  difficulty: QuestionDifficulty;
-  relatedNodeId: string;
-  source: {
-    kind: 'document' | 'web';
-    sourceId: string;
-    sourceTitle: string;
-    sectionTitle?: string;
-  };
-  answer?: string;
-  createdAt: number;
-  updatedAt: number;
-}
-```
-
-`QuestionKind` 只能是 `definition`、`mechanism`、`comparison`、`application`、`troubleshooting` 或 `recall`。`QuestionDifficulty` 只能是 `basic`、`intermediate` 或 `advanced`。
-
-文档来源的 `sourceId` 是原始文件内容的 SHA-256，格式为 `document:<64 hex>`；网页来源使用规范化 URL。`relatedNodeId` 必须指向对应章节节点，无法确定章节时指向来源根节点。
+- 不得把每个问题生成成目录节点。
 
 ## 拒绝条件
 
-- PDF 损坏、加密或没有可提取文本层。
-- Markdown 不是 UTF-8 或正文为空。
-- 长文档没有章节。
-- 章节、深度、正文或问题数量超过上述上限。
-- AI 整理结果无法通过同一套确定性校验。
+- 来源损坏、加密、为空或无法解析。
+- PDF 没有文本层。
+- 长文档没有结构。
+- 章节、深度、正文、问题数量或 Java 源码体积越界。
+- AI 输出无法通过同一套确定性校验。
+- Java 路径不存在、没有源码或语法树无法解析。
 
-扫描 PDF 需要先执行 OCR。导入器本身不承担 OCR、附件管理或第二套索引职责。
+导入器不承担 OCR、附件管理或第二套索引存储职责。

@@ -62,7 +62,7 @@ function demoGraphSlice(): PersistedAppState['graph'] {
 
 export function createInitialAppState(): PersistedAppState {
   return {
-    version: 4,
+    version: 6,
     treeData: treeDataRaw as TreeNode,
     nodePool: migrateNodePool(nodePoolData as Record<string, KnowledgeNode>),
     knowledgeEdges: knowledgeEdgesData as KnowledgeEdge[],
@@ -71,6 +71,7 @@ export function createInitialAppState(): PersistedAppState {
     perspectives: [],
     questions: questionsData as Question[],
     inferenceResponses: inferenceResponsesData as Record<string, string>,
+    timeline: [],
   };
 }
 

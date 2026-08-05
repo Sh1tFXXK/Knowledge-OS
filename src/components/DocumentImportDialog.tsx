@@ -1,21 +1,24 @@
 import {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
-  type DragEvent as ReactDragEvent,
 } from 'react';
 import {
   Check,
+  Braces,
   FileText,
   FileUp,
   FolderTree,
+  Languages,
   LoaderCircle,
   Sparkles,
   X,
 } from 'lucide-react';
 import {
   DocumentKind,
+  DocumentImportSourceKind,
   DocumentProfile,
   getDocumentImportCapabilities,
   importDocumentFile,
@@ -24,6 +27,7 @@ import {
   type DocumentImportResult,
 } from '../knowledge/documentImport';
 import { useGraphStore } from '../store/useGraph';
+import JavaSourceImportPanel from './JavaSourceImportPanel';
 import TreeDestinationPicker, {
   collectTreeDestinations,
   type TreeDestination,
@@ -57,7 +61,11 @@ function formatBytes(bytes: number): string {
 }
 
 function documentKindLabel(kind: DocumentKind): string {
-  return kind === DocumentKind.Pdf ? 'PDF' : 'Markdown';
+  if (kind === DocumentKind.Pdf) return 'PDF';
+  if (kind === DocumentKind.Html) return 'HTML';
+  if (kind === DocumentKind.Docx) return 'DOCX';
+  if (kind === DocumentKind.Markdown) return 'Markdown';
+  return '文本';
 }
 
 function documentProfileLabel(profile: DocumentProfile): string {
@@ -80,67 +88,20 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
   const wasOpenRef = useRef(false) as { current: boolean };
   const [file, setFile] = useState(null as File | null);
   const [parentTreeNodeId, setParentTreeNodeId] = useState(treeData.id);
+  const [translate, setTranslate] = useState(true);
   const [useAi, setUseAi] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [capabilities, setCapabilities] = useState(null as DocumentImportCapabilities | null);
   const [phase, setPhase] = useState(DocumentImportPhase.Editing);
   const [error, setError] = useState(null as string | null);
   const [result, setResult] = useState(null as DocumentImportResult | null);
+  const [sourceKind, setSourceKind] = useState(DocumentImportSourceKind.File);
+  const [isJavaSourceImporting, setIsJavaSourceImporting] = useState(false);
   const isImporting = phase === DocumentImportPhase.Importing;
-
-  useEffect(() => {
-    if (!isOpen) {
-      wasOpenRef.current = false;
-      return;
-    }
-    if (wasOpenRef.current) return;
-    wasOpenRef.current = true;
-    const preferredId = selectedTreeNodeId && destinations.some((item) => item.id === selectedTreeNodeId)
-      ? selectedTreeNodeId
-      : treeData.id;
-    setParentTreeNodeId(preferredId);
-    setFile(null);
-    setUseAi(false);
-    setIsDragging(false);
-    setPhase(DocumentImportPhase.Editing);
-    setError(null);
-    setResult(null);
-    if (fileInputRef.current) fileInputRef.current.value = '';
-  }, [destinations, isOpen, selectedTreeNodeId, treeData.id]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    let active = true;
-    void getDocumentImportCapabilities()
-      .then((nextCapabilities) => {
-        if (active) setCapabilities(nextCapabilities);
-      })
-      .catch(() => {
-        if (active) {
-          setCapabilities({
-            ai: { configured: false, model: '' },
-            maxBytes: 20 * 1024 * 1024,
-            extensions: ['.pdf', '.md', '.markdown'],
-          });
-        }
-      });
-    return () => { active = false; };
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && !isImporting) onClose();
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isImporting, isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  const closeFromOverlay = (event: OverlayMouseEvent) => {
-    if (event.target === event.currentTarget && !isImporting) onClose();
-  };
+  const isBusy = isImporting || isJavaSourceImporting;
+  const handleJavaSourceImportingChange = useCallback((importing: boolean) => {
+    setIsJavaSourceImporting(importing);
+  }, []);
 
   const chooseFile = (nextFile: File | null) => {
     if (!nextFile) return;
@@ -156,10 +117,115 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     setPhase(DocumentImportPhase.Editing);
   };
 
-  const handleDrop = (event: ReactDragEvent<HTMLButtonElement>) => {
+  const choosePastedText = (text: string) => {
+    const trimmed = text.trim();
+    if (!trimmed) return;
+    if (/^(?:[a-zA-Z]:[\\/]|\\\\|file:\/\/)/i.test(trimmed)) {
+      setFile(null);
+      setError('检测到的是文件路径而不是内容。请复制文件内容后粘贴，或直接拖放文件。');
+      setPhase(DocumentImportPhase.Failed);
+      return;
+    }
+    chooseFile(new File([text], '粘贴内容.txt', { type: 'text/plain' }));
+  };
+
+  useEffect(() => {
+    if (!isOpen) {
+      wasOpenRef.current = false;
+      return;
+    }
+    if (wasOpenRef.current) return;
+    wasOpenRef.current = true;
+    const preferredId = selectedTreeNodeId && destinations.some((item) => item.id === selectedTreeNodeId)
+      ? selectedTreeNodeId
+      : treeData.id;
+    setParentTreeNodeId(preferredId);
+    setFile(null);
+    setTranslate(true);
+    setUseAi(false);
+    setIsDragging(false);
+    setPhase(DocumentImportPhase.Editing);
+    setError(null);
+    setResult(null);
+    setSourceKind(DocumentImportSourceKind.File);
+    setIsJavaSourceImporting(false);
+    if (fileInputRef.current) fileInputRef.current.value = '';
+  }, [destinations, isOpen, selectedTreeNodeId, treeData.id]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    let active = true;
+    void getDocumentImportCapabilities()
+      .then((nextCapabilities) => {
+        if (active) {
+          setCapabilities(nextCapabilities);
+          setUseAi(nextCapabilities.ai.configured);
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setCapabilities({
+            ai: { configured: false, model: '' },
+            maxBytes: 20 * 1024 * 1024,
+            extensions: ['.pdf', '.md', '.markdown', '.txt', '.html', '.htm', '.docx'],
+            javaSource: {
+              available: true,
+              defaultSource: '',
+              supportedSources: ['.java', 'directory', '.zip', '.jar', 'JDK src.zip'],
+            },
+          });
+        }
+      });
+    return () => { active = false; };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && !isBusy) onClose();
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isBusy, isOpen, onClose]);
+
+  useEffect(() => {
+    if (!isOpen || sourceKind !== DocumentImportSourceKind.File) return;
+    const handlePaste = (event: ClipboardEvent) => {
+      if (isImporting) return;
+      const pastedFile = event.clipboardData?.files.item(0) ?? null;
+      if (pastedFile) {
+        event.preventDefault();
+        chooseFile(pastedFile);
+        return;
+      }
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest('input, textarea, [contenteditable="true"]')) {
+        return;
+      }
+      const pastedText = event.clipboardData?.getData('text/plain')
+        || event.clipboardData?.getData('text')
+        || '';
+      if (pastedText.trim()) {
+        event.preventDefault();
+        choosePastedText(pastedText);
+      }
+    };
+    window.addEventListener('paste', handlePaste);
+    return () => window.removeEventListener('paste', handlePaste);
+  }, [isImporting, isOpen, sourceKind]);
+
+  if (!isOpen) return null;
+
+  const closeFromOverlay = (event: OverlayMouseEvent) => {
+    if (event.target === event.currentTarget && !isBusy) onClose();
+  };
+
+  const handleDrop = (event: DragEvent) => {
     event.preventDefault();
     setIsDragging(false);
-    if (!isImporting) chooseFile(event.dataTransfer.files.item(0));
+    if (!isBusy && sourceKind === DocumentImportSourceKind.File) {
+      chooseFile(event.dataTransfer?.files.item(0) ?? null);
+    }
   };
 
   const handleSubmit = async (event: FormSubmitEvent) => {
@@ -174,7 +240,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     setError(null);
     setResult(null);
     try {
-      const imported = await importDocumentFile({ file, parentTreeNodeId, useAi });
+      const imported = await importDocumentFile({ file, parentTreeNodeId, translate, useAi });
       await initialize();
       selectTreeEntry(imported.treeNodeId);
       setActiveView('index');
@@ -200,8 +266,12 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
           <div className="link-import-heading">
             <div className="link-import-heading-icon" aria-hidden="true"><FileUp size={18} /></div>
             <div>
-              <h2 id="document-import-title">导入文档</h2>
-              <p>文档正文将生成知识节点和可编辑的 Markdown 文档。</p>
+              <h2 id="document-import-title">导入内容</h2>
+              <p>
+                {sourceKind === DocumentImportSourceKind.JavaSource
+                  ? '从本机 Java 源码建立类型、成员、注释和继承关系。'
+                  : '选择、拖放或粘贴文档，整理为知识节点。'}
+              </p>
             </div>
           </div>
           <button
@@ -209,14 +279,47 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
             className="link-import-close"
             title="关闭"
             aria-label="关闭文档导入"
-            disabled={isImporting}
+            disabled={isBusy}
             onClick={onClose}
           >
             <X size={17} />
           </button>
         </header>
 
-        {phase === DocumentImportPhase.Succeeded && result ? (
+        <div className="document-import-modes" role="tablist" aria-label="导入类型">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={sourceKind === DocumentImportSourceKind.File}
+            className={sourceKind === DocumentImportSourceKind.File ? 'is-active' : ''}
+            disabled={isBusy}
+            onClick={() => setSourceKind(DocumentImportSourceKind.File)}
+          >
+            <FileText size={14} />
+            普通文档
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={sourceKind === DocumentImportSourceKind.JavaSource}
+            className={sourceKind === DocumentImportSourceKind.JavaSource ? 'is-active' : ''}
+            disabled={isBusy || capabilities?.javaSource?.available === false}
+            onClick={() => setSourceKind(DocumentImportSourceKind.JavaSource)}
+          >
+            <Braces size={14} />
+            Java 源码
+          </button>
+        </div>
+
+        {sourceKind === DocumentImportSourceKind.JavaSource ? (
+          <JavaSourceImportPanel
+            defaultSource={capabilities?.javaSource?.defaultSource ?? ''}
+            defaultTargetTreeNodeId={parentTreeNodeId}
+            destinations={destinations}
+            onClose={onClose}
+            onImportingChange={handleJavaSourceImportingChange}
+          />
+        ) : phase === DocumentImportPhase.Succeeded && result ? (
           <section className="link-import-result" aria-live="polite">
             <div className="link-import-result-mark"><Check size={21} /></div>
             <div className="link-import-result-copy">
@@ -230,6 +333,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
               <div><dt>知识节点</dt><dd>{result.nodeCount}</dd></div>
               <div><dt>章节</dt><dd>{result.sectionCount}</dd></div>
               <div><dt>问题</dt><dd>{result.questionCount}</dd></div>
+              <div><dt>语言</dt><dd>{result.translated ? `${result.language} → 中文` : result.language}</dd></div>
               <div><dt>页数</dt><dd>{result.pageCount ?? '-'}</dd></div>
             </dl>
             {result.categories.length > 0 && (
@@ -263,7 +367,6 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 id="document-import-file"
                 className="document-import-input"
                 type="file"
-                accept=".pdf,.md,.markdown,application/pdf,text/markdown,text/plain"
                 disabled={isImporting}
                 onChange={(event: { target: { files: FileList | null } }) => {
                   chooseFile(event.target.files?.item(0) ?? null);
@@ -274,18 +377,18 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 className={`document-import-dropzone${file ? ' has-file' : ''}${isDragging ? ' is-dragging' : ''}`}
                 disabled={isImporting}
                 onClick={() => fileInputRef.current?.click()}
-                onDragEnter={(event) => {
+                onDragEnter={(event: DragEvent) => {
                   event.preventDefault();
                   if (!isImporting) setIsDragging(true);
                 }}
-                onDragOver={(event) => event.preventDefault()}
+                onDragOver={(event: DragEvent) => event.preventDefault()}
                 onDragLeave={() => setIsDragging(false)}
                 onDrop={handleDrop}
               >
                 {file ? <FileText size={24} aria-hidden="true" /> : <FileUp size={24} aria-hidden="true" />}
                 <span>
-                  <strong>{file?.name ?? '选择 PDF 或 Markdown 文档'}</strong>
-                  <small>{file ? formatBytes(file.size) : 'PDF · MD · Markdown · 最大 20 MB'}</small>
+                  <strong>{file?.name ?? '选择、拖放或粘贴文件'}</strong>
+                  <small>{file ? formatBytes(file.size) : 'PDF · Markdown · TXT · HTML · DOCX · 也支持粘贴文件内容'}</small>
                 </span>
               </button>
             </div>
@@ -299,6 +402,21 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 onChange={setParentTreeNodeId}
               />
             </div>
+
+            <label className="link-import-translation">
+              <span className="link-import-translation-icon" aria-hidden="true"><Languages size={16} /></span>
+              <span className="link-import-translation-copy">
+                <strong>翻译为中文</strong>
+                <small>中文文件会直接保留原文</small>
+              </span>
+              <input
+                type="checkbox"
+                checked={translate}
+                disabled={isImporting}
+                onChange={(event: { target: { checked: boolean } }) => setTranslate(event.target.checked)}
+              />
+              <span className="link-import-switch" aria-hidden="true" />
+            </label>
 
             <label className="link-import-translation">
               <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>

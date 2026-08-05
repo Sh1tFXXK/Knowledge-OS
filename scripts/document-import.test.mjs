@@ -7,9 +7,17 @@ import {
   DOCUMENT_KIND,
   documentKindForFile,
   importDocument,
+  parseDocxDocument,
+  parseHtmlDocument,
   parseMarkdownDocument,
   parsePdfDocument,
+  parseTextDocument,
+  prepareDocumentImport,
 } from './import/document-importer.mjs';
+import {
+  validateDocumentRequest,
+  validateJavaSourceRequest,
+} from './import/link-import-api.mjs';
 
 function createTextPdf(lines) {
   const escapedLines = lines.map((line) => line.replace(/([\\()])/g, '\\$1'));
@@ -41,11 +49,66 @@ function createTextPdf(lines) {
   return Buffer.from(pdf, 'ascii');
 }
 
-test('document kinds are explicit and unsupported extensions are rejected', () => {
+test('document kinds are explicit and arbitrary files fall back to text', () => {
   assert.equal(documentKindForFile('notes.pdf'), DOCUMENT_KIND.Pdf);
   assert.equal(documentKindForFile('notes.MARKDOWN'), DOCUMENT_KIND.Markdown);
-  assert.throws(() => documentKindForFile('notes.docx'), /PDF.*MD.*Markdown/);
+  assert.equal(documentKindForFile('notes.docx'), DOCUMENT_KIND.Docx);
+  assert.equal(documentKindForFile('notes.txt'), DOCUMENT_KIND.Text);
+  assert.equal(documentKindForFile('archive.tar.gz'), DOCUMENT_KIND.Text);
   assert.throws(() => documentKindForFile('../notes.md'), /文件名无效/);
+});
+
+test('document API accepts arbitrary file names and defaults translation on', () => {
+  const requestUrl = '/api/import-document?fileName=notes.xyz&parentTreeNodeId=root';
+  assert.deepEqual(
+    validateDocumentRequest({ url: requestUrl, headers: { host: 'localhost' } }),
+    {
+      fileName: 'notes.xyz',
+      parentTreeNodeId: 'root',
+      translate: true,
+      useAi: false,
+    },
+  );
+  const translated = validateDocumentRequest({
+    url: `${requestUrl}&translate=false&useAi=true`,
+    headers: { host: 'localhost' },
+  });
+  assert.equal(translated.translate, false);
+  assert.equal(translated.useAi, true);
+});
+
+test('document import validates the local Java source mode', () => {
+  assert.deepEqual(
+    validateJavaSourceRequest({
+      source: '  C:\\Users\\Administrator\\.jdks\\openjdk-26.0.1!\\java.base\\java\\util  ',
+      parentTreeNodeId: '  root  ',
+    }),
+    {
+      source: 'C:\\Users\\Administrator\\.jdks\\openjdk-26.0.1!\\java.base\\java\\util',
+      parentTreeNodeId: 'root',
+      translate: true,
+    },
+  );
+  assert.deepEqual(
+    validateJavaSourceRequest({
+      source: 'C:\\project\\src',
+      parentTreeNodeId: 'root',
+      translate: false,
+    }),
+    {
+      source: 'C:\\project\\src',
+      parentTreeNodeId: 'root',
+      translate: false,
+    },
+  );
+  assert.throws(
+    () => validateJavaSourceRequest({ source: '   ', parentTreeNodeId: 'root' }),
+    /Java/,
+  );
+  assert.throws(
+    () => validateJavaSourceRequest({ source: 'C:\\project\\src', parentTreeNodeId: '' }),
+    /目录/,
+  );
 });
 
 test('Markdown documents remove front matter and the primary heading', () => {
@@ -127,6 +190,103 @@ test('PDF documents promote compact numbered steps to sections', async () => {
   assert.match(parsed.markdown, /## 1 创建应用上下文/);
   assert.match(parsed.markdown, /## 2 加载配置源/);
   assert.equal(parsed.language, 'zh');
+});
+
+test('plain text documents promote compact numbered lines to sections', () => {
+  const parsed = parseTextDocument({
+    fileName: 'arbitrary-notes.xyz',
+    buffer: Buffer.from([
+      '# Arbitrary notes',
+      '',
+      '1. First section',
+      'Body for the first section.',
+      '2. Second section',
+      'Body for the second section.',
+    ].join('\n')),
+  });
+
+  assert.equal(parsed.kind, DOCUMENT_KIND.Text);
+  assert.equal(parsed.title, 'Arbitrary notes');
+  assert.match(parsed.markdown, /## 1 First section/);
+  assert.match(parsed.markdown, /## 2 Second section/);
+});
+
+test('HTML documents are converted to structured Markdown', () => {
+  const parsed = parseHtmlDocument({
+    fileName: 'storage.html',
+    buffer: Buffer.from([
+      '<!doctype html>',
+      '<html lang="en"><head><title>Storage engines</title></head><body><article>',
+      '<h1>Storage engines</h1>',
+      '<p>A storage engine manages durable files and coordinates recovery after a crash.</p>',
+      '<h2>Architecture</h2>',
+      '<p>Engines coordinate buffer pools, ordered indexes, and durable files.</p>',
+      '<h2>Recovery</h2>',
+      '<p>Write-ahead logging restores committed changes after a crash.</p>',
+      '</article></body></html>',
+    ].join('\n')),
+  });
+
+  assert.equal(parsed.kind, DOCUMENT_KIND.Html);
+  assert.equal(parsed.title, 'Storage engines');
+  assert.match(parsed.markdown, /## Architecture/);
+  assert.match(parsed.markdown, /## Recovery/);
+});
+
+test('DOCX documents extract raw text through the configured extractor', async () => {
+  const parsed = await parseDocxDocument({
+    fileName: 'word-notes.docx',
+    buffer: Buffer.from('PK\u0003\u0004not-a-real-zip'),
+    extractRawText: async () => ({
+      value: 'Word notes\n\n1. First section\nBody for the first section.',
+    }),
+  });
+  assert.equal(parsed.kind, DOCUMENT_KIND.Docx);
+  assert.equal(parsed.title, 'word-notes');
+  assert.match(parsed.markdown, /Word notes/);
+
+  await assert.rejects(
+    parseDocxDocument({
+      fileName: 'broken.docx',
+      buffer: Buffer.from('not a zip'),
+    }),
+    /DOCX/,
+  );
+});
+
+test('prepareDocumentImport translates non-Chinese documents before structuring', async () => {
+  const result = await prepareDocumentImport({
+    fileName: 'storage.txt',
+    buffer: Buffer.from([
+      '# Storage engines',
+      '',
+      '## Architecture',
+      '',
+      'A storage engine coordinates durable files and buffer pools.',
+      '',
+      '## Recovery',
+      '',
+      'Write-ahead logging restores committed changes after a crash.',
+    ].join('\n')),
+    useAi: false,
+    translate: true,
+    translationService: {
+      translate: async (text) => text
+        .replace(/Storage engines/g, '存储引擎')
+        .replace(/Architecture/g, '架构')
+        .replace(/Recovery/g, '恢复')
+        .replace('A storage engine coordinates durable files and buffer pools.', '存储引擎协调持久化文件与缓冲池。')
+        .replace('Write-ahead logging restores committed changes after a crash.', '预写日志在崩溃后恢复已提交的更改。'),
+    },
+  });
+
+  assert.equal(result.translated, true);
+  assert.equal(result.language, 'en');
+  assert.equal(result.title, '存储引擎');
+  assert.match(result.markdown, /translated_to: "zh-CN"/);
+  assert.match(result.markdown, /## 架构/);
+  assert.match(result.markdown, /## 恢复/);
+  assert.doesNotMatch(result.markdown, /Storage engines|Architecture|Recovery/);
 });
 
 test('importDocument writes canonical Markdown and mounts at the selected directory', async (context) => {

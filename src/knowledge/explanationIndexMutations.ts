@@ -15,6 +15,7 @@ const DEFINITION_TAB_ID = 'def';
 export enum ExplanationIndexOperationKind {
   Rename = 'rename',
   Split = 'split',
+  AddChild = 'add-child',
   AddSibling = 'add-sibling',
   Remove = 'remove',
   Merge = 'merge',
@@ -24,6 +25,7 @@ export enum ExplanationIndexOperationKind {
 export type ExplanationIndexOperation =
   | { kind: ExplanationIndexOperationKind.Rename; label: string }
   | { kind: ExplanationIndexOperationKind.Split; childCount: number }
+  | { kind: ExplanationIndexOperationKind.AddChild; label: string }
   | { kind: ExplanationIndexOperationKind.AddSibling }
   | { kind: ExplanationIndexOperationKind.Remove }
   | { kind: ExplanationIndexOperationKind.Merge }
@@ -343,6 +345,48 @@ function splitItem(
   );
 }
 
+function addChild(
+  explanation: NodeExplanation,
+  selection: ExplanationIndexSelection,
+  label: string,
+  createId: (prefix: string) => string,
+): ExplanationIndexMutationResult {
+  const trimmed = label.trim();
+  if (!trimmed) return unchanged(explanation, selection);
+
+  if (selection.kind === ExplanationSelectionKind.Root) {
+    const child = { ...createBlankTab(createId('tab')), label: trimmed };
+    return changed(
+      { ...explanation, tabs: [...explanation.tabs, child] },
+      contentSelection(explanation.nodeId, child.id, null),
+    );
+  }
+
+  if (selection.pageId === null) {
+    const tab = findTab(explanation.tabs, selection.tabId);
+    if (!tab) return unchanged(explanation, selection);
+    const child = { ...createBlankPage(createId('page')), label: trimmed };
+    return changed(
+      replaceTabPages(explanation, tab.id, [...explicitPagesForTab(explanation, tab), child]),
+      contentSelection(explanation.nodeId, tab.id, child.id),
+    );
+  }
+
+  const tab = findTab(explanation.tabs, selection.tabId);
+  if (!tab) return unchanged(explanation, selection);
+  const pages = explicitPagesForTab(explanation, tab);
+  let child: ExplanationPage | null = null;
+  const mapped = mapPages(pages, selection.pageId, (page) => {
+    child = { ...createBlankPage(createId('page')), label: trimmed };
+    return { ...page, pages: [...(page.pages ?? []), child] };
+  });
+  if (!mapped.found || !child) return unchanged(explanation, selection);
+  return changed(
+    replaceTabPages(explanation, tab.id, mapped.items),
+    contentSelection(explanation.nodeId, tab.id, child.id),
+  );
+}
+
 function addSibling(
   explanation: NodeExplanation,
   selection: ExplanationIndexSelection,
@@ -521,6 +565,8 @@ export function applyExplanationIndexOperation(
       return renameItem(explanation, selection, operation.label);
     case ExplanationIndexOperationKind.Split:
       return splitItem(explanation, selection, operation.childCount, createId);
+    case ExplanationIndexOperationKind.AddChild:
+      return addChild(explanation, selection, operation.label, createId);
     case ExplanationIndexOperationKind.AddSibling:
       return addSibling(explanation, selection, createId);
     case ExplanationIndexOperationKind.Remove:

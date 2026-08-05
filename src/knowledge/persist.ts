@@ -7,6 +7,7 @@ import {
 } from './state';
 import { migrateAppState } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
+import { normalizeKnowledgePointTimeline } from './timeline';
 
 const STORAGE_KEY = 'knowledge-os:app-state-v1';
 
@@ -48,6 +49,7 @@ function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
     nodePool: (raw.nodePool as Record<string, KnowledgeNode>) || empty.nodePool,
     knowledgeEdges: (raw.knowledgeEdges as any[]) || [],
     questions: (raw.questions as any[]) || [],
+    timeline: normalizeKnowledgePointTimeline(raw.timeline),
   } as PersistedAppState);
   return {
     ...migrated,
@@ -58,7 +60,13 @@ function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
 function isPersistedAppState(value: unknown): value is PersistedAppState {
   if (!value || typeof value !== 'object') return false;
   const s = value as PersistedAppState;
-  return s.version === APP_STATE_VERSION || s.version === 3 || s.version === 2;
+  return (
+    s.version === APP_STATE_VERSION ||
+    s.version === 5 ||
+    s.version === 4 ||
+    s.version === 3 ||
+    s.version === 2
+  );
 }
 
 const RADICAL_MAP: Record<string, string> = {
@@ -97,6 +105,8 @@ export function loadPersistedAppState(): PersistedAppState | null {
         const migrated = migrateAppState(parsed);
         return {
           ...migrated,
+          version: APP_STATE_VERSION,
+          timeline: normalizeKnowledgePointTimeline(migrated.timeline),
           treeData: normalizeTreeNode(migrated.treeData),
         };
       }
@@ -147,6 +157,8 @@ export function parseImportedAppState(json: string): PersistedAppState | null {
       const migrated = migrateAppState(parsed);
       return {
         ...migrated,
+        version: APP_STATE_VERSION,
+        timeline: normalizeKnowledgePointTimeline(migrated.timeline),
         treeData: normalizeTreeNode(migrated.treeData),
       };
     }

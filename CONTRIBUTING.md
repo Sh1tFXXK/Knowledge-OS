@@ -1,25 +1,31 @@
 # Development Workflow
 
-This repository uses a trunk-based workflow with one long-lived branch.
+This repository uses a lightweight Git Flow with two long-lived branches.
 
-## Branches
+## Long-Lived Branches
 
-- `main` is the only long-lived branch and must remain buildable.
-- Create short-lived branches from the latest `main` using `codex/<topic>`.
-- Keep each branch focused on one coherent change.
-- Do not use personal, tool-generated, backup, or environment names as permanent branches.
+- `main` contains releasable code and is the source for release tags.
+- `develop` is the integration branch for the next release and the default base for daily work.
+
+Both branches must remain buildable. Direct feature development on `main` is not allowed.
+
+## Short-Lived Branches
+
+- `feature/<topic>` starts from `develop` for new behavior.
+- `fix/<topic>` starts from `develop` for non-production defects.
+- `release/<version>` starts from `develop` only when a release needs stabilization.
+- `hotfix/<topic>` starts from `main` for urgent production corrections.
+
+Delete short-lived local and remote branches after they are merged. Do not keep personal, tool-generated, backup, or environment branches.
 
 ## Change Flow
 
-1. Update `main` and create a focused branch.
-2. Implement and test the change locally.
-3. Run `npm test` and `npm run build` before merging.
-4. Rebase on the latest `main` when the branch has diverged.
-5. Merge through a reviewed pull request, preferring squash or fast-forward history.
-6. Delete the local and remote branch after it is merged.
+1. Update `develop` and create one focused short-lived branch.
+2. Implement the change without mixing unrelated work.
+3. Run `npm test` and `npm run build`.
+4. Rebase on the latest target branch before review.
+5. Merge `feature/*` and `fix/*` into `develop`, preferring squash history.
+6. Merge a prepared release into `main`, tag it, and synchronize the result back to `develop`.
+7. Merge a hotfix into both `main` and `develop`.
 
-Work in progress, recovery snapshots, generated artifacts, and failing changes must not be merged into `main`. Use a stash or a local backup bundle for temporary recovery state instead of permanent backup branches.
-
-## Releases
-
-Use annotated tags for releases. Do not create long-lived release branches unless the release process genuinely requires parallel maintenance.
+Work in progress, recovery snapshots, generated artifacts, and failing changes must not be merged into `main`. Use a stash or a local Git bundle for temporary recovery state instead of permanent backup branches.

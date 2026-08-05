@@ -521,7 +521,7 @@ export function extractQuestions(markdown) {
   return questions;
 }
 
-async function translateMarkdownPreservingStructure(markdown, language, translator) {
+export async function translateMarkdownPreservingStructure(markdown, language, translator) {
   const protectedParts = [];
   const protect = (value) => {
     const token = `KOSMDTOKEN${protectedParts.length}X`;

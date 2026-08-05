@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node --test \"scripts/*.test.mjs\"",
-    "test:all": "node --test \"scripts/*.test.mjs\""
+    "import:jdk-collections": "node scripts/import-jdk-collections.mjs",
+    "test": "node --test \"scripts/*.test.mjs\""
   },
   "keywords": [],
   "author": "",
@@ -19,6 +19,7 @@
     "ipaddr.js": "^2.2.0",
     "jsdom": "^29.1.1",
     "lucide-react": "^0.468.0",
+    "mammoth": "^1.12.0",
     "npx": "^10.2.2",
     "pdf-parse": "^2.4.5",
     "react": "^19.2.6",

@@ -3,6 +3,7 @@ import { APP_STATE_VERSION, createEmptyAppState } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question } from '../types';
 import { migrateNodePool } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
+import { normalizeKnowledgePointTimeline } from './timeline';
 
 const FILES = {
   treeData: 'tree-data.json',
@@ -10,6 +11,7 @@ const FILES = {
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
   inferenceResponses: 'inference-responses.json',
+  timeline: 'timeline.json',
 };
 
 async function fetchFile<T>(filename: string, fallback: T): Promise<T> {
@@ -44,12 +46,14 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     knowledgeEdges,
     questions,
     inferenceResponses,
+    timeline,
   ] = await Promise.all([
     fetchFile<TreeNode | null>(FILES.treeData, null),
     fetchFile<Record<string, KnowledgeNode> | null>(FILES.nodePool, null),
     fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
     fetchFile<Question[] | null>(FILES.questions, null),
     fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
+    fetchFile<unknown>(FILES.timeline, null),
   ]);
 
   const state: Partial<PersistedAppState> = {
@@ -61,6 +65,7 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
   if (inferenceResponses) state.inferenceResponses = inferenceResponses;
+  state.timeline = normalizeKnowledgePointTimeline(timeline);
 
   return state;
 }
@@ -87,6 +92,7 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
       ...emptyState.inferenceResponses,
       ...(fileState.inferenceResponses ?? {}),
     },
+    timeline: fileState.timeline ?? emptyState.timeline,
   };
 }
 
@@ -97,5 +103,6 @@ export async function saveStateToFiles(state: PersistedAppState): Promise<void> 
     saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
     saveFile(FILES.questions, state.questions),
     saveFile(FILES.inferenceResponses, state.inferenceResponses),
+    saveFile(FILES.timeline, state.timeline),
   ]);
 }

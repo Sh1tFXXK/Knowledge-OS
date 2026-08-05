@@ -16,6 +16,7 @@ import { ExplanationSelectionKind } from '../types';
 import MarkdownView from './explanation/MarkdownView';
 import ProjectionReferences from './explanation/ProjectionReferences';
 import SupertagPanel from './explanation/SupertagPanel';
+import KnowledgePointTimeline from '../components/KnowledgePointTimeline';
 
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
@@ -105,12 +106,14 @@ export default function ExplanationCard() {
     activeSelection?.kind === ExplanationSelectionKind.Root
       ? (explanation.rootContent ?? '')
       : (activePathTab?.content ?? activePage?.content ?? activeTab?.content ?? '');
-  const activeTags =
-    activeSelection?.kind === ExplanationSelectionKind.Root
-      ? nodeMeta?.tags ?? []
-      : activeSelection?.kind === ExplanationSelectionKind.Content
+  const activeTags = Array.from(
+    new Set([
+      ...(nodeMeta?.tags ?? []),
+      ...(activeSelection?.kind === ExplanationSelectionKind.Content
         ? activePage?.tags ?? activeTab?.tags ?? []
-        : [];
+        : []),
+    ]),
+  );
 
   const matrixProjections = selectedNodeId
     ? findMatrixProjections(nodePool, selectedNodeId)
@@ -238,13 +241,16 @@ export default function ExplanationCard() {
             <SupertagPanel tags={activeTags} onOpenTag={openSupertag} />
           </div>
 
-          <button
-            type="button"
-            className={`btn btn-sm explanation-edit-toggle${isEditing ? ' is-active' : ''}`}
-            onClick={() => setIsEditing((value) => !value)}
-          >
-            <span>{isEditing ? '预览' : '编辑'}</span>
-          </button>
+          <div className="explanation-card-header-actions">
+            <KnowledgePointTimeline />
+            <button
+              type="button"
+              className={`btn btn-sm explanation-edit-toggle${isEditing ? ' is-active' : ''}`}
+              onClick={() => setIsEditing((value) => !value)}
+            >
+              <span>{isEditing ? '预览' : '编辑'}</span>
+            </button>
+          </div>
         </div>
 
         <div className="explanation-card-body explanation-card-body--content-only">

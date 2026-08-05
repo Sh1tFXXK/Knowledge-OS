@@ -23,7 +23,7 @@ export interface GraphEdge {
   label: string;
 }
 
-export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags';
+export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags' | 'timeline';
 
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
 export interface TreeRefSupplement {
@@ -135,7 +135,16 @@ export interface KnowledgeNode {
   dimensions?: string[];
   /** Projection dimensions. Dimensions reference nodePool atoms; they do not own them. */
   viewDimensions?: ViewDimension[];
+  /** Optional source node whose type DAG is projected by this node's index view. */
+  relationIndex?: {
+    rootNodeId: string;
+  };
   card: NodeExplanation;
+}
+
+export enum TypeRelationKind {
+  Implements = 'implements',
+  Extends = 'extends',
 }
 
 /** 边表：关系数据，供关系网 / 漏斗 / 子系统消费；解释卡不读 */

@@ -1,9 +1,11 @@
 import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import mammoth from 'mammoth';
 import { PDFParse } from 'pdf-parse';
 import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
 import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
+import { createTranslationService } from './translation.mjs';
 import {
   attachQuestionsToNodes,
   detectDocumentProfile,
@@ -15,21 +17,29 @@ import {
   applyImportedQuestions,
   buildWebNodes,
   cleanKeyword,
+  extractWebDocument,
   IMPORT_SOURCE_KIND,
   normalizeLanguage,
   polishArticleMarkdown,
   slugify,
   sourceHash,
+  translateMarkdownPreservingStructure,
   writeFileAtomically,
 } from './web-link-importer.mjs';
 
 export const DOCUMENT_KIND = Object.freeze({
   Pdf: 'pdf',
   Markdown: 'markdown',
+  Html: 'html',
+  Text: 'text',
+  Docx: 'docx',
 });
 
 const MARKDOWN_EXTENSIONS = new Set(['.md', '.markdown']);
+const HTML_EXTENSIONS = new Set(['.html', '.htm']);
+const DOCX_EXTENSIONS = new Set(['.docx']);
 const PDF_MAGIC = '%PDF-';
+const DOCX_MAGIC = '504b0304';
 
 function normalizedFileName(fileName) {
   const normalized = String(fileName ?? '').trim();
@@ -43,7 +53,9 @@ export function documentKindForFile(fileName) {
   const extension = path.extname(normalizedFileName(fileName)).toLocaleLowerCase();
   if (extension === '.pdf') return DOCUMENT_KIND.Pdf;
   if (MARKDOWN_EXTENSIONS.has(extension)) return DOCUMENT_KIND.Markdown;
-  throw new Error('只支持 PDF、MD 或 Markdown 文档');
+  if (HTML_EXTENSIONS.has(extension)) return DOCUMENT_KIND.Html;
+  if (DOCX_EXTENSIONS.has(extension)) return DOCUMENT_KIND.Docx;
+  return DOCUMENT_KIND.Text;
 }
 
 function titleFromFileName(fileName) {
@@ -56,12 +68,16 @@ function assertPdfMagic(buffer) {
   }
 }
 
-function decodeMarkdown(buffer) {
+function decodeText(buffer, label = '文本', fatal = true) {
   try {
-    return new TextDecoder('utf-8', { fatal: true }).decode(buffer).replace(/^\uFEFF/, '');
+    return new TextDecoder('utf-8', { fatal }).decode(buffer).replace(/^\uFEFF/, '');
   } catch {
-    throw new Error('Markdown 文档必须使用 UTF-8 编码');
+    throw new Error(`${label}必须使用 UTF-8 编码`);
   }
+}
+
+function decodeMarkdown(buffer) {
+  return decodeText(buffer, 'Markdown 文档');
 }
 
 function stripFrontMatter(markdown) {
@@ -194,6 +210,66 @@ export async function parsePdfDocument({ buffer, fileName, parserFactory }) {
   };
 }
 
+export function parseTextDocument({ buffer, fileName }) {
+  const source = decodeText(buffer);
+  const title = extractMarkdownTitle(source, fileName);
+  const markdown = removeMarkdownTitle(
+    pdfPagesToMarkdown([{ num: 1, text: source }]),
+    title,
+  );
+  if (!markdown.replace(/\s/g, '')) {
+    throw new Error('文档没有可导入的正文');
+  }
+  return {
+    kind: DOCUMENT_KIND.Text,
+    title,
+    language: documentLanguage(title, markdown),
+    markdown,
+    pageCount: null,
+  };
+}
+
+export function parseHtmlDocument({ buffer, fileName }) {
+  const content = decodeText(buffer, 'HTML 文档', false);
+  const parsed = extractWebDocument({
+    url: `https://knowledge.local/${encodeURIComponent(fileName)}`,
+    contentType: 'text/html',
+    content,
+  });
+  const title = cleanKeyword(parsed.title) || titleFromFileName(fileName);
+  return {
+    kind: DOCUMENT_KIND.Html,
+    title,
+    language: parsed.language,
+    markdown: parsed.markdown,
+    pageCount: null,
+  };
+}
+
+export async function parseDocxDocument({ buffer, fileName, extractRawText }) {
+  if (buffer.subarray(0, 4).toString('hex') !== DOCX_MAGIC) {
+    throw new Error('文件扩展名为 DOCX，但内容不是有效的 Word 文档');
+  }
+  const extract = extractRawText ?? mammoth.extractRawText;
+  let result;
+  try {
+    result = await extract({ buffer });
+  } catch {
+    throw new Error('DOCX 解析失败，请确认文件未损坏');
+  }
+  const markdown = pdfPagesToMarkdown([{ num: 1, text: result?.value ?? '' }]);
+  if (!markdown.replace(/\s/g, '')) {
+    throw new Error('DOCX 文档没有可导入的正文');
+  }
+  return {
+    kind: DOCUMENT_KIND.Docx,
+    title: titleFromFileName(fileName),
+    language: documentLanguage(titleFromFileName(fileName), markdown),
+    markdown,
+    pageCount: null,
+  };
+}
+
 export async function parseDocument(options) {
   const fileName = normalizedFileName(options.fileName);
   const buffer = Buffer.isBuffer(options.buffer)
@@ -205,7 +281,16 @@ export async function parseDocument(options) {
   if (kind === DOCUMENT_KIND.Pdf) {
     return parsePdfDocument({ ...options, buffer, fileName });
   }
-  return parseMarkdownDocument({ buffer, fileName });
+  if (kind === DOCUMENT_KIND.Html) {
+    return parseHtmlDocument({ buffer, fileName });
+  }
+  if (kind === DOCUMENT_KIND.Docx) {
+    return parseDocxDocument({ buffer, fileName });
+  }
+  if (kind === DOCUMENT_KIND.Markdown) {
+    return parseMarkdownDocument({ buffer, fileName });
+  }
+  return parseTextDocument({ buffer, fileName });
 }
 
 function yamlString(value) {
@@ -220,6 +305,7 @@ function buildDocumentMarkdown({
   contentHash,
   pageCount,
   language,
+  translated,
   date,
   keywords,
   categories,
@@ -237,6 +323,7 @@ function buildDocumentMarkdown({
     `source_sha256: ${yamlString(contentHash)}`,
     `source_pages: ${pageCount ?? 'null'}`,
     `source_language: ${yamlString(language)}`,
+    `translated_to: ${translated ? yamlString('zh-CN') : 'null'}`,
     `imported_at: ${yamlString(date)}`,
     'import_standard_version: 1',
     `import_profile: ${yamlString(profile)}`,
@@ -290,6 +377,19 @@ export async function prepareDocumentImport(options) {
   const sourceId = `document:${contentHash}`;
   let title = parsed.title;
   let markdown = polishArticleMarkdown(parsed.markdown).contentMarkdown;
+  const translator = options.translationService ?? createTranslationService({
+    engine: options.translationEngine ?? 'auto',
+    onWarning: options.onWarning,
+  });
+  const shouldTranslate = options.translate === true && parsed.language !== 'zh';
+  if (shouldTranslate) {
+    title = await translator.translate(parsed.title, parsed.language);
+    markdown = await translateMarkdownPreservingStructure(
+      markdown,
+      parsed.language,
+      translator,
+    );
+  }
   let categories = [];
   let aiKeywords = [];
   const detected = detectDocumentProfile(markdown);
@@ -304,7 +404,7 @@ export async function prepareDocumentImport(options) {
     const organized = await organizer.organize({
       title,
       markdown,
-      sourceLanguage: parsed.language,
+      sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
     });
     title = cleanKeyword(organized.title) || title;
     markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
@@ -343,6 +443,7 @@ export async function prepareDocumentImport(options) {
     profile,
     validation,
     categories,
+    translated: shouldTranslate,
     questions,
     markdown: buildDocumentMarkdown({
       title,
@@ -352,6 +453,7 @@ export async function prepareDocumentImport(options) {
       contentHash,
       pageCount: parsed.pageCount,
       language: parsed.language,
+      translated: shouldTranslate,
       date,
       keywords: built.tags,
       categories,
@@ -428,6 +530,7 @@ export async function importDocument(options) {
     fileName: normalizedFileName(options.fileName),
     documentKind: prepared.kind,
     language: prepared.language,
+    translated: prepared.translated,
     pageCount: prepared.pageCount,
     nodeCount: prepared.nodes.length,
     sectionCount: prepared.nodes.length - 1,

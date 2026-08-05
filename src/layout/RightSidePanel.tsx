@@ -3,9 +3,9 @@ import { useGraphStore } from '../store/useGraph';
 import { questionsForNode } from '../knowledge/questionLink';
 import ExplanationCard from '../panels/ExplanationCard';
 import MarkdownView from '../panels/explanation/MarkdownView';
-import RelationNetworkSkeleton from '../panels/RelationNetworkSkeleton';
+import SystemConnectionMap from '../panels/SystemConnectionMap';
 
-/** 右侧面板：解释卡 → 问题 → 关系网占位 */
+/** 右侧面板：解释卡 → 问题 → 系统连接图 */
 export default function RightSidePanel({
   onResizeStart,
 }: {
@@ -81,7 +81,7 @@ export default function RightSidePanel({
           </div>
         </div>
 
-        <RelationNetworkSkeleton />
+        <SystemConnectionMap />
       </div>
     </aside>
   );
