@@ -1,4 +1,9 @@
-import type { KnowledgeEdge, KnowledgeNode, TreeNode } from '../types';
+import type {
+  KnowledgeEdge,
+  KnowledgeNode,
+  KnowledgeRelationKind,
+  TreeNode,
+} from '../types';
 
 export const TREE_BINDING_EDGE_PREFIX = 'treebind:';
 export const TREE_BINDING_EDGE_TYPE = 'belongs-to';
@@ -59,6 +64,7 @@ export function createTreeBindingEdge({
     target: childKnowledgeId,
     type: TREE_BINDING_EDGE_TYPE,
     label: TREE_BINDING_EDGE_LABEL,
+    relationKind: 'structure' as KnowledgeRelationKind,
     dimensions: mergeDimensions(nodePool[parentKnowledgeId], nodePool[childKnowledgeId]),
   };
 }

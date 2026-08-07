@@ -127,6 +127,8 @@ const MAX_VISIBLE_MEMBERS = 60;
 const NODE_GAP = 84;
 const LEVEL_GAP = 112;
 const OUTER_PADDING = 72;
+/** 头部左侧折叠按钮预留 + 右侧操作按钮预留 */
+const HEADER_HORIZONTAL_PADDING = 42 + 116;
 /** 层内单条视觉行的最大内容宽度，超过则把该层均衡拆成多行 */
 const MAX_ROW_WIDTH = 1480;
 /** 同一层内相邻视觉行之间的垂直间距（小于层间距 LEVEL_GAP） */
@@ -292,7 +294,7 @@ function sizeDraft(
   const width = Math.max(
     MIN_CLASS_WIDTH,
     Math.ceil(Math.max(
-      estimatedTextWidth(draft.label) + 74,
+      estimatedTextWidth(draft.label) + HEADER_HORIZONTAL_PADDING,
       estimatedTextWidth(draft.tags.slice(0, 3).join('  ')) + 52,
       widestMember + 160,
     )),

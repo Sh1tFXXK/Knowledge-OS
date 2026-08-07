@@ -24,10 +24,10 @@ function renderInlineFormatting(text: string): ReactNode {
         <code
           key={match.index}
           style={{
-            background: 'rgba(255,255,255,0.08)',
-            border: '1px solid var(--border-secondary)',
-            borderRadius: '4px',
-            padding: '2px 5px',
+            background: 'rgba(255,255,255,0.07)',
+            border: '0',
+            borderRadius: '3px',
+            padding: '1px 4px',
             fontSize: '11px',
             fontFamily: 'monospace',
             color: '#e2e8f0',
@@ -76,7 +76,7 @@ export default function MarkdownView({ content }: { content: string }) {
       {parts.map((part, partIdx) => {
         if (part.type === 'code') {
           return (
-            <div key={partIdx} className="code-block-container" style={{ margin: '14px 0', position: 'relative' }}>
+            <div key={partIdx} className="code-block-container" style={{ margin: '10px 0', position: 'relative' }}>
               {part.lang && (
                 <div
                   style={{
@@ -98,17 +98,16 @@ export default function MarkdownView({ content }: { content: string }) {
               )}
               <pre
                 style={{
-                  background: 'rgba(15,15,25,0.65)',
-                  border: '1px solid var(--border-secondary)',
-                  borderRadius: '8px',
-                  padding: '12px 14px',
+                  background: 'rgba(15,15,25,0.5)',
+                  border: '0',
+                  borderRadius: '6px',
+                  padding: '10px 12px',
                   overflowX: 'auto',
                   margin: 0,
                   fontFamily: '"Fira Code", Consolas, "Courier New", Courier, monospace',
                   fontSize: '12px',
                   lineHeight: '1.6',
                   color: '#e2e8f0',
-                  boxShadow: 'inset 0 1px 4px rgba(0,0,0,0.3)',
                 }}
               >
                 <code style={{ fontFamily: 'inherit', color: 'inherit' }}>{part.content}</code>
@@ -125,11 +124,11 @@ export default function MarkdownView({ content }: { content: string }) {
           if (trimmedBlock.startsWith('* ') || trimmedBlock.startsWith('- ') || trimmedBlock.match(/^\d+\.\s/)) {
             const lines = trimmedBlock.split('\n');
             return (
-              <ul key={blockIdx} style={{ paddingLeft: '20px', margin: '12px 0', listStyleType: 'disc' }}>
+              <ul key={blockIdx} style={{ paddingLeft: '18px', margin: '8px 0', listStyleType: 'disc' }}>
                 {lines.map((line, lineIdx) => {
                   const contentOnly = line.replace(/^([\*\-\s]|\d+\.\s)+/, '');
                   return (
-                    <li key={lineIdx} style={{ margin: '8px 0', fontSize: '13px', lineHeight: '1.65' }}>
+                    <li key={lineIdx} style={{ margin: '3px 0', fontSize: '13px', lineHeight: '1.6' }}>
                       {renderInlineFormatting(contentOnly)}
                     </li>
                   );
@@ -153,17 +152,16 @@ export default function MarkdownView({ content }: { content: string }) {
                 <div
                   key={blockIdx}
                   style={{
-                    margin: '18px 0',
-                    padding: '12px 16px',
-                    background: isWarning ? 'rgba(239, 68, 68, 0.05)' : 'rgba(139, 92, 246, 0.04)',
-                    borderLeft: isWarning ? '3px solid #ef4444' : '3px solid var(--accent-purple)',
-                    borderRadius: '6px',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+                    margin: '12px 0',
+                    padding: '6px 10px',
+                    background: isWarning ? 'rgba(239, 68, 68, 0.04)' : 'rgba(139, 92, 246, 0.03)',
+                    borderLeft: isWarning ? '2px solid #ef4444' : '2px solid var(--accent-purple)',
+                    borderRadius: '0 4px 4px 0',
                   }}
                 >
                   <h4
                     style={{
-                      margin: '0 0 8px 0',
+                      margin: '0 0 4px 0',
                       fontSize: '13.5px',
                       fontWeight: '600',
                       color: isWarning ? '#ef4444' : 'var(--text-primary)',
@@ -189,7 +187,7 @@ export default function MarkdownView({ content }: { content: string }) {
             <p
               key={blockIdx}
               style={{
-                margin: '12px 0',
+                margin: '8px 0',
                 fontSize: '13px',
                 lineHeight: '1.65',
                 color: 'var(--text-secondary)',

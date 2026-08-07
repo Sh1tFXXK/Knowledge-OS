@@ -195,8 +195,8 @@ function buildScenePositions(
   const maxDepth = Math.max(0, ...depthByEntity.values());
   const byDepth = new Map<number, Entity[]>();
 
-  model.entities.forEach((entity, fallbackIndex) => {
-    const depth = depthByEntity.get(entity.id) ?? maxDepth + 1 + fallbackIndex;
+  model.entities.forEach((entity) => {
+    const depth = depthByEntity.get(entity.id) ?? maxDepth + 1;
     const bucket = byDepth.get(depth) ?? [];
     bucket.push(entity);
     byDepth.set(depth, bucket);

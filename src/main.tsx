@@ -5,6 +5,7 @@ import './styles/main.css'
 import './styles/animations.css'
 import './styles/layout.css'
 import './styles/components.css'
+import './styles/mechanism-diagrams.css'
 import './styles/index-diagram.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

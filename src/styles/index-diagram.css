@@ -589,11 +589,13 @@
 
 .explanation-index-class-header-main strong {
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 17px;
+  font-size: 13px;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.2;
   text-align: center;
 }
 
@@ -1091,4 +1093,11 @@
     max-width: calc(100vw - 120px);
     gap: 8px;
   }
+}
+
+/* 索引视图：方框不显示 supertag 标签与分组框标签（2026-08-06 需求） */
+.explanation-index-class-stereotypes,
+.explanation-index-class-member-tags,
+.explanation-index-group-frame-label {
+  display: none;
 }

@@ -47,6 +47,16 @@ export interface TreeNode {
 /** 推理漏斗中的层级角色（B 区局部镜头布局用） */
 export type KnowledgeRole = 'axiom' | 'mechanism' | 'conclusion' | 'subsystem' | 'plain';
 
+export enum KnowledgeNodeKind {
+  Concept = 'concept',
+  Entity = 'entity',
+  State = 'state',
+  Event = 'event',
+  Rule = 'rule',
+  Mechanism = 'mechanism',
+  Evidence = 'evidence',
+}
+
 export type AtomAttrValue = string | number;
 
 /** A projection-space binding to a node-pool atom. */
@@ -127,6 +137,8 @@ export interface ViewDimension {
 export interface KnowledgeNode {
   id: string;
   label: string;
+  kind?: KnowledgeNodeKind;
+  mechanismSpec?: MechanismSpec;
   shared?: boolean;
   locked?: boolean;
   tags?: string[];
@@ -155,6 +167,29 @@ export interface KnowledgeEdge {
   type: string;
   label: string;
   dimensions?: string[];
+  relationKind?: KnowledgeRelationKind;
+}
+
+export interface MechanismSpec {
+  phenomenonNodeId: string;
+  triggerNodeIds: string[];
+  participantNodeIds: string[];
+  stateNodeIds: string[];
+  transitionEdgeIds: string[];
+  constraintEdgeIds: string[];
+  outcomeNodeIds: string[];
+  failureNodeIds: string[];
+}
+
+export enum KnowledgeRelationKind {
+  Structure = 'structure',
+  Classification = 'classification',
+  Dependency = 'dependency',
+  Causality = 'causality',
+  StateTransition = 'state-transition',
+  Constraint = 'constraint',
+  Evidence = 'evidence',
+  Reference = 'reference',
 }
 
 export type ViewScope = 'local' | 'neighbor' | 'global';
@@ -213,10 +248,28 @@ export interface Rule {
   result: string;
 }
 
+export interface ExplanationTableColumn {
+  id: string;
+  label: string;
+}
+
+export interface ExplanationTableRow {
+  id: string;
+  cells: Record<string, string>;
+}
+
+export interface ExplanationTable {
+  id: string;
+  title?: string;
+  columns: ExplanationTableColumn[];
+  rows: ExplanationTableRow[];
+}
+
 export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
+  table?: ExplanationTable;
   tags?: string[];
   /** 在同级排列轴上的相对占比；旧数据缺省为 1。 */
   weight?: number;
@@ -272,6 +325,7 @@ export interface NodeExplanation {
   title: string;
   /** 标题索引根节点下的总述正文（与 tabs 并列，非某个 tab 的内容） */
   rootContent?: string;
+  rootTable?: ExplanationTable;
   tabs: ExplanationTab[];
   /** Legacy storage for definition child pages; new pages live on their parent tab. */
   definitionPages?: ExplanationPage[];

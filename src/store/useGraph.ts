@@ -13,6 +13,7 @@ import type {
   KnowledgeEdge,
   ExplanationPage,
   ExplanationTab,
+  ExplanationTable,
   TreeRefSupplement,
   Rule,
   ViewScope,
@@ -21,7 +22,7 @@ import type {
   ExplanationIndexSelection,
   ExplanationSelection,
 } from '../types';
-import { ExplanationSelectionKind, TypeRelationKind } from '../types';
+import { ExplanationSelectionKind, KnowledgeRelationKind, TypeRelationKind } from '../types';
 import {
   createKnowledgeNode,
   createKnowledgeEdge,
@@ -311,7 +312,11 @@ interface GraphState {
   removeContainmentRelation: (id: string) => boolean;
   updateKnowledgeNodeMeta: (
     id: string,
-    patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags'>>,
+    patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags' | 'kind' | 'mechanismSpec'>>,
+  ) => void;
+  updateKnowledgeEdgeRelationKind: (
+    id: string,
+    relationKind: KnowledgeEdge['relationKind'],
   ) => void;
   updateKnowledgeNodeLabel: (id: string, label: string) => void;
   updateKnowledgeViewDimensions: (
@@ -359,14 +364,18 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<
-      Pick<NodeExplanation, 'title' | 'rootContent' | 'tabs' | 'definitionPages' | 'notes'>
-    >,
+    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'definitionPages' | 'notes'>>,
   ) => void;
   updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
+  updateKnowledgeRootTable: (knowledgeId: string, table: ExplanationTable | undefined) => void;
   addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
   removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
+  updateKnowledgeTabTable: (
+    knowledgeId: string,
+    tabId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   renameKnowledgeTab: (knowledgeId: string, tabId: string, label: string) => void;
   addKnowledgeTabPage: (
     knowledgeId: string,
@@ -376,6 +385,12 @@ interface GraphState {
   ) => string | null;
   removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
+  updateKnowledgeTabPageTable: (
+    knowledgeId: string,
+    tabId: string,
+    pageId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   /** 删除知识节点并同步移除对应目录项（子目录上移保留） */
@@ -393,6 +408,11 @@ interface GraphState {
   createKnowledgeAndLink: (parentId: string, label: string, shared?: boolean) => string;
   setTreeSupplement: (treeNodeId: string, supplement: TreeRefSupplement | undefined) => void;
   updatePathSupplementContent: (treeNodeId: string, content: string) => void;
+  updatePathSupplementTable: (
+    treeNodeId: string,
+    tabId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   linkTreeToKnowledge: (treeNodeId: string, knowledgeId: string) => void;
 
   removeTreeNode: (nodeId: string) => void;
@@ -667,7 +687,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       });
 
       set({
-        activeView: 'index',
+        activeView: state.activeView === 'mechanism' ? 'mechanism' : 'index',
         selectedTreeNodeId: treeNodeId,
         selectedNodeId: nodeId,
         focusNodeId: focusNodeId,
@@ -733,7 +753,14 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return false;
       }
 
-      const edge = createKnowledgeEdge(source, target, kind, typeRelationLabel(kind));
+      const edge = createKnowledgeEdge(
+        source,
+        target,
+        kind,
+        typeRelationLabel(kind),
+        undefined,
+        KnowledgeRelationKind.Classification,
+      );
       set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
       persist();
       return true;
@@ -773,6 +800,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
         target,
         CONTAINMENT_EDGE_TYPE,
         CONTAINMENT_EDGE_LABEL,
+        undefined,
+        KnowledgeRelationKind.Structure,
       );
       set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
       persist();
@@ -808,6 +837,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
       }
       const nodePool = { ...state.nodePool, [id]: { ...node, ...patch } };
       set({ nodePool });
+      persist();
+    },
+
+    updateKnowledgeEdgeRelationKind: (id, relationKind) => {
+      const state = get();
+      const edge = state.knowledgeEdges.find((item) => item.id === id);
+      if (!edge || state.nodePool[edge.source]?.locked) return;
+      set({
+        knowledgeEdges: state.knowledgeEdges.map((item) =>
+          item.id === id ? { ...item, relationKind } : item,
+        ),
+      });
       persist();
     },
 
@@ -1250,6 +1291,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().updateKnowledgeCard(knowledgeId, { tabs });
     },
 
+    updateKnowledgeTabTable: (knowledgeId, tabId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, table }));
+      get().updateKnowledgeCard(knowledgeId, { tabs });
+    },
+
     updateKnowledgeRootContent: (knowledgeId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -1259,6 +1312,17 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return;
       }
       get().updateKnowledgeCard(knowledgeId, { rootContent: content });
+    },
+
+    updateKnowledgeRootTable: (knowledgeId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      get().updateKnowledgeCard(knowledgeId, { rootTable: table });
     },
 
     renameKnowledgeTab: (knowledgeId, tabId, label) => {
@@ -1353,6 +1417,24 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (!tab) return;
       const pages = pagesForTab(existing.card, tab);
       const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, content }));
+      if (nextPages.every((page, index) => page === pages[index])) return;
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+    },
+
+    updateKnowledgeTabPageTable: (knowledgeId, tabId, pageId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, table }));
       if (nextPages.every((page, index) => page === pages[index])) return;
 
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
@@ -1577,6 +1659,19 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const tabs = prev.tabs?.length
         ? prev.tabs.map((t, i) => (i === 0 ? { ...t, content } : t))
         : [{ id: 'path', label: '璺緞琛ュ厖', content }];
+      get().setTreeSupplement(treeNodeId, { ...prev, tabs });
+    },
+
+    updatePathSupplementTable: (treeNodeId, tabId, table) => {
+      const state = get();
+      const treeNode = findTreeNodeById(state.treeData, treeNodeId);
+      if (!treeNode?.nodeRef) return;
+      const prev = treeNode.supplement ?? {};
+      const tabs = prev.tabs?.length
+        ? prev.tabs.map((tab) =>
+            (tab.id || tab.label) === tabId ? { ...tab, table } : tab,
+          )
+        : [{ id: 'path', label: '路径补充', content: '', table }];
       get().setTreeSupplement(treeNodeId, { ...prev, tabs });
     },
 

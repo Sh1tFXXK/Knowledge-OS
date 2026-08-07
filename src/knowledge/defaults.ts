@@ -1,4 +1,11 @@
-import type { KnowledgeEdge, KnowledgeNode, NodeExplanation, Perspective, TreeNode } from '../types';
+import type {
+  KnowledgeEdge,
+  KnowledgeNode,
+  KnowledgeRelationKind,
+  NodeExplanation,
+  Perspective,
+  TreeNode,
+} from '../types';
 
 /** 内置维度切面（镜头滤镜定义，非知识内容） */
 export const BUILTIN_DIMENSIONS: Perspective[] = [
@@ -58,6 +65,7 @@ export function createKnowledgeEdge(
   type: string,
   label?: string,
   dimensions?: string[],
+  relationKind?: KnowledgeRelationKind,
 ): KnowledgeEdge {
   return {
     id: genId('edge'),
@@ -66,5 +74,6 @@ export function createKnowledgeEdge(
     type,
     label: label ?? type,
     dimensions,
+    relationKind,
   };
 }
