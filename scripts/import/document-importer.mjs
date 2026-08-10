@@ -11,6 +11,7 @@ import {
   attachQuestionsToNodes,
   DOCUMENT_PROFILE,
   DOCUMENT_PROFILE_MODE,
+  markdownSectionCount,
   normalizeQuestionDraft,
   resolveDocumentProfile,
   validateDocumentDraft,
@@ -28,6 +29,8 @@ import {
   translateMarkdownPreservingStructure,
   writeFileAtomically,
 } from './web-link-importer.mjs';
+import { applySemanticImportAtTreeNode } from './semantic-persistence.mjs';
+import { projectSemanticDraft } from './semantic-projector.mjs';
 
 export const DOCUMENT_KIND = Object.freeze({
   Pdf: 'pdf',
@@ -338,6 +341,10 @@ function buildDocumentMarkdown({
   sectionCount,
   questionCount,
   ocrProvider,
+  structureMode,
+  nodeCount,
+  rootCount,
+  relationCount,
 }) {
   const keywordLines = keywords.map((keyword) => `  - ${yamlString(keyword)}`).join('\n');
   const categoryLines = categories.map((category) => `  - ${yamlString(category)}`).join('\n');
@@ -354,7 +361,11 @@ function buildDocumentMarkdown({
     `imported_at: ${yamlString(date)}`,
     'import_standard_version: 1',
     `import_profile: ${yamlString(profile)}`,
+    `structure_mode: ${yamlString(structureMode)}`,
     `section_count: ${sectionCount}`,
+    `node_count: ${nodeCount}`,
+    `root_count: ${rootCount}`,
+    `relation_count: ${relationCount}`,
     `question_count: ${questionCount}`,
     'keywords:',
     keywordLines || '  []',
@@ -422,48 +433,101 @@ export async function prepareDocumentImport(options) {
   const detected = resolveDocumentProfile(markdown, options.profileMode);
   let profile = detected.profile;
   let questions = detected.questions;
+  let semanticDraft = null;
 
   if (options.useAi) {
     const organizer = options.aiOrganizer ?? createAiOrganizerFromEnv(options.aiEnv);
     if (!organizer) {
       throw new Error('AI 整理尚未配置，请设置 KNOWLEDGE_OS_LLM_API_KEY');
     }
-    const organized = await organizer.organize({
-      title,
-      markdown,
-      sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
-    });
-    title = cleanKeyword(organized.title) || title;
-    markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
-    categories = organized.categories;
-    aiKeywords = organized.keywords;
-    const organizedQuestions = organized.questions
-      .map((question) => normalizeQuestionDraft(question))
-      .filter(Boolean);
-    const preserveExplicitQuestionBank = options.profileMode === DOCUMENT_PROFILE_MODE.QuestionBank
-      && profile === DOCUMENT_PROFILE.QuestionBank;
-    questions = preserveExplicitQuestionBank
-      ? questions
-      : (organizedQuestions.length > 0 ? organizedQuestions : questions);
+    if (profile === DOCUMENT_PROFILE.Article) {
+      if (typeof organizer.compile !== 'function') {
+        throw new Error('当前 AI 分析器不支持语义编译');
+      }
+      semanticDraft = await organizer.compile({
+        title,
+        markdown,
+        sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
+      });
+      title = cleanKeyword(semanticDraft.title) || title;
+      categories = semanticDraft.categories;
+    } else {
+      const organized = await organizer.organize({
+        title,
+        markdown,
+        sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
+      });
+      title = cleanKeyword(organized.title) || title;
+      markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
+      categories = organized.categories;
+      aiKeywords = organized.keywords;
+      const organizedQuestions = organized.questions
+        .map((question) => normalizeQuestionDraft(question))
+        .filter(Boolean);
+      const preserveExplicitQuestionBank = options.profileMode === DOCUMENT_PROFILE_MODE.QuestionBank;
+      questions = preserveExplicitQuestionBank
+        ? questions
+        : (organizedQuestions.length > 0 ? organizedQuestions : questions);
+    }
   }
 
-  const built = profile === DOCUMENT_PROFILE.QuestionBank
-    ? buildQuestionBankNodes({
+  let built;
+  let structureMode;
+  let validation;
+  if (semanticDraft) {
+    built = projectSemanticDraft({
+      draft: semanticDraft,
+      sourceId,
+      sourceTitle: title,
+      sourceKind: IMPORT_SOURCE_KIND.Document,
+    });
+    built.tags = [...new Set([
+      ...categories,
+      ...built.nodes.flatMap((node) => node.tags ?? []),
+    ])].slice(0, 80);
+    built.documentBody = polishArticleMarkdown(markdown).documentBody;
+    built.articleIdPrefix = built.nodeId;
+    questions = built.questions
+      .map((question) => {
+        const normalized = normalizeQuestionDraft(question);
+        return normalized ? { ...normalized, relatedNodeId: question.relatedNodeId } : null;
+      })
+      .filter(Boolean);
+    structureMode = 'semantic';
+    validation = {
+      characterCount: markdown.replace(/\s/g, '').length,
+      sectionCount: markdownSectionCount(markdown),
+      questionCount: questions.length,
+      nodeCount: built.stats.nodeCount,
+      rootCount: built.stats.rootCount,
+      relationCount: built.stats.relationCount,
+    };
+  } else {
+    built = profile === DOCUMENT_PROFILE.QuestionBank
+      ? buildQuestionBankNodes({
       title,
       sourceId,
       questions,
       extraKeywords: [...categories, ...aiKeywords],
-    })
-    : buildWebNodes({
-      title,
-      markdown,
-      sourceUrl: sourceId,
-      language: parsed.language,
-      extraKeywords: [...categories, ...aiKeywords],
-      sourceKind: IMPORT_SOURCE_KIND.Document,
-    });
-  questions = attachQuestionsToNodes(questions, built.nodes);
-  const validation = validateDocumentDraft({ profile, title, markdown, nodes: built.nodes, questions });
+      })
+      : buildWebNodes({
+        title,
+        markdown,
+        sourceUrl: sourceId,
+        language: parsed.language,
+        extraKeywords: [...categories, ...aiKeywords],
+        sourceKind: IMPORT_SOURCE_KIND.Document,
+      });
+    questions = attachQuestionsToNodes(questions, built.nodes);
+    validation = validateDocumentDraft({ profile, title, markdown, nodes: built.nodes, questions });
+    validation = {
+      ...validation,
+      nodeCount: built.nodes.length,
+      rootCount: built.nodes.length > 0 ? 1 : 0,
+      relationCount: 0,
+    };
+    structureMode = profile === DOCUMENT_PROFILE.QuestionBank ? 'question-bank' : 'outline';
+  }
   const date = (options.now ?? new Date()).toISOString().slice(0, 10);
   return {
     ...built,
@@ -472,6 +536,7 @@ export async function prepareDocumentImport(options) {
     contentHash,
     sourceId,
     profile,
+    structureMode,
     validation,
     categories,
     translated: shouldTranslate,
@@ -492,6 +557,10 @@ export async function prepareDocumentImport(options) {
       sectionCount: validation.sectionCount,
       questionCount: validation.questionCount,
       ocrProvider: parsed.ocrProvider ?? null,
+      structureMode,
+      nodeCount: validation.nodeCount,
+      rootCount: validation.rootCount,
+      relationCount: validation.relationCount,
     }),
   };
 }
@@ -514,10 +583,15 @@ export async function importDocument(options) {
   const projectRoot = path.resolve(options.projectRoot ?? process.cwd());
   const poolPath = path.join(projectRoot, 'data', 'node-pool.json');
   const treePath = path.join(projectRoot, 'data', 'tree-data.json');
+  const edgesPath = path.join(projectRoot, 'data', 'knowledge-edges.json');
   const questionsPath = path.join(projectRoot, 'data', 'questions.json');
-  const [pool, tree, questions] = await Promise.all([
+  const [pool, tree, edges, questions] = await Promise.all([
     fs.readFile(poolPath, 'utf8').then(JSON.parse),
     fs.readFile(treePath, 'utf8').then(JSON.parse),
+    fs.readFile(edgesPath, 'utf8').then(JSON.parse).catch((error) => {
+      if (error?.code === 'ENOENT') return [];
+      throw error;
+    }),
     fs.readFile(questionsPath, 'utf8').then(JSON.parse).catch((error) => {
       if (error?.code === 'ENOENT') return [];
       throw error;
@@ -526,14 +600,24 @@ export async function importDocument(options) {
   if (!options.parentTreeNodeId) throw new Error('请选择要挂载的项目目录');
 
   const prepared = await prepareDocumentImport(options);
-  applyImportAtTreeNode(
-    pool,
-    tree,
-    prepared.nodes,
-    options.parentTreeNodeId,
-    prepared.articleIdPrefix,
-    prepared.tags,
-  );
+  if (prepared.structureMode === 'semantic') {
+    applySemanticImportAtTreeNode({
+      pool,
+      tree,
+      edges,
+      projected: prepared,
+      parentTreeNodeId: options.parentTreeNodeId,
+    });
+  } else {
+    applyImportAtTreeNode(
+      pool,
+      tree,
+      prepared.nodes,
+      options.parentTreeNodeId,
+      prepared.articleIdPrefix,
+      prepared.tags,
+    );
+  }
   const questionCount = applyImportedQuestions(
     questions,
     prepared.sourceId,
@@ -541,7 +625,7 @@ export async function importDocument(options) {
     Date.now(),
     IMPORT_SOURCE_KIND.Document,
     {
-      defaultRelatedNodeId: prepared.articleIdPrefix,
+      defaultRelatedNodeId: prepared.nodeId ?? prepared.articleIdPrefix,
       sourceTitle: prepared.title,
     },
   );
@@ -550,13 +634,14 @@ export async function importDocument(options) {
   await Promise.all([
     writeFileAtomically(poolPath, `${JSON.stringify(pool, null, 2)}\n`),
     writeFileAtomically(treePath, `${JSON.stringify(tree, null, 2)}\n`),
+    writeFileAtomically(edgesPath, `${JSON.stringify(edges, null, 2)}\n`),
     writeFileAtomically(questionsPath, `${JSON.stringify(questions, null, 2)}\n`),
     writeFileAtomically(notesPath, prepared.markdown),
   ]);
 
   return {
     ok: true,
-    nodeId: prepared.articleIdPrefix,
+    nodeId: prepared.nodeId ?? prepared.articleIdPrefix,
     treeNodeId: prepared.treeNodeId,
     title: prepared.title,
     fileName: normalizedFileName(options.fileName),
@@ -566,10 +651,13 @@ export async function importDocument(options) {
     pageCount: prepared.pageCount,
     ocrProvider: prepared.ocrProvider ?? null,
     nodeCount: prepared.nodes.length,
-    sectionCount: prepared.nodes.length - 1,
+    rootCount: prepared.validation.rootCount,
+    relationCount: prepared.validation.relationCount,
+    sectionCount: prepared.validation.sectionCount,
     questionCount,
     categories: prepared.categories,
     profile: prepared.profile,
+    structureMode: prepared.structureMode,
     standard: prepared.validation,
     markdownPath: path.relative(projectRoot, notesPath).replace(/\\/g, '/'),
   };

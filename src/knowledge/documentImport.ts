@@ -33,6 +33,15 @@ export interface DocumentImportStandardResult {
   characterCount: number;
   sectionCount: number;
   questionCount: number;
+  nodeCount: number;
+  rootCount: number;
+  relationCount: number;
+}
+
+export enum DocumentStructureMode {
+  Semantic = 'semantic',
+  Outline = 'outline',
+  QuestionBank = 'question-bank',
 }
 
 export interface DocumentImportCapabilities {
@@ -76,10 +85,13 @@ export interface DocumentImportResult {
   pageCount: number | null;
   ocrProvider: DocumentOcrProvider | null;
   nodeCount: number;
+  rootCount: number;
+  relationCount: number;
   sectionCount: number;
   questionCount: number;
   categories: string[];
   profile: DocumentProfile;
+  structureMode: DocumentStructureMode;
   standard: DocumentImportStandardResult;
   markdownPath: string;
 }

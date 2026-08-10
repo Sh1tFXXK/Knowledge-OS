@@ -24,6 +24,7 @@ import {
   DocumentOcrProvider,
   DocumentProfile,
   DocumentProfileMode,
+  documentKindForFile,
   getDocumentImportCapabilities,
   importDocumentFile,
   validateDocumentFile,
@@ -73,7 +74,7 @@ function documentKindLabel(kind: DocumentKind): string {
 }
 
 function documentProfileLabel(profile: DocumentProfile): string {
-  return profile === DocumentProfile.QuestionBank ? '题库结构' : '章节结构';
+  return profile === DocumentProfile.QuestionBank ? '题库结构' : '知识结构';
 }
 
 function suggestedProfileMode(fileName: string): DocumentProfileMode {
@@ -358,7 +359,8 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
             </div>
             <dl className="link-import-result-grid">
               <div><dt>知识节点</dt><dd>{result.nodeCount}</dd></div>
-              <div><dt>章节</dt><dd>{result.sectionCount}</dd></div>
+              <div><dt>语义根</dt><dd>{result.rootCount}</dd></div>
+              <div><dt>关系</dt><dd>{result.relationCount}</dd></div>
               <div><dt>问题</dt><dd>{result.questionCount}</dd></div>
               <div><dt>语言</dt><dd>{result.translated ? `${result.language} → 中文` : result.language}</dd></div>
               <div><dt>页数</dt><dd>{result.pageCount ?? '-'}</dd></div>
@@ -447,7 +449,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
               <div className="document-profile-modes" role="radiogroup" aria-label="文档导入结构">
                 {[
                   [DocumentProfileMode.Auto, '自动'],
-                  [DocumentProfileMode.Article, '文章'],
+                  [DocumentProfileMode.Article, '知识'],
                   [DocumentProfileMode.QuestionBank, '题库'],
                 ].map(([mode, label]) => (
                   <button
@@ -483,8 +485,8 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
             <label className="link-import-translation">
               <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>
               <span className="link-import-translation-copy">
-                <strong>AI 整理与归类</strong>
-                <small>{capabilities?.ai.configured ? capabilities.ai.model : '未配置模型'}</small>
+                <strong>语义编译</strong>
+                <small>{capabilities?.ai.configured ? `${capabilities.ai.model} · 从内容关系生成知识图` : '未配置模型'}</small>
               </span>
               <input
                 type="checkbox"

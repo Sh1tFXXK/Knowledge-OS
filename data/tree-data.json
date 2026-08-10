@@ -10925,56 +10925,6 @@
                                   "nodeRef": "k_1786241636814_4oxfbu"
                                 },
                                 {
-                                  "id": "tree_1786243229736_sugmga",
-                                  "name": "数据安全与性能保障",
-                                  "count": 0,
-                                  "nodeRef": "k_1786243229517_6hpfy5",
-                                  "children": [
-                                    {
-                                      "id": "tree_1786245246710_rw9q3v",
-                                      "name": "持久化选项",
-                                      "count": 0,
-                                      "nodeRef": "k_1786245246100_0lh1ld",
-                                      "children": [
-                                        {
-                                          "id": "tree_1786245301884_ra35hu",
-                                          "name": "快照持久化",
-                                          "count": 0,
-                                          "nodeRef": "k_1786245301433_seqw47"
-                                        },
-                                        {
-                                          "id": "tree_1786245817114_ds2keo",
-                                          "name": "RDB持久化",
-                                          "count": 0,
-                                          "nodeRef": "k_1786245816863_ntvyz2",
-                                          "children": [
-                                            {
-                                              "id": "tree_1786246332852_q2l10q",
-                                              "name": "RDB文件的创建与载入",
-                                              "count": 0,
-                                              "nodeRef": "k_1786246332541_3yq6h7"
-                                            }
-                                          ]
-                                        },
-                                        {
-                                          "id": "tree_1786246940848_l6901i",
-                                          "name": "AOF持久化",
-                                          "count": 0,
-                                          "nodeRef": "k_1786246940566_xsamv7",
-                                          "children": [
-                                            {
-                                              "id": "tree_1786246986016_1gm1lm",
-                                              "name": "AOF持久化的实现",
-                                              "count": 0,
-                                              "nodeRef": "k_1786246985753_w4fbw9"
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                },
-                                {
                                   "id": "tree_1786247447929_wrznu8",
                                   "name": "Lua",
                                   "count": 0,
@@ -11016,7 +10966,151 @@
                                   "id": "tree_1786288129374_3wkto6",
                                   "name": "集群方案",
                                   "count": 0,
-                                  "nodeRef": "k_1786288129141_kithia"
+                                  "nodeRef": "k_1786288129141_kithia",
+                                  "children": [
+                                    {
+                                      "id": "tree_1786339455571_ljdvne",
+                                      "name": "哨兵模式",
+                                      "count": 0,
+                                      "nodeRef": "k_1786339455347_33797b"
+                                    },
+                                    {
+                                      "id": "tree_1786339545582_zaieus",
+                                      "name": "官方Redis Cluster 方案(服务端路由查询)",
+                                      "count": 0,
+                                      "nodeRef": "k_1786339545318_rg29dp",
+                                      "children": [
+                                        {
+                                          "id": "tree_1786339605184_br66x2",
+                                          "name": "节点间的内部通信机制",
+                                          "count": 0,
+                                          "nodeRef": "k_1786339604964_0sjbig"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_1786339684184_zs651f",
+                                      "name": "基于客户端分配",
+                                      "count": 0,
+                                      "nodeRef": "k_1786339683947_kcqeiy"
+                                    },
+                                    {
+                                      "id": "tree_1786339781228_f31n0y",
+                                      "name": "基于代理服务器分片",
+                                      "count": 0,
+                                      "nodeRef": "k_1786339780982_omxb5c"
+                                    },
+                                    {
+                                      "id": "tree_1786339820733_pdogb3",
+                                      "name": "Redis 主从架构",
+                                      "count": 0,
+                                      "nodeRef": "k_1786339820426_mkffnh"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_1786340067613_wejdgr",
+                                  "name": "分区",
+                                  "count": 0,
+                                  "nodeRef": "k_1786340067400_hpavtb"
+                                },
+                                {
+                                  "id": "tree_1786340438649_tbr6gs",
+                                  "name": "缓存异常",
+                                  "count": 0,
+                                  "nodeRef": "k_1786340438417_wmmxde",
+                                  "children": [
+                                    {
+                                      "id": "tree_1786340457010_5jtoo8",
+                                      "name": "redis穿透",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340456749_kkjwb4"
+                                    },
+                                    {
+                                      "id": "tree_1786340490406_nh6kcm",
+                                      "name": "redis雪崩",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340490182_5owkof"
+                                    },
+                                    {
+                                      "id": "tree_1786340543323_fn7slv",
+                                      "name": "redis穿透",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340543087_8xkvg2"
+                                    },
+                                    {
+                                      "id": "tree_1786340565414_tb59hj",
+                                      "name": "缓存预热",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340565182_pcw4pc"
+                                    },
+                                    {
+                                      "id": "tree_1786340595359_dmr45o",
+                                      "name": "缓存降级",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340595049_lmf81f"
+                                    },
+                                    {
+                                      "id": "tree_1786340628565_mvkk69",
+                                      "name": "热点数据和冷数据",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340628339_0gswor"
+                                    },
+                                    {
+                                      "id": "tree_1786340652071_gudwro",
+                                      "name": "缓存热点key",
+                                      "count": 0,
+                                      "nodeRef": "k_1786340651800_edhmhy"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_1786340679407_lt9p4u",
+                                  "name": "常用工具",
+                                  "count": 0,
+                                  "nodeRef": "k_1786340679196_bxccei"
+                                },
+                                {
+                                  "id": "tree_1786245246710_rw9q3v",
+                                  "name": "持久化选项",
+                                  "count": 0,
+                                  "nodeRef": "k_1786245246100_0lh1ld",
+                                  "children": [
+                                    {
+                                      "id": "tree_1786245301884_ra35hu",
+                                      "name": "快照持久化",
+                                      "count": 0,
+                                      "nodeRef": "k_1786245301433_seqw47"
+                                    },
+                                    {
+                                      "id": "tree_1786245817114_ds2keo",
+                                      "name": "RDB持久化",
+                                      "count": 0,
+                                      "nodeRef": "k_1786245816863_ntvyz2",
+                                      "children": [
+                                        {
+                                          "id": "tree_1786246332852_q2l10q",
+                                          "name": "RDB文件的创建与载入",
+                                          "count": 0,
+                                          "nodeRef": "k_1786246332541_3yq6h7"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_1786246940848_l6901i",
+                                      "name": "AOF持久化",
+                                      "count": 0,
+                                      "nodeRef": "k_1786246940566_xsamv7",
+                                      "children": [
+                                        {
+                                          "id": "tree_1786246986016_1gm1lm",
+                                          "name": "AOF持久化的实现",
+                                          "count": 0,
+                                          "nodeRef": "k_1786246985753_w4fbw9"
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             },

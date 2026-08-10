@@ -32,6 +32,10 @@
 - `article`：生成来源根节点和结构化章节节点。
 - `question-bank`：只生成一个来源节点，问题独立进入 `data/questions.json`。
 
+普通文章的语义导入不要求也不生成统一的来源根节点。来源只作为节点和关系的溯源元数据；文本可以产生多个互不依赖的根节点。Markdown 标题是范围提示，不是节点创建指令。只有能够独立寻址、引用、提问或参与关系的内容单元才提升为知识节点。
+
+语义节点和关系先进入语义草稿，再写入 `data/node-pool.json` 与 `data/knowledge-edges.json`。节点和关系都必须保留原文行号范围。`structure` 与 `classification` 关系可用于生成目录导航；因果、依赖、状态转换等关系不得被伪装成目录父子。
+
 导入界面提供 `auto`、`article` 和 `question-bank` 三种结构意图：
 
 - `auto` 使用确定性内容规则判断文章或题库。
