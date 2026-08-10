@@ -1,4 +1,5 @@
 export const MAX_DOCUMENT_IMPORT_BYTES = 20 * 1024 * 1024;
+export const MAX_PDF_IMPORT_BYTES = 100 * 1024 * 1024;
 
 export enum DocumentKind {
   Pdf = 'pdf',
@@ -18,6 +19,16 @@ export enum DocumentImportSourceKind {
   JavaSource = 'java-source',
 }
 
+export enum DocumentProfileMode {
+  Auto = 'auto',
+  Article = 'article',
+  QuestionBank = 'question-bank',
+}
+
+export enum DocumentOcrProvider {
+  MinerU = 'mineru',
+}
+
 export interface DocumentImportStandardResult {
   characterCount: number;
   sectionCount: number;
@@ -30,7 +41,14 @@ export interface DocumentImportCapabilities {
     model: string;
   };
   maxBytes: number;
+  maxPdfBytes: number;
   extensions: string[];
+  ocr: {
+    available: boolean;
+    provider: DocumentOcrProvider;
+    backend: string;
+    version: string;
+  };
   javaSource: {
     available: boolean;
     defaultSource: string;
@@ -43,6 +61,7 @@ export interface DocumentImportRequest {
   parentTreeNodeId: string;
   translate: boolean;
   useAi: boolean;
+  profileMode: DocumentProfileMode;
 }
 
 export interface DocumentImportResult {
@@ -55,6 +74,7 @@ export interface DocumentImportResult {
   language: string;
   translated: boolean;
   pageCount: number | null;
+  ocrProvider: DocumentOcrProvider | null;
   nodeCount: number;
   sectionCount: number;
   questionCount: number;
@@ -111,7 +131,12 @@ export function documentKindForFile(file: File): DocumentKind | null {
 
 export function validateDocumentFile(file: File): string | null {
   if (file.size === 0) return '文档内容为空';
-  if (file.size > MAX_DOCUMENT_IMPORT_BYTES) return '文档不能超过 20 MB';
+  const maxBytes = documentKindForFile(file) === DocumentKind.Pdf
+    ? MAX_PDF_IMPORT_BYTES
+    : MAX_DOCUMENT_IMPORT_BYTES;
+  if (file.size > maxBytes) {
+    return `${documentKindForFile(file) === DocumentKind.Pdf ? 'PDF 文档' : '文档'}不能超过 ${Math.round(maxBytes / 1024 / 1024)} MB`;
+  }
   return null;
 }
 
@@ -132,6 +157,7 @@ export async function importDocumentFile(
     parentTreeNodeId: request.parentTreeNodeId,
     translate: String(request.translate),
     useAi: String(request.useAi),
+    profileMode: request.profileMode,
   });
   const response = await fetch(`/api/import-document?${query}`, {
     method: 'POST',

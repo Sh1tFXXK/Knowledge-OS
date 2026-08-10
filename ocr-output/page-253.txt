@@ -1,0 +1,39 @@
+236第三部分多机数据库的实现
+多个Sentinel设置的主观下线时长可能不同
+down-after-milliseconds选项另一个需要注意的地方是，对于监视同一个主
+服务器的多个Sentinel来说，这些Sentinel所设置的down-after-milliseconds选
+项的值也可能不同，因此，当一个Sentinel将主服务器判断为主观下线时，其他Sentinel
+可能仍然会认为主服务器处于在线状态。举个例子，如果Sentinell载入了以下配置：
+sentinelmonitormaster127.0.0.163792
+sentinel down-after-millisecondsmaster5oooo
+而Sentinel2则载入了以下配置：
+sentinelmonitormaster127.0.0.163792
+sentinel down-after-millisecondsmaster1oooo
+那么当master的断线时长超过10000毫秒之后，Sentinel2会将master判断为主观
+下线，而Sentinell却认为master仍然在线。只有当master的断线时长超过50000毫秒
+之后，Sentinell和Sentinel2才会都认为master进入了主观下线状态。
+16.7
+检查客观下线状态
+当Sentinel将一个主服务器判断为主观下线之后，为了确认这个主服务器是否真的下线
+了，它会向同样监视这一主服务器的其他Sentinel进行询问，看它们是否也认为主服务器已
+经进入了下线状态（可以是主观下线或者客观下线）。当Sentinel从其他Sentinel那里接收
+到足够数量的已下线判断之后，Sentinel就会将从服务器判定为客观下线，并对主服务器执
+行故障转移操作。
+16.7.1
+发送SENTINELis-master-down-by-addr命令
+Sentinel使用：
+SENTINEL is-master-down-by-addr <ip><port><current_epoch><runid>
+命令询问其他Sentinel是否同意主服务器已下线，命令中的各个参数的意义如表16-4所示。
+表16-4S
+SENTINELis-master-down-by-addr命令各个参数的意义
+参数
+意义
+ip
+被Sentinel判断为主观下线的主服务器的IP地址
+port
+被Sentinel判断为主观下线的主服务器的端口号
+current_epoch
+Sentinel当前的配置纪元，用于选举领头Sentinel，详细作用将在下一节说明
+可以是*符号或者Sentinel的运行ID：*符号代表命令仅仅用于检测主服务器的客观下线
+runid
+状态，而Sentinel的运行ID则用于选举领头Sentinel，详细作用将在下节说明

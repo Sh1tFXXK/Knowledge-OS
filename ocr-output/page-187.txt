@@ -1,0 +1,38 @@
+170第二部分单机数据库的实现
+个输出缓冲区可用，一个缓冲区的大小是固定的，另一个缓冲区的大小是可变的：
+口固定大小的缓冲区用于保存那些长度比较小的回复，比如OK、简短的字符串值、整
+数值、错误回复等等。
+口可变大小的缓冲区用于保存那些长度比较大的回复，比如一个非常长的字符串值，
+一个由很多项组成的列表，一个包含了很多元素的集合等等。
+客户端的固定大小缓冲区由buf和bufpos两个属性组成：
+typedef struct rediscilient (
+char buf[REDISREPLY_CHUNKBYTES];
+int bufpos;
+Iredisclient;
+buf是一个大小为REDIS_REPLY_CHUNK_BYTES字节的字节数组，而bufpos属性
+则记录了buf数组目前已使用的字节数量。
+REDIS_REPLY_CHUNKBYTES常量目前的默认值为16*1024，也即是说，buf数组
+的默认大小为16KB。
+图13-8展示了一个使用固定大小缓冲区来保存返回值+OK\r\n的例子。
+当buf数组的空间已经用完，或者回复因为太大而没办法放进buf数组里面时，服务
+器就会开始使用可变大小缓冲区。
+可变大小缓冲区由reply链表和
+redisclient
+一个或多个字符串对象组成：
+...
+typedef struct redisclient(
+buf
+bufpos
+list *replyi
+图13-8固定大小缓冲区示例
+Iredisclient;
+通过使用链表来连接多个字符串对象，服务器可以为客户端保存一个非常长的命令回
+复，而不必受到固定大小缓冲区16KB大小的限制。
+图13-9展示了一个包含三个字符串对象的reply链表。
+redisciient
+StringObject
+Stringobject
+Stringobject.
+reply
+图13-9
+可变大小缓冲区示例

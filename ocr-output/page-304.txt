@@ -1,0 +1,55 @@
+第17章集群，287
+PUBLISH消息，如图17-45所示。
+PUBLISH消息的正文由cluster.h/clusterMsgDataPublish结构表示：
+typedef struct(
+集群
+uint32_t channel_len;
+发送
+PUBLISH
+7001
+uint32_t message_len;
+消息
+发送
+发送
+//定义为8字节只是为了对齐其他消息结构
+PUBLISHI
+PUBLISH
+//实际的长度由保存的内容决定
+命令
+消息
+客户端
+7000
+7002
+unsigned char bulkdata[8];
+发送
+PUBLISH
+) clusterMsgDataPublish;
+7003
+clusterMsgDataPublish结构的
+bulkdata属性是一个字节数组，这个字节数
+图17-45
+组保存了客户端通过PUBLISH命令发送给节点
+接收到PUBLISH命令的节点7000
+的channel参数和message参数，而结构的
+向集群广播PUBLISH消息
+channel_len和message_len则分别保存
+了channel参数的长度和message参数的长度：
+口其中bulk_data的o字节至channel_len-1字节保存的是channel参数。
+而bulk_data的channel_len字节至channel_len+message_len-1字节
+保存的则是message参数。
+举个例子，如果节点收到的PUBLISH命令为：
+PUBLISH"news.it""hello"
+那么节点发送的PUBLISH消息的clusterMsgDataPublish结构将如图17-46所示：
+其中bulk_data数组的前七个字节保存了channel参数的值"news.it"，而bulk_
+data数组的后五个字节则保存了message参数的值"hello"。
+clusterMsgDataPublish
+channel_len
+message_len
+bulk_data
+'e'
+'e'
+图17-46
+clusterMsgDataPublish结构示例
+为什么不直接向节点广播PUBLISH命令
+实际上，要让集群的所有节点都执行相同的PUBLISH命令，最简单的方法就是向
+所有节点广播相同的PUBLISH命令，这也是Redis在复制PUBLISH命令时所使用的方

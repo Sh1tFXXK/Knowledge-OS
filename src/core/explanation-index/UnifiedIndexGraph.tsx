@@ -1,5 +1,11 @@
-import { Check, ChevronDown, ChevronRight, Grid3X3, Package, Pencil, Plus, SquarePlus, Tags, Trash2, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { Check, ChevronDown, ChevronRight, Package, Pencil, Plus, SquarePlus, Tags, Trash2, X } from 'lucide-react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from 'react';
 import {
   type ExplanationIndexNode,
 } from '../../knowledge/explanationIndex';
@@ -288,6 +294,88 @@ export function UnifiedIndexGraph({
     () => new Map(effectiveNodes.map((node) => [node.id, node])),
     [effectiveNodes],
   );
+  const containmentChildrenById = useMemo(() => {
+    const graphIdByKnowledgeId = new Map<string, string>(
+      effectiveNodes.map((node) => [node.knowledgeNodeId, node.id]),
+    );
+    const children = new Map<string, string[]>();
+    for (const edge of knowledgeEdges) {
+      if (edge.type !== CONTAINMENT_EDGE_TYPE) continue;
+      const sourceId = graphIdByKnowledgeId.get(edge.source);
+      const targetId = graphIdByKnowledgeId.get(edge.target);
+      if (!sourceId || !targetId || sourceId === targetId) continue;
+      const list = children.get(sourceId) ?? [];
+      if (!list.includes(targetId)) list.push(targetId);
+      children.set(sourceId, list);
+    }
+    return children;
+  }, [effectiveNodes, knowledgeEdges]);
+  const containmentSubtreeIds = useMemo(() => {
+    const ids = new Set<string>();
+    const visit = (nodeId: string) => {
+      if (ids.has(nodeId)) return;
+      ids.add(nodeId);
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        visit(childId);
+      }
+    };
+    const owner = effectiveNodes.find((node) => node.owner);
+    if (owner && (containmentChildrenById.get(owner.id) ?? []).length > 0) {
+      visit(owner.id);
+    }
+    return ids;
+  }, [containmentChildrenById, effectiveNodes]);
+  const containmentDescendantsById = useMemo(() => {
+    const descendants = new Map<string, Set<string>>();
+    const collect = (nodeId: string, seen: ReadonlySet<string>): Set<string> => {
+      const result = new Set<string>();
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        if (seen.has(childId)) continue;
+        result.add(childId);
+        const nextSeen = new Set(seen);
+        nextSeen.add(childId);
+        for (const descendant of collect(childId, nextSeen)) {
+          result.add(descendant);
+        }
+      }
+      return result;
+    };
+    for (const nodeId of containmentSubtreeIds) {
+      descendants.set(nodeId, collect(nodeId, new Set([nodeId])));
+    }
+    return descendants;
+  }, [containmentChildrenById, containmentSubtreeIds]);
+  const containmentDepthById = useMemo(() => {
+    const depths = new Map<string, number>();
+    const visit = (nodeId: string, depth: number) => {
+      if (depths.has(nodeId)) return;
+      depths.set(nodeId, depth);
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        visit(childId, depth + 1);
+      }
+    };
+    const owner = effectiveNodes.find((node) => node.owner);
+    if (owner && (containmentChildrenById.get(owner.id) ?? []).length > 0) {
+      visit(owner.id, 0);
+    }
+    return depths;
+  }, [containmentChildrenById, effectiveNodes]);
+  const orderedEffectiveNodes = useMemo(
+    () => [...effectiveNodes].sort((left, right) => {
+      const leftDepth = containmentDepthById.get(left.id) ?? Number.POSITIVE_INFINITY;
+      const rightDepth = containmentDepthById.get(right.id) ?? Number.POSITIVE_INFINITY;
+      return leftDepth - rightDepth;
+    }),
+    [containmentDepthById, effectiveNodes],
+  );
+  const matrixHostKnowledgeIds = useMemo(
+    () => new Set(
+      [...containmentSubtreeIds]
+        .map((nodeId) => nodeById.get(nodeId)?.knowledgeNodeId)
+        .filter((nodeId): nodeId is string => !!nodeId),
+    ),
+    [containmentSubtreeIds, nodeById],
+  );
   const edgeRoutingPlans = useMemo<Record<EdgeRoutingMode, EdgeRoutingPlan>>(() => ({
     detail: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'detail'),
     compact: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'compact'),
@@ -445,33 +533,6 @@ export function UnifiedIndexGraph({
     }
     return frames;
   }, [knowledgeEdges, ownerId, effectiveNodes, nodePool]);
-
-  const containmentMatrix = useMemo(() => {
-    const cells = effectiveNodes.filter((node) => node.containedChild);
-    if (cells.length === 0) return null;
-
-    const PAD_X = 18;
-    const PAD_TOP = 38;
-    const PAD_BOTTOM = 18;
-    let x0 = Infinity;
-    let y0 = Infinity;
-    let x1 = -Infinity;
-    let y1 = -Infinity;
-    for (const cell of cells) {
-      x0 = Math.min(x0, cell.position.x - cell.size.width / 2);
-      y0 = Math.min(y0, cell.position.y - cell.size.height / 2);
-      x1 = Math.max(x1, cell.position.x + cell.size.width / 2);
-      y1 = Math.max(y1, cell.position.y + cell.size.height / 2);
-    }
-
-    return {
-      left: x0 - PAD_X,
-      top: y0 - PAD_TOP,
-      width: x1 - x0 + PAD_X * 2,
-      height: y1 - y0 + PAD_TOP + PAD_BOTTOM,
-      count: cells.length,
-    };
-  }, [effectiveNodes]);
 
   // ---- 框选 ----
   const handleMarqueeSelect = (rect: WorldRect, additive: boolean) => {
@@ -789,10 +850,21 @@ export function UnifiedIndexGraph({
       event.currentTarget.setPointerCapture(event.pointerId);
       setDraggingNodeId(gesture.nodeId);
     }
-    setNodePositions((current) => ({
-      ...current,
-      [gesture.nodeId]: { x: gesture.startX + deltaX, y: gesture.startY + deltaY },
-    }));
+    setNodePositions((current) => {
+      const next = {
+        ...current,
+        [gesture.nodeId]: { x: gesture.startX + deltaX, y: gesture.startY + deltaY },
+      };
+      for (const descendantId of containmentDescendantsById.get(gesture.nodeId) ?? []) {
+        const descendant = nodeById.get(descendantId);
+        if (!descendant) continue;
+        next[descendantId] = {
+          x: descendant.position.x + deltaX,
+          y: descendant.position.y + deltaY,
+        };
+      }
+      return next;
+    });
   };
 
   const handleNodePointerEnd = (event: ReactPointerEvent<HTMLElement>) => {
@@ -1154,26 +1226,9 @@ export function UnifiedIndexGraph({
             )}
           </svg>
 
-          {containmentMatrix && (
-            <section
-              className="explanation-index-containment-matrix"
-              aria-label={`${ownerLabel} 的包含矩阵`}
-              style={{
-                left: containmentMatrix.left,
-                top: containmentMatrix.top,
-                width: containmentMatrix.width,
-                height: containmentMatrix.height,
-              }}
-            >
-              <header>
-                <Grid3X3 size={13} aria-hidden="true" />
-                <span>包含</span>
-                <output>{containmentMatrix.count}</output>
-              </header>
-            </section>
-          )}
-
-          {groupFrames.map((frame) => (
+          {groupFrames
+            .filter((frame) => !matrixHostKnowledgeIds.has(frame.groupId))
+            .map((frame) => (
             <div
               key={frame.groupId}
               className="explanation-index-group-frame"
@@ -1210,15 +1265,16 @@ export function UnifiedIndexGraph({
                 </button>
               )}
             </div>
-          ))}
+            ))}
 
-          {effectiveNodes.map((graphNode) => {
+          {orderedEffectiveNodes.map((graphNode) => {
             const isActive = graphNode.id === activeContext.activeNodeId;
             const isContext = activeContext.nodeIds.has(graphNode.id);
             const isMuted = !!activeContext.activeNodeId && !isContext;
             const isDragging = graphNode.id === draggingNodeId;
             const isSelected = selectedNodeIds.has(graphNode.id);
             const isPendingDelete = pendingDeleteNodeIds.has(graphNode.id);
+            const isMatrixHost = (containmentChildrenById.get(graphNode.id) ?? []).length > 0;
             const nodeEditTargetId = `node:${graphNode.id}`;
             const nodeTagEditTargetId = `node-tags:${graphNode.id}`;
             const nodeChildEditTargetId = `node-child:${graphNode.id}`;
@@ -1235,7 +1291,7 @@ export function UnifiedIndexGraph({
               <article
                 key={graphNode.id}
                 data-graph-node-id={graphNode.id}
-                className={`explanation-index-class-node${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}`}
+                className={`explanation-index-class-node${isMatrixHost ? ' is-matrix-host' : ''}${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}`}
                 style={{
                   left: graphNode.position.x,
                   top: graphNode.position.y,

@@ -1,0 +1,35 @@
+310◆第四部分独立功能的实现
+EXEC命令的实现原理可以用以下伪代码来描述：
+def EXEc():
+#创建空白的回复队列
+reply_queue =[]
+#遍历事务队列中的每个项
+#读取命令的参数，参数的个数，以及要执行的命令
+for argv, argc, cmd in client.mstate.commands:
+#执行命令，并取得命令的返回值
+reply =execute_command(cmd,argv,argc)
+#将返回值追加到回复队列末尾
+reply_queue.append(reply)
+#移除REDISMULTI标识，让客户端回到非事务状态
+client.flags&=~REDISMULTI
+#清空客户端的事务状态，包括：
+#1）清零入队命令计数器
+#2）释放事务队列
+client.mstate.count = 0
+release_transaction_queue(client.mstate.commands)
+#将事务的执行结果返回给客户端
+send_reply_to_client(client,reply_queue)
+19.2WATCH命令的实现
+WATCH命令是一个乐观锁（optimisticlocking），它可以在EXEC命令执行之前，监视
+任意数量的数据库键，并在EXEC命令执行时，检查被监视的键是否至少有一个已经被修改
+过了，如果是的话，服务器将拒绝执行事务，并向客户端返回代表事务执行失败的空回复。
+以下是一个事务执行失败的例子：
+redis> WATCH "name"
+OK
+redis> MULTI
+OK
+redis> SET "name""peter"
+QUEUED
+redis> ExEc
+(nil)
+表19-1展示了上面的例子是如何失败的。

@@ -1,0 +1,55 @@
+第10章RDB持久化123
+redisserver
+saveparams[0]
+saveparams[1]
+saveparams[2]
+seconds
+seconds
+seconds
+900
+300
+saveparams
+60
+changes
+changes
+changes
+10
+10000
+图10-6
+服务器状态中的保存条件
+10.2.2
+dirty计数器和lastsave属性
+除了saveparams数组之外，服务器状态还维持着一个dirty计数器，以及一个
+lastsave属性：
+口dirty计数器记录距离上一次成功执行SAVE命令或者BGSAVE命令之后，服务器
+对数据库状态（服务器中的所有数据库）进行了多少次修改（包括写入、删除、更
+新等操作）。
+口lastsaVe属性是一个UNIX时间戳，记录了服务器上一次成功执行SAVE命令或
+者BGSAVE命令的时间。
+struct redisserver (
+1/ :
+//修改计数器
+long long dirtyi
+//上一次执行保存的时间
+time_t lastsave;
+1/:
+当服务器成功执行一个数据库修改命令之后，程序就会对dirty计数器进行更新：命
+令修改了多少次数据库，dirty计数器的值就增加多少。
+例如，如果我们为一个字符串键设置值：
+redis> sET message "hello"
+OK
+那么程序会将dirty计数器的值增加1。
+又例如，如果我们向一个集合键增加三个新元素：
+redisServer
+redis>SADD database Redis MongoDB MariaDB
+(integer)3
+dirty
+123
+那么程序会将dirty计数器的值增加3。
+lastsave
+图10-7展示了服务器状态中包含的dirty计数器和
+1378270800
+lastsave属性，说明如下：
+口dirty计数器的值为123，表示服务器在上次保存之后，
+图10-7
+服务器状态示例

@@ -939,6 +939,35 @@
   line-height: 1.6 !important;
 }
 
+.knowledge-reference {
+  display: inline;
+  margin: 0 1px;
+  padding: 1px 3px;
+  border: 0;
+  border-bottom: 1px solid rgba(94, 234, 212, 0.72);
+  border-radius: 3px;
+  background: rgba(20, 184, 166, 0.14);
+  color: #99f6e4;
+  font: inherit;
+  font-weight: 650;
+  line-height: inherit;
+  letter-spacing: 0;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.knowledge-reference--link {
+  cursor: pointer;
+}
+
+.knowledge-reference--link:hover,
+.knowledge-reference--link:focus-visible {
+  background: rgba(20, 184, 166, 0.24);
+  border-bottom-color: #5eead4;
+  color: #ccfbf1;
+  outline: none;
+}
+
 .card-note-container {
   margin-top: 4px;
   padding-top: 2px;
@@ -4109,6 +4138,15 @@
   margin: 0 2px 8px;
   padding-top: 4px;
   border-top: 0;
+}
+
+.right-question-answer-view {
+  position: relative;
+  min-width: 0;
+  padding-right: 26px;
+}
+
+.right-question-answer-content {
   color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.65;
@@ -4116,8 +4154,63 @@
   white-space: pre-wrap;
 }
 
-.right-question-card-answer.is-empty {
+.right-question-answer-content.is-empty {
   color: var(--text-tertiary);
+}
+
+.right-question-answer-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.right-question-answer-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.right-question-answer-input {
+  width: 100%;
+  min-height: 112px;
+  resize: vertical;
+  padding: 8px 9px;
+  border: 1px solid var(--border-secondary);
+  border-radius: var(--radius-sm);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.6;
+  outline: none;
+}
+
+.right-question-answer-input:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 0 2px var(--accent-purple-dim);
+}
+
+.right-question-answer-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.right-question-answer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.right-question-answer-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
 /* ========== ExplanationCard meta header ========== */

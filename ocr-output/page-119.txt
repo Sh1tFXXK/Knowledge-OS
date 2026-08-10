@@ -1,0 +1,58 @@
+102第二部分单机数据库的实现
+dict *expires;
+)redisDb;
+图9-12展示了一个带有过期字典的数据库例子，在这个例子中，键空间保存了数据库
+中的所有键值对，而过期字典则保存了数据库键的过期时间。
+注意
+为了展示方便，图9-12的键空间和过期字典中重复出现了两次alphabet键对象和
+book键对象。在实际中，键空间的键和过期字典的键都指向同一个键对象，所以不会出现
+任何重复对象，也不会浪费任何空间。
+Listobject
+Stringobject
+Stringobject
+stringObject
+"a"
+.q.
+"c"
+dict
+StringObject
+Hashobject
+StringObject
+redisDb
+"alphabet"
+StringObject
+"Redis in Action"
+stringobject
+"name"
+"book"
+Stringobject
+dict
+Stringobject
+Stringobject
+"author"
+"Josiah L.Carlson"
+expires
+"message"
+StringObject
+"publisher"
+Stringobject
+"Manning"
+StringObject
+"hello world"
+dict
+Stringobject
+long long
+"alphabet"
+1385877600000
+Stringobject
+"book"
+long long
+1388556000000
+图9-12
+带有过期字典的数据库例子
+图9-12中的过期字典保存了两个键值对：
+口第一个键值对的键为a1phabet键对象，值为1385877600000，这表示数据库键
+a1phabet的过期时间为1385877600000（2013年12月1日零时）。
+口第二个键值对的键为book键对象，值为1388556000000，这表示数据库键book
+的过期时间为1388556000000（2014年1月1日零时）。
+当客户端执行PEXPIREAT命令（或者其他三个会转换成PEXPIREAT命令的命令）为

@@ -1,0 +1,33 @@
+340第四部分独立功能的实现
+"return'helloworld'"
+虽然已经载人到主服务器里面，但并未传播给所有从服务器，如果主服务器尝试向从服
+务器发送命令：
+EVALSHA"5332031c6b470dc5a0dd9b4bf2030dea6d65de91".
+那么至少会有一个从服务器遇上脚本未找到错误。
+2.清空repl_scriptcache_dict字典
+每当主服务器添加一个新的从服务器时，主服务器都会清空自已的repl_
+scriptcache_dict字典，这是因为随着新从服务器的出现，repl_scriptcache_
+dict字典里面记录的脚本已经不再被所有从服务器载人过，所以主服务器会清空repl
+scriptcache_dict字典，强制自已重新向所有从服务器传播脚本，从而确保新的从服务
+器不会出现脚本未找到错误。
+3.EVALSHA命令转换成EVAL命令的方法
+通过使用EVALSHA命令指定的SHA1校验和，以及lua_scripts字典保存的Lua脚
+本，服务器总可以将一个EVALSHA命令：
+EVALSHA <shal><numkeys>[key...] [arg ...]
+转换成一个等价的EVAL命令：
+EVAL<script><numkeys>[key...][arg...]
+具体的转换方法如下：
+1）根据SHAl校验和shal，在lua_scripts字典中查找shal对应的Lua脚本
+script。
+2）将原来的EVALSHA命令请求改写成EVAL命令请求，并且将校验和sha1改成脚本
+script，至于numkeys、key、arg等参数则保持不变。
+举个例子，对于图20-11所示的lua_scripts字典，以及图20-10所示的repl
+scriptcache_dict字典来说，我们总可以将命令：
+改写成命令：
+EVAL"return'hello world'"0
+其中脚本的内容：
+"return "hello worldt"
+来源于1ua_scripts字典"5332031c6b470dc5a0dd9b4bf2030dea6d65de91"
+键的值。
+EVALSHA命令转换成等价的EVAL命令，然后通过传播等价的EVAL命令来代替原本想要
+传播的EVALSHA命令，以此来产生相同的脚本执行效果，并确保所有从服务器都不会出现

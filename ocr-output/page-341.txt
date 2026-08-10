@@ -1,0 +1,50 @@
+324第四部分独立功能的实现
+redis>EVAL"returnredis.call('PING')"0
+PONG
+20.1.4
+使用Redis自制的随机函数来替换Lua原有的随机函数
+为了保证相同的脚本可以在不同的机器上产生相同的结果，Redis要求所有传人服务器
+的Lua脚本，以及Lua环境中的所有函数，都必须是无副作用（sideeffect）的纯函数（pure
+function)。
+但是，在之前载人Lua环境的math函数库中，用于生成随机数的math.random函
+数和math.randomseed函数都是带有副作用的，它们不符合Redis对Lua环境的无副作
+用要求。
+因为这个原因，Redis使用自制的函数替换了math库中原有的math.random函数和
+math.randomseed函数，替换之后的两个函数有以下特征：
+口对于相同的seed来说，math.random总产生相同的随机数序列，这个函数是一个
+纯函数。
+口除非在脚本中使用math.randomseed显式地修改seed，否则每次运行脚本时，
+Lua环境都使用固定的math.randomseed（O）语句来初始化seed。
+例如，使用以下脚本，我们可以打印seed值为o时，math.random对于输入1o至
+1所产生的随机序列：
+--random-with-default-seed.lua
+locali=10
+local seq=()
+while(i>0)do
+seq[i] = math.random(i)
+i= i-1
+end
+return seg
+无论执行这个脚本多少次，产生的值都是相同的：
+$ redis-cli --eval random-with-default-seed.lua
+1)
+(integer)
+2)
+(integer)
+3)
+(integer)
+4)
+(integer)
+5)
+(integer)
+6)
+(integer)
+7)
+(integer)
+8)
+(integer)
+9)
+(integer)
+10)
+(integer)2
+但是，如果我们在另一个脚本里面，调用math.randomseed将seed修改为10o86：

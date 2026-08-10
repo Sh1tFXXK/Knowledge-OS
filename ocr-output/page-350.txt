@@ -1,0 +1,38 @@
+第20章Lua脚本333
+20.5
+脚本管理命令的实现
+除了EVAL命令和EVALSHA命令之外，Redis中与Lua脚本有关的命令还有四个，它
+们分别是SCRIPTFLUSH命令、SCRIPTEXISTS命令、SCRIPTLOAD命令、以及SCRIPT
+KILL命令。
+接下来的四个小节将分别对这四个命令的实现原理进行介绍。
+20.5.1
+SCRIPTFLUSH
+SCRIPTFLUSH命令用于清除服务器中所有和Lua脚本有关的信息，这个命令会释放并
+重建lua_scripts字典，关闭现有的Lua环境并重新创建一个新的Lua环境。
+以下为SCRIPTFLUSH命令的实现伪代码：
+defSCRIPT_FLUSH():
+#释放脚本字典
+dictRelease(server.lua_scripts)
+#重建脚本字典
+server.lua_scripts = dictCreate(...)
+#关闭Lua环境
+lua_close(server.lua)
+#初始化一个新的Lua环境
+server.lua = init_lua_env()
+20.5.2 SCRIPT EXISTS
+SCRIPTEXISTS命令根据输入的SHA1校验和，检查校验和对应的脚本是否存在于服务
+器中。
+SCRIPTEXISTS命令是通过检查给定的校验和是否存在于1ua_scripts字典来实现
+的，以下是该命令的实现伪代码：
+def SCRIPT_EXISTS(*shal_list):.
+#结果列表
+result_list=[]
+#遍历输入的所有SHA1校验和
+for shal in shal_list:
+#检查校验和是否为lua_scripts字典的键
+#如果是的话，那么表示校验和对应的脚本存在
+#否则的话，脚本就不存在
+if shal in server.lua_scripts:
+#存在用1表示
+result_list.append(i)
+else:

@@ -1,0 +1,37 @@
+第17章集群·277
+int numslaves;
+/ /一个数组
+//每个数组项指向一个正在复制这个主节点的从节点的clusterNode结构
+struct clusterNode**slaves;
+举个例子，图17-36记录了节点7004和节点7005成为节点7000的从节点之后，集群
+中的各个节点为节点7000创建的clusterNode结构的样子：
+口代表节点7000的clusterNode结构的numslaves属性的值为2，这说明有两个
+从节点正在复制节点7000。
+口代表节点7000的clusterNode结构的slaves数组的两个项分别指向代表节点
+7004和代表节点7005的c1usterNode结构，这说明节点7000的两个从节点分别
+是节点7004和节点7005。
+clusterNode
+flags
+REDIS_NODE_MASTER
+ip
+"127.0.0.1"
+port
+7000
+clusterNode
+numslaves
+flags
+clusterNode*[2]
+slaves
+REDISNODE SLAVE
+ip
+"127.0.0.1"
+port
+7004
+clusterNode
+flags
+REDISNODE SLAVE
+ip
+"127.0.0.1"
+port
+7005
+图17-36集群中的各个节点为节点7000创建的clusterNode结构

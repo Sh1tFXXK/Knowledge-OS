@@ -28,14 +28,21 @@ const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
 const LEFT_PANEL_COLLAPSED_WIDTH = 42;
 const RIGHT_PANEL_MIN_WIDTH = 280;
-const RIGHT_PANEL_MAX_WIDTH = 680;
+const RIGHT_PANEL_MAX_WIDTH = 1200;
+// 至少给中间内容区保留的宽度
+const CENTER_MIN_WIDTH = 480;
 
 function clampLeftPanelWidth(width: number): number {
   return Math.min(LEFT_PANEL_MAX_WIDTH, Math.max(LEFT_PANEL_MIN_WIDTH, width));
 }
 
 function clampRightPanelWidth(width: number): number {
-  return Math.min(RIGHT_PANEL_MAX_WIDTH, Math.max(RIGHT_PANEL_MIN_WIDTH, width));
+  const viewportCap = Math.max(
+    RIGHT_PANEL_MIN_WIDTH,
+    window.innerWidth - LEFT_PANEL_COLLAPSED_WIDTH - CENTER_MIN_WIDTH,
+  );
+  const maxWidth = Math.min(RIGHT_PANEL_MAX_WIDTH, viewportCap);
+  return Math.min(maxWidth, Math.max(RIGHT_PANEL_MIN_WIDTH, width));
 }
 
 export default function App() {

@@ -1,0 +1,33 @@
+第14章服务器，187
+//上一次抽样时，服务器已执行命令的数量
+longlongops_sec_last_sample_ops;
+//REDIS_OPS_SEC_SAMPLES大小（默认值为16）的环形数组，
+//数组中的每个项都记录了一次抽样结果。
+longlongops_sec_samples[REDIs_OPS_SEC_SAMPLES];
+//ops_sec_samples数组的索引值，
+/／每次抽样后将值自增一，
+//在值等于16时重置为0，
+//让ops_sec_samples数组构成一个环形数组。
+int ops_sec_idx;
+trackoperationsPerSecond函数每次运行，都会根据ops_sec_last_sample_
+time记录的上一次抽样时间和服务器的当前时间，以及ops_sec_last_sample_
+trackoperationsPerSecond调用之间，服务器平均每一毫秒处理了多少个命令请求，
+然后将这个平均值乘以1000，这就得到了服务器在一秒钟内能处理多少个命令请求的估计
+值，这个估计值会被作为一个新的数组项被放进ops_sec_samples环形数组里面。
+当客户端执行INFo命令时，服务器就会调用getoperationsPerSecond函数，根
+据ops_sec_samples环形数组中的抽样结果，计算出instantaneous_ops_per_sec
+属性的值，以下是getoperationsPerSecond函数的实现代码：
+long long getoperationsPerSecond(void)t
+intj;
+long long sum = O;
+//计算所有取样值的总和
+for（j=O;j<REDIS_OPS_SEC_SAMPLES;j++)
+sum += server.ops_sec_samples[j];
+/／计算取样的平均值
+returnSum/REDISOPS_SEC_SAMPLES;
+根据getoperationsPerSecond函数的定义可以看出，instantaneous_ops_
+Per_sec属性的值是通过计算最近REDIS_OPS_SEC_SAMPLES次取样的平均值来计算得
+出的，它只是一个估算值。
+14.2.4更新服务器内存峰值记录
+服务器状态中的stat_peak_memory属性记录了服务器的内存峰值大小：
+struct redisServer

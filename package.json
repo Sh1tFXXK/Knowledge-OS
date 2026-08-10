@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "setup:mineru": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ocr/setup-mineru.ps1",
     "import:jdk-collections": "node scripts/import-jdk-collections.mjs",
     "test": "node --test \"scripts/*.test.mjs\""
   },

@@ -46,6 +46,7 @@ const explanationTreeHelpers = {
   },
 };
 const containmentHelpers = {
+  CONTAINMENT_EDGE_TYPE: 'belongs-to',
   collectDirectContainmentRelations: (edges, sourceId) => edges.flatMap((edge) => {
     if (edge.type !== 'belongs-to') return [];
     if (sourceId && edge.source !== sourceId) return [];
@@ -318,8 +319,65 @@ test('direct belongs-to children render as containment matrix cells without line
     path.resolve('src/core/explanation-index/UnifiedIndexGraph.tsx'),
     'utf8',
   );
-  assert.match(graphSource, /className="explanation-index-containment-matrix"/);
+  assert.match(graphSource, /is-matrix-host/);
+  assert.match(graphSource, /orderedEffectiveNodes/);
   assert.match(graphSource, /包含（矩阵）/);
+});
+
+test('nested containment edges lay child matrices inside their parent matrix', () => {
+  const index = indexNode('root', 'Root', 1, 'root-a');
+  const nodePool = {
+    'root-a': {
+      id: 'root-a',
+      label: 'Root',
+      tags: [],
+      card: { nodeId: 'root-a', title: 'Root', tabs: [] },
+    },
+    'child-b': {
+      id: 'child-b',
+      label: 'Child B',
+      tags: [],
+      card: { nodeId: 'child-b', title: 'Child B', tabs: [] },
+    },
+    'leaf-c': {
+      id: 'leaf-c',
+      label: 'Leaf C',
+      tags: [],
+      card: { nodeId: 'leaf-c', title: 'Leaf C', tabs: [] },
+    },
+  };
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'root-a',
+    ownerLabel: 'Root',
+    index,
+    relationRootId: 'root-a',
+    relationRootLabel: 'Root',
+    relationGraph: {
+      maxDepth: 0,
+      nodes: [{ nodeId: 'root-a', depth: 0 }],
+      edges: [],
+    },
+    knowledgeEdges: [
+      { id: 'contains-b', source: 'root-a', target: 'child-b', type: 'belongs-to', label: 'contains' },
+      { id: 'contains-c', source: 'child-b', target: 'leaf-c', type: 'belongs-to', label: 'contains' },
+    ],
+    nodePool,
+  });
+
+  const rect = (node) => ({
+    left: node.position.x - node.size.width / 2,
+    top: node.position.y - node.size.height / 2,
+    right: node.position.x + node.size.width / 2,
+    bottom: node.position.y + node.size.height / 2,
+  });
+  const root = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'root-a'));
+  const child = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'child-b'));
+  const leaf = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'leaf-c'));
+
+  assert.ok(root.left <= child.left && root.top <= child.top);
+  assert.ok(root.right >= child.right && root.bottom >= child.bottom);
+  assert.ok(child.left <= leaf.left && child.top <= leaf.top);
+  assert.ok(child.right >= leaf.right && child.bottom >= leaf.bottom);
 });
 
 test('logical dependencies use typed lines while belongs-to only keeps child nodes visible', () => {

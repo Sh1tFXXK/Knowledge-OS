@@ -5,6 +5,12 @@ export const DOCUMENT_PROFILE = Object.freeze({
   QuestionBank: 'question-bank',
 });
 
+export const DOCUMENT_PROFILE_MODE = Object.freeze({
+  Auto: 'auto',
+  Article: DOCUMENT_PROFILE.Article,
+  QuestionBank: DOCUMENT_PROFILE.QuestionBank,
+});
+
 export const QUESTION_KIND = Object.freeze({
   Definition: 'definition',
   Mechanism: 'mechanism',
@@ -92,7 +98,11 @@ export function normalizeQuestionDraft(value, defaults = {}) {
   if (!source || typeof source !== 'object' || Array.isArray(source)) return null;
   const text = questionText(source.text);
   if (CODE_QUESTION_FRAGMENT.test(text)) return null;
-  if (text.length < 4 || (!QUESTION_ENDING.test(text) && !QUESTION_CUE.test(text))) return null;
+  const allowDeclarative = defaults.allowDeclarative === true;
+  const minimumLength = allowDeclarative ? 2 : 4;
+  if (text.length < minimumLength || (!allowDeclarative && !QUESTION_ENDING.test(text) && !QUESTION_CUE.test(text))) {
+    return null;
+  }
   const kind = QUESTION_KIND_VALUES.has(source.kind)
     ? source.kind
     : classifyQuestionKind(text);
@@ -104,20 +114,26 @@ export function normalizeQuestionDraft(value, defaults = {}) {
     throw new Error(`问题“${text}”的答案超过 ${DOCUMENT_IMPORT_STANDARD.maxAnswerCharacters} 字符`);
   }
   const rawSectionTitle = source.sectionTitle ?? defaults.sectionTitle;
+  const identityKey = normalizedText(source.identityKey).slice(0, 256);
   return {
     text,
     kind,
     difficulty,
     sectionTitle: rawSectionTitle == null ? null : cleanKeyword(rawSectionTitle) || null,
+    ...(identityKey ? { identityKey } : {}),
     ...(answer ? { answer } : {}),
   };
 }
 
-function deduplicateQuestionDrafts(values, maxItems = DOCUMENT_IMPORT_STANDARD.maxQuestions) {
+function deduplicateQuestionDrafts(
+  values,
+  maxItems = DOCUMENT_IMPORT_STANDARD.maxQuestions,
+  defaults = {},
+) {
   const seen = new Set();
   const drafts = [];
   for (const value of values) {
-    const draft = normalizeQuestionDraft(value);
+    const draft = normalizeQuestionDraft(value, defaults);
     if (!draft) continue;
     const key = draft.text.toLocaleLowerCase();
     if (seen.has(key)) continue;
@@ -173,6 +189,71 @@ export function extractQuestionBlocks(markdown) {
   return deduplicateQuestionDrafts(drafts);
 }
 
+function numberedQuestionHeading(line) {
+  const value = String(line ?? '').trim();
+  const headingMatch = value.match(
+    /^#{1,6}\s+(\d{1,3})(?:\s*[.、)）:-]\s*|\s+)(.+?)\s*#*$/,
+  );
+  const plainMatch = value.match(
+    /^(\d{1,3})(?:\s*[.、)）:-]\s*|\s+)(.+?)$/,
+  );
+  const match = headingMatch ?? plainMatch;
+  if (!match) return null;
+  const ordinal = Number.parseInt(match[1], 10);
+  const text = cleanKeyword(match[2]);
+  return Number.isInteger(ordinal) && ordinal > 0 && text
+    ? { ordinal, text, heading: Boolean(headingMatch) }
+    : null;
+}
+
+function normalizeNumberedAnswerLine(line) {
+  const match = String(line ?? '').match(/^\s*#{1,6}\s+(\d{1,3})\s+(.+?)\s*#*$/);
+  return match ? `${match[1]}. ${match[2]}` : line;
+}
+
+export function extractSequentialQuestionBlocks(markdown) {
+  const drafts = [];
+  let expectedOrdinal = 1;
+  let currentOrdinal = null;
+  let currentQuestion = null;
+  let answerLines = [];
+
+  const flush = () => {
+    if (!currentQuestion) return;
+    drafts.push({
+      text: currentQuestion,
+      identityKey: `question:${currentOrdinal}`,
+      sectionTitle: `第 ${currentOrdinal} 题`,
+      answer: normalizedText(answerLines.join('\n')),
+    });
+    currentOrdinal = null;
+    currentQuestion = null;
+    answerLines = [];
+  };
+
+  for (const line of String(markdown ?? '').replace(/\r\n?/g, '\n').split('\n')) {
+    const candidate = numberedQuestionHeading(line);
+    const isQuestionCandidate = candidate && (
+      candidate.heading
+      || QUESTION_ENDING.test(candidate.text)
+      || QUESTION_CUE.test(candidate.text)
+    );
+    if (candidate?.ordinal === expectedOrdinal && isQuestionCandidate) {
+      flush();
+      currentOrdinal = candidate.ordinal;
+      currentQuestion = candidate.text;
+      expectedOrdinal += 1;
+      continue;
+    }
+    if (currentQuestion) answerLines.push(normalizeNumberedAnswerLine(line));
+  }
+  flush();
+  return drafts
+    .map((draft) => normalizeQuestionDraft(draft, { allowDeclarative: true }))
+    .filter(Boolean)
+    .slice(0, DOCUMENT_IMPORT_STANDARD.maxQuestions);
+}
+
 export function extractContextualQuestions(markdown, maxItems = 20) {
   const drafts = [];
   let currentSection = null;
@@ -219,6 +300,20 @@ export function detectDocumentProfile(markdown) {
   return questionBlocks.length >= DOCUMENT_IMPORT_STANDARD.minQuestionBankQuestions
     ? { profile: DOCUMENT_PROFILE.QuestionBank, questions: questionBlocks }
     : { profile: DOCUMENT_PROFILE.Article, questions: extractContextualQuestions(markdown) };
+}
+
+export function resolveDocumentProfile(markdown, requestedMode = DOCUMENT_PROFILE_MODE.Auto) {
+  if (requestedMode === DOCUMENT_PROFILE_MODE.QuestionBank) {
+    const sequentialQuestions = extractSequentialQuestionBlocks(markdown);
+    const questions = sequentialQuestions.length >= DOCUMENT_IMPORT_STANDARD.minQuestionBankQuestions
+      ? sequentialQuestions
+      : extractQuestionBlocks(markdown);
+    return { profile: DOCUMENT_PROFILE.QuestionBank, questions };
+  }
+  if (requestedMode === DOCUMENT_PROFILE_MODE.Article) {
+    return { profile: DOCUMENT_PROFILE.Article, questions: extractContextualQuestions(markdown) };
+  }
+  return detectDocumentProfile(markdown);
 }
 
 export function validateDocumentDraft({ profile, title, markdown, nodes, questions }) {

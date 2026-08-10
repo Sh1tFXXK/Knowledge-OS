@@ -1,0 +1,43 @@
+144→第二部分单机数据库的实现
+redis> RPUSH list"c"
+//["A","B","C"]
+(integer)3
+redis>RPUSHlist"D""E"
+["A","B","C","D","E"]
+(integer)5
+redis>LPoPlist
+//["B","C","D","E"]
+"A"
+redis>LPoP list
+/ ["C","D","E"]
+"B"
+redis>RPUSHlist "F""G"
+//["C","D","E","F","G"]
+(integer)5
+那么服务器为了保存当前1ist键的状态，必须在AOF文件中写入六条命令。
+如果服务器想要用尽量少的命令来记录1ist键的状态，那么最简单高效的办法不是
+去读取和分析现有AOF文件的内容，而是直接从数据库中读取键1ist的值，然后用一条
+RPUSH1ist"C”"D”"E""F""G"命令来代替保存在AOF文件中的六条命令，这样
+就可以将保存1ist键所需的命令从六条减少为一条了。
+再考虑这样一个例子，如果服务器对animals键执行了以下命令：
+redis> SADD animals "Cat"
+//t"cat"j
+(integer)1
+(integer)3
+redis> SREM animals "Cat"
+//{"Dog","Panda","Tiger"}
+(integer)1
+redis>SADDanimals"Lion""Cat"
+//{"Dog","Panda","Tiger",
+(integer)2
+"Lion","Cat"]
+那么为了记录animals键的状态，AOF文件必须保存上面列出的四条命令。
+如果服务器想减少保存animals键所需命令的数量，那么服务器可以通过读取animals
+来代替上面的四条命令，这样就将保存animals键所需的命令从四条减少为一条了。
+除了上面列举的列表键和集合键之外，其他所有类型的键都可以用同样的方法去减少
+AOF文件中的命令数量。首先从数据库中读取键现在的值，然后用一条命令去记录键值对，
+代替之前记录这个键值对的多条命令，这就是AOF重写功能的实现原理。
+整个重写过程可以用以下伪代码表示：
+defaof_rewrite(new_aof_file_name):
+#创建新AOF文件
+f = create_file(new_aof_file_name)

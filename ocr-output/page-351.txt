@@ -1,0 +1,35 @@
+334→第四部分独立功能的实现
+#不存在用0表示
+result_list.append(0)
+#向客户端返回结果列表
+send_list_reply(result_list)
+"return
+lua_scripts
+'hiin
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3
+"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9"
+"return l+i"
+"4475bfb5919b5ad16424cb50f74d4724ae833e72"
+"return 2*2"
+图20-6lua_scripts字典
+举个例子，对于图20-6所示的1uascripts字典来说，我们可以进行以下测试：
+redis>SCRIPTEXISTS"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+i)(integer)1
+1)(integer)1
+1)(integer)1
+1)(integer)0
+从测试结果可知，除了最后一个校验和之外，其他校验和对应的脚本都存在于服务器中。
+注意
+SCRIPTEXISTS命令允许一次传入多个SHA1校验和，不过因为SHAI校验和太长，所
+以示例里分开多次来进行测试。
+实现SCRIPTEXISTS实际上并不需要lua_scripts字典的值。如果lua_scripts
+字典只用于实现SCRIPTEXISTS命令的话，那么字典只需要保存Lua脚本的SHA1校验和
+就可以了，并不需要保存Lua脚本本身。lua_scripts字典既保存脚本的SHA1校验和，
+又保存脚本本身的原因是为了实现脚本复制功能，详细的情况请看本章稍后对脚本复制功能
+实现原理的介绍。
+20.5.3SCRIPTLOAD
+SCRIPTLOAD命令所做的事情和EVAL命令执行脚本时所做的前两步完全一样：命令
+首先在Lua环境中为脚本创建相对应的函数，然后再将脚本保存到lua_scripts字典里面。
+举个例子，如果我们执行以下命令：
+redis> SCRIPT LOAD "return 'hitn
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"

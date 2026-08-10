@@ -1,0 +1,34 @@
+332第四部分独立功能的实现
+执行算是告一段落，之后服务器只要将保存在输出缓冲区里面的执行结果返回给执行EVAL
+命令的客户端就可以了。
+20.4EVALSHA命令的实现
+本章前面介绍EVAL命令的实现时说过，每个被EVAL命令成功执行过的Lua脚本，在
+Lua环境里面都有一个与这个脚本相对应的Lua函数，函数的名字由f前缀加上40个字符
+长的SHA1校验和组成，例如f_5332031c6b470dc5a0dd9b4bf2030dea6d65de91。
+户端也可以根据脚本的SHA1校验和来调用脚本对应的函数，从而达到执行脚本的目的，这
+就是EVALSHA命令的实现原理。
+可以用伪代码来描述这一原理：
+def EVALSHA(shal):
+#拼接出函数的名字
+#例如：f_5332031c6b470dc5a0dd9b4bf2030dea6d65de91
+func_name="f_"+ shal
+#查看这个函数在Lua环境中是否存在
+iffunction_exists_in_lua_env(func_name):
+#如果函数存在，那么执行它
+execute_lua_function(func_name)
+else:
+#如果函数不存在，那么返回一个错误
+send_script_error("sCRIPT NOTFOUND")
+举个例子，当服务器执行完以下EVAL命令之后：
+redis>EVAL"return'hello world'"0
+"helloworld"
+Lua环境单面就定义了以下函数：
+functionf_5332031c6b470dc5a0dd9b4bf2030dea6d65de91()
+returnhello world'
+end
+当客户端执行以下EVALSHA命令时：
+"hello world"
+服务器首先根据客户端输入的SHA1校验和，检查函数f5332031c6b470dc5a0dd
+9b4bf2030dea6d65de91是否存在于Lua环境中，得到的回应是该函数确实存在，于是
+服务器执行Lua环境中的f5332031c6b470dc5a0dd9b4bf2030dea6d65de91函数，
+并将结果"helloworld"返回给客户端。

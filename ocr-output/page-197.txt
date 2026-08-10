@@ -1,0 +1,46 @@
+180●第二部分单机数据库的实现
+redisCommand
+name
+命令表
+"set"
+proc
+void setCommand(redisclient *c);
+arity
+"set"
+-3
+"get"
+sflags
+"wm"
+"sadd"
+"rpush"
+redisCommand
+name
+"get"
+"publish"
+proc
+void getCommand(redisciient *c);
+arity
+sflags
+"r"
+图14-4
+命令表
+redisciient
+指向"set"键对应的
+redisCommand结构
+cmd
+redisCommand
+命令表
+name
+"set"
+"set"
+proc
+void setCommand(redisclient*c);
+"get"
+arity
+-3
+"sadd"
+sflags
+"wm"
+"rpush"
+"publish"
+图14-5设置客户端状态的cmd指针

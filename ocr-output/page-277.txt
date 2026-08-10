@@ -1,0 +1,37 @@
+260·第三部分多机数据库的实现
+法，以及MOVED错误的实现方法，最后，本节还会介绍节点和单机Redis服务器保存键值
+对数据的相同和不同之处。
+17.3.1i
+计算键属于哪个槽
+节点使用以下算法来计算给定键key属于哪个槽：
+def slot_number(key):
+return CRC16(key)&16383
+其中CRC16（key）语句用于计算键key的CRC-16校验和，而&16383语句则用于
+计算出一个介于0至16383之间的整数作为键key的槽号。
+使用CLUSTERKEYSLOT<key>命令可以查看一个给定键属于哪个槽：
+127.0.0.1:7000>CLUSTERKEYSLOT"date"
+(integer)2022
+127.0.0.1:7000>CLUSTERKEYSLOT"mSg"
+(integer)6257
+127.0.0.1:7000>CLUSTERKEYSLOT"name"
+(integer)5798
+127.0.0.1:7000>CLUSTERKEYSLOT"fruits"
+(integer)14943
+CLUSTERKEYSLOT命令就是通过调用上面给出的槽分配算法来实现的，以下是该命令
+的伪代码实现：
+def CLUSTERKEYSLOT(key):
+#计算槽号
+slot = slot_number(key)
+#将槽号返回给客户端
+reply_client(slot)
+17.3.2
+判断槽是否由当前节点负责处理
+当节点计算出键所属的槽i之后，节点就会检查自己在clusterstate.slots数组
+中的项i，判断键所在的槽是否由自己已负责：
+l）如果clusterstate.slots[i］等于clusterstate.myself，那么说明槽i
+由当前节点负责，节点可以执行客户端发送的命令。
+2）如果clusterstate.slots【i】不等于clusterstate.myself，那么说明槽
+i并非由当前节点负责，节点会根据clusterstate.slots【i］指向的clusterNode
+结构所记录的节点IP和端口号，向客户端返回MOVED错误，指引客户端转向至正在处理槽
+i的节点。
+举个例子，假设图17-19为节点7000的clusterState结构：

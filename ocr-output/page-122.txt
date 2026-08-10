@@ -1,0 +1,38 @@
+第9章数据库105
+#如果键不存在，或者键没有设置过期时间，那么直接返回
+if key not in redisDb.expires:
+returno
+#移除过期字典中给定键的键值对关联
+redisDb.expires.remove(key)
+#键的过期时间移除成功
+return 1
+9.4.4
+计算并返回剩余生存时间
+余生存时间：
+redis>PEXPIREATalphabet1385877600000
+(integer)1
+redis> TTL alphabet
+(integer）8549007
+redis> PTTL alphabet
+(integer)8549001011
+TTL和PTTL两个命令都是通过计算键的过期时间和当前时间之间的差来实现的，以下
+是这两个命令的伪代码实现：
+def PTTL(key):
+#键不存在于数据库
+ifkey not in redisDb.dict:
+return-2
+#尝试取得键的过期时间
+#如果键没有设置过期时间，那么expire_time_in_ms将为None
+expire_time_in_ms=redisDb.expires.get(key)
+#键没有设置过期时间
+if expire_time_in_ms is None:
+return -1
+#获得当前时间
+now_ms=get_current_unix_timestamp_in_ms()
+#过期时间减去当前时间，得出的差就是键的剩余生存时间
+return(expire_time_in_ms-now_ms)
+def TTL(key):
+#获取以毫秒为单位的剩余生存时间
+ttl_in_ms = PTTL(key)
+ifttl_in_ms<o:
+#处理返回值为-2和-1的情况

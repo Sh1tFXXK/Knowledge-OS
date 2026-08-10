@@ -1,0 +1,31 @@
+第20章Lua脚本→337
+保存在脚本字典里面。
+2.SCRIPTFLUSH
+如果客户端向主服务器发送SCRIPTFLUSH命令，那么主服务器也会向所有从服务器
+传播SCRIPTFLUSH命令。
+最终的结果是，主从服务器双方都会重置自己的Lua环境，并清空自己的脚本字典。
+3.SCRIPTLOAD
+所有从服务器传播相同的SCRIPTLOAD命令，使得所有从服务器也会载人相同的Lua脚本。
+举个例子，如果客户端向主服务器发送命令：
+"5332031c6b470dc5a0dd9b4bf2030dea6d65de91"
+那么主服务器也会向所有从服务器传播同样的命令：
+最终的结果是，主从服务器双方都会载入脚本：
+"return'helloworld'"
+20.6.2复制EVALSHA命令
+EVALSHA命令是所有与Lua脚本有关的命令中，复制操作最复杂的一个，因为主服
+务器与从服务器载入Lua脚本的情况可能有所不同，所以主服务器不能像复制EVAL命令、
+SCRIPTLOAD命令或者SCRIPTFLUSH命令那样，直接将EVALSHA命令传播给从服务器。
+对于一个在主服务器被成功执行的EVALSHA命令来说，相同的EVALSHA命令在从服务器
+执行时却可能会出现脚本未找到（notfound）错误。
+举个例子，假设现在有一个主服务器master，如果客户端向主服务器发送命令：
+master> SCRIPT LOAD "return 'hello world'"
+"5332031c6b470dc5a0dd9b4bf2030dea6d65de91"
+那么在执行这个SCRIPTLOAD命令之后，SHA1值为5332031c6b470dc5a0dd9b4
+bf2030dea6d65de91的脚本就存在于主服务器中了。
+现在，假设一个从服务器slavel开始复制主服务器master，如果master不想办
+法将脚本：
+"return 'hello world'"
+传送给s1ave1载入的话，那么当客户端向主服务器发送命令：
+"helloworld"
+的时候，master将成功执行这个EVALSHA命令，而当master将这个命令传播给
+slave1执行的时候，slave1却会出现脚本未找到错误：

@@ -1,0 +1,37 @@
+第22章二进制位数组365
+SETBIT命令的实现，详细的情况稍后在介绍SETBIT命令的实现原理时会说到。
+图22-3展示了另一个位数组示例：
+口sdshdr.len属性的值为3，表示这个SDs保存了一个三字节长的位数组。
+口位数组由buf数组中的buf【o］、buf【1]］、buf[2］三个字节保存，和之前说明的
+一样，buf数组使用逆序来保存位数组：位数组11110000110000111010
+0101在buf数组中会被保存为101001011100001100001111。
+redisObject
+...
+type
+REDIS_STRING
+sdshdr
+free
+len
+buf [0]
+buf [1]
+buf
+buf[2]
+buf[3]
+（空字符）
+图22-3三字节长的位数组的SDS表示
+22.2(
+GETBIT命令的实现
+GETBIT命令用于返回位数组bitarray在offset偏移量上的二进制位的值：
+GETBIT<bitarray><offset>
+GETBIT命令的执行过程如下：
+1）计算byte=Loffset8」，byte值记录了offset偏移量指定的二进制位保存在位数
+组的哪个字节。
+2）计算bit=(ofsetmod8)+1，bit值记录了offset偏移量指定的二进制位是byte
+字节的第几个二进制位。
+3）根据byte值和bit值，在位数组bitarray中定位offset偏移量指定的二进
+制位，并返回这个位的值。
+举个例子，对于图22-2所示的位数组来说，命令：
+GETBIT<bitarray>3
+将执行以下操作：
+1）[3÷8」的值为0。
+2）（3mod8）+1的值为4。

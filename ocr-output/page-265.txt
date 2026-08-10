@@ -1,0 +1,34 @@
+248第三部分多机数据库的实现
+节点的状态：
+struct clusterNode(
+//创建节点的时间
+mstime_t ctime;
+/／节点的名字，由40个十六进制字符组成
+//例如68eef66df23420a5862208ef5b1a7005b806f2ff
+char name[REDIS_CLUSTER NAMELEN];
+//节点标识
+//使用各种不同的标识值记录节点的角色（比如主节点或者从节点），
+//以及节点目前所处的状态（比如在线或者下线）。
+int flags;
+/／节点当前的配置纪元，用于实现故障转移
+uint64_tconfigEpoch;
+//节点的IP地址
+char ip[REDIS_IP_STRLEN];
+//节点的端口号
+int port;
+//保存连接节点所需的有关信息
+clusterLink *link;
+clusterNode结构的link属性是一个clusterLink结构，该结构保存了连接节点
+所需的有关信息，比如套接字描述符，输人缓冲区和输出缓冲区：
+typedefstructclusterLink(
+//连接的创建时间
+mstime_tctime;
+/／TCP套接字描述符
+int fd;
+//输出缓冲区，保存着等待发送给其他节点的消息（message）。
+sds sndbuf;
+//输入缓冲区，保存着从其他节点接收到的消息。
+sds rcvbuf;
+/／与这个连接相关联的节点，如果没有的话就为NULL
+struct clusterNode *node;
+) clusterLink;

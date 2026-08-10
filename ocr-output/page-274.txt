@@ -1,0 +1,38 @@
+第17章集群→257
+要说明的一点是，虽然clusterState.slots数组记录了集群中所有槽的指派信息，
+但使用clusterNode结构的slots数组来记录单个节点的槽指派信息仍然是有必要的：
+口因为当程序需要将某个节点的槽指派信息通过消息发送给其他节点时，程序只需要
+将相应节点的clusterNode.slots数组整个发送出去就可以了。
+口另一方面，如果Redis不使用clusterNode.slots数组，而单独使用
+clusterstate.slots数组的话，那么每次要将节点A的槽指派信息传播给其
+他节点时，程序必须先遍历整个clusterstate.slots数组，记录节点A负责
+处理哪些槽，然后才能发送节点A的槽指派信息，这比直接发送clusterNode，
+slots数组要麻烦和低效得多。
+clusterstate.slots数组记录了集群中所有槽的指派信息，而clusterNode.
+slots数组只记录了clusterNode结构所代表的节点的槽指派信息，这是两个slots数
+组的关键区别所在。
+17.2.4CLUSTERADDSLOTS命令的实现
+CLUSTERADDSLOTS命令接受一个或多个槽作为参数，并将所有输入的槽指派给接收
+该命令的节点负责：
+CLUSTERADDSLOTS<slot>[slot...]
+CLUSTERADDSLOTS命令的实现可以用以下伪代码来表示：
+defCLUSTER_ADDSLOTS(*all_input_slots):
+#遍历所有输入槽，检查它们是否都是未指派槽
+fori in all_input_slots:
+#如果有哪怕一个槽已经被指派给了某个节点
+#那么向客户端返回错误，并终止命令执行
+if clusterState.slots[i] != NULL:
+reply_error()
+return
+#如果所有输入槽都是未指派槽
+#那么再次遍历所有输入槽，将这些槽指派给当前节点
+foriinall_input_slots:
+#设置clusterstate结构的slots数组
+#将slots【i］的指针指向代表当前节点的clusterNode结构
+clusterstate.slots[i] =clusterstate.myself
+#访间代表当前节点的clusterNode结构的slots数组
+#将数组在索引i上的二进制位设置为1
+setslotBit(clusterstate.myself,slots,i)
+举个例子，图17-16展示了一个节点的clusterstate结构，clusterstate.
+slots数组中的所有指针都指向NULL，并且clusterNode.slots数组中的所有二进制
+位的值都是0，这说明当前节点没有被指派任何槽，并且集群中的所有槽都是未指派的。

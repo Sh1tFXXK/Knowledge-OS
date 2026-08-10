@@ -1,6 +1,7 @@
 import type { AtomBinding, KnowledgeNode, ViewDimension, ViewSection } from '../types';
 import { createKnowledgeNode } from './defaults';
 import type { PersistedAppState } from './state';
+import { normalizeSupertags } from './supertags';
 
 const LEGACY_EXPLANATION_TAB_IDS = new Set(['mech', 'bound', 'source']);
 
@@ -72,9 +73,14 @@ function isMigratedDimension(dim: LegacyViewDimension): dim is ViewDimension {
 function stripLegacyExplanationTabs(node: KnowledgeNode): KnowledgeNode{
   const tabs = node.card.tabs.filter((tab) =>
     !LEGACY_EXPLANATION_TAB_IDS.has(tab.id));
-  return tabs.length === node.card.tabs.length
-    ? node
-    : { ...node, card: { ...node.card, tabs } };
+  const tags = normalizeSupertags([node.label, ...(node.tags ?? [])]);
+  return {
+    ...node,
+    tags,
+    card: tabs.length === node.card.tabs.length
+      ? node.card
+      : { ...node.card, tabs },
+  };
 }
 export function migrateNodePool(
   inputPool: Record<string, KnowledgeNode>,

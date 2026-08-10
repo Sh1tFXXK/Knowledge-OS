@@ -1,0 +1,41 @@
+第11章AOF持久化¥145
+#遍历数据库
+for db in redisServer.db:
+#忽略空数据库
+if db.is_empty(): continue
+#写入SELECT命令，指定数据库号码
+f.write_command("SELECT"+ db.id)
+#遍历数据库中的所有键
+for key in db:
+#忽略已过期的键
+ifkey.is_expired():continue
+#根据键的类型对键进行重写
+if key.type == string:
+rewrite_string(key)
+elif key.type == List:
+rewrite_list(key)
+elif key.type = Hash:
+rewrite_hash(key)
+elif key.type == Set:
+rewrite_set(key)
+elif key.type = SortedSet:
+rewrite_sorted_set(key)
+#如果键带有过期时间，那么过期时间也要被重写
+ifkey.have_expire_time():
+rewrite_expire_time(key)
+#写入完毕，关闭文件
+f.close()
+def rewrite_string(key):
+#使用GET命令获取字符串键的值
+value = GET(key)
+#使用SET命令重写字符串键
+f.write_command(SET,key,value)
+def rewrite_list(key):
+#使用LRANGE命令获取列表键包含的所有元素
+iteml,item2,...,itemN=LRANGE(key,0,-1)
+#使用RPUSH命令重写列表键
+f.write_command(RPUSH,key,iteml,item2,...,itemN)
+def rewrite_hash(key):
+#使用HGETALL命令获取哈希键包含的所有键值对
+fieldl,valuel,field2,value2,..., fieldN, valueN = HGETALL(key)
+#使用HMSET命令重写哈希键

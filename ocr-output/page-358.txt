@@ -1,0 +1,34 @@
+第20章Lua脚本341
+脚本未找到错误。
+另外，因为主服务器在传播完EVAL命令之后，会将被传播脚本的SHA1校验和（也即
+是原本EVALSHA命令指定的那个校验和）添加到repl_scriptcache_dict字典里面，
+如果之后EVALSHA命令再次指定这个SHA1校验和，主服务器就可以直接传播EVALSHA
+命令，而不必再次对EVALSHA命令进行转换。
+4.传播EVALSHA命令的方法
+当主服务器成功在本机执行完一个EVALSHA命令之后，它将根据EVALSHA命令指
+定的SHA1校验和是否存在于repl_scriptcache_dict字典来决定是向从服务器传播
+EVALSHA命令还是EVAL命令：
+1）如果EVALSHA命令指定的SHA1校验和存在于repl_scriptcache_dict字典，
+那么主服务器直接向从服务器传播EVALSHA命令。
+2）如果EVALSHA命令指定的SHA1校验和不存在于repl_scriptcache_dict字典，
+那么主服务器会将EVALSHA命令转换成等价的EVAL命令，然后传播这个等价的EVAL命令，
+并将EVALSHA命令指定的SHA1校验和添加到repl_scriptcache_dict字典里面。
+图20-12展示了这个判断过程。
+主服务器在本机执行完命令
+EVALSHA <shal><numkeys>[key ...] [arg ...]
+校验和sha1是否存在于
+repl_scriptcache_dict字典?
+传播
+将EVALSHA命令转换成等价的
+EVAL命令
+EVALSHA<shal><numkeys>[key ...] [arg ...]
+传播
+EVAL<script><numkeys>[key...][arg...]
+将sha1添加到
+repl_scriptcache_dict字典
+图20-12主服务器判断传播EVAL还是EVALSHA的过程
+举个例子，假设服务器当前lua_scripts字典和repl_scriptcache_dict字典
+的状态如图20-13所示，如果客户端向主服务器发送命令：
+那么主服务器在执行完这个EVALSHA命令之后，会将这个EVALSHA命令转换成等价
+的EVAL命令：
+EVAL"return"helloworld'"

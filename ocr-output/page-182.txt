@@ -1,0 +1,38 @@
+第13章客户端165
+ redisclient;
+如果客户端没有为自已设置名字，那么相应客户端状态的name属性指向NULL指
+针；相反地，如果客户端为自已设置了名字，那么
+name属性将指向一个字符串对象，而该对象就保
+redisclient
+存着客户端的名字。
+Stringobject
+name
+图13-3展示了一个客户端状态示例，根据
+"message_queue"
+name属性显示，客户端的名字为"message_
+queue"。
+图13-3name属性示例
+13.1.3标志
+客户端的标志属性flags记录了客户端的角色（role），以及客户端目前所处的状态：
+typedef struct redisclient(
+//...
+int flags;
+1 ...
+Jredisclient;
+flags属性的值可以是单个标志：
+flags =<flag>
+也可以是多个标志的二进制或，比如：
+flags=<flagl>/<flag2>I...
+每个标志使用一个常量表示，一部分标志记录了客户端的角色：
+口在主从服务器进行复制操作时，主服务器会成为从服务器的客户端，而从服务器也
+会成为主服务器的客户端。REDISMASTER标志表示客户端代表的是一个主服务
+器，REDIS_SLAVE标志表示客户端代表的是一个从服务器。
+口REDISPREPSYNC标志表示客户端代表的是一个版本低于Redis2.8的从服务器，
+主服务器不能使用PSYNC命令与这个从服务器进行同步。这个标志只能在REDIS
+SLAVE标志处于打开状态时使用。
+命令的伪客户端。
+而另外一部分标志则记录了客户端目前所处的状态：
+口REDIS_MONITOR标志表示客户端正在执行MONITOR命令。
+口REDIS_UNIX_SOCKET标志表示服务器使用UNIX套接字来连接客户端。
+口REDIS_BLOCKED标志表示客户端正在被BRPOP、BLPOP等命令阻塞。
+口REDIS_UNBLOCKED标志表示客户端已经从REDISBLOCKED标志所表示的阻塞状

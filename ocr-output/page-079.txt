@@ -1,0 +1,69 @@
+62第一部分
+数据结构与对象
+list
+#键为字符串对象，值为哈希对象
+redis>HMsETprofilenameTomage25careerProgrammer
+OK
+redis> TYPE profile
+hash
+#键为字符串对象，值为集合对象
+redis>SADD fruits applebanana cherry
+(integer)3
+redis> TYPE fruits
+set
+#键为字符串对象，值为有序集合对象
+表 8-2
+不同类型值对象的TYPE命令输出
+redis> zADD price 8.5 apple 5.0
+对象
+对象type属性的值
+TYPE命令的输出
+banana 6.0 cherry
+字符串对象
+REDIS_STRING
+"string"
+(integer)3
+列表对象
+REDISLIST
+"list"
+redis> TYPE price
+哈希对象
+REDIS HASH
+zset
+"hash"
+集合对象
+REDIS SET
+表8-2列出了TYPE命令在面对不
+"set"
+有序集合对象
+REDIS_ZSET
+同类型的值对象时所产生的输出。
+"zset"
+8.1.2
+编码和底层实现
+对象的ptr指针指向对象的底层实现数据结构，而这些数据结构由对象的encoding
+属性决定。
+encoding属性记录了对象所使用的编码，也即是说这个对象使用了什么数据结构作为
+对象的底层实现，这个属性的值可以是表8-3列出的常量的其中一个。
+表8-3对象的编码
+编码常量
+编码所对应的底层数据结构
+REDIS ENCODING INT
+long类型的整数
+REDIS ENCODING EMBSTR
+embstr编码的简单动态字符串
+ENCODING RAW
+REDIS
+简单动态字符串
+REDIS ENCODING HT
+字典
+REDISENCODINGLINKEDLIST
+双端链表
+REDISENCODINGZIPLIST
+压缩列表
+REDIS ENCODINGINTSET
+整数集合
+REDIS_ENCODING_SKIPLIST
+跳跃表和字典
+每种类型的对象都至少使用了两种不同的编码，表8-4列出了每种类型的对象可以使用
+的编码。

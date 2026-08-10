@@ -33,6 +33,7 @@ export function createKnowledgeNode(label: string, id?: string): KnowledgeNode {
   return {
     id: nodeId,
     label,
+    tags: [label],
     card: createEmptyExplanation(nodeId, label),
   };
 }

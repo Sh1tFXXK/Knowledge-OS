@@ -1,0 +1,38 @@
+314，第四部分独立功能的实现
+接下来，客户端c10086继续向服务器发送MULTI命令，并将一个SET命令放人事务
+队列：
+C10086>MULTI
+OK
+cl0086>SET"name""peter"
+QUEUED
+就在这时，另一个客户端c999向服务器发送了一条SET命令，将"name"键的值设
+置成了"john"：
+c999>SET"name""john"
+OK
+c999执行的这个SET命令会导致正在监视"name"键的所有客户端的REDIS
+DIRTY_CAS标识被打开，其中包括客户端c10086。
+之后，当c10086向服务器发送EXEC命令时候，因为c10086的REDIS_DIRTY
+CAS标志已经被打开，所以服务器将拒绝执行它提交的事务：
+c10086>EXEC
+(nil)
+19.3
+事务的ACID性质
+在传统的关系式数据库中，常常用ACID性质来检验事务功能的可靠性和安全性。
+在Redis中，事务总是具有原子性（Atomicity）、一致性（Consistency）和隔离性
+（Isolation），并且当Redis运行在某种特定的持久化模式下时，事务也具有耐久性（Durability）。
+以下四个小节将分别对这四个性质进行讨论。
+19.3.1
+原子性
+事务具有原子性指的是，数据库将事务中的多个操作当作一个整体来执行，服务器要么
+就执行事务中的所有操作，要么就一个操作也不执行。
+对于Redis的事务功能来说，事务队列中的命令要么就全部都执行，要么就一个都不执
+行，因此，Redis的事务是具有原子性的。
+举个例子，以下展示的是一个成功执行的事务，事务中的所有命令都会被执行：
+redis> MULTI
+OK
+redis>SETmsg"hello"
+QUEUED
+redis> GET msg
+QUEUED
+redis> ExEc
+1)OK

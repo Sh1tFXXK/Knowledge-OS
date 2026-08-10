@@ -1,0 +1,35 @@
+第17章集群→283
+//发送者的端口号
+uintl6_t port;
+//发送者的标识值
+uinti6_tflags
+//发送者所处集群的状态
+unsigned char state;
+/／消息的正文（或者说，内容）
+unionclusterMsgData data;
+1clusterMsg;
+clusterMsg.data属性指向联合cluster.h/clusterMsgData，这个联合就是
+消息的正文：
+unionclusterMsgData(
+/／MEET、PING、PONG消息的正文
+struct(
+//每条MEET、PING、PONG消息都包含两个
+//clusterMsgDataGossip结构
+clusterMsgDataGossipgossip[l];
+//FAIL消息的正文
+struct f
+clusterMsgDataFailabout;
+fail;
+//PUBLISH消息的正文
+structf
+clusterMsgDataPublish msgi
+Jpublish;
+//其他消息的正文...
+clusterMsg结构的currentEpoch、sender、myslots等属性记录了发送者自身
+的节点信息，接收者会根据这些信息，在自已的clusterstate.nodes字典里找到发送
+者对应的clusterNode结构，并对结构进行更新。
+举个例子，通过对比接收者为发送者记录的槽指派信息，以及发送者在消息头的
+myslots属性记录的槽指派信息，接收者可以知道发送者的槽指派信息是否发生了变化。
+又或者说，通过对比接收者为发送者记录的标识值，以及发送者在消息头的flags属性
+记录的标识值，接收者可以知道发送者的状态和角色是否发生了变化，例如节点状态由原来
+的在线变成了下线，或者由主节点变成了从节点等等。

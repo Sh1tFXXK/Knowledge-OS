@@ -480,6 +480,21 @@ function appendUniqueKnowledgeEdge(
   return [...edges.filter((item) => item.id !== edge.id), edge];
 }
 
+function tagsForRenamedKnowledgeNode(
+  node: KnowledgeNode,
+  nextLabel: string,
+): string[] | undefined {
+  if (nextLabel === node.label) return node.tags;
+
+  const existingTags = node.tags ?? [];
+  const oldTitleWasDefaultTag = existingTags.length > 0
+    && normalizeSupertag(existingTags[0]) === normalizeSupertag(node.label);
+  return normalizeSupertags([
+    nextLabel,
+    ...(oldTitleWasDefaultTag ? existingTags.slice(1) : existingTags),
+  ]);
+}
+
 export const useGraphStore = create<GraphState>((set, get) => {
   const persist = () => {
     const state = snapshotState(get());
@@ -600,6 +615,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         [existing.id]: {
           ...existing,
           label: result.explanation.title,
+          tags: tagsForRenamedKnowledgeNode(existing, result.explanation.title),
           card: result.explanation,
         },
       };
@@ -865,7 +881,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const card = { ...node.card, title: trimmed };
       const nodePool = {
         ...state.nodePool,
-        [id]: { ...node, label: trimmed, card },
+        [id]: {
+          ...node,
+          label: trimmed,
+          tags: tagsForRenamedKnowledgeNode(node, trimmed),
+          card,
+        },
       };
       set({ nodePool });
       persist();
@@ -1219,7 +1240,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const label = patch.title?.trim() || existing.label;
       const nodePool = {
         ...state.nodePool,
-        [knowledgeId]: { ...existing, label, card: { ...card, title: label } },
+        [knowledgeId]: {
+          ...existing,
+          label,
+          tags: tagsForRenamedKnowledgeNode(existing, label),
+          card: { ...card, title: label },
+        },
       };
       set({ nodePool });
       persist();

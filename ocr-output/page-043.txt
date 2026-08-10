@@ -1,0 +1,36 @@
+26第一部分数据结构与对象
+4.1.3字典
+Redis中的字典由dict.h/dict结构表示：
+typedef structdict{
+//类型特定函数
+dictType *type;
+/ /私有数据
+void*privdata;
+//哈希表
+dictht ht[2];
+//rehash索引
+//当rehash不在进行时，值为-1
+in trehashidx;/*rehashing not in progress'if rehashidx == -l */
+I dict;
+type属性和privdata属性是针对不同类型的键值对，为创建多态字典而设置的：
+口type属性是一个指向dictType结构的指针，每个dictType结构保存了一簇用
+于操作特定类型键值对的函数，Redis会为用途不同的字典设置不同的类型特定函数。
+口而privdata属性则保存了需要传给那些类型特定函数的可选参数。
+typedefstructdictTypef
+//计算哈希值的函数
+unsigned int (*hashFunction)(const void *key);
+//复制键的函数
+void *(*keyDup)(void *privdata,const void *key);
+//复制值的函数
+void*(*valDup)(void*privdata,constvoid*obj);
+//对比键的函数
+int (*keyCompare)(void *privdata, const void *keyl, const void *key2);
+//销毁键的函数
+void (*keyDestructor)(void *privdata,void *key);
+//销毁值的函数
+void(*valDestructor)(void*privdata,void*obj);
+/dictType;
+ht属性是一个包含两个项的数组，数组中的每个项都是一个dictht哈希表，一般情况
+下，字典只使用ht【o］】哈希表，ht【1］哈希表只会在对ht[0］哈希表进行rehash时使用。
+除了ht[1］之外，另一个和rehash有关的属性就是rehashidx，它记录了
+rehash目前的进度，如果目前没有在进行rehash，那么它的值为-1。

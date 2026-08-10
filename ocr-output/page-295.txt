@@ -1,0 +1,36 @@
+278第三部分多机数据库的实现
+17.6.2
+故障检测
+集群中的每个节点都会定期地向集群中的其他节点发送PING消息，以此来检测对方
+是否在线，如果接收PING消息的节点没有在规定的时间内，向发送PING消息的节点返
+回PONG消息，那么发送PING消息的节点就会将接收PING消息的节点标记为疑似下线
+（probablefail，PFAIL)。
+举个例子，如果节点7001向节点7000发送了一条PING消息，但是节点7000没
+有在规定的时间内，向节点7001返回一条PONG消息，那么节点7001就会在自已的
+clusterstate.nodes字典中找到节点7000所对应的clusterNode结构，并在结构的
+f1agS属性中打开REDIS_NODE_PFAIL标识，以此表示节点7000进人了疑似下线状态，
+如图17-37所示。
+clusterNode
+flags
+REDISNODEMASTER&REDISNODEPFAIL
+ip
+"127.0.0.1"
+port
+7000
+...
+图17-37代表节点7000的clusterNode结构
+集群中的各个节点会通过互相发送消息的方式来交换集群中各个节点的状态信息，例如
+某个节点是处于在线状态、疑似下线状态（PFAIL），还是已下线状态（FAIL）。
+当一个主节点A通过消息得知主节点B认为主节点C进入了疑似下线状态时，主节点
+A会在自己的clusterState.nodes字典中找到主节点C所对应的clusterNode结构，
+并将主节点B的下线报告（failurereport）添加到clusterNode结构的fail_reports
+链表里面：
+structclusterNode(
+1/...
+//一个链表，记录了所有其他节点对该节点的下线报告
+list*fail_reports;
+1/ ...
+每个下线报告由一个clusterNodeFailReport结构表示：
+struct clusterNodeFailReport(
+//报告目标节点已经下线的节点
+structclusterNode *node;

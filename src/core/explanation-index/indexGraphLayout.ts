@@ -1,6 +1,9 @@
 import { explicitPagesForTab, type ExplanationIndexNode } from '../../knowledge/explanationIndex';
 import { findPage, findTab } from '../../knowledge/explanationTree';
-import { collectDirectContainmentRelations } from '../../knowledge/containment';
+import {
+  collectDirectContainmentRelations,
+  CONTAINMENT_EDGE_TYPE,
+} from '../../knowledge/containment';
 import type { TypeRelationGraph } from '../../knowledge/typeRelations';
 import {
   TypeRelationKind,
@@ -137,6 +140,23 @@ const MIN_CANVAS_WIDTH = 660;
 const MIN_CANVAS_HEIGHT = 460;
 const DEPENDENCY_EDGE_TYPES = new Set(['uses', 'depends-on', 'needs-for']);
 const ASSOCIATION_EDGE_TYPES = new Set(['enables', 'leads-to', 'compares', 'relates-to']);
+const MATRIX_PAD_X = 28;
+const MATRIX_PAD_TOP = 18;
+const MATRIX_PAD_BOTTOM = 26;
+const MATRIX_CHILD_GAP = 40;
+const MIN_MATRIX_INNER_WIDTH = 280;
+
+interface Rect {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+interface ContainmentPlacement {
+  frame: Rect;
+  placements: Map<string, Rect>;
+}
 
 function estimatedTextWidth(text: string): number {
   let width = 0;
@@ -189,13 +209,113 @@ export function collectIndexMembers(
   return members;
 }
 
-function collectDirectContainedChildren(
+function collectContainedSubtreeIds(
   ownerId: string,
   knowledgeEdges: readonly KnowledgeEdge[],
 ): readonly string[] {
-  return collectDirectContainmentRelations(knowledgeEdges, ownerId).map(
-    ({ edge }) => edge.target,
+  const seen = new Set<string>([ownerId]);
+  const queue = [ownerId];
+  while (queue.length > 0) {
+    const current = queue.shift();
+    if (!current) continue;
+    for (const { edge } of collectDirectContainmentRelations(knowledgeEdges, current)) {
+      if (seen.has(edge.target)) continue;
+      seen.add(edge.target);
+      queue.push(edge.target);
+    }
+  }
+  return [...seen].filter((nodeId) => nodeId !== ownerId);
+}
+
+function containmentChildrenByGraphId(
+  drafts: readonly KnowledgeDraft[],
+  knowledgeEdges: readonly KnowledgeEdge[],
+): Map<string, string[]> {
+  const graphIdByKnowledgeId = new Map(
+    drafts.map((draft) => [draft.knowledgeNodeId, draft.id]),
   );
+  const children = new Map<string, string[]>();
+  for (const edge of knowledgeEdges) {
+    if (edge.type !== CONTAINMENT_EDGE_TYPE) continue;
+    const sourceId = graphIdByKnowledgeId.get(edge.source);
+    const targetId = graphIdByKnowledgeId.get(edge.target);
+    if (!sourceId || !targetId || sourceId === targetId) continue;
+    const list = children.get(sourceId) ?? [];
+    list.push(targetId);
+    children.set(sourceId, list);
+  }
+  return children;
+}
+
+function layoutContainmentNode(
+  graphId: string,
+  sizedById: Map<string, SizedKnowledgeDraft>,
+  childrenByGraphId: Map<string, string[]>,
+  visited = new Set<string>(),
+): ContainmentPlacement {
+  const draft = sizedById.get(graphId);
+  const placements = new Map<string, Rect>();
+  if (!draft || visited.has(graphId)) {
+    return { frame: { left: 0, top: 0, width: 0, height: 0 }, placements };
+  }
+
+  const childIds = childrenByGraphId.get(graphId) ?? [];
+  if (childIds.length === 0) {
+    const frame = {
+      left: 0,
+      top: 0,
+      width: draft.size.width,
+      height: draft.size.height,
+    };
+    placements.set(graphId, frame);
+    return { frame, placements };
+  }
+
+  const nextVisited = new Set(visited);
+  nextVisited.add(graphId);
+  const innerLeft = MATRIX_PAD_X;
+  const bodyTop = MATRIX_PAD_TOP + draft.size.height;
+  const targetInnerWidth = Math.max(
+    draft.size.width - MATRIX_PAD_X * 2,
+    MIN_MATRIX_INNER_WIDTH,
+  );
+  let cursorX = innerLeft;
+  let cursorY = bodyTop;
+  let rowHeight = 0;
+  let contentRight = innerLeft;
+
+  for (const childId of childIds) {
+    const child = layoutContainmentNode(childId, sizedById, childrenByGraphId, nextVisited);
+    if (cursorX > innerLeft && cursorX + child.frame.width > innerLeft + targetInnerWidth) {
+      cursorX = innerLeft;
+      cursorY += rowHeight + MATRIX_CHILD_GAP;
+      rowHeight = 0;
+    }
+    const childLeft = cursorX;
+    const childTop = cursorY;
+    for (const [id, rect] of child.placements) {
+      placements.set(id, {
+        left: rect.left + childLeft,
+        top: rect.top + childTop,
+        width: rect.width,
+        height: rect.height,
+      });
+    }
+    cursorX += child.frame.width + MATRIX_CHILD_GAP;
+    contentRight = Math.max(contentRight, cursorX - MATRIX_CHILD_GAP + child.frame.width);
+    rowHeight = Math.max(rowHeight, child.frame.height);
+  }
+
+  const width = Math.max(draft.size.width, contentRight + MATRIX_PAD_X);
+  const bodyHeight = rowHeight === 0 ? 0 : cursorY + rowHeight - bodyTop;
+  const frame = {
+    left: 0,
+    top: 0,
+    width,
+    height: MATRIX_PAD_TOP + draft.size.height + bodyHeight + MATRIX_PAD_BOTTOM,
+  };
+  placements.set(graphId, frame);
+  return { frame, placements };
 }
 
 function typeRelationKindFor(edge: KnowledgeEdge): TypeRelationKind | null {
@@ -468,7 +588,7 @@ export function buildUnifiedIndexGraph({
   }
 
   const ownerGraphId = graphIdForKnowledge(ownerId, ownerId, splitRoots);
-  const containedChildIds = collectDirectContainedChildren(ownerId, knowledgeEdges);
+  const containedChildIds = collectContainedSubtreeIds(ownerId, knowledgeEdges);
   for (const childId of containedChildIds) {
     const childGraphId = graphIdForKnowledge(childId, ownerId, splitRoots);
     if (!drafts.has(childGraphId)) {
@@ -570,8 +690,35 @@ export function buildUnifiedIndexGraph({
   }
 
   const sizedDrafts = [...drafts.values()].map((draft) => sizeDraft(draft, collapsedNodeIds));
+  const sizedById = new Map(sizedDrafts.map((draft) => [draft.id, draft]));
+  const childrenByGraphId = containmentChildrenByGraphId(
+    [...drafts.values()],
+    knowledgeEdges,
+  );
+  const containedGraphIds = new Set<string>();
+  let containmentPlacement: ContainmentPlacement | null = null;
+  if ((childrenByGraphId.get(ownerGraphId) ?? []).length > 0) {
+    containmentPlacement = layoutContainmentNode(ownerGraphId, sizedById, childrenByGraphId);
+    for (const graphId of containmentPlacement.placements.keys()) {
+      containedGraphIds.add(graphId);
+    }
+  }
+  const layeredDrafts = [...sizedById.values()]
+    .filter((draft) => !containedGraphIds.has(draft.id) || draft.id === ownerGraphId)
+    .map((draft) => {
+      if (containmentPlacement && draft.id === ownerGraphId) {
+        return {
+          ...draft,
+          size: {
+            width: containmentPlacement.frame.width,
+            height: containmentPlacement.frame.height,
+          },
+        };
+      }
+      return draft;
+    });
   const layers = new Map<number, SizedKnowledgeDraft[]>();
-  for (const draft of sizedDrafts) {
+  for (const draft of layeredDrafts) {
     const layer = layers.get(draft.depth) ?? [];
     layer.push(draft);
     layers.set(draft.depth, layer);
@@ -602,6 +749,8 @@ export function buildUnifiedIndexGraph({
     )),
   );
   const nodes: UnifiedIndexGraphNode[] = [];
+  let ownerPosition: UnifiedIndexNodePosition = { x: 0, y: 0 };
+  let ownerPositioned = false;
   let cursorY = OUTER_PADDING;
 
   for (const { rows } of rowsByDepth) {
@@ -611,11 +760,20 @@ export function buildUnifiedIndexGraph({
       const centerY = cursorY + rowHeight / 2;
 
       for (const draft of row) {
+        const centerX = cursorX + draft.size.width / 2;
+        if (containedGraphIds.has(draft.id)) {
+          if (draft.id === ownerGraphId) {
+            ownerPosition = { x: centerX, y: centerY };
+            ownerPositioned = true;
+          }
+          cursorX += draft.size.width + NODE_GAP;
+          continue;
+        }
         nodes.push({
           id: draft.id,
           kind: UnifiedIndexNodeKind.Knowledge,
           label: draft.label,
-          position: { x: cursorX + draft.size.width / 2, y: centerY },
+          position: { x: centerX, y: centerY },
           size: draft.size,
           knowledgeNodeId: draft.knowledgeNodeId,
           members: draft.visibleMembers,
@@ -633,6 +791,36 @@ export function buildUnifiedIndexGraph({
       }
       cursorY += rowHeight + (rowIndex === rows.length - 1 ? LEVEL_GAP : SUB_ROW_GAP);
     });
+  }
+
+  if (containmentPlacement && ownerPositioned) {
+    const originX = ownerPosition.x - containmentPlacement.frame.width / 2;
+    const originY = ownerPosition.y - containmentPlacement.frame.height / 2;
+    for (const [graphId, rect] of containmentPlacement.placements) {
+      const draft = sizedById.get(graphId);
+      if (!draft) continue;
+      nodes.push({
+        id: graphId,
+        kind: UnifiedIndexNodeKind.Knowledge,
+        label: draft.label,
+        position: {
+          x: originX + rect.left + rect.width / 2,
+          y: originY + rect.top + rect.height / 2,
+        },
+        size: { width: rect.width, height: rect.height },
+        knowledgeNodeId: draft.knowledgeNodeId,
+        members: draft.visibleMembers,
+        memberCount: draft.members.length,
+        hiddenMemberCount: draft.hiddenMemberCount,
+        tags: draft.tags,
+        rootSelection: draft.rootSelection,
+        owner: draft.owner,
+        relationRoot: draft.relationRoot,
+        logicalReference: draft.logicalReference,
+        containedChild: draft.containedChild,
+        collapsed: draft.collapsed,
+      });
+    }
   }
 
   return {

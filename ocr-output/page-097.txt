@@ -1,0 +1,39 @@
+80→第一部分数据结构与对象
+注意
+以上两个条件的上限值是可以修改的，具体请看配置文件中关于zset-max-ziplist-
+entries选项和zset-max-ziplist-value选项的说明。
+对于使用ziplist编码的有序集合对象来说，当使用ziplist编码所需的两个条
+件中的任意一个不能被满足时，就会执行对象的编码转换操作，原本保存在压缩列表里
+的所有集合元素都会被转移并保存到zset结构里面，对象的编码也会从ziplist变为
+skiplisto
+以下代码展示了有序集合对象因为包含了过多元素而引发编码转换的情况：
+#对象包含了128个元素
+redis>EVAL"fori=l,128doredis.call('zADD',KEYs[1],i,i)end"1numbers
+(nii)
+redis> ZCARD numbers
+(integer)128
+redis>OBJECTENCODINGnumbers
+"ziplist"
+#再添加一个新元素
+redis>ZADD numbers 3.14pi
+(integer)1
+对象包含的元素数量变为129个
+redis> zCARD numbers
+(integer)129
+#编码已改变
+redis>OBJECTENCODINGnumbers
+"skiplist"
+以下代码则展示了有序集合对象因为元素的成员过长而引发编码转换的情况：
+#向有序集合添加一个成员只有三字节长的元素
+redis>ZADDblah1.owww
+(integer)l
+redis>OBJECT ENCODINGblah
+"ziplist"
+#向有序集合添加一个成员为66字节长的元素
+(integer)1
+#编码已改变
+redis> OBJECT ENCODING blah
+"skiplist"
+8.6.2有序集合命令的实现
+因为有序集合键的值为哈希对象，所以用于有序集合键的所有命令都是针对哈希对象来
+构建的，表8-11列出了其中一部分有序集合键命令，以及这些命令在不同编码的哈希对象

@@ -21,6 +21,7 @@ import ProjectionReferences from './explanation/ProjectionReferences';
 import SupertagPanel from './explanation/SupertagPanel';
 import KnowledgePointTimeline from '../components/KnowledgePointTimeline';
 import MechanismSpecEditor from './explanation/MechanismSpecEditor';
+import { collectKnowledgeReferences } from '../knowledge/nodeReferences';
 
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
@@ -153,6 +154,13 @@ export default function ExplanationCard() {
         ? activePage?.tags ?? activeTab?.tags ?? []
         : []),
     ]),
+  );
+  const knowledgeReferences = useMemo(
+    () => collectKnowledgeReferences(
+      nodePool,
+      selectedNodeId ? new Set([selectedNodeId]) : new Set<string>(),
+    ),
+    [nodePool, selectedNodeId],
   );
 
   const matrixProjections = selectedNodeId
@@ -395,7 +403,13 @@ export default function ExplanationCard() {
               </div>
             ) : (
               <>
-                {activeContent.trim() || !activeTable ? <MarkdownView content={activeContent} /> : null}
+                {activeContent.trim() || !activeTable ? (
+                  <MarkdownView
+                    content={activeContent}
+                    references={knowledgeReferences}
+                    onOpenReference={openCard}
+                  />
+                ) : null}
                 <ExplanationTableSection table={activeTable} editing={false} onChange={() => undefined} />
               </>
             )}

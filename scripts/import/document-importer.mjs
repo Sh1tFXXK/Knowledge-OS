@@ -6,11 +6,13 @@ import { PDFParse } from 'pdf-parse';
 import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
 import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
 import { createTranslationService } from './translation.mjs';
+import { MINERU_PARSE_METHOD } from './mineru-ocr.mjs';
 import {
   attachQuestionsToNodes,
-  detectDocumentProfile,
   DOCUMENT_PROFILE,
+  DOCUMENT_PROFILE_MODE,
   normalizeQuestionDraft,
+  resolveDocumentProfile,
   validateDocumentDraft,
 } from './import-standard.mjs';
 import {
@@ -184,7 +186,14 @@ export function parseMarkdownDocument({ buffer, fileName }) {
   };
 }
 
-export async function parsePdfDocument({ buffer, fileName, parserFactory }) {
+export async function parsePdfDocument({
+  buffer,
+  fileName,
+  parserFactory,
+  ocrExtractor,
+  signal,
+  profileMode,
+}) {
   assertPdfMagic(buffer);
   const createParser = parserFactory ?? ((data) => new PDFParse({ data }));
   const parser = createParser(new Uint8Array(buffer));
@@ -197,9 +206,24 @@ export async function parsePdfDocument({ buffer, fileName, parserFactory }) {
     await parser.destroy?.();
   }
 
-  const markdown = pdfPagesToMarkdown(result.pages);
-  if (markdown.replace(/\s/g, '').length < 20) {
-    throw new Error('PDF 没有可提取的文本，扫描件需要先进行 OCR');
+  let markdown = pdfPagesToMarkdown(result.pages);
+  let ocrProvider = null;
+  const forceMineru = profileMode === DOCUMENT_PROFILE_MODE.QuestionBank;
+  if (forceMineru || markdown.replace(/\s/g, '').length < 20) {
+    if (!ocrExtractor) {
+      throw new Error(forceMineru
+        ? 'PDF 题库需要本地 MinerU 结构解析'
+        : 'PDF 没有可提取的文本，扫描件需要本地 MinerU OCR');
+    }
+    const extracted = await ocrExtractor({
+      buffer,
+      fileName,
+      pageCount: result.total,
+      signal,
+      method: forceMineru ? MINERU_PARSE_METHOD.Auto : MINERU_PARSE_METHOD.Ocr,
+    });
+    markdown = extracted.markdown;
+    ocrProvider = extracted.provider;
   }
   return {
     kind: DOCUMENT_KIND.Pdf,
@@ -207,6 +231,7 @@ export async function parsePdfDocument({ buffer, fileName, parserFactory }) {
     language: documentLanguage(titleFromFileName(fileName), markdown),
     markdown,
     pageCount: result.total,
+    ocrProvider,
   };
 }
 
@@ -312,6 +337,7 @@ function buildDocumentMarkdown({
   profile,
   sectionCount,
   questionCount,
+  ocrProvider,
 }) {
   const keywordLines = keywords.map((keyword) => `  - ${yamlString(keyword)}`).join('\n');
   const categoryLines = categories.map((category) => `  - ${yamlString(category)}`).join('\n');
@@ -322,6 +348,7 @@ function buildDocumentMarkdown({
     `source_type: ${yamlString(kind)}`,
     `source_sha256: ${yamlString(contentHash)}`,
     `source_pages: ${pageCount ?? 'null'}`,
+    `ocr_provider: ${ocrProvider ? yamlString(ocrProvider) : 'null'}`,
     `source_language: ${yamlString(language)}`,
     `translated_to: ${translated ? yamlString('zh-CN') : 'null'}`,
     `imported_at: ${yamlString(date)}`,
@@ -392,7 +419,7 @@ export async function prepareDocumentImport(options) {
   }
   let categories = [];
   let aiKeywords = [];
-  const detected = detectDocumentProfile(markdown);
+  const detected = resolveDocumentProfile(markdown, options.profileMode);
   let profile = detected.profile;
   let questions = detected.questions;
 
@@ -413,7 +440,11 @@ export async function prepareDocumentImport(options) {
     const organizedQuestions = organized.questions
       .map((question) => normalizeQuestionDraft(question))
       .filter(Boolean);
-    questions = organizedQuestions.length > 0 ? organizedQuestions : questions;
+    const preserveExplicitQuestionBank = options.profileMode === DOCUMENT_PROFILE_MODE.QuestionBank
+      && profile === DOCUMENT_PROFILE.QuestionBank;
+    questions = preserveExplicitQuestionBank
+      ? questions
+      : (organizedQuestions.length > 0 ? organizedQuestions : questions);
   }
 
   const built = profile === DOCUMENT_PROFILE.QuestionBank
@@ -460,6 +491,7 @@ export async function prepareDocumentImport(options) {
       profile,
       sectionCount: validation.sectionCount,
       questionCount: validation.questionCount,
+      ocrProvider: parsed.ocrProvider ?? null,
     }),
   };
 }
@@ -532,6 +564,7 @@ export async function importDocument(options) {
     language: prepared.language,
     translated: prepared.translated,
     pageCount: prepared.pageCount,
+    ocrProvider: prepared.ocrProvider ?? null,
     nodeCount: prepared.nodes.length,
     sectionCount: prepared.nodes.length - 1,
     questionCount,

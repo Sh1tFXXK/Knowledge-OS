@@ -1,0 +1,43 @@
+294。第四部分独立功能的实现
+SUBSCRIBE命令的实现可以用以下伪代码来描述：
+def subscribe(*all_input_channels):
+#遍历输入的所有频道
+for channel in all_input_channels:
+#如果channel不存在于pubsub_channels字典（没有任何订阅者）
+#那么在字典中添加channel键，并设置它的值为空链表
+if channel not in server.pubsub_channels:
+server.pubsub_channels[channel]=[]
+#将订阅者添加到频道所对应的链表的末尾
+server.pubsub_channels[channel].append(client)
+18.1.2
+退订频道
+UNSUBSCRIBE命令的行为和SUBSCRIBE命令的行为正好相反，当一个客户端退订某
+个或某些频道的时候，服务器将从pubsub_channels中解除客户端与被退订频道之间的
+关联：
+口程序会根据被退订频道的名字，在pubsub_channels字典中找到频道对应的订阅
+者链表，然后从订阅者链表中删除退订客户端的信息。
+口如果删除退订客户端之后，频道的订阅者链表变成了空链表，那么说明这个频道已
+经没有任何订阅者了，程序将从pubsubchannels字典中删除频道对应的键。
+举个例子，假设pubsub_channels的当前状态如图18-8所示，那么当客户端
+client-10086执行命令
+UNSUBSCRIBE"newS.Sport""news.movie"
+之后，图中用虚线包围的两个节点将被删除（如图18-9所示）：
+口在pubsub_channels字典更新之后，client-10086的信息已经从"news.
+sport"频道和"news.movie"频道的订阅者链表中被删除了。
+口另外，因为删除client-1oo86之后，频道"news.movie"已经没有任何订阅
+者，因此键"news，movie”也从字典中被删除了。
+pubsub_channels
+"news.it"
+client-1
+client-2
+client-3
+client-4
+"news.sport"
+client-10086
+"news.business"
+client-5
+client-6
+"news.movie"
+client-10086:
+图18-8
+执行UNSUBSCRIBE之前的pubsub_channels字典

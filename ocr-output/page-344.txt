@@ -1,0 +1,39 @@
+第20章Lua脚本→327
+$ redis-cli --eval wrong-command.lua
+(error) @user_script:4:Unknown Redis command called from Lua script
+其中@user_script说明这是一个用户定义的函数，而之后的4则说明出错的代码位
+于Lua脚本的第四行。
+20.1.71
+保护Lua的全局环境
+在这一步，服务器将对Lua环境中的全局环境进行保护，确保传入服务器的脚本不会因
+为忘记使用1ocal关键字而将额外的全局变量添加到Lua环境里面。
+因为全局变量保护的原因，当一个脚本试图创建一个全局变量时，服务器将报告一个错误：
+redis> EVAL"x=10"0
+(error)ERRErrorrunningscript
+(calltof_df1ad3745c2d2f078f0f41377a92bb6f8ac79af0):
+@enable strict lua:7: user_script:l:
+Script attempted to create global variable 'x'
+除此之外，试图获取一个不存在的全局变量也会引发一个错误：
+redis>EVAL"returnx"0
+(error)ERRErrorrunningscript
+(ca1ltof_03c387736bb5cc009ff35151572cee04677aa374):
+@enable_strict_lua:i4:user_script:l:
+不过Redis并未禁止用户修改已存在的全局变量，所以在执行Lua脚本的时候，必须非
+常小心，以免错误地修改了已存在的全局变量：
+(integer)10086
+20.1.8将Lua环境保存到服务器状态的lua属性里面
+经过以上的一系列修改，Redis服务器对Lua环境
+的修改工作到此就结束了，在最后的这一步，服务器
+redisServer
+会将Lua环境和服务器状态的lua属性关联起来，如
+图20-1所示。
+lua
+Lua环境
+因为Redis使用串行化的方式来执行Redis命令，
+所以在任何特定时间里，最多都只会有一个脚本能够
+被放进Lua环境里面运行，因此，整个Redis服务器只
+图20-1服务器状态中的Lua环境
+需要创建一个Lua环境即可。
+20.2Lua环境协作组件
+除了创建并修改Lua环境之外，Redis服务器还创建了两个用于与Lua环境进行协作的
+组件，它们分别是负责执行Lua脚本中的Redis命令的伪客户端，以及用于保存Lua脚本的

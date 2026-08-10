@@ -63,7 +63,11 @@ function isPublicAddress(address) {
 function isTransparentProxyAddress(address) {
   try {
     const parsed = ipaddr.parse(address);
-    return parsed.kind() === 'ipv4' && parsed.match(ipaddr.parse('198.18.0.0'), 15);
+    if (parsed.kind() === 'ipv4') {
+      return parsed.match(ipaddr.parse('198.18.0.0'), 15);
+    }
+    return parsed.kind() === 'ipv6'
+      && parsed.match(ipaddr.parse('fdfe:dcba:9876::'), 48);
   } catch {
     return false;
   }
@@ -821,7 +825,10 @@ export function applyImportedQuestions(
     if (!draft || typeof draft !== 'object' || typeof draft.text !== 'string') return null;
     const text = draft.text.trim();
     if (!text) return null;
-    const id = `${prefix}${crypto.createHash('sha256').update(text).digest('hex').slice(0, 10)}`;
+    const identityKey = typeof draft.identityKey === 'string' && draft.identityKey.trim()
+      ? draft.identityKey.trim()
+      : text;
+    const id = `${prefix}${crypto.createHash('sha256').update(identityKey).digest('hex').slice(0, 10)}`;
     const existing = existingById.get(id);
     const relatedNodeId = draft.relatedNodeId || context.defaultRelatedNodeId;
     const answer = typeof draft.answer === 'string' && draft.answer.trim() ? draft.answer.trim() : undefined;

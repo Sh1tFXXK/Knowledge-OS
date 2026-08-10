@@ -1,0 +1,34 @@
+第17章集群249
+redisClient结构和clusterLink结构的相同和不同之处
+redisclient结构和clusterLink结构都有自己的套接字描述符和输入、输出
+缓冲区，这两个结构的区别在于，redisclient结构中的套接字和缓冲区是用于连接
+客户端的，而clusterLink结构中的套接字和缓冲区则是用于连接节点的。
+最后，每个节点都保存着一个clusterstate结构，这个结构记录了在当前节点的视
+角下，集群目前所处的状态，例如集群是在线还是下线，集群包含多少个节点，集群当前的
+配置纪元，诸如此类：
+typedef struct clusterstate f
+//指向当前节点的指针
+clusterNode*myself;
+/／集群当前的配置纪元，用于实现故障转移
+uint64_tcurrentEpoch;
+//集群当前的状态：是在线还是下线
+int state;
+//集群中至少处理着一个槽的节点的数量
+int size;
+//集群节点名单（包括myself节点）
+//字典的键为节点的名字，字典的值为节点对应的clusterNode结构
+dict *nodes;
+//...
+/ clusterstate;
+以前面介绍的7000、7001、7002三个节点为例，图17-7展示了节点7000创建的
+clusterState结构，这个结构从节点7000的角度记录了集群以及集群包含的三个节点的
+当前状态（为了空间考虑，图中省略了clusterNode结构的一部分属性）：
+口结构的currentEpoch属性的值为0，表示集群当前的配置纪元为0。
+口结构的size属性的值为O，表示集群目前没有任何节点在处理槽，因此结构的
+State属性的值为REDIS_CLUSTERFAIL，这表示集群目前处于下线状态。
+口结构的nodes字典记录了集群目前包含的三个节点，这三个节点分别由三个
+clusterNode结构表示，其中myself指针指向代表节点7000的clusterNode
+clusterNode结构，这两个节点是节点7000已知的在集群中的其他节点。
+口三个节点的clusterNode结构的flags属性都是REDIS_NODE_MASTER，说明三
+个节点都是主节点。
+节点7001和节点7002也会创建类似的clusterState结构：

@@ -1,0 +1,24 @@
+第2章
+简单动态字符串
+Redis没有直接使用C语言传统的字符串表示（以空字符结尾的字符数组，以下简称C
+字符串），而是自己构建了一种名为简单动态字符串（simpledynamicstring，SDs）的抽象
+类型，并将SDS用作Redis的默认字符串表示。
+在Redis里面，C字符串只会作为字符串字面量（stringliteral）用在一些无须对字符串
+值进行修改的地方，比如打印日志：
+redisLog(REDIs_WARNING,"Redis is now ready to exit, bye bye...");
+当Redis需要的不仅仅是一个字符串字面量，而是一个可以被修改的字符串值时，Redis
+就会使用SDS来表示字符串值，比如在Redis的数据库里面，包含字符串值的键值对在底
+层都是由SDS实现的。
+举个例子，如果客户端执行命令：
+redis>SETmsg"helloworld"
+OK
+那么Redis将在数据库中创建一个新的键值对，其中：
+口键值对的键是一个学符串对象，对象的底层实现是一个保存着字符串"msg”的SDS。
+world"的SDS。
+又比如，如果客户端执行命令：
+(integer)3
+那么Redis将在数据库中创建一个新的键值对，其中：
+口键值对的键是一个字符串对象，对象的底层实现是一个保存了字符串"fruits"的SDS。
+口键值对的值是一个列表对象，列表对象包含了三个字符串对象，这三个字符串对象
+符串"banana"，第三个SDs保存着字符串"cherry"。
+除了用来保存数据库中的字符串值之外，SDS还被用作缓冲区（buffer）：AOF模块中

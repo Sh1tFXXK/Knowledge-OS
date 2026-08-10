@@ -1,0 +1,59 @@
+第4章字典，25
+的指针，每个dictEntry结构保存着一个键值对。size属性记录了哈希表的大小，也即
+是table数组的大小，而used属性则记录
+dictht
+了哈希表目前已有节点（键值对）的数量。
+table
+dictEntry*[4]
+NULL
+sizemask属性的值总是等于size-l，这
+size
+个属性和哈希值一起决定一个键应该被放到
+NULL
+sizemask
+NULL
+table数组的哪个索引上面。
+used
+图4-1展示了一个大小为4的空哈希表
+ANULL
+（没有包含任何键值对）。
+图4-1一个空的哈希表
+4.1.2
+哈希表节点
+哈希表节点使用dictEntry结构表示，每个dictEntry结构都保存着一个键值对：
+typedef struct dictEntry (
+1/键
+void *keyi
+//值
+uniont
+void *val;
+uint64_tu64;
+int64_ts64;
+I v;
+/／指向下个哈希表节点，形成链表
+struct dictEntry *next;
+dictEntry;
+keY属性保存着键值对中的键，而v属性则保存着键值对中的值，其中键值对的值可
+以是一个指针，或者是一个uint64t整数，又或者是一个int64_t整数。
+next属性是指向另一个哈希表节点的指针，这个指针可以将多个哈希值相同的键值对
+连接在一次，以此来解决键冲突（collision）的问题。
+举个例子，图4-2就展示了如何通过next指针，将两个索引值相同的键k1和k0连
+接在一起。
+dictht
+table
+dictEntry*[4]
+NULL
+size
+NULL
+sizemask
+dictEntry
+dictEntry
+next
+next
+NULL
+k1
+k0
+v1
+used
+NULL
+图4-2连接在一起的键K1和键K0

@@ -1,0 +1,32 @@
+268·第三部分多机数据库的实现
+如果我们向节点7002发送关于键"is"的命令，那么这个命令会直接被节点7002执行：
+127.0.0.1:7002>GET "is"
+"you get the key 'is'"
+而如果我们向节点7002发送关于键"1ove"的命令，那么客户端会先被转向至节点
+7003，然后再次执行命令：
+127.0.0.1:7002>GET"10ve"
+->Redirected toslot[16198]1ocatedat127.0.0.1:7003
+"you get the key 'love'"
+127.0.0.1:7003>
+被隐藏的ASK错误
+和接到MOVED错误时的情况类似，集群模式的redis-cli在接到ASK错误时也
+不会打印错误，而是自动根据错误提供的IP地址和端口进行转向动作。如果想看到节点
+发送的ASK错误的话，可以使用单机模式的redis-cli客户端：
+$ redis-cli-p 7002
+127.0.0.1:7002>GET"1ove"
+(err0r)AsK16198127.0.0.1:7003
+注意
+在写这篇文章的时候，集群模式的redis-cli并未支持ASK自动转向，上面展示的
+ASK自动转向行为实际上是根据MOVED自动转向行为虚构出来的。因此，当集群模式的
+redis-cli真正支持ASK自动转向时，它的行为和上面展示的行为可能会有所不同。
+本节将对ASK错误的实现原理进行说明，并对比ASK错误和MOVED错误的区别。
+17.5.1CLUSTERSETSLOTIMPORTING命令的实现
+clusterstate结构的importing_slots_from数组记录了当前节点正在从其他
+节点导人的槽：
+typedef struct clusterstate(
+//
+clusterNode*importing_slots_from[16384];
+Jclusterstate;
+如果importing_slots_from[i］的值不为NuLL，而是指向一个clusterNode
+结构，那么表示当前节点正在从clusterNode所代表的节点导人槽i。
+在对集群进行重新分片的时候，向目标节点发送命令：

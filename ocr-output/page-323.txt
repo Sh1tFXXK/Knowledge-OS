@@ -1,0 +1,36 @@
+306→第四部分独立功能的实现
+因为事务的安全性和可靠性也是大家关注的焦点，所以本章最后将以常见的ACID性质
+对Redis事务的原子性、一致性、隔离性和耐久性进行说明。
+19.1
+事务的实现
+一个事务从开始到结束通常会经历以下三个阶段：
+1）事务开始。
+2）命令入队。
+3）事务执行。
+本节接下来的内容将对这三个阶段进行介绍，说明一个事务从开始到结束的整个过程。
+19.1.1
+事务开始
+MULTI命令的执行标志着事务的开始：
+redis> MULTI
+OK
+MULTI命令可以将执行该命令的客户端从非事务状态切换至事务状态，这一切换是通
+过在客户端状态的flags属性中打开REDISMULTI标识来完成的，MULTI命令的实现可以
+用以下伪代码来表示：
+def MULTI():
+#打开事务标识
+client.flags I=REDIS_MULTI
+#返回OK回复
+replyoK()
+19.1.2
+命令入队
+当一个客户端处于非事务状态时，这个客户端发送的命令会立即被服务器执行：
+redis>SET "name""pPracticalCommon Lisp"
+OK
+redis>GET"name"
+"pPractical Common Lisp"
+redis>SET"author""Peter Seibel"
+OK
+redis>GET"author"
+"Peter Seibel"
+与此不同的是，当一个客户端切换到事务状态之后，服务器会根据这个客户端发来的不
+同命令执行不同的操作：

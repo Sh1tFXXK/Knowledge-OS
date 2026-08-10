@@ -1,0 +1,38 @@
+第17章集群·269
+CLUSTERSETSLOT<i>IMPORTING<sourceid>
+可以将目标节点clusterstate.importing_slots_from[i］的值设置为
+source_id所代表节点的clusterNode结构。
+举个例子，如果客户端向节点7003发送以下命令：
+#9dfb..．是节点7002的ID
+127.0.0.1:7003>CLUSTERSETSL0T16198IMPORTING9dfb4c4e016e627d9769e4c9bb0d4fa2
+08e65c26
+OK
+那么节点7003的clusterstate.importing_slots_from数组将变成图17-27所
+示的样子。
+clusterstate
+importing_slots_from
+clusterNode*[16384]
++ NULL
++NULL
++NULL
+16198
+clusterNode
+16381
+★NULL
+ip
+16382
+> NULL
+"127.0.0.1"
+★ NULL
+16383
+port
+7002
+图17-27节点7003的importing_slots_from数组
+17.5.2CLUSTERSETSLOTMIGRATING命令的实现
+clusterstate结构的migrating_slots_to数组记录了当前节点正在迁移至其他
+节点的槽：
+typedef struct clusterstate(
+clusterNode*migrating_slots_to[16384];
+Jclusterstate;
+如果migrating_slots_to[i］的值不为NULL，而是指向一个clusterNode结构，
+那么表示当前节点正在将槽i迁移至clusterNode所代表的节点。
