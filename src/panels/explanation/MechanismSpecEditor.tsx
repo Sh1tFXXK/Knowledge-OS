@@ -170,7 +170,7 @@ function collectScopedNodeIds(
     const treeNode = findTreeNodeById(treeData, reference.treeNodeId);
     if (!treeNode) continue;
     for (const descendant of collectTreeNodes(treeNode)) {
-      if (nodePool[descendant.nodeRef]) ids.add(descendant.nodeRef);
+      if (descendant.nodeRef && nodePool[descendant.nodeRef]) ids.add(descendant.nodeRef);
     }
   }
   return [...ids];

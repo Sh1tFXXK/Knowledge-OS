@@ -15,6 +15,17 @@
   background: var(--bg-primary);
 }
 
+#app.is-index-focus {
+  grid-template-columns: 0 minmax(0, 1fr) 0;
+}
+
+#app.is-index-focus .left-panel,
+#app.is-index-focus .right-panel {
+  visibility: hidden;
+  pointer-events: none;
+  border: 0;
+}
+
 /* Header */
 .header {
   grid-area: header;

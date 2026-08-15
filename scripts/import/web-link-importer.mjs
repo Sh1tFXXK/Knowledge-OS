@@ -528,27 +528,42 @@ export function extractQuestions(markdown) {
 }
 
 export async function translateMarkdownPreservingStructure(markdown, language, translator) {
-  const protectedParts = [];
-  const protect = (value) => {
-    const token = `KOSMDTOKEN${protectedParts.length}X`;
-    protectedParts.push({ token, value });
-    return token;
-  };
+  const lines = String(markdown ?? '').split('\n');
+  const translated = [];
+  let inFence = false;
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      inFence = !inFence;
+      translated.push(line);
+      continue;
+    }
+    if (inFence || !line.trim()) {
+      translated.push(line);
+      continue;
+    }
+    const protectedParts = [];
+    const protect = (value) => {
+      const token = `KOSMDTOKEN${protectedParts.length}X`;
+      protectedParts.push({ token, value });
+      return token;
+    };
 
-  let protectedMarkdown = markdown
-    .replace(/```[\s\S]*?```/g, protect)
+  let protectedMarkdown = line
     .replace(/`+[^`\n]+`+/g, protect)
-    .replace(/^(\s*(?:#{1,6}|[-*+]|\d+[.)]|>+)\s+)/gm, protect)
+    .replace(/(\[[^\]\n]+\]\([^\)\n]+\))/g, protect)
+    .replace(/^(\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)]\s+|>+\s*))/i, protect)
     .replace(/\*\*|__|~~|\*|_/g, protect);
 
   protectedMarkdown = await translator.translate(protectedMarkdown, language);
-  for (const part of protectedParts) {
+    for (const part of protectedParts) {
     if (!protectedMarkdown.includes(part.token)) {
       throw new Error('翻译服务改变了 Markdown 结构，已取消导入');
     }
     protectedMarkdown = protectedMarkdown.replaceAll(part.token, part.value);
+      }
+    translated.push(protectedMarkdown);
   }
-  return protectedMarkdown;
+  return translated.join('\n');
 }
 
 function bulletListToPages(markdown, idPrefix) {

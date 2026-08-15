@@ -290,7 +290,6 @@ ensureNode(oopId, '面向对象', {
       label: '定义',
       content: LEAD,
       pages: [
-        { id: 'def', label: '通用定义', content: LEAD },
         {
           id: 'k_1782834118965_n5r1fr-def-page-wiki',
           label: '维基导语',
@@ -350,12 +349,6 @@ ensureNode(
         content:
           '继承可以通过类或原型得到支持，二者存在差异，但使用诸如对象与实例等相似术语。',
         pages: [
-          {
-            id: 'def',
-            label: '通用定义',
-            content:
-              '继承可以通过类或原型得到支持，二者存在差异，但使用诸如对象与实例等相似术语。',
-          },
           {
             id: 'k_1783167541244_d3d092-def-page-wiki',
             label: '维基全文',

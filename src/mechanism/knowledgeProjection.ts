@@ -5,6 +5,7 @@ import {
   collectTreeReferencesByNodeRef,
   findTreeNodeById,
 } from '../knowledge/treeUtils';
+import { isManagedContainmentEdge } from '../knowledge/containment';
 import {
   RelationKind,
   VisualTone,
@@ -123,8 +124,22 @@ export function projectKnowledgeMechanism({
     treeData,
   );
   const candidateNodeIdSet = new Set(candidateNodeIds);
+  const mechanismSpec = nodePool[mechanismNodeId].mechanismSpec;
+  if (!mechanismSpec) return null;
+  const declaredMechanismNodeIds = new Set([
+    mechanismNodeId,
+    mechanismSpec.phenomenonNodeId,
+    ...mechanismSpec.triggerNodeIds,
+    ...mechanismSpec.participantNodeIds,
+    ...mechanismSpec.stateNodeIds,
+    ...mechanismSpec.outcomeNodeIds,
+    ...mechanismSpec.failureNodeIds,
+  ]);
   const sourceEdges = knowledgeEdges.filter(
     (edge) => isMechanismRelation(edge)
+      && (!isManagedContainmentEdge(edge)
+        || (declaredMechanismNodeIds.has(edge.source)
+          && declaredMechanismNodeIds.has(edge.target)))
       && candidateNodeIdSet.has(edge.source)
       && candidateNodeIdSet.has(edge.target),
   );
@@ -204,6 +219,7 @@ function resolveOwningMechanismNodeId(
     const path = findTreePathById(treeData, reference.treeNodeId);
     for (let index = path.length - 1; index >= 0; index -= 1) {
       const nodeId = path[index].nodeRef;
+      if (!nodeId) continue;
       if (nodePool[nodeId]?.kind === KnowledgeNodeKind.Mechanism) return nodeId;
     }
   }
@@ -261,7 +277,9 @@ function collectTreeDescendantNodeIds(
   for (const reference of collectTreeReferencesByNodeRef(treeData, rootNodeId)) {
     const treeNode = findTreeNodeById(treeData, reference.treeNodeId);
     if (!treeNode) continue;
-    for (const descendant of collectTreeNodes(treeNode)) include(descendant.nodeRef);
+    for (const descendant of collectTreeNodes(treeNode)) {
+      if (descendant.nodeRef) include(descendant.nodeRef);
+    }
   }
   return orderedIds;
 }

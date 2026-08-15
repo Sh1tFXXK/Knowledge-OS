@@ -107,6 +107,21 @@ function rectanglesOverlap(left, right) {
   );
 }
 
+function frameContainsNode(frame, node) {
+  const nodeRect = {
+    left: node.position.x - node.size.width / 2,
+    right: node.position.x + node.size.width / 2,
+    top: node.position.y - node.size.height / 2,
+    bottom: node.position.y + node.size.height / 2,
+  };
+  return (
+    frame.left <= nodeRect.left + 0.5
+    && frame.top <= nodeRect.top + 0.5
+    && frame.left + frame.width >= nodeRect.right - 0.5
+    && frame.top + frame.height >= nodeRect.bottom - 0.5
+  );
+}
+
 function fixture() {
   const index = indexNode('root', 'HashMap', 1, 'hash-map', [
     indexNode('table', 'table', 1, 'hash-map'),
@@ -315,6 +330,39 @@ test('direct belongs-to children render as containment matrix cells without line
   assert.equal(layout.nodes.find((node) => node.knowledgeNodeId === 'map')?.memberCount, 0);
   assert.equal(layout.nodes.find((node) => node.owner)?.memberCount, 3);
 
+  const childNodes = layout.nodes.filter((node) => node.containedChild);
+  const childColumns = new Set(childNodes.map(
+    (node) => Math.round(node.position.x - node.size.width / 2),
+  ));
+  const childRows = new Set(childNodes.map(
+    (node) => Math.round(node.position.y - node.size.height / 2),
+  ));
+  assert.ok(
+    childColumns.size >= 2,
+    'three sibling matrix cells should use multiple columns instead of a single vertical stack',
+  );
+  assert.ok(
+    childRows.size >= 2,
+    'three sibling matrix cells should remain a matrix instead of one horizontal strip',
+  );
+
+  const owner = layout.nodes.find((node) => node.owner);
+  const ownerFrame = layout.containmentFrames.find(
+    (frame) => frame.knowledgeNodeId === 'collection-framework',
+  );
+  assert.ok(ownerFrame);
+  assert.ok(ownerFrame.width / layout.width > 0.95);
+  assert.ok(ownerFrame.height / layout.height > 0.95);
+  assert.ok(frameContainsNode(ownerFrame, owner));
+  assert.equal(owner.containerHost, true);
+  assert.ok(owner.size.height <= 48);
+  const ownerBottom = owner.position.y + owner.size.height / 2;
+  for (const child of childNodes) {
+    assert.ok(frameContainsNode(ownerFrame, child));
+    assert.equal(rectanglesOverlap(owner, child), false);
+    assert.ok(child.position.y - child.size.height / 2 > ownerBottom);
+  }
+
   const graphSource = fs.readFileSync(
     path.resolve('src/core/explanation-index/UnifiedIndexGraph.tsx'),
     'utf8',
@@ -324,7 +372,31 @@ test('direct belongs-to children render as containment matrix cells without line
   assert.match(graphSource, /包含（矩阵）/);
 });
 
-test('nested containment edges lay child matrices inside their parent matrix', () => {
+test('large member lists keep boxes compact and report omitted rows', () => {
+  const children = Array.from({ length: 30 }, (_, index) => (
+    indexNode(`member-${index}`, `member ${index}`, 1, 'hash-map')
+  ));
+  const { nodePool, relationGraph } = fixture();
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'hash-map',
+    ownerLabel: 'HashMap',
+    index: indexNode('root', 'HashMap', 1, 'hash-map', children),
+    relationRootId: 'hash-map',
+    relationRootLabel: 'HashMap',
+    relationGraph,
+    knowledgeEdges: [],
+    nodePool,
+  });
+  const owner = layout.nodes.find((node) => node.owner);
+
+  assert.equal(owner.memberCount, 30);
+  assert.equal(owner.members.length, 12);
+  assert.equal(owner.hiddenMemberCount, 18);
+  assert.ok(owner.size.height >= 64 + 25 + 13 * 25 + 8);
+  assert.ok(owner.size.width >= 224);
+});
+
+test('nested containment renders nested matrix frames with non-overlapping cells', () => {
   const index = indexNode('root', 'Root', 1, 'root-a');
   const nodePool = {
     'root-a': {
@@ -364,20 +436,255 @@ test('nested containment edges lay child matrices inside their parent matrix', (
     nodePool,
   });
 
-  const rect = (node) => ({
-    left: node.position.x - node.size.width / 2,
-    top: node.position.y - node.size.height / 2,
-    right: node.position.x + node.size.width / 2,
-    bottom: node.position.y + node.size.height / 2,
-  });
-  const root = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'root-a'));
-  const child = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'child-b'));
-  const leaf = rect(layout.nodes.find((node) => node.knowledgeNodeId === 'leaf-c'));
+  const root = layout.nodes.find((node) => node.knowledgeNodeId === 'root-a');
+  const child = layout.nodes.find((node) => node.knowledgeNodeId === 'child-b');
+  const leaf = layout.nodes.find((node) => node.knowledgeNodeId === 'leaf-c');
 
-  assert.ok(root.left <= child.left && root.top <= child.top);
-  assert.ok(root.right >= child.right && root.bottom >= child.bottom);
-  assert.ok(child.left <= leaf.left && child.top <= leaf.top);
-  assert.ok(child.right >= leaf.right && child.bottom >= leaf.bottom);
+  const rootFrame = layout.containmentFrames.find((frame) => frame.knowledgeNodeId === 'root-a');
+  const childFrame = layout.containmentFrames.find((frame) => frame.knowledgeNodeId === 'child-b');
+  assert.ok(rootFrame);
+  assert.ok(childFrame);
+  assert.ok(frameContainsNode(rootFrame, root));
+  assert.ok(frameContainsNode(rootFrame, child));
+  assert.ok(frameContainsNode(rootFrame, leaf));
+  assert.ok(frameContainsNode(childFrame, child));
+  assert.ok(frameContainsNode(childFrame, leaf));
+  assert.equal(rectanglesOverlap(root, child), false);
+  assert.equal(rectanglesOverlap(child, leaf), false);
+  assert.equal(rectanglesOverlap(root, leaf), false);
+});
+
+test('a wide nested matrix does not force its smaller siblings into one column', () => {
+  const nestedChildren = Array.from({ length: 25 }, (_, index) => `nested-${index}`);
+  const siblingIds = Array.from({ length: 5 }, (_, index) => `sibling-${index}`);
+  const nodePool = Object.fromEntries(
+    ['root', 'wide-child', ...nestedChildren, ...siblingIds].map((nodeId) => [nodeId, {
+      id: nodeId,
+      label: nodeId,
+      tags: [],
+      card: { nodeId, title: nodeId, tabs: [] },
+    }]),
+  );
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'root',
+    ownerLabel: 'Root',
+    index: indexNode('root-index', 'Root', 1, 'root'),
+    relationRootId: 'root',
+    relationRootLabel: 'Root',
+    relationGraph: {
+      maxDepth: 0,
+      nodes: [{ nodeId: 'root', depth: 0 }],
+      edges: [],
+    },
+    knowledgeEdges: [
+      { id: 'contains-wide', source: 'root', target: 'wide-child', type: 'belongs-to', label: 'contains' },
+      ...siblingIds.map((nodeId) => ({
+        id: `contains-${nodeId}`,
+        source: 'root',
+        target: nodeId,
+        type: 'belongs-to',
+        label: 'contains',
+      })),
+      ...nestedChildren.map((nodeId) => ({
+        id: `wide-contains-${nodeId}`,
+        source: 'wide-child',
+        target: nodeId,
+        type: 'belongs-to',
+        label: 'contains',
+      })),
+    ],
+    nodePool,
+  });
+
+  const siblingNodes = layout.nodes.filter(
+    (node) => siblingIds.includes(node.knowledgeNodeId),
+  );
+  const siblingColumns = new Set(siblingNodes.map(
+    (node) => Math.round(node.position.x - node.size.width / 2),
+  ));
+  assert.ok(
+    siblingColumns.size >= 2,
+    'small siblings should keep packing across a row after a wide nested matrix',
+  );
+});
+
+test('short containment boxes fill the space beside a tall nested subtree', () => {
+  const nestedChildren = Array.from({ length: 9 }, (_, index) => `nested-${index}`);
+  const siblingIds = Array.from({ length: 6 }, (_, index) => `sibling-${index}`);
+  const nodePool = Object.fromEntries(
+    ['root', 'tall-child', ...nestedChildren, ...siblingIds].map((nodeId) => [nodeId, {
+      id: nodeId,
+      label: nodeId,
+      tags: [],
+      card: { nodeId, title: nodeId, tabs: [] },
+    }]),
+  );
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'root',
+    ownerLabel: 'Root',
+    index: indexNode('root-index', 'Root', 1, 'root'),
+    relationRootId: 'root',
+    relationRootLabel: 'Root',
+    relationGraph: {
+      maxDepth: 0,
+      nodes: [{ nodeId: 'root', depth: 0 }],
+      edges: [],
+    },
+    knowledgeEdges: [
+      { id: 'contains-tall', source: 'root', target: 'tall-child', type: 'belongs-to', label: 'contains' },
+      ...siblingIds.map((nodeId) => ({
+        id: `contains-${nodeId}`,
+        source: 'root',
+        target: nodeId,
+        type: 'belongs-to',
+        label: 'contains',
+      })),
+      ...nestedChildren.map((nodeId) => ({
+        id: `tall-contains-${nodeId}`,
+        source: 'tall-child',
+        target: nodeId,
+        type: 'belongs-to',
+        label: 'contains',
+      })),
+    ],
+    nodePool,
+  });
+
+  const tall = layout.nodes.find((node) => node.knowledgeNodeId === 'tall-child');
+  const nestedNodes = layout.nodes.filter((node) => nestedChildren.includes(node.knowledgeNodeId));
+  const siblings = layout.nodes.filter((node) => siblingIds.includes(node.knowledgeNodeId));
+  const tallSubtree = [tall, ...nestedNodes];
+  const tallLeft = Math.min(...tallSubtree.map((node) => node.position.x - node.size.width / 2));
+  const tallRight = Math.max(...tallSubtree.map((node) => node.position.x + node.size.width / 2));
+  const tallTop = Math.min(...tallSubtree.map((node) => node.position.y - node.size.height / 2));
+  const tallBottom = Math.max(...tallSubtree.map((node) => node.position.y + node.size.height / 2));
+  assert.ok(
+    siblings.some((node) => (
+      (
+        node.position.x + node.size.width / 2 <= tallLeft + 1
+        || node.position.x - node.size.width / 2 >= tallRight - 1
+      )
+      && node.position.y + node.size.height / 2 > tallTop + 1
+      && node.position.y - node.size.height / 2 < tallBottom - 1
+    )),
+    'at least one small sibling should occupy the empty space beside the tall subtree',
+  );
+  const topLevelChildren = [tall, ...siblings];
+  for (let leftIndex = 0; leftIndex < topLevelChildren.length; leftIndex += 1) {
+    for (let rightIndex = leftIndex + 1; rightIndex < topLevelChildren.length; rightIndex += 1) {
+      const left = topLevelChildren[leftIndex];
+      const right = topLevelChildren[rightIndex];
+      assert.equal(rectanglesOverlap(left, right), false);
+    }
+  }
+});
+
+test('large indexes follow the viewport aspect ratio instead of collapsing into a strip', () => {
+  const nodeIds = Array.from({ length: 120 }, (_, index) => `node-${index}`);
+  const nodePool = Object.fromEntries(nodeIds.map((nodeId) => [nodeId, {
+    id: nodeId,
+    label: nodeId,
+    tags: [],
+    card: { nodeId, title: nodeId, tabs: [] },
+  }]));
+  const layout = buildUnifiedIndexGraph({
+    ownerId: nodeIds[0],
+    ownerLabel: nodeIds[0],
+    index: indexNode('root-index', nodeIds[0], 1, nodeIds[0]),
+    relationRootId: nodeIds[0],
+    relationRootLabel: nodeIds[0],
+    relationGraph: {
+      maxDepth: 0,
+      nodes: nodeIds.map((nodeId) => ({ nodeId, depth: 0 })),
+      edges: [],
+    },
+    knowledgeEdges: [],
+    nodePool,
+    targetAspectRatio: 0.5,
+  });
+
+  assert.ok(Math.abs(layout.width / layout.height - 0.5) < 0.02);
+});
+
+test('shared containment descendants occupy one physical matrix region', () => {
+  const nodePool = Object.fromEntries(['root-a', 'root-b', 'shared'].map((nodeId) => [nodeId, {
+    id: nodeId,
+    label: nodeId,
+    tags: [],
+    card: { nodeId, title: nodeId, tabs: [] },
+  }]));
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'root-a',
+    ownerLabel: 'root-a',
+    index: indexNode('root-index', 'root-a', 1, 'root-a'),
+    relationRootId: 'root-a',
+    relationRootLabel: 'root-a',
+    relationGraph: {
+      maxDepth: 0,
+      nodes: [
+        { nodeId: 'root-a', depth: 0 },
+        { nodeId: 'root-b', depth: 0 },
+      ],
+      edges: [],
+    },
+    knowledgeEdges: [
+      { id: 'a-shared', source: 'root-a', target: 'shared', type: 'belongs-to', label: 'contains' },
+      { id: 'b-shared', source: 'root-b', target: 'shared', type: 'belongs-to', label: 'contains' },
+    ],
+    nodePool,
+    targetAspectRatio: 1,
+  });
+
+  const shared = layout.nodes.find((node) => node.knowledgeNodeId === 'shared');
+  const physicalParentFrames = layout.containmentFrames.filter(
+    (frame) => frame.knowledgeNodeId === 'root-a' || frame.knowledgeNodeId === 'root-b',
+  );
+  assert.equal(physicalParentFrames.length, 1);
+  assert.ok(frameContainsNode(physicalParentFrames[0], shared));
+});
+
+test('an explicit tree hierarchy overrides auxiliary containment parentage', () => {
+  const nodePool = Object.fromEntries(['root', 'branch-a', 'branch-b', 'leaf'].map((nodeId) => [nodeId, {
+    id: nodeId,
+    label: nodeId,
+    tags: [],
+    card: { nodeId, title: nodeId, tabs: [] },
+  }]));
+  const layout = buildUnifiedIndexGraph({
+    ownerId: 'root',
+    ownerLabel: 'root',
+    index: indexNode('root-index', 'root', 1, 'root'),
+    relationRootId: 'root',
+    relationRootLabel: 'root',
+    relationGraph: {
+      maxDepth: 0,
+      nodes: [{ nodeId: 'root', depth: 0 }],
+      edges: [],
+    },
+    knowledgeEdges: [
+      { id: 'root-a', source: 'root', target: 'branch-a', type: 'belongs-to', label: 'contains' },
+      { id: 'root-b', source: 'root', target: 'branch-b', type: 'belongs-to', label: 'contains' },
+      { id: 'wrong-parent', source: 'branch-a', target: 'leaf', type: 'belongs-to', label: 'contains' },
+    ],
+    containmentEdges: [
+      { id: 'tree-root-a', source: 'root', target: 'branch-a', type: 'belongs-to', label: 'contains' },
+      { id: 'tree-root-b', source: 'root', target: 'branch-b', type: 'belongs-to', label: 'contains' },
+      { id: 'tree-right-parent', source: 'branch-b', target: 'leaf', type: 'belongs-to', label: 'contains' },
+    ],
+    nodePool,
+    targetAspectRatio: 1,
+  });
+
+  const leaf = layout.nodes.find((node) => node.knowledgeNodeId === 'leaf');
+  const branchAFrame = layout.containmentFrames.find(
+    (frame) => frame.knowledgeNodeId === 'branch-a',
+  );
+  const branchBFrame = layout.containmentFrames.find(
+    (frame) => frame.knowledgeNodeId === 'branch-b',
+  );
+  assert.equal(branchAFrame, undefined);
+  assert.ok(branchBFrame);
+  assert.ok(frameContainsNode(branchBFrame, leaf));
 });
 
 test('logical dependencies use typed lines while belongs-to only keeps child nodes visible', () => {
@@ -476,6 +783,24 @@ test('graph boxes expose inline child creation, label and tag editing, deletion,
   assert.match(graphSource, /onAddChildSelection\(inlineChildDraft\.selection, label\)/);
   assert.match(graphSource, /onRemoveSelection\(member\.selection\)/);
   assert.match(graphSource, /canRemoveSelection\(member\.selection\)/);
+});
+
+test('leaf graph nodes use one full-height title surface without an empty body', () => {
+  const graphSource = fs.readFileSync(
+    path.resolve('src/core/explanation-index/UnifiedIndexGraph.tsx'),
+    'utf8',
+  );
+  const styleSource = fs.readFileSync(
+    path.resolve('src/styles/index-diagram.css'),
+    'utf8',
+  );
+
+  assert.match(graphSource, /const isLeaf = !isMatrixHost && graphNode\.memberCount === 0/);
+  assert.match(graphSource, /isLeaf \? ' is-leaf' : ''/);
+  assert.match(
+    styleSource,
+    /\.explanation-index-class-node\.is-leaf \.explanation-index-class-header \{[\s\S]*?min-height: 100%;[\s\S]*?height: 100%;[\s\S]*?border-bottom: 0;/,
+  );
 });
 
 test('the index view wires every graph editing callback', () => {

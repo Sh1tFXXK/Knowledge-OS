@@ -5350,6 +5350,14 @@
   font-size: 12px;
 }
 
+.explanation-index-focus-toggle {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  justify-content: center;
+  padding: 0;
+}
+
 .explanation-index-header strong {
   min-width: 0;
   overflow: hidden;
@@ -5699,15 +5707,6 @@
   position: absolute;
   inset: 0;
   pointer-events: none;
-}
-
-.index-canvas.is-compact .explanation-index-unified-node span {
-  display: none;
-}
-
-.index-canvas.is-overview .explanation-index-unified-node strong,
-.index-canvas.is-overview .explanation-index-unified-node span {
-  visibility: hidden;
 }
 
 @media (max-width: 900px) {

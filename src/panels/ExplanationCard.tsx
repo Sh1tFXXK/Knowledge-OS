@@ -22,6 +22,7 @@ import SupertagPanel from './explanation/SupertagPanel';
 import KnowledgePointTimeline from '../components/KnowledgePointTimeline';
 import MechanismSpecEditor from './explanation/MechanismSpecEditor';
 import { collectKnowledgeReferences } from '../knowledge/nodeReferences';
+import { normalizeSupertags } from '../knowledge/supertags';
 
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
@@ -137,24 +138,22 @@ export default function ExplanationCard() {
       : null;
   const activeContent =
     activeSelection?.kind === ExplanationSelectionKind.Root
-      ? (explanation.rootContent ?? '')
+      ? (explanation?.rootContent ?? '')
       : (activePathTab?.content ?? activePage?.content ?? activeTab?.content ?? '');
   const activeTable =
     activeSelection?.kind === ExplanationSelectionKind.Root
-      ? explanation.rootTable
+      ? explanation?.rootTable
       : activeSelection?.kind === ExplanationSelectionKind.Path
         ? activePathTab?.table
         : activePage
           ? activePage.table
           : activeTab?.table;
-  const activeTags = Array.from(
-    new Set([
+  const activeTags = normalizeSupertags([
       ...(nodeMeta?.tags ?? []),
       ...(activeSelection?.kind === ExplanationSelectionKind.Content
         ? activePage?.tags ?? activeTab?.tags ?? []
         : []),
-    ]),
-  );
+  ]);
   const knowledgeReferences = useMemo(
     () => collectKnowledgeReferences(
       nodePool,

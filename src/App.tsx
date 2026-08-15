@@ -48,11 +48,13 @@ function clampRightPanelWidth(width: number): number {
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
   const activeView = useGraphStore((s) => s.activeView);
+  const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const initialize = useGraphStore((s) => s.initialize);
   const [leftPanelWidth, setLeftPanelWidth] = useState(260);
   const [rightPanelWidth, setRightPanelWidth] = useState(360);
   const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
+  const [isIndexFocusMode, setIsIndexFocusMode] = useState(false);
 
   useEffect(() => {
     void initialize();
@@ -107,9 +109,10 @@ export default function App() {
     '--left-panel-width': `${isLeftPanelCollapsed ? LEFT_PANEL_COLLAPSED_WIDTH : leftPanelWidth}px`,
     '--right-panel-width': `${rightPanelWidth}px`,
   } as CSSProperties;
+  const isIndexFocusActive = activeView === 'index' && !!selectedNodeId && isIndexFocusMode;
 
   return (
-    <div id="app" style={appStyle}>
+    <div id="app" className={isIndexFocusActive ? 'is-index-focus' : undefined} style={appStyle}>
       {/* ── 顶栏 ── */}
       <header className="header" id="header">
         <TopBar />
@@ -134,7 +137,10 @@ export default function App() {
       <main className="center-area" id="center-area">
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
-            <ExplanationIndexView />
+            <ExplanationIndexView
+              isFocusMode={isIndexFocusActive}
+              onToggleFocusMode={() => setIsIndexFocusMode((value) => !value)}
+            />
           </section>
         ) : activeView === 'timeline' ? (
           <section className="center-view" id="center-view">

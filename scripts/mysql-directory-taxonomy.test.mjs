@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { DOMAIN_MOUNTS } from './taxonomy-domain-placements.mjs';
 
 const tree = JSON.parse(fs.readFileSync(path.resolve('data/tree-data.json'), 'utf8'));
 const nodePool = JSON.parse(fs.readFileSync(path.resolve('data/node-pool.json'), 'utf8'));
+const knowledgeEdges = JSON.parse(fs.readFileSync(path.resolve('data/knowledge-edges.json'), 'utf8'));
 
 const mysqlRootId = 'demo_mysql';
 const csRootId = 'demo_cs';
@@ -26,16 +28,24 @@ const expectedMysqlTopLevelIds = [
   'mysql_topic_uncategorized',
 ];
 
-const expectedSchoolIds = [
+const expectedContainerIds = [
   'school_mathematics',
   'school_logic',
-  'school_database_theory',
   'school_computation_theory',
-  'school_programming_languages',
-  'school_systems',
   'school_security',
-  'school_information_retrieval',
   'school_real_world_conventions',
+  'database_principles',
+];
+
+const expectedUniverseContainerIds = [
+  'school_mathematics',
+  'school_logic',
+  'school_real_world_conventions',
+];
+
+const expectedComputerScienceContainerIds = [
+  'school_computation_theory',
+  'school_security',
 ];
 
 const expectedDomainIds = [
@@ -115,29 +125,29 @@ assert.equal(
   'independent theory schools must not replace or sit directly under MySQL',
 );
 
-const schoolTrees = expectedSchoolIds.map((schoolId) => findTreeNode(universeRoot, schoolId));
-for (const [index, schoolTree] of schoolTrees.entries()) {
-  assert.ok(schoolTree, `${expectedSchoolIds[index]} must be an independent top-level school`);
+for (const containerId of expectedContainerIds) {
+  assert.ok(findTreeNode(tree, containerId), `${containerId} must exist as a canonical taxonomy container`);
 }
 assert.deepEqual(
   (universeRoot.children ?? []).filter((child) => child.id.startsWith('school_')).map((child) => child.id),
-  expectedSchoolIds,
-  'independent schools must live at universe level, not under MySQL or computer science',
+  expectedUniverseContainerIds,
+  'cross-disciplinary schools must remain at universe level',
 );
 assert.deepEqual(
-  collectTreeNodes(csRoot).filter((node) => node.id.startsWith('school_') || node.id.startsWith('theory_domain_')).map((node) => node.id),
-  [],
-  'computer science must not own independent math, logic, language, or systems schools',
+  (csRoot.children ?? []).filter((child) => child.id.startsWith('school_')).map((child) => child.id),
+  expectedComputerScienceContainerIds,
+  'only genuine computer-science-wide containers remain direct children of computer science',
 );
 
-assert.deepEqual(
-  schoolTrees
-    .flatMap((school) => (school.children ?? [])
-      .filter((domain) => domain.id.startsWith('theory_domain_'))
-      .map((domain) => domain.id))
-    .toSorted(),
-  expectedDomainIds.toSorted(),
-);
+for (const deprecatedContainerId of [
+  'school_database_theory',
+  'school_programming_languages',
+  'school_systems',
+  'school_information_retrieval',
+]) {
+  assert.equal(findTreeNode(tree, deprecatedContainerId), null, `${deprecatedContainerId} must not remain as a parallel root`);
+}
+assert.equal(findTreeNode(tree, 'tree_wiki_zh_数据库'), null, 'database must have one canonical database-management entry');
 
 const treeNodes = collectTreeNodes(tree);
 const treeIds = treeNodes.map((node) => node.id);
@@ -149,7 +159,10 @@ for (const node of treeNodes) {
 }
 
 for (const domainId of expectedDomainIds) {
-  const domainTree = findTreeNode(universeRoot, domainId);
+  const mount = DOMAIN_MOUNTS[domainId.replace('theory_domain_', '')];
+  const domainTree = mount.direct
+    ? treeNodes.find((node) => node.nodeRef === domainId && node.id !== domainId)
+    : findTreeNode(tree, domainId);
   assert.ok(domainTree, `${domainId} must exist as a theory-domain folder`);
   assert.equal(domainTree.nodeRef, domainId, `${domainId} tree folder must point at its domain node`);
   assert.doesNotMatch(
@@ -157,11 +170,79 @@ for (const domainId of expectedDomainIds) {
     /MySQL 知识目录中的稳定分类节点/,
     `${domainId} domain card must not be defined as a MySQL taxonomy category`,
   );
-  assert.match(
-    nodePool[domainId]?.card?.tabs?.[0]?.content ?? '',
-    /独立门派：/,
-    `${domainId} domain card must record its independent school`,
+}
+
+const expectedSchoolParents = [
+  ...expectedUniverseContainerIds.map((schoolId) => [schoolId, universeRoot]),
+  ...expectedComputerScienceContainerIds.map((schoolId) => [schoolId, csRoot]),
+  ['database_principles', findTreeNode(tree, 'demo_db')],
+];
+
+for (const [schoolId, parent] of expectedSchoolParents) {
+  const school = findTreeNode(tree, schoolId);
+  const bindingId = `treebind:${parent.id}:${schoolId}`;
+  const binding = knowledgeEdges.find((edge) => edge.id === bindingId);
+  assert.ok(binding, `${schoolId} must have a tree binding to ${parent.id}`);
+  assert.equal(binding.source, parent.nodeRef);
+  assert.equal(binding.target, school.nodeRef);
+}
+
+const preservedAliases = [
+  ['tree_wiki_en_outline_of_databases_s4_b2', 'school_database_theory'],
+  ['tree_acm2012_information_systems_information_retrieval', 'school_information_retrieval'],
+];
+
+for (const [treeId, nodeRef] of preservedAliases) {
+  const alias = findTreeNode(csRoot, treeId);
+  assert.ok(alias, `${treeId} must remain as an alternate computer science entry`);
+  assert.equal(alias.nodeRef, nodeRef);
+  assert.notEqual(alias.id, nodeRef);
+}
+
+for (const removedDuplicateTreeId of [
+  'tree_acm2012_theory_of_computing',
+  'tree_acm2012_security',
+  'tree_1781894134786_k26g6t',
+]) {
+  assert.equal(
+    findTreeNode(csRoot, removedDuplicateTreeId),
+    null,
+    `${removedDuplicateTreeId} must be consolidated into its canonical school`,
   );
+}
+
+const consolidatedChildren = [
+  ['database_principles', [
+    'theory_domain_relational_algebra',
+    'theory_domain_normalization_theory',
+    'theory_domain_transaction_theory',
+    'theory_domain_recovery_theory',
+    'tree_1784714555221_9s0o64',
+    'database_principles_database_theory',
+  ]],
+  ['tree_acm2012_software_notations_tools_programming_languages', [
+    'theory_domain_programming_language_theory',
+    'theory_domain_regular_expression_theory',
+    'theory_domain_compiler_principles',
+    'tree_wiki_en_program_analysis',
+  ]],
+  ['tree_acm2012_systems_organization', [
+    'theory_domain_operating_systems',
+    'theory_domain_computer_architecture',
+    'theory_domain_storage_systems',
+    'theory_domain_distributed_systems',
+  ]],
+  ['tree_acm2012_algorithms', [
+    'theory_domain_data_structures',
+  ]],
+];
+
+for (const [treeId, expectedChildIds] of consolidatedChildren) {
+  const treeNode = findTreeNode(tree, treeId);
+  const childIds = new Set((treeNode?.children ?? []).map((child) => child.id));
+  for (const childId of expectedChildIds) {
+    assert.ok(childIds.has(childId), `${treeId} must preserve consolidated child ${childId}`);
+  }
 }
 
 for (const [nodeId, node] of Object.entries(nodePool)) {
@@ -193,18 +274,24 @@ assert.equal(
   'old glossary group trees should not remain in the generated taxonomy',
 );
 
-const theoryTermNodes = schoolTrees.flatMap(collectTreeNodes).filter((node) => node.id.startsWith('mysql_term_'));
+const theoryTermNodes = treeNodes.filter((node) => node.id.startsWith('mysql_term_'));
 const theoryRefs = theoryTermNodes.map((node) => node.nodeRef);
-assert.ok(theoryTermNodes.length >= 38, `expected moved theoretical knowledge items to be placed, got ${theoryTermNodes.length}`);
+assert.ok(theoryTermNodes.length >= 38, `expected theoretical knowledge references to be placed, got ${theoryTermNodes.length}`);
 assert.equal(
   new Set(theoryRefs).size,
   theoryRefs.length,
   'each MySQL knowledge node should have one canonical theoretical-domain entry',
 );
 
-const mysqlRefs = new Set(collectTreeNodes(mysqlRoot).map((node) => node.nodeRef).filter(Boolean));
-const duplicatedRefs = theoryRefs.filter((nodeRef) => mysqlRefs.has(nodeRef));
-assert.deepEqual(duplicatedRefs, [], 'knowledge refs must not be duplicated between MySQL implementation tree and theory tree');
+const mysqlFunctionalRefs = new Set(
+  collectTreeNodes(mysqlRoot).map((node) => node.nodeRef).filter(Boolean),
+);
+for (const theoryRef of theoryRefs) {
+  assert.ok(
+    mysqlFunctionalRefs.has(theoryRef),
+    `${theoryRef} must retain a shared reference in the MySQL functional tree`,
+  );
+}
 
 const expectedPlacements = [
   {
@@ -232,11 +319,43 @@ const expectedPlacements = [
     domainId: 'theory_domain_character_encoding_standards',
     message: 'ANSI belongs under character encoding standards',
   },
+  {
+    ref: 'k_dict_xb5t6pmm',
+    domainId: 'theory_domain_normalization_theory',
+    message: 'surrogate keys belong with schema design and normalization, not relational algebra',
+  },
+  {
+    ref: 'k_dict_s1u2tlxt',
+    domainId: 'theory_domain_storage_systems',
+    message: 'MySQL merge/change-buffer behavior belongs under storage systems, not relational algebra',
+  },
 ];
 
 for (const { ref, domainId, message } of expectedPlacements) {
-  const pathIds = pathIdsForRef(universeRoot, ref);
-  assert.ok(pathIds.includes(domainId), message);
+  const domain = findTreeNode(tree, domainId);
+  assert.ok(
+    collectTreeNodes(domain).some((node) => node.nodeRef === ref),
+    message,
+  );
 }
+
+assert.equal(
+  collectTreeNodes(findTreeNode(tree, 'theory_domain_relational_algebra'))
+    .some((node) => node.nodeRef === 'k_dict_xb5t6pmm'),
+  false,
+  'surrogate key must not remain under relational algebra',
+);
+assert.equal(
+  collectTreeNodes(findTreeNode(tree, 'theory_domain_set_theory'))
+    .some((node) => node.nodeRef === 'k_dict_xb5t6pmm'),
+  false,
+  'surrogate key must not be treated as a mathematical set-theory concept',
+);
+assert.equal(
+  collectTreeNodes(findTreeNode(tree, 'theory_domain_relational_algebra'))
+    .some((node) => node.nodeRef === 'k_dict_s1u2tlxt'),
+  false,
+  'MySQL merge/change-buffer behavior must not remain under relational algebra',
+);
 
 console.log('mysql theoretical domain taxonomy checks passed');

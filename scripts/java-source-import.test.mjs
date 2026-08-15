@@ -73,14 +73,23 @@ async function writeJavaFixture(root) {
     'package demo.impl;',
     '',
     'import demo.api.Service;',
+    'import java.io.Serializable;',
     '',
     '/** Resolves user records. */',
-    'public final class UserService extends BaseService implements Service {',
+    'public final class UserService extends BaseService implements Service, java.io.Serializable {',
     '    /** Returns the first identifier after normalization. */',
     '    @Override',
     '    public String find(String... ids) { return normalize(ids[0]); }',
     '',
     '    public static class Builder extends BaseService {}',
+    '}',
+  ].join('\n'), 'utf8');
+  await fs.writeFile(path.join(sourceRoot, 'demo', 'impl', 'NestedTypes.java'), [
+    'package demo.impl;',
+    '',
+    'public class NestedTypes {',
+    '    static class Node {}',
+    '    static class ChildNode extends Node {}',
     '}',
   ].join('\n'), 'utf8');
   return sourceRoot;
@@ -103,12 +112,16 @@ test('Java source introspector parses uncompiled source declarations and Javadoc
   });
   const types = new Map(result.types.map((type) => [type.className, type]));
 
-  assert.equal(result.sourceFiles, 4);
+  assert.equal(result.sourceFiles, 5);
   assert.equal(result.diagnostics.length, 0);
   assert.equal(types.get('demo.api.Service')?.kind, 'interface');
   assert.equal(types.get('demo.api.Result')?.kind, 'record');
   assert.equal(types.get('demo.impl.BaseService')?.kind, 'abstract_class');
   assert.equal(types.get('demo.impl.UserService.Builder')?.kind, 'class');
+  assert.deepEqual(
+    types.get('demo.impl.NestedTypes.ChildNode')?.relations,
+    [{ targetClassName: 'demo.impl.NestedTypes.Node', kind: 'extends' }],
+  );
   assert.match(types.get('demo.api.Service')?.documentation?.description ?? '', /application work/);
 
   const serviceMethod = types.get('demo.api.Service')?.members.find(
@@ -122,6 +135,7 @@ test('Java source introspector parses uncompiled source declarations and Javadoc
     [
       { targetClassName: 'demo.impl.BaseService', kind: 'extends' },
       { targetClassName: 'demo.api.Service', kind: 'implements' },
+      { targetClassName: 'java.io.Serializable', kind: 'implements' },
     ],
   );
 });
@@ -181,9 +195,9 @@ test('Java source import writes an isolated typed subtree and is idempotent', as
     translate: false,
   };
   const first = await importJavaSource(request);
-  assert.equal(first.sourceFiles, 4);
-  assert.equal(first.importedTypes, 5);
-  assert.equal(first.directTypeRelations, 3);
+  assert.equal(first.sourceFiles, 5);
+  assert.equal(first.importedTypes, 8);
+  assert.equal(first.directTypeRelations, 5);
 
   const [firstTree, firstPool, firstEdges] = await Promise.all([
     fs.readFile(path.join(dataDir, 'tree-data.json'), 'utf8'),

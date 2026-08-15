@@ -34,11 +34,11 @@ export interface TreeRefSupplement {
 export interface TreeNode {
   id: string;
   name: string;
-  count: number;
+  count?: number;
   expanded?: boolean;
   active?: boolean;
   /** 指向节点池中的知识 ID；目录只存引用，不存知识本体 */
-  nodeRef: string;
+  nodeRef?: string;
   /** 该导航路径下的补充解释卡（共性在节点池，差异在此） */
   supplement?: TreeRefSupplement;
   children?: TreeNode[];

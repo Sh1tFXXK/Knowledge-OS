@@ -7,6 +7,13 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "repair:data": "node scripts/repair-data-integrity.mjs",
+    "audit:duplicates": "node scripts/organize-duplicate-knowledge.mjs",
+    "organize:data": "node scripts/organize-duplicate-knowledge.mjs --apply",
+    "curate:data": "node scripts/curate-known-data.mjs --apply",
+    "audit:semantic-duplicates": "node scripts/curate-semantic-duplicates.mjs",
+    "curate:semantic-duplicates": "node scripts/curate-semantic-duplicates.mjs --apply",
     "setup:mineru": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ocr/setup-mineru.ps1",
     "import:jdk-collections": "node scripts/import-jdk-collections.mjs",
     "test": "node --test \"scripts/*.test.mjs\""

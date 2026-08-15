@@ -1,4 +1,5 @@
 import {
+  type DragEvent as ReactDragEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -241,7 +242,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     if (event.target === event.currentTarget && !isBusy) onClose();
   };
 
-  const handleDrop = (event: DragEvent) => {
+  const handleDrop = (event: ReactDragEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsDragging(false);
     if (!isBusy && sourceKind === DocumentImportSourceKind.File) {
@@ -406,11 +407,11 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 className={`document-import-dropzone${file ? ' has-file' : ''}${isDragging ? ' is-dragging' : ''}`}
                 disabled={isImporting}
                 onClick={() => fileInputRef.current?.click()}
-                onDragEnter={(event: DragEvent) => {
+                onDragEnter={(event: ReactDragEvent<HTMLButtonElement>) => {
                   event.preventDefault();
                   if (!isImporting) setIsDragging(true);
                 }}
-                onDragOver={(event: DragEvent) => event.preventDefault()}
+                onDragOver={(event: ReactDragEvent<HTMLButtonElement>) => event.preventDefault()}
                 onDragLeave={() => setIsDragging(false)}
                 onDrop={handleDrop}
               >

@@ -7,11 +7,14 @@ import {
 import type { TypeRelationGraph } from '../../knowledge/typeRelations';
 import {
   TypeRelationKind,
+  type ExplanationSelectionKind,
   type ExplanationIndexSelection,
   type KnowledgeEdge,
   type KnowledgeNode,
   type NodeExplanation,
 } from '../../types';
+
+const ROOT_SELECTION_KIND = 'root' as ExplanationSelectionKind.Root;
 
 export const UnifiedIndexNodeKind = {
   Knowledge: 'knowledge',
@@ -70,6 +73,7 @@ export interface UnifiedIndexGraphNode {
   relationRoot: boolean;
   logicalReference: boolean;
   containedChild: boolean;
+  containerHost: boolean;
   collapsed: boolean;
 }
 
@@ -80,9 +84,21 @@ export interface UnifiedIndexGraphEdge {
   kind: TypeRelationKind | UnifiedIndexEdgeKind;
 }
 
+export interface UnifiedIndexContainmentFrame {
+  id: string;
+  nodeId: string;
+  knowledgeNodeId: string;
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+  depth: number;
+}
+
 export interface UnifiedIndexGraphLayout {
   nodes: readonly UnifiedIndexGraphNode[];
   edges: readonly UnifiedIndexGraphEdge[];
+  containmentFrames: readonly UnifiedIndexContainmentFrame[];
   width: number;
   height: number;
 }
@@ -95,8 +111,10 @@ interface BuildUnifiedIndexGraphParams {
   relationRootLabel: string;
   relationGraph: TypeRelationGraph;
   knowledgeEdges: readonly KnowledgeEdge[];
+  containmentEdges?: readonly KnowledgeEdge[];
   nodePool: Record<string, KnowledgeNode>;
   collapsedNodeIds?: ReadonlySet<string>;
+  targetAspectRatio?: number;
 }
 
 interface KnowledgeDraft {
@@ -120,22 +138,23 @@ interface SizedKnowledgeDraft extends KnowledgeDraft {
   size: UnifiedIndexNodeSize;
 }
 
-const ROOT_SELECTION_KIND = 'root' as const;
 const MIN_CLASS_WIDTH = 224;
 const HEADER_HEIGHT = 64;
 const MEMBER_HEADER_HEIGHT = 25;
 const MEMBER_ROW_HEIGHT = 25;
 const MEMBER_VERTICAL_PADDING = 8;
-const MAX_VISIBLE_MEMBERS = 60;
-const NODE_GAP = 84;
-const LEVEL_GAP = 112;
-const OUTER_PADDING = 72;
+// Keep a large knowledge card readable without letting one member list push
+// every sibling card below the fold. The header still reports the full count.
+const MAX_VISIBLE_MEMBERS = 12;
+const NODE_GAP = 56;
+const LEVEL_GAP = 76;
+const OUTER_PADDING = 40;
 /** 头部左侧折叠按钮预留 + 右侧操作按钮预留 */
 const HEADER_HORIZONTAL_PADDING = 42 + 116;
 /** 层内单条视觉行的最大内容宽度，超过则把该层均衡拆成多行 */
 const MAX_ROW_WIDTH = 1480;
 /** 同一层内相邻视觉行之间的垂直间距（小于层间距 LEVEL_GAP） */
-const SUB_ROW_GAP = 64;
+const SUB_ROW_GAP = 44;
 const MIN_CANVAS_WIDTH = 660;
 const MIN_CANVAS_HEIGHT = 460;
 const DEPENDENCY_EDGE_TYPES = new Set(['uses', 'depends-on', 'needs-for']);
@@ -143,8 +162,18 @@ const ASSOCIATION_EDGE_TYPES = new Set(['enables', 'leads-to', 'compares', 'rela
 const MATRIX_PAD_X = 28;
 const MATRIX_PAD_TOP = 18;
 const MATRIX_PAD_BOTTOM = 26;
-const MATRIX_CHILD_GAP = 40;
+const MATRIX_CHILD_GAP = 28;
 const MIN_MATRIX_INNER_WIDTH = 280;
+const MAX_MATRIX_INNER_WIDTH = MAX_ROW_WIDTH;
+const MOSAIC_CANVAS_WIDTH = 1480;
+const MOSAIC_MIN_HEIGHT = 840;
+const MOSAIC_AREA_EXPANSION = 1.35;
+const MOSAIC_GROUP_PADDING = 14;
+const MOSAIC_CELL_GAP = 12;
+const MOSAIC_CONTAINER_HEADER_HEIGHT = 42;
+const MIN_MOSAIC_ASPECT_RATIO = 0.35;
+const MAX_MOSAIC_ASPECT_RATIO = 2.8;
+const DEFAULT_MOSAIC_ASPECT_RATIO = MOSAIC_CANVAS_WIDTH / MOSAIC_MIN_HEIGHT;
 
 interface Rect {
   left: number;
@@ -156,6 +185,287 @@ interface Rect {
 interface ContainmentPlacement {
   frame: Rect;
   placements: Map<string, Rect>;
+}
+
+interface PackedContainmentChild {
+  child: ContainmentPlacement;
+  left: number;
+  top: number;
+}
+
+interface MosaicTreeNode {
+  draft: SizedKnowledgeDraft;
+  children: MosaicTreeNode[];
+  ownWeight: number;
+  weight: number;
+}
+
+interface WeightedMosaicItem<T> {
+  value: T;
+  weight: number;
+}
+
+function insetRect(rect: Rect, amount: number): Rect {
+  const safeX = Math.min(amount, rect.width / 4);
+  const safeY = Math.min(amount, rect.height / 4);
+  return {
+    left: rect.left + safeX,
+    top: rect.top + safeY,
+    width: Math.max(1, rect.width - safeX * 2),
+    height: Math.max(1, rect.height - safeY * 2),
+  };
+}
+
+function mosaicCanvasSize(
+  totalWeight: number,
+  targetAspectRatio: number | undefined,
+): UnifiedIndexNodeSize {
+  const requestedAspectRatio = Number.isFinite(targetAspectRatio)
+    ? targetAspectRatio as number
+    : DEFAULT_MOSAIC_ASPECT_RATIO;
+  const aspectRatio = Math.min(
+    MAX_MOSAIC_ASPECT_RATIO,
+    Math.max(MIN_MOSAIC_ASPECT_RATIO, requestedAspectRatio),
+  );
+  const area = Math.max(
+    MOSAIC_CANVAS_WIDTH * MOSAIC_MIN_HEIGHT,
+    totalWeight * MOSAIC_AREA_EXPANSION,
+  );
+  let width = Math.sqrt(area * aspectRatio);
+  let height = area / width;
+
+  if (width < MIN_CANVAS_WIDTH) {
+    width = MIN_CANVAS_WIDTH;
+    height = Math.max(MIN_CANVAS_HEIGHT, area / width);
+  }
+  if (height < MIN_CANVAS_HEIGHT) {
+    height = MIN_CANVAS_HEIGHT;
+    width = Math.max(MIN_CANVAS_WIDTH, area / height);
+  }
+
+  return {
+    width: Math.ceil(width),
+    height: Math.ceil(height),
+  };
+}
+
+function splitWeightedMosaic<T>(
+  items: readonly WeightedMosaicItem<T>[],
+  rect: Rect,
+  onPlace: (item: T, rect: Rect) => void,
+  axis: 'x' | 'y' = rect.width >= rect.height ? 'x' : 'y',
+): void {
+  if (items.length === 0) return;
+  if (items.length === 1) {
+    onPlace(items[0].value, rect);
+    return;
+  }
+
+  const totalWeight = items.reduce((sum, item) => sum + item.weight, 0);
+  let leftWeight = 0;
+  let splitIndex = 1;
+  let bestDifference = Number.POSITIVE_INFINITY;
+  for (let index = 1; index < items.length; index += 1) {
+    leftWeight += items[index - 1].weight;
+    const difference = Math.abs(totalWeight / 2 - leftWeight);
+    if (difference < bestDifference) {
+      bestDifference = difference;
+      splitIndex = index;
+    }
+  }
+
+  const leftItems = items.slice(0, splitIndex);
+  const rightItems = items.slice(splitIndex);
+  const resolvedLeftWeight = leftItems.reduce((sum, item) => sum + item.weight, 0);
+  const ratio = totalWeight > 0 ? resolvedLeftWeight / totalWeight : 0.5;
+
+  if (axis === 'x') {
+    const leftWidth = rect.width * ratio;
+    splitWeightedMosaic(leftItems, { ...rect, width: leftWidth }, onPlace, 'y');
+    splitWeightedMosaic(rightItems, {
+      left: rect.left + leftWidth,
+      top: rect.top,
+      width: rect.width - leftWidth,
+      height: rect.height,
+    }, onPlace, 'y');
+    return;
+  }
+
+  const topHeight = rect.height * ratio;
+  splitWeightedMosaic(leftItems, { ...rect, height: topHeight }, onPlace, 'x');
+  splitWeightedMosaic(rightItems, {
+    left: rect.left,
+    top: rect.top + topHeight,
+    width: rect.width,
+    height: rect.height - topHeight,
+  }, onPlace, 'x');
+}
+
+function buildMosaicTree(
+  graphId: string,
+  sizedById: ReadonlyMap<string, SizedKnowledgeDraft>,
+  childrenByGraphId: ReadonlyMap<string, readonly string[]>,
+  path = new Set<string>(),
+  assignedGraphIds = new Set<string>(),
+): MosaicTreeNode | null {
+  const draft = sizedById.get(graphId);
+  if (!draft || path.has(graphId) || assignedGraphIds.has(graphId)) return null;
+
+  assignedGraphIds.add(graphId);
+  const nextPath = new Set(path);
+  nextPath.add(graphId);
+  const children = (childrenByGraphId.get(graphId) ?? [])
+    .map((childId) => buildMosaicTree(
+      childId,
+      sizedById,
+      childrenByGraphId,
+      nextPath,
+      assignedGraphIds,
+    ))
+    .filter((child): child is MosaicTreeNode => !!child);
+  const ownWeight = Math.max(
+    MIN_CLASS_WIDTH * HEADER_HEIGHT,
+    draft.size.width * draft.size.height,
+  );
+  return {
+    draft,
+    children,
+    ownWeight,
+    weight: ownWeight + children.reduce((sum, child) => sum + child.weight, 0),
+  };
+}
+
+function layoutMosaicTree(
+  tree: MosaicTreeNode,
+  rect: Rect,
+  nodeRects: Map<string, Rect>,
+  frames: UnifiedIndexContainmentFrame[],
+  containerNodeIds: Set<string>,
+  depth: number,
+): void {
+  if (tree.children.length === 0) {
+    nodeRects.set(tree.draft.id, insetRect(rect, MOSAIC_CELL_GAP / 2));
+    return;
+  }
+
+  const frameRect = insetRect(rect, MOSAIC_CELL_GAP / 2);
+  containerNodeIds.add(tree.draft.id);
+  frames.push({
+    id: `containment:${tree.draft.id}`,
+    nodeId: tree.draft.id,
+    knowledgeNodeId: tree.draft.knowledgeNodeId,
+    left: frameRect.left,
+    top: frameRect.top,
+    width: frameRect.width,
+    height: frameRect.height,
+    depth,
+  });
+  const innerRect = insetRect(frameRect, MOSAIC_GROUP_PADDING);
+  const headerHeight = Math.min(
+    MOSAIC_CONTAINER_HEADER_HEIGHT,
+    Math.max(1, innerRect.height - 1),
+  );
+  const headerGap = Math.min(
+    MOSAIC_CELL_GAP,
+    Math.max(0, innerRect.height - headerHeight - 1),
+  );
+  nodeRects.set(tree.draft.id, {
+    left: innerRect.left,
+    top: innerRect.top,
+    width: innerRect.width,
+    height: headerHeight,
+  });
+  const childrenRect = {
+    left: innerRect.left,
+    top: innerRect.top + headerHeight + headerGap,
+    width: innerRect.width,
+    height: Math.max(1, innerRect.height - headerHeight - headerGap),
+  };
+  const items: WeightedMosaicItem<MosaicTreeNode>[] = tree.children.map((child) => ({
+    value: child,
+    weight: child.weight,
+  }));
+  items.sort((left, right) => right.weight - left.weight);
+  splitWeightedMosaic(items, childrenRect, (child, itemRect) => {
+    layoutMosaicTree(child, itemRect, nodeRects, frames, containerNodeIds, depth + 1);
+  });
+}
+
+function containmentTargetInnerWidth(children: readonly ContainmentPlacement[]): number {
+  if (children.length === 0) return MIN_MATRIX_INNER_WIDTH;
+
+  const widths = children.map((child) => child.frame.width).sort((left, right) => left - right);
+  const medianWidth = widths[Math.floor(widths.length / 2)] ?? MIN_CLASS_WIDTH;
+  const widestWidth = widths[widths.length - 1] ?? MIN_CLASS_WIDTH;
+  const desiredColumns = Math.max(1, Math.ceil(Math.sqrt(children.length)));
+  const desiredWidth = desiredColumns * medianWidth
+    + MATRIX_CHILD_GAP * Math.max(0, desiredColumns - 1);
+  const heterogeneousWidth = widestWidth + medianWidth + MATRIX_CHILD_GAP;
+  const cappedWidth = Math.min(
+    MAX_MATRIX_INNER_WIDTH,
+    Math.max(MIN_MATRIX_INNER_WIDTH, desiredWidth, heterogeneousWidth),
+  );
+  return Math.max(widestWidth, cappedWidth);
+}
+
+function containmentRectsOverlap(
+  left: PackedContainmentChild,
+  right: PackedContainmentChild,
+): boolean {
+  return !(
+    left.left + left.child.frame.width + MATRIX_CHILD_GAP <= right.left
+    || right.left + right.child.frame.width + MATRIX_CHILD_GAP <= left.left
+    || left.top + left.child.frame.height + MATRIX_CHILD_GAP <= right.top
+    || right.top + right.child.frame.height + MATRIX_CHILD_GAP <= left.top
+  );
+}
+
+/**
+ * Bottom-left rectangle packing for containment subtrees. Unlike shelf rows,
+ * this lets later small boxes occupy the space below a short sibling while a
+ * taller subtree continues beside them.
+ */
+function packContainmentChildren(
+  children: readonly ContainmentPlacement[],
+  targetWidth: number,
+  occupied: readonly PackedContainmentChild[] = [],
+): PackedContainmentChild[] {
+  const packed: PackedContainmentChild[] = [...occupied];
+  const reservedCount = packed.length;
+
+  for (const child of children) {
+    const candidateLefts = new Set<number>([0]);
+    const candidateTops = new Set<number>([0]);
+    for (const placed of packed) {
+      candidateLefts.add(placed.left);
+      candidateLefts.add(placed.left + placed.child.frame.width + MATRIX_CHILD_GAP);
+      candidateTops.add(placed.top);
+      candidateTops.add(placed.top + placed.child.frame.height + MATRIX_CHILD_GAP);
+    }
+
+    const candidates = [...candidateTops]
+      .flatMap((top) => [...candidateLefts].map((left) => ({ left, top })))
+      .filter(({ left }) => left + child.frame.width <= targetWidth + 0.5)
+      .sort((left, right) => left.top - right.top || left.left - right.left);
+
+    const position = candidates.find(({ left, top }) => {
+      const candidate = { child, left, top };
+      return packed.every((placed) => !containmentRectsOverlap(candidate, placed));
+    }) ?? {
+      left: 0,
+      top: packed.reduce(
+        (bottom, placed) => Math.max(
+          bottom,
+          placed.top + placed.child.frame.height + MATRIX_CHILD_GAP,
+        ),
+        0,
+      ),
+    };
+
+    packed.push({ child, ...position });
+  }
+
+  return packed.slice(reservedCount);
 }
 
 function estimatedTextWidth(text: string): number {
@@ -274,25 +584,37 @@ function layoutContainmentNode(
   const nextVisited = new Set(visited);
   nextVisited.add(graphId);
   const innerLeft = MATRIX_PAD_X;
-  const bodyTop = MATRIX_PAD_TOP + draft.size.height;
-  const targetInnerWidth = Math.max(
-    draft.size.width - MATRIX_PAD_X * 2,
-    MIN_MATRIX_INNER_WIDTH,
+  const children = childIds.map(
+    (childId) => layoutContainmentNode(childId, sizedById, childrenByGraphId, nextVisited),
   );
-  let cursorX = innerLeft;
-  let cursorY = bodyTop;
-  let rowHeight = 0;
+  const targetInnerWidth = containmentTargetInnerWidth(children);
+  const frameWidth = Math.max(
+    draft.size.width + MATRIX_PAD_X * 2,
+    targetInnerWidth + MATRIX_PAD_X * 2,
+  );
+  const nodeLeft = MATRIX_PAD_X;
+  const nodeTop = MATRIX_PAD_TOP;
+  placements.set(graphId, {
+    left: nodeLeft,
+    top: nodeTop,
+    width: draft.size.width,
+    height: draft.size.height,
+  });
+  const reservedParent: PackedContainmentChild = {
+    child: {
+      frame: { left: 0, top: 0, width: draft.size.width, height: draft.size.height },
+      placements: new Map(),
+    },
+    left: 0,
+    top: 0,
+  };
+  const packedChildren = packContainmentChildren(children, targetInnerWidth, [reservedParent]);
   let contentRight = innerLeft;
+  let contentBottom = nodeTop + draft.size.height;
 
-  for (const childId of childIds) {
-    const child = layoutContainmentNode(childId, sizedById, childrenByGraphId, nextVisited);
-    if (cursorX > innerLeft && cursorX + child.frame.width > innerLeft + targetInnerWidth) {
-      cursorX = innerLeft;
-      cursorY += rowHeight + MATRIX_CHILD_GAP;
-      rowHeight = 0;
-    }
-    const childLeft = cursorX;
-    const childTop = cursorY;
+  for (const { child, left, top } of packedChildren) {
+    const childLeft = innerLeft + left;
+    const childTop = nodeTop + top;
     for (const [id, rect] of child.placements) {
       placements.set(id, {
         left: rect.left + childLeft,
@@ -301,20 +623,17 @@ function layoutContainmentNode(
         height: rect.height,
       });
     }
-    cursorX += child.frame.width + MATRIX_CHILD_GAP;
-    contentRight = Math.max(contentRight, cursorX - MATRIX_CHILD_GAP + child.frame.width);
-    rowHeight = Math.max(rowHeight, child.frame.height);
+    contentRight = Math.max(contentRight, childLeft + child.frame.width);
+    contentBottom = Math.max(contentBottom, childTop + child.frame.height);
   }
 
-  const width = Math.max(draft.size.width, contentRight + MATRIX_PAD_X);
-  const bodyHeight = rowHeight === 0 ? 0 : cursorY + rowHeight - bodyTop;
+  const width = Math.max(frameWidth, contentRight + MATRIX_PAD_X);
   const frame = {
     left: 0,
     top: 0,
     width,
-    height: MATRIX_PAD_TOP + draft.size.height + bodyHeight + MATRIX_PAD_BOTTOM,
+    height: contentBottom + MATRIX_PAD_BOTTOM,
   };
-  placements.set(graphId, frame);
   return { frame, placements };
 }
 
@@ -547,9 +866,12 @@ export function buildUnifiedIndexGraph({
   relationRootLabel,
   relationGraph,
   knowledgeEdges,
+  containmentEdges,
   nodePool,
   collapsedNodeIds = new Set(),
+  targetAspectRatio,
 }: BuildUnifiedIndexGraphParams): UnifiedIndexGraphLayout {
+  const physicalContainmentEdges = containmentEdges ?? knowledgeEdges;
   const splitRoots = ownerId !== relationRootId;
   const drafts = new Map<string, KnowledgeDraft>();
   const relationDepths = new Map(
@@ -588,7 +910,7 @@ export function buildUnifiedIndexGraph({
   }
 
   const ownerGraphId = graphIdForKnowledge(ownerId, ownerId, splitRoots);
-  const containedChildIds = collectContainedSubtreeIds(ownerId, knowledgeEdges);
+  const containedChildIds = collectContainedSubtreeIds(ownerId, physicalContainmentEdges);
   for (const childId of containedChildIds) {
     const childGraphId = graphIdForKnowledge(childId, ownerId, splitRoots);
     if (!drafts.has(childGraphId)) {
@@ -693,140 +1015,81 @@ export function buildUnifiedIndexGraph({
   const sizedById = new Map(sizedDrafts.map((draft) => [draft.id, draft]));
   const childrenByGraphId = containmentChildrenByGraphId(
     [...drafts.values()],
-    knowledgeEdges,
+    physicalContainmentEdges,
   );
-  const containedGraphIds = new Set<string>();
-  let containmentPlacement: ContainmentPlacement | null = null;
-  if ((childrenByGraphId.get(ownerGraphId) ?? []).length > 0) {
-    containmentPlacement = layoutContainmentNode(ownerGraphId, sizedById, childrenByGraphId);
-    for (const graphId of containmentPlacement.placements.keys()) {
-      containedGraphIds.add(graphId);
-    }
-  }
-  const layeredDrafts = [...sizedById.values()]
-    .filter((draft) => !containedGraphIds.has(draft.id) || draft.id === ownerGraphId)
-    .map((draft) => {
-      if (containmentPlacement && draft.id === ownerGraphId) {
-        return {
-          ...draft,
-          size: {
-            width: containmentPlacement.frame.width,
-            height: containmentPlacement.frame.height,
-          },
-        };
-      }
-      return draft;
-    });
-  const layers = new Map<number, SizedKnowledgeDraft[]>();
-  for (const draft of layeredDrafts) {
-    const layer = layers.get(draft.depth) ?? [];
-    layer.push(draft);
-    layers.set(draft.depth, layer);
-  }
-  for (const layer of layers.values()) {
-    layer.sort((left, right) => {
+  const childGraphIds = new Set(
+    [...childrenByGraphId.values()].flatMap((childIds) => childIds),
+  );
+  let rootDrafts = sizedDrafts.filter((draft) => !childGraphIds.has(draft.id));
+  if (rootDrafts.length === 0) rootDrafts = sizedDrafts;
+  const assignedGraphIds = new Set<string>();
+  const roots = [...rootDrafts]
+    .sort((left, right) => {
       if (left.owner !== right.owner) return left.owner ? -1 : 1;
-      if (left.logicalReference !== right.logicalReference) return left.logicalReference ? 1 : -1;
       return left.label.localeCompare(right.label, 'zh-CN');
+    })
+    .map((draft) => buildMosaicTree(
+      draft.id,
+      sizedById,
+      childrenByGraphId,
+      new Set(),
+      assignedGraphIds,
+    ))
+    .filter((tree): tree is MosaicTreeNode => !!tree)
+    .sort((left, right) => {
+      if (left.draft.owner !== right.draft.owner) return left.draft.owner ? -1 : 1;
+      return right.weight - left.weight;
     });
-  }
-
-  minimizeLayerCrossings(layers, edges);
-
-  const orderedDepths = [...layers.keys()].sort((left, right) => right - left);
-  const rowsByDepth = orderedDepths.map((depth) => ({
-    depth,
-    rows: splitLayerIntoRows(layers.get(depth) ?? []),
-  }));
-  const rowWidth = (row: readonly SizedKnowledgeDraft[]) => (
-    row.reduce((width, node) => width + node.size.width, 0)
-      + NODE_GAP * Math.max(0, row.length - 1)
+  const totalWeight = roots.reduce((sum, tree) => sum + tree.weight, 0);
+  const { width, height } = mosaicCanvasSize(totalWeight, targetAspectRatio);
+  const nodeRects = new Map<string, Rect>();
+  const containmentFrames: UnifiedIndexContainmentFrame[] = [];
+  const containerNodeIds = new Set<string>();
+  const rootItems = roots.map((tree) => ({ value: tree, weight: tree.weight }));
+  splitWeightedMosaic(
+    rootItems,
+    { left: 0, top: 0, width, height },
+    (tree, rect) => layoutMosaicTree(
+      tree,
+      rect,
+      nodeRects,
+      containmentFrames,
+      containerNodeIds,
+      0,
+    ),
   );
-  const width = Math.max(
-    MIN_CANVAS_WIDTH,
-    ...rowsByDepth.flatMap(({ rows }) => rows.map(
-      (row) => rowWidth(row) + OUTER_PADDING * 2,
-    )),
-  );
-  const nodes: UnifiedIndexGraphNode[] = [];
-  let ownerPosition: UnifiedIndexNodePosition = { x: 0, y: 0 };
-  let ownerPositioned = false;
-  let cursorY = OUTER_PADDING;
-
-  for (const { rows } of rowsByDepth) {
-    rows.forEach((row, rowIndex) => {
-      const rowHeight = Math.max(...row.map((node) => node.size.height));
-      let cursorX = (width - rowWidth(row)) / 2;
-      const centerY = cursorY + rowHeight / 2;
-
-      for (const draft of row) {
-        const centerX = cursorX + draft.size.width / 2;
-        if (containedGraphIds.has(draft.id)) {
-          if (draft.id === ownerGraphId) {
-            ownerPosition = { x: centerX, y: centerY };
-            ownerPositioned = true;
-          }
-          cursorX += draft.size.width + NODE_GAP;
-          continue;
-        }
-        nodes.push({
-          id: draft.id,
-          kind: UnifiedIndexNodeKind.Knowledge,
-          label: draft.label,
-          position: { x: centerX, y: centerY },
-          size: draft.size,
-          knowledgeNodeId: draft.knowledgeNodeId,
-          members: draft.visibleMembers,
-          memberCount: draft.members.length,
-          hiddenMemberCount: draft.hiddenMemberCount,
-          tags: draft.tags,
-          rootSelection: draft.rootSelection,
-          owner: draft.owner,
-          relationRoot: draft.relationRoot,
-          logicalReference: draft.logicalReference,
-          containedChild: draft.containedChild,
-          collapsed: draft.collapsed,
-        });
-        cursorX += draft.size.width + NODE_GAP;
-      }
-      cursorY += rowHeight + (rowIndex === rows.length - 1 ? LEVEL_GAP : SUB_ROW_GAP);
-    });
-  }
-
-  if (containmentPlacement && ownerPositioned) {
-    const originX = ownerPosition.x - containmentPlacement.frame.width / 2;
-    const originY = ownerPosition.y - containmentPlacement.frame.height / 2;
-    for (const [graphId, rect] of containmentPlacement.placements) {
-      const draft = sizedById.get(graphId);
-      if (!draft) continue;
-      nodes.push({
-        id: graphId,
-        kind: UnifiedIndexNodeKind.Knowledge,
-        label: draft.label,
-        position: {
-          x: originX + rect.left + rect.width / 2,
-          y: originY + rect.top + rect.height / 2,
-        },
-        size: { width: rect.width, height: rect.height },
-        knowledgeNodeId: draft.knowledgeNodeId,
-        members: draft.visibleMembers,
-        memberCount: draft.members.length,
-        hiddenMemberCount: draft.hiddenMemberCount,
-        tags: draft.tags,
-        rootSelection: draft.rootSelection,
-        owner: draft.owner,
-        relationRoot: draft.relationRoot,
-        logicalReference: draft.logicalReference,
-        containedChild: draft.containedChild,
-        collapsed: draft.collapsed,
-      });
-    }
-  }
+  const nodes: UnifiedIndexGraphNode[] = sizedDrafts.flatMap((draft) => {
+    const rect = nodeRects.get(draft.id);
+    if (!rect) return [];
+    return [{
+      id: draft.id,
+      kind: UnifiedIndexNodeKind.Knowledge,
+      label: draft.label,
+      position: {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      },
+      size: { width: rect.width, height: rect.height },
+      knowledgeNodeId: draft.knowledgeNodeId,
+      members: draft.visibleMembers,
+      memberCount: draft.members.length,
+      hiddenMemberCount: draft.hiddenMemberCount,
+      tags: draft.tags,
+      rootSelection: draft.rootSelection,
+      owner: draft.owner,
+      relationRoot: draft.relationRoot,
+      logicalReference: draft.logicalReference,
+      containedChild: draft.containedChild,
+      containerHost: containerNodeIds.has(draft.id),
+      collapsed: draft.collapsed,
+    }];
+  });
 
   return {
     nodes,
     edges,
+    containmentFrames,
     width,
-    height: Math.max(MIN_CANVAS_HEIGHT, cursorY - LEVEL_GAP + OUTER_PADDING),
+    height,
   };
 }

@@ -1,34 +1,31 @@
 import {
   Focus,
   Maximize2,
+  Scan,
   ZoomIn,
   ZoomOut,
 } from 'lucide-react';
 import {
   useEffect,
+  useMemo,
   useRef,
   useState,
   type ReactNode,
 } from 'react';
+import {
+  fitCanvasContent,
+  fitReadableCanvasContent,
+  focusCanvasTarget,
+  positionCanvasOverviewLabels,
+  shouldShowCanvasOverviewLabels,
+  zoomCanvasAtPoint,
+  type CanvasOverviewLabel,
+  type CameraState,
+  type CanvasFocusTarget,
+  type CanvasSize,
+} from './indexCanvasCamera';
 
-export interface CanvasSize {
-  width: number;
-  height: number;
-}
-
-export interface CanvasFocusTarget {
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
-export interface CameraState {
-  offsetX: number;
-  offsetY: number;
-  scale: number;
-}
+export type { CanvasFocusTarget, CanvasOverviewLabel, CanvasSize } from './indexCanvasCamera';
 
 export interface WorldRect {
   x: number;
@@ -40,10 +37,11 @@ export interface WorldRect {
 interface Props {
   ariaLabel: string;
   children: ReactNode;
-  contentKey: string;
   contentSize: CanvasSize;
   focusTarget?: CanvasFocusTarget;
   overlay?: ReactNode;
+  overviewLabels?: readonly CanvasOverviewLabel[];
+  onViewportSizeChange?: (size: CanvasSize) => void;
   /** 提供后：左键空白拖拽变为框选，松开后回调世界坐标矩形 */
   onMarqueeSelect?: (rect: WorldRect, additive: boolean) => void;
   /** 提供后：空白双击回调世界坐标（替代默认的聚焦/适应行为） */
@@ -110,71 +108,8 @@ interface CanvasClickEvent {
   stopPropagation: () => void;
 }
 
-const MIN_SCALE = 0.2;
-const MAX_SCALE = 2.4;
-const CONTENT_PADDING = 52;
-const FOCUS_CONTEXT_WIDTH = 520;
-const FOCUS_CONTEXT_HEIGHT = 320;
 const BLANK_DOUBLE_CLICK_DELAY = 360;
 const BLANK_DOUBLE_CLICK_DISTANCE = 6;
-
-export function clampCanvasScale(scale: number): number {
-  return Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale));
-}
-
-export function fitCanvasContent(
-  viewport: CanvasSize,
-  content: CanvasSize,
-  padding = CONTENT_PADDING,
-): CameraState {
-  const availableWidth = Math.max(1, viewport.width - padding * 2);
-  const availableHeight = Math.max(1, viewport.height - padding * 2);
-  const scale = clampCanvasScale(Math.min(
-    availableWidth / Math.max(1, content.width),
-    availableHeight / Math.max(1, content.height),
-    1,
-  ));
-
-  return {
-    offsetX: (viewport.width - content.width * scale) / 2,
-    offsetY: (viewport.height - content.height * scale) / 2,
-    scale,
-  };
-}
-
-export function focusCanvasTarget(
-  viewport: CanvasSize,
-  target: CanvasFocusTarget,
-): CameraState {
-  const scale = clampCanvasScale(Math.min(
-    Math.max(1, viewport.width - CONTENT_PADDING * 2) / FOCUS_CONTEXT_WIDTH,
-    Math.max(1, viewport.height - CONTENT_PADDING * 2) / FOCUS_CONTEXT_HEIGHT,
-    1.35,
-  ));
-
-  return {
-    offsetX: viewport.width / 2 - target.x * scale,
-    offsetY: viewport.height / 2 - target.y * scale,
-    scale,
-  };
-}
-
-export function zoomCanvasAtPoint(
-  camera: CameraState,
-  pointX: number,
-  pointY: number,
-  nextScale: number,
-): CameraState {
-  const scale = clampCanvasScale(nextScale);
-  const worldX = (pointX - camera.offsetX) / camera.scale;
-  const worldY = (pointY - camera.offsetY) / camera.scale;
-
-  return {
-    offsetX: pointX - worldX * scale,
-    offsetY: pointY - worldY * scale,
-    scale,
-  };
-}
 
 function isInteractiveTarget(target: EventTarget | null): boolean {
   return target instanceof Element && !!target.closest('button, input, textarea, select, a');
@@ -183,10 +118,11 @@ function isInteractiveTarget(target: EventTarget | null): boolean {
 export function IndexCanvas({
   ariaLabel,
   children,
-  contentKey,
   contentSize,
   focusTarget,
   overlay,
+  overviewLabels,
+  onViewportSizeChange,
   onMarqueeSelect,
   onBlankDoubleClick,
   onBlankClick,
@@ -196,7 +132,8 @@ export function IndexCanvas({
   const marqueeGestureRef = useRef(null) as { current: MarqueeGesture | null };
   const blankClickRef = useRef(null) as { current: BlankClickGesture | null };
   const spacePressedRef = useRef(false) as { current: boolean };
-  const fittedContentKeyRef = useRef(null) as { current: string | null };
+  const measuredViewportSizeRef = useRef(null) as { current: CanvasSize | null };
+  const fittedViewportSizeRef = useRef(null) as { current: CanvasSize | null };
   const suppressClickRef = useRef(false) as { current: boolean };
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 }) as [
     CanvasSize,
@@ -211,6 +148,19 @@ export function IndexCanvas({
     { left: number; top: number; width: number; height: number } | null,
     StateSetter<{ left: number; top: number; width: number; height: number } | null>,
   ];
+  const showOverviewLabels = shouldShowCanvasOverviewLabels(camera.scale);
+  const positionedOverviewLabels = useMemo(() => positionCanvasOverviewLabels(
+    overviewLabels ?? [],
+    camera,
+    viewportSize,
+  ), [
+    camera.offsetX,
+    camera.offsetY,
+    camera.scale,
+    overviewLabels,
+    viewportSize.height,
+    viewportSize.width,
+  ]);
 
   useEffect(() => {
     const viewport = viewportRef.current;
@@ -218,18 +168,31 @@ export function IndexCanvas({
 
     const updateSize = () => {
       const rect = viewport.getBoundingClientRect();
-      setViewportSize({ width: rect.width, height: rect.height });
+      const nextSize = {
+        width: Math.round(rect.width),
+        height: Math.round(rect.height),
+      };
+      const measuredSize = measuredViewportSizeRef.current;
+      if (measuredSize?.width === nextSize.width && measuredSize.height === nextSize.height) return;
+      measuredViewportSizeRef.current = nextSize;
+      setViewportSize(nextSize);
+      onViewportSizeChange?.(nextSize);
     };
     updateSize();
 
     const observer = new ResizeObserver(updateSize);
     observer.observe(viewport);
     return () => observer.disconnect();
-  }, []);
+  }, [onViewportSizeChange]);
 
-  const fitAll = () => {
+  const fitOverview = () => {
     if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
     setCamera(fitCanvasContent(viewportSize, contentSize));
+  };
+
+  const fitReadable = () => {
+    if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
+    setCamera(fitReadableCanvasContent(viewportSize, contentSize, focusTarget));
   };
 
   const focusSelection = () => {
@@ -239,10 +202,14 @@ export function IndexCanvas({
 
   useEffect(() => {
     if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
-    if (fittedContentKeyRef.current === contentKey) return;
-    fittedContentKeyRef.current = contentKey;
-    setCamera(fitCanvasContent(viewportSize, contentSize));
-  }, [contentKey, contentSize.height, contentSize.width, viewportSize.height, viewportSize.width]);
+    const fittedSize = fittedViewportSizeRef.current;
+    if (fittedSize?.width === viewportSize.width && fittedSize.height === viewportSize.height) return;
+    const frame = window.requestAnimationFrame(() => {
+      fittedViewportSizeRef.current = viewportSize;
+      setCamera(fitCanvasContent(viewportSize, contentSize));
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [contentSize.height, contentSize.width, viewportSize.height, viewportSize.width]);
 
   const zoomAtViewportCenter = (factor: number) => {
     if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
@@ -410,7 +377,7 @@ export function IndexCanvas({
     if (event.key.toLowerCase() !== 'f' || isInteractiveTarget(event.target)) return;
     event.preventDefault();
     if (focusTarget) focusSelection();
-    else fitAll();
+    else fitReadable();
   };
 
   const detailClass = camera.scale < 0.46
@@ -422,7 +389,7 @@ export function IndexCanvas({
   return (
     <div
       ref={viewportRef}
-      className={`index-canvas${detailClass}${isPanning ? ' is-panning' : ''}`}
+      className={`index-canvas${detailClass}${showOverviewLabels ? ' has-overview-labels' : ''}${isPanning ? ' is-panning' : ''}`}
       tabIndex={0}
       aria-label={ariaLabel}
       onWheel={handleWheel}
@@ -447,7 +414,7 @@ export function IndexCanvas({
         if (isInteractiveTarget(event.target)) return;
         if (onBlankDoubleClick) return;
         if (focusTarget) focusSelection();
-        else fitAll();
+        else fitReadable();
       }}
     >
       <div
@@ -460,6 +427,23 @@ export function IndexCanvas({
       >
         {children}
       </div>
+
+      {positionedOverviewLabels.map((label) => (
+        <div
+          key={label.id}
+          className={`index-canvas-overview-label is-${label.kind} is-${label.presentation}`}
+          aria-hidden="true"
+          style={{
+            left: label.left,
+            top: label.top,
+            width: label.width,
+            height: label.height,
+            fontSize: label.fontSize,
+          }}
+        >
+          {label.label}
+        </div>
+      ))}
 
       {marqueeRect && (
         <div
@@ -484,7 +468,10 @@ export function IndexCanvas({
           <ZoomIn size={15} />
         </button>
         <span className="index-canvas-toolbar-divider" />
-        <button type="button" title="适应全部" aria-label="适应全部" onClick={fitAll}>
+        <button type="button" title="清晰适配" aria-label="清晰适配" onClick={fitReadable}>
+          <Scan size={15} />
+        </button>
+        <button type="button" title="全览" aria-label="全览" onClick={fitOverview}>
           <Maximize2 size={15} />
         </button>
         <button

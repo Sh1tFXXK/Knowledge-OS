@@ -346,7 +346,9 @@ const TreeItem = ({
             {node.name}
           </span>
         )}
-        {node.count != null && <span className="tree-node-count">{node.count}</span>}
+        {typeof node.count === 'number' && node.count > 0 && (
+          <span className="tree-node-count">{node.count}</span>
+        )}
       </div>
 
       {hasChildren && (
