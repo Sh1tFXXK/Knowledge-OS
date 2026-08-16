@@ -719,9 +719,17 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     getKnowledgeExplanation: () => {
-      const id = get().selectedNodeId;
+      const state = get();
+      const treeNode = state.selectedTreeNodeId
+        ? findTreeNodeById(state.treeData, state.selectedTreeNodeId)
+        : null;
+      const id = state.selectedNodeId ?? treeNode?.nodeRef ?? null;
       if (!id) return null;
-      return get().nodePool[id]?.card ?? null;
+      const directCard = state.nodePool[id]?.card ?? null;
+      const snapshot = [...state.timeline].reverse().find((item) =>
+        item.knowledgeNodeId === id || item.node?.id === id,
+      );
+      return directCard ?? snapshot?.node?.card ?? null;
     },
 
     getActiveDimension: () => get().currentPerspective?.id ?? 'all',

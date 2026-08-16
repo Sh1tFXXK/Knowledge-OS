@@ -85,7 +85,8 @@
       "rule": "reviewed-explicit-mapping",
       "rationale": "节点具有正文，且存在 8 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。 已挂载到现有分类树 mysql_topic_indexes_access，并保留原正文与关系。",
       "canonicalTreeEntryId": "governance:canonical:demo_btree",
-      "acceptedAt": "2026-08-16T02:03:14.350Z"
+      "acceptedAt": "2026-08-16T02:03:14.350Z",
+      "canonicalParentTreeEntryId": "mysql_topic_indexes_access"
     },
     {
       "id": "placement:demo_composite_index",
@@ -102,7 +103,8 @@
       "rule": "reviewed-explicit-mapping",
       "rationale": "节点具有正文，且存在 1 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。 已挂载到现有分类树 mysql_topic_indexes_access，并保留原正文与关系。",
       "canonicalTreeEntryId": "governance:canonical:demo_composite_index",
-      "acceptedAt": "2026-08-16T02:03:14.350Z"
+      "acceptedAt": "2026-08-16T02:03:14.350Z",
+      "canonicalParentTreeEntryId": "mysql_topic_indexes_access"
     },
     {
       "id": "placement:demo_buffer",
@@ -137,7 +139,8 @@
       "rule": "reviewed-explicit-mapping",
       "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。 已挂载到现有分类树 mysql_topic_sql_objects，并保留原正文与关系。",
       "canonicalTreeEntryId": "governance:canonical:demo_join",
-      "acceptedAt": "2026-08-16T02:03:14.350Z"
+      "acceptedAt": "2026-08-16T02:03:14.350Z",
+      "canonicalParentTreeEntryId": "mysql_topic_sql_objects"
     },
     {
       "id": "placement:demo_subquery",
@@ -156,7 +159,8 @@
       "rule": "reviewed-explicit-mapping",
       "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。 已挂载到现有分类树 mysql_topic_sql_objects，并保留原正文与关系。",
       "canonicalTreeEntryId": "governance:canonical:demo_subquery",
-      "acceptedAt": "2026-08-16T02:03:14.350Z"
+      "acceptedAt": "2026-08-16T02:03:14.350Z",
+      "canonicalParentTreeEntryId": "mysql_topic_sql_objects"
     },
     {
       "id": "placement:demo_postgres",
@@ -208,28 +212,40 @@
     {
       "id": "placement:n_6dgtsmpj",
       "nodeId": "n_6dgtsmpj",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "theory_domain_algorithms",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 tree_acm2012_algorithms；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:n_6dgtsmpj",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:n_6dgtsmpj",
+      "legacyTreeEntryIds": [
+        "governance:review:n_6dgtsmpj"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.240Z",
+      "canonicalParentTreeEntryId": "tree_acm2012_algorithms"
     },
     {
       "id": "placement:n_9hr0nvvv",
       "nodeId": "n_9hr0nvvv",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "theory_domain_algorithms",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 tree_acm2012_algorithms；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:n_9hr0nvvv",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:n_9hr0nvvv",
+      "legacyTreeEntryIds": [
+        "governance:review:n_9hr0nvvv"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.244Z",
+      "canonicalParentTreeEntryId": "tree_acm2012_algorithms"
     },
     {
       "id": "placement:react_import_aliasing",
@@ -253,197 +269,287 @@
     {
       "id": "placement:k_auto_va5371",
       "nodeId": "k_auto_va5371",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_indexes_access",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_indexes_access；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_va5371",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_va5371",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_va5371"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.245Z",
+      "canonicalParentTreeEntryId": "mysql_topic_indexes_access"
     },
     {
       "id": "placement:k_auto_yb9yyu",
       "nodeId": "k_auto_yb9yyu",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_indexes_access",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_indexes_access；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_yb9yyu",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_yb9yyu",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_yb9yyu"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.246Z",
+      "canonicalParentTreeEntryId": "mysql_topic_indexes_access"
     },
     {
       "id": "placement:k_auto_es1cgt",
       "nodeId": "k_auto_es1cgt",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_indexes_access",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_indexes_access；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_es1cgt",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_es1cgt",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_es1cgt"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.252Z",
+      "canonicalParentTreeEntryId": "mysql_topic_indexes_access"
     },
     {
       "id": "placement:k_auto_g7wfdd",
       "nodeId": "k_auto_g7wfdd",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-export；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_g7wfdd",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_g7wfdd",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_g7wfdd"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.253Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-export"
     },
     {
       "id": "placement:k_auto_1gqanov",
       "nodeId": "k_auto_1gqanov",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-import；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_1gqanov",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_1gqanov",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_1gqanov"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.254Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-import"
     },
     {
       "id": "placement:k_auto_figgbw",
       "nodeId": "k_auto_figgbw",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-export；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_figgbw",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_figgbw",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_figgbw"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.255Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-export"
     },
     {
       "id": "placement:k_auto_bdlo12",
       "nodeId": "k_auto_bdlo12",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-export；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_bdlo12",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_bdlo12",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_bdlo12"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.256Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-export"
     },
     {
       "id": "placement:k_auto_afmuju",
       "nodeId": "k_auto_afmuju",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-import；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_afmuju",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_afmuju",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_afmuju"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.256Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-import"
     },
     {
       "id": "placement:k_auto_l6ipg1",
       "nodeId": "k_auto_l6ipg1",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-import；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_l6ipg1",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_l6ipg1",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_l6ipg1"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.257Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-import"
     },
     {
       "id": "placement:k_auto_14sf5e5",
       "nodeId": "k_auto_14sf5e5",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-export；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_14sf5e5",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_14sf5e5",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_14sf5e5"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.258Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-export"
     },
     {
       "id": "placement:k_auto_142cy8w",
       "nodeId": "k_auto_142cy8w",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-export；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_142cy8w",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_142cy8w",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_142cy8w"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.258Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-export"
     },
     {
       "id": "placement:k_auto_1ayw78b",
       "nodeId": "k_auto_1ayw78b",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:module-import；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_1ayw78b",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_1ayw78b",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_1ayw78b"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.259Z",
+      "canonicalParentTreeEntryId": "governance:javascript:module-import"
     },
     {
       "id": "placement:k_auto_g1oyi4",
       "nodeId": "k_auto_g1oyi4",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:control-flow；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_g1oyi4",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_g1oyi4",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_g1oyi4"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.261Z",
+      "canonicalParentTreeEntryId": "governance:javascript:control-flow"
     },
     {
       "id": "placement:k_auto_140h0oi",
       "nodeId": "k_auto_140h0oi",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:control-flow；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_140h0oi",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_140h0oi",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_140h0oi"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.262Z",
+      "canonicalParentTreeEntryId": "governance:javascript:control-flow"
     },
     {
       "id": "placement:k_auto_n9n437",
       "nodeId": "k_auto_n9n437",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_conditional_rendering",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 react_tree_conditional；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_n9n437",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_n9n437",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_n9n437"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.263Z",
+      "canonicalParentTreeEntryId": "react_tree_conditional"
     },
     {
       "id": "placement:k_auto_wziud0",
@@ -461,41 +567,59 @@
     {
       "id": "placement:k_auto_1p7kxpz",
       "nodeId": "k_auto_1p7kxpz",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:expressions；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_1p7kxpz",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_1p7kxpz",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_1p7kxpz"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.265Z",
+      "canonicalParentTreeEntryId": "governance:javascript:expressions"
     },
     {
       "id": "placement:k_auto_xbksij",
       "nodeId": "k_auto_xbksij",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_conditional_rendering",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 react_tree_conditional；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_xbksij",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_xbksij",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_xbksij"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.265Z",
+      "canonicalParentTreeEntryId": "react_tree_conditional"
     },
     {
       "id": "placement:k_auto_nm6bj0",
       "nodeId": "k_auto_nm6bj0",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "react_export_import",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 governance:javascript:expressions；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_auto_nm6bj0",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_nm6bj0",
+      "legacyTreeEntryIds": [
+        "governance:review:k_auto_nm6bj0"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.266Z",
+      "canonicalParentTreeEntryId": "governance:javascript:expressions"
     },
     {
       "id": "placement:k_dict_vg1hm4yv",
@@ -628,9 +752,9 @@
     {
       "id": "placement:k_1782029470422_yfa3u9",
       "nodeId": "k_1782029470422_yfa3u9",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_architecture",
       "pathHint": [
         "计算机科学",
         "数据库",
@@ -638,9 +762,15 @@
       ],
       "confidence": "medium",
       "rule": "dimension-storage",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_architecture；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782029470422_yfa3u9",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782029470422_yfa3u9",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782029470422_yfa3u9"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.267Z",
+      "canonicalParentTreeEntryId": "mysql_topic_architecture"
     },
     {
       "id": "placement:mysql_runtime_files",
@@ -659,7 +789,8 @@
       "rule": "reviewed-explicit-mapping",
       "rationale": "节点具有正文，且存在 2 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。 已挂载到现有分类树 mysql_topic_architecture，并保留原正文与关系。",
       "canonicalTreeEntryId": "governance:canonical:mysql_runtime_files",
-      "acceptedAt": "2026-08-16T02:03:14.350Z"
+      "acceptedAt": "2026-08-16T02:03:14.350Z",
+      "canonicalParentTreeEntryId": "mysql_topic_architecture"
     },
     {
       "id": "placement:mysql_file_pid",
@@ -702,41 +833,59 @@
     {
       "id": "placement:k_1782032275682_61auc4",
       "nodeId": "k_1782032275682_61auc4",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_architecture",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_architecture；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782032275682_61auc4",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782032275682_61auc4",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782032275682_61auc4"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.268Z",
+      "canonicalParentTreeEntryId": "mysql_topic_architecture"
     },
     {
       "id": "placement:k_1782032572614_mi65fj",
       "nodeId": "k_1782032572614_mi65fj",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_architecture",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_architecture；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782032572614_mi65fj",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782032572614_mi65fj",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782032572614_mi65fj"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.268Z",
+      "canonicalParentTreeEntryId": "mysql_topic_architecture"
     },
     {
       "id": "placement:k_1782033172524_cjmm5c",
       "nodeId": "k_1782033172524_cjmm5c",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_sql_objects",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_sql_objects；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782033172524_cjmm5c",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782033172524_cjmm5c",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782033172524_cjmm5c"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.269Z",
+      "canonicalParentTreeEntryId": "mysql_topic_sql_objects"
     },
     {
       "id": "placement:k_1782033245872_81floi",
@@ -6082,9 +6231,9 @@
     {
       "id": "placement:mysql_tx_lifecycle",
       "nodeId": "mysql_tx_lifecycle",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_transactions_locks",
       "pathHint": [
         "计算机科学",
         "数据库",
@@ -6092,16 +6241,22 @@
       ],
       "confidence": "medium",
       "rule": "dimension-storage",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_transactions_locks；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:mysql_tx_lifecycle",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:mysql_tx_lifecycle",
+      "legacyTreeEntryIds": [
+        "governance:review:mysql_tx_lifecycle"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.270Z",
+      "canonicalParentTreeEntryId": "mysql_topic_transactions_locks"
     },
     {
       "id": "placement:mysql_tx_read_phenomena",
       "nodeId": "mysql_tx_read_phenomena",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_transactions_locks",
       "pathHint": [
         "计算机科学",
         "数据库",
@@ -6109,16 +6264,22 @@
       ],
       "confidence": "medium",
       "rule": "dimension-storage",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_transactions_locks；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:mysql_tx_read_phenomena",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:mysql_tx_read_phenomena",
+      "legacyTreeEntryIds": [
+        "governance:review:mysql_tx_read_phenomena"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.271Z",
+      "canonicalParentTreeEntryId": "mysql_topic_transactions_locks"
     },
     {
       "id": "placement:mysql_tx_waits_deadlocks",
       "nodeId": "mysql_tx_waits_deadlocks",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_transactions_locks",
       "pathHint": [
         "计算机科学",
         "数据库",
@@ -6126,22 +6287,34 @@
       ],
       "confidence": "medium",
       "rule": "dimension-storage",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_transactions_locks；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:mysql_tx_waits_deadlocks",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:mysql_tx_waits_deadlocks",
+      "legacyTreeEntryIds": [
+        "governance:review:mysql_tx_waits_deadlocks"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.271Z",
+      "canonicalParentTreeEntryId": "mysql_topic_transactions_locks"
     },
     {
       "id": "placement:k_1782835092322_77nqn7",
       "nodeId": "k_1782835092322_77nqn7",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "theory_domain_algorithms",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 tree_acm2012_algorithms；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782835092322_77nqn7",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782835092322_77nqn7",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782835092322_77nqn7"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.272Z",
+      "canonicalParentTreeEntryId": "tree_acm2012_algorithms"
     },
     {
       "id": "placement:k_1782836111549_qetpvx",
@@ -6159,22 +6332,28 @@
     {
       "id": "placement:k_1782928892375_1vgg04",
       "nodeId": "k_1782928892375_1vgg04",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "mysql_topic_transactions_locks",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 mysql_topic_transactions_locks；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1782928892375_1vgg04",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1782928892375_1vgg04",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1782928892375_1vgg04"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.273Z",
+      "canonicalParentTreeEntryId": "mysql_topic_transactions_locks"
     },
     {
       "id": "placement:k_1783875158265_4qvhak",
       "nodeId": "k_1783875158265_4qvhak",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "k_1782746457581_30q8ao",
       "pathHint": [
         "计算机科学",
         "编程语言",
@@ -6182,22 +6361,34 @@
       ],
       "confidence": "medium",
       "rule": "label-java",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 tree_1782746457614_osttpr；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_1783875158265_4qvhak",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_1783875158265_4qvhak",
+      "legacyTreeEntryIds": [
+        "governance:review:k_1783875158265_4qvhak"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.272Z",
+      "canonicalParentTreeEntryId": "tree_1782746457614_osttpr"
     },
     {
       "id": "placement:k_java_syntax_hello_world",
       "nodeId": "k_java_syntax_hello_world",
-      "status": "proposed",
+      "status": "accepted",
       "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "canonicalParentNodeId": "k_1782746457581_30q8ao",
       "pathHint": [],
       "confidence": "review",
       "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
+      "rationale": "按 35 节点分类审阅报告迁移至 tree_1782746457614_osttpr；正文、节点 ID 和来源保持不变。",
       "reviewTreeEntryId": "governance:review:k_java_syntax_hello_world",
-      "reviewQueue": "governance-review-inbox"
+      "reviewQueue": "governance-review-inbox",
+      "canonicalTreeEntryId": "governance:canonical:k_java_syntax_hello_world",
+      "legacyTreeEntryIds": [
+        "governance:review:k_java_syntax_hello_world"
+      ],
+      "acceptedAt": "2026-08-16T07:10:16.273Z",
+      "canonicalParentTreeEntryId": "tree_1782746457614_osttpr"
     }
   ],
   "projections": [
@@ -10528,6 +10719,15 @@
       "parentTreeEntryId": "mysql_topic_uncategorized",
       "movedAt": "2026-08-16T02:12:48.463Z",
       "purpose": "retain-source-view-without-expanding-canonical-topic-root"
+    },
+    "reviewReportMigration": {
+      "executedAt": "2026-08-16T07:10:16.273Z",
+      "accepted": 31,
+      "manualReview": 0,
+      "manualReviewNodeIds": [],
+      "contentSource": "nodePool.card/timeline.card",
+      "parentIdRepairAt": "2026-08-16T07:10:38.854Z",
+      "parentIdSemantics": "canonicalParentNodeId=nodePool nodeRef; canonicalParentTreeEntryId=tree entry id"
     }
   },
   "migration": {
