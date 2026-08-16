@@ -602,7 +602,8 @@
                   "id": "mysql_term_operating_systems_elcshr_1h9aon",
                   "name": "存储过程",
                   "count": 0,
-                  "nodeRef": "k_1782930954484_nwtfg7"
+                  "nodeRef": "k_1782930954484_nwtfg7",
+                  "children": []
                 }
               ]
             },
@@ -610,7 +611,8 @@
               "id": "theory_domain_computer_architecture",
               "name": "计算机体系结构",
               "count": 0,
-              "nodeRef": "theory_domain_computer_architecture"
+              "nodeRef": "theory_domain_computer_architecture",
+              "children": []
             },
             {
               "id": "theory_domain_storage_systems",
@@ -1318,6 +1320,13 @@
                       "name": "SOLID and GRASP guidelines",
                       "count": 0,
                       "nodeRef": "k_1784223183035_6d15js",
+                      "children": []
+                    },
+                    {
+                      "id": "governance:canonical:k_1782836111549_qetpvx",
+                      "name": "类",
+                      "nodeRef": "k_1782836111549_qetpvx",
+                      "count": 0,
                       "children": []
                     }
                   ]
@@ -10216,7 +10225,8 @@
                       "id": "mysql_term_programming_language_theory_kdzspc_65wo8b",
                       "name": "触发器",
                       "count": 0,
-                      "nodeRef": "k_1782930904543_kxi0uk"
+                      "nodeRef": "k_1782930904543_kxi0uk",
+                      "children": []
                     }
                   ]
                 },
@@ -10224,7 +10234,8 @@
                   "id": "theory_domain_regular_expression_theory",
                   "name": "正则表达式理论",
                   "count": 0,
-                  "nodeRef": "theory_domain_regular_expression_theory"
+                  "nodeRef": "theory_domain_regular_expression_theory",
+                  "children": []
                 }
               ]
             },
@@ -11368,6 +11379,13 @@
                       ]
                     }
                   ]
+                },
+                {
+                  "id": "governance:canonical:n_s7t5dbya",
+                  "name": "性能优化",
+                  "nodeRef": "n_s7t5dbya",
+                  "count": 0,
+                  "children": []
                 }
               ]
             },
@@ -11533,49 +11551,57 @@
                                       "id": "mysql_functional_ref_k_dict_plyim9pi",
                                       "name": "进程 / process",
                                       "count": 0,
-                                      "nodeRef": "k_dict_plyim9pi"
+                                      "nodeRef": "k_dict_plyim9pi",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_n7rueozw",
                                       "name": "线程 / thread",
                                       "count": 0,
-                                      "nodeRef": "k_dict_n7rueozw"
+                                      "nodeRef": "k_dict_n7rueozw",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_12jqwwcl",
                                       "name": "实例 / instance",
                                       "count": 0,
-                                      "nodeRef": "k_dict_12jqwwcl"
+                                      "nodeRef": "k_dict_12jqwwcl",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_nsqweksd",
                                       "name": "数据字典 / data dictionary",
                                       "count": 0,
-                                      "nodeRef": "k_dict_nsqweksd"
+                                      "nodeRef": "k_dict_nsqweksd",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_xhmtog57",
                                       "name": "服务器 / server",
                                       "count": 0,
-                                      "nodeRef": "k_dict_xhmtog57"
+                                      "nodeRef": "k_dict_xhmtog57",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_8yoqxtuu",
                                       "name": "模式 / schema",
                                       "count": 0,
-                                      "nodeRef": "k_dict_8yoqxtuu"
+                                      "nodeRef": "k_dict_8yoqxtuu",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_lc7qrne8",
                                       "name": "数据库 / database",
                                       "count": 0,
-                                      "nodeRef": "k_dict_lc7qrne8"
+                                      "nodeRef": "k_dict_lc7qrne8",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_h20fqa9t",
                                       "name": "连接池 / connection pool",
                                       "count": 0,
-                                      "nodeRef": "k_dict_h20fqa9t"
+                                      "nodeRef": "k_dict_h20fqa9t",
+                                      "children": []
                                     },
                                     {
                                       "id": "governance:canonical:mysql_runtime_files",
@@ -11611,7 +11637,15 @@
                                       "name": "服务层（MySQL Server）",
                                       "count": 0,
                                       "nodeRef": "k_1782032275682_61auc4",
-                                      "children": []
+                                      "children": [
+                                        {
+                                          "id": "governance:canonical:k_1782033245872_81floi",
+                                          "name": "解析器（Parser）",
+                                          "nodeRef": "k_1782033245872_81floi",
+                                          "count": 0,
+                                          "children": []
+                                        }
+                                      ]
                                     },
                                     {
                                       "id": "governance:canonical:k_1782032572614_mi65fj",
@@ -11727,133 +11761,155 @@
                                       "id": "mysql_functional_ref_k_dict_c9sxzvqt",
                                       "name": "不可重复读 / non-repeatable read",
                                       "count": 0,
-                                      "nodeRef": "k_dict_c9sxzvqt"
+                                      "nodeRef": "k_dict_c9sxzvqt",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_4zr5j9bz",
                                       "name": "可重复读 / REPEATABLE READ",
                                       "count": 0,
-                                      "nodeRef": "k_dict_4zr5j9bz"
+                                      "nodeRef": "k_dict_4zr5j9bz",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_ntqiff2s",
                                       "name": "截断 / truncate",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ntqiff2s"
+                                      "nodeRef": "k_dict_ntqiff2s",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_4m05mgz6",
                                       "name": "在线 DDL / online DDL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_4m05mgz6"
+                                      "nodeRef": "k_dict_4m05mgz6",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_qv4sloxd",
                                       "name": "数据操纵语言 / DML",
                                       "count": 0,
-                                      "nodeRef": "k_dict_qv4sloxd"
+                                      "nodeRef": "k_dict_qv4sloxd",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_pzcms560",
                                       "name": "插入 / insert",
                                       "count": 0,
-                                      "nodeRef": "k_dict_pzcms560"
+                                      "nodeRef": "k_dict_pzcms560",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_qvf5c9q7",
                                       "name": "删除 / delete",
                                       "count": 0,
-                                      "nodeRef": "k_dict_qvf5c9q7"
+                                      "nodeRef": "k_dict_qvf5c9q7",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_73wtge24",
                                       "name": "数据定义语言 / DDL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_73wtge24"
+                                      "nodeRef": "k_dict_73wtge24",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_jan17ieo",
                                       "name": "全表扫描 / full table scan",
                                       "count": 0,
-                                      "nodeRef": "k_dict_jan17ieo"
+                                      "nodeRef": "k_dict_jan17ieo",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_a7bwz8vl",
                                       "name": "游标 / cursor",
                                       "count": 0,
-                                      "nodeRef": "k_dict_a7bwz8vl"
+                                      "nodeRef": "k_dict_a7bwz8vl",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_n_21yoee5g",
                                       "name": "NoSQL",
                                       "count": 0,
-                                      "nodeRef": "n_21yoee5g"
+                                      "nodeRef": "n_21yoee5g",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_p7los2aq",
                                       "name": "动态 SQL / dynamic SQL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_p7los2aq"
+                                      "nodeRef": "k_dict_p7los2aq",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_lepgecnd",
                                       "name": "列 / column",
                                       "count": 0,
-                                      "nodeRef": "k_dict_lepgecnd"
+                                      "nodeRef": "k_dict_lepgecnd",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_6rxmba95",
                                       "name": "临时表 / temporary table",
                                       "count": 0,
-                                      "nodeRef": "k_dict_6rxmba95"
+                                      "nodeRef": "k_dict_6rxmba95",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_reul960o",
                                       "name": "生成列 / generated column",
                                       "count": 0,
-                                      "nodeRef": "k_dict_reul960o"
+                                      "nodeRef": "k_dict_reul960o",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_2uq4y41u",
                                       "name": "行 / row",
                                       "count": 0,
-                                      "nodeRef": "k_dict_2uq4y41u"
+                                      "nodeRef": "k_dict_2uq4y41u",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_ihguu98m",
                                       "name": "行格式 / row format",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ihguu98m"
+                                      "nodeRef": "k_dict_ihguu98m",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_7okhi5j5",
                                       "name": "虚拟列 / virtual column",
                                       "count": 0,
-                                      "nodeRef": "k_dict_7okhi5j5"
+                                      "nodeRef": "k_dict_7okhi5j5",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_fb1f2eh2",
                                       "name": "行级锁定 / row-level locking",
                                       "count": 0,
-                                      "nodeRef": "k_dict_fb1f2eh2"
+                                      "nodeRef": "k_dict_fb1f2eh2",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_7dvcv51p",
                                       "name": "表 / table",
                                       "count": 0,
-                                      "nodeRef": "k_dict_7dvcv51p"
+                                      "nodeRef": "k_dict_7dvcv51p",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_lm90vzok",
                                       "name": "视图 / view",
                                       "count": 0,
-                                      "nodeRef": "k_dict_lm90vzok"
+                                      "nodeRef": "k_dict_lm90vzok",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_1sj5w4mj",
                                       "name": "物化视图 / Materialized View",
                                       "count": 0,
-                                      "nodeRef": "k_dict_1sj5w4mj"
+                                      "nodeRef": "k_dict_1sj5w4mj",
+                                      "children": []
                                     },
                                     {
                                       "id": "governance:canonical:demo_join",
@@ -12425,25 +12481,29 @@
                                       "id": "mysql_functional_ref_k_dict_xbipt5q1",
                                       "name": "快照 / snapshot",
                                       "count": 0,
-                                      "nodeRef": "k_dict_xbipt5q1"
+                                      "nodeRef": "k_dict_xbipt5q1",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_jw1sc90t",
                                       "name": "撤销 / undo",
                                       "count": 0,
-                                      "nodeRef": "k_dict_jw1sc90t"
+                                      "nodeRef": "k_dict_jw1sc90t",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_1781962829528_eqvypd",
                                       "name": "干净页 / clean page",
                                       "count": 0,
-                                      "nodeRef": "k_1781962829528_eqvypd"
+                                      "nodeRef": "k_1781962829528_eqvypd",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rjl6lkaz",
                                       "name": "脏页 / dirty page",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rjl6lkaz"
+                                      "nodeRef": "k_dict_rjl6lkaz",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -12473,79 +12533,92 @@
                                       "id": "mysql_functional_ref_k_dict_4yz2io0y",
                                       "name": "自适应哈希 / adaptive hash index",
                                       "count": 0,
-                                      "nodeRef": "k_dict_4yz2io0y"
+                                      "nodeRef": "k_dict_4yz2io0y",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_i70ksr9s",
                                       "name": "索引 / index",
                                       "count": 0,
-                                      "nodeRef": "k_dict_i70ksr9s"
+                                      "nodeRef": "k_dict_i70ksr9s",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_unique_index",
                                       "name": "唯一索引 / unique index",
                                       "count": 0,
-                                      "nodeRef": "demo_unique_index"
+                                      "nodeRef": "demo_unique_index",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_covering_index",
                                       "name": "覆盖索引 / covering index",
                                       "count": 0,
-                                      "nodeRef": "demo_covering_index"
+                                      "nodeRef": "demo_covering_index",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_722bh2j6",
                                       "name": "部分索引 / partial index",
                                       "count": 0,
-                                      "nodeRef": "k_dict_722bh2j6"
+                                      "nodeRef": "k_dict_722bh2j6",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_cx2nh25x",
                                       "name": "B树 / B-tree",
                                       "count": 0,
-                                      "nodeRef": "k_dict_cx2nh25x"
+                                      "nodeRef": "k_dict_cx2nh25x",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_hash",
                                       "name": "哈希索引 / hash index",
                                       "count": 0,
-                                      "nodeRef": "demo_hash"
+                                      "nodeRef": "demo_hash",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_clustered_index",
                                       "name": "聚簇索引 / clustered index",
                                       "count": 0,
-                                      "nodeRef": "demo_clustered_index"
+                                      "nodeRef": "demo_clustered_index",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_fulltext_index",
                                       "name": "全文索引 / FULLTEXT index",
                                       "count": 0,
-                                      "nodeRef": "demo_fulltext_index"
+                                      "nodeRef": "demo_fulltext_index",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_xxkp8lkc",
                                       "name": "主键 / primary key",
                                       "count": 0,
-                                      "nodeRef": "k_dict_xxkp8lkc"
+                                      "nodeRef": "k_dict_xxkp8lkc",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_lnpi0qrg",
                                       "name": "外键 / foreign key",
                                       "count": 0,
-                                      "nodeRef": "k_dict_lnpi0qrg"
+                                      "nodeRef": "k_dict_lnpi0qrg",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_n9s627ij",
                                       "name": "基数 / cardinality",
                                       "count": 0,
-                                      "nodeRef": "k_dict_n9s627ij"
+                                      "nodeRef": "k_dict_n9s627ij",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rdm2280v",
                                       "name": "唯一键 / unique key",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rdm2280v"
+                                      "nodeRef": "k_dict_rdm2280v",
+                                      "children": []
                                     },
                                     {
                                       "id": "governance:canonical:demo_btree",
@@ -12732,109 +12805,127 @@
                                       "id": "mysql_functional_ref_k_dict_tr918oc6",
                                       "name": "保存点 / savepoint",
                                       "count": 0,
-                                      "nodeRef": "k_dict_tr918oc6"
+                                      "nodeRef": "k_dict_tr918oc6",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_qbyc557y",
                                       "name": "两阶段提交 / two-phase commit",
                                       "count": 0,
-                                      "nodeRef": "k_dict_qbyc557y"
+                                      "nodeRef": "k_dict_qbyc557y",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_el0p7j55",
                                       "name": "自动提交 / autocommit",
                                       "count": 0,
-                                      "nodeRef": "k_dict_el0p7j55"
+                                      "nodeRef": "k_dict_el0p7j55",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_ggnkee68",
                                       "name": "组提交 / group commit",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ggnkee68"
+                                      "nodeRef": "k_dict_ggnkee68",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rmz7dcm0",
                                       "name": "回滚 / rollback",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rmz7dcm0"
+                                      "nodeRef": "k_dict_rmz7dcm0",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_xnl4u9m0",
                                       "name": "提交 / commit",
                                       "count": 0,
-                                      "nodeRef": "k_dict_xnl4u9m0"
+                                      "nodeRef": "k_dict_xnl4u9m0",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_8o426b5j",
                                       "name": "幻读 / phantom",
                                       "count": 0,
-                                      "nodeRef": "k_dict_8o426b5j"
+                                      "nodeRef": "k_dict_8o426b5j",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_3dltrcza",
                                       "name": "读未提交 / READ UNCOMMITTED",
                                       "count": 0,
-                                      "nodeRef": "k_dict_3dltrcza"
+                                      "nodeRef": "k_dict_3dltrcza",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_o0jw5g8p",
                                       "name": "读已提交 / READ COMMITTED",
                                       "count": 0,
-                                      "nodeRef": "k_dict_o0jw5g8p"
+                                      "nodeRef": "k_dict_o0jw5g8p",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_i1g9hhj8",
                                       "name": "可串行化 / SERIALIZABLE",
                                       "count": 0,
-                                      "nodeRef": "k_dict_i1g9hhj8"
+                                      "nodeRef": "k_dict_i1g9hhj8",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_t83fdwoc",
                                       "name": "脏读 / dirty read",
                                       "count": 0,
-                                      "nodeRef": "k_dict_t83fdwoc"
+                                      "nodeRef": "k_dict_t83fdwoc",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_m5qakvks",
                                       "name": "临键锁 / next-key lock",
                                       "count": 0,
-                                      "nodeRef": "k_dict_m5qakvks"
+                                      "nodeRef": "k_dict_m5qakvks",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_yvuxhe74",
                                       "name": "共享锁 / shared lock",
                                       "count": 0,
-                                      "nodeRef": "k_dict_yvuxhe74"
+                                      "nodeRef": "k_dict_yvuxhe74",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_kgntvds7",
                                       "name": "闩锁 / latch",
                                       "count": 0,
-                                      "nodeRef": "k_dict_kgntvds7"
+                                      "nodeRef": "k_dict_kgntvds7",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_mq68vpwg",
                                       "name": "死锁 / deadlock",
                                       "count": 0,
-                                      "nodeRef": "k_dict_mq68vpwg"
+                                      "nodeRef": "k_dict_mq68vpwg",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_deadlock",
                                       "name": "死锁检测 / deadlock detection",
                                       "count": 0,
-                                      "nodeRef": "demo_deadlock"
+                                      "nodeRef": "demo_deadlock",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_nqeoggvl",
                                       "name": "锁升级 / lock escalation",
                                       "count": 0,
-                                      "nodeRef": "k_dict_nqeoggvl"
+                                      "nodeRef": "k_dict_nqeoggvl",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_demo_isolation",
                                       "name": "隔离级别 / isolation level",
                                       "count": 0,
-                                      "nodeRef": "demo_isolation"
+                                      "nodeRef": "demo_isolation",
+                                      "children": []
                                     },
                                     {
                                       "id": "governance:canonical:mysql_tx_lifecycle",
@@ -12933,19 +13024,22 @@
                                       "id": "mysql_functional_ref_k_dict_lin6ue94",
                                       "name": "恢复 / restore",
                                       "count": 0,
-                                      "nodeRef": "k_dict_lin6ue94"
+                                      "nodeRef": "k_dict_lin6ue94",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_t52tzaq2",
                                       "name": "检查点 / checkpoint",
                                       "count": 0,
-                                      "nodeRef": "k_dict_t52tzaq2"
+                                      "nodeRef": "k_dict_t52tzaq2",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_5d4mlf9q",
                                       "name": "日志 / log",
                                       "count": 0,
-                                      "nodeRef": "k_dict_5d4mlf9q"
+                                      "nodeRef": "k_dict_5d4mlf9q",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -12982,43 +13076,50 @@
                                       "id": "mysql_functional_ref_k_dict_fbl127ld",
                                       "name": "memcached",
                                       "count": 0,
-                                      "nodeRef": "k_dict_fbl127ld"
+                                      "nodeRef": "k_dict_fbl127ld",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_1782027235624_gtvo1k",
                                       "name": "缓存 / cache",
                                       "count": 0,
-                                      "nodeRef": "k_1782027235624_gtvo1k"
+                                      "nodeRef": "k_1782027235624_gtvo1k",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rs1y2xku",
                                       "name": "优化器 / optimizer",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rs1y2xku"
+                                      "nodeRef": "k_dict_rs1y2xku",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_ee6jgxn1",
                                       "name": "预热 / warm up",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ee6jgxn1"
+                                      "nodeRef": "k_dict_ee6jgxn1",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_muxlhpv2",
                                       "name": "缓冲区 / buffer",
                                       "count": 0,
-                                      "nodeRef": "k_dict_muxlhpv2"
+                                      "nodeRef": "k_dict_muxlhpv2",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rkijwolw",
                                       "name": "统计信息 / statistics",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rkijwolw"
+                                      "nodeRef": "k_dict_rkijwolw",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_vd39b68k",
                                       "name": "工作负载 / workload",
                                       "count": 0,
-                                      "nodeRef": "k_dict_vd39b68k"
+                                      "nodeRef": "k_dict_vd39b68k",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13041,19 +13142,22 @@
                                       "id": "mysql_functional_ref_k_dict_kpjg49hn",
                                       "name": "从属服务器 / slave",
                                       "count": 0,
-                                      "nodeRef": "k_dict_kpjg49hn"
+                                      "nodeRef": "k_dict_kpjg49hn",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_sctomy1z",
                                       "name": "复制 / replication",
                                       "count": 0,
-                                      "nodeRef": "k_dict_sctomy1z"
+                                      "nodeRef": "k_dict_sctomy1z",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_mfu28h3v",
                                       "name": "故障转移 / failover",
                                       "count": 0,
-                                      "nodeRef": "k_dict_mfu28h3v"
+                                      "nodeRef": "k_dict_mfu28h3v",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13091,7 +13195,8 @@
                                       "id": "mysql_functional_ref_k_dict_qttpkbhf",
                                       "name": "Python",
                                       "count": 0,
-                                      "nodeRef": "k_dict_qttpkbhf"
+                                      "nodeRef": "k_dict_qttpkbhf",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13114,7 +13219,8 @@
                                       "id": "mysql_functional_ref_k_dict_dedl7dno",
                                       "name": "安全套接层 / SSL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_dedl7dno"
+                                      "nodeRef": "k_dict_dedl7dno",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13144,13 +13250,15 @@
                                       "id": "mysql_functional_ref_k_dict_jwcd61u4",
                                       "name": "关闭 / shutdown",
                                       "count": 0,
-                                      "nodeRef": "k_dict_jwcd61u4"
+                                      "nodeRef": "k_dict_jwcd61u4",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_hcbepdud",
                                       "name": "快速关闭 / fast shutdown",
                                       "count": 0,
-                                      "nodeRef": "k_dict_hcbepdud"
+                                      "nodeRef": "k_dict_hcbepdud",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13207,7 +13315,8 @@
                                       "id": "mysql_functional_ref_k_dict_ij1x57s1",
                                       "name": "ANSI",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ij1x57s1"
+                                      "nodeRef": "k_dict_ij1x57s1",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13221,103 +13330,120 @@
                                       "id": "mysql_functional_ref_k_dict_olg8goh1",
                                       "name": "查询 / query",
                                       "count": 0,
-                                      "nodeRef": "k_dict_olg8goh1"
+                                      "nodeRef": "k_dict_olg8goh1",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_xb5t6pmm",
                                       "name": "代理键 / surrogate key",
                                       "count": 0,
-                                      "nodeRef": "k_dict_xb5t6pmm"
+                                      "nodeRef": "k_dict_xb5t6pmm",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_s1u2tlxt",
                                       "name": "合并 / merge",
                                       "count": 0,
-                                      "nodeRef": "k_dict_s1u2tlxt"
+                                      "nodeRef": "k_dict_s1u2tlxt",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_duk4xptw",
                                       "name": "连接 / join",
                                       "count": 0,
-                                      "nodeRef": "k_dict_duk4xptw"
+                                      "nodeRef": "k_dict_duk4xptw",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_o5254svl",
                                       "name": "数据仓库 / data warehouse",
                                       "count": 0,
-                                      "nodeRef": "k_dict_o5254svl"
+                                      "nodeRef": "k_dict_o5254svl",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_zu4iv9d4",
                                       "name": "联机事务处理 / OLTP",
                                       "count": 0,
-                                      "nodeRef": "k_dict_zu4iv9d4"
+                                      "nodeRef": "k_dict_zu4iv9d4",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_g7onhohj",
                                       "name": "LSN",
                                       "count": 0,
-                                      "nodeRef": "k_dict_g7onhohj"
+                                      "nodeRef": "k_dict_g7onhohj",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_zjinmyz3",
                                       "name": "PITR",
                                       "count": 0,
-                                      "nodeRef": "k_dict_zjinmyz3"
+                                      "nodeRef": "k_dict_zjinmyz3",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_7w36vehk",
                                       "name": "数据控制语言 / DCL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_7w36vehk"
+                                      "nodeRef": "k_dict_7w36vehk",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_t6m62us4",
                                       "name": "落下 / drop",
                                       "count": 0,
-                                      "nodeRef": "k_dict_t6m62us4"
+                                      "nodeRef": "k_dict_t6m62us4",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_mb72ps2c",
                                       "name": "RAID",
                                       "count": 0,
-                                      "nodeRef": "k_dict_mb72ps2c"
+                                      "nodeRef": "k_dict_mb72ps2c",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_jmpy3jq2",
                                       "name": "填充因子 / fill factor",
                                       "count": 0,
-                                      "nodeRef": "k_dict_jmpy3jq2"
+                                      "nodeRef": "k_dict_jmpy3jq2",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_n5wdsgcu",
                                       "name": "分布式事务 / XA 协议 / XA",
                                       "count": 0,
-                                      "nodeRef": "k_dict_n5wdsgcu"
+                                      "nodeRef": "k_dict_n5wdsgcu",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_ek50h609",
                                       "name": "元组 / tuple",
                                       "count": 0,
-                                      "nodeRef": "k_dict_ek50h609"
+                                      "nodeRef": "k_dict_ek50h609",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_1a3p1hdq",
                                       "name": "参照完整性 / referential integrity",
                                       "count": 0,
-                                      "nodeRef": "k_dict_1a3p1hdq"
+                                      "nodeRef": "k_dict_1a3p1hdq",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_rszan9vp",
                                       "name": "自增 / auto-increment",
                                       "count": 0,
-                                      "nodeRef": "k_dict_rszan9vp"
+                                      "nodeRef": "k_dict_rszan9vp",
+                                      "children": []
                                     },
                                     {
                                       "id": "mysql_functional_ref_k_dict_fxoirizf",
                                       "name": "NULL",
                                       "count": 0,
-                                      "nodeRef": "k_dict_fxoirizf"
+                                      "nodeRef": "k_dict_fxoirizf",
+                                      "children": []
                                     },
                                     {
                                       "id": "governance:mysql-glossary-source-view",
@@ -16372,7 +16498,8 @@
                               "id": "mysql_term_transaction_theory_isolation_level_iin46p",
                               "name": "隔离级别 / isolation level",
                               "count": 0,
-                              "nodeRef": "demo_isolation"
+                              "nodeRef": "demo_isolation",
+                              "children": []
                             }
                           ]
                         },
@@ -16713,7 +16840,8 @@
                           "id": "tree_1786782227854_odxtpr",
                           "name": "视图",
                           "count": 0,
-                          "nodeRef": "k_1786782227425_rz3dhk"
+                          "nodeRef": "k_1786782227425_rz3dhk",
+                          "children": []
                         }
                       ]
                     },
@@ -17019,6 +17147,13 @@
                               "name": "安全转换（布尔化）",
                               "count": 0,
                               "nodeRef": "k_auto_nm6bj0",
+                              "children": []
+                            },
+                            {
+                              "id": "governance:canonical:k_auto_wziud0",
+                              "name": "嵌套三元（不推荐）",
+                              "nodeRef": "k_auto_wziud0",
+                              "count": 0,
                               "children": []
                             }
                           ]
@@ -19212,7 +19347,8 @@
                       "id": "tree_1786780442616_w5q602",
                       "name": "历史",
                       "count": 0,
-                      "nodeRef": "k_1786780442096_fd05mu"
+                      "nodeRef": "k_1786780442096_fd05mu",
+                      "children": []
                     }
                   ]
                 }
@@ -19714,7 +19850,8 @@
               "id": "theory_domain_complexity_theory",
               "name": "计算复杂性理论",
               "count": 0,
-              "nodeRef": "theory_domain_complexity_theory"
+              "nodeRef": "theory_domain_complexity_theory",
+              "children": []
             },
             {
               "id": "tree_acm2012_algorithms",
@@ -19913,7 +20050,8 @@
                   "id": "mysql_term_data_structures_1lig4k0_10ux7r",
                   "name": "索引",
                   "count": 0,
-                  "nodeRef": "n_0xxb9cqy"
+                  "nodeRef": "n_0xxb9cqy",
+                  "children": []
                 }
               ]
             }
@@ -20009,7 +20147,8 @@
               "id": "theory_domain_access_control",
               "name": "访问控制理论（RBAC）",
               "count": 0,
-              "nodeRef": "theory_domain_access_control"
+              "nodeRef": "theory_domain_access_control",
+              "children": []
             }
           ]
         }
@@ -20126,19 +20265,22 @@
           "id": "theory_domain_probability",
           "name": "概率论",
           "count": 0,
-          "nodeRef": "theory_domain_probability"
+          "nodeRef": "theory_domain_probability",
+          "children": []
         },
         {
           "id": "theory_domain_numerical_analysis",
           "name": "数值分析",
           "count": 0,
-          "nodeRef": "theory_domain_numerical_analysis"
+          "nodeRef": "theory_domain_numerical_analysis",
+          "children": []
         },
         {
           "id": "theory_domain_information_theory",
           "name": "信息论",
           "count": 0,
-          "nodeRef": "theory_domain_information_theory"
+          "nodeRef": "theory_domain_information_theory",
+          "children": []
         },
         {
           "id": "theory_domain_queueing_theory",
@@ -20217,25 +20359,29 @@
               "id": "mysql_term_type_theory_1n7k8ef_14vcw9",
               "name": "枚举类型",
               "count": 0,
-              "nodeRef": "k_1782749287355_2zl67c"
+              "nodeRef": "k_1782749287355_2zl67c",
+              "children": []
             },
             {
               "id": "mysql_term_type_theory_oj5by1_pltwjz",
               "name": "实数类型",
               "count": 0,
-              "nodeRef": "k_1782749263813_199twh"
+              "nodeRef": "k_1782749263813_199twh",
+              "children": []
             },
             {
               "id": "mysql_term_type_theory_nu07k9_1tfn3u",
               "name": "数据类型",
               "count": 0,
-              "nodeRef": "k_1782748910899_dtrnpe"
+              "nodeRef": "k_1782748910899_dtrnpe",
+              "children": []
             },
             {
               "id": "mysql_term_type_theory_1cjoaw7_sn81lj",
               "name": "整数类型",
               "count": 0,
-              "nodeRef": "k_1782749047493_w36knu"
+              "nodeRef": "k_1782749047493_w36knu",
+              "children": []
             }
           ]
         },
@@ -20266,7 +20412,8 @@
           "id": "theory_domain_calendar_systems",
           "name": "历法系统（公历/格里历）",
           "count": 0,
-          "nodeRef": "theory_domain_calendar_systems"
+          "nodeRef": "theory_domain_calendar_systems",
+          "children": []
         },
         {
           "id": "theory_domain_character_encoding_standards",
@@ -20285,7 +20432,8 @@
               "id": "mysql_term_character_encoding_standards_1r4jnc4_xb0ayd",
               "name": "字符串类型",
               "count": 0,
-              "nodeRef": "k_1782749276682_qsjks8"
+              "nodeRef": "k_1782749276682_qsjks8",
+              "children": []
             }
           ]
         },
@@ -20293,7 +20441,8 @@
           "id": "theory_domain_timezone_standards",
           "name": "时区标准（IANA tzdata）",
           "count": 0,
-          "nodeRef": "theory_domain_timezone_standards"
+          "nodeRef": "theory_domain_timezone_standards",
+          "children": []
         }
       ]
     },
@@ -20303,31 +20452,10 @@
       "count": 35,
       "children": [
         {
-          "id": "governance:review:n_s7t5dbya",
-          "name": "性能优化",
+          "id": "governance:review:k_1782027196864_7mehjk",
+          "name": "解析器",
+          "nodeRef": "k_1782027196864_7mehjk",
           "count": 0,
-          "nodeRef": "n_s7t5dbya",
-          "children": []
-        },
-        {
-          "id": "governance:review:k_auto_wziud0",
-          "name": "嵌套三元（不推荐）",
-          "count": 0,
-          "nodeRef": "k_auto_wziud0",
-          "children": []
-        },
-        {
-          "id": "governance:review:k_1782033245872_81floi",
-          "name": "解析器（Parser）",
-          "count": 0,
-          "nodeRef": "k_1782033245872_81floi",
-          "children": []
-        },
-        {
-          "id": "governance:review:k_1782836111549_qetpvx",
-          "name": "类",
-          "count": 0,
-          "nodeRef": "k_1782836111549_qetpvx",
           "children": []
         }
       ]

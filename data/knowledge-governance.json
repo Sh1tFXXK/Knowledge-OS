@@ -199,15 +199,15 @@
     {
       "id": "placement:n_s7t5dbya",
       "nodeId": "n_s7t5dbya",
-      "status": "proposed",
-      "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "status": "accepted",
+      "contentStatus": "canonical",
+      "canonicalParentNodeId": "k_1782833214639_nueg1f",
       "pathHint": [],
-      "confidence": "review",
-      "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
-      "reviewTreeEntryId": "governance:review:n_s7t5dbya",
-      "reviewQueue": "governance-review-inbox"
+      "confidence": "high",
+      "rule": "reviewed-explicit-mapping",
+      "rationale": "正文主题是通用软件工程中的性能改进；MySQL 等具体领域仅作为导航投影。",
+      "canonicalTreeEntryId": "governance:canonical:n_s7t5dbya",
+      "acceptedAt": "2026-08-16T07:42:55.581Z"
     },
     {
       "id": "placement:n_6dgtsmpj",
@@ -554,15 +554,15 @@
     {
       "id": "placement:k_auto_wziud0",
       "nodeId": "k_auto_wziud0",
-      "status": "proposed",
-      "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "status": "accepted",
+      "contentStatus": "canonical",
+      "canonicalParentNodeId": "k_acm2012_software_notations_tools_programming_languages",
       "pathHint": [],
-      "confidence": "review",
-      "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
-      "reviewTreeEntryId": "governance:review:k_auto_wziud0",
-      "reviewQueue": "governance-review-inbox"
+      "confidence": "high",
+      "rule": "reviewed-explicit-mapping",
+      "rationale": "正文与标签指向 JavaScript 条件表达式中的嵌套三元写法；导航入口保留在表达式与类型转换投影视图，规范父级使用真实的编程语言知识实体。",
+      "canonicalTreeEntryId": "governance:canonical:k_auto_wziud0",
+      "acceptedAt": "2026-08-16T07:42:55.581Z"
     },
     {
       "id": "placement:k_auto_1p7kxpz",
@@ -890,15 +890,15 @@
     {
       "id": "placement:k_1782033245872_81floi",
       "nodeId": "k_1782033245872_81floi",
-      "status": "proposed",
-      "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "status": "accepted",
+      "contentStatus": "canonical",
+      "canonicalParentNodeId": "k_1782032275682_61auc4",
       "pathHint": [],
-      "confidence": "review",
-      "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
-      "reviewTreeEntryId": "governance:review:k_1782033245872_81floi",
-      "reviewQueue": "governance-review-inbox"
+      "confidence": "high",
+      "rule": "reviewed-explicit-mapping",
+      "rationale": "正文明确描述 SQL 解析、生成解析树和合法性检查，属于 MySQL Server 服务层。",
+      "canonicalTreeEntryId": "governance:canonical:k_1782033245872_81floi",
+      "acceptedAt": "2026-08-16T07:42:55.581Z"
     },
     {
       "id": "placement:mysql_glossary_arm_file_ufam2l",
@@ -6319,15 +6319,15 @@
     {
       "id": "placement:k_1782836111549_qetpvx",
       "nodeId": "k_1782836111549_qetpvx",
-      "status": "proposed",
-      "contentStatus": "reviewed",
-      "canonicalParentNodeId": null,
+      "status": "accepted",
+      "contentStatus": "canonical",
+      "canonicalParentNodeId": "k_1782834118965_n5r1fr",
       "pathHint": [],
-      "confidence": "review",
-      "rule": "manual-triage-required",
-      "rationale": "节点具有正文，且存在 0 条关系端点与 1 个题目/时间线引用，但尚未进入导航树。",
-      "reviewTreeEntryId": "governance:review:k_1782836111549_qetpvx",
-      "reviewQueue": "governance-review-inbox"
+      "confidence": "high",
+      "rule": "reviewed-explicit-mapping",
+      "rationale": "正文定义的是语言无关的面向对象“类”，规范归属放在面向对象，而非某个具体语言。",
+      "canonicalTreeEntryId": "governance:canonical:k_1782836111549_qetpvx",
+      "acceptedAt": "2026-08-16T07:42:55.581Z"
     },
     {
       "id": "placement:k_1782928892375_1vgg04",
@@ -6389,6 +6389,21 @@
       ],
       "acceptedAt": "2026-08-16T07:10:16.273Z",
       "canonicalParentTreeEntryId": "tree_1782746457614_osttpr"
+    },
+    {
+      "id": "placement:k_1782027196864_7mehjk",
+      "nodeId": "k_1782027196864_7mehjk",
+      "status": "proposed",
+      "contentStatus": "reviewed",
+      "canonicalParentNodeId": null,
+      "pathHint": [
+        "待审核归属（内容保全）"
+      ],
+      "confidence": "review",
+      "rule": "manual-triage-required",
+      "rationale": "节点正文为空，不能依据标题强行归类；保留原节点和入口，等待补充正文后人工确认。",
+      "canonicalTreeEntryId": null,
+      "acceptedAt": null
     }
   ],
   "projections": [
@@ -10728,6 +10743,21 @@
       "contentSource": "nodePool.card/timeline.card",
       "parentIdRepairAt": "2026-08-16T07:10:38.854Z",
       "parentIdSemantics": "canonicalParentNodeId=nodePool nodeRef; canonicalParentTreeEntryId=tree entry id"
+    },
+    "lowConfidenceMigration": {
+      "executedAt": "2026-08-16T07:42:55.581Z",
+      "moved": [
+        "n_s7t5dbya",
+        "k_auto_wziud0",
+        "k_1782836111549_qetpvx",
+        "k_1782033245872_81floi"
+      ],
+      "skipped": [],
+      "emptyParserRetained": "k_1782027196864_7mehjk"
+    },
+    "emptyParserReviewRetained": {
+      "nodeId": "k_1782027196864_7mehjk",
+      "updatedAt": "2026-08-16T07:44:24.285Z"
     }
   },
   "migration": {
