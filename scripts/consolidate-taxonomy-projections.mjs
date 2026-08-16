@@ -210,6 +210,11 @@ function rebuildTreeBindings(edges, tree, nodePool) {
     }
   }
   visit(tree);
+  const existingBindings = edges.filter((edge) => edge.id.startsWith('treebind:'));
+  const rebuiltById = new Map(bindings.map((edge) => [edge.id, edge]));
+  const isAlreadyCurrent = existingBindings.length === bindings.length
+    && existingBindings.every((edge) => JSON.stringify(edge) === JSON.stringify(rebuiltById.get(edge.id)));
+  if (isAlreadyCurrent) return edges;
   return [...edges.filter((edge) => !edge.id.startsWith('treebind:')), ...bindings];
 }
 
