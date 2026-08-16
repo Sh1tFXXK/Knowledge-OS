@@ -3,13 +3,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const tree = JSON.parse(fs.readFileSync(path.resolve('data/tree-data.json'), 'utf8'));
+const pool = JSON.parse(fs.readFileSync(path.resolve('data/node-pool.json'), 'utf8'));
 const mysqlThemes = [
   'mysql:theme:architecture', 'mysql:theme:sql-language', 'mysql:theme:schema-objects', 'mysql:theme:data-types',
   'mysql:theme:query-processing', 'mysql:theme:indexes-access', 'mysql:theme:transactions-concurrency', 'mysql:theme:storage-engines',
   'mysql:theme:backup-recovery', 'mysql:theme:replication-ha', 'mysql:theme:security-access', 'mysql:theme:connectivity',
   'mysql:theme:performance-observability', 'mysql:theme:operations',
 ];
-const sourceViewId = 'governance:mysql-glossary-source-view';
 
 function rootsOf(value) { return Array.isArray(value) ? value : [value]; }
 function find(root, id) {
@@ -31,11 +31,10 @@ function parentAny(id) { for (const root of rootsOf(tree)) { const hit = findPar
 const mysql = findAny('forest:view:mysql');
 assert.ok(mysql, '规范 MySQL 根必须存在');
 assert.equal(parentAny(mysql.id)?.id, 'tree_acm2012_information_systems_database_management', 'MySQL 必须直接归属信息系统/数据库管理');
-assert.deepEqual((mysql.children ?? []).map((n) => n.id), [...mysqlThemes, sourceViewId], 'MySQL 顶层必须仅包含 14 个主题与来源视图');
+assert.deepEqual((mysql.children ?? []).map((n) => n.id), mysqlThemes, 'MySQL 顶层必须仅包含 14 个主题，不得包含术语库容器');
 
-const source = findAny(sourceViewId);
-assert.ok(source, 'MySQL 术语来源视图必须存在');
-assert.equal(source.children?.length, 360, '必须保留全部 360 个 MySQL 来源术语');
+const sourceTermRefs = Object.values(pool).filter((n) => n.tags?.includes('mysql-glossary')).map((n) => n.id);
+assert.ok(sourceTermRefs.length >= 360, 'MySQL glossary 实体必须完整保留');
 assert.equal(descendants(mysql).filter((n) => /待审核|未分类|review inbox/i.test(n.name ?? '')).length, 0, 'MySQL 内不允许存在待审核、未分类或 Review Inbox 容器');
 
 const legacyOverview = findAny('demo_mysql');
@@ -52,8 +51,11 @@ for (const id of ['mysql:sql:dql', 'mysql:sql:dml', 'mysql:sql:ddl', 'mysql:sql:
   assert.ok(sqlCategoryIds.has(id), `SQL 主题必须保留 ${id} 子分类`);
 }
 
-const themeRefs = new Set(descendants(mysql).filter((n) => n.id !== sourceViewId && !n.id.startsWith('governance:source:mysql-glossary:')).map((n) => n.nodeRef).filter(Boolean));
-const uncovered = (source.children ?? []).filter((n) => n.nodeRef && !themeRefs.has(n.nodeRef));
+const themeRefs = new Set(descendants(mysql).map((n) => n.nodeRef).filter(Boolean));
+const uncovered = sourceTermRefs.filter((ref) => !themeRefs.has(ref));
 assert.deepEqual(uncovered, [], '每个来源术语都必须至少投影到一个具体 MySQL 主题');
 
-console.log(JSON.stringify({ mysqlThemes: mysqlThemes.length, sourceTerms: source.children.length, coveredTerms: source.children.length - uncovered.length }));
+console.log(JSON.stringify({ mysqlThemes: mysqlThemes.length, glossaryEntities: sourceTermRefs.length, coveredTerms: sourceTermRefs.length - uncovered.length }));
+
+
+
