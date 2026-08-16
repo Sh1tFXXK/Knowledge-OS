@@ -19618,17 +19618,6 @@
                   "children": []
                 },
                 {
-                  "id": "projection:mysql-term:mysql_glossary_data_definition_language_4fjtzo",
-                  "name": "数据定义语言 / data definition language",
-                  "count": 0,
-                  "nodeRef": "mysql_glossary_data_definition_language_4fjtzo",
-                  "projection": true,
-                  "view": "mysql-architecture",
-                  "projectionKind": "canonical-topic",
-                  "sourceNodeId": "mysql_glossary_data_definition_language_4fjtzo",
-                  "children": []
-                },
-                {
                   "id": "projection:mysql-term:mysql_glossary_data_manipulation_language_fxdb4s",
                   "name": "数据操纵语言 / data manipulation language",
                   "count": 0,
@@ -20300,17 +20289,6 @@
                   "children": []
                 },
                 {
-                  "id": "projection:mysql-term:k_dict_olg8goh1",
-                  "name": "查询 / query",
-                  "count": 0,
-                  "nodeRef": "k_dict_olg8goh1",
-                  "projection": true,
-                  "view": "mysql-architecture",
-                  "projectionKind": "canonical-topic",
-                  "sourceNodeId": "k_dict_olg8goh1",
-                  "children": []
-                },
-                {
                   "id": "projection:mysql-term:k_dict_s1u2tlxt",
                   "name": "合并 / merge",
                   "count": 0,
@@ -20319,28 +20297,6 @@
                   "view": "mysql-architecture",
                   "projectionKind": "canonical-topic",
                   "sourceNodeId": "k_dict_s1u2tlxt",
-                  "children": []
-                },
-                {
-                  "id": "projection:mysql-term:k_dict_duk4xptw",
-                  "name": "连接 / join",
-                  "count": 0,
-                  "nodeRef": "k_dict_duk4xptw",
-                  "projection": true,
-                  "view": "mysql-architecture",
-                  "projectionKind": "canonical-topic",
-                  "sourceNodeId": "k_dict_duk4xptw",
-                  "children": []
-                },
-                {
-                  "id": "projection:mysql-term:k_dict_7w36vehk",
-                  "name": "数据控制语言 / DCL",
-                  "count": 0,
-                  "nodeRef": "k_dict_7w36vehk",
-                  "projection": true,
-                  "view": "mysql-architecture",
-                  "projectionKind": "canonical-topic",
-                  "sourceNodeId": "k_dict_7w36vehk",
                   "children": []
                 },
                 {
@@ -20410,13 +20366,140 @@
                   "children": []
                 },
                 {
-                  "id": "mysql:projection:sql-join",
-                  "name": "SQL JOIN（关系代数连接）",
-                  "nodeRef": "k_dict_duk4xptw",
-                  "projection": true,
+                  "id": "mysql:sql:dql",
+                  "name": "DQL 查询与检索",
+                  "nodeRef": "mysql:sql:dql",
                   "view": "mysql-architecture",
-                  "projectionKind": "canonical-topic",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:dql",
+                  "children": [
+                    {
+                      "id": "projection:mysql-term:k_dict_olg8goh1",
+                      "name": "查询 / query",
+                      "count": 0,
+                      "nodeRef": "k_dict_olg8goh1",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic",
+                      "sourceNodeId": "k_dict_olg8goh1",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "mysql:sql:dml",
+                  "name": "DML 数据操作语言",
+                  "nodeRef": "mysql:sql:dml",
+                  "view": "mysql-architecture",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:dml",
+                  "children": [
+                    {
+                      "id": "projection:mysql-sql:mysql_glossary_data_manipulation_language_fxdb4s",
+                      "name": "数据操纵语言 / data manipulation language",
+                      "nodeRef": "mysql_glossary_data_manipulation_language_fxdb4s",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic"
+                    },
+                    {
+                      "id": "projection:mysql-sql:mysql_glossary_mixed_mode_insert_1pvj4c",
+                      "name": "混合模式插入 / mixed-mode insert",
+                      "nodeRef": "mysql_glossary_mixed_mode_insert_1pvj4c",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic"
+                    }
+                  ]
+                },
+                {
+                  "id": "mysql:sql:ddl",
+                  "name": "DDL 数据定义语言",
+                  "nodeRef": "mysql:sql:ddl",
+                  "view": "mysql-architecture",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:ddl",
+                  "children": [
+                    {
+                      "id": "projection:mysql-term:mysql_glossary_data_definition_language_4fjtzo",
+                      "name": "数据定义语言 / data definition language",
+                      "count": 0,
+                      "nodeRef": "mysql_glossary_data_definition_language_4fjtzo",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic",
+                      "sourceNodeId": "mysql_glossary_data_definition_language_4fjtzo",
+                      "children": []
+                    },
+                    {
+                      "id": "projection:mysql-sql:mysql_glossary_atomic_ddl_l48qcc",
+                      "name": "原子DDL / atomic DDL",
+                      "nodeRef": "mysql_glossary_atomic_ddl_l48qcc",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic"
+                    }
+                  ]
+                },
+                {
+                  "id": "mysql:sql:dcl",
+                  "name": "DCL 数据控制语言",
+                  "nodeRef": "mysql:sql:dcl",
+                  "view": "mysql-architecture",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:dcl",
+                  "children": [
+                    {
+                      "id": "projection:mysql-term:k_dict_7w36vehk",
+                      "name": "数据控制语言 / DCL",
+                      "count": 0,
+                      "nodeRef": "k_dict_7w36vehk",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic",
+                      "sourceNodeId": "k_dict_7w36vehk",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "mysql:sql:tcl",
+                  "name": "TCL 事务控制语言",
+                  "nodeRef": "mysql:sql:tcl",
+                  "view": "mysql-architecture",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:tcl",
                   "children": []
+                },
+                {
+                  "id": "mysql:sql:joins",
+                  "name": "SQL 连接与集合运算",
+                  "nodeRef": "mysql:sql:joins",
+                  "view": "mysql-architecture",
+                  "canonicalCategory": true,
+                  "categoryKey": "mysql:sql:joins",
+                  "children": [
+                    {
+                      "id": "projection:mysql-term:k_dict_duk4xptw",
+                      "name": "连接 / join",
+                      "count": 0,
+                      "nodeRef": "k_dict_duk4xptw",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic",
+                      "sourceNodeId": "k_dict_duk4xptw",
+                      "children": []
+                    },
+                    {
+                      "id": "mysql:projection:sql-join",
+                      "name": "SQL JOIN（关系代数连接）",
+                      "nodeRef": "k_dict_duk4xptw",
+                      "projection": true,
+                      "view": "mysql-architecture",
+                      "projectionKind": "canonical-topic",
+                      "children": []
+                    }
+                  ]
                 }
               ]
             },

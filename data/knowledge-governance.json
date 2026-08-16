@@ -1137,22 +1137,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:mysql_glossary_atomic_ddl_l48qcc",
+      "id": "placement:mysql-sql:mysql_glossary_atomic_ddl_l48qcc",
       "nodeId": "mysql_glossary_atomic_ddl_l48qcc",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:architecture",
+      "canonicalParentNodeId": "mysql:sql:ddl",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
-        "总览与体系结构",
+        "SQL 与语言对象",
+        "DDL 数据定义语言",
         "原子DDL / atomic DDL"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
-      "canonicalTreeEntryId": "projection:mysql-term:mysql_glossary_atomic_ddl_l48qcc",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "正文明确描述原子数据定义语言，归入 DDL。",
+      "canonicalTreeEntryId": "projection:mysql-sql:mysql_glossary_atomic_ddl_l48qcc",
+      "acceptedAt": "2026-08-16T12:30:17.153Z"
     },
     {
       "id": "placement:mysql-term:mysql_glossary_atomic_instruction_xxdtb4",
@@ -2163,22 +2164,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:mysql_glossary_data_definition_language_4fjtzo",
+      "id": "placement:sql-subtaxonomy:mysql_glossary_data_definition_language_4fjtzo",
       "nodeId": "mysql_glossary_data_definition_language_4fjtzo",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "mysql:sql:ddl",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
         "SQL 与语言对象",
+        "DDL 数据定义语言",
         "数据定义语言 / data definition language"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "仅依据明确 SQL 语句类别或关系连接语义归类；存储引擎、索引、连接器和数据类型同名条目不移动。",
       "canonicalTreeEntryId": "projection:mysql-term:mysql_glossary_data_definition_language_4fjtzo",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "acceptedAt": "2026-08-16T12:29:23.822Z"
     },
     {
       "id": "placement:mysql-term:mysql_glossary_data_directory_zrepzq",
@@ -2199,22 +2201,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:mysql_glossary_data_manipulation_language_fxdb4s",
+      "id": "placement:mysql-sql:mysql_glossary_data_manipulation_language_fxdb4s",
       "nodeId": "mysql_glossary_data_manipulation_language_fxdb4s",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "mysql:sql:dml",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
         "SQL 与语言对象",
+        "DML 数据操作语言",
         "数据操纵语言 / data manipulation language"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
-      "canonicalTreeEntryId": "projection:mysql-term:mysql_glossary_data_manipulation_language_fxdb4s",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "正文明确描述数据操作语言或 INSERT 语句变体，归入 DML。",
+      "canonicalTreeEntryId": "projection:mysql-sql:mysql_glossary_data_manipulation_language_fxdb4s",
+      "acceptedAt": "2026-08-16T12:30:17.153Z"
     },
     {
       "id": "placement:mysql-term:mysql_glossary_ddex_provider_133gs8",
@@ -4179,22 +4182,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:mysql_glossary_mixed_mode_insert_1pvj4c",
+      "id": "placement:mysql-sql:mysql_glossary_mixed_mode_insert_1pvj4c",
       "nodeId": "mysql_glossary_mixed_mode_insert_1pvj4c",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:architecture",
+      "canonicalParentNodeId": "mysql:sql:dml",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
-        "总览与体系结构",
+        "SQL 与语言对象",
+        "DML 数据操作语言",
         "混合模式插入 / mixed-mode insert"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
-      "canonicalTreeEntryId": "projection:mysql-term:mysql_glossary_mixed_mode_insert_1pvj4c",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "正文明确描述数据操作语言或 INSERT 语句变体，归入 DML。",
+      "canonicalTreeEntryId": "projection:mysql-sql:mysql_glossary_mixed_mode_insert_1pvj4c",
+      "acceptedAt": "2026-08-16T12:30:17.153Z"
     },
     {
       "id": "placement:mysql-term:mysql_glossary_mm_mysql_45ec9v",
@@ -7110,22 +7114,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:k_dict_olg8goh1",
+      "id": "placement:sql-subtaxonomy:k_dict_olg8goh1",
       "nodeId": "k_dict_olg8goh1",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "mysql:sql:dql",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
         "SQL 与语言对象",
+        "DQL 查询与检索",
         "查询 / query"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "仅依据明确 SQL 语句类别或关系连接语义归类；存储引擎、索引、连接器和数据类型同名条目不移动。",
       "canonicalTreeEntryId": "projection:mysql-term:k_dict_olg8goh1",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "acceptedAt": "2026-08-16T12:29:23.822Z"
     },
     {
       "id": "placement:mysql-term:k_dict_xb5t6pmm",
@@ -7164,25 +7169,23 @@
       "acceptedAt": "2026-08-16T11:25:06.290Z"
     },
     {
-      "id": "placement:semantic:k_dict_duk4xptw",
+      "id": "placement:sql-subtaxonomy:k_dict_duk4xptw",
       "nodeId": "k_dict_duk4xptw",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "theory_domain_relational_algebra",
+      "canonicalParentNodeId": "mysql:sql:joins",
       "pathHint": [
-        "知识宇宙",
-        "计算机科学",
-        "信息系统",
-        "数据库管理",
-        "数据库原理",
-        "关系代数",
-        "连接 / join"
+        "知识森林（维度视图）",
+        "MySQL 技术系统树（产品视图）",
+        "SQL 与语言对象",
+        "SQL 连接与集合运算",
+        "SQL JOIN（关系代数连接）"
       ],
       "confidence": "high",
-      "rule": "reviewed-semantic-split",
-      "rationale": "正文描述从多个表查询并进行内连接、外连接和交叉连接，属于关系代数连接；MySQL SQL JOIN 作为投影保留。",
-      "canonicalTreeEntryId": "mysql_term_relational_algebra_join_ej6jmt",
-      "acceptedAt": "2026-08-16T11:25:06.290Z"
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "仅依据明确 SQL 语句类别或关系连接语义归类；存储引擎、索引、连接器和数据类型同名条目不移动。",
+      "canonicalTreeEntryId": "projection:mysql-term:k_dict_duk4xptw",
+      "acceptedAt": "2026-08-16T12:29:23.822Z"
     },
     {
       "id": "placement:mysql-term:k_dict_o5254svl",
@@ -7257,22 +7260,23 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:k_dict_7w36vehk",
+      "id": "placement:sql-subtaxonomy:k_dict_7w36vehk",
       "nodeId": "k_dict_7w36vehk",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "mysql:sql:dcl",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
         "SQL 与语言对象",
+        "DCL 数据控制语言",
         "数据控制语言 / DCL"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
+      "rule": "sql-subtaxonomy-strict-v1",
+      "rationale": "仅依据明确 SQL 语句类别或关系连接语义归类；存储引擎、索引、连接器和数据类型同名条目不移动。",
       "canonicalTreeEntryId": "projection:mysql-term:k_dict_7w36vehk",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "acceptedAt": "2026-08-16T12:29:23.822Z"
     },
     {
       "id": "placement:mysql-term:k_dict_t6m62us4",
@@ -15951,6 +15955,25 @@
       "reviewItems": 0,
       "sourcePreserved": true,
       "allMySqlEntriesClassified": true
+    },
+    "mysqlSqlSubtaxonomy": {
+      "executedAt": "2026-08-16T12:29:23.822Z",
+      "categories": [
+        "mysql:sql:dql",
+        "mysql:sql:dml",
+        "mysql:sql:ddl",
+        "mysql:sql:dcl",
+        "mysql:sql:tcl",
+        "mysql:sql:joins"
+      ],
+      "movedCount": 5,
+      "strict": true,
+      "contentPreserved": true
+    },
+    "mysqlSqlCategoryAugmentation": {
+      "executedAt": "2026-08-16T12:30:17.153Z",
+      "added": 3,
+      "contentPreserved": true
     }
   },
   "migration": {
