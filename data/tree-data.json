@@ -14415,1471 +14415,778 @@
                       "categoryKey": "runtime-architecture",
                       "children": [
                         {
-                          "id": "projection:mysql-term:demo_buffer",
-                          "name": "缓冲池 / buffer pool",
-                          "count": 0,
-                          "nodeRef": "demo_buffer",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "demo_buffer",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:n_97x8s5dv",
-                          "name": "存储引擎 / storage engine",
-                          "count": 0,
-                          "nodeRef": "n_97x8s5dv",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "n_97x8s5dv",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_vg1hm4yv",
-                          "name": "备份 / backup",
-                          "count": 0,
-                          "nodeRef": "k_dict_vg1hm4yv",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_vg1hm4yv",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_z9h14mh0",
-                          "name": "热备份 / hot backup",
-                          "count": 0,
-                          "nodeRef": "k_dict_z9h14mh0",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_z9h14mh0",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_wv1o918s",
-                          "name": "逻辑备份 / logical backup",
-                          "count": 0,
-                          "nodeRef": "k_dict_wv1o918s",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_wv1o918s",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_fwv3kkzy",
-                          "name": "ODBC",
-                          "count": 0,
-                          "nodeRef": "k_dict_fwv3kkzy",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_fwv3kkzy",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_pqd2sd20",
-                          "name": "性能模式 / Performance Schema",
-                          "count": 0,
-                          "nodeRef": "k_dict_pqd2sd20",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_pqd2sd20",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ado_net_ieyqc",
-                          "name": "ADO.NET",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ado_net_ieyqc",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ado_net_ieyqc",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_as_h5mr7x",
-                          "name": "AS",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_as_h5mr7x",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_as_h5mr7x",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_asp_net_lyjnke",
-                          "name": "ASP.net",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_asp_net_lyjnke",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_asp_net_lyjnke",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_asynchronous_i_o_1c6jsd",
-                          "name": "异步I/O / asynchronous I/O",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_asynchronous_i_o_1c6jsd",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_asynchronous_i_o_1c6jsd",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_atomic_ddl_l48qcc",
-                          "name": "原子DDL / atomic DDL",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_atomic_ddl_l48qcc",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_atomic_ddl_l48qcc",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_authentication_server_1njohk",
-                          "name": "认证服务器 / authentication server",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_authentication_server_1njohk",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_authentication_server_1njohk",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
-                          "name": "自增锁 / auto-increment locking",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_auto_increment_locking_lrps8v",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_auto_increment_locking_lrps8v",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_bottleneck_ehdgmu",
-                          "name": "瓶颈 / bottleneck",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_bottleneck_ehdgmu",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_bottleneck_ehdgmu",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_bounce_e9awxp",
-                          "name": "重启服务 / bounce",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_bounce_e9awxp",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_bounce_e9awxp",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_buffer_pool_instance_m5jqpe",
-                          "name": "缓冲池实例 / buffer pool instance",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_buffer_pool_instance_m5jqpe",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_buffer_pool_instance_m5jqpe",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_built_in_1x46sj",
-                          "name": "内置 / built-in",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_built_in_1x46sj",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_built_in_1x46sj",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_business_rules_1jttaq",
-                          "name": "业务规则 / business rules",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_business_rules_1jttaq",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_business_rules_1jttaq",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_cfg_file_1wfa77",
-                          "name": ".cfg 文件 / .cfg file",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_cfg_file_1wfa77",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_cfg_file_1wfa77",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_c_1iy8fe",
-                          "name": "C",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_1iy8fe",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_c_1iy8fe",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_c_15ku39",
-                          "name": "C#",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_15ku39",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_c_15ku39",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_c_cy8cuo",
-                          "name": "C++",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_cy8cuo",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_c_cy8cuo",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_change_buffering_y1y18j",
-                          "name": "变更缓冲 / change buffering",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_change_buffering_y1y18j",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_change_buffering_y1y18j",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_checksum_qnrmvm",
-                          "name": "校验和 / checksum",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_checksum_qnrmvm",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_checksum_qnrmvm",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_client_13u3vh",
-                          "name": "客户端 / client",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_client_13u3vh",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_client_13u3vh",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_client_libraries_1l6z2y",
-                          "name": "客户端库 / client libraries",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_client_libraries_1l6z2y",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_client_libraries_1l6z2y",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_client_side_prepared_statement_1czk27",
-                          "name": "客户端预处理语句 / client-side prepared statement",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_client_side_prepared_statement_1czk27",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_client_side_prepared_statement_1czk27",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_compact_row_format_16fa2a",
-                          "name": "紧凑行格式 / compact row format",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_compact_row_format_16fa2a",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_compact_row_format_16fa2a",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_compressed_backup_12f16e",
-                          "name": "压缩备份 / compressed backup",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_compressed_backup_12f16e",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_compressed_backup_12f16e",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_compression_failure_8kmcfr",
-                          "name": "压缩失败 / compression failure",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_compression_failure_8kmcfr",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_compression_failure_8kmcfr",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_concurrency_uoyivs",
-                          "name": "并发 / concurrency",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_concurrency_uoyivs",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_concurrency_uoyivs",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_connection_fqlzvd",
-                          "name": "连接 / connection",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_connection_fqlzvd",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_connection_fqlzvd",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_connector_ijze9c",
-                          "name": "连接器 / connector",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_connector_ijze9c",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_connector_ijze9c",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_connector_c_rs92y0",
-                          "name": "Connector/C++",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_connector_c_rs92y0",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_connector_c_rs92y0",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_connector_php_1rej45",
-                          "name": "Connector/PHP",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_connector_php_1rej45",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_connector_php_1rej45",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_consistent_read_gsmmdj",
-                          "name": "一致性读取 / consistent read",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_consistent_read_gsmmdj",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_consistent_read_gsmmdj",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_counter_17gzh9",
-                          "name": "计数器 / counter",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_counter_17gzh9",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_counter_17gzh9",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_crash_7aq2mw",
-                          "name": "崩溃 / crash",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_crash_7aq2mw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_crash_7aq2mw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_data_directory_zrepzq",
-                          "name": "数据目录 / data directory",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_data_directory_zrepzq",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_data_directory_zrepzq",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ddex_provider_133gs8",
-                          "name": "DDEX 提供者 / DDEX provider",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ddex_provider_133gs8",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ddex_provider_133gs8",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_doublewrite_buffer_flioi3",
-                          "name": "双写缓冲区 / doublewrite buffer",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_doublewrite_buffer_flioi3",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_doublewrite_buffer_flioi3",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_dsn_4y9a4q",
-                          "name": "DSN",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_dsn_4y9a4q",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_dsn_4y9a4q",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_embedded_yxsdnj",
-                          "name": "嵌入式 / embedded",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_embedded_yxsdnj",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_embedded_yxsdnj",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_extent_16v5kw",
-                          "name": "区段 / extent",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_extent_16v5kw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_extent_16v5kw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_fast_index_creation_ekp3zs",
-                          "name": "快速索引创建 / Fast Index Creation",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_fast_index_creation_ekp3zs",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_fast_index_creation_ekp3zs",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_file_per_table_c2gueo",
-                          "name": "每表一个文件 / file-per-table",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_file_per_table_c2gueo",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_file_per_table_c2gueo",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_heartbeat_1aiai3",
-                          "name": "心跳 / heartbeat",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_heartbeat_1aiai3",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_heartbeat_1aiai3",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_high_water_mark_1g6jcp",
-                          "name": "高水位线 / high-water mark",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_high_water_mark_1g6jcp",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_high_water_mark_1g6jcp",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_history_list_16r63i",
-                          "name": "历史列表 / history list",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_history_list_16r63i",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_history_list_16r63i",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_host_1ctymw",
-                          "name": "主机 / host",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_host_1ctymw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_host_1ctymw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ib_file_set_18odgx",
-                          "name": "ib-file 集合 / ib-file set",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ib_file_set_18odgx",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ib_file_set_18odgx",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ibbackup_logfile_1vewn2",
-                          "name": "ibbackup_logfile",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ibbackup_logfile_1vewn2",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ibbackup_logfile_1vewn2",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ibtmp_file_18e04h",
-                          "name": "ibtmp 文件 / ibtmp file",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ibtmp_file_18e04h",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ibtmp_file_18e04h",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_index_cache_dopbb5",
-                          "name": "索引缓存 / index cache",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_index_cache_dopbb5",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_index_cache_dopbb5",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_index_condition_pushdown_tudely",
-                          "name": "索引条件下推 / index condition pushdown",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_index_condition_pushdown_tudely",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_index_condition_pushdown_tudely",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
-                          "name": "innodb_autoinc_lock_mode",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_innodb_file_per_table_1w525y",
-                          "name": "innodb_file_per_table",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_innodb_file_per_table_1w525y",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_innodb_file_per_table_1w525y",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_innodb_strict_mode_axkeg1",
-                          "name": "innodb_strict_mode",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_innodb_strict_mode_axkeg1",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_innodb_strict_mode_axkeg1",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_j2ee_1n1o93",
-                          "name": "J2EE",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_j2ee_1n1o93",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_j2ee_1n1o93",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_jdbc_14hlls",
-                          "name": "JDBC",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_jdbc_14hlls",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_jdbc_14hlls",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_key_distribution_center_fhraw7",
-                          "name": "密钥分发中心 / key distribution center",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_key_distribution_center_fhraw7",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_key_distribution_center_fhraw7",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_libmysqld_rpbwgq",
-                          "name": "libmysqld",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_libmysqld_rpbwgq",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_libmysqld_rpbwgq",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_load_balancing_ee4rhm",
-                          "name": "负载均衡 / load balancing",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_load_balancing_ee4rhm",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_load_balancing_ee4rhm",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_loose_tt5csa",
-                          "name": "loose_",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_loose_tt5csa",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_loose_tt5csa",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_master_1k7935",
-                          "name": "master",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_master_1k7935",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_master_1k7935",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_master_thread_11thmi",
-                          "name": "主线程 / master thread",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_master_thread_11thmi",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_master_thread_11thmi",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_metrics_counter_1tynuw",
-                          "name": "指标计数器 / metrics counter",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_metrics_counter_1tynuw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_metrics_counter_1tynuw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mini_transaction_ly3edv",
-                          "name": "mini-transaction",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mini_transaction_ly3edv",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mini_transaction_ly3edv",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mixed_mode_insert_1pvj4c",
-                          "name": "混合模式插入 / mixed-mode insert",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mixed_mode_insert_1pvj4c",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mixed_mode_insert_1pvj4c",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mono_oszvd6",
-                          "name": "Mono",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mono_oszvd6",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mono_oszvd6",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_multi_core_1ks4nn",
-                          "name": "多核 / multi-core",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_multi_core_1ks4nn",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_multi_core_1ks4nn",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mutex_6ryres",
-                          "name": "互斥量 / mutex",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mutex_6ryres",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mutex_6ryres",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_my_cnf_v2use8",
-                          "name": "my.cnf",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_my_cnf_v2use8",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_my_cnf_v2use8",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mysqld_q7qv17",
-                          "name": "mysqld",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mysqld_q7qv17",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mysqld_q7qv17",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mysqldb_1k0vb5",
-                          "name": "MySQLdb",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mysqldb_1k0vb5",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mysqldb_1k0vb5",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_mysqldump_1p1msf",
-                          "name": "mysqldump",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_mysqldump_1p1msf",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_mysqldump_1p1msf",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_neighbor_page_1t6aj7",
-                          "name": "邻页 / neighbor page",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_neighbor_page_1t6aj7",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_neighbor_page_1t6aj7",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_not_null_constraint_1op7sq",
-                          "name": "NOT NULL 约束 / NOT NULL constraint",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_not_null_constraint_1op7sq",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_not_null_constraint_1op7sq",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_opt_file_1w9809",
-                          "name": ".OPT 文件 / .OPT file",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_opt_file_1w9809",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_opt_file_1w9809",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_option_1sc73x",
-                          "name": "选项 / option",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_option_1sc73x",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_option_1sc73x",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_option_file_gsqytm",
-                          "name": "选项文件 / option file",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_option_file_gsqytm",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_option_file_gsqytm",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_page_cleaner_20exxg",
-                          "name": "页面清理器 / page cleaner",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_page_cleaner_20exxg",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_page_cleaner_20exxg",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_page_size_1tjy75",
-                          "name": "页大小 / page size",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_page_size_1tjy75",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_page_size_1tjy75",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_partial_trust_rcrlto",
-                          "name": "部分信任 / partial trust",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_partial_trust_rcrlto",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_partial_trust_rcrlto",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_persistent_statistics_2n5ydn",
-                          "name": "持久统计信息 / persistent statistics",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_persistent_statistics_2n5ydn",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_persistent_statistics_2n5ydn",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_php_18dydc",
-                          "name": "PHP",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_php_18dydc",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_php_18dydc",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_physical_backup_1o7b7v",
-                          "name": "物理备份 / physical backup",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_physical_backup_1o7b7v",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_physical_backup_1o7b7v",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_port_ydif8m",
-                          "name": "端口 / port",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_port_ydif8m",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_port_ydif8m",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_prepared_statement_1tfqdw",
-                          "name": "预处理语句 / prepared statement",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_prepared_statement_1tfqdw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_prepared_statement_1tfqdw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_principal_1llz4f",
-                          "name": "主体 / principal",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_principal_1llz4f",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_principal_1llz4f",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_pthreads_qfb7k4",
-                          "name": "Pthreads",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_pthreads_qfb7k4",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_pthreads_qfb7k4",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_purge_lag_1p6pyp",
-                          "name": "清理延迟 / purge lag",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_purge_lag_1p6pyp",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_purge_lag_1p6pyp",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_purge_thread_8xnck4",
-                          "name": "清理线程 / purge thread",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_purge_thread_8xnck4",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_purge_thread_8xnck4",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_read_ahead_1khyqr",
-                          "name": "预读 / read-ahead",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_read_ahead_1khyqr",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_read_ahead_1khyqr",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_redundant_row_format_kd9bbp",
-                          "name": "冗余行格式 / redundant row format",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_redundant_row_format_kd9bbp",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_redundant_row_format_kd9bbp",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_relational_1yoaip",
-                          "name": "关系型 / relational",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_relational_1yoaip",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_relational_1yoaip",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_replica_7pskdj",
-                          "name": "副本 / replica",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_replica_7pskdj",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_replica_7pskdj",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_row_based_replication_uiayeb",
-                          "name": "基于行的复制 / row-based replication",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_row_based_replication_uiayeb",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_row_based_replication_uiayeb",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_scalability_d5afjw",
-                          "name": "可伸缩性 / scalability",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_scalability_d5afjw",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_scalability_d5afjw",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_scale_out_1fhx7h",
-                          "name": "向外扩展 / scale out",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_scale_out_1fhx7h",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_scale_out_1fhx7h",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_scale_up_1y6pkm",
-                          "name": "向上扩展 / scale up",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_scale_up_1y6pkm",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_scale_up_1y6pkm",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_server_side_prepared_statement_1g5uc6",
-                          "name": "服务器端预处理语句 / server-side prepared statement",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_server_side_prepared_statement_1g5uc6",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_server_side_prepared_statement_1g5uc6",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_service_principal_name_4syyjd",
-                          "name": "服务主体名称 / service principal name",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_service_principal_name_4syyjd",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_service_principal_name_4syyjd",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_service_ticket_oqmgfc",
-                          "name": "服务票据 / service ticket",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_service_ticket_oqmgfc",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_service_ticket_oqmgfc",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_slow_shutdown_1tqzdr",
-                          "name": "缓慢关闭 / slow shutdown",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_slow_shutdown_1tqzdr",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_slow_shutdown_1tqzdr",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_sort_buffer_1x3j60",
-                          "name": "排序缓冲区 / sort buffer",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_sort_buffer_1x3j60",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_sort_buffer_1x3j60",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_source_7ps15k",
-                          "name": "源 / source",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_source_7ps15k",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_source_7ps15k",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_spin_2ipmhl",
-                          "name": "自旋 / spin",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_spin_2ipmhl",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_spin_2ipmhl",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_spn_qxzu3s",
-                          "name": "服务主名称 / SPN",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_spn_qxzu3s",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_spn_qxzu3s",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_spring_1ng89l",
-                          "name": "春天 / Spring",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_spring_1ng89l",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_spring_1ng89l",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_startup_154aqa",
-                          "name": "启动 / startup",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_startup_154aqa",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_startup_154aqa",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_stopword_ztgqhp",
-                          "name": "停用词 / stopword",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_stopword_ztgqhp",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_stopword_ztgqhp",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_strict_mode_y6y4gv",
-                          "name": "严格模式 / strict mode",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_strict_mode_y6y4gv",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_strict_mode_y6y4gv",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ticket_granting_server_1cuy2c",
-                          "name": "票证授予服务器 / ticket-granting server",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ticket_granting_server_1cuy2c",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ticket_granting_server_1cuy2c",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_ticket_granting_ticket_14xqfb",
-                          "name": "票证授予票证 / ticket-granting ticket",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ticket_granting_ticket_14xqfb",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ticket_granting_ticket_14xqfb",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_torn_page_1kprbq",
-                          "name": "撕裂页 / torn page",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_torn_page_1kprbq",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_torn_page_1kprbq",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_tps_ej1ya6",
-                          "name": "TPS",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_tps_ej1ya6",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_tps_ej1ya6",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_transportable_tablespace_1685qd",
-                          "name": "可传输表空间 / transportable tablespace",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_transportable_tablespace_1685qd",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_transportable_tablespace_1685qd",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_troubleshooting_1zw5wx",
-                          "name": "故障排除 / troubleshooting",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_troubleshooting_1zw5wx",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_troubleshooting_1zw5wx",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_undo_tablespace_so71lf",
-                          "name": "撤销表空间 / undo tablespace",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_undo_tablespace_so71lf",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_undo_tablespace_so71lf",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_variable_length_type_1satcr",
-                          "name": "可变长度类型 / variable-length type",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_variable_length_type_1satcr",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_variable_length_type_1satcr",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_victim_18xqeg",
-                          "name": "受害者 / victim",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_victim_18xqeg",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_victim_18xqeg",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_wait_1229eo",
-                          "name": "等待 / wait",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_wait_1229eo",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_wait_1229eo",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_warm_backup_1sjsyn",
-                          "name": "温备份 / warm backup",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_warm_backup_1sjsyn",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_warm_backup_1sjsyn",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_young_ohocw3",
-                          "name": "年轻页 / young",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_young_ohocw3",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_young_ohocw3",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:mysql_glossary_group_architecture",
-                          "name": "MySQL 总览与体系结构",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_group_architecture",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_group_architecture",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_o5254svl",
-                          "name": "数据仓库 / data warehouse",
-                          "count": 0,
-                          "nodeRef": "k_dict_o5254svl",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_o5254svl",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_zu4iv9d4",
-                          "name": "联机事务处理 / OLTP",
-                          "count": 0,
-                          "nodeRef": "k_dict_zu4iv9d4",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_zu4iv9d4",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_g7onhohj",
-                          "name": "LSN",
-                          "count": 0,
-                          "nodeRef": "k_dict_g7onhohj",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_g7onhohj",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_n5wdsgcu",
-                          "name": "分布式事务 / XA 协议 / XA",
-                          "count": 0,
-                          "nodeRef": "k_dict_n5wdsgcu",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_n5wdsgcu",
-                          "children": []
-                        },
-                        {
-                          "id": "demo_mysql",
-                          "name": "MySQL 概述",
-                          "count": 0,
-                          "nodeRef": "n_8s66vwo1",
-                          "children": []
-                        },
-                        {
-                          "id": "mysql_topic_architecture",
-                          "name": "MySQL 架构专题",
-                          "count": 0,
-                          "nodeRef": "mysql_topic_architecture",
+                          "id": "mysql:architecture:product-overview",
+                          "name": "产品概览与部署形态",
+                          "nodeRef": "mysql:architecture:product-overview",
+                          "canonicalCategory": true,
+                          "categoryKey": "product-overview",
                           "children": [
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_as_h5mr7x",
+                              "name": "AS",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_as_h5mr7x",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_as_h5mr7x",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_business_rules_1jttaq",
+                              "name": "业务规则 / business rules",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_business_rules_1jttaq",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_business_rules_1jttaq",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_cfg_file_1wfa77",
+                              "name": ".cfg 文件 / .cfg file",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_cfg_file_1wfa77",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_cfg_file_1wfa77",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_c_1iy8fe",
+                              "name": "C",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_c_1iy8fe",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_c_1iy8fe",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_c_15ku39",
+                              "name": "C#",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_c_15ku39",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_c_15ku39",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_c_cy8cuo",
+                              "name": "C++",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_c_cy8cuo",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_c_cy8cuo",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_change_buffering_y1y18j",
+                              "name": "变更缓冲 / change buffering",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_change_buffering_y1y18j",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_change_buffering_y1y18j",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_checksum_qnrmvm",
+                              "name": "校验和 / checksum",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_checksum_qnrmvm",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_checksum_qnrmvm",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_compression_failure_8kmcfr",
+                              "name": "压缩失败 / compression failure",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_compression_failure_8kmcfr",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_compression_failure_8kmcfr",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_consistent_read_gsmmdj",
+                              "name": "一致性读取 / consistent read",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_consistent_read_gsmmdj",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_consistent_read_gsmmdj",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_counter_17gzh9",
+                              "name": "计数器 / counter",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_counter_17gzh9",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_counter_17gzh9",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_crash_7aq2mw",
+                              "name": "崩溃 / crash",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_crash_7aq2mw",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_crash_7aq2mw",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_ddex_provider_133gs8",
+                              "name": "DDEX 提供者 / DDEX provider",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_ddex_provider_133gs8",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_ddex_provider_133gs8",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_dsn_4y9a4q",
+                              "name": "DSN",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_dsn_4y9a4q",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_dsn_4y9a4q",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_embedded_yxsdnj",
+                              "name": "嵌入式 / embedded",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_embedded_yxsdnj",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_embedded_yxsdnj",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_extent_16v5kw",
+                              "name": "区段 / extent",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_extent_16v5kw",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_extent_16v5kw",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_heartbeat_1aiai3",
+                              "name": "心跳 / heartbeat",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_heartbeat_1aiai3",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_heartbeat_1aiai3",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_high_water_mark_1g6jcp",
+                              "name": "高水位线 / high-water mark",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_high_water_mark_1g6jcp",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_high_water_mark_1g6jcp",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_host_1ctymw",
+                              "name": "主机 / host",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_host_1ctymw",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_host_1ctymw",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_ibtmp_file_18e04h",
+                              "name": "ibtmp 文件 / ibtmp file",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_ibtmp_file_18e04h",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_ibtmp_file_18e04h",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_j2ee_1n1o93",
+                              "name": "J2EE",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_j2ee_1n1o93",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_j2ee_1n1o93",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_key_distribution_center_fhraw7",
+                              "name": "密钥分发中心 / key distribution center",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_key_distribution_center_fhraw7",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_key_distribution_center_fhraw7",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_loose_tt5csa",
+                              "name": "loose_",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_loose_tt5csa",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_loose_tt5csa",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mutex_6ryres",
+                              "name": "互斥量 / mutex",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mutex_6ryres",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_mutex_6ryres",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_opt_file_1w9809",
+                              "name": ".OPT 文件 / .OPT file",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_opt_file_1w9809",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_opt_file_1w9809",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_partial_trust_rcrlto",
+                              "name": "部分信任 / partial trust",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_partial_trust_rcrlto",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_partial_trust_rcrlto",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_persistent_statistics_2n5ydn",
+                              "name": "持久统计信息 / persistent statistics",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_persistent_statistics_2n5ydn",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_persistent_statistics_2n5ydn",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_php_18dydc",
+                              "name": "PHP",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_php_18dydc",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_php_18dydc",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_port_ydif8m",
+                              "name": "端口 / port",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_port_ydif8m",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_port_ydif8m",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_prepared_statement_1tfqdw",
+                              "name": "预处理语句 / prepared statement",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_prepared_statement_1tfqdw",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_prepared_statement_1tfqdw",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_principal_1llz4f",
+                              "name": "主体 / principal",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_principal_1llz4f",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_principal_1llz4f",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_read_ahead_1khyqr",
+                              "name": "预读 / read-ahead",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_read_ahead_1khyqr",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_read_ahead_1khyqr",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_relational_1yoaip",
+                              "name": "关系型 / relational",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_relational_1yoaip",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_relational_1yoaip",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_scalability_d5afjw",
+                              "name": "可伸缩性 / scalability",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_scalability_d5afjw",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_scalability_d5afjw",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_scale_out_1fhx7h",
+                              "name": "向外扩展 / scale out",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_scale_out_1fhx7h",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_scale_out_1fhx7h",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_scale_up_1y6pkm",
+                              "name": "向上扩展 / scale up",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_scale_up_1y6pkm",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_scale_up_1y6pkm",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_sort_buffer_1x3j60",
+                              "name": "排序缓冲区 / sort buffer",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_sort_buffer_1x3j60",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_sort_buffer_1x3j60",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_source_7ps15k",
+                              "name": "源 / source",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_source_7ps15k",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_source_7ps15k",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_spin_2ipmhl",
+                              "name": "自旋 / spin",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_spin_2ipmhl",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_spin_2ipmhl",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_spring_1ng89l",
+                              "name": "春天 / Spring",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_spring_1ng89l",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_spring_1ng89l",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_stopword_ztgqhp",
+                              "name": "停用词 / stopword",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_stopword_ztgqhp",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_stopword_ztgqhp",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_tps_ej1ya6",
+                              "name": "TPS",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_tps_ej1ya6",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_tps_ej1ya6",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_troubleshooting_1zw5wx",
+                              "name": "故障排除 / troubleshooting",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_troubleshooting_1zw5wx",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_troubleshooting_1zw5wx",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_victim_18xqeg",
+                              "name": "受害者 / victim",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_victim_18xqeg",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_victim_18xqeg",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_wait_1229eo",
+                              "name": "等待 / wait",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_wait_1229eo",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_wait_1229eo",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_young_ohocw3",
+                              "name": "年轻页 / young",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_young_ohocw3",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_young_ohocw3",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_group_architecture",
+                              "name": "MySQL 总览与体系结构",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_group_architecture",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_group_architecture",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:k_dict_o5254svl",
+                              "name": "数据仓库 / data warehouse",
+                              "count": 0,
+                              "nodeRef": "k_dict_o5254svl",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "k_dict_o5254svl",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:k_dict_g7onhohj",
+                              "name": "LSN",
+                              "count": 0,
+                              "nodeRef": "k_dict_g7onhohj",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "k_dict_g7onhohj",
+                              "children": []
+                            },
+                            {
+                              "id": "demo_mysql",
+                              "name": "MySQL 概述",
+                              "count": 0,
+                              "nodeRef": "n_8s66vwo1",
+                              "children": []
+                            },
+                            {
+                              "id": "governance:canonical:k_1782029470422_yfa3u9",
+                              "name": "系统文件层",
+                              "count": 0,
+                              "nodeRef": "k_1782029470422_yfa3u9",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_group_misc",
+                              "name": "MySQL 通用术语说明",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_group_misc",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "review-needed",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_topic_uncategorized",
+                              "name": "MySQL 分类说明",
+                              "nodeRef": "mysql_topic_uncategorized",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql:architecture:server-runtime",
+                          "name": "服务器运行时与执行模型",
+                          "nodeRef": "mysql:architecture:server-runtime",
+                          "canonicalCategory": true,
+                          "categoryKey": "server-runtime",
+                          "children": [
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_bottleneck_ehdgmu",
+                              "name": "瓶颈 / bottleneck",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_bottleneck_ehdgmu",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_bottleneck_ehdgmu",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_bounce_e9awxp",
+                              "name": "重启服务 / bounce",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_bounce_e9awxp",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_bounce_e9awxp",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_built_in_1x46sj",
+                              "name": "内置 / built-in",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_built_in_1x46sj",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_built_in_1x46sj",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_libmysqld_rpbwgq",
+                              "name": "libmysqld",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_libmysqld_rpbwgq",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_libmysqld_rpbwgq",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mono_oszvd6",
+                              "name": "Mono",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mono_oszvd6",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_mono_oszvd6",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_multi_core_1ks4nn",
+                              "name": "多核 / multi-core",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_multi_core_1ks4nn",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_multi_core_1ks4nn",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mysqld_q7qv17",
+                              "name": "mysqld",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mysqld_q7qv17",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_mysqld_q7qv17",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mysqldb_1k0vb5",
+                              "name": "MySQLdb",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mysqldb_1k0vb5",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_mysqldb_1k0vb5",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mysqldump_1p1msf",
+                              "name": "mysqldump",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mysqldump_1p1msf",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_mysqldump_1p1msf",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_pthreads_qfb7k4",
+                              "name": "Pthreads",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_pthreads_qfb7k4",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_pthreads_qfb7k4",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_server_side_prepared_statement_1g5uc6",
+                              "name": "服务器端预处理语句 / server-side prepared statement",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_service_principal_name_4syyjd",
+                              "name": "服务主体名称 / service principal name",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_service_principal_name_4syyjd",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_service_principal_name_4syyjd",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_service_ticket_oqmgfc",
+                              "name": "服务票据 / service ticket",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_service_ticket_oqmgfc",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_service_ticket_oqmgfc",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_slow_shutdown_1tqzdr",
+                              "name": "缓慢关闭 / slow shutdown",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_slow_shutdown_1tqzdr",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_slow_shutdown_1tqzdr",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_spn_qxzu3s",
+                              "name": "服务主名称 / SPN",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_spn_qxzu3s",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_spn_qxzu3s",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_startup_154aqa",
+                              "name": "启动 / startup",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_startup_154aqa",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_startup_154aqa",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_topic_architecture",
+                              "name": "MySQL 架构专题",
+                              "count": 0,
+                              "nodeRef": "mysql_topic_architecture",
+                              "children": []
+                            },
                             {
                               "id": "mysql_architecture_overview",
                               "name": "MySQL Server 分层总览",
                               "count": 0,
                               "nodeRef": "k_1782032149173_bli3vq",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1782029618566_mlxtmr",
-                              "name": "配置⽂件",
-                              "count": 0,
-                              "nodeRef": "k_1782029618563_7rrguo",
                               "children": []
                             },
                             {
@@ -15904,67 +15211,10 @@
                               "children": []
                             },
                             {
-                              "id": "mysql_functional_ref_k_dict_nsqweksd",
-                              "name": "数据字典 / data dictionary",
-                              "count": 0,
-                              "nodeRef": "k_dict_nsqweksd",
-                              "children": []
-                            },
-                            {
                               "id": "mysql_functional_ref_k_dict_xhmtog57",
                               "name": "服务器 / server",
                               "count": 0,
                               "nodeRef": "k_dict_xhmtog57",
-                              "children": []
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_8yoqxtuu",
-                              "name": "模式 / schema",
-                              "count": 0,
-                              "nodeRef": "k_dict_8yoqxtuu",
-                              "children": []
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_lc7qrne8",
-                              "name": "数据库 / database",
-                              "count": 0,
-                              "nodeRef": "k_dict_lc7qrne8",
-                              "children": []
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_h20fqa9t",
-                              "name": "连接池 / connection pool",
-                              "count": 0,
-                              "nodeRef": "k_dict_h20fqa9t",
-                              "children": []
-                            },
-                            {
-                              "id": "governance:canonical:mysql_runtime_files",
-                              "name": "运行时文件",
-                              "count": 0,
-                              "nodeRef": "mysql_runtime_files",
-                              "children": [
-                                {
-                                  "id": "governance:canonical:mysql_file_pid",
-                                  "name": "PID 文件 / PID file",
-                                  "count": 0,
-                                  "nodeRef": "mysql_file_pid",
-                                  "children": []
-                                },
-                                {
-                                  "id": "governance:canonical:mysql_file_socket",
-                                  "name": "Socket 文件 / Socket file",
-                                  "count": 0,
-                                  "nodeRef": "mysql_file_socket",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "governance:canonical:k_1782029470422_yfa3u9",
-                              "name": "系统文件层",
-                              "count": 0,
-                              "nodeRef": "k_1782029470422_yfa3u9",
                               "children": []
                             },
                             {
@@ -15981,42 +15231,68 @@
                                   "children": []
                                 }
                               ]
-                            },
-                            {
-                              "id": "governance:canonical:k_1782032572614_mi65fj",
-                              "name": "连接池（Connection Pool）",
-                              "count": 0,
-                              "nodeRef": "k_1782032572614_mi65fj",
-                              "children": []
                             }
                           ]
                         },
                         {
-                          "id": "mysql:theme:other",
-                          "name": "MySQL 补充概念",
-                          "count": 0,
-                          "view": "mysql-architecture",
+                          "id": "mysql:architecture:configuration-extensions",
+                          "name": "配置、系统变量与可扩展组件",
+                          "nodeRef": "mysql:architecture:configuration-extensions",
                           "canonicalCategory": true,
-                          "categoryKey": "other",
-                          "nodeRef": "mysql:theme:other",
+                          "categoryKey": "configuration-extensions",
                           "children": [
                             {
-                              "id": "projection:mysql-term:mysql_glossary_group_misc",
-                              "name": "补充与其他概念",
+                              "id": "projection:mysql-term:mysql_glossary_my_cnf_v2use8",
+                              "name": "my.cnf",
                               "count": 0,
-                              "nodeRef": "mysql_glossary_group_misc",
+                              "nodeRef": "mysql_glossary_my_cnf_v2use8",
                               "projection": true,
                               "view": "mysql-architecture",
-                              "projectionKind": "review-needed",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_my_cnf_v2use8",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_option_1sc73x",
+                              "name": "选项 / option",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_option_1sc73x",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_option_1sc73x",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_option_file_gsqytm",
+                              "name": "选项文件 / option file",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_option_file_gsqytm",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_option_file_gsqytm",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_variable_length_type_1satcr",
+                              "name": "可变长度类型 / variable-length type",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_variable_length_type_1satcr",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_variable_length_type_1satcr",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1782029618566_mlxtmr",
+                              "name": "配置⽂件",
+                              "count": 0,
+                              "nodeRef": "k_1782029618563_7rrguo",
                               "children": []
                             }
                           ]
-                        },
-                        {
-                          "id": "mysql_topic_uncategorized",
-                          "name": "MySQL 分类说明",
-                          "nodeRef": "mysql_topic_uncategorized",
-                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:architecture"
@@ -18213,6 +17489,82 @@
                           "projectionKind": "canonical-topic",
                           "sourceNodeId": "k_dict_mb72ps2c",
                           "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_data_directory_zrepzq",
+                          "name": "数据目录 / data directory",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_data_directory_zrepzq",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_data_directory_zrepzq",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_file_per_table_c2gueo",
+                          "name": "每表一个文件 / file-per-table",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_file_per_table_c2gueo",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_file_per_table_c2gueo",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_history_list_16r63i",
+                          "name": "历史列表 / history list",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_history_list_16r63i",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_history_list_16r63i",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_mixed_mode_insert_1pvj4c",
+                          "name": "混合模式插入 / mixed-mode insert",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_mixed_mode_insert_1pvj4c",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_mixed_mode_insert_1pvj4c",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_strict_mode_y6y4gv",
+                          "name": "严格模式 / strict mode",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_strict_mode_y6y4gv",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_strict_mode_y6y4gv",
+                          "children": []
+                        },
+                        {
+                          "id": "mysql_functional_ref_k_dict_nsqweksd",
+                          "name": "数据字典 / data dictionary",
+                          "count": 0,
+                          "nodeRef": "k_dict_nsqweksd",
+                          "children": []
+                        },
+                        {
+                          "id": "mysql_functional_ref_k_dict_8yoqxtuu",
+                          "name": "模式 / schema",
+                          "count": 0,
+                          "nodeRef": "k_dict_8yoqxtuu",
+                          "children": []
+                        },
+                        {
+                          "id": "mysql_functional_ref_k_dict_lc7qrne8",
+                          "name": "数据库 / database",
+                          "count": 0,
+                          "nodeRef": "k_dict_lc7qrne8",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:schema-objects"
@@ -18392,6 +17744,28 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_ib_file_set_18odgx",
+                          "name": "ib-file 集合 / ib-file set",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ib_file_set_18odgx",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_ib_file_set_18odgx",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_not_null_constraint_1op7sq",
+                          "name": "NOT NULL 约束 / NOT NULL constraint",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_not_null_constraint_1op7sq",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_not_null_constraint_1op7sq",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:data-types"
@@ -18618,6 +17992,39 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_fast_index_creation_ekp3zs",
+                          "name": "快速索引创建 / Fast Index Creation",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_fast_index_creation_ekp3zs",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_fast_index_creation_ekp3zs",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_index_cache_dopbb5",
+                          "name": "索引缓存 / index cache",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_index_cache_dopbb5",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_index_cache_dopbb5",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_index_condition_pushdown_tudely",
+                          "name": "索引条件下推 / index condition pushdown",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_index_condition_pushdown_tudely",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_index_condition_pushdown_tudely",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:indexes-access"
@@ -18995,6 +18402,50 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
+                          "name": "自增锁 / auto-increment locking",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_auto_increment_locking_lrps8v",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_auto_increment_locking_lrps8v",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_concurrency_uoyivs",
+                          "name": "并发 / concurrency",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_concurrency_uoyivs",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_concurrency_uoyivs",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_mini_transaction_ly3edv",
+                          "name": "mini-transaction",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_mini_transaction_ly3edv",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_mini_transaction_ly3edv",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_zu4iv9d4",
+                          "name": "联机事务处理 / OLTP",
+                          "count": 0,
+                          "nodeRef": "k_dict_zu4iv9d4",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_zu4iv9d4",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:transactions-concurrency"
@@ -20036,6 +19487,237 @@
                           "projection": true,
                           "projectionKind": "canonical-topic",
                           "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:demo_buffer",
+                          "name": "缓冲池 / buffer pool",
+                          "count": 0,
+                          "nodeRef": "demo_buffer",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "demo_buffer",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:n_97x8s5dv",
+                          "name": "存储引擎 / storage engine",
+                          "count": 0,
+                          "nodeRef": "n_97x8s5dv",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "n_97x8s5dv",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_asynchronous_i_o_1c6jsd",
+                          "name": "异步I/O / asynchronous I/O",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_asynchronous_i_o_1c6jsd",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_asynchronous_i_o_1c6jsd",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_buffer_pool_instance_m5jqpe",
+                          "name": "缓冲池实例 / buffer pool instance",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_buffer_pool_instance_m5jqpe",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_buffer_pool_instance_m5jqpe",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_compact_row_format_16fa2a",
+                          "name": "紧凑行格式 / compact row format",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_compact_row_format_16fa2a",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_compact_row_format_16fa2a",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_doublewrite_buffer_flioi3",
+                          "name": "双写缓冲区 / doublewrite buffer",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_doublewrite_buffer_flioi3",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_doublewrite_buffer_flioi3",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+                          "name": "innodb_autoinc_lock_mode",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_innodb_file_per_table_1w525y",
+                          "name": "innodb_file_per_table",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_innodb_file_per_table_1w525y",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_innodb_file_per_table_1w525y",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_innodb_strict_mode_axkeg1",
+                          "name": "innodb_strict_mode",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_innodb_strict_mode_axkeg1",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_innodb_strict_mode_axkeg1",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_neighbor_page_1t6aj7",
+                          "name": "邻页 / neighbor page",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_neighbor_page_1t6aj7",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_neighbor_page_1t6aj7",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_page_cleaner_20exxg",
+                          "name": "页面清理器 / page cleaner",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_page_cleaner_20exxg",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_page_cleaner_20exxg",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_page_size_1tjy75",
+                          "name": "页大小 / page size",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_page_size_1tjy75",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_page_size_1tjy75",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_purge_lag_1p6pyp",
+                          "name": "清理延迟 / purge lag",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_purge_lag_1p6pyp",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_purge_lag_1p6pyp",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_purge_thread_8xnck4",
+                          "name": "清理线程 / purge thread",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_purge_thread_8xnck4",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_purge_thread_8xnck4",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_redundant_row_format_kd9bbp",
+                          "name": "冗余行格式 / redundant row format",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_redundant_row_format_kd9bbp",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_redundant_row_format_kd9bbp",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_row_based_replication_uiayeb",
+                          "name": "基于行的复制 / row-based replication",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_row_based_replication_uiayeb",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_row_based_replication_uiayeb",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_torn_page_1kprbq",
+                          "name": "撕裂页 / torn page",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_torn_page_1kprbq",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_torn_page_1kprbq",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_transportable_tablespace_1685qd",
+                          "name": "可传输表空间 / transportable tablespace",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_transportable_tablespace_1685qd",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_transportable_tablespace_1685qd",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_undo_tablespace_so71lf",
+                          "name": "撤销表空间 / undo tablespace",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_undo_tablespace_so71lf",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_undo_tablespace_so71lf",
+                          "children": []
+                        },
+                        {
+                          "id": "governance:canonical:mysql_runtime_files",
+                          "name": "运行时文件",
+                          "count": 0,
+                          "nodeRef": "mysql_runtime_files",
+                          "children": [
+                            {
+                              "id": "governance:canonical:mysql_file_pid",
+                              "name": "PID 文件 / PID file",
+                              "count": 0,
+                              "nodeRef": "mysql_file_pid",
+                              "children": []
+                            },
+                            {
+                              "id": "governance:canonical:mysql_file_socket",
+                              "name": "Socket 文件 / Socket file",
+                              "count": 0,
+                              "nodeRef": "mysql_file_socket",
+                              "children": []
+                            }
+                          ]
                         }
                       ],
                       "nodeRef": "mysql:theme:storage-engines"
@@ -20171,6 +19853,83 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_vg1hm4yv",
+                          "name": "备份 / backup",
+                          "count": 0,
+                          "nodeRef": "k_dict_vg1hm4yv",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_vg1hm4yv",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_z9h14mh0",
+                          "name": "热备份 / hot backup",
+                          "count": 0,
+                          "nodeRef": "k_dict_z9h14mh0",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_z9h14mh0",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_wv1o918s",
+                          "name": "逻辑备份 / logical backup",
+                          "count": 0,
+                          "nodeRef": "k_dict_wv1o918s",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_wv1o918s",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_compressed_backup_12f16e",
+                          "name": "压缩备份 / compressed backup",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_compressed_backup_12f16e",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_compressed_backup_12f16e",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_ibbackup_logfile_1vewn2",
+                          "name": "ibbackup_logfile",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ibbackup_logfile_1vewn2",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_ibbackup_logfile_1vewn2",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_physical_backup_1o7b7v",
+                          "name": "物理备份 / physical backup",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_physical_backup_1o7b7v",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_physical_backup_1o7b7v",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_warm_backup_1sjsyn",
+                          "name": "温备份 / warm backup",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_warm_backup_1sjsyn",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_warm_backup_1sjsyn",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:backup-recovery"
@@ -20220,6 +19979,50 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_load_balancing_ee4rhm",
+                          "name": "负载均衡 / load balancing",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_load_balancing_ee4rhm",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_load_balancing_ee4rhm",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_master_1k7935",
+                          "name": "master",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_master_1k7935",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_master_1k7935",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_master_thread_11thmi",
+                          "name": "主线程 / master thread",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_master_thread_11thmi",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_master_thread_11thmi",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_replica_7pskdj",
+                          "name": "副本 / replica",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_replica_7pskdj",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_replica_7pskdj",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:replication-ha"
@@ -20266,6 +20069,39 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_authentication_server_1njohk",
+                          "name": "认证服务器 / authentication server",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_authentication_server_1njohk",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_authentication_server_1njohk",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_ticket_granting_server_1cuy2c",
+                          "name": "票证授予服务器 / ticket-granting server",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ticket_granting_server_1cuy2c",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_ticket_granting_server_1cuy2c",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_ticket_granting_ticket_14xqfb",
+                          "name": "票证授予票证 / ticket-granting ticket",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ticket_granting_ticket_14xqfb",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_ticket_granting_ticket_14xqfb",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:security-access"
@@ -20327,6 +20163,152 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_fwv3kkzy",
+                          "name": "ODBC",
+                          "count": 0,
+                          "nodeRef": "k_dict_fwv3kkzy",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_fwv3kkzy",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_ado_net_ieyqc",
+                          "name": "ADO.NET",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ado_net_ieyqc",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_ado_net_ieyqc",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_asp_net_lyjnke",
+                          "name": "ASP.net",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_asp_net_lyjnke",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_asp_net_lyjnke",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_client_13u3vh",
+                          "name": "客户端 / client",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_client_13u3vh",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_client_13u3vh",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_client_libraries_1l6z2y",
+                          "name": "客户端库 / client libraries",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_client_libraries_1l6z2y",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_client_libraries_1l6z2y",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_client_side_prepared_statement_1czk27",
+                          "name": "客户端预处理语句 / client-side prepared statement",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_client_side_prepared_statement_1czk27",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_client_side_prepared_statement_1czk27",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_connection_fqlzvd",
+                          "name": "连接 / connection",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_connection_fqlzvd",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_connection_fqlzvd",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_connector_ijze9c",
+                          "name": "连接器 / connector",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_connector_ijze9c",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_connector_ijze9c",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_connector_c_rs92y0",
+                          "name": "Connector/C++",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_connector_c_rs92y0",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_connector_c_rs92y0",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_connector_php_1rej45",
+                          "name": "Connector/PHP",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_connector_php_1rej45",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_connector_php_1rej45",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_jdbc_14hlls",
+                          "name": "JDBC",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_jdbc_14hlls",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_jdbc_14hlls",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_n5wdsgcu",
+                          "name": "分布式事务 / XA 协议 / XA",
+                          "count": 0,
+                          "nodeRef": "k_dict_n5wdsgcu",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_n5wdsgcu",
+                          "children": []
+                        },
+                        {
+                          "id": "mysql_functional_ref_k_dict_h20fqa9t",
+                          "name": "连接池 / connection pool",
+                          "count": 0,
+                          "nodeRef": "k_dict_h20fqa9t",
+                          "children": []
+                        },
+                        {
+                          "id": "governance:canonical:k_1782032572614_mi65fj",
+                          "name": "连接池（Connection Pool）",
+                          "count": 0,
+                          "nodeRef": "k_1782032572614_mi65fj",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:connectivity"
@@ -20418,6 +20400,28 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "projection:mysql-term:k_dict_pqd2sd20",
+                          "name": "性能模式 / Performance Schema",
+                          "count": 0,
+                          "nodeRef": "k_dict_pqd2sd20",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "k_dict_pqd2sd20",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-term:mysql_glossary_metrics_counter_1tynuw",
+                          "name": "指标计数器 / metrics counter",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_metrics_counter_1tynuw",
+                          "projection": true,
+                          "view": "mysql-architecture",
+                          "projectionKind": "canonical-topic",
+                          "sourceNodeId": "mysql_glossary_metrics_counter_1tynuw",
+                          "children": []
                         }
                       ],
                       "nodeRef": "mysql:theme:performance-observability"
