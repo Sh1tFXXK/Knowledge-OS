@@ -22191,8 +22191,8 @@
               "categoryKey": "operations"
             },
             {
-              "id": "mysql:theme:review",
-              "name": "MySQL 待人工确认",
+              "id": "mysql:theme:other",
+              "name": "其他 MySQL 概念",
               "count": 0,
               "children": [
                 {
@@ -22208,17 +22208,9 @@
               ],
               "view": "mysql-architecture",
               "canonicalCategory": true,
-              "categoryKey": "review"
-            }
-          ],
-          "viewKind": "dimension-view",
-          "view": "mysql-architecture"
-        },
-        {
-          "id": "forest:view:mysql-source",
-          "name": "MySQL 术语库（来源视图）",
-          "count": 0,
-          "children": [
+              "categoryKey": "other",
+              "nodeRef": "mysql:theme:other"
+            },
             {
               "id": "governance:mysql-glossary-source-view",
               "name": "MySQL 术语库（来源视图）",
@@ -24626,19 +24618,10 @@
                   "children": []
                 }
               ]
-            }
-          ],
-          "viewKind": "source-view",
-          "view": "mysql-glossary-source"
-        },
-        {
-          "id": "forest:view:review-inbox",
-          "name": "Review Inbox（待审核归属）",
-          "count": 0,
-          "children": [
+            },
             {
               "id": "mysql_topic_uncategorized",
-              "name": "Review Inbox（原 MySQL 未分类入口）",
+              "name": "原始术语入口（来源位置保留）",
               "count": 0,
               "nodeRef": "mysql_topic_uncategorized",
               "children": [
@@ -24762,7 +24745,24 @@
                   "children": []
                 }
               ]
-            },
+            }
+          ],
+          "viewKind": "dimension-view",
+          "view": "mysql-architecture"
+        },
+        {
+          "id": "forest:view:mysql-source",
+          "name": "MySQL 术语库（来源视图）",
+          "count": 0,
+          "children": [],
+          "viewKind": "source-view",
+          "view": "mysql-glossary-source"
+        },
+        {
+          "id": "forest:view:review-inbox",
+          "name": "Review Inbox（待审核归属）",
+          "count": 0,
+          "children": [
             {
               "id": "mysql_topic_uncategorized",
               "name": "Review Inbox（原 MySQL 未分类入口）",
