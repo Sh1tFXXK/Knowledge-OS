@@ -15942,6 +15942,15 @@
       "mergeNode": "k_dict_s1u2tlxt",
       "relationalJoinNode": "k_dict_duk4xptw",
       "contentPreserved": true
+    },
+    "mysqlReviewContainerRemoval": {
+      "executedAt": "2026-08-16T11:53:57.514Z",
+      "removedReviewProjection": true,
+      "removedUncategorizedContainers": 3,
+      "movedSourceEntries": 0,
+      "reviewItems": 0,
+      "sourcePreserved": true,
+      "allMySqlEntriesClassified": true
     }
   },
   "migration": {
@@ -16795,7 +16804,7 @@
     ],
     "termClassification": {
       "schemaVersion": 1,
-      "updatedAt": "2026-08-16T11:04:23.034Z",
+      "updatedAt": "2026-08-16T11:53:57.514Z",
       "sourceContainer": "governance:mysql-glossary-source-view",
       "reviewContainer": "mysql_topic_uncategorized",
       "classifier": "content-keyword-rules-v1",
@@ -16816,7 +16825,7 @@
       "lowConfidence": [],
       "allAssigned": true,
       "reviewRequired": 0,
-      "note": "普通术语全部保留在 MySQL 技术系统树主题目录；来源视图和原始位置均保留在 MySQL 下。"
+      "note": "MySQL 树内所有未分类容器已移除；条目保留在 MySQL 主题投影和来源视图中。"
     }
   }
 }
