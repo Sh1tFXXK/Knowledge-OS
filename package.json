@@ -19,7 +19,11 @@
     "test": "node --test \"scripts/*.test.mjs\"",
     "audit:governance": "node scripts/knowledge-governance.mjs audit",
     "validate:governance": "node scripts/knowledge-governance.mjs validate",
-    "generate:governance-candidates": "node scripts/knowledge-governance.mjs generate-candidates"
+    "generate:governance-candidates": "node scripts/knowledge-governance.mjs generate-candidates",
+    "apply:governance-migration": "node scripts/apply-knowledge-governance-migration.mjs --apply",
+    "resolve:governance-projections": "node scripts/resolve-cross-domain-projections.mjs --apply",
+    "mount:governance-review": "node scripts/mount-governance-review-inbox.mjs --apply",
+    "relocate:governance-source-view": "node scripts/relocate-mysql-glossary-source-view.mjs --apply"
   },
   "keywords": [],
   "author": "",

@@ -39,11 +39,9 @@ test('candidate generation creates reviewable governance without mutating core d
   const result = validateGovernance(governance, data);
   assert.equal(after, before, 'candidate generation must not mutate core data');
   assert.equal(result.valid, true, result.errors.join('\n'));
-  assert.ok(governance.placements.some((candidate) => candidate.nodeId === 'demo_btree'));
-  assert.ok(governance.placements.some((candidate) => candidate.nodeId === 'demo_snapshot'));
-  assert.ok(governance.projections.some((candidate) => candidate.kind === 'source-view'));
-  assert.ok(governance.mergePlans.length > 0);
-  assert.ok(governance.placements.every((candidate) => candidate.status === 'proposed'));
+  assert.equal(governance.placements.length, 0, 'all active content should already be reachable through canonical, source, or review navigation');
+  assert.ok(governance.projections.some((candidate) => candidate.kind === 'domain-view'), 'cross-domain occurrences must remain reviewable as projections');
+  assert.ok(governance.mergePlans.length > 0, 'unresolved tree-binding review plans remain visible');
   assert.ok(governance.mergePlans.every((candidate) => candidate.status === 'proposed'));
 });
 

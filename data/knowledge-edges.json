@@ -321,7 +321,8 @@
     "label": "依赖清理",
     "dimensions": [
       "storage",
-      "performance"
+      "performance",
+      "transaction"
     ]
   },
   {
@@ -581,18 +582,6 @@
     "target": "innodb_mvcc_db_row_id",
     "type": "uses",
     "label": "隐藏行 ID",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
-    "id": "mysql_glossary:demo_mvcc:innodb_mvcc_purge",
-    "source": "demo_mvcc",
-    "target": "innodb_mvcc_purge",
-    "type": "depends-on",
-    "label": "等待清理",
     "dimensions": [
       "transaction",
       "performance",
