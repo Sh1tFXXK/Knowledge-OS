@@ -29942,39 +29942,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_operating_systems:mysql_term_operating_systems_process_f99qun",
-    "source": "theory_domain_operating_systems",
-    "target": "k_dict_plyim9pi",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_operating_systems:mysql_term_operating_systems_thread_1ic0m2",
-    "source": "theory_domain_operating_systems",
-    "target": "k_dict_n7rueozw",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_instance_dfqeuj",
-    "source": "theory_domain_storage_systems",
-    "target": "k_dict_12jqwwcl",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_data_dictionary_z6ntm4",
     "source": "theory_domain_storage_systems",
     "target": "k_dict_nsqweksd",
@@ -29998,29 +29965,6 @@
     ]
   },
   {
-    "id": "treebind:tree_acm2012_networks_network_protocols:mysql_term_network_protocols_server_18q8qi",
-    "source": "theory_domain_network_protocols",
-    "target": "k_dict_xhmtog57",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_data_warehouse_1vp7y4",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_o5254svl",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_oltp_18eomk",
     "source": "theory_domain_transaction_theory",
     "target": "k_dict_zu4iv9d4",
@@ -30030,19 +29974,6 @@
     "dimensions": [
       "storage",
       "transaction"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_lsn_1sk4q6",
-    "source": "theory_domain_transaction_theory",
-    "target": "k_dict_g7onhohj",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage",
-      "transaction",
-      "performance"
     ]
   },
   {
@@ -30077,6 +30008,75 @@
     "relationKind": "structure",
     "dimensions": [
       "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_operating_systems:mysql_term_operating_systems_process_f99qun",
+    "source": "theory_domain_operating_systems",
+    "target": "k_dict_plyim9pi",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_operating_systems:mysql_term_operating_systems_thread_1ic0m2",
+    "source": "theory_domain_operating_systems",
+    "target": "k_dict_n7rueozw",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_instance_dfqeuj",
+    "source": "theory_domain_storage_systems",
+    "target": "k_dict_12jqwwcl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_acm2012_networks_network_protocols:mysql_term_network_protocols_server_18q8qi",
+    "source": "theory_domain_network_protocols",
+    "target": "k_dict_xhmtog57",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_data_warehouse_1vp7y4",
+    "source": "theory_domain_transaction_theory",
+    "target": "k_dict_o5254svl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage",
+      "transaction"
+    ]
+  },
+  {
+    "id": "treebind:theory_domain_transaction_theory:mysql_term_transaction_theory_lsn_1sk4q6",
+    "source": "theory_domain_transaction_theory",
+    "target": "k_dict_g7onhohj",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage",
+      "transaction",
+      "performance"
     ]
   }
 ]
