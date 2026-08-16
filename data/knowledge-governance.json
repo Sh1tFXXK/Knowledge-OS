@@ -7146,40 +7146,43 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z"
     },
     {
-      "id": "placement:mysql-term:k_dict_s1u2tlxt",
+      "id": "placement:semantic:k_dict_s1u2tlxt",
       "nodeId": "k_dict_s1u2tlxt",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "mysql:theme:storage-engines",
       "pathHint": [
         "知识森林（维度视图）",
         "MySQL 技术系统树（产品视图）",
-        "SQL 与语言对象",
-        "合并 / merge"
+        "存储引擎与物理存储",
+        "Change Buffer 合并（merge）"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
-      "canonicalTreeEntryId": "projection:mysql-term:k_dict_s1u2tlxt",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "rule": "reviewed-semantic-split",
+      "rationale": "正文描述 Buffer Pool、Change Buffer 和 flush，属于 InnoDB 存储引擎合并过程。",
+      "canonicalTreeEntryId": "mysql:projection:change-buffer-merge",
+      "acceptedAt": "2026-08-16T11:25:06.290Z"
     },
     {
-      "id": "placement:mysql-term:k_dict_duk4xptw",
+      "id": "placement:semantic:k_dict_duk4xptw",
       "nodeId": "k_dict_duk4xptw",
       "status": "accepted",
       "contentStatus": "canonical",
-      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalParentNodeId": "theory_domain_relational_algebra",
       "pathHint": [
-        "知识森林（维度视图）",
-        "MySQL 技术系统树（产品视图）",
-        "SQL 与语言对象",
+        "知识宇宙",
+        "计算机科学",
+        "信息系统",
+        "数据库管理",
+        "数据库原理",
+        "关系代数",
         "连接 / join"
       ],
       "confidence": "high",
-      "rule": "mysql-glossary-content-rules-v1",
-      "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
-      "canonicalTreeEntryId": "projection:mysql-term:k_dict_duk4xptw",
-      "acceptedAt": "2026-08-16T10:55:08.519Z"
+      "rule": "reviewed-semantic-split",
+      "rationale": "正文描述从多个表查询并进行内连接、外连接和交叉连接，属于关系代数连接；MySQL SQL JOIN 作为投影保留。",
+      "canonicalTreeEntryId": "mysql_term_relational_algebra_join_ej6jmt",
+      "acceptedAt": "2026-08-16T11:25:06.290Z"
     },
     {
       "id": "placement:mysql-term:k_dict_o5254svl",
@@ -7414,6 +7417,29 @@
       "rationale": "依据术语标题、标签和正文内容分配到 MySQL 主题树；原始来源入口保留为 source-view。",
       "canonicalTreeEntryId": "projection:mysql-term:k_dict_fxoirizf",
       "acceptedAt": "2026-08-16T10:55:08.519Z"
+    },
+    {
+      "id": "placement:semantic:k_1786006383348_b3urv6",
+      "nodeId": "k_1786006383348_b3urv6",
+      "status": "accepted",
+      "contentStatus": "canonical",
+      "canonicalParentNodeId": "k_1785843194451_b6cvb2",
+      "pathHint": [
+        "知识宇宙",
+        "计算机科学",
+        "软件符号与工具",
+        "编程语言",
+        "Java",
+        "Java 并发编程",
+        "进程与线程",
+        "线程间通信",
+        "Thread.join()的使用"
+      ],
+      "confidence": "high",
+      "rule": "reviewed-semantic-split",
+      "rationale": "正文明确描述 java.lang.Thread#join()，属于 Java 线程间通信，而非数据库 JOIN。",
+      "canonicalTreeEntryId": "tree_1786006383596_c1nxnl",
+      "acceptedAt": "2026-08-16T11:25:06.290Z"
     }
   ],
   "projections": [
@@ -15703,6 +15729,17 @@
       "acceptedAt": "2026-08-16T10:55:08.519Z",
       "canonicalParentNodeId": "mysql:theme:sql-language",
       "canonicalTreeEntryId": "projection:mysql-term:k_dict_fxoirizf"
+    },
+    {
+      "id": "projection:mysql:sql-join",
+      "nodeId": "k_dict_duk4xptw",
+      "status": "accepted",
+      "kind": "topic-view",
+      "view": "mysql-architecture",
+      "rationale": "关系代数连接在 MySQL SQL JOIN 中的技术投影。",
+      "canonicalParentNodeId": "mysql:theme:sql-language",
+      "canonicalTreeEntryId": "mysql:projection:sql-join",
+      "acceptedAt": "2026-08-16T11:25:06.290Z"
     }
   ],
   "mergePlans": [
@@ -15897,6 +15934,13 @@
       "allTermsUnderMysql": true,
       "sourcePositionPreserved": true,
       "reviewItems": 0,
+      "contentPreserved": true
+    },
+    "semanticSplit": {
+      "executedAt": "2026-08-16T11:25:06.290Z",
+      "threadJoinNode": "k_1786006383348_b3urv6",
+      "mergeNode": "k_dict_s1u2tlxt",
+      "relationalJoinNode": "k_dict_duk4xptw",
       "contentPreserved": true
     }
   },
