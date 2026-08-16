@@ -10612,6 +10612,127 @@
       "canonicalTreeEntryId": "tree_acm2012_theory_of_computing_logic",
       "isCanonicalAnchor": false,
       "acceptedAt": "2026-08-16T02:08:34.562Z"
+    },
+    {
+      "id": "projection:forest:view:software:software-development",
+      "nodeId": "k_1783873300296_o38v1d",
+      "view": "software-development",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "tree_1783873300414_0y8oon",
+      "isCanonicalAnchor": false,
+      "rationale": "现有软件开发总览入口的森林视图投影。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:software:software-engineering",
+      "nodeId": "k_1782833214639_nueg1f",
+      "view": "software-development",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "tree_1782833214675_r6mivn",
+      "isCanonicalAnchor": false,
+      "rationale": "软件工程作为软件开发的工程化方法视图。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:software:software-development-process",
+      "nodeId": "k_1784224555283_zb08id",
+      "view": "software-development",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "tree_1784224555355_v23wul",
+      "isCanonicalAnchor": false,
+      "rationale": "将原软件工程下的同名“软件开发”明确显示为软件开发过程，避免同名递归。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:language:programming-language",
+      "nodeId": "k_acm2012_software_notations_tools_programming_languages",
+      "view": "programming-language",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "tree_acm2012_software_notations_tools_programming_languages",
+      "isCanonicalAnchor": false,
+      "rationale": "同一编程语言实体的规范入口，原位于软件符号与工具。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:language:programming-language-development-view",
+      "nodeId": "k_acm2012_software_notations_tools_programming_languages",
+      "view": "programming-language",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "tree_1783235593713_9a5j44",
+      "isCanonicalAnchor": false,
+      "rationale": "同一 nodeRef 在软件开发/计算机编程路径中的投影，不创建第二份正文。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:os:process",
+      "nodeId": "k_dict_plyim9pi",
+      "view": "operating-system",
+      "kind": "domain-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "mysql_functional_ref_k_dict_plyim9pi",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 体系结构中的词汇入口投影到操作系统进程规范视图。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:os:thread",
+      "nodeId": "k_dict_n7rueozw",
+      "view": "operating-system",
+      "kind": "domain-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "mysql_functional_ref_k_dict_n7rueozw",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 体系结构中的词汇入口投影到操作系统线程规范视图。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:architecture:connection-pool",
+      "nodeId": "k_dict_h20fqa9t",
+      "view": "software-architecture",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "mysql_functional_ref_k_dict_h20fqa9t",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 连接管理中的连接池投影到软件架构资源管理视图。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:mysql:mysql-parser",
+      "nodeId": "k_1782033245872_81floi",
+      "view": "mysql-architecture",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "governance:canonical:k_1782033245872_81floi",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 专属 SQL 解析器，规范内容保留在 MySQL Server 服务层。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:mysql:mysql-process",
+      "nodeId": "k_dict_plyim9pi",
+      "view": "mysql-architecture",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "mysql_functional_ref_k_dict_plyim9pi",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 技术上下文中的进程入口，正文复用操作系统进程实体。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
+    },
+    {
+      "id": "projection:forest:view:mysql:mysql-thread",
+      "nodeId": "k_dict_n7rueozw",
+      "view": "mysql-architecture",
+      "kind": "topic-view",
+      "status": "accepted",
+      "canonicalTreeEntryId": "mysql_functional_ref_k_dict_n7rueozw",
+      "isCanonicalAnchor": false,
+      "rationale": "MySQL 技术上下文中的线程入口，正文复用操作系统线程实体。",
+      "acceptedAt": "2026-08-16T09:56:20.589Z"
     }
   ],
   "mergePlans": [
@@ -10758,6 +10879,13 @@
     "emptyParserReviewRetained": {
       "nodeId": "k_1782027196864_7mehjk",
       "updatedAt": "2026-08-16T07:44:24.285Z"
+    },
+    "knowledgeForestMigration": {
+      "executedAt": "2026-08-16T09:56:20.589Z",
+      "views": 6,
+      "projections": 11,
+      "contentPreserved": true,
+      "treeRename": "软件开发 -> 软件开发过程（仅导航显示名称）"
     }
   },
   "migration": {
@@ -11553,5 +11681,61 @@
         }
       ]
     }
-  ]
+  ],
+  "forest": {
+    "schemaVersion": 1,
+    "updatedAt": "2026-08-16T09:56:20.589Z",
+    "principles": [
+      "one-canonical-parent",
+      "multiple-dimension-projections",
+      "typed-relation-graph",
+      "preserve-content-and-provenance"
+    ],
+    "views": [
+      {
+        "id": "forest:view:domain",
+        "view": "domain",
+        "name": "领域树（学科视图）"
+      },
+      {
+        "id": "forest:view:software",
+        "view": "software-development",
+        "name": "软件开发与工程树（实践视图）"
+      },
+      {
+        "id": "forest:view:language",
+        "view": "programming-language",
+        "name": "编程语言树（语言视图）"
+      },
+      {
+        "id": "forest:view:os",
+        "view": "operating-system",
+        "name": "操作系统树（系统视图）"
+      },
+      {
+        "id": "forest:view:architecture",
+        "view": "software-architecture",
+        "name": "软件架构树（模式视图）"
+      },
+      {
+        "id": "forest:view:mysql",
+        "view": "mysql-architecture",
+        "name": "MySQL 技术系统树（产品视图）"
+      }
+    ],
+    "canonicalAnchors": {
+      "programmingLanguage": "k_acm2012_software_notations_tools_programming_languages",
+      "softwareDevelopment": "k_1783873300296_o38v1d",
+      "softwareEngineering": "k_1782833214639_nueg1f",
+      "operatingSystemProcess": "k_dict_plyim9pi",
+      "operatingSystemThread": "k_dict_n7rueozw",
+      "softwareArchitectureConnectionPool": "k_dict_h20fqa9t",
+      "mysqlParser": "k_1782033245872_81floi"
+    },
+    "migrationNotes": [
+      "同一 nodeRef 的编程语言双入口明确为规范入口与投影",
+      "软件工程下的同名软件开发显示为软件开发过程",
+      "MySQL 进程、线程和连接池保留产品入口并增加跨维度投影"
+    ]
+  }
 }
