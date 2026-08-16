@@ -132,7 +132,7 @@ function describeNode(node, occurrences) {
 
 export function buildDuplicateKnowledgeReport({ tree, nodePool }) {
   const occurrences = collectTreeOccurrences(tree);
-  const nodes = Object.values(nodePool);
+  const nodes = Object.values(nodePool).filter((node) => node.status !== 'archived-redirect');
   const identities = new Map();
   const labels = new Map();
 

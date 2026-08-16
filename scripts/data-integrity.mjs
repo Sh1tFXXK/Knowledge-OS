@@ -228,57 +228,27 @@ export function normalizeKnowledgeNodeRoles(nodePool) {
 }
 
 export function ensureMysqlUncategorized(tree, nodePool, edges) {
-  const stats = { nodeAdded: 0, treeEntryAdded: 0, edgeAdded: 0 };
+  const stats = { treeEntriesRemoved: 0, bindingsRemoved: 0 };
   const mysqlRoot = findTreeNode(tree, MYSQL_ROOT_TREE_ID);
   if (!mysqlRoot?.nodeRef) {
     throw new Error(`MySQL tree root ${MYSQL_ROOT_TREE_ID} is missing or unbound.`);
   }
 
-  if (!nodePool[MYSQL_UNCATEGORIZED_ID]) {
-    nodePool[MYSQL_UNCATEGORIZED_ID] = {
-      id: MYSQL_UNCATEGORIZED_ID,
-      label: '未分类',
-      kind: 'concept',
-      role: 'subsystem',
-      tags: ['未分类', 'mysql', 'directory-taxonomy'],
-      card: {
-        nodeId: MYSQL_UNCATEGORIZED_ID,
-        title: '未分类',
-        tabs: [{
-          id: 'definition',
-          label: '定义',
-          content: '暂时无法稳定归入现有 MySQL 功能目录的知识节点。',
-        }],
-      },
-    };
-    stats.nodeAdded += 1;
-  }
+  const removeLegacyEntry = (node) => {
+    const children = node.children ?? [];
+    const retained = children.filter((child) => child.id !== MYSQL_UNCATEGORIZED_ID && child.nodeRef !== MYSQL_UNCATEGORIZED_ID);
+    stats.treeEntriesRemoved += children.length - retained.length;
+    node.children = retained;
+    for (const child of retained) removeLegacyEntry(child);
+  };
+  removeLegacyEntry(mysqlRoot);
 
-  mysqlRoot.children ??= [];
-  if (!mysqlRoot.children.some((child) => child.id === MYSQL_UNCATEGORIZED_ID)) {
-    mysqlRoot.children.push({
-      id: MYSQL_UNCATEGORIZED_ID,
-      name: '未分类',
-      count: 0,
-      nodeRef: MYSQL_UNCATEGORIZED_ID,
-      children: [],
-    });
-    stats.treeEntryAdded += 1;
-  }
+  const before = edges.length;
+  const legacyBindingId = `${TREE_BINDING_PREFIX}${MYSQL_ROOT_TREE_ID}:${MYSQL_UNCATEGORIZED_ID}`;
+  edges.splice(0, edges.length, ...edges.filter((edge) => edge.id !== legacyBindingId));
+  stats.bindingsRemoved = before - edges.length;
 
-  const edgeId = `${TREE_BINDING_PREFIX}${MYSQL_ROOT_TREE_ID}:${MYSQL_UNCATEGORIZED_ID}`;
-  if (!edges.some((edge) => edge.id === edgeId)) {
-    edges.push({
-      id: edgeId,
-      source: mysqlRoot.nodeRef,
-      target: MYSQL_UNCATEGORIZED_ID,
-      type: 'belongs-to',
-      label: 'contains',
-      relationKind: 'structure',
-    });
-    stats.edgeAdded += 1;
-  }
-
+  // 保留 node-pool 中的遗留实体及其历史引用；只取消 MySQL 导航入口。
   return stats;
 }
 
@@ -329,12 +299,5 @@ export function validateDataIntegrity({ tree, nodePool, edges, questions, timeli
       issues.push(`Timeline snapshot ${snapshot.id} references missing node ${snapshot.knowledgeNodeId}.`);
     }
   }
-  if (!nodePool[MYSQL_UNCATEGORIZED_ID]) {
-    issues.push(`Missing ${MYSQL_UNCATEGORIZED_ID} node.`);
-  }
-  if (!findTreeNode(tree, MYSQL_UNCATEGORIZED_ID)) {
-    issues.push(`Missing ${MYSQL_UNCATEGORIZED_ID} tree entry.`);
-  }
-
   return issues;
 }

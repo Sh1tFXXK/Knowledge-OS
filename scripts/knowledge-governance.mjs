@@ -56,7 +56,7 @@ export function loadSystemData(root = PROJECT_ROOT) {
 export function generateGovernanceCandidates(data, existing = createEmptyGovernance()) {
   const { nodePool, tree, edges, questions, timeline } = data; const { occurrences } = indexTree(tree); const degree = degreeByNode(edges); const references = countNodeReferences(questions, timeline); const placements = []; const projections = [];
   for (const [fallbackId, node] of Object.entries(nodePool)) {
-    const nodeId = node.id ?? fallbackId; if (occurrences.has(nodeId) || !hasMeaningfulContent(node)) continue; const linked = (degree.get(nodeId) ?? 0) + (references.get(nodeId) ?? 0); if (linked === 0) continue; const suggestion = suggestedPath(nodeId, node);
+    const nodeId = node.id ?? fallbackId; if (node.status === 'archived-redirect' || occurrences.has(nodeId) || !hasMeaningfulContent(node)) continue; const linked = (degree.get(nodeId) ?? 0) + (references.get(nodeId) ?? 0); if (linked === 0) continue; const suggestion = suggestedPath(nodeId, node);
     placements.push({ id: `placement:${nodeId}`, nodeId, status: 'proposed', contentStatus: suggestion.confidence === 'review' ? 'reviewed' : 'canonical', canonicalParentNodeId: null, pathHint: suggestion.pathHint, confidence: suggestion.confidence, rule: suggestion.rule, rationale: `节点具有正文，且存在 ${degree.get(nodeId) ?? 0} 条关系端点与 ${references.get(nodeId) ?? 0} 个题目/时间线引用，但尚未进入导航树。` });
     if (suggestion.rule === 'mysql-glossary-source-view') projections.push({ id: `projection:source:mysql-glossary:${nodeId}`, nodeId, status: 'proposed', kind: 'source-view', view: 'mysql-glossary', rationale: '保留原始术语和来源，在来源视图中可达；不创建第二个规范包含关系。' });
   }

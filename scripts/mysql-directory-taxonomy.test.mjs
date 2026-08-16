@@ -33,14 +33,16 @@ assert.ok(mysql, '规范 MySQL 根必须存在');
 assert.equal(parentAny(mysql.id)?.id, 'tree_acm2012_information_systems_database_management', 'MySQL 必须直接归属信息系统/数据库管理');
 assert.deepEqual((mysql.children ?? []).map((n) => n.id), mysqlThemes, 'MySQL 顶层必须仅包含 14 个主题，不得包含术语库容器');
 
-const sourceTermRefs = Object.values(pool).filter((n) => n.tags?.includes('mysql-glossary')).map((n) => n.id);
+const sourceTermRefs = Object.values(pool)
+  .filter((n) => n.tags?.includes('mysql-glossary') && !n.id.startsWith('mysql_glossary_group_') && n.status !== 'archived-redirect')
+  .map((n) => n.id);
 assert.ok(sourceTermRefs.length >= 360, 'MySQL glossary 实体必须完整保留');
 assert.equal(descendants(mysql).filter((n) => /待审核|未分类|review inbox/i.test(n.name ?? '')).length, 0, 'MySQL 内不允许存在待审核、未分类或 Review Inbox 容器');
 
 const legacyOverview = findAny('demo_mysql');
 assert.ok(legacyOverview, '旧 MySQL 概述内容节点必须保留');
 assert.equal(parentAny(legacyOverview.id)?.id, 'mysql:architecture:product-overview', '旧 MySQL 概述必须归并到产品概览与部署形态子类');
-assert.deepEqual((findAny('mysql:theme:architecture')?.children ?? []).map((n) => n.id), ['mysql:architecture:product-overview', 'mysql:architecture:server-runtime', 'mysql:architecture:configuration-extensions'], '总览与体系结构必须拆分为三个明确二级分类');
+assert.deepEqual((findAny('mysql:theme:architecture')?.children ?? []).map((n) => n.id), ['mysql:architecture:product-overview', 'mysql:architecture:client-connectivity', 'mysql:architecture:server-runtime', 'mysql:architecture:metadata-namespace', 'mysql:architecture:configuration-extensions'], '总览与体系结构必须以产品部署、客户端连接、运行时、元数据边界和配置五个明确二级分类呈现');
 assert.ok(findAny('mysql_topic_sql_objects'), '既有 SQL 专题必须保留');
 assert.equal(parentAny('mysql_topic_sql_objects')?.id, 'mysql:theme:sql-language', '既有 SQL 专题必须归并到 SQL 与语言对象主题');
 assert.ok(findAny('mysql_topic_storage_engines'), '既有存储引擎专题必须保留');

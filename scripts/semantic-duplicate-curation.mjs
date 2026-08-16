@@ -1052,7 +1052,7 @@ function assignResolution(dataset, resolution, stats) {
 
   for (const nodeId of resolution.memberIds) {
     const node = dataset.nodePool[nodeId];
-    if (!node) continue;
+    if (!node || node.status === 'archived-redirect') continue;
     if (node.canonicalKey !== resolution.canonicalKey) {
       node.canonicalKey = resolution.canonicalKey;
       stats.identitiesAssigned += 1;
