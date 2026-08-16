@@ -16,7 +16,10 @@
     "curate:semantic-duplicates": "node scripts/curate-semantic-duplicates.mjs --apply",
     "setup:mineru": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ocr/setup-mineru.ps1",
     "import:jdk-collections": "node scripts/import-jdk-collections.mjs",
-    "test": "node --test \"scripts/*.test.mjs\""
+    "test": "node --test \"scripts/*.test.mjs\"",
+    "audit:governance": "node scripts/knowledge-governance.mjs audit",
+    "validate:governance": "node scripts/knowledge-governance.mjs validate",
+    "generate:governance-candidates": "node scripts/knowledge-governance.mjs generate-candidates"
   },
   "keywords": [],
   "author": "",
