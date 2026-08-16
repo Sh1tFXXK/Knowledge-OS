@@ -15974,6 +15974,24 @@
       "executedAt": "2026-08-16T12:30:17.153Z",
       "added": 3,
       "contentPreserved": true
+    },
+    "forestMerge": {
+      "executedAt": "2026-08-16T14:06:37.908Z",
+      "standaloneForestRemoved": true,
+      "mysqlMergedInto": "tree_wiki_en_outline_of_databases_s10_s14_b1",
+      "standardsTopLevelRemoved": true,
+      "contentPreserved": true,
+      "emptyViewsRemoved": [
+        "forest:view:domain",
+        "forest:view:software",
+        "forest:view:language",
+        "forest:view:os",
+        "forest:view:architecture",
+        "forest:view:mysql-source",
+        "forest:view:review-inbox"
+      ],
+      "standardsNodeRemoved": true,
+      "updatedAt": "2026-08-16T14:07:25.098Z"
     }
   },
   "migration": {
@@ -16853,11 +16871,27 @@
     "root": {
       "id": "governance:knowledge-forest",
       "name": "知识森林",
-      "classificationKind": "standard",
-      "parentId": "universe",
-      "position": 0,
-      "childrenAreStandardCategories": true,
-      "updatedAt": "2026-08-16T13:59:08.634Z"
+      "standalone": false,
+      "mergedInto": "existing-taxonomy",
+      "mergedAt": "2026-08-16T14:06:37.908Z",
+      "standardCategories": {
+        "mysql": {
+          "parentNodeId": "tree_wiki_en_outline_of_databases_s10_s14_b1",
+          "parentPath": [
+            "知识宇宙",
+            "计算机科学",
+            "信息系统",
+            "数据库管理",
+            "MySQL"
+          ]
+        },
+        "unicode": {
+          "parentNodeId": "tree_1783260209337_u6gsoz"
+        },
+        "calendarAndTimezone": {
+          "parentNodeId": "tree_acm2012_information_systems"
+        }
+      }
     }
   }
 }
