@@ -507,15 +507,20 @@ export function collectIndexMembers(
   const members: UnifiedIndexMember[] = [];
   const visit = (nodes: readonly ExplanationIndexNode[], depth: number) => {
     for (const node of nodes) {
-      members.push({
-        id: node.id,
-        kind: memberKindFor(node),
-        label: node.label || '未命名',
-         content: node.content ?? '',
-        tags: tagsForSelection(explanation, node.selection),
-        depth,
-        selection: node.selection,
-      });
+      const isDefinitionMember =
+        node.label.trim() === '定义' ||
+        ('tabId' in node.selection && node.selection.tabId === 'def');
+      if (!isDefinitionMember) {
+        members.push({
+          id: node.id,
+          kind: memberKindFor(node),
+          label: node.label || '未命名',
+          content: node.content ?? '',
+          tags: tagsForSelection(explanation, node.selection),
+          depth,
+          selection: node.selection,
+        });
+      }
       visit(node.children, depth + 1);
     }
   };
