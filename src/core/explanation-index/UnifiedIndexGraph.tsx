@@ -1577,7 +1577,20 @@ export function UnifiedIndexGraph({
                           <div
                             key={member.id}
                             className="explanation-index-class-member"
-                            style={{ ['--member-depth' as string]: member.depth }}
+                            role="button"
+                             tabIndex={0}
+                             onClick={() => {
+                               onOpenNode(member.selection.nodeId);
+                               onSelectTitle(member.selection);
+                             }}
+                             onKeyDown={(event) => {
+                               if (event.key === 'Enter' || event.key === ' ') {
+                                 event.preventDefault();
+                                 onOpenNode(member.selection.nodeId);
+                                 onSelectTitle(member.selection);
+                               }
+                             }}
+                             style={{ ['--member-depth' as string]: member.depth }}
                           >
                             {isAddingMemberChild ? (
                               renderInlineChildEditor('member', `为 ${member.label} 新增子方框`, 11)
