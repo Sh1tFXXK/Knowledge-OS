@@ -2,49 +2,24 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import test from 'node:test';
-
-const tree = JSON.parse(fs.readFileSync(path.resolve('data/tree-data.json'), 'utf8'));
-const find = (node, id) => node.id === id ? node : (node.children ?? []).map((child) => find(child, id)).find(Boolean);
-const architecture = find(tree, 'mysql:theme:architecture');
-
-const expectedGroups = [
-  ['mysql:architecture:product-overview', '产品与部署概览', 3],
-  ['mysql:architecture:client-connectivity', '客户端、连接与会话入口', 7],
-  ['mysql:architecture:server-runtime', '服务器运行时与执行模型', 6],
-  ['mysql:architecture:metadata-namespace', '数据库、模式与元数据边界', 4],
-  ['mysql:architecture:configuration-extensions', '配置、系统变量与可扩展组件', 1],
+const tree=JSON.parse(fs.readFileSync(path.resolve('data/tree-data.json'),'utf8'));
+const pool=JSON.parse(fs.readFileSync(path.resolve('data/node-pool.json'),'utf8'));
+const find=(n,id)=>n.id===id?n:(n.children??[]).map(c=>find(c,id)).find(Boolean);
+const architecture=find(tree,'mysql:theme:architecture');
+const expected=[
+ ['mysql:architecture:product-overview','mysqld 总体概述',[]],
+ ['mysql:mysqld-layer:connection','第一层：连接与请求入口',['k_1782027165978_v8g3nl','k_1782027187728_t4ieqd']],
+ ['mysql:mysqld-layer:parse','第二层：SQL 解析层',['k_1782033245872_81floi','k_1782027196864_7mehjk']],
+ ['mysql:mysqld-layer:optimize','第三层：查询优化层',['k_1782033508063_xspnmd','k_dict_rs1y2xku','mysql_glossary_query_execution_plan_17fdf4']],
+ ['mysql:mysqld-layer:execute','第四层：查询执行层',['mysql_sql_query_execution','k_1784456386575_b7hxoh']],
+ ['mysql:mysqld-layer:storage','第五层：存储引擎与持久化层',['k_1782032090352_a1ehd0','n_97x8s5dv']],
 ];
-const expectedRefs = new Set([
-  'n_8s66vwo1',
-  'mysql_topic_architecture',
-  'k_1782032149173_bli3vq',
-  'mysql_glossary_client_13u3vh',
-  'mysql_glossary_client_side_prepared_statement_1czk27',
-  'mysql_glossary_connection_fqlzvd',
-  'k_dict_h20fqa9t',
-  'mysql_glossary_connection_string_1hyrot',
-  'mysql_glossary_port_ydif8m',
-  'mysql_glossary_server_side_prepared_statement_1g5uc6',
-  'k_1782032275682_61auc4',
-  'k_dict_12jqwwcl',
-  'k_dict_plyim9pi',
-  'mysql_glossary_pthreads_qfb7k4',
-  'k_dict_xhmtog57',
-  'k_dict_n7rueozw',
-  'k_dict_nsqweksd',
-  'k_dict_lc7qrne8',
-  'k_dict_qus727rl',
-  'k_dict_8yoqxtuu',
-  'mysql_glossary_option_1sc73x',
-]);
-
-test('MySQL 总览保留旧知识结构的核心入口，并以语义子分组呈现', () => {
-  assert.ok(architecture, '缺少 MySQL 总览与体系结构主题');
-  assert.deepEqual(
-    (architecture.children ?? []).map((group) => [group.id, group.name, (group.children ?? []).length]),
-    expectedGroups,
-  );
-  const refs = new Set((architecture.children ?? []).flatMap((group) => (group.children ?? []).map((entry) => entry.nodeRef)));
-  assert.deepEqual(refs, expectedRefs);
-  assert.ok(!refs.has('mysql_topic_uncategorized'), 'MySQL 总览不得保留未分类入口');
+test('MySQL 总览呈现 mysqld 五层内部处理链路',()=>{
+ assert.equal(architecture.name,'mysqld 架构总览');
+ assert.equal(architecture.children.length,6);
+ for(const [id,name,refs] of expected){const g=architecture.children.find(x=>x.id===id);assert.ok(g,`missing ${id}`);assert.equal(g.name,name);const actual=(g.children??[]).map(x=>x.nodeRef);for(const ref of refs.filter((x,i,a)=>a.indexOf(x)===i)){assert.ok(actual.includes(ref),`${id} missing ${ref}`);assert.ok(pool[ref],`${ref} missing node`);}}
+});
+test('MySQL 架构总览和内部组件都有可显示定义',()=>{
+ const archDef=pool['mysql:theme:architecture'].card.tabs.find(t=>t.id==='def')?.content??'';assert.match(archDef,/连接.*解析器.*优化器.*执行/);assert.match(archDef,/存储引擎/);
+ for(const ref of ['k_1782027165978_v8g3nl','k_1782027187728_t4ieqd','k_1782033245872_81floi','k_1782033508063_xspnmd','mysql_sql_query_execution','k_1782032090352_a1ehd0','n_97x8s5dv']){const content=pool[ref]?.card?.tabs?.find(t=>t.id==='def')?.content??'';assert.ok(content.trim().length>20,`${ref} has no definition`);}
 });

@@ -42,7 +42,7 @@ assert.equal(descendants(mysql).filter((n) => /待审核|未分类|review inbox/
 const legacyOverview = findAny('demo_mysql');
 assert.ok(legacyOverview, '旧 MySQL 概述内容节点必须保留');
 assert.equal(parentAny(legacyOverview.id)?.id, 'mysql:architecture:product-overview', '旧 MySQL 概述必须归并到产品概览与部署形态子类');
-assert.deepEqual((findAny('mysql:theme:architecture')?.children ?? []).map((n) => n.id), ['mysql:architecture:product-overview', 'mysql:architecture:client-connectivity', 'mysql:architecture:server-runtime', 'mysql:architecture:metadata-namespace', 'mysql:architecture:configuration-extensions'], '总览与体系结构必须以产品部署、客户端连接、运行时、元数据边界和配置五个明确二级分类呈现');
+assert.deepEqual((findAny('mysql:theme:architecture')?.children ?? []).map((n) => n.id), ['mysql:architecture:product-overview', 'mysql:mysqld-layer:connection', 'mysql:mysqld-layer:parse', 'mysql:mysqld-layer:optimize', 'mysql:mysqld-layer:execute', 'mysql:mysqld-layer:storage'], '总览与体系结构必须以产品部署、客户端连接、运行时、元数据边界和配置五个明确二级分类呈现');
 assert.ok(findAny('mysql_topic_sql_objects'), '既有 SQL 专题必须保留');
 assert.equal(parentAny('mysql_topic_sql_objects')?.id, 'mysql:theme:sql-language', '既有 SQL 专题必须归并到 SQL 与语言对象主题');
 assert.ok(findAny('mysql_topic_storage_engines'), '既有存储引擎专题必须保留');
