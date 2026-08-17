@@ -1649,9 +1649,6 @@ export function UnifiedIndexGraph({
                                   </span>
                                   <span className="explanation-index-class-member-copy">
                                     <span>{member.label || '未命名'}</span>
-                                     {member.content && (
-                                       <span className="explanation-index-class-member-definition">{member.content}</span>
-                                     )}
                                     {member.tags.length > 0 && (
                                       <span className="explanation-index-class-member-tags">
                                         {member.tags.map((tag) => `#${tag}`).join(' ')}
