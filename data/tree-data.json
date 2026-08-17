@@ -89,697 +89,6 @@
           ]
         },
         {
-          "id": "tree_acm2012_systems_organization",
-          "name": "系统组织",
-          "count": 0,
-          "nodeRef": "k_acm2012_systems_organization",
-          "children": [
-            {
-              "id": "tree_acm2012_systems_organization_computational_complexity",
-              "name": "计算复杂性",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_computational_complexity",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_reliability",
-              "name": "可靠性",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_reliability",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_embedded_systems",
-              "name": "嵌入式系统",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_embedded_systems",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_real_time_computing",
-              "name": "实时计算",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_real_time_computing",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_cyber_physical_systems",
-              "name": "网络物理系统",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_cyber_physical_systems",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_fault_tolerance",
-              "name": "容错能力",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_fault_tolerance",
-              "children": []
-            },
-            {
-              "id": "tree_acm2012_systems_organization_wireless_sensor_networks",
-              "name": "无线传感器网络",
-              "count": 0,
-              "nodeRef": "k_acm2012_systems_organization_wireless_sensor_networks",
-              "children": []
-            },
-            {
-              "id": "theory_domain_operating_systems",
-              "name": "操作系统",
-              "count": 0,
-              "nodeRef": "theory_domain_operating_systems",
-              "children": [
-                {
-                  "id": "tree_1781894839025_6d99x8",
-                  "name": "磁盘",
-                  "count": 0,
-                  "nodeRef": "k_1781894839013_cccyxm",
-                  "children": [
-                    {
-                      "id": "tree_1781894862919_8174bo",
-                      "name": "磁盘页",
-                      "count": 0,
-                      "nodeRef": "k_1781894862909_gbhvf4",
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "tree_1783096608825_9mpjo2",
-                  "name": "内存屏障",
-                  "count": 0,
-                  "nodeRef": "k_1783096608797_3rf6xc",
-                  "children": [
-                    {
-                      "id": "tree_1783155775454_dmuoc3",
-                      "name": "LoadLoad屏障",
-                      "count": 0,
-                      "nodeRef": "k_1783155775417_2xvd9n",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1783157221230_hungj5",
-                      "name": "StoreStore 屏障",
-                      "count": 0,
-                      "nodeRef": "k_atom_storestore",
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "context:os:store-store-barrier:overview",
-                            "label": "操作系统语境中的 StoreStore 屏障",
-                            "content": "确保屏障前的存储指令（Store）先于屏障后的存储指令执行",
-                            "tags": [
-                              "StoreStore 屏障",
-                              "StoreStore"
-                            ]
-                          }
-                        ]
-                      },
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1783157247463_q2hnrn",
-                      "name": "LoadStore 屏障",
-                      "count": 0,
-                      "nodeRef": "k_atom_loadstore",
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "context:os:load-store-barrier:overview",
-                            "label": "操作系统语境中的 LoadStore 屏障",
-                            "content": "确保屏障前的加载指令先于屏障后的存储指令执行。",
-                            "tags": [
-                              "LoadStore 屏障",
-                              "LoadStore"
-                            ]
-                          }
-                        ]
-                      },
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1783157274734_po0bzr",
-                      "name": "StoreLoad 屏障",
-                      "count": 0,
-                      "nodeRef": "k_atom_storeload",
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "context:os:store-load-barrier:overview",
-                            "label": "操作系统语境中的 StoreLoad 屏障",
-                            "content": "确保屏障前的存储指令先于屏障后的加载指令执行，同时会刷新 CPU 缓存，保证存储操作的结果对其他线程可见。这是最强大的一种屏障，开销也较大。",
-                            "tags": [
-                              "StoreLoad 屏障"
-                            ]
-                          }
-                        ]
-                      },
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "tree_1783096626404_wejzw5",
-                  "name": "指令重排序",
-                  "count": 0,
-                  "nodeRef": "k_1783096626380_5ujbbs",
-                  "children": []
-                },
-                {
-                  "id": "tree_1783263380057_57s6hh",
-                  "name": "内存管理",
-                  "count": 0,
-                  "nodeRef": "k_1783263380028_2hhr2a",
-                  "children": [
-                    {
-                      "id": "tree_1783171786694_r8028l",
-                      "name": "垃圾回收",
-                      "count": 0,
-                      "nodeRef": "k_1783171786650_rheusm",
-                      "children": [
-                        {
-                          "id": "tree_1783164062011_ijx49l",
-                          "name": "垃圾回收机制",
-                          "count": 0,
-                          "nodeRef": "k_1783164061982_dy3jas",
-                          "children": [
-                            {
-                              "id": "tree_1783171646639_dd9nwd",
-                              "name": "Minor GC",
-                              "count": 0,
-                              "nodeRef": "k_1783171646604_yn33rr",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783171669963_tmpwi4",
-                              "name": "Full GC",
-                              "count": 0,
-                              "nodeRef": "k_1783171669928_46ncd4",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_1783164003471_tzhibi",
-                          "name": "垃圾收集器GC",
-                          "count": 0,
-                          "nodeRef": "k_1783164003442_wm9ajj",
-                          "children": [
-                            {
-                              "id": "tree_jvm_cms",
-                              "name": "CMS 收集器",
-                              "count": 0,
-                              "nodeRef": "k_jvm_cms",
-                              "children": [
-                                {
-                                  "id": "tree_atomic_k_atom_cms_initial_mark",
-                                  "name": "初始标记",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_cms_initial_mark",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_atomic_k_atom_cms_concurrent_mark",
-                                  "name": "并发标记",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_cms_concurrent_mark",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_atomic_k_atom_cms_remark",
-                                  "name": "重新标记",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_cms_remark",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_atomic_k_atom_cms_concurrent_sweep",
-                                  "name": "并发清除",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_cms_concurrent_sweep",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1783171541470_v3ht5u",
-                              "name": "并行收集器",
-                              "count": 0,
-                              "nodeRef": "k_1783171541433_akjz47",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783171576620_ez1pk7",
-                              "name": "串行收集器",
-                              "count": 0,
-                              "nodeRef": "k_1783171576583_0k6kre",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783171609427_qdaf8w",
-                              "name": "G1收集器",
-                              "count": 0,
-                              "nodeRef": "k_1783171609391_x3bqux",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_jvm_gc_algos",
-                          "name": "回收算法",
-                          "count": 0,
-                          "nodeRef": "k_jvm_gc_algos",
-                          "children": [
-                            {
-                              "id": "tree_atomic_k_atom_mark_sweep",
-                              "name": "标记-清除算法",
-                              "count": 0,
-                              "nodeRef": "k_atom_mark_sweep",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_copying",
-                              "name": "标记-复制算法",
-                              "count": 0,
-                              "nodeRef": "k_atom_copying",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_mark_compact",
-                              "name": "标记-整理算法",
-                              "count": 0,
-                              "nodeRef": "k_atom_mark_compact",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783171867587_9kqnbk",
-                              "name": "分代收集",
-                              "count": 0,
-                              "nodeRef": "k_1783171867549_lp5mbv",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783263986105_03b3bh",
-                              "name": "增量回收器",
-                              "count": 0,
-                              "nodeRef": "k_1783263986077_nrp20e",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_jvm_gc_reachability",
-                          "name": "垃圾回收判定",
-                          "count": 0,
-                          "nodeRef": "k_jvm_gc_reachability",
-                          "children": [
-                            {
-                              "id": "tree_atomic_k_atom_gc_roots",
-                              "name": "GC Roots",
-                              "count": 0,
-                              "nodeRef": "k_atom_gc_roots",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_strong_ref",
-                              "name": "强引用",
-                              "count": 0,
-                              "nodeRef": "k_atom_strong_ref",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_soft_ref",
-                              "name": "软引用",
-                              "count": 0,
-                              "nodeRef": "k_atom_soft_ref",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_weak_ref",
-                              "name": "弱引用",
-                              "count": 0,
-                              "nodeRef": "k_atom_weak_ref",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_phantom_ref",
-                              "name": "虚引用",
-                              "count": 0,
-                              "nodeRef": "k_atom_phantom_ref",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_atomic_k_atom_ref_queue",
-                              "name": "引用队列",
-                              "count": 0,
-                              "nodeRef": "k_atom_ref_queue",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1783174457097_rymt7n",
-                              "name": "收集器实现",
-                              "count": 0,
-                              "nodeRef": "k_1783174457059_sy9hs8",
-                              "children": [
-                                {
-                                  "id": "tree_1783264835105_oxk2pv",
-                                  "name": "引用计数收集器",
-                                  "count": 0,
-                                  "nodeRef": "k_1783264835076_nc6pkd",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1783264865063_0xo127",
-                                  "name": "跟踪收集器",
-                                  "count": 0,
-                                  "nodeRef": "k_1783264865034_zdpirw",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1783264901125_rlyl58",
-                              "name": "如何判断对象可以被回收",
-                              "count": 0,
-                              "nodeRef": "k_1783264901088_1s02ir",
-                              "children": [
-                                {
-                                  "id": "tree_1783171290335_i1egql",
-                                  "name": "引用计数法",
-                                  "count": 0,
-                                  "nodeRef": "k_1783171290294_ib0kwi",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_atomic_k_atom_reachability",
-                                  "name": "可达性分析算法/引用链法/跟踪垃圾收集",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_reachability",
-                                  "children": []
-                                }
-                              ]
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "id": "tree_1783265159050_8mkdlr",
-                  "name": "不可访问内存",
-                  "count": 0,
-                  "nodeRef": "k_1783265159022_nzdh2q",
-                  "children": [
-                    {
-                      "id": "tree_1783265195287_mq7wpn",
-                      "name": "不可访问对象",
-                      "count": 0,
-                      "nodeRef": "k_1783265195251_6su1dy",
-                      "children": []
-                    }
-                  ]
-                },
-                {
-                  "id": "tree_1785823716668_ayc4f1",
-                  "name": "原子操作",
-                  "count": 0,
-                  "nodeRef": "k_1785823716478_pdtezg",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785823925651_vt53y0",
-                  "name": "写命中",
-                  "count": 0,
-                  "nodeRef": "k_1785823925469_gz41me",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785831643449_eotpuq",
-                  "name": "上下文切换",
-                  "count": 0,
-                  "nodeRef": "k_1785831643303_tr9cpn",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785834761547_ykg54a",
-                  "name": "写缺失",
-                  "count": 0,
-                  "nodeRef": "k_1785834761376_mkaw9x",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785834840248_pkcgxq",
-                  "name": "缓存命中",
-                  "count": 0,
-                  "nodeRef": "k_1785834840102_tlq10x",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785835072401_m7uia7",
-                  "name": "缓存行填充",
-                  "count": 0,
-                  "nodeRef": "k_1785835072253_ggftqd",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785835083043_mu06sa",
-                  "name": "缓存行",
-                  "count": 0,
-                  "nodeRef": "k_1785835082890_9nwqja",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785840922937_zjx91h",
-                  "name": "CPU流水线",
-                  "count": 0,
-                  "nodeRef": "k_1785840922748_3iqaft",
-                  "children": []
-                },
-                {
-                  "id": "tree_1785840942775_jbc7id",
-                  "name": "内存顺序冲突",
-                  "count": 0,
-                  "nodeRef": "k_1785840942575_omb5yu",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_shutdown_qpv53w",
-                  "name": "关闭 / shutdown",
-                  "count": 0,
-                  "nodeRef": "k_dict_jwcd61u4",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_process_f99qun",
-                  "name": "进程 / process",
-                  "count": 0,
-                  "nodeRef": "k_dict_plyim9pi",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_fast_shutdown_v2vlzd",
-                  "name": "快速关闭 / fast shutdown",
-                  "count": 0,
-                  "nodeRef": "k_dict_hcbepdud",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_thread_1ic0m2",
-                  "name": "线程 / thread",
-                  "count": 0,
-                  "nodeRef": "k_dict_n7rueozw",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_raid_1368e7",
-                  "name": "RAID",
-                  "count": 0,
-                  "nodeRef": "k_dict_mb72ps2c",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_operating_systems_elcshr_1h9aon",
-                  "name": "存储过程",
-                  "count": 0,
-                  "nodeRef": "k_1782930954484_nwtfg7",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "theory_domain_computer_architecture",
-              "name": "计算机体系结构",
-              "count": 0,
-              "nodeRef": "theory_domain_computer_architecture",
-              "children": []
-            },
-            {
-              "id": "theory_domain_storage_systems",
-              "name": "存储系统",
-              "count": 0,
-              "nodeRef": "theory_domain_storage_systems",
-              "children": [
-                {
-                  "id": "mysql_term_storage_systems_dynamic_sql_k3tetr",
-                  "name": "动态 SQL / dynamic SQL",
-                  "count": 0,
-                  "nodeRef": "k_dict_p7los2aq",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_undo_1dnbbn",
-                  "name": "撤销 / undo",
-                  "count": 0,
-                  "nodeRef": "k_dict_jw1sc90t",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_clean_page_wib7il",
-                  "name": "干净页 / clean page",
-                  "count": 0,
-                  "nodeRef": "k_1781962829528_eqvypd",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_buffer_am429e",
-                  "name": "缓冲区 / buffer",
-                  "count": 0,
-                  "nodeRef": "k_dict_muxlhpv2",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_column_1j0fbb",
-                  "name": "列 / column",
-                  "count": 0,
-                  "nodeRef": "k_dict_lepgecnd",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_temporary_table_eyjsnw",
-                  "name": "临时表 / temporary table",
-                  "count": 0,
-                  "nodeRef": "k_dict_6rxmba95",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_generated_column_kd77za",
-                  "name": "生成列 / generated column",
-                  "count": 0,
-                  "nodeRef": "k_dict_reul960o",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_instance_dfqeuj",
-                  "name": "实例 / instance",
-                  "count": 0,
-                  "nodeRef": "k_dict_12jqwwcl",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_data_dictionary_z6ntm4",
-                  "name": "数据字典 / data dictionary",
-                  "count": 0,
-                  "nodeRef": "k_dict_nsqweksd",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_fill_factor_16ycpj",
-                  "name": "填充因子 / fill factor",
-                  "count": 0,
-                  "nodeRef": "k_dict_jmpy3jq2",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_row_135egl",
-                  "name": "行 / row",
-                  "count": 0,
-                  "nodeRef": "k_dict_2uq4y41u",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_row_format_qvmfmc",
-                  "name": "行格式 / row format",
-                  "count": 0,
-                  "nodeRef": "k_dict_ihguu98m",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_virtual_column_iksksq",
-                  "name": "虚拟列 / virtual column",
-                  "count": 0,
-                  "nodeRef": "k_dict_7okhi5j5",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_dirty_page_1odstm",
-                  "name": "脏页 / dirty page",
-                  "count": 0,
-                  "nodeRef": "k_dict_rjl6lkaz",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_storage_systems_merge_1tg3an",
-                  "name": "合并 / merge",
-                  "count": 0,
-                  "nodeRef": "k_dict_s1u2tlxt",
-                  "children": []
-                }
-              ]
-            },
-            {
-              "id": "theory_domain_distributed_systems",
-              "name": "分布式系统",
-              "count": 0,
-              "nodeRef": "theory_domain_distributed_systems",
-              "children": [
-                {
-                  "id": "mysql_term_distributed_systems_clustered_index_1fifyb",
-                  "name": "聚簇索引 / clustered index",
-                  "count": 0,
-                  "nodeRef": "demo_clustered_index",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_distributed_systems_slave_1ku5ai",
-                  "name": "从属服务器 / slave",
-                  "count": 0,
-                  "nodeRef": "k_dict_kpjg49hn",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_distributed_systems_xa_1dfpej",
-                  "name": "分布式事务 / XA 协议 / XA",
-                  "count": 0,
-                  "nodeRef": "k_dict_n5wdsgcu",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_distributed_systems_replication_bmwgdy",
-                  "name": "复制 / replication",
-                  "count": 0,
-                  "nodeRef": "k_dict_sctomy1z",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_distributed_systems_failover_7vm44d",
-                  "name": "故障转移 / failover",
-                  "count": 0,
-                  "nodeRef": "k_dict_mfu28h3v",
-                  "children": []
-                },
-                {
-                  "id": "tree_1784728125587_k8xecl",
-                  "name": "CAP定理",
-                  "count": 0,
-                  "nodeRef": "k_1784728125540_wmcdvv",
-                  "children": []
-                }
-              ]
-            }
-          ]
-        },
-        {
           "id": "tree_acm2012_networks",
           "name": "网络",
           "count": 0,
@@ -19377,11 +18686,11 @@
                           "name": "系统文件层",
                           "count": 0,
                           "nodeRef": "k_1782029470422_yfa3u9",
-                          "children": [],
                           "projection": true,
                           "view": "mysql-architecture",
                           "projectionKind": "topic-view",
-                          "sourceNodeId": "k_1782029470422_yfa3u9"
+                          "sourceNodeId": "k_1782029470422_yfa3u9",
+                          "children": []
                         }
                       ]
                     },
@@ -20554,11 +19863,11 @@
                           "name": "解析器（Parser）",
                           "nodeRef": "k_1782033245872_81floi",
                           "count": 0,
-                          "children": [],
                           "projection": true,
                           "view": "mysql-architecture",
                           "projectionKind": "topic-view",
-                          "sourceNodeId": "k_1782033245872_81floi"
+                          "sourceNodeId": "k_1782033245872_81floi",
+                          "children": []
                         },
                         {
                           "id": "projection:mysql-repaired:mysql:theme:operations:mysql_glossary_my_cnf_v2use8",
@@ -20587,11 +19896,11 @@
                           "name": "配置文件 / configuration file",
                           "count": 0,
                           "nodeRef": "k_1782029618563_7rrguo",
-                          "children": [],
                           "projection": true,
                           "view": "mysql-architecture",
                           "projectionKind": "topic-view",
-                          "sourceNodeId": "k_1782029618563_7rrguo"
+                          "sourceNodeId": "k_1782029618563_7rrguo",
+                          "children": []
                         }
                       ]
                     }
@@ -22062,6 +21371,697 @@
               "count": 0,
               "nodeRef": "theory_domain_access_control",
               "children": []
+            }
+          ]
+        },
+        {
+          "id": "tree_acm2012_systems_organization",
+          "name": "系统组织",
+          "count": 0,
+          "nodeRef": "k_acm2012_systems_organization",
+          "children": [
+            {
+              "id": "tree_acm2012_systems_organization_computational_complexity",
+              "name": "计算复杂性",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_computational_complexity",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_reliability",
+              "name": "可靠性",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_reliability",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_embedded_systems",
+              "name": "嵌入式系统",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_embedded_systems",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_real_time_computing",
+              "name": "实时计算",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_real_time_computing",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_cyber_physical_systems",
+              "name": "网络物理系统",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_cyber_physical_systems",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_fault_tolerance",
+              "name": "容错能力",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_fault_tolerance",
+              "children": []
+            },
+            {
+              "id": "tree_acm2012_systems_organization_wireless_sensor_networks",
+              "name": "无线传感器网络",
+              "count": 0,
+              "nodeRef": "k_acm2012_systems_organization_wireless_sensor_networks",
+              "children": []
+            },
+            {
+              "id": "theory_domain_operating_systems",
+              "name": "操作系统",
+              "count": 0,
+              "nodeRef": "theory_domain_operating_systems",
+              "children": [
+                {
+                  "id": "tree_1781894839025_6d99x8",
+                  "name": "磁盘",
+                  "count": 0,
+                  "nodeRef": "k_1781894839013_cccyxm",
+                  "children": [
+                    {
+                      "id": "tree_1781894862919_8174bo",
+                      "name": "磁盘页",
+                      "count": 0,
+                      "nodeRef": "k_1781894862909_gbhvf4",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "tree_1783096608825_9mpjo2",
+                  "name": "内存屏障",
+                  "count": 0,
+                  "nodeRef": "k_1783096608797_3rf6xc",
+                  "children": [
+                    {
+                      "id": "tree_1783155775454_dmuoc3",
+                      "name": "LoadLoad屏障",
+                      "count": 0,
+                      "nodeRef": "k_1783155775417_2xvd9n",
+                      "children": []
+                    },
+                    {
+                      "id": "tree_1783157221230_hungj5",
+                      "name": "StoreStore 屏障",
+                      "count": 0,
+                      "nodeRef": "k_atom_storestore",
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "context:os:store-store-barrier:overview",
+                            "label": "操作系统语境中的 StoreStore 屏障",
+                            "content": "确保屏障前的存储指令（Store）先于屏障后的存储指令执行",
+                            "tags": [
+                              "StoreStore 屏障",
+                              "StoreStore"
+                            ]
+                          }
+                        ]
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "tree_1783157247463_q2hnrn",
+                      "name": "LoadStore 屏障",
+                      "count": 0,
+                      "nodeRef": "k_atom_loadstore",
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "context:os:load-store-barrier:overview",
+                            "label": "操作系统语境中的 LoadStore 屏障",
+                            "content": "确保屏障前的加载指令先于屏障后的存储指令执行。",
+                            "tags": [
+                              "LoadStore 屏障",
+                              "LoadStore"
+                            ]
+                          }
+                        ]
+                      },
+                      "children": []
+                    },
+                    {
+                      "id": "tree_1783157274734_po0bzr",
+                      "name": "StoreLoad 屏障",
+                      "count": 0,
+                      "nodeRef": "k_atom_storeload",
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "context:os:store-load-barrier:overview",
+                            "label": "操作系统语境中的 StoreLoad 屏障",
+                            "content": "确保屏障前的存储指令先于屏障后的加载指令执行，同时会刷新 CPU 缓存，保证存储操作的结果对其他线程可见。这是最强大的一种屏障，开销也较大。",
+                            "tags": [
+                              "StoreLoad 屏障"
+                            ]
+                          }
+                        ]
+                      },
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "tree_1783096626404_wejzw5",
+                  "name": "指令重排序",
+                  "count": 0,
+                  "nodeRef": "k_1783096626380_5ujbbs",
+                  "children": []
+                },
+                {
+                  "id": "tree_1783263380057_57s6hh",
+                  "name": "内存管理",
+                  "count": 0,
+                  "nodeRef": "k_1783263380028_2hhr2a",
+                  "children": [
+                    {
+                      "id": "tree_1783171786694_r8028l",
+                      "name": "垃圾回收",
+                      "count": 0,
+                      "nodeRef": "k_1783171786650_rheusm",
+                      "children": [
+                        {
+                          "id": "tree_1783164062011_ijx49l",
+                          "name": "垃圾回收机制",
+                          "count": 0,
+                          "nodeRef": "k_1783164061982_dy3jas",
+                          "children": [
+                            {
+                              "id": "tree_1783171646639_dd9nwd",
+                              "name": "Minor GC",
+                              "count": 0,
+                              "nodeRef": "k_1783171646604_yn33rr",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783171669963_tmpwi4",
+                              "name": "Full GC",
+                              "count": 0,
+                              "nodeRef": "k_1783171669928_46ncd4",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1783164003471_tzhibi",
+                          "name": "垃圾收集器GC",
+                          "count": 0,
+                          "nodeRef": "k_1783164003442_wm9ajj",
+                          "children": [
+                            {
+                              "id": "tree_jvm_cms",
+                              "name": "CMS 收集器",
+                              "count": 0,
+                              "nodeRef": "k_jvm_cms",
+                              "children": [
+                                {
+                                  "id": "tree_atomic_k_atom_cms_initial_mark",
+                                  "name": "初始标记",
+                                  "count": 0,
+                                  "nodeRef": "k_atom_cms_initial_mark",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_atomic_k_atom_cms_concurrent_mark",
+                                  "name": "并发标记",
+                                  "count": 0,
+                                  "nodeRef": "k_atom_cms_concurrent_mark",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_atomic_k_atom_cms_remark",
+                                  "name": "重新标记",
+                                  "count": 0,
+                                  "nodeRef": "k_atom_cms_remark",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_atomic_k_atom_cms_concurrent_sweep",
+                                  "name": "并发清除",
+                                  "count": 0,
+                                  "nodeRef": "k_atom_cms_concurrent_sweep",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_1783171541470_v3ht5u",
+                              "name": "并行收集器",
+                              "count": 0,
+                              "nodeRef": "k_1783171541433_akjz47",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783171576620_ez1pk7",
+                              "name": "串行收集器",
+                              "count": 0,
+                              "nodeRef": "k_1783171576583_0k6kre",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783171609427_qdaf8w",
+                              "name": "G1收集器",
+                              "count": 0,
+                              "nodeRef": "k_1783171609391_x3bqux",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_jvm_gc_algos",
+                          "name": "回收算法",
+                          "count": 0,
+                          "nodeRef": "k_jvm_gc_algos",
+                          "children": [
+                            {
+                              "id": "tree_atomic_k_atom_mark_sweep",
+                              "name": "标记-清除算法",
+                              "count": 0,
+                              "nodeRef": "k_atom_mark_sweep",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_copying",
+                              "name": "标记-复制算法",
+                              "count": 0,
+                              "nodeRef": "k_atom_copying",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_mark_compact",
+                              "name": "标记-整理算法",
+                              "count": 0,
+                              "nodeRef": "k_atom_mark_compact",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783171867587_9kqnbk",
+                              "name": "分代收集",
+                              "count": 0,
+                              "nodeRef": "k_1783171867549_lp5mbv",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783263986105_03b3bh",
+                              "name": "增量回收器",
+                              "count": 0,
+                              "nodeRef": "k_1783263986077_nrp20e",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_jvm_gc_reachability",
+                          "name": "垃圾回收判定",
+                          "count": 0,
+                          "nodeRef": "k_jvm_gc_reachability",
+                          "children": [
+                            {
+                              "id": "tree_atomic_k_atom_gc_roots",
+                              "name": "GC Roots",
+                              "count": 0,
+                              "nodeRef": "k_atom_gc_roots",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_strong_ref",
+                              "name": "强引用",
+                              "count": 0,
+                              "nodeRef": "k_atom_strong_ref",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_soft_ref",
+                              "name": "软引用",
+                              "count": 0,
+                              "nodeRef": "k_atom_soft_ref",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_weak_ref",
+                              "name": "弱引用",
+                              "count": 0,
+                              "nodeRef": "k_atom_weak_ref",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_phantom_ref",
+                              "name": "虚引用",
+                              "count": 0,
+                              "nodeRef": "k_atom_phantom_ref",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_atomic_k_atom_ref_queue",
+                              "name": "引用队列",
+                              "count": 0,
+                              "nodeRef": "k_atom_ref_queue",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1783174457097_rymt7n",
+                              "name": "收集器实现",
+                              "count": 0,
+                              "nodeRef": "k_1783174457059_sy9hs8",
+                              "children": [
+                                {
+                                  "id": "tree_1783264835105_oxk2pv",
+                                  "name": "引用计数收集器",
+                                  "count": 0,
+                                  "nodeRef": "k_1783264835076_nc6pkd",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_1783264865063_0xo127",
+                                  "name": "跟踪收集器",
+                                  "count": 0,
+                                  "nodeRef": "k_1783264865034_zdpirw",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_1783264901125_rlyl58",
+                              "name": "如何判断对象可以被回收",
+                              "count": 0,
+                              "nodeRef": "k_1783264901088_1s02ir",
+                              "children": [
+                                {
+                                  "id": "tree_1783171290335_i1egql",
+                                  "name": "引用计数法",
+                                  "count": 0,
+                                  "nodeRef": "k_1783171290294_ib0kwi",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_atomic_k_atom_reachability",
+                                  "name": "可达性分析算法/引用链法/跟踪垃圾收集",
+                                  "count": 0,
+                                  "nodeRef": "k_atom_reachability",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "tree_1783265159050_8mkdlr",
+                  "name": "不可访问内存",
+                  "count": 0,
+                  "nodeRef": "k_1783265159022_nzdh2q",
+                  "children": [
+                    {
+                      "id": "tree_1783265195287_mq7wpn",
+                      "name": "不可访问对象",
+                      "count": 0,
+                      "nodeRef": "k_1783265195251_6su1dy",
+                      "children": []
+                    }
+                  ]
+                },
+                {
+                  "id": "tree_1785823716668_ayc4f1",
+                  "name": "原子操作",
+                  "count": 0,
+                  "nodeRef": "k_1785823716478_pdtezg",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785823925651_vt53y0",
+                  "name": "写命中",
+                  "count": 0,
+                  "nodeRef": "k_1785823925469_gz41me",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785831643449_eotpuq",
+                  "name": "上下文切换",
+                  "count": 0,
+                  "nodeRef": "k_1785831643303_tr9cpn",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785834761547_ykg54a",
+                  "name": "写缺失",
+                  "count": 0,
+                  "nodeRef": "k_1785834761376_mkaw9x",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785834840248_pkcgxq",
+                  "name": "缓存命中",
+                  "count": 0,
+                  "nodeRef": "k_1785834840102_tlq10x",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785835072401_m7uia7",
+                  "name": "缓存行填充",
+                  "count": 0,
+                  "nodeRef": "k_1785835072253_ggftqd",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785835083043_mu06sa",
+                  "name": "缓存行",
+                  "count": 0,
+                  "nodeRef": "k_1785835082890_9nwqja",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785840922937_zjx91h",
+                  "name": "CPU流水线",
+                  "count": 0,
+                  "nodeRef": "k_1785840922748_3iqaft",
+                  "children": []
+                },
+                {
+                  "id": "tree_1785840942775_jbc7id",
+                  "name": "内存顺序冲突",
+                  "count": 0,
+                  "nodeRef": "k_1785840942575_omb5yu",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_shutdown_qpv53w",
+                  "name": "关闭 / shutdown",
+                  "count": 0,
+                  "nodeRef": "k_dict_jwcd61u4",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_process_f99qun",
+                  "name": "进程 / process",
+                  "count": 0,
+                  "nodeRef": "k_dict_plyim9pi",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_fast_shutdown_v2vlzd",
+                  "name": "快速关闭 / fast shutdown",
+                  "count": 0,
+                  "nodeRef": "k_dict_hcbepdud",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_thread_1ic0m2",
+                  "name": "线程 / thread",
+                  "count": 0,
+                  "nodeRef": "k_dict_n7rueozw",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_raid_1368e7",
+                  "name": "RAID",
+                  "count": 0,
+                  "nodeRef": "k_dict_mb72ps2c",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_operating_systems_elcshr_1h9aon",
+                  "name": "存储过程",
+                  "count": 0,
+                  "nodeRef": "k_1782930954484_nwtfg7",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "theory_domain_computer_architecture",
+              "name": "计算机体系结构",
+              "count": 0,
+              "nodeRef": "theory_domain_computer_architecture",
+              "children": []
+            },
+            {
+              "id": "theory_domain_storage_systems",
+              "name": "存储系统",
+              "count": 0,
+              "nodeRef": "theory_domain_storage_systems",
+              "children": [
+                {
+                  "id": "mysql_term_storage_systems_dynamic_sql_k3tetr",
+                  "name": "动态 SQL / dynamic SQL",
+                  "count": 0,
+                  "nodeRef": "k_dict_p7los2aq",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_undo_1dnbbn",
+                  "name": "撤销 / undo",
+                  "count": 0,
+                  "nodeRef": "k_dict_jw1sc90t",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_clean_page_wib7il",
+                  "name": "干净页 / clean page",
+                  "count": 0,
+                  "nodeRef": "k_1781962829528_eqvypd",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_buffer_am429e",
+                  "name": "缓冲区 / buffer",
+                  "count": 0,
+                  "nodeRef": "k_dict_muxlhpv2",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_column_1j0fbb",
+                  "name": "列 / column",
+                  "count": 0,
+                  "nodeRef": "k_dict_lepgecnd",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_temporary_table_eyjsnw",
+                  "name": "临时表 / temporary table",
+                  "count": 0,
+                  "nodeRef": "k_dict_6rxmba95",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_generated_column_kd77za",
+                  "name": "生成列 / generated column",
+                  "count": 0,
+                  "nodeRef": "k_dict_reul960o",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_instance_dfqeuj",
+                  "name": "实例 / instance",
+                  "count": 0,
+                  "nodeRef": "k_dict_12jqwwcl",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_data_dictionary_z6ntm4",
+                  "name": "数据字典 / data dictionary",
+                  "count": 0,
+                  "nodeRef": "k_dict_nsqweksd",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_fill_factor_16ycpj",
+                  "name": "填充因子 / fill factor",
+                  "count": 0,
+                  "nodeRef": "k_dict_jmpy3jq2",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_row_135egl",
+                  "name": "行 / row",
+                  "count": 0,
+                  "nodeRef": "k_dict_2uq4y41u",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_row_format_qvmfmc",
+                  "name": "行格式 / row format",
+                  "count": 0,
+                  "nodeRef": "k_dict_ihguu98m",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_virtual_column_iksksq",
+                  "name": "虚拟列 / virtual column",
+                  "count": 0,
+                  "nodeRef": "k_dict_7okhi5j5",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_dirty_page_1odstm",
+                  "name": "脏页 / dirty page",
+                  "count": 0,
+                  "nodeRef": "k_dict_rjl6lkaz",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_storage_systems_merge_1tg3an",
+                  "name": "合并 / merge",
+                  "count": 0,
+                  "nodeRef": "k_dict_s1u2tlxt",
+                  "children": []
+                }
+              ]
+            },
+            {
+              "id": "theory_domain_distributed_systems",
+              "name": "分布式系统",
+              "count": 0,
+              "nodeRef": "theory_domain_distributed_systems",
+              "children": [
+                {
+                  "id": "mysql_term_distributed_systems_clustered_index_1fifyb",
+                  "name": "聚簇索引 / clustered index",
+                  "count": 0,
+                  "nodeRef": "demo_clustered_index",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_distributed_systems_slave_1ku5ai",
+                  "name": "从属服务器 / slave",
+                  "count": 0,
+                  "nodeRef": "k_dict_kpjg49hn",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_distributed_systems_xa_1dfpej",
+                  "name": "分布式事务 / XA 协议 / XA",
+                  "count": 0,
+                  "nodeRef": "k_dict_n5wdsgcu",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_distributed_systems_replication_bmwgdy",
+                  "name": "复制 / replication",
+                  "count": 0,
+                  "nodeRef": "k_dict_sctomy1z",
+                  "children": []
+                },
+                {
+                  "id": "mysql_term_distributed_systems_failover_7vm44d",
+                  "name": "故障转移 / failover",
+                  "count": 0,
+                  "nodeRef": "k_dict_mfu28h3v",
+                  "children": []
+                },
+                {
+                  "id": "tree_1784728125587_k8xecl",
+                  "name": "CAP定理",
+                  "count": 0,
+                  "nodeRef": "k_1784728125540_wmcdvv",
+                  "children": []
+                }
+              ]
             }
           ]
         }

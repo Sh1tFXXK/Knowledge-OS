@@ -7571,89 +7571,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_cs:tree_acm2012_systems_organization",
-    "source": "n_55jiel25",
-    "target": "k_acm2012_systems_organization",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_computational_complexity",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_computational_complexity",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_reliability",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_reliability",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_embedded_systems",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_embedded_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_real_time_computing",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_real_time_computing",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_cyber_physical_systems",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_cyber_physical_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_fault_tolerance",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_fault_tolerance",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_wireless_sensor_networks",
-    "source": "k_acm2012_systems_organization",
-    "target": "k_acm2012_systems_organization_wireless_sensor_networks",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:theory_domain_operating_systems",
-    "source": "k_acm2012_systems_organization",
-    "target": "theory_domain_operating_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_operating_systems:tree_1781894839025_6d99x8",
     "source": "theory_domain_operating_systems",
     "target": "k_1781894839013_cccyxm",
@@ -8294,28 +8211,6 @@
     ]
   },
   {
-    "id": "treebind:tree_acm2012_systems_organization:theory_domain_computer_architecture",
-    "source": "k_acm2012_systems_organization",
-    "target": "theory_domain_computer_architecture",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:theory_domain_storage_systems",
-    "source": "k_acm2012_systems_organization",
-    "target": "theory_domain_storage_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_storage_systems:mysql_term_storage_systems_dynamic_sql_k3tetr",
     "source": "theory_domain_storage_systems",
     "target": "k_dict_p7los2aq",
@@ -8483,17 +8378,6 @@
     "dimensions": [
       "storage",
       "performance"
-    ]
-  },
-  {
-    "id": "treebind:tree_acm2012_systems_organization:theory_domain_distributed_systems",
-    "source": "k_acm2012_systems_organization",
-    "target": "theory_domain_distributed_systems",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
     ]
   },
   {
@@ -34507,6 +34391,114 @@
     "id": "treebind:theory_domain_three_valued_logic:mysql_term_three_valued_logic_null_plui03",
     "source": "theory_domain_three_valued_logic",
     "target": "k_dict_fxoirizf",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:demo_cs:tree_acm2012_systems_organization",
+    "source": "n_55jiel25",
+    "target": "k_acm2012_systems_organization",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_computational_complexity",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_computational_complexity",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_reliability",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_reliability",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_embedded_systems",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_embedded_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_real_time_computing",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_real_time_computing",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_cyber_physical_systems",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_cyber_physical_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_fault_tolerance",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_fault_tolerance",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:tree_acm2012_systems_organization_wireless_sensor_networks",
+    "source": "k_acm2012_systems_organization",
+    "target": "k_acm2012_systems_organization_wireless_sensor_networks",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:theory_domain_operating_systems",
+    "source": "k_acm2012_systems_organization",
+    "target": "theory_domain_operating_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:theory_domain_computer_architecture",
+    "source": "k_acm2012_systems_organization",
+    "target": "theory_domain_computer_architecture",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:theory_domain_storage_systems",
+    "source": "k_acm2012_systems_organization",
+    "target": "theory_domain_storage_systems",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_acm2012_systems_organization:theory_domain_distributed_systems",
+    "source": "k_acm2012_systems_organization",
+    "target": "theory_domain_distributed_systems",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
