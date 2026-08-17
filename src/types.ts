@@ -287,6 +287,8 @@ export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
+  /** 合成导航页使用的规范实体引用；普通存储页可省略。 */
+  knowledgeNodeId?: string;
   table?: ExplanationTable;
   tags?: string[];
   /** 在同级排列轴上的相对占比；旧数据缺省为 1。 */

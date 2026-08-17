@@ -1453,6 +1453,9 @@ export function UnifiedIndexGraph({
                       }}
                     >
                       <strong>{graphNode.label}</strong>
+                         {graphNode.content && (
+                           <span className="explanation-index-class-definition">{graphNode.content}</span>
+                         )}
                       {graphNode.tags.length > 0 && (
                         <span className="explanation-index-class-stereotypes">
                           {graphNode.tags.slice(0, 3).map((tag) => `#${tag}`).join('  ')}
@@ -1636,6 +1639,9 @@ export function UnifiedIndexGraph({
                                   </span>
                                   <span className="explanation-index-class-member-copy">
                                     <span>{member.label || '未命名'}</span>
+                                     {member.content && (
+                                       <span className="explanation-index-class-member-definition">{member.content}</span>
+                                     )}
                                     {member.tags.length > 0 && (
                                       <span className="explanation-index-class-member-tags">
                                         {member.tags.map((tag) => `#${tag}`).join(' ')}

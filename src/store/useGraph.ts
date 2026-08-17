@@ -720,16 +720,54 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     getKnowledgeExplanation: () => {
       const state = get();
-      const treeNode = state.selectedTreeNodeId
+      const selectedTree = state.selectedTreeNodeId
         ? findTreeNodeById(state.treeData, state.selectedTreeNodeId)
         : null;
-      const id = state.selectedNodeId ?? treeNode?.nodeRef ?? null;
+      const id = state.selectedNodeId ?? selectedTree?.nodeRef ?? null;
       if (!id) return null;
       const directCard = state.nodePool[id]?.card ?? null;
       const snapshot = [...state.timeline].reverse().find((item) =>
         item.knowledgeNodeId === id || item.node?.id === id,
       );
-      return directCard ?? snapshot?.node?.card ?? null;
+      const base = directCard ?? snapshot?.node?.card ?? {
+        nodeId: id,
+        title: state.nodePool[id]?.label ?? id,
+        tabs: [],
+      };
+      const findByRef = (node: TreeNode): TreeNode | null => {
+        if (node.nodeRef === id) return node;
+        for (const child of node.children ?? []) {
+          const found = findByRef(child);
+          if (found) return found;
+        }
+        return null;
+      };
+      const treeNode = selectedTree ?? findByRef(state.treeData);
+      const definitionFor = (node: TreeNode): string => {
+        const linked = node.nodeRef ? state.nodePool[node.nodeRef] : undefined;
+        const root = String(linked?.card?.rootContent ?? '').trim();
+        if (root) return root;
+        const definition = linked?.card?.tabs?.find((tab) => tab.id === 'def')?.content;
+        if (String(definition ?? '').trim()) return String(definition);
+        return String(linked?.card?.tabs?.find((tab) => String(tab.content ?? '').trim())?.content ?? '');
+      };
+      const pageFor = (node: TreeNode): ExplanationPage => ({
+        id: 'tree-page:' + node.id,
+        knowledgeNodeId: node.nodeRef,
+        label: node.name,
+        content: definitionFor(node),
+        pages: (node.children ?? []).filter((child) => Boolean(child.nodeRef)).map(pageFor),
+      });
+      const children = (treeNode?.children ?? []).filter((child) => Boolean(child.nodeRef));
+      if (!treeNode || children.length === 0) return { ...base, nodeId: id };
+      const tabs = children.map((child): ExplanationTab => ({
+        id: 'tree-tab:' + child.id,
+        knowledgeNodeId: child.nodeRef,
+        label: child.name,
+        content: definitionFor(child),
+        pages: (child.children ?? []).filter((grandchild) => Boolean(grandchild.nodeRef)).map(pageFor),
+      }));
+      return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, tabs };
     },
 
     getActiveDimension: () => get().currentPerspective?.id ?? 'all',

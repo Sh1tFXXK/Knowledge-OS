@@ -55,12 +55,14 @@ export interface UnifiedIndexMember {
   tags: readonly string[];
   depth: number;
   selection: ExplanationIndexSelection;
+  content?: string;
 }
 
 export interface UnifiedIndexGraphNode {
   id: string;
   kind: UnifiedIndexNodeKind;
   label: string;
+  content: string;
   position: UnifiedIndexNodePosition;
   size: UnifiedIndexNodeSize;
   knowledgeNodeId: string;
@@ -121,6 +123,7 @@ interface KnowledgeDraft {
   id: string;
   depth: number;
   label: string;
+  content: string;
   knowledgeNodeId: string;
   members: readonly UnifiedIndexMember[];
   tags: readonly string[];
@@ -508,6 +511,7 @@ export function collectIndexMembers(
         id: node.id,
         kind: memberKindFor(node),
         label: node.label || '未命名',
+         content: node.content ?? '',
         tags: tagsForSelection(explanation, node.selection),
         depth,
         selection: node.selection,
@@ -681,6 +685,14 @@ function graphIdForKnowledge(nodeId: string, ownerId: string, splitRoots: boolea
   return `knowledge:${nodeId}`;
 }
 
+function definitionForKnowledge(node?: KnowledgeNode): string {
+  const root = String(node?.card?.rootContent ?? '').trim();
+  if (root) return root;
+  const definition = node?.card?.tabs?.find((tab) => tab.id === 'def')?.content;
+  if (String(definition ?? '').trim()) return String(definition);
+  return String(node?.card?.tabs?.find((tab) => String(tab.content ?? '').trim())?.content ?? '');
+}
+
 function draftForKnowledge(
   nodeId: string,
   depth: number,
@@ -704,6 +716,7 @@ function draftForKnowledge(
       : nodeId === relationRootId
         ? relationRootLabel
         : knowledgeNode?.label ?? nodeId,
+     content: isOwner ? ownerIndex.content ?? '' : definitionForKnowledge(knowledgeNode),
     knowledgeNodeId: nodeId,
     members: isOwner ? collectIndexMembers(ownerIndex, knowledgeNode?.card) : [],
     tags: knowledgeNode?.tags ?? [],
@@ -1065,6 +1078,7 @@ export function buildUnifiedIndexGraph({
       id: draft.id,
       kind: UnifiedIndexNodeKind.Knowledge,
       label: draft.label,
+       content: draft.content,
       position: {
         x: rect.left + rect.width / 2,
         y: rect.top + rect.height / 2,
