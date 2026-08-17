@@ -215,7 +215,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "在 计算机科学中，ACID（原子性、一致性、隔离性、持久性）是一组数据库事务的属性，旨在保证数据有效性，尽管发生错误、停电和其他意外情况。例如，从一个银行账户转账到另一个账户，涉及多个变化，如从一个账户借记和向另一个账户贷记，这是一项单一交易。\n\n在1983年， 安德烈亚斯·雷特和 西奥·赫尔德 创造了首字母缩写 ACID，该缩写基于 吉姆·格雷 的早期工作，他在描述事务概念时提到了原子性、一致性和持久性，但没有提到隔离性。这四个属性是事务范式的主要保证，影响了数据库系统开发的许多方面。\n\n根据格雷和雷特的说法， IBM信息管理系统 在1973年就支持ACID事务（尽管该缩写后来才创建）。\n\nBASE代表 基本可用性，软状态，以及最终一致性：该缩写强调BASE与 ACID是相对的，类似于它们的化学等价物，酸和碱。ACID数据库优先考虑 一致性而非 可用性——如果事务的任何步骤发生错误，则整个 事务 失败；相反，BASE数据库优先考虑 可用性而非 一致性：用户可以暂时访问不一致的数据，而不是使事务失败：数据一致性得以实现，但 不是立即的。一个数据库要么倾向于ACID，要么倾向于BASE，但它不能兼而有之（根据 CAP定理）。例如，SQL 数据库（如 MySQL、PostgreSQL、AWS RedShift）是基于ACID模型构建的，而 NoSQL 数据库（如 DynamoDB[4] 或 MongoDB）采用BASE架构。然而，一些NoSQL数据库可能会表现出某些ACID特性",
+          "content": "在 计算机科学中，ACID（原子性、一致性、隔离性、持久性）是一组数据库事务的属性，旨在保证数据有效性，尽管发生错误、停电和其他意外情况。例如，从一个银行账户转账到另一个账户，涉及多个变化，如从一个账户借记和向另一个账户贷记，这是一项单一交易。\n\n在1983年， 安德烈亚斯·雷特和 西奥·赫尔德 创造了首字母缩写 ACID，该缩写基于 吉姆·格雷 的早期工作，他在描述事务概念时提到了原子性、一致性和持久性，但没有提到隔离性。这四个属性是事务范式的主要保证，影响了数据库系统开发的许多方面。\n\n根据格雷和雷特的说法， IBM信息管理系统 在1973年就支持ACID事务（尽管该缩写后来才创建）。\n\nBASE代表 基本可用性，软状态，以及最终一致性：该缩写强调BASE与 ACID是相对的，类似于它们的化学等价物，酸和碱。ACID数据库优先考虑 一致性而非 可用性——如果事务的任何步骤发生错误，则整个 事务 失败；相反，BASE数据库优先考虑 可用性而非 一致性：用户可以暂时访问不一致的数据，而不是使事务失败：数据一致性得以实现，但 不是立即的。一个数据库要么倾向于ACID，要么倾向于BASE，但它不能兼而有之（根据 CAP定理）。例如，SQL 数据库（如 MySQL、PostgreSQL、AWS RedShift）是基于ACID模型构建的，而 NoSQL 数据库（如 DynamoDB[4] 或 MongoDB）采用BASE架构。然而，一些NoSQL数据库可能会表现出某些ACID特性\n\n代表原子性、一致性、隔离性和持久性的一组缩写。这些属性在数据库系统中都是理想的，并且与**transaction**的概念密切相关。`InnoDB`的事务特性遵循ACID原则。\n\n\"事务是**atomic**工作单元，可以**committed**或**rolled back**。当一个事务对数据库进行多项更改时，要么所有更改在事务提交时成功，要么所有更改在事务回滚时被撤销。\n\n数据库在任何时候都保持一致状态——在每次提交或回滚后，以及在事务进行时。如果相关数据在多个表中进行更新，查询要么看到所有旧值，要么看到所有新值，而不是旧值和新值的混合。\n\n事务在进行时是相互保护（隔离）的；它们不能相互干扰或看到彼此未提交的数据。这种隔离通过**locking**机制实现。经验丰富的用户可以调整**isolation\nlevel**，在性能提高和**concurrency**的情况下，权衡减少保护，当他们能够确信事务之间不会相互干扰时。\n\n事务的结果是持久的：一旦提交操作成功，该事务所做的更改就不会受到电源故障、系统崩溃、竞争条件或其他许多非数据库应用程序所易受影响的潜在危险的影响。持久性通常涉及写入磁盘存储，并具有一定程度的冗余，以保护免受写入操作期间的电源故障或软件崩溃。(在`InnoDB`中，**doublewrite\nbuffer**有助于实现持久性。)**已有补充：定义**\n原子性、一致性、隔离性、持久性四大特性。\n\n**已有补充：机制**\n通过 Undo/Redo Log、锁、MVCC 等机制保证。\n\n**已有补充：边界**\n严格 ACID 可能影响性能，需权衡。\n\n**已有补充：来源**\n事务处理概念与技术",
           "tags": [],
           "pages": [],
           "tabs": []
@@ -698,7 +698,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "假设冲突概率高，读取数据时即加锁，持有直到事务结束的并发控制策略。"
+          "content": "假设冲突概率高，读取数据时即加锁，持有直到事务结束的并发控制策略。\n\n悲观锁就是用户修改数据时看起来很悲观，保守态度，担心别的用户会同时修改这条数据，所以每次修改时会提前把这条数据锁定起来，只有自己可修改（但别的用户可以读），等自己修改完了再释放锁"
         }
       ],
       "definitionPages": []
@@ -8681,13 +8681,8 @@
     "card": {
       "nodeId": "k_dict_fxoirizf",
       "title": "NULL",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "在SQL中表示缺少数据的特殊值。任何涉及NULL值的算术运算或相等性测试都会产生NULL结果。（因此它类似于IEEE浮点数的NaN，即“不是一个数字”。）在进行聚合计算时，如AVG()，会忽略具有NULL值的行，以确定要除以多少行。唯一可以处理NULL值的测试是使用SQL习惯用法IS NULL或IS NOT NULL。\n\nNULL值在index操作中发挥作用，因为为了性能，数据库必须减少跟踪缺失数据值的开销。通常，NULL值不会存储在索引中，因为使用标准比较运算符测试索引列的查询永远无法匹配具有该列NULL值的行。出于同样的原因，唯一索引并不阻止NULL值；这些值在索引中根本不存在。对列声明NOT NULL约束提供了确认，确保没有行被省略在索引中，从而允许更好的查询优化（精确计数行并估算是否使用索引）。\n\n因为primary key必须能够唯一标识表中的每一行，因此单列主键不能包含任何NULL值，而多列主键不能包含所有列中都有NULL值的行。\n\n虽然Oracle数据库允许将NULL值与字符串连接，但InnoDB将此操作的结果视为NULL。\n"
-        }
-      ]
+      "tabs": [],
+      "rootContent": "在SQL中表示缺少数据的特殊值。任何涉及NULL值的算术运算或相等性测试都会产生NULL结果。（因此它类似于IEEE浮点数的NaN，即“不是一个数字”。）在进行聚合计算时，如AVG()，会忽略具有NULL值的行，以确定要除以多少行。唯一可以处理NULL值的测试是使用SQL习惯用法IS NULL或IS NOT NULL。\n\nNULL值在index操作中发挥作用，因为为了性能，数据库必须减少跟踪缺失数据值的开销。通常，NULL值不会存储在索引中，因为使用标准比较运算符测试索引列的查询永远无法匹配具有该列NULL值的行。出于同样的原因，唯一索引并不阻止NULL值；这些值在索引中根本不存在。对列声明NOT NULL约束提供了确认，确保没有行被省略在索引中，从而允许更好的查询优化（精确计数行并估算是否使用索引）。\n\n因为primary key必须能够唯一标识表中的每一行，因此单列主键不能包含任何NULL值，而多列主键不能包含所有列中都有NULL值的行。\n\n虽然Oracle数据库允许将NULL值与字符串连接，但InnoDB将此操作的结果视为NULL。\n"
     },
     "role": "plain",
     "dimensions": [
@@ -14824,7 +14819,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "表示空闲缓冲区，管理free page"
+          "content": "表示空闲缓冲区，管理free page\n\n\"Free List\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -15759,13 +15754,8 @@
     "card": {
       "nodeId": "k_1782032242225_z23eqn",
       "title": "客户端连接器（Client Connectors）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "提供与MySQL服务器建⽴的⽀持。⽬前⼏乎⽀持所有主流的服务端编程技术，例如常⻅的Java、C、\nPython、.NET等，它们通过各⾃API技术与MySQL建⽴连接。"
-        }
-      ]
+      "tabs": [],
+      "rootContent": "提供与MySQL服务器建⽴的⽀持。⽬前⼏乎⽀持所有主流的服务端编程技术，例如常⻅的Java、C、Python、.NET等，它们通过各⾃API技术与MySQL建⽴连接。"
     },
     "tags": [
       "客户端连接器(Client Connectors)"
@@ -16686,29 +16676,6 @@
       ]
     }
   },
-  "mysql_glossary_c_1iy8fe": {
-    "id": "mysql_glossary_c_1iy8fe",
-    "label": "C",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "C",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_c_1iy8fe",
-      "title": "C",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**C**\n一种结合了可移植性、性能和访问低级硬件特性的编程语言，使其成为编写操作系统、驱动程序和其他类型系统软件的热门选择。许多复杂的应用程序、语言和可重用模块都包含用 C 编写的片段，这些片段与用其他语言编写的高级组件连接在一起。它的核心语法对C++、Java和C# 开发人员来说非常熟悉。\n"
-        }
-      ]
-    }
-  },
   "mysql_glossary_c_api_1wuwxq": {
     "id": "mysql_glossary_c_api_1wuwxq",
     "label": "C API",
@@ -16728,52 +16695,6 @@
           "id": "def",
           "label": "定义",
           "content": "**C API**\n英文：C API\n中文：C API\n\nC API 代码与 MySQL 一起分发。\n它包含在\nlibmysqlclient 库中，并\n使 C 程序能够访问数据库。\n\n另请参见 API, C, libmysqlclient。\n\n来源：原始行：328；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_c_api"
-        }
-      ]
-    }
-  },
-  "mysql_glossary_c_15ku39": {
-    "id": "mysql_glossary_c_15ku39",
-    "label": "C#",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "C#",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_c_15ku39",
-      "title": "C#",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**C#**\n英文：C#\n中文：C#\n\n是一种结合了强类型和面向对象特性，并在 Microsoft .NET 框架或其开源对应物 Mono 中运行的编程语言。\n通常用于创建具有ASP.net 框架的应用程序。它的语法对 C、C++ 和Java 开发人员来说非常熟悉。\n\n参见 .NET， ASP.net， C， Connector/NET， C++， Java， Mono。\n\n来源：原始行：336；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_csharp"
-        }
-      ]
-    }
-  },
-  "mysql_glossary_c_cy8cuo": {
-    "id": "mysql_glossary_c_cy8cuo",
-    "label": "C++",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "C++",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_c_cy8cuo",
-      "title": "C++",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**C++**\n英文：C++\n中文：C++\n\n一种编程语言，其核心语法对于C 开发者来说十分熟悉。提供访问低级操作以提升性能，同时结合更高级的数据类型、面向对象的特性和垃圾收集。要为 MySQL 编写 C++ 应用程序，您需要使用Connector/C++ 组件。\n\n参见 C， Connector/C++。\n\n来源：原始行：342；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cplusplus"
         }
       ]
     }
@@ -16892,13 +16813,8 @@
     "card": {
       "nodeId": "mysql_glossary_client_13u3vh",
       "title": "客户端 / client",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**客户端 / client**\n英文：client\n中文：客户端\n\n一个在数据库服务器外部运行的程序，通过发送请求与数据库通信，通常通过Connector或通过API进行连接，这些API通过client libraries提供。它可以在与数据库服务器相同的物理机器上运行，或在通过网络连接的远程机器上运行。它可以是一个专用的数据库应用程序，或像mysql命令行处理器这样的通用程序。\n\n另请参见API，客户端库，连接器，mysql，服务器。\n\n来源：原始行：414；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_client"
-        }
-      ]
+      "tabs": [],
+      "rootContent": "**客户端 / client**\n\n一个在数据库服务器外部运行的程序，通过发送请求与数据库通信，通常通过Connector或通过API进行连接，这些API通过client libraries提供。它可以在与数据库服务器相同的物理机器上运行，或在通过网络连接的远程机器上运行。它可以是一个专用的数据库应用程序，或像mysql命令行处理器这样的通用程序。\n"
     }
   },
   "mysql_glossary_client_libraries_1l6z2y": {
@@ -18802,7 +18718,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**打孔 / hole punching**\n英文：hole punching\n中文：打孔\n\n从页面释放空块。InnoDB transparent page\ncompression功能依赖于孔打孔支持。有关更多信息，请参见第17.9.2节，“InnoDB页面压缩”。\n\n另见 稀疏文件，透明页面压缩。\n\n来源：原始行：1215；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_hole_punching"
+          "content": "**打孔 / hole punching**\n\n从页面释放空块。InnoDB transparent page\ncompression功能依赖于孔打孔支持。"
         }
       ]
     }
@@ -19765,13 +19681,8 @@
     "card": {
       "nodeId": "mysql_glossary_keystore_1khbxb",
       "title": "密钥库 / keystore",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**密钥库 / keystore**\n英文：keystore\n中文：密钥库\n\n另见 SSL。\n\n来源：原始行：1554；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_keystore"
-        }
-      ]
+      "tabs": [],
+      "rootContent": ""
     }
   },
   "mysql_glossary_key_block_size_u1i5bm": {
@@ -21370,29 +21281,6 @@
       ]
     }
   },
-  "mysql_glossary_php_18dydc": {
-    "id": "mysql_glossary_php_18dydc",
-    "label": "PHP",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "PHP",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_php_18dydc",
-      "title": "PHP",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**PHP**\n英文：PHP\n中文：PHP\n\n一种源于网页应用的编程语言。代码通常嵌入在网页源代码中的块中，输出在网页由 web 服务器传输时替换到页面中。这与如 CGI 脚本等应用形成对比，后者以整个网页的形式打印输出。PHP 编程风格用于高度交互和动态的网页。现代 PHP 程序也可以作为命令行或 GUI 应用程序运行。\n\n\"MySQL 应用程序是使用以下之一编写的\n**PHP APIs**。可重用模块可以\n用 **C**编写并从 PHP 中调用。\"\n\n\"另一种用于编写服务器端网页与 MySQL 的技术是**ASP.net**。\"\n\n\"另见 [ASP.net](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_asp_net)， [C](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_c)， [PHP API](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_php_api)。\"\n\n来源：原始行：2237；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_php"
-        }
-      ]
-    }
-  },
   "mysql_glossary_php_api_1ldhpf": {
     "id": "mysql_glossary_php_api_1ldhpf",
     "label": "PHP API",
@@ -21436,7 +21324,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**物理 / physical**\n英文：physical\n中文：物理\n\n一种涉及硬件相关方面的操作，比如磁盘块、内存页、文件、位、磁盘读取等。通常，在专家级的性能调优和问题诊断过程中，物理方面是重要的。与**logical**形成对比。\n\n\"另见 [逻辑](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_logical)，[物理备份](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_physical_backup)。\"\n\n来源：原始行：2255；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_physical"
+          "content": "**物理 / physical**\n\n一种涉及硬件相关方面的操作，比如磁盘块、内存页、文件、位、磁盘读取等。通常，在专家级的性能调优和问题诊断过程中，物理方面是重要的。与**logical**形成对比。\n"
         }
       ]
     }
@@ -22787,29 +22675,6 @@
       ]
     }
   },
-  "mysql_glossary_spring_1ng89l": {
-    "id": "mysql_glossary_spring_1ng89l",
-    "label": "春天 / Spring",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "春天 / Spring",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
-    ],
-    "card": {
-      "nodeId": "mysql_glossary_spring_1ng89l",
-      "title": "春天 / Spring",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**春天 / Spring**\n英文：Spring\n中文：春天\n\n一个基于 Java 的应用程序框架，旨在通过提供配置组件的方式来辅助应用程序设计。\n\n\"另见 [J2EE](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_j2ee)。\"\n\n来源：原始行：2977；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_spring"
-        }
-      ]
-    }
-  },
   "mysql_glossary_sqlstate_16aqrw": {
     "id": "mysql_glossary_sqlstate_16aqrw",
     "label": "SQLState",
@@ -22851,7 +22716,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "**SSD**\n英文：SSD\n中文：SSD\n\n“固态硬盘”的缩写。是一种存储设备，与传统的硬盘驱动器（**HDD**）具有不同的性能特征：存储容量较小，随机读取速度更快，没有移动部件，并且有多种因素会影响写入性能。其性能特征可能会影响**disk-bound**工作负载的吞吐量。\n\n另请参见 [磁盘绑定](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_disk_bound)，[硬盘驱动器](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_hdd)。\n\n来源：原始行：3004；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ssd"
+          "content": "**SSD**\n\n“固态硬盘”的缩写。是一种存储设备，与传统的硬盘驱动器（**HDD**）具有不同的性能特征：存储容量较小，随机读取速度更快，没有移动部件，并且有多种因素会影响写入性能。其性能特征可能会影响**disk-bound**工作负载的吞吐量。\n\n"
         }
       ]
     }
@@ -25228,18 +25093,6 @@
                 "desc": "构成商业软件基础的关系和行动序列， 用于运营商业公司。有时这些规则由法律规定， 其他时候则由公司政策决定。精心的规划确保 数据库编码和实施的关系，以及通过应用逻辑 执行的操作，准确反映公司的真实政策，并能够处理现实生活中的情况。 例如，离开"
               },
               {
-                "nodeId": "mysql_glossary_c_1iy8fe",
-                "desc": "一种结合了可移植性、性能和访问低级硬件特性的编程语言，使其成为编写操作系统、驱动程序和其他类型系统软件的热门选择。许多复杂的应用程序、语言和可重用模块都包含用 C 编写的片段，这些片段与用其他语言编写的高级组件连接在一起。它的核心语法对C+"
-              },
-              {
-                "nodeId": "mysql_glossary_c_15ku39",
-                "desc": "是一种结合了强类型和面向对象特性，并在 Microsoft .NET 框架或其开源对应物 Mono 中运行的编程语言。 通常用于创建具有ASP.net 框架的应用程序。它的语法对 C、C++ 和Java 开发人员来说非常熟悉。 参见 .NE"
-              },
-              {
-                "nodeId": "mysql_glossary_c_cy8cuo",
-                "desc": "一种编程语言，其核心语法对于C 开发者来说十分熟悉。提供访问低级操作以提升性能，同时结合更高级的数据类型、面向对象的特性和垃圾收集。要为 MySQL 编写 C++ 应用程序，您需要使用Connector/C++ 组件。 参见 C， Conn"
-              },
-              {
                 "nodeId": "mysql_glossary_checksum_qnrmvm",
                 "desc": "在InnoDB中，当从磁盘读取page到tablespace的InnoDBbufferpool时，有一种验证机制检测损坏。此功能由MySQL 5.5中的innodb_checksums配置选项控制。innodb_checksums在MySQ"
               },
@@ -25642,10 +25495,6 @@
               {
                 "nodeId": "mysql_glossary_spn_qxzu3s",
                 "desc": "查看[服务主体名称](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_service_principal_name)。"
-              },
-              {
-                "nodeId": "mysql_glossary_spring_1ng89l",
-                "desc": "一个基于 Java 的应用程序框架，旨在通过提供配置组件的方式来辅助应用程序设计。 \"另见 [J2EE](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_j2ee)。\""
               },
               {
                 "nodeId": "mysql_glossary_ssd_gyazmt",
@@ -26364,7 +26213,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "SQL 语言、表、列、行、视图、约束、存储对象、查询语句和关系模型。"
+          "content": "SQL 语言、表、列、行、视图、约束、存储对象、查询语句和关系模型。\n\n\"SQL\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -26397,7 +26246,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "存储引擎族、引擎差异以及 MyISAM、MEMORY 等非 InnoDB 引擎。"
+          "content": "存储引擎族、引擎差异以及 MyISAM、MEMORY 等非 InnoDB 引擎。\n\nInnoDB、MyISAM、MEMORY、ARCHIVE、NDB 等存储引擎及其差异。\n\n主归属词条：8 个；关联词条：19 个。"
         }
       ],
       "definitionPages": []
@@ -26550,7 +26399,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "Redo、Binlog、查询日志、检查点、刷盘、崩溃恢复和持久化保障。"
+          "content": "Redo、Binlog、查询日志、检查点、刷盘、崩溃恢复和持久化保障。\n\nRedo、Binlog、查询日志、检查点、刷盘、崩溃恢复和持久性。\n\n主归属词条：25 个；关联词条：32 个。"
         }
       ],
       "definitionPages": []
@@ -26712,7 +26561,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "优化器、执行计划、缓存、缓冲池、统计信息、I/O、吞吐和扩展能力。"
+          "content": "优化器、执行计划、缓存、缓冲池、统计信息、I/O、吞吐和扩展能力。\n\n优化器、执行计划、缓存、缓冲池、自适应机制、统计信息和可扩展性。\n\n主归属词条：18 个；关联词条：30 个。"
         }
       ],
       "definitionPages": []
@@ -26886,7 +26735,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "主从/源副本、复制、组复制、集群、GTID、心跳和故障切换。"
+          "content": "主从/源副本、复制、组复制、集群、GTID、心跳和故障切换。\n\n主从/源副本、复制、组复制、集群、GTID 和复制拓扑。\n\n主归属词条：8 个；关联词条：10 个。"
         }
       ],
       "definitionPages": []
@@ -26980,7 +26829,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "API、Connector、JDBC、ODBC、客户端库、语言绑定和应用端集成。"
+          "content": "API、Connector、JDBC、ODBC、客户端库、语言绑定和应用端集成。\n\nAPI、Connector、JDBC、ODBC、客户端库和语言绑定。\n\n主归属词条：28 个；关联词条：28 个。"
         }
       ],
       "definitionPages": []
@@ -27135,7 +26984,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "账号、权限、认证、SSL/TLS、Kerberos、票据、密钥和安全主体。"
+          "content": "账号、权限、认证、SSL/TLS、Kerberos、票据、密钥和安全主体。\n\n账号、权限、认证、SSL/TLS、Kerberos、票据和安全主体。\n\n主归属词条：9 个；关联词条：9 个。"
         }
       ],
       "definitionPages": []
@@ -27218,7 +27067,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "备份、恢复、导入导出、启动关闭、诊断、维护和管理工具。"
+          "content": "备份、恢复、导入导出、启动关闭、诊断、维护和管理工具。\n\n备份、恢复、导入导出、启动关闭、诊断和维护工具。\n\n主归属词条：16 个；关联词条：23 个。"
         }
       ],
       "definitionPages": []
@@ -28194,7 +28043,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "研究信息和计算系统的机密性、完整性、可用性及其保护机制。"
+          "content": "研究信息和计算系统的机密性、完整性、可用性及其保护机制。\n\n安全（Security）是 ACM 2012 计算分类系统中的计算机科学顶层分类。"
         }
       ],
       "definitionPages": []
@@ -28436,6 +28285,11 @@
       "title": "java",
       "tabs": [
         {
+          "id": "def",
+          "label": "定义",
+          "content": "**Java**\n英文：Java\n中文：Java\n\n一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。\n\n\"另见 C, Connector/J, C++, JDBC.\"\n\n来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
+        },
+        {
           "id": "legacy-mysql-glossary-mysql_glossary_java_uspy11",
           "label": "MySQL 术语来源",
           "content": "**Java**\n英文：Java\n中文：Java\n\n一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。\n\n\"另见 C, Connector/J, C++, JDBC.\"\n\n来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
@@ -28468,7 +28322,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "类型系统（英语：type system）用于定义如何将编程语言中的数值和表达式归类为许多不同的类型，如何操作这些类型，这些类型如何互相作用。类型可以确认一个值或者一组值具有特定的意义和目的（虽然某些类型，如抽象类型和函数类型，在程序运行中，可能不表示为值）。类型系统在各种语言之间有非常大的不同，也许，最主要的差异存在于编译时期的语法，以及运行时期的操作实现方式。"
+          "content": "类型系统（英语：type system）用于定义如何将编程语言中的数值和表达式归类为许多不同的类型，如何操作这些类型，这些类型如何互相作用。类型可以确认一个值或者一组值具有特定的意义和目的（虽然某些类型，如抽象类型和函数类型，在程序运行中，可能不表示为值）。类型系统在各种语言之间有非常大的不同，也许，最主要的差异存在于编译时期的语法，以及运行时期的操作实现方式。\n\n主要条目：类型系统\n类型系统将类型与满足某些要求的程序关联起来。它们的目的是选择根据属性被认为正确的语言程序子集。\n\n- 类型检查 – 验证程序是否被类型系统接受。\n\n类型检查在编程中用于限制编程对象的使用方式以及它们可以做什么。这是由编译器或解释器完成的。类型检查还可以通过确保有符号值不会归因于无符号变量来帮助防止漏洞。\n类型检查可以静态（在编译时）、动态（在运行时）或两者的组合进行。\n\n静态类型信息（推断，或由源代码中的类型注释显式提供）也可用于进行优化，例如用未装箱数组替换装箱数组。"
         }
       ],
       "definitionPages": []
@@ -30007,7 +29861,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "存储过程 – 可用于访问关系数据库系统的应用程序的子例程。",
+          "content": "存储过程 – 可用于访问关系数据库系统的应用程序的子例程。\n\n一组为了完成特定功能的预编译的sql语句集合。它像一个自定义的函数或子程序，存储在数据库服务器端。用户通过指定存储过程的名称并给出参数（如果需要）来显式调用它执行。",
           "tags": [],
           "pages": [],
           "tabs": []
@@ -32194,7 +32048,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "继承可以通过类或原型得到支持，二者存在差异，但使用诸如对象与实例等相似术语。"
+          "content": "继承可以通过类或原型得到支持，二者存在差异，但使用诸如对象与实例等相似术语。\n\nJava中的类只能从一个类继承。一个类可以从未被标记为final的任何类派生。继承使用extends关键字声明。一个类可以使用this关键字引用自身，并使用super关键字引用其直接超类。\n\nclass Foo {\n\n}\n\nclass Foobar extends Foo {\n\n}\n如果类没有指定其超类，它隐式继承自java.lang.Object类。因此，Java中的所有类都是Object类的子类。\n\n如果超类没有无参数的构造函数，则子类必须在其构造函数中指定要使用的超类构造函数。例如：\n\nclass Foo {\n    public Foo(int n) {\n        // Do something with n\n    }\n}\n\nclass Foobar extends Foo {\n    private int number;\n    // Superclass does not have constructor without parameters\n    // so we have to specify what constructor of our superclass to use and how\n\npublic Foobar(int number) {\n        super(number);\n        this.number = number;\n    }\n}"
         },
         {
           "id": "k_1783167541244_d3d092-tab-1784211916393",
@@ -32794,7 +32648,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "在程序中，我们自己定义的内容，譬如类的名字，方法名称以及变量名称等等。"
+          "content": "在程序中，我们自己定义的内容，譬如类的名字，方法名称以及变量名称等等。\n\n标识符 是 代码 中元素的名称。在选择元素名称时需遵循某些标准 命名约定。Java 中的标识符是 区分大小写的。\n\n标识符可以包含：\n\n任何Unicode字符都是字母（包括数字字母，如罗马数字）或数字。\n货币符号（例如¥）。\n连接标点字符（例如_）。\n一个标识符不能：\n\n以数字开头。\n与保留关键字、null字面值或布尔字面值相等。"
         }
       ],
       "definitionPages": []
@@ -34133,7 +33987,13 @@
     "card": {
       "nodeId": "mysql_topic_indexes_access",
       "title": "索引与访问路径",
-      "tabs": [],
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "B-tree、聚集索引、二级索引、全文索引、哈希索引、扫描和访问路径。\n\n主归属词条：28 个；关联词条：34 个。"
+        }
+      ],
       "rootContent": "索引与访问路径 是 MySQL 功能目录中的导航分类，不是独立知识定义；它用于把相关 MySQL 概念放在同一视图下。",
       "definitionPages": []
     },
@@ -35729,7 +35589,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "面向对象编程中，方法（英语：Method）指的是类别（所谓的类方法、静态方法或工厂方法）、或者是对象（所谓的实例方法）两者其中之一的一种子程序。"
+          "content": "面向对象编程中，方法（英语：Method）指的是类别（所谓的类方法、静态方法或工厂方法）、或者是对象（所谓的实例方法）两者其中之一的一种子程序。\n\nJava 中的所有语句都必须位于方法内。方法与函数类似，区别在于方法隶属于类。一个方法包含返回值、方法名，且通常带有若干参数，调用方法传入实参时会对这些参数进行初始化。与C++类似，无返回值的方法需将返回值类型声明为void。与C++不同的是，Java中的方法不允许设置默认参数值，通常通过方法重载的方式实现替代效果。调用方法时使用.记法，针对对象；在静态方法的情况下，也可以使用类的名称。\"throws关键字表示一个方法会抛出一个异常。所有的受检异常必须在逗号分隔的列表中列出。\""
         },
         {
           "id": "k_1784169555803_adzqks-tab-1784169645896",
@@ -38375,7 +38235,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "Java servlet 技术为Web开发者提供了一种简单、一致的机制，用于扩展Web服务器的功能和访问现有的业务系统。Servlet 是 服务器端 Java EE 组件，它们生成对 客户端 请求的响应。大多数情况下，这意味着生成对 HTTP 请求的 HTML 页面，尽管还有许多其他标准的 servlet 类可用，例如用于 WebSocket 通信。\n\nJava servlet API 在一定程度上被两种标准 Java 技术取代（但仍在幕后使用）用于web服务：\n\nJava API for RESTful Web Services (JAX-RS 2.0) 对于 AJAX、JSON 和 REST 服务非常有用，以及Java API for XML Web Services (JAX-WS) 对 SOAP Web Services 很有用。\n在应用服务器或 servlet 容器上，这些 API 的典型实现使用标准 servlet 处理所有与 HTTP 请求和响应的交互，并委托给具体的业务逻辑的web服务方法。"
+          "content": "Java servlet 技术为Web开发者提供了一种简单、一致的机制，用于扩展Web服务器的功能和访问现有的业务系统。Servlet 是 服务器端 Java EE 组件，它们生成对 客户端 请求的响应。大多数情况下，这意味着生成对 HTTP 请求的 HTML 页面，尽管还有许多其他标准的 servlet 类可用，例如用于 WebSocket 通信。\n\nJava servlet API 在一定程度上被两种标准 Java 技术取代（但仍在幕后使用）用于web服务：\n\nJava API for RESTful Web Services (JAX-RS 2.0) 对于 AJAX、JSON 和 REST 服务非常有用，以及Java API for XML Web Services (JAX-WS) 对 SOAP Web Services 很有用。\n在应用服务器或 servlet 容器上，这些 API 的典型实现使用标准 servlet 处理所有与 HTTP 请求和响应的交互，并委托给具体的业务逻辑的web服务方法。\n\n**servlet**\n英文：servlet\n中文：Servlet\n\n另见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_j)。\n\n来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet"
         },
         {
           "id": "legacy-mysql-glossary-mysql_glossary_servlet_12jp4v",
@@ -41448,7 +41308,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "决策支持 是 ACM 2012 计算分类系统中「信息系统」下面的子分类。"
+          "content": "决策支持 是 ACM 2012 计算分类系统中「信息系统」下面的子分类。\n\n\"决策支持\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -43466,7 +43326,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "在软件工程中，依赖注入是一种编程技术，其中一个对象或函数接收它所需的其他对象或函数，而不是在内部创建它们。依赖注入旨在分离关注点，构造对象和使用对象，从而导致松耦合的程序。 该模式确保希望使用特定服务的对象或函数不必知道如何构造这些服务。相反，接收的“客户端”（对象或函数）由外部代码（“注入器”）提供其依赖项，而它对此并不知情。依赖注入使隐式依赖变为显式，并有助于解决以下问题：\n\n\"一个类如何能独立于它所依赖的对象的创建？\"\n“一个应用程序及其使用的对象如何支持不同的配置？”\n\"依赖注入通常用于保持代码与依赖倒置原则保持一致。\"\n\n在静态类型语言中使用依赖注入意味着客户端只需要声明它所使用的接口，而不是它们的具体实现，从而更容易在运行时改变所使用的服务而无需重新编译。\n\n\"应用框架通常将依赖注入与控制反转相结合。在控制反转下，框架首先构造一个对象（例如控制器），然后将控制流传递给它。通过依赖注入，框架还实例化应用对象（通常在构造方法的参数中）声明的依赖项，并将依赖项传递到对象中。\"\n\n\"依赖注入实现了“反转对依赖实现的控制”的理念，这就是某些Java框架将这一概念通用地称为“控制反转”（不应与控制流的反转混淆）。",
+          "content": "在软件工程中，依赖注入是一种编程技术，其中一个对象或函数接收它所需的其他对象或函数，而不是在内部创建它们。依赖注入旨在分离关注点，构造对象和使用对象，从而导致松耦合的程序。 该模式确保希望使用特定服务的对象或函数不必知道如何构造这些服务。相反，接收的“客户端”（对象或函数）由外部代码（“注入器”）提供其依赖项，而它对此并不知情。依赖注入使隐式依赖变为显式，并有助于解决以下问题：\n\n\"一个类如何能独立于它所依赖的对象的创建？\"\n“一个应用程序及其使用的对象如何支持不同的配置？”\n\"依赖注入通常用于保持代码与依赖倒置原则保持一致。\"\n\n在静态类型语言中使用依赖注入意味着客户端只需要声明它所使用的接口，而不是它们的具体实现，从而更容易在运行时改变所使用的服务而无需重新编译。\n\n\"应用框架通常将依赖注入与控制反转相结合。在控制反转下，框架首先构造一个对象（例如控制器），然后将控制流传递给它。通过依赖注入，框架还实例化应用对象（通常在构造方法的参数中）声明的依赖项，并将依赖项传递到对象中。\"\n\n\"依赖注入实现了“反转对依赖实现的控制”的理念，这就是某些Java框架将这一概念通用地称为“控制反转”（不应与控制流的反转混淆）。\n\n依赖注入是一种模式，其中容器通过名称将对象传递给其他对象，使用构造函数、 属性或工厂方法。实现依赖注入的方法有几种：基于构造函数的依赖注入、基于设置器的依赖注入和基于字段的依赖注入",
           "pages": [
             {
               "id": "k_1784466531162_zcrhl7-def-page-1784467157515",
@@ -46727,7 +46587,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "- 数据库的历史 –\n- 数据库管理系统的历史 –:"
+          "content": "- 数据库的历史 –\n- 数据库管理系统的历史 –:\n\n数据库的历史 –"
         }
       ],
       "definitionPages": []
@@ -47174,7 +47034,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "数据仓库 –"
+          "content": "数据仓库 –\n\n\"数据仓库\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -48520,7 +48380,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "数据源 – 为从服务器到数据库设置的连接指定的名称。创建数据库查询时通常会使用该名称。数据库源名称 (DSN) 不必与数据库的文件名相同。例如，可以使用 DSN 为“school”来设置名为“friends.mdb”的数据库文件。然后，在执行查询时，DSN“school”将用于引用数据库。"
+          "content": "数据源 – 为从服务器到数据库设置的连接指定的名称。创建数据库查询时通常会使用该名称。数据库源名称 (DSN) 不必与数据库的文件名相同。例如，可以使用 DSN 为“school”来设置名为“friends.mdb”的数据库文件。然后，在执行查询时，DSN“school”将用于引用数据库。\n\n\"数据源\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -49491,7 +49351,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "主键 –"
+          "content": "主键 –\n\n\"主键\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -49897,7 +49757,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "查询优化器 – 数据库管理系统的组件，尝试确定执行查询的最有效方式。"
+          "content": "查询优化器 – 数据库管理系统的组件，尝试确定执行查询的最有效方式。\n\n\"查询优化器\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -50905,7 +50765,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "维度表 – 事实表的一组伴随表之一。"
+          "content": "维度表 – 事实表的一组伴随表之一。\n\n\"维度表\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -50976,7 +50836,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "提取-转换-加载 (ETL) –"
+          "content": "提取-转换-加载 (ETL) –\n\n\"提取\" 待补充内容。"
         }
       ],
       "definitionPages": []
@@ -52315,7 +52175,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "Connolly 和 Begg 将数据库管理系统 (DBMS) 定义为“使用户能够定义、创建、维护和控制对数据库的访问的软件系统。”Connolly DBMS 的示例包括 MySQL、MariaDB、PostgreSQL、Microsoft SQL]服务器、Oracle 数据库 和 Microsoft Access。\n\nDBMS 缩写有时会扩展以指示底层的数据库模型，RDBMS 表示关系，OODBMS 表示面向对象，ORDBMS 表示对象-关系]模型。其他扩展可以指示一些其他特性，例如分布式数据库管理系统的 DDBMS。\n\nDBMS 提供的功能差异很大。核心功能是数据的存储、检索和更新。 Codd 提出了成熟的通用 DBMS 应提供以下功能和服务：Connolly\n\n- 数据存储、检索和更新\n- 用户可访问的目录或描述元数据的数据字典\n- 支持事务和并发\n- 数据库损坏后恢复的工具\n- 支持数据访问授权和更新\n- 从远程位置获取支持\n- 强制约束以确保数据库中的数据遵守某些规则\n\n通常还期望 DBMS 会提供一组实用程序，用于有效管理数据库所需的目的，包括导入、导出、监视、碎片整理和分析实用程序。Connolly DBMS 的核心部分，在数据库和应用程序接口之间交互，有时称为数据库引擎。\n\nDBMS 通常具有可以静态和动态调整的配置参数，例如数据库可以使用的服务器上的最大主内存量。趋势是最大限度地减少手动配置量，对于诸如嵌入式数据库之类的情况，以零管理为目标的需求至关重要。\n\n大型企业 DBMS 的规模和功能趋于增加，并且在其整个生命周期中涉及长达数千年的开发工作。本文引用了仅 DB2 版本 9 就涉及 750 人的五年开发时间。Chong\n\n早期的多用户 DBMS 通常只允许应用程序驻留在同一台计算机上，并通过终端 或终端仿真软件进行访问。 客户端-服务器架构 是一种开发，其中应用程序驻留在客户端桌面上，数据库驻留在服务器上，从而允许分布式处理。这演变成一种多层架构，将应用程序服务器和Web服务器与最终用户界面通过Web浏览器合并，数据库仅直接连接到相邻的服务器蒂尔·康诺利\n\n通用 DBMS 将提供公共应用程序编程接口 (API) 和可选的数据库语言 处理器，例如 SQL，以允许编写应用程序来与数据库交互和操作数据库。专用 DBMS 可以使用私有 API 并进行专门定制并链接到单个应用程序。例如，电子邮件系统执行通用 DBMS 的许多功能，例如消息插入、消息删除、附件处理、阻止列表查找、将消息与电子邮件地址关联等，但是这些功能仅限于处理电子邮件所需的功能。"
+          "content": "Connolly 和 Begg 将数据库管理系统 (DBMS) 定义为“使用户能够定义、创建、维护和控制对数据库的访问的软件系统。”Connolly DBMS 的示例包括 MySQL、MariaDB、PostgreSQL、Microsoft SQL]服务器、Oracle 数据库 和 Microsoft Access。\n\nDBMS 缩写有时会扩展以指示底层的数据库模型，RDBMS 表示关系，OODBMS 表示面向对象，ORDBMS 表示对象-关系]模型。其他扩展可以指示一些其他特性，例如分布式数据库管理系统的 DDBMS。\n\nDBMS 提供的功能差异很大。核心功能是数据的存储、检索和更新。 Codd 提出了成熟的通用 DBMS 应提供以下功能和服务：Connolly\n\n- 数据存储、检索和更新\n- 用户可访问的目录或描述元数据的数据字典\n- 支持事务和并发\n- 数据库损坏后恢复的工具\n- 支持数据访问授权和更新\n- 从远程位置获取支持\n- 强制约束以确保数据库中的数据遵守某些规则\n\n通常还期望 DBMS 会提供一组实用程序，用于有效管理数据库所需的目的，包括导入、导出、监视、碎片整理和分析实用程序。Connolly DBMS 的核心部分，在数据库和应用程序接口之间交互，有时称为数据库引擎。\n\nDBMS 通常具有可以静态和动态调整的配置参数，例如数据库可以使用的服务器上的最大主内存量。趋势是最大限度地减少手动配置量，对于诸如嵌入式数据库之类的情况，以零管理为目标的需求至关重要。\n\n大型企业 DBMS 的规模和功能趋于增加，并且在其整个生命周期中涉及长达数千年的开发工作。本文引用了仅 DB2 版本 9 就涉及 750 人的五年开发时间。Chong\n\n早期的多用户 DBMS 通常只允许应用程序驻留在同一台计算机上，并通过终端 或终端仿真软件进行访问。 客户端-服务器架构 是一种开发，其中应用程序驻留在客户端桌面上，数据库驻留在服务器上，从而允许分布式处理。这演变成一种多层架构，将应用程序服务器和Web服务器与最终用户界面通过Web浏览器合并，数据库仅直接连接到相邻的服务器蒂尔·康诺利\n\n通用 DBMS 将提供公共应用程序编程接口 (API) 和可选的数据库语言 处理器，例如 SQL，以允许编写应用程序来与数据库交互和操作数据库。专用 DBMS 可以使用私有 API 并进行专门定制并链接到单个应用程序。例如，电子邮件系统执行通用 DBMS 的许多功能，例如消息插入、消息删除、附件处理、阻止列表查找、将消息与电子邮件地址关联等，但是这些功能仅限于处理电子邮件所需的功能。\n\n主条目：[数据库管理系统](https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)\n\n[資料庫管理系统](https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%BA%AB%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)（Database Management System，簡稱[DBMS](https://zh.wikipedia.org/wiki/DBMS)）是为管理[資料庫](https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%BA%AB)而設計的电腦[軟體](https://zh.wikipedia.org/wiki/%E8%BB%9F%E9%AB%94)系統，一般具有儲存、擷取、安全保障、備份等基礎功能。資料庫管理系統可以依據它所支援的來作分類，例如[關聯式](https://zh.wikipedia.org/wiki/%E9%97%9C%E8%81%AF%E6%A8%A1%E5%9E%8B)、[XML](https://zh.wikipedia.org/wiki/XML)；或依據所支援的電腦類型來作分類，例如伺服器群集、行動電話；或依據所用查詢語言來作分類，例如[SQL](https://zh.wikipedia.org/wiki/SQL)、；或依據性能衝量重點來作分類，例如最大規模、最高執行速度；亦或其他的分類方式。不論使用哪種分類方式，一些DBMS能够跨類別，例如，同時支援多種查詢語言。"
         }
       ],
       "definitionPages": []
@@ -58325,7 +58185,7 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "解决方案是使用**条件变量**。从概念上讲，条件变量是与互斥体关联的线程队列，线程可以在该队列上等待某些条件变为真。因此，每个条件变量都与一个断言 PC 相关联。当线程正在等待条件变量时，该线程不被视为占用监视器，因此其他线程可能会进入监视器以更改监视器的状态。在大多数类型的监视器中，这些其他线程可能会向条件变量发出信号以指示断言 Pc 在当前状态下为 true。\n\n因此对条件变量的操作主要有以下三种：\n-**等待**c, m，其中 *c* 是条件变量，m 是与监视器关联的互斥锁（锁）。  此操作由一个线程调用，该线程需要等待断言 Pc 为 true 后才能继续。  当线程等待时，它不占用监视器。  “等待”操作的功能和基本契约是执行以下步骤：\n1. 原子地:\n  2. : 释放互斥体*m*,\n  3. 一旦该线程随后被通知/发信号（见下文）并恢复，则自动重新获取互斥体 *m*。\n- ：步骤 1a 和 1b 可以按任意顺序发生，1c 通常发生在它们之后。  当线程处于睡眠状态并在 *c* 的等待队列中时，下一个要执行的程序计数器位于步骤 2，在“等待”函数/子例程的中间。  因此，线程会休眠，然后在“等待”操作过程中唤醒。\n- ：步骤 1 中操作的原子性对于避免由于它们之间的抢占式线程切换而导致的竞争条件非常重要。  如果这些不是原子的，则可能发生的一种故障模式是“错过唤醒”，其中线程可能位于 *c* 的睡眠队列上并已释放互斥体，但在线程进入睡眠状态之前发生了抢占式线程切换，并且另一个线程在 *c* 上调用信号操作（见下文），将第一个线程移回 *c* 的队列。  一旦第一个相关线程切换回，其程序计数器将位于步骤 1c，并且它将休眠并且无法再次唤醒，这违反了它在休眠时应位于 *c* 的休眠队列中的不变量。  其他竞争条件取决于步骤 1a 和 1b 的顺序，并取决于发生上下文切换的位置。\n-**signal**c，也称为**notify**c，由线程调用以指示断言 Pc 为真。  根据监视器的类型和实现，这会将一个或多个线程从 c 的睡眠队列移动到“就绪队列”或另一个要执行的队列。  通常认为最佳实践是在释放与 *c* 关联的互斥体 *m* 之前执行“信号”操作，但只要代码针对并发性进行了正确设计，并且根据线程实现，在发出信号之前释放锁通常也是可以接受的。  根据线程实现的不同，其顺序可能会影响调度优先级。  （一些作者反而提倡在发出信号之前释放锁。）线程实现应该记录对此顺序的任何特殊约束。\n-**broadcast**c，也称为**notifyAll**c，是一个类似的操作，唤醒c的等待队列中的所有线程。  这会清空等待队列。  通常，当多个谓词条件与同一条件变量关联时，应用程序将需要**广播**而不是**信号**，因为等待错误条件的线程可能会被唤醒，然后立即返回睡眠状态，而不会唤醒等待刚刚变为真的正确条件的线程。  否则，如果谓词条件与其关联的条件变量是一对一的，那么**信号**可能比**广播**更有效。\n\n作为设计规则，多个条件变量可以与同一个互斥体关联，但反之则不然。  （这是一对多）（https://en.wikipedia.org/wiki/multivalued_function）对应。）这是因为谓词 Pc 对于使用监视器的所有线程都是相同的，并且必须受到与所有其他线程的互斥保护，这些线程可能会导致条件更改，或者可能会在相关线程导致条件更改时读取它，但可能有不同的线程想要等待同一变量上的不同条件，需要使用相同的互斥锁。  在生产者-消费者示例中如上所述，队列必须由唯一的互斥对象 *m* 保护。  “生产者”线程将希望使用锁 *m* 和条件变量等待监视器，该变量会阻塞直到队列未满。  “消费者”线程将希望使用相同的互斥体 *m* 但使用不同的条件变量来等待不同的监视器，该变量会阻塞直到队列非空。  对于同一条件变量使用不同的互斥体（通常）是没有意义的，但这个经典示例说明了为什么使用相同互斥体的多个条件变量通常肯定是有意义的。  一个或多个条件变量（一个或多个监视器）使用的互斥锁也可以与不*不*使用条件变量的代码共享（并且仅获取/释放它而不需要任何等待/信号操作），如果这些关键部分不碰巧需要等待并发数据上的某个条件。",
+          "content": "解决方案是使用**条件变量**。从概念上讲，条件变量是与互斥体关联的线程队列，线程可以在该队列上等待某些条件变为真。因此，每个条件变量都与一个断言 PC 相关联。当线程正在等待条件变量时，该线程不被视为占用监视器，因此其他线程可能会进入监视器以更改监视器的状态。在大多数类型的监视器中，这些其他线程可能会向条件变量发出信号以指示断言 Pc 在当前状态下为 true。\n\n因此对条件变量的操作主要有以下三种：\n-**等待**c, m，其中 *c* 是条件变量，m 是与监视器关联的互斥锁（锁）。  此操作由一个线程调用，该线程需要等待断言 Pc 为 true 后才能继续。  当线程等待时，它不占用监视器。  “等待”操作的功能和基本契约是执行以下步骤：\n1. 原子地:\n  2. : 释放互斥体*m*,\n  3. 一旦该线程随后被通知/发信号（见下文）并恢复，则自动重新获取互斥体 *m*。\n- ：步骤 1a 和 1b 可以按任意顺序发生，1c 通常发生在它们之后。  当线程处于睡眠状态并在 *c* 的等待队列中时，下一个要执行的程序计数器位于步骤 2，在“等待”函数/子例程的中间。  因此，线程会休眠，然后在“等待”操作过程中唤醒。\n- ：步骤 1 中操作的原子性对于避免由于它们之间的抢占式线程切换而导致的竞争条件非常重要。  如果这些不是原子的，则可能发生的一种故障模式是“错过唤醒”，其中线程可能位于 *c* 的睡眠队列上并已释放互斥体，但在线程进入睡眠状态之前发生了抢占式线程切换，并且另一个线程在 *c* 上调用信号操作（见下文），将第一个线程移回 *c* 的队列。  一旦第一个相关线程切换回，其程序计数器将位于步骤 1c，并且它将休眠并且无法再次唤醒，这违反了它在休眠时应位于 *c* 的休眠队列中的不变量。  其他竞争条件取决于步骤 1a 和 1b 的顺序，并取决于发生上下文切换的位置。\n-**signal**c，也称为**notify**c，由线程调用以指示断言 Pc 为真。  根据监视器的类型和实现，这会将一个或多个线程从 c 的睡眠队列移动到“就绪队列”或另一个要执行的队列。  通常认为最佳实践是在释放与 *c* 关联的互斥体 *m* 之前执行“信号”操作，但只要代码针对并发性进行了正确设计，并且根据线程实现，在发出信号之前释放锁通常也是可以接受的。  根据线程实现的不同，其顺序可能会影响调度优先级。  （一些作者反而提倡在发出信号之前释放锁。）线程实现应该记录对此顺序的任何特殊约束。\n-**broadcast**c，也称为**notifyAll**c，是一个类似的操作，唤醒c的等待队列中的所有线程。  这会清空等待队列。  通常，当多个谓词条件与同一条件变量关联时，应用程序将需要**广播**而不是**信号**，因为等待错误条件的线程可能会被唤醒，然后立即返回睡眠状态，而不会唤醒等待刚刚变为真的正确条件的线程。  否则，如果谓词条件与其关联的条件变量是一对一的，那么**信号**可能比**广播**更有效。\n\n作为设计规则，多个条件变量可以与同一个互斥体关联，但反之则不然。  （这是一对多）（https://en.wikipedia.org/wiki/multivalued_function）对应。）这是因为谓词 Pc 对于使用监视器的所有线程都是相同的，并且必须受到与所有其他线程的互斥保护，这些线程可能会导致条件更改，或者可能会在相关线程导致条件更改时读取它，但可能有不同的线程想要等待同一变量上的不同条件，需要使用相同的互斥锁。  在生产者-消费者示例中如上所述，队列必须由唯一的互斥对象 *m* 保护。  “生产者”线程将希望使用锁 *m* 和条件变量等待监视器，该变量会阻塞直到队列未满。  “消费者”线程将希望使用相同的互斥体 *m* 但使用不同的条件变量来等待不同的监视器，该变量会阻塞直到队列非空。  对于同一条件变量使用不同的互斥体（通常）是没有意义的，但这个经典示例说明了为什么使用相同互斥体的多个条件变量通常肯定是有意义的。  一个或多个条件变量（一个或多个监视器）使用的互斥锁也可以与不*不*使用条件变量的代码共享（并且仅获取/释放它而不需要任何等待/信号操作），如果这些关键部分不碰巧需要等待并发数据上的某个条件。\n\n（本节无正文）",
           "tags": [
             "assertion (computing)",
             "lock (computer science)",
@@ -80279,6 +80139,11 @@
       "title": "Tomcat",
       "rootContent": "Tomcat作为servlet容器，有三种工作模式：\n\n1. 独立的servlet容器，servlet容器是web服务器的一部分；\n\n2. 进程内的servlet容器，servlet容器是作为web服务器的插件和java容器的实 现，web服务器插件在内部地址空间打开一个jvm使得java容器在内部得以运行。反 应速度快但伸缩性不足；\n\n3. 进程外的servlet容器，servlet容器运行于web服务器之外的地址空间，并作 为web服务器的插件和java容器实现的结合。反应时间不如进程内但伸缩性和稳定性 比进程内优； 进入Tomcat的请求可以根据Tomcat的工作模式分为如下两类：\n\nTomcat作为应用程序服务器：请求来自于前端的web服务器，这可能是 Apache, IIS, Nginx等；\n\nTomcat作为独立服务器：请求来自于web浏览器；\n下面这一篇文章整理了Tomcat相关的系统架构，介 绍了Server、Service、Connector、Container之间的关系，各个模块的功 能，可以说把这几个掌握住了，Tomcat相关的面试题你就不会有任何问题了！\n\n另外，在面试的时候你还要有意识无意识的往Tomcat这个地方引，就比如说常 见的Spring MVC的执行流程，一个URL的完整调用链路，这些相关的题目你是 可以往Tomcat处理请求的这个过程去说的！掌握了Tomcat这些技能，面试官 一定会佩服你的！\n\n学了本章之后你应该明白的是：\n\nServer、Service、Connector、Container四大组件之间的关系和联系，以及他 们的主要功能点；\n\nTomcat执行的整体架构，请求是如何被一步步处理的；\n\nEngine、Host、Context、Wrapper相关的概念关系；\n\nContainer是如何处理请求的；\n\nTomcat用到的相关设计模式；\n\n## Tomcat顶层架构\n\nTomcat的结构很复杂，但 是 Tomcat 非常的模块化，找到了 Tomcat 最核心的模块，问题才可以游刃而 解，了解了 Tomcat 的整体架构对以后深入了解 Tomcat 来说至关重要！ 先上一张Tomcat的顶层结构图（图A），如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/7651550b1af8f48e1886339e3592a7804d26ee94c06d87fce0bc64ca84538a10.jpg)\n\nTomcat中最顶层的容器是Server，代表着整个服务器，从上图中可以看出，一 个Server可以包含至少一个Service，即可以包含多个Service，用于具体提供服 务。\n\nService主要包含两个部分：Connector和Container。从上图中可以看出 Tomcat 的心脏就是这两个组件，他们的作用如下：\n\nConnector用于处理连接相关的事情，并提供Socket与Request请求和 Response响应相关的转化;Container用于封装和管理Servlet，以及具体处理Request请求；\n\n一个Tomcat中只有一个Server，一个Server可以包含多个Service，一个 Service只有一个Container，但是可以有多个Connectors，这是因为一个服务 可以有多个连接，如同时提供Http和Https链接，也可以提供向相同协议不同端 口的连接，示意图如下（Engine、Host、Context下面会说到）：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/08c5b29045362d2e5b836be6e72170b4c63cb901cc5959fd7f07dd6998cff1b8.jpg)\n\n多个 Connector 和一个 Container 就形成了一个 Service，有了 Service 就可 以对外提供服务了，但是Service 还要一个生存的环境，必须要有人能够给她生 命、掌握其生死大权，那就非 Server 莫属了！所以整个 Tomcat 的生命周期由 Server 控制。\n\n另外，上述的包含关系或者说是父子关系，都可以在tomcat的conf目录下的 server.xml配置文件中看出，下图是删除了注释内容之后的一个完整的 server.xml配置文件（Tomcat版本为8.0）\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/1e80f3dd6501a4f2cd147012aaa96ca45963d5fa14b3714c7f2ee06a3f6a9189.jpg)\n\n详细的配置文件内容可以到Tomcat官网查看：Tomcat配置文件\n\n上边的配置文件，还可以通过下边的一张结构图更清楚的理解：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/5ea0288d7682ef24c7053b6f532109ad75af2748b07e6e8c9bb501ae5b9dcf74.jpg)\n\nServer标签设置的端口号为8005，shutdown=”SHUTDOWN” ，表示在 8005端口监听“SHUTDOWN”命令，如果接收到了就会关闭Tomcat。一个 Server有一个Service，当然还可以进行配置，一个Service有多个Connector， Service左边的内容都属于Container的，Service下边是Connector。\n\n## Tomcat顶层架构小结\n\n1. Tomcat中只有一个Server，一个Server可以有多个Service，一个 Service可以有多个Connector和一个Container；\n\n2. Server掌管着整个Tomcat的生死大权；\n\n3. Service 是对外提供服务的；\n\n4. Connector用于接受请求并将请求封装成Request和Response来具体 处理；\n\n5. Container用于封装和管理Servlet，以及具体处理request请求；\n\n知道了整个Tomcat顶层的分层架构和各个组件之间的关系以及作用，对于绝大 多数的开发人员来说Server和Service对我们来说确实很远，而我们开发中绝大 部分进行配置的内容是属于Connector和Container的，所以接下来介绍一下 Connector和Container。\n\n## Connector和Container的微妙关系\n\n由上述内容我们大致可以知道一个请求发送到Tomcat之后，首先经过Service然 后会交给我们的Connector，Connector用于接收请求并将接收的请求封装为 Request和Response来具体处理，Request和Response封装完之后再交由 Container进行处理，Container处理完请求之后再返回给Connector，最后在 由Connector通过Socket将处理的结果返回给客户端，这样整个请求的就处理 完了！\n\nConnector最底层使用的是Socket来进行连接的，Request和Response是按照 HTTP协议来封装的，所以Connector同时需要实现TCP/IP协议和HTTP协议！\n\nTomcat既然需要处理请求，那么肯定需要先接收到这个请求，接收请求这个东 西我们首先就需要看一下Connector！\n\nConnector架构分析\n\nConnector用于接受请求并将请求封装成Request和Response，然后交给 Container进行处理，\n\nContainer处理完之后在交给Connector返回给客户端。 因此，我们可以把Connector分为四个方面进行理解：\n\n1. Connector如何接受请求的？\n\n2. 如何将请求封装成Request和Response的？\n\n3. 封装完之后的Request和Response如何交给Container进行处理的？\n\n4. Container处理完之后如何交给Connector并返回给客户端的？ 首先看一下Connector的结构图，如下所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/1263f1991c7016d3587fcbf894028d13bb6d7723766813270b9b25f01d5bf369.jpg)\n\nConnector就是使用ProtocolHandler来处理请求的，不同的ProtocolHandler 代表不同的连接类型，比如：Http11Protocol使用的是普通Socket来连接的， Http11NioProtocol使用的是NioSocket来连接的。\n\n其中ProtocolHandler由包含了三个部件：Endpoint、Processor、Adapter。\n\n1. Endpoint用来处理底层Socket的网络连接，Processor用于将 Endpoint接收到的Socket封装成Request，Adapter用于将Request交给 Container进行具体的处理。\n\n2. Endpoint由于是处理底层的Socket网络连接，因此Endpoint是用来实 现TCP/IP协议的，而Processor用来实现HTTP协议的，Adapter将请求适 配到Servlet容器进行具体的处理。\n\n3. Endpoint的抽象实现AbstractEndpoint里面定义的Acceptor和 AsyncTimeout两个内部类和一个Handler接口。Acceptor用于监听请 求，AsyncTimeout用于检查异步Request的超时，Handler用于处理接收 到的Socket，在内部调用Processor进行处理。\n\n至此，我们应该很轻松的回答1，2，3的问题了，但是4还是不知道，那么我们 就来看一下Container是如何进行处理的以及处理完之后是如何将处理完的结果 返回给Connector的？\n\n## Container架构分析\n\nContainer用于封装和管理Servlet，以及具体处理Request请求，在Container 内部包含了4个子容器，结构图如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/972ad35f2846e4045e300cdfbce7b3639c9026c3c993297d26a39340da9e2b8a.jpg)\n\n## 4个子容器的作用分别是：\n\n1. Engine：引擎，用来管理多个站点，一个Service最多只能有一个 Engine；\n\n2. Host：代表一个站点，也可以叫虚拟主机，通过配置Host就可以添加 站点；\n\n3. Context：代表一个应用程序，对应着平时开发的一套程序，或者一个 WEB-INF目录以及下面的web.xml文件；\n\n4. Wrapper：每一Wrapper封装着一个Servlet； 下面找一个Tomcat的文件目录对照一下，如下图所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/f200d95dfe2ba117168f3df2f07ea0655cf476acfb8864617e6d094317cbe726.jpg)\n\nContext和Host的区别是Context表示一个应用，我们的Tomcat中默认的配置 下webapps下的每一个文件夹目录都是一个Context，其中ROOT目录中存放着 主应用，其他目录存放着子应用，而整个webapps就是一个Host站点。\n\n我们访问应用Context的时候，如果是ROOT下的则直接使用域名就可以访问， 例如：\n\nwww.baidu.com，如果是Host（webapps）下的其他应用，则可以使 用www.baidu.com/docs进行访问，当然默认指定的根应用（ROOT）是可以 进行设定的，只不过Host站点下默认的主应用是ROOT目录下的。\n\n看到这里我们知道Container是什么，但是还是不知道Container是如何进行请 求处理的以及处理完之后是如何将处理完的结果返回给Connector的？别急！下 边就开始探讨一下Container是如何进行处理的！\n\n## Container如何处理请求的\n\nContainer处理请求是使用Pipeline-Valve管道来处理的！（Valve是阀门之 意）\n\nPipeline-Valve是责任链模式，责任链模式是指在一个请求处理的过程中有很多 处理者依次对请求进行处理，每个处理者负责做自己相应的处理，处理完之后将 处理后的结果返回，再让下一个处理者继续处理。\n\n但是！Pipeline-Valve使用的责任链模式和普通的责任链模式有些不同！区别主 要有以下两点：\n\n每个Pipeline都有特定的Valve，而且是在管道的最后一个执行，这个 Valve叫做BaseValve，BaseValve是不可删除的；\n\n在上层容器的管道的BaseValve中会调用下层容器的管道。\n\n我们知道Container包含四个子容器，而这四个子容器对应的BaseValve分别\n\n在：StandardEngineValve、StandardHostValve、StandardContextValve、StandardWrapperValve。\n\nPipeline的处理流程图如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/2bec87991d165dfaa1ea4686977408673ef8778e998b058647dfc8fc019ec8d9.jpg)\n\nConnector在接收到请求后会首先调用最顶层容器的Pipeline来处 理，这里的最顶层容器的Pipeline就是EnginePipeline（Engine的管 道）；\n\n在Engine的管道中依次会执行EngineValve1、EngineValve2等等， 最后会执行StandardEngineValve，在StandardEngineValve中会调用 Host管道，然后再依次执行Host的HostValve1、HostValve2等，最后在 执行StandardHostValve，然后再依次调用Context的管道和Wrapper的 管道，最后执行到StandardWrapperValve。\n\n当执行到StandardWrapperValve的时候，会在 StandardWrapperValve中创建FilterChain，并调用其doFilter方法来处 理请求，这个FilterChain包含着我们配置的与请求相匹配的Filter和Servlet，其doFilter方法会依次调用所有的Filter的doFilter方法和Servlet 的service方法，这样请求就得到了处理！\n\n当所有的Pipeline-Valve都执行完之后，并且处理完了具体的请求， 这个时候就可以将返回的结果交给Connector了，Connector在通过 Socket的方式将结果返回给客户端。\n\n## JVM（马老师，黄老师）\n\n## 说一下 JVM 的主要组成部分及其作用？\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/f01b0cdab60ac483ee681a1d38f3bce5b410285e0141981aba5df4b8123ee44e.jpg)\n\nJVM包含两个子系统和两个组件，两个子系统为Class loader(类装载)、 Execution engine(执行引擎)；两个组件为Runtime data area(运行时数据 区)、Native Interface(本地接口)。\n\nClass loader(类装载)：根据给定的全限定名类名(如： java.lang.Object)来装载class文件到Runtime data area中的method area。\n\nExecution engine（执行引擎）：执行classes中的指令。\n\nNative Interface(本地接口)：与native libraries交互，是其它编程语 言交互的接口。\n\nRuntime data area(运行时数据区域)：这就是我们常说的JVM的内 存。\n\n作用 ：首先通过编译器把 Java 代码转换成字节码，类加载器（ClassLoader） 再把字节码加载到内存中，将其放在运行时数据区（Runtime data area）的方 法区内，而字节码文件只是 JVM 的一套指令集规范，并不能直接交给底层操作 系统去执行，因此需要特定的命令解析器执行引擎（ExecutionEngine），将 字节码翻译成底层系统指令，再交由 CPU 去执行，而这个过程中需要调用其他 语言的本地库接口（Native Interface）来实现整个程序的功能。\n\n下面是Java程序运行机制详细说明\n\nJava程序运行机制步骤\n\n首先利用IDE集成开发工具编写Java源代码，源文件的后缀为.java；\n\n再利用编译器(javac命令)将源代码编译成字节码文件，字节码文件的后缀名 为.class；\n\n运行字节码的工作是由解释器(java命令)来完成的。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/6066640792df280889edddf0e665c5f949cdeda47ff2e19cc4d1c4a4a1af85f8.jpg)\n\n从上图可以看，java文件通过编译器变成了.class文件，接下来类加载器又将这 些.class文件加载到JVM中。\n\n其实可以一句话来解释：类的加载指的是将类的.class文件中的二进制数据读入 到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个 java.lang.Class对象，用来封装类在方法区内的数据结构。\n\n## 说一下 JVM 运行时数据区\n\nJava 虚拟机在执行 Java 程序的过程中会把它所管理的内存区域划分为若干个 不同的数据区域。这些区域都有各自的用途，以及创建和销毁的时间，有些区域 随着虚拟机进程的启动而存在，有些区域则是依赖线程的启动和结束而建立和销 毁。Java 虚拟机所管理的内存被划分为如下几个区域：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/588c3927-9078-433c-81c2-3d1af6d7e5c7/4bf24529ec4c97d2c3ea531ac6c937c1d28c6c8263a67b66f2a9fa7c0307b656.jpg)\n\n不同虚拟机的运行时数据区可能略微有所不同，但都会遵从 Java 虚拟机规范， Java 虚拟机规范规定的区域分为以下 5 个部分：\n\n程序计数器（Program Counter Register）：当前线程所执行的字节码的行号 指示器，字节码解析器的工作是通过改变这个计数器的值，来选取下一条需要执行的 字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能，都需要依赖这个 计数器来完成；\n\nJava 虚拟机栈（Java Virtual Machine Stacks）：用于存储局部变量表、操作 数栈、动态链接、方法出口等信息；\n\n本地方法栈（Native Method Stack）：与虚拟机栈的作用是一样的，只不过虚 拟机栈是服务 Java方法的，而本地方法栈是为虚拟机调用 Native 方法服务的；\n\nJava 堆（Java Heap）：Java 虚拟机中内存大的一块，是被所有线程共享 的，几乎所有的对象实例都在这里分配内存；\n\n方法区（Methed Area）：用于存储已被虚拟机加载的类信息、常量、静态变 量、即时编译后的代码等数据。",
       "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "**Tomcat**\n英文：Tomcat\n中文：Tomcat\n\n一个开源的**J2EE**应用程序服务器，实现Java Servlet和JavaServer Pages编程技术。由一个网页服务器和Java Servlet容器组成。通常与MySQL一起使用，通常与**Connector/J**一起使用。\n\n另见 [J2EE](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_j2ee)。\n\n来源：原始行：3321；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tomcat"
+        },
         {
           "id": "jimi-22",
           "label": "工作模式与顶层架构",

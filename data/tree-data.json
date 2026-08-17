@@ -96,6 +96,28 @@
               "projectionKind": "canonical-topic",
               "sourceNodeId": "k_dict_mb72ps2c",
               "children": []
+            },
+            {
+              "id": "projection:mysql-term:mysql_glossary_hdd_eb2rxz",
+              "name": "HDD",
+              "count": 0,
+              "nodeRef": "mysql_glossary_hdd_eb2rxz",
+              "projection": true,
+              "view": "mysql-architecture",
+              "projectionKind": "canonical-topic",
+              "sourceNodeId": "mysql_glossary_hdd_eb2rxz",
+              "children": []
+            },
+            {
+              "id": "projection:mysql-term:mysql_glossary_ssd_gyazmt",
+              "name": "SSD",
+              "count": 0,
+              "nodeRef": "mysql_glossary_ssd_gyazmt",
+              "projection": true,
+              "view": "mysql-architecture",
+              "projectionKind": "canonical-topic",
+              "sourceNodeId": "mysql_glossary_ssd_gyazmt",
+              "children": []
             }
           ]
         },
@@ -750,15 +772,6 @@
                   "name": "java",
                   "count": 0,
                   "nodeRef": "k_1782746457581_30q8ao",
-                  "supplement": {
-                    "tabs": [
-                      {
-                        "id": "context:mysql:java:def",
-                        "label": "定义",
-                        "content": "**Java**\n英文：Java\n中文：Java\n\n一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。\n\n\"另见 C, Connector/J, C++, JDBC.\"\n\n来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
-                      }
-                    ]
-                  },
                   "children": [
                     {
                       "id": "tree_1782820185830_vuzuox",
@@ -5039,15 +5052,6 @@
                           "name": "悲观锁",
                           "count": 0,
                           "nodeRef": "demo_pessimistic",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:java:pessimistic-lock:def",
-                                "label": "定义",
-                                "content": "悲观锁就是用户修改数据时看起来很悲观，保守态度，担心别的用户会同时修改这条数据，所以每次修改时会提前把这条数据锁定起来，只有自己可修改（但别的用户可以读），等自己修改完了再释放锁"
-                              }
-                            ]
-                          },
                           "children": []
                         },
                         {
@@ -6058,15 +6062,6 @@
                           "name": "Servlet",
                           "count": 0,
                           "nodeRef": "k_1784340526295_skm8iw",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:java:servlet:def",
-                                "label": "定义",
-                                "content": "**servlet**\n英文：servlet\n中文：Servlet\n\n另见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_j)。\n\n来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet"
-                              }
-                            ]
-                          },
                           "children": []
                         },
                         {
@@ -6152,32 +6147,6 @@
                               "name": "标识符",
                               "count": 0,
                               "nodeRef": "k_1783186425134_v31qjt",
-                              "supplement": {
-                                "tabs": [
-                                  {
-                                    "id": "context:java:identifier:def",
-                                    "label": "定义",
-                                    "content": "标识符 是 代码 中元素的名称。在选择元素名称时需遵循某些标准 命名约定。Java 中的标识符是 区分大小写的。\n\n标识符可以包含：\n\n任何Unicode字符都是字母（包括数字字母，如罗马数字）或数字。\n货币符号（例如¥）。\n连接标点字符（例如_）。\n一个标识符不能：\n\n以数字开头。\n与保留关键字、null字面值或布尔字面值相等。",
-                                    "pages": [
-                                      {
-                                        "id": "context:java:identifier:k_1783871308772_07svsw-def-page-1784303247256",
-                                        "label": "保留标识符（16 个上下文关键字）",
-                                        "content": "exports  module  non-sealed  open  opens  permits  provides  record\nrequires  sealed  to  transitive  var  when  with  yield"
-                                      },
-                                      {
-                                        "id": "context:java:identifier:k_1783871308772_07svsw-def-page-1784303265692",
-                                        "label": "字面量保留字（3 个",
-                                        "content": "true  false  null"
-                                      },
-                                      {
-                                        "id": "context:java:identifier:k_1783871308772_07svsw-def-page-1784303280114",
-                                        "label": "未使用（4 个",
-                                        "content": "_      \n  const \n goto \n strictfp"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
                               "children": []
                             },
                             {
@@ -7009,15 +6978,6 @@
                                       "name": "方法",
                                       "count": 0,
                                       "nodeRef": "k_1784169555803_adzqks",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:java:method:def",
-                                            "label": "定义",
-                                            "content": "Java 中的所有语句都必须位于方法内。方法与函数类似，区别在于方法隶属于类。一个方法包含返回值、方法名，且通常带有若干参数，调用方法传入实参时会对这些参数进行初始化。与C++类似，无返回值的方法需将返回值类型声明为void。与C++不同的是，Java中的方法不允许设置默认参数值，通常通过方法重载的方式实现替代效果。调用方法时使用.记法，针对对象；在静态方法的情况下，也可以使用类的名称。\"throws关键字表示一个方法会抛出一个异常。所有的受检异常必须在逗号分隔的列表中列出。\""
-                                          }
-                                        ]
-                                      },
                                       "children": [
                                         {
                                           "id": "tree_java_syntax_zh_1ij9wwy",
@@ -7063,15 +7023,6 @@
                                       "name": "继承",
                                       "count": 0,
                                       "nodeRef": "k_1783167541244_d3d092",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:java:inheritance:def",
-                                            "label": "定义",
-                                            "content": "Java中的类只能从一个类继承。一个类可以从未被标记为final的任何类派生。继承使用extends关键字声明。一个类可以使用this关键字引用自身，并使用super关键字引用其直接超类。\n\nclass Foo {\n\n}\n\nclass Foobar extends Foo {\n\n}\n如果类没有指定其超类，它隐式继承自java.lang.Object类。因此，Java中的所有类都是Object类的子类。\n\n如果超类没有无参数的构造函数，则子类必须在其构造函数中指定要使用的超类构造函数。例如：\n\nclass Foo {\n    public Foo(int n) {\n        // Do something with n\n    }\n}\n\nclass Foobar extends Foo {\n    private int number;\n    // Superclass does not have constructor without parameters\n    // so we have to specify what constructor of our superclass to use and how\n\n    public Foobar(int number) {\n        super(number);\n        this.number = number;\n    }\n}"
-                                          }
-                                        ]
-                                      },
                                       "children": [
                                         {
                                           "id": "tree_java_syntax_zh_veri4o",
@@ -8677,21 +8628,6 @@
                           "name": "类型系统",
                           "count": 0,
                           "nodeRef": "k_1782748382034_b8a1a9",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:program-analysis:type-system:def",
-                                "label": "定义",
-                                "content": "主要条目：类型系统\n类型系统将类型与满足某些要求的程序关联起来。它们的目的是选择根据属性被认为正确的语言程序子集。\n\n- 类型检查 – 验证程序是否被类型系统接受。\n\n类型检查在编程中用于限制编程对象的使用方式以及它们可以做什么。这是由编译器或解释器完成的。类型检查还可以通过确保有符号值不会归因于无符号变量来帮助防止漏洞。\n类型检查可以静态（在编译时）、动态（在运行时）或两者的组合进行。\n\n静态类型信息（推断，或由源代码中的类型注释显式提供）也可用于进行优化，例如用未装箱数组替换装箱数组。",
-                                "tags": [
-                                  "Type system",
-                                  "interpreter (computing)",
-                                  "type inference",
-                                  "boxed type"
-                                ]
-                              }
-                            ]
-                          },
                           "children": []
                         },
                         {
@@ -9656,15 +9592,6 @@
                                       "name": "依赖注入",
                                       "count": 0,
                                       "nodeRef": "k_1784466531162_zcrhl7",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:spring-framework:dependency-injection:def",
-                                            "label": "定义",
-                                            "content": "依赖注入是一种模式，其中容器通过名称将对象传递给其他对象，使用构造函数、 属性或工厂方法。实现依赖注入的方法有几种：基于构造函数的依赖注入、基于设置器的依赖注入和基于字段的依赖注入"
-                                          }
-                                        ]
-                                      },
                                       "children": []
                                     },
                                     {
@@ -10278,15 +10205,6 @@
                   "name": "Tomcat",
                   "count": 0,
                   "nodeRef": "k_1786353277269_msn0ma9ap",
-                  "supplement": {
-                    "tabs": [
-                      {
-                        "id": "context:mysql:tomcat:def",
-                        "label": "定义",
-                        "content": "**Tomcat**\n英文：Tomcat\n中文：Tomcat\n\n一个开源的**J2EE**应用程序服务器，实现Java Servlet和JavaServer Pages编程技术。由一个网页服务器和Java Servlet容器组成。通常与MySQL一起使用，通常与**Connector/J**一起使用。\n\n另见 [J2EE](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_j2ee)。\n\n来源：原始行：3321；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tomcat"
-                      }
-                    ]
-                  },
                   "children": []
                 }
               ]
@@ -11600,15 +11518,6 @@
                       "name": "数据库管理系统",
                       "count": 0,
                       "nodeRef": "k_wiki_en_database_s12",
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "context:wikipedia:zh:database-management-system:def",
-                            "label": "定义",
-                            "content": "主条目：[数据库管理系统](https://zh.wikipedia.org/wiki/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)\n\n[資料庫管理系统](https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%BA%AB%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F)（Database Management System，簡稱[DBMS](https://zh.wikipedia.org/wiki/DBMS)）是为管理[資料庫](https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E5%BA%AB)而設計的电腦[軟體](https://zh.wikipedia.org/wiki/%E8%BB%9F%E9%AB%94)系統，一般具有儲存、擷取、安全保障、備份等基礎功能。資料庫管理系統可以依據它所支援的來作分類，例如[關聯式](https://zh.wikipedia.org/wiki/%E9%97%9C%E8%81%AF%E6%A8%A1%E5%9E%8B)、[XML](https://zh.wikipedia.org/wiki/XML)；或依據所支援的電腦類型來作分類，例如伺服器群集、行動電話；或依據所用查詢語言來作分類，例如[SQL](https://zh.wikipedia.org/wiki/SQL)、；或依據性能衝量重點來作分類，例如最大規模、最高執行速度；亦或其他的分類方式。不論使用哪種分類方式，一些DBMS能够跨類別，例如，同時支援多種查詢語言。"
-                          }
-                        ]
-                      },
                       "children": []
                     },
                     {
@@ -12213,15 +12122,6 @@
                           "name": "数据库的历史",
                           "count": 0,
                           "nodeRef": "k_wiki_en_outline_of_databases_s3",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:database-outline:history:def",
-                                "label": "定义",
-                                "content": "数据库的历史 –"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_wiki_en_outline_of_databases_s3_b2",
@@ -12292,15 +12192,6 @@
                               "name": "数据源",
                               "count": 0,
                               "nodeRef": "k_wiki_en_outline_of_databases_s4_b8",
-                              "supplement": {
-                                "tabs": [
-                                  {
-                                    "id": "context:database:data-source:def",
-                                    "label": "定义",
-                                    "content": "\"数据源\" 待补充内容。"
-                                  }
-                                ]
-                              },
                               "children": []
                             },
                             {
@@ -12726,15 +12617,6 @@
                                   "name": "主键",
                                   "count": 0,
                                   "nodeRef": "k_wiki_en_outline_of_databases_s11_b7",
-                                  "supplement": {
-                                    "tabs": [
-                                      {
-                                        "id": "context:database:primary-key:def",
-                                        "label": "定义",
-                                        "content": "\"主键\" 待补充内容。"
-                                      }
-                                    ]
-                                  },
                                   "children": []
                                 },
                                 {
@@ -12905,15 +12787,6 @@
                                   "name": "查询优化器",
                                   "count": 0,
                                   "nodeRef": "k_wiki_en_outline_of_databases_s13_b6",
-                                  "supplement": {
-                                    "tabs": [
-                                      {
-                                        "id": "context:database:query-optimizer:def",
-                                        "label": "定义",
-                                        "content": "\"查询优化器\" 待补充内容。"
-                                      }
-                                    ]
-                                  },
                                   "children": []
                                 },
                                 {
@@ -13183,15 +13056,6 @@
                           "name": "数据仓库",
                           "count": 0,
                           "nodeRef": "k_wiki_en_outline_of_databases_s20",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:database:data-warehouse:def",
-                                "label": "定义",
-                                "content": "\"数据仓库\" 待补充内容。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_wiki_en_outline_of_databases_s20_s21",
@@ -13382,15 +13246,6 @@
                                       "name": "维度表",
                                       "count": 0,
                                       "nodeRef": "k_wiki_en_outline_of_databases_s26_b1",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:database:warehouse-dimension-table:def",
-                                            "label": "定义",
-                                            "content": "\"维度表\" 待补充内容。"
-                                          }
-                                        ]
-                                      },
                                       "children": []
                                     },
                                     {
@@ -13420,15 +13275,6 @@
                                       "name": "提取",
                                       "count": 0,
                                       "nodeRef": "k_wiki_en_outline_of_databases_s27_b1",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:database:warehouse-extract:def",
-                                            "label": "定义",
-                                            "content": "\"提取\" 待补充内容。"
-                                          }
-                                        ]
-                                      },
                                       "children": []
                                     },
                                     {
@@ -14846,15 +14692,6 @@
                           "name": "SQL",
                           "count": 0,
                           "nodeRef": "mysql_topic_sql_objects",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:sql:def",
-                                "label": "定义",
-                                "content": "\"SQL\" 待补充内容。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "mysql_sql_statement_types",
@@ -14896,15 +14733,6 @@
                               "name": "存储过程",
                               "count": 0,
                               "nodeRef": "k_1782930954484_nwtfg7",
-                              "supplement": {
-                                "tabs": [
-                                  {
-                                    "id": "context:mysql:stored-procedure:def",
-                                    "label": "定义",
-                                    "content": "一组为了完成特定功能的预编译的sql语句集合。它像一个自定义的函数或子程序，存储在数据库服务器端。用户通过指定存储过程的名称并给出参数（如果需要）来显式调用它执行。"
-                                  }
-                                ]
-                              },
                               "children": []
                             },
                             {
@@ -16391,15 +16219,6 @@
                           "name": "索引与访问路径",
                           "count": 0,
                           "nodeRef": "mysql_topic_indexes_access",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:indexes-access-paths:def",
-                                "label": "定义",
-                                "content": "B-tree、聚集索引、二级索引、全文索引、哈希索引、扫描和访问路径。\n\n主归属词条：28 个；关联词条：34 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1786175188148_3flq6j",
@@ -16674,15 +16493,6 @@
                                   "name": "ACID",
                                   "count": 0,
                                   "nodeRef": "demo_acid",
-                                  "supplement": {
-                                    "tabs": [
-                                      {
-                                        "id": "context:mysql:acid:def",
-                                        "label": "定义",
-                                        "content": "代表原子性、一致性、隔离性和持久性的一组缩写。这些属性在数据库系统中都是理想的，并且与**transaction**的概念密切相关。`InnoDB`的事务特性遵循ACID原则。\n\n\"事务是**atomic**工作单元，可以**committed**或**rolled back**。当一个事务对数据库进行多项更改时，要么所有更改在事务提交时成功，要么所有更改在事务回滚时被撤销。\n\n数据库在任何时候都保持一致状态——在每次提交或回滚后，以及在事务进行时。如果相关数据在多个表中进行更新，查询要么看到所有旧值，要么看到所有新值，而不是旧值和新值的混合。\n\n事务在进行时是相互保护（隔离）的；它们不能相互干扰或看到彼此未提交的数据。这种隔离通过**locking**机制实现。经验丰富的用户可以调整**isolation\nlevel**，在性能提高和**concurrency**的情况下，权衡减少保护，当他们能够确信事务之间不会相互干扰时。\n\n事务的结果是持久的：一旦提交操作成功，该事务所做的更改就不会受到电源故障、系统崩溃、竞争条件或其他许多非数据库应用程序所易受影响的潜在危险的影响。持久性通常涉及写入磁盘存储，并具有一定程度的冗余，以保护免受写入操作期间的电源故障或软件崩溃。(在`InnoDB`中，**doublewrite\nbuffer**有助于实现持久性。)**已有补充：定义**\n原子性、一致性、隔离性、持久性四大特性。\n\n**已有补充：机制**\n通过 Undo/Redo Log、锁、MVCC 等机制保证。\n\n**已有补充：边界**\n严格 ACID 可能影响性能，需权衡。\n\n**已有补充：来源**\n事务处理概念与技术"
-                                      }
-                                    ]
-                                  },
                                   "children": []
                                 },
                                 {
@@ -17200,17 +17010,6 @@
                           "children": []
                         },
                         {
-                          "id": "projection:mysql-term:mysql_glossary_hdd_eb2rxz",
-                          "name": "HDD",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_hdd_eb2rxz",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_hdd_eb2rxz",
-                          "children": []
-                        },
-                        {
                           "id": "projection:mysql-term:mysql_glossary_hole_punching_r6u429",
                           "name": "打孔 / hole punching",
                           "count": 0,
@@ -17453,17 +17252,6 @@
                           "children": []
                         },
                         {
-                          "id": "projection:mysql-term:mysql_glossary_ssd_gyazmt",
-                          "name": "SSD",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_ssd_gyazmt",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "mysql_glossary_ssd_gyazmt",
-                          "children": []
-                        },
-                        {
                           "id": "projection:mysql-term:mysql_glossary_tcl_1yc19t",
                           "name": "Tcl",
                           "count": 0,
@@ -17510,15 +17298,6 @@
                           "name": "存储引擎",
                           "count": 0,
                           "nodeRef": "mysql_topic_storage_engines",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:storage-engines:def",
-                                "label": "定义",
-                                "content": "InnoDB、MyISAM、MEMORY、ARCHIVE、NDB 等存储引擎及其差异。\n\n主归属词条：8 个；关联词条：19 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1782032090364_9w1h5q",
@@ -17693,15 +17472,6 @@
                                       "name": "free list",
                                       "count": 0,
                                       "nodeRef": "k_1782008098285_y7alsw",
-                                      "supplement": {
-                                        "tabs": [
-                                          {
-                                            "id": "context:mysql:innodb-free-list:def",
-                                            "label": "定义",
-                                            "content": "\"Free List\" 待补充内容。"
-                                          }
-                                        ]
-                                      },
                                       "children": [
                                         {
                                           "id": "tree_1782008422987_mtgjsl",
@@ -18443,15 +18213,6 @@
                           "name": "日志、恢复与持久化",
                           "count": 0,
                           "nodeRef": "mysql_topic_logs_recovery",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:logs-recovery-persistence:def",
-                                "label": "定义",
-                                "content": "Redo、Binlog、查询日志、检查点、刷盘、崩溃恢复和持久性。\n\n主归属词条：25 个；关联词条：32 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1782029505240_be11k0",
@@ -18529,15 +18290,6 @@
                           "name": "备份、运维与诊断",
                           "count": 0,
                           "nodeRef": "mysql_topic_backup_operations",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:backup-operations-diagnostics:def",
-                                "label": "定义",
-                                "content": "备份、恢复、导入导出、启动关闭、诊断和维护工具。\n\n主归属词条：16 个；关联词条：23 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1782032936994_e5wpwn",
@@ -18710,15 +18462,6 @@
                           "name": "复制与高可用",
                           "count": 0,
                           "nodeRef": "mysql_topic_replication_ha",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:replication-high-availability:def",
-                                "label": "定义",
-                                "content": "主从/源副本、复制、组复制、集群、GTID 和复制拓扑。\n\n主归属词条：8 个；关联词条：10 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "mysql_functional_ref_k_dict_kpjg49hn",
@@ -18858,15 +18601,6 @@
                           "name": "安全、账号与认证",
                           "count": 0,
                           "nodeRef": "mysql_topic_security_auth",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:security-authentication:def",
-                                "label": "定义",
-                                "content": "账号、权限、认证、SSL/TLS、Kerberos、票据和安全主体。\n\n主归属词条：9 个；关联词条：9 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "mysql_functional_ref_k_dict_dedl7dno",
@@ -19003,15 +18737,6 @@
                           "name": "连接器、API 与客户端",
                           "count": 0,
                           "nodeRef": "mysql_topic_connectors_api",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:connectors-api-clients:def",
-                                "label": "定义",
-                                "content": "API、Connector、JDBC、ODBC、客户端库和语言绑定。\n\n主归属词条：28 个；关联词条：28 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1782032135569_1697f8",
@@ -19027,13 +18752,6 @@
                                   "children": []
                                 }
                               ]
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_qttpkbhf",
-                              "name": "Python",
-                              "count": 0,
-                              "nodeRef": "k_dict_qttpkbhf",
-                              "children": []
                             }
                           ]
                         },
@@ -19184,39 +18902,6 @@
                           "children": []
                         },
                         {
-                          "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_c_1iy8fe",
-                          "name": "C",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_1iy8fe",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "topic-view",
-                          "sourceNodeId": "mysql_glossary_c_1iy8fe",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_c_15ku39",
-                          "name": "C#",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_15ku39",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "topic-view",
-                          "sourceNodeId": "mysql_glossary_c_15ku39",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_c_cy8cuo",
-                          "name": "C++",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_c_cy8cuo",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "topic-view",
-                          "sourceNodeId": "mysql_glossary_c_cy8cuo",
-                          "children": []
-                        },
-                        {
                           "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_dsn_4y9a4q",
                           "name": "DSN",
                           "count": 0,
@@ -19261,28 +18946,6 @@
                           "children": []
                         },
                         {
-                          "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_php_18dydc",
-                          "name": "PHP",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_php_18dydc",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "topic-view",
-                          "sourceNodeId": "mysql_glossary_php_18dydc",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_spring_1ng89l",
-                          "name": "春天 / Spring",
-                          "count": 0,
-                          "nodeRef": "mysql_glossary_spring_1ng89l",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "topic-view",
-                          "sourceNodeId": "mysql_glossary_spring_1ng89l",
-                          "children": []
-                        },
-                        {
                           "id": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_libmysqld_rpbwgq",
                           "name": "libmysqld",
                           "count": 0,
@@ -19320,15 +18983,6 @@
                           "name": "优化器、缓存与性能",
                           "count": 0,
                           "nodeRef": "mysql_topic_optimizer_performance",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:mysql:optimizer-performance:def",
-                                "label": "定义",
-                                "content": "优化器、执行计划、缓存、缓冲池、自适应机制、统计信息和可扩展性。\n\n主归属词条：18 个；关联词条：30 个。"
-                              }
-                            ]
-                          },
                           "children": [
                             {
                               "id": "tree_1782033508073_oe4mt0",
@@ -19859,15 +19513,6 @@
               "name": "决策支持",
               "count": 0,
               "nodeRef": "k_acm2012_information_systems_decision_support",
-              "supplement": {
-                "tabs": [
-                  {
-                    "id": "context:database:decision-support:def",
-                    "label": "定义",
-                    "content": "\"决策支持\" 待补充内容。"
-                  }
-                ]
-              },
               "children": []
             },
             {
@@ -20383,16 +20028,6 @@
                       "name": "条件变量",
                       "count": 0,
                       "nodeRef": "k_wiki_en_monitor_synchronization_s7",
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "context:monitor:condition-variable-introduction:def",
-                            "label": "定义",
-                            "content": "（本节无正文）",
-                            "tags": []
-                          }
-                        ]
-                      },
                       "children": [
                         {
                           "id": "tree_wiki_en_monitor_synchronization_s2_s3",
@@ -21202,15 +20837,6 @@
           "name": "安全",
           "count": 0,
           "nodeRef": "school_security",
-          "supplement": {
-            "tabs": [
-              {
-                "id": "context:acm:security:def",
-                "label": "定义",
-                "content": "安全（Security）是 ACM 2012 计算分类系统中的计算机科学顶层分类。"
-              }
-            ]
-          },
           "children": [
             {
               "id": "tree_acm2012_security_formal_methods",
