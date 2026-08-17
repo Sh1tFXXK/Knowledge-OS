@@ -25361,66 +25361,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:forest:view:mysql:mysql:theme:architecture",
-    "source": "k_wiki_en_outline_of_databases_s15_b5",
-    "target": "mysql:theme:architecture",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:mysql:theme:architecture:mysql:architecture:product-overview",
-    "source": "mysql:theme:architecture",
-    "target": "mysql:architecture:product-overview",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:mysql:architecture:product-overview:demo_mysql",
-    "source": "mysql:architecture:product-overview",
-    "target": "n_8s66vwo1",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql:architecture:product-overview:projection:mysql-architecture:mysql:architecture:product-overview:mysql_topic_architecture",
-    "source": "mysql:architecture:product-overview",
-    "target": "mysql_topic_architecture",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql:architecture:product-overview:projection:mysql-architecture:mysql:architecture:product-overview:k_1782032149173_bli3vq",
-    "source": "mysql:architecture:product-overview",
-    "target": "k_1782032149173_bli3vq",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:mysql:theme:architecture:mysql:architecture:client-connectivity",
-    "source": "mysql:theme:architecture",
-    "target": "mysql:architecture:client-connectivity",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql:architecture:client-connectivity:projection:mysql-architecture:mysql:architecture:client-connectivity:mysql_glossary_client_13u3vh",
     "source": "mysql:architecture:client-connectivity",
     "target": "mysql_glossary_client_13u3vh",
@@ -25476,18 +25416,6 @@
     ]
   },
   {
-    "id": "treebind:mysql:architecture:client-connectivity:projection:mysql-architecture:mysql:architecture:client-connectivity:mysql_glossary_port_ydif8m",
-    "source": "mysql:architecture:client-connectivity",
-    "target": "mysql_glossary_port_ydif8m",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage",
-      "security"
-    ]
-  },
-  {
     "id": "treebind:mysql:architecture:client-connectivity:projection:mysql-architecture:mysql:architecture:client-connectivity:mysql_glossary_server_side_prepared_statement_1g5uc6",
     "source": "mysql:architecture:client-connectivity",
     "target": "mysql_glossary_server_side_prepared_statement_1g5uc6",
@@ -25497,15 +25425,6 @@
     "dimensions": [
       "storage"
     ]
-  },
-  {
-    "id": "treebind:mysql:theme:architecture:mysql:architecture:server-runtime",
-    "source": "mysql:theme:architecture",
-    "target": "mysql:architecture:server-runtime",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
   },
   {
     "id": "treebind:mysql:architecture:server-runtime:projection:mysql-architecture:mysql:architecture:server-runtime:k_1782032275682_61auc4",
@@ -25566,17 +25485,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:mysql:theme:architecture:mysql:architecture:metadata-namespace",
-    "source": "mysql:theme:architecture",
-    "target": "mysql:architecture:metadata-namespace",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:mysql:architecture:metadata-namespace:projection:mysql-architecture:mysql:architecture:metadata-namespace:k_dict_nsqweksd",
     "source": "mysql:architecture:metadata-namespace",
     "target": "k_dict_nsqweksd",
@@ -25620,15 +25528,6 @@
       "storage",
       "performance"
     ]
-  },
-  {
-    "id": "treebind:mysql:theme:architecture:mysql:architecture:configuration-extensions",
-    "source": "mysql:theme:architecture",
-    "target": "mysql:architecture:configuration-extensions",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
   },
   {
     "id": "treebind:mysql:architecture:configuration-extensions:projection:mysql-architecture:mysql:architecture:configuration-extensions:mysql_glossary_option_1sc73x",
@@ -34505,5 +34404,219 @@
     "dimensions": [
       "storage"
     ]
+  },
+  {
+    "id": "treebind:forest:view:mysql:tree_1786950659484_8iawe7",
+    "source": "k_wiki_en_outline_of_databases_s15_b5",
+    "target": "k_1786950659107_7la92l",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1786950659484_8iawe7:mysql:mysqld-layer:connection",
+    "source": "k_1786950659107_7la92l",
+    "target": "mysql:mysqld-layer:connection",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:k_1782027187728_t4ieqd:1",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "k_1782027187728_t4ieqd",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_pthreads_qfb7k4:3",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "mysql_glossary_pthreads_qfb7k4",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_server_side_prepared_statement_1g5uc6:4",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_12jqwwcl:6",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "k_dict_12jqwwcl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_plyim9pi:7",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "k_dict_plyim9pi",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_n7rueozw:8",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "k_dict_n7rueozw",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:connection:projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_option_1sc73x:9",
+    "source": "mysql:mysqld-layer:connection",
+    "target": "mysql_glossary_option_1sc73x",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1786950659484_8iawe7:mysql:mysqld-layer:parse",
+    "source": "k_1786950659107_7la92l",
+    "target": "mysql:mysqld-layer:parse",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:parse:projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782033245872_81floi:0",
+    "source": "mysql:mysqld-layer:parse",
+    "target": "k_1782033245872_81floi",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:parse:projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782027196864_7mehjk:1",
+    "source": "mysql:mysqld-layer:parse",
+    "target": "k_1782027196864_7mehjk",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1786950659484_8iawe7:mysql:mysqld-layer:optimize",
+    "source": "k_1786950659107_7la92l",
+    "target": "mysql:mysqld-layer:optimize",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:optimize:projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_1782033508063_xspnmd:0",
+    "source": "mysql:mysqld-layer:optimize",
+    "target": "k_1782033508063_xspnmd",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:optimize:projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_dict_rs1y2xku:1",
+    "source": "mysql:mysqld-layer:optimize",
+    "target": "k_dict_rs1y2xku",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:optimize:projection:mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4:2",
+    "source": "mysql:mysqld-layer:optimize",
+    "target": "mysql_glossary_query_execution_plan_17fdf4",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1786950659484_8iawe7:mysql:mysqld-layer:execute",
+    "source": "k_1786950659107_7la92l",
+    "target": "mysql:mysqld-layer:execute",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:execute:projection:mysql-mysqld:mysql:mysqld-layer:execute:mysql_sql_query_execution:0",
+    "source": "mysql:mysqld-layer:execute",
+    "target": "mysql_sql_query_execution",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:execute:projection:mysql-mysqld:mysql:mysqld-layer:execute:k_1784456386575_b7hxoh:1",
+    "source": "mysql:mysqld-layer:execute",
+    "target": "k_1784456386575_b7hxoh",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1786950659484_8iawe7:mysql:mysqld-layer:storage",
+    "source": "k_1786950659107_7la92l",
+    "target": "mysql:mysqld-layer:storage",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:storage:projection:mysql-mysqld:mysql:mysqld-layer:storage:k_1782032090352_a1ehd0:0",
+    "source": "mysql:mysqld-layer:storage",
+    "target": "k_1782032090352_a1ehd0",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:mysql:mysqld-layer:storage:projection:mysql-mysqld:mysql:mysqld-layer:storage:n_97x8s5dv:1",
+    "source": "mysql:mysqld-layer:storage",
+    "target": "n_97x8s5dv",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "treebind:tree_1785129602489_qdmctr:tree_1786953720923_4kkb3j",
+    "source": "n_ag24bbkc",
+    "target": "k_1786953720608_h0qp73",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_acm2012_hardware:projection:mysql-term:k_dict_mb72ps2c",
+    "source": "k_acm2012_hardware",
+    "target": "k_dict_mb72ps2c",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
   }
 ]

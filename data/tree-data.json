@@ -85,6 +85,17 @@
               "count": 0,
               "nodeRef": "k_acm2012_hardware_form_factor",
               "children": []
+            },
+            {
+              "id": "projection:mysql-term:k_dict_mb72ps2c",
+              "name": "RAID",
+              "count": 0,
+              "nodeRef": "k_dict_mb72ps2c",
+              "projection": true,
+              "view": "mysql-architecture",
+              "projectionKind": "canonical-topic",
+              "sourceNodeId": "k_dict_mb72ps2c",
+              "children": []
             }
           ]
         },
@@ -10120,6 +10131,12 @@
                               "count": 0,
                               "nodeRef": "k_1785238325542_49hh56",
                               "children": []
+                            },
+                            {
+                              "id": "tree_1786953720923_4kkb3j",
+                              "name": "事务管理",
+                              "count": 0,
+                              "nodeRef": "k_1786953720608_h0qp73"
                             }
                           ]
                         }
@@ -13745,259 +13762,6 @@
                   "nodeRef": "k_wiki_en_outline_of_databases_s15_b5",
                   "children": [
                     {
-                      "id": "mysql:theme:architecture",
-                      "name": "mysqld 架构总览",
-                      "count": 0,
-                      "view": "mysql-architecture",
-                      "canonicalCategory": true,
-                      "categoryKey": "runtime-architecture",
-                      "nodeRef": "mysql:theme:architecture",
-                      "children": [
-                        {
-                          "id": "mysql:architecture:product-overview",
-                          "name": "mysqld 总体概述",
-                          "nodeRef": "mysql:architecture:product-overview",
-                          "children": [
-                            {
-                              "id": "demo_mysql",
-                              "name": "MySQL 总体概述（历史入口）",
-                              "nodeRef": "mysql:theme:architecture",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "archived-redirect",
-                              "sourceNodeId": "mysql:theme:architecture",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "mysql:mysqld-layer:connection",
-                          "name": "第一层：连接与请求入口",
-                          "nodeRef": "mysql:mysqld-layer:connection",
-                          "children": [
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_1782027165978_v8g3nl:0",
-                              "name": "连接池",
-                              "nodeRef": "k_1782027165978_v8g3nl",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782027165978_v8g3nl",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_1782027187728_t4ieqd:1",
-                              "name": "SQL接口",
-                              "nodeRef": "k_1782027187728_t4ieqd",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782027187728_t4ieqd",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_port_ydif8m:2",
-                              "name": "端口 / port",
-                              "nodeRef": "mysql_glossary_port_ydif8m",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_glossary_port_ydif8m",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_pthreads_qfb7k4:3",
-                              "name": "Pthreads",
-                              "nodeRef": "mysql_glossary_pthreads_qfb7k4",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_glossary_pthreads_qfb7k4",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_server_side_prepared_statement_1g5uc6:4",
-                              "name": "服务器端预处理语句 / server-side prepared statement",
-                              "nodeRef": "mysql_glossary_server_side_prepared_statement_1g5uc6",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_glossary_server_side_prepared_statement_1g5uc6",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:n_8s66vwo1:5",
-                              "name": "mysql",
-                              "nodeRef": "n_8s66vwo1",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "n_8s66vwo1",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_12jqwwcl:6",
-                              "name": "实例 / instance",
-                              "nodeRef": "k_dict_12jqwwcl",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_dict_12jqwwcl",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_plyim9pi:7",
-                              "name": "进程 / process",
-                              "nodeRef": "k_dict_plyim9pi",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_dict_plyim9pi",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_n7rueozw:8",
-                              "name": "线程 / thread",
-                              "nodeRef": "k_dict_n7rueozw",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_dict_n7rueozw",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_option_1sc73x:9",
-                              "name": "选项 / option",
-                              "nodeRef": "mysql_glossary_option_1sc73x",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_glossary_option_1sc73x",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "mysql:mysqld-layer:parse",
-                          "name": "第二层：SQL 解析层",
-                          "nodeRef": "mysql:mysqld-layer:parse",
-                          "children": [
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782033245872_81floi:0",
-                              "name": "解析器（Parser）",
-                              "nodeRef": "k_1782033245872_81floi",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782033245872_81floi",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782027196864_7mehjk:1",
-                              "name": "解析器",
-                              "nodeRef": "k_1782027196864_7mehjk",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782027196864_7mehjk",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "mysql:mysqld-layer:optimize",
-                          "name": "第三层：查询优化层",
-                          "nodeRef": "mysql:mysqld-layer:optimize",
-                          "children": [
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_1782033508063_xspnmd:0",
-                              "name": "查询优化器（Optimizer）",
-                              "nodeRef": "k_1782033508063_xspnmd",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782033508063_xspnmd",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_dict_rs1y2xku:1",
-                              "name": "优化器 / optimizer",
-                              "nodeRef": "k_dict_rs1y2xku",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_dict_rs1y2xku",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4:2",
-                              "name": "查询执行计划 / query execution plan",
-                              "nodeRef": "mysql_glossary_query_execution_plan_17fdf4",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_glossary_query_execution_plan_17fdf4",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "mysql:mysqld-layer:execute",
-                          "name": "第四层：查询执行层",
-                          "nodeRef": "mysql:mysqld-layer:execute",
-                          "children": [
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:execute:mysql_sql_query_execution:0",
-                              "name": "查询与语句执行",
-                              "nodeRef": "mysql_sql_query_execution",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "mysql_sql_query_execution",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:execute:k_1784456386575_b7hxoh:1",
-                              "name": "事务管理",
-                              "nodeRef": "k_1784456386575_b7hxoh",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1784456386575_b7hxoh",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "mysql:mysqld-layer:storage",
-                          "name": "第五层：存储引擎与持久化层",
-                          "nodeRef": "mysql:mysqld-layer:storage",
-                          "children": [
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:storage:k_1782032090352_a1ehd0:0",
-                              "name": "存储引擎层",
-                              "nodeRef": "k_1782032090352_a1ehd0",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "k_1782032090352_a1ehd0",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:storage:n_97x8s5dv:1",
-                              "name": "存储引擎 / storage engine",
-                              "nodeRef": "n_97x8s5dv",
-                              "projection": true,
-                              "view": "mysql-architecture",
-                              "projectionKind": "mysqld-layer",
-                              "sourceNodeId": "n_97x8s5dv",
-                              "children": []
-                            }
-                          ]
-                        }
-                      ]
-                    },
-                    {
                       "id": "mysql:theme:sql-language",
                       "name": "SQL 与语言对象",
                       "count": 0,
@@ -16189,17 +15953,6 @@
                           "view": "mysql-architecture",
                           "projectionKind": "canonical-topic",
                           "sourceNodeId": "k_dict_xb5t6pmm",
-                          "children": []
-                        },
-                        {
-                          "id": "projection:mysql-term:k_dict_mb72ps2c",
-                          "name": "RAID",
-                          "count": 0,
-                          "nodeRef": "k_dict_mb72ps2c",
-                          "projection": true,
-                          "view": "mysql-architecture",
-                          "projectionKind": "canonical-topic",
-                          "sourceNodeId": "k_dict_mb72ps2c",
                           "children": []
                         },
                         {
@@ -19883,6 +19636,189 @@
                           "projectionKind": "topic-view",
                           "sourceNodeId": "k_1782029618563_7rrguo",
                           "children": []
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_1786950659484_8iawe7",
+                      "name": "结构",
+                      "count": 0,
+                      "nodeRef": "k_1786950659107_7la92l",
+                      "children": [
+                        {
+                          "id": "mysql:mysqld-layer:connection",
+                          "name": "连接与请求入口",
+                          "nodeRef": "mysql:mysqld-layer:connection",
+                          "children": [
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_1782027187728_t4ieqd:1",
+                              "name": "SQL接口",
+                              "nodeRef": "k_1782027187728_t4ieqd",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1782027187728_t4ieqd",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_pthreads_qfb7k4:3",
+                              "name": "Pthreads",
+                              "nodeRef": "mysql_glossary_pthreads_qfb7k4",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "mysql_glossary_pthreads_qfb7k4",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_server_side_prepared_statement_1g5uc6:4",
+                              "name": "服务器端预处理语句 / server-side prepared statement",
+                              "nodeRef": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_12jqwwcl:6",
+                              "name": "实例 / instance",
+                              "nodeRef": "k_dict_12jqwwcl",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_dict_12jqwwcl",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_option_1sc73x:9",
+                              "name": "选项 / option",
+                              "nodeRef": "mysql_glossary_option_1sc73x",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "mysql_glossary_option_1sc73x",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql:mysqld-layer:parse",
+                          "name": "SQL 解析层",
+                          "nodeRef": "mysql:mysqld-layer:parse",
+                          "children": [
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782033245872_81floi:0",
+                              "name": "解析器（Parser）",
+                              "nodeRef": "k_1782033245872_81floi",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1782033245872_81floi",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782027196864_7mehjk:1",
+                              "name": "解析器",
+                              "nodeRef": "k_1782027196864_7mehjk",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1782027196864_7mehjk",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql:mysqld-layer:optimize",
+                          "name": "查询优化层",
+                          "nodeRef": "mysql:mysqld-layer:optimize",
+                          "children": [
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_1782033508063_xspnmd:0",
+                              "name": "查询优化器（Optimizer）",
+                              "nodeRef": "k_1782033508063_xspnmd",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1782033508063_xspnmd",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_dict_rs1y2xku:1",
+                              "name": "优化器 / optimizer",
+                              "nodeRef": "k_dict_rs1y2xku",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_dict_rs1y2xku",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4:2",
+                              "name": "查询执行计划 / query execution plan",
+                              "nodeRef": "mysql_glossary_query_execution_plan_17fdf4",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "mysql_glossary_query_execution_plan_17fdf4",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql:mysqld-layer:execute",
+                          "name": "查询执行层",
+                          "nodeRef": "mysql:mysqld-layer:execute",
+                          "children": [
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:execute:mysql_sql_query_execution:0",
+                              "name": "查询与语句执行",
+                              "nodeRef": "mysql_sql_query_execution",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "mysql_sql_query_execution",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:execute:k_1784456386575_b7hxoh:1",
+                              "name": "事务管理",
+                              "nodeRef": "k_1784456386575_b7hxoh",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1784456386575_b7hxoh",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql:mysqld-layer:storage",
+                          "name": "存储引擎与持久化层",
+                          "nodeRef": "mysql:mysqld-layer:storage",
+                          "children": [
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:storage:k_1782032090352_a1ehd0:0",
+                              "name": "存储引擎层",
+                              "nodeRef": "k_1782032090352_a1ehd0",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "k_1782032090352_a1ehd0",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-mysqld:mysql:mysqld-layer:storage:n_97x8s5dv:1",
+                              "name": "存储引擎 / storage engine",
+                              "nodeRef": "n_97x8s5dv",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "mysqld-layer",
+                              "sourceNodeId": "n_97x8s5dv",
+                              "children": []
+                            }
+                          ]
                         }
                       ]
                     }
