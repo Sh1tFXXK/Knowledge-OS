@@ -1,4 +1,4 @@
-import { Maximize2, Minimize2, Plus, X } from 'lucide-react';
+﻿import { Maximize2, Minimize2, Plus, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   buildExplanationIndex,
@@ -455,6 +455,7 @@ export default function ExplanationIndexView({
     if (!isExplanationSelectionActive(currentSelection, selection)) {
       setIsEditing(false);
     }
+    openCard(selection.nodeId);
     setActiveSelection(selection);
   };
 
@@ -1019,3 +1020,4 @@ export default function ExplanationIndexView({
     </div>
   );
 }
+
