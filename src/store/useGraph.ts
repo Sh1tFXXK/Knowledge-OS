@@ -734,6 +734,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
         title: state.nodePool[id]?.label ?? id,
         tabs: [],
       };
+      const cardDefinition = String(
+        directCard?.rootContent ?? directCard?.tabs?.find((tab) => tab.id === 'def')?.content ?? '',
+      ).trim();
       const findByRef = (node: TreeNode): TreeNode | null => {
         if (node.nodeRef === id) return node;
         for (const child of node.children ?? []) {
@@ -759,7 +762,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         pages: (node.children ?? []).filter((child) => Boolean(child.nodeRef)).map(pageFor),
       });
       const children = (treeNode?.children ?? []).filter((child) => Boolean(child.nodeRef));
-      if (!treeNode || children.length === 0) return { ...base, nodeId: id };
+      if (!treeNode || children.length === 0) return { ...base, nodeId: id, rootContent: String(base.rootContent ?? '').trim() || cardDefinition };
       const tabs = children.map((child): ExplanationTab => ({
         id: 'tree-tab:' + child.id,
         knowledgeNodeId: child.nodeRef,
@@ -767,7 +770,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         content: definitionFor(child),
         pages: (child.children ?? []).filter((grandchild) => Boolean(grandchild.nodeRef)).map(pageFor),
       }));
-      return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, tabs };
+      return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, rootContent: String(base.rootContent ?? '').trim() || cardDefinition, tabs };
     },
 
     getActiveDimension: () => get().currentPerspective?.id ?? 'all',
