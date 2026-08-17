@@ -1453,9 +1453,6 @@ export function UnifiedIndexGraph({
                       }}
                     >
                       <strong>{graphNode.label}</strong>
-                         {graphNode.content && (
-                           <span className="explanation-index-class-definition">{graphNode.content}</span>
-                         )}
                       {graphNode.tags.length > 0 && (
                         <span className="explanation-index-class-stereotypes">
                           {graphNode.tags.slice(0, 3).map((tag) => `#${tag}`).join('  ')}
