@@ -1,0 +1,476 @@
+.mechanism-head-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  min-width: 0;
+}
+
+.mechanism-diagram-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  padding: 3px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.58);
+}
+
+.mechanism-diagram-switcher button {
+  min-width: 68px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  font-family: var(--font-sans);
+  font-size: 10px;
+  cursor: pointer;
+  transition:
+    color 150ms ease,
+    border-color 150ms ease,
+    background 150ms ease,
+    transform 150ms ease;
+}
+
+.mechanism-diagram-switcher button:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.mechanism-diagram-switcher button:active {
+  transform: translateY(1px);
+}
+
+.mechanism-diagram-switcher button:focus-visible,
+.mechanism-flow-node:focus-visible,
+.mechanism-sequence-message:focus-visible {
+  outline: 2px solid rgba(94, 234, 212, 0.72);
+  outline-offset: 2px;
+}
+
+.mechanism-diagram-switcher button.is-selected {
+  border-color: rgba(20, 184, 166, 0.34);
+  background: rgba(20, 184, 166, 0.1);
+  color: #5eead4;
+}
+
+.mechanism-diagram-scroll {
+  width: 100%;
+  height: 100%;
+  min-height: 600px;
+  overflow: auto;
+}
+
+.innodb-physical-chain-item {
+  display: contents;
+}
+
+.mechanism-flow-diagram {
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  list-style: none;
+  padding: 54px 24px;
+}
+
+.mechanism-flow-diagram li {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.mechanism-flow-node {
+  position: relative;
+  width: 156px;
+  min-height: 178px;
+  display: grid;
+  grid-template-rows: auto minmax(52px, auto) 1fr;
+  gap: 10px;
+  padding: 13px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 7px;
+  background:
+    linear-gradient(180deg, rgba(20, 184, 166, 0.045), transparent 45%),
+    rgba(11, 18, 30, 0.86);
+  color: var(--text-secondary);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.mechanism-flow-node:hover {
+  border-color: rgba(148, 163, 184, 0.34);
+  background-color: rgba(16, 26, 42, 0.94);
+  transform: translateY(-2px);
+}
+
+.mechanism-flow-diagram li.is-current .mechanism-flow-node {
+  box-shadow:
+    0 0 0 1px rgba(20, 184, 166, 0.2),
+    0 16px 38px rgba(20, 184, 166, 0.1);
+}
+
+.mechanism-flow-index {
+  color: #5eead4;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.mechanism-flow-node strong {
+  color: var(--text-primary);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.mechanism-flow-route {
+  display: grid;
+  align-content: end;
+  gap: 4px;
+  min-width: 0;
+  font-size: 10px;
+  line-height: 1.25;
+}
+
+.mechanism-flow-route em {
+  color: rgba(94, 234, 212, 0.76);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-style: normal;
+}
+
+.mechanism-flow-connector {
+  position: relative;
+  width: 32px;
+  height: 2px;
+  background: rgba(148, 163, 184, 0.28);
+}
+
+.mechanism-flow-connector::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1px;
+  transform: translateY(-50%);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 8px solid rgba(148, 163, 184, 0.46);
+}
+
+.mechanism-flow-node.is-active,
+.mechanism-flow-node.is-traversed,
+.mechanism-logic-node.is-active,
+.mechanism-logic-node.is-traversed {
+  border-color: rgba(20, 184, 166, 0.72);
+}
+
+.mechanism-flow-node.is-mutated,
+.mechanism-logic-node.is-mutated {
+  border-color: rgba(245, 158, 11, 0.76);
+}
+
+.mechanism-flow-node.is-guarded,
+.mechanism-logic-node.is-guarded {
+  border-color: rgba(244, 114, 182, 0.74);
+}
+
+.mechanism-flow-node.is-persisted,
+.mechanism-logic-node.is-persisted {
+  border-color: rgba(34, 197, 94, 0.7);
+}
+
+.mechanism-logic-diagram {
+  position: relative;
+  min-width: 980px;
+  min-height: 600px;
+}
+
+.mechanism-logic-edges {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mechanism-logic-edge {
+  color: rgba(100, 116, 139, 0.42);
+}
+
+.mechanism-logic-edge path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.mechanism-logic-edge text {
+  fill: currentColor;
+  paint-order: stroke;
+  stroke: #0a0f18;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.mechanism-logic-edge.is-active,
+.mechanism-logic-edge.is-traversed {
+  color: #14b8a6;
+}
+
+.mechanism-logic-edge.is-mutated {
+  color: #f59e0b;
+}
+
+.mechanism-logic-edge.is-guarded {
+  color: #f472b6;
+}
+
+.mechanism-logic-edge.is-persisted {
+  color: #22c55e;
+}
+
+.mechanism-logic-node {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 164px;
+  height: 58px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  padding: 9px 11px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 7px;
+  background: rgba(11, 18, 30, 0.92);
+  color: var(--text-secondary);
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.mechanism-logic-node:hover,
+.mechanism-logic-node.is-selected {
+  border-color: rgba(94, 234, 212, 0.76);
+  box-shadow:
+    0 0 0 2px rgba(20, 184, 166, 0.14),
+    0 12px 30px rgba(8, 13, 20, 0.44);
+}
+
+.mechanism-logic-node:focus-visible {
+  outline: 2px solid rgba(94, 234, 212, 0.72);
+  outline-offset: 2px;
+}
+
+.mechanism-logic-node strong,
+.mechanism-logic-node span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mechanism-logic-node strong {
+  color: var(--text-primary);
+  font-size: 11px;
+}
+
+.mechanism-logic-node span {
+  color: var(--text-tertiary);
+  font-size: 9px;
+}
+
+.mechanism-logic-node.is-active,
+.mechanism-logic-node.is-traversed,
+.mechanism-logic-node.is-mutated,
+.mechanism-logic-node.is-guarded,
+.mechanism-logic-node.is-persisted {
+  box-shadow: 0 10px 30px rgba(8, 13, 20, 0.42);
+}
+
+.mechanism-sequence-diagram {
+  position: relative;
+  min-width: 980px;
+  min-height: 600px;
+  padding-top: 16px;
+}
+
+.mechanism-sequence-head {
+  position: absolute;
+  top: 18px;
+  width: 136px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px 9px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  border-radius: 6px;
+  background: rgba(11, 18, 30, 0.92);
+  color: var(--text-primary);
+  text-align: center;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+.mechanism-sequence-head strong {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+}
+
+.mechanism-sequence-lifeline {
+  position: absolute;
+  top: 60px;
+  width: 1px;
+  border-left: 1px dashed rgba(148, 163, 184, 0.24);
+}
+
+.mechanism-sequence-message {
+  position: absolute;
+  height: 54px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: rgba(148, 163, 184, 0.58);
+  cursor: pointer;
+}
+
+.mechanism-sequence-message-label {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  max-width: min(280px, calc(100% - 12px));
+  transform: translateX(-50%);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 2px 6px;
+  align-items: baseline;
+  padding: 3px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: rgba(10, 15, 24, 0.9);
+  text-align: left;
+}
+
+.mechanism-sequence-message-label em {
+  grid-row: 1 / 3;
+  align-self: center;
+  color: currentColor;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.mechanism-sequence-message-label strong,
+.mechanism-sequence-message-label small {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mechanism-sequence-message-label strong {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.mechanism-sequence-message-label small {
+  color: var(--text-tertiary);
+  font-size: 8px;
+}
+
+.mechanism-sequence-arrow {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
+  height: 1px;
+  background: currentColor;
+}
+
+.mechanism-sequence-arrow::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  bottom: -4px;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 7px solid currentColor;
+}
+
+.mechanism-sequence-message.is-reverse .mechanism-sequence-arrow::after {
+  right: auto;
+  left: -1px;
+  border-right: 7px solid currentColor;
+  border-left: 0;
+}
+
+.mechanism-sequence-message:hover .mechanism-sequence-message-label,
+.mechanism-sequence-message.is-current .mechanism-sequence-message-label {
+  border-color: rgba(20, 184, 166, 0.3);
+  background: rgba(20, 184, 166, 0.09);
+}
+
+.mechanism-sequence-message.is-active,
+.mechanism-sequence-message.is-traversed {
+  color: #14b8a6;
+}
+
+.mechanism-sequence-message.is-mutated {
+  color: #f59e0b;
+}
+
+.mechanism-sequence-message.is-guarded {
+  color: #f472b6;
+}
+
+.mechanism-sequence-message.is-persisted {
+  color: #22c55e;
+}
+
+@media (max-width: 1180px) {
+  .mechanism-lens-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .mechanism-head-actions {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 720px) {
+  .mechanism-head-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .mechanism-diagram-switcher {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .mechanism-diagram-switcher button {
+    flex: 1 0 68px;
+  }
+}

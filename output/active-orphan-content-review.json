@@ -1,0 +1,3199 @@
+{
+  "generatedAt": "2026-08-15T15:47:48.509Z",
+  "totalActiveOrphans": 825,
+  "topByConnectivity": [
+    {
+      "id": "demo_btree",
+      "label": "B+树索引",
+      "role": "mechanism",
+      "dimensions": [
+        "storage",
+        "performance"
+      ],
+      "degree": 8,
+      "referenceCount": 1,
+      "tags": [
+        "B+树索引"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "平衡多路搜索树，叶子节点存储数据或指针。"
+        }
+      ]
+    },
+    {
+      "id": "demo_vchain_sys",
+      "label": "版本链子系统",
+      "role": "subsystem",
+      "dimensions": [
+        "storage",
+        "transaction"
+      ],
+      "degree": 2,
+      "referenceCount": 1,
+      "tags": [
+        "版本链子系统"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "维护行级版本链构建、遍历与清理的模块边界。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_runtime_files",
+      "label": "运行时文件",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 2,
+      "referenceCount": 1,
+      "tags": [
+        "运行时文件"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "运行时文件是 mysqld 进程运行期间用于进程识别、本地通信或服务管理的文件。"
+        }
+      ]
+    },
+    {
+      "id": "react_import_aliasing",
+      "label": "导入重命名",
+      "role": "mechanism",
+      "dimensions": [
+        "react"
+      ],
+      "degree": 1,
+      "referenceCount": 1,
+      "tags": [
+        "导入重命名"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "在导入时使用 `as` 术语为组件指定一个别名。"
+        }
+      ]
+    },
+    {
+      "id": "demo_snapshot",
+      "label": "快照读",
+      "role": "conclusion",
+      "dimensions": [
+        "performance"
+      ],
+      "degree": 1,
+      "referenceCount": 1,
+      "tags": [
+        "快照读"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "普通 SELECT 读历史版本，不加锁。"
+        }
+      ]
+    },
+    {
+      "id": "demo_composite_index",
+      "label": "组合索引",
+      "role": "mechanism",
+      "dimensions": [
+        "performance"
+      ],
+      "degree": 1,
+      "referenceCount": 1,
+      "tags": [
+        "组合索引"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "包含多个列的索引，按列顺序构建搜索树。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_file_pid",
+      "label": "PID 文件 / PID file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 1,
+      "referenceCount": 1,
+      "tags": [
+        "PID 文件 / PID file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**PID 文件 / PID file** 英文：PID file 中文：PID 文件 PID 文件是 `mysqld` 在 Unix/Linux 环境下使用的进程文件，用于保存 MySQL 服务器进程的进程 ID，便于服务管理脚本识别和控制运行中的进程。"
+        }
+      ]
+    },
+    {
+      "id": "demo_postgres",
+      "label": "PostgreSQL",
+      "role": "subsystem",
+      "dimensions": [
+        "storage",
+        "transaction"
+      ],
+      "degree": 0,
+      "referenceCount": 2,
+      "tags": [
+        "PostgreSQL"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"PostgreSQL\" 知识节点，作为该层级的核心聚合节点。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_file_socket",
+      "label": "Socket 文件 / Socket file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 1,
+      "referenceCount": 1,
+      "tags": [
+        "Socket 文件 / Socket file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**Socket 文件 / Socket file** 英文：Socket file 中文：Socket 文件 Socket 文件是 Unix/Linux 环境下用于本地进程间通信的 Unix Socket 文件。MySQL 客户端在本机连接 MySQL 服务器时，可以不经过 TCP/IP 网络，而通过该 socket 文件连接。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_arm_file_ufam2l",
+      "label": ".ARM文件 / .ARM file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".ARM文件 / .ARM file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.ARM文件 / .ARM file** 英文：.ARM file 中文：.ARM文件 用于`ARCHIVE`表的元数据。与 **.ARZ file** 对比。此扩展名的文件始终包含在`mysqlbackup`命令生成的备份中，属于**MySQL Enterprise Backup**产品。 另见 [.ARZ文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_arz_file), [MySQL Enterprise Backup](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup), [mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mys"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_arz_file_1iyj60",
+      "label": ".ARZ文件 / .ARZ file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".ARZ文件 / .ARZ file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.ARZ文件 / .ARZ file** 英文：.ARZ file 中文：.ARZ文件 ARCHIVE表的数据。与**.ARM file**对比。此扩展名的文件始终包含在`mysqlbackup`命令生成的备份中，属于**MySQL Enterprise Backup**产品。 另见 [.ARM文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_arm_file), [MySQL Enterprise Backup](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup), [mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysqlbacku"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_cfg_file_1wfa77",
+      "label": ".cfg 文件 / .cfg file",
+      "role": "plain",
+      "dimensions": [
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".cfg 文件 / .cfg file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.cfg 文件 / .cfg file** 英文：.cfg file 中文：.cfg 文件 用于 InnoDB transportable tablespace 功能的元数据文件。它是由命令 FLUSH TABLES ... FOR EXPORT 生成的，将一个或多个表置于一致的状态，可以复制到其他服务器。 .cfg 文件与相应的 .ibd file 一起复制，并用于调整 .ibd 文件的内部值，例如 space ID，在ALTER TABLE ... IMPORT TABLESPACE 步骤中。 参见 .ibd 文件， 空间 ID， 可运输表空间。 来源：原始行：314；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cfg_file"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_ibz_file_tz3hbm",
+      "label": ".ibz 文件 / .ibz file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".ibz 文件 / .ibz file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.ibz 文件 / .ibz file** 英文：.ibz file 中文：.ibz 文件 当MySQL Enterprise Backup产品执行compressed backup时，它将使用file-per-table设置创建的每个tablespace文件从.ibd扩展名转换为.ibz扩展名。 备份期间应用的压缩与compressed row format不同，后者在正常操作期间保持表数据压缩。压缩备份操作对已经处于压缩行格式的表空间跳过压缩步骤，因为再次压缩会减慢备份速度，但几乎不会节省空间。 另见 压缩备份, 压缩行格式, 每表文件, .ibd 文件, MySQL 企业备份, 表空间。 来源：原始行：1255；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibz_file"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_mrg_file_2synx7",
+      "label": ".MRG 文件 / .MRG file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".MRG 文件 / .MRG file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.MRG 文件 / .MRG file** 英文：.MRG file 中文：.MRG 文件 一个包含其他表引用的文件，由 MERGE 存储引擎使用。这种扩展名的文件始终包含在由 mysqlbackup 命令生成的备份中，属于 MySQL Enterprise Backup 产品。 另见MySQL企业备份、mysqlbackup命令。 来源：原始行：1740；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mrg_file"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_net_1q25ey",
+      "label": ".NET",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".NET",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.NET** 英文：.NET 中文：.NET 另请参见ADO.NET，ASP.net，Connector/NET，Mono，Visual Studio。 来源：原始行：1912；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos__net"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_opt_file_1w9809",
+      "label": ".OPT 文件 / .OPT file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".OPT 文件 / .OPT file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.OPT 文件 / .OPT file** 英文：.OPT file 中文：.OPT 文件 包含数据库配置信息的文件。具有此扩展名的文件包含在由**mysqlbackup**命令生成的备份中，该命令属于**MySQL Enterprise Backup**产品。 另见[MySQL企业备份](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup)、[mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysqlbackup_command)。 来源：原始行：2003；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_opt_f"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_par_file_rzlrrm",
+      "label": ".par 文件 / .par file",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        ".par 文件 / .par file",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**.par 文件 / .par file** 英文：.par file 中文：.par 文件 包含分区定义的文件。具有此扩展名的文件包含在 由 `mysqlbackup` 命令生成的备份中 **MySQL Enterprise Backup** 产品。 随着 MySQL 5.7.6 引入对 `InnoDB` 表的本地分区支持，分区 `.par` 文件不再为分区的 `InnoDB` 表创建。分区 `MyISAM` 表在 MySQL 5.7 中继续使用 `.par` 文件。在 MySQL 8.0 中，分区支持仅由 `InnoDB` 存储引擎提供。因此，从 MySQL 8.0 开始不再使用 `.par` 文件。 另见[MySQL企业备份](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup)、[mysqlbackup命令"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_45pmo73s",
+      "label": "10046 事件",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "10046 事件"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"10046 事件\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_8ekhf6v8",
+      "label": "2PC",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "2PC"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"2PC\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_kp16rzvr",
+      "label": "3NF",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "3NF"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"3NF\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_7yw7viap",
+      "label": "5NF",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "5NF"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"5NF\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_eiffel_75vlru",
+      "label": "埃菲尔 / Eiffel",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "埃菲尔 / Eiffel",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**埃菲尔 / Eiffel** 英文：Eiffel 中文：埃菲尔 一种包括许多面向对象特性的编程语言。它的一些概念对Java和C#开发者来说是熟悉的。有关MySQL的开源Eiffel API，请参见第31.13节，“MySQL Eiffel Wrapper”。 \"另见 API，C#，Java。\" 来源：原始行：921；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_eiffel"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_ilk9b2e7",
+      "label": "安全连接",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "安全连接"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"安全连接\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_auto_nm6bj0",
+      "label": "安全转换（布尔化）",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "安全转换(布尔化)"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "使用 >0 判断或双重否定 !!"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_k72g9gdn",
+      "label": "安装与配置",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "安装与配置"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"安装与配置\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_hj2its9m",
+      "label": "半结构化数据",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "半结构化数据"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"半结构化数据\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_semi_consistent_read_luof7q",
+      "label": "半一致性读取 / semi-consistent read",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "半一致性读取 / semi-consistent read",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**半一致性读取 / semi-consistent read** 英文：semi-consistent read 中文：半一致性读取 一种用于`UPDATE`语句的读取操作类型，结合了**READ COMMITTED**和**consistent read**。当一个`UPDATE`语句检查一个已经被锁定的行时，`InnoDB`会向MySQL返回最新的提交版本，以便MySQL可以确定该行是否符合`WHERE`条件的`UPDATE`。如果该行匹配（必须更新），MySQL再次读取该行，这次`InnoDB`要么锁定它，要么等待它的锁定。这种类型的读取操作只能在事务具有READ COMMITTED **isolation level**时发生。 \"另请参见 [一致性读取](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_consistent_read), [隔离级别"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_pessimistic_l0bpvy",
+      "label": "悲观 / pessimistic",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "悲观 / pessimistic",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**悲观 / pessimistic** 一种牺牲性能或并发以换取安全性的方法。如果请求或尝试失败的比例较高，或者失败请求的后果严重，这种方法是合适的。 `InnoDB` 使用被称为悲观的 **locking**策略，以最小化**deadlocks**的机会。在应用程序层面，您可以通过在一开始就采用悲观策略来获取事务所需的所有锁，从而避免死锁。 许多内置数据库机制使用相反的**optimistic**方法。 另见 [死锁](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_deadlock), [锁定](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_locking), [乐观](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glo"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_vg1hm4yv",
+      "label": "备份 / backup",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "备份 / backup",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"将 MySQL 实例中的部分或全部表数据和元数据进行复制以备保存。也可以指复制的文件集合。这是数据库管理员的重要任务。此过程的反向操作是 **restore**。\" 使用 MySQL，**physical backups**是通过 **MySQL Enterprise Backup**产品执行的，而 **logical backups**则是通过 `mysqldump` 命令执行的。这些技术在备份数据的大小、表示和速度（尤其是恢复操作的速度）方面具有不同的特性。 备份进一步分为 **hot**、 **warm**或 **cold**，具体取决于它们对正常数据库操作的干扰程度。（热备份干扰最小，冷备份干扰最大。）"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_native_c_api_19tz94",
+      "label": "本地 C API / native C API",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "本地 C API / native C API",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**本地 C API / native C API** 英文：native C API 中文：本地 C API libmysqlclient 的同义词。 另见 libmysql。 来源：原始行：1916；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_native_c_api"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_localhost_d4md6",
+      "label": "本地主机 / localhost",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "本地主机 / localhost",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**本地主机 / localhost**"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_crash_7aq2mw",
+      "label": "崩溃 / crash",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "崩溃 / crash",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**崩溃 / crash** “MySQL使用术语“崩溃”通常指代任何意外的shutdown操作，在这种情况下，服务器无法进行正常的清理。例如，由于数据库服务器机器或存储设备的硬件故障，电力故障，导致MySQL服务器停止的潜在数据不匹配，DBA发起的fast shutdown，或者其他许多原因都可能导致崩溃。对InnoDB表的强大、自动的crash recovery确保在服务器重新启动时数据保持一致，无需DBA额外工作。”"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_crash_recovery_139bco",
+      "label": "崩溃恢复 / crash recovery",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "崩溃恢复 / crash recovery",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**崩溃恢复 / crash recovery** 英文：crash recovery 中文：崩溃恢复 当MySQL在崩溃后重新启动时发生的清理活动。对于InnoDB表，来自不完整事务的更改将使用redo log中的数据进行重放。崩溃前已committed的更改，但尚未写入data files，将通过doublewrite buffer进行重建。当数据库正常关机时，此类活动将在关机过程中通过purge操作执行。 在正常操作过程中，已提交的数据可以存储在change buffer中一段时间，然后再写入数据文件。在保持数据文件更新与缓冲数据之间总是存在权衡，前者在正常操作过程中会引入性能开销，而后者则可能导致关机和崩溃恢复所需时间更长。 另见 更改缓存, 提交, 崩溃, 数据文件, 双写缓存, InnoDB, 清除, 重做日志。 来源：原始行：651；官方锚点：https://docs.oracle.com/cd/E17952_01"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_change_buffering_y1y18j",
+      "label": "变更缓冲 / change buffering",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "变更缓冲 / change buffering",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**变更缓冲 / change buffering** 英文：change buffering 中文：变更缓冲 涉及change buffer的特性的一般术语，包括insert buffering、delete buffering和purge buffering。由SQL语句引起的索引变化，通常可能涉及随机I/O操作，都会被延迟并定期由后台thread执行。此操作序列可以更高效地为一系列索引值写入磁盘块，而不是立即将每个值写入磁盘。由innodb_change_buffering和innodb_change_buffer_max_size配置选项控制。 另请参见更改缓冲区、删除缓冲、插入缓冲、清除缓冲。 来源：原始行：379；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_change_buffering"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_30h7phnv",
+      "label": "表（Table）",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表(Table)"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"表（Table）\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_ggx8n53p",
+      "label": "表达式索引",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表达式索引"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"表达式索引\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_umbo5ime",
+      "label": "表空间 / tablespace",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表空间 / tablespace",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**表空间 / tablespace** 英文：tablespace 中文：表空间 一个可以保存一个或多个 `InnoDB` **tables**及其相关 **indexes**的数据文件。 **system tablespace** 包含 `InnoDB` 数据 字典，并且在 MySQL 5.6 之前自动包含所有其他 `InnoDB` 表。 “[`innodb_file_per_table`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_file_per_table)选项在MySQL 5.6及更高版本中默认启用，允许在各自的表空间中创建表。每表一个文件的表空间支持高效存储**off-page columns**、表压缩以及可运输表空间等功能。详细信息请参见[第17.6.3.2节，“每表一个文件的表空间”](https:"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_group_tablespaces_files",
+      "label": "表空间、页与文件",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表空间、页与文件",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "表空间、页、数据目录、数据文件、InnoDB 与 MyISAM 文件形态。 主归属词条：36 个；关联词条：48 个。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_table_type_1wu89y",
+      "label": "表类型 / table type",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表类型 / table type",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "用于**storage engine**的过时同义词。我们提到[`InnoDB`]表、[`MyISAM`]表等。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_table_lock_15y9vl",
+      "label": "表锁 / table lock",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表锁 / table lock",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**表锁 / table lock** 英文：table lock 中文：表锁 一种锁定机制，防止任何其他**transaction**访问表。`InnoDB`努力通过使用诸如**online DDL**、**row locks**和**consistent reads**等技术，使此类锁定变得不必要，以处理**DML**语句和**queries**。您可以通过SQL使用`锁表`语句来创建此类锁定；从其他数据库系统或MySQL存储引擎迁移的步骤之一是尽可能删除此类语句。 另请参阅 [一致读取](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_consistent_read), [DML](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dml), [锁定](https://dev.mysql"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_table_statistics_1c30y8",
+      "label": "表统计信息 / table statistics",
+      "role": "plain",
+      "dimensions": [
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "表统计信息 / table statistics",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**表统计信息 / table statistics** 英文：table statistics 中文：表统计信息 查看[统计数据](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_statistics)。 来源：原始行：3229；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_table_statistics"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_concurrency_uoyivs",
+      "label": "并发 / concurrency",
+      "role": "plain",
+      "dimensions": [
+        "transaction"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "并发 / concurrency",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "“多个操作（在数据库术语中，transactions）能够同时运行而相互不干扰的能力。并发性还涉及性能，因为理想情况下，多个同时事务的保护应以最小的性能开销进行，并使用高效的locking机制。”"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_40kypo2i",
+      "label": "并发控制",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "并发控制"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"并发控制\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_pf2dcdpk",
+      "label": "并行查询",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "并行查询"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"并行查询\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_group_misc",
+      "label": "补充与其他概念",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "补充与其他概念",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "不易归入单一主结构域的补充词条。 主归属词条：144 个；关联词条：144 个。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_partial_backup_bplu20",
+      "label": "部分备份 / partial backup",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "部分备份 / partial backup",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "一个 **backup**，包含 MySQL 数据库中的一些 **tables**，或者一个 MySQL 实例中的一些数据库。与**full backup**对比。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_p6gwt1sb",
+      "label": "部分索引",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "部分索引"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"部分索引\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_partial_trust_rcrlto",
+      "label": "部分信任 / partial trust",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "部分信任 / partial trust",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**部分信任 / partial trust** 英文：partial trust 中文：部分信任 \"执行环境通常由主机提供商使用，在这种环境中，应用程序拥有某些权限但没有其他权限。例如，应用程序可能能够通过网络访问数据库服务器，但在读取和写入本地文件方面被“沙盒化”。\" \"另见 [Connector/NET](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_net)。\" 来源：原始行：2186；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_partial_trust"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_insert_undo_log_1yrj7c",
+      "label": "插入 Undo 日志 / Insert Undo Log",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "插入 Undo 日志 / Insert Undo Log",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**插入 Undo 日志 / Insert Undo Log** 英文：Insert Undo Log 中文：插入 Undo 日志 插入 undo 日志记录事务插入新行所需的回滚信息。它只在事务回滚时需要，因此事务提交后可以立即丢弃。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_insert_buffering_m9lmge",
+      "label": "插入缓冲 / insert buffering",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "插入缓冲 / insert buffering",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**插入缓冲 / insert buffering** 英文：insert buffering 中文：插入缓冲 \"存储因INSERT 操作而导致的辅助索引页面变化的技术， 将变化存储在change buffer中，而不是立即写入变化，这样可以执行物理写入以最小化随机 I/O。这是change buffering的一种类型；其他类型包括delete buffering和purge buffering。\" 如果辅助索引是unique，则不使用插入缓冲，因为在新条目写入之前无法验证新值的唯一性。其他类型的变更缓冲对于唯一索引是有效的。 另见 更改缓冲区, 更改缓冲, 删除缓冲, 插入缓冲, 清除缓冲, 唯一索引。 来源：原始行：1445；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_buffering"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_insert_buffer_1xx0p8",
+      "label": "插入缓冲区 / insert buffer",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "插入缓冲区 / insert buffer",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**插入缓冲区 / insert buffer** 英文：insert buffer 中文：插入缓冲区 这是 change buffer 的前称。在 MySQL 5.5 中，增加了对对二级索引页面进行更改缓冲的支持，用于 DELETE 和 UPDATE 操作。之前，只有来自 INSERT 操作的更改才会被缓冲。现推荐的术语是 change buffer。 另见 变更缓冲， 变更缓冲。 来源：原始行：1440；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_buffer"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_insert_intention_lock_1pnwh6",
+      "label": "插入意向锁 / insert intention lock",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "插入意向锁 / insert intention lock",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**插入意向锁 / insert intention lock** 英文：insert intention lock 中文：插入意向锁 一种在行插入之前通过INSERT操作设置的gap lock。这种lock表明插入意图，以便多笔插入同一索引间隙的交易在不插入相同位置时无需相互等待。有关更多信息，请参见第17.7.1节，“InnoDB 锁定”。 另请参见 间隙锁、锁、下一键锁。 来源：原始行：1453；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_intention_lock"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_hlduom8b",
+      "label": "查询缓存",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "查询缓存"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"查询缓存\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_query_execution_plan_17fdf4",
+      "label": "查询执行计划 / query execution plan",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "查询执行计划 / query execution plan",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**查询执行计划 / query execution plan** 英文：query execution plan 中文：查询执行计划 优化器关于如何最有效地执行 **query**的一组决策，包括使用哪个**index**或者哪些索引，以及表的**join** 顺序。**Plan stability** 涉及为给定查询一致地做出相同的选择。 另见 [索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_index)，[连接](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_join)，[计划稳定性](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_plan_stability)，[查询](https://dev.mys"
+        }
+      ]
+    },
+    {
+      "id": "k_auto_afmuju",
+      "label": "常规导入",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "常规导入"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "import Cat from './Cat';"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_undo_tablespace_so71lf",
+      "label": "撤销表空间 / undo tablespace",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "撤销表空间 / undo tablespace",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**撤销表空间 / undo tablespace** 英文：undo tablespace 中文：撤销表空间 撤销表空间包含 **undo logs**。撤销日志存在于 **undo log segments**中，后者又包含在**rollback segments** 中。回滚段传统上驻留在系统表空间中。从 MySQL 5.6 开始，回滚段可以驻留在撤销表空间中。在 MySQL 5.6 和 MySQL 5.7 中，撤销表空间的数量由 [`innodb_undo_tablespaces`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_undo_tablespaces) 配置选项控制。在 MySQL 8.0 中，当初始化 MySQL 实例时，会创建两个默认的撤销表空间，并且可以使用 [`CREATE UNDO TABLE"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_undo_buffer_jg11o3",
+      "label": "撤销缓冲区 / undo buffer",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "撤销缓冲区 / undo buffer",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**撤销缓冲区 / undo buffer** 英文：undo buffer 中文：撤销缓冲区 查看[撤销日志](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_undo_log)。 来源：原始行：3435；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_undo_buffer"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_undo_log_segment_pbdi2c",
+      "label": "撤销日志段 / undo log segment",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "撤销日志段 / undo log segment",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**撤销日志段 / undo log segment** 英文：undo log segment 中文：撤销日志段 一个**undo logs**的集合。撤销日志段存在于**rollback segments**中。一个撤销日志段可能包含多个事务的撤销日志。一个撤销日志段在同一时间只能被一个事务使用，但在事务**commit**或**rollback**后可以被重用。也可以称为“撤销段”。 另请参见[提交](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_commit), [回滚](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback), [回滚段](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollba"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_assembly_9y51lx",
+      "label": "程序集 / assembly",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "程序集 / assembly",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**程序集 / assembly** 英文：assembly 中文：程序集 在**.NET**系统中访问的编译代码库，通过**Connector/NET**访问。存储在**GAC**中以允许版本控制而不产生命名冲突。 另请参见[.NET](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos__net)、[GAC](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_gac)。 来源：原始行：103；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_assembly"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_persistent_statistics_2n5ydn",
+      "label": "持久统计信息 / persistent statistics",
+      "role": "plain",
+      "dimensions": [
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "持久统计信息 / persistent statistics",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**持久统计信息 / persistent statistics** 英文：persistent statistics 中文：持久统计信息 一个功能，用于存储**index**统计信息，以支持`InnoDB` **tables**在磁盘上的存储，从而为**plan stability**提供更好的支持，适用于**queries**。有关更多信息，请参见[第17.8.10.1节，“配置持久优化器统计参数”](https://dev.mysql.com/doc/refman/8.4/en/innodb-persistent-stats.html \"17.8.10.1 Configuring Persistent Optimizer Statistics Parameters\")。 另见 [索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_index), [优"
+        }
+      ]
+    },
+    {
+      "id": "k_1782835092322_77nqn7",
+      "label": "抽象数据类型（ADT）理论",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "抽象数据类型(ADT)理论"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "只从\"能做什么操作\"来定义一个数据类型，而完全不管它\"内部怎么实现\"​。它把\"是什么（行为/接口）\"和\"怎么做（存储/实现）\"彻底分开。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_vf4vp1f8",
+      "label": "创建索引",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "创建索引"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"创建索引\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_innovation_series_1rj8dd",
+      "label": "创新系列 / Innovation Series",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "创新系列 / Innovation Series",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**创新系列 / Innovation Series** 英文：Innovation Series 中文：创新系列 相同主版本的创新发布形成一个创新系列。例如，MySQL 8.1 到 8.3 形成了MySQL 8 创新系列。 另见 LTS系列。 来源：原始行：1430；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_innovation_series"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_spring_1ng89l",
+      "label": "春天 / Spring",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "春天 / Spring",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**春天 / Spring** 英文：Spring 中文：春天 一个基于 Java 的应用程序框架，旨在通过提供配置组件的方式来辅助应用程序设计。 \"另见 [J2EE](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_j2ee)。\" 来源：原始行：2977；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_spring"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_stemming_w8xwzt",
+      "label": "词干提取 / stemming",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "词干提取 / stemming",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**词干提取 / stemming** 英文：stemming 中文：词干提取 基于共同根词搜索单词不同变体的能力，例如单数和复数，或过去、现在和将来时态。这一特性目前在 `MyISAM` **full-text search**功能中得到支持，但在**FULLTEXT indexes** 表的 `FULLTEXT 索引` 中不支持。 另请参见[全文搜索](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_full_text_search)，[FULLTEXT索引](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_fulltext_index)。 来源：原始行：3067；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossar"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_disk_bound_1eazx6",
+      "label": "磁盘绑定 / disk-bound",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "磁盘绑定 / disk-bound",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**磁盘绑定 / disk-bound** 英文：disk-bound 中文：磁盘绑定 一种**workload**，其主要**bottleneck**是磁盘I/O。 （也称为**I/O-bound**。） 通常涉及频繁的磁盘写入，或随机读取超过**buffer pool**容量的数据。 另见 [瓶颈](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_bottleneck)，[缓冲池](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_buffer_pool)，[工作负载](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_workload)。 来源：原始行：838；官方锚点：https://docs.oracle.com/c"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_stored_program_mzfpca",
+      "label": "存储程序 / stored program",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "存储程序 / stored program",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**存储程序 / stored program** 英文：stored program 中文：存储程序 一个存储的例程（过程或函数）、触发器或事件调度程序事件。 来源：原始行：3100；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-program"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_stored_object_od8fkh",
+      "label": "存储对象 / stored object",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "存储对象 / stored object",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**存储对象 / stored object** 英文：stored object 中文：存储对象 存储的程序或视图。 来源：原始行：3096；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-object"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_stored_routine_kiddr6",
+      "label": "存储例程 / stored routine",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "存储例程 / stored routine",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**存储例程 / stored routine** 英文：stored routine 中文：存储例程 \"一个存储过程或函数。\" 来源：原始行：3104；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-routine"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_stored_generated_column_j7jiqj",
+      "label": "存储生成列 / stored generated column",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "存储生成列 / stored generated column",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**存储生成列 / stored generated column** 英文：stored generated column 中文：存储生成列 “一个其值由列定义中包含的表达式计算得出的列。当行被插入或更新时，列值会被评估并存储。存储的生成列需要占用存储空间，并且可以建立索引。” 与 **virtual generated column** 对比。 \"另请参见 [基本列](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_base_column)、[生成列](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_generated_column)、[虚拟生成列](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_virtual_ge"
+        }
+      ]
+    },
+    {
+      "id": "n_97x8s5dv",
+      "label": "存储引擎 / storage engine",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "存储引擎 / storage engine",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "MySQL数据库的一个组件，执行存储、更新和查询数据的底层工作。在MySQL 5.5及更高版本中，**InnoDB**是新表的默认存储引擎，取代了`MyISAM`。不同的存储引擎在内存使用与磁盘使用、读取速度与写入速度、以及速度与稳健性等因素之间进行了不同的权衡。每个存储引擎管理特定的表，因此我们称为[`InnoDB`](https://dev.mysql.com/doc/refman/8.4/en/innodb-storage-engine.html \"Chapter 17 The InnoDB Storage Engine\")表、[`MyISAM`](https://dev.mysql.com/doc/refman/8.4/en/myisam-storage-engine.html \"18.2 The MyISAM Storage Engine\")表，等等。 **MySQL Enterprise Backup**产品经过优化"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_hole_punching_r6u429",
+      "label": "打孔 / hole punching",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "打孔 / hole punching",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**打孔 / hole punching** 英文：hole punching 中文：打孔 从页面释放空块。InnoDB transparent page compression功能依赖于孔打孔支持。有关更多信息，请参见第17.9.2节，“InnoDB页面压缩”。 另见 稀疏文件，透明页面压缩。 来源：原始行：1215；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_hole_punching"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_8mduzut1",
+      "label": "大字段",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "大字段"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"大字段\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_zidqc3da",
+      "label": "单表查询",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "单表查询"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"单表查询\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_8tyxawdw",
+      "label": "弹性",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "弹性"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"弹性\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_n0jvsmpf",
+      "label": "当前读",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "当前读"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"当前读\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_6m8rc1nt",
+      "label": "到期策略",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "到期策略"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"到期策略\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_inverted_index_spkkuc",
+      "label": "倒排索引 / inverted index",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "倒排索引 / inverted index",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**倒排索引 / inverted index** 英文：inverted index 中文：倒排索引 一种针对文档检索系统优化的数据结构，用于实现InnoDB full-text search。InnoDB FULLTEXT index作为倒排索引实现，记录每个词在文档中的位置，而不是表行的位置信息。单个列值（作为文本字符串存储的文档）在倒排索引中由多个条目表示。 另请参见 full-text search, FULLTEXT index, ilist. 来源：原始行：1489；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_inverted_index"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_wait_1229eo",
+      "label": "等待 / wait",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "等待 / wait",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**等待 / wait** 当一个操作，比如获取一个**lock**,**mutex**，或者 **latch**，无法立即完成时，`InnoDB` 会暂停并重试。 暂停的机制足够复杂，以至于这个操作有了自己的名称，叫做**wait**。个别线程是通过内部 `InnoDB`调度、操作系统的 `wait()` 调用和短时的 **spin** 循环相结合来暂停的。 在负载较重和交易较多的系统上，您可以使用 `SHOW INNODB STATUS`命令或**Performance Schema**来确定线程是否花费了过多时间在等待，如果是的话，您可以如何改善**concurrency**。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_uuvo2mkj",
+      "label": "等待事件",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "等待事件"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"等待事件\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_tx_waits_deadlocks",
+      "label": "等待与死锁",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "等待与死锁",
+        "mysql",
+        "directory-taxonomy"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "等待、死锁检测、受害者选择和锁等待超时。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_low_water_mark_b3ceyk",
+      "label": "低水位线 / low-water mark",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "低水位线 / low-water mark",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**低水位线 / low-water mark** 英文：low-water mark 中文：低水位线 表示下限的值，通常是某些纠正动作开始或变得更激进的阈值。与high-water mark对比。 另见高水位线。 来源：原始行：1693；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_low_water_mark"
+        }
+      ]
+    },
+    {
+      "id": "k_1782928892375_1vgg04",
+      "label": "丢失更新",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "丢失更新"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "一个事务的更新结果覆盖了其它事务的更新结果，即所谓的更新丢失"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_dynamic_row_format_1pdso5",
+      "label": "动态行格式 / dynamic row format",
+      "role": "plain",
+      "dimensions": [
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "动态行格式 / dynamic row format",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**动态行格式 / dynamic row format** 英文：dynamic row format 中文：动态行格式 一种`InnoDB`行格式。由于长可变长度列值存储在包含行数据的页面外，因此对于包含大对象的行非常高效。由于大型字段通常在评估查询条件时不会被访问，因此它们不会经常被引入到**buffer pool**中，从而导致较少的I/O操作和更好的缓存内存利用率。 \"从 MySQL 5.7.9 开始，默认行格式由 [`innodb_default_row_format`](https://dev.mysql.com/doc/refman/8.4/en/innodb-parameters.html#sysvar_innodb_default_row_format) 定义， 其默认值为 `DYNAMIC`。\" 有关 `InnoDB` `DYNAMIC` 行格式的更多信息，请参见 [DYNAMIC 行格式](https:/"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_dynamic_cursor_u1pzzs",
+      "label": "动态游标 / dynamic cursor",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "动态游标 / dynamic cursor",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**动态游标 / dynamic cursor** 英文：dynamic cursor 中文：动态游标 一种由 **cursor**支持的**ODBC** 类型，它在重新读取行时可以获取新的和更改的结果。变化对游标的可见性以及速度取决于所涉及的表的类型（事务性或非事务性）以及事务表的隔离级别。必须明确启用对动态游标的支持。 另请参见 [光标](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_cursor)，[ODBC](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_odbc)。 来源：原始行：884；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_cursor"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_dynamic_statement_1evhmv",
+      "label": "动态语句 / dynamic statement",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "动态语句 / dynamic statement",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**动态语句 / dynamic statement** 英文：dynamic statement 中文：动态语句 通过 **prepared statement**创建和执行的**dynamic SQL**。 另请参见[动态SQL](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_dynamic_sql)，[预处理语句](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_prepared_statement)。 来源：原始行：910；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_statement"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_exclusive_lock_ksqz5a",
+      "label": "独占锁 / exclusive lock",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "独占锁 / exclusive lock",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**独占锁 / exclusive lock** 英文：exclusive lock 中文：独占锁 一种lock，可以防止任何其他transaction锁定同一行。根据事务的isolation level，这种锁可能会阻止其他事务对同一行进行写操作，或者可能还会阻止其他事务读取同一行。默认的InnoDB隔离级别REPEATABLE READ通过允许事务读取具有排他锁的行，从而实现更高的concurrency，这种技术称为consistent read。 另请参阅并发、一致性读取、隔离级别、锁、可重复读、共享锁、事务。 来源：原始行：951；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_exclusive_lock"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_tua1ffid",
+      "label": "读未提交",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "读未提交"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"读未提交\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_tx_read_phenomena",
+      "label": "读现象",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "读现象",
+        "mysql",
+        "directory-taxonomy"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "脏读、不可重复读、幻读以及锁定读、非锁定读。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_read_phenomena_n0vs4m",
+      "label": "读现象 / read phenomena",
+      "role": "plain",
+      "dimensions": [
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "读现象 / read phenomena",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**读现象 / read phenomena** 现象如 **dirty reads**、**non-repeatable reads**和**phantom**，当一个事务读取了另一个事务修改的数据时就会发生。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_rw_lock_1c4qu9",
+      "label": "读写锁 / rw-lock",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage",
+        "performance"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "读写锁 / rw-lock",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**读写锁 / rw-lock** 英文：rw-lock 中文：读写锁 读写锁是 InnoDB 用来表示并强制执行对内部内存数据结构共享访问规则的底层对象。它与 mutex（互斥量）相对；mutex 用于表示并强制执行对内部内存数据结构的独占访问。mutex 和 rw-lock 统称为 latches（闩锁）。 `rw-lock` 的类型包括 `s-locks`（共享锁）、`x-locks`（排他锁）和 `sx-locks`（共享排他锁）。 另见：latch、mutex、s-lock、sx-lock、x-lock。 来源：原始行：2713；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_rw_lock"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_kcsuu2sa",
+      "label": "读已提交",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "读已提交"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"读已提交\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_port_ydif8m",
+      "label": "端口 / port",
+      "role": "plain",
+      "dimensions": [
+        "security"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "端口 / port",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "数据库服务器监听的TCP/IP套接字的编号， 用于建立一个**connection**。通常与一个**host**一起指定。根据您使用的网络加密，可能有一个用于未加密流量的端口和另一个用**SSL**连接的端口。"
+        }
+      ]
+    },
+    {
+      "id": "k_auto_1p7kxpz",
+      "label": "短路求值",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "短路求值"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_segment_1vmvly",
+      "label": "段 / segment",
+      "role": "plain",
+      "dimensions": [
+        "transaction",
+        "storage"
+      ],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "段 / segment",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**段 / segment** 英文：segment 中文：段 段是 InnoDB tablespace（表空间）内部的一种划分。如果把表空间类比为目录，段就类似目录中的文件。段可以增长，也可以创建新的段。 例如，在 file-per-table 表空间中，表数据位于一个段中，每个相关索引位于各自的段中。system tablespace（系统表空间）可以包含许多不同的段，因为它可以容纳许多表及其相关索引。MySQL 8.0 之前，系统表空间还包含一个或多个用于 undo logs 的 rollback segments。 另见：file-per-table、rollback segment、system tablespace、tablespace、undo log。 来源：原始行：2798；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_tae9cujl",
+      "label": "堆表",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "堆表"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"堆表\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_auto_140h0oi",
+      "label": "多分支 if-else if",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "多分支 if-else if"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "可用于复杂的、超过两个状态的多端界面分支"
+        }
+      ]
+    },
+    {
+      "id": "mysql_glossary_multi_core_1ks4nn",
+      "label": "多核 / multi-core",
+      "role": "plain",
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "多核 / multi-core",
+        "mysql",
+        "glossary",
+        "mysql-glossary"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "**多核 / multi-core** 英文：multi-core 中文：多核 一种可以利用多线程程序的处理器，例如MySQL服务器。 来源：原始行：1838；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_multi_core"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_3jxiq0jb",
+      "label": "二进制日志",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "二进制日志"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"二进制日志\" 待补充内容。"
+        }
+      ]
+    },
+    {
+      "id": "k_dict_92eypjpu",
+      "label": "反范式化",
+      "role": null,
+      "dimensions": [],
+      "degree": 0,
+      "referenceCount": 1,
+      "tags": [
+        "反范式化"
+      ],
+      "tabs": [
+        {
+          "label": "定义",
+          "excerpt": "\"反范式化\" 待补充内容。"
+        }
+      ]
+    }
+  ],
+  "byPrefix": [
+    {
+      "prefix": "k_dict",
+      "count": 444,
+      "samples": [
+        {
+          "id": "k_dict_45pmo73s",
+          "label": "10046 事件",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "10046 事件"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"10046 事件\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_8ekhf6v8",
+          "label": "2PC",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "2PC"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"2PC\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_kp16rzvr",
+          "label": "3NF",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "3NF"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"3NF\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_7yw7viap",
+          "label": "5NF",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "5NF"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"5NF\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_ilk9b2e7",
+          "label": "安全连接",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "安全连接"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"安全连接\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_k72g9gdn",
+          "label": "安装与配置",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "安装与配置"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"安装与配置\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_hj2its9m",
+          "label": "半结构化数据",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "半结构化数据"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"半结构化数据\" 待补充内容。"
+            }
+          ]
+        },
+        {
+          "id": "k_dict_vg1hm4yv",
+          "label": "备份 / backup",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "备份 / backup",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"将 MySQL 实例中的部分或全部表数据和元数据进行复制以备保存。也可以指复制的文件集合。这是数据库管理员的重要任务。此过程的反向操作是 **restore**。\" 使用 MySQL，**physical backups**是通过 **MySQL Enterprise Backup**产品执行的，而 **logical backups**则是通过 `mysqldump` 命令执行的。这些技术在备份数据的大小、表示和速度（尤其是恢复操作的速度）方面具有不同的特性。 备份进一步分为 **hot**、 **warm**或 **cold**，具体取决于它们对正常数据库操作的干扰程度。（热备份干扰最小，冷备份干扰最大。）"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "mysql_glossary",
+      "count": 333,
+      "samples": [
+        {
+          "id": "mysql_glossary_arm_file_ufam2l",
+          "label": ".ARM文件 / .ARM file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".ARM文件 / .ARM file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.ARM文件 / .ARM file** 英文：.ARM file 中文：.ARM文件 用于`ARCHIVE`表的元数据。与 **.ARZ file** 对比。此扩展名的文件始终包含在`mysqlbackup`命令生成的备份中，属于**MySQL Enterprise Backup**产品。 另见 [.ARZ文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_arz_file), [MySQL Enterprise Backup](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup), [mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mys"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_arz_file_1iyj60",
+          "label": ".ARZ文件 / .ARZ file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".ARZ文件 / .ARZ file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.ARZ文件 / .ARZ file** 英文：.ARZ file 中文：.ARZ文件 ARCHIVE表的数据。与**.ARM file**对比。此扩展名的文件始终包含在`mysqlbackup`命令生成的备份中，属于**MySQL Enterprise Backup**产品。 另见 [.ARM文件](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_arm_file), [MySQL Enterprise Backup](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup), [mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysqlbacku"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_cfg_file_1wfa77",
+          "label": ".cfg 文件 / .cfg file",
+          "role": "plain",
+          "dimensions": [
+            "storage",
+            "performance"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".cfg 文件 / .cfg file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.cfg 文件 / .cfg file** 英文：.cfg file 中文：.cfg 文件 用于 InnoDB transportable tablespace 功能的元数据文件。它是由命令 FLUSH TABLES ... FOR EXPORT 生成的，将一个或多个表置于一致的状态，可以复制到其他服务器。 .cfg 文件与相应的 .ibd file 一起复制，并用于调整 .ibd 文件的内部值，例如 space ID，在ALTER TABLE ... IMPORT TABLESPACE 步骤中。 参见 .ibd 文件， 空间 ID， 可运输表空间。 来源：原始行：314；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cfg_file"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_ibz_file_tz3hbm",
+          "label": ".ibz 文件 / .ibz file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".ibz 文件 / .ibz file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.ibz 文件 / .ibz file** 英文：.ibz file 中文：.ibz 文件 当MySQL Enterprise Backup产品执行compressed backup时，它将使用file-per-table设置创建的每个tablespace文件从.ibd扩展名转换为.ibz扩展名。 备份期间应用的压缩与compressed row format不同，后者在正常操作期间保持表数据压缩。压缩备份操作对已经处于压缩行格式的表空间跳过压缩步骤，因为再次压缩会减慢备份速度，但几乎不会节省空间。 另见 压缩备份, 压缩行格式, 每表文件, .ibd 文件, MySQL 企业备份, 表空间。 来源：原始行：1255；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibz_file"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_mrg_file_2synx7",
+          "label": ".MRG 文件 / .MRG file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".MRG 文件 / .MRG file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.MRG 文件 / .MRG file** 英文：.MRG file 中文：.MRG 文件 一个包含其他表引用的文件，由 MERGE 存储引擎使用。这种扩展名的文件始终包含在由 mysqlbackup 命令生成的备份中，属于 MySQL Enterprise Backup 产品。 另见MySQL企业备份、mysqlbackup命令。 来源：原始行：1740；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mrg_file"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_net_1q25ey",
+          "label": ".NET",
+          "role": "plain",
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".NET",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.NET** 英文：.NET 中文：.NET 另请参见ADO.NET，ASP.net，Connector/NET，Mono，Visual Studio。 来源：原始行：1912；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos__net"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_opt_file_1w9809",
+          "label": ".OPT 文件 / .OPT file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".OPT 文件 / .OPT file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.OPT 文件 / .OPT file** 英文：.OPT file 中文：.OPT 文件 包含数据库配置信息的文件。具有此扩展名的文件包含在由**mysqlbackup**命令生成的备份中，该命令属于**MySQL Enterprise Backup**产品。 另见[MySQL企业备份](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup)、[mysqlbackup命令](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysqlbackup_command)。 来源：原始行：2003；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_opt_f"
+            }
+          ]
+        },
+        {
+          "id": "mysql_glossary_par_file_rzlrrm",
+          "label": ".par 文件 / .par file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            ".par 文件 / .par file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**.par 文件 / .par file** 英文：.par file 中文：.par 文件 包含分区定义的文件。具有此扩展名的文件包含在 由 `mysqlbackup` 命令生成的备份中 **MySQL Enterprise Backup** 产品。 随着 MySQL 5.7.6 引入对 `InnoDB` 表的本地分区支持，分区 `.par` 文件不再为分区的 `InnoDB` 表创建。分区 `MyISAM` 表在 MySQL 5.7 中继续使用 `.par` 文件。在 MySQL 8.0 中，分区支持仅由 `InnoDB` 存储引擎提供。因此，从 MySQL 8.0 开始不再使用 `.par` 文件。 另见[MySQL企业备份](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_mysql_enterprise_backup)、[mysqlbackup命令"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_auto",
+      "count": 19,
+      "samples": [
+        {
+          "id": "k_auto_nm6bj0",
+          "label": "安全转换（布尔化）",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "安全转换(布尔化)"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "使用 >0 判断或双重否定 !!"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_afmuju",
+          "label": "常规导入",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "常规导入"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "import Cat from './Cat';"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_1p7kxpz",
+          "label": "短路求值",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "短路求值"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "左侧为真渲染右侧，左侧为假停止求值且不渲染"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_140h0oi",
+          "label": "多分支 if-else if",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "多分支 if-else if"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "可用于复杂的、超过两个状态的多端界面分支"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_g7wfdd",
+          "label": "混合导出",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "混合导出"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "default + named"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_1ayw78b",
+          "label": "解构导入",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "解构导入"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "import { Dog } from './Animals';"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_142cy8w",
+          "label": "列表导出",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "列表导出"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "export { Cat, Dog };"
+            }
+          ]
+        },
+        {
+          "id": "k_auto_bdlo12",
+          "label": "末尾导出",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "末尾导出"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "export default Cat;"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "mysql_tx",
+      "count": 3,
+      "samples": [
+        {
+          "id": "mysql_tx_waits_deadlocks",
+          "label": "等待与死锁",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "等待与死锁",
+            "mysql",
+            "directory-taxonomy"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "等待、死锁检测、受害者选择和锁等待超时。"
+            }
+          ]
+        },
+        {
+          "id": "mysql_tx_read_phenomena",
+          "label": "读现象",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "读现象",
+            "mysql",
+            "directory-taxonomy"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "脏读、不可重复读、幻读以及锁定读、非锁定读。"
+            }
+          ]
+        },
+        {
+          "id": "mysql_tx_lifecycle",
+          "label": "事务生命周期",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "事务生命周期",
+            "mysql",
+            "directory-taxonomy"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "事务开始、自动提交、提交、回滚、保存点、只读事务和事务标识。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "mysql_file",
+      "count": 2,
+      "samples": [
+        {
+          "id": "mysql_file_pid",
+          "label": "PID 文件 / PID file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 1,
+          "referenceCount": 1,
+          "tags": [
+            "PID 文件 / PID file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**PID 文件 / PID file** 英文：PID file 中文：PID 文件 PID 文件是 `mysqld` 在 Unix/Linux 环境下使用的进程文件，用于保存 MySQL 服务器进程的进程 ID，便于服务管理脚本识别和控制运行中的进程。"
+            }
+          ]
+        },
+        {
+          "id": "mysql_file_socket",
+          "label": "Socket 文件 / Socket file",
+          "role": "plain",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 1,
+          "referenceCount": 1,
+          "tags": [
+            "Socket 文件 / Socket file",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**Socket 文件 / Socket file** 英文：Socket file 中文：Socket 文件 Socket 文件是 Unix/Linux 环境下用于本地进程间通信的 Unix Socket 文件。MySQL 客户端在本机连接 MySQL 服务器时，可以不经过 TCP/IP 网络，而通过该 socket 文件连接。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_btree",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_btree",
+          "label": "B+树索引",
+          "role": "mechanism",
+          "dimensions": [
+            "storage",
+            "performance"
+          ],
+          "degree": 8,
+          "referenceCount": 1,
+          "tags": [
+            "B+树索引"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "平衡多路搜索树，叶子节点存储数据或指针。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_vchain",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_vchain_sys",
+          "label": "版本链子系统",
+          "role": "subsystem",
+          "dimensions": [
+            "storage",
+            "transaction"
+          ],
+          "degree": 2,
+          "referenceCount": 1,
+          "tags": [
+            "版本链子系统"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "维护行级版本链构建、遍历与清理的模块边界。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "mysql_runtime",
+      "count": 1,
+      "samples": [
+        {
+          "id": "mysql_runtime_files",
+          "label": "运行时文件",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 2,
+          "referenceCount": 1,
+          "tags": [
+            "运行时文件"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "运行时文件是 mysqld 进程运行期间用于进程识别、本地通信或服务管理的文件。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "react_import",
+      "count": 1,
+      "samples": [
+        {
+          "id": "react_import_aliasing",
+          "label": "导入重命名",
+          "role": "mechanism",
+          "dimensions": [
+            "react"
+          ],
+          "degree": 1,
+          "referenceCount": 1,
+          "tags": [
+            "导入重命名"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "在导入时使用 `as` 术语为组件指定一个别名。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_snapshot",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_snapshot",
+          "label": "快照读",
+          "role": "conclusion",
+          "dimensions": [
+            "performance"
+          ],
+          "degree": 1,
+          "referenceCount": 1,
+          "tags": [
+            "快照读"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "普通 SELECT 读历史版本，不加锁。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_composite",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_composite_index",
+          "label": "组合索引",
+          "role": "mechanism",
+          "dimensions": [
+            "performance"
+          ],
+          "degree": 1,
+          "referenceCount": 1,
+          "tags": [
+            "组合索引"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "包含多个列的索引，按列顺序构建搜索树。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_postgres",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_postgres",
+          "label": "PostgreSQL",
+          "role": "subsystem",
+          "dimensions": [
+            "storage",
+            "transaction"
+          ],
+          "degree": 0,
+          "referenceCount": 2,
+          "tags": [
+            "PostgreSQL"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"PostgreSQL\" 知识节点，作为该层级的核心聚合节点。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782835092322",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782835092322_77nqn7",
+          "label": "抽象数据类型（ADT）理论",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "抽象数据类型(ADT)理论"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "只从\"能做什么操作\"来定义一个数据类型，而完全不管它\"内部怎么实现\"​。它把\"是什么（行为/接口）\"和\"怎么做（存储/实现）\"彻底分开。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "n_97x8s5dv",
+      "count": 1,
+      "samples": [
+        {
+          "id": "n_97x8s5dv",
+          "label": "存储引擎 / storage engine",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "存储引擎 / storage engine",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "MySQL数据库的一个组件，执行存储、更新和查询数据的底层工作。在MySQL 5.5及更高版本中，**InnoDB**是新表的默认存储引擎，取代了`MyISAM`。不同的存储引擎在内存使用与磁盘使用、读取速度与写入速度、以及速度与稳健性等因素之间进行了不同的权衡。每个存储引擎管理特定的表，因此我们称为[`InnoDB`](https://dev.mysql.com/doc/refman/8.4/en/innodb-storage-engine.html \"Chapter 17 The InnoDB Storage Engine\")表、[`MyISAM`](https://dev.mysql.com/doc/refman/8.4/en/myisam-storage-engine.html \"18.2 The MyISAM Storage Engine\")表，等等。 **MySQL Enterprise Backup**产品经过优化"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782928892375",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782928892375_1vgg04",
+          "label": "丢失更新",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "丢失更新"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "一个事务的更新结果覆盖了其它事务的更新结果，即所谓的更新丢失"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782032275682",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782032275682_61auc4",
+          "label": "服务层（MySQL Server）",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "服务层(MySQL Server)"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "服务层是MySQL Server的核⼼，主要包含系统管理和控制⼯具、连接池、SQL接⼝、解析器、查询优化器和缓存六个部分。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_buffer",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_buffer",
+          "label": "缓冲池 / buffer pool",
+          "role": "mechanism",
+          "dimensions": [
+            "storage",
+            "performance"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "缓冲池 / buffer pool",
+            "mysql",
+            "glossary",
+            "mysql-glossary"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "**缓冲池 / buffer pool** 英文：buffer pool 中文：缓冲池 存储缓存的 `InnoDB` 数据的内存区域 用于表和索引。为了提高高量读取 操作的效率，缓冲池分为 **pages**，每个页面可能容纳 多行。为了提高缓存管理的效率，缓冲池 实现为页面的链表；使用一种变体的 **LRU** 算法，较少使用的数据会被逐出缓存。在具有 大内存的系统上，您可以通过将缓冲池拆分为多个 缓冲池 实例 来改善并发性。 几个 `InnoDB` 状态变量， `INFORMATION_SCHEMA` 表，以及 `performance_schema` 表帮助监控 缓冲池的内部工作。在 MySQL 5.6 中，您 可以通过在服务器关闭时保存 缓冲池状态，并在服务器启动时将缓冲池恢复到相同的状态，来避免服务器重启后的漫长预热期， 特别是对于具有大型缓冲池的实例。请参见 [第 17.8.3.6 节，“保存和恢复缓冲池状态”](h"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782033245872",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782033245872_81floi",
+          "label": "解析器（Parser）",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "解析器(Parser)"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "负责将请求的SQL解析⽣成⼀个\"解析树\"。然后根 据⼀些MySQL规则进⼀步检查解析树是否合法。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782836111549",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782836111549_qetpvx",
+          "label": "类",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "类"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "定义对象的蓝图，包括属性和方法。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782032572614",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782032572614_mi65fj",
+          "label": "连接池（Connection Pool）",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "连接池(Connection Pool)"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "负责存储和管理客户端与数据库的连 接，⼀个线程负责管理⼀个连接。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "n_6dgtsmpj",
+      "count": 1,
+      "samples": [
+        {
+          "id": "n_6dgtsmpj",
+          "label": "数据结构",
+          "role": "subsystem",
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "数据结构"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"数据结构\" 知识节点，作为该层级的核心聚合节点。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "n_9hr0nvvv",
+      "count": 1,
+      "samples": [
+        {
+          "id": "n_9hr0nvvv",
+          "label": "算法与数据结构",
+          "role": "subsystem",
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "算法与数据结构"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"算法与数据结构\" 知识节点，作为该层级的核心聚合节点。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782029470422",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782029470422_yfa3u9",
+          "label": "系统文件层",
+          "role": "subsystem",
+          "dimensions": [
+            "storage"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "系统文件层"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "系统文件层描述 MySQL 在操作系统文件系统中落下的配置、日志、数据和运行时文件。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "n_s7t5dbya",
+      "count": 1,
+      "samples": [
+        {
+          "id": "n_s7t5dbya",
+          "label": "性能优化",
+          "role": "subsystem",
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "性能优化"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "\"性能优化\" 知识节点，作为该层级的核心聚合节点。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_subquery",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_subquery",
+          "label": "子查询",
+          "role": null,
+          "dimensions": [
+            "performance"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "子查询"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "嵌套在其他查询中的查询，包括标量、行、表子查询。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_java",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_java_syntax_hello_world",
+          "label": "Hello World 程序",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "Hello World 程序",
+            "Java",
+            "基础"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "Hello World 程序 是 Java syntax 中的一个语法主题。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1783875158265",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1783875158265_4qvhak",
+          "label": "Java 引用类型",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "Java 引用类型",
+            "引用类型"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "引用类型包括类类型、接口类型和数组类型。当调用构造函数时，会在堆上创建一个对象，并将一个引用分配给该变量。当对象的变量超出作用域时，引用被断开，当没有剩下的引用时，该对象被标记为垃圾。垃圾收集器随后会在一段时间后收集并销毁它。\" 当引用变量不引用任何对象时，它是null。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "demo_join",
+      "count": 1,
+      "samples": [
+        {
+          "id": "demo_join",
+          "label": "JOIN 连接",
+          "role": null,
+          "dimensions": [
+            "transaction",
+            "performance"
+          ],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "JOIN 连接"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "多表查询，包括内连接、外连接、交叉连接。"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "prefix": "k_1782033172524",
+      "count": 1,
+      "samples": [
+        {
+          "id": "k_1782033172524_cjmm5c",
+          "label": "SQL接⼝（SQL Interface）",
+          "role": null,
+          "dimensions": [],
+          "degree": 0,
+          "referenceCount": 1,
+          "tags": [
+            "SQL接口(SQL Interface)"
+          ],
+          "tabs": [
+            {
+              "label": "定义",
+              "excerpt": "⽤于接受客户端发送的各种SQL命令，并且返回⽤户需要查询的结果。⽐如DML、DDL、存储过程、视图、触发器等。"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

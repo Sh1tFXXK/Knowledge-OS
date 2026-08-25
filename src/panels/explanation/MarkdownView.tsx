@@ -1,33 +1,66 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
+import type { KnowledgeReference } from '../../knowledge/nodeReferences';
+import KnowledgeReferenceText from './KnowledgeReferenceText';
 
-function renderInlineFormatting(text: string): ReactNode {
+function renderReferenceText(
+  text: string,
+  references: readonly KnowledgeReference[],
+  onOpenReference?: (nodeId: string) => void,
+  key?: string,
+): ReactNode {
+  return (
+    <KnowledgeReferenceText
+      key={key}
+      text={text}
+      references={references}
+      onOpenReference={onOpenReference}
+    />
+  );
+}
+
+// 行内 token：**粗体**、`行内代码`、[链接](url)、$^{上标脚注}$
+const INLINE_TOKEN_REGEX = /(\*\*[^*]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)|\$\^\{[^}\n]*\}\$)/g;
+
+function renderInlineFormatting(
+  text: string,
+  references: readonly KnowledgeReference[],
+  onOpenReference?: (nodeId: string) => void,
+): ReactNode {
   const parts: ReactNode[] = [];
   let currentIndex = 0;
-  const inlineRegex = /(\*\*|`)(.*?)\1/g;
+  INLINE_TOKEN_REGEX.lastIndex = 0;
   let match;
 
-  while ((match = inlineRegex.exec(text)) !== null) {
+  while ((match = INLINE_TOKEN_REGEX.exec(text)) !== null) {
     const textBefore = text.substring(currentIndex, match.index);
-    if (textBefore) parts.push(textBefore);
+    if (textBefore) {
+      parts.push(renderReferenceText(
+        textBefore,
+        references,
+        onOpenReference,
+        `text-${currentIndex}`,
+      ));
+    }
 
-    const type = match[1];
-    const innerText = match[2];
+    const token = match[0];
 
-    if (type === '**') {
+    if (token.startsWith('**')) {
+      const innerText = token.slice(2, -2);
       parts.push(
         <strong key={match.index} style={{ color: 'var(--text-primary)', fontWeight: '600' }}>
-          {innerText}
+          {renderReferenceText(innerText, references, onOpenReference)}
         </strong>,
       );
-    } else {
+    } else if (token.startsWith('`')) {
+      const innerText = token.slice(1, -1);
       parts.push(
         <code
           key={match.index}
           style={{
-            background: 'rgba(255,255,255,0.08)',
-            border: '1px solid var(--border-secondary)',
-            borderRadius: '4px',
-            padding: '2px 5px',
+            background: 'rgba(255,255,255,0.07)',
+            border: '0',
+            borderRadius: '3px',
+            padding: '1px 4px',
             fontSize: '11px',
             fontFamily: 'monospace',
             color: '#e2e8f0',
@@ -37,17 +70,224 @@ function renderInlineFormatting(text: string): ReactNode {
           {innerText}
         </code>,
       );
+    } else if (token.startsWith('[')) {
+      const linkMatch = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      const linkText = linkMatch?.[1] ?? token;
+      const linkUrl = linkMatch?.[2] ?? '';
+      if (/^https?:\/\//.test(linkUrl)) {
+        parts.push(
+          <a
+            key={match.index}
+            href={linkUrl}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: 'var(--accent-blue, #6ea8fe)',
+              textDecoration: 'underline',
+              textDecorationColor: 'rgba(110,168,254,0.35)',
+              textUnderlineOffset: '2px',
+            }}
+          >
+            {linkText}
+          </a>,
+        );
+      } else {
+        parts.push(renderReferenceText(token, references, onOpenReference, `link-${match.index}`));
+      }
+    } else if (token.startsWith('$^{')) {
+      const innerText = token.slice(3, -2);
+      parts.push(
+        <sup key={match.index} style={{ color: 'var(--accent-purple)', fontSize: '10px' }}>
+          {innerText}
+        </sup>,
+      );
+    } else {
+      parts.push(renderReferenceText(token, references, onOpenReference, `token-${match.index}`));
     }
-    currentIndex = inlineRegex.lastIndex;
+
+    currentIndex = INLINE_TOKEN_REGEX.lastIndex;
   }
 
   const textAfter = text.substring(currentIndex);
-  if (textAfter) parts.push(textAfter);
+  if (textAfter) {
+    parts.push(renderReferenceText(
+      textAfter,
+      references,
+      onOpenReference,
+      `text-${currentIndex}`,
+    ));
+  }
 
-  return parts.length > 0 ? <>{parts}</> : text;
+  return parts.length > 0
+    ? <>{parts}</>
+    : renderReferenceText(text, references, onOpenReference);
 }
 
-export default function MarkdownView({ content }: { content: string }) {
+function SmartImage({ src, alt }: { src: string; alt?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div
+        style={{
+          margin: '8px 0',
+          padding: '4px 10px',
+          fontSize: '12px',
+          color: 'var(--text-muted, rgba(255,255,255,0.4))',
+          borderLeft: '2px solid rgba(255,255,255,0.15)',
+          wordBreak: 'break-all',
+        }}
+      >
+        [图片不可用] {alt || src}
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={alt || ''}
+      loading="lazy"
+      onError={() => setFailed(true)}
+      style={{
+        display: 'block',
+        maxWidth: '100%',
+        maxHeight: '360px',
+        objectFit: 'contain',
+        margin: '10px 0',
+        borderRadius: '6px',
+        border: '1px solid rgba(255,255,255,0.08)',
+        background: 'rgba(255,255,255,0.02)',
+      }}
+    />
+  );
+}
+
+function parseHtmlTable(html: string): string[][] {
+  const rows: string[][] = [];
+  const rowRegex = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
+  let rowMatch;
+  while ((rowMatch = rowRegex.exec(html)) !== null) {
+    const cells: string[] = [];
+    const cellRegex = /<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/g;
+    let cellMatch;
+    while ((cellMatch = cellRegex.exec(rowMatch[1])) !== null) {
+      cells.push(cellMatch[1].replace(/<[^>]+>/g, '').trim());
+    }
+    if (cells.length > 0) rows.push(cells);
+  }
+  return rows;
+}
+
+// 解析 markdown 管道表格：跳过分隔行（|----|）和全空行（|  |  |  |），首个有效行作表头
+function parsePipeTable(lines: string[]): string[][] {
+  const rows: string[][] = [];
+  for (const line of lines) {
+    const cells = line
+      .replace(/^\|/, '')
+      .replace(/\|$/, '')
+      .split('|')
+      .map((cell) => cell.trim());
+    if (cells.every((cell) => cell === '' || /^:?-{2,}:?$/.test(cell))) continue;
+    rows.push(cells);
+  }
+  return rows;
+}
+
+type ContentUnit =
+  | { type: 'image'; src: string; alt: string }
+  | { type: 'table'; rows: string[][] }
+  | { type: 'heading'; level: number; text: string }
+  | { type: 'text'; text: string };
+
+// 把一段文本拆成渲染单元：图片行、标题行、HTML 表格块各自独立，其余归并为文本段落
+function splitContentUnits(content: string): ContentUnit[] {
+  const units: ContentUnit[] = [];
+  const blocks = content.split(/\n\s*\n/);
+
+  for (const block of blocks) {
+    const lines = block.split('\n');
+    let buffer: string[] = [];
+    const flush = () => {
+      const text = buffer.join('\n').trim();
+      buffer = [];
+      if (text) units.push({ type: 'text', text });
+    };
+
+    let i = 0;
+    while (i < lines.length) {
+      const trimmed = lines[i].trim();
+      const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+      const headingMatch = trimmed.match(/^(#{1,6})\s+(.+)$/);
+
+      if (imageMatch) {
+        flush();
+        units.push({ type: 'image', alt: imageMatch[1], src: imageMatch[2] });
+      } else if (headingMatch) {
+        flush();
+        units.push({ type: 'heading', level: headingMatch[1].length, text: headingMatch[2].trim() });
+      } else if (trimmed.startsWith('<table')) {
+        flush();
+        let html = trimmed;
+        while (!html.includes('</table>') && i + 1 < lines.length) {
+          i += 1;
+          html += lines[i].trim();
+        }
+        const rows = parseHtmlTable(html);
+        if (rows.length > 0) {
+          units.push({ type: 'table', rows });
+        } else {
+          const fallback = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+          if (fallback) units.push({ type: 'text', text: fallback });
+        }
+      } else if (trimmed.startsWith('|')) {
+        flush();
+        const tableLines: string[] = [];
+        while (i < lines.length && lines[i].trim().startsWith('|')) {
+          tableLines.push(lines[i].trim());
+          i += 1;
+        }
+        i -= 1;
+        const rows = parsePipeTable(tableLines);
+        if (rows.length > 0) {
+          units.push({ type: 'table', rows });
+        } else {
+          units.push({ type: 'text', text: tableLines.join('\n') });
+        }
+      } else {
+        buffer.push(lines[i]);
+      }
+      i += 1;
+    }
+    flush();
+  }
+
+  return units;
+}
+
+const tableHeaderCellStyle = {
+  textAlign: 'left' as const,
+  padding: '4px 8px',
+  borderBottom: '1px solid rgba(255,255,255,0.18)',
+  color: 'var(--text-primary)',
+  fontWeight: 600,
+  whiteSpace: 'nowrap' as const,
+};
+
+const tableBodyCellStyle = {
+  padding: '4px 8px',
+  borderBottom: '1px solid rgba(255,255,255,0.06)',
+  color: 'var(--text-secondary)',
+  verticalAlign: 'top' as const,
+};
+
+export default function MarkdownView({
+  content,
+  references = [],
+  onOpenReference,
+}: {
+  content: string;
+  references?: readonly KnowledgeReference[];
+  onOpenReference?: (nodeId: string) => void;
+}) {
   if (!content) {
     return (
       <p className="text-muted" style={{ fontStyle: 'italic', opacity: 0.7 }}>
@@ -76,7 +316,7 @@ export default function MarkdownView({ content }: { content: string }) {
       {parts.map((part, partIdx) => {
         if (part.type === 'code') {
           return (
-            <div key={partIdx} className="code-block-container" style={{ margin: '14px 0', position: 'relative' }}>
+            <div key={partIdx} className="code-block-container" style={{ margin: '10px 0', position: 'relative' }}>
               {part.lang && (
                 <div
                   style={{
@@ -98,17 +338,16 @@ export default function MarkdownView({ content }: { content: string }) {
               )}
               <pre
                 style={{
-                  background: 'rgba(15,15,25,0.65)',
-                  border: '1px solid var(--border-secondary)',
-                  borderRadius: '8px',
-                  padding: '12px 14px',
+                  background: 'rgba(15,15,25,0.5)',
+                  border: '0',
+                  borderRadius: '6px',
+                  padding: '10px 12px',
                   overflowX: 'auto',
                   margin: 0,
                   fontFamily: '"Fira Code", Consolas, "Courier New", Courier, monospace',
                   fontSize: '12px',
                   lineHeight: '1.6',
                   color: '#e2e8f0',
-                  boxShadow: 'inset 0 1px 4px rgba(0,0,0,0.3)',
                 }}
               >
                 <code style={{ fontFamily: 'inherit', color: 'inherit' }}>{part.content}</code>
@@ -117,20 +356,79 @@ export default function MarkdownView({ content }: { content: string }) {
           );
         }
 
-        const blocks = part.content.split(/\n\s*\n/);
-        return blocks.map((block, blockIdx) => {
-          const trimmedBlock = block.trim();
-          if (!trimmedBlock) return null;
+        const units = splitContentUnits(part.content);
+        return units.map((unit, unitIdx) => {
+          const key = `${partIdx}-${unitIdx}`;
+
+          if (unit.type === 'image') {
+            return <SmartImage key={key} src={unit.src} alt={unit.alt} />;
+          }
+
+          if (unit.type === 'heading') {
+            const fontSize =
+              unit.level <= 1 ? '16px'
+                : unit.level === 2 ? '15px'
+                  : unit.level === 3 ? '14px'
+                    : '13px';
+            return (
+              <div
+                key={key}
+                style={{
+                  margin: unit.level <= 2 ? '16px 0 6px' : '12px 0 4px',
+                  fontSize,
+                  fontWeight: 600,
+                  color: 'var(--text-primary)',
+                  lineHeight: 1.4,
+                }}
+              >
+                {renderInlineFormatting(unit.text, references, onOpenReference)}
+              </div>
+            );
+          }
+
+          if (unit.type === 'table') {
+            const [headRow, ...bodyRows] = unit.rows;
+            return (
+              <div key={key} style={{ overflowX: 'auto', margin: '10px 0' }}>
+                <table style={{ borderCollapse: 'collapse', width: '100%', fontSize: '12px', lineHeight: 1.5 }}>
+                  {headRow && (
+                    <thead>
+                      <tr>
+                        {headRow.map((cell, cellIdx) => (
+                          <th key={cellIdx} style={tableHeaderCellStyle}>
+                            {renderInlineFormatting(cell, references, onOpenReference)}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                  )}
+                  <tbody>
+                    {bodyRows.map((row, rowIdx) => (
+                      <tr key={rowIdx}>
+                        {row.map((cell, cellIdx) => (
+                          <td key={cellIdx} style={tableBodyCellStyle}>
+                            {renderInlineFormatting(cell, references, onOpenReference)}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+
+          const trimmedBlock = unit.text;
 
           if (trimmedBlock.startsWith('* ') || trimmedBlock.startsWith('- ') || trimmedBlock.match(/^\d+\.\s/)) {
             const lines = trimmedBlock.split('\n');
             return (
-              <ul key={blockIdx} style={{ paddingLeft: '20px', margin: '12px 0', listStyleType: 'disc' }}>
+              <ul key={key} style={{ paddingLeft: '18px', margin: '8px 0', listStyleType: 'disc' }}>
                 {lines.map((line, lineIdx) => {
                   const contentOnly = line.replace(/^([\*\-\s]|\d+\.\s)+/, '');
                   return (
-                    <li key={lineIdx} style={{ margin: '8px 0', fontSize: '13px', lineHeight: '1.65' }}>
-                      {renderInlineFormatting(contentOnly)}
+                    <li key={lineIdx} style={{ margin: '3px 0', fontSize: '13px', lineHeight: '1.6' }}>
+                      {renderInlineFormatting(contentOnly, references, onOpenReference)}
                     </li>
                   );
                 })}
@@ -151,19 +449,18 @@ export default function MarkdownView({ content }: { content: string }) {
 
               return (
                 <div
-                  key={blockIdx}
+                  key={key}
                   style={{
-                    margin: '18px 0',
-                    padding: '12px 16px',
-                    background: isWarning ? 'rgba(239, 68, 68, 0.05)' : 'rgba(139, 92, 246, 0.04)',
-                    borderLeft: isWarning ? '3px solid #ef4444' : '3px solid var(--accent-purple)',
-                    borderRadius: '6px',
-                    boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
+                    margin: '12px 0',
+                    padding: '6px 10px',
+                    background: isWarning ? 'rgba(239, 68, 68, 0.04)' : 'rgba(139, 92, 246, 0.03)',
+                    borderLeft: isWarning ? '2px solid #ef4444' : '2px solid var(--accent-purple)',
+                    borderRadius: '0 4px 4px 0',
                   }}
                 >
                   <h4
                     style={{
-                      margin: '0 0 8px 0',
+                      margin: '0 0 4px 0',
                       fontSize: '13.5px',
                       fontWeight: '600',
                       color: isWarning ? '#ef4444' : 'var(--text-primary)',
@@ -177,7 +474,7 @@ export default function MarkdownView({ content }: { content: string }) {
                   </h4>
                   {remainingBody && (
                     <div style={{ margin: 0, fontSize: '13px', lineHeight: '1.65', color: 'var(--text-secondary)' }}>
-                      {renderInlineFormatting(remainingBody)}
+                      {renderInlineFormatting(remainingBody, references, onOpenReference)}
                     </div>
                   )}
                 </div>
@@ -187,16 +484,16 @@ export default function MarkdownView({ content }: { content: string }) {
 
           return (
             <p
-              key={blockIdx}
+              key={key}
               style={{
-                margin: '12px 0',
+                margin: '8px 0',
                 fontSize: '13px',
                 lineHeight: '1.65',
                 color: 'var(--text-secondary)',
                 whiteSpace: 'pre-line',
               }}
             >
-              {renderInlineFormatting(trimmedBlock)}
+              {renderInlineFormatting(trimmedBlock, references, onOpenReference)}
             </p>
           );
         });

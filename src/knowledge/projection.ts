@@ -1,4 +1,5 @@
 import type { AtomBinding, KnowledgeNode, ViewDimension, ViewSection } from '../types';
+import { hasSupertag } from './supertags';
 
 export interface MatrixProjection {
   ownerId: string;
@@ -17,7 +18,7 @@ export function resolveSectionAtoms(
 
   for (const tag of section.config?.tagQuery ?? []) {
     for (const node of Object.values(nodePool)) {
-      if (!node.tags?.includes(tag) || seen.has(node.id)) continue;
+      if (!hasSupertag(node.tags, tag) || seen.has(node.id)) continue;
       atoms.push({ nodeId: node.id });
       seen.add(node.id);
     }

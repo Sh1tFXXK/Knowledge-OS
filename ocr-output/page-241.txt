@@ -1,0 +1,39 @@
+224第三部分多机数据库的实现
+//实例无响应多少毫秒之后才会被判断为主观下线（subjectivelydown）
+mstime_tdown_afterperiod;
+//SENTINELmonitor<master-name><IP><port><quorum>选项中的quorum参数
+//判断这个实例为客观下线（objectivelydown）所需的支持投票数量
+int quorum;
+//SENTINELparallel-syncs<master-name><number>选项的值
+/／在执行故障转移操作时，可以同时对新的主服务器进行同步的从服务器数量
+int parallel_syncs;
+//SENTINELfailover-timeout<master-name><ms>选项的值
+/／刷新故障迁移状态的最大时限
+mstimetfailover_timeout;
+//
+) sentinelRedisInstance;
+sentinelRedisInstance.addr属性是一个指向sentinel.c/sentinelAddr
+结构的指针，这个结构保存着实例的IP地址和端口号：
+typedefstructsentinelAddr(
+char*ip;
+int port;
+JsentinelAddr;
+对Sentinel状态的初始化将引发对masters字典的初始化，而masters字典的初始
+化是根据被载人的Sentinel配置文件来进行的。
+举个例子，如果用户在启动Sentinel时，指定了包含以下内容的配置文件：
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+#masterl configure #
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+sentinelmonitormaster1127.0.0.163792
+sentinel down-after-milliseconds masterl 3ooo0
+sentinelparallel-syncs masterl 1
+sentinel failover-timeout masterl 9ooo00
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃
+#master2configure#
+＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃＃#
+sentinelmonitormaster2127.0.0.1123455
+sentinel down-after-millisecondsmaster2 5ooo0
+sentinelparallel-syncsmaster25
+sentinel failover-timeout master2 45o000
+那么Sentinel将为主服务器masterl创建如图16-5所示的实例结构，并为主服务器
+master2创建如图16-6所示的实例结构，而这两个实例结构又会被保存到Sentinel状态的

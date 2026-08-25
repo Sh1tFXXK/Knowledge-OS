@@ -36,6 +36,7 @@ async function saveFile<T>(filename: string, data: T): Promise<void> {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
   } catch (e) {
     console.error(`Failed to save ${filename}`, e);
+    throw e;
   }
 }
 

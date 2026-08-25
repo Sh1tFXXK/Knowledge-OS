@@ -1,5 +1,11 @@
-import { Check, ChevronDown, ChevronRight, Grid3X3, Package, Pencil, Plus, SquarePlus, Tags, Trash2, X } from 'lucide-react';
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { Check, ChevronDown, ChevronRight, Package, Pencil, Plus, SquarePlus, Tags, Trash2, X } from 'lucide-react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type PointerEvent as ReactPointerEvent,
+} from 'react';
 import {
   type ExplanationIndexNode,
 } from '../../knowledge/explanationIndex';
@@ -20,12 +26,19 @@ import {
   type CuttingPoint,
   type CuttingSegment,
 } from './cuttingGesture';
-import { IndexCanvas, type CanvasFocusTarget, type WorldRect } from './IndexCanvas';
+import {
+  IndexCanvas,
+  type CanvasFocusTarget,
+  type CanvasOverviewLabel,
+  type CanvasSize,
+  type WorldRect,
+} from './IndexCanvas';
 import {
   computeEdgeRoutingPlan,
   type EdgeRoutingMode,
   type EdgeRoutingPlan,
 } from './edgeRouting';
+import { canvasContentAspectRatio } from './indexCanvasCamera';
 import {
   buildUnifiedIndexGraph,
   UnifiedIndexEdgeKind,
@@ -41,6 +54,7 @@ interface Props {
   relationRootLabel: string;
   relationGraph: TypeRelationGraph;
   knowledgeEdges: readonly KnowledgeEdge[];
+  containmentEdges?: readonly KnowledgeEdge[];
   nodePool: Record<string, KnowledgeNode>;
   activeSelection: ExplanationSelection | null;
   editable: boolean;
@@ -221,6 +235,7 @@ export function UnifiedIndexGraph({
   relationRootLabel,
   relationGraph,
   knowledgeEdges,
+  containmentEdges,
   nodePool,
   activeSelection,
   editable,
@@ -239,6 +254,10 @@ export function UnifiedIndexGraph({
   onDeleteNodes,
   onRemoveEdges,
 }: Props) {
+  const [canvasViewportSize, setCanvasViewportSize] = useState<CanvasSize>({
+    width: 0,
+    height: 0,
+  });
   const [focusedNodeId, setFocusedNodeId] = useState<string | null>(null);
   const [collapsedNodeIds, setCollapsedNodeIds] = useState<ReadonlySet<string>>(new Set());
   const [nodePositions, setNodePositions] = useState<Record<string, { x: number; y: number }>>({});
@@ -255,6 +274,10 @@ export function UnifiedIndexGraph({
   const cuttingGestureRef = useRef<CuttingGesture | null>(null);
   const cuttingHitsRef = useRef<CuttingHits>({ nodeIds: [], edgeIds: [] });
   const suppressClickRef = useRef(false);
+  const physicalContainmentEdges = containmentEdges ?? knowledgeEdges;
+  const targetAspectRatio = canvasViewportSize.width > 0 && canvasViewportSize.height > 0
+    ? Math.round(canvasContentAspectRatio(canvasViewportSize) * 100) / 100
+    : undefined;
   const layout = useMemo(() => buildUnifiedIndexGraph({
     ownerId,
     ownerLabel,
@@ -263,8 +286,10 @@ export function UnifiedIndexGraph({
     relationRootLabel,
     relationGraph,
     knowledgeEdges,
+    containmentEdges: physicalContainmentEdges,
     nodePool,
     collapsedNodeIds,
+    targetAspectRatio,
   }), [
     collapsedNodeIds,
     index,
@@ -275,6 +300,8 @@ export function UnifiedIndexGraph({
     relationGraph,
     relationRootId,
     relationRootLabel,
+    targetAspectRatio,
+    physicalContainmentEdges,
   ]);
   // 拖动后的位置覆盖层：布局结果 + 用户手动拖动的位移
   const effectiveNodes = useMemo(
@@ -287,6 +314,124 @@ export function UnifiedIndexGraph({
   const nodeById = useMemo(
     () => new Map(effectiveNodes.map((node) => [node.id, node])),
     [effectiveNodes],
+  );
+  const containmentChildrenById = useMemo(() => {
+    const graphIdByKnowledgeId = new Map<string, string>(
+      effectiveNodes.map((node) => [node.knowledgeNodeId, node.id]),
+    );
+    const children = new Map<string, string[]>();
+    for (const edge of physicalContainmentEdges) {
+      if (edge.type !== CONTAINMENT_EDGE_TYPE) continue;
+      const sourceId = graphIdByKnowledgeId.get(edge.source);
+      const targetId = graphIdByKnowledgeId.get(edge.target);
+      if (!sourceId || !targetId || sourceId === targetId) continue;
+      const list = children.get(sourceId) ?? [];
+      if (!list.includes(targetId)) list.push(targetId);
+      children.set(sourceId, list);
+    }
+    return children;
+  }, [effectiveNodes, physicalContainmentEdges]);
+  const containmentSubtreeIds = useMemo(() => {
+    const ids = new Set<string>();
+    const visit = (nodeId: string) => {
+      if (ids.has(nodeId)) return;
+      ids.add(nodeId);
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        visit(childId);
+      }
+    };
+    const owner = effectiveNodes.find((node) => node.owner);
+    if (owner && (containmentChildrenById.get(owner.id) ?? []).length > 0) {
+      visit(owner.id);
+    }
+    return ids;
+  }, [containmentChildrenById, effectiveNodes]);
+  const containmentDescendantsById = useMemo(() => {
+    const descendants = new Map<string, Set<string>>();
+    const collect = (nodeId: string, seen: ReadonlySet<string>): Set<string> => {
+      const result = new Set<string>();
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        if (seen.has(childId)) continue;
+        result.add(childId);
+        const nextSeen = new Set(seen);
+        nextSeen.add(childId);
+        for (const descendant of collect(childId, nextSeen)) {
+          result.add(descendant);
+        }
+      }
+      return result;
+    };
+    for (const nodeId of containmentSubtreeIds) {
+      descendants.set(nodeId, collect(nodeId, new Set([nodeId])));
+    }
+    return descendants;
+  }, [containmentChildrenById, containmentSubtreeIds]);
+  const containmentDepthById = useMemo(() => {
+    const depths = new Map<string, number>();
+    const visit = (nodeId: string, depth: number) => {
+      if (depths.has(nodeId)) return;
+      depths.set(nodeId, depth);
+      for (const childId of containmentChildrenById.get(nodeId) ?? []) {
+        visit(childId, depth + 1);
+      }
+    };
+    const owner = effectiveNodes.find((node) => node.owner);
+    if (owner && (containmentChildrenById.get(owner.id) ?? []).length > 0) {
+      visit(owner.id, 0);
+    }
+    return depths;
+  }, [containmentChildrenById, effectiveNodes]);
+  const matrixHostKnowledgeIds = useMemo(
+    () => new Set(
+      [...containmentChildrenById.keys()]
+        .map((nodeId) => nodeById.get(nodeId)?.knowledgeNodeId)
+        .filter((nodeId): nodeId is string => !!nodeId),
+    ),
+    [containmentChildrenById, nodeById],
+  );
+  const overviewLabels = useMemo<CanvasOverviewLabel[]>(() => [
+    ...layout.containmentFrames.map((frame) => ({
+      id: `overview:${frame.id}`,
+      entityId: frame.nodeId,
+      label: nodePool[frame.knowledgeNodeId]?.label ?? frame.knowledgeNodeId,
+      kind: 'group' as const,
+      x: frame.left,
+      y: frame.top,
+      width: frame.width,
+      height: frame.height,
+      priority: 160 - Math.min(frame.depth, 100),
+    })),
+    ...effectiveNodes.map((node) => ({
+      id: `overview:${node.id}`,
+      entityId: node.id,
+      label: node.label,
+      kind: 'node' as const,
+      x: node.position.x - node.size.width / 2,
+      y: node.position.y - node.size.height / 2,
+      width: node.size.width,
+      height: node.size.height,
+      priority: node.owner
+        ? 220
+        : node.relationRoot
+          ? 200
+          : matrixHostKnowledgeIds.has(node.knowledgeNodeId)
+            ? 120 - Math.min(containmentDepthById.get(node.id) ?? 0, 100)
+            : 20,
+    })),
+  ], [
+    containmentDepthById,
+    effectiveNodes,
+    layout.containmentFrames,
+    matrixHostKnowledgeIds,
+    nodePool,
+  ]);
+  const orderedEffectiveNodes = useMemo(
+    () => [...effectiveNodes].sort((left, right) => {
+      const leftDepth = containmentDepthById.get(left.id) ?? Number.POSITIVE_INFINITY;
+      const rightDepth = containmentDepthById.get(right.id) ?? Number.POSITIVE_INFINITY;
+      return leftDepth - rightDepth;
+    }),
+    [containmentDepthById, effectiveNodes],
   );
   const edgeRoutingPlans = useMemo<Record<EdgeRoutingMode, EdgeRoutingPlan>>(() => ({
     detail: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'detail'),
@@ -339,13 +484,6 @@ export function UnifiedIndexGraph({
         height: focusedGraphNode.size.height,
       }
     : undefined;
-  const contentKey = [
-    ownerId,
-    layout.width,
-    layout.height,
-    layout.nodes.map((node) => `${node.id}:${node.size.height}`).join('|'),
-  ].join(':');
-
   useEffect(() => {
     setFocusedNodeId(null);
     setCollapsedNodeIds(new Set());
@@ -405,9 +543,9 @@ export function UnifiedIndexGraph({
       height: number;
     }
     const membersByGroup = new Map<string, Set<string>>();
-    for (const edge of knowledgeEdges) {
+    for (const edge of physicalContainmentEdges) {
       if (edge.type !== CONTAINMENT_EDGE_TYPE) continue;
-      if (edge.id.startsWith('treebind:')) continue;
+      if (edge.id.startsWith('treebind:') || edge.id.startsWith('treeprojection:')) continue;
       if (edge.source === ownerId) continue;
       let members = membersByGroup.get(edge.source);
       if (!members) {
@@ -444,34 +582,7 @@ export function UnifiedIndexGraph({
       });
     }
     return frames;
-  }, [knowledgeEdges, ownerId, effectiveNodes, nodePool]);
-
-  const containmentMatrix = useMemo(() => {
-    const cells = effectiveNodes.filter((node) => node.containedChild);
-    if (cells.length === 0) return null;
-
-    const PAD_X = 18;
-    const PAD_TOP = 38;
-    const PAD_BOTTOM = 18;
-    let x0 = Infinity;
-    let y0 = Infinity;
-    let x1 = -Infinity;
-    let y1 = -Infinity;
-    for (const cell of cells) {
-      x0 = Math.min(x0, cell.position.x - cell.size.width / 2);
-      y0 = Math.min(y0, cell.position.y - cell.size.height / 2);
-      x1 = Math.max(x1, cell.position.x + cell.size.width / 2);
-      y1 = Math.max(y1, cell.position.y + cell.size.height / 2);
-    }
-
-    return {
-      left: x0 - PAD_X,
-      top: y0 - PAD_TOP,
-      width: x1 - x0 + PAD_X * 2,
-      height: y1 - y0 + PAD_TOP + PAD_BOTTOM,
-      count: cells.length,
-    };
-  }, [effectiveNodes]);
+  }, [physicalContainmentEdges, ownerId, effectiveNodes, nodePool]);
 
   // ---- 框选 ----
   const handleMarqueeSelect = (rect: WorldRect, additive: boolean) => {
@@ -789,10 +900,21 @@ export function UnifiedIndexGraph({
       event.currentTarget.setPointerCapture(event.pointerId);
       setDraggingNodeId(gesture.nodeId);
     }
-    setNodePositions((current) => ({
-      ...current,
-      [gesture.nodeId]: { x: gesture.startX + deltaX, y: gesture.startY + deltaY },
-    }));
+    setNodePositions((current) => {
+      const next = {
+        ...current,
+        [gesture.nodeId]: { x: gesture.startX + deltaX, y: gesture.startY + deltaY },
+      };
+      for (const descendantId of containmentDescendantsById.get(gesture.nodeId) ?? []) {
+        const descendant = nodeById.get(descendantId);
+        if (!descendant) continue;
+        next[descendantId] = {
+          x: descendant.position.x + deltaX,
+          y: descendant.position.y + deltaY,
+        };
+      }
+      return next;
+    });
   };
 
   const handleNodePointerEnd = (event: ReactPointerEvent<HTMLElement>) => {
@@ -1107,10 +1229,11 @@ export function UnifiedIndexGraph({
     <div className="explanation-index-unified-graph">
       <IndexCanvas
         ariaLabel={`${ownerLabel} IDEA 类型关系图`}
-        contentKey={contentKey}
         contentSize={{ width: layout.width, height: layout.height }}
         focusTarget={focusTarget}
         overlay={overlay}
+        overviewLabels={overviewLabels}
+        onViewportSizeChange={setCanvasViewportSize}
         onMarqueeSelect={handleMarqueeSelect}
         onBlankClick={handleBlankClick}
         onBlankDoubleClick={handleBlankDoubleClick}
@@ -1121,6 +1244,21 @@ export function UnifiedIndexGraph({
           onPointerDown={handleCuttingPointerDown}
           onContextMenu={(event) => event.preventDefault()}
         >
+          {layout.containmentFrames.map((frame) => (
+            <div
+              key={frame.id}
+              className="explanation-index-containment-matrix"
+              aria-hidden="true"
+              style={{
+                left: frame.left,
+                top: frame.top,
+                width: frame.width,
+                height: frame.height,
+                ['--containment-depth' as string]: frame.depth,
+              }}
+            />
+          ))}
+
           <svg className="explanation-index-unified-edges" aria-hidden="true">
             <defs>
               <marker id="index-diagram-extends-arrow" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto" markerUnits="userSpaceOnUse">
@@ -1154,26 +1292,9 @@ export function UnifiedIndexGraph({
             )}
           </svg>
 
-          {containmentMatrix && (
-            <section
-              className="explanation-index-containment-matrix"
-              aria-label={`${ownerLabel} 的包含矩阵`}
-              style={{
-                left: containmentMatrix.left,
-                top: containmentMatrix.top,
-                width: containmentMatrix.width,
-                height: containmentMatrix.height,
-              }}
-            >
-              <header>
-                <Grid3X3 size={13} aria-hidden="true" />
-                <span>包含</span>
-                <output>{containmentMatrix.count}</output>
-              </header>
-            </section>
-          )}
-
-          {groupFrames.map((frame) => (
+          {groupFrames
+            .filter((frame) => !matrixHostKnowledgeIds.has(frame.groupId))
+            .map((frame) => (
             <div
               key={frame.groupId}
               className="explanation-index-group-frame"
@@ -1210,15 +1331,17 @@ export function UnifiedIndexGraph({
                 </button>
               )}
             </div>
-          ))}
+            ))}
 
-          {effectiveNodes.map((graphNode) => {
+          {orderedEffectiveNodes.map((graphNode) => {
             const isActive = graphNode.id === activeContext.activeNodeId;
             const isContext = activeContext.nodeIds.has(graphNode.id);
             const isMuted = !!activeContext.activeNodeId && !isContext;
             const isDragging = graphNode.id === draggingNodeId;
             const isSelected = selectedNodeIds.has(graphNode.id);
             const isPendingDelete = pendingDeleteNodeIds.has(graphNode.id);
+            const isMatrixHost = graphNode.containerHost;
+            const isLeaf = !isMatrixHost && graphNode.memberCount === 0;
             const nodeEditTargetId = `node:${graphNode.id}`;
             const nodeTagEditTargetId = `node-tags:${graphNode.id}`;
             const nodeChildEditTargetId = `node-child:${graphNode.id}`;
@@ -1235,7 +1358,7 @@ export function UnifiedIndexGraph({
               <article
                 key={graphNode.id}
                 data-graph-node-id={graphNode.id}
-                className={`explanation-index-class-node${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}`}
+                className={`explanation-index-class-node${isMatrixHost ? ' is-matrix-host is-container-header' : ''}${isLeaf ? ' is-leaf' : ''}${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}`}
                 style={{
                   left: graphNode.position.x,
                   top: graphNode.position.y,
@@ -1403,7 +1526,7 @@ export function UnifiedIndexGraph({
                     )}
                   </div>
                 </div>
-                {graphNode.members.length > 0 && (
+                {!graphNode.containerHost && graphNode.members.length > 0 && (
                   <div className="explanation-index-class-members">
                     <header>
                       <button
@@ -1451,7 +1574,20 @@ export function UnifiedIndexGraph({
                           <div
                             key={member.id}
                             className="explanation-index-class-member"
-                            style={{ ['--member-depth' as string]: member.depth }}
+                            role="button"
+                             tabIndex={0}
+                             onClick={() => {
+                               onOpenNode(member.selection.nodeId);
+                               onSelectTitle(member.selection);
+                             }}
+                             onKeyDown={(event) => {
+                               if (event.key === 'Enter' || event.key === ' ') {
+                                 event.preventDefault();
+                                 onOpenNode(member.selection.nodeId);
+                                 onSelectTitle(member.selection);
+                               }
+                             }}
+                             style={{ ['--member-depth' as string]: member.depth }}
                           >
                             {isAddingMemberChild ? (
                               renderInlineChildEditor('member', `为 ${member.label} 新增子方框`, 11)
@@ -1593,6 +1729,11 @@ export function UnifiedIndexGraph({
                           </div>
                         );
                       })}
+                      {graphNode.hiddenMemberCount > 0 && (
+                        <div className="explanation-index-class-member-more">
+                          还有 {graphNode.hiddenMemberCount} 项
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

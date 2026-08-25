@@ -1,12 +1,19 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import {
+  parentTreeIdForSchool,
+  SCHOOL_PARENT_TREE_IDS,
+} from './taxonomy-school-parents.mjs';
+import { consolidateTaxonomyProjections } from './consolidate-taxonomy-projections.mjs';
 
 const treePath = path.resolve('data/tree-data.json');
 const nodePoolPath = path.resolve('data/node-pool.json');
+const edgesPath = path.resolve('data/knowledge-edges.json');
 
 const tree = JSON.parse(fs.readFileSync(treePath, 'utf8'));
 const nodePool = JSON.parse(fs.readFileSync(nodePoolPath, 'utf8'));
+const knowledgeEdges = JSON.parse(fs.readFileSync(edgesPath, 'utf8'));
 
 function readBaselineTree() {
   try {
@@ -174,9 +181,10 @@ function detachTreeNode(root, id) {
   return null;
 }
 
-function ensureKnowledgeNode(id, label, content, tags = ['taxonomy']) {
+function ensureKnowledgeNode(id, label, content = '', tags = ['taxonomy']) {
   if (nodePool[id]) {
     const first = nodePool[id].card?.tabs?.[0];
+    if (first && typeof first.content !== 'string') first.content = content;
     if (first?.content?.includes('是 MySQL 知识目录中的稳定分类节点')) {
       first.content = content;
     }
@@ -218,6 +226,45 @@ function createTreeNode(id, name) {
     nodeRef: id,
     children: [],
   };
+}
+
+function mergeDimensions(source, target) {
+  const dimensions = new Set([
+    ...(source?.dimensions ?? []),
+    ...(target?.dimensions ?? []),
+  ]);
+  return dimensions.size > 0 ? [...dimensions] : undefined;
+}
+
+function rebuildSchoolParentBindings(edges) {
+  const schoolIds = new Set(Object.keys(SCHOOL_PARENT_TREE_IDS));
+  const retainedEdges = edges.filter((edge) => {
+    if (!edge.id.startsWith('treebind:')) return true;
+    const binding = edge.id.slice('treebind:'.length);
+    const separator = binding.lastIndexOf(':');
+    if (separator < 0) return true;
+    return !schoolIds.has(binding.slice(separator + 1));
+  });
+
+  const parentBindings = expectedSchoolIds.map((schoolId) => {
+    const parentTreeId = parentTreeIdForSchool(schoolId);
+    const parent = findTreeNode(tree, parentTreeId);
+    const school = findTreeNode(tree, schoolId);
+    if (!parent?.nodeRef || !school?.nodeRef) {
+      throw new Error(`Cannot bind school ${schoolId} to taxonomy parent ${parentTreeId}`);
+    }
+    return {
+      id: `treebind:${parentTreeId}:${schoolId}`,
+      source: parent.nodeRef,
+      target: school.nodeRef,
+      type: 'belongs-to',
+      label: 'contains',
+      relationKind: 'structure',
+      dimensions: mergeDimensions(nodePool[parent.nodeRef], nodePool[school.nodeRef]),
+    };
+  });
+
+  return [...retainedEdges, ...parentBindings];
 }
 
 function ensureDomainCard(domainId, schoolLabel) {
@@ -364,10 +411,12 @@ for (const schoolId of expectedSchoolIds) {
   schoolNodes.get(schoolId).children.push(...(preservedSchoolChildren.get(schoolId) ?? []));
 }
 
-universeRoot.children = [
-  ...(universeRoot.children ?? []),
-  ...expectedSchoolIds.map((schoolId) => schoolNodes.get(schoolId)),
-];
+for (const schoolId of expectedSchoolIds) {
+  const parentTreeId = parentTreeIdForSchool(schoolId);
+  const parent = findTreeNode(tree, parentTreeId);
+  if (!parent) throw new Error(`Taxonomy parent ${parentTreeId} not found for ${schoolId}`);
+  parent.children = [...(parent.children ?? []), schoolNodes.get(schoolId)];
+}
 
 ensureChildRef(
   'mysql_lock_range_insert',
@@ -460,7 +509,15 @@ for (const [id, node] of Object.entries(nodePool)) {
   node.tags = Array.from(new Set([...(node.tags ?? []), 'theory-domain']));
 }
 
-fs.writeFileSync(treePath, `${JSON.stringify(tree, null, 2)}\n`);
-fs.writeFileSync(nodePoolPath, `${JSON.stringify(nodePool, null, 2)}\n`);
+const repairedEdges = rebuildSchoolParentBindings(knowledgeEdges);
+const consolidated = consolidateTaxonomyProjections({
+  tree,
+  nodePool,
+  edges: repairedEdges,
+});
+
+fs.writeFileSync(treePath, `${JSON.stringify(consolidated.tree, null, 2)}\n`);
+fs.writeFileSync(nodePoolPath, `${JSON.stringify(consolidated.nodePool, null, 2)}\n`);
+fs.writeFileSync(edgesPath, `${JSON.stringify(consolidated.edges, null, 2)}\n`);
 
 console.log('mysql taxonomy repaired');

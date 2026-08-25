@@ -188,25 +188,23 @@
 .database-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
 .node-card,
 .question-card {
   background: var(--bg-card);
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-md);
-  padding: var(--space-md);
+  border-radius: 4px;
+  padding: 6px 8px;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
 .node-card:hover,
 .question-card:hover {
   background: var(--bg-card-hover);
   border-color: var(--accent-purple);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.15);
-  transform: translateY(-2px);
 }
 
 .question-card-editing {
@@ -214,14 +212,9 @@
   border-color: var(--accent-purple);
 }
 
-.question-card-editing:hover {
-  transform: none;
-}
-
 .question-card-selected {
   border-color: var(--accent-purple);
   background: rgba(139, 92, 246, 0.08);
-  box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.25);
 }
 
 .database-table tr.row-selected td {
@@ -233,7 +226,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-sm);
+  margin-bottom: 4px;
 }
 
 .node-card-title {
@@ -251,7 +244,7 @@
 .question-card-body {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: 6px;
 }
 
 .node-card-meta {
@@ -276,7 +269,7 @@
 .question-answer-editor {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   cursor: default;
 }
 
@@ -290,10 +283,10 @@
 .answer-builder {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 10px;
+  gap: 6px;
+  padding: 6px 8px;
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   background: var(--bg-secondary);
 }
 
@@ -333,10 +326,10 @@
 .answer-step-item {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 8px;
+  gap: 5px;
+  padding: 5px 8px;
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   background: var(--bg-card);
 }
 
@@ -396,7 +389,7 @@
   height: 100%;
   overflow: hidden;
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   background: rgba(15, 15, 25, 0.48);
 }
 
@@ -422,8 +415,8 @@
 .supertag-index {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: var(--space-md);
+  gap: 4px;
+  padding: 8px;
   border-right: 1px solid var(--border-secondary);
   overflow-y: auto;
 }
@@ -434,14 +427,14 @@
   align-items: center;
   gap: 8px;
   width: 100%;
-  padding: 8px 10px;
+  padding: 5px 8px;
   border: 1px solid transparent;
-  border-radius: var(--radius-sm);
+  border-radius: 4px;
   background: transparent;
   color: var(--text-secondary);
   text-align: left;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
 .supertag-index-item:hover {
@@ -541,23 +534,21 @@
 .supertag-material-card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  min-height: 132px;
-  padding: 12px;
+  gap: 8px;
+  min-height: 110px;
+  padding: 8px 10px;
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   background: var(--bg-card);
   color: var(--text-primary);
   text-align: left;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
 }
 
 .supertag-material-card:hover {
   background: var(--bg-card-hover);
   border-color: rgba(6, 182, 212, 0.44);
-  box-shadow: 0 6px 18px rgba(6, 182, 212, 0.12);
-  transform: translateY(-1px);
 }
 
 .supertag-material-head {
@@ -626,18 +617,18 @@
   display: grid;
   grid-template-rows: auto auto minmax(0, 1fr);
   border: 1px solid var(--border-secondary);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   background: var(--bg-card);
   overflow: hidden;
 }
 
 .supertag-comparison-column > header {
-  min-height: 42px;
+  min-height: 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 9px 10px;
+  padding: 5px 8px;
   border-bottom: 1px solid var(--border-secondary);
 }
 
@@ -680,7 +671,7 @@
   min-width: 0;
   display: grid;
   gap: 3px;
-  padding: 8px 10px;
+  padding: 6px 8px;
   border-bottom: 1px solid var(--border-secondary);
   color: var(--text-tertiary);
   font-size: 10px;
@@ -701,7 +692,7 @@
 
 .supertag-comparison-content {
   min-height: 0;
-  padding: 10px;
+  padding: 8px;
   overflow-y: auto;
 }
 

@@ -1,0 +1,35 @@
+284→第三部分多机数据库的实现
+17.7.2MEET、PING、PONG消息的实现
+Redis集群中的各个节点通过Gossip协议来交换各自关于不同节点的状态信息，其中
+Gossip协议由MEET、PING、PONG三种消息实现，这三种消息的正文都由两个cluster.
+h/clusterMsgDataGossip结构组成：
+union clusterMsgData(
+//MEET、PING和PONG消息的正文
+struct(
+//每条MEET、PING、PONG消息都包含两个
+//clusterMsgDataGossip结构
+clusterMsgDataGossip gossip[1];
+Jping;
+//其他消息的正文...
+因为MEET、PING、PONG三种消息都使用相同的消息正文，所以节点通过消息头的
+tYPe属性来判断一条消息是MEET消息、PING消息还是PONG消息。
+每次发送MEET、PING、PONG消息时，发送者都从自已的已知节点列表中随机选
+出两个节点（可以是主节点或者从节点），并将这两个被选中节点的信息分别保存到两个
+clusterMsgDataGossip结构里面。
+clusterMsgDataGossip结构记录了被选中节点的名字，发送者与被选中节点最后
+一次发送和接收PING消息和PONG消息的时间戳，被选中节点的IP地址和端口号，以及
+被选中节点的标识值：
+typedef struct (
+//节点的名字
+charnodename[REDIS_CLUSTER_NAMELEN];
+//最后一次向该节点发送PING消息的时间戳
+uint32_tping_sent;
+//最后一次从该节点接收到PONG消息的时间戳
+uint32_tpong_received;
+//节点的IP地址
+char ip[16];
+//节点的端口号
+uinti6_t port;
+//节点的标识值
+uintl6_tflags;
+) clusterMsgDataGossip;

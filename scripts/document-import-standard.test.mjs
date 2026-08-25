@@ -10,7 +10,9 @@ import {
 } from './import/document-importer.mjs';
 import {
   DOCUMENT_PROFILE,
+  DOCUMENT_PROFILE_MODE,
   extractContextualQuestions,
+  extractSequentialQuestionBlocks,
   QUESTION_DIFFICULTY,
   QUESTION_KIND,
   QUESTION_SOURCE_KIND,
@@ -57,6 +59,80 @@ test('contextual question extraction ignores Java wildcard syntax', () => {
   ].join('\n'));
 
   assert.deepEqual(questions.map((question) => question.text), ['SpringBoot 自动配置原理是什么？']);
+});
+
+test('explicit question-bank mode follows sequential question numbers, not answer bullets', async () => {
+  const markdown = [
+    '# Redis 面试题',
+    '',
+    '1. 什么是 Redis？',
+    'Redis 是内存数据结构存储。',
+    '1. 这是答案中的第一点。',
+    '2. 这是答案中的第二点。',
+    '',
+    '## 2 Redis线程模型',
+    'Redis 使用事件循环处理命令。',
+    '',
+    '## 3 如何保证缓存一致性',
+    '需要明确更新与失效顺序。',
+    '',
+    '## 4 持久化',
+    '持久化用于保存数据。',
+  ].join('\n');
+
+  const questions = extractSequentialQuestionBlocks(markdown);
+  assert.deepEqual(questions.map((question) => question.text), [
+    '什么是 Redis？',
+    'Redis线程模型',
+    '如何保证缓存一致性',
+    '持久化',
+  ]);
+  assert.deepEqual(questions.map((question) => question.sectionTitle), [
+    '第 1 题',
+    '第 2 题',
+    '第 3 题',
+    '第 4 题',
+  ]);
+  assert.match(questions[0].answer, /1\. 这是答案中的第一点/);
+
+  const prepared = await prepareDocumentImport({
+    fileName: 'redis-notes.md',
+    buffer: Buffer.from(markdown),
+    profileMode: DOCUMENT_PROFILE_MODE.QuestionBank,
+    useAi: false,
+  });
+  assert.equal(prepared.profile, DOCUMENT_PROFILE.QuestionBank);
+  assert.equal(prepared.questions.length, 4);
+  assert.equal(prepared.nodes.length, 1);
+});
+
+test('explicit question-bank imports preserve duplicate titles by question number', async (context) => {
+  const projectRoot = await createProjectFixture(context);
+  const result = await importDocument({
+    projectRoot,
+    fileName: 'duplicate-questions.md',
+    buffer: Buffer.from([
+      '## 1. 什么是缓存穿透？',
+      '答案一。',
+      '## 2. 什么是缓存雪崩？',
+      '答案二。',
+      '## 3. 什么是缓存穿透？',
+      '答案三。',
+    ].join('\n')),
+    parentTreeNodeId: 'spring-tree',
+    profileMode: DOCUMENT_PROFILE_MODE.QuestionBank,
+    useAi: false,
+  });
+
+  const questions = JSON.parse(await fs.readFile(path.join(projectRoot, 'data', 'questions.json'), 'utf8'));
+  assert.equal(result.questionCount, 3);
+  assert.equal(new Set(questions.map((question) => question.id)).size, 3);
+  assert.deepEqual(questions.map((question) => question.source.sectionTitle), [
+    '第 1 题',
+    '第 2 题',
+    '第 3 题',
+  ]);
+  assert.equal(questions[0].text, questions[2].text);
 });
 
 test('question-bank documents create one source node and typed traceable questions', async (context) => {

@@ -1,0 +1,42 @@
+第13章客户端，171
+13.1.8身份验证
+客户端状态的authenticated属性用于记录客户端是否通过了身份验证：
+typedef struct redisciient (
+int authenticated;
+jredisclient;
+如果authenticated的值为O，那么表示客户端未通过身份验证；如果authenticated
+的值为1，那么表示客户端已经通过了身份验证。
+举个例子，对于一个尚未进行身份验证的客户端来说，客户端状态的authenticated
+属性将如图13-10所示。
+redisclient
+当客户端authenticated属性的值为o时，除了AUTH命令
+之外，客户端发送的所有其他命令都会被服务器拒绝执行：
+authenticated
+redis> PING
+(error) NoAUTH Authentication required.
+图13-10未验证身份
+redis> SET msg "hello world"
+(error) NoAUTH Authentication required.
+时的客户端状态
+当客户端通过AUTH命令成功进行身份验证之后，客户端状态authenticated属性
+的值就会从0变为1，如图13-11所示，这时客户端就可以像往常一样向服务器发送命令请
+求了：
+redisclient
+#authenticated属性的值从变为1
+redis>AUTH123321
+OK
+authenticated
+redis> PING
+PONG
+图13-11已经通过身
+redis> SET msg "hello world"
+份验证的客户端状态
+OK
+authenticated属性仅在服务器启用了身份验证功能时使用。如果服务器没有启用
+身份验证功能的话，那么即使authenticated属性的值为O（这是默认值），服务器也不
+会拒绝执行客户端发送的命令请求。
+关于服务器身份验证的更多信息可以参考示例配置文件对requirepass选项的相关
+说明。
+13.1.9
+时间
+最后，客户端还有几个和时间有关的属性：

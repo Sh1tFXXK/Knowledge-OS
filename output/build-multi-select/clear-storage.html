@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear Knowledge OS Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #0a0a12;
+            color: #e8e6f0;
+        }
+        .container {
+            text-align: center;
+            padding: 40px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 清除 Knowledge OS 缓存</h1>
+        <p>点击下面的按钮清除浏览器缓存的旧数据</p>
+        <button onclick="clearStorage()">清除缓存</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        function clearStorage() {
+            try {
+                // 清除 Knowledge OS 的 localStorage
+                localStorage.removeItem('knowledge-os:app-state-v1');
+                localStorage.removeItem('knowledge-os:universe-tree');
+                localStorage.removeItem('knowledge-os:node-pool');
+
+                document.getElementById('result').innerHTML =
+                    '✅ 缓存已清除！<br><br>请关闭此页面，然后刷新主应用页面（http://localhost:5173）';
+            } catch (e) {
+                document.getElementById('result').innerHTML =
+                    '❌ 清除失败：' + e.message;
+            }
+        }
+    </script>
+</body>
+</html>

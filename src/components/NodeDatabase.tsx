@@ -33,8 +33,8 @@ export default function NodeDatabase() {
   // 获取所有节点
   const nodes = useMemo(() => {
     return Object.entries(nodePool).map(([id, node]) => ({
-      id,
       ...node,
+      id,
     }));
   }, [nodePool]);
 

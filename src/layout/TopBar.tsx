@@ -7,11 +7,11 @@ import DocumentImportDialog from '../components/DocumentImportDialog';
 
 const VIEWS = [
   { icon: '🌐', label: '视图', labelEn: 'Universe View', id: 'universe' },
-  { icon: 'IX', label: '索引', labelEn: 'Explanation Index', id: 'index' },
+  { icon: 'IX', label: '索引视图', labelEn: 'Explanation Index', id: 'index' },
   { icon: 'M', label: '机制', labelEn: 'Mechanism Lens', id: 'mechanism' },
   { icon: 'DB', label: '节点库', labelEn: 'Node Database', id: 'database' },
   { icon: '?', label: '问题库', labelEn: 'Question Database', id: 'questions' },
-  { icon: 'ST', label: 'Supertag库', labelEn: 'Supertag Library', id: 'supertags' },
+  { icon: 'ST', label: 'Tag库', labelEn: 'Tag Library', id: 'supertags' },
   { icon: <Clock3 size={14} />, label: '知识点时间线', labelEn: 'Knowledge Point Timeline', id: 'timeline' },
 ] as const;
 

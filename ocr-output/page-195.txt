@@ -1,0 +1,63 @@
+178第二部分单机数据库的实现
+*3/r/n$3/r/nSET/\n$3/r/nKEY\r/n$5\r/nVALUE\r/n
+并将得出的分析结果保存到客户端状态的argv属性和argc属性里面，如图14-3所示。
+redisclient
+argv[0]
+argv[1]
+argv
+argv[1]
+StringObject
+stringobject
+argc
+stringObject
+"SET"
+"KEY"
+"VALUE"
+图14-3
+客户端状态的argv属性和argc属性
+之后，服务器将通过调用命令执行器来完成执行命令所需的余下步骤，以下几个小节将
+分别介绍命令执行器所执行的工作。
+14.1.3
+命令执行器（1）：查找命令实现
+命令执行器要做的第一件事就是根据客户端状态的argv［0】参数，在命令表（command
+table）中查找参数所指定的命令，并将找到的命令保存到客户端状态的cmd属性里面。
+命令表是一个字典，字典的键是一个个命令名字，比如"set"、"get"、"del"等
+等；而字典的值则是一个个redisCommand结构，每个redisCommand结构记录了一个
+Redis命令的实现信息，表14-1记录了这个结构的各个主要属性的类型和作用。
+表14-1
+redisCommand结构的主要属性
+属性名
+类型
+作用
+char *
+name
+命令的名字，比如"set"
+redisCommandProc*
+proc
+函数指针，指向命令的实现函数，比如setCommand。
+redisCommandProc类型的定义为typedefvoidredisCo
+mmandProc(redisclient *c);
+arity
+int
+命令参数的个数，用于检查命令请求的格式是否正确。如
+果这个值为负数-N，那么表示参数的数量大于等于N。注意
+命令的名字本身也是一个参数，比如说SETmsg"hello
+world"命令的参数是"sET"、"msg"、"helloworld"，
+而不仅仅是"msg"和"helloworld"
+sflags
+char *
+字符串形式的标识值，这个值记录了命令的属性，比如这个
+命令是写命令还是读命令，这个命令是否允许在载人数据时使
+用，这个命令是否允许在Lua脚本中使用等等
+flags
+int
+对sf1ags标识进行分析得出的二进制标识，由程序自动生
+成。服务器对命令标识进行检查时使用的都是f1ags属性而不
+是sflags属性，因为对二进制标识的检查可以方便地通过&、
+←、~等操作来完成
+long long
+calls
+服务器总共执行了多少次这个命令
+long long
+milliseconds
+服务器执行这个命令所耗费的总时长

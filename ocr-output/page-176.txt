@@ -1,0 +1,36 @@
+第12章事件·159
+12.2.3
+时间事件应用实例：serverCron函数
+持续运行的Redis服务器需要定期对自身的资源和状态进行检查和调整，从而确保服务
+器可以长期、稳定地运行，这些定期操作由redis.c/serverCron函数负责执行，它的
+主要工作包括：
+口更新服务器的各类统计信息，比如时间、内存占用、数据库占用情况等。
+口清理数据库中的过期键值对。
+口关闭和清理连接失效的客户端。
+口尝试进行AOF或RDB持久化操作。
+口如果服务器是主服务器，那么对从服务器进行定期同步。
+口如果处于集群模式，对集群进行定期同步和连接测试。
+Redis服务器以周期性事件的方式来运行serverCron函数，在服务器运行期间，每
+隔一段时间，servercron就会执行一次，直到服务器关闭为止。
+在Redis2.6版本，服务器默认规定serverCron每秒运行10次，平均每间隔100毫
+秒运行一次。
+从Redis2.8开始，用户可以通过修改hz选项来调整serverCron的每秒执行次数，
+具体信息请参考示例配置文件redis.conf关于hz选项的说明。
+12.3享
+事件的调度与执行
+件进行调度，决定何时应该处理文件事件，何时又应该处理时间事件，以及花多少时间来处
+理它们等等。
+事件的调度和执行由ae.c/aeProcessEvents函数负责，以下是该函数的伪代码表示：
+def aeProcessEvents():
+#获取到达时间离当前时间最接近的时间事件
+time_event = aeSearchNearestTimer()
+#计算最接近的时间事件距离到达还有多少毫秒
+remaindms=time_event.when-unix_ts_now()
+#如果事件已到达，那么remaindms的值可能为负数，将它设定为0
+ifremaind_ms<o:
+remaind_ms = 0
+#根据remaindms的值，创建timeval结构
+timeval=create_timeval_with_ms(remaind_ms)
+阻塞并等待文件事件产生，最大阻塞时间由传入的timeval结构决定
+#如果remaindms的值为O，那么aeApiPoll调用之后马上返回，不阻塞
+aeApiPoll(timeval)

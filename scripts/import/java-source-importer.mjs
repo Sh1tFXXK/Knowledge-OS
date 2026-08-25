@@ -99,15 +99,20 @@ export async function importJavaSource(options) {
         onProgress: options.onProgress,
       });
 
+  const sourceHash = stableJavaSourceDigest(location.sourceKey);
+  const rootTreeId = `tree_java_source_${sourceHash}`;
+  const existingRootTreeNode = findJavaSourceTreeNode(treeData, rootTreeId);
   const imported = createJavaSourceNodes({
     types: introspection.types,
     sourceFiles: introspection.sourceFiles,
     location,
     nodePool,
+    rootKnowledgeNodeId: existingRootTreeNode?.nodeRef,
   });
   const previousManagedIds = new Set(
     Object.keys(nodePool).filter((nodeId) => (
-      nodeId === imported.rootNodeId || nodeId.startsWith(`${imported.rootNodeId}_s_`)
+      nodeId === imported.sourceRootNodeId
+      || nodeId.startsWith(`${imported.sourceRootNodeId}_s_`)
     )),
   );
   const desiredNodeIds = new Set(imported.nodes.map((node) => node.id));
@@ -120,11 +125,16 @@ export async function importJavaSource(options) {
     treeData,
     imported.nodes,
     options.parentTreeNodeId,
-    imported.rootNodeId,
+    imported.sourceRootNodeId,
     ['Java', '源码', imported.title],
   );
   for (const node of imported.nodes) {
-    if (node.relationIndex) nodePool[node.id].relationIndex = node.relationIndex;
+    const stored = nodePool[node.id];
+    if (node.relationIndex) stored.relationIndex = node.relationIndex;
+    if (node.canonicalKey) stored.canonicalKey = node.canonicalKey;
+    if (node.kind) stored.kind = node.kind;
+    if (node.aliases) stored.aliases = node.aliases;
+    if (node.provenance) stored.provenance = node.provenance;
   }
 
   const managedEdgePrefix = `java_source:${imported.sourceHash}:`;
@@ -138,6 +148,7 @@ export async function importJavaSource(options) {
     imported,
     types: introspection.types,
     parentTreeNode,
+    existingEdges: edges,
   }));
   validateJavaSourceState(nodePool, edges, desiredNodeIds);
 

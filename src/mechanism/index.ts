@@ -1,4 +1,5 @@
 export * from './core';
+export * from './diagram';
+export * from './knowledgeProjection';
 export * from './lens';
-export * from './innodbStructureExample';
-export * from './mysqlUpdateExample';
+export * from './validation';

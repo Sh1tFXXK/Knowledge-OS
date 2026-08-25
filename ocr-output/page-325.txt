@@ -1,0 +1,31 @@
+308→第四部分独立功能的实现
+//已入队命令计数
+int count;
+Hmultistate;
+事务队列是一个multiCmd类型的数组，数组中的每个multiCmd结构都保存了一个
+已入队命令的相关信息，包括指向命令实现函数的指针、命令的参数，以及参数的数量：
+typedefstructmultiCmd(
+// 参数
+robj **argv;
+/ /参数数量
+int argc;
+//命令指针
+structredisCommand*cmd;
+1multiCmd;
+事务队列以先进先出（FIFO）的方式保存入队的命令，较先入队的命令会被放到数组
+的前面，而较后入队的命令则会被放到数组的后面。
+举个例子，如果客户端执行以下命令：
+redis> MULTI
+OK
+QUEUED
+redis>GET"name"
+QUEUED
+redis>SET"author""Peter Seibel"
+QUEUED
+redis>GET"author"
+QUEUED
+那么服务器将为客户端创建图19-2所示的事务状态：
+口最先入队的SET命令被放在了事务队列的索引O位置上。
+口第二入队的GET命令被放在了事务队列的索引1位置上。
+口第三入队的另一个SET命令被放在了事务队列的索引2位置上。
+口最后入队的另一个GET命令被放在了事务队列的索引3位置上。

@@ -13,10 +13,16 @@ import {
   isExplanationContentSelectionValid,
 } from '../knowledge/explanationIndex';
 import { ExplanationSelectionKind } from '../types';
+import { KnowledgeNodeKind } from '../types';
+import { createEmptyMechanismSpec } from '../mechanism';
 import MarkdownView from './explanation/MarkdownView';
+import ExplanationTableSection from './explanation/ExplanationTableSection';
 import ProjectionReferences from './explanation/ProjectionReferences';
 import SupertagPanel from './explanation/SupertagPanel';
 import KnowledgePointTimeline from '../components/KnowledgePointTimeline';
+import MechanismSpecEditor from './explanation/MechanismSpecEditor';
+import { collectKnowledgeReferences } from '../knowledge/nodeReferences';
+import { normalizeSupertags } from '../knowledge/supertags';
 
 export default function ExplanationCard() {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
@@ -25,15 +31,27 @@ export default function ExplanationCard() {
   const updateKnowledgeTab = useGraphStore((state) => state.updateKnowledgeTab);
   const updateKnowledgeTabPage = useGraphStore((state) => state.updateKnowledgeTabPage);
   const updateKnowledgeRootContent = useGraphStore((state) => state.updateKnowledgeRootContent);
+  const updateKnowledgeRootTable = useGraphStore((state) => state.updateKnowledgeRootTable);
+  const updateKnowledgeTabTable = useGraphStore((state) => state.updateKnowledgeTabTable);
+  const updateKnowledgeTabPageTable = useGraphStore(
+    (state) => state.updateKnowledgeTabPageTable,
+  );
   const updatePathSupplementContent = useGraphStore(
     (state) => state.updatePathSupplementContent,
   );
+  const updatePathSupplementTable = useGraphStore((state) => state.updatePathSupplementTable);
   const addKnowledgeNode = useGraphStore((state) => state.addKnowledgeNode);
   const linkTreeToKnowledge = useGraphStore((state) => state.linkTreeToKnowledge);
   const selectTreeEntry = useGraphStore((state) => state.selectTreeEntry);
   const addNotification = useGraphStore((state) => state.addNotification);
+  const updateKnowledgeNodeMeta = useGraphStore((state) => state.updateKnowledgeNodeMeta);
+  const updateKnowledgeEdgeRelationKind = useGraphStore(
+    (state) => state.updateKnowledgeEdgeRelationKind,
+  );
+  const setActiveView = useGraphStore((state) => state.setActiveView);
   const treeData = useGraphStore((state) => state.treeData);
   const nodePool = useGraphStore((state) => state.nodePool);
+  const knowledgeEdges = useGraphStore((state) => state.knowledgeEdges);
   const openCard = useGraphStore((state) => state.openCard);
   const openSupertag = useGraphStore((state) => state.openSupertag);
   const activeExplanationSelection = useGraphStore(
@@ -74,6 +92,22 @@ export default function ExplanationCard() {
   const suggestedLabel = selectedTreeNode?.name.trim() ?? '';
   const createLabel = (newLabel.trim() || suggestedLabel).trim();
 
+  const updateNodeKind = (value: string) => {
+    if (!selectedNodeId || !nodeMeta) return;
+    const kind = value ? value as KnowledgeNodeKind : undefined;
+    updateKnowledgeNodeMeta(selectedNodeId, {
+      kind,
+      role: kind === KnowledgeNodeKind.Mechanism
+        ? 'mechanism'
+        : nodeMeta.role === 'mechanism'
+          ? 'plain'
+          : nodeMeta.role,
+      mechanismSpec: kind === KnowledgeNodeKind.Mechanism
+        ? nodeMeta.mechanismSpec ?? createEmptyMechanismSpec(selectedNodeId)
+        : undefined,
+    });
+  };
+
   const activeTabId =
     activeSelection?.kind === ExplanationSelectionKind.Content ? activeSelection.tabId : '';
   const activePageId =
@@ -104,15 +138,28 @@ export default function ExplanationCard() {
       : null;
   const activeContent =
     activeSelection?.kind === ExplanationSelectionKind.Root
-      ? (explanation.rootContent ?? '')
+      ? (explanation?.rootContent ?? '')
       : (activePathTab?.content ?? activePage?.content ?? activeTab?.content ?? '');
-  const activeTags = Array.from(
-    new Set([
+  const activeTable =
+    activeSelection?.kind === ExplanationSelectionKind.Root
+      ? explanation?.rootTable
+      : activeSelection?.kind === ExplanationSelectionKind.Path
+        ? activePathTab?.table
+        : activePage
+          ? activePage.table
+          : activeTab?.table;
+  const activeTags = normalizeSupertags([
       ...(nodeMeta?.tags ?? []),
       ...(activeSelection?.kind === ExplanationSelectionKind.Content
         ? activePage?.tags ?? activeTab?.tags ?? []
         : []),
-    ]),
+  ]);
+  const knowledgeReferences = useMemo(
+    () => collectKnowledgeReferences(
+      nodePool,
+      selectedNodeId ? new Set([selectedNodeId]) : new Set<string>(),
+    ),
+    [nodePool, selectedNodeId],
   );
 
   const matrixProjections = selectedNodeId
@@ -256,51 +303,114 @@ export default function ExplanationCard() {
         <div className="explanation-card-body explanation-card-body--content-only">
           <div className="card-content" id="card-content-body">
             {isEditing ? (
-              activeSelection?.kind === ExplanationSelectionKind.Root ? (
-                <textarea
-                  className="explanation-editor"
-                  value={explanation.rootContent ?? ''}
-                  placeholder="填写概念总述..."
-                  onChange={(event) => {
-                    if (!selectedNodeId) return;
-                    updateKnowledgeRootContent(selectedNodeId, event.target.value);
-                  }}
-                />
-              ) : activeSelection?.kind === ExplanationSelectionKind.Path &&
-              activePathTab &&
-              activeContext ? (
-                <textarea
-                  className="explanation-editor"
-                  value={activePathTab.content ?? ''}
-                  placeholder="填写当前路径下的补充说明..."
-                  onChange={(event) =>
-                    updatePathSupplementContent(activeContext.treeNodeId, event.target.value)
-                  }
-                />
-              ) : activeSelection?.kind === ExplanationSelectionKind.Content && activeTab ? (
-                <textarea
-                  className="explanation-editor"
-                  value={activePage?.content ?? activeTab.content}
-                  placeholder="填写当前标题的内容..."
-                  onChange={(event) => {
-                    if (!selectedNodeId) return;
-                    if (activePage) {
-                      updateKnowledgeTabPage(
-                        selectedNodeId,
-                        activeTab.id,
-                        activePage.id,
-                        event.target.value,
-                      );
+              <div className="explanation-content-editor">
+                <section className="knowledge-kind-editor">
+                  <label htmlFor="knowledge-kind-select">知识性质</label>
+                  <select
+                    id="knowledge-kind-select"
+                    className="input"
+                    value={nodeMeta?.kind ?? ''}
+                    onChange={(event: { target: { value: string } }) => updateNodeKind(event.target.value)}
+                  >
+                    <option value="">未分类</option>
+                    {Object.values(KnowledgeNodeKind).map((kind) => (
+                      <option key={kind} value={kind}>{kind === KnowledgeNodeKind.Mechanism ? '机制' : kind}</option>
+                    ))}
+                  </select>
+                </section>
+                {selectedNodeId && nodeMeta?.kind === KnowledgeNodeKind.Mechanism ? (
+                  <MechanismSpecEditor
+                    node={nodeMeta}
+                    nodePool={nodePool}
+                    knowledgeEdges={knowledgeEdges}
+                    treeData={treeData}
+                    onChange={(mechanismSpec) => updateKnowledgeNodeMeta(selectedNodeId, { mechanismSpec })}
+                    onChangeEdgeKind={updateKnowledgeEdgeRelationKind}
+                    onOpenMechanism={() => setActiveView('mechanism')}
+                  />
+                ) : null}
+                <ExplanationTableSection
+                  table={activeTable}
+                  editing
+                  onChange={(table) => {
+                    if (!selectedNodeId || !activeSelection) return;
+                    if (activeSelection.kind === ExplanationSelectionKind.Root) {
+                      updateKnowledgeRootTable(selectedNodeId, table);
                       return;
                     }
-                    updateKnowledgeTab(selectedNodeId, activeTab.id, event.target.value);
+                    if (activeSelection.kind === ExplanationSelectionKind.Path && activeContext) {
+                      updatePathSupplementTable(activeContext.treeNodeId, activeSelection.tabId, table);
+                      return;
+                    }
+                    if (activeSelection.kind === ExplanationSelectionKind.Content && activeTab) {
+                      if (activePage) {
+                        updateKnowledgeTabPageTable(
+                          selectedNodeId,
+                          activeTab.id,
+                          activePage.id,
+                          table,
+                        );
+                      } else {
+                        updateKnowledgeTabTable(selectedNodeId, activeTab.id, table);
+                      }
+                    }
                   }}
                 />
-              ) : (
-                <p className="text-muted">当前索引项没有正文</p>
-              )
+                {activeSelection?.kind === ExplanationSelectionKind.Root ? (
+                  <textarea
+                    className="explanation-editor"
+                    value={explanation.rootContent ?? ''}
+                    placeholder="填写概念总述..."
+                    onChange={(event) => {
+                      if (!selectedNodeId) return;
+                      updateKnowledgeRootContent(selectedNodeId, event.target.value);
+                    }}
+                  />
+                ) : activeSelection?.kind === ExplanationSelectionKind.Path &&
+                  activePathTab &&
+                  activeContext ? (
+                    <textarea
+                      className="explanation-editor"
+                      value={activePathTab.content ?? ''}
+                      placeholder="填写当前路径下的补充说明..."
+                      onChange={(event) =>
+                        updatePathSupplementContent(activeContext.treeNodeId, event.target.value)
+                      }
+                    />
+                  ) : activeSelection?.kind === ExplanationSelectionKind.Content && activeTab ? (
+                    <textarea
+                      className="explanation-editor"
+                      value={activePage?.content ?? activeTab.content}
+                      placeholder="填写当前标题的内容..."
+                      onChange={(event) => {
+                        if (!selectedNodeId) return;
+                        if (activePage) {
+                          updateKnowledgeTabPage(
+                            selectedNodeId,
+                            activeTab.id,
+                            activePage.id,
+                            event.target.value,
+                          );
+                          return;
+                        }
+                        updateKnowledgeTab(selectedNodeId, activeTab.id, event.target.value);
+                      }}
+                    />
+                  ) : (
+                    <p className="text-muted">当前索引项没有正文</p>
+                  )}
+              </div>
             ) : (
-              <MarkdownView content={activeContent} />
+              <>
+                {activeContent.trim() || !activeTable ? (
+                  <MarkdownView
+                    content={activeContent}
+                    references={knowledgeReferences}
+                    onOpenReference={openCard}
+                  />
+                ) : null}
+                <ExplanationTableSection table={activeTable} editing={false} onChange={() => undefined} />
+              </>
             )}
 
             {selectedNodeId && matrixProjections.length > 0 && (

@@ -1,0 +1,71 @@
+146第二部分单机数据库的实现
+f.write_command(HMsET,key, fieldl, valuel,field2,value2,
+fieldN,
+valueN)
+def rewrite_set(key);
+#使用SMEMBERS命令获取集合键包含的所有元素
+eleml,elem2,
+elemN=SMEMBERS(key)
+#使用SADD命令重写集合键
+f.write_command(SADD,key,eleml,elem2,
+.,elemN)
+def rewrite_sorted_set(key):
+#使用ZRANGE命令获取有序集合键包含的所有元素
+memberl,scorel, member2, score2,
+memberN,scoreN=ZRANGE(key,O,-1,
+"WITHSCORES")
+#使用ZADD命令重写有序集合键
+f.write_command(zADD,key, scorel,memberl, score2, member2,
+scoreN,
+memberN)
+def rewrite_expire_time(key):
+#获取毫秒精度的键过期时间戳
+timestamp = get_expire_time_in_unixstamp(key)
+#使用PEXPIREAT命令重写键的过期时间
+f.write_command(PEXPIREAT,key,timestamp)
+因为aofrewrite函数生成的新AOF文件只包含还原当前数据库状态所必须的命令，
+所以新AOF文件不会浪费任何硬盘空间。
+Listobject
+StringObject
+StringObject
+StringObject
+"a"
+q..
+"c"
+redisDb
+dict
+StringObject
+id
+HashObject
+StringObject
+"alphabet"
+Stringobject
+"Redis in Action"
+Stringobject
+"name"
+"book"
+Stringobject
+StringObject
+dict
+Stringobject
+"author"
+"Josiah L.Carlson"
+expires
+"message"
+StringObject
+"publisher"
+stringObject
+"Manning"
+Stringobject
+dict
+"hello world"
+StringObject
+long long
+"alphabet"
+1385877600000
+Stringobject
+"book"
+long long
+1388556000000
+图11-3
+3一个数据库

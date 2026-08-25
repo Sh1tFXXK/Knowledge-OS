@@ -17,10 +17,10 @@ export interface LayoutEdge {
   target: string;
 }
 
-export interface LaidNode<T extends LayoutNode = LayoutNode> extends T {
+export type LaidNode<T extends LayoutNode = LayoutNode> = T & {
   cx: number;
   cy: number;
-}
+};
 
 const MIN_NODE_GAP = 108;
 

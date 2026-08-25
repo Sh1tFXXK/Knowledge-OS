@@ -1,0 +1,27 @@
+第6章
+整数集合
+整数集合（intset）是集合键的底层实现之一，当一个集合只包含整数值元素，并且这
+个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。
+举个例子，如果我们创建一个只包含五个元素的集合键，并且集合中的所有元素都是整
+数值，那么这个集合键的底层实现就会是整数集合：
+redis>SADDnumbers13579
+(integer)5
+redis>OBJECTENCODINGnumbers
+"intset"
+在这一章，我们将对整数集合及其相关操作的实现原理进行介绍。
+6.1
+整数集合的实现
+整数集合（intset）是Redis用于保存整数值的集合抽象数据结构，它可以保存类型为
+int16_t、int32_t或者int64_t的整数值，并且保证集合中不会出现重复元素。
+每个intset.h/intset结构表示一个整数集合：
+typedef struct intset(
+//编码方式
+uint32_tencodingi
+//集合包含的元素数量
+uint32_tlength;
+//保存元素的数组
+int8_tcontents[];
+1intset;
+contents数组是整数集合的底层实现：整数集合的每个元素都是contents数组的
+一个数组项（item），各个项在数组中按值的大小从小到大有序地排列，并且数组中不包含
+任何重复项。

@@ -1,0 +1,30 @@
+第20章Lua脚本329
+20.2.2lua_scripts字典
+除了伪客户端之外，Redis服务器为Lua环境创建的另一个协作组件是lua_scripts
+字典，这个字典的键为某个Lua脚本的SHA1校验和（checksum），而字典的值则是SHA1
+校验和对应的Lua脚本：
+struct redisserver(
+dict *lua_scripts;
+Redis服务器会将所有被EVAL命令执行过的Lua脚本，以及所有被SCRIPTLOAD命
+令载人过的Lua脚本都保存到lua_scripts字典里面。
+举个例子，如果客户端向服务器发送以下命令：
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+redis>SCRIPTLOAD"return 1+i"
+"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9"
+redis> SCRIPT LOAD "return 2*2"
+"4475bfb5919b5ad16424cb50f74d4724ae833e72"
+那么服务器的lua_scripts字典将包含被SCRIPTLOAD命令载人的三个Lua脚本，如图
+20-4所示。
+lua_scripts
+"return'hit"
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9"
+>"return1+1"
+"4475bfb5919b5ad16424cb50f74d4724ae833e72"
+"return2*2"
+图20-4lua_scripts字典示例
+lua_scripts字典有两个作用，一个是实现SCRIPTEXISTS命令，另一个是实现脚
+20.3E
+EVAL命令的实现
+EVAL命令的执行过程可以分为以下三个步骤：
+1）根据客户端给定的Lua脚本，在Lua环境中定义一个Lua函数。

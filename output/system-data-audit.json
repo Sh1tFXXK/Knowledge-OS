@@ -1,0 +1,4363 @@
+{
+  "generatedAt": "2026-08-15T15:16:40.473Z",
+  "scope": {
+    "dataFiles": [
+      "node-pool.json",
+      "knowledge-edges.json",
+      "tree-data.json",
+      "questions.json",
+      "timeline.json"
+    ]
+  },
+  "totals": {
+    "nodes": 3025,
+    "edges": 3378,
+    "treeEntries": 2371,
+    "questions": 560,
+    "timelineItems": 2375
+  },
+  "structuralIntegrity": {
+    "validatorIssueCount": 0,
+    "validatorIssues": [],
+    "missingTreeNodeRefs": 1,
+    "missingPoolNodes": 0,
+    "duplicateTreeIds": 0,
+    "orphanNodes": 865,
+    "keyIdMismatch": 0,
+    "missingNodeId": 0,
+    "missingLabels": 0,
+    "duplicateExactLabelGroups": 116,
+    "multiPlacementNodes": 190
+  },
+  "relationshipIntegrity": {
+    "missingId": 0,
+    "missingSource": 0,
+    "missingTarget": 0,
+    "missingEndpoint": 0,
+    "selfLoop": 0,
+    "duplicateId": 0,
+    "duplicateTypedPair": 5,
+    "missingQuestionRefs": 0,
+    "missingTimelineRefs": 0
+  },
+  "contentCoverage": {
+    "noCardNodes": 0,
+    "contentlessCards": 117,
+    "cardTitleMismatch": 37
+  },
+  "distributions": {
+    "depth": {
+      "0": 1,
+      "1": 4,
+      "2": 29,
+      "3": 169,
+      "4": 116,
+      "5": 243,
+      "6": 323,
+      "7": 376,
+      "8": 325,
+      "9": 386,
+      "10": 327,
+      "11": 50,
+      "12": 22
+    },
+    "roles": {
+      "未设置": 2088,
+      "plain": 546,
+      "subsystem": 276,
+      "mechanism": 101,
+      "axiom": 12,
+      "conclusion": 2
+    },
+    "topDimensions": [
+      {
+        "dimension": "storage",
+        "count": 429
+      },
+      {
+        "dimension": "transaction",
+        "count": 127
+      },
+      {
+        "dimension": "performance",
+        "count": 94
+      },
+      {
+        "dimension": "jvm",
+        "count": 58
+      },
+      {
+        "dimension": "runtime",
+        "count": 18
+      },
+      {
+        "dimension": "security",
+        "count": 15
+      },
+      {
+        "dimension": "concurrency",
+        "count": 13
+      },
+      {
+        "dimension": "react",
+        "count": 4
+      },
+      {
+        "dimension": "frontend",
+        "count": 4
+      },
+      {
+        "dimension": "architecture",
+        "count": 1
+      }
+    ],
+    "rootDomains": [
+      {
+        "nodeId": "n_55jiel25",
+        "label": "计算机科学",
+        "treeId": "demo_cs",
+        "subtreeNodeCount": 1
+      },
+      {
+        "nodeId": "school_mathematics",
+        "label": "数学",
+        "treeId": "school_mathematics",
+        "subtreeNodeCount": 1
+      },
+      {
+        "nodeId": "school_logic",
+        "label": "逻辑",
+        "treeId": "school_logic",
+        "subtreeNodeCount": 1
+      },
+      {
+        "nodeId": "school_real_world_conventions",
+        "label": "标准与约定",
+        "treeId": "school_real_world_conventions",
+        "subtreeNodeCount": 1
+      }
+    ]
+  },
+  "reviewQueues": {
+    "multiPlacementNodes": [
+      {
+        "nodeId": "k_atom_storestore",
+        "label": "StoreStore 屏障",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783096608797_3rf6xc",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / StoreStore 屏障"
+          },
+          {
+            "parentNodeRef": "k_1783093717594_y3gttn",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / StoreStore 屏障"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_atom_loadstore",
+        "label": "LoadStore 屏障",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783096608797_3rf6xc",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / LoadStore 屏障"
+          },
+          {
+            "parentNodeRef": "k_1783093717594_y3gttn",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / LoadStore 屏障"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_atom_storeload",
+        "label": "StoreLoad 屏障",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783096608797_3rf6xc",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / StoreLoad 屏障"
+          },
+          {
+            "parentNodeRef": "k_1783093717594_y3gttn",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / StoreLoad 屏障"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_jwcd61u4",
+        "label": "关闭 / shutdown",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 关闭 / shutdown"
+          },
+          {
+            "parentNodeRef": "mysql_topic_backup_operations",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 备份、运维与诊断 / 关闭 / shutdown"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_plyim9pi",
+        "label": "进程 / process",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 进程 / process"
+          },
+          {
+            "parentNodeRef": "mysql_topic_architecture",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 进程 / process"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_hcbepdud",
+        "label": "快速关闭 / fast shutdown",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 快速关闭 / fast shutdown"
+          },
+          {
+            "parentNodeRef": "mysql_topic_backup_operations",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 备份、运维与诊断 / 快速关闭 / fast shutdown"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_n7rueozw",
+        "label": "线程 / thread",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 线程 / thread"
+          },
+          {
+            "parentNodeRef": "mysql_topic_architecture",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 线程 / thread"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_mb72ps2c",
+        "label": "RAID",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / RAID"
+          },
+          {
+            "parentNodeRef": "mysql_topic_uncategorized",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 未分类 / RAID"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1782930954484_nwtfg7",
+        "label": "存储过程",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_operating_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 存储过程"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 存储过程"
+          },
+          {
+            "parentNodeRef": "k_wiki_en_outline_of_databases_s12",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 存储过程"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_p7los2aq",
+        "label": "动态 SQL / dynamic SQL",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 动态 SQL / dynamic SQL"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 动态 SQL / dynamic SQL"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_jw1sc90t",
+        "label": "撤销 / undo",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 撤销 / undo"
+          },
+          {
+            "parentNodeRef": "mysql_topic_innodb_internals",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / InnoDB 内部结构 / 撤销 / undo"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1781962829528_eqvypd",
+        "label": "干净页 / clean page",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 干净页 / clean page"
+          },
+          {
+            "parentNodeRef": "mysql_topic_innodb_internals",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / InnoDB 内部结构 / 干净页 / clean page"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_muxlhpv2",
+        "label": "缓冲区 / buffer",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 缓冲区 / buffer"
+          },
+          {
+            "parentNodeRef": "mysql_topic_optimizer_performance",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 优化器、缓存与性能 / 缓冲区 / buffer"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_lepgecnd",
+        "label": "列 / column",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 列 / column"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 列 / column"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_6rxmba95",
+        "label": "临时表 / temporary table",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 临时表 / temporary table"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 临时表 / temporary table"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_reul960o",
+        "label": "生成列 / generated column",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 生成列 / generated column"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 生成列 / generated column"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_12jqwwcl",
+        "label": "实例 / instance",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 实例 / instance"
+          },
+          {
+            "parentNodeRef": "mysql_topic_architecture",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 实例 / instance"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_nsqweksd",
+        "label": "数据字典 / data dictionary",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 数据字典 / data dictionary"
+          },
+          {
+            "parentNodeRef": "mysql_topic_architecture",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 数据字典 / data dictionary"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_jmpy3jq2",
+        "label": "填充因子 / fill factor",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 填充因子 / fill factor"
+          },
+          {
+            "parentNodeRef": "mysql_topic_uncategorized",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 未分类 / 填充因子 / fill factor"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_2uq4y41u",
+        "label": "行 / row",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 行 / row"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 行 / row"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_ihguu98m",
+        "label": "行格式 / row format",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 行格式 / row format"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 行格式 / row format"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_7okhi5j5",
+        "label": "虚拟列 / virtual column",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 虚拟列 / virtual column"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 虚拟列 / virtual column"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_rjl6lkaz",
+        "label": "脏页 / dirty page",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 脏页 / dirty page"
+          },
+          {
+            "parentNodeRef": "mysql_topic_innodb_internals",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / InnoDB 内部结构 / 脏页 / dirty page"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_s1u2tlxt",
+        "label": "合并 / merge",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_storage_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 合并 / merge"
+          },
+          {
+            "parentNodeRef": "mysql_topic_uncategorized",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 未分类 / 合并 / merge"
+          }
+        ]
+      },
+      {
+        "nodeId": "demo_clustered_index",
+        "label": "聚簇索引 / clustered index",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_distributed_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 聚簇索引 / clustered index"
+          },
+          {
+            "parentNodeRef": "mysql_topic_indexes_access",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 索引与访问路径 / 聚簇索引 / clustered index"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_kpjg49hn",
+        "label": "从属服务器 / slave",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_distributed_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 从属服务器 / slave"
+          },
+          {
+            "parentNodeRef": "mysql_topic_replication_ha",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 复制与高可用 / 从属服务器 / slave"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_n5wdsgcu",
+        "label": "分布式事务 / XA 协议 / XA",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_distributed_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 分布式事务 / XA 协议 / XA"
+          },
+          {
+            "parentNodeRef": "mysql_topic_uncategorized",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 未分类 / 分布式事务 / XA 协议 / XA"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_sctomy1z",
+        "label": "复制 / replication",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_distributed_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 复制 / replication"
+          },
+          {
+            "parentNodeRef": "mysql_topic_replication_ha",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 复制与高可用 / 复制 / replication"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_mfu28h3v",
+        "label": "故障转移 / failover",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_distributed_systems",
+            "path": "知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 故障转移 / failover"
+          },
+          {
+            "parentNodeRef": "mysql_topic_replication_ha",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 复制与高可用 / 故障转移 / failover"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_xhmtog57",
+        "label": "服务器 / server",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_network_protocols",
+            "path": "知识宇宙 / 计算机科学 / 网络 / 网络协议 / 服务器 / server"
+          },
+          {
+            "parentNodeRef": "mysql_topic_architecture",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 服务器 / server"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_acm2012_software_organization_virtual_machines",
+        "label": "虚拟机",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_acm2012_software_organization",
+            "path": "知识宇宙 / 计算机科学 / 软件组织 / 虚拟机"
+          },
+          {
+            "parentNodeRef": "k_1784822169362_2tqq6v",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 虚拟机"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1782834118965_n5r1fr",
+        "label": "面向对象",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783183396947_46zdou",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象"
+          },
+          {
+            "parentNodeRef": "k_1782746457581_30q8ao",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 面向对象"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784260051954_diol2t",
+        "label": "封装",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1782834118965_n5r1fr",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 封装"
+          },
+          {
+            "parentNodeRef": "k_1784197948927_3c20z4",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 特性 / 封装"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783167918831_zqk4a6",
+        "label": "接口",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784128568399_dmfdv7",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 属性 / 接口"
+          },
+          {
+            "parentNodeRef": "k_1782748382034_b8a1a9",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 接口"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783167541244_d3d092",
+        "label": "继承",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783238652426_mxnh6v",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 继承"
+          },
+          {
+            "parentNodeRef": "k_1784197948927_3c20z4",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 特性 / 继承"
+          },
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 继承"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784045589643_icc5oo",
+        "label": "最终类",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_class_programming_classification",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 分类 / 最终类"
+          },
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 最终类"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784044171635_8etz45",
+        "label": "匿名类",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_class_programming_classification",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 分类 / 匿名类"
+          },
+          {
+            "parentNodeRef": "k_1784044092211_wkjnz2",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 声明 / 匿名类"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783238676302_ggr3kg",
+        "label": "对象",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783184803301_75p0j1",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 对象"
+          },
+          {
+            "parentNodeRef": "k_1782746457581_30q8ao",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 对象"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784169555803_adzqks",
+        "label": "方法",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1782834118965_n5r1fr",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 方法"
+          },
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 方法"
+          },
+          {
+            "parentNodeRef": "k_1783257957775_eue1y7",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 程序架构 / 子程序 / 方法"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_acm2012_software_notations_tools_programming_languages",
+        "label": "编程语言",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783260209305_4t111y",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言"
+          },
+          {
+            "parentNodeRef": "k_1783873318032_brfjbd",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 计算机编程 / 编程语言"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783824357875_gs9rn2",
+        "label": "字节码",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1783824520627_omqxaa",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 代码 / 字节码"
+          },
+          {
+            "parentNodeRef": "k_1784337564414_gfzbco",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / 字节码"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_c1ecc4e34ff2913c",
+        "label": "ThreadLocal",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784367544296_w5eotg",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 内存模型 / 同步 / ThreadLocal"
+          },
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / ThreadLocal"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_8bda9fc7a4027ad0",
+        "label": "ReentrantLock",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784939888323_m0ojte",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 常见类 / ReentrantLock"
+          },
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_7de90cb419c7788f",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent.locks / ReentrantLock"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_48031e8c20570051",
+        "label": "ConcurrentHashMap",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784939888323_m0ojte",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 常见类 / ConcurrentHashMap"
+          },
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_3f228f7655fb94df",
+        "label": "FutureTask",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785906997755_571bbl",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Executor框架 / Executor框架的结构与成员 / Executor框架的结构 / FutureTask"
+          },
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / FutureTask"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785417434549_gyz4q5",
+        "label": "ScheduleThreadPoolExecutor",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785906997755_571bbl",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Executor框架 / Executor框架的结构与成员 / Executor框架的结构 / ScheduleThreadPoolExecutor"
+          },
+          {
+            "parentNodeRef": "k_1784597083135_287nro",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ScheduleThreadPoolExecutor"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_65cc8d65742d8aa2",
+        "label": "ArrayBlockingQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ArrayBlockingQueue"
+          },
+          {
+            "parentNodeRef": "k_1786074343231_2prq2l",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Java并发容器和框架 / Java中的阻塞队列 / Java里的阻塞队列 / ArrayBlockingQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_jdk_type_a52687868e9268a6",
+        "label": "BlockingQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / BlockingQueue"
+          },
+          {
+            "parentNodeRef": "k_1785685822269_z6ow3g",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / BlockingQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_acdfd0770043ef24",
+        "label": "ConcurrentLinkedQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedQueue"
+          },
+          {
+            "parentNodeRef": "k_1785946513462_w2f2gm",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Java并发容器和框架 / ConcurrentLinkedQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785469604423_twie16",
+        "label": "PriorityBlockingQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / PriorityBlockingQueue"
+          },
+          {
+            "parentNodeRef": "k_1785685822269_z6ow3g",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / PriorityBlockingQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785469566750_s41fsc",
+        "label": "SynchronousQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / SynchronousQueue"
+          },
+          {
+            "parentNodeRef": "k_1785685822269_z6ow3g",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / SynchronousQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_ff6db88dc6746818",
+        "label": "ThreadPoolExecutor",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_package_70015a2b9822028c",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ThreadPoolExecutor"
+          },
+          {
+            "parentNodeRef": "k_1784597083135_287nro",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ThreadPoolExecutor"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785686881765_p1i0hq",
+        "label": "Serializable",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Serializable"
+          },
+          {
+            "parentNodeRef": "k_1785664228019_k7eq57",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Serializable"
+          },
+          {
+            "parentNodeRef": "k_java_source_937c739517d0031f_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / Serializable"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785686871250_7gi8cc",
+        "label": "Cloneable",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Cloneable"
+          },
+          {
+            "parentNodeRef": "k_1785664228019_k7eq57",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Cloneable"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784304593387_dgjyi9",
+        "label": "java.lang.Exception",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Exception"
+          },
+          {
+            "parentNodeRef": "k_1784039269701_ks8gob",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 通用类型 / java.lang.Exception"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_07a1e5e1bcc604ee",
+        "label": "RuntimeException",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / RuntimeException"
+          },
+          {
+            "parentNodeRef": "k_java_source_937c739517d0031f_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / RuntimeException"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785684343560_w11398",
+        "label": "AbstractCollection",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / AbstractCollection"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / AbstractCollection"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785665355970_xe9gap",
+        "label": "AbstractMap",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / AbstractMap"
+          },
+          {
+            "parentNodeRef": "k_1785665232348_fu4nd2",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / AbstractMap"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785684837090_uszvb6",
+        "label": "AbstractQueue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / AbstractQueue"
+          },
+          {
+            "parentNodeRef": "k_1785685822269_z6ow3g",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / AbstractQueue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785684473197_7lhn5y",
+        "label": "AbstractSet",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / AbstractSet"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / AbstractSet"
+          },
+          {
+            "parentNodeRef": "k_java_source_937c739517d0031f_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / AbstractSet"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785671910048_sdtfht",
+        "label": "Collection",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Collection"
+          },
+          {
+            "parentNodeRef": "k_1785676511176_xvc983",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785683890358_ezprwy",
+        "label": "Deque",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Deque"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Deque"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_type_489a7b472f0bdfb5",
+        "label": "Iterator",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Iterator"
+          },
+          {
+            "parentNodeRef": "k_java_source_937c739517d0031f_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / Iterator"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_demo_java_list",
+        "label": "List",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / List"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / List"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785665232348_fu4nd2",
+        "label": "Map",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Map"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785668454725_msbh6g",
+        "label": "NavigableMap",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / NavigableMap"
+          },
+          {
+            "parentNodeRef": "k_1785665232348_fu4nd2",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / NavigableMap"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785684417735_y65d54",
+        "label": "NavigableSet",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / NavigableSet"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / NavigableSet"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785685822269_z6ow3g",
+        "label": "Queue",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Queue"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_jdk_type_0db49a13032cc56e",
+        "label": "RandomAccess",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / RandomAccess"
+          },
+          {
+            "parentNodeRef": "k_1785664228019_k7eq57",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / RandomAccess"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1785684450180_ry9ixw",
+        "label": "Set",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1785909354346_oxtcgv_s_external_types",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Set"
+          },
+          {
+            "parentNodeRef": "k_1785671910048_sdtfht",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Set"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784597083135_287nro",
+        "label": "线程池",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1782846767165_l599je",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池"
+          },
+          {
+            "parentNodeRef": "k_1784530936823_aeh7cp",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 软件开发 / 软件设计 / 设计模式 / 并发模式 / 线程池"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784531131067_9tdszo",
+        "label": "锁",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1782746457581_30q8ao",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁"
+          },
+          {
+            "parentNodeRef": "k_1784530936823_aeh7cp",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 软件开发 / 软件设计 / 设计模式 / 并发模式 / 锁"
+          }
+        ]
+      },
+      {
+        "nodeId": "demo_optimistic",
+        "label": "乐观锁",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784531131067_9tdszo",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 乐观锁"
+          },
+          {
+            "parentNodeRef": "demo_lock",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 事务与锁 / 锁机制 / 乐观锁"
+          },
+          {
+            "parentNodeRef": "k_1784554590257_xa43c1",
+            "path": "知识宇宙 / 计算机科学 / 计算理论 / 算法 / 并发控制算法 / 乐观锁"
+          }
+        ]
+      },
+      {
+        "nodeId": "demo_pessimistic",
+        "label": "悲观锁",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784531131067_9tdszo",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 悲观锁"
+          },
+          {
+            "parentNodeRef": "demo_lock",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 事务与锁 / 锁机制 / 悲观锁"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784571058917_k7qd83",
+        "label": "读写锁",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784531131067_9tdszo",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 读写锁"
+          },
+          {
+            "parentNodeRef": "k_1784530936823_aeh7cp",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 软件开发 / 软件设计 / 设计模式 / 并发模式 / 读写锁"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_atom_escape_analysis",
+        "label": "逃逸分析",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_jvm_jit",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / JIT 编译器 / 逃逸分析"
+          },
+          {
+            "parentNodeRef": "k_wiki_en_program_analysis_s1",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 静态程序分析 / 逃逸分析"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783186425134_v31qjt",
+        "label": "标识符",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_java_syntax_zh_1oty7br",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 标识符"
+          },
+          {
+            "parentNodeRef": "k_1783186255415_ir9mlw",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 词法与语法 / 标识符"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_java_syntax_java_lang_object_yk8ls4",
+        "label": "java.lang.Object",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784039269701_ks8gob",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 通用类型 / java.lang.Object"
+          },
+          {
+            "parentNodeRef": "k_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 类 / java.lang / Object"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784039594063_ddeiyo",
+        "label": "原始类型",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784039269701_ks8gob",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 通用类型 / 原始类型"
+          },
+          {
+            "parentNodeRef": "k_1786333299353_augb03",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 原始类型"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784281148267_2scm9i",
+        "label": "包",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784276128063_zbfkhx",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 程序结构 / 包"
+          },
+          {
+            "parentNodeRef": "k_1782746457581_30q8ao",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 包"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784044129424_ffqm4z",
+        "label": "内部类",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784044092211_wkjnz2",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 声明 / 内部类"
+          },
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 内部类"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784044457709_jt70a4",
+        "label": "修饰符",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 修饰符"
+          },
+          {
+            "parentNodeRef": "k_1782819889564_1cc93v",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 引用类型 / class / 修饰符"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784295376153_uiovkk",
+        "label": "抽象类",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784044457709_jt70a4",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 修饰符 / 抽象类"
+          },
+          {
+            "parentNodeRef": "k_1783167541244_d3d092",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 继承 / 抽象类"
+          },
+          {
+            "parentNodeRef": "k_1786343607773_qq5y28",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 类与接口 / 抽象类"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1783184829912_usl41q",
+        "label": "构造方法",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784043760861_gcvn05",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 构造方法"
+          },
+          {
+            "parentNodeRef": "k_1784169555803_adzqks",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 程序架构 / 子程序 / 方法 / 构造方法"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1782748382034_b8a1a9",
+        "label": "类型系统",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784820871642_lporyx",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统"
+          },
+          {
+            "parentNodeRef": "k_wiki_en_program_analysis_s1",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 静态程序分析 / 类型系统"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_acm2012_software_development_control_flow",
+        "label": "控制流",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_wiki_en_program_analysis_s1",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 静态程序分析 / 控制流"
+          },
+          {
+            "parentNodeRef": "k_1783873300296_o38v1d",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 控制流"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_acm2012_software_notations_tools_compilers",
+        "label": "编译器",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784822169362_2tqq6v",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 编译器"
+          },
+          {
+            "parentNodeRef": "k_1783260209305_4t111y",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编译器"
+          }
+        ]
+      },
+      {
+        "nodeId": "n_21yoee5g",
+        "label": "NoSQL",
+        "parentCount": 4,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_compiler_principles",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / NoSQL"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / NoSQL"
+          },
+          {
+            "parentNodeRef": "k_1783250367496_zv2crw",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL"
+          },
+          {
+            "parentNodeRef": "k_wiki_en_outline_of_databases_s11",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 概念 / NoSQL"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_fbl127ld",
+        "label": "memcached",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_compiler_principles",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / memcached"
+          },
+          {
+            "parentNodeRef": "mysql_topic_optimizer_performance",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 优化器、缓存与性能 / memcached"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1782027235624_gtvo1k",
+        "label": "缓存 / cache",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_compiler_principles",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 缓存 / cache"
+          },
+          {
+            "parentNodeRef": "mysql_topic_optimizer_performance",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 优化器、缓存与性能 / 缓存 / cache"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_rs1y2xku",
+        "label": "优化器 / optimizer",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_compiler_principles",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 优化器 / optimizer"
+          },
+          {
+            "parentNodeRef": "mysql_topic_optimizer_performance",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 优化器、缓存与性能 / 优化器 / optimizer"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_ee6jgxn1",
+        "label": "预热 / warm up",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_compiler_principles",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 预热 / warm up"
+          },
+          {
+            "parentNodeRef": "mysql_topic_optimizer_performance",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 优化器、缓存与性能 / 预热 / warm up"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_a7bwz8vl",
+        "label": "游标 / cursor",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_programming_language_theory",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序设计语言理论 / 游标 / cursor"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 游标 / cursor"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_dict_qttpkbhf",
+        "label": "Python",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_programming_language_theory",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序设计语言理论 / Python"
+          },
+          {
+            "parentNodeRef": "mysql_topic_connectors_api",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 连接器、API 与客户端 / Python"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1782930904543_kxi0uk",
+        "label": "触发器",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "theory_domain_programming_language_theory",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序设计语言理论 / 触发器"
+          },
+          {
+            "parentNodeRef": "mysql_topic_sql_objects",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 触发器"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784466531162_zcrhl7",
+        "label": "依赖注入",
+        "parentCount": 3,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784445488146_heiecz",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Framework / 模块 / 控制反转容器 / 创建和管理 beans / 控制反转的类型 / 依赖注入"
+          },
+          {
+            "parentNodeRef": "k_1785131428510_m2nz5f",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring控制反转(IOC) / 依赖注入"
+          },
+          {
+            "parentNodeRef": "k_1784530129683_qnjry6",
+            "path": "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 软件开发 / 软件设计 / 设计模式 / 其他模式 / 依赖注入"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784453158872_rsqoiy",
+        "label": "自动装配",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784445382626_trbqgz",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Framework / 模块 / 控制反转容器 / 创建和管理 beans / 自动装配"
+          },
+          {
+            "parentNodeRef": "k_1785165721061_hcv0g1",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 自动装配"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_1784510206217_m4qngo",
+        "label": "Spring Boot",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784461814589_f8eecy",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Framework / 模块 / 约定优于配置的快速应用程序开发 / Spring Boot"
+          },
+          {
+            "parentNodeRef": "k_acm2012_software_notations_tools_software_frameworks",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Boot"
+          }
+        ]
+      },
+      {
+        "nodeId": "n_ag24bbkc",
+        "label": "事务",
+        "parentCount": 4,
+        "placements": [
+          {
+            "parentNodeRef": "k_1784510206217_m4qngo",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Boot / 事务"
+          },
+          {
+            "parentNodeRef": "k_1785130151868_wov8gf",
+            "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring 数据访问 / 事务"
+          },
+          {
+            "parentNodeRef": "mysql_topic_transactions_locks",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 事务与锁 / 事务"
+          },
+          {
+            "parentNodeRef": "demo_redis",
+            "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 事务"
+          }
+        ]
+      },
+      {
+        "nodeId": "k_acm2012_mathematics_of_computing",
+        "label": "计算数学",
+        "parentCount": 2,
+        "placements": [
+          {
+            "parentNodeRef": "n_55jiel25",
+            "path": "知识宇宙 / 计算机科学 / 计算数学"
+          },
+          {
+            "parentNodeRef": "k_acm2012_applied_computing",
+            "path": "知识宇宙 / 计算机科学 / 应用计算 / 计算数学"
+          }
+        ]
+      }
+    ],
+    "duplicateExactLabelGroups": [
+      {
+        "normalizedLabel": "索引",
+        "label": "索引",
+        "nodeIds": [
+          "n_0xxb9cqy",
+          "k_wiki_en_outline_of_databases_s12_b9"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 索引与访问路径 / 索引",
+            "知识宇宙 / 计算机科学 / 计算理论 / 数据结构 / 索引"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 索引)"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据结构",
+        "label": "数据结构",
+        "nodeIds": [
+          "n_6dgtsmpj",
+          "theory_domain_data_structures",
+          "k_1785471820450_v6okms",
+          "k_1786170062009_1o5xtm"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 计算理论 / 数据结构"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / HashMap / 数据结构"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据结构"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "memory",
+        "label": "MEMORY",
+        "nodeIds": [
+          "k_auto_1hl4cg6",
+          "k_1781976016450_ggvuc3"
+        ],
+        "placements": [
+          [],
+          []
+        ]
+      },
+      {
+        "normalizedLabel": "表table",
+        "label": "表（Table）",
+        "nodeIds": [
+          "k_dict_30h7phnv",
+          "k_dict_7dvcv51p"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 表 / table",
+            "知识宇宙 / 数学 / 集合论 / 表 / table"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "并发控制",
+        "label": "并发控制",
+        "nodeIds": [
+          "k_dict_40kypo2i",
+          "k_1784543450678_zk199g",
+          "k_wiki_en_outline_of_databases_s13_b1"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 并发 / 并发控制"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 成分 / 并发控制"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "连接池connectionpool",
+        "label": "连接池 / connection pool",
+        "nodeIds": [
+          "k_dict_h20fqa9t",
+          "k_1782032572614_mi65fj"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 连接池 / connection pool",
+            "知识宇宙 / 数学 / 排队论 / 连接池 / connection pool"
+          ],
+          []
+        ]
+      },
+      {
+        "normalizedLabel": "分区",
+        "label": "分区",
+        "nodeIds": [
+          "k_dict_6cwf4dqv",
+          "k_wiki_en_outline_of_databases_s12_b12",
+          "k_1786340067400_hpavtb"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 分区)"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 分区"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "工具",
+        "label": "工具",
+        "nodeIds": [
+          "k_dict_mkm4eoaz",
+          "k_wiki_en_outline_of_databases_s31"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 使用数据仓库 / 工具"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "关系",
+        "label": "关系",
+        "nodeIds": [
+          "k_dict_7cjekzem",
+          "k_wiki_en_outline_of_databases_s12_b1"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 关系)"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "行row",
+        "label": "行（Row）",
+        "nodeIds": [
+          "k_dict_fv1aj0w9",
+          "k_dict_2uq4y41u"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 行 / row",
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 行 / row"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "快照",
+        "label": "快照",
+        "nodeIds": [
+          "k_dict_9hxo9oxe",
+          "k_wiki_en_virtual_machine_s9"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 虚拟机 / 快照"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "member",
+        "label": "Member",
+        "nodeIds": [
+          "k_dict_8nyjfr54",
+          "k_java_type_3501bbb1b28e7c1f"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Member"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "number",
+        "label": "Number",
+        "nodeIds": [
+          "k_dict_4a7rcgyy",
+          "k_java_type_2e8aa8929385810e",
+          "k_java_type_ecd45d6627c4b1f2"
+        ],
+        "placements": [
+          [],
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Number"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "parameter",
+        "label": "Parameter",
+        "nodeIds": [
+          "k_dict_t1b1qud9",
+          "k_java_type_4c6cb6579b337aa9"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Parameter"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "proxy",
+        "label": "Proxy",
+        "nodeIds": [
+          "k_dict_6srm1b7d",
+          "k_java_type_9e8b2e1c6df5deb9"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Proxy"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "迁移",
+        "label": "迁移",
+        "nodeIds": [
+          "k_dict_yr66up99",
+          "k_wiki_en_database_s22",
+          "k_wiki_en_virtual_machine_s10"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 迁移"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 虚拟机 / 迁移"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "security",
+        "label": "Security",
+        "nodeIds": [
+          "k_dict_eqso8226",
+          "k_1786159553876_tcfd24"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Cloud / Security"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "string",
+        "label": "String",
+        "nodeIds": [
+          "k_dict_wbty6m1l",
+          "k_1785340521063_6f448a",
+          "k_1786234895923_uqw3i5"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 类 / String"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据类型 / String"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "subscriber",
+        "label": "Subscriber",
+        "nodeIds": [
+          "k_dict_c7m42rv4",
+          "k_java_type_6a28e9e783eac710"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / Flow / Subscriber"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "superkey",
+        "label": "Super Key",
+        "nodeIds": [
+          "k_dict_55be39le",
+          "k_wiki_en_outline_of_databases_s11_b8"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 概念 / Superkey"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "timeout",
+        "label": "Timeout",
+        "nodeIds": [
+          "k_dict_tu5j8lo0",
+          "k_java_type_7096446cdd436694"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / CompletableFuture / Timeout"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "type",
+        "label": "Type",
+        "nodeIds": [
+          "k_dict_2dttf0mv",
+          "k_java_type_5d28b829d55fb271"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Type"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "特性",
+        "label": "特性",
+        "nodeIds": [
+          "k_dict_9rrfnx3a",
+          "k_1784197948927_3c20z4",
+          "k_1785927625536_a1tvc6"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 特性"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 关键字 / volatile / 特性"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "维度",
+        "label": "维度",
+        "nodeIds": [
+          "k_dict_lnz4cqnb",
+          "k_wiki_en_outline_of_databases_s22_b1"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 创建数据仓库 / 概念 / 维度)"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "表",
+        "label": "表",
+        "nodeIds": [
+          "k_1782230482909_0r8qzt",
+          "k_wiki_en_outline_of_databases_s12_b2"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 表)"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据类型",
+        "label": "数据类型",
+        "nodeIds": [
+          "k_1782748910899_dtrnpe",
+          "k_1782793389266_8caigh",
+          "k_1783257388677_uxt2vm",
+          "k_1786232234420_feohxw",
+          "k_1786333299353_augb03"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 文本、空间与字符集 / 数据类型",
+            "知识宇宙 / 逻辑 / 类型理论 / 数据类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 程序架构 / 数据类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "原始类型",
+        "label": "原始类型",
+        "nodeIds": [
+          "k_1782793401051_nyxsei",
+          "k_1784039594063_ddeiyo"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 通用类型 / 原始类型",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 原始类型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "引用类型",
+        "label": "引用类型",
+        "nodeIds": [
+          "k_1782793417791_nvare3",
+          "k_1784042843935_picv84"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 引用类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "堆",
+        "label": "堆",
+        "nodeIds": [
+          "k_1782798814309_j3jj7c",
+          "k_1782839313525_2saytt"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 运行时数据区 / 堆"
+          ],
+          []
+        ]
+      },
+      {
+        "normalizedLabel": "字面量",
+        "label": "字面量",
+        "nodeIds": [
+          "k_1782810274459_fc4dll",
+          "k_java_syntax_zh_1l9agwm"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / 字节码 / 常量池 / 字面量"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 字面量"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "byte",
+        "label": "byte",
+        "nodeIds": [
+          "k_1782813819683_ntjiho",
+          "k_1783087818322_st7eoj"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / byte"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / byte / Byte"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "short",
+        "label": "short",
+        "nodeIds": [
+          "k_1782813876473_f9kgq2",
+          "k_1783087834350_gmpg3u"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / short"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / short / Short"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "long",
+        "label": "long",
+        "nodeIds": [
+          "k_1782813922894_kmrc5z",
+          "k_1783087856834_zelajj"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / long"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 整数 / long / Long"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "float",
+        "label": "float",
+        "nodeIds": [
+          "k_1782813951272_huivnu",
+          "k_1783087864934_n0yzzj"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 浮点数 / float"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 浮点数 / float / Float"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "double",
+        "label": "double",
+        "nodeIds": [
+          "k_1782813973111_a25i2a",
+          "k_1783087878206_r1e7p8"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 浮点数 / double"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 浮点数 / double / Double"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "boolean",
+        "label": "boolean",
+        "nodeIds": [
+          "k_1782814002747_fldlbm",
+          "k_1783087884886_wy66ig"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 布尔 / boolean"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 原始类型 / 布尔 / boolean / Boolean"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "field",
+        "label": "field",
+        "nodeIds": [
+          "k_1782820135634_80r6cv",
+          "k_java_type_701f6fbf9393c946"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 引用类型 / class / field"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Field"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "method",
+        "label": "method",
+        "nodeIds": [
+          "k_1782820141514_7toivl",
+          "k_java_type_f85a855cf92392f4"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 引用类型 / class / method"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Method"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "constructor",
+        "label": "constructor",
+        "nodeIds": [
+          "k_1782820155561_n3ma3o",
+          "k_java_type_c873ab34e3d97ca1"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 数据类型 / 引用类型 / class / constructor"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Constructor"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "类",
+        "label": "类",
+        "nodeIds": [
+          "k_1782836111549_qetpvx",
+          "k_1783257466386_qkloru",
+          "k_1785339432462_ff5zs4"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 程序架构 / 类"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 类"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "动态链接",
+        "label": "动态链接",
+        "nodeIds": [
+          "k_1783107227892_dqq4ek",
+          "k_wiki_en_linker_computing_s2"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 运行时数据区 / 虚拟机栈 / 栈帧 / 动态链接"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 链接器（计算） / 动态链接"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "loadload屏障",
+        "label": "LoadLoad屏障",
+        "nodeIds": [
+          "k_1783155775417_2xvd9n",
+          "k_atom_loadload"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / LoadLoad屏障"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / LoadLoad 屏障"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "接口",
+        "label": "接口",
+        "nodeIds": [
+          "k_1783167918831_zqk4a6",
+          "k_java_syntax_zh_cbn51n"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 属性 / 接口",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编程语言理论 / 类型系统 / 接口"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / 接口"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "对象",
+        "label": "对象",
+        "nodeIds": [
+          "k_1783238676302_ggr3kg",
+          "k_wiki_en_outline_of_databases_s12"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 对象",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 对象"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "变量",
+        "label": "变量",
+        "nodeIds": [
+          "k_1783249680752_eglr74",
+          "k_1783873400066_pyp602",
+          "k_1786344034905_lslnka"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 变量"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 变量"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 变量"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "分类",
+        "label": "分类",
+        "nodeIds": [
+          "k_1783250367496_zv2crw",
+          "k_class_programming_classification"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 分类"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "运算符",
+        "label": "运算符",
+        "nodeIds": [
+          "k_1783257396123_5jl7e4",
+          "k_1784283219004_ytuy5c"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件开发 / 软件构建 / 程序设计 / 程序架构 / 运算符"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 运算符"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "软件开发",
+        "label": "软件开发",
+        "nodeIds": [
+          "k_1783873300296_o38v1d",
+          "k_1784224555283_zb08id"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件开发"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件开发 / 软件工程 / 软件开发"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "创建",
+        "label": "创建",
+        "nodeIds": [
+          "k_1784045110759_kqnpgx",
+          "k_1784129898661_hekldq"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 逻辑 / 类型理论 / Abstract type / 创建"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 属性 / 对象生命周期 / 创建"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "类型",
+        "label": "类型",
+        "nodeIds": [
+          "k_1784113900164_5cwlcb",
+          "k_1784131155243_r7iibz",
+          "k_wiki_en_compiler_s11",
+          "k_wiki_en_dynamic_program_analysis_s1"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 构造方法 / 类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 / 类（编程） / 属性 / 类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 编译器 / 类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / 类型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "模块",
+        "label": "模块",
+        "nodeIds": [
+          "k_1784281281401_d1ijds",
+          "k_1784445218734_mbutiz"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 程序结构 / 模块"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Framework / 模块"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "实现",
+        "label": "实现",
+        "nodeIds": [
+          "k_1784343538435_2potgn",
+          "k_1784348517053_72vt2j"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 实现"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 并发 / 并发计算 / 实现"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "模型",
+        "label": "模型",
+        "nodeIds": [
+          "k_1784348023461_qz7wyl",
+          "k_wiki_en_database_s28"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 并发 / 并发计算 / 模型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 设计与建模 / 模型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据库管理",
+        "label": "数据库管理",
+        "nodeIds": [
+          "k_acm2012_information_systems_database_management",
+          "k_wiki_en_outline_of_databases_s9",
+          "k_wiki_en_outline_of_databases_s14_b1"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库使用 / 数据库管理"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 功能 / 数据库管理"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "视图",
+        "label": "视图",
+        "nodeIds": [
+          "k_1784714555181_hzcpf5",
+          "k_1786782227425_rz3dhk"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库原理 / 视图"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 设计与建模 / 视图"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据库语言",
+        "label": "数据库语言",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s5",
+          "k_wiki_en_database_s15"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库使用 / 数据库语言"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库语言"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据库安全",
+        "label": "数据库安全",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s6",
+          "k_wiki_en_database_s20"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库使用 / 数据库安全"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库安全"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据库管理系统",
+        "label": "数据库管理系统",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s10",
+          "k_wiki_en_database_s12"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库管理系统"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "概念",
+        "label": "概念",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s11",
+          "k_wiki_en_outline_of_databases_s22",
+          "k_wiki_en_outline_of_databases_s29"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 概念"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 创建数据仓库 / 概念"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 使用数据仓库 / 概念"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "事实",
+        "label": "事实",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s25",
+          "k_wiki_en_outline_of_databases_s22_b3"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 创建数据仓库 / 事实"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 创建数据仓库 / 概念 / 事实)"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "面向文档的数据库",
+        "label": "面向文档的数据库",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s2_b14",
+          "k_wiki_en_outline_of_databases_s15_b6",
+          "k_wiki_en_outline_of_databases_s19_b3"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库类型 / 面向文档的数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 数据库产品 / 面向文档的数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 实施 / 面向文档的数据库"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "图数据库",
+        "label": "图数据库",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s2_b20",
+          "k_wiki_en_outline_of_databases_s17_b7"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库类型 / 图数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 型号 / 图数据库"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "时态数据库",
+        "label": "时态数据库",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s2_b32",
+          "k_wiki_en_outline_of_databases_s19_b5"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库类型 / 时态数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 实施 / 时态数据库"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "triplestore",
+        "label": "Triplestore",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s2_b34",
+          "k_wiki_en_outline_of_databases_s19_b7"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库类型 / Triplestore"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 实施 / Triplestore"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "xml数据库",
+        "label": "XML 数据库",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s2_b38",
+          "k_wiki_en_outline_of_databases_s18_b4",
+          "k_wiki_en_outline_of_databases_s19_b6"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库类型 / XML 数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 其他型号 / XML 数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 实施 / XML 数据库"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "查询语言",
+        "label": "查询语言",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s5_b3",
+          "k_wiki_en_outline_of_databases_s13_b5"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库使用 / 数据库语言 / 查询语言"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 成分 / 查询语言"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "数据库规范化",
+        "label": "数据库规范化",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s7_b2",
+          "k_wiki_en_outline_of_databases_s10_b2"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库使用 / 数据库设计 / 数据库规范化"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 数据库规范化"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "关系模型",
+        "label": "关系模型",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s10_b11",
+          "k_wiki_en_outline_of_databases_s17_b5"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 关系模型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 型号 / 关系模型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "代理键",
+        "label": "代理键",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s11_b9",
+          "k_wiki_en_outline_of_databases_s24_b4"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 概念 / 代理键"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 创建数据仓库 / 元素 / 代理键"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "平面文件数据库",
+        "label": "平面文件数据库",
+        "nodeIds": [
+          "k_wiki_en_outline_of_databases_s17_b1",
+          "k_wiki_en_outline_of_databases_s19_b1"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 型号 / 平面文件数据库"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库模型 / 实施 / 平面文件数据库"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "执行",
+        "label": "执行",
+        "nodeIds": [
+          "k_1784822169362_2tqq6v",
+          "k_wiki_en_interpreter_computing_s4"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 解释器（计算） / 执行"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "历史",
+        "label": "历史",
+        "nodeIds": [
+          "k_wiki_en_database_s2",
+          "k_wiki_en_virtual_machine_s4",
+          "k_wiki_en_compiler_s2",
+          "k_wiki_en_interpreter_computing_s1",
+          "k_wiki_en_profiling_computer_programming_s3",
+          "k_1786780442096_fd05mu"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 历史"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 虚拟机 / 历史"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 编译器 / 历史"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 解释器（计算） / 历史"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / 分析（计算机编程） / 历史"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 并发 / 并发控制 / 监控（同步） / 历史"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "即时编译",
+        "label": "即时编译",
+        "nodeIds": [
+          "k_wiki_en_interpreter_computing_s6",
+          "k_wiki_en_java_performance_s2"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 解释器（计算） / 即时编译"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / Java性能 / 虚拟机优化方法 / 即时编译"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "程序切片",
+        "label": "程序切片",
+        "nodeIds": [
+          "k_wiki_en_program_analysis_s11",
+          "k_wiki_en_dynamic_program_analysis_s12"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / 程序切片"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / 类型 / 程序切片"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "list",
+        "label": "List",
+        "nodeIds": [
+          "k_demo_java_list",
+          "k_1786235705160_2f2rd5"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / List",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / List"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据类型 / List"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "abortpolicy",
+        "label": "AbortPolicy",
+        "nodeIds": [
+          "k_1785416946096_wlbilt",
+          "k_java_type_f61a585855a1deed"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ThreadPoolExecutor / 拒绝策略 / AbortPolicy"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ThreadPoolExecutor / AbortPolicy"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "callerrunspolicy",
+        "label": "CallerRunsPolicy",
+        "nodeIds": [
+          "k_1785416999564_j2xfyj",
+          "k_java_type_947e4a7998329b7f"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ThreadPoolExecutor / 拒绝策略 / CallerRunsPolicy"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ThreadPoolExecutor / CallerRunsPolicy"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "discardpolicy",
+        "label": "DiscardPolicy",
+        "nodeIds": [
+          "k_1785417027569_c26sey",
+          "k_java_type_3332e5371afb9fef"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ThreadPoolExecutor / 拒绝策略 / DiscardPolicy"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ThreadPoolExecutor / DiscardPolicy"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "discardoldestpolicy",
+        "label": "DiscardOldestPolicy",
+        "nodeIds": [
+          "k_1785417056602_xowck9",
+          "k_java_type_10ccf1016bf16909"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / ThreadPoolExecutor / 拒绝策略 / DiscardOldestPolicy"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ThreadPoolExecutor / DiscardOldestPolicy"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "blockingqueue",
+        "label": "BlockingQueue",
+        "nodeIds": [
+          "k_1785464306149_hjc89n",
+          "k_jdk_type_a52687868e9268a6"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 常见类 / BlockingQueue"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / BlockingQueue",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / BlockingQueue"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "synchronousqueue",
+        "label": "SynchronousQueue",
+        "nodeIds": [
+          "k_1785469566750_s41fsc",
+          "k_1786353277269_msn0ma8wb"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / SynchronousQueue",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Queue / SynchronousQueue"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 常见类 / BlockingQueue / SynchronousQueue"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "cloneable",
+        "label": "Cloneable",
+        "nodeIds": [
+          "k_demo_java_cloneable",
+          "k_1785686871250_7gi8cc"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Cloneable",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Cloneable"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "serializable",
+        "label": "Serializable",
+        "nodeIds": [
+          "k_demo_java_serializable",
+          "k_1785686881765_p1i0hq"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Serializable",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Serializable",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / Serializable"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "identityhashmap",
+        "label": "IdentityHashMap",
+        "nodeIds": [
+          "k_1785598053692_zq2iy2",
+          "k_1785666688209_3zpc7b"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / IdentityHashMap"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "hashtable",
+        "label": "Hashtable",
+        "nodeIds": [
+          "k_1785640286002_sx7id8",
+          "k_1785665455780_1bnf5j"
+        ],
+        "placements": [
+          [],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / Hashtable"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "set",
+        "label": "Set",
+        "nodeIds": [
+          "k_1785684450180_ry9ixw",
+          "k_1786235724765_ienczm"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Set",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Set"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据类型 / Set"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "iterator",
+        "label": "Iterator",
+        "nodeIds": [
+          "k_1785747858308_aoqbr5",
+          "k_java_type_489a7b472f0bdfb5"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型 / Iterator",
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型 / Iterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "上下文切换",
+        "label": "上下文切换",
+        "nodeIds": [
+          "k_1785831643303_tr9cpn",
+          "k_1786353277269_msn0ma9kz"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 上下文切换"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 进程与线程 / 上下文切换"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "lock",
+        "label": "Lock",
+        "nodeIds": [
+          "k_1785836347581_lkhxs7",
+          "k_java_type_4033a9a0f1d91289"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 代码 / 汇编代码 / Lock"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent.locks / Lock"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "外部引用类型",
+        "label": "外部引用类型",
+        "nodeIds": [
+          "k_java_source_937c739517d0031f_s_external_types",
+          "k_1785909354346_oxtcgv_s_external_types"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / 外部引用类型"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / 外部引用类型"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "itr",
+        "label": "Itr",
+        "nodeIds": [
+          "k_java_type_e11a6d941b1e5bdd",
+          "k_java_type_70718e1676381ac4",
+          "k_java_type_c2f077a8cb122644",
+          "k_java_type_aa2ead1ca716120b",
+          "k_java_type_a0b53b5d05d9db0c",
+          "k_java_type_23dec2b39f03e031",
+          "k_java_type_ce32d862f5a84b8a",
+          "k_java_type_6cc9d9e543d62428",
+          "k_java_type_f7765419c22c9870"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ArrayBlockingQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedDeque / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / DelayQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedBlockingDeque / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedBlockingQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedTransferQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / PriorityBlockingQueue / Itr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ScheduledThreadPoolExecutor / DelayedWorkQueue / Itr"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "node",
+        "label": "Node",
+        "nodeIds": [
+          "k_java_type_a5b8877c1ac3f94b",
+          "k_java_type_f861477cc80eb784",
+          "k_java_type_99c0493c6a2caa1e",
+          "k_java_type_a2acde4d7d232a0f",
+          "k_java_type_4a0b3f5a8db40737",
+          "k_java_type_d8327c94e84ec335",
+          "k_java_type_34f56459e80da202",
+          "k_java_type_6dda9c6c29f97cd5",
+          "k_java_type_7d5268cac2fb65a9",
+          "k_java_type_9794c85b199fc8c9",
+          "k_java_type_bb843ef12ecc8e66"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ArrayBlockingQueue / Itrs / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedDeque / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedQueue / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / Exchanger / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedBlockingDeque / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedBlockingQueue / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent.locks / AbstractQueuedLongSynchronizer / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent.locks / AbstractQueuedSynchronizer / Node"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent.locks / StampedLock / Node"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "altresult",
+        "label": "AltResult",
+        "nodeIds": [
+          "k_java_type_5039fa7833f1b1d0",
+          "k_java_type_3538b6bfc452da69"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / CompletableFuture / AltResult"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / StructuredTaskScopeImpl / SubtaskImpl / AltResult"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "entryiterator",
+        "label": "EntryIterator",
+        "nodeIds": [
+          "k_java_type_9e779f1fb5993f04",
+          "k_java_type_c10c36b464c4aaee"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / EntryIterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / EntryIterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "entryspliterator",
+        "label": "EntrySpliterator",
+        "nodeIds": [
+          "k_java_type_e00e003ac2818795",
+          "k_java_type_847ccaefb7d7f3d4"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / EntrySpliterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / EntrySpliterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "keyiterator",
+        "label": "KeyIterator",
+        "nodeIds": [
+          "k_java_type_aa01bf49559535dc",
+          "k_java_type_1a3411c545e2a4d1"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / KeyIterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / KeyIterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "keyspliterator",
+        "label": "KeySpliterator",
+        "nodeIds": [
+          "k_java_type_56a993a1c7813373",
+          "k_java_type_da47f3d7603ff955"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / KeySpliterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / KeySpliterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "valueiterator",
+        "label": "ValueIterator",
+        "nodeIds": [
+          "k_java_type_e16a3200b4781a3f",
+          "k_java_type_cb1ff393498d53ab"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / ValueIterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / ValueIterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "valuespliterator",
+        "label": "ValueSpliterator",
+        "nodeIds": [
+          "k_java_type_73989bc2a9956f5a",
+          "k_java_type_327e8f5db9badb9d"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentHashMap / ValueSpliterator"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentSkipListMap / ValueSpliterator"
+          ]
+        ]
+      },
+      {
+        "normalizedLabel": "abstractitr",
+        "label": "AbstractItr",
+        "nodeIds": [
+          "k_java_type_6b6fe1389c6eee86",
+          "k_java_type_8bd6623d9f077d6b",
+          "k_java_type_6b24293dafea7da0"
+        ],
+        "placements": [
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / ConcurrentLinkedDeque / AbstractItr"
+          ],
+          [
+            "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / juc / concurrent / java.util.concurrent / LinkedBlockingDeque / AbstractItr"
+          ],
+          []
+        ]
+      }
+    ],
+    "orphanNodes": [
+      {
+        "id": "demo_snapshot",
+        "label": "快照读",
+        "role": "conclusion",
+        "dimensions": [
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_vchain_sys",
+        "label": "版本链子系统",
+        "role": "subsystem",
+        "dimensions": [
+          "storage",
+          "transaction"
+        ]
+      },
+      {
+        "id": "demo_btree",
+        "label": "B+树索引",
+        "role": "mechanism",
+        "dimensions": [
+          "storage",
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_composite_index",
+        "label": "组合索引",
+        "role": "mechanism",
+        "dimensions": [
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_buffer",
+        "label": "缓冲池 / buffer pool",
+        "role": "mechanism",
+        "dimensions": [
+          "storage",
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_join",
+        "label": "JOIN 连接",
+        "role": null,
+        "dimensions": [
+          "transaction",
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_subquery",
+        "label": "子查询",
+        "role": null,
+        "dimensions": [
+          "performance"
+        ]
+      },
+      {
+        "id": "demo_postgres",
+        "label": "PostgreSQL",
+        "role": "subsystem",
+        "dimensions": [
+          "storage",
+          "transaction"
+        ]
+      },
+      {
+        "id": "n_97x8s5dv",
+        "label": "存储引擎 / storage engine",
+        "role": "subsystem",
+        "dimensions": [
+          "storage"
+        ]
+      },
+      {
+        "id": "n_s7t5dbya",
+        "label": "性能优化",
+        "role": "subsystem",
+        "dimensions": []
+      },
+      {
+        "id": "n_6dgtsmpj",
+        "label": "数据结构",
+        "role": "subsystem",
+        "dimensions": []
+      },
+      {
+        "id": "n_9hr0nvvv",
+        "label": "算法与数据结构",
+        "role": "subsystem",
+        "dimensions": []
+      },
+      {
+        "id": "react_import_aliasing",
+        "label": "导入重命名",
+        "role": "mechanism",
+        "dimensions": [
+          "react"
+        ]
+      },
+      {
+        "id": "k_1781002876731_3ct76l",
+        "label": "数据页（B+ tree）",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_1781003318112_lryll2",
+        "label": "系统页",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_1781008748598_72gaz3",
+        "label": "FILE_PAGE_PREV",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_1781008786381_wiun1h",
+        "label": "FILE_PAGE_NEXT",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_1hl4cg6",
+        "label": "MEMORY",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_pysvvf",
+        "label": "BDB",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_va5371",
+        "label": "主键索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_yb9yyu",
+        "label": "普通索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_es1cgt",
+        "label": "前缀索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_g7wfdd",
+        "label": "混合导出",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_1gqanov",
+        "label": "import X, { Y }",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_figgbw",
+        "label": "行内导出",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_bdlo12",
+        "label": "末尾导出",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_afmuju",
+        "label": "常规导入",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_l6ipg1",
+        "label": "重命名导入",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_14sf5e5",
+        "label": "声明导出",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_142cy8w",
+        "label": "列表导出",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_1ayw78b",
+        "label": "解构导入",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_g1oyi4",
+        "label": "提前返回 (Early Return)",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_140h0oi",
+        "label": "多分支 if-else if",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_n9n437",
+        "label": "内联渲染",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_wziud0",
+        "label": "嵌套三元（不推荐）",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_1p7kxpz",
+        "label": "短路求值",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_xbksij",
+        "label": "隐式零值渲染陷阱",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_auto_nm6bj0",
+        "label": "安全转换（布尔化）",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_45pmo73s",
+        "label": "10046 事件",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_8ekhf6v8",
+        "label": "2PC",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_kp16rzvr",
+        "label": "3NF",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_7yw7viap",
+        "label": "5NF",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_p768z1b5",
+        "label": "AHI",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_a7gppafi",
+        "label": "Alembic",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_60djnr63",
+        "label": "Auto-extend",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_299hzgik",
+        "label": "AutoKeeper",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_e7ujpz6r",
+        "label": "Autovacuum",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_ilk9b2e7",
+        "label": "安全连接",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_k72g9gdn",
+        "label": "安装与配置",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_5yfqg3nv",
+        "label": "Backoff",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_wj7rim4y",
+        "label": "Base Backup",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_wbdjddq3",
+        "label": "BCNF",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_r4yuilws",
+        "label": "Bloom Filter",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_hj2its9m",
+        "label": "半结构化数据",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_vg1hm4yv",
+        "label": "备份 / backup",
+        "role": "plain",
+        "dimensions": [
+          "storage"
+        ]
+      },
+      {
+        "id": "k_dict_30h7phnv",
+        "label": "表（Table）",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_ggx8n53p",
+        "label": "表达式索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_pf2dcdpk",
+        "label": "并行查询",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_40kypo2i",
+        "label": "并发控制",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_p6gwt1sb",
+        "label": "部分索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_blqr2wse",
+        "label": "Cascade",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_2l5bjav3",
+        "label": "CHECK 约束",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_q0ng7i0l",
+        "label": "Charset",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_afne57sj",
+        "label": "Codd's 12 Rules",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_hqjnovpa",
+        "label": "Collation",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_pewsg9dk",
+        "label": "Columnar Storage",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_lf7zo4a4",
+        "label": "Common Table Expression / CTE",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_ezfy87vi",
+        "label": "Consistency",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_2aqur6eg",
+        "label": "Constraints",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_hwjy60yo",
+        "label": "Covering Index",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_0hr0mq0e",
+        "label": "CPU 绑定 NUMA 优化",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_hlduom8b",
+        "label": "查询缓存",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_vf4vp1f8",
+        "label": "创建索引",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_wu7djfnb",
+        "label": "长事务",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_43658znf",
+        "label": "DAO",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_10kqlr18",
+        "label": "Data Pump",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_viuzmoxz",
+        "label": "DBA",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_u037q2sm",
+        "label": "DB-Engines",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_vu93vmnq",
+        "label": "DBLink",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_2bjhbpqt",
+        "label": "Delta",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_e7ddg02r",
+        "label": "Denormalization",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_ka695vfe",
+        "label": "Derived Table",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_j1laxv09",
+        "label": "Dimension Table",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_oylzh0u3",
+        "label": "DISTINCT",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_08ypehvh",
+        "label": "Distributed Database",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_668ze1hq",
+        "label": "Distributed Transaction",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_zd3femyy",
+        "label": "DNS 解析优化",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_gilw6zcq",
+        "label": "Domain",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_epesu2rh",
+        "label": "Driver",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_y4l24hdg",
+        "label": "Durable",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_8mduzut1",
+        "label": "大字段",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_zidqc3da",
+        "label": "单表查询",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_n0jvsmpf",
+        "label": "当前读",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_6m8rc1nt",
+        "label": "到期策略",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_uuvo2mkj",
+        "label": "等待事件",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_kcsuu2sa",
+        "label": "读已提交",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_tua1ffid",
+        "label": "读未提交",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_tae9cujl",
+        "label": "堆表",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_wlobdeug",
+        "label": "EAV",
+        "role": null,
+        "dimensions": []
+      },
+      {
+        "id": "k_dict_7k8scjzc",
+        "label": "Elastic Search",
+        "role": null,
+        "dimensions": []
+      }
+    ],
+    "missingPoolNodes": [],
+    "cardTitleMismatch": [
+      {
+        "id": "react_export_import",
+        "label": "React 导入导出",
+        "cardTitle": "React 导入导出机制"
+      },
+      {
+        "id": "react_default_export",
+        "label": "默认导出",
+        "cardTitle": "默认导出 (Default Export)"
+      },
+      {
+        "id": "react_named_export",
+        "label": "命名导出",
+        "cardTitle": "命名导出 (Named Export)"
+      },
+      {
+        "id": "react_import_aliasing",
+        "label": "导入重命名",
+        "cardTitle": "导入重命名 (as 关键字)"
+      },
+      {
+        "id": "react_conditional_if",
+        "label": "if 语句条件渲染",
+        "cardTitle": "if 语句渲染"
+      },
+      {
+        "id": "react_conditional_ternary",
+        "label": "三元操作符条件渲染",
+        "cardTitle": "三元操作符 (?:) 渲染"
+      },
+      {
+        "id": "react_conditional_and",
+        "label": "逻辑与 (&&) 条件渲染",
+        "cardTitle": "逻辑与 (&&) 操作符"
+      },
+      {
+        "id": "k_jvm_jit",
+        "label": "JIT 编译器",
+        "cardTitle": "JIT 编译器 / Just-In-Time Compiler"
+      },
+      {
+        "id": "k_jvm_cms",
+        "label": "CMS 收集器",
+        "cardTitle": "CMS 收集器 / Concurrent Mark-Sweep"
+      },
+      {
+        "id": "k_jvm_mem_leak",
+        "label": "内存泄漏排查",
+        "cardTitle": "内存泄漏排查 / Memory Leak Troubleshooting"
+      },
+      {
+        "id": "k_jvm_exception",
+        "label": "异常处理",
+        "cardTitle": "异常处理 / Exception Handling"
+      },
+      {
+        "id": "k_jvm_meta_perm",
+        "label": "元空间与永久代",
+        "cardTitle": "元空间与永久代 / Metaspace vs PermGen"
+      },
+      {
+        "id": "k_jvm_jdk_jre",
+        "label": "JVM/JRE/JDK",
+        "cardTitle": "JVM/JRE/JDK 关系"
+      },
+      {
+        "id": "k_jvm_tuning",
+        "label": "JVM 参数调优",
+        "cardTitle": "JVM 参数调优 / JVM Tuning"
+      },
+      {
+        "id": "k_atom_gc_roots",
+        "label": "GC Roots",
+        "cardTitle": "GC Roots / GC 根对象"
+      },
+      {
+        "id": "k_atom_strong_ref",
+        "label": "强引用",
+        "cardTitle": "强引用 / Strong Reference"
+      },
+      {
+        "id": "k_atom_soft_ref",
+        "label": "软引用",
+        "cardTitle": "软引用 / Soft Reference"
+      },
+      {
+        "id": "k_atom_ref_queue",
+        "label": "引用队列",
+        "cardTitle": "引用队列 / ReferenceQueue"
+      },
+      {
+        "id": "k_atom_hotspot_detect",
+        "label": "热点探测",
+        "cardTitle": "热点探测 / Hot Spot Detection"
+      },
+      {
+        "id": "k_atom_c1_compiler",
+        "label": "C1 编译器",
+        "cardTitle": "C1 编译器 / Client Compiler"
+      },
+      {
+        "id": "k_atom_c2_compiler",
+        "label": "C2 编译器",
+        "cardTitle": "C2 编译器 / Server Compiler"
+      },
+      {
+        "id": "k_atom_tiered_comp",
+        "label": "分层编译",
+        "cardTitle": "分层编译 / Tiered Compilation"
+      },
+      {
+        "id": "k_atom_method_inline",
+        "label": "方法内联",
+        "cardTitle": "方法内联 / Method Inlining"
+      },
+      {
+        "id": "k_atom_exception_table",
+        "label": "异常表",
+        "cardTitle": "异常表 / Exception Table"
+      },
+      {
+        "id": "k_atom_stack_unwind",
+        "label": "栈展开",
+        "cardTitle": "栈展开 / Stack Unwinding"
+      },
+      {
+        "id": "k_atom_permgen",
+        "label": "永久代",
+        "cardTitle": "永久代 / PermGen"
+      },
+      {
+        "id": "k_atom_metaspace",
+        "label": "元空间",
+        "cardTitle": "元空间 / Metaspace"
+      },
+      {
+        "id": "k_atom_cms_initial_mark",
+        "label": "初始标记",
+        "cardTitle": "初始标记 / Initial Mark"
+      },
+      {
+        "id": "k_atom_cms_concurrent_mark",
+        "label": "并发标记",
+        "cardTitle": "并发标记 / Concurrent Mark"
+      },
+      {
+        "id": "k_atom_cms_remark",
+        "label": "重新标记",
+        "cardTitle": "重新标记 / Remark"
+      },
+      {
+        "id": "k_atom_cms_concurrent_sweep",
+        "label": "并发清除",
+        "cardTitle": "并发清除 / Concurrent Sweep"
+      },
+      {
+        "id": "k_atom_storeload",
+        "label": "StoreLoad 屏障",
+        "cardTitle": "StoreLoad 屏障 / StoreLoad Barrier"
+      },
+      {
+        "id": "k_atom_loadload",
+        "label": "LoadLoad 屏障",
+        "cardTitle": "LoadLoad 屏障 / LoadLoad Barrier"
+      },
+      {
+        "id": "k_atom_storestore",
+        "label": "StoreStore 屏障",
+        "cardTitle": "StoreStore 屏障 / StoreStore Barrier"
+      },
+      {
+        "id": "k_atom_loadstore",
+        "label": "LoadStore 屏障",
+        "cardTitle": "LoadStore 屏障 / LoadStore Barrier"
+      },
+      {
+        "id": "k_atom_safepoint",
+        "label": "安全点",
+        "cardTitle": "安全点 / Safepoint"
+      },
+      {
+        "id": "k_java_syntax_java_lang_object_yk8ls4",
+        "label": "java.lang.Object",
+        "cardTitle": "Object"
+      }
+    ],
+    "contentlessCards": [
+      "k_1781002876731_3ct76l",
+      "k_1781003299034_og1pqa",
+      "k_1781003318112_lryll2",
+      "k_1781003339612_gly0rm",
+      "k_1781008748598_72gaz3",
+      "k_1781008786381_wiun1h",
+      "k_1781061621077_9c8e4h",
+      "k_1781107266786_b2goai",
+      "k_auto_1hl4cg6",
+      "k_auto_pysvvf",
+      "k_1781894839013_cccyxm",
+      "k_1781894862909_gbhvf4",
+      "k_1781896965139_pselbx",
+      "k_1781897025506_lvo1u1",
+      "k_1781897070995_i9wbi1",
+      "k_1781897096232_vyn14e",
+      "k_1781976016450_ggvuc3",
+      "k_1782027123941_l7np3c",
+      "k_1782027165978_v8g3nl",
+      "k_1782027187728_t4ieqd",
+      "k_1782027196864_7mehjk",
+      "k_1782032135560_tng3v4",
+      "k_1782032149173_bli3vq",
+      "k_1782150385440_xx1u7u",
+      "k_1782190020069_59o0aj",
+      "k_1782230482909_0r8qzt",
+      "school_programming_languages",
+      "k_1782748910899_dtrnpe",
+      "k_1782749047493_w36knu",
+      "k_1782749263813_199twh",
+      "k_1782749276682_qsjks8",
+      "k_1782749287355_2zl67c",
+      "k_1782810101915_qea50y",
+      "k_1782810113591_p7ab1i",
+      "k_1782810488481_ahot6h",
+      "k_1782810495660_w3vt9q",
+      "k_1782819889564_1cc93v",
+      "k_1782819901124_7wm0iq",
+      "k_1782820135634_80r6cv",
+      "k_1782820141514_7toivl",
+      "k_1782820155561_n3ma3o",
+      "k_1782820374682_ipugsy",
+      "k_1782826366835_whaav6",
+      "k_1782826400092_ru8rnk",
+      "k_1782836326581_x58ung",
+      "k_1782836341604_zkovkp",
+      "k_1782839308180_a8qh4o",
+      "k_1782839313525_2saytt",
+      "k_1782839325259_0qtru5",
+      "k_1782839332724_q6xuqx",
+      "k_1782931280830_ktho55",
+      "k_1782931298743_77z8dz",
+      "k_1782931436091_nitl7a",
+      "k_1782931459541_ztt6cy",
+      "k_1782931475509_dlbrrp",
+      "k_1783087818322_st7eoj",
+      "k_1783087834350_gmpg3u",
+      "k_1783087848544_mpfic6",
+      "k_1783087856834_zelajj",
+      "k_1783087864934_n0yzzj",
+      "k_1783087878206_r1e7p8",
+      "k_1783087884886_wy66ig",
+      "k_1783087909368_sxmcqe",
+      "k_1783091687266_9tecxo",
+      "k_1783096007006_rgpwn2",
+      "k_1783099702235_p1pa94",
+      "k_1783102308317_h8s41c",
+      "k_1783103959715_nbih6n",
+      "k_1783103969455_rj0nro",
+      "k_1783103977143_ayoa75",
+      "k_1783107284577_bbdtnv",
+      "k_1783145419527_y4cdsv",
+      "k_1783145445616_i2xe19",
+      "k_1783145458254_5xki8d",
+      "k_1783145492646_kbstjs",
+      "k_1783145503039_yrmhnh",
+      "k_1783167860244_04xrp4",
+      "k_1783167884457_fbgsdd",
+      "k_1783167897008_j9oxtc",
+      "k_1783167907433_5q9erq",
+      "k_1783170416767_yaym2f",
+      "k_1783173688342_6b8756",
+      "k_1783174457059_sy9hs8",
+      "k_1783184803301_75p0j1",
+      "k_1783185488648_yobuxy",
+      "k_1783185524955_jmpw8e",
+      "k_1783186255415_ir9mlw",
+      "k_1783186880545_vcool8",
+      "k_1783190919547_xy3xo7",
+      "k_1783191702364_0jj8qu",
+      "k_1783191721172_1z8bir",
+      "k_1783191752067_f7u3yy",
+      "k_1783191777469_n9jlip",
+      "k_1783242586458_lc8wra",
+      "k_1783242597042_wnhkxs",
+      "k_1783242603167_6cwn1r",
+      "k_1783242608308_6xygyf",
+      "k_1783250367496_zv2crw",
+      "k_1783252307603_sueh2u",
+      "k_1783257388677_uxt2vm"
+    ],
+    "missingQuestionRefs": [],
+    "missingTimelineRefs": [],
+    "duplicateTypedPairs": [
+      {
+        "pair": "demo_mvcc\u0000innodb_mvcc_purge\u0000depends-on\u0000",
+        "ids": [
+          "mvcc_purge_edge",
+          "mysql_glossary:demo_mvcc:innodb_mvcc_purge"
+        ]
+      },
+      {
+        "pair": "n_ag24bbkc\u0000demo_acid\u0000belongs-to\u0000structure",
+        "ids": [
+          "treebind:demo_tree_tx:demo_tree_acid",
+          "treebind:tree_1786241497224_yi63e9:tree_1786288007373_pp3blo"
+        ]
+      },
+      {
+        "pair": "n_u4va719e\u0000k_1783250387082_pp338r\u0000belongs-to\u0000structure",
+        "ids": [
+          "treebind:demo_db:tree_1783250387114_cn55cf",
+          "treebind:demo_db:tree_wiki_zh_数据库_s8"
+        ]
+      },
+      {
+        "pair": "k_1783250387082_pp338r\u0000k_1783250520307_j25py7\u0000belongs-to\u0000structure",
+        "ids": [
+          "treebind:tree_1783250387114_cn55cf:tree_1783250520336_5d17c2",
+          "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s10"
+        ]
+      },
+      {
+        "pair": "k_1783250387082_pp338r\u0000k_1783250593540_v2w5hy\u0000belongs-to\u0000structure",
+        "ids": [
+          "treebind:tree_1783250387114_cn55cf:tree_1783250593570_ci875p",
+          "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s11"
+        ]
+      }
+    ]
+  }
+}

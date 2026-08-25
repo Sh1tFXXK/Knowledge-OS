@@ -34,11 +34,11 @@ export interface TreeRefSupplement {
 export interface TreeNode {
   id: string;
   name: string;
-  count: number;
+  count?: number;
   expanded?: boolean;
   active?: boolean;
   /** 指向节点池中的知识 ID；目录只存引用，不存知识本体 */
-  nodeRef: string;
+  nodeRef?: string;
   /** 该导航路径下的补充解释卡（共性在节点池，差异在此） */
   supplement?: TreeRefSupplement;
   children?: TreeNode[];
@@ -46,6 +46,29 @@ export interface TreeNode {
 
 /** 推理漏斗中的层级角色（B 区局部镜头布局用） */
 export type KnowledgeRole = 'axiom' | 'mechanism' | 'conclusion' | 'subsystem' | 'plain';
+
+export enum KnowledgeNodeKind {
+  Concept = 'concept',
+  Entity = 'entity',
+  State = 'state',
+  Event = 'event',
+  Rule = 'rule',
+  Mechanism = 'mechanism',
+  Evidence = 'evidence',
+}
+
+export interface KnowledgeSourceSpan {
+  startLine: number;
+  endLine: number;
+}
+
+export interface KnowledgeProvenance {
+  sourceId: string;
+  sourceKind: string;
+  sourceTitle: string;
+  spanBasis?: 'normalized-markdown-body';
+  sourceSpans: KnowledgeSourceSpan[];
+}
 
 export type AtomAttrValue = string | number;
 
@@ -127,6 +150,12 @@ export interface ViewDimension {
 export interface KnowledgeNode {
   id: string;
   label: string;
+  kind?: KnowledgeNodeKind;
+  /** Source-independent semantic identity proposed by an importer. */
+  canonicalKey?: string;
+  aliases?: string[];
+  provenance?: KnowledgeProvenance[];
+  mechanismSpec?: MechanismSpec;
   shared?: boolean;
   locked?: boolean;
   tags?: string[];
@@ -155,6 +184,30 @@ export interface KnowledgeEdge {
   type: string;
   label: string;
   dimensions?: string[];
+  relationKind?: KnowledgeRelationKind;
+  provenance?: KnowledgeProvenance[];
+}
+
+export interface MechanismSpec {
+  phenomenonNodeId: string;
+  triggerNodeIds: string[];
+  participantNodeIds: string[];
+  stateNodeIds: string[];
+  transitionEdgeIds: string[];
+  constraintEdgeIds: string[];
+  outcomeNodeIds: string[];
+  failureNodeIds: string[];
+}
+
+export enum KnowledgeRelationKind {
+  Structure = 'structure',
+  Classification = 'classification',
+  Dependency = 'dependency',
+  Causality = 'causality',
+  StateTransition = 'state-transition',
+  Constraint = 'constraint',
+  Evidence = 'evidence',
+  Reference = 'reference',
 }
 
 export type ViewScope = 'local' | 'neighbor' | 'global';
@@ -213,10 +266,30 @@ export interface Rule {
   result: string;
 }
 
+export interface ExplanationTableColumn {
+  id: string;
+  label: string;
+}
+
+export interface ExplanationTableRow {
+  id: string;
+  cells: Record<string, string>;
+}
+
+export interface ExplanationTable {
+  id: string;
+  title?: string;
+  columns: ExplanationTableColumn[];
+  rows: ExplanationTableRow[];
+}
+
 export interface ExplanationPage {
   id: string;
   label: string;
   content: string;
+  /** 合成导航页使用的规范实体引用；普通存储页可省略。 */
+  knowledgeNodeId?: string;
+  table?: ExplanationTable;
   tags?: string[];
   /** 在同级排列轴上的相对占比；旧数据缺省为 1。 */
   weight?: number;
@@ -272,6 +345,7 @@ export interface NodeExplanation {
   title: string;
   /** 标题索引根节点下的总述正文（与 tabs 并列，非某个 tab 的内容） */
   rootContent?: string;
+  rootTable?: ExplanationTable;
   tabs: ExplanationTab[];
   /** Legacy storage for definition child pages; new pages live on their parent tab. */
   definitionPages?: ExplanationPage[];

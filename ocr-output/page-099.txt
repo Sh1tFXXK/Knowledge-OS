@@ -1,0 +1,37 @@
+82第一部分数据结构与对象
+redis>RPUSHnumbers123
+(integer)3
+#集合键
+redis>SADDfruits applebanana cherry
+(integer)3
+redis> DELmsg
+(integer)1
+redis> DEL numbers
+(integer)1
+redis> DEL fruits
+(integer)1
+而另一种命令只能对特定类型的键执行，比如说：
+口SET、GET、APPEND、STRLEN等命令只能对字符串键执行；
+口HDEL、HSET、HGET、HLEN等命令只能对哈希键执行；
+口RPUSH、LPOP、LINSERT、LLEN等命令只能对列表键执行；
+口SADD、SPOP、SINTER、SCARD等命令只能对集合键执行；
+口ZADD、ZCARD、ZRANK、ZSCORE等命令只能对有序集合键执行；
+举个例子，我们可以用SET命令创建一个字符串键，然后用GET命令和APPEND命令
+操作这个键，但如果我们试图对这个字符串键执行只有列表键才能执行的LLEN命令，那么
+Redis将向我们返回一个类型错误：
+redis> SET msg"hello world"
+OK
+redis> GET msg
+"hello world"
+redis>APPEND msg"again!"
+(integer)18
+redis> GET msg
+"hello world again!"
+redis> LLEN msg
+8.7.1
+类型检查的实现
+从上面发生类型错误的代码示例可以看出，为了确保只有指定类型的键可以执行某些特
+定的命令，在执行一个类型特定的命令之前，Redis会先检查输人键的类型是否正确，然后
+再决定是否执行给定的命令。
+类型特定命令所进行的类型检查是通过redisobject结构的type属性来实现的：
+口在执行一个类型特定命令之前，服务器会先检查输入数据库键的值对象是否为执行

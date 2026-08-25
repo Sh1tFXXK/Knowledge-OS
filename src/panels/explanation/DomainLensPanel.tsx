@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { TreeNodeReference } from '../../knowledge/treeUtils';
 import type { KnowledgeNode } from '../../types';
+import { hasSupertag } from '../../knowledge/supertags';
 import MarkdownView from './MarkdownView';
 
 type SupertagMode = 'extract' | 'compare' | 'summarize';
@@ -55,7 +56,7 @@ export default function DomainLensPanel({
   const visibleLimit = 6;
   const activeContext = contexts.find((context) => context.treeNodeId === activeContextId) ?? contexts[0];
   const activeSupertagMembers = activeSupertag
-    ? Object.values(nodePool).filter((member) => member.tags?.includes(activeSupertag))
+    ? Object.values(nodePool).filter((member) => hasSupertag(member.tags, activeSupertag))
     : [];
   const activeIsHidden =
     !!activeContext &&

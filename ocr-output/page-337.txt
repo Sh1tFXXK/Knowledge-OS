@@ -1,0 +1,12 @@
+320，第四部分独立功能的实现
+口只有在客户端的REDISDIRTYCAS标志未被打开时，服务器才会执行客户端提交
+的事务，否则的话，服务器将拒绝执行客户端提交的事务。
+口Redis的事务总是具有ACID中的原子性、一致性和隔离性，当服务器运行在AOF
+持久化模式下，并且appendfsync选项的值为always时，事务也具有耐久性。
+19.5
+参考资料
+口维基百科的ACID词条给出了ACID性质的定义：http://en.wikipedia.org/wiki/ACID。
+口《数据库系统实现》一书的第6章《系统故障对策》，对事务、事务错误、日志等主
+题进行了讨论。
+口Redis官方网站上的《事务》文档记录了Redis处理事务错误的方式，以及Redis不
+支持事务回滚的原因：http://redis.io/topics/transactions。

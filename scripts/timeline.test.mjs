@@ -42,4 +42,36 @@ const legacy = normalizeKnowledgePointTimeline([{
 assert.equal(legacy.length, 1);
 assert.equal(legacy[0].knowledgeNodeId, 'node-1');
 
+const snapshotWithSyntheticPage = normalizeKnowledgePointTimeline([{
+  id: 'snapshot-with-duplicate',
+  knowledgeNodeId: 'node-2',
+  title: 'Historical version',
+  capturedAt: 3000,
+  note: 'Keep this historical metadata',
+  node: {
+    id: 'node-2',
+    label: 'Historical node',
+    card: {
+      nodeId: 'node-2',
+      title: 'Historical node',
+      tabs: [{
+        id: 'def',
+        label: 'Definition',
+        content: 'Historical definition.',
+        pages: [{
+          id: 'def',
+          label: '\u901a\u7528\u5b9a\u4e49',
+          content: 'Historical definition.',
+        }],
+      }],
+    },
+  },
+}]);
+
+assert.equal(snapshotWithSyntheticPage.length, 1);
+assert.equal(snapshotWithSyntheticPage[0].title, 'Historical version');
+assert.equal(snapshotWithSyntheticPage[0].capturedAt, 3000);
+assert.equal(snapshotWithSyntheticPage[0].note, 'Keep this historical metadata');
+assert.equal('pages' in snapshotWithSyntheticPage[0].node.card.tabs[0], false);
+
 console.log('timeline checks passed');

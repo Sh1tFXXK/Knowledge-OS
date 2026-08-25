@@ -1,6 +1,6 @@
 # Knowledge-OS
 
-> 最新状态：2026-08-05
+> 最新状态：2026-08-09
 
 Knowledge-OS 是一个本地优先的多维知识图谱工作台。它把目录、知识节点、解释索引、问题、类型关系、时间线和机制视图组织在同一套显式数据模型中，适合维护需要持续拆解、关联和回顾的技术知识。
 
@@ -10,7 +10,7 @@ Knowledge-OS 是一个本地优先的多维知识图谱工作台。它把目录�
 - 解释索引：支持根内容、标题层级、页面、标签和可编辑的统一索引图。
 - 类型与结构关系：支持 `extends`、`implements`、`belongs-to`、依赖、关联和投影。
 - 多视图工作区：知识宇宙、解释索引、时间线、节点库、问题库、SuperTag、机制视图和系统连接图。
-- 文档导入：支持 Markdown、PDF、HTML、DOCX、TXT 和其他可解析文本文件。
+- 文档导入：支持 Markdown、PDF、HTML、DOCX、TXT 和其他可解析文本文件；扫描 PDF 可通过本地 MinerU OCR 导入。
 - 网页导入：支持普通网页、GitHub Markdown 与 Wikipedia，能够清理正文、规范 Markdown 并提取标签。
 - Java 源码导入：通过 JDK Compiler Tree API 提取包、类型、成员、Javadoc 和直接类型关系。
 - 本地持久化：通过 Vite 中间件读取和原子写入 `data/*.json`，浏览器状态由 Zustand 单向管理。
@@ -29,6 +29,14 @@ npm test
 npm run build
 ```
 
+首次导入扫描 PDF 前安装本地 MinerU：
+
+```bash
+npm run setup:mineru
+```
+
+安装使用独立的 `.venv-mineru`，默认以 `pipeline` 后端和中文 OCR 运行。数字原生 PDF 不会启动 MinerU。
+
 导入 JDK 集合类型：
 
 ```bash
@@ -36,6 +44,8 @@ npm run import:jdk-collections -- --source="C:/Program Files/Java/jdk-26"
 ```
 
 网页、普通文档和 Java 源码也可以直接从顶部工具栏导入。
+
+文档导入支持“自动 / 文章 / 题库”结构选择。选择题库 PDF 时会使用 MinerU 恢复编号结构，并把问题写入问题库；同名但题号不同的问题会分别保留。
 
 ## 可选模型配置
 

@@ -1,0 +1,76 @@
+第19章事务309
+multiCmd
+robj*[3]
+argv
+StringObject
+stringObject
+StringObject
+"SET"
+"name"
+argc
+"PracticalCammonLisp"
+cmd
+setCommand
+multistate
+multiCmd
+multiCmd[4]
+commands
+robj*[2]
+argy
+StringObject
+[0]
+count
+StringObject
+"GET"
+argc
+"name"
+[1]
+[2]
+cmd
+getCommand
+[3]
+multiCmd
+robj*[3]
+argv
+stringObject
+Stringobjectl
+StringObject
+"SET"
+"author"
+argc
+"Peter Seibel"
+cmd
+setCommand
+multiCmd
+robj*[2]
+argv
+StringObject
+Stringobject
+"GET"
+argc
+"author"
+cmd
+getCommand
+图19-2
+事务状态
+19.1.4
+执行事务
+当一个处于事务状态的客户端向服务器发送EXEC命令时，这个EXEC命令将立即被服
+务器执行。服务器会遍历这个客户端的事务队列，执行队列中保存的所有命令，最后将执行
+命令所得的结果全部返回给客户端。
+举个例子，对于图19-2所示的事务队列来说，服务器首先会执行命令：
+SET"name""PracticalCommon Lisp"
+接着执行命令：
+GET "name"
+之后执行命令：
+SET"author""Peter Seibel"
+再之后执行命令：
+GET "author"
+最后，服务器会将执行这四个命令所得的回复返回给客户端：
+redis> EXEC
+1)OK
+2)"Practical Common Lisp"
+3)
+OK
+4)
+"Peter Seibel"

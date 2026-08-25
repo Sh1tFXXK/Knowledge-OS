@@ -8,6 +8,7 @@ import {
 } from '../knowledge/supertagMaterials';
 import { useGraphStore } from '../store/useGraph';
 import MarkdownView from '../panels/explanation/MarkdownView';
+import { supertagKey } from '../knowledge/supertags';
 
 enum SupertagLibraryMode {
   Materials = 'materials',
@@ -48,21 +49,25 @@ export default function SupertagLibrary() {
   );
 
   const filteredGroups = useMemo(() => {
-    const normalizedQuery = query.trim().toLowerCase();
+    const normalizedQuery = query.trim().normalize('NFKC').toLowerCase();
+    const normalizedTagQuery = supertagKey(query);
     if (!normalizedQuery) return groups;
 
     return groups.filter((group) => {
-      if (group.tag.toLowerCase().includes(normalizedQuery)) return true;
+      if (normalizedTagQuery && supertagKey(group.tag).includes(normalizedTagQuery)) return true;
       return group.materials.some((material) =>
-        material.nodeLabel.toLowerCase().includes(normalizedQuery) ||
-        material.label.toLowerCase().includes(normalizedQuery) ||
-        material.content.toLowerCase().includes(normalizedQuery),
+        material.nodeLabel.normalize('NFKC').toLowerCase().includes(normalizedQuery) ||
+        material.label.normalize('NFKC').toLowerCase().includes(normalizedQuery) ||
+        material.content.normalize('NFKC').toLowerCase().includes(normalizedQuery),
       );
     });
   }, [groups, query]);
 
+  const selectedSupertagKey = selectedSupertag ? supertagKey(selectedSupertag) : '';
   const activeGroup =
-    filteredGroups.find((group) => group.tag === selectedSupertag) ?? filteredGroups[0] ?? null;
+    filteredGroups.find((group) => supertagKey(group.tag) === selectedSupertagKey)
+    ?? filteredGroups[0]
+    ?? null;
 
   const domainPathsByNode = useMemo(() => {
     const paths = new Map<string, string[]>();

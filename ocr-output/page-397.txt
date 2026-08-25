@@ -1,0 +1,65 @@
+380·第四部分独立功能的实现
+2) 1)
+(integer)4
+2)
+(integer)1378781447
+3)
+(integer)13
+4)
+1)
+"SET"
+2)
+"database"
+3)"Redis"
+3) 1)
+(integer)3
+2)
+(integer）1378781439
+3)
+(integer) 10
+1)
+"SET"
+2)
+"number"
+"10086"
+4) 1)
+(integer)2
+2)
+(integer）1378781436
+3)
+(integer) 18
+1)
+"SET"
+2)
+"msg"
+3)
+"hello world"
+5) 1)
+(integer)1
+2)
+(integer)1378781425
+3)
+(integer)1l
+4)
+1)
+"CONFIG"
+2)
+"SET"
+3)
+"slowlog-max-len"
+4)
+"5"
+23.1
+慢查询记录的保存
+服务器状态中包含了几个和慢查询日志功能有关的属性：
+struct redisServer (
+//下一条慢查询日志的ID
+long long slowlog_entry_id;
+//保存了所有慢查询日志的链表
+list *slowlog;
+//服务器配置slowlog-log-slower-than选项的值
+long long slowlog_log_slower_than;
+//服务器配置slowlog-max-len选项的值
+unsigned long slowlog_max_len;
+slowlog_entry_id属性的初始值为o，每当创建一条新的慢查询日志时，这个属性
+的值就会用作新日志的id值，之后程序会对这个属性的值增一。

@@ -1,0 +1,36 @@
+第8章对象→67
+存的不再是整数值，而是一个字符串值，那么字符串对象的编码将从int变为raw。
+在下面的示例中，我们通过APPEND命令，向一个保存整数值的字符串对象追加了
+一个字符串值，因为追加操作只能对字符串值执行，所以程序会先将之前保存的整数值
+10086转换为字符串值"10086"，然后再执行追加操作，操作的执行结果就是一个raw
+编码的、保存了字符串值的字符串对象：
+redis>SETnumber10086
+OK
+redis>OBJECTENCODINGnumber
+"int"
+redis> APPEND number " is a good number!"
+(integer)23
+redis> GET number
+"10086 is a good number!"
+redis>OBJECT ENCODINGnumber
+"raw"
+另外，因为Redis没有为embstr编码的字符串对象编写任何相应的修改程序（只有
+int编码的字符串对象和raw编码的字符串对象有这些程序），所以embstr编码的字符
+串对象实际上是只读的。当我们对embstr编码的字符串对象执行任何修改命令时，程序
+会先将对象的编码从embstr转换成raw，然后再执行修改命令。因为这个原因，embstr
+编码的字符串对象在执行修改命令之后，总会变成一个raw编码的字符串对象。
+以下代码展示了一个embstr编码的字符串对象在执行APPEND命令之后，对象的编
+码从embstr变为raw的例子：
+redis>SET msg"helloworld"
+OK
+redis> OBJECT ENCODING msg
+"embstr"
+redis> APPEND msg" again!"
+(integer)18
+redis> OBJECT ENCODING mSg
+"raw"
+8.2.2
+字符串命令的实现
+因为字符串键的值为字符串对象，所以用于字符串键的所有命令都是针对字符串对象来
+构建的，表8-7列举了其中一部分字符串命令，以及这些命令在不同编码的字符串对象下的
+实现方法。

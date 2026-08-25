@@ -1,0 +1,33 @@
+188。第二部分单机数据库的实现
+//
+//已使用内存峰值
+size_t stat_peak_memoryi
+//
+每次serverCron函数执行时，程序都会查看服务器当前使用的内存数量，并与stat_
+peak_memory保存的数值进行比较，如果当前使用的内存数量比stat_peak_memory
+属性记录的值要大，那么程序就将当前使用的内存数量记录到stat_peak_memory属性
+里面。
+INFOmemory命令的used_memory_peak和used_memory_peak_human两个域
+分别以两种格式记录了服务器的内存峰值：
+redis> INFO memory
+#Memory
+used_memory_peak:501824
+used_memory_peak_human:490.06K
+14.2.5
+处理SIGTERM信号
+在启动服务器时，Redis会为服务器进程的sIGTERM信号关联处理器sigtermHandler
+函数，这个信号处理器负责在服务器接到sIGTERM信号时，打开服务器状态的shutdown
+asap标识：
+/／SIGTERM信号的处理器
+staticvoidsigtermHandler(intsig)(
+//打印日志
+redisLogFromHandler(REDIS_WARNING,"Received SIGTERM,scheduling shutdown...");
+//打开关闭标识
+server.shutdown_asap=l;
+每次serverCron函数运行时，程序都会对服务器状态的shutdown_asap属性进行
+检查，并根据属性的值决定是否关闭服务器：
+struct redisserverf
+//关闭服务器的标识：
+/／值为1时，关闭服务器，
+//值为0时，不做动作。
+int shutdown_asap;

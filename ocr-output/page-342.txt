@@ -1,0 +1,51 @@
+第20章Lua脚本325
+-random-with-new-seed.lua
+math.randomseed(10086)--changeseed
+local i = 10
+local seq=()
+while(i>o)do
+seq[i] =math.random(i)
+i=i-1
+end
+return seg
+那么这个脚本生成的随机数序列将和使用默认seed值o时生成的随机序列不同：
+$ redis-cli --eval random-with-new-seed.lua
+(integer)1
+2)
+(integer)
+3)
+(integer)
+4)
+(integer)
+5)
+(integer)
+(9
+(integer)
+7)
+(integer)
+8)
+(integer)
+9)
+(integer)
+10)
+(integer)1
+20.1.5
+创建排序辅助函数
+上一个小节说到，为了防止带有副作用的函数令脚本产生不一致的数据，Redis对
+math库的math.random函数和math.randomseed函数进行了替换。
+对于Lua脚本来说，另一个可能产生不一致数据的地方是那些带有不确定性质的命令。
+比如对于一个集合键来说，因为集合元素的排列是无序的，所以即使两个集合的元素完全相
+同，它们的输出结果也可能并不相同。
+考虑下面这个集合例子：
+redis>SADD fruit apple banana cherry
+(integer)3
+redis>SMEMBERS fruit
+1)"cherry"
+2)"banana"
+3)"apple"
+redis> SADD another-fruit cherry banana apple
+(integer)3
+redis> SMEMBERs another-fruit
+1)"apple"
+2)"banana"
+3)"cherry"

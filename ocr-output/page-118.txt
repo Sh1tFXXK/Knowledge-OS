@@ -1,0 +1,44 @@
+第9章数据库，101
+所指定的秒数时间戳。
+口PEXPIREAT<key><timestamp>命令用于将键key的过期时间设置为timestamp
+所指定的毫秒数时间戳。
+虽然有多种不同单位和不同形式的设置命令，但实际上EXPIRE、PEXPIRE、EXPIREAT
+三个命令都是使用PEXPIREAT命令来实现的：无论客户端执行的是以上四个命令中的哪一
+个，经过转换之后，最终的执行效果都和执行PEXPIREAT命令一样。
+首先，EXPIRE命令可以转换成PEXPIRE命令：
+def EXPIRE(keY,ttl_in_sec):
+#将TTL从秒转换成毫秒
+ttl_in_ms= sec_to_ms(ttl_in_sec)
+PEXPIRE(key,ttl_in_ms)
+接着，PEXPIRE命令又可以转换成PEXPIREAT命令：
+defPEXPIRE(key,ttl_in_ms):
+#获取以毫秒计算的当前UNIX时间戳
+now_ms = get_current_unix_timestamp_in_ms()
+#当前时间加上TTL，得出毫秒格式的键过期时间
+PEXPIREAT(key,now_ms+ttl_in_ms)
+并且，EXPIREAT命令也可以转换成PEXPIREAT命令：
+EXPIRE
+defExPIREAT(keY,expire_time_in_sec):
+转换成
+PEXPIRE
+#将过期时间从秒转换为毫秒
+EXPIREAT
+expire_time_in_ms=sec_to_ms(expire_time_in_sec)
+转换成
+转换成
+PEXPIREAT(key,expire_time_in_ms)
+PEXPIREAT
+最终，EXPIRE、PEXPIRE和EXPIREAT三个命令都会
+图9-11设置生存时间和设置过
+转换成PEXPIREAT命令来执行，如图9-11所示。
+期时间的命令之间的转换
+9.4.2保存过期时间
+redisDb结构的expires字典保存了数据库中所有键的过期时间，我们称这个字典
+为过期字典：
+口过期字典的键是一个指针，这个指针指向键空间中的某个键对象（也即是某个数据
+库键)。
+口过期字典的值是一个longlong类型的整数，这个整数保存了键所指向的数据库
+键的过期时间-
+一一个毫秒精度的UNIX时间戳。
+typedef struct redisDb(
+//过期字典，保存着键的过期时间

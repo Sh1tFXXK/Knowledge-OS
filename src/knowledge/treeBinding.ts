@@ -1,4 +1,9 @@
-import type { KnowledgeEdge, KnowledgeNode, TreeNode } from '../types';
+import type {
+  KnowledgeEdge,
+  KnowledgeNode,
+  KnowledgeRelationKind,
+  TreeNode,
+} from '../types';
 
 export const TREE_BINDING_EDGE_PREFIX = 'treebind:';
 export const TREE_BINDING_EDGE_TYPE = 'belongs-to';
@@ -30,7 +35,7 @@ export function resolveTreeBindingTarget(
 ): string | null {
   const node = findTreeNodeById(tree, treeNodeId);
   if (!node) return null;
-  return node.nodeRef;
+  return node.nodeRef ?? null;
 }
 
 export function createTreeBindingEdge({
@@ -59,6 +64,7 @@ export function createTreeBindingEdge({
     target: childKnowledgeId,
     type: TREE_BINDING_EDGE_TYPE,
     label: TREE_BINDING_EDGE_LABEL,
+    relationKind: 'structure' as KnowledgeRelationKind,
     dimensions: mergeDimensions(nodePool[parentKnowledgeId], nodePool[childKnowledgeId]),
   };
 }
@@ -85,15 +91,17 @@ export function createMovedTreeBindingEdges({
       childTreeId: movedTreeId,
       childKnowledgeId: movedTreeNode.nodeRef,
     }),
-    ...(movedTreeNode.children ?? []).map((child) =>
-      createTreeBindingEdge({
-        tree,
-        nodePool,
-        parentTreeId: movedTreeId,
-        childTreeId: child.id,
-        childKnowledgeId: child.nodeRef,
-      }),
-    ),
+    ...(movedTreeNode.children ?? []).flatMap((child) => (
+      child.nodeRef
+        ? [createTreeBindingEdge({
+            tree,
+            nodePool,
+            parentTreeId: movedTreeId,
+            childTreeId: child.id,
+            childKnowledgeId: child.nodeRef,
+          })]
+        : []
+    )),
   ].filter((edge): edge is KnowledgeEdge => edge !== null);
 }
 
@@ -155,4 +163,46 @@ export function removeTreeBindingEdgesForTreeIds(
   treeIds: Set<string>,
 ): KnowledgeEdge[] {
   return edges.filter((edge) => !isTreeBindingEdgeForTreeIds(edge, treeIds));
+}
+
+export function buildTreeProjectionContainmentEdges(root: TreeNode): KnowledgeEdge[] {
+  const edges: KnowledgeEdge[] = [];
+  const assignedKnowledgeIds = new Set<string>();
+
+  const walkChildren = (
+    parentNode: TreeNode,
+    parent: { knowledgeId: string; treeId: string } | null,
+  ) => {
+    const childContexts = (parentNode.children ?? []).map((child) => {
+      let childParent = parent;
+      if (child.nodeRef) {
+        if (!assignedKnowledgeIds.has(child.nodeRef)) {
+          assignedKnowledgeIds.add(child.nodeRef);
+          if (parent && parent.knowledgeId !== child.nodeRef) {
+            edges.push({
+              id: `treeprojection:${parent.treeId}:${child.id}`,
+              source: parent.knowledgeId,
+              target: child.nodeRef,
+              type: TREE_BINDING_EDGE_TYPE,
+              label: TREE_BINDING_EDGE_LABEL,
+              relationKind: 'structure' as KnowledgeRelationKind,
+            });
+          }
+        }
+        childParent = { knowledgeId: child.nodeRef, treeId: child.id };
+      }
+      return { child, childParent };
+    });
+
+    for (const { child, childParent } of childContexts) {
+      walkChildren(child, childParent);
+    }
+  };
+
+  const rootParent = root.nodeRef
+    ? { knowledgeId: root.nodeRef, treeId: root.id }
+    : null;
+  if (root.nodeRef) assignedKnowledgeIds.add(root.nodeRef);
+  walkChildren(root, rootParent);
+  return edges;
 }

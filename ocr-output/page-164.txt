@@ -1,0 +1,34 @@
+第11章AOF持久化147
+例如，对于图11-3所示的数据库，aof_rewrite函数产生的新AOF文件将包含以下
+命令：
+SELECT 0
+RPUSHalphabet"a""b""c"
+EXPIREATalphabet1385877600000
+HMSET book"name""Redisin Action"
+"author" "Josiah L.Carlson"
+"publisher""Manning"
+EXPIREATb00k1388556000000
+SET message"hello world"
+以上命令就是还原图11-3所示的数据库所必须的命令，它们没有一条是多余的。
+注意
+在实际中，为了避免在执行命令时造成客户端输入缓冲区溢出，重写程序在处理列表、
+哈希表、集合、有序集合这四种可能会带有多个元素的键时，会先检查键所包含的元素数
+量，如果元素的数量超过了redis.h/REDIS_AOF_REWRITE_ITEMS_PER_CMD常量的
+值，那么重写程序将使用多条命令来记录键的值，而不单单使用一条命令。
+在目前版本中，REDIS_AOF_REWRITE_ITEMS_PER_CMD常量的值为64，这也就是
+说，如果一个集合键包含了超过64个元素，那么重写程序会用多条SADD命令来记录这个
+集合，并且每条命令设置的元素数量也为64个：
+SADD<set-key><eleml><elem2>...<elem64>
+SADD <set-key><elem65><elem66>...<elem128>
+SADD<set-key><eleml29><elem130>...<eleml92>
+另一方面如果一个列表键包含了超过64个项，那么重写程序会用多条RPUSH命令来
+保存这个列表，并且每条命令设置的项数量也为64个：
+RPUSH<list-key><iteml><item2>...<item64>
+RPUSH<1list-key><item65><item66>...<item128>
+,RPUSH<list-key><item129><iteml30>...<item192>
+重写程序使用类似的方法处理包含多个元素的有序集合键，以及包含多个键值对的哈希
+表键。
+11.3.2AOF后台重写
+上面介绍的AOF重写程序aof_rewrite函数可以很好地完成创建一个新AOF文件的
+任务，但是，因为这个函数会进行大量的写入操作，所以调用这个函数的线程将被长时间阻塞，
+因为Redis服务器使用单个线程来处理命令请求，所以如果由服务器直接调用aof_rewrite

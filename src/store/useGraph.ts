@@ -13,6 +13,7 @@ import type {
   KnowledgeEdge,
   ExplanationPage,
   ExplanationTab,
+  ExplanationTable,
   TreeRefSupplement,
   Rule,
   ViewScope,
@@ -21,7 +22,7 @@ import type {
   ExplanationIndexSelection,
   ExplanationSelection,
 } from '../types';
-import { ExplanationSelectionKind, TypeRelationKind } from '../types';
+import { ExplanationSelectionKind, KnowledgeRelationKind, TypeRelationKind } from '../types';
 import {
   createKnowledgeNode,
   createKnowledgeEdge,
@@ -48,7 +49,7 @@ import {
   collectTreeNodes,
   findTreeParent,
   findTreeNodeById,
-  moveTreeNode as moveTreeNodeInTree,
+  moveTreeNodes as moveTreeNodesInTree,
   removeTreeChild,
   updateTreeNode,
 } from '../knowledge/treeUtils';
@@ -88,23 +89,16 @@ import {
   areSupertagsEqual,
   normalizeSupertag,
   normalizeSupertags,
+  supertagKey,
 } from '../knowledge/supertags';
 
 const initialApp = createEmptyAppState();
 const DEFINITION_TAB_ID = 'def';
 
-function defaultPageForTab(tab: NodeExplanation['tabs'][number]): ExplanationPage {
-  return {
-    id: tab.id,
-    label: tab.id === DEFINITION_TAB_ID ? '通用定义' : '通用页面',
-    content: tab.content,
-  };
-}
-
 function pagesForTab(card: NodeExplanation, tab: NodeExplanation['tabs'][number]): ExplanationPage[] {
   if (tab.pages?.length) return tab.pages;
   const legacyPages = tab.id === DEFINITION_TAB_ID ? card.definitionPages : undefined;
-  return legacyPages?.length ? legacyPages : [defaultPageForTab(tab)];
+  return legacyPages?.length ? legacyPages : [];
 }
 
 function patchTabPages(
@@ -114,11 +108,11 @@ function patchTabPages(
 ): Partial<Pick<NodeExplanation, 'tabs' | 'definitionPages'>> {
   const tabs = mapTabRecursive(card.tabs, tabId, (tab) => ({
     ...tab,
-    content: pages[0]?.content ?? tab.content,
-    pages,
+    content: tab.content,
+    pages: pages.length > 0 ? pages : undefined,
   }));
-  return tabId === DEFINITION_TAB_ID && card.definitionPages
-    ? { tabs, definitionPages: pages }
+  return tabId === DEFINITION_TAB_ID
+    ? { tabs, definitionPages: undefined }
     : { tabs };
 }
 
@@ -311,7 +305,11 @@ interface GraphState {
   removeContainmentRelation: (id: string) => boolean;
   updateKnowledgeNodeMeta: (
     id: string,
-    patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags'>>,
+    patch: Partial<Pick<KnowledgeNode, 'role' | 'dimensions' | 'tags' | 'kind' | 'mechanismSpec'>>,
+  ) => void;
+  updateKnowledgeEdgeRelationKind: (
+    id: string,
+    relationKind: KnowledgeEdge['relationKind'],
   ) => void;
   updateKnowledgeNodeLabel: (id: string, label: string) => void;
   updateKnowledgeViewDimensions: (
@@ -359,14 +357,18 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<
-      Pick<NodeExplanation, 'title' | 'rootContent' | 'tabs' | 'definitionPages' | 'notes'>
-    >,
+    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'definitionPages' | 'notes'>>,
   ) => void;
   updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
+  updateKnowledgeRootTable: (knowledgeId: string, table: ExplanationTable | undefined) => void;
   addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
   removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
+  updateKnowledgeTabTable: (
+    knowledgeId: string,
+    tabId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   renameKnowledgeTab: (knowledgeId: string, tabId: string, label: string) => void;
   addKnowledgeTabPage: (
     knowledgeId: string,
@@ -376,6 +378,12 @@ interface GraphState {
   ) => string | null;
   removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
+  updateKnowledgeTabPageTable: (
+    knowledgeId: string,
+    tabId: string,
+    pageId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   /** 删除知识节点并同步移除对应目录项（子目录上移保留） */
@@ -393,11 +401,18 @@ interface GraphState {
   createKnowledgeAndLink: (parentId: string, label: string, shared?: boolean) => string;
   setTreeSupplement: (treeNodeId: string, supplement: TreeRefSupplement | undefined) => void;
   updatePathSupplementContent: (treeNodeId: string, content: string) => void;
+  updatePathSupplementTable: (
+    treeNodeId: string,
+    tabId: string,
+    table: ExplanationTable | undefined,
+  ) => void;
   linkTreeToKnowledge: (treeNodeId: string, knowledgeId: string) => void;
 
   removeTreeNode: (nodeId: string) => void;
   moveTreeNode: (nodeId: string, nextParentId: string) => boolean;
+  moveTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   copyTreeNode: (nodeId: string, nextParentId: string) => boolean;
+  copyTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
 
   /** @deprecated 璇风敤 createKnowledgeAndLink */
@@ -460,11 +475,29 @@ function appendUniqueKnowledgeEdge(
   return [...edges.filter((item) => item.id !== edge.id), edge];
 }
 
+function tagsForRenamedKnowledgeNode(
+  node: KnowledgeNode,
+  nextLabel: string,
+): string[] | undefined {
+  if (nextLabel === node.label) return node.tags;
+
+  const existingTags = node.tags ?? [];
+  const oldTitleWasDefaultTag = existingTags.length > 0
+    && supertagKey(existingTags[0]) === supertagKey(node.label);
+  return normalizeSupertags([
+    nextLabel,
+    ...(oldTitleWasDefaultTag ? existingTags.slice(1) : existingTags),
+  ]);
+}
+
 export const useGraphStore = create<GraphState>((set, get) => {
   const persist = () => {
     const state = snapshotState(get());
     persistAppState(state);
-    void saveStateToFiles(state);
+    void saveStateToFiles(state).catch((error) => {
+      console.error('Failed to persist application data files', error);
+      get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+    });
   };
 
   return {
@@ -580,6 +613,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         [existing.id]: {
           ...existing,
           label: result.explanation.title,
+          tags: tagsForRenamedKnowledgeNode(existing, result.explanation.title),
           card: result.explanation,
         },
       };
@@ -627,7 +661,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     selectTreeEntry: (treeNodeId) => {
       const state = get();
       const treeNode = findTreeNodeById(state.treeData, treeNodeId);
-      if (!treeNode) return;
+      if (!treeNode?.nodeRef) return;
       const nodeId = treeNode.nodeRef;
       const focusNodeId = nodeId;
 
@@ -667,7 +701,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       });
 
       set({
-        activeView: 'index',
+        activeView: state.activeView === 'mechanism' ? 'mechanism' : 'index',
         selectedTreeNodeId: treeNodeId,
         selectedNodeId: nodeId,
         focusNodeId: focusNodeId,
@@ -687,9 +721,58 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     getKnowledgeExplanation: () => {
-      const id = get().selectedNodeId;
+      const state = get();
+      const selectedTree = state.selectedTreeNodeId
+        ? findTreeNodeById(state.treeData, state.selectedTreeNodeId)
+        : null;
+      const id = state.selectedNodeId ?? selectedTree?.nodeRef ?? null;
       if (!id) return null;
-      return get().nodePool[id]?.card ?? null;
+      const directCard = state.nodePool[id]?.card ?? null;
+      const snapshot = [...state.timeline].reverse().find((item) =>
+        item.knowledgeNodeId === id || item.node?.id === id,
+      );
+      const base = directCard ?? snapshot?.node?.card ?? {
+        nodeId: id,
+        title: state.nodePool[id]?.label ?? id,
+        tabs: [],
+      };
+      const cardDefinition = String(
+        directCard?.rootContent ?? directCard?.tabs?.find((tab) => tab.id === 'def')?.content ?? '',
+      ).trim();
+      const findByRef = (node: TreeNode): TreeNode | null => {
+        if (node.nodeRef === id) return node;
+        for (const child of node.children ?? []) {
+          const found = findByRef(child);
+          if (found) return found;
+        }
+        return null;
+      };
+      const treeNode = selectedTree ?? findByRef(state.treeData);
+      const definitionFor = (node: TreeNode): string => {
+        const linked = node.nodeRef ? state.nodePool[node.nodeRef] : undefined;
+        const root = String(linked?.card?.rootContent ?? '').trim();
+        if (root) return root;
+        const definition = linked?.card?.tabs?.find((tab) => tab.id === 'def')?.content;
+        if (String(definition ?? '').trim()) return String(definition);
+        return String(linked?.card?.tabs?.find((tab) => String(tab.content ?? '').trim())?.content ?? '');
+      };
+      const pageFor = (node: TreeNode): ExplanationPage => ({
+        id: 'tree-page:' + node.id,
+        knowledgeNodeId: node.nodeRef,
+        label: node.name,
+        content: definitionFor(node),
+        pages: (node.children ?? []).filter((child) => Boolean(child.nodeRef)).map(pageFor),
+      });
+      const children = (treeNode?.children ?? []).filter((child) => Boolean(child.nodeRef));
+      if (!treeNode || children.length === 0) return { ...base, nodeId: id, rootContent: String(base.rootContent ?? '').trim() || cardDefinition };
+      const tabs = children.map((child): ExplanationTab => ({
+        id: 'tree-tab:' + child.id,
+        knowledgeNodeId: child.nodeRef,
+        label: child.name,
+        content: definitionFor(child),
+        pages: (child.children ?? []).filter((grandchild) => Boolean(grandchild.nodeRef)).map(pageFor),
+      }));
+      return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, rootContent: String(base.rootContent ?? '').trim() || cardDefinition, tabs };
     },
 
     getActiveDimension: () => get().currentPerspective?.id ?? 'all',
@@ -733,7 +816,14 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return false;
       }
 
-      const edge = createKnowledgeEdge(source, target, kind, typeRelationLabel(kind));
+      const edge = createKnowledgeEdge(
+        source,
+        target,
+        kind,
+        typeRelationLabel(kind),
+        undefined,
+        KnowledgeRelationKind.Classification,
+      );
       set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
       persist();
       return true;
@@ -773,6 +863,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
         target,
         CONTAINMENT_EDGE_TYPE,
         CONTAINMENT_EDGE_LABEL,
+        undefined,
+        KnowledgeRelationKind.Structure,
       );
       set({ knowledgeEdges: [...state.knowledgeEdges, edge] });
       persist();
@@ -811,6 +903,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
+    updateKnowledgeEdgeRelationKind: (id, relationKind) => {
+      const state = get();
+      const edge = state.knowledgeEdges.find((item) => item.id === id);
+      if (!edge || state.nodePool[edge.source]?.locked) return;
+      set({
+        knowledgeEdges: state.knowledgeEdges.map((item) =>
+          item.id === id ? { ...item, relationKind } : item,
+        ),
+      });
+      persist();
+    },
+
     updateKnowledgeNodeLabel: (id, label) => {
       const trimmed = label.trim();
       if (!trimmed) return;
@@ -824,7 +928,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const card = { ...node.card, title: trimmed };
       const nodePool = {
         ...state.nodePool,
-        [id]: { ...node, label: trimmed, card },
+        [id]: {
+          ...node,
+          label: trimmed,
+          tags: tagsForRenamedKnowledgeNode(node, trimmed),
+          card,
+        },
       };
       set({ nodePool });
       persist();
@@ -1011,8 +1120,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
           treeData,
           nodePool,
           knowledgeEdges,
+          questions: (data.questions as Question[]) ?? get().questions,
+          timeline: (data.timeline as KnowledgePointSnapshot[]) ?? get().timeline,
           selectedNodeId: data.selectedNodeId as string | null,
           selectedTreeNodeId: data.selectedTreeNodeId as string | null,
+          selectedQuestionId: data.selectedQuestionId as string | null,
+          selectedTimelineSnapshotId: data.selectedTimelineSnapshotId as string | null,
+          focusNodeId: data.focusNodeId as string | null,
         });
         persist();
       } else if (last.action === 'addEdge') {
@@ -1178,7 +1292,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const label = patch.title?.trim() || existing.label;
       const nodePool = {
         ...state.nodePool,
-        [knowledgeId]: { ...existing, label, card: { ...card, title: label } },
+        [knowledgeId]: {
+          ...existing,
+          label,
+          tags: tagsForRenamedKnowledgeNode(existing, label),
+          card: { ...card, title: label },
+        },
       };
       set({ nodePool });
       persist();
@@ -1250,6 +1369,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().updateKnowledgeCard(knowledgeId, { tabs });
     },
 
+    updateKnowledgeTabTable: (knowledgeId, tabId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, table }));
+      get().updateKnowledgeCard(knowledgeId, { tabs });
+    },
+
     updateKnowledgeRootContent: (knowledgeId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -1259,6 +1390,17 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return;
       }
       get().updateKnowledgeCard(knowledgeId, { rootContent: content });
+    },
+
+    updateKnowledgeRootTable: (knowledgeId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+      get().updateKnowledgeCard(knowledgeId, { rootTable: table });
     },
 
     renameKnowledgeTab: (knowledgeId, tabId, label) => {
@@ -1327,15 +1469,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const tab = findTabRecursive(existing.card.tabs, tabId);
       if (!tab) return;
       const pages = pagesForTab(existing.card, tab);
-      // def Page 不允许删（业务约束）
-      if (pageId === DEFINITION_TAB_ID) return;
       // 递归删除
       const nextPages = removePageRecursive(pages, pageId);
       const before = JSON.stringify(pages);
       const after = JSON.stringify(nextPages);
       if (before === after) return;
-      // 删完保证至少有一个 Page
-      if (nextPages.length === 0) return;
 
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
     },
@@ -1353,6 +1491,24 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (!tab) return;
       const pages = pagesForTab(existing.card, tab);
       const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, content }));
+      if (nextPages.every((page, index) => page === pages[index])) return;
+
+      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
+    },
+
+    updateKnowledgeTabPageTable: (knowledgeId, tabId, pageId, table) => {
+      const state = get();
+      const existing = state.nodePool[knowledgeId];
+      if (!existing) return;
+      if (existing.locked) {
+        get().addNotification('节点已锁定，不可编辑', 'warning');
+        return;
+      }
+
+      const tab = findTabRecursive(existing.card.tabs, tabId);
+      if (!tab) return;
+      const pages = pagesForTab(existing.card, tab);
+      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, table }));
       if (nextPages.every((page, index) => page === pages[index])) return;
 
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
@@ -1432,6 +1588,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
         delete inferenceResponses[deletedNode.label];
       }
+      const timeline = state.timeline.filter(
+        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
+      );
 
       set({
         nodePool,
@@ -1439,6 +1598,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
         treeData,
         questions,
         inferenceResponses,
+        timeline,
+        selectedTimelineSnapshotId: timeline.some(
+          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
+        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
         selectedTreeNodeId,
@@ -1499,6 +1662,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
         delete inferenceResponses[deletedNode.label];
       }
+      const timeline = state.timeline.filter(
+        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
+      );
 
       const removedTreeNodes = collectTreeNodes(state.treeData)
         .filter((node) => node.nodeRef === knowledgeId);
@@ -1527,6 +1693,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
         treeData,
         questions,
         inferenceResponses,
+        timeline,
+        selectedTimelineSnapshotId: timeline.some(
+          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
+        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: nextSelectedNodeId,
         selectedTreeNodeId: nextSelectedTreeNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
@@ -1577,6 +1747,19 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const tabs = prev.tabs?.length
         ? prev.tabs.map((t, i) => (i === 0 ? { ...t, content } : t))
         : [{ id: 'path', label: '璺緞琛ュ厖', content }];
+      get().setTreeSupplement(treeNodeId, { ...prev, tabs });
+    },
+
+    updatePathSupplementTable: (treeNodeId, tabId, table) => {
+      const state = get();
+      const treeNode = findTreeNodeById(state.treeData, treeNodeId);
+      if (!treeNode?.nodeRef) return;
+      const prev = treeNode.supplement ?? {};
+      const tabs = prev.tabs?.length
+        ? prev.tabs.map((tab) =>
+            (tab.id || tab.label) === tabId ? { ...tab, table } : tab,
+          )
+        : [{ id: 'path', label: '路径补充', content: '', table }];
       get().setTreeSupplement(treeNodeId, { ...prev, tabs });
     },
 
@@ -1633,7 +1816,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
       // 2. Collect all referenced knowledge node IDs from those tree nodes
       const removedKnowledgeIds = new Set(
-        removedTreeNodes.map((node) => node.nodeRef).filter(Boolean)
+        removedTreeNodes
+          .map((node) => node.nodeRef)
+          .filter((nodeId): nodeId is string => Boolean(nodeId))
       );
 
       // 3. Remove tree nodes from the tree structure
@@ -1643,7 +1828,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
       // 4. Identify remaining referenced knowledge IDs in the remaining tree
       const remainingTreeNodes = collectTreeNodes(nextTree);
       const remainingKnowledgeIds = new Set(
-        remainingTreeNodes.map((node) => node.nodeRef).filter(Boolean)
+        remainingTreeNodes
+          .map((node) => node.nodeRef)
+          .filter((nodeId): nodeId is string => Boolean(nodeId))
       );
 
       // 5. Determine which knowledge nodes are completely orphaned and should be deleted
@@ -1692,6 +1879,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
           );
           return { ...q, answerSteps: remainingSteps };
         });
+      const nextTimeline = state.timeline.filter(
+        (snapshot) => !knowledgeIdsToReallyDelete.has(snapshot.knowledgeNodeId),
+      );
 
       // 9. Handle selection and focus state cleanup
       let selectedTreeNodeId = state.selectedTreeNodeId;
@@ -1718,10 +1908,14 @@ export const useGraphStore = create<GraphState>((set, get) => {
         nodePool,
         knowledgeEdges: nextEdges,
         questions: nextQuestions,
+        timeline: nextTimeline,
         selectedTreeNodeId,
         selectedNodeId,
         focusNodeId,
         selectedQuestionId,
+        selectedTimelineSnapshotId: nextTimeline.some(
+          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
+        ) ? state.selectedTimelineSnapshotId : null,
         history: [
           ...state.history,
           {
@@ -1730,8 +1924,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
               treeData: state.treeData,
               nodePool: state.nodePool,
               knowledgeEdges: state.knowledgeEdges,
+              questions: state.questions,
+              timeline: state.timeline,
               selectedNodeId: state.selectedNodeId,
               selectedTreeNodeId: state.selectedTreeNodeId,
+              selectedQuestionId: state.selectedQuestionId,
+              selectedTimelineSnapshotId: state.selectedTimelineSnapshotId,
+              focusNodeId: state.focusNodeId,
             },
           },
         ],
@@ -1740,23 +1939,29 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     moveTreeNode: (nodeId, nextParentId) => {
-      const state = get();
-      const moved = moveTreeNodeInTree(state.treeData, nodeId, nextParentId);
-      if (!moved) return false;
+      return get().moveTreeNodes([nodeId], nextParentId) > 0;
+    },
 
-      const movedTreeIds = new Set([nodeId]);
+    moveTreeNodes: (nodeIds, nextParentId) => {
+      const state = get();
+      const moved = moveTreeNodesInTree(state.treeData, nodeIds, nextParentId);
+      if (moved.movedNodeIds.length === 0) return 0;
+
+      const movedTreeIds = new Set(moved.movedNodeIds);
       let knowledgeEdges = removeTreeBindingEdgesForTreeIds(
         state.knowledgeEdges,
         movedTreeIds,
       );
 
-      for (const edge of createMovedTreeBindingEdges({
-        tree: moved.tree,
-        nodePool: state.nodePool,
-        movedTreeId: nodeId,
-        nextParentTreeId: nextParentId,
-      })) {
-        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      for (const movedTreeId of moved.movedNodeIds) {
+        for (const edge of createMovedTreeBindingEdges({
+          tree: moved.tree,
+          nodePool: state.nodePool,
+          movedTreeId,
+          nextParentTreeId: nextParentId,
+        })) {
+          knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+        }
       }
 
       set({
@@ -1764,34 +1969,46 @@ export const useGraphStore = create<GraphState>((set, get) => {
         knowledgeEdges,
       });
       persist();
-      return true;
+      return moved.movedNodeIds.length;
     },
 
     copyTreeNode: (nodeId, nextParentId) => {
+      return get().copyTreeNodes([nodeId], nextParentId) > 0;
+    },
+
+    copyTreeNodes: (nodeIds, nextParentId) => {
       const state = get();
-      if (state.treeData.id === nodeId || nodeId === nextParentId) return false;
-
-      const source = findTreeNodeById(state.treeData, nodeId);
       const targetParent = findTreeNodeById(state.treeData, nextParentId);
-      if (!source || !targetParent) return false;
-      if (findTreeNodeById(source, nextParentId)) return false;
+      if (!targetParent) return 0;
 
-      const copiedNode = cloneTreeWithNewIds(source, () => genId('tree'));
-      const treeData = appendTreeChild(state.treeData, nextParentId, copiedNode);
+      let treeData = state.treeData;
       let knowledgeEdges = state.knowledgeEdges;
+      let copiedCount = 0;
 
-      for (const edge of createTreeBindingEdgesForSubtree({
-        tree: treeData,
-        nodePool: state.nodePool,
-        rootTreeId: copiedNode.id,
-        parentTreeId: nextParentId,
-      })) {
-        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      for (const nodeId of [...new Set(nodeIds)]) {
+        const source = findTreeNodeById(treeData, nodeId);
+        const currentTarget = findTreeNodeById(treeData, nextParentId);
+        if (!source || !currentTarget || source.id === nextParentId || findTreeNodeById(source, nextParentId)) continue;
+
+        const copiedNode = cloneTreeWithNewIds(source, () => genId('tree'));
+        treeData = appendTreeChild(treeData, nextParentId, copiedNode);
+        copiedCount += 1;
+
+        for (const edge of createTreeBindingEdgesForSubtree({
+          tree: treeData,
+          nodePool: state.nodePool,
+          rootTreeId: copiedNode.id,
+          parentTreeId: nextParentId,
+        })) {
+          knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+        }
       }
+
+      if (copiedCount === 0) return 0;
 
       set({ treeData, knowledgeEdges });
       persist();
-      return true;
+      return copiedCount;
     },
 
     renameTreeNode: (nodeId, newLabel) => {

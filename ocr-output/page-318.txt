@@ -1,0 +1,46 @@
+第18章发布与订阅→301
+18.4.1PUBSUB CHANNELS
+PUBSUBCHANNELS[pattern]子命令用于返回服务器当前被订阅的频道，其中pattern
+参数是可选的：
+口如果不给定pattern参数，那么命令返回服务器当前被订阅的所有频道。
+口如果给定pattern参数，那么命令返回服务器当前被订阅的频道中那些与pattern
+模式相匹配的频道。
+这个子命令是通过遍历服务器pubsub_channels字典的所有键（每个键都是一个被
+订阅的频道），然后记录并返回所有符合条件的频道来实现的，这个过程可以用以下伪代码
+来描述：
+def pubsub_channels(pattern=None):
+#一个列表，用于记录所有符合条件的频道
+channel_list=[]
+#遍历服务器中的所有频道
+#（也即是pubsub_channels字典的所有键）
+for channel in server.pubsub_channels:
+#当以下两个条件的任意一个满足时，将频道添加到链表里面：
+#1）用户没有指定pattern参数
+#2）用户指定了pattern参数，并且channel和pattern匹配
+if(pattern is None)or match(channel,pattern):
+channel_list.append(channel)
+#向客户端返回频道列表
+pubsub_channels
+return channel_list
+举个例子，对于图18-18所示的pubsub_channels字典
+"news.it"
+来说，执行PUBSUBCHANNELS命令将返回服务器目前
+"news.sport"
+被订阅的四个频道：
+"news.business"
+redis>PUBSUB CHANNELS
+"news.movie"
+1)"news.it"
+图18-18pubsub_channels
+2)"news.sport"
+3)"news.business"
+字典示例
+"news,movie"
+另一方面，执行PUBSUBCHANNELS"news.[is]*"命令将返回"news.it"和"news.sport"
+两个频道，因为只有这两个频道和"news.[is]*"模式相匹配：
+redis> PUBSUB CHANNELS "newS.[is]*"
+1)"news.it"
+2)"news.sport"
+18.4.2F
+PUBSUBNUMSUB
+PUBSUBNUMSUB[channel-1channel-2..channel-n]子命令接受任意多个频道作为输

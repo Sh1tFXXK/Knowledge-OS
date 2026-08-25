@@ -10,6 +10,7 @@ const outDir = fs.mkdtempSync(path.join(os.tmpdir(), 'knowledge-os-mechanism-'))
 
 const sourceFiles = [
   'src/mechanism/core.ts',
+  'src/mechanism/diagram.ts',
   'src/mechanism/lens.ts',
   'src/mechanism/innodbStructureExample.ts',
   'src/mechanism/mysqlUpdateExample.ts',
@@ -35,6 +36,7 @@ try {
 
   const require = createRequire(import.meta.url);
   const core = require(path.join(outDir, 'core.js'));
+  const diagram = require(path.join(outDir, 'diagram.js'));
   const lens = require(path.join(outDir, 'lens.js'));
   const innodb = require(path.join(outDir, 'innodbStructureExample.js'));
   const sample = require(path.join(outDir, 'mysqlUpdateExample.js'));
@@ -172,6 +174,38 @@ try {
     'scene pulse must end at the current frame target',
   );
 
+  const processDiagram = diagram.projectProcessDiagram(frames);
+  assert.deepEqual(
+    processDiagram.steps.map((step) => step.stepId),
+    frames.map((frame) => frame.stepId),
+    'flow projection must preserve process order without owning another process',
+  );
+  assert.equal(
+    processDiagram.steps.at(-1).tone,
+    core.VisualTone.Released,
+    'flow projection must reuse the frame visual tone',
+  );
+
+  const sequenceDiagram = diagram.projectSequenceDiagram(frames);
+  assert.equal(
+    sequenceDiagram.messages.length,
+    frames.length,
+    'sequence projection must derive exactly one message per process frame',
+  );
+  assert.ok(
+    sequenceDiagram.participants.some((participant) =>
+      participant.entity.id === sample.MYSQL_UPDATE_ENTITIES.queryExecutor
+    ),
+    'sequence projection must derive participants from frame entities',
+  );
+  assert.ok(
+    sequenceDiagram.messages.every((message) =>
+      message.sourceParticipantIndex < sequenceDiagram.participants.length &&
+      message.targetParticipantIndex < sequenceDiagram.participants.length
+    ),
+    'sequence messages must reference typed participant indexes',
+  );
+
   const innodbFrames = core.runProcess(
     innodb.innodbStructureModel,
     innodb.innodbStructureProcess,
@@ -232,6 +266,15 @@ try {
   assert.match(lensSource, /projectTimeline/, 'timeline lens adapter missing');
   assert.match(lensSource, /projectSceneFrame/, 'scene lens adapter missing');
   assert.doesNotMatch(lensSource, /localStorage|sessionStorage|document\.|window\./, 'lens adapters must stay pure');
+
+  const diagramSource = fs.readFileSync(path.resolve(repoRoot, 'src/mechanism/diagram.ts'), 'utf8');
+  assert.match(diagramSource, /projectProcessDiagram/, 'flow diagram projection missing');
+  assert.match(diagramSource, /projectSequenceDiagram/, 'sequence diagram projection missing');
+  assert.doesNotMatch(
+    diagramSource,
+    /localStorage|sessionStorage|document\.|window\./,
+    'diagram projections must stay pure',
+  );
 
   console.log('mechanism core checks passed');
 } finally {

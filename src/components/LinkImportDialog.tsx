@@ -195,7 +195,8 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
             </div>
             <dl className="link-import-result-grid">
               <div><dt>知识节点</dt><dd>{result.nodeCount}</dd></div>
-              <div><dt>章节</dt><dd>{result.sectionCount}</dd></div>
+              <div><dt>语义根</dt><dd>{result.rootCount}</dd></div>
+              <div><dt>关系</dt><dd>{result.relationCount}</dd></div>
               <div><dt>问题</dt><dd>{result.questionCount}</dd></div>
               <div><dt>语言</dt><dd>{result.translated ? `${result.language} → 中文` : result.language}</dd></div>
             </dl>
@@ -265,8 +266,8 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
             <label className="link-import-translation">
               <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>
               <span className="link-import-translation-copy">
-                <strong>AI 整理与归类</strong>
-                <small>{capabilities?.ai.configured ? capabilities.ai.model : '未配置模型'}</small>
+                <strong>语义编译</strong>
+                <small>{capabilities?.ai.configured ? `${capabilities.ai.model} · 从内容关系生成知识图` : '未配置模型'}</small>
               </span>
               <input
                 type="checkbox"

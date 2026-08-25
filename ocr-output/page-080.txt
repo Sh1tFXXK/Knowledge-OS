@@ -1,0 +1,81 @@
+第8章对
+象·63
+表8-4
+不同类型和编码的对象
+类型
+编码
+对象
+REDIS ENCODING INT
+REDIS STRING
+使用整数值实现的字符串对象
+REDIS ENCODING_EMBSTR
+REDISSTRING
+使用embstr编码的简单动态字符串实现的字符串对象
+REDIS_STRING
+REDIS ENCODING RAW
+使用简单动态字符串实现的字符串对象
+REDIS_LIST
+REDISENCODING_ZIPLIST
+使用压缩列表实现的列表对象
+REDIS_LIST
+REDISENCODING_LINKEDLIST
+使用双端链表实现的列表对象
+REDIS
+HASH
+REDISENCODINGZIPLIST
+使用压缩列表实现的哈希对象
+REDIS
+HASH
+REDIS ENCODING HT
+使用字典实现的哈希对象
+REDIS
+SET
+REDIS ENCODING INTSET
+使用整数集合实现的集合对象
+REDIS
+SET
+REDIS ENCODINGHT
+使用字典实现的集合对象
+REDIS
+ZSET
+REDIS ENCODING ZIPLIST
+使用压缩列表实现的有序集合对象
+REDIS_
+ZSET
+REDIS ENCODINGSKIPLIST
+使用跳跃表和字典实现的有序集合对象
+使用OBJECTENCODING命令可以查看一个数据库键的值对象的编码：
+redis> SET msg "hello wrold"
+OK
+redis> OBJECT ENCODING msg
+"embstr"
+OK
+redis> OBJECT ENCODING story
+"raw"
+redis>SADDnumbers135
+(integer)3
+redis> OBJECT ENCODING numbers
+"intset"
+redis> SADD numbers"seven"
+(integer)1
+redis> OBJECT ENCODING numbers
+"hashtable"
+表8-5列出了不同编码的对象所对应的OBJECTENCODING命令输出。
+表8-5
+OBJECTENCODING对不同编码的输出
+编码常量
+对象所使用的底层数据结构
+OBJECTENCODING命令输出
+整数
+REDIS_ENCODING INT
+"int"
+embstr编码的简单动态字符
+REDISENCODINGEMBSTR
+"embstr"
+串（SDS）
+简单动态字符串
+REDIS ENCODING RAW
+"raw"
+字典
+REDIS ENCODING HT
+"hashtable"

@@ -1,0 +1,45 @@
+第20章Lua脚本•339
+repl_scriptcache_dict字典的键是一个个Lua脚本的SHA1校验和，而字典的值
+则全部都是NULL，当一个校验和出现在repl_scriptcache_dict字典时，说明这个校
+验和对应的Lua脚本已经传播给了所有从服务器，主服务器可以直接向从服务器传播包含这
+个SHA1校验和的EVALSHA
+命令，而不必担心从服务器
+repl_scriptcache_dict
+NULL
+会出现脚本未找到错误。
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+举个例子，如果主服务
+"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9"
+NULL
+器 repl_scriptcache
+"4475bfb5919b5ad16424cb50f74d4724ae833e72
+dict字典的当前状态如图
+NULL
+20-10所示，那么主服务器可
+图20-10一个repl_scriptcache_dict字典示例
+以向从服务器传播以下三个
+EVALSHA命令，并且从服务器在执行这些EVALSHA命令的时候不会出现脚本未找到错误：
+EVALSHA"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+EVALSHA"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9"
+EVALSHA"4475bfb5919b5ad16424cb50f74d4724ae833e72"
+另一方面，如果一个脚本的SHA1校验和存在于lua_scripts字典，但是却不存在
+于repl_scriptcache_dict字典，那么说明校验和对应的Lua脚本已经被主服务器载
+入，但是并没有传播给所有从服务器，如果我们尝试向从服务器传播包含这个SHA1校验和
+的EVALSHA命令，那么至少有一个从服务器会出现脚本未找到错误。
+"return"hitn
+lua_scripts
+"2f31ba2bb6d6a0f42cc159d2e2dad55440778de3"
+"return 1+1"
+"a27e7e8a43702b7046d4f6a7ccf5b60cef6b9bd9
+"4475bfb5919b5ad16424cb50f74d4724ae833e72"
+"return 2*2"
+"5332031c6b470dc5a0dd9b4bf2030dea6d65de91"
+"return "hello worldt"
+图20-11lua_scripts字典
+举个例子，对于图20-11所示的lua_scripts字典，以及图20-10所示的repl
+scriptcache_dict字典来说，SHAl校验和为：
+"5332031c6b470dc5a0dd9b4bf2030dea6d65de91"
+的脚本：
+"return 'hello world'"
+虽然存在于lua_scripts字典，但是repl_scriptcache_dict字典却并不包含
+校验和5332031c6b470dc5a0dd9b4bf2030dea6d65de91"，这说明脚本：

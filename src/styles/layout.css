@@ -15,6 +15,17 @@
   background: var(--bg-primary);
 }
 
+#app.is-index-focus {
+  grid-template-columns: 0 minmax(0, 1fr) 0;
+}
+
+#app.is-index-focus .left-panel,
+#app.is-index-focus .right-panel {
+  visibility: hidden;
+  pointer-events: none;
+  border: 0;
+}
+
 /* Header */
 .header {
   grid-area: header;
@@ -549,10 +560,10 @@ body.is-resizing-left-panel {
 
 /* Coordinate System */
 .coordinate-system {
-  padding: var(--space-sm);
-  background: rgba(15, 15, 25, 0.5);
-  border: 1px solid rgba(139, 92, 246, 0.2);
-  border-radius: var(--radius-sm);
+  padding: 4px 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
 }
 
 .coordinate-header {
@@ -800,10 +811,10 @@ body.is-resizing-left-panel {
   text-align: center;
   z-index: 10;
   pointer-events: none;
-  padding: 8px 20px;
-  background: rgba(15, 15, 25, 0.7);
-  border: 1px solid rgba(139, 92, 246, 0.3);
-  border-radius: 8px;
+  padding: 4px 12px;
+  background: rgba(15, 15, 25, 0.55);
+  border: 0;
+  border-radius: 4px;
   backdrop-filter: blur(12px);
 }
 
@@ -984,7 +995,7 @@ body.is-resizing-right-panel {
 .right-section {
   flex: 1;
   min-height: 0;
-  padding: var(--space-sm) var(--space-md);
+  padding: 6px 2px 8px;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
@@ -995,7 +1006,7 @@ body.is-resizing-right-panel {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--space-sm);
+  margin-bottom: 4px;
 }
 
 .right-section-title {

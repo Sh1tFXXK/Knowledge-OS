@@ -1,0 +1,33 @@
+第13章客户端167
+令没有修改数据库，但它修改了服务器状态，所以它是一个带有副作用的命令，服务器
+需要使用REDIS_FORCE_AOF标志，强制将这个命令写入AOF文件，使得将来在载入
+AOF文件时，服务器可以产生相同的副作用。
+另外，为了让主服务器和从服务器都可以正确地载入SCRIPTLOAD命令指定的脚
+本，服务器需要使用REDISFORCEREPL标志，强制将SCRIPTLOAD命令复制给所
+有从服务器。
+以下是一些flags属性的例子：
+#客户端是一个主服务器
+REDISMASTER
+#客户端正在被列表命令阻塞
+REDISBLOCKED
+#客户端正在执行事务，但事务的安全性已被破坏
+REDIS_MULTI1REDIS_DIRTY_CAS
+#客户端是一个从服务器，并且版本低于Redis2.8
+REDIS_SLAVE1REDIS_PRE_PSYNC
+#这是专门用于执行Lua脚本包含的Redis命令的伪客户端
+#它强制服务器将当前执行的命令写入AOF文件，并复制给从服务器
+REDIS_LUA_CLIENTIREDIS_FORCE_AOFIREDIS_FORCE_REPL
+13.1.4车
+输入缓冲区
+客户端状态的输入缓冲区用于保存客户端发送的命令请求：
+typedef struct redisclient(
+//...
+sds querybuf;
+)redisclient;
+举个例子，如果客户端向服务器发送了以下命令请求：
+SETkeyvalue
+那么客户端状态的querybuf属性将是一个包含以下内容的SDs值：
+*3/r/ns3/r/nSET/r/ns3/r/nkey/r/n$5\r/nvalue/r\n
+图13-4展示了这个SDs值以及querybuf属性的样子。
+输人缓冲区的大小会根据输人内容动态地缩小或者扩大，但它的最大大小不能超过
+1GB，否则服务器将关闭这个客户端。

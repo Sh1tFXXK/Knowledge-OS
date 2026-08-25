@@ -25,6 +25,8 @@ export interface ExplanationIndexNode {
   weight: number;
   selection: ExplanationIndexSelection;
   children: ExplanationIndexNode[];
+  /** 方框内直接显示的完整定义正文。 */
+  content?: string;
 }
 
 export function isVisibleExplanationTab(tab: ExplanationTab): boolean {
@@ -41,18 +43,20 @@ export function explicitPagesForTab(
 }
 
 function pageNode(nodeId: string, tabId: string, page: ExplanationPage): ExplanationIndexNode {
+  const effectiveNodeId = page.knowledgeNodeId ?? nodeId;
   return {
     id: `page:${tabId}:${page.id}`,
     kind: ExplanationIndexNodeKind.Page,
     label: page.label,
     weight: page.weight ?? 1,
+    content: page.content ?? '',
     selection: {
       kind: ExplanationSelectionKind.Content,
       nodeId,
       tabId,
       pageId: page.id,
     },
-    children: (page.pages ?? []).map((child) => pageNode(nodeId, tabId, child)),
+    children: (page.pages ?? []).map((child) => pageNode(effectiveNodeId, tabId, child)),
   };
 }
 
@@ -60,10 +64,11 @@ function tabNode(
   nodeId: string,
   explanation: NodeExplanation,
   tab: ExplanationTab,
-): ExplanationIndexNode {
-  const childTabs = (tab.tabs ?? []).map((child) => tabNode(nodeId, explanation, child));
+ ): ExplanationIndexNode {
+  const effectiveNodeId = tab.knowledgeNodeId ?? nodeId;
+  const childTabs = (tab.tabs ?? []).map((child) => tabNode(effectiveNodeId, explanation, child));
   const childPages = explicitPagesForTab(explanation, tab).map((page) =>
-    pageNode(nodeId, tab.id, page),
+    pageNode(effectiveNodeId, tab.id, page),
   );
 
   return {
@@ -71,6 +76,7 @@ function tabNode(
     kind: ExplanationIndexNodeKind.Tab,
     label: tab.label,
     weight: tab.weight ?? 1,
+    content: tab.content ?? '',
     selection: {
       kind: ExplanationSelectionKind.Content,
       nodeId,
@@ -87,6 +93,7 @@ export function buildExplanationIndex(explanation: NodeExplanation): Explanation
     kind: ExplanationIndexNodeKind.Root,
     label: explanation.title,
     weight: 1,
+    content: explanation.rootContent ?? '',
     selection: {
       kind: ExplanationSelectionKind.Root,
       nodeId: explanation.nodeId,

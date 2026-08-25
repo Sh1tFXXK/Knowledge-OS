@@ -1,0 +1,37 @@
+第9章数据库，91
+dbnum属性的值由服务器配置的database选项决定，默认情况下，该选项的值为
+16，所以Redis服务器默认会创建16个数据库，如图9-1所示。
+redisServer
+db
+[o]qp
+db [1]
+db[2]
+db[15]
+dbnum
+16
+图9-1服务器数据库示例
+9.2
+切换数据库
+每个Redis客户端都有自已的目标数据库，每当客户端执行数据库写命令或者数据库读
+命令的时候，目标数据库就会成为这些命令的操作对象。
+默认情况下，Redis客户端的目标数据库为0号数据库，但客户端可以通过执行
+SELECT命令来切换目标数据库。
+以下代码示例演示了客户端在0号数据库设置并读取键msg，之后切换到2号数据库
+并执行类似操作的过程：
+redis>SET msg"helloworld"
+OK
+redis> GET msg
+"hello world"
+redis> SELECT 2
+OK
+redis[2]> GET msg
+(nil)
+redis[2]>SETmsg"anotherworld"
+OK
+redis[2]> GET msg
+"another world"
+在服务器内部，客户端状态redisclient结构的db属性记录了客户端当前的目标数
+据库，这个属性是一个指向redisDb结构的指针：
+typedef struct redisclient t
+//记录客户端当前正在使用的数据库
+redisDb *db;

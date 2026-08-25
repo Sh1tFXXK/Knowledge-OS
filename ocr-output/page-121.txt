@@ -1,0 +1,60 @@
+104·第二部分单机数据库的实现
+9.4.3
+移除过期时间
+PERSIST命令可以移除一个键的过期时间：
+redis>PEXPIREATmessage1391234400000
+(integer)1
+redis> TTL message
+(integer)13893281
+redis>PERSIST message
+(integer)1
+redis> TTL message
+(integer)-1
+PERSIST命令就是PEXPIREAT命令的反操作：PERSIST命令在过期字典中查找给定的
+键，并解除键和值（过期时间）在过期字典中的关联。
+举个例子，如果数据库当前的状态如图9-12所示，那么当服务器执行以下命令之后：
+redis>PERSISTbook
+(integer)1
+数据库将更新成图9-14所示的状态。
+Listobject
+sStringobject
+stringobject
+StringObject
+dict
+"a"
+.q.
+"c"
+Stringobject
+redisDb
+"alphabet"
+HashObject
+Stringobject
+stringObject
+StringObject
+"Redis in Action"
+dict
+"book"
+"name"
+expires
+Stringobject
+StringObject
+Stringobject
+"message"
+"author"
+"Josiah L. Carlson"
+Stringobject
+"publisher"
+Stringobject
+dict
+"Manning"
+Stringobject
+stringobject
+"alphabet"
+"hello world"
+long long
+1385877600000
+图9-14执行PERSIST之后的数据库
+可以看到，当PERSIST命令执行之后，过期字典中原来的book键值对消失了，这代
+表数据库键book的过期时间已经被移除。
+以下是PERSIST命令的伪代码定义：
+def PERSIST(key):

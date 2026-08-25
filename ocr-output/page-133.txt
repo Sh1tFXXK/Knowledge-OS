@@ -1,0 +1,33 @@
+116第二部分单机数据库的实现
+"del",c->argv[j],c->db->id);
+//
+在de1command函数中，函数遍历所有输入键，并在删除键成功时，发送通知，通知
+的类型为REDIS_NOTIFYGENERIC（表示这是一个通用类型的通知），名称为del（表示
+这是执行DEL命令所产生的通知）。
+其他发送通知的函数调用notifyKeyspaceEvent函数的方式也和saddCommand、
+delCommand类似，只是给定的参数不同，接下来我们来看看notifyKeyspaceEvent
+函数的实现。
+9.8.2
+发送通知的实现
+以下是notifyKeyspaceEvent函数的伪代码实现：
+def notifyKeyspaceEvent(type,event,key,dbid):
+#如果给定的通知不是服务器允许发送的通知，那么直接返回
+if not(server.notify_keyspace_events &type):
+return
+#发送键空间通知
+ifserver.notify_keyspace_eventsREDIs_NOTIFY_KEYSPACE:
+#将通知发送给频道keyspace@<dbid>：<key>
+#内容为键所发生的事件<event>
+#构建频道名字
+chan ="_keyspace@(dbid)_:(key)".format(dbid=dbid,key=key)
+#发送通知
+pubsubpublishMessage(chan,event)
+#发送键事件通知
+ifserver.notify_keyspace_events &REDIs_NOTIFY_KEYEVENT:
+#将通知发送给频道keyevent@<dbid>:<event>
+#内容为发生事件的键<key>
+#构建频道名字
+chan="_keyevent@(dbid)_:(event)".format(dbid=dbid,event=event)
+#发送通知
+pubsubpublishMessage(chan, key)
+notifyKeyspaceEvent函数执行以下操作：

@@ -1,0 +1,36 @@
+第18章发布与订闵·295
+pubsub_channels
+"news.it"
+client-2
+client-1
+client-3
+"news.sport"
+client-4
+client-5
+"news.business"
+client-6
+图18-9执行UNSUBSCRIBE之后的pubsub_channels字典
+UNSUBSCRIBE命令的实现可以用以下伪代码来描述：
+def unsubscribe(*all_input_channels):
+#遍历要退订的所有频道
+for channel in all input_channels:
+#在订阅者链表中删除退订的客户端
+server.pubsub_channels[channel].remove(client)
+#如果频道已经没有任何订阅者了（订阅者链表为空）
+#那么将频道从字典中删除
+iflen(server.pubsub_channels[channel])==:
+server.pubsub_channels.remove(channel)
+18.2
+模式的订阅与退订
+前面说过，服务器将所有频道的订阅关系都保存在服务器状态的pubsub_channels
+属性里面，与此类似，服务器也将所有模式的订阅关系都保存在服务器状态的pubsub
+patterns属性里面：
+struct redisServer (
+//保存所有模式订阅关系
+list *pubsub_patterns;
+/ /
+pubsub_patterns属性是一个链表，链表中的每个节点都包含着一个pubsub
+Pattern结构，这个结构的pattern属性记录了被订阅的模式，而client属性则记录
+了订阅模式的客户端：
+typedef structpubsubpattern(
+//订阅模式的客户端
