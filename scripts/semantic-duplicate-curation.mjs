@@ -513,6 +513,8 @@ export const DISTINCT_IDENTITY_ASSIGNMENTS = Object.freeze([
   Object.freeze({ nodeId: 'k_dict_40kypo2i', canonicalKey: 'glossary:concurrency-control' }),
   Object.freeze({ nodeId: 'k_1784543450678_zk199g', canonicalKey: 'concurrency:control' }),
   Object.freeze({ nodeId: 'k_wiki_en_outline_of_databases_s13_b1', canonicalKey: 'database-management:concurrency-control' }),
+  Object.freeze({ nodeId: 'k_1784456386575_b7hxoh', canonicalKey: 'mysql-runtime:transaction-management' }),
+  Object.freeze({ nodeId: 'k_1786953720608_h0qp73', canonicalKey: 'spring:transaction-management' }),
   Object.freeze({ nodeId: 'k_dict_wbty6m1l', canonicalKey: 'glossary:string' }),
   Object.freeze({ nodeId: 'k_1785340521063_6f448a', canonicalKey: 'java:string' }),
   Object.freeze({ nodeId: 'k_1786234895923_uqw3i5', canonicalKey: 'redis:string' }),

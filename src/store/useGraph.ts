@@ -49,7 +49,7 @@ import {
   collectTreeNodes,
   findTreeParent,
   findTreeNodeById,
-  moveTreeNode as moveTreeNodeInTree,
+  moveTreeNodes as moveTreeNodesInTree,
   removeTreeChild,
   updateTreeNode,
 } from '../knowledge/treeUtils';
@@ -410,7 +410,9 @@ interface GraphState {
 
   removeTreeNode: (nodeId: string) => void;
   moveTreeNode: (nodeId: string, nextParentId: string) => boolean;
+  moveTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   copyTreeNode: (nodeId: string, nextParentId: string) => boolean;
+  copyTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
 
   /** @deprecated 璇风敤 createKnowledgeAndLink */
@@ -1937,23 +1939,29 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     moveTreeNode: (nodeId, nextParentId) => {
-      const state = get();
-      const moved = moveTreeNodeInTree(state.treeData, nodeId, nextParentId);
-      if (!moved) return false;
+      return get().moveTreeNodes([nodeId], nextParentId) > 0;
+    },
 
-      const movedTreeIds = new Set([nodeId]);
+    moveTreeNodes: (nodeIds, nextParentId) => {
+      const state = get();
+      const moved = moveTreeNodesInTree(state.treeData, nodeIds, nextParentId);
+      if (moved.movedNodeIds.length === 0) return 0;
+
+      const movedTreeIds = new Set(moved.movedNodeIds);
       let knowledgeEdges = removeTreeBindingEdgesForTreeIds(
         state.knowledgeEdges,
         movedTreeIds,
       );
 
-      for (const edge of createMovedTreeBindingEdges({
-        tree: moved.tree,
-        nodePool: state.nodePool,
-        movedTreeId: nodeId,
-        nextParentTreeId: nextParentId,
-      })) {
-        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      for (const movedTreeId of moved.movedNodeIds) {
+        for (const edge of createMovedTreeBindingEdges({
+          tree: moved.tree,
+          nodePool: state.nodePool,
+          movedTreeId,
+          nextParentTreeId: nextParentId,
+        })) {
+          knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+        }
       }
 
       set({
@@ -1961,34 +1969,46 @@ export const useGraphStore = create<GraphState>((set, get) => {
         knowledgeEdges,
       });
       persist();
-      return true;
+      return moved.movedNodeIds.length;
     },
 
     copyTreeNode: (nodeId, nextParentId) => {
+      return get().copyTreeNodes([nodeId], nextParentId) > 0;
+    },
+
+    copyTreeNodes: (nodeIds, nextParentId) => {
       const state = get();
-      if (state.treeData.id === nodeId || nodeId === nextParentId) return false;
-
-      const source = findTreeNodeById(state.treeData, nodeId);
       const targetParent = findTreeNodeById(state.treeData, nextParentId);
-      if (!source || !targetParent) return false;
-      if (findTreeNodeById(source, nextParentId)) return false;
+      if (!targetParent) return 0;
 
-      const copiedNode = cloneTreeWithNewIds(source, () => genId('tree'));
-      const treeData = appendTreeChild(state.treeData, nextParentId, copiedNode);
+      let treeData = state.treeData;
       let knowledgeEdges = state.knowledgeEdges;
+      let copiedCount = 0;
 
-      for (const edge of createTreeBindingEdgesForSubtree({
-        tree: treeData,
-        nodePool: state.nodePool,
-        rootTreeId: copiedNode.id,
-        parentTreeId: nextParentId,
-      })) {
-        knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+      for (const nodeId of [...new Set(nodeIds)]) {
+        const source = findTreeNodeById(treeData, nodeId);
+        const currentTarget = findTreeNodeById(treeData, nextParentId);
+        if (!source || !currentTarget || source.id === nextParentId || findTreeNodeById(source, nextParentId)) continue;
+
+        const copiedNode = cloneTreeWithNewIds(source, () => genId('tree'));
+        treeData = appendTreeChild(treeData, nextParentId, copiedNode);
+        copiedCount += 1;
+
+        for (const edge of createTreeBindingEdgesForSubtree({
+          tree: treeData,
+          nodePool: state.nodePool,
+          rootTreeId: copiedNode.id,
+          parentTreeId: nextParentId,
+        })) {
+          knowledgeEdges = appendUniqueKnowledgeEdge(knowledgeEdges, edge);
+        }
       }
+
+      if (copiedCount === 0) return 0;
 
       set({ treeData, knowledgeEdges });
       persist();
-      return true;
+      return copiedCount;
     },
 
     renameTreeNode: (nodeId, newLabel) => {

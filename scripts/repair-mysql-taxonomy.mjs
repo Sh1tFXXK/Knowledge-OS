@@ -516,8 +516,8 @@ const consolidated = consolidateTaxonomyProjections({
   edges: repairedEdges,
 });
 
-fs.writeFileSync(treePath, `${JSON.stringify(tree, null, 2)}\n`);
-fs.writeFileSync(nodePoolPath, `${JSON.stringify(nodePool, null, 2)}\n`);
+fs.writeFileSync(treePath, `${JSON.stringify(consolidated.tree, null, 2)}\n`);
+fs.writeFileSync(nodePoolPath, `${JSON.stringify(consolidated.nodePool, null, 2)}\n`);
 fs.writeFileSync(edgesPath, `${JSON.stringify(consolidated.edges, null, 2)}\n`);
 
 console.log('mysql taxonomy repaired');

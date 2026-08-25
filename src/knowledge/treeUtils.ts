@@ -70,6 +70,29 @@ export interface MoveTreeNodeResult {
   nextParentId: string;
 }
 
+export interface MoveTreeNodesResult {
+  tree: TreeNode;
+  movedNodeIds: string[];
+}
+
+export function moveTreeNodes(
+  root: TreeNode,
+  nodeIds: string[],
+  nextParentId: string,
+): MoveTreeNodesResult {
+  let tree = root;
+  const movedNodeIds: string[] = [];
+
+  for (const nodeId of [...new Set(nodeIds)]) {
+    const moved = moveTreeNode(tree, nodeId, nextParentId);
+    if (!moved) continue;
+    tree = moved.tree;
+    movedNodeIds.push(nodeId);
+  }
+
+  return { tree, movedNodeIds };
+}
+
 export function collectTreeNodes(node: TreeNode): TreeNode[] {
   return [node, ...(node.children ? node.children.flatMap(collectTreeNodes) : [])];
 }

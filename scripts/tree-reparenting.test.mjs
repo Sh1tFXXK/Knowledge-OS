@@ -31,6 +31,7 @@ const {
   cloneTreeWithNewIds,
   findTreeNodeById,
   moveTreeNode,
+  moveTreeNodes,
 } = loadTsModule('src/knowledge/treeUtils.ts');
 
 const {
@@ -92,6 +93,29 @@ assert.notEqual(moved.tree, tree);
 assert.equal(moveTreeNode(tree, 'root', 'tree-d'), null);
 assert.equal(moveTreeNode(tree, 'tree-a', 'tree-c'), null);
 assert.equal(moveTreeNode(tree, 'tree-b', 'tree-a'), null);
+
+const batchTree = {
+  id: 'batch-root',
+  name: 'Batch Root',
+  children: [
+    {
+      id: 'batch-source',
+      name: 'Source',
+      children: [
+        { id: 'batch-one', name: 'One' },
+        { id: 'batch-two', name: 'Two' },
+      ],
+    },
+    { id: 'batch-target', name: 'Target', children: [] },
+  ],
+};
+const batchMoved = moveTreeNodes(batchTree, ['batch-one', 'batch-two'], 'batch-target');
+assert.deepEqual(JSON.parse(JSON.stringify(batchMoved.movedNodeIds)), ['batch-one', 'batch-two']);
+assert.equal(findTreeNodeById(batchMoved.tree, 'batch-source').children.length, 0);
+assert.deepEqual(
+  JSON.parse(JSON.stringify(findTreeNodeById(batchMoved.tree, 'batch-target').children.map((child) => child.id))),
+  ['batch-one', 'batch-two'],
+);
 
 const existingEdges = [
   { id: 'treebind:tree-a:tree-b', source: 'k-a', target: 'k-b', type: 'belongs-to', label: 'contains' },

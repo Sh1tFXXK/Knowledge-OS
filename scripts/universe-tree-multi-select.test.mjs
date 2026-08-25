@@ -17,10 +17,19 @@ assert.match(source, /const handleDeleteSelected = useCallback/);
 assert.match(source, /tree-selection-bar/);
 assert.match(source, /handleOpenTransferDialog\('move', selectedTreeIds\)/);
 assert.match(source, /handleOpenTransferDialog\('copy', selectedTreeIds\)/);
-assert.match(source, /copyTreeNode\(sourceId, transferDialog\.targetId\)/);
+assert.match(source, /event\?\.metaKey \|\| event\?\.ctrlKey/);
+assert.match(source, /const \[draggingTreeNodeIds, setDraggingTreeNodeIds\] = useState<string\[\]>\(\[\]\)/);
+assert.match(source, /selectedTreeIds\.includes\(nodeId\) \? selectedTreeIds : \[nodeId\]/);
+assert.match(source, /moveTreeNodes\(sourceIds, nextParentId\)/);
+assert.match(source, /copyTreeNodes\(transferSourceIds, transferDialog\.targetId\)/);
+assert.match(source, /moveTreeNodes\(transferSourceIds, transferDialog\.targetId\)/);
 assert.match(source, /function normalizeSelectedTreeIds\(root: TreeNode, ids: string\[\]\): string\[\]/);
 
 assert.match(storeSource, /copyTreeNode: \(nodeId: string, nextParentId: string\) => boolean/);
+assert.match(storeSource, /copyTreeNodes: \(nodeIds: string\[\], nextParentId: string\) => number/);
+assert.match(storeSource, /moveTreeNodes: \(nodeIds: string\[\], nextParentId: string\) => number/);
 assert.match(storeSource, /copyTreeNode: \(nodeId, nextParentId\) => \{/);
+assert.match(storeSource, /copyTreeNodes: \(nodeIds, nextParentId\) => \{/);
+assert.match(storeSource, /moveTreeNodes: \(nodeIds, nextParentId\) => \{/);
 
 console.log('universe tree multi-select checks passed');

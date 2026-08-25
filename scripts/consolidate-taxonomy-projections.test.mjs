@@ -20,6 +20,7 @@ test('taxonomy consolidation is idempotent after the canonical projection is mou
     containersRemoved: 0,
     childrenPreserved: 0,
     knowledgeNodesAdded: 0,
+    knowledgeNodesUpdated: 0,
   });
   assert.equal(JSON.stringify({ tree: result.tree, nodePool: result.nodePool, edges: result.edges }), before);
 });

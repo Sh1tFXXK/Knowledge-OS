@@ -14,6 +14,8 @@
     "curate:data": "node scripts/curate-known-data.mjs --apply",
     "audit:semantic-duplicates": "node scripts/curate-semantic-duplicates.mjs",
     "curate:semantic-duplicates": "node scripts/curate-semantic-duplicates.mjs --apply",
+    "audit:taxonomy": "node scripts/run-taxonomy-consolidation.mjs --check",
+    "migrate:taxonomy": "node scripts/run-taxonomy-consolidation.mjs --apply",
     "setup:mineru": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/ocr/setup-mineru.ps1",
     "import:jdk-collections": "node scripts/import-jdk-collections.mjs",
     "test": "node --test \"scripts/*.test.mjs\"",
