@@ -2,13 +2,12 @@ import {
   useCallback,
   useEffect,
   useState,
+  lazy,
+  Suspense,
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react';
 import { useGraphStore } from './store/useGraph';
-import './styles/main.css';
-import './styles/layout.css';
-import './styles/components.css';
 import './styles/database.css';
 import './styles/link-import.css';
 import './styles/timeline.css';
@@ -17,12 +16,12 @@ import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
 import ReasoningKernel from './core/ReasoningKernel';
 import RightSidePanel from './layout/RightSidePanel';
-import NodeDatabase from './components/NodeDatabase';
-import QuestionDatabase from './components/QuestionDatabase';
-import MechanismLensPanel from './components/MechanismLensPanel';
-import SupertagLibrary from './components/SupertagLibrary';
-import ExplanationIndexView from './core/ExplanationIndexView';
-import TimelineView from './components/TimelineView';
+const NodeDatabase = lazy(() => import('./components/NodeDatabase'));
+const QuestionDatabase = lazy(() => import('./components/QuestionDatabase'));
+const MechanismLensPanel = lazy(() => import('./components/MechanismLensPanel'));
+const SupertagLibrary = lazy(() => import('./components/SupertagLibrary'));
+const ExplanationIndexView = lazy(() => import('./core/ExplanationIndexView'));
+const TimelineView = lazy(() => import('./components/TimelineView'));
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -51,6 +50,7 @@ export default function App() {
   const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const initialize = useGraphStore((s) => s.initialize);
+  const loadTimeline = useGraphStore((s) => s.loadTimeline);
   const [leftPanelWidth, setLeftPanelWidth] = useState(260);
   const [rightPanelWidth, setRightPanelWidth] = useState(360);
   const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
@@ -59,6 +59,10 @@ export default function App() {
   useEffect(() => {
     void initialize();
   }, [initialize]);
+
+  useEffect(() => {
+    if (activeView === 'timeline') void loadTimeline();
+  }, [activeView, loadTimeline]);
 
   const startLeftPanelResize = useCallback((event: ReactMouseEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -135,6 +139,7 @@ export default function App() {
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
+        <Suspense fallback={<section className="center-view" id="center-view"><div className="loading-state">Loading view...</div></section>}>
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
             <ExplanationIndexView
@@ -180,6 +185,7 @@ export default function App() {
             <ReasoningKernel />
           </section>
         )}
+        </Suspense>
       </main>
 
       {/* ── 右侧：详情解释卡 + 关系网 ── */}

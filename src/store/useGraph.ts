@@ -65,7 +65,11 @@ import {
   questionsForNode,
 } from '../knowledge/questionLink';
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
-import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
+import {
+  loadCompleteStateFromFiles,
+  loadTimelineFromFile,
+  saveStateToFiles,
+} from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 import {
   hasDirectTypeRelation,
@@ -264,6 +268,7 @@ interface GraphState {
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
+  loadTimeline: () => Promise<void>;
   save: () => void;
   setSelectedNode: (id: string | null) => void;
   /** 浠呮墦寮€鍙充晶瑙ｉ噴鍗★紝涓嶆敼鍙樹腑蹇冮暅澶寸劍鐐?*/
@@ -491,13 +496,34 @@ function tagsForRenamedKnowledgeNode(
 }
 
 export const useGraphStore = create<GraphState>((set, get) => {
-  const persist = () => {
+  let persistTimer: ReturnType<typeof setTimeout> | null = null;
+  let initializePromise: Promise<void> | null = null;
+  let timelinePromise: Promise<void> | null = null;
+  let timelineLoaded = false;
+
+  const persistNow = () => {
     const state = snapshotState(get());
     persistAppState(state);
-    void saveStateToFiles(state).catch((error) => {
+    void saveStateToFiles(state, { includeTimeline: timelineLoaded }).catch((error) => {
       console.error('Failed to persist application data files', error);
       get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
     });
+  };
+
+  const persist = () => {
+    if (persistTimer !== null) clearTimeout(persistTimer);
+    persistTimer = setTimeout(() => {
+      persistTimer = null;
+      persistNow();
+    }, 350);
+  };
+
+  const flushPersist = () => {
+    if (persistTimer !== null) {
+      clearTimeout(persistTimer);
+      persistTimer = null;
+    }
+    persistNow();
   };
 
   return {
@@ -528,13 +554,27 @@ export const useGraphStore = create<GraphState>((set, get) => {
     history: [],
 
     initialize: async () => {
-      const fileState = await loadCompleteStateFromFiles();
-      applyPersisted(set, fileState);
-      get().addNotification('Knowledge loaded from local files', 'info');
+      if (initializePromise) return initializePromise;
+      initializePromise = (async () => {
+        const fileState = await loadCompleteStateFromFiles();
+        applyPersisted(set, fileState);
+        get().addNotification('Knowledge loaded from local files', 'info');
+      })();
+      return initializePromise;
+    },
+
+    loadTimeline: async () => {
+      if (timelinePromise) return timelinePromise;
+      timelinePromise = (async () => {
+        const timeline = await loadTimelineFromFile();
+        timelineLoaded = true;
+        if (timeline.length > 0) set({ timeline });
+      })();
+      return timelinePromise;
     },
 
     save: () => {
-      persist();
+      flushPersist();
       get().addNotification('宸蹭繚瀛樺埌鏈湴鏂囦欢', 'success');
     },
 
@@ -1266,7 +1306,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     loadDemoData: async () => {
-      const fresh = await loadCompleteStateFromFiles();
+      const fresh = await loadCompleteStateFromFiles({ includeTimeline: true });
+      timelineLoaded = true;
       applyPersisted(set, fresh);
       persistAppState(fresh);
       get().addNotification('Demo knowledge restored', 'success');

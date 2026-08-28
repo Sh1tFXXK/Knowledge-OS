@@ -67,6 +67,7 @@ export default function ExplanationCard() {
   const explanation = getKnowledgeExplanation();
   const [newLabel, setNewLabel] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [editorDraft, setEditorDraft] = useState('');
 
   const selectedTreeNode = selectedTreeNodeId
     ? findTreeNodeById(treeData, selectedTreeNodeId)
@@ -148,6 +149,29 @@ export default function ExplanationCard() {
         : activePage
           ? activePage.table
           : activeTab?.table;
+
+  useEffect(() => {
+    setEditorDraft(activeContent);
+  }, [activeSelection?.kind, activeSelection?.nodeId, activeTabId, activePageId, activeContent]);
+
+  const commitEditorDraft = () => {
+    if (!selectedNodeId || !activeSelection) return;
+    if (activeSelection.kind === ExplanationSelectionKind.Root) {
+      updateKnowledgeRootContent(selectedNodeId, editorDraft);
+      return;
+    }
+    if (activeSelection.kind === ExplanationSelectionKind.Path && activeContext) {
+      updatePathSupplementContent(activeContext.treeNodeId, editorDraft);
+      return;
+    }
+    if (activeSelection.kind === ExplanationSelectionKind.Content && activeTab) {
+      if (activePage) {
+        updateKnowledgeTabPage(selectedNodeId, activeTab.id, activePage.id, editorDraft);
+      } else {
+        updateKnowledgeTab(selectedNodeId, activeTab.id, editorDraft);
+      }
+    }
+  };
   const activeTags = normalizeSupertags([
       ...(nodeMeta?.tags ?? []),
       ...(activeSelection?.kind === ExplanationSelectionKind.Content
@@ -359,42 +383,28 @@ export default function ExplanationCard() {
                 {activeSelection?.kind === ExplanationSelectionKind.Root ? (
                   <textarea
                     className="explanation-editor"
-                    value={explanation.rootContent ?? ''}
+                    value={editorDraft}
                     placeholder="填写概念总述..."
-                    onChange={(event) => {
-                      if (!selectedNodeId) return;
-                      updateKnowledgeRootContent(selectedNodeId, event.target.value);
-                    }}
+                    onChange={(event) => setEditorDraft(event.target.value)}
+                    onBlur={commitEditorDraft}
                   />
                 ) : activeSelection?.kind === ExplanationSelectionKind.Path &&
                   activePathTab &&
                   activeContext ? (
                     <textarea
                       className="explanation-editor"
-                      value={activePathTab.content ?? ''}
+                      value={editorDraft}
                       placeholder="填写当前路径下的补充说明..."
-                      onChange={(event) =>
-                        updatePathSupplementContent(activeContext.treeNodeId, event.target.value)
-                      }
+                      onChange={(event) => setEditorDraft(event.target.value)}
+                      onBlur={commitEditorDraft}
                     />
                   ) : activeSelection?.kind === ExplanationSelectionKind.Content && activeTab ? (
                     <textarea
                       className="explanation-editor"
-                      value={activePage?.content ?? activeTab.content}
+                      value={editorDraft}
                       placeholder="填写当前标题的内容..."
-                      onChange={(event) => {
-                        if (!selectedNodeId) return;
-                        if (activePage) {
-                          updateKnowledgeTabPage(
-                            selectedNodeId,
-                            activeTab.id,
-                            activePage.id,
-                            event.target.value,
-                          );
-                          return;
-                        }
-                        updateKnowledgeTab(selectedNodeId, activeTab.id, event.target.value);
-                      }}
+                      onChange={(event) => setEditorDraft(event.target.value)}
+                      onBlur={commitEditorDraft}
                     />
                   ) : (
                     <p className="text-muted">当前索引项没有正文</p>

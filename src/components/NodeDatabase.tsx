@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useDeferredValue } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import type { KnowledgeNode } from '../types';
 
@@ -22,6 +22,7 @@ export default function NodeDatabase() {
   const [groupBy, setGroupBy] = useState<GroupBy>('none');
   const [filterRole, setFilterRole] = useState<string>('all');
   const [filterDimension, setFilterDimension] = useState<string>('all');
+  const deferredSearchQuery = useDeferredValue(searchQuery);
 
   // 收集所有存在的维度（动态从节点中提取）
   const allDimensions = useMemo(() => {
@@ -38,18 +39,23 @@ export default function NodeDatabase() {
     }));
   }, [nodePool]);
 
+  const searchIndex = useMemo(() => nodes.map((node) => ({
+    node,
+    text: [
+      node.label,
+      node.card?.title,
+      ...(node.card?.tabs ?? []).map((tab) => tab.content),
+    ].filter(Boolean).join('\n').toLocaleLowerCase(),
+  })), [nodes]);
+
   // 搜索和过滤
   const filteredNodes = useMemo(() => {
     let result = nodes;
 
     // 搜索
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      result = result.filter((node) =>
-        node.label.toLowerCase().includes(query) ||
-        node.card?.title?.toLowerCase().includes(query) ||
-        node.card?.tabs?.some(tab => tab.content.toLowerCase().includes(query))
-      );
+    if (deferredSearchQuery.trim()) {
+      const query = deferredSearchQuery.toLocaleLowerCase();
+      result = searchIndex.filter((entry) => entry.text.includes(query)).map((entry) => entry.node);
     }
 
     // 角色过滤
@@ -65,7 +71,7 @@ export default function NodeDatabase() {
     }
 
     return result;
-  }, [nodes, searchQuery, filterRole, filterDimension]);
+  }, [nodes, searchIndex, deferredSearchQuery, filterRole, filterDimension]);
 
   // 排序
   const sortedNodes = useMemo(() => {

@@ -40,7 +40,15 @@ async function saveFile<T>(filename: string, data: T): Promise<void> {
   }
 }
 
-export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> {
+export interface LoadStateOptions {
+  /** Large timeline snapshots are loaded on demand when the timeline view opens. */
+  includeTimeline?: boolean;
+}
+
+export async function loadStateFromFiles(
+  options: LoadStateOptions = {},
+): Promise<Partial<PersistedAppState>> {
+  const includeTimeline = options.includeTimeline ?? false;
   const [
     treeData,
     nodePool,
@@ -54,7 +62,7 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
     fetchFile<Question[] | null>(FILES.questions, null),
     fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
-    fetchFile<unknown>(FILES.timeline, null),
+    includeTimeline ? fetchFile<unknown>(FILES.timeline, null) : Promise.resolve(null),
   ]);
 
   const state: Partial<PersistedAppState> = {
@@ -71,8 +79,10 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   return state;
 }
 
-export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
-  const fileState = await loadStateFromFiles();
+export async function loadCompleteStateFromFiles(
+  options: LoadStateOptions = {},
+): Promise<PersistedAppState> {
+  const fileState = await loadStateFromFiles(options);
   const emptyState = createEmptyAppState();
 
   return {
@@ -97,13 +107,25 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
   };
 }
 
-export async function saveStateToFiles(state: PersistedAppState): Promise<void> {
-  await Promise.all([
+export async function loadTimelineFromFile(): Promise<import('./state').KnowledgePointSnapshot[]> {
+  return normalizeKnowledgePointTimeline(await fetchFile<unknown>(FILES.timeline, null));
+}
+
+export interface SaveStateOptions {
+  includeTimeline?: boolean;
+}
+
+export async function saveStateToFiles(
+  state: PersistedAppState,
+  options: SaveStateOptions = {},
+): Promise<void> {
+  const writes: Array<Promise<void>> = [
     saveFile(FILES.treeData, normalizeTreeNode(state.treeData)),
     saveFile(FILES.nodePool, migrateNodePool(state.nodePool)),
     saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
     saveFile(FILES.questions, state.questions),
     saveFile(FILES.inferenceResponses, state.inferenceResponses),
-    saveFile(FILES.timeline, state.timeline),
-  ]);
+  ];
+  if (options.includeTimeline ?? true) writes.push(saveFile(FILES.timeline, state.timeline));
+  await Promise.all(writes);
 }

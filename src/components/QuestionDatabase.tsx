@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useDeferredValue } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import type { QuestionAnswerStep } from '../types';
 import QuestionAnswerEditor from './QuestionAnswerEditor';
@@ -33,6 +33,7 @@ export default function QuestionDatabase() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
   const [editingAnswerId, setEditingAnswerId] = useState<string | null>(null);
+  const deferredSearchQuery = useDeferredValue(searchQuery);
 
   // 扩展问题数据，添加状态
   const questionsWithStatus = useMemo(() => {
@@ -47,8 +48,8 @@ export default function QuestionDatabase() {
     let result = questionsWithStatus;
 
     // 搜索
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+    if (deferredSearchQuery.trim()) {
+      const query = deferredSearchQuery.toLocaleLowerCase();
       result = result.filter((q) => q.text.toLowerCase().includes(query));
     }
 
@@ -58,7 +59,15 @@ export default function QuestionDatabase() {
     }
 
     return result;
-  }, [questionsWithStatus, searchQuery, filterStatus]);
+  }, [questionsWithStatus, deferredSearchQuery, filterStatus]);
+
+  const keywordGroups = useMemo(() => [...new Set(
+    Object.values(nodePool).flatMap((n) => [
+      n.label,
+      ...(n.dimensions ?? []),
+      ...(n.tags ?? []),
+    ]),
+  )].slice(0, 12), [nodePool]);
 
   // 排序
   const sortedQuestions = useMemo(() => {
@@ -104,14 +113,7 @@ export default function QuestionDatabase() {
           break;
         case 'keyword':
           // 根据关键词分组
-          const keywords = [...new Set(
-            Object.values(nodePool).flatMap((n) => [
-              n.label,
-              ...(n.dimensions ?? []),
-              ...(n.tags ?? []),
-            ])
-          )].slice(0, 12);
-          const found = keywords.find(kw => q.text.toLowerCase().includes(kw.toLowerCase()));
+          const found = keywordGroups.find(kw => q.text.toLocaleLowerCase().includes(kw.toLocaleLowerCase()));
           groupKey = found || '其他问题';
           break;
       }
@@ -123,7 +125,7 @@ export default function QuestionDatabase() {
     });
 
     return groups;
-  }, [sortedQuestions, groupBy]);
+  }, [sortedQuestions, groupBy, keywordGroups]);
 
   const handleQuestionClick = (q: typeof sortedQuestions[0]) => {
     setSelectedQuestion(q.id);
