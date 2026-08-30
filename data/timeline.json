@@ -3518,28 +3518,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_1781003299034_og1pqa",
-    "knowledgeNodeId": "k_1781003299034_og1pqa",
-    "title": "初始知识快照 · Undo页",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1781003299034_og1pqa",
-      "label": "Undo页",
-      "card": {
-        "nodeId": "k_1781003299034_og1pqa",
-        "title": "Undo页",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": ""
-          }
-        ]
-      }
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_1781003318112_lryll2",
     "knowledgeNodeId": "k_1781003318112_lryll2",
     "title": "初始知识快照 · 系统页",
@@ -15846,38 +15824,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_dict_jw1sc90t",
-    "knowledgeNodeId": "k_dict_jw1sc90t",
-    "title": "初始知识快照 · 撤销 / undo",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_dict_jw1sc90t",
-      "label": "撤销 / undo",
-      "card": {
-        "nodeId": "k_dict_jw1sc90t",
-        "title": "撤销 / undo",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "**撤销 / undo**\n英文：undo\n中文：撤销\n\n在整个 **transaction**的生命周期中维护的数据，记录所有更改，以便在进行**rollback**操作时可以撤消。它存储在**undo logs**中，或者在**system tablespace**中（在 MySQL 5.7 或更早版本中）或在单独的**undo tablespaces** 中。从 MySQL 8.0 开始，撤销日志默认位于撤销表空间中。\n\n另请参见 [回滚](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback)、[回滚段](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_rollback_segment)、[系统表空间](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_system_tablespace)、[事务](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_transaction)、[撤销日志](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_undo_log)、[撤销表空间](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_undo_tablespace)。\n\n来源：原始行：3429；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_undo"
-          }
-        ]
-      },
-      "role": "plain",
-      "dimensions": [
-        "transaction",
-        "storage"
-      ],
-      "tags": [
-        "mysql",
-        "glossary",
-        "mysql-glossary"
-      ]
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_dict_0u6b6k8m",
     "knowledgeNodeId": "k_dict_0u6b6k8m",
     "title": "初始知识快照 · UNION",
@@ -17640,28 +17586,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_1781955169559_qqibnd",
-    "knowledgeNodeId": "k_1781955169559_qqibnd",
-    "title": "初始知识快照 · Undo Tablespaces",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1781955169559_qqibnd",
-      "label": "Undo Tablespaces",
-      "card": {
-        "nodeId": "k_1781955169559_qqibnd",
-        "title": "Undo Tablespaces",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "Undo 表空间保存回滚段，回滚段中包含 undo 日志段和 undo 日志记录。"
-          }
-        ]
-      }
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_1781956849081_12h1hp",
     "knowledgeNodeId": "k_1781956849081_12h1hp",
     "title": "初始知识快照 · General Tablespaces",
@@ -17727,28 +17651,6 @@
             "id": "files",
             "label": "文件",
             "content": "开启每表一个文件表空间后，每张 InnoDB 表通常对应一个 .ibd 文件，表数据页和索引页都在这个文件内。"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "snapshot_1785256335215_8b14lu:k_1781957394111_3pyff0",
-    "knowledgeNodeId": "k_1781957394111_3pyff0",
-    "title": "初始知识快照 · Undo Log",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1781957394111_3pyff0",
-      "label": "Undo Log",
-      "card": {
-        "nodeId": "k_1781957394111_3pyff0",
-        "title": "Undo Log",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "⼀种⽤于撤销回退的⽇志"
           }
         ]
       }
@@ -18272,33 +18174,6 @@
             "id": "fields",
             "label": "字段节点",
             "content": "字段级拆分：DB_TRX_ID 负责记录最后修改事务并参与可见性判断；DB_ROLL_PTR 指向 undo 日志并串起版本链；DB_ROW_ID 在需要自动聚集索引时提供单调递增行 ID；删除标记表示逻辑删除，等待 purge 物理清理。"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "snapshot_1785256335215_8b14lu:innodb_mvcc_undo_log_types",
-    "knowledgeNodeId": "innodb_mvcc_undo_log_types",
-    "title": "初始知识快照 · 插入与更新 Undo 日志",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "innodb_mvcc_undo_log_types",
-      "label": "插入与更新 Undo 日志",
-      "role": "mechanism",
-      "dimensions": [
-        "storage",
-        "transaction"
-      ],
-      "card": {
-        "nodeId": "innodb_mvcc_undo_log_types",
-        "title": "插入与更新 Undo 日志",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "回滚段中的 undo 日志分为插入 undo 日志和更新 undo 日志，二者生命周期不同。"
           }
         ]
       }
@@ -29305,36 +29180,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:mysql_tx_mvcc_undo",
-    "knowledgeNodeId": "mysql_tx_mvcc_undo",
-    "title": "初始知识快照 · Undo 与版本链",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "mysql_tx_mvcc_undo",
-      "label": "Undo 与版本链",
-      "role": "subsystem",
-      "dimensions": [
-        "storage"
-      ],
-      "tags": [
-        "mysql",
-        "directory-taxonomy"
-      ],
-      "card": {
-        "nodeId": "mysql_tx_mvcc_undo",
-        "title": "Undo 与版本链",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "回滚段、DB_ROLL_PTR、mini-transaction 与事务版本链相关结构。"
-          }
-        ]
-      }
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:mysql_tx_read_phenomena",
     "knowledgeNodeId": "mysql_tx_read_phenomena",
     "title": "初始知识快照 · 读现象",
@@ -37708,31 +37553,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_1783875158265_4qvhak",
-    "knowledgeNodeId": "k_1783875158265_4qvhak",
-    "title": "初始知识快照 · Java 引用类型",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1783875158265_4qvhak",
-      "label": "Java 引用类型",
-      "card": {
-        "nodeId": "k_1783875158265_4qvhak",
-        "title": "Java 引用类型",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "引用类型包括类类型、接口类型和数组类型。当调用构造函数时，会在堆上创建一个对象，并将一个引用分配给该变量。当对象的变量超出作用域时，引用被断开，当没有剩下的引用时，该对象被标记为垃圾。垃圾收集器随后会在一段时间后收集并销毁它。\"\n当引用变量不引用任何对象时，它是null。"
-          }
-        ]
-      },
-      "tags": [
-        "引用类型"
-      ]
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_1784039269701_ks8gob",
     "knowledgeNodeId": "k_1784039269701_ks8gob",
     "title": "初始知识快照 · 通用类型",
@@ -38504,53 +38324,6 @@
       },
       "tags": [
         "复制构造函数"
-      ]
-    }
-  },
-  {
-    "id": "snapshot_1785256335215_8b14lu:k_1784119694784_0vswm3",
-    "knowledgeNodeId": "k_1784119694784_0vswm3",
-    "title": "初始知识快照 · 转换构造函数",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1784119694784_0vswm3",
-      "label": "转换构造函数",
-      "card": {
-        "nodeId": "k_1784119694784_0vswm3",
-        "title": "转换构造函数",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "转换构造函数为编译器提供了一种基于不同类型对象隐式创建属于一个类的对象的方法。这些构造函数通常隐式调用以将参数或操作数转换为适当的类型，但也可以显式调用。"
-          }
-        ]
-      }
-    }
-  },
-  {
-    "id": "snapshot_1785256335215_8b14lu:k_1784119704990_4mf5g7",
-    "knowledgeNodeId": "k_1784119704990_4mf5g7",
-    "title": "初始知识快照 · 移动构造函数",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_1784119704990_4mf5g7",
-      "label": "移动构造函数",
-      "card": {
-        "nodeId": "k_1784119704990_4mf5g7",
-        "title": "移动构造函数",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "在 C++ 中，移动构造函数 接收对类对象的 Rvalue 引用，并用于实现参数对象资源的所有权转移。"
-          }
-        ]
-      },
-      "tags": [
-        "C++"
       ]
     }
   },
@@ -40124,33 +39897,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_java_syntax_hello_world",
-    "knowledgeNodeId": "k_java_syntax_hello_world",
-    "title": "初始知识快照 · Hello World 程序",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_java_syntax_hello_world",
-      "label": "Hello World 程序",
-      "card": {
-        "nodeId": "k_java_syntax_hello_world",
-        "title": "Hello World 程序",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "Hello World 程序 是 Java syntax 中的一个语法主题。"
-          }
-        ]
-      },
-      "tags": [
-        "Java",
-        "Hello World 程序",
-        "基础"
-      ]
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_java_syntax_zh_1l9agwm",
     "knowledgeNodeId": "k_java_syntax_zh_1l9agwm",
     "title": "初始知识快照 · 字面量",
@@ -41552,34 +41298,6 @@
     }
   },
   {
-    "id": "snapshot_1785256335215_8b14lu:k_java_syntax_lambda_java_se_8",
-    "knowledgeNodeId": "k_java_syntax_lambda_java_se_8_1fpadqh",
-    "title": "初始知识快照 · 函数式接口和 Lambda 表达式（Java SE 8）",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_java_syntax_lambda_java_se_8_1fpadqh",
-      "label": "函数式接口和 Lambda 表达式（Java SE 8）",
-      "card": {
-        "nodeId": "k_java_syntax_lambda_java_se_8_1fpadqh",
-        "title": "函数式接口和 Lambda 表达式（Java SE 8）",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "一个接口如果只定义了一个方法（不包括从 java.lang.Object 继承的方法），则自动成为函数式接口。函数式接口可以选择性地使用 @FunctionalInterface 注解进行标注。"
-          }
-        ]
-      },
-      "tags": [
-        "Java",
-        "函数式接口和 Lambda 表达式（Java SE 8）",
-        "引用类型",
-        "接口"
-      ]
-    }
-  },
-  {
     "id": "snapshot_1785256335215_8b14lu:k_java_syntax_zh_83eegb",
     "knowledgeNodeId": "k_java_syntax_zh_83eegb",
     "title": "初始知识快照 · 方法引用",
@@ -42434,34 +42152,6 @@
         "枚举（J2SE 5.0 引入）",
         "引用类型",
         "类"
-      ]
-    }
-  },
-  {
-    "id": "snapshot_1785256335215_8b14lu:k_java_syntax_lambda_java_se_8_1fpadqh",
-    "knowledgeNodeId": "k_java_syntax_lambda_java_se_8_1fpadqh",
-    "title": "初始知识快照 · 函数式接口和 Lambda 表达式（Java SE 8）",
-    "capturedAt": 1785256335215,
-    "note": "从现有知识库建立的时间线起点",
-    "node": {
-      "id": "k_java_syntax_lambda_java_se_8_1fpadqh",
-      "label": "函数式接口和 Lambda 表达式（Java SE 8）",
-      "card": {
-        "nodeId": "k_java_syntax_lambda_java_se_8_1fpadqh",
-        "title": "函数式接口和 Lambda 表达式（Java SE 8）",
-        "tabs": [
-          {
-            "id": "def",
-            "label": "定义",
-            "content": "这些特性是在 Java SE 8 发布时引入的。如果一个接口只定义了一个方法（不包括从 java.lang.Object 继承的方法），它将自动成为一个功能接口。在这种情况下，实施可以表示为 lambda 表达式，而不是在一个新类中实现，从而大大简化了以 功能风格 编写代码的过程。功能接口可以选择性地使用 java.lang.FunctionalInterface 注解进行标注，这将告诉编译器检查该接口是否实际上符合功能接口的定义。\n\n// A functional interface\n@FunctionalInterface\ninterface Calculation {\n    int calculate(int someNumber, int someOtherNumber);\n}\n\n// A method which accepts this interface as a parameter\nint runCalculation(Calculation calculation) {\n    return calculation.calculate(1, 2);\n}\n\n// Using a lambda to call the method\nrunCalculation((number, otherNumber) -> number + otherNumber);\n\n// Equivalent code which uses an anonymous class instead\nrunCalculation(new Calculation() {\n    @Override\n    public int calculate(int someNumber, int someOtherNumber) {\n        return someNumber + someOtherNumber;\n    }\n})\n一个lambda的参数类型不必完全指定，可以从它实现的接口中推断，但没有地方可以明确指定lambda的返回类型（由推断得出）。如果lambda只是一个表达式，lambda的主体可以不写主体块和一个return语句。此外，对于那些方法中只有一个参数的接口，可以省略圆括号。[24]\n\n// Same call as above, but with fully specified types and a body block\nrunCalculation((int number, int otherNumber) -> {\n    return number + otherNumber;\n});\n\n// A functional interface with a method which has only a single parameter\ninterface StringExtender {\n    String extendString(String input);\n}\n\n// Initializing a variable of this type by using a lambda\nStringExtender extender = input -> input + \" Extended\";\n\"Lambda 表达式不能指定 throws 子句。Lambda 表达式实现某个目标功能接口（例如 java.lang.Runnable 等）。Lambda 表达式本身不是具体类型的完整表达式，而是多态表达式，其类型受其周围目标类型的影响，而不是完全由其自身内容决定。[25]\"\n\nimport java.util.function.Function;\n\n// Invalid, as lambda expressions themselves have no standalone type\nvar f = (int x) -> x + 1;\n// Should instead be:\nFunction<Integer, Integer> f = x -> x + 1;\n如果一个lambda实现了扩展了java.lang.Serializable的函数接口，那么当lambda被序列化时，它会变成一个java.lang.invoke.SerializedLambda[26]，捕获有关lambda自身的信息，称为其“序列化形式”。[27]这是必要的，因为lambda实现类是合成的且特定于JVM的，因此必须在另一个JVM调用中精确重构。就像在C++中一样，lambda类型名称是合成的并由编译器生成，具有未指定的实现细节。\n\nRunnable r = () -> System.out.println(\"Hello\");\n\n// Could print something like:\n// class org.wikipedia.examples.Main$$Lambda$1/0x0000000800b00440\nSystem.out.println(r.getClass());\n\"Lambda 不会生成 class 文件，而是发出一个 invokedynamic 指令，JVM 使用该指令在运行时创建一个合适的实现类。\"\n\n捕获的lambda通常是不同的对象，因为它们需要存储的捕获状态，然而不捕获的lambda可能是单例。\n\nRunnable r1 = () -> {};\nRunnable r2 = () -> {};\n\nSystem.out.println(r1 == r2); // May print true or false; determined by the JVM\n然而，与 C++ 不同，lambda 类型不是语言模型的一部分；其运行时类的任何内容都不能被依赖，而在 C++ 中，lambda 类型仍然可以使用 decltype 被提取，以获得一个真正唯一的闭包类型；lambda 的 java.lang.Class<?> 不能在代码中引用。"
-          }
-        ]
-      },
-      "tags": [
-        "Java",
-        "函数式接口和 Lambda 表达式（Java SE 8）",
-        "引用类型",
-        "接口"
       ]
     }
   },

@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import type { KnowledgeReference } from '../../knowledge/nodeReferences';
 import KnowledgeReferenceText from './KnowledgeReferenceText';
+import MermaidDiagram from './MermaidDiagram';
 
 function renderReferenceText(
   text: string,
@@ -298,7 +299,8 @@ export default function MarkdownView({
 
   const parts: Array<{ type: 'text' | 'code'; content: string; lang?: string }> = [];
   let currentIndex = 0;
-  const codeBlockRegex = /```(\w*)\n([\s\S]*?)\n```/g;
+  // 容忍围栏后缀后的空白与 CRLF 换行
+  const codeBlockRegex = /```(\w*)[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*```/g;
   let match;
 
   while ((match = codeBlockRegex.exec(content)) !== null) {
@@ -315,6 +317,9 @@ export default function MarkdownView({
     <div className="markdown-view" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--text-secondary)' }}>
       {parts.map((part, partIdx) => {
         if (part.type === 'code') {
+          if (part.lang?.toLowerCase() === 'mermaid') {
+            return <MermaidDiagram key={partIdx} code={part.content} />;
+          }
           return (
             <div key={partIdx} className="code-block-container" style={{ margin: '10px 0', position: 'relative' }}>
               {part.lang && (

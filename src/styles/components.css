@@ -6359,3 +6359,98 @@
     padding: 8px;
   }
 }
+
+/* ==========================================================
+   Right Panel Question Cards (右侧面板问题卡) Visual Polish
+   仅调整颜色 / 渐变 / 阴影 / 圆角 / 悬停效果，
+   所有 font-size 与 padding / margin / gap 数值保持原样；
+   描边与分隔线均用 box-shadow 绘制，不影响布局。
+   ========================================================== */
+
+@keyframes right-question-answer-in {
+  from { opacity: 0; transform: translateY(-2px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 卡片容器：淡紫玻璃卡片（描边用内阴影，不占布局宽度） */
+.right-question-card {
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    165deg,
+    rgba(139, 92, 246, 0.055),
+    rgba(139, 92, 246, 0.012) 55%,
+    rgba(6, 182, 212, 0.03)
+  );
+  box-shadow: inset 0 0 0 1px rgba(139, 92, 246, 0.1);
+  transition: box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.right-question-card:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(139, 92, 246, 0.24),
+    0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+/* 展开态：紫色光环 + 左侧光带 */
+.right-question-card.is-open {
+  background: linear-gradient(165deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.028));
+  box-shadow:
+    inset 0 0 0 1px rgba(139, 92, 246, 0.3),
+    inset 2px 0 0 var(--accent-purple),
+    0 4px 16px rgba(0, 0, 0, 0.28);
+}
+
+/* 问题按钮：悬停泛紫 */
+.right-question-card-trigger {
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.right-question-card-trigger:hover {
+  background: rgba(139, 92, 246, 0.06);
+}
+
+.right-question-card.is-open .right-question-card-trigger:hover {
+  background: transparent;
+}
+
+/* 展开态问题文字泛紫辉光 */
+.right-question-card.is-open .right-question-card-question {
+  color: var(--text-accent);
+  text-shadow: 0 0 12px rgba(139, 92, 246, 0.35);
+}
+
+/* 答案区：顶部细分隔线（inset 阴影绘制）+ 展开淡入 */
+.right-question-card-answer {
+  box-shadow: inset 0 1px 0 rgba(139, 92, 246, 0.14);
+  animation: right-question-answer-in 180ms ease;
+}
+
+/* 答案编辑按钮 */
+.right-question-answer-edit {
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast), box-shadow var(--transition-fast), color var(--transition-fast);
+}
+
+.right-question-answer-edit:hover {
+  background: rgba(139, 92, 246, 0.16);
+  box-shadow: 0 0 8px rgba(139, 92, 246, 0.2);
+}
+
+/* 空答案占位 */
+.right-question-answer-content.is-empty {
+  font-style: italic;
+}
+
+/* 问题标题：紫色基调（不使用白色） */
+.right-question-card-question {
+  color: var(--text-accent);
+}
+
+/* 答案输入框：悬停过渡 */
+.right-question-answer-input {
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.right-question-answer-input:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+}

@@ -156,8 +156,8 @@ export default function App() {
           </section>
         ) : activeView === 'questions' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <h2 style={{ margin: 0, fontSize: 15 }}>❓ 问题库</h2>
+            <div className="qdb-page-header">
+              <h2 className="qdb-page-title">❓ 问题库</h2>
               <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
             </div>
             <QuestionDatabase />
