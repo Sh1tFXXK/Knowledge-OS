@@ -1,0 +1,35 @@
+186·第二部分单机数据库的实现
+算结果就是这个对象的空转时间：
+redis>SETmsg"helloworld"
+OK
+#等待一小段时间
+redis> OBJECT IDLETIME msg
+(integer)20
+#等待一阵子
+redis> OBJECT IDLETIME msg
+(integer)180
+#访间msg键的值
+redis> GET msg
+"helloworld"
+#键处于活跃状态，空转时长为0
+redis> OBJECT IDLETIME mSg
+(integer)0
+servercron函数默认会以每1o秒一次的频率更新lruclock属性的值，因为这个
+时钟不是实时的，所以根据这个属性计算出来的LRU时间实际上只是一个模糊的估算值。
+lruclock时钟的当前值可以通过INFOserver命令的lru_clock域查看：
+redis> INFO server
+# Server
+lru_clock:55923
+14.2.3
+更新服务器每秒执行命令次数
+频率执行，这个函数的功能是以抽样计算的方式，估算并记录服务器在最近一秒钟处理的
+命令请求数量，这个值可以通过INFostatus命令的instantaneous_ops_per_sec域
+查看：
+redis> INFO stats
+#Stats
+instantaneous_ops_per_sec:6
+上面的命令结果显示，在最近的一秒钟内，服务器处理了大概六个命令。
+trackoperationsPerSecond函数和服务器状态中四个ops_sec_开头的属性有关：
+struct redisserver(
+//上一次进行抽样的时间
+long long ops_sec_last_sample_time;

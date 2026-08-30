@@ -1,0 +1,50 @@
+336第四部分独立功能的实现
+20.6
+脚本复制
+与其他普通Redis命令一样，当服务器运行在复制模式之下时，具有写性质的脚本命令
+也会被复制到从服务器，这些命令包括EVAL命令、EVALSHA命令、SCRIPTFLUSH命令，
+以及SCRIPTLOAD命令。
+接下来的两个小节将分别介绍这四个命令的复制方法。
+20.6.1复制EVAL命令、SCRIPTFLUSH命令和SCRIPTLOAD命令
+Redis复制EVAL、SCRIPTFLUSH、SCRIPTLOAD三个命令的方法和复制其他普通
+被执行的命令传播（propagate）给所有从服务器，如图20-9所示。
+EVAL
+或者
+SCRIPT.FLUSH
+或者
+SCRIPT LOAD
+从服务器1
+EVAL
+或者
+SCRIPT FLUSH
+EVAL
+或者
+或者
+SCRIPTLOAD
+从服务器2
+SCRIPT FLUSH
+或者
+EVAL
+SCRIPT LOAD
+或者
+客户端
+主服务器
+SCRIPT FLUSH
+或者
+SCRIPT LOAD
+EVAL
+或者
+SCRIPT FLUSH
+或者
+从服务器N
+SCRIPT LOAD
+图20-9将脚本命令传播给从服务器
+1.EVAL
+对于EVAL命令来说，在主服务器执行的Lua脚本同样会在所有从服务器中执行。
+举个例子，如果客户端向主服务器执行以下命令：
+redis>EVAL "return redis.call('SET',KEYS[1],ARGV[1])"1"msg""hello world"
+OK
+那么主服务器在执行这个EVAL命令之后，将向所有从服务器传播这条EVAL命令，从
+服务器会接收并执行这条EVAL命令，最终结果是，主从服务器双方都会将数据库"msg"
+键的值设置为"helloworld"，并且将脚本：
+"return redis.call('sET',KEYs[1],ARGV[i])"

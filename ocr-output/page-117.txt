@@ -1,0 +1,39 @@
+100第二部分单机数据库的实现
+1)"1377257296"
+2)"296543"
+redis> GET key
+//1377257300之前
+"value"
+redis> TIME
+1)"1377257303"
+2)"230656"
+redis> GET key
+//1377257300之后
+(nil)
+TTL命令和PTTL命令接受一个带有生存时间或者过期时间的键，返回这个键的剩余生
+存时间，也就是，返回距离这个键被服务器自动删除还有多长时间：
+redis> SET key value
+OK
+redis>EXPIREkey1000
+(integer)1
+redis> TTL key
+(integer)997
+redis> SET another_key another_value
+OK
+redis> TIME
+1)"1377333070"
+2)"761687"
+redis>ExPIREATanother_key1377333100
+(integer)1
+redis> TTL another_key
+(integer)10
+在上一节我们讨论了数据库的底层实现，以及各种数据库操作的实现原理，但是，关于
+数据库如何保存键的生存时间和过期时间，以及服务器如何自动删除那些带有生存时间和过
+期时间的键这两个问题，我们还没有讨论。
+本节将对服务器保存键的生存时间和过期时间的方法进行介绍，并在下一节介绍服务器
+自动删除过期键的方法。
+9.4.1i
+设置过期时间
+Redis有四个不同的命令可以用于设置键的生存时间（键可以存在多久）或过期时间
+（键什么时候会被删除）：
+口EXPIRE<key><ttl>命令用于将键key的生存时间设置为tt1秒。

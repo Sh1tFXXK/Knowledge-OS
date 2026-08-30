@@ -14,7 +14,7 @@ assert.match(source, /const directoryOptions = useMemo\(\(\) => collectDirectory
 assert.match(source, /const transferSourceOptions = useMemo/);
 assert.match(source, /const transferTargetOptions = useMemo/);
 assert.match(source, /const handleConfirmTransfer = useCallback/);
-assert.match(source, /moveTreeNode\(sourceId, transferDialog\.targetId\)/);
+assert.match(source, /moveTreeNodes\(transferSourceIds, transferDialog\.targetId\)/);
 assert.match(source, /function collectDirectoryOptions\(root: TreeNode\): TreeDirectoryOption\[\]/);
 assert.match(source, /function filterDirectoryOptions/);
 assert.match(source, /function isInvalidManualMoveTarget/);

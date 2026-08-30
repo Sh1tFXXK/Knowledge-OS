@@ -1,0 +1,55 @@
+302，第四部分独立功能的实现
+人参数，并返回这些频道的订阅者数量。
+这个子命令是通过在pubsub_channels字典中找到频道对应的订阅者链表，然后返
+回订阅者链表的长度来实现的（订阅者链表的长度就是频道订阅者的数量），这个过程可以
+用以下伪代码来描述：
+def pubsub_numsub(*all_input_channels):
+#遍历输入的所有频道
+for channel in all input_channels:
+#如果pubsub_channels字典中没有channel这个键
+#那么说明channel频道没有任何订阅者
+if channel not inserver.pubsub_channels:
+#返回频道名
+reply_channel_name(channel)
+#订阅者数量为0
+reply_subscribe_count(o)
+#如果pubsub_channels字典中存在channel键
+#那么说明channel频道至少有一个订阅者
+else:
+#返回频道名
+reply_channel_name(channel)
+#订阅者链表的长度就是订阅者数量
+reply_subscribe_count(len(server.pubsub_channels[channelj))
+pubsub_channels
+"news.it"
+client-2
+client-1
+client-3
+"news.sport"
+client-4
+client-10086
+client-5
+"news.business"
+client-6
+"news.movie"
+client-10086
+图18-19pubsub_channels字典
+举个例子，对于图18-19所示的pubsub_channels字典来说，对字典中的四个频道
+执行PUBSUBNUMSUB命令将获得以下回复：
+redis>PUBsUB NUMsUB news.itnews.sport news.business news.movie
+1)
+"news.it"
+2)
+"3"
+3)
+"news.sport"
+4)
+"2"
+5)
+"news.business"
+6)
+"2"
+7)
+"news.movie"
+8)
+"1"

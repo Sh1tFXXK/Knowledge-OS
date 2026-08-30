@@ -1,0 +1,44 @@
+第21章
+排序
+Redis的SORT命令可以对列表键、集合键或者有序集合键的值进行排序。
+以下代码展示了SORT命令对列表键进行排序的例子：
+redis>RPUSHnumbers53142
+(integer)5
+#按插入顺序排列的列表元素
+redis>LRANGE numbers 0-1
+1)"5"
+2)"3"
+3)"1"
+4)
+"4"
+5)
+"2"
+#按值从小到大有序排列的列表元素
+redis> SORT numbers
+1)
+"1"
+2）
+"2"
+3)"3"
+4)"4"
+5)
+"5"
+以下代码展示了SORT命令使用ALPHA选项，对一个包含字符串值的集合键进行排序
+的例子：
+redis> SADD alphabet a b c d e f g
+(integer)7
+#乱序排列的集合元素
+redis> SMEMBERS alphabet
+"d"
+2)
+"a"
+3)
+"f"
+4)
+"e"
+5)
+"b"
+6)
+"g"
+7)
+"c"

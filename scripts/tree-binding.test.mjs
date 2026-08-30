@@ -71,6 +71,7 @@ assert.deepEqual(JSON.parse(JSON.stringify(edge)), {
   target: 'k-child',
   type: 'belongs-to',
   label: 'contains',
+  relationKind: 'structure',
   dimensions: ['system', 'detail'],
 });
 

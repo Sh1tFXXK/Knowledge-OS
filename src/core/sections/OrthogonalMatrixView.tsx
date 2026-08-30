@@ -296,7 +296,7 @@ function buildClassificationScopes(
     grouped.get(meta.id)?.dimensions.push(dimension);
   }
 
-  return scopeOrder.flatMap((scopeId) => {
+  return scopeOrder.flatMap<ClassificationScope>((scopeId): ClassificationScope[] => {
     const item = grouped.get(scopeId);
     if (!item) return [];
 
@@ -391,7 +391,7 @@ export function OrthogonalMatrixView({
           <span className="dc-band-summary">
             {scopes.length} scopes / {dimensions.length} standards
           </span>
-          <button type="button" className="dc-band-head-action" onClick={onAddRow}>
+          <button type="button" className="dc-band-head-action" onClick={() => onAddRow()}>
             + Row
           </button>
         </div>

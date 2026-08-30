@@ -1,5 +1,6 @@
 # Dependencies
 node_modules/
+.venv-mineru/
 
 # Build output
 dist/
@@ -28,6 +29,9 @@ Thumbs.db
 # Backup files
 *_[0-9]*_[0-9]*_[0-9]*.tsx
 *_[0-9]*_[0-9]*_[0-9]*.ts
+data/backups/
+data/*.backup-*
+data/*.tmp-*
 
 # Local agent and browser artifacts
 .codex/dev-server/
@@ -38,3 +42,6 @@ Thumbs.db
 /after-drag.png
 /cdp-map-check.png
 *.bak
+.tmp-chrome-profile/
+.tmp-db2-images/
+.tmp-nio-images/

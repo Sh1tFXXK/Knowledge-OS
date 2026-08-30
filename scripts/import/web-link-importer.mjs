@@ -9,6 +9,8 @@ import TurndownService from 'turndown';
 import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
 import { createTranslationService } from './translation.mjs';
 import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
+import { applySemanticImportAtTreeNode } from './semantic-persistence.mjs';
+import { projectSemanticDraft } from './semantic-projector.mjs';
 
 const MAX_REDIRECTS = 5;
 const MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
@@ -63,7 +65,11 @@ function isPublicAddress(address) {
 function isTransparentProxyAddress(address) {
   try {
     const parsed = ipaddr.parse(address);
-    return parsed.kind() === 'ipv4' && parsed.match(ipaddr.parse('198.18.0.0'), 15);
+    if (parsed.kind() === 'ipv4') {
+      return parsed.match(ipaddr.parse('198.18.0.0'), 15);
+    }
+    return parsed.kind() === 'ipv6'
+      && parsed.match(ipaddr.parse('fdfe:dcba:9876::'), 48);
   } catch {
     return false;
   }
@@ -522,27 +528,42 @@ export function extractQuestions(markdown) {
 }
 
 export async function translateMarkdownPreservingStructure(markdown, language, translator) {
-  const protectedParts = [];
-  const protect = (value) => {
-    const token = `KOSMDTOKEN${protectedParts.length}X`;
-    protectedParts.push({ token, value });
-    return token;
-  };
+  const lines = String(markdown ?? '').split('\n');
+  const translated = [];
+  let inFence = false;
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      inFence = !inFence;
+      translated.push(line);
+      continue;
+    }
+    if (inFence || !line.trim()) {
+      translated.push(line);
+      continue;
+    }
+    const protectedParts = [];
+    const protect = (value) => {
+      const token = `KOSMDTOKEN${protectedParts.length}X`;
+      protectedParts.push({ token, value });
+      return token;
+    };
 
-  let protectedMarkdown = markdown
-    .replace(/```[\s\S]*?```/g, protect)
+  let protectedMarkdown = line
     .replace(/`+[^`\n]+`+/g, protect)
-    .replace(/^(\s*(?:#{1,6}|[-*+]|\d+[.)]|>+)\s+)/gm, protect)
+    .replace(/(\[[^\]\n]+\]\([^\)\n]+\))/g, protect)
+    .replace(/^(\s*(?:#{1,6}\s+|[-*+]\s+|\d+[.)]\s+|>+\s*))/i, protect)
     .replace(/\*\*|__|~~|\*|_/g, protect);
 
   protectedMarkdown = await translator.translate(protectedMarkdown, language);
-  for (const part of protectedParts) {
+    for (const part of protectedParts) {
     if (!protectedMarkdown.includes(part.token)) {
       throw new Error('翻译服务改变了 Markdown 结构，已取消导入');
     }
     protectedMarkdown = protectedMarkdown.replaceAll(part.token, part.value);
+      }
+    translated.push(protectedMarkdown);
   }
-  return protectedMarkdown;
+  return translated.join('\n');
 }
 
 function bulletListToPages(markdown, idPrefix) {
@@ -713,6 +734,10 @@ function buildMarkdownDocument({
   date,
   keywords,
   categories,
+  structureMode = 'outline',
+  nodeCount = 0,
+  rootCount = 0,
+  relationCount = 0,
 }) {
   const keywordLines = keywords.map((keyword) => `  - ${yamlString(keyword)}`).join('\n');
   const categoryLines = categories.map((category) => `  - ${yamlString(category)}`).join('\n');
@@ -724,6 +749,10 @@ function buildMarkdownDocument({
     `source_language: ${yamlString(language)}`,
     `translated_to: ${translated ? yamlString('zh-CN') : 'null'}`,
     `imported_at: ${yamlString(date)}`,
+    `structure_mode: ${yamlString(structureMode)}`,
+    `node_count: ${nodeCount}`,
+    `root_count: ${rootCount}`,
+    `relation_count: ${relationCount}`,
     'keywords:',
     keywordLines || '  []',
     'categories:',
@@ -754,31 +783,62 @@ export async function prepareWebImport(options) {
   let categories = [];
   let aiKeywords = [];
   let questions = extractQuestions(markdown);
+  let semanticDraft = null;
 
   if (options.useAi) {
     const organizer = options.aiOrganizer ?? createAiOrganizerFromEnv(options.aiEnv);
     if (!organizer) {
       throw new Error('AI 整理尚未配置，请设置 KNOWLEDGE_OS_LLM_API_KEY');
     }
-    const organized = await organizer.organize({
-      title,
-      markdown,
-      sourceLanguage: shouldTranslate ? 'zh' : extracted.language,
-    });
-    title = cleanKeyword(organized.title) || title;
-    markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
-    categories = organized.categories;
-    aiKeywords = organized.keywords;
-    questions = organized.questions.length > 0 ? organized.questions : questions;
+    if (typeof organizer.compile === 'function') {
+      semanticDraft = await organizer.compile({
+        title,
+        markdown,
+        sourceLanguage: shouldTranslate ? 'zh' : extracted.language,
+      });
+      title = cleanKeyword(semanticDraft.title) || title;
+      categories = semanticDraft.categories;
+    } else {
+      const organized = await organizer.organize({
+        title,
+        markdown,
+        sourceLanguage: shouldTranslate ? 'zh' : extracted.language,
+      });
+      title = cleanKeyword(organized.title) || title;
+      markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
+      categories = organized.categories;
+      aiKeywords = organized.keywords;
+      questions = organized.questions.length > 0 ? organized.questions : questions;
+    }
   }
 
-  const built = buildWebNodes({
-    title,
-    markdown,
-    sourceUrl: page.url,
-    language: extracted.language,
-    extraKeywords: [...categories, ...aiKeywords],
-  });
+  let built;
+  let structureMode;
+  if (semanticDraft) {
+    built = projectSemanticDraft({
+      draft: semanticDraft,
+      sourceId: page.url,
+      sourceTitle: extracted.title,
+      sourceKind: IMPORT_SOURCE_KIND.Web,
+    });
+    built.articleIdPrefix = built.nodeId;
+    built.tags = [...new Set([
+      ...categories,
+      ...built.nodes.flatMap((node) => node.tags ?? []),
+    ])].slice(0, 80);
+    built.documentBody = polishArticleMarkdown(markdown).documentBody;
+    questions = built.questions;
+    structureMode = 'semantic';
+  } else {
+    built = buildWebNodes({
+      title,
+      markdown,
+      sourceUrl: page.url,
+      language: extracted.language,
+      extraKeywords: [...categories, ...aiKeywords],
+    });
+    structureMode = 'outline';
+  }
   const date = (options.now ?? new Date()).toISOString().slice(0, 10);
   return {
     ...built,
@@ -790,6 +850,7 @@ export async function prepareWebImport(options) {
     translated: shouldTranslate,
     categories,
     questions,
+    structureMode,
     markdown: buildMarkdownDocument({
       title,
       documentBody: built.documentBody,
@@ -800,6 +861,10 @@ export async function prepareWebImport(options) {
       date,
       keywords: built.tags,
       categories,
+      structureMode,
+      nodeCount: built.nodes.length,
+      rootCount: built.stats?.rootCount ?? 1,
+      relationCount: built.edges?.length ?? 0,
     }),
   };
 }
@@ -821,7 +886,10 @@ export function applyImportedQuestions(
     if (!draft || typeof draft !== 'object' || typeof draft.text !== 'string') return null;
     const text = draft.text.trim();
     if (!text) return null;
-    const id = `${prefix}${crypto.createHash('sha256').update(text).digest('hex').slice(0, 10)}`;
+    const identityKey = typeof draft.identityKey === 'string' && draft.identityKey.trim()
+      ? draft.identityKey.trim()
+      : text;
+    const id = `${prefix}${crypto.createHash('sha256').update(identityKey).digest('hex').slice(0, 10)}`;
     const existing = existingById.get(id);
     const relatedNodeId = draft.relatedNodeId || context.defaultRelatedNodeId;
     const answer = typeof draft.answer === 'string' && draft.answer.trim() ? draft.answer.trim() : undefined;
@@ -891,10 +959,15 @@ export async function importWebLink(options) {
   const projectRoot = path.resolve(options.projectRoot ?? process.cwd());
   const poolPath = path.join(projectRoot, 'data', 'node-pool.json');
   const treePath = path.join(projectRoot, 'data', 'tree-data.json');
+  const edgesPath = path.join(projectRoot, 'data', 'knowledge-edges.json');
   const questionsPath = path.join(projectRoot, 'data', 'questions.json');
-  const [pool, tree, questions] = await Promise.all([
+  const [pool, tree, edges, questions] = await Promise.all([
     fs.readFile(poolPath, 'utf8').then(JSON.parse),
     fs.readFile(treePath, 'utf8').then(JSON.parse),
+    fs.readFile(edgesPath, 'utf8').then(JSON.parse).catch((error) => {
+      if (error?.code === 'ENOENT') return [];
+      throw error;
+    }),
     fs.readFile(questionsPath, 'utf8').then(JSON.parse).catch((error) => {
       if (error?.code === 'ENOENT') return [];
       throw error;
@@ -903,14 +976,24 @@ export async function importWebLink(options) {
   if (!options.parentTreeNodeId) throw new Error('请选择要挂载的项目目录');
 
   const prepared = await prepareWebImport(options);
-  applyImportAtTreeNode(
-    pool,
-    tree,
-    prepared.nodes,
-    options.parentTreeNodeId,
-    prepared.articleIdPrefix,
-    prepared.tags,
-  );
+  if (prepared.structureMode === 'semantic') {
+    applySemanticImportAtTreeNode({
+      pool,
+      tree,
+      edges,
+      projected: prepared,
+      parentTreeNodeId: options.parentTreeNodeId,
+    });
+  } else {
+    applyImportAtTreeNode(
+      pool,
+      tree,
+      prepared.nodes,
+      options.parentTreeNodeId,
+      prepared.articleIdPrefix,
+      prepared.tags,
+    );
+  }
   const importedAt = Date.now();
   const questionCount = applyImportedQuestions(
     questions,
@@ -919,7 +1002,7 @@ export async function importWebLink(options) {
     importedAt,
     IMPORT_SOURCE_KIND.Web,
     {
-      defaultRelatedNodeId: prepared.articleIdPrefix,
+      defaultRelatedNodeId: prepared.nodeId ?? prepared.articleIdPrefix,
       sourceTitle: prepared.title,
     },
   );
@@ -928,13 +1011,14 @@ export async function importWebLink(options) {
   await Promise.all([
     writeFileAtomically(poolPath, `${JSON.stringify(pool, null, 2)}\n`),
     writeFileAtomically(treePath, `${JSON.stringify(tree, null, 2)}\n`),
+    writeFileAtomically(edgesPath, `${JSON.stringify(edges, null, 2)}\n`),
     writeFileAtomically(questionsPath, `${JSON.stringify(questions, null, 2)}\n`),
     writeFileAtomically(notesPath, prepared.markdown),
   ]);
 
   return {
     ok: true,
-    nodeId: prepared.articleIdPrefix,
+    nodeId: prepared.nodeId ?? prepared.articleIdPrefix,
     treeNodeId: prepared.treeNodeId,
     title: prepared.title,
     sourceUrl: prepared.sourceUrl,
@@ -942,9 +1026,12 @@ export async function importWebLink(options) {
     language: prepared.language,
     translated: prepared.translated,
     nodeCount: prepared.nodes.length,
-    sectionCount: prepared.nodes.length - 1,
+    rootCount: prepared.stats?.rootCount ?? 1,
+    relationCount: prepared.edges?.length ?? 0,
+    sectionCount: prepared.structureMode === 'semantic' ? 0 : prepared.nodes.length - 1,
     questionCount,
     categories: prepared.categories,
+    structureMode: prepared.structureMode,
     markdownPath: path.relative(projectRoot, notesPath).replace(/\\/g, '/'),
   };
 }

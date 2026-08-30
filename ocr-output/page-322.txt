@@ -1,0 +1,28 @@
+第19章
+事务
+Redis通过MULTI、EXEC、WATCH等命令来实现事务（transaction）功能。事务提供
+了一种将多个命令请求打包，然后一次性、按顺序地执行多个命令的机制，并且在事务执行
+期间，服务器不会中断事务而改去执行其他客户端的命令请求，它会将事务中的所有命令都
+执行完毕，然后才去处理其他客户端的命令请求。
+以下是一个事务执行的过程，该事务首先以一个MULTI命令为开始，接着将多个命令
+放人事务当中，最后由EXEC命令将这个事务提交（commit）给服务器执行：
+redis> MULTI
+OK
+QUEUED
+redis>GET"name"
+QUEUED
+redis>SET"author""PeterSeibel"
+QUEUED
+redis> GET"author"
+QUEUED
+redis>EXEc
+1) OK
+2)
+"practical Common Lisp"
+3)OK
+"Peter Seibel"
+在本章接下来的内容中，我们首先会介绍Redis如何使用MULTI和EXEC命令来实现
+事务功能，说明事务中的多个命令是如何被保存到事务里面的，而这些命令又是如何被执
+行的。
+在介绍了事务的实现原理之后，我们将对WATCH命令的作用进行介绍，并说明
+WATCH命令的实现原理。

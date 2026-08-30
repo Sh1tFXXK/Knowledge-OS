@@ -1,0 +1,40 @@
+298第四部分独立功能的实现
+之后，client属性为client-9，pattern属性为"news，*"的pubsubPattern结构
+将被删除，pubsub_patterns链表将更新至图18-15所示的样子。
+redisServer
+pubsubpattern
+pubsubPattern
+client
+client
+pubsub_patterns
+client-7
+client-8
+pattern
+pattern
+"music.*"
+"book.*"
+图18-15执行PUNSUBSCRIBE命令之后的pubsub_patterns链表
+PUNSUBSCRIBE命令的实现原理可以用以下伪代码来描述：
+def punsubscribe(*all_input_patterns):
+#遍历所有要退订的模式
+for pattern in all_input_patterns:
+#遍历pubsub_patterns链表中的所有pubsubPattern结构
+for pubsubpattern in server.pubsub_patterns:
+#如果当前客户端和pubsubPattern记录的客户端相同
+#并且要退订的模式也和pubsubPattern记录的模式相同
+if client == pubsubPattern.client and
+pattern == pubsubpattern.pattern:
+#那么将这个pubsubPattern从链表中删除
+server.pubsub_patterns.remove(pubsubPattern)
+18.3
+发送消息
+发送给频道channe1的时候，服务器需要执行以下两个动作：
+1）将消息message发送给channel频道的所有订阅者。
+2）如果有一个或多个模式pattern与频道channel相匹配，那么将消息message
+发送给pattern模式的订阅者。
+接下来的两个小节将分别介绍这两个动作的实现方式。
+18.3.1
+将消息发送给频道订阅者
+因为服务器状态中的pubsub_channels字典记录了所有频道的订阅关系，所以为
+了将消息发送给channel频道的所有订阅者，PUBLISH命令要做的就是在pubsub
+channels字典里找到频道channel的订阅者名单（一个链表），然后将消息发送给名单

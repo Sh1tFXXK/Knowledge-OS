@@ -1,0 +1,45 @@
+354第四部分独立功能的实现
+6) "e"
+#对集合进行排序，并返回所有排序后的元素
+redis>SORTalphabetALPHA
+1)"a"
+.q.
+3）
+"c"
+4）
+"d"
+"e"
+6)
+"f"
+但是，通过LIMIT选项，我们可以让SORT命令只返回其中一部分已排序的元素。
+LIMIT选项的格式为LIMIT<offset><count>：
+口offset参数表示要跳过的已排序元素数量。
+口count参数表示跳过给定数量的已排序元素之后，要返回的已排序元素数量。
+举个例子，以下代码首先对alphabet集合进行排序，接着跳过0个已排序元素，然
+后返回4个已排序元素：
+redis>SORT alphabetALPHALIMIT 0 4
+1)"a"
+2)"b"
+3)"c"
+4)"d"
+与此类似，以下代码首先对alphabet集合进行排序，接着跳过2个已排序元素，然
+后返回3个已排序元素：
+redis>SORT alphabetALPHALIMIT 23
+1)"c"
+2)"d"
+3) "e"
+服务器执行SORTalphabetALPHALIMITO4命令的详细步骤如下：
+1）创建一个redisSortobject结构数组，数组的长度等于alphabet集合的大小。
+2）遍历数组，将各个数组项的obj指针分别指向alphabet集合的各个元素，如图
+21-15所示。
+3）根据obj指针所指向的集合元素，对数组进行字符串排序，排序后的数组如图
+21-16所示。
+4）根据选项LIMIT04，将指针移动到数组的索引0上面，然后依次访问array[O］、
+array[1]、array[2］、array[3]这4个数组项，并将数组项的obj指针所指向的元素
+"a"、"b"、"c"、"d"返回给客户端。
+服务器执行SORTalphabetALPHALIMIT23命令时的第一至第三步都和执行
+SORTalphabetALPHALIMITO4命令时的步骤一样，只是第四步有所不同，上面的
+第4步如下：
+4）根据选项LIMIT23，将指针移动到数组的索引2上面，然后依次访问
+array[2］、array3］、array【4】这3个数组项，并将数组项的obj指针所指
+向的元素"c"、"d"、"e"返回给客户端。

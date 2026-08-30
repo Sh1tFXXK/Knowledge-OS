@@ -1,0 +1,44 @@
+76→第一部分数据结构与对象
+对于使用intset编码的集合对象来说，当使用intset编码所需的两个条件的任意
+一个不能被满足时，就会执行对象的编码转换操作，原本保存在整数集合中的所有元素都会
+被转移并保存到字典里面，并且对象的编码也会从intset变为hashtable。
+举个例子，以下代码创建了一个只包含整数元素的集合对象，该对象的编码为intset：
+redis>SADDnumbers135
+(integer)3
+redis>OBJECTENCODING numbers
+"intset"
+不过，只要我们向这个只包含整数元素的集合对象添加一个学符串元素，集合对象的编
+码转移操作就会被执行：
+redis> SADD numbers "seven"
+(integer)1
+redis>OBJECTENCODINGnumbers
+"hashtable"
+除此之外，如果我们创建一个包含512个整数元素的集合对象，那么对象的编码应该
+会是intset：
+redis>EVAL"fori=l,512doredis.call('sADD',KEYs[1],i)end"1integers
+(nil)
+redis> sCARD integers
+(integer)512
+redis> OBJECT ENCODING integers
+"intset"
+但是，只要我们再向集合添加一个新的整数元素，使得这个集合的元素数量变成513，
+那么对象的编码转换操作就会被执行：
+redis>SADD integers10086
+(integer)l
+redis> SCARD integers
+(integer)513
+redis>OBJECT ENCODINGintegers
+"hashtable"
+8.5.2
+集合命令的实现
+因为集合键的值为集合对象，所以用于集合键的所有命令都是针对集合对象来构建的，
+表8-10列出了其中一部分集合键命令，以及这些命令在不同编码的集合对象下的实现方法。
+表8-10集合命令的实现方法
+命令
+intset编码的实现方法
+hashtable编码的实现方法
+调用intsetAdd函数，将所有新元素添
+调用dictAdd，以新元素为键，NULL为
+SADD
+加到整数集合里面
+值，将键值对添加到字典里面

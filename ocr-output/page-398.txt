@@ -1,0 +1,49 @@
+第23章慢查询日志→381
+例如，在创建第一条慢查询日志时，slowlog_entry_id的值o会成为第一条慢查询
+日志的ID，而之后服务器会对这个属性的值增一；当服务器再创建新的慢查询日志的时候，
+slowlog_entry_id的值1就会成为第二条慢查询日志的ID，然后服务器再次对这个属
+性的值增一，以此类推。
+slowlog链表保存了服务器中的所有慢查询日志，链表中的每个节点都保存了一个
+slowlogEntry结构，每个slowlogEntry结构代表一条慢查询日志：
+typedef struct slowlogEntry(
+//唯一标识符
+long long id;
+//命令执行时的时间，格式为UNIX时间戳
+time_t time;
+//执行命令消耗的时间，以微秒为单位
+long long duration;
+//命令与命令参数
+robj **argv;
+//命令与命令参数的数量
+int argci
+/slowlogEntryi
+举个例子，对于以下慢查询日志来说：
+1)
+(integer)3
+2)
+（integer）1378781439
+3）
+(integer)10
+4)
+1)"SET"
+aqunu.
+3)"10086"
+图23-1展示的就是该日志所对应的slowlogEntry结构。
+slowlogEntry
+id
+time
+1378781439
+duration
+10
+argv[0]
+argv[1]
+argv[2]
+argv
+Stringobject
+Stringobjectstringobject
+"SET"
+"number"
+argc
+"10086"
+图23-1slowlogEntry结构示例
+图23-2展示了服务器状态中和慢查询功能有关的属性：

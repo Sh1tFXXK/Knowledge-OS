@@ -2,6 +2,12 @@
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { ensureMysqlFunctionalTheoryReferences } from './mysql-functional-theory-references.mjs';
+import {
+  DEPRECATED_TAXONOMY_CONTAINER_IDS,
+  TAXONOMY_CONTAINER_SPECS,
+  domainMount,
+} from './taxonomy-domain-placements.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = path.join(ROOT, 'data');
@@ -10,11 +16,10 @@ const NODE_POOL_PATH = path.join(DATA_DIR, 'node-pool.json');
 const EDGES_PATH = path.join(DATA_DIR, 'knowledge-edges.json');
 
 const MYSQL_TREE_ID = 'demo_mysql';
-const THEORY_PARENT_TREE_ID = 'universe';
 const IMPORT_TAG = 'mysql-glossary';
 const TREE_BINDING_EDGE_PREFIX = 'treebind:';
 
-const GENERATED_THEORY_NODE_PREFIXES = ['theory_domain_', 'school_', 'theory_layer_', 'mysql_domain_', 'mysql_theory_'];
+const GENERATED_THEORY_NODE_PREFIXES = ['theory_domain_', 'theory_layer_', 'mysql_domain_', 'mysql_theory_'];
 const GENERATED_ITEM_NODE_PREFIXES = [
   'mysql_topic_',
   'mysql_domain_',
@@ -25,18 +30,6 @@ const GENERATED_ITEM_NODE_PREFIXES = [
   'mysql_glossary_group_',
   'mysql_glossary_section_',
 ];
-
-const SCHOOL_IDS = new Map([
-  ['数学', 'school_mathematics'],
-  ['逻辑', 'school_logic'],
-  ['数据库理论', 'school_database_theory'],
-  ['计算理论', 'school_computation_theory'],
-  ['系统', 'school_systems'],
-  ['安全', 'school_security'],
-  ['程序语言', 'school_programming_languages'],
-  ['信息检索', 'school_information_retrieval'],
-  ['现实约定', 'school_real_world_conventions'],
-]);
 
 const MYSQL_IMPLEMENTATION_TOPIC_IDS = new Set([
   'mysql_topic_architecture',
@@ -114,11 +107,11 @@ const DOMAINS = [
   },
   {
     id: 'relational_algebra',
-    school: '数据库理论',
+    school: '数据库原理',
     name: '关系代数',
     icon: '3',
     desc: 'SQL 查询计算模型：选择、投影、连接、集合运算和查询变换。',
-    patterns: [/\bjoin\b|\bselect\b|projection|\bproject\b|union|intersect|except|\bquery\b|merge|\bview\b|materialized|surrogate key|查询|连接|选择|投影|视图|物化视图|代理键/i],
+    patterns: [/\bjoin\b|\bselect\b|projection|\bproject\b|union|intersect|except|\bquery\b|merge|\bview\b|materialized|查询|连接|选择|投影|视图|物化视图/i],
   },
   {
     id: 'graph_theory',
@@ -154,7 +147,7 @@ const DOMAINS = [
   },
   {
     id: 'normalization_theory',
-    school: '数据库理论',
+    school: '数据库原理',
     name: '规范化理论',
     icon: '8',
     desc: '1NF 到 BCNF、规范化、反规范化、函数依赖和 schema 设计。',
@@ -203,7 +196,7 @@ const DOMAINS = [
   {
     id: 'algorithms',
     school: '计算理论',
-    name: '算法理论',
+    name: '算法',
     icon: 'A',
     desc: '排序、扫描、连接算法、读预取和执行计划中的算法选择。',
     patterns: [/filesort|sort buffer|merge join|hash join|algorithm|read-ahead|\bscan\b|full table scan|table scan|query execution plan|算法|排序|扫描|预读/i],
@@ -211,7 +204,7 @@ const DOMAINS = [
   {
     id: 'data_structures',
     school: '计算理论',
-    name: '数据结构理论',
+    name: '数据结构',
     icon: 'D',
     desc: 'B+ 树、哈希表、索引、LRU/LFU、列表、页目录和缓冲结构。',
     patterns: [/b\+?tree|b-tree|btree|r-tree|hash index|hash table|bloom|\bindex\b|clustered|secondary|covering|lru|lfu|\blist\b|sublist|buffer pool|change buffer|adaptive hash|page directory|free list|\bleaf\b|\btree\b|索引|b\+树|哈希|列表|页目录|缓冲池|变更缓冲区/i],
@@ -243,7 +236,7 @@ const DOMAINS = [
   {
     id: 'operating_systems',
     school: '系统',
-    name: '操作系统理论',
+    name: '操作系统',
     icon: 'O',
     desc: '进程、线程、虚拟内存、文件系统、I/O、启动关闭和本机资源语义。',
     patterns: [/operating system|virtual memory|paging|\bthread\b|\bprocess\b|ipc|file system|filesystem|\bfile\b|\bdirectory\b|pid|hdd|ssd|\bdisk\b|i\/o|aio|nonblocking|shutdown|startup|my\.cnf|my\.ini|option file|configuration|\bpath\b|进程|线程|文件系统|文件|目录|磁盘|启动|关闭|配置/i],
@@ -259,7 +252,7 @@ const DOMAINS = [
   {
     id: 'storage_systems',
     school: '系统',
-    name: '存储系统理论',
+    name: '存储系统',
     icon: 'S',
     desc: 'WAL、页、表空间、redo/undo、doublewrite buffer 和物理存储布局。',
     patterns: [/wal|\bpage\b|tablespace|doublewrite|\bredo\b|\bundo\b|\bbuffer\b|buffering|data file|space id|extent|segment|row format|\brecord\b|innodb|myisam|memory engine|storage engine|disk-based|physical|file-per-table|ibdata|ib_logfile|\.(?:arm|arz|cfg|frm|ibd|ibz|mrg|myd|myi|opt|par)\b|sdi|checkpoint|compact|dynamic|redundant|compressed|\brow\b|\bcolumn\b|temporary table|页|表空间|重做|撤销|缓冲|缓冲区|记录|段|区段|行格式|数据文件|存储引擎|紧凑|动态行|冗余|压缩|行|列|临时表/i],
@@ -283,7 +276,7 @@ const DOMAINS = [
   {
     id: 'distributed_systems',
     school: '系统',
-    name: '分布式系统理论',
+    name: '分布式系统',
     icon: 'D',
     desc: '主从复制、GTID、组复制、集群、故障切换、共识和 CAP 权衡。',
     patterns: [/replication|replica|\bsource\b|\bslave\b|\bmaster\b|gtid|paxos|consensus|\bcap\b|cluster|group replication|failover|high availability|\bavailability\b|heartbeat|distributed|router|global transaction|复制|副本|主从|集群|故障切换|高可用|可用性|分布式/i],
@@ -338,7 +331,7 @@ const DOMAINS = [
   },
   {
     id: 'calendar_systems',
-    school: '现实约定',
+    school: '标准与约定',
     name: '历法系统（公历/格里历）',
     icon: 'G',
     desc: 'DATE、DATETIME、年/月/日边界和公历日期约定。',
@@ -346,7 +339,7 @@ const DOMAINS = [
   },
   {
     id: 'character_encoding_standards',
-    school: '现实约定',
+    school: '标准与约定',
     name: '字符编码标准（Unicode/UTF-8）',
     icon: 'U',
     desc: 'Unicode、UTF-8、CHAR/VARCHAR、character set 和 collation 排序规则。',
@@ -354,7 +347,7 @@ const DOMAINS = [
   },
   {
     id: 'timezone_standards',
-    school: '现实约定',
+    school: '标准与约定',
     name: '时区标准（IANA tzdata）',
     icon: 'Z',
     desc: 'TIMESTAMP、时区、IANA tzdata 和时间转换约定。',
@@ -363,6 +356,11 @@ const DOMAINS = [
 ];
 
 const DOMAIN_BY_ID = new Map(DOMAINS.map((domain) => [domain.id, domain]));
+
+const THEORY_DOMAIN_OVERRIDES = Object.freeze({
+  k_dict_xb5t6pmm: 'normalization_theory',
+  k_dict_s1u2tlxt: 'storage_systems',
+});
 
 const PRIORITY_DOMAIN_IDS = [
   'timezone_standards',
@@ -559,8 +557,15 @@ function mysqlTopLevelIdsChanged(mysqlRoot, baselineMysqlRoot) {
   const currentIds = (mysqlRoot.children ?? []).map((child) => child.id);
   const baselineIds = (baselineMysqlRoot?.children ?? []).map((child) => child.id);
   if (baselineIds.length === 0) return false;
-  if (currentIds.length !== baselineIds.length) return true;
-  return currentIds.some((id, index) => id !== baselineIds[index]);
+  const currentWithoutAdditions = currentIds.filter((id) => baselineIds.includes(id));
+  const baselineStillPresent = baselineIds.every((id) => currentIds.includes(id));
+  const allowedAdditions = new Set(['mysql_topic_uncategorized']);
+  const unexpectedAdditions = currentIds.filter(
+    (id) => !baselineIds.includes(id) && !allowedAdditions.has(id),
+  );
+  return !baselineStillPresent
+    || unexpectedAdditions.length > 0
+    || currentWithoutAdditions.some((id, index) => id !== baselineIds[index]);
 }
 
 function restoreMissingNodePoolEntries(nodePool, sourceNodePool, treeRoot) {
@@ -607,6 +612,8 @@ function fallbackDomainId(node) {
 }
 
 function classifyItem(item) {
+  const override = THEORY_DOMAIN_OVERRIDES[item.nodeId];
+  if (override) return override;
   const text = itemText(item.node);
   for (const domainId of PRIORITY_DOMAIN_IDS) {
     const domain = DOMAIN_BY_ID.get(domainId);
@@ -630,7 +637,19 @@ function termTreeId(domain, item) {
   return `mysql_term_${domain.id}_${slugify(english)}_${hash32(item.nodeId).slice(0, 6)}`;
 }
 
-function upsertDomainNode(nodePool, domain, itemCount) {
+function canonicalDomainContent(existing, fallback) {
+  const current = existing?.card?.tabs?.find((tab) => tab.id === 'def')?.content
+    ?? existing?.card?.tabs?.[0]?.content
+    ?? '';
+  const cleaned = current
+    .replace(/^独立门派：[^\n]+\n\n/, '')
+    .replace(/\n\n当前归入 \d+ 个(?: MySQL)? 知识节点。?$/, '')
+    .trim();
+  if (!cleaned || /的理论域说明。?$/.test(cleaned)) return fallback;
+  return cleaned;
+}
+
+function upsertDomainNode(nodePool, domain) {
   const id = domainNodeId(domain);
   const existing = nodePool[id];
   nodePool[id] = {
@@ -648,16 +667,15 @@ function upsertDomainNode(nodePool, domain, itemCount) {
         {
           id: 'def',
           label: '定义',
-          content: `独立门派：${domain.school}\n\n${domain.desc}\n\n当前归入 ${itemCount} 个知识节点。`,
+          content: canonicalDomainContent(existing, domain.desc),
         },
       ],
     },
   };
 }
 
-function upsertTheoryNode(nodePool, id, title, desc, itemCount = null) {
+function upsertTheoryNode(nodePool, id, title, desc) {
   const existing = nodePool[id];
-  const countLine = itemCount === null ? '' : `\n\n当前归入 ${itemCount} 个 MySQL 知识节点。`;
   nodePool[id] = {
     ...(existing ?? {}),
     id,
@@ -673,32 +691,61 @@ function upsertTheoryNode(nodePool, id, title, desc, itemCount = null) {
         {
           id: 'def',
           label: '定义',
-          content: `${desc}${countLine}`,
+          content: desc,
         },
       ],
     },
   };
 }
 
-function schoolNodeId(school) {
-  const id = SCHOOL_IDS.get(school);
-  if (!id) throw new Error(`Missing school id for ${school}`);
-  return id;
+function collectExistingTermEntries(root) {
+  const entries = new Map();
+  for (const node of collectTreeNodes(root)) {
+    if (!node.id.startsWith('mysql_term_') || !node.nodeRef) continue;
+    const existing = entries.get(node.nodeRef) ?? [];
+    existing.push(cloneJson(node));
+    entries.set(node.nodeRef, existing);
+  }
+  return entries;
 }
 
-function makeDomainTree(nodePool, domain, items) {
-  upsertDomainNode(nodePool, domain, items.length);
-  const children = items
+function stableTermTreeEntry(domain, item, existingEntries) {
+  const previous = existingEntries.get(item.nodeId) ?? [];
+  if (previous.length === 0) return treeEntry(termTreeId(domain, item), item.node.label, item.nodeId);
+  const first = previous[0];
+  return {
+    ...first,
+    name: item.node.label,
+    nodeRef: item.nodeId,
+    children: mergeTreeChildren(...previous.map((entry) => entry.children ?? [])),
+  };
+}
+
+function makeDomainTermTrees(domain, items, existingEntries) {
+  return items
     .toSorted((a, b) => a.node.label.localeCompare(b.node.label, 'zh-Hans-CN'))
-    .map((item) => treeEntry(termTreeId(domain, item), item.node.label, item.nodeId));
+    .map((item) => stableTermTreeEntry(domain, item, existingEntries));
+}
+
+function makeDomainTree(nodePool, domain, items, preservedChildren = [], existingTermEntries) {
+  upsertDomainNode(nodePool, domain);
+  const children = mergeTreeChildren(
+    preservedChildren,
+    makeDomainTermTrees(domain, items, existingTermEntries),
+  );
 
   return treeEntry(domainNodeId(domain), domain.name, domainNodeId(domain), children);
 }
 
-function makeSchoolTrees(nodePool, grouped) {
-  const schools = unique(DOMAINS.map((domain) => domain.school));
+function mergeTreeChildren(...groups) {
+  const merged = new Map();
+  for (const child of groups.flat()) {
+    if (!merged.has(child.id)) merged.set(child.id, child);
+  }
+  return [...merged.values()];
+}
 
-  // Deduplicate items across domains: if an item appears in multiple domains, keep only the first occurrence
+function deduplicateGroupedItems(grouped) {
   const seenNodeIds = new Set();
   for (const domain of DOMAINS) {
     const items = grouped.get(domain.id) ?? [];
@@ -709,59 +756,120 @@ function makeSchoolTrees(nodePool, grouped) {
     });
     grouped.set(domain.id, deduplicatedItems);
   }
-
-  return schools.map((school) => {
-    const schoolDomains = DOMAINS.filter((domain) => domain.school === school);
-    const schoolItems = schoolDomains.flatMap((domain) => grouped.get(domain.id) ?? []);
-    const id = schoolNodeId(school);
-
-    upsertTheoryNode(
-      nodePool,
-      id,
-      school,
-      `${school}是一门独立知识门派；这里收录从具体实现中抽离出的通用概念引用，不隶属于 MySQL。`,
-      schoolItems.length,
-    );
-
-    return treeEntry(
-      id,
-      school,
-      id,
-      schoolDomains.map((domain) => makeDomainTree(nodePool, domain, grouped.get(domain.id) ?? [])),
-    );
-  });
 }
 
-function isGeneratedTheoryTreeEntry(node) {
-  return isGeneratedTheoryNodeId(node.id) || node.id.startsWith('mysql_term_');
-}
-
-function removeGeneratedTheoryTreeEntries(root) {
-  if (!root.children) return;
-  root.children = root.children.filter((child) => !isGeneratedTheoryTreeEntry(child));
-  for (const child of root.children) removeGeneratedTheoryTreeEntries(child);
-}
-
-function insertSchoolTrees(tree, schoolTrees) {
-  removeGeneratedTheoryTreeEntries(tree);
-  const parent = findTreeNode(tree, THEORY_PARENT_TREE_ID) ?? tree;
-  parent.children = [...(parent.children ?? []), ...schoolTrees];
-}
-
-function pruneMovedTheoryRefsFromMysql(node, movedTheoryRefs, preservedTreeIds = new Set()) {
-  const nextChildren = [];
-  for (const child of node.children ?? []) {
-    const prunedChild = pruneMovedTheoryRefsFromMysql(child, movedTheoryRefs, preservedTreeIds);
-    if (prunedChild) nextChildren.push(prunedChild);
+function findTreeParent(root, childId) {
+  for (const child of root.children ?? []) {
+    if (child.id === childId) return root;
+    const found = findTreeParent(child, childId);
+    if (found) return found;
   }
+  return null;
+}
 
-  const isMovedLeafRef = node.nodeRef && movedTheoryRefs.has(node.nodeRef);
-  const shouldPreserve = preservedTreeIds.has(node.id) || node.id === MYSQL_TREE_ID;
-  if (isMovedLeafRef && nextChildren.length === 0 && !shouldPreserve) return null;
-  if (isMovedLeafRef && nextChildren.length > 0 && !shouldPreserve) delete node.nodeRef;
+function detachTreeNode(root, childId) {
+  if (!root.children) return null;
+  const index = root.children.findIndex((child) => child.id === childId);
+  if (index >= 0) return root.children.splice(index, 1)[0];
+  for (const child of root.children) {
+    const found = detachTreeNode(child, childId);
+    if (found) return found;
+  }
+  return null;
+}
 
-  node.children = nextChildren.length ? nextChildren : undefined;
-  return node;
+function collectPreservedDomainChildren(root) {
+  const result = new Map();
+  for (const node of collectTreeNodes(root)) {
+    if (!node.id.startsWith('theory_domain_')) continue;
+    result.set(
+      node.id,
+      (node.children ?? []).map((child) => cloneJson(child)),
+    );
+  }
+  return result;
+}
+
+function collectPreservedDirectTermChildren(root) {
+  const result = new Map();
+  for (const node of collectTreeNodes(root)) {
+    const terms = (node.children ?? [])
+      .filter((child) => child.id.startsWith('mysql_term_'))
+      .map((child) => cloneJson(child));
+    if (terms.length > 0) result.set(node.id, terms);
+  }
+  return result;
+}
+
+function removeGeneratedDomainTreeEntries(root) {
+  if (!root.children) return;
+  root.children = root.children.filter((child) => (
+    !child.id.startsWith('theory_domain_')
+    && !child.id.startsWith('mysql_term_')
+    && !DEPRECATED_TAXONOMY_CONTAINER_IDS.includes(child.id)
+  ));
+  for (const child of root.children) removeGeneratedDomainTreeEntries(child);
+}
+
+function ensureTaxonomyContainers(tree, nodePool) {
+  for (const spec of TAXONOMY_CONTAINER_SPECS) {
+    const targetParent = findTreeNode(tree, spec.parentTreeId);
+    if (!targetParent) throw new Error(`Taxonomy parent ${spec.parentTreeId} not found for ${spec.id}`);
+
+    let container = findTreeNode(tree, spec.id);
+    if (!container) {
+      container = treeEntry(spec.id, spec.name, spec.id, []);
+      targetParent.children = [...(targetParent.children ?? []), container];
+    } else {
+      const currentParent = findTreeParent(tree, spec.id);
+      if (currentParent?.id !== targetParent.id) {
+        container = detachTreeNode(tree, spec.id);
+        targetParent.children = [...(targetParent.children ?? []), container];
+      }
+      container.name = spec.name;
+      container.nodeRef = spec.id;
+    }
+
+    upsertTheoryNode(nodePool, spec.id, spec.name, spec.description);
+  }
+}
+
+function insertDomainTrees(
+  tree,
+  nodePool,
+  grouped,
+  preservedDomainChildren,
+  preservedDirectTermChildren,
+  existingTermEntries,
+) {
+  deduplicateGroupedItems(grouped);
+
+  for (const domain of DOMAINS) {
+    const items = grouped.get(domain.id) ?? [];
+    const mount = domainMount(domain.id);
+    const parent = findTreeNode(tree, mount.parentTreeId);
+    if (!parent) throw new Error(`Taxonomy mount ${mount.parentTreeId} not found for ${domain.id}`);
+    const preserved = preservedDomainChildren.get(domainNodeId(domain)) ?? [];
+
+    if (mount.direct) {
+      upsertDomainNode(nodePool, domain);
+      if (parent.nodeRef !== domainNodeId(domain)) {
+        throw new Error(`Direct taxonomy mount ${parent.id} must reference ${domainNodeId(domain)}`);
+      }
+      parent.children = mergeTreeChildren(
+        parent.children ?? [],
+        preserved,
+        preservedDirectTermChildren.get(parent.id) ?? [],
+        makeDomainTermTrees(domain, items, existingTermEntries),
+      );
+      continue;
+    }
+
+    parent.children = mergeTreeChildren(
+      parent.children ?? [],
+      [makeDomainTree(nodePool, domain, items, preserved, existingTermEntries)],
+    );
+  }
 }
 
 function makeTreeBindingEdge(parent, child, nodePool) {
@@ -775,6 +883,7 @@ function makeTreeBindingEdge(parent, child, nodePool) {
     target: child.nodeRef,
     type: 'belongs-to',
     label: 'contains',
+    relationKind: 'structure',
     dimensions: unique([
       ...(nodePool[parent.nodeRef]?.dimensions ?? []),
       ...(nodePool[child.nodeRef]?.dimensions ?? []),
@@ -819,12 +928,6 @@ function assertUniqueTreeIds(root) {
   }
 }
 
-function removeOldDomainNodes(nodePool) {
-  for (const id of Object.keys(nodePool)) {
-    if (isGeneratedTheoryNodeId(id)) delete nodePool[id];
-  }
-}
-
 function main() {
   const tree = readJson(TREE_PATH);
   const nodePool = readJson(NODE_POOL_PATH);
@@ -835,11 +938,25 @@ function main() {
   const { implementationItems, theoryItems } = partitionKnowledgeItems(items, mysqlRoot);
   const grouped = new Map(DOMAINS.map((domain) => [domain.id, []]));
   for (const item of theoryItems) grouped.get(classifyItem(item)).push(item);
+  const functionalReferences = ensureMysqlFunctionalTheoryReferences({
+    tree,
+    nodePool,
+    theoryItems,
+  });
 
-  removeOldDomainNodes(nodePool);
-  pruneMovedTheoryRefsFromMysql(mysqlRoot, new Set(theoryItems.map((item) => item.nodeId)), new Set([MYSQL_TREE_ID, ...MYSQL_IMPLEMENTATION_TOPIC_IDS]));
-  const schoolTrees = makeSchoolTrees(nodePool, grouped);
-  insertSchoolTrees(tree, schoolTrees);
+  const preservedDomainChildren = collectPreservedDomainChildren(tree);
+  const preservedDirectTermChildren = collectPreservedDirectTermChildren(tree);
+  const existingTermEntries = collectExistingTermEntries(tree);
+  removeGeneratedDomainTreeEntries(tree);
+  ensureTaxonomyContainers(tree, nodePool);
+  insertDomainTrees(
+    tree,
+    nodePool,
+    grouped,
+    preservedDomainChildren,
+    preservedDirectTermChildren,
+    existingTermEntries,
+  );
 
   assertUniqueTreeIds(tree);
 
@@ -862,8 +979,12 @@ function main() {
         knowledgeItems: items.length,
         implementationItems: implementationItems.length,
         theoryItems: theoryItems.length,
+        functionalTheoryReferencesAdded: functionalReferences.referencesAdded,
+        unmappedFunctionalTheoryReferences: functionalReferences.unmappedNodeIds,
         mysqlTreeEntries: collectTreeNodes(mysqlRoot).length,
-        schoolTreeEntries: schoolTrees.flatMap(collectTreeNodes).length,
+        taxonomyDomainEntries: DOMAINS.reduce((sum, domain) => (
+          sum + (grouped.get(domain.id)?.length ?? 0) + 1
+        ), 0),
         totalNodes: Object.keys(nodePool).length,
         totalEdges: nextEdges.length,
       },

@@ -1,0 +1,52 @@
+20。第一部分数据结构与对象
+现（第1～4部分）》一书的3.3至3.5节，或者《数据结构与算法分析：C语言描述》一书
+的3.2节，又或者《算法导论（第三版）》一书的10.2节。
+3.1钅
+链表和链表节点的实现
+每个链表节点使用一个adlist.h/listNode结构来表示：
+typedef struct listNode (
+//前置节点
+struct listNode *prev;
+//后置节点
+struct listNode *next;
+//节点的值
+void *value;
+llistNode;
+多个listNode可以通过prev和next指针组成双端链表，如图3-1所示。
+listNode
+listNode
+listNode
+next
+next
+next
+next
+value
+value
+prev
+prev
+value
+prev
+prev
+...
+...
+图3-1由多个1istNode组成的双端链表
+虽然仅仅使用多个listNode结构就可以组成链表，但使用adlist.h/1ist来持有
+链表的话，操作起来会更方便：
+typedef struct list (
+//表头节点
+listNode *head;
+//表尾节点
+listNode *tail;
+/／链表所包含的节点数量
+unsigned long len;
+//·节点值复制函数
+void*(*dup)(void*ptr);
+//节点值释放函数
+void(*free)(void*ptr);
+//节点值对比函数
+int(*match)(void*ptr,void*key);
+Jlist;
+list结构为链表提供了表头指针head、表尾指针tail，以及链表长度计数器len，
+而dup、free和match成员则是用于实现多态链表所需的类型特定函数：
+口dup函数用于复制链表节点所保存的值；
+口free函数用于释放链表节点所保存的值；

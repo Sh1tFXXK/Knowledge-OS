@@ -1,0 +1,41 @@
+270第三部分多机数据库的实现
+在对集群进行重新分片的时候，向源节点发送命令：
+CLUSTERSETSLOT<i>MIGRATING<target_id>
+可以将源节点clusterstate.migrating_slots_to【i］的值设置为target_id
+所代表节点的clusterNode结构。
+举个例子，如果客户端向节点7002发送以下命令：
+#0457..．是节点7003的ID
+127.0.0.1:7002>CLUSTERSETSL0T16198MIGRATING04579925484ce537d3410d7ce97bd2e2
+60c459a2
+OK
+那么节点7002的clusterstate.migrating_slots_to数组将变成图17-28所示
+的样子。
+clusterstate
+migrating_slots_to
+clusterNode*[16384]
+★NULL
++NULL
++NULL
+16198
+clusterNode
++ NULL
+16381
+ip
+"127.0.0.1"
+16382
+> NULL
+16383
+port
++ NULL
+7003
+图17-28节点7002的migrating_slots_to数组
+17.5.3
+3ASK错误
+如果节点收到一个关于键key的命令请求，并且键key所属的槽i正好就指派给了这
+个节点，那么节点会尝试在自已的数据库里查找键keY，如果找到了的话，节点就直接执行
+客户端发送的命令。
+与此相反，如果节点没有在自己的数据库里找到键keY，那么节点会检查自已的
+clusterstate.migrating_slots_to［i]，看键key所属的槽i是否正在进行迁移，
+如果槽i的确在进行迁移的话，那么节点会向客户端发送一个ASK错误，引导客户端到正
+在导入槽i的节点去查找键key。
+举个例子，假设在节点7002向节点7003迁移槽16198期间，有一个客户端向节点7002

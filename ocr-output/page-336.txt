@@ -1,0 +1,34 @@
+第19章事务·319
+口当服务器运行在AOF持久化模式下，并且appendfsync选项的值为no时，程序
+会交由操作系统来决定何时将命令数据同步到硬盘。因为事务数据可能在等待同步
+的过程中丢失，所以这种配置下的事务不具有耐久性。
+no-appendfsync-on-rewrite配置选项对耐久性的影响
+配置选项no-appendfsync-on-rewrite可以配合appendfsync选项
+为always或者everysec的AoF持久化模式使用。当no-appendfsync-on-
+rewrite选项处于打开状态时，在执行BGSAVE命令或者BGREWRITEAOF命令期
+间，服务器会暂时停止对AOF文件进行同步，从而尽可能地减少I/O阻塞。但是这样
+一来，关于“always模式的AOF持久化可以保证事务的耐久性”这一结论将不再成
+立，因为在服务器停止对AOF文件进行同步期间，事务结果可能会因为停机而丢失。
+因此，如果服务器打开了no-appendfsync-on-rewrite选项，那么即使服务器
+运行在always模式的AOF持久化之下，事务也不具有耐久性。在默认配置下，no-
+appendfsync-on-rewrite处于关闭状态。
+不论Redis在什么模式下运作，在一个事务的最后加上SAVE命令总可以保证事务的耐
+久性：
+redis>MULTI
+OK
+redis>SET msg"hello"
+QUEUED
+redis> SAVE
+QUEUED
+redis> EXEC
+1)OK
+2)OK
+不过因为这种做法的效率太低，所以并不具有实用性。
+19.4
+重点回顾
+口事务提供了一种将多个命令打包，然后一次性、有序地执行的机制。
+口多个命令会被人队到事务队列中，然后按先进先出（FIFO）的顺序执行。
+口事务在执行过程中不会被中断，当事务队列中的所有命令都被执行完毕之后，事务
+才会结束。
+典中进行关联，当键被修改时，程序会将所有监视被修改键的客户端的REDIS_
+DIRTY_CAS标志打开。

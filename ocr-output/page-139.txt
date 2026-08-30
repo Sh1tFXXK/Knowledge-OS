@@ -1,0 +1,36 @@
+122第二部分单机数据库的实现
+口服务器在60秒之内，对数据库进行了至少10000次修改。
+举个例子，以下是Redis服务器在60秒之内，对数据库进行了至少10000次修改之后，
+服务器自动执行BGSAVE命令时打印出来的日志：
+[5085]03 Sep 17:09:49.463*10000 changes in 60 seconds.Saving..
+[5189]03Sep17:09:49.522*DBsavedondisk
+[5189]03Sep17:09:49.522*RDB:0MBofmemoryusedbycopy-on-write
+[5085]03Sep17:09:49.563*Backgroundsavingterminatedwithsuccess
+在本节接下来的内容中，我们将介绍Redis服务器是如何根据save选项设置的保存条
+件，自动执行BGSAVE命令的。
+10.2.1i
+设置保存条件
+当Redis服务器启动时，用户可以通过指定配置文件或者传入启动参数的方式设置save
+选项，如果用户没有主动设置save选项，那么服务器会为save选项设置默认条件：
+save 900 1
+save 300 10
+save6010000
+接着，服务器程序会根据save选项所设置的保存条件，设置服务器状态redisServer
+结构的saveparams属性：
+struct redissServer (
+//记录了保存条件的数组
+struct saveparam*saveparams;
+1 ;
+saveparams属性是一个数组，数组中的每个元素都是一个saveparam结构，每个
+saveparam结构都保存了一个save选项设置的保存条件：
+struct saveparam f
+//秒数
+time_t seconds;
+//修改数
+int changes;
+1 ;
+比如说，如果save选项的值为以下条件：
+save 900 1
+save 300 10
+save 60 10000
+那么服务器状态中的saveparams数组将会是图10-6所示的样子。

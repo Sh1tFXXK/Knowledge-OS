@@ -80,11 +80,12 @@ export function computeTabRows(
   let currentTabs: ExplanationTab[] | undefined = initialTabs;
   let pathIndex = 0;
   while (currentTabs && currentTabs.length > 0) {
-    const activeTabId =
+    const activeTabId: string | null =
       pathIndex < tabPath.length ? tabPath[pathIndex].id : (currentTabs[0]?.id ?? null);
     rows.push({ tabs: currentTabs, activeTabId });
     if (!activeTabId) break;
-    const activeTab = currentTabs.find((tab) => tab.id === activeTabId) ?? null;
+    const activeTab: ExplanationTab | null =
+      currentTabs.find((tab) => tab.id === activeTabId) ?? null;
     if (!activeTab?.tabs?.length) break;
     currentTabs = activeTab.tabs;
     pathIndex += 1;
@@ -100,10 +101,12 @@ export function computePageRows(
   let currentPages: ExplanationPage[] | undefined = initialPages;
   let pathIndex = 0;
   while (currentPages && currentPages.length > 0) {
-    const activePageId = pathIndex < pagePath.length ? pagePath[pathIndex].id : currentPages[0]?.id ?? null;
+    const activePageId: string | null =
+      pathIndex < pagePath.length ? pagePath[pathIndex].id : currentPages[0]?.id ?? null;
     rows.push({ pages: currentPages, activePageId });
     if (!activePageId) break;
-    const activePage = currentPages.find((p) => p.id === activePageId) ?? null;
+    const activePage: ExplanationPage | null =
+      currentPages.find((p) => p.id === activePageId) ?? null;
     if (!activePage || !activePage.pages || activePage.pages.length === 0) break;
     currentPages = activePage.pages;
     pathIndex += 1;

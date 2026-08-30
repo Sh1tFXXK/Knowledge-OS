@@ -1,0 +1,35 @@
+第9章数据库¥115
+在接下来的内容中，我们来看看数据库通知功能的实现原理。
+9.8.1
+发送通知
+发送数据库通知的功能是由notify.c/notifyKeyspaceEvent函数实现的：
+voidnotifyKeyspaceEvent(int type,char*event,robj*key,intdbid);
+函数的tYpe参数是当前想要发送的通知的类型，程序会根据这个值来判断通知是否
+就是服务器配置notify-keyspace-events选项所选定的通知类型，从而决定是否发
+送通知。
+event、keys和dbid分别是事件的名称、产生事件的键，以及产生事件的数据库号
+码，函数会根据type参数以及这三个参数来构建事件通知的内容，以及接收通知的频道名。
+每当一个Redis命令需要发送数据库通知的时候，该命令的实现函数就会调用notify-
+KeyspaceEvent函数，并向函数传递传递该命令所引发的事件的相关信息。
+例如，以下是SADD命令的实现函数saddCommand的其中一部分代码：
+voidsaddCommand(redisclient*c)(
+I1 ...
+如果至少有一个元素被成功添加，那么执行以下程序
+if
+(added)（
+//...
+//发送事件通知
+//
+当SADD命令至少成功地向集合添加了一个集合元素之后，命令就会发送通知，该通知
+的类型为REDIS_NOTIFY_SET（表示这是一个集合键通知），名称为Sadd（表示这是执
+行SADD命令所产生的通知）。
+以下是另一个例子，展示了DEL命令的实现函数delcommand的其中一部分代码：
+voi delCommand(redisclient *c)(
+intdeleted=0,j;
+//遍历所有输入键
+for（j=l;j<c->argc;j++)(
+//尝试删除键
+if(dbDelete(c->db,c->argv[j]))(
+1/ ...
+//删除键成功，发送通知
+notifyKeyspaceEvent(REDIS_NOTIFY_GENERIC,

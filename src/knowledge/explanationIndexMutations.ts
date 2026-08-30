@@ -375,12 +375,11 @@ function addChild(
   const tab = findTab(explanation.tabs, selection.tabId);
   if (!tab) return unchanged(explanation, selection);
   const pages = explicitPagesForTab(explanation, tab);
-  let child: ExplanationPage | null = null;
+  const child: ExplanationPage = { ...createBlankPage(createId('page')), label: trimmed };
   const mapped = mapPages(pages, selection.pageId, (page) => {
-    child = { ...createBlankPage(createId('page')), label: trimmed };
     return { ...page, pages: [...(page.pages ?? []), child] };
   });
-  if (!mapped.found || !child) return unchanged(explanation, selection);
+  if (!mapped.found) return unchanged(explanation, selection);
   return changed(
     replaceTabPages(explanation, tab.id, mapped.items),
     contentSelection(explanation.nodeId, tab.id, child.id),

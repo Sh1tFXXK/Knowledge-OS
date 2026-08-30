@@ -1,0 +1,896 @@
+{
+  "totals": {
+    "nodes": 3025,
+    "edges": 3378,
+    "treeEntries": 2371,
+    "questions": 560,
+    "timelineItems": 2375
+  },
+  "structuralIntegrity": {
+    "validatorIssueCount": 0,
+    "validatorIssues": [],
+    "missingTreeNodeRefs": 1,
+    "missingPoolNodes": 0,
+    "duplicateTreeIds": 0,
+    "orphanNodes": 865,
+    "keyIdMismatch": 0,
+    "missingNodeId": 0,
+    "missingLabels": 0,
+    "duplicateExactLabelGroups": 116,
+    "multiPlacementNodes": 190
+  },
+  "relationshipIntegrity": {
+    "missingId": 0,
+    "missingSource": 0,
+    "missingTarget": 0,
+    "missingEndpoint": 0,
+    "selfLoop": 0,
+    "duplicateId": 0,
+    "duplicateTypedPair": 5,
+    "missingQuestionRefs": 0,
+    "missingTimelineRefs": 0
+  },
+  "contentCoverage": {
+    "noCardNodes": 0,
+    "contentlessCards": 117,
+    "cardTitleMismatch": 37
+  },
+  "orphanPrefixCounts": [
+    [
+      "k_dict",
+      62
+    ],
+    [
+      "k_auto",
+      21
+    ],
+    [
+      "demo_snapshot",
+      1
+    ],
+    [
+      "demo_vchain",
+      1
+    ],
+    [
+      "demo_btree",
+      1
+    ],
+    [
+      "demo_composite",
+      1
+    ],
+    [
+      "demo_buffer",
+      1
+    ],
+    [
+      "demo_join",
+      1
+    ],
+    [
+      "demo_subquery",
+      1
+    ],
+    [
+      "demo_postgres",
+      1
+    ],
+    [
+      "n_97x8s5dv",
+      1
+    ],
+    [
+      "n_s7t5dbya",
+      1
+    ],
+    [
+      "n_6dgtsmpj",
+      1
+    ],
+    [
+      "n_9hr0nvvv",
+      1
+    ],
+    [
+      "react_import",
+      1
+    ],
+    [
+      "k_1781002876731",
+      1
+    ],
+    [
+      "k_1781003318112",
+      1
+    ],
+    [
+      "k_1781008748598",
+      1
+    ],
+    [
+      "k_1781008786381",
+      1
+    ]
+  ],
+  "orphanSamples": [
+    {
+      "id": "demo_snapshot",
+      "label": "快照读",
+      "role": "conclusion",
+      "dimensions": [
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_vchain_sys",
+      "label": "版本链子系统",
+      "role": "subsystem",
+      "dimensions": [
+        "storage",
+        "transaction"
+      ]
+    },
+    {
+      "id": "demo_btree",
+      "label": "B+树索引",
+      "role": "mechanism",
+      "dimensions": [
+        "storage",
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_composite_index",
+      "label": "组合索引",
+      "role": "mechanism",
+      "dimensions": [
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_buffer",
+      "label": "缓冲池 / buffer pool",
+      "role": "mechanism",
+      "dimensions": [
+        "storage",
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_join",
+      "label": "JOIN 连接",
+      "role": null,
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_subquery",
+      "label": "子查询",
+      "role": null,
+      "dimensions": [
+        "performance"
+      ]
+    },
+    {
+      "id": "demo_postgres",
+      "label": "PostgreSQL",
+      "role": "subsystem",
+      "dimensions": [
+        "storage",
+        "transaction"
+      ]
+    },
+    {
+      "id": "n_97x8s5dv",
+      "label": "存储引擎 / storage engine",
+      "role": "subsystem",
+      "dimensions": [
+        "storage"
+      ]
+    },
+    {
+      "id": "n_s7t5dbya",
+      "label": "性能优化",
+      "role": "subsystem",
+      "dimensions": []
+    },
+    {
+      "id": "n_6dgtsmpj",
+      "label": "数据结构",
+      "role": "subsystem",
+      "dimensions": []
+    },
+    {
+      "id": "n_9hr0nvvv",
+      "label": "算法与数据结构",
+      "role": "subsystem",
+      "dimensions": []
+    },
+    {
+      "id": "react_import_aliasing",
+      "label": "导入重命名",
+      "role": "mechanism",
+      "dimensions": [
+        "react"
+      ]
+    },
+    {
+      "id": "k_1781002876731_3ct76l",
+      "label": "数据页（B+ tree）",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_1781003318112_lryll2",
+      "label": "系统页",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_1781008748598_72gaz3",
+      "label": "FILE_PAGE_PREV",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_1781008786381_wiun1h",
+      "label": "FILE_PAGE_NEXT",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_1hl4cg6",
+      "label": "MEMORY",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_pysvvf",
+      "label": "BDB",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_va5371",
+      "label": "主键索引",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_yb9yyu",
+      "label": "普通索引",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_es1cgt",
+      "label": "前缀索引",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_g7wfdd",
+      "label": "混合导出",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_1gqanov",
+      "label": "import X, { Y }",
+      "role": null,
+      "dimensions": []
+    },
+    {
+      "id": "k_auto_figgbw",
+      "label": "行内导出",
+      "role": null,
+      "dimensions": []
+    }
+  ],
+  "multiPlacementSamples": [
+    {
+      "nodeId": "k_atom_storestore",
+      "label": "StoreStore 屏障",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "k_1783096608797_3rf6xc",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / StoreStore 屏障"
+        },
+        {
+          "parentNodeRef": "k_1783093717594_y3gttn",
+          "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / StoreStore 屏障"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_atom_loadstore",
+      "label": "LoadStore 屏障",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "k_1783096608797_3rf6xc",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / LoadStore 屏障"
+        },
+        {
+          "parentNodeRef": "k_1783093717594_y3gttn",
+          "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / LoadStore 屏障"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_atom_storeload",
+      "label": "StoreLoad 屏障",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "k_1783096608797_3rf6xc",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存屏障 / StoreLoad 屏障"
+        },
+        {
+          "parentNodeRef": "k_1783093717594_y3gttn",
+          "path": "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / 内存可见性 / StoreLoad 屏障"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_jwcd61u4",
+      "label": "关闭 / shutdown",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 关闭 / shutdown"
+        },
+        {
+          "parentNodeRef": "mysql_topic_backup_operations",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 备份、运维与诊断 / 关闭 / shutdown"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_plyim9pi",
+      "label": "进程 / process",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 进程 / process"
+        },
+        {
+          "parentNodeRef": "mysql_topic_architecture",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 进程 / process"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_hcbepdud",
+      "label": "快速关闭 / fast shutdown",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 快速关闭 / fast shutdown"
+        },
+        {
+          "parentNodeRef": "mysql_topic_backup_operations",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 备份、运维与诊断 / 快速关闭 / fast shutdown"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_n7rueozw",
+      "label": "线程 / thread",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 线程 / thread"
+        },
+        {
+          "parentNodeRef": "mysql_topic_architecture",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 线程 / thread"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_mb72ps2c",
+      "label": "RAID",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / RAID"
+        },
+        {
+          "parentNodeRef": "mysql_topic_uncategorized",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 未分类 / RAID"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_1782930954484_nwtfg7",
+      "label": "存储过程",
+      "parentCount": 3,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_operating_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 存储过程"
+        },
+        {
+          "parentNodeRef": "mysql_topic_sql_objects",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 存储过程"
+        },
+        {
+          "parentNodeRef": "k_wiki_en_outline_of_databases_s12",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 存储过程"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_p7los2aq",
+      "label": "动态 SQL / dynamic SQL",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_storage_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 动态 SQL / dynamic SQL"
+        },
+        {
+          "parentNodeRef": "mysql_topic_sql_objects",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 动态 SQL / dynamic SQL"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_dict_jw1sc90t",
+      "label": "撤销 / undo",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_storage_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 撤销 / undo"
+        },
+        {
+          "parentNodeRef": "mysql_topic_innodb_internals",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / InnoDB 内部结构 / 撤销 / undo"
+        }
+      ]
+    },
+    {
+      "nodeId": "k_1781962829528_eqvypd",
+      "label": "干净页 / clean page",
+      "parentCount": 2,
+      "placements": [
+        {
+          "parentNodeRef": "theory_domain_storage_systems",
+          "path": "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 干净页 / clean page"
+        },
+        {
+          "parentNodeRef": "mysql_topic_innodb_internals",
+          "path": "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / InnoDB 内部结构 / 干净页 / clean page"
+        }
+      ]
+    }
+  ],
+  "duplicateLabelSamples": [
+    {
+      "normalizedLabel": "索引",
+      "label": "索引",
+      "nodeIds": [
+        "n_0xxb9cqy",
+        "k_wiki_en_outline_of_databases_s12_b9"
+      ],
+      "placements": [
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 索引与访问路径 / 索引",
+          "知识宇宙 / 计算机科学 / 计算理论 / 数据结构 / 索引"
+        ],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 索引)"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "数据结构",
+      "label": "数据结构",
+      "nodeIds": [
+        "n_6dgtsmpj",
+        "theory_domain_data_structures",
+        "k_1785471820450_v6okms",
+        "k_1786170062009_1o5xtm"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 计算理论 / 数据结构"
+        ],
+        [
+          "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Iterable / Collection / Map / HashMap / 数据结构"
+        ],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 数据结构"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "memory",
+      "label": "MEMORY",
+      "nodeIds": [
+        "k_auto_1hl4cg6",
+        "k_1781976016450_ggvuc3"
+      ],
+      "placements": [
+        [],
+        []
+      ]
+    },
+    {
+      "normalizedLabel": "表table",
+      "label": "表（Table）",
+      "nodeIds": [
+        "k_dict_30h7phnv",
+        "k_dict_7dvcv51p"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 表 / table",
+          "知识宇宙 / 数学 / 集合论 / 表 / table"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "并发控制",
+      "label": "并发控制",
+      "nodeIds": [
+        "k_dict_40kypo2i",
+        "k_1784543450678_zk199g",
+        "k_wiki_en_outline_of_databases_s13_b1"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 并发 / 并发控制"
+        ],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 成分 / 并发控制"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "连接池connectionpool",
+      "label": "连接池 / connection pool",
+      "nodeIds": [
+        "k_dict_h20fqa9t",
+        "k_1782032572614_mi65fj"
+      ],
+      "placements": [
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / 总览与体系结构 / 连接池 / connection pool",
+          "知识宇宙 / 数学 / 排队论 / 连接池 / connection pool"
+        ],
+        []
+      ]
+    },
+    {
+      "normalizedLabel": "分区",
+      "label": "分区",
+      "nodeIds": [
+        "k_dict_6cwf4dqv",
+        "k_wiki_en_outline_of_databases_s12_b12",
+        "k_1786340067400_hpavtb"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 分区)"
+        ],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / NoSQL / Redis / 分区"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "工具",
+      "label": "工具",
+      "nodeIds": [
+        "k_dict_mkm4eoaz",
+        "k_wiki_en_outline_of_databases_s31"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据仓库 / 使用数据仓库 / 工具"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "关系",
+      "label": "关系",
+      "nodeIds": [
+        "k_dict_7cjekzem",
+        "k_wiki_en_outline_of_databases_s12_b1"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库概要 / 数据库管理系统 / 对象 / 关系)"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "行row",
+      "label": "行（Row）",
+      "nodeIds": [
+        "k_dict_fv1aj0w9",
+        "k_dict_2uq4y41u"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 系统组织 / 存储系统 / 行 / row",
+          "知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 分类 / 关系数据库 / MySQL / SQL / 行 / row"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "快照",
+      "label": "快照",
+      "nodeIds": [
+        "k_dict_9hxo9oxe",
+        "k_wiki_en_virtual_machine_s9"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 虚拟机 / 快照"
+        ]
+      ]
+    },
+    {
+      "normalizedLabel": "member",
+      "label": "Member",
+      "nodeIds": [
+        "k_dict_8nyjfr54",
+        "k_java_type_3501bbb1b28e7c1f"
+      ],
+      "placements": [
+        [],
+        [
+          "知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 反射 / java.lang.reflect / Member"
+        ]
+      ]
+    }
+  ],
+  "cardTitleMismatchSamples": [
+    {
+      "id": "react_export_import",
+      "label": "React 导入导出",
+      "cardTitle": "React 导入导出机制"
+    },
+    {
+      "id": "react_default_export",
+      "label": "默认导出",
+      "cardTitle": "默认导出 (Default Export)"
+    },
+    {
+      "id": "react_named_export",
+      "label": "命名导出",
+      "cardTitle": "命名导出 (Named Export)"
+    },
+    {
+      "id": "react_import_aliasing",
+      "label": "导入重命名",
+      "cardTitle": "导入重命名 (as 关键字)"
+    },
+    {
+      "id": "react_conditional_if",
+      "label": "if 语句条件渲染",
+      "cardTitle": "if 语句渲染"
+    },
+    {
+      "id": "react_conditional_ternary",
+      "label": "三元操作符条件渲染",
+      "cardTitle": "三元操作符 (?:) 渲染"
+    },
+    {
+      "id": "react_conditional_and",
+      "label": "逻辑与 (&&) 条件渲染",
+      "cardTitle": "逻辑与 (&&) 操作符"
+    },
+    {
+      "id": "k_jvm_jit",
+      "label": "JIT 编译器",
+      "cardTitle": "JIT 编译器 / Just-In-Time Compiler"
+    },
+    {
+      "id": "k_jvm_cms",
+      "label": "CMS 收集器",
+      "cardTitle": "CMS 收集器 / Concurrent Mark-Sweep"
+    },
+    {
+      "id": "k_jvm_mem_leak",
+      "label": "内存泄漏排查",
+      "cardTitle": "内存泄漏排查 / Memory Leak Troubleshooting"
+    },
+    {
+      "id": "k_jvm_exception",
+      "label": "异常处理",
+      "cardTitle": "异常处理 / Exception Handling"
+    },
+    {
+      "id": "k_jvm_meta_perm",
+      "label": "元空间与永久代",
+      "cardTitle": "元空间与永久代 / Metaspace vs PermGen"
+    }
+  ],
+  "contentlessCardSamples": [
+    {
+      "id": "k_1781002876731_3ct76l",
+      "label": "数据页（B+ tree）"
+    },
+    {
+      "id": "k_1781003299034_og1pqa",
+      "label": "Undo页"
+    },
+    {
+      "id": "k_1781003318112_lryll2",
+      "label": "系统页"
+    },
+    {
+      "id": "k_1781003339612_gly0rm",
+      "label": "事务数据页"
+    },
+    {
+      "id": "k_1781008748598_72gaz3",
+      "label": "FILE_PAGE_PREV"
+    },
+    {
+      "id": "k_1781008786381_wiun1h",
+      "label": "FILE_PAGE_NEXT"
+    },
+    {
+      "id": "k_1781061621077_9c8e4h",
+      "label": "记录部分"
+    },
+    {
+      "id": "k_1781107266786_b2goai",
+      "label": "行记录"
+    },
+    {
+      "id": "k_auto_1hl4cg6",
+      "label": "MEMORY"
+    },
+    {
+      "id": "k_auto_pysvvf",
+      "label": "BDB"
+    },
+    {
+      "id": "k_1781894839013_cccyxm",
+      "label": "磁盘"
+    },
+    {
+      "id": "k_1781894862909_gbhvf4",
+      "label": "磁盘页"
+    },
+    {
+      "id": "k_1781896965139_pselbx",
+      "label": "盘片"
+    },
+    {
+      "id": "k_1781897025506_lvo1u1",
+      "label": "磁道"
+    },
+    {
+      "id": "k_1781897070995_i9wbi1",
+      "label": "扇区"
+    },
+    {
+      "id": "k_1781897096232_vyn14e",
+      "label": "柱面"
+    },
+    {
+      "id": "k_1781976016450_ggvuc3",
+      "label": "MEMORY"
+    },
+    {
+      "id": "k_1782027123941_l7np3c",
+      "label": "客户端连接器"
+    },
+    {
+      "id": "k_1782027165978_v8g3nl",
+      "label": "连接池"
+    },
+    {
+      "id": "k_1782027187728_t4ieqd",
+      "label": "SQL接口"
+    },
+    {
+      "id": "k_1782027196864_7mehjk",
+      "label": "解析器"
+    },
+    {
+      "id": "k_1782032135560_tng3v4",
+      "label": "⽹络连接层"
+    },
+    {
+      "id": "k_1782032149173_bli3vq",
+      "label": "MySQl  Server"
+    },
+    {
+      "id": "k_1782150385440_xx1u7u",
+      "label": "并发问题"
+    },
+    {
+      "id": "k_1782190020069_59o0aj",
+      "label": "相关领域"
+    }
+  ],
+  "duplicateTypedPairSamples": [
+    {
+      "pair": "demo_mvcc\u0000innodb_mvcc_purge\u0000depends-on\u0000",
+      "ids": [
+        "mvcc_purge_edge",
+        "mysql_glossary:demo_mvcc:innodb_mvcc_purge"
+      ]
+    },
+    {
+      "pair": "n_ag24bbkc\u0000demo_acid\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:demo_tree_tx:demo_tree_acid",
+        "treebind:tree_1786241497224_yi63e9:tree_1786288007373_pp3blo"
+      ]
+    },
+    {
+      "pair": "n_u4va719e\u0000k_1783250387082_pp338r\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:demo_db:tree_1783250387114_cn55cf",
+        "treebind:demo_db:tree_wiki_zh_数据库_s8"
+      ]
+    },
+    {
+      "pair": "k_1783250387082_pp338r\u0000k_1783250520307_j25py7\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:tree_1783250387114_cn55cf:tree_1783250520336_5d17c2",
+        "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s10"
+      ]
+    },
+    {
+      "pair": "k_1783250387082_pp338r\u0000k_1783250593540_v2w5hy\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:tree_1783250387114_cn55cf:tree_1783250593570_ci875p",
+        "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s11"
+      ]
+    }
+  ],
+  "rootDomains": [
+    {
+      "nodeId": "n_55jiel25",
+      "label": "计算机科学",
+      "treeId": "demo_cs",
+      "subtreeNodeCount": 1
+    },
+    {
+      "nodeId": "school_mathematics",
+      "label": "数学",
+      "treeId": "school_mathematics",
+      "subtreeNodeCount": 1
+    },
+    {
+      "nodeId": "school_logic",
+      "label": "逻辑",
+      "treeId": "school_logic",
+      "subtreeNodeCount": 1
+    },
+    {
+      "nodeId": "school_real_world_conventions",
+      "label": "标准与约定",
+      "treeId": "school_real_world_conventions",
+      "subtreeNodeCount": 1
+    }
+  ]
+}

@@ -114,7 +114,7 @@ const TreeItem = ({
   level?: number;
   selectedNodeId: string | null;
   selectedTreeIds: ReadonlySet<string>;
-  onSelect: (treeId: string) => void;
+  onSelect: (treeId: string, event?: React.MouseEvent<HTMLDivElement>) => void;
   onToggleSelection: (treeId: string) => void;
   searchQuery: string;
   onAddChild: (parentId: string) => void;
@@ -290,7 +290,7 @@ const TreeItem = ({
         data-tree-node-id={node.id}
         draggable={canDrag}
         style={{ '--depth': level } as CSSProperties}
-        onClick={() => { onSelect(node.id); }}
+        onClick={(event) => { onSelect(node.id, event); }}
         onContextMenu={handleContextMenu}
         onDragStart={handleDragStart}
         onDragEnd={onDragEndNode}
@@ -346,7 +346,9 @@ const TreeItem = ({
             {node.name}
           </span>
         )}
-        {node.count != null && <span className="tree-node-count">{node.count}</span>}
+        {typeof node.count === 'number' && node.count > 0 && (
+          <span className="tree-node-count">{node.count}</span>
+        )}
       </div>
 
       {hasChildren && (
@@ -403,8 +405,8 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const createKnowledgeAndLink = useGraphStore(s => s.createKnowledgeAndLink);
   const listKnowledgeNodes = useGraphStore(s => s.listKnowledgeNodes);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
-  const moveTreeNode = useGraphStore(s => s.moveTreeNode);
-  const copyTreeNode = useGraphStore(s => s.copyTreeNode);
+  const moveTreeNodes = useGraphStore(s => s.moveTreeNodes);
+  const copyTreeNodes = useGraphStore(s => s.copyTreeNodes);
   const exportKnowledgeJson = useGraphStore(s => s.exportKnowledgeJson);
   const importKnowledgeJson = useGraphStore(s => s.importKnowledgeJson);
   const resetAllKnowledge = useGraphStore(s => s.resetAllKnowledge);
@@ -422,6 +424,7 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const [transferDialog, setTransferDialog] = useState<DirectoryTransferDialogState | null>(null);
   const [selectedTreeNodeIds, setSelectedTreeNodeIds] = useState<Set<string>>(() => new Set());
   const [draggingTreeNodeId, setDraggingTreeNodeId] = useState<string | null>(null);
+  const [draggingTreeNodeIds, setDraggingTreeNodeIds] = useState<string[]>([]);
   const [dropTargetTreeNodeId, setDropTargetTreeNodeId] = useState<string | null>(null);
   const poolNodes = listKnowledgeNodes();
   const importInputRef = useRef<HTMLInputElement>(null);
@@ -514,7 +517,12 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     ? directoryOptions.find((option) => option.id === transferDialog.targetId) ?? null
     : null;
 
-  const handleSelect = (treeId: string) => {
+  const handleSelect = (treeId: string, event?: React.MouseEvent<HTMLDivElement>) => {
+    if (event?.metaKey || event?.ctrlKey) {
+      event.preventDefault();
+      handleToggleTreeSelection(treeId);
+      return;
+    }
     selectTreeEntry(treeId);
   };
 
@@ -581,27 +589,39 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
 
   const handleDragStartNode = useCallback((nodeId: string) => {
     setDraggingTreeNodeId(nodeId);
+    setDraggingTreeNodeIds(selectedTreeIds.includes(nodeId) ? selectedTreeIds : [nodeId]);
     setDropTargetTreeNodeId(null);
-  }, []);
+  }, [selectedTreeIds]);
 
   const handleDragEndNode = useCallback(() => {
     setDraggingTreeNodeId(null);
+    setDraggingTreeNodeIds([]);
     setDropTargetTreeNodeId(null);
   }, []);
 
   const handleDropNode = useCallback((nodeId: string, nextParentId: string) => {
     const targetName = findNodeName(treeData, nextParentId);
-    const moved = moveTreeNode(nodeId, nextParentId);
+    const sourceIds = normalizeSelectedTreeIds(
+      treeData,
+      draggingTreeNodeIds.length > 0 ? draggingTreeNodeIds : [nodeId],
+    );
+    const movedCount = isInvalidDirectoryTransferTarget(
+      treeData,
+      'move',
+      sourceIds,
+      nextParentId,
+    ) ? 0 : moveTreeNodes(sourceIds, nextParentId);
     setDraggingTreeNodeId(null);
+    setDraggingTreeNodeIds([]);
     setDropTargetTreeNodeId(null);
 
-    if (moved) {
-      addNotification(`已移动到: ${targetName}`, 'success');
+    if (movedCount > 0) {
+      addNotification(`已移动 ${movedCount} 个目录到: ${targetName}`, 'success');
       return;
     }
 
     addNotification('无法移动到该目录位置', 'warning');
-  }, [addNotification, moveTreeNode, treeData]);
+  }, [addNotification, draggingTreeNodeIds, moveTreeNodes, treeData]);
 
   const handleConfirmTransfer = useCallback(() => {
     if (!transferDialog?.targetId || transferSourceIds.length === 0) return;
@@ -616,13 +636,9 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     }
 
     const targetName = findNodeName(treeData, transferDialog.targetId);
-    let changedCount = 0;
-    for (const sourceId of transferSourceIds) {
-      const changed = transferDialog.action === 'copy'
-        ? copyTreeNode(sourceId, transferDialog.targetId)
-        : moveTreeNode(sourceId, transferDialog.targetId);
-      if (changed) changedCount += 1;
-    }
+    const changedCount = transferDialog.action === 'copy'
+      ? copyTreeNodes(transferSourceIds, transferDialog.targetId)
+      : moveTreeNodes(transferSourceIds, transferDialog.targetId);
 
     if (changedCount > 0) {
       addNotification(`已${transferActionLabel} ${changedCount} 个目录到: ${targetName}`, 'success');
@@ -635,8 +651,8 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   }, [
     addNotification,
     clearTreeSelection,
-    copyTreeNode,
-    moveTreeNode,
+    copyTreeNodes,
+    moveTreeNodes,
     transferActionLabel,
     transferDialog,
     transferSourceIds,

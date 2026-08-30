@@ -7,6 +7,7 @@ import {
   MEMBER_KIND,
   renderDocumentationSection,
 } from '../import-jdk-collections.mjs';
+import { javaTypeKnowledgeNodeId } from '../knowledge-identity.mjs';
 
 export const JAVA_SOURCE_API_TAB_PREFIX = 'java_source_api_';
 
@@ -100,9 +101,16 @@ function existingPreservedTabs(nodePool, nodeId) {
   );
 }
 
-export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }) {
+export function createJavaSourceNodes({
+  types,
+  sourceFiles,
+  location,
+  nodePool,
+  rootKnowledgeNodeId,
+}) {
   const sourceHash = stableJavaSourceDigest(location.sourceKey);
-  const rootNodeId = `k_java_source_${sourceHash}`;
+  const sourceRootNodeId = `k_java_source_${sourceHash}`;
+  const rootNodeId = rootKnowledgeNodeId ?? sourceRootNodeId;
   const rootTreeId = `tree_java_source_${sourceHash}`;
   const namespace = `java_${sourceHash}`;
   const title = importTitle(types, sourceFiles, location);
@@ -123,10 +131,7 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
 
   const typeNodeIds = new Map();
   for (const type of types) {
-    typeNodeIds.set(
-      type.className,
-      `${rootNodeId}_s_type_${stableJavaSourceDigest(type.className)}`,
-    );
+    typeNodeIds.set(type.className, javaTypeKnowledgeNodeId(nodePool, type.className));
   }
 
   const packageNodeIds = new Map();
@@ -153,6 +158,7 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
   const typeByClassName = new Map(types.map((type) => [type.className, type]));
   for (const type of types) {
     const nodeId = typeNodeIds.get(type.className);
+    const existing = nodePool[nodeId];
     const outerClassName = type.className.slice(0, type.className.lastIndexOf('.'));
     const outerType = typeByClassName.get(outerClassName);
     const parentId = outerType
@@ -185,20 +191,25 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
       treeName: type.simpleName,
       card: {
         nodeId,
-        title: type.simpleName,
+        title: existing?.card?.title ?? type.simpleName,
         rootContent: typeRootContent(type),
         tabs: [
           ...existingPreservedTabs(nodePool, nodeId),
           buildApiTab(type, apiSource),
         ],
       },
-      tags: [
+      canonicalKey: `java:type:${type.className}`,
+      kind: existing?.kind ?? 'entity',
+      aliases: existing?.aliases,
+      provenance: existing?.provenance,
+      tags: [...new Set([
+        ...(existing?.tags ?? []),
         'Java',
         '源码类型',
         typeKindLabel(type.kind),
         type.packageName || '(default package)',
         type.className,
-      ],
+      ])],
       relationIndex: { rootNodeId: nodeId },
     });
   }
@@ -226,9 +237,27 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
       tags: ['Java', '引用类型'],
     });
     for (const className of externalClassNames) {
-      const nodeId = `${rootNodeId}_s_external_${stableJavaSourceDigest(className)}`;
+      const nodeId = javaTypeKnowledgeNodeId(nodePool, className);
       const label = className.split('.').at(-1) || className;
+      const existing = nodePool[nodeId];
       externalNodeIds.set(className, nodeId);
+      if (existing) {
+        nodes.push({
+          id: nodeId,
+          label: existing.label ?? label,
+          parentId: groupNodeId,
+          treeId: `${rootTreeId}_s_external_${stableJavaSourceDigest(className)}`,
+          treeName: label,
+          card: existing.card,
+          canonicalKey: `java:type:${className}`,
+          kind: existing.kind ?? 'entity',
+          aliases: existing.aliases,
+          provenance: existing.provenance,
+          tags: [...new Set([...(existing.tags ?? []), 'Java', className])],
+          relationIndex: { rootNodeId: nodeId },
+        });
+        continue;
+      }
       nodes.push({
         id: nodeId,
         label,
@@ -244,6 +273,9 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
         tags: ['Java', '外部引用类型', className],
         relationIndex: { rootNodeId: nodeId },
       });
+      const created = nodes.at(-1);
+      created.canonicalKey = `java:type:${className}`;
+      created.kind = 'entity';
     }
   }
 
@@ -252,6 +284,7 @@ export function createJavaSourceNodes({ types, sourceFiles, location, nodePool }
     sourceHash,
     title,
     rootNodeId,
+    sourceRootNodeId,
     rootTreeId,
     nodes,
     typeNodeIds,
@@ -268,10 +301,15 @@ export function findJavaSourceTreeNode(root, treeNodeId) {
   return null;
 }
 
-export function createJavaSourceEdges({ imported, types, parentTreeNode }) {
+export function createJavaSourceEdges({ imported, types, parentTreeNode, existingEdges = [] }) {
   const prefix = `java_source:${imported.sourceHash}:`;
   const edges = [];
-  if (parentTreeNode?.nodeRef) {
+  const rootBindingExists = parentTreeNode?.nodeRef && existingEdges.some((edge) => (
+    edge.source === parentTreeNode.nodeRef
+    && edge.target === imported.rootNodeId
+    && edge.type === 'belongs-to'
+  ));
+  if (parentTreeNode?.nodeRef && !rootBindingExists) {
     edges.push({
       id: `${prefix}tree:root`,
       source: parentTreeNode.nodeRef,

@@ -1,0 +1,36 @@
+222，第三部分多机数据库的实现
+16.1.2使用Sentinel专用代码
+启动Sentinel的第二个步骤就是将一部分普通Redis服务器使用的代码替换成Sentinel
+专用代码。比如说，普通Redis服务器使用redis.h/REDIS_SERVERPORT常量的值作为
+服务器端口：
+#defineREDIS_SERVERPORT6379
+而Sentinel则使用sentinel.c/REDIS_SENTINEL_PORT常量的值作为服务器端口：
+#defineREDIS_SENTINEL_PORT26379
+除此之外，普通Redis服务器使用redis.c/redisCommandTable作为服务器的命令表：
+struct redisCommand redisCommandTable[] =:(
+{"get",getCommand,2,"r",0,NULL,1,1,1,0,0),
+{"setnx",setnxCommand,3,"wm",0,noPreloadGetKeys,1,1,1,0,0},
+//..
+f"script",scriptcommand,-2,"ras",0,NULL,0,0,0,0,0],
+{"time",timeCommand,1,"rR",0,NULL,0,0,0,0,]
+f"bitop",bitopCommand,-4,"wm",0,NULL,2,-1,1,0,0},
+{"bitcount",bitcountCommand,-2,"r",0,NULL,1,1,1,0,0)
+而Sentinel则使用sentinel.c/sentinelcmds作为服务器的命令表，并且其中的
+INFO命令会使用Sentinel模式下的专用实现sentinel.c/sentinelInfoCommand函
+数，而不是普通Redis服务器使用的实现redis.c/infoCommand函数：
+struct redisCommandsentinelcmds[]=f
+{"sentinel",sentinelCommand,-2,"",0,NULL,0,0,0,0,0),
+f"subscribe",subscribeCommand,-2,"",0,NULL,0,0,0,0,0),
+f"unsubscribe",unsubscribeCommand,-1,"",0,NULL,0,0,0,0,0),
+{"psubscribe",psubscribecommand,-2,"",0,NuLL,0,0,0,0,0,
+("info",sentinelInfoCommand,-1,"",0,NULL,0,0,0,0,0)
+sentinelcmds命令表也解释了为什么在Sentinel模式下，Redis服务器不能执行诸如
+SET、DBSIZE、EVAL等等这些命令，因为服务器根本没有在命令表中载入这些命令。PING、
+SENTINEL、INFO、SUBSCRIBE、UNSUBSCRIBE、PSUBSCRIBE和PUNSUBSCRIBE这七个
+命令就是客户端可以对Sentinel执行的全部命令了。
+16.1.3初始化Sentinel状态
+在应用了Sentinel的专用代码之后，接下来，服务器会初始化一个sentinel.c/
+sentinelState结构（后面简称“Sentinel状态”），这个结构保存了服务器中所有和
+Sentinel功能有关的状态（服务器的一般状态仍然由redis.h/redisServer结构保存）：
+struct sentinelstate (
+/／当前纪元，用于实现故障转移

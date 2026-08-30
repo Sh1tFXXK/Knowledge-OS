@@ -1,0 +1,54 @@
+240·第三部分多机数据库的实现
+SENTINELis-master-down-by-addr命令确认主服务器进入了客观下线状态，如图
+16-20所示。
+Sentinel A
+Sentinel B
+那么为了选出领头Sentinel，
+Sentinel C
+客观下线客观下线客观下线
+三个Sentinel将再次向其他
+Sentinel发送SENTINELis-
+主服务器1Ⅱ
+master-down-by-addr命令,
+如图16-21所示。
+和检测客观下线状态时发
+图16-20三个Sentinel都发现主服务器已经进入了客观下线状态
+送的SENTINELis-master-
+down-by-addr命令不同，
+Sentinel A
+Sentinel这次发送的命令会带有
+SENTINEL
+SENTINEL
+Sentinel自己的运行ID，例如：
+Sentinel B
+SENTINEL
+.SENTINEL
+SENTINEL is-master-down-
+SENTINEL
+by-addr127.0.0.163790e
+SENTINEL
+955b4c85598ef5b5f055bc7ebf
+d5e828dbed4fa
+Sentinel 
+如果接收到这个命令的
+图16-21Sentinel再次向其他Sentinel发送命令
+Sentinel还没有设置局部领头
+Sentinel的话，它就会将运行ID为e955b4c85598ef5b5f055bc7ebfd5e828dbed4fa
+的Sentinel设置为自已的局部领头Sentinel，并返回类似以下的命令回复：
+1)1
+2)e955b4c85598ef5b5f055bc7ebfd5e828dbed4fa
+3)0
+然后接收到命令回复的Sentinel就可以根据这一回复，统计出有多少个Sentinel将自已
+设置成了局部领头Sentinel。
+根据命令请求发送的先后顺序不同，可能会有某个Sentinel的SENTINELis-
+master-down-by-addr命令比起其他Sentinel发送的相同命令都更快到达，并最终胜出
+领头Sentinel的选举，然后这个领头Sentinel就可以开始对主服务器执行故障转移操作了。
+16.9
+故障转移
+在选举产生出领头Sentinel之后，领头Sentinel将对已下线的主服务器执行故障转移操
+作，该操作包含以下三个步骤：
+1）在已下线主服务器属下的所有从服务器里面，挑选出一个从服务器，并将其转换为
+主服务器。
+2）让已下线主服务器属下的所有从服务器改为复制新的主服务器。
+3）将已下线主服务器设置为新的主服务器的从服务器，当这个旧的主服务器重新上线
+时，它就会成为新的主服务器的从服务器。

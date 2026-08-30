@@ -1,0 +1,61 @@
+第21章排序·349
+SORT <key> ASC
+相反地，在执行SORT命令时使用DESC选项，可以让命令执行降序排序，让排序后的
+结果按值的大小从大到小排列：
+SORT <key> DESC
+以下是两个对numbers列表进行升序排序的例子，第一个命令根据默认设置，对
+numbers列表进行升序排序，而第二个命令则通过显式地使用Asc选项，对numbers列
+表进行升序排序，两个命令产生的结果完全一样：
+redis>RPUsHnumbers312
+(integer)3
+redis>SoRT numbers
+1)
+"1"
+2)
+"2"
+3)
+redis> SORT numbers ASC
+1)
+"1"
+2)
+"2"
+3)
+"3"
+与升序排序相反，以下是一个对numbers列表进行降序排序的例子：
+redis>SORTnumbers DEsc
+1)
+"3"
+"2"
+3)
+"1"
+升序排序和降序排序都由相同的快速排序算法执行，它们之间的不同之处在于：
+口在执行升序排序时，排序算法使用的对比函数产生升序对比结果。
+口而在执行降序排序时，排序算法所使用的对比函数产生降序对比结果。
+因为升序对比和降序对比的结果正好相反，所以它们会产生元素排列方式正好相反的两
+种排序结果。以numbers列表为例：
+口图21-7展示了SORT命令在对numbers列表执行升序排序时所创建的数组。
+口图21-8展示了SORT命令在对numbers列表执行降序排序时所创建的数组。
+array
+obj
+numbers链表
+array[0]
+u.score
+StringObject
+StringObject
+redisSortobject
+StringObject
+1.0
+"3"
+"i"
+"2"
+obj
+array[1]
+redisSortobject
+u.score
+2.0
+Eqo
+array[2]
+redissortobject
+u.score
+3.0
+图21-7执行升序排序的数组

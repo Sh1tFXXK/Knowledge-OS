@@ -28,24 +28,33 @@ const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
 const LEFT_PANEL_COLLAPSED_WIDTH = 42;
 const RIGHT_PANEL_MIN_WIDTH = 280;
-const RIGHT_PANEL_MAX_WIDTH = 680;
+const RIGHT_PANEL_MAX_WIDTH = 1200;
+// 至少给中间内容区保留的宽度
+const CENTER_MIN_WIDTH = 480;
 
 function clampLeftPanelWidth(width: number): number {
   return Math.min(LEFT_PANEL_MAX_WIDTH, Math.max(LEFT_PANEL_MIN_WIDTH, width));
 }
 
 function clampRightPanelWidth(width: number): number {
-  return Math.min(RIGHT_PANEL_MAX_WIDTH, Math.max(RIGHT_PANEL_MIN_WIDTH, width));
+  const viewportCap = Math.max(
+    RIGHT_PANEL_MIN_WIDTH,
+    window.innerWidth - LEFT_PANEL_COLLAPSED_WIDTH - CENTER_MIN_WIDTH,
+  );
+  const maxWidth = Math.min(RIGHT_PANEL_MAX_WIDTH, viewportCap);
+  return Math.min(maxWidth, Math.max(RIGHT_PANEL_MIN_WIDTH, width));
 }
 
 export default function App() {
   const notifications = useGraphStore((s) => s.notifications);
   const activeView = useGraphStore((s) => s.activeView);
+  const selectedNodeId = useGraphStore((s) => s.selectedNodeId);
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const initialize = useGraphStore((s) => s.initialize);
   const [leftPanelWidth, setLeftPanelWidth] = useState(260);
   const [rightPanelWidth, setRightPanelWidth] = useState(360);
   const [isLeftPanelCollapsed, setIsLeftPanelCollapsed] = useState(false);
+  const [isIndexFocusMode, setIsIndexFocusMode] = useState(false);
 
   useEffect(() => {
     void initialize();
@@ -100,9 +109,10 @@ export default function App() {
     '--left-panel-width': `${isLeftPanelCollapsed ? LEFT_PANEL_COLLAPSED_WIDTH : leftPanelWidth}px`,
     '--right-panel-width': `${rightPanelWidth}px`,
   } as CSSProperties;
+  const isIndexFocusActive = activeView === 'index' && !!selectedNodeId && isIndexFocusMode;
 
   return (
-    <div id="app" style={appStyle}>
+    <div id="app" className={isIndexFocusActive ? 'is-index-focus' : undefined} style={appStyle}>
       {/* ── 顶栏 ── */}
       <header className="header" id="header">
         <TopBar />
@@ -127,7 +137,10 @@ export default function App() {
       <main className="center-area" id="center-area">
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
-            <ExplanationIndexView />
+            <ExplanationIndexView
+              isFocusMode={isIndexFocusActive}
+              onToggleFocusMode={() => setIsIndexFocusMode((value) => !value)}
+            />
           </section>
         ) : activeView === 'timeline' ? (
           <section className="center-view" id="center-view">
@@ -143,8 +156,8 @@ export default function App() {
           </section>
         ) : activeView === 'questions' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <h2 style={{ margin: 0, fontSize: 15 }}>❓ 问题库</h2>
+            <div className="qdb-page-header">
+              <h2 className="qdb-page-title">❓ 问题库</h2>
               <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
             </div>
             <QuestionDatabase />

@@ -1,0 +1,38 @@
+第10章RDB持久化119
+状态。
+本章首先介绍Redis服务器保存和载入RDB文件的方法，重点说明SAVE命令和BGSAVE
+命令的实现方式。
+之后，本章会继续介绍Redis服务器自动保存功能的实现原理。
+在介绍完关于保存和载人RDB文件方面的内容之后，我们会详细分析RDB文件中的
+各个组成部分，并说明这些部分的结构和含义。
+在本章的最后，我们将对实际的RDB文件进行分析和解读，将之前学到的关于RDB文
+件的知识投人到实际应用中。
+10.1RDB文件的创建与载入
+有两个Redis命令可以用于生成RDB文件，一个是SAVE，另一个是BGSAVE。
+SAVE命令会阻塞Redis服务器进程，直到RDB文件创建完毕为止，在服务器进程阻塞
+期间，服务器不能处理任何命令请求：
+redis> SAVE
+//等待直到RDB文件创建完毕
+OK
+和SAVE命令直接阻塞服务器进程的做法不同，BGSAVE命令会派生出一个子进程，然
+后由子进程负责创建RDB文件，服务器进程（父进程）继续处理命令请求：
+redis>BGSAVE
+//派生子进程，并由子进程创建RDB文件
+Backgroundsaving started
+创建RDB文件的实际工作由rdb.c/rdbSaVe函数完成，SAVE命令和BGSAVE命令
+会以不同的方式调用这个函数，通过以下伪代码可以明显地看出这两个命令之间的区别：
+def SAVE():
+#创建RDB文件
+rdbSave()
+def BGSAVE():
+#创建子进程
+pid = fork()
+if pid == O:
+#子进程负责创建RDB文件
+rdbSave()
+#完成之后向父进程发送信号
+signal_parent()
+elif pid>o:
+#父进程继续处理命令请求，并通过轮询等待子进程的信号
+handle_request_and_wait_signal()
+else:

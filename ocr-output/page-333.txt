@@ -1,0 +1,39 @@
+316·第四部分独立功能的实现
+“一致”指的是数据符合数据库本身的定义和要求，没有包含非法或者无效的错误数据。
+Redis通过谨慎的错误检测和简单的设计来保证事务的一致性，以下三个小节将分别介
+绍三个Redis事务可能出错的地方，并说明Redis是如何妥善地处理这些错误，从而确保事
+务的一致性的。
+1.入队错误
+如果一个事务在入队命令的过程中，出现了命令不存在，或者命令的格式不正确等情
+况，那么Redis将拒绝执行这个事务。
+在以下展示的示例中，因为客户端尝试向事务入队一个不存在的命令YAHOOOO，所以
+客户端提交的事务会被服务器拒绝执行：
+redis> MULTI
+OK
+redis> SETmsg"hello"
+QUEUED
+redis>YAHOOOO
+(error)ERRunknowncommandYAHoooo'
+redis>
+GET msg
+QUEUED
+redis> ExEc
+(error) ExEcABoRT Transaction discarded because of previous errors.
+因为服务器会拒绝执行人队过程中出现错误的事务，所以Redis事务的一致性不会被带
+有入队错误的事务影响。
+Redis2.6.5以前的入队错误处理
+根据文档记录，在Redis2.6.5以前的版本，即使有命令在入队过程中发生了错误，
+事务一样可以执行，不过被执行的命令只包括那些正确入队的命令。以下这段代码是在
+Redis2.6.4版本上测试的，可以看到，事务可以正常执行，但只有成功入队的SET命令
+和GET命令被执行了，而错误的YAHOOOO则被忽略了：
+redis> MULTI
+OK
+redis>SETmsg"heilo"
+QUEUED
+redis> YAHOO00
+(error)ERRunknowncommand'YAHoooo'
+redis> GET msg
+QUEUED
+redis> EXEC
+1) OK
+2)"hello"

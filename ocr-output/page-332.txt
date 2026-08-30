@@ -1,0 +1,36 @@
+第19章事务→315
+2)"hello"
+与此相反，以下展示了一个执行失败的事务，这个事务因为命令入队出错而被服务器拒
+绝执行，事务中的所有命令都不会被执行：
+redis> MULTI
+OK
+redis>SETmsg"hello"
+QUEUED
+redis> GET
+redis> GET msg
+QUEUED
+redis> ExEc
+(error) ExECABORT Transaction discarded because of previous errors.
+Redis的事务和传统的关系型数据库事务的最大区别在于，Redis不支持事务回滚机制
+（rollback），即使事务队列中的某个命令在执行期间出现了错误，整个事务也会继续执行下
+去，直到将事务队列中的所有命令都执行完毕为止。
+在下面的这个例子中，即使RPUSH命令在执行期间出现了错误，事务的后续命令也会
+继续执行下去，并且之前执行的命令也不会有任何影响：
+redis>SETmsg"hello"#msg键是一个字符串
+OK
+redis> MULTI
+OK
+QUEUED
+QUEUED
+QUEUED
+redis> ExEC
+1)(integer)3
+2) (error)WRoNGTYpE Operation against a keyholding the wrong kind of value
+3)(integer)3
+Redis的作者在事务功能的文档中解释说，不支持事务回滚是因为这种复杂的功能和
+Redis追求简单高效的设计主旨不相符，并且他认为，Redis事务的执行时错误通常都是编
+程错误产生的，这种错误通常只会出现在开发环境中，而很少会在实际的生产环境中出现，
+所以他认为没有必要为Redis开发事务回滚功能。
+19.3.2一致性
+事务具有一致性指的是，如果数据库在执行事务之前是一致的，那么在事务执行之后，
+无论事务是否执行成功，数据库也应该仍然是一致的。

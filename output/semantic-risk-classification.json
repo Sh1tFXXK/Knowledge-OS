@@ -1,0 +1,509 @@
+{
+  "totalOrphans": 865,
+  "orphanRiskBuckets": {
+    "active_content_without_tree_placement": {
+      "count": 13,
+      "samples": [
+        {
+          "id": "demo_snapshot",
+          "label": "快照读",
+          "degree": 1,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_vchain_sys",
+          "label": "版本链子系统",
+          "degree": 2,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_btree",
+          "label": "B+树索引",
+          "degree": 8,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_composite_index",
+          "label": "组合索引",
+          "degree": 1,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_buffer",
+          "label": "缓冲池 / buffer pool",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_join",
+          "label": "JOIN 连接",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_subquery",
+          "label": "子查询",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "demo_postgres",
+          "label": "PostgreSQL",
+          "degree": 0,
+          "referenceCount": 2,
+          "hasContent": true
+        },
+        {
+          "id": "n_97x8s5dv",
+          "label": "存储引擎 / storage engine",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "n_s7t5dbya",
+          "label": "性能优化",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "n_6dgtsmpj",
+          "label": "数据结构",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "n_9hr0nvvv",
+          "label": "算法与数据结构",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "react_import_aliasing",
+          "label": "导入重命名",
+          "degree": 1,
+          "referenceCount": 1,
+          "hasContent": true
+        }
+      ]
+    },
+    "linked_without_tree_placement": {
+      "count": 4,
+      "samples": [
+        {
+          "id": "k_1781002876731_3ct76l",
+          "label": "数据页（B+ tree）",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        },
+        {
+          "id": "k_1781003318112_lryll2",
+          "label": "系统页",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        },
+        {
+          "id": "k_1781008748598_72gaz3",
+          "label": "FILE_PAGE_PREV",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        },
+        {
+          "id": "k_1781008786381_wiun1h",
+          "label": "FILE_PAGE_NEXT",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        }
+      ]
+    },
+    "auto_generated_unplaced": {
+      "count": 21,
+      "samples": [
+        {
+          "id": "k_auto_1hl4cg6",
+          "label": "MEMORY",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        },
+        {
+          "id": "k_auto_pysvvf",
+          "label": "BDB",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": false
+        },
+        {
+          "id": "k_auto_va5371",
+          "label": "主键索引",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_yb9yyu",
+          "label": "普通索引",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_es1cgt",
+          "label": "前缀索引",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_g7wfdd",
+          "label": "混合导出",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_1gqanov",
+          "label": "import X, { Y }",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_figgbw",
+          "label": "行内导出",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_bdlo12",
+          "label": "末尾导出",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_afmuju",
+          "label": "常规导入",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_l6ipg1",
+          "label": "重命名导入",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_14sf5e5",
+          "label": "声明导出",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_142cy8w",
+          "label": "列表导出",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_1ayw78b",
+          "label": "解构导入",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_g1oyi4",
+          "label": "提前返回 (Early Return)",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_140h0oi",
+          "label": "多分支 if-else if",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_n9n437",
+          "label": "内联渲染",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_wziud0",
+          "label": "嵌套三元（不推荐）",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_1p7kxpz",
+          "label": "短路求值",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_xbksij",
+          "label": "隐式零值渲染陷阱",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_auto_nm6bj0",
+          "label": "安全转换（布尔化）",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        }
+      ]
+    },
+    "dictionary_unplaced": {
+      "count": 62,
+      "samples": [
+        {
+          "id": "k_dict_45pmo73s",
+          "label": "10046 事件",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_8ekhf6v8",
+          "label": "2PC",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_kp16rzvr",
+          "label": "3NF",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_7yw7viap",
+          "label": "5NF",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_p768z1b5",
+          "label": "AHI",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_a7gppafi",
+          "label": "Alembic",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_60djnr63",
+          "label": "Auto-extend",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_299hzgik",
+          "label": "AutoKeeper",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_e7ujpz6r",
+          "label": "Autovacuum",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_ilk9b2e7",
+          "label": "安全连接",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_k72g9gdn",
+          "label": "安装与配置",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_5yfqg3nv",
+          "label": "Backoff",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_wj7rim4y",
+          "label": "Base Backup",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_wbdjddq3",
+          "label": "BCNF",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_r4yuilws",
+          "label": "Bloom Filter",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_hj2its9m",
+          "label": "半结构化数据",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_vg1hm4yv",
+          "label": "备份 / backup",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_30h7phnv",
+          "label": "表（Table）",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_ggx8n53p",
+          "label": "表达式索引",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_pf2dcdpk",
+          "label": "并行查询",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_40kypo2i",
+          "label": "并发控制",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_p6gwt1sb",
+          "label": "部分索引",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_blqr2wse",
+          "label": "Cascade",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_2l5bjav3",
+          "label": "CHECK 约束",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        },
+        {
+          "id": "k_dict_q0ng7i0l",
+          "label": "Charset",
+          "degree": 0,
+          "referenceCount": 1,
+          "hasContent": true
+        }
+      ]
+    }
+  },
+  "duplicateTypedPairs": [
+    {
+      "pair": "demo_mvcc\u0000innodb_mvcc_purge\u0000depends-on\u0000",
+      "ids": [
+        "mvcc_purge_edge",
+        "mysql_glossary:demo_mvcc:innodb_mvcc_purge"
+      ]
+    },
+    {
+      "pair": "n_ag24bbkc\u0000demo_acid\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:demo_tree_tx:demo_tree_acid",
+        "treebind:tree_1786241497224_yi63e9:tree_1786288007373_pp3blo"
+      ]
+    },
+    {
+      "pair": "n_u4va719e\u0000k_1783250387082_pp338r\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:demo_db:tree_1783250387114_cn55cf",
+        "treebind:demo_db:tree_wiki_zh_数据库_s8"
+      ]
+    },
+    {
+      "pair": "k_1783250387082_pp338r\u0000k_1783250520307_j25py7\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:tree_1783250387114_cn55cf:tree_1783250520336_5d17c2",
+        "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s10"
+      ]
+    },
+    {
+      "pair": "k_1783250387082_pp338r\u0000k_1783250593540_v2w5hy\u0000belongs-to\u0000structure",
+      "ids": [
+        "treebind:tree_1783250387114_cn55cf:tree_1783250593570_ci875p",
+        "treebind:tree_wiki_zh_数据库_s8:tree_wiki_zh_数据库_s8_s11"
+      ]
+    }
+  ],
+  "metadataCoverage": {
+    "totalNodes": 3025,
+    "roleless": 2088,
+    "dimensionless": 2500
+  },
+  "crossDomainProjectionCandidates": 190
+}

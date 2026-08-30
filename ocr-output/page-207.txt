@@ -1,0 +1,37 @@
+190第二部分单机数据库的实现
+每次serVerCron函数执行时，函数都会检查BGSAVE命令或者BGREWRITEAOF命
+令是否正在执行，如果这两个命令都没在执行，并且aof_rewrite_scheduled属性的
+值为1，那么服务器就会执行之前被推延的BGREWRITEAOF命令。
+14.2.9检查持久化操作的运行状态
+服务器状态使用rdb_child_pid属性和aof_child_pid属性记录执行BGSAVE命
+令和BGREWRITEAOF命令的子进程的ID，这两个属性也可以用于检查BGSAVE命令或者
+BGREWRITEAOF命令是否正在执行：
+struct redisServer(
+//...
+//记录执行BGSAVE命令的子进程的ID：
+//如果服务器没有在执行BGSAVE，
+//那么这个属性的值为-1。
+pid_trdb_child_pid;
+/*PIDofRDBsavingchild*/
+//记录执行BGREWRITEAOF命令的子进程的ID：
+/／如果服务器没有在执行BGREWRITEAOF，
+//那么这个属性的值为-1。
+pid_t aof_child_pid;
+/*PIDifrewritingprocess*/
+//...
+每次serverCron函数执行时，程序都会检查rdb_child_pid和aof_child_pid
+两个属性的值，只要其中一个属性的值不为-1，程序就会执行一次wait3函数，检查子进
+程是否有信号发来服务器进程：
+口如果有信号到达，那么表示新的RDB文件已经生成完毕（对于BGSAVE命令来说），
+或者AOF文件已经重写完毕（对于BGREWRITEAOF命令来说），服务器需要进行
+相应命令的后续操作，比如用新的RDB文件替换现有的RDB文件，或者用重写后
+的AOF文件替换现有的AOF文件。
+口如果没有信号到达，那么表示持久化操作未完成，程序不做动作。
+另一方面，如果rdb_child_pid和aof_child_pid两个属性的值都为-l，那么
+表示服务器没有在进行持久化操作，在这种情况下，程序执行以下三个检查：
+1）查看是否有BGREWRITEAOF被延迟了，如果有的话，那么开始一次新的
+BGREWRITEAOF操作（这就是上一个小节我们说到的检查）。
+2）检查服务器的自动保存条件是否已经被满足，如果条件满足，并且服务器没有在执
+行其他持久化操作，那么服务器开始一次新的BGSAVE操作（因为条件1可能会引发一次
+BGREWRITEAOF，所以在这个检查中，程序会再次确认服务器是否已经在执行持久化操作了）。
+3）检查服务器设置的AOF重写条件是否满足，如果条件满足，并且服务器没有在执行

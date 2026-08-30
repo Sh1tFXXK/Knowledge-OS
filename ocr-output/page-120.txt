@@ -1,0 +1,64 @@
+第9章数据库→103
+一个数据库键设置过期时间时，服务器会在数据库的过期字典中关联给定的数据库键和过期
+时间。
+举个例子，如果数据库当前的状态如图9-12所示，那么在服务器执行以下命令之后：
+redis>PExPIREATmessage1391234400000
+(integer)1
+过期字典将新增一个键值对，其中键为message键对象，而值则为1391234400000
+（2014年2月1日零时），如图9-13所示。
+Listobject
+StringObject
+StringObject
+StringObject
+"a"
+"c"
+dict
+Stringobject
+HashObject
+StringObject
+"alphabet"
+StringObject
+redisDb
+"RedisinAction"
+Stringobject
+"name"
+"book"
+Stringobject
+StringObject
+dict
+Stringobject
+"author"
+"Josiah L. Carlson"
+expires
+"message"
+StringObject
+"publisher"
+Stringobject
+"Manning"
+Stringobject
+"hello world"
+dict
+StringObject
+long long
+"alphabet"
+1385877600000
+Stringobject
+"book"
+long long
+StringObject
+新添加
+1388556000000
+"message"
+long long
+1391234400000
+图9-13
+执行PEXPIREAT命令之后的数据库
+以下是PEXPIREAT命令的伪代码定义：
+def PEXPIREAT(keY,expire_time_in_ms):
+#如果给定的键不存在于键空间，那么不能设置过期时间
+if key not in redisDb.dict:
+returno
+#在过期字典中关联键和过期时间
+redisDb.expires[key]=expire_time_in_ms
+#过期时间设置成功
+return 1

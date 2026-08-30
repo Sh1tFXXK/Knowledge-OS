@@ -1,0 +1,37 @@
+24，第一部分数据结构与对象
+2)"Redis.io"
+3)"MariaDB"
+4)"MariaDB.Org"
+5)"MongoDB"
+6)"MongoDB.org"
+#...
+website键的底层实现就是一个字典，字典中包含了10086个键值对，例如：
+口键值对的键为"Redis"，值为"Redis.io"。
+口键值对的键为"MariaDB"，值为"MariaDB.org"；
+口键值对的键为"MongoDB"，值为"MongoDB.org"；
+除了用来实现数据库和哈希键之外，Redis的不少功能也用到了字典，在后续的章节中
+会不断地看到字典在Redis中的各种不同应用。
+本章接下来的内容将对Redis的字典实现进行详细介绍，并列出字典的操作API。本章
+不会对字典的基本定义和基础算法进行介绍，如果有需要的话，可以参考以下这些资料：
+维基百科的AssociativeArray词条（http://en.wikipedia.org/wiki/Associative_array）
+和HashTable词条（http:/en.wikipedia.org/wiki/Hash_table）。
+口《算法：C语言实现（第1～4部分）》一书的第14章。
+口《算法导论（第三版）》一书的第11章。
+4.1字典的实现
+Redis的字典使用哈希表作为底层实现，一个哈希表里面可以有多个哈希表节点，而每
+个哈希表节点就保存了字典中的一个键值对。
+接下来的三个小节将分别介绍Redis的哈希表、哈希表节点以及字典的实现。
+4.1.1哈希表
+Redis字典所使用的哈希表由dict.h/dictht结构定义：
+typedef struct dictht (
+/ /哈希表数组
+dictEntry **tablei
+//哈希表大小
+unsigned long sizei
+//哈希表大小掩码，用于计算索引值
+//总是等于size-1
+unsigned long sizemask;
+//该哈希表已有节点的数量
+unsigned long used;
+)dictht;
+table属性是一个数组，数组中的每个元素都是一个指向dict.h/dictEntry结构

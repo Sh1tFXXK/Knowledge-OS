@@ -1,0 +1,51 @@
+第8章对象61
+redis>SET msg "hello world"
+OK
+Redis中的每个对象都由一个redisobject结构表示，该结构中和保存数据有关的三
+个属性分别是type属性、encoding属性和ptr属性：
+typedef structredisobject
+//类型
+unsigned type:4;
+//编码
+unsigned encoding:4;
+//指向底层实现数据结构的指针
+void *ptr;
+Irobj;
+8.1.1
+类型
+对象的type属性记录了对象的类型，这个属性
+表8-1
+对象的类型
+的值可以是表8-1列出的常量的其中一个。
+类型常量
+对象的名称
+对于Redis数据库保存的键值对来说，键总是一
+REDIS_STRING
+字符串对象
+个字符串对象，而值则可以是字符串对象、列表对
+REDIS LIST
+列表对象
+象、哈希对象、集合对象或者有序集合对象的其中
+REDIS_HASH
+哈希对象
+一种，因此：
+REDIS_SET
+集合对象
+口当我们称呼一个数据库键为“字符串键”时，
+REDIS_ZSET
+我们指的是“这个数据库键所对应的值为字
+有序集合对象
+符串对象”；
+口当我们称呼一个键为“列表键”时，我们指的是“这个数据库键所对应的值为列表
+对象”。
+TYPE命令的实现方式也与此类似，当我们对一个数据库键执行TYPE命令时，命令返
+回的结果为数据库键对应的值对象的类型，而不是键对象的类型：
+#键为字符串对象，值为字符串对象
+redis> SET msg "hello world"
+OK
+redis> TYPE msg
+string
+#键为字符串对象，值为列表对象
+redis>RPUsHnumbers135
+(integer)6
+redis>TYPEnumbers

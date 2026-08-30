@@ -18,6 +18,10 @@ assert.match(appSource, /onResizeStart=\{startRightPanelResize\}/);
 assert.match(rightPanelSource, /onResizeStart/);
 assert.match(rightPanelSource, /right-panel-resize-handle/);
 assert.match(rightPanelSource, /SystemConnectionMap/);
+assert.match(rightPanelSource, /answerQuestion\(questionId, answerDraft\)/);
+assert.match(rightPanelSource, /right-question-answer-input/);
+assert.match(rightPanelSource, /event\.ctrlKey \|\| event\.metaKey/);
+assert.match(rightPanelSource, /编辑答案/);
 assert.doesNotMatch(rightPanelSource, /RelationNetworkSkeleton/);
 assert.doesNotMatch(rightPanelSource, /import RelationNetwork from/);
 

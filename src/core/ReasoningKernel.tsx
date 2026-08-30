@@ -27,7 +27,7 @@ export default function ReasoningKernel() {
         <DimensionCanvas node={focusNode} viewDimensions={viewDims ?? []} />
       </div>
 
-      <SubsystemStrip focusNodeId={focusNodeId} />
+      <SubsystemStrip focusNodeId={focusNode.id} />
     </div>
   );
 }

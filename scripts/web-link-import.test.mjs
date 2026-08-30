@@ -55,7 +55,14 @@ test('web URLs are normalized and private network destinations are rejected', as
   await assert.doesNotReject(
     assertPublicWebUrl('https://proxied.example/article', async () => [{ address: '198.18.0.9', family: 4 }]),
   );
+  await assert.doesNotReject(
+    assertPublicWebUrl('https://dual-stack-proxied.example/article', async () => [
+      { address: '198.18.0.9', family: 4 },
+      { address: 'fdfe:dcba:9876::9', family: 6 },
+    ]),
+  );
   await assert.rejects(assertPublicWebUrl('https://198.18.0.9/article'), /内网/);
+  await assert.rejects(assertPublicWebUrl('https://[fdfe:dcba:9876::9]/article'), /内网/);
 });
 
 test('fetchWebPage follows bounded redirects and returns the final canonical URL', async () => {

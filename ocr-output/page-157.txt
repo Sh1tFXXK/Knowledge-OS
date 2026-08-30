@@ -1,0 +1,37 @@
+140第二部分单机数据库的实现
+*5/r/n$5\r/nRPUSH\r\n$7\r\nNUMBERS\r\n$3\r\nONE\r\n$3\r/nTWO\r/n5\r/nTHREE\rn
+以上就是AOF持久化的命令追加步骤的实现原理。
+11.1.2AOF文件的写入与同步
+Redis的服务器进程就是一个事件循环（loop），这个循环中的文件事件负责接收客户端
+的命令请求，以及向客户端发送命令回复，而时间事件则负责执行像serverCron函数这
+样需要定时运行的函数。
+因为服务器在处理文件事件时可能会执行写命令，使得一些内容被追加到aofbuf缓冲
+区里面，所以在服务器每次结束一个事件循环之前，它都会调用flushAppendonlyFile函
+数，考虑是否需要将aofbuf缓冲区中的内容写入和保存到AOF文件里面，这个过程可
+以用以下伪代码表示：
+def eventLoop():
+while True:
+#处理文件事件，接收命令请求以及发送命令回复
+#处理命令请求时可能会有新内容被追加到aof_buf缓冲区中
+processFileEvents()
+#处理时间事件
+processTimeEvents ()
+#考虑是否要将aofbuf中的内容写入和保存到AoF文件里面
+flushAppendOnlyFile()
+flushAppendonlyFile函数的行为由服务器配置的appendfsync选项的值来决
+定，各个不同值产生的行为如表11-1所示。
+表11-1不同appendfsync值产生不同的持久化行为
+appendfsync选项的值
+flushAppendonlyFile函数的行为
+always
+将aof_buf缓冲区中的所有内容写入并同步到AOF文件
+将aofbuf缓冲区中的所有内容写入到AOF文件，如果上次同步AOF文件的时间
+everysec
+距离现在超过一秒钟，那么再次对AOF文件进行同步，并且这个同步操作是由一个线
+程专门负责执行的
+将aof_buf缓冲区中的所有内容写入到AOF文件，但并不对AOF文件进行同步，
+no
+何时同步由操作系统来决定
+如果用户没有主动为appendfsync选项设置值，那么appendfsync选项的默认值
+为everysec，关于appendfsync选项的更多信息，请参考Redis项目附带的示例配置
+文件redis.conf。

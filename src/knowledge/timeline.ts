@@ -1,5 +1,6 @@
 import type { KnowledgeNode } from '../types';
 import type { KnowledgePointSnapshot } from './state';
+import { normalizeExplanationCard } from './explanationContentOwnership.ts';
 
 export interface KnowledgePointSnapshotStats {
   tabCount: number;
@@ -9,6 +10,12 @@ export interface KnowledgePointSnapshotStats {
 }
 export function cloneKnowledgeNode(node: KnowledgeNode): KnowledgeNode {
   return structuredClone(node);
+}
+
+function normalizeSnapshotNode(node: KnowledgeNode): KnowledgeNode {
+  const cloned = cloneKnowledgeNode(node);
+  const result = normalizeExplanationCard(cloned.card);
+  return result.card === cloned.card ? cloned : { ...cloned, card: result.card };
 }
 
 export function createKnowledgePointSnapshot(
@@ -27,7 +34,7 @@ export function createKnowledgePointSnapshot(
     title: trimmedTitle || '未命名版本',
     capturedAt,
     ...(trimmedNote ? { note: trimmedNote } : {}),
-    node: cloneKnowledgeNode(node),
+    node: normalizeSnapshotNode(node),
   };
 }
 
@@ -53,7 +60,7 @@ export function normalizeKnowledgePointTimeline(value: unknown): KnowledgePointS
     if (isKnowledgePointSnapshot(entry)) {
       return [{
         ...entry,
-        node: cloneKnowledgeNode(entry.node),
+        node: normalizeSnapshotNode(entry.node),
       }];
     }
 

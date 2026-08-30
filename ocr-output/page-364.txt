@@ -1,0 +1,50 @@
+第21章排序347
+array
+obj
+numbers链表
+array[0]
+redisSortobject
+u.score
+Stringobject
+StringObject
+1.0
+StringObject
+"i"
+"2"
+obj
+array[i]
+redisSortobject
+u.score
+2.0
+Eqo
+array[2]
+redisSortobject
+u.score
+3.0
+图21-4排序后的数组
+以下是redisSortobject结构的完整定义：
+typedefstruct_redissortobject(
+//被排序键的值
+robj *obj;
+//权重
+union t
+//排序数字值时使用
+double score;
+//排序带有BY选项的字符串值时使用
+robj*cmpobj;
+Iredissortobject;
+SORT命令为每个被排序的键都创建一个与键长度相同的数组，数组的每个项
+都是一个redisSortobject结构，根据SORT命令使用的选项不同，程序使用
+redisSortobject结构的方式也不同，稍后介绍SORT命令的各种选项时我们会看到这
+一点。
+21.2ALPHA选项的实现
+通过使用ALPHA选项，SORT命令可以对包含字符串值的键进行排序：
+SORT<key>ALPHA
+以下命令展示了如何使用SORT命令对一个包含三个字符串值的集合键进行排序：
+redis>SADD fruitsapplebanana cherry
+(integer)3
+#元素在集合中是乱序存放的
+redis> SMEMBERs fruits
+1)"apple"
+2)"cherry"
+3)"banana"

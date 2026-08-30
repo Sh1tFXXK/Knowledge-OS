@@ -1,0 +1,47 @@
+第21章排序，345
+#排序后的集合元素
+redis>SORT alphabetALPHA
+1)
+"a"
+2)
+"b"
+3)
+"c"
+4)"d"
+5）
+"e"
+6)
+"f"
+7)
+.b.
+接下来的例子使用了SORT命令和BY选项，以jack_number、peter_number、
+"peter"、"tom"三个成员（member）进行排序：
+redis>zADDtest-result3.0jack3.5peter4.0tom
+(integer)3
+#按元素的分值排列
+redis> ZRANGE test-result 0 -1
+l)"jack"
+2)"peter"
+3)"tom"
+#为各个元素设置序号
+redis>MsETpeter_number1tom_number2jack_number3
+OK
+#以序号为权重，对有序集合中的元素进行排序
+redis>SoRT test-result BY*_number
+1)"peter"
+2)"tom"
+3)"jack"
+本章将对SORT命令的实现原理进行介绍，并说明包括ASC、DESC、ALPHA、LIMIT、
+STORE、BY、GET在内的所有SORT命令选项的实现原理。
+除此之外，本章还将说明当SORT命令同时使用多个选项时，各个不同选项的执行顺
+序，以及选项的执行顺序对排序结果所产生的影响。
+21.1 S
+SORT<key>命令的实现
+SORT命令的最简单执行形式为：
+SORT <key>
+这个命令可以对一个包含数字值的键key进行排序。
+以下示例展示了如何使用SORT命令对一个包含三个数字值的列表键进行排序：
+redis>RPUSH.numbers312
+(integer)3
+redis> SORT numbers
+1)"1"

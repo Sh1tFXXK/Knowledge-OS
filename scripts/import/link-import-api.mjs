@@ -1,13 +1,16 @@
 import { importWebLink } from './web-link-importer.mjs';
-import { documentKindForFile, importDocument } from './document-importer.mjs';
+import { DOCUMENT_KIND, documentKindForFile, importDocument } from './document-importer.mjs';
 import { aiOrganizerCapabilities } from './ai-organizer.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { importJavaSource } from './java-source-importer.mjs';
+import { createMineruOcrService } from './mineru-ocr.mjs';
+import { DOCUMENT_PROFILE_MODE } from './import-standard.mjs';
 
 const MAX_REQUEST_BYTES = 32 * 1024;
 export const MAX_DOCUMENT_BYTES = 20 * 1024 * 1024;
+export const MAX_PDF_BYTES = 100 * 1024 * 1024;
 
 class HttpError extends Error {
   constructor(message, statusCode = 400) {
@@ -47,10 +50,10 @@ function readJsonBody(request) {
   });
 }
 
-function readBinaryBody(request) {
+function readBinaryBody(request, maxBytes, maxSizeLabel) {
   const declaredLength = Number(request.headers['content-length'] ?? 0);
-  if (declaredLength > MAX_DOCUMENT_BYTES) {
-    throw new HttpError('文档不能超过 20 MB', 413);
+  if (declaredLength > maxBytes) {
+    throw new HttpError(`${maxSizeLabel}不能超过 ${Math.round(maxBytes / 1024 / 1024)} MB`, 413);
   }
 
   return new Promise((resolve, reject) => {
@@ -61,10 +64,10 @@ function readBinaryBody(request) {
       if (exceeded) return;
       const buffer = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
       size += buffer.length;
-      if (size > MAX_DOCUMENT_BYTES) {
+      if (size > maxBytes) {
         exceeded = true;
         chunks.length = 0;
-        reject(new HttpError('文档不能超过 20 MB', 413));
+        reject(new HttpError(`${maxSizeLabel}不能超过 ${Math.round(maxBytes / 1024 / 1024)} MB`, 413));
         return;
       }
       chunks.push(buffer);
@@ -106,6 +109,7 @@ export function validateDocumentRequest(request) {
   const parentTreeNodeId = requestUrl.searchParams.get('parentTreeNodeId')?.trim() ?? '';
   const translateValue = requestUrl.searchParams.get('translate');
   const useAiValue = requestUrl.searchParams.get('useAi');
+  const profileMode = requestUrl.searchParams.get('profileMode') ?? DOCUMENT_PROFILE_MODE.Auto;
   documentKindForFile(fileName);
   if (!parentTreeNodeId) throw new HttpError('请选择要挂载的项目目录');
   if (translateValue !== null && translateValue !== 'true' && translateValue !== 'false') {
@@ -114,11 +118,15 @@ export function validateDocumentRequest(request) {
   if (useAiValue !== null && useAiValue !== 'true' && useAiValue !== 'false') {
     throw new HttpError('AI 整理选项无效');
   }
+  if (!Object.values(DOCUMENT_PROFILE_MODE).includes(profileMode)) {
+    throw new HttpError('文档结构选项无效');
+  }
   return {
     fileName,
     parentTreeNodeId,
     translate: translateValue !== 'false',
     useAi: useAiValue === 'true',
+    profileMode,
   };
 }
 
@@ -201,6 +209,7 @@ function javaSourceCapabilities(runtimeEnv) {
 
 export function linkImportApi(projectRoot, runtimeEnv = process.env) {
   let importQueue = Promise.resolve();
+  const mineruOcr = createMineruOcrService({ projectRoot, runtimeEnv });
 
   function enqueueImport(action) {
     const next = importQueue
@@ -250,10 +259,13 @@ export function linkImportApi(projectRoot, runtimeEnv = process.env) {
         return;
       }
       if (method === 'GET') {
+        const ocr = await mineruOcr.capabilities();
         sendJson(response, 200, {
           ai: aiOrganizerCapabilities(runtimeEnv),
           maxBytes: MAX_DOCUMENT_BYTES,
+          maxPdfBytes: MAX_PDF_BYTES,
           extensions: ['.pdf', '.md', '.markdown', '.txt', '.html', '.htm', '.docx'],
+          ocr,
           javaSource: javaSourceCapabilities(runtimeEnv),
         });
         return;
@@ -265,13 +277,29 @@ export function linkImportApi(projectRoot, runtimeEnv = process.env) {
 
       try {
         const metadata = validateDocumentRequest(request);
-        const buffer = await readBinaryBody(request);
-        sendJson(response, 200, await enqueueImport(() => importDocument({
-          ...metadata,
-          buffer,
-          projectRoot,
-          aiEnv: runtimeEnv,
-        })));
+        const isPdf = documentKindForFile(metadata.fileName) === DOCUMENT_KIND.Pdf;
+        const buffer = await readBinaryBody(
+          request,
+          isPdf ? MAX_PDF_BYTES : MAX_DOCUMENT_BYTES,
+          isPdf ? 'PDF 文档' : '文档',
+        );
+        const abortController = new AbortController();
+        const abortImport = () => abortController.abort();
+        request.once('aborted', abortImport);
+        response.once('close', abortImport);
+        try {
+          sendJson(response, 200, await enqueueImport(() => importDocument({
+            ...metadata,
+            buffer,
+            projectRoot,
+            aiEnv: runtimeEnv,
+            ocrExtractor: mineruOcr.extract,
+            signal: abortController.signal,
+          })));
+        } finally {
+          request.off('aborted', abortImport);
+          response.off('close', abortImport);
+        }
       } catch (error) {
         console.error('[document-import-api] Import failed', error);
         const statusCode = error instanceof HttpError ? error.statusCode : 400;

@@ -1,0 +1,44 @@
+第22章二进制位数组·363
+redis>BITCOUNT bit
+(integer)3
+最后，BITOP命令既可以对多个位数组进行按位与（and）、按位或（or）、按位异或
+（xor）运算：
+redis>SETBITx31
+#x=00001011
+(integer)0
+redis>SETBIT x 11
+(integer)0
+redis> SETBIT x 0 1
+(integer)0
+redis>SETBITy21
+#y=00000110
+(integer)0
+redis>SETBITy1 1
+(integer)0
+redis>SETBIT z 2 1
+#z=00000101
+(integer)
+redis>SETBITz01
+(integer)0
+redis>BITOPANDand-resultxyz
+#00000000
+(integer)1
+redis>BITOPORor-resultxyz
+#00001111
+(integer)1
+redis>BIToPxoRxor-resultxyz
+#00001000
+(integer)1
+也可以对给定的位数组进行取反（not）运算：
+redis> SETBIT value 0 1
+#00001001
+(integer)0
+redis>SETBITvalue31
+(integer)0
+redis>BITOpNoTnot-valuevalue#1llO1i0
+(integer)1
+本章将对Redis表示位数组的方法进行说明，并介绍GETBIT、SETBIT、BITCOUNT、
+BITOP四个命令的实现原理。
+22.1
+位数组的表示
+Redis使用字符串对象来表示位数组，因为字符串对象使用的SDS数据结构是二进制安

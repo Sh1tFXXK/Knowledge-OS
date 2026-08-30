@@ -1,4 +1,5 @@
 import {
+  type DragEvent as ReactDragEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -12,14 +13,19 @@ import {
   FileUp,
   FolderTree,
   Languages,
+  ListChecks,
   LoaderCircle,
+  ScanText,
   Sparkles,
   X,
 } from 'lucide-react';
 import {
   DocumentKind,
   DocumentImportSourceKind,
+  DocumentOcrProvider,
   DocumentProfile,
+  DocumentProfileMode,
+  documentKindForFile,
   getDocumentImportCapabilities,
   importDocumentFile,
   validateDocumentFile,
@@ -69,7 +75,13 @@ function documentKindLabel(kind: DocumentKind): string {
 }
 
 function documentProfileLabel(profile: DocumentProfile): string {
-  return profile === DocumentProfile.QuestionBank ? '题库结构' : '章节结构';
+  return profile === DocumentProfile.QuestionBank ? '题库结构' : '知识结构';
+}
+
+function suggestedProfileMode(fileName: string): DocumentProfileMode {
+  return /面试题|题库|问答|(?:^|[-_\s])(?:questions?|quiz|interview)(?:[-_\s.]|$)/i.test(fileName)
+    ? DocumentProfileMode.QuestionBank
+    : DocumentProfileMode.Auto;
 }
 
 export default function DocumentImportDialog({ isOpen, onClose }: DocumentImportDialogProps) {
@@ -90,6 +102,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
   const [parentTreeNodeId, setParentTreeNodeId] = useState(treeData.id);
   const [translate, setTranslate] = useState(true);
   const [useAi, setUseAi] = useState(false);
+  const [profileMode, setProfileMode] = useState(DocumentProfileMode.Auto);
   const [isDragging, setIsDragging] = useState(false);
   const [capabilities, setCapabilities] = useState(null as DocumentImportCapabilities | null);
   const [phase, setPhase] = useState(DocumentImportPhase.Editing);
@@ -113,6 +126,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
       return;
     }
     setFile(nextFile);
+    setProfileMode(suggestedProfileMode(nextFile.name));
     setError(null);
     setPhase(DocumentImportPhase.Editing);
   };
@@ -143,6 +157,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     setFile(null);
     setTranslate(true);
     setUseAi(false);
+    setProfileMode(DocumentProfileMode.Auto);
     setIsDragging(false);
     setPhase(DocumentImportPhase.Editing);
     setError(null);
@@ -167,7 +182,14 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
           setCapabilities({
             ai: { configured: false, model: '' },
             maxBytes: 20 * 1024 * 1024,
+            maxPdfBytes: 100 * 1024 * 1024,
             extensions: ['.pdf', '.md', '.markdown', '.txt', '.html', '.htm', '.docx'],
+            ocr: {
+              available: false,
+              provider: DocumentOcrProvider.MinerU,
+              backend: 'pipeline',
+              version: '',
+            },
             javaSource: {
               available: true,
               defaultSource: '',
@@ -220,7 +242,7 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     if (event.target === event.currentTarget && !isBusy) onClose();
   };
 
-  const handleDrop = (event: DragEvent) => {
+  const handleDrop = (event: ReactDragEvent<HTMLButtonElement>) => {
     event.preventDefault();
     setIsDragging(false);
     if (!isBusy && sourceKind === DocumentImportSourceKind.File) {
@@ -240,7 +262,13 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     setError(null);
     setResult(null);
     try {
-      const imported = await importDocumentFile({ file, parentTreeNodeId, translate, useAi });
+      const imported = await importDocumentFile({
+        file,
+        parentTreeNodeId,
+        translate,
+        useAi,
+        profileMode,
+      });
       await initialize();
       selectTreeEntry(imported.treeNodeId);
       setActiveView('index');
@@ -326,12 +354,14 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
               <span>导入完成</span>
               <strong>{result.title}</strong>
               <small>
-                {documentKindLabel(result.documentKind)} · {documentProfileLabel(result.profile)} · {result.fileName}
+                {documentKindLabel(result.documentKind)} · {documentProfileLabel(result.profile)}
+                {result.ocrProvider ? ' · MinerU OCR' : ''} · {result.fileName}
               </small>
             </div>
             <dl className="link-import-result-grid">
               <div><dt>知识节点</dt><dd>{result.nodeCount}</dd></div>
-              <div><dt>章节</dt><dd>{result.sectionCount}</dd></div>
+              <div><dt>语义根</dt><dd>{result.rootCount}</dd></div>
+              <div><dt>关系</dt><dd>{result.relationCount}</dd></div>
               <div><dt>问题</dt><dd>{result.questionCount}</dd></div>
               <div><dt>语言</dt><dd>{result.translated ? `${result.language} → 中文` : result.language}</dd></div>
               <div><dt>页数</dt><dd>{result.pageCount ?? '-'}</dd></div>
@@ -377,11 +407,11 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 className={`document-import-dropzone${file ? ' has-file' : ''}${isDragging ? ' is-dragging' : ''}`}
                 disabled={isImporting}
                 onClick={() => fileInputRef.current?.click()}
-                onDragEnter={(event: DragEvent) => {
+                onDragEnter={(event: ReactDragEvent<HTMLButtonElement>) => {
                   event.preventDefault();
                   if (!isImporting) setIsDragging(true);
                 }}
-                onDragOver={(event: DragEvent) => event.preventDefault()}
+                onDragOver={(event: ReactDragEvent<HTMLButtonElement>) => event.preventDefault()}
                 onDragLeave={() => setIsDragging(false)}
                 onDrop={handleDrop}
               >
@@ -391,6 +421,18 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                   <small>{file ? formatBytes(file.size) : 'PDF · Markdown · TXT · HTML · DOCX · 也支持粘贴文件内容'}</small>
                 </span>
               </button>
+              {file && documentKindForFile(file) === DocumentKind.Pdf && (
+                <div className="link-import-file" role="status">
+                  <ScanText size={15} aria-hidden="true" />
+                  <span>
+                    {capabilities?.ocr.available
+                      ? profileMode === DocumentProfileMode.QuestionBank
+                        ? `题库 PDF 将由 MinerU 解析 · ${capabilities.ocr.backend}`
+                        : `MinerU 本地 OCR 已就绪 · ${capabilities.ocr.backend}`
+                      : 'MinerU 本地 OCR 未安装'}
+                  </span>
+                </div>
+              )}
             </div>
 
             <div className="link-import-field">
@@ -401,6 +443,29 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
                 disabled={isImporting}
                 onChange={setParentTreeNodeId}
               />
+            </div>
+
+            <div className="link-import-field">
+              <span><ListChecks size={14} aria-hidden="true" />导入结构</span>
+              <div className="document-profile-modes" role="radiogroup" aria-label="文档导入结构">
+                {[
+                  [DocumentProfileMode.Auto, '自动'],
+                  [DocumentProfileMode.Article, '知识'],
+                  [DocumentProfileMode.QuestionBank, '题库'],
+                ].map(([mode, label]) => (
+                  <button
+                    key={mode}
+                    type="button"
+                    role="radio"
+                    aria-checked={profileMode === mode}
+                    className={profileMode === mode ? 'is-active' : ''}
+                    disabled={isImporting}
+                    onClick={() => setProfileMode(mode as DocumentProfileMode)}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
             </div>
 
             <label className="link-import-translation">
@@ -421,8 +486,8 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
             <label className="link-import-translation">
               <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>
               <span className="link-import-translation-copy">
-                <strong>AI 整理与归类</strong>
-                <small>{capabilities?.ai.configured ? capabilities.ai.model : '未配置模型'}</small>
+                <strong>语义编译</strong>
+                <small>{capabilities?.ai.configured ? `${capabilities.ai.model} · 从内容关系生成知识图` : '未配置模型'}</small>
               </span>
               <input
                 type="checkbox"

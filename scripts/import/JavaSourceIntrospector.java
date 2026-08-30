@@ -430,12 +430,26 @@ public final class JavaSourceIntrospector {
         String typeName = eraseTypeArguments(rawType).replaceAll("\\s+", "");
         if (byClassName.containsKey(typeName)) return typeName;
 
-        String imported = owner.context.explicitImports().get(simpleName(typeName));
+        int firstSeparator = typeName.indexOf('.');
+        String leadingName = firstSeparator < 0
+            ? typeName
+            : typeName.substring(0, firstSeparator);
+        String imported = owner.context.explicitImports().get(leadingName);
         if (imported != null) {
-            String suffix = typeName.contains(".")
-                ? typeName.substring(typeName.indexOf('.'))
+            String suffix = firstSeparator >= 0
+                ? typeName.substring(firstSeparator)
                 : "";
             return imported + suffix;
+        }
+
+        String enclosingType = owner.className;
+        while (enclosingType.startsWith(owner.packageName + ".")) {
+            int separator = enclosingType.lastIndexOf('.');
+            if (separator < 0) break;
+            enclosingType = enclosingType.substring(0, separator);
+            if (enclosingType.equals(owner.packageName)) break;
+            String nestedCandidate = enclosingType + "." + typeName;
+            if (byClassName.containsKey(nestedCandidate)) return nestedCandidate;
         }
 
         String samePackage = owner.packageName.isEmpty()
@@ -477,7 +491,8 @@ public final class JavaSourceIntrospector {
         return Set.of(
             "Object", "String", "Throwable", "Exception", "RuntimeException",
             "Error", "Enum", "Record", "Annotation", "Iterable", "Comparable",
-            "Cloneable", "AutoCloseable"
+            "Cloneable", "AutoCloseable", "Runnable", "Thread", "ThreadLocal",
+            "InheritableThreadLocal", "Number", "IllegalStateException"
         ).contains(name);
     }
 

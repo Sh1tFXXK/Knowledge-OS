@@ -1,0 +1,42 @@
+第22章二进制位数组→375
+#一个表，记录了所有八位长位数组的汉明重量
+#程序将8位长的位数组转换成无符号整数，并在表中进行索引
+#例如，对于输入00000011，程序将二进制转换为无符号整数3
+#然后取出weightinbyte【3］的值2
+#2就是00000011的汉明重量
+weight_in_byte=[0,1,1,2,1,2,2,/*...*/,7,7,8]
+def BITCOUNT(bits):
+#计算位数组包含了多少个二进制位
+count =count_bit(bits)
+#初始化汉明重量为零
+weight=0
+#如果未处理的二进制位大于等于128位
+#那么使用variable-precisionSwAR算法来处理
+while count >= 128:
+#四个Swar调用，每个调用计算32个二进制位的汉明重量
+#注意：bits［i：j]】中的索引j是不包含在取值范围之内的
+weight+=swar(bits[0:32])
+weight+=swar(bits[32:64])
+weight+=swar(bits[64:96])
+weight+=swar(bits[96:128])
+#移动指针，略过已处理的位，指向未处理的位
+bits=bits[128:]
+#减少未处理位的长度
+count-=128
+#如果执行到这里，说明未处理的位数量不足128位
+#那么使用查表法来计算汉明重量
+while count:
+#将8个位转换成无符号整数，作为查表的索引（键）
+index=bits_to_unsigned_int(bits[0:8])
+weight +=weight_in_byte[index]
+#移动指针，略过已处理的位，指向未处理的位
+bits =bits[8:]
+#减少未处理位的长度
+count-=8
+#计算完毕，返回输入二进制位的汉明重量
+return weight
+这个BITCOUNT实现的算法复杂度为O(n)，其中n为输人二进制位的数量。
+更具体一点，我们可以用以下公式来计算BITCOUNT命令在处理长度为n的二进制位
+输入时，命令中的两个循环需要执行的次数：
+口第一个循环的执行次数可以用公式loopi=Ln128」计算得出。
+以100MB=800000000bit来计算，BITCOUNT命令处理一个100MB长的位数组

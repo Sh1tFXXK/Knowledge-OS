@@ -5,7 +5,7 @@ import {
   ExplanationTab,
   KnowledgeNode,
 } from '../types';
-import { normalizeSupertag } from './supertags';
+import { normalizeSupertag, supertagKey } from './supertags';
 
 export enum SupertagMaterialKind {
   Node = 'node',
@@ -29,6 +29,11 @@ export interface SupertagMaterialGroup {
   tag: string;
   materials: SupertagMaterial[];
   nodeCount: number;
+}
+
+interface SupertagMaterialAccumulator {
+  tag: string;
+  materials: SupertagMaterial[];
 }
 
 function firstNodeContent(node: KnowledgeNode): string {
@@ -55,21 +60,28 @@ function firstPageContent(pages: readonly ExplanationPage[]): string {
 }
 
 function appendMaterial(
-  groups: Map<string, SupertagMaterial[]>,
+  groups: Map<string, SupertagMaterialAccumulator>,
   material: Omit<SupertagMaterial, 'tag'>,
   tags: readonly string[] | undefined,
 ): void {
   const seen = new Set<string>();
   for (const rawTag of tags ?? []) {
     const tag = normalizeSupertag(rawTag);
-    if (!tag || seen.has(tag)) continue;
-    seen.add(tag);
-    groups.set(tag, [...(groups.get(tag) ?? []), { ...material, tag }]);
+    const key = supertagKey(tag);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
+
+    const group = groups.get(key);
+    const displayTag = group?.tag ?? tag;
+    groups.set(key, {
+      tag: displayTag,
+      materials: [...(group?.materials ?? []), { ...material, tag: displayTag }],
+    });
   }
 }
 
 function collectPages(
-  groups: Map<string, SupertagMaterial[]>,
+  groups: Map<string, SupertagMaterialAccumulator>,
   node: KnowledgeNode,
   tabId: string,
   tabPath: readonly string[],
@@ -103,7 +115,7 @@ function collectPages(
 }
 
 function collectTabs(
-  groups: Map<string, SupertagMaterial[]>,
+  groups: Map<string, SupertagMaterialAccumulator>,
   node: KnowledgeNode,
   tabs: readonly ExplanationTab[],
   labelPath: readonly string[] = [],
@@ -144,7 +156,7 @@ function collectTabs(
 export function collectSupertagMaterialGroups(
   nodePool: Record<string, KnowledgeNode>,
 ): SupertagMaterialGroup[] {
-  const groups = new Map<string, SupertagMaterial[]>();
+  const groups = new Map<string, SupertagMaterialAccumulator>();
 
   for (const node of Object.values(nodePool)) {
     appendMaterial(
@@ -167,8 +179,8 @@ export function collectSupertagMaterialGroups(
     collectTabs(groups, node, node.card.tabs);
   }
 
-  return [...groups.entries()]
-    .map(([tag, materials]) => ({
+  return [...groups.values()]
+    .map(({ tag, materials }) => ({
       tag,
       materials: [...materials].sort(
         (left, right) =>

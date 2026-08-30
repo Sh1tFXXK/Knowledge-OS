@@ -316,15 +316,22 @@ export default function QuestionDatabase() {
           >
             ▦
           </button>
-          <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>
-            共 {filteredQuestions.length} 个问题
+          <span className="qdb-count">
+            共 <span className="qdb-count-num">{filteredQuestions.length}</span> 个问题
           </span>
         </div>
       </div>
 
       {/* 内容区域 */}
       <div className="database-content">
-        {Object.entries(groupedQuestions).map(([groupName, groupQuestions]) => (
+        {filteredQuestions.length === 0 ? (
+          <div className="database-empty">
+            <div className="database-empty-icon">🔍</div>
+            <p className="database-empty-title">没有找到匹配的问题</p>
+            <p className="database-empty-hint">试试调整搜索关键词，或更换状态 / 分组筛选条件</p>
+          </div>
+        ) : (
+        Object.entries(groupedQuestions).map(([groupName, groupQuestions]) => (
           <div key={groupName} className="database-group">
             {groupBy !== 'none' && (
               <div className="group-header">
@@ -409,29 +416,22 @@ export default function QuestionDatabase() {
                         <td>
                           {relatedLabel ? (
                             <span
-                              style={{
-                                fontSize: 11,
-                                padding: '2px 6px',
-                                background: 'var(--accent-blue-dim)',
-                                color: 'var(--accent-blue)',
-                                borderRadius: '4px',
-                                display: 'inline-block'
-                              }}
+                              className="qdb-related-chip"
                               title={`关联: ${relatedLabel}`}
                             >
                               🔗 {relatedLabel}
                             </span>
                           ) : (
-                            <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>-</span>
+                            <span className="qdb-muted">-</span>
                           )}
                         </td>
                         <td>
                           {q.answer ? (
-                            <span style={{ fontSize: 11, color: 'var(--accent-green)' }}>
+                            <span className="qdb-answered-flag">
                               ✓ 已填写
                             </span>
                           ) : (
-                            <span style={{ fontSize: 11, color: 'var(--text-tertiary)' }}>-</span>
+                            <span className="qdb-muted">-</span>
                           )}
                         </td>
                         <td onClick={(e) => e.stopPropagation()}>
@@ -565,14 +565,7 @@ export default function QuestionDatabase() {
                         {relatedLabel && (
                           <div style={{ marginTop: 8 }}>
                             <span
-                              style={{
-                                fontSize: 11,
-                                padding: '2px 6px',
-                                background: 'var(--accent-blue-dim)',
-                                color: 'var(--accent-blue)',
-                                borderRadius: '4px',
-                                display: 'inline-block'
-                              }}
+                              className="qdb-related-chip"
                               title={`关联: ${relatedLabel}`}
                             >
                               🔗 {relatedLabel}
@@ -582,23 +575,11 @@ export default function QuestionDatabase() {
 
                         {/* 答案预览 */}
                         {q.answer && (
-                          <div
-                            style={{
-                              marginTop: 8,
-                              padding: '6px 8px',
-                              background: 'var(--bg-secondary)',
-                              borderRadius: '4px',
-                              fontSize: 12,
-                              color: 'var(--text-tertiary)',
-                              maxHeight: '60px',
-                              overflow: 'hidden',
-                              position: 'relative'
-                            }}
-                          >
-                            <div style={{ fontWeight: 500, color: 'var(--accent-green)', marginBottom: 4 }}>
+                          <div className="qdb-answer-preview">
+                            <div className="qdb-answer-preview-title">
                               💬 答案
                             </div>
-                            <div style={{ whiteSpace: 'pre-wrap', lineHeight: 1.4 }}>
+                            <div className="qdb-answer-preview-text">
                               {q.answer.length > 100 ? q.answer.substring(0, 100) + '...' : q.answer}
                             </div>
                           </div>
@@ -610,7 +591,8 @@ export default function QuestionDatabase() {
               </div>
             )}
           </div>
-        ))}
+        ))
+        )}
       </div>
     </div>
   );

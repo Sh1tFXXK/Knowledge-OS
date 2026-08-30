@@ -18,6 +18,7 @@ import {
   validateDocumentRequest,
   validateJavaSourceRequest,
 } from './import/link-import-api.mjs';
+import { DOCUMENT_PROFILE_MODE } from './import/import-standard.mjs';
 
 function createTextPdf(lines) {
   const escapedLines = lines.map((line) => line.replace(/([\\()])/g, '\\$1'));
@@ -67,6 +68,7 @@ test('document API accepts arbitrary file names and defaults translation on', ()
       parentTreeNodeId: 'root',
       translate: true,
       useAi: false,
+      profileMode: 'auto',
     },
   );
   const translated = validateDocumentRequest({
@@ -75,6 +77,20 @@ test('document API accepts arbitrary file names and defaults translation on', ()
   });
   assert.equal(translated.translate, false);
   assert.equal(translated.useAi, true);
+  assert.equal(translated.profileMode, 'auto');
+
+  const questionBank = validateDocumentRequest({
+    url: `${requestUrl}&profileMode=question-bank`,
+    headers: { host: 'localhost' },
+  });
+  assert.equal(questionBank.profileMode, 'question-bank');
+  assert.throws(
+    () => validateDocumentRequest({
+      url: `${requestUrl}&profileMode=invalid`,
+      headers: { host: 'localhost' },
+    }),
+    /结构/,
+  );
 });
 
 test('document import validates the local Java source mode', () => {
@@ -136,7 +152,7 @@ test('Markdown documents remove front matter and the primary heading', () => {
   assert.doesNotMatch(parsed.markdown, /author:|# Spring Container/);
 });
 
-test('PDF documents extract page text and reject image-only documents', async () => {
+test('PDF documents extract native text and use MinerU only for image-only documents', async () => {
   const parsed = await parsePdfDocument({
     fileName: 'Spring interview.pdf',
     buffer: createTextPdf([
@@ -149,6 +165,24 @@ test('PDF documents extract page text and reject image-only documents', async ()
   assert.equal(parsed.pageCount, 1);
   assert.match(parsed.markdown, /Spring Interview Notes/);
   assert.match(parsed.markdown, /Application context manages beans/);
+
+  let structuredMethod = null;
+  const structured = await parsePdfDocument({
+    fileName: 'Spring interview.pdf',
+    buffer: createTextPdf(['Native text that should be replaced in explicit question-bank mode.']),
+    profileMode: DOCUMENT_PROFILE_MODE.QuestionBank,
+    ocrExtractor: async ({ method }) => {
+      structuredMethod = method;
+      return {
+        provider: 'mineru',
+        markdown: '1. 什么是 Spring？\n\nSpring 是一个应用框架。',
+      };
+    },
+  });
+  assert.equal(structuredMethod, 'auto');
+  assert.equal(structured.ocrProvider, 'mineru');
+  assert.match(structured.markdown, /什么是 Spring/);
+  assert.doesNotMatch(structured.markdown, /Native text/);
 
   let destroyed = false;
   await assert.rejects(
@@ -163,6 +197,27 @@ test('PDF documents extract page text and reject image-only documents', async ()
     /OCR/,
   );
   assert.equal(destroyed, true);
+
+  let ocrRequest = null;
+  const scanned = await parsePdfDocument({
+    fileName: 'scan.pdf',
+    buffer: Buffer.from('%PDF-empty'),
+    parserFactory: () => ({
+      getText: async () => ({ total: 2, pages: [{ num: 1, text: '' }, { num: 2, text: '' }] }),
+      destroy: async () => {},
+    }),
+    ocrExtractor: async (request) => {
+      ocrRequest = request;
+      return {
+        provider: 'mineru',
+        markdown: '## 第一章\n\nMinerU 识别出的扫描文档正文，包含足够内容。',
+      };
+    },
+  });
+  assert.equal(ocrRequest.fileName, 'scan.pdf');
+  assert.equal(ocrRequest.pageCount, 2);
+  assert.equal(scanned.ocrProvider, 'mineru');
+  assert.match(scanned.markdown, /MinerU/);
 });
 
 test('PDF documents promote compact numbered steps to sections', async () => {

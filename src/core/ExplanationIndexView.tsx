@@ -1,4 +1,4 @@
-import { Plus, X } from 'lucide-react';
+﻿import { Maximize2, Minimize2, Plus, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   buildExplanationIndex,
@@ -18,13 +18,14 @@ import {
   CONTAINMENT_EDGE_TYPE,
   isManagedContainmentEdge,
 } from '../knowledge/containment';
-import { normalizeSupertag } from '../knowledge/supertags';
+import { hasSupertag, normalizeSupertag } from '../knowledge/supertags';
 import {
   collectDirectTypeRelations,
   resolveTypeRelationGraph,
   typeRelationLabel,
 } from '../knowledge/typeRelations';
 import { collectTreeReferencesByNodeRef, findTreeNodeById } from '../knowledge/treeUtils';
+import { buildTreeProjectionContainmentEdges } from '../knowledge/treeBinding';
 import { useGraphStore } from '../store/useGraph';
 import {
   ExplanationSelectionKind,
@@ -96,7 +97,15 @@ function relationTargetRank(label: string, query: string): number {
   return 2;
 }
 
-export default function ExplanationIndexView() {
+interface ExplanationIndexViewProps {
+  isFocusMode: boolean;
+  onToggleFocusMode: () => void;
+}
+
+export default function ExplanationIndexView({
+  isFocusMode,
+  onToggleFocusMode,
+}: ExplanationIndexViewProps) {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
   const selectedTreeNodeId = useGraphStore((state) => state.selectedTreeNodeId);
   const treeData = useGraphStore((state) => state.treeData);
@@ -144,6 +153,15 @@ export default function ExplanationIndexView() {
     [selectedTreeNodeId, treeData],
   );
   const diagramOwnerNode = diagramOwnerId ? nodePool[diagramOwnerId] : node;
+  const diagramTreeContext = useMemo(() => {
+    if (!diagramOwnerId) return null;
+    const selectedContext = selectedTreeNodeId
+      ? findTreeNodeById(treeData, selectedTreeNodeId)
+      : null;
+    if (selectedContext?.nodeRef === diagramOwnerId) return selectedContext;
+    const reference = collectTreeReferencesByNodeRef(treeData, diagramOwnerId)[0];
+    return reference ? findTreeNodeById(treeData, reference.treeNodeId) : null;
+  }, [diagramOwnerId, selectedTreeNodeId, treeData]);
 
   useEffect(() => {
     if (treeDiagramOwnerId) {
@@ -189,6 +207,20 @@ export default function ExplanationIndexView() {
       : { nodes: [], edges: [], maxDepth: 0 },
     [knowledgeEdges, relationRootId],
   );
+  const diagramContainmentEdges = useMemo(() => {
+    if (!diagramTreeContext?.nodeRef) return knowledgeEdges;
+    const treeEdges = buildTreeProjectionContainmentEdges(diagramTreeContext);
+    const structuralKnowledgeIds = new Set([
+      diagramTreeContext.nodeRef,
+      ...treeEdges.map((edge) => edge.target),
+    ]);
+    const supplementalEdges = knowledgeEdges.filter((edge) => (
+      edge.type === CONTAINMENT_EDGE_TYPE
+      && !isManagedContainmentEdge(edge)
+      && !structuralKnowledgeIds.has(edge.target)
+    ));
+    return [...treeEdges, ...supplementalEdges];
+  }, [diagramTreeContext, knowledgeEdges]);
   const directTypeRelations = useMemo(
     () => (editingRelationRootId ? collectDirectTypeRelations(knowledgeEdges, editingRelationRootId) : []),
     [editingRelationRootId, knowledgeEdges],
@@ -208,13 +240,14 @@ export default function ExplanationIndexView() {
           ownerLabel: diagramOwnerNode.label,
           index: diagramIndex,
           relationRootId,
-          relationRootLabel: relationRootNode?.label ?? node.label,
+          relationRootLabel: relationRootNode?.label ?? diagramOwnerNode.label,
           relationGraph,
           knowledgeEdges,
+          containmentEdges: diagramContainmentEdges,
           nodePool,
         })
       : null),
-    [diagramIndex, diagramOwnerNode, knowledgeEdges, nodePool, relationGraph, relationRootId, relationRootNode?.label],
+    [diagramContainmentEdges, diagramIndex, diagramOwnerNode, knowledgeEdges, nodePool, relationGraph, relationRootId, relationRootNode?.label],
   );
   const diagramNodeCount = diagramLayout?.nodes.length ?? 0;
   const diagramRelationCount = diagramLayout?.edges.length ?? 0;
@@ -392,7 +425,7 @@ export default function ExplanationIndexView() {
   const handleRemoveTag = (tag: string) => {
     setIndexTags(
       currentSelection,
-      (node?.tags ?? []).filter((item) => item !== tag),
+      (node?.tags ?? []).filter((item) => !hasSupertag([item], tag)),
     );
   };
 
@@ -422,6 +455,7 @@ export default function ExplanationIndexView() {
     if (!isExplanationSelectionActive(currentSelection, selection)) {
       setIsEditing(false);
     }
+    openCard(selection.nodeId);
     setActiveSelection(selection);
   };
 
@@ -900,6 +934,17 @@ export default function ExplanationIndexView() {
           <strong>{diagramOwnerNode.label}</strong>
         </div>
         <div className="explanation-index-header-actions">
+          <button
+            type="button"
+            className="btn btn-sm explanation-index-focus-toggle"
+            title={isFocusMode ? '恢复目录和详情栏' : '索引视图占满屏幕'}
+            aria-label={isFocusMode ? '恢复目录和详情栏' : '索引视图占满屏幕'}
+            onClick={onToggleFocusMode}
+          >
+            {isFocusMode
+              ? <Minimize2 size={14} aria-hidden="true" />
+              : <Maximize2 size={14} aria-hidden="true" />}
+          </button>
           {!locked && (
             <button
               type="button"
@@ -949,6 +994,7 @@ export default function ExplanationIndexView() {
           relationRootLabel={relationRootNode?.label ?? diagramOwnerNode.label}
           relationGraph={relationGraph}
           knowledgeEdges={knowledgeEdges}
+          containmentEdges={diagramContainmentEdges}
           nodePool={nodePool}
           activeSelection={
             activeSelection?.kind === ExplanationSelectionKind.Path ? null : currentSelection
@@ -974,3 +1020,4 @@ export default function ExplanationIndexView() {
     </div>
   );
 }
+

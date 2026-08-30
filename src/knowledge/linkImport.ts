@@ -22,9 +22,12 @@ export interface LinkImportResult {
   language: string;
   translated: boolean;
   nodeCount: number;
+  rootCount: number;
+  relationCount: number;
   sectionCount: number;
   questionCount: number;
   categories: string[];
+  structureMode: 'semantic' | 'outline';
   markdownPath: string;
 }
 

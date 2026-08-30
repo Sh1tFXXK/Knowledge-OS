@@ -1,0 +1,35 @@
+238第三部分多机数据库的实现
+sentinelRedisInstance
+flags
+SRIMASTER
+SRI_S_DOWN
+ISRIO_DOWN
+name
+"master"
+图16-193
+主服务器被标记为客观下线
+客观下线状态的判断条件
+当认为主服务器已经进入下线状态的Sentinel的数量，超过Sentinel配置中设置的
+quorum参数的值，那么该Sentinel就会认为主服务器已经进入客观下线状态。比如说，
+如果Sentinel在启动时载入了以下配置：
+sentinelmonitormaster127.0.0.163792
+那么包括当前Sentinel在内，只要总共有两个Sentinel认为主服务器已经进入下线
+状态，那么当前Sentinel就将主服务器判断为客观下线。又比如说，如果Sentinel在启
+动时载入了以下配置：
+sentinelmonitormaster127.0.0.163795
+那么包括当前Sentinel在内，总共要有五个Sentinel都认为主服务器已经下线，当
+前Sentinel才会将主服务器判断为客观下线。
+不同Sentinel判断客观下线的条件可能不同
+对于监视同一个主服务器的多个Sentinel来说，它们将主服务器标判断为客观下
+线的条件可能也不同：当一个Sentinel将主服务器判断为客观下线时，其他Sentinel可
+能并不是那么认为的。比如说，对于监视同一个主服务器的五个Sentinel来说，如果
+Sentinell在启动时载入了以下配置：
+sentinel monitor master 127.0.0.1 6379 2
+那么当五个Sentinel中有两个Sentinel认为主服务器已经下线时，Sentinell就会将
+主服务器标判断为客观下线。
+而对于载入了以下配置的Sentinel2来说：
+sentinel monitormaster127.0.0.1 63795
+仅有两个Sentinel认为主服务器已下线，并不会令Sentinel2将主服务器判断为客观下线。
+16.8
+选举领头Sentinel
+当一个主服务器被判断为客观下线时，监视这个下线主服务器的各个Sentinel会进行协

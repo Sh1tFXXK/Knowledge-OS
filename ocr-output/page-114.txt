@@ -1,0 +1,51 @@
+第9章数据库，97
+9.3.4
+对键取值
+对一个数据库键进行取值，实际上就是在键空间中取出键所对应的值对象，根据值对象
+的类型不同，具体的取值方法也会有所不同。
+举个例子，如果键空间当前的状态如图9-4所示，那么当执行以下命令时：
+redis> GET message
+"hello world"
+GET命令将首先在键空间中查找键message，找到键之后接着取得该键所对应的字符串对
+象值，之后再返回值对象所包含的字符串"he11owor1d"，取值过程如图9-9所示。
+redisDb
+Listobject
+dict
+dict
+StringObject
+StringObject
+Stringobject
+Stringobject
+"c"
+"alphabet"
+StringObject
+Hashobject
+"book"
+StringObject
+1）查找键
+StringObject
+"Redisin Action"
+Stringobject
+2）取值
+GET
+"name"
+"message"
+Stringobject
+StringObject
+"author"
+"JosiahL.Carlson"
+StringObject
+"publisher"
+StringObject
+"Manning"
+StringObject
+"hello world"
+图9-9
+使用GET命令取值的过程
+再举一个例子，当执行以下命令时：
+redis> LRANGE alphabet 0-1
+1)"a"
+2)"b"
+3)"c"
+LRANGE命令将首先在键空间中查找键alphabet，找到键之后接着取得该键所对应的列
+表对象值，之后再返回列表对象中包含的三个字符串对象的值，取值过程如图9-10所示。

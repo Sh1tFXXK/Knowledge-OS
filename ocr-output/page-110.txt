@@ -1,0 +1,36 @@
+第9章数据库93
+redis>SELECT 1
+OK
+redis[1]> SELECT 2
+OK
+redis[2]>
+但如果你在其他语言的客户端中执行Redis命令，并且该客户端没有像redis-cli那
+样一直显示目标数据库的号码，那么在数次切换数据库之后，你很可能会忘记自己当前
+正在使用的是哪个数据库。当出现这种情况时，为了避免对数据库进行误操作，在执
+行Redis命令特别是像FLUSHDB这样的危险命令之前，最好先执行一个SELECT命令，
+显式地切换到指定的数据库，然后才执行别的命令。
+9.3
+数据库键空间
+Redis是一个键值对（key-valuepair）数据库服务器，服务器中的每个数据库都由
+一个redis.h/redisDb结构表示，其中，redisDb结构的dict字典保存了数据库中的
+所有键值对，我们将这个字典称为键空间（keyspace）：
+typedef struct redisDb (
+1/ ...
+/／数据库键空间，保存着数据库中的所有键值对
+dict *dict;
+11 ...
+redisDb;
+键空间和用户所见的数据库是直接对应的：
+口键空间的键也就是数据库的键，每个键都是一个字符串对象。
+口键空间的值也就是数据库的值，每个值可以是字符串对象、列表对象、哈希表对象、
+集合对象和有序集合对象中的任意一种Redis对象。
+举个例子，如果我们在空白的数据库中执行以下命令：
+redis> SET message "hello world"
+OK
+(integer)3
+redis>HSETbookname"RedisinAction"
+(integer)1
+redis>HsETbookauthor"JosiahL.Carlson"
+(integer)1
+redis> HsET book publisher "Manning"
+(integer)1
