@@ -1047,7 +1047,6 @@
       "rootContent": "MySQL 哈希索引 / hash index **MySQL 哈希索引 / hash index** 一种用于使用相等运算符而非范围运算符（如大于或 BETWEEN）的 index 类型。它适用于 MEMORY 表。虽然由于历史原因，哈希索引是 MEMORY 表的默认选项，但该存储引擎也支持 B-tree 索引，这通常是通用查询的更好选择。 \"MySQL 包含这种索引类型的一个变体，adaptive hash index，该索引会根据运行时条件在需要时自动为InnoDB 表构建。\""
     },
     "tags": [
-      "MySQL 哈希索引 / hash index",
       "哈希索引 / hash index",
       "mysql"
     ]
@@ -1179,7 +1178,6 @@
       "rootContent": "在一个列或一组列上建立的索引具有 **unique constraint**。因为这个 索引已知不含任何重复值，所以某些类型的查找和计数操作比正常类型的索引更有效。对这种类型索引的大多数查找仅仅是为了确定某个值是否存在。索引中的值的数量与表中的行数相同，或者至少与相关列的非空值的行数相同。 \"**Change buffering**优化 不适用于唯一索引。作为一种解决方法，您可以 在将数据大量加载到`InnoDB`表时，暂时设置`unique_checks=0`。\n\"定义** 数据列不允许重复，允许为NULL值， 一个表允许多个列创建唯一索引 \n机制** 可以通过ALTER TABLE table_name ADD UNIQUE(column); 创建唯一索引 可以通过ALTER TABLE table_name ADD UNIQUE(column1,column2); 创建唯一组合索引 \n边界** 唯一检查在行锁范围内进行——RC 下可能出现幻读唯一冲突。"
     },
     "tags": [
-      "MySQL 唯一索引 / unique index",
       "唯一索引 / unique index",
       "mysql"
     ]
@@ -9574,6 +9572,7 @@
       "mysql"
     ],
     "tags": [
+      "MySQL主键索引",
       "主键 / primary key",
       "mysql"
     ]
@@ -22292,9 +22291,7 @@
     ],
     "tags": [
       "停用词 / stopword",
-      "mysql",
-      "glossary",
-      "mysql-glossary"
+      "mysql"
     ],
     "card": {
       "nodeId": "mysql_glossary_stopword_ztgqhp",
@@ -138848,6 +138845,7 @@
       "约束"
     ],
     "tags": [
+      "主键索引",
       "主键 / primary key",
       "数据库建模",
       "键",
