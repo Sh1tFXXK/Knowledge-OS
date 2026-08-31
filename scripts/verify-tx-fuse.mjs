@@ -1,0 +1,21 @@
+import { readFileSync } from 'fs';
+const pool = JSON.parse(readFileSync('data/node-pool.json', 'utf8'));
+const tree = JSON.parse(readFileSync('data/tree-data.json', 'utf8'));
+const edges = JSON.parse(readFileSync('data/knowledge-edges.json', 'utf8'));
+let tx = null;
+(function w(n) { if (n.name === '七、事务系统' && !tx) tx = n; for (const c of (n.children || [])) w(c); })(tree);
+console.log('=== 章节一级结构 ===');
+tx.children.forEach((c, i) => {
+  const kids = (c.children || []).length;
+  console.log(String(i + 1).padStart(2), c.name, kids ? `(${kids} 子节点)` : '');
+});
+let inTree = false;
+(function w(n) { if (n.nodeRef === 'concept_transaction') inTree = true; for (const c of (n.children || [])) w(c); })(tree);
+console.log('事务概念在树上:', inTree, '| 池中保留:', !!pool['concept_transaction'], '| status:', pool['concept_transaction'].status || '(canonical)');
+const e = edges.find(x => x.type === 'instance-of' && x.source === 'k_1783250593540_v2w5hy');
+console.log('数据库事务 instance-of 边:', e.source, '->', e.target, '| 目标在池:', !!pool[e.target]);
+console.log('数据库事务 tabs:', pool['k_1783250593540_v2w5hy'].card.tabs.map(t => t.label).join(' | '));
+const noPoolB = edges.filter(x => x.id.startsWith('treebind:') && (!pool[x.source] || !pool[x.target]));
+console.log('死 treebind:', noPoolB.length);
+const staleT = edges.filter(x => x.id.startsWith('treebind:') && x.target === 'concept_transaction');
+console.log('指向已摘除事务节点的绑定:', staleT.length);

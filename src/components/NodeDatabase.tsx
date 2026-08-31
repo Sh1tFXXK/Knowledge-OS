@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import type { KnowledgeNode } from '../types';
+import { useDebouncedValue, useProgressiveRender } from './useProgressiveRender';
 
 type ViewMode = 'table' | 'cards';
 type SortBy = 'name' | 'role' | 'created' | 'dimensions';
@@ -30,21 +31,19 @@ export default function NodeDatabase() {
     return [...dims].sort();
   }, [nodePool]);
 
-  // 获取所有节点
-  const nodes = useMemo(() => {
-    return Object.entries(nodePool).map(([id, node]) => ({
-      ...node,
-      id,
-    }));
-  }, [nodePool]);
+  // 获取所有节点（node.id 与池键一致，直接引用池内对象，不整池拷贝）
+  const nodes = useMemo(() => Object.values(nodePool), [nodePool]);
+
+  // 搜索词防抖：全文匹配所有 tab 内容开销大，避免每次按键都重算
+  const debouncedSearch = useDebouncedValue(searchQuery);
 
   // 搜索和过滤
   const filteredNodes = useMemo(() => {
     let result = nodes;
 
     // 搜索
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+    if (debouncedSearch.trim()) {
+      const query = debouncedSearch.toLowerCase();
       result = result.filter((node) =>
         node.label.toLowerCase().includes(query) ||
         node.card?.title?.toLowerCase().includes(query) ||
@@ -65,7 +64,7 @@ export default function NodeDatabase() {
     }
 
     return result;
-  }, [nodes, searchQuery, filterRole, filterDimension]);
+  }, [nodes, debouncedSearch, filterRole, filterDimension]);
 
   // 排序
   const sortedNodes = useMemo(() => {
@@ -129,6 +128,23 @@ export default function NodeDatabase() {
 
     return groups;
   }, [sortedNodes, groupBy]);
+
+  // 渐进渲染：滚动接近底部自动扩容；搜索/过滤/排序变化时回到初始量
+  const { renderLimit, sentinelRef } = useProgressiveRender(
+    [debouncedSearch, filterRole, filterDimension, groupBy, sortBy, sortOrder].join('|'),
+    filteredNodes.length,
+  );
+
+  // 全局预算内逐组截取：无论怎么分组，实际渲染行数都不超过 renderLimit
+  const visibleGroups = useMemo(() => {
+    let remaining = renderLimit;
+    return Object.entries(groupedNodes).map(([groupName, groupNodes]) => {
+      const visible = groupNodes.slice(0, Math.max(remaining, 0));
+      remaining -= visible.length;
+      return { groupName, visible, total: groupNodes.length };
+    });
+  }, [groupedNodes, renderLimit]);
+  const visibleCount = visibleGroups.reduce((sum, g) => sum + g.visible.length, 0);
 
   const handleNodeClick = (nodeId: string) => {
     openCard(nodeId);
@@ -226,12 +242,14 @@ export default function NodeDatabase() {
 
       {/* 内容区域 */}
       <div className="database-content">
-        {Object.entries(groupedNodes).map(([groupName, groupNodes]) => (
+        {visibleGroups.map(({ groupName, visible, total }) => (
           <div key={groupName} className="database-group">
             {groupBy !== 'none' && (
               <div className="group-header">
                 <span className="group-name">{groupName}</span>
-                <span className="group-count">({groupNodes.length})</span>
+                <span className="group-count">
+                  {visible.length === total ? `(${total})` : `(${visible.length}/${total})`}
+                </span>
               </div>
             )}
 
@@ -253,7 +271,7 @@ export default function NodeDatabase() {
                   </tr>
                 </thead>
                 <tbody>
-                  {groupNodes.map((node) => (
+                  {visible.map((node) => (
                     <tr key={node.id} onClick={() => handleNodeClick(node.id)}>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -296,7 +314,7 @@ export default function NodeDatabase() {
               </table>
             ) : (
               <div className="database-cards">
-                {groupNodes.map((node) => (
+                {visible.map((node) => (
                   <div
                     key={node.id}
                     className="node-card"
@@ -349,6 +367,14 @@ export default function NodeDatabase() {
             )}
           </div>
         ))}
+
+        {/* 渐进渲染哨兵：进入视口附近时自动扩容 */}
+        <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />
+        {visibleCount < filteredNodes.length && (
+          <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-tertiary)', padding: '8px 0' }}>
+            已显示 {visibleCount} / 共 {filteredNodes.length} 个节点，滚动自动加载
+          </div>
+        )}
       </div>
     </div>
   );

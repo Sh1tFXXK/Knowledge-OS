@@ -1,7 +1,10 @@
-import { useState, type ReactNode } from 'react';
+import { memo, useState, type ReactNode } from 'react';
 import type { KnowledgeReference } from '../../knowledge/nodeReferences';
 import KnowledgeReferenceText from './KnowledgeReferenceText';
 import MermaidDiagram from './MermaidDiagram';
+
+// 稳定的空引用：让 memo 对未传 references 的调用方也能生效
+const EMPTY_REFERENCES: readonly KnowledgeReference[] = [];
 
 function renderReferenceText(
   text: string,
@@ -280,9 +283,10 @@ const tableBodyCellStyle = {
   verticalAlign: 'top' as const,
 };
 
-export default function MarkdownView({
+// 纯展示组件：内容不变时不随父组件重渲染（Markdown 解析是每次渲染的主要开销）
+function MarkdownViewBase({
   content,
-  references = [],
+  references = EMPTY_REFERENCES,
   onOpenReference,
 }: {
   content: string;
@@ -506,3 +510,5 @@ export default function MarkdownView({
     </div>
   );
 }
+
+export default memo(MarkdownViewBase);

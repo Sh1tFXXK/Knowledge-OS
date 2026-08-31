@@ -2,14 +2,16 @@ import type { KnowledgeNode, TreeNode } from '../types';
 import {
   APP_STATE_VERSION,
   createEmptyAppState,
-  type GraphSlice,
   type PersistedAppState,
 } from './state';
 import { migrateAppState } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
 import { normalizeKnowledgePointTimeline } from './timeline';
 
-const STORAGE_KEY = 'knowledge-os:app-state-v1';
+// 历史版本曾把全量状态写入 localStorage（STORAGE_KEY = 'knowledge-os:app-state-v1'），
+// 但加载路径始终读取 data/*.json，localStorage 从未被读回——每次 mutation 同步序列化
+// 约 20MB 纯属主线程浪费，现已移除。clearPersistedAppState 仅用于清理旧版本遗留数据。
+const LEGACY_STORAGE_KEY = 'knowledge-os:app-state-v1';
 
 function hasStorage(): boolean {
   if (typeof window === 'undefined') return false;
@@ -18,25 +20,6 @@ function hasStorage(): boolean {
   } catch {
     return false;
   }
-}
-
-function isTreeNode(value: unknown): value is TreeNode {
-  if (!value || typeof value !== 'object') return false;
-  const node = value as Partial<TreeNode>;
-  return (
-    typeof node.id === 'string' &&
-    typeof node.name === 'string' &&
-    typeof node.count === 'number'
-  );
-}
-
-function isNodePool(value: unknown): value is Record<string, KnowledgeNode> {
-  if (!value || typeof value !== 'object') return false;
-  return true; // Simplified for basic check
-}
-
-function isKnowledgeEdges(value: unknown): value is import('../types').KnowledgeEdge[] {
-  return Array.isArray(value);
 }
 
 function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
@@ -69,78 +52,13 @@ function isPersistedAppState(value: unknown): value is PersistedAppState {
   );
 }
 
-const RADICAL_MAP: Record<string, string> = {
-  '\u2f42': '文', // ⽂ -> 文
-  '\u2eda': '页', // ⻚ -> 页
-  '\u2f8f': '行', // ⾏ -> 行
-  '\u2f45': '方', // ⽅ -> 方
-  '\u2f50': '比', // ⽐ -> 比
-  '\u2f00': '一', // ⼀ -> 一
-  '\u2f29': '小', // ⼩ -> 小
-  '\u2f24': '大', // ⼤ -> 大
-  '\u2f6c': '目', // ⽬ -> 目
-  '\u2f64': '用', // ⽤ -> 用
-  '\u2f06': '二', // ⼆ -> 二
-  '\u2f0a': '入', // ⼊ -> 入
-};
-
-function cleanRadicals(str: string): string {
-  let res = '';
-  for (let i = 0; i < str.length; i++) {
-    const char = str[i];
-    res += RADICAL_MAP[char] || char;
-  }
-  return res;
-}
-
-export function loadPersistedAppState(): PersistedAppState | null {
-  if (!hasStorage()) return null;
-
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (raw) {
-      const cleanedRaw = cleanRadicals(raw);
-      const parsed = JSON.parse(cleanedRaw);
-      if (isPersistedAppState(parsed)) {
-        const migrated = migrateAppState(parsed);
-        return {
-          ...migrated,
-          version: APP_STATE_VERSION,
-          timeline: normalizeKnowledgePointTimeline(migrated.timeline),
-          treeData: normalizeTreeNode(migrated.treeData),
-        };
-      }
-      if (parsed && typeof parsed === 'object' && parsed.treeData) {
-        return normalizeAppState(parsed as Record<string, unknown>);
-      }
-    }
-    return null;
-  } catch (e) {
-    console.warn('Failed to load app state from localStorage', e);
-    return null;
-  }
-}
-
-export function persistAppState(state: PersistedAppState): void {
-  if (!hasStorage()) return;
-  const normalizedState = {
-    ...state,
-    treeData: normalizeTreeNode(state.treeData),
-    version: APP_STATE_VERSION,
-  };
-  try {
-    window.localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify(normalizedState),
-    );
-  } catch (e) {
-    console.warn('Failed to persist app state to localStorage', e);
-  }
-}
-
 export function clearPersistedAppState(): void {
   if (!hasStorage()) return;
-  window.localStorage.removeItem(STORAGE_KEY);
+  try {
+    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+  } catch {
+    // 忽略存储访问失败（隐私模式等）
+  }
 }
 
 export function exportAppStateJson(state: PersistedAppState): string {
@@ -170,4 +88,3 @@ export function parseImportedAppState(json: string): PersistedAppState | null {
     return null;
   }
 }
-

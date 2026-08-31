@@ -1,5 +1,7 @@
-import { useState, useMemo, useCallback, useEffect, useRef, CSSProperties } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef, memo, CSSProperties } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useGraphStore } from '../store/useGraph';
+import { useDebouncedValue } from '../components/useProgressiveRender';
 
 import { countTreeNodes, findTreeNodeById, findTreeParent } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
@@ -89,10 +91,9 @@ function ContextMenu({
 }
 
 /* ---- Recursive Tree Item ---- */
-const TreeItem = ({
+const TreeItem = memo(({
   node,
   level = 0,
-  selectedNodeId,
   selectedTreeIds,
   onSelect,
   onToggleSelection,
@@ -112,7 +113,6 @@ const TreeItem = ({
 }: {
   node: TreeNode;
   level?: number;
-  selectedNodeId: string | null;
   selectedTreeIds: ReadonlySet<string>;
   onSelect: (treeId: string, event?: React.MouseEvent<HTMLDivElement>) => void;
   onToggleSelection: (treeId: string) => void;
@@ -140,7 +140,8 @@ const TreeItem = ({
   const dragExpandTimerRef = useRef<number | null>(null);
   const hasChildren = !!(node.children && node.children.length > 0);
   const poolId = node.nodeRef;
-  const isSelected = poolId === selectedNodeId;
+  // 选中态逐项自订阅：选择变化时仅旧/新两个选中项重渲染，而不是整棵 3000+ 节点的树
+  const isSelected = useGraphStore((s) => (poolId ? s.selectedNodeId === poolId : false));
   const isBulkSelected = selectedTreeIds.has(node.id);
   const isSearchMatch = !!(searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const isDragging = draggingTreeNodeId === node.id;
@@ -355,7 +356,6 @@ const TreeItem = ({
         <div className={`tree-node-children${isOpen ? '' : ' collapsed'}`}>
           {node.children!.map(child => (
             <TreeItem key={child.id} node={child} level={level + 1}
-              selectedNodeId={selectedNodeId}
               selectedTreeIds={selectedTreeIds}
               onSelect={onSelect}
               onToggleSelection={onToggleSelection}
@@ -392,18 +392,37 @@ const TreeItem = ({
       )}
     </div>
   );
-};
+});
 
-/* ---- Main Component ---- */
-export default function UniverseTree({ isCollapsed, onToggleCollapsed }: UniverseTreeProps) {
+/** 「引用节点池」下拉：仅在弹窗打开时挂载，按需订阅节点池，避免常驻列表每次渲染重建 */
+const PoolKnowledgeSelect = memo(function PoolKnowledgeSelect({
+  value,
+  onChange,
+}: {
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+}) {
+  const poolNodes = useGraphStore(useShallow((s) => Object.values(s.nodePool)));
+  return (
+    <select className="input" value={value} onChange={onChange}>
+      {poolNodes.length === 0 ? (
+        <option value="">节点池为空，请先「新建知识」</option>
+      ) : (
+        poolNodes.map(n => (
+          <option key={n.id} value={n.id}>{n.label} ({n.id})</option>
+        ))
+      )}
+    </select>
+  );
+});
+
+/* ---- Main Component ---- */export default function UniverseTree({ isCollapsed, onToggleCollapsed }: UniverseTreeProps) {
   const treeData = useGraphStore(s => s.treeData);
-  const selectedNodeId = useGraphStore(s => s.selectedNodeId);
   const selectTreeEntry = useGraphStore(s => s.selectTreeEntry);
   const addNotification = useGraphStore(s => s.addNotification);
   const addQuestion = useGraphStore(s => s.addQuestion);
   const addTreeEntry = useGraphStore(s => s.addTreeEntry);
   const createKnowledgeAndLink = useGraphStore(s => s.createKnowledgeAndLink);
-  const listKnowledgeNodes = useGraphStore(s => s.listKnowledgeNodes);
   const removeTreeNode = useGraphStore(s => s.removeTreeNode);
   const moveTreeNodes = useGraphStore(s => s.moveTreeNodes);
   const copyTreeNodes = useGraphStore(s => s.copyTreeNodes);
@@ -426,9 +445,9 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
   const [draggingTreeNodeId, setDraggingTreeNodeId] = useState<string | null>(null);
   const [draggingTreeNodeIds, setDraggingTreeNodeIds] = useState<string[]>([]);
   const [dropTargetTreeNodeId, setDropTargetTreeNodeId] = useState<string | null>(null);
-  const poolNodes = listKnowledgeNodes();
   const importInputRef = useRef<HTMLInputElement>(null);
   const directoryOptions = useMemo(() => collectDirectoryOptions(treeData), [treeData]);
+  const treeNodeCount = useMemo(() => countTreeNodes(treeData), [treeData]);
 
   const handleExport = () => {
     const json = exportKnowledgeJson();
@@ -451,9 +470,12 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     reader.readAsText(file);
   };
 
+  // 搜索词防抖：全树过滤 + 3084 行重渲染开销大，输入停顿后才应用
+  const debouncedSearch = useDebouncedValue(search);
+
   const filteredTree = useMemo(() => {
-    if (!search.trim()) return treeData;
-    const q = search.toLowerCase();
+    if (!debouncedSearch.trim()) return treeData;
+    const q = debouncedSearch.toLowerCase();
     const filterNode = (n: TreeNode): TreeNode | null => {
       const nameMatch = n.name.toLowerCase().includes(q);
       const filteredChildren = n.children
@@ -465,7 +487,7 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
       return null;
     };
     return filterNode(treeData) || treeData;
-  }, [search, treeData]);
+  }, [debouncedSearch, treeData]);
 
   const selectedTreeIds = useMemo(
     () => normalizeSelectedTreeIds(treeData, [...selectedTreeNodeIds]),
@@ -517,15 +539,6 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     ? directoryOptions.find((option) => option.id === transferDialog.targetId) ?? null
     : null;
 
-  const handleSelect = (treeId: string, event?: React.MouseEvent<HTMLDivElement>) => {
-    if (event?.metaKey || event?.ctrlKey) {
-      event.preventDefault();
-      handleToggleTreeSelection(treeId);
-      return;
-    }
-    selectTreeEntry(treeId);
-  };
-
   const handleToggleTreeSelection = useCallback((treeId: string) => {
     setSelectedTreeNodeIds((current) => {
       const next = new Set(current);
@@ -535,30 +548,39 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     });
   }, [treeData]);
 
+  const handleSelect = useCallback((treeId: string, event?: React.MouseEvent<HTMLDivElement>) => {
+    if (event?.metaKey || event?.ctrlKey) {
+      event.preventDefault();
+      handleToggleTreeSelection(treeId);
+      return;
+    }
+    selectTreeEntry(treeId);
+  }, [handleToggleTreeSelection, selectTreeEntry]);
+
   const clearTreeSelection = useCallback(() => {
     setSelectedTreeNodeIds(new Set());
   }, []);
 
-  const handleAddChild = (parentId: string) => {
+  const handleAddChild = useCallback((parentId: string) => {
     const parent = findNodeName(treeData, parentId);
     setModal({ type: 'add', targetId: parentId, targetName: parent });
     setModalInput('');
     setAddKind('knowledge');
-    setLinkKnowledgeId(poolNodes[0]?.id ?? '');
-  };
+    setLinkKnowledgeId(useGraphStore.getState().listKnowledgeNodes()[0]?.id ?? '');
+  }, [treeData]);
 
-  const handleAddQuestionToNode = (treeNodeId: string, label: string) => {
+  const handleAddQuestionToNode = useCallback((treeNodeId: string, label: string) => {
     const question = prompt(`为「${label}」添加问题：`);
     if (!question?.trim()) return;
     addQuestion(question.trim(), treeNodeId);
     addNotification(`问题已关联到「${label}」`, 'success');
-  };
+  }, [addQuestion, addNotification]);
 
-  const handleRename = (_nodeId: string) => { };
+  const handleRename = useCallback((_nodeId: string) => { }, []);
 
-  const handleDelete = (nodeId: string, label: string) => {
+  const handleDelete = useCallback((nodeId: string, label: string) => {
     setModal({ type: 'delete', targetId: nodeId, targetName: label });
-  };
+  }, []);
 
   const handleCopy = useCallback((nodeId: string) => {
     setTransferDialog({
@@ -714,7 +736,7 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
     <>
       <div className="left-panel-header">
         <h3><span>🧬</span><span>节点树</span></h3>
-        <span className="count">{countTreeNodes(treeData)}</span>
+        <span className="count">{treeNodeCount}</span>
         <button
           type="button"
           className="btn btn-sm tree-collapse-btn"
@@ -785,11 +807,10 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
 
       <div className="tree-container" id="tree-container">
         <TreeItem node={filteredTree} level={0}
-          selectedNodeId={selectedNodeId}
           selectedTreeIds={selectedTreeIdSet}
           onSelect={handleSelect}
           onToggleSelection={handleToggleTreeSelection}
-          searchQuery={search} onAddChild={handleAddChild}
+          searchQuery={debouncedSearch} onAddChild={handleAddChild}
           onAddQuestion={handleAddQuestionToNode}
           onRename={handleRename} onDelete={handleDelete}
           onMove={handleOpenMoveDialog}
@@ -959,19 +980,10 @@ export default function UniverseTree({ isCollapsed, onToggleCollapsed }: Univers
                   }}
                 />
                 {addKind === 'link' && (
-                  <select
-                    className="input"
+                  <PoolKnowledgeSelect
                     value={linkKnowledgeId}
-                    onChange={e => setLinkKnowledgeId(e.target.value)}
-                  >
-                    {poolNodes.length === 0 ? (
-                      <option value="">节点池为空，请先「新建知识」</option>
-                    ) : (
-                      poolNodes.map(n => (
-                        <option key={n.id} value={n.id}>{n.label} ({n.id})</option>
-                      ))
-                    )}
-                  </select>
+                    onChange={(e) => setLinkKnowledgeId(e.target.value)}
+                  />
                 )}
                 <p style={{ fontSize: 11, color: '#8a98ba', margin: 0 }}>
                   {addKind === 'knowledge' && '在节点池创建一份知识，并在此路径添加引用。'}

@@ -10,7 +10,8 @@ export const TREE_BINDING_EDGE_TYPE = 'belongs-to';
 export const TREE_BINDING_EDGE_LABEL = 'contains';
 
 function findTreeNodeById(root: TreeNode, id: string): TreeNode | null {
-  if (root.id === id) return root;
+  if (id == null) return null;
+  if (root.id != null && root.id === id) return root;
   for (const child of root.children ?? []) {
     const found = findTreeNodeById(child, id);
     if (found) return found;

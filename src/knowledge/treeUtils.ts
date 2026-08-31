@@ -42,7 +42,8 @@ export function cloneTreeWithNewIds(
 }
 
 export function findTreeNodeById(root: TreeNode, id: string): TreeNode | null {
-  if (root.id === id) return root;
+  if (id == null) return null;
+  if (root.id != null && root.id === id) return root;
   if (root.children) {
     for (const child of root.children) {
       const found = findTreeNodeById(child, id);
@@ -53,8 +54,9 @@ export function findTreeNodeById(root: TreeNode, id: string): TreeNode | null {
 }
 
 export function findTreeParent(root: TreeNode, childId: string): TreeNode | null {
+  if (childId == null) return null;
   if (root.children) {
-    if (root.children.some((c) => c.id === childId)) return root;
+    if (root.children.some((c) => c.id != null && c.id === childId)) return root;
     for (const child of root.children) {
       const found = findTreeParent(child, childId);
       if (found) return found;

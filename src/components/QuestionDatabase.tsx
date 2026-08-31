@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import type { QuestionAnswerStep } from '../types';
 import QuestionAnswerEditor from './QuestionAnswerEditor';
+import { useDebouncedValue, useProgressiveRender } from './useProgressiveRender';
 
 type ViewMode = 'table' | 'cards';
 type SortBy = 'text' | 'status' | 'created';
@@ -42,13 +43,16 @@ export default function QuestionDatabase() {
     }));
   }, [questions]);
 
+  // 搜索词防抖
+  const debouncedSearch = useDebouncedValue(searchQuery);
+
   // 搜索和过滤
   const filteredQuestions = useMemo(() => {
     let result = questionsWithStatus;
 
     // 搜索
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+    if (debouncedSearch.trim()) {
+      const query = debouncedSearch.toLowerCase();
       result = result.filter((q) => q.text.toLowerCase().includes(query));
     }
 
@@ -58,7 +62,7 @@ export default function QuestionDatabase() {
     }
 
     return result;
-  }, [questionsWithStatus, searchQuery, filterStatus]);
+  }, [questionsWithStatus, debouncedSearch, filterStatus]);
 
   // 排序
   const sortedQuestions = useMemo(() => {
@@ -91,6 +95,17 @@ export default function QuestionDatabase() {
       return { '全部': sortedQuestions };
     }
 
+    // 关键词表只构建一次（原来在每题循环内重建整个节点池的关键词表，O(题数×池大小)）
+    const keywordCache = groupBy === 'keyword'
+      ? [...new Set(
+        Object.values(nodePool).flatMap((n) => [
+          n.label,
+          ...(n.dimensions ?? []),
+          ...(n.tags ?? []),
+        ]),
+      )].slice(0, 12)
+      : null;
+
     const groups: Record<string, typeof sortedQuestions> = {};
 
     sortedQuestions.forEach((q) => {
@@ -102,18 +117,12 @@ export default function QuestionDatabase() {
             : q.status === 'forgot' ? '❌ 忘答存疑'
             : '⭐ 未答复';
           break;
-        case 'keyword':
-          // 根据关键词分组
-          const keywords = [...new Set(
-            Object.values(nodePool).flatMap((n) => [
-              n.label,
-              ...(n.dimensions ?? []),
-              ...(n.tags ?? []),
-            ])
-          )].slice(0, 12);
-          const found = keywords.find(kw => q.text.toLowerCase().includes(kw.toLowerCase()));
+        case 'keyword': {
+          const questionText = q.text.toLowerCase();
+          const found = (keywordCache ?? []).find((kw) => questionText.includes(kw.toLowerCase()));
           groupKey = found || '其他问题';
           break;
+        }
       }
 
       if (!groups[groupKey]) {
@@ -123,7 +132,24 @@ export default function QuestionDatabase() {
     });
 
     return groups;
-  }, [sortedQuestions, groupBy]);
+  }, [sortedQuestions, groupBy, nodePool]);
+
+  // 渐进渲染：滚动接近底部自动扩容；搜索/过滤/排序变化时回到初始量
+  const { renderLimit, sentinelRef } = useProgressiveRender(
+    [debouncedSearch, filterStatus, groupBy, sortBy, sortOrder].join('|'),
+    filteredQuestions.length,
+  );
+
+  // 全局预算内逐组截取：实际渲染行数不超过 renderLimit
+  const visibleGroups = useMemo(() => {
+    let remaining = renderLimit;
+    return Object.entries(groupedQuestions).map(([groupName, groupQuestions]) => {
+      const visible = groupQuestions.slice(0, Math.max(remaining, 0));
+      remaining -= visible.length;
+      return { groupName, visible, total: groupQuestions.length };
+    });
+  }, [groupedQuestions, renderLimit]);
+  const visibleCount = visibleGroups.reduce((sum, g) => sum + g.visible.length, 0);
 
   const handleQuestionClick = (q: typeof sortedQuestions[0]) => {
     setSelectedQuestion(q.id);
@@ -331,12 +357,14 @@ export default function QuestionDatabase() {
             <p className="database-empty-hint">试试调整搜索关键词，或更换状态 / 分组筛选条件</p>
           </div>
         ) : (
-        Object.entries(groupedQuestions).map(([groupName, groupQuestions]) => (
+        visibleGroups.map(({ groupName, visible, total }) => (
           <div key={groupName} className="database-group">
             {groupBy !== 'none' && (
               <div className="group-header">
                 <span className="group-name">{groupName}</span>
-                <span className="group-count">({groupQuestions.length})</span>
+                <span className="group-count">
+                  {visible.length === total ? `(${total})` : `(${visible.length}/${total})`}
+                </span>
               </div>
             )}
 
@@ -356,7 +384,7 @@ export default function QuestionDatabase() {
                   </tr>
                 </thead>
                 <tbody>
-                  {groupQuestions.map((q) => {
+                  {visible.map((q) => {
                     const isEditing = editingId === q.id;
                     const isEditingAnswer = editingAnswerId === q.id;
                     const relatedLabel = getRelatedNodeLabel(q);
@@ -475,7 +503,7 @@ export default function QuestionDatabase() {
               </table>
             ) : (
               <div className="database-cards">
-                {groupQuestions.map((q) => {
+                {visible.map((q) => {
                   const isEditing = editingId === q.id;
                   const isEditingAnswer = editingAnswerId === q.id;
                   const relatedLabel = getRelatedNodeLabel(q);
@@ -592,6 +620,14 @@ export default function QuestionDatabase() {
             )}
           </div>
         ))
+        )}
+
+        {/* 渐进渲染哨兵：进入视口附近时自动扩容 */}
+        <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />
+        {visibleCount < filteredQuestions.length && (
+          <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-tertiary)', padding: '8px 0' }}>
+            已显示 {visibleCount} / 共 {filteredQuestions.length} 个问题，滚动自动加载
+          </div>
         )}
       </div>
     </div>

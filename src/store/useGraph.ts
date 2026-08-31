@@ -31,7 +31,6 @@ import {
 } from '../knowledge/defaults';
 import { extractSubgraph } from '../knowledge/extractSubgraph';
 import {
-  persistAppState,
   clearPersistedAppState,
   exportAppStateJson,
   parseImportedAppState,
@@ -65,7 +64,14 @@ import {
   questionsForNode,
 } from '../knowledge/questionLink';
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
-import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
+import {
+  loadCompleteStateFromFiles,
+  dirtyPersistedSlices,
+  pickPersistedSlices,
+  savePersistedSlices,
+  type PersistedSliceKey,
+  type PersistedSlices,
+} from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 import {
   hasDirectTypeRelation,
@@ -491,13 +497,44 @@ function tagsForRenamedKnowledgeNode(
 }
 
 export const useGraphStore = create<GraphState>((set, get) => {
+  // ===== 持久化管道 =====
+  // 数据在装载（normalize/migrate）与变更（各 action）路径上均已规范化，保存时无需再整体克隆。
+  // 通过切片引用对比只回写真正变化的数据文件；突发编辑（如打字）合并为一次写入；
+  // 写入经串行队列排队，避免两次保存乱序覆盖数据文件。
+  const PERSIST_DEBOUNCE_MS = 500;
+  let saveTimer: ReturnType<typeof setTimeout> | null = null;
+  let lastSavedSlices: Partial<PersistedSlices> | null = null;
+  let writeChain: Promise<void> = Promise.resolve();
+
+  const flushPersist = () => {
+    if (saveTimer !== null) {
+      clearTimeout(saveTimer);
+      saveTimer = null;
+    }
+    const slices = pickPersistedSlices(snapshotState(get()));
+    const dirty = dirtyPersistedSlices(slices, lastSavedSlices);
+    if (dirty.length === 0) return;
+    if (!lastSavedSlices) lastSavedSlices = {};
+    const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
+    for (const key of dirty) baseline[key] = slices[key];
+    const scheduled = dirty;
+    writeChain = writeChain
+      .then(() => savePersistedSlices(slices, scheduled))
+      .then((failedKeys) => {
+        if (failedKeys.length === 0) return;
+        // 失败的切片回滚基线，下一次 persist 会自动重试
+        for (const key of failedKeys) delete lastSavedSlices![key];
+        get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+      })
+      .catch((error) => {
+        console.error('Failed to persist application data files', error);
+        get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+      });
+  };
+
   const persist = () => {
-    const state = snapshotState(get());
-    persistAppState(state);
-    void saveStateToFiles(state).catch((error) => {
-      console.error('Failed to persist application data files', error);
-      get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
-    });
+    if (saveTimer !== null) clearTimeout(saveTimer);
+    saveTimer = setTimeout(flushPersist, PERSIST_DEBOUNCE_MS);
   };
 
   return {
@@ -530,6 +567,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
     initialize: async () => {
       const fileState = await loadCompleteStateFromFiles();
       applyPersisted(set, fileState);
+      // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件
+      lastSavedSlices = pickPersistedSlices(fileState);
       get().addNotification('Knowledge loaded from local files', 'info');
     },
 
@@ -1254,7 +1293,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const data = parseImportedAppState(json);
       if (!data) return false;
       applyPersisted(set, data);
-      persistAppState(data);
+      persist();
       return true;
     },
 
@@ -1262,13 +1301,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
       clearPersistedAppState();
       const fresh = createEmptyAppState();
       applyPersisted(set, fresh);
-      persistAppState(fresh);
+      persist();
     },
 
     loadDemoData: async () => {
       const fresh = await loadCompleteStateFromFiles();
       applyPersisted(set, fresh);
-      persistAppState(fresh);
+      persist();
       get().addNotification('Demo knowledge restored', 'success');
     },
 
@@ -2013,7 +2052,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     renameTreeNode: (nodeId, newLabel) => {
       const trimmed = newLabel.trim();
-      if (!trimmed) return;
+      if (!trimmed || nodeId == null) return;
       const state = get();
       const treeNode = findTreeNodeById(state.treeData, nodeId);
       if (!treeNode) return;

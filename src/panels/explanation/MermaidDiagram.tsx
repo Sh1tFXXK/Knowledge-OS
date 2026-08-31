@@ -1,21 +1,29 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import mermaid from 'mermaid';
 
-// mermaid 全局只初始化一次；深色卡片背景，节点用暗色系
-let mermaidInitialized = false;
+// mermaid 连带 cytoscape/katex 等依赖体积巨大，静态引入会拖慢首屏；
+// 改为首个图表出现时才按需加载，模块只加载并初始化一次。
+type MermaidModule = typeof import('mermaid');
+type MermaidAPI = MermaidModule['default'];
+
+let mermaidModulePromise: Promise<MermaidAPI> | null = null;
 let renderSeq = 0;
 
-function ensureMermaidInitialized() {
-  if (mermaidInitialized) return;
-  mermaid.initialize({
-    startOnLoad: false,
-    securityLevel: 'strict',
-    theme: 'dark',
-    fontFamily: 'Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif',
-    flowchart: { useMaxWidth: true },
-    mindmap: { useMaxWidth: true },
-  });
-  mermaidInitialized = true;
+function loadMermaid(): Promise<MermaidAPI> {
+  if (!mermaidModulePromise) {
+    mermaidModulePromise = import('mermaid').then((mod) => {
+      // 深色卡片背景，节点用暗色系
+      mod.default.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: 'dark',
+        fontFamily: 'Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif',
+        flowchart: { useMaxWidth: true },
+        mindmap: { useMaxWidth: true },
+      });
+      return mod.default;
+    });
+  }
+  return mermaidModulePromise;
 }
 
 /**
@@ -31,10 +39,10 @@ export default function MermaidDiagram({ code }: { code: string }) {
     let cancelled = false;
     setSvg(null);
     setError(null);
-    ensureMermaidInitialized();
     renderSeq += 1;
     const renderId = `mmd-svg-${renderSeq}`;
-    mermaid.render(renderId, code)
+    loadMermaid()
+      .then((mermaid) => mermaid.render(renderId, code))
       .then(({ svg: rendered }) => {
         if (!cancelled) setSvg(rendered);
       })

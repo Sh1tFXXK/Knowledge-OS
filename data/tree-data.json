@@ -12806,25 +12806,20 @@
                   "name": "数据库",
                   "nodeRef": "n_u4va719e",
                   "count": 20,
+                  "id": "demo_db",
                   "children": [
                     {
                       "name": "一、数据库系统",
+                      "id": "chapter_db_01",
+                      "nodeRef": "container:chapter_db_01",
                       "children": [
                         {
-                          "id": "tree_concept_database",
-                          "name": "数据库 / database",
+                          "id": "mysql_functional_ref_k_dict_lc7qrne8",
+                          "name": "MySQL 数据库 / database",
                           "count": 0,
-                          "nodeRef": "concept_database",
-                          "children": [
-                            {
-                              "id": "mysql_functional_ref_k_dict_lc7qrne8",
-                              "name": "MySQL 数据库 / database",
-                              "count": 0,
-                              "nodeRef": "k_dict_lc7qrne8",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
+                          "nodeRef": "k_dict_lc7qrne8",
+                          "projection": false,
+                          "children": []
                         },
                         {
                           "id": "tree_concept_instance",
@@ -13681,6 +13676,13 @@
                                   "children": []
                                 }
                               ]
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_data_warehouse_1vp7y4",
+                              "name": "数据仓库 / data warehouse",
+                              "count": 0,
+                              "nodeRef": "k_dict_o5254svl",
+                              "children": []
                             }
                           ]
                         },
@@ -13838,6 +13840,8 @@
                     },
                     {
                       "name": "二、数据模型",
+                      "id": "chapter_db_02",
+                      "nodeRef": "container:chapter_db_02",
                       "children": [
                         {
                           "id": "tree_concept_relational",
@@ -13926,7 +13930,15 @@
                                       "name": "zset",
                                       "count": 0,
                                       "nodeRef": "k_1786235757225_82in77",
-                                      "children": []
+                                      "children": [
+                                        {
+                                          "id": "tree_vault_redis_datatypes",
+                                          "name": "ZSET 命令：ZRANK 与 ZRANGE",
+                                          "count": 0,
+                                          "nodeRef": "k_vault_redis_datatypes",
+                                          "children": []
+                                        }
+                                      ]
                                     }
                                   ]
                                 },
@@ -14168,27 +14180,6 @@
                               "name": "NoSQL 数据库",
                               "count": 0,
                               "nodeRef": "k_vault_nosql_overview",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_vault_redis_notes",
-                              "name": "Redis",
-                              "count": 0,
-                              "nodeRef": "k_vault_redis_notes",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_vault_redis_datatypes",
-                              "name": "Redis 数据类型",
-                              "count": 0,
-                              "nodeRef": "k_vault_redis_datatypes",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_vault_mongo_notes",
-                              "name": "MongoDB",
-                              "count": 0,
-                              "nodeRef": "k_vault_mongo_notes",
                               "children": []
                             }
                           ]
@@ -14500,6 +14491,8 @@
                     },
                     {
                       "name": "三、数据库结构",
+                      "id": "chapter_db_03",
+                      "nodeRef": "container:chapter_db_03",
                       "children": [
                         {
                           "id": "tree_concept_schema",
@@ -14559,22 +14552,6 @@
                                   "children": []
                                 }
                               ]
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_lm90vzok",
-                              "name": "MySQL 视图",
-                              "count": 0,
-                              "nodeRef": "k_dict_lm90vzok",
-                              "projection": false,
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_k_dict_1sj5w4mj",
-                                  "name": "物化视图 / Materialized View",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_1sj5w4mj",
-                                  "children": []
-                                }
-                              ]
                             }
                           ]
                         },
@@ -14597,13 +14574,6 @@
                               "name": "MySQL INFORMATION_SCHEMA",
                               "count": 0,
                               "nodeRef": "k_dict_qus727rl",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_data_dictionary_2",
-                              "name": "MySQL SDI",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_sdi_8vlmf5",
                               "children": []
                             },
                             {
@@ -14955,7 +14925,24 @@
                           "name": "视图",
                           "count": 0,
                           "nodeRef": "k_1784714555181_hzcpf5",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "mysql_functional_ref_k_dict_lm90vzok",
+                              "name": "MySQL 视图",
+                              "count": 0,
+                              "nodeRef": "k_dict_lm90vzok",
+                              "projection": false,
+                              "children": [
+                                {
+                                  "id": "mysql_functional_ref_k_dict_1sj5w4mj",
+                                  "name": "物化视图 / Materialized View",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_1sj5w4mj",
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "id": "tree_1783250411576_amv1j2",
@@ -14968,6 +14955,8 @@
                     },
                     {
                       "name": "四、数据约束与标识",
+                      "id": "chapter_db_04",
+                      "nodeRef": "container:chapter_db_04",
                       "children": [
                         {
                           "id": "tree_concept_surrogate_key",
@@ -14980,13 +14969,6 @@
                               "name": "MySQL 合成键 / MySQL synthetic key",
                               "count": 0,
                               "nodeRef": "mysql_glossary_synthetic_key_1drbjs",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_surrogate_key_1",
-                              "name": "MySQL 代理键 / MySQL surrogate key",
-                              "count": 0,
-                              "nodeRef": "k_dict_xb5t6pmm",
                               "children": []
                             }
                           ]
@@ -15007,41 +14989,11 @@
                           ]
                         },
                         {
-                          "id": "tree_concept_primary_key",
-                          "name": "主键 / primary key",
-                          "count": 0,
-                          "nodeRef": "concept_primary_key",
-                          "children": [
-                            {
-                              "id": "tree_mysql_instance_concept_primary_key_0",
-                              "name": "MySQL 主键 / MySQL primary key",
-                              "count": 0,
-                              "nodeRef": "k_dict_xxkp8lkc",
-                              "children": []
-                            },
-                            {
-                              "id": "governance:canonical:k_auto_va5371",
-                              "name": "MySQL 主键索引",
-                              "count": 0,
-                              "nodeRef": "k_auto_va5371",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
                           "id": "tree_concept_unique_key",
                           "name": "唯一键 / unique key",
                           "count": 0,
                           "nodeRef": "concept_unique_key",
                           "children": [
-                            {
-                              "id": "tree_mysql_instance_concept_unique_key_0",
-                              "name": "MySQL 唯一键 / MySQL unique key",
-                              "count": 0,
-                              "nodeRef": "k_dict_rdm2280v",
-                              "children": []
-                            },
                             {
                               "id": "tree_mysql_instance_concept_unique_key_1",
                               "name": "MySQL 唯一约束 / MySQL unique constraint",
@@ -15062,13 +15014,6 @@
                               "name": "MySQL 外键 / MySQL foreign key",
                               "count": 0,
                               "nodeRef": "k_dict_lnpi0qrg",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_foreign_key_1",
-                              "name": "MySQL 外键约束 / MySQL FOREIGN KEY constraint",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_foreign_key_constraint_p6gdbr",
                               "children": []
                             }
                           ]
@@ -15114,11 +15059,19 @@
                           "projectionKind": "canonical-topic",
                           "sourceNodeId": "k_dict_fxoirizf",
                           "children": []
+                        },
+                        {
+                          "id": "tree_1788179275561_216qli",
+                          "name": "主键",
+                          "count": 0,
+                          "nodeRef": "k_1788179275554_knwq7e"
                         }
                       ]
                     },
                     {
                       "name": "五、数据库操作",
+                      "id": "chapter_db_05",
+                      "nodeRef": "container:chapter_db_05",
                       "children": [
                         {
                           "id": "tree_concept_prepared_statement",
@@ -15232,14 +15185,6 @@
                               "name": "MySQL 动态语句 / dynamic statement",
                               "count": 0,
                               "nodeRef": "mysql_glossary_dynamic_statement_1evhmv",
-                              "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "mysql_functional_ref_k_dict_p7los2aq",
-                              "name": "MySQL 动态 SQL / dynamic SQL",
-                              "count": 0,
-                              "nodeRef": "k_dict_p7los2aq",
                               "projection": false,
                               "children": []
                             }
@@ -15359,6 +15304,8 @@
                     },
                     {
                       "name": "六、查询系统",
+                      "id": "chapter_db_06",
+                      "nodeRef": "container:chapter_db_06",
                       "children": [
                         {
                           "id": "tree_concept_query_optimizer",
@@ -15592,17 +15539,359 @@
                       ]
                     },
                     {
-                      "name": "七、事务系统",
+                      "name": "数据库事务",
+                      "id": "chapter_db_07",
+                      "nodeRef": "container:chapter_db_07",
                       "children": [
                         {
+                          "id": "tree_1785248000649_g7enn7",
+                          "name": "MySQL 事务",
+                          "count": 0,
+                          "nodeRef": "n_ag24bbkc",
+                          "projection": false,
+                          "children": []
+                        },
+                        {
+                          "id": "theory_domain_transaction_theory",
+                          "name": "事务原理",
+                          "count": 0,
+                          "nodeRef": "theory_domain_transaction_theory",
+                          "children": [
+                            {
+                              "id": "tree_1784705186638_sbtn31",
+                              "name": "事务处理",
+                              "count": 0,
+                              "nodeRef": "k_1784705186589_4l6rn5",
+                              "children": [
+                                {
+                                  "id": "tree_1784729656859_s3gsct",
+                                  "name": "补偿事务",
+                                  "count": 0,
+                                  "nodeRef": "k_1784729656805_igbg2h",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_1784730311947_885z70",
+                              "name": "ACID",
+                              "count": 0,
+                              "nodeRef": "demo_acid",
+                              "children": [
+                                {
+                                  "id": "tree_1784731248478_oy7crb",
+                                  "name": "原子性",
+                                  "count": 0,
+                                  "nodeRef": "k_1784731248425_non832",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_1784731654882_ecbsxj",
+                                  "name": "一致性",
+                                  "count": 0,
+                                  "nodeRef": "k_1784731654837_ur8uo6",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_1784733045422_rvjbl8",
+                                  "name": "隔离性",
+                                  "count": 0,
+                                  "nodeRef": "k_1784733045365_qubtp0",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_snapshot_1e8wnk",
+                              "name": "快照 / snapshot",
+                              "count": 0,
+                              "nodeRef": "k_dict_xbipt5q1",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_oltp_18eomk",
+                              "name": "联机事务处理 / OLTP",
+                              "count": 0,
+                              "nodeRef": "k_dict_zu4iv9d4",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_autocommit_8zgv4m",
+                              "name": "自动提交 / autocommit",
+                              "count": 0,
+                              "nodeRef": "k_dict_el0p7j55",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_group_commit_6qcbnp",
+                              "name": "组提交 / group commit",
+                              "count": 0,
+                              "nodeRef": "k_dict_ggnkee68",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1784705818188_3q5ekp",
+                              "name": "事务处理系统",
+                              "count": 0,
+                              "nodeRef": "k_1784705818131_781hut",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_term_transaction_theory_isolation_level_iin46p",
+                              "name": "隔离级别 / isolation level",
+                              "count": 0,
+                              "nodeRef": "demo_isolation",
+                              "children": [
+                                {
+                                  "id": "mysql_term_transaction_theory_read_uncommitted_1ntfd7",
+                                  "name": "读未提交 / READ UNCOMMITTED",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_3dltrcza",
+                                  "children": []
+                                },
+                                {
+                                  "id": "mysql_term_transaction_theory_read_committed_62od40",
+                                  "name": "读已提交 / READ COMMITTED",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_o0jw5g8p",
+                                  "children": []
+                                },
+                                {
+                                  "id": "mysql_term_transaction_theory_repeatable_read_1yswtz",
+                                  "name": "可重复读 / REPEATABLE READ",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_4zr5j9bz",
+                                  "children": []
+                                },
+                                {
+                                  "id": "mysql_term_transaction_theory_serializable_bj5rus",
+                                  "name": "可串行化 / SERIALIZABLE",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_i1g9hhj8",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "mysql_functional_ref_k_dict_mfu28h3v",
+                              "name": "故障转移 / failover",
+                              "count": 0,
+                              "nodeRef": "k_dict_mfu28h3v",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_atomic_1jyxbu",
+                              "name": "原子 / atomic",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_atomic_1jyxbu",
+                              "projection": true,
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_atomic_1jyxbu",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_transaction_lifecycle",
+                          "name": "事务生命周期 / transaction lifecycle",
+                          "count": 0,
+                          "nodeRef": "concept_transaction_lifecycle",
+                          "children": [
+                            {
+                              "id": "tree_mysql_tx_lifecycle",
+                              "name": "MySQL 事务生命周期",
+                              "count": 0,
+                              "nodeRef": "mysql_tx_lifecycle",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_transaction_management",
+                          "name": "事务管理 / transaction management",
+                          "count": 0,
+                          "nodeRef": "concept_transaction_management",
+                          "children": [
+                            {
+                              "id": "tree_1784456386621_grnp3v",
+                              "name": "MySQL 事务管理",
+                              "count": 0,
+                              "nodeRef": "k_1784456386575_b7hxoh",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_global_transaction",
+                          "name": "全局事务 / global transaction",
+                          "count": 0,
+                          "nodeRef": "concept_global_transaction",
+                          "children": [
+                            {
+                              "id": "tree_mysql_glossary_global_transaction_4i1f06",
+                              "name": "MySQL 全局事务 / global transaction",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_global_transaction_4i1f06",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_transaction_id",
+                          "name": "事务ID / transaction ID",
+                          "count": 0,
+                          "nodeRef": "concept_transaction_id",
+                          "children": [
+                            {
+                              "id": "tree_mysql_glossary_transaction_id_1aa5a7",
+                              "name": "MySQL 事务 ID / transaction ID",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_transaction_id_1aa5a7",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_read_only_transaction",
+                          "name": "只读事务 / read-only transaction",
+                          "count": 0,
+                          "nodeRef": "concept_read_only_transaction",
+                          "children": [
+                            {
+                              "id": "tree_mysql_glossary_read_only_transaction_2kf2kq",
+                              "name": "MySQL 只读事务 / read-only transaction",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_read_only_transaction_2kf2kq",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_tcl",
+                          "name": "TCL / 事务控制语言",
+                          "count": 0,
+                          "nodeRef": "concept_tcl",
+                          "children": [
+                            {
+                              "id": "tree_mysql:sql:tcl",
+                              "name": "MySQL TCL / 事务控制语言",
+                              "count": 0,
+                              "nodeRef": "mysql:sql:tcl",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "mysql_term_distributed_systems_xa_1dfpej",
+                          "name": "分布式事务 / XA 协议 / XA",
+                          "count": 0,
+                          "nodeRef": "k_dict_n5wdsgcu",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_concept_mini_transaction",
+                          "name": "小型事务 / mini-transaction",
+                          "count": 0,
+                          "nodeRef": "concept_mini_transaction",
+                          "children": [
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_mini_transaction_ly3edv",
+                              "name": "MySQL mini-transaction / 小型事务",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_mini_transaction_ly3edv",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_throughput_tps",
+                          "name": "每秒事务数 / TPS",
+                          "count": 0,
+                          "nodeRef": "concept_throughput_tps",
+                          "children": [
+                            {
+                              "id": "tree_mysql_instance_concept_throughput_tps_0",
+                              "name": "MySQL TPS",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_tps_ej1ya6",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_read_phenomena",
+                          "name": "读现象 / read phenomena",
+                          "count": 0,
+                          "nodeRef": "concept_read_phenomena",
+                          "children": [
+                            {
+                              "id": "governance:canonical:mysql_tx_read_phenomena",
+                              "name": "MySQL 读现象",
+                              "count": 0,
+                              "nodeRef": "mysql_tx_read_phenomena",
+                              "projection": false,
+                              "children": []
+                            },
+                            {
+                              "id": "tree_concept_phantom_read",
+                              "name": "幻读 / phantom read",
+                              "count": 0,
+                              "nodeRef": "concept_phantom_read",
+                              "children": [
+                                {
+                                  "id": "mysql_term_transaction_theory_phantom_iydhac",
+                                  "name": "MySQL 幻读 / phantom",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_8o426b5j",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_concept_non_repeatable_read",
+                              "name": "不可重复读 / non-repeatable read",
+                              "count": 0,
+                              "nodeRef": "concept_non_repeatable_read",
+                              "children": [
+                                {
+                                  "id": "mysql_term_transaction_theory_non_repeatable_read_12s3xs",
+                                  "name": "MySQL 不可重复读 / non-repeatable read",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_c9sxzvqt",
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_concept_dirty_read",
+                              "name": "脏读 / dirty read",
+                              "count": 0,
+                              "nodeRef": "concept_dirty_read",
+                              "children": [
+                                {
+                                  "id": "mysql_term_transaction_theory_dirty_read_1yn24s",
+                                  "name": "MySQL 脏读 / dirty read",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_t83fdwoc",
+                                  "projection": false,
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
                           "id": "tree_concept_mvcc",
-                          "name": "多版本并发控制 / multiversion concurrency control",
+                          "name": "多版本并发控制",
                           "count": 0,
                           "nodeRef": "concept_mvcc",
                           "children": [
                             {
                               "id": "demo_tree_mvcc",
-                              "name": "MySQL 多版本并发控制 / multiversion concurrency control",
+                              "name": "MySQL 多版本并发控制",
                               "count": 0,
                               "active": true,
                               "nodeRef": "demo_mvcc",
@@ -15742,13 +16031,6 @@
                                   "children": []
                                 },
                                 {
-                                  "id": "tree_1782024439082_66hqde",
-                                  "name": "快照读（SnapshotRead）",
-                                  "count": 0,
-                                  "nodeRef": "k_1782024439070_bvfq6r",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_1782024448026_vs0xa9",
                                   "name": "当前读（CurrentRead）",
                                   "count": 0,
@@ -15774,54 +16056,6 @@
                           ]
                         },
                         {
-                          "id": "tree_concept_rollback",
-                          "name": "回滚 / rollback",
-                          "count": 0,
-                          "nodeRef": "concept_rollback",
-                          "children": [
-                            {
-                              "id": "mysql_term_transaction_theory_rollback_1q3o0g",
-                              "name": "MySQL 回滚 / rollback",
-                              "count": 0,
-                              "nodeRef": "k_dict_rmz7dcm0",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_concept_dirty_read",
-                          "name": "脏读 / dirty read",
-                          "count": 0,
-                          "nodeRef": "concept_dirty_read",
-                          "children": [
-                            {
-                              "id": "mysql_term_transaction_theory_dirty_read_1yn24s",
-                              "name": "MySQL 脏读 / dirty read",
-                              "count": 0,
-                              "nodeRef": "k_dict_t83fdwoc",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_concept_semi_consistent_read",
-                          "name": "半一致性读取 / semi-consistent read",
-                          "count": 0,
-                          "nodeRef": "concept_semi_consistent_read",
-                          "children": [
-                            {
-                              "id": "projection:mysql-term:mysql_glossary_semi_consistent_read_luof7q",
-                              "name": "MySQL 半一致性读取 / semi-consistent read",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_semi_consistent_read_luof7q",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
                           "id": "tree_concept_lock_mechanism",
                           "name": "锁机制 / locking mechanism",
                           "count": 0,
@@ -15842,24 +16076,6 @@
                                   "children": []
                                 },
                                 {
-                                  "id": "mysql_functional_ref_k_dict_kgntvds7",
-                                  "name": "闩锁 / latch",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_kgntvds7",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_intention_lock_1ejpzi",
-                                  "name": "意向锁 / intention lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_intention_lock_1ejpzi",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_intention_lock_1ejpzi",
-                                  "children": []
-                                },
-                                {
                                   "id": "projection:mysql-term:mysql_glossary_rw_lock_1c4qu9",
                                   "name": "读写锁 / rw-lock",
                                   "count": 0,
@@ -15868,17 +16084,6 @@
                                   "view": "mysql-architecture",
                                   "projectionKind": "canonical-topic",
                                   "sourceNodeId": "mysql_glossary_rw_lock_1c4qu9",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_table_lock_15y9vl",
-                                  "name": "表锁 / table lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_table_lock_15y9vl",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_table_lock_15y9vl",
                                   "children": []
                                 },
                                 {
@@ -15937,14 +16142,6 @@
                                   "name": "MySQL 共享锁 / shared lock",
                                   "count": 0,
                                   "nodeRef": "k_dict_yvuxhe74",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "demo_tree_shared_lock",
-                                  "name": "MySQL 共享锁",
-                                  "count": 0,
-                                  "nodeRef": "demo_shared_lock",
                                   "projection": false,
                                   "children": []
                                 }
@@ -16010,15 +16207,16 @@
                                   "count": 0,
                                   "nodeRef": "k_dict_fb1f2eh2",
                                   "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "demo_tree_row_lock",
-                                  "name": "MySQL 行锁 / row lock",
-                                  "count": 0,
-                                  "nodeRef": "demo_row_lock",
-                                  "projection": false,
-                                  "children": []
+                                  "children": [
+                                    {
+                                      "id": "demo_tree_row_lock",
+                                      "name": "MySQL 行锁 / row lock",
+                                      "count": 0,
+                                      "nodeRef": "demo_row_lock",
+                                      "projection": false,
+                                      "children": []
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -16028,14 +16226,6 @@
                               "count": 0,
                               "nodeRef": "concept_exclusive_lock",
                               "children": [
-                                {
-                                  "id": "demo_tree_exclusive_lock",
-                                  "name": "MySQL 排他锁",
-                                  "count": 0,
-                                  "nodeRef": "demo_exclusive_lock",
-                                  "projection": false,
-                                  "children": []
-                                },
                                 {
                                   "id": "projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
                                   "name": "MySQL 独占锁 / exclusive lock",
@@ -16054,7 +16244,7 @@
                               "children": [
                                 {
                                   "id": "tree_1782928703685_fuj7ev",
-                                  "name": "MySQL 乐观锁",
+                                  "name": "MySQL 乐观锁 / optimistic lock",
                                   "count": 0,
                                   "nodeRef": "demo_optimistic",
                                   "supplement": {
@@ -16071,14 +16261,6 @@
                                   },
                                   "projection": false,
                                   "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_optimistic_1gdvw6",
-                                  "name": "MySQL 乐观 / optimistic",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_optimistic_1gdvw6",
-                                  "projection": false,
-                                  "children": []
                                 }
                               ]
                             },
@@ -16090,17 +16272,9 @@
                               "children": [
                                 {
                                   "id": "tree_1782928843771_cmjyzt",
-                                  "name": "MySQL 悲观锁",
+                                  "name": "MySQL 悲观锁 / pessimistic lock",
                                   "count": 0,
                                   "nodeRef": "demo_pessimistic",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_pessimistic_l0bpvy",
-                                  "name": "MySQL 悲观 / pessimistic",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_pessimistic_l0bpvy",
                                   "projection": false,
                                   "children": []
                                 }
@@ -16112,14 +16286,6 @@
                               "count": 0,
                               "nodeRef": "concept_intention_lock",
                               "children": [
-                                {
-                                  "id": "mysql_lock_intention",
-                                  "name": "MySQL 意向锁",
-                                  "count": 0,
-                                  "nodeRef": "mysql_lock_intention",
-                                  "projection": false,
-                                  "children": []
-                                },
                                 {
                                   "id": "projection:mysql-term:mysql_glossary_intention_shared_lock_4x8ciz",
                                   "name": "MySQL 意图共享锁 / intention shared lock",
@@ -16134,6 +16300,17 @@
                                   "count": 0,
                                   "nodeRef": "mysql_glossary_intention_exclusive_lock_1rd4p1",
                                   "projection": false,
+                                  "children": []
+                                },
+                                {
+                                  "id": "projection:mysql-term:mysql_glossary_intention_lock_1ejpzi",
+                                  "name": "MySQL 意向锁 / intention lock",
+                                  "count": 0,
+                                  "nodeRef": "mysql_glossary_intention_lock_1ejpzi",
+                                  "projection": true,
+                                  "view": "mysql-architecture",
+                                  "projectionKind": "canonical-topic",
+                                  "sourceNodeId": "mysql_glossary_intention_lock_1ejpzi",
                                   "children": []
                                 }
                               ]
@@ -16161,11 +16338,14 @@
                               "nodeRef": "concept_table_level_locking",
                               "children": [
                                 {
-                                  "id": "demo_tree_table_lock",
-                                  "name": "MySQL 表级锁",
+                                  "id": "projection:mysql-term:mysql_glossary_table_lock_15y9vl",
+                                  "name": "MySQL 表锁 / table lock",
                                   "count": 0,
-                                  "nodeRef": "demo_table_lock",
-                                  "projection": false,
+                                  "nodeRef": "mysql_glossary_table_lock_15y9vl",
+                                  "projection": true,
+                                  "view": "mysql-architecture",
+                                  "projectionKind": "canonical-topic",
+                                  "sourceNodeId": "mysql_glossary_table_lock_15y9vl",
                                   "children": []
                                 }
                               ]
@@ -16176,14 +16356,6 @@
                               "count": 0,
                               "nodeRef": "concept_auto_increment_lock",
                               "children": [
-                                {
-                                  "id": "mysql_lock_auto_increment",
-                                  "name": "MySQL 自增锁",
-                                  "count": 0,
-                                  "nodeRef": "mysql_lock_auto_increment",
-                                  "projection": false,
-                                  "children": []
-                                },
                                 {
                                   "id": "projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
                                   "name": "MySQL 自增锁 / auto-increment locking",
@@ -16241,11 +16413,10 @@
                               "nodeRef": "concept_latch",
                               "children": [
                                 {
-                                  "id": "mysql_lock_latches",
-                                  "name": "MySQL 闩锁与内存同步",
+                                  "id": "mysql_functional_ref_k_dict_kgntvds7",
+                                  "name": "MySQL 闩锁 / latch",
                                   "count": 0,
-                                  "nodeRef": "mysql_lock_latches",
-                                  "projection": false,
+                                  "nodeRef": "k_dict_kgntvds7",
                                   "children": []
                                 }
                               ]
@@ -16257,26 +16428,10 @@
                               "nodeRef": "concept_metadata_lock",
                               "children": [
                                 {
-                                  "id": "mysql_lock_metadata",
-                                  "name": "MySQL 元数据锁",
-                                  "count": 0,
-                                  "nodeRef": "mysql_lock_metadata",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
                                   "id": "projection:mysql-term:mysql_glossary_metadata_lock_qiqw4n",
                                   "name": "MySQL 元数据锁 / metadata lock",
                                   "count": 0,
                                   "nodeRef": "mysql_glossary_metadata_lock_qiqw4n",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_mdl_braceg",
-                                  "name": "MySQL MDL",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_mdl_braceg",
                                   "projection": false,
                                   "children": []
                                 }
@@ -16327,14 +16482,6 @@
                                   "nodeRef": "mysql_glossary_lock_mode_h31or1",
                                   "projection": false,
                                   "children": []
-                                },
-                                {
-                                  "id": "mysql_lock_modes",
-                                  "name": "MySQL 锁模式与锁操作",
-                                  "count": 0,
-                                  "nodeRef": "mysql_lock_modes",
-                                  "projection": false,
-                                  "children": []
                                 }
                               ]
                             },
@@ -16356,7 +16503,7 @@
                             },
                             {
                               "id": "tree_wiki_en_outline_of_databases_s4_b16",
-                              "name": "有序共享锁",
+                              "name": "有序共享锁 / ordered shared locks",
                               "count": 0,
                               "nodeRef": "k_wiki_en_outline_of_databases_s4_b16",
                               "children": []
@@ -16380,336 +16527,6 @@
                           ]
                         },
                         {
-                          "id": "tree_concept_transaction",
-                          "name": "事务 / transaction",
-                          "count": 0,
-                          "nodeRef": "concept_transaction",
-                          "children": [
-                            {
-                              "id": "tree_1785248000649_g7enn7",
-                              "name": "MySQL 事务",
-                              "count": 0,
-                              "nodeRef": "n_ag24bbkc",
-                              "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "theory_domain_transaction_theory",
-                              "name": "事务理论",
-                              "count": 0,
-                              "nodeRef": "theory_domain_transaction_theory",
-                              "children": [
-                                {
-                                  "id": "tree_1784705186638_sbtn31",
-                                  "name": "事务处理",
-                                  "count": 0,
-                                  "nodeRef": "k_1784705186589_4l6rn5",
-                                  "children": [
-                                    {
-                                      "id": "tree_1784729656859_s3gsct",
-                                      "name": "补偿事务",
-                                      "count": 0,
-                                      "nodeRef": "k_1784729656805_igbg2h",
-                                      "children": []
-                                    }
-                                  ]
-                                },
-                                {
-                                  "id": "tree_1784730311947_885z70",
-                                  "name": "ACID",
-                                  "count": 0,
-                                  "nodeRef": "demo_acid",
-                                  "children": [
-                                    {
-                                      "id": "tree_1784731248478_oy7crb",
-                                      "name": "原子性",
-                                      "count": 0,
-                                      "nodeRef": "k_1784731248425_non832",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_1784731654882_ecbsxj",
-                                      "name": "一致性",
-                                      "count": 0,
-                                      "nodeRef": "k_1784731654837_ur8uo6",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_1784733045422_rvjbl8",
-                                      "name": "隔离性",
-                                      "count": 0,
-                                      "nodeRef": "k_1784733045365_qubtp0",
-                                      "children": []
-                                    }
-                                  ]
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_data_warehouse_1vp7y4",
-                                  "name": "数据仓库 / data warehouse",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_o5254svl",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_snapshot_1e8wnk",
-                                  "name": "快照 / snapshot",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_xbipt5q1",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_oltp_18eomk",
-                                  "name": "联机事务处理 / OLTP",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_zu4iv9d4",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_autocommit_8zgv4m",
-                                  "name": "自动提交 / autocommit",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_el0p7j55",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_group_commit_6qcbnp",
-                                  "name": "组提交 / group commit",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_ggnkee68",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_phantom_iydhac",
-                                  "name": "幻读 / phantom",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_8o426b5j",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_non_repeatable_read_12s3xs",
-                                  "name": "不可重复读 / non-repeatable read",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_c9sxzvqt",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_repeatable_read_1yswtz",
-                                  "name": "可重复读 / REPEATABLE READ",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_4zr5j9bz",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_read_uncommitted_1ntfd7",
-                                  "name": "读未提交 / READ UNCOMMITTED",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_3dltrcza",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_read_committed_62od40",
-                                  "name": "读已提交 / READ COMMITTED",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_o0jw5g8p",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_serializable_bj5rus",
-                                  "name": "可串行化 / SERIALIZABLE",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_i1g9hhj8",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1784705818188_3q5ekp",
-                                  "name": "事务处理系统",
-                                  "count": 0,
-                                  "nodeRef": "k_1784705818131_781hut",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_term_transaction_theory_isolation_level_iin46p",
-                                  "name": "隔离级别 / isolation level",
-                                  "count": 0,
-                                  "nodeRef": "demo_isolation",
-                                  "children": []
-                                },
-                                {
-                                  "id": "mysql_functional_ref_k_dict_mfu28h3v",
-                                  "name": "故障转移 / failover",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_mfu28h3v",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_atomic_1jyxbu",
-                                  "name": "原子 / atomic",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_atomic_1jyxbu",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_atomic_1jyxbu",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_throughput_tps",
-                              "name": "每秒事务数 / TPS",
-                              "count": 0,
-                              "nodeRef": "concept_throughput_tps",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_instance_concept_throughput_tps_0",
-                                  "name": "MySQL TPS",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_tps_ej1ya6",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_transaction_lifecycle",
-                              "name": "事务生命周期 / transaction lifecycle",
-                              "count": 0,
-                              "nodeRef": "concept_transaction_lifecycle",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_tx_lifecycle",
-                                  "name": "MySQL 事务生命周期",
-                                  "count": 0,
-                                  "nodeRef": "mysql_tx_lifecycle",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_transaction_management",
-                              "name": "事务管理 / transaction management",
-                              "count": 0,
-                              "nodeRef": "concept_transaction_management",
-                              "children": [
-                                {
-                                  "id": "tree_1784456386621_grnp3v",
-                                  "name": "MySQL 事务管理",
-                                  "count": 0,
-                                  "nodeRef": "k_1784456386575_b7hxoh",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_global_transaction",
-                              "name": "全局事务 / global transaction",
-                              "count": 0,
-                              "nodeRef": "concept_global_transaction",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_glossary_global_transaction_4i1f06",
-                                  "name": "MySQL 全局事务 / global transaction",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_global_transaction_4i1f06",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_transaction_id",
-                              "name": "事务ID / transaction ID",
-                              "count": 0,
-                              "nodeRef": "concept_transaction_id",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_glossary_transaction_id_1aa5a7",
-                                  "name": "MySQL 事务 ID / transaction ID",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_transaction_id_1aa5a7",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_read_only_transaction",
-                              "name": "只读事务 / read-only transaction",
-                              "count": 0,
-                              "nodeRef": "concept_read_only_transaction",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_glossary_read_only_transaction_2kf2kq",
-                                  "name": "MySQL 只读事务 / read-only transaction",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_read_only_transaction_2kf2kq",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_tcl",
-                              "name": "TCL / 事务控制语言",
-                              "count": 0,
-                              "nodeRef": "concept_tcl",
-                              "children": [
-                                {
-                                  "id": "tree_mysql:sql:tcl",
-                                  "name": "MySQL TCL / 事务控制语言",
-                                  "count": 0,
-                                  "nodeRef": "mysql:sql:tcl",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_mini_transaction",
-                              "name": "小型事务 / mini-transaction",
-                              "count": 0,
-                              "nodeRef": "concept_mini_transaction",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_mini_transaction_ly3edv",
-                                  "name": "MySQL mini-transaction / 小型事务",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_mini_transaction_ly3edv",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "mysql_term_distributed_systems_xa_1dfpej",
-                              "name": "分布式事务 / XA 协议 / XA",
-                              "count": 0,
-                              "nodeRef": "k_dict_n5wdsgcu",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_concept_read_phenomena",
-                          "name": "读现象 / read phenomena",
-                          "count": 0,
-                          "nodeRef": "concept_read_phenomena",
-                          "children": [
-                            {
-                              "id": "projection:mysql-term:mysql_glossary_read_phenomena_n0vs4m",
-                              "name": "MySQL 读现象 / read phenomena",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_read_phenomena_n0vs4m",
-                              "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "governance:canonical:mysql_tx_read_phenomena",
-                              "name": "MySQL 读现象",
-                              "count": 0,
-                              "nodeRef": "mysql_tx_read_phenomena",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
                           "id": "tree_concept_consistent_read",
                           "name": "一致性读取 / consistent read",
                           "count": 0,
@@ -16720,6 +16537,38 @@
                               "name": "MySQL 一致性读取 / consistent read",
                               "count": 0,
                               "nodeRef": "mysql_glossary_consistent_read_gsmmdj",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_semi_consistent_read",
+                          "name": "半一致性读取 / semi-consistent read",
+                          "count": 0,
+                          "nodeRef": "concept_semi_consistent_read",
+                          "children": [
+                            {
+                              "id": "projection:mysql-term:mysql_glossary_semi_consistent_read_luof7q",
+                              "name": "MySQL 半一致性读取 / semi-consistent read",
+                              "count": 0,
+                              "nodeRef": "mysql_glossary_semi_consistent_read_luof7q",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_rollback",
+                          "name": "回滚 / rollback",
+                          "count": 0,
+                          "nodeRef": "concept_rollback",
+                          "children": [
+                            {
+                              "id": "mysql_term_transaction_theory_rollback_1q3o0g",
+                              "name": "MySQL 回滚 / rollback",
+                              "count": 0,
+                              "nodeRef": "k_dict_rmz7dcm0",
                               "projection": false,
                               "children": []
                             }
@@ -16769,20 +16618,35 @@
                               "count": 0,
                               "nodeRef": "k_1782928892375_1vgg04",
                               "children": []
+                            },
+                            {
+                              "id": "tree_1788094136862_8ntck8",
+                              "name": "分类",
+                              "count": 0,
+                              "nodeRef": "k_1788094136859_u31zj7",
+                              "children": [
+                                {
+                                  "id": "tree_1788094152000_j430fz",
+                                  "name": "回滚覆盖",
+                                  "count": 0,
+                                  "nodeRef": "k_1788094151993_oitdzv"
+                                },
+                                {
+                                  "id": "tree_1788094196089_zid0p2",
+                                  "name": "提交覆盖",
+                                  "count": 0,
+                                  "nodeRef": "k_1788094196082_afg382"
+                                }
+                              ]
                             }
                           ]
-                        },
-                        {
-                          "id": "tree_1783250593570_ci875p",
-                          "name": "数据库事务（维基）",
-                          "count": 0,
-                          "nodeRef": "k_1783250593540_v2w5hy",
-                          "children": []
                         }
                       ]
                     },
                     {
                       "name": "八、恢复系统",
+                      "id": "chapter_db_08",
+                      "nodeRef": "container:chapter_db_08",
                       "children": [
                         {
                           "id": "tree_concept_availability",
@@ -16817,14 +16681,6 @@
                               "name": "MySQL 脏页 / dirty page",
                               "count": 0,
                               "nodeRef": "k_dict_rjl6lkaz",
-                              "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1781974756582_irtlsp",
-                              "name": "MySQL dirty  page",
-                              "count": 0,
-                              "nodeRef": "k_1781974756575_ldbdtp",
                               "projection": false,
                               "children": []
                             }
@@ -16914,13 +16770,6 @@
                                   "name": "MySQL 物理备份 / physical backup",
                                   "count": 0,
                                   "nodeRef": "mysql_glossary_physical_backup_1o7b7v",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_mysql_instance_concept_physical_backup_1",
-                                  "name": "MySQL 原始备份 / raw backup",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_raw_backup_1s82jm",
                                   "children": []
                                 }
                               ]
@@ -17082,6 +16931,8 @@
                     },
                     {
                       "name": "九、日志系统",
+                      "id": "chapter_db_09",
+                      "nodeRef": "container:chapter_db_09",
                       "children": [
                         {
                           "id": "tree_concept_flush",
@@ -17103,235 +16954,229 @@
                           ]
                         },
                         {
-                          "id": "tree_1787582632648_if0m7t",
-                          "name": "日志",
+                          "id": "tree_wiki_en_outline_of_databases_s4_b20",
+                          "name": "日志传送",
                           "count": 0,
-                          "nodeRef": "k_1787582631928_0i4c4u",
+                          "nodeRef": "k_wiki_en_outline_of_databases_s4_b20",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-concept:mysql-log-files:k_1782031329838_mcap8c",
+                          "name": "ib_logfile0、ib_logfile1 文件组",
+                          "count": 0,
+                          "nodeRef": "k_1782031329838_mcap8c",
+                          "projection": true,
+                          "view": "mysql-concept-taxonomy",
+                          "projectionKind": "concept-part",
+                          "sourceNodeId": "k_1782031329838_mcap8c",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-concept:mysql-log-files:mysql_glossary_ib_logfile_1p12fu",
+                          "name": "ib_logfile 文件 / ib_logfile",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ib_logfile_1p12fu",
+                          "projection": true,
+                          "view": "mysql-concept-taxonomy",
+                          "projectionKind": "concept-part",
+                          "sourceNodeId": "mysql_glossary_ib_logfile_1p12fu",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-concept:mysql-log-files:mysql_file_ib_logfile0",
+                          "name": "ib_logfile0 文件",
+                          "count": 0,
+                          "nodeRef": "mysql_file_ib_logfile0",
+                          "projection": true,
+                          "view": "mysql-concept-taxonomy",
+                          "projectionKind": "concept-part",
+                          "sourceNodeId": "mysql_file_ib_logfile0",
+                          "children": []
+                        },
+                        {
+                          "id": "projection:mysql-concept:mysql-log-files:mysql_glossary_ibbackup_logfile_1vewn2",
+                          "name": "ibbackup_logfile",
+                          "count": 0,
+                          "nodeRef": "mysql_glossary_ibbackup_logfile_1vewn2",
+                          "projection": true,
+                          "view": "mysql-concept-taxonomy",
+                          "projectionKind": "concept-part",
+                          "sourceNodeId": "mysql_glossary_ibbackup_logfile_1vewn2",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1787584693449_9jpebs",
+                          "name": "日志结构",
+                          "count": 0,
+                          "nodeRef": "k_1787584691815_dvrytu",
                           "children": [
                             {
-                              "id": "tree_wiki_en_outline_of_databases_s4_b20",
-                              "name": "日志传送",
+                              "id": "projection:mysql-term:mysql_glossary_log_group_1a3bsl",
+                              "name": "日志组 / log group",
                               "count": 0,
-                              "nodeRef": "k_wiki_en_outline_of_databases_s4_b20",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-concept:mysql-log-files:k_1782031329838_mcap8c",
-                              "name": "ib_logfile0、ib_logfile1 文件组",
-                              "count": 0,
-                              "nodeRef": "k_1782031329838_mcap8c",
+                              "nodeRef": "mysql_glossary_log_group_1a3bsl",
                               "projection": true,
-                              "view": "mysql-concept-taxonomy",
-                              "projectionKind": "concept-part",
-                              "sourceNodeId": "k_1782031329838_mcap8c",
+                              "view": "mysql-architecture",
+                              "projectionKind": "canonical-topic",
+                              "sourceNodeId": "mysql_glossary_log_group_1a3bsl",
                               "children": []
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1787584729923_65b7nk",
+                          "name": "日志类型",
+                          "count": 0,
+                          "nodeRef": "k_1787584728487_j0johg",
+                          "children": [
                             {
-                              "id": "projection:mysql-concept:mysql-log-files:mysql_glossary_ib_logfile_1p12fu",
-                              "name": "ib_logfile 文件 / ib_logfile",
+                              "id": "tree_wiki_en_outline_of_databases_s10_s12_b7",
+                              "name": "事务日志",
                               "count": 0,
-                              "nodeRef": "mysql_glossary_ib_logfile_1p12fu",
-                              "projection": true,
-                              "view": "mysql-concept-taxonomy",
-                              "projectionKind": "concept-part",
-                              "sourceNodeId": "mysql_glossary_ib_logfile_1p12fu",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-concept:mysql-log-files:mysql_file_ib_logfile0",
-                              "name": "ib_logfile0 文件",
-                              "count": 0,
-                              "nodeRef": "mysql_file_ib_logfile0",
-                              "projection": true,
-                              "view": "mysql-concept-taxonomy",
-                              "projectionKind": "concept-part",
-                              "sourceNodeId": "mysql_file_ib_logfile0",
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-concept:mysql-log-files:mysql_glossary_ibbackup_logfile_1vewn2",
-                              "name": "ibbackup_logfile",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_ibbackup_logfile_1vewn2",
-                              "projection": true,
-                              "view": "mysql-concept-taxonomy",
-                              "projectionKind": "concept-part",
-                              "sourceNodeId": "mysql_glossary_ibbackup_logfile_1vewn2",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1787584693449_9jpebs",
-                              "name": "日志结构",
-                              "count": 0,
-                              "nodeRef": "k_1787584691815_dvrytu",
+                              "nodeRef": "k_wiki_en_outline_of_databases_s12_b7",
                               "children": [
                                 {
-                                  "id": "projection:mysql-term:mysql_glossary_log_group_1a3bsl",
-                                  "name": "日志组 / log group",
+                                  "id": "tree_concept_redo_log",
+                                  "name": "重做日志 / redo log",
                                   "count": 0,
-                                  "nodeRef": "mysql_glossary_log_group_1a3bsl",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_log_group_1a3bsl",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1787584729923_65b7nk",
-                              "name": "日志类型",
-                              "count": 0,
-                              "nodeRef": "k_1787584728487_j0johg",
-                              "children": [
-                                {
-                                  "id": "tree_wiki_en_outline_of_databases_s10_s12_b7",
-                                  "name": "事务日志",
-                                  "count": 0,
-                                  "nodeRef": "k_wiki_en_outline_of_databases_s12_b7",
+                                  "nodeRef": "concept_redo_log",
                                   "children": [
                                     {
-                                      "id": "tree_concept_redo_log",
-                                      "name": "重做日志 / redo log",
+                                      "id": "tree_1781957518607_s9sdgk",
+                                      "name": "MySQL 重做日志 / redo log",
                                       "count": 0,
-                                      "nodeRef": "concept_redo_log",
+                                      "nodeRef": "k_1781957518600_aibqeg",
+                                      "projection": false,
                                       "children": [
                                         {
-                                          "id": "tree_1781957518607_s9sdgk",
-                                          "name": "MySQL 重做日志 / redo log",
+                                          "id": "tree_1782039521340_1axhon",
+                                          "name": "redolog buffer",
                                           "count": 0,
-                                          "nodeRef": "k_1781957518600_aibqeg",
-                                          "projection": false,
-                                          "children": [
-                                            {
-                                              "id": "tree_1782039521340_1axhon",
-                                              "name": "redolog buffer",
-                                              "count": 0,
-                                              "nodeRef": "k_1782039521326_u1lzlc",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_1782039569738_n5b5f7",
-                                              "name": "redolog  file",
-                                              "count": 0,
-                                              "nodeRef": "k_1782039569724_10ii46",
-                                              "children": []
-                                            }
-                                          ]
-                                        }
-                                      ]
-                                    },
-                                    {
-                                      "id": "tree_concept_undo_log",
-                                      "name": "撤销日志 / undo log",
-                                      "count": 0,
-                                      "nodeRef": "concept_undo_log",
-                                      "children": [
+                                          "nodeRef": "k_1782039521326_u1lzlc",
+                                          "children": []
+                                        },
                                         {
-                                          "id": "demo_tree_undo",
-                                          "name": "MySQL 撤销日志 / undo log",
+                                          "id": "tree_1782039569738_n5b5f7",
+                                          "name": "redolog  file",
                                           "count": 0,
-                                          "nodeRef": "demo_undo",
-                                          "projection": false,
-                                          "children": [
-                                            {
-                                              "id": "projection:mysql-term:mysql_glossary_update_undo_log_yphxzo",
-                                              "name": "更新 Undo 日志 / Update Undo Log",
-                                              "count": 0,
-                                              "nodeRef": "mysql_glossary_update_undo_log_yphxzo",
-                                              "projection": true,
-                                              "view": "mysql-architecture",
-                                              "projectionKind": "canonical-topic",
-                                              "sourceNodeId": "mysql_glossary_update_undo_log_yphxzo",
-                                              "children": [
-                                                {
-                                                  "id": "projection:mysql-term:mysql_glossary_redo_log_archiving_1ugqxo",
-                                                  "name": "重做日志归档 / redo log archiving",
-                                                  "count": 0,
-                                                  "nodeRef": "mysql_glossary_redo_log_archiving_1ugqxo",
-                                                  "projection": true,
-                                                  "view": "mysql-architecture",
-                                                  "projectionKind": "canonical-topic",
-                                                  "sourceNodeId": "mysql_glossary_redo_log_archiving_1ugqxo",
-                                                  "children": []
-                                                }
-                                              ]
-                                            },
-                                            {
-                                              "id": "projection:mysql-term:mysql_glossary_insert_undo_log_1yrj7c",
-                                              "name": "插入 Undo 日志 / Insert Undo Log",
-                                              "count": 0,
-                                              "nodeRef": "mysql_glossary_insert_undo_log_1yrj7c",
-                                              "projection": true,
-                                              "view": "mysql-architecture",
-                                              "projectionKind": "canonical-topic",
-                                              "sourceNodeId": "mysql_glossary_insert_undo_log_1yrj7c",
-                                              "children": []
-                                            }
-                                          ]
+                                          "nodeRef": "k_1782039569724_10ii46",
+                                          "children": []
                                         }
                                       ]
                                     }
                                   ]
                                 },
                                 {
-                                  "id": "projection:mysql-concept:mysql-log-files:k_1782029566469_60woxz",
-                                  "name": "二进制日志",
+                                  "id": "tree_concept_undo_log",
+                                  "name": "撤销日志 / undo log",
                                   "count": 0,
-                                  "nodeRef": "k_1782029566469_60woxz",
-                                  "projection": true,
-                                  "view": "mysql-concept-taxonomy",
-                                  "projectionKind": "concept-part",
-                                  "sourceNodeId": "k_1782029566469_60woxz",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-concept:mysql-log-files:k_1782029599317_nn6hzg",
-                                  "name": "慢查询日志",
-                                  "count": 0,
-                                  "nodeRef": "k_1782029599317_nn6hzg",
-                                  "projection": true,
-                                  "view": "mysql-concept-taxonomy",
-                                  "projectionKind": "concept-part",
-                                  "sourceNodeId": "k_1782029599317_nn6hzg",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-concept:mysql-log-files:k_1782029546712_okgd59",
-                                  "name": "通用查询日志",
-                                  "count": 0,
-                                  "nodeRef": "k_1782029546712_okgd59",
-                                  "projection": true,
-                                  "view": "mysql-concept-taxonomy",
-                                  "projectionKind": "concept-part",
-                                  "sourceNodeId": "k_1782029546712_okgd59",
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-concept:mysql-log-files:k_1782029522089_047znr",
-                                  "name": "错误日志",
-                                  "count": 0,
-                                  "nodeRef": "k_1782029522089_047znr",
-                                  "projection": true,
-                                  "view": "mysql-concept-taxonomy",
-                                  "projectionKind": "concept-part",
-                                  "sourceNodeId": "k_1782029522089_047znr",
-                                  "children": []
+                                  "nodeRef": "concept_undo_log",
+                                  "children": [
+                                    {
+                                      "id": "demo_tree_undo",
+                                      "name": "MySQL 撤销日志 / undo log",
+                                      "count": 0,
+                                      "nodeRef": "demo_undo",
+                                      "projection": false,
+                                      "children": [
+                                        {
+                                          "id": "projection:mysql-term:mysql_glossary_update_undo_log_yphxzo",
+                                          "name": "更新 Undo 日志 / Update Undo Log",
+                                          "count": 0,
+                                          "nodeRef": "mysql_glossary_update_undo_log_yphxzo",
+                                          "projection": true,
+                                          "view": "mysql-architecture",
+                                          "projectionKind": "canonical-topic",
+                                          "sourceNodeId": "mysql_glossary_update_undo_log_yphxzo",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_redo_log_archiving_1ugqxo",
+                                              "name": "重做日志归档 / redo log archiving",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_redo_log_archiving_1ugqxo",
+                                              "projection": true,
+                                              "view": "mysql-architecture",
+                                              "projectionKind": "canonical-topic",
+                                              "sourceNodeId": "mysql_glossary_redo_log_archiving_1ugqxo",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "projection:mysql-term:mysql_glossary_insert_undo_log_1yrj7c",
+                                          "name": "插入 Undo 日志 / Insert Undo Log",
+                                          "count": 0,
+                                          "nodeRef": "mysql_glossary_insert_undo_log_1yrj7c",
+                                          "projection": true,
+                                          "view": "mysql-architecture",
+                                          "projectionKind": "canonical-topic",
+                                          "sourceNodeId": "mysql_glossary_insert_undo_log_1yrj7c",
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             },
                             {
-                              "id": "tree_1787584911431_gg87vl",
-                              "name": "日志管理",
+                              "id": "projection:mysql-concept:mysql-log-files:k_1782029566469_60woxz",
+                              "name": "二进制日志",
                               "count": 0,
-                              "nodeRef": "k_1787584910639_oedpma"
+                              "nodeRef": "k_1782029566469_60woxz",
+                              "projection": true,
+                              "view": "mysql-concept-taxonomy",
+                              "projectionKind": "concept-part",
+                              "sourceNodeId": "k_1782029566469_60woxz",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-concept:mysql-log-files:k_1782029599317_nn6hzg",
+                              "name": "慢查询日志",
+                              "count": 0,
+                              "nodeRef": "k_1782029599317_nn6hzg",
+                              "projection": true,
+                              "view": "mysql-concept-taxonomy",
+                              "projectionKind": "concept-part",
+                              "sourceNodeId": "k_1782029599317_nn6hzg",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-concept:mysql-log-files:k_1782029546712_okgd59",
+                              "name": "通用查询日志",
+                              "count": 0,
+                              "nodeRef": "k_1782029546712_okgd59",
+                              "projection": true,
+                              "view": "mysql-concept-taxonomy",
+                              "projectionKind": "concept-part",
+                              "sourceNodeId": "k_1782029546712_okgd59",
+                              "children": []
+                            },
+                            {
+                              "id": "projection:mysql-concept:mysql-log-files:k_1782029522089_047znr",
+                              "name": "错误日志",
+                              "count": 0,
+                              "nodeRef": "k_1782029522089_047znr",
+                              "projection": true,
+                              "view": "mysql-concept-taxonomy",
+                              "projectionKind": "concept-part",
+                              "sourceNodeId": "k_1782029522089_047znr",
+                              "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "tree_1787584911431_gg87vl",
+                          "name": "日志管理",
+                          "count": 0,
+                          "nodeRef": "k_1787584910639_oedpma"
                         }
                       ]
                     },
                     {
                       "name": "十、存储系统",
+                      "id": "chapter_db_10",
+                      "nodeRef": "container:chapter_db_10",
                       "children": [
                         {
                           "id": "tree_concept_compression",
@@ -17556,20 +17401,6 @@
                               "count": 0,
                               "nodeRef": "k_1781901890734_vckmz5",
                               "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_change_buffer_x1",
-                              "name": "MySQL 插入缓冲区 / MySQL insert buffer",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_insert_buffer_1xx0p8",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_change_buffer_x2",
-                              "name": "MySQL 插入缓冲 / MySQL insert buffering",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_insert_buffering_m9lmge",
                               "children": []
                             }
                           ]
@@ -17866,304 +17697,377 @@
                       ]
                     },
                     {
-                      "name": "十一、索引结构",
+                      "name": "索引",
+                      "id": "chapter_db_11",
+                      "nodeRef": "container:chapter_db_11",
                       "children": [
                         {
-                          "id": "tree_concept_index",
-                          "name": "索引 / index",
+                          "id": "tree_1786175188148_3flq6j",
+                          "name": "MySQL 索引",
                           "count": 0,
-                          "nodeRef": "concept_index",
+                          "nodeRef": "n_0xxb9cqy",
+                          "projection": false,
+                          "children": []
+                        },
+                        {
+                          "id": "tree_concept_unique_index",
+                          "name": "唯一索引 / unique index",
+                          "count": 0,
+                          "nodeRef": "concept_unique_index",
                           "children": [
                             {
-                              "id": "tree_1786175188148_3flq6j",
-                              "name": "MySQL 索引",
+                              "id": "mysql_functional_ref_demo_unique_index",
+                              "name": "MySQL 唯一索引 / unique index",
                               "count": 0,
-                              "nodeRef": "n_0xxb9cqy",
+                              "nodeRef": "demo_unique_index",
+                              "projection": false,
+                              "children": [
+                                {
+                                  "id": "tree_1788165277114_mm8y3e",
+                                  "name": "语法",
+                                  "count": 0,
+                                  "nodeRef": "k_1788165277106_8doot7"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_hash_index",
+                          "name": "哈希索引 / hash index",
+                          "count": 0,
+                          "nodeRef": "concept_hash_index",
+                          "children": [
+                            {
+                              "id": "mysql_functional_ref_demo_hash",
+                              "name": "MySQL 哈希索引 / hash index",
+                              "count": 0,
+                              "nodeRef": "demo_hash",
                               "projection": false,
                               "children": []
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_clustered_index",
+                          "name": "聚簇索引 / clustered index",
+                          "count": 0,
+                          "nodeRef": "concept_clustered_index",
+                          "children": [
                             {
-                              "id": "tree_concept_unique_index",
-                              "name": "唯一索引 / unique index",
+                              "id": "mysql_functional_ref_demo_clustered_index",
+                              "name": "MySQL 聚簇索引 / clustered index",
                               "count": 0,
-                              "nodeRef": "concept_unique_index",
+                              "nodeRef": "demo_clustered_index",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_covering_index",
+                          "name": "覆盖索引 / covering index",
+                          "count": 0,
+                          "nodeRef": "concept_covering_index",
+                          "children": [
+                            {
+                              "id": "mysql_functional_ref_demo_covering_index",
+                              "name": "MySQL 覆盖索引 / covering index",
+                              "count": 0,
+                              "nodeRef": "demo_covering_index",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_partial_index",
+                          "name": "部分索引 / partial index",
+                          "count": 0,
+                          "nodeRef": "concept_partial_index",
+                          "children": [
+                            {
+                              "id": "mysql_functional_ref_k_dict_722bh2j6",
+                              "name": "MySQL 部分索引 / partial index",
+                              "count": 0,
+                              "nodeRef": "k_dict_722bh2j6",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_fulltext_index",
+                          "name": "全文索引 / full-text index",
+                          "count": 0,
+                          "nodeRef": "concept_fulltext_index",
+                          "children": [
+                            {
+                              "id": "mysql_functional_ref_demo_fulltext_index",
+                              "name": "MySQL 全文索引 / FULLTEXT index",
+                              "count": 0,
+                              "nodeRef": "demo_fulltext_index",
+                              "projection": false,
                               "children": [
                                 {
-                                  "id": "mysql_functional_ref_demo_unique_index",
-                                  "name": "MySQL 唯一索引 / unique index",
+                                  "id": "projection:mysql-repaired:mysql:theme:indexes-access:mysql_glossary_stopword_ztgqhp",
+                                  "name": "停用词 / stopword",
                                   "count": 0,
-                                  "nodeRef": "demo_unique_index",
-                                  "projection": false,
+                                  "nodeRef": "mysql_glossary_stopword_ztgqhp",
+                                  "projection": true,
+                                  "view": "mysql-architecture",
+                                  "projectionKind": "topic-view",
+                                  "sourceNodeId": "mysql_glossary_stopword_ztgqhp",
                                   "children": []
                                 }
                               ]
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_btree_index",
+                          "name": "B+树索引 / B-tree index",
+                          "count": 0,
+                          "nodeRef": "concept_btree_index",
+                          "children": [
                             {
-                              "id": "tree_concept_hash_index",
-                              "name": "哈希索引 / hash index",
+                              "id": "governance:canonical:demo_btree",
+                              "name": "MySQL B+树索引",
                               "count": 0,
-                              "nodeRef": "concept_hash_index",
+                              "nodeRef": "demo_btree",
+                              "projection": false,
                               "children": [
                                 {
-                                  "id": "mysql_functional_ref_demo_hash",
-                                  "name": "MySQL 哈希索引 / hash index",
+                                  "id": "tree_btree_structure",
+                                  "name": "B+树底层结构",
                                   "count": 0,
-                                  "nodeRef": "demo_hash",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_clustered_index",
-                              "name": "聚簇索引 / clustered index",
-                              "count": 0,
-                              "nodeRef": "concept_clustered_index",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_demo_clustered_index",
-                                  "name": "MySQL 聚簇索引 / clustered index",
-                                  "count": 0,
-                                  "nodeRef": "demo_clustered_index",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_covering_index",
-                              "name": "覆盖索引 / covering index",
-                              "count": 0,
-                              "nodeRef": "concept_covering_index",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_demo_covering_index",
-                                  "name": "MySQL 覆盖索引 / covering index",
-                                  "count": 0,
-                                  "nodeRef": "demo_covering_index",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_partial_index",
-                              "name": "部分索引 / partial index",
-                              "count": 0,
-                              "nodeRef": "concept_partial_index",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_k_dict_722bh2j6",
-                                  "name": "MySQL 部分索引 / partial index",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_722bh2j6",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_fulltext_index",
-                              "name": "全文索引 / full-text index",
-                              "count": 0,
-                              "nodeRef": "concept_fulltext_index",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_demo_fulltext_index",
-                                  "name": "MySQL 全文索引 / FULLTEXT index",
-                                  "count": 0,
-                                  "nodeRef": "demo_fulltext_index",
-                                  "projection": false,
+                                  "nodeRef": "btree_structure",
                                   "children": [
                                     {
-                                      "id": "projection:mysql-repaired:mysql:theme:indexes-access:mysql_glossary_stopword_ztgqhp",
-                                      "name": "停用词 / stopword",
+                                      "id": "tree_bts_root_page",
+                                      "name": "根节点 / root page",
                                       "count": 0,
-                                      "nodeRef": "mysql_glossary_stopword_ztgqhp",
-                                      "projection": true,
-                                      "view": "mysql-architecture",
-                                      "projectionKind": "topic-view",
-                                      "sourceNodeId": "mysql_glossary_stopword_ztgqhp",
-                                      "children": []
+                                      "nodeRef": "bts_root_page"
+                                    },
+                                    {
+                                      "id": "tree_bts_internal",
+                                      "name": "内部节点 / internal page",
+                                      "count": 0,
+                                      "nodeRef": "bts_internal",
+                                      "children": [
+                                        {
+                                          "id": "tree_bts_slot",
+                                          "name": "页内槽 / page directory",
+                                          "count": 0,
+                                          "nodeRef": "bts_slot"
+                                        },
+                                        {
+                                          "id": "tree_bts_key_ptr",
+                                          "name": "键 + 子页指针",
+                                          "count": 0,
+                                          "nodeRef": "bts_key_ptr"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_bts_leaf",
+                                      "name": "叶子节点 / leaf page",
+                                      "count": 0,
+                                      "nodeRef": "bts_leaf",
+                                      "children": [
+                                        {
+                                          "id": "tree_bts_entry",
+                                          "name": "索引条目（键 + 行定位）",
+                                          "count": 0,
+                                          "nodeRef": "bts_entry"
+                                        },
+                                        {
+                                          "id": "tree_bts_double_linked",
+                                          "name": "叶子双向链表",
+                                          "count": 0,
+                                          "nodeRef": "bts_double_linked"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_bts_pointers",
+                                      "name": "层间指针（连线语义）",
+                                      "count": 0,
+                                      "nodeRef": "bts_pointers"
+                                    },
+                                    {
+                                      "id": "tree_bts_height_io",
+                                      "name": "树高与 IO 次数",
+                                      "count": 0,
+                                      "nodeRef": "bts_height_io"
                                     }
                                   ]
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_full_text_search_16dcha",
-                                  "name": "MySQL 全文搜索 / full-text search",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_full_text_search_16dcha",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_fts_1x0dll",
-                                  "name": "MySQL 全文本搜索 / FTS",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_fts_1x0dll",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_search_index_18jlmz",
-                                  "name": "MySQL 搜索索引 / search index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_search_index_18jlmz",
-                                  "projection": false,
-                                  "children": []
                                 }
                               ]
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_composite_index",
+                          "name": "组合索引 / composite index",
+                          "count": 0,
+                          "nodeRef": "concept_composite_index",
+                          "children": [
                             {
-                              "id": "tree_concept_btree_index",
-                              "name": "B+树索引 / B-tree index",
+                              "id": "governance:canonical:demo_composite_index",
+                              "name": "MySQL 组合索引",
                               "count": 0,
-                              "nodeRef": "concept_btree_index",
+                              "nodeRef": "demo_composite_index",
+                              "projection": false,
                               "children": [
                                 {
-                                  "id": "governance:canonical:demo_btree",
-                                  "name": "MySQL B+树索引",
+                                  "id": "tree_leftmost_prefix_rule",
+                                  "name": "最佳左前缀法则 / leftmost prefix rule",
                                   "count": 0,
-                                  "nodeRef": "demo_btree",
-                                  "projection": false,
-                                  "children": []
+                                  "nodeRef": "leftmost_prefix_rule",
+                                  "children": [
+                                    {
+                                      "id": "tree_lpf_case_in_order",
+                                      "name": "场景一：按索引列顺序使用（全命中）",
+                                      "count": 0,
+                                      "nodeRef": "lpf_case_in_order"
+                                    },
+                                    {
+                                      "id": "tree_lpf_case_skip_left",
+                                      "name": "场景二：跳过最左列（索引失效）",
+                                      "count": 0,
+                                      "nodeRef": "lpf_case_skip_left"
+                                    },
+                                    {
+                                      "id": "tree_lpf_case_reordered",
+                                      "name": "场景三：条件乱序（优化器重排，仍命中）",
+                                      "count": 0,
+                                      "nodeRef": "lpf_case_reordered"
+                                    },
+                                    {
+                                      "id": "tree_joint_index_sort_structure",
+                                      "name": "联合索引排序结构（底层原理）",
+                                      "count": 0,
+                                      "nodeRef": "joint_index_sort_structure",
+                                      "children": [
+                                        {
+                                          "id": "tree_jis_first_column_global",
+                                          "name": "第一列：全局有序",
+                                          "count": 0,
+                                          "nodeRef": "jis_first_column_global"
+                                        },
+                                        {
+                                          "id": "tree_jis_second_column_local",
+                                          "name": "第二列及以后：仅局部有序",
+                                          "count": 0,
+                                          "nodeRef": "jis_second_column_local"
+                                        },
+                                        {
+                                          "id": "tree_jis_skip_leftmost_corollary",
+                                          "name": "推论：跳过最左列无法定位",
+                                          "count": 0,
+                                          "nodeRef": "jis_skip_leftmost_corollary"
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_secondary_index",
+                          "name": "二级索引 / secondary index",
+                          "count": 0,
+                          "nodeRef": "concept_secondary_index",
+                          "children": [
                             {
-                              "id": "tree_concept_composite_index",
-                              "name": "组合索引 / composite index",
+                              "id": "governance:canonical:k_auto_yb9yyu",
+                              "name": "MySQL 普通索引",
                               "count": 0,
-                              "nodeRef": "concept_composite_index",
-                              "children": [
-                                {
-                                  "id": "governance:canonical:demo_composite_index",
-                                  "name": "MySQL 组合索引",
-                                  "count": 0,
-                                  "nodeRef": "demo_composite_index",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_concatenated_index_zs31t2",
-                                  "name": "MySQL 连接索引 / concatenated index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_concatenated_index_zs31t2",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_composite_index_duhrko",
-                                  "name": "MySQL 复合索引 / composite index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_composite_index_duhrko",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
+                              "nodeRef": "k_auto_yb9yyu",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_prefix_index",
+                          "name": "前缀索引 / prefix index",
+                          "count": 0,
+                          "nodeRef": "concept_prefix_index",
+                          "children": [
                             {
-                              "id": "tree_concept_secondary_index",
-                              "name": "二级索引 / secondary index",
+                              "id": "governance:canonical:k_auto_es1cgt",
+                              "name": "MySQL 前缀索引",
                               "count": 0,
-                              "nodeRef": "concept_secondary_index",
-                              "children": [
-                                {
-                                  "id": "governance:canonical:k_auto_yb9yyu",
-                                  "name": "MySQL 普通索引",
-                                  "count": 0,
-                                  "nodeRef": "k_auto_yb9yyu",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
+                              "nodeRef": "k_auto_es1cgt",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_descending_index",
+                          "name": "降序索引 / descending index",
+                          "count": 0,
+                          "nodeRef": "concept_descending_index",
+                          "children": [
                             {
-                              "id": "tree_concept_prefix_index",
-                              "name": "前缀索引 / prefix index",
+                              "id": "projection:mysql-term:mysql_glossary_descending_index_1j7tn3",
+                              "name": "MySQL 降序索引 / descending index",
                               "count": 0,
-                              "nodeRef": "concept_prefix_index",
-                              "children": [
-                                {
-                                  "id": "governance:canonical:k_auto_es1cgt",
-                                  "name": "MySQL 前缀索引",
-                                  "count": 0,
-                                  "nodeRef": "k_auto_es1cgt",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_column_prefix_15o687",
-                                  "name": "MySQL 列前缀 / column prefix",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_column_prefix_15o687",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
+                              "nodeRef": "mysql_glossary_descending_index_1j7tn3",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_column_index",
+                          "name": "列索引 / column index",
+                          "count": 0,
+                          "nodeRef": "concept_column_index",
+                          "children": [
                             {
-                              "id": "tree_concept_descending_index",
-                              "name": "降序索引 / descending index",
+                              "id": "projection:mysql-term:mysql_glossary_column_index_q4bbvv",
+                              "name": "MySQL 列索引 / column index",
                               "count": 0,
-                              "nodeRef": "concept_descending_index",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_descending_index_1j7tn3",
-                                  "name": "MySQL 降序索引 / descending index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_descending_index_1j7tn3",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
+                              "nodeRef": "mysql_glossary_column_index_q4bbvv",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_virtual_index",
+                          "name": "虚拟索引 / virtual index",
+                          "count": 0,
+                          "nodeRef": "concept_virtual_index",
+                          "children": [
                             {
-                              "id": "tree_concept_column_index",
-                              "name": "列索引 / column index",
+                              "id": "projection:mysql-term:mysql_glossary_virtual_index_sm95n4",
+                              "name": "MySQL 虚拟索引 / virtual index",
                               "count": 0,
-                              "nodeRef": "concept_column_index",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_column_index_q4bbvv",
-                                  "name": "MySQL 列索引 / column index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_column_index_q4bbvv",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
+                              "nodeRef": "mysql_glossary_virtual_index_sm95n4",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_inverted_index",
+                          "name": "倒排索引 / inverted index",
+                          "count": 0,
+                          "nodeRef": "concept_inverted_index",
+                          "children": [
                             {
-                              "id": "tree_concept_virtual_index",
-                              "name": "虚拟索引 / virtual index",
+                              "id": "tree_mysql_instance_concept_inverted_index",
+                              "name": "MySQL 倒排索引 / inverted index",
                               "count": 0,
-                              "nodeRef": "concept_virtual_index",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_virtual_index_sm95n4",
-                                  "name": "MySQL 虚拟索引 / virtual index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_virtual_index_sm95n4",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_inverted_index",
-                              "name": "倒排索引 / inverted index",
-                              "count": 0,
-                              "nodeRef": "concept_inverted_index",
-                              "children": [
-                                {
-                                  "id": "tree_mysql_instance_concept_inverted_index",
-                                  "name": "MySQL 倒排索引 / inverted index",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_inverted_index_spkkuc",
-                                  "children": []
-                                }
-                              ]
+                              "nodeRef": "mysql_glossary_inverted_index_spkkuc",
+                              "children": []
                             }
                           ]
                         },
@@ -18256,16 +18160,40 @@
                           ]
                         },
                         {
-                          "id": "tree_1783250520336_5d17c2",
-                          "name": "数据库索引（维基）",
+                          "id": "tree_1788164734351_r23zu3",
+                          "name": "普通索引",
                           "count": 0,
-                          "nodeRef": "k_1783250520307_j25py7",
-                          "children": []
+                          "nodeRef": "k_1788164734347_br5rza",
+                          "children": [
+                            {
+                              "id": "tree_1788178513868_xojas1",
+                              "name": "语法",
+                              "count": 0,
+                              "nodeRef": "k_1788178513859_30o6p5"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_concept_primary_key",
+                          "name": "主键索引",
+                          "count": 0,
+                          "nodeRef": "concept_primary_key",
+                          "children": [
+                            {
+                              "id": "tree_mysql_instance_concept_primary_key_0",
+                              "name": "MySQL主键索引",
+                              "count": 0,
+                              "nodeRef": "k_dict_xxkp8lkc",
+                              "children": []
+                            }
+                          ]
                         }
                       ]
                     },
                     {
                       "name": "十二、数据表示",
+                      "id": "chapter_db_12",
+                      "nodeRef": "container:chapter_db_12",
                       "children": [
                         {
                           "id": "tree_concept_variable_length_type",
@@ -18380,6 +18308,8 @@
                     },
                     {
                       "name": "十三、数据库设计",
+                      "id": "chapter_db_13",
+                      "nodeRef": "container:chapter_db_13",
                       "children": [
                         {
                           "id": "database_principles_database_theory",
@@ -18541,6 +18471,8 @@
                     },
                     {
                       "name": "十四、数据库分布与复制",
+                      "id": "chapter_db_14",
+                      "nodeRef": "container:chapter_db_14",
                       "children": [
                         {
                           "id": "tree_concept_connection",
@@ -18586,6 +18518,8 @@
                     },
                     {
                       "name": "十五、备份与恢复",
+                      "id": "chapter_db_15",
+                      "nodeRef": "container:chapter_db_15",
                       "children": [
                         {
                           "id": "tree_wiki_en_database_s16",
@@ -18635,6 +18569,8 @@
                     },
                     {
                       "name": "十六、数据库安全",
+                      "id": "chapter_db_16",
+                      "nodeRef": "container:chapter_db_16",
                       "children": [
                         {
                           "id": "tree_wiki_en_database_s20",
@@ -18647,6 +18583,8 @@
                     },
                     {
                       "name": "十七、数据库运维",
+                      "id": "chapter_db_17",
+                      "nodeRef": "container:chapter_db_17",
                       "children": [
                         {
                           "id": "tree_concept_bottleneck",
@@ -18706,13 +18644,6 @@
                               "count": 0,
                               "nodeRef": "mysql_glossary_disk_bound_1eazx6",
                               "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_io_bound_1",
-                              "name": "MySQL I/O 绑定 / I/O-bound",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_i_o_bound_9k72or",
-                              "children": []
                             }
                           ]
                         },
@@ -18742,13 +18673,6 @@
                               "name": "MySQL 计数器 / counter",
                               "count": 0,
                               "nodeRef": "mysql_glossary_counter_17gzh9",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_mysql_instance_concept_counter_1",
-                              "name": "MySQL 指标计数器 / metrics counter",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_metrics_counter_1tynuw",
                               "children": []
                             }
                           ]
@@ -18879,6 +18803,8 @@
                     },
                     {
                       "name": "十八、数据库编程与接口",
+                      "id": "chapter_db_18",
+                      "nodeRef": "container:chapter_db_18",
                       "children": [
                         {
                           "id": "tree_concept_data_access_interface",
@@ -18895,7 +18821,7 @@
                             },
                             {
                               "id": "tree_1787315799890_4kxe1m",
-                              "name": "MySQL 连接器与语言生态 / MySQL Connectors & Ecosystem",
+                              "name": "客户端连接器 / client connectors",
                               "count": 0,
                               "nodeRef": "k_1787315799359_ne8gfs",
                               "children": [
@@ -19121,14 +19047,6 @@
                               "name": "MySQL API",
                               "count": 0,
                               "nodeRef": "mysql_glossary_api_y14yjr",
-                              "projection": false,
-                              "children": []
-                            },
-                            {
-                              "id": "projection:mysql-term:mysql_glossary_application_programming_interface_api_73cc6c",
-                              "name": "MySQL 应用程序编程接口（API）",
-                              "count": 0,
-                              "nodeRef": "mysql_glossary_application_programming_interface_api_73cc6c",
                               "projection": false,
                               "children": []
                             },
@@ -19456,10 +19374,13 @@
                     },
                     {
                       "name": "十九、数据库产品",
+                      "id": "chapter_db_19",
+                      "nodeRef": "container:chapter_db_19",
                       "children": [
                         {
                           "name": "MySQL",
                           "nodeRef": "k_wiki_en_outline_of_databases_s15_b5",
+                          "id": "tree_k_wiki_en_outline_of_databases_s15_b5",
                           "children": [
                             {
                               "id": "mysql:concept:server",
@@ -19911,6 +19832,8 @@
                     },
                     {
                       "name": "二十、数据库文件与实现",
+                      "id": "chapter_db_20",
+                      "nodeRef": "container:chapter_db_20",
                       "children": [
                         {
                           "id": "mysql:concept:system-files:composition",
@@ -20488,6 +20411,7 @@
                           "id": "governance:javascript:module-import",
                           "name": "模块系统 / Import",
                           "count": 0,
+                          "nodeRef": "container:governance:javascript:module-import",
                           "children": [
                             {
                               "id": "governance:canonical:k_auto_1gqanov",
@@ -20523,6 +20447,7 @@
                           "id": "governance:javascript:module-export",
                           "name": "模块系统 / Export",
                           "count": 0,
+                          "nodeRef": "container:governance:javascript:module-export",
                           "children": [
                             {
                               "id": "governance:canonical:k_auto_g7wfdd",
@@ -20565,6 +20490,7 @@
                           "id": "governance:javascript:control-flow",
                           "name": "控制流与函数设计",
                           "count": 0,
+                          "nodeRef": "container:governance:javascript:control-flow",
                           "children": [
                             {
                               "id": "governance:canonical:k_auto_g1oyi4",
@@ -20586,6 +20512,7 @@
                           "id": "governance:javascript:expressions",
                           "name": "表达式与类型转换",
                           "count": 0,
+                          "nodeRef": "container:governance:javascript:expressions",
                           "children": [
                             {
                               "id": "governance:canonical:k_auto_1p7kxpz",
@@ -21340,28 +21267,6 @@
                   "count": 0,
                   "nodeRef": "k_dict_qv4sloxd",
                   "children": []
-                },
-                {
-                  "id": "mysql_term_formal_languages_automata_ddl_1pevm4",
-                  "name": "数据定义语言 / DDL",
-                  "count": 0,
-                  "nodeRef": "k_dict_73wtge24",
-                  "children": [
-                    {
-                      "id": "tree_1782931280860_y6q5x3",
-                      "name": "创建 create",
-                      "count": 0,
-                      "nodeRef": "k_1782931280830_ktho55",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1782931298775_jqv87a",
-                      "name": "修改 alter",
-                      "count": 0,
-                      "nodeRef": "k_1782931298743_77z8dz",
-                      "children": []
-                    }
-                  ]
                 }
               ]
             },

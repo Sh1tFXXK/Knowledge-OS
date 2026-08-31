@@ -26,18 +26,84 @@ async function fetchFile<T>(filename: string, fallback: T): Promise<T> {
   }
 }
 
+// 线上传输用压缩 JSON（服务端落盘时仍会格式化），12MB 级数据可省一半序列化与传输开销
 async function saveFile<T>(filename: string, data: T): Promise<void> {
   try {
     const res = await fetch(`/api/data?file=${filename}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data, null, 2),
+      body: JSON.stringify(data),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
   } catch (e) {
     console.error(`Failed to save ${filename}`, e);
     throw e;
   }
+}
+
+/** 持久化到本地文件的六个数据切片。 */
+export type PersistedSliceKey =
+  | 'treeData'
+  | 'nodePool'
+  | 'knowledgeEdges'
+  | 'questions'
+  | 'inferenceResponses'
+  | 'timeline';
+
+export type PersistedSlices = Pick<PersistedAppState, PersistedSliceKey>;
+
+export const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
+  'treeData',
+  'nodePool',
+  'knowledgeEdges',
+  'questions',
+  'inferenceResponses',
+  'timeline',
+] as const;
+
+const SLICE_FILES: Record<PersistedSliceKey, string> = {
+  treeData: FILES.treeData,
+  nodePool: FILES.nodePool,
+  knowledgeEdges: FILES.knowledgeEdges,
+  questions: FILES.questions,
+  inferenceResponses: FILES.inferenceResponses,
+  timeline: FILES.timeline,
+};
+
+export function pickPersistedSlices(state: PersistedAppState): PersistedSlices {
+  return {
+    treeData: state.treeData,
+    nodePool: state.nodePool,
+    knowledgeEdges: state.knowledgeEdges,
+    questions: state.questions,
+    inferenceResponses: state.inferenceResponses,
+    timeline: state.timeline,
+  };
+}
+
+/** 通过引用对比找出真正变化过的切片：zustand 每次 set 只替换被改的切片。 */
+export function dirtyPersistedSlices(
+  next: PersistedSlices,
+  saved: Partial<PersistedSlices> | null,
+): PersistedSliceKey[] {
+  if (!saved) return [...PERSISTED_SLICE_KEYS];
+  return PERSISTED_SLICE_KEYS.filter((key) => next[key] !== saved[key]);
+}
+
+/** 只写入指定切片对应的数据文件，返回写入失败的切片。 */
+export async function savePersistedSlices(
+  slices: PersistedSlices,
+  keys: readonly PersistedSliceKey[],
+): Promise<PersistedSliceKey[]> {
+  const results = await Promise.all(
+    keys.map((key) =>
+      saveFile(SLICE_FILES[key], slices[key]).then(
+        () => null,
+        () => key,
+      ),
+    ),
+  );
+  return results.filter((key): key is PersistedSliceKey => key !== null);
 }
 
 export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> {
@@ -97,13 +163,3 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
   };
 }
 
-export async function saveStateToFiles(state: PersistedAppState): Promise<void> {
-  await Promise.all([
-    saveFile(FILES.treeData, normalizeTreeNode(state.treeData)),
-    saveFile(FILES.nodePool, migrateNodePool(state.nodePool)),
-    saveFile(FILES.knowledgeEdges, state.knowledgeEdges),
-    saveFile(FILES.questions, state.questions),
-    saveFile(FILES.inferenceResponses, state.inferenceResponses),
-    saveFile(FILES.timeline, state.timeline),
-  ]);
-}

@@ -128,6 +128,7 @@ export function IndexCanvas({
   onBlankClick,
 }: Props) {
   const viewportRef = useRef(null) as { current: HTMLDivElement | null };
+  const worldRef = useRef(null) as { current: HTMLDivElement | null };
   const panGestureRef = useRef(null) as { current: PanGesture | null };
   const marqueeGestureRef = useRef(null) as { current: MarqueeGesture | null };
   const blankClickRef = useRef(null) as { current: BlankClickGesture | null };
@@ -135,6 +136,11 @@ export function IndexCanvas({
   const measuredViewportSizeRef = useRef(null) as { current: CanvasSize | null };
   const fittedViewportSizeRef = useRef(null) as { current: CanvasSize | null };
   const suppressClickRef = useRef(false) as { current: boolean };
+  // 相机手势（滚轮缩放 / 空白拖拽平移）期间绕过 React 状态：
+  // 世界内容可能有数万个 DOM 节点，逐事件 setState 会整树 reconcile。
+  // 手势中只直写 transform（合成器路径），停顿后/结束时才同步回 React 状态。
+  const cameraRef = useRef(null) as { current: CameraState | null };
+  const cameraSyncTimerRef = useRef(null) as { current: number | null };
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 }) as [
     CanvasSize,
     StateSetter<CanvasSize>,
@@ -185,6 +191,31 @@ export function IndexCanvas({
     return () => observer.disconnect();
   }, [onViewportSizeChange]);
 
+  const applyCameraTransform = (next: CameraState) => {
+    cameraRef.current = next;
+    const world = worldRef.current;
+    if (world) {
+      world.style.transform = `translate3d(${next.offsetX}px, ${next.offsetY}px, 0) scale(${next.scale})`;
+    }
+  };
+
+  // React 状态里的相机（按钮缩放、适配等）变化时同步直写 transform 与 ref
+  useEffect(() => {
+    applyCameraTransform(camera);
+  }, [camera]);
+
+  useEffect(() => () => {
+    if (cameraSyncTimerRef.current !== null) window.clearTimeout(cameraSyncTimerRef.current);
+  }, []);
+
+  const scheduleCameraStateSync = () => {
+    if (cameraSyncTimerRef.current !== null) window.clearTimeout(cameraSyncTimerRef.current);
+    cameraSyncTimerRef.current = window.setTimeout(() => {
+      cameraSyncTimerRef.current = null;
+      setCamera(cameraRef.current ?? camera);
+    }, 140);
+  };
+
   const fitOverview = () => {
     if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
     setCamera(fitCanvasContent(viewportSize, contentSize));
@@ -228,22 +259,25 @@ export function IndexCanvas({
     const rect = viewport.getBoundingClientRect();
     const pointX = event.clientX - rect.left;
     const pointY = event.clientY - rect.top;
-    const factor = Math.exp(-event.deltaY * 0.0014);
-    setCamera((current: CameraState) => zoomCanvasAtPoint(
+    const current = cameraRef.current ?? camera;
+    const next = zoomCanvasAtPoint(
       current,
       pointX,
       pointY,
-      current.scale * factor,
-    ));
+      current.scale * Math.exp(-event.deltaY * 0.0014),
+    );
+    applyCameraTransform(next);
+    scheduleCameraStateSync();
   };
 
   const clientToWorld = (clientX: number, clientY: number) => {
     const viewport = viewportRef.current;
     if (!viewport) return { x: 0, y: 0 };
     const rect = viewport.getBoundingClientRect();
+    const cam = cameraRef.current ?? camera;
     return {
-      x: (clientX - rect.left - camera.offsetX) / camera.scale,
-      y: (clientY - rect.top - camera.offsetY) / camera.scale,
+      x: (clientX - rect.left - cam.offsetX) / cam.scale,
+      y: (clientY - rect.top - cam.offsetY) / cam.scale,
     };
   };
 
@@ -270,13 +304,14 @@ export function IndexCanvas({
     event.preventDefault();
     viewportRef.current?.focus({ preventScroll: true });
     event.currentTarget.setPointerCapture(event.pointerId);
+    const startCamera = cameraRef.current ?? camera;
     panGestureRef.current = {
       pointerId: event.pointerId,
       button: event.button,
       startClientX: event.clientX,
       startClientY: event.clientY,
-      startOffsetX: camera.offsetX,
-      startOffsetY: camera.offsetY,
+      startOffsetX: startCamera.offsetX,
+      startOffsetY: startCamera.offsetY,
       moved: false,
     };
     setIsPanning(true);
@@ -301,11 +336,11 @@ export function IndexCanvas({
     const deltaX = event.clientX - gesture.startClientX;
     const deltaY = event.clientY - gesture.startClientY;
     if (Math.abs(deltaX) + Math.abs(deltaY) > 4) gesture.moved = true;
-    setCamera((current: CameraState) => ({
-      ...current,
+    applyCameraTransform({
+      ...cameraRef.current!,
       offsetX: gesture.startOffsetX + deltaX,
       offsetY: gesture.startOffsetY + deltaY,
-    }));
+    });
   };
 
   const finishPan = (event: CanvasPointerEvent) => {
@@ -365,6 +400,8 @@ export function IndexCanvas({
       }, 0);
     }
     panGestureRef.current = null;
+    // 平移手势结束：把手势期间直写的相机同步回 React 状态（一次性渲染）
+    setCamera(cameraRef.current!);
     setIsPanning(false);
   };
 
@@ -418,6 +455,7 @@ export function IndexCanvas({
       }}
     >
       <div
+        ref={worldRef}
         className="index-canvas-world"
         style={{
           width: contentSize.width,

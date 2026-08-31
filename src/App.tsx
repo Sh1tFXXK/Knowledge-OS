@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useState,
@@ -17,12 +19,14 @@ import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
 import ReasoningKernel from './core/ReasoningKernel';
 import RightSidePanel from './layout/RightSidePanel';
-import NodeDatabase from './components/NodeDatabase';
-import QuestionDatabase from './components/QuestionDatabase';
-import MechanismLensPanel from './components/MechanismLensPanel';
-import SupertagLibrary from './components/SupertagLibrary';
-import ExplanationIndexView from './core/ExplanationIndexView';
-import TimelineView from './components/TimelineView';
+
+// 非默认视图按需加载：只有切到对应视图才拉取对应代码块
+const ExplanationIndexView = lazy(() => import('./core/ExplanationIndexView'));
+const TimelineView = lazy(() => import('./components/TimelineView'));
+const NodeDatabase = lazy(() => import('./components/NodeDatabase'));
+const QuestionDatabase = lazy(() => import('./components/QuestionDatabase'));
+const SupertagLibrary = lazy(() => import('./components/SupertagLibrary'));
+const MechanismLensPanel = lazy(() => import('./components/MechanismLensPanel'));
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -135,6 +139,23 @@ export default function App() {
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
+        <Suspense
+          fallback={
+            <section
+              className="center-view"
+              id="center-view"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 13,
+                color: 'rgba(226,232,240,0.45)',
+              }}
+            >
+              正在加载视图…
+            </section>
+          }
+        >
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
             <ExplanationIndexView
@@ -180,6 +201,7 @@ export default function App() {
             <ReasoningKernel />
           </section>
         )}
+        </Suspense>
       </main>
 
       {/* ── 右侧：详情解释卡 + 关系网 ── */}

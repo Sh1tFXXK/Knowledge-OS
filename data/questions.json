@@ -27,9 +27,12 @@
   {
     "id": "demo_q4",
     "text": "B+树和哈希索引的区别是什么？",
-    "answered": false,
+    "answered": true,
     "kind": "comparison",
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "answer": "首先要知道Hash索引和B+树索引的底层实现原理：\nhash索引底层就是hash表，进行查找时，调用一次hash函数就可以获取到相应的键值，之后进行回表查询获得实际数据。B+树底层实现是多路平衡查找树。\n对于每一次的查询都是从根节点出发，查找到叶子节点方可以获得所查键值，然后根据查询判断是否需要回表查询数据。\nhash索引进行等值查询更快(一般情况下)，但是却无法进行范围查询。\n因为在hash索引中经过hash函数建立索引之后，索引的顺序与原顺序无法保持一致，不能支持范围查询。而B+树的的所有节点皆遵循(左节点小于父节点，右节点大于父节点，多叉树也类似)，天然支持范围。\nhash索引不支持使用索引进行排序，原理同上。\nhash索引不支持模糊查询以及多列索引的最左前缀匹配。原理也是因为hash函数的不可预测。AAAA和AAAAB的索引没有相关性。\nhash索引任何时候都避免不了回表查询数据，而B+树在符合某些条件(聚簇索引，覆盖索引等)的时候可以只通过索引完成查询。\nhash索引虽然在等值查询上较快，但是不稳定。性能不可预测，当某个键值存在大量重复的时候，发生hash碰撞，此时效率可能极差。而B+树的查询效率比较稳定，对于所有的查询都是从根节点到叶子节点，且树的高度较低。\n因此，在大多数情况下，直接选择B+树索引可以获得稳定且较好的查询速度。而不需要使用hash索引。",
+    "relatedNodeId": "concept_hash_index",
+    "updatedAt": 1788106914383
   },
   {
     "id": "demo_q5",
@@ -103,7 +106,7 @@
     "id": "q_lock_2",
     "text": "什么是共享锁（读锁）？",
     "answered": true,
-    "relatedNodeId": "demo_shared_lock",
+    "relatedNodeId": "k_dict_yvuxhe74",
     "answer": "读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。\n\n共享锁（S Lock）允许多个事务同时持有，读读不互斥；但与排他锁互斥——有写锁时不能再加读锁。属于悲观锁的一种实现。",
     "createdAt": 1780812181640,
     "updatedAt": 1780812181640,
@@ -114,7 +117,7 @@
     "id": "q_lock_3",
     "text": "什么是排他锁（写锁）？",
     "answered": true,
-    "relatedNodeId": "demo_exclusive_lock",
+    "relatedNodeId": "mysql_glossary_exclusive_lock_ksqz5a",
     "answer": "写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。\n\n排他锁（X Lock）持有时，其他事务无法获取该数据的读锁或写锁，保证写操作完整性。UPDATE / DELETE / SELECT ... FOR UPDATE 会自动加排他锁。",
     "createdAt": 1780812181640,
     "updatedAt": 1780812181640,
@@ -125,7 +128,7 @@
     "id": "q_lock_4",
     "text": "共享锁和排他锁有什么区别？",
     "answered": true,
-    "relatedNodeId": "demo_shared_lock",
+    "relatedNodeId": "k_dict_yvuxhe74",
     "answer": "共享锁（读锁）：多个读操作可以同时进行，读读不互斥。\n排他锁（写锁）：写操作完成前阻断其他读写，读写、写写均互斥。\n\n简记：读锁允许多读共存；写锁独占，阻断一切其他访问。两者互斥——同一数据不能同时持有共享锁和排他锁。",
     "createdAt": 1780812181640,
     "updatedAt": 1780812181640,
@@ -136,7 +139,7 @@
     "id": "q_lock_5",
     "text": "什么是表级锁？",
     "answered": true,
-    "relatedNodeId": "demo_table_lock",
+    "relatedNodeId": "mysql_glossary_table_lock_15y9vl",
     "answer": "表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。\n\nMyISAM 和 MEMORY 存储引擎默认采用表级锁。读操作加表共享锁（READ），写操作加表排他锁（WRITE），同一时刻只允许一种。",
     "createdAt": 1780812181640,
     "updatedAt": 1780812181640,
@@ -259,21 +262,10 @@
     "answered": true,
     "relatedNodeId": "n_0xxb9cqy",
     "createdAt": 1781623296032,
-    "updatedAt": 1784459061987,
-    "answer": "索引是帮助数据库**高效获取数据**的数据结构，本质是\"以空间换时间\"，避免全表扫描。\n\n1. **核心思想**：在表的列上建立有序结构（如 B+树），通过键值快速定位数据行，把随机 IO 降到树高（约 3-4 层）级别的 IO。\n2. **常见结构**：\n   - **B+树索引**（MySQL 默认）：平衡多路查找树，叶子节点用双向链表串联、存整行数据或主键值，非叶子节点只存索引键，查询稳定 O(log n)。\n   - **哈希索引**：等值查询 O(1)，但不支持范围、排序、模糊匹配。\n   - 其他：R-Tree（空间索引）、全文索引等。\n3. **聚簇 vs 非聚簇**：InnoDB 主键索引即**聚簇索引**，叶子存整行；**二级索引**叶子存主键值，需\"回表\"再查数据。\n4. **代价**：索引占用磁盘空间，且增删改需同步维护索引，降低写性能——因此不是越多越好，应遵循设计原则（where/join 列建索引、短列、组合索引控制列数等）。",
+    "updatedAt": 1788108037989,
+    "answer": "索引是帮助数据库**高效获取数据**的数据结构，本质是\"以空间换时间\"，避免全表扫描。\n\n1. **核心思想**：在表的列上建立有序结构（如 B+树），通过键值快速定位数据行，把随机 IO 降到树高（约 3-4 层）级别的 IO。\n2. **常见结构**：\n   - **B+树索引**（MySQL 默认）：平衡多路查找树，叶子节点用双向链表串联、存整行数据或主键值，非叶子节点只存索引键，查询稳定 O(log n)。\n   - **哈希索引**：等值查询 O(1)，但不支持范围、排序、模糊匹配。\n   - 其他：R-Tree（空间索引）、全文索引等。\n3. **聚簇 vs 非聚簇**：InnoDB 主键索引即**聚簇索引**，叶子存整行；**二级索引**叶子存主键值，需\"回表\"再查数据。\n4. **代价**：索引占用磁盘空间，且增删改需同步维护索引，降低写性能——因此不是越多越好，应遵循设计原则（where/join 列建索引、短列、组合索引控制列数等）。\n\n【补充：索引的构建视角】把无序的数据变成有序的查询：1) 对创建了索引的列内容进行排序；2) 对排序结果生成倒排表；3) 在倒排表内容上拼上数据地址链；4) 查询时先拿到倒排表内容，再沿数据地址链取出具体数据。\n\nBTree 算法可用于 =、>、>=、<、<=、between 这些比较操作符，也可用于不以通配符开头的 like。",
     "kind": "mechanism",
     "difficulty": "intermediate"
-  },
-  {
-    "id": "q_1781624629967_iqi63h",
-    "text": "数据库三大范式是什么",
-    "answered": true,
-    "relatedNodeId": "n_u4va719e",
-    "createdAt": 1781624629967,
-    "updatedAt": 1781624641924,
-    "answer": "第一范式：每个列都不可以再拆分。\n第二范式：在第一范式的基础上，非主键列完全依赖于主键，而不能是依赖于主键的一部分。\n第三范式：在第二范式的基础上，非主键列只依赖于主键，不依赖于其他非主键。",
-    "kind": "recall",
-    "difficulty": "basic"
   },
   {
     "id": "q_1781974796693_ku0o1i",
@@ -595,17 +587,6 @@
     "difficulty": "basic"
   },
   {
-    "id": "q_1783183609893_8xdbpk",
-    "text": "面向对象和面向过程的区别",
-    "answered": true,
-    "relatedNodeId": "k_1783183396947_46zdou",
-    "createdAt": 1783183609893,
-    "updatedAt": 1783183649991,
-    "answer": "面向过程 优点： 性能比面向对象高，因为类调用时需要实例化，开销比较大，比较消耗 资源;比如单片机、嵌入式开发、Linux/Unix 等一般采用面向过程开发，性能是 最重要的因素。 \n缺点： 没有面向对象易维护、易复用、易扩展 \n面向对象 \n优点： 易维护、易复用、易扩展，由于面向对象有封装、继承、多态性的特 性，可以设计出低耦合的系统，使系统更加灵活、更加易于维护 \n缺点： 性能比面向过程低",
-    "kind": "comparison",
-    "difficulty": "intermediate"
-  },
-  {
     "id": "q_1783184243531_q7wrgv",
     "text": "Oracle JDK 和 OpenJDK 的对比",
     "answered": true,
@@ -643,7 +624,7 @@
     "text": "static 关键字会改变类中成员的访问权限吗？",
     "answered": true,
     "createdAt": 1784978966021,
-    "updatedAt": 1784978983711,
+    "updatedAt": 1788107018144,
     "answer": "有些初学的朋友会将java中的 static与 C/C + + static关键字的功能混淆了。在这里只需要记住一点 ： C/C + +中的与 static ， Java static Java中能够影响到访问权限的只有 private、 public、包括包访问权限这几个关键字。看下面的例子就明白了 protected （中的静态C/C + +静态不同，关键字不会影响到变量或者方法的作用域。在 Java中的静态Java私有公共保\n\npublic class Person {\n\npublic String name = \"公共字符串名称李四\";\n\nprivate static String address = \"中国\";\n}\n\n! [](https://github.com/wanggangkun/Big-Data-Interview/blob/master/1.%20Java%E5%9F%BA%E7%A1%80%E7%AF%87/1.%20%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/1.1.7/2.png)\n\n说明静态关键字不能改变变量和方法的访问权限",
     "kind": "recall",
     "difficulty": "basic"
@@ -668,15 +649,6 @@
     "answerSteps": [],
     "kind": "mechanism",
     "difficulty": "intermediate"
-  },
-  {
-    "id": "q_web_4a06c6e69a03_2254b4c886",
-    "text": "static关键字会改变类中成员的访问权限吗？",
-    "answered": false,
-    "createdAt": 1784995986456,
-    "updatedAt": 1785029883030,
-    "kind": "recall",
-    "difficulty": "basic"
   },
   {
     "id": "q_web_4a06c6e69a03_5d92772187",
@@ -1197,7 +1169,7 @@
     "answered": true,
     "relatedNodeId": "k_java_fw_spring",
     "createdAt": 1785231111191,
-    "updatedAt": 1785231135512,
+    "updatedAt": 1788107018144,
     "answer": "Spring DAO（数据访问对象）使得JDBC，Hibernate或JDO这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常。",
     "answerSteps": [],
     "kind": "recall",
@@ -1343,18 +1315,6 @@
     "createdAt": 1785236567220,
     "updatedAt": 1785236582047,
     "answer": "通过使用JDBC抽象和DAO模块，保证数据库代码的简洁，并能避免数据库资源错误关闭导致的问题，它在各种不同的数据库的错误信息之上，提供了一个统一的异常访问层。它还利用Spring的AOP模块给Spring应用中的对象提供事务管理服务。",
-    "answerSteps": [],
-    "kind": "recall",
-    "difficulty": "basic"
-  },
-  {
-    "id": "q_1785236613653_k5pv2k",
-    "text": "spring DAO有什么用？",
-    "answered": true,
-    "relatedNodeId": "k_1784455027875_096te2",
-    "createdAt": 1785236613653,
-    "updatedAt": 1785236647404,
-    "answer": "Spring DAO（数据访问对象）使得JDBC，Hibernate或JDO这样的数据访问技术更容易以一种统一的方式工作。这使得用户容易在持久性技术之间切换。它还允许您在编写代码时，无需考虑捕获每种技术不同的异常",
     "answerSteps": [],
     "kind": "recall",
     "difficulty": "basic"
@@ -1598,18 +1558,6 @@
     "answerSteps": [],
     "kind": "comparison",
     "difficulty": "intermediate"
-  },
-  {
-    "id": "q_1785249629630_pjgbsn",
-    "text": "static关键字会改变类中成员的访问权限吗？",
-    "answered": true,
-    "relatedNodeId": "k_web_4a06c6e69a03",
-    "createdAt": 1785249629630,
-    "updatedAt": 1785249651864,
-    "answer": "有些初学的朋友会将java中的static与C/C++中的static关键字的功能混淆了。在这里只需要记住一点：与C/C++中的static不同，Java中的static关键字不会影响到变量或者方法的作用域。在Java中能够影响到访问权限的只有private、public、protected（包括包访问权限）这几个关键字。看下面的例子就明白了：\n\n```java\npublic class Person {\n\n    public String name = \"李四\";\n\n    private static String address = \"中国\";\n}\n```\n\n说明static关键字不能改变变量和方法的访问权限",
-    "answerSteps": [],
-    "kind": "recall",
-    "difficulty": "basic"
   },
   {
     "id": "q_1785249777496_qvn8ur",
@@ -2570,11 +2518,11 @@
   },
   {
     "id": "q_1786143422653_tziy94",
-    "text": "优缺点",
+    "text": "Spring Cloud 微服务框架有哪些优缺点？",
     "answered": true,
     "relatedNodeId": "k_java_fw_springcloud",
     "createdAt": 1786143422653,
-    "updatedAt": 1786143783531,
+    "updatedAt": 1788107018144,
     "answer": "优点：\n1.耦合度比较低。不会影响其他模块的开发。\n2.减轻团队的成本，可以并行开发，不用关注其他人怎么开发，先关注自己的开发。\n3.配置比较简单，基本用注解就能实现，不用使用过多的配置文件。\n4.微服务跨平台的，可以用任何一种语言开发。\n5.每个微服务可以有自己的独立的数据库也有用公共的数据库。\n6.直接写后端的代码，不用关注前端怎么开发，直接写自己的后端代码即可，然后暴露接口，通过组件进行服务通信\n缺点：\n1.部署比较麻烦，给运维工程师带来一定的麻烦。\n2.针对数据的管理比麻烦，因为微服务可以每个微服务使用一个数据库。\n3.系统集成测试比较麻烦\n4.性能的监控比较麻烦。【最好开发一个大屏监控系统\n总的来说优点大过于缺点，目前看来Spring Cloud是一套非常完善的分布式框架，目前很多企业开\n始用微服务、Spring Cloud的优势是显而易见的。因此对于想研究微服务架构的同学来说，学习Spring Cloud是一个不错的选择。",
     "kind": "recall",
     "difficulty": "basic"
@@ -2975,11 +2923,11 @@
   },
   {
     "id": "q_1786286213173_h8fyq7",
-    "text": "优缺点",
+    "text": "Redis AOF 持久化有哪些优缺点？",
     "answered": true,
     "relatedNodeId": "k_1786246940566_xsamv7",
     "createdAt": 1786286213174,
-    "updatedAt": 1786286348446,
+    "updatedAt": 1788107018144,
     "answer": "1、数据安全，aof 持久化可以配置 appendfsync 属性，有 always，每进行一次 命令操作就记录到 aof 文件中一次。\n2、通过 append 模式写文件，即使中途服务器宕机，可以通过 redis-check-aof 工具解决数据一致性问题。\n3、AOF 机制的 rewrite 模式。AOF 文件没被 rewrite 之前（文件过大时会对命令 进行合并重写），可以删除其中的某些命令（比如误操作的 flushall）)\n缺点：\n1、AOF 文件比 RDB 文件大，且恢复速度慢。\n2、数据集大的时候，比 rdb 启动效率低。\n俩种持久化的优缺点是什么？\nAOF文件比RDB更新频率高，优先使用AOF还原数据。\nAOF比RDB更安全也更大\nRDB性能比AOF好\n如果两个都配了优先加载AOF",
     "kind": "recall",
     "difficulty": "basic"
@@ -3096,22 +3044,22 @@
   },
   {
     "id": "q_1786339656019_4kj77b",
-    "text": "优缺点",
+    "text": "Redis Cluster（服务端路由）方案有哪些优缺点？",
     "answered": true,
     "relatedNodeId": "k_1786339545318_rg29dp",
     "createdAt": 1786339656020,
-    "updatedAt": 1786339668618,
+    "updatedAt": 1788107018144,
     "answer": "## 优点\n无中心架构，支持动态扩容，对业务透明\n具备Sentinel的监控和自动Failover(故障转移)能力\n客户端不需要连接集群所有节点，连接集群中任何一个可用节点即可\n高性能，客户端直连redis服务，免去了proxy代理的损耗\n## 缺点\n运维也很复杂，数据迁移需要人工干预\n只能使用0号数据库\n不支持批量操作(pipeline管道操作)\n分布式逻辑和存储模块耦合等",
     "kind": "recall",
     "difficulty": "basic"
   },
   {
     "id": "q_1786339704891_koyjy0",
-    "text": "优缺点",
+    "text": "基于客户端分片的 Redis Sharding 方案有哪些优缺点？",
     "answered": true,
     "relatedNodeId": "k_1786339683947_kcqeiy",
     "createdAt": 1786339704891,
-    "updatedAt": 1786339721870,
+    "updatedAt": 1788107018144,
     "answer": "## 优点\nRedis Sharding是Redis Cluster出来之前，业界普遍使用的多Redis实例集群方法。其主要思想是采用哈希算法将Redis数据的key进行散列，通过hash函数，特定的key会映射到特定的Redis节点上。Java redis客户端驱动jedis，支持Redis Sharding功能，即ShardedJedis以及结合缓存池的ShardedJedisPool\n优势在于非常简单，服务端的Redis实例彼此独立，相互无关联，每个Redis实例像单服务器一样运行，非常容易线性扩展，系统的灵活性很强\n## 缺点\n由于sharding处理放到客户端，规模进一步扩大时给运维带来挑战。\n客户端sharding不支持动态增删节点。服务端Redis实例群拓扑结构有变化时，每个客户端都需要更新调整。连接不能共享，当应用规模增大时，资源浪费制约优化",
     "kind": "recall",
     "difficulty": "basic"
@@ -3757,7 +3705,7 @@
     "relatedNodeId": "k_1786347416141_uurfcq",
     "createdAt": 1786347444118,
     "updatedAt": 1786347472861,
-    "answer": "首先回顾一下在程序设计语言中有关将参数传递给方法（或函数）的一些专业术 语。按值调用(call byvalue)表示方法接收的是调用者提供的值，而按引用调用 （call by reference)表示方法接收的是调用者提供的变量地址。一个方法可以 修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值。 它用 来描述各种程序设计语言（不只是Java)中方法参数传递方式。\nJava程序设计语言总是采用按值调用。也就是说，方法得到的是所有参数值的 一个拷贝，也就是说，方法不能修改传递给它的任何参数变量的内容。\n下面通过 3 个例子来给大家说明\n```txt\nexample 1 \n```\n```java\n1 public static void main(String[] args) {\n2 int num1 = 10;\n3 int num2 = 20;\n4\n5 swap(num1, num2);\n6\n7 System.out.println(\"num1 = \" + num1);\n8 System.out.println(\"num2 = \" + num2);\n9 }\n10\n11 public static void swap(int a, int b) {\n12 int temp = a;\n13 a = b;\n14 b = temp;\n15\n16 System.out.println(\"a = \" + a);\n17 System.out.println(\"b = \" + b);\n18 } \n```\n## 结果：\n```txt\n1 a = 20\n2 b = 10\n3 num1 = 10\n4 num2 = 20 \n```\n## 解析：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/7f64430dcf0d06e3b95b12940937e35d2140756bff74404eca5cf2ee1865aa74.jpg)\n\n在swap方法中，a、b的值进行交换，并不会影响到 num1、num2。因为，a、 b中的值，只是从num1、num2 的复制过来的。也就是说，a、b相当于 num1、num2 的副本，副本的内容无论怎么修改，都不会影响到原件本身。\n通过上面例子，我们已经知道了一个方法不能修改一个基本数据类型的参数，而 对象引用作为参数就不一样，请看 example2.\n## example 2\n```java\n1 public static void main(String[] args) {\n2 int[] arr = { 1, 2, 3, 4, 5 };\n3 System.out.println(arr[0]);\n4 change(arr);\n5 System.out.println(arr[0]);\n6 }\n7\n8 public static void change(int[] array) {\n9 // 将数组的第一个元素变为0\n10 array[0] = 0;\n11 }\n```\n## 结果：\n## 解析：\n```txt\nexample 3 \n```\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/8a5470e6f0fa2e440d115c1ba1d7d2a965a8cae8878ca041a6ee2b52872b291a.jpg)\n\narray 被初始化 arr 的拷贝也就是一个对象的引用，也就是说 array 和 arr 指向 的时同一个数组对象。因此，外部对引用对象的改变会反映到所对应的对象 上。\n通过 example2 我们已经看到，实现一个改变对象参数状态的方法并不是一件 难事。理由很简单，方法得到的是对象引用的拷贝，对象引用及其他的拷贝同时 引用同一个对象。\n很多程序设计语言（特别是，C++和Pascal)提供了两种参数传递的方式：值调 用和引用调用。有些程序员（甚至本书的作者）认为Java程序设计语言对对象 采用的是引用调用，实际上，这种理解是不对的。由于这种误解具有一定的普遍 性，所以下面给出一个反例来详细地阐述一下这个问题。\n```java\n1 public class Test {\n2\n3 public static void main(String[] args) {\n4 // TODO Auto-generated method stub\n5 Student s1 = new Student(\"小张\");\n6 Student s2 = new Student(\"小李\");\n7 Test.swap(s1, s2);\n8 System.out.println(\"s1:\" + s1.getName());\n9 System.out.println(\"s2:\" + s2.getName());\n10 }\n11\n12 public static void swap(Student x, Student y) {\n13 Student temp = x;\n14 x = y;\n15 y = temp;\n16 System.out.println(\"x:\" + x.getName());\n17 System.out.println(\"y:\" + y.getName());\n18 }\n19 }\n```\n结果：\n```txt\n1 x: 小李  \n2 y: 小张  \n3 s1: 小张  \n4 s2: 小李\n```\n## 解析：\n交换之前：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/2b9dc677201b6722a059be45c0c442c7f661dfec75c86a36f71607a10b7ebce4.jpg)\n\n## 交换之后：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/51a6b5eea82d9dffdcb4680bdb3f243102088ffddc33d3a674619bbee32bbb43.jpg)\n\n通过上面两张图可以很清晰的看出： 方法并没有改变存储在变量 s1 和 s2 中的 对象引用。swap方法的参数x和y被初始化为两个对象引用的拷贝，这个方法交 换的是这两个拷贝\n## 总结\nJava程序设计语言对对象采用的不是引用调用，实际上，对象引用是按值传递的。\n下面再总结一下Java中方法参数的使用情况：\n一个方法不能修改一个基本数据类型的参数（即数值型或布尔型》\n一个方法可以改变一个对象参数的状态。\n一个方法不能让对象参数引用一个新的对象。",
+    "answer": "首先回顾一下在程序设计语言中有关将参数传递给方法（或函数）的一些专业术 语。按值调用(call byvalue)表示方法接收的是调用者提供的值，而按引用调用 （call by reference)表示方法接收的是调用者提供的变量地址。一个方法可以 修改传递引用所对应的变量值，而不能修改传递值调用所对应的变量值。 它用 来描述各种程序设计语言（不只是Java)中方法参数传递方式。\nJava程序设计语言总是采用按值调用。也就是说，方法得到的是所有参数值的 一个拷贝，也就是说，方法不能修改传递给它的任何参数变量的内容。\n下面通过 3 个例子来给大家说明\n```txt\nexample 1 \n```\n```java\n1 public static void main(String[] args) {\n2 int num1 = 10;\n3 int num2 = 20;\n4\n5 swap(num1, num2);\n6\n7 System.out.println(\"num1 = \" + num1);\n8 System.out.println(\"num2 = \" + num2);\n9 }\n10\n11 public static void swap(int a, int b) {\n12 int temp = a;\n13 a = b;\n14 b = temp;\n15\n16 System.out.println(\"a = \" + a);\n17 System.out.println(\"b = \" + b);\n18 } \n```\n## 结果：\n```txt\n1 a = 20\n2 b = 10\n3 num1 = 10\n4 num2 = 20 \n```\n## 解析：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/7f64430dcf0d06e3b95b12940937e35d2140756bff74404eca5cf2ee1865aa74.jpg)\n\n在swap方法中，a、b的值进行交换，并不会影响到 num1、num2。因为，a、 b中的值，只是从num1、num2 的复制过来的。也就是说，a、b相当于 num1、num2 的副本，副本的内容无论怎么修改，都不会影响到原件本身。\n通过上面例子，我们已经知道了一个方法不能修改一个基本数据类型的参数，而 对象引用作为参数就不一样，请看 example2.\n## example 2\n```java\n1 public static void main(String[] args) {\n2 int[] arr = { 1, 2, 3, 4, 5 };\n3 System.out.println(arr[0]);\n4 change(arr);\n5 System.out.println(arr[0]);\n6 }\n7\n8 public static void change(int[] array) {\n9 // 将数组的第一个元素变为0\n10 array[0] = 0;\n11 }\n```\n## 结果：\n## 解析：\n```txt\nexample 3 \n```\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/8a5470e6f0fa2e440d115c1ba1d7d2a965a8cae8878ca041a6ee2b52872b291a.jpg)\n\narray 被初始化 arr 的拷贝也就是一个对象的引用，也就是说 array 和 arr 指向 的时同一个数组对象。因此，外部对引用对象的改变会反映到所对应的对象 上。\n通过 example2 我们已经看到，实现一个改变对象参数状态的方法并不是一件 难事。理由很简单，方法得到的是对象引用的拷贝，对象引用及其他的拷贝同时 引用同一个对象。\n很多程序设计语言（特别是，C++和Pascal)提供了两种参数传递的方式：值调 用和引用调用。有些程序员（甚至本书的作者）认为Java程序设计语言对对象 采用的是引用调用，实际上，这种理解是不对的。由于这种误解具有一定的普遍 性，所以下面给出一个反例来详细地阐述一下这个问题。\n```java\n1 public class Test {\n2\n3 public static void main(String[] args) {\n5 Student s1 = new Student(\"小张\");\n6 Student s2 = new Student(\"小李\");\n7 Test.swap(s1, s2);\n8 System.out.println(\"s1:\" + s1.getName());\n9 System.out.println(\"s2:\" + s2.getName());\n10 }\n11\n12 public static void swap(Student x, Student y) {\n13 Student temp = x;\n14 x = y;\n15 y = temp;\n16 System.out.println(\"x:\" + x.getName());\n17 System.out.println(\"y:\" + y.getName());\n18 }\n19 }\n```\n结果：\n```txt\n1 x: 小李  \n2 y: 小张  \n3 s1: 小张  \n4 s2: 小李\n```\n## 解析：\n交换之前：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/2b9dc677201b6722a059be45c0c442c7f661dfec75c86a36f71607a10b7ebce4.jpg)\n\n## 交换之后：\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/51a6b5eea82d9dffdcb4680bdb3f243102088ffddc33d3a674619bbee32bbb43.jpg)\n\n通过上面两张图可以很清晰的看出： 方法并没有改变存储在变量 s1 和 s2 中的 对象引用。swap方法的参数x和y被初始化为两个对象引用的拷贝，这个方法交 换的是这两个拷贝\n## 总结\nJava程序设计语言对对象采用的不是引用调用，实际上，对象引用是按值传递的。\n下面再总结一下Java中方法参数的使用情况：\n一个方法不能修改一个基本数据类型的参数（即数值型或布尔型》\n一个方法可以改变一个对象参数的状态。\n一个方法不能让对象参数引用一个新的对象。",
     "kind": "mechanism",
     "difficulty": "intermediate"
   },
@@ -7541,12 +7489,14 @@
   },
   {
     "id": "q_1787497023823_1h6frm",
-    "text": "索引的基本原则是什么",
+    "text": "索引设计的原则有哪些？",
     "answered": true,
     "relatedNodeId": "n_0xxb9cqy",
     "createdAt": 1787497023823,
-    "updatedAt": 1787497042856,
-    "answer": "1、适合索引的列是出现在where字句中的列，或者连接子句中指定的列\n2、基数较小的表，索引效果差，没必要创建索引\n3、在选择索引列的时候，越短越好，可以指定某些列的一部分，没必要用全部字段的值\n4、不要给表中的每一个字段都创建索引，并不是索引越多越好\n5、定义有外键的数据列一定要创建索引\n6、更新频繁的字段不要有索引\n7、创建索引的列不要过多，可以创建组合索引，但是组合索引的列的个数不建议太多\n8、大文本、大对象不要创建索引"
+    "updatedAt": 1788108037990,
+    "answer": "【列的选择】\n1. 适合索引的列是出现在 WHERE 子句或连接条件中的列；定义有外键的列一定要建索引。\n2. 选择区分度/离散度高的列（可用 count(distinct col) 衡量，越大越适合）；性别这类低区分度列不适合；取值离散大的列放联合索引前面。\n3. 索引列越短越好：长字符串列应指定前缀长度（短索引节省大量索引空间）；大文本、大对象不建索引。\n4. 尽量 NOT NULL：含空值的列难以做查询优化，会使索引、索引统计信息和比较运算更复杂；用 0、特殊值或空串代替空值。\n【索引数量与更新代价】\n5. 不要给每个字段都建索引——索引需要额外磁盘空间，并降低写操作性能（修改表时索引要更新甚至重构，索引列越多越慢），只保持需要的索引。\n6. 更新频繁的字段不适合建索引；基数较小的列索引效果差，没必要建。\n7. 尽量扩展已有索引（升级为组合索引）而不是新建索引；组合索引列数不宜过多。\n【组合索引与最左前缀】\n8. 最左前缀匹配原则：MySQL 一直向右匹配直到遇到范围查询（>、<、between、like）就停止。例如 `a=1 and b=2 and c>3 and d=4`：建 (a,b,c,d) 顺序的索引时 d 用不到索引；建 (a,b,d,c) 则都能用到，且 a,b,d 的顺序可任意调整。\n9. 索引字段越小越好：数据以页为单位存储，一页能存的数据越多，一次 IO 获取的数据越多，效率越高。",
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_1787801634525_4d0ic4",
@@ -7554,8 +7504,10 @@
     "answered": true,
     "relatedNodeId": "k_1787767356127_a0gk7u",
     "createdAt": 1787801634525,
-    "updatedAt": 1787801660345,
-    "answer": "常量也是与类相关的，但它是用 final 关键字修饰的变量，一旦被赋值就不能再修改。与静态变量不同的是，常量在编译时就已经确定了它的值，而静态变量的值可以在运行时改变。另外，常量通常用于存储一些固定的值，如数学常数、配置信息等，而静态变量通常用于存储可变的数据，如计数器、全局状态等。\n总之，静态变量是与类相关的变量，具有唯一性和共享性，可以用于存储整个程序都需要使用的数据，但需要注意初始化时机和与常量的区别。\n​\n​"
+    "updatedAt": 1788106914383,
+    "answer": "常量也是与类相关的，但它是用 final 关键字修饰的变量，一旦被赋值就不能再修改。与静态变量不同的是，常量在编译时就已经确定了它的值，而静态变量的值可以在运行时改变。另外，常量通常用于存储一些固定的值，如数学常数、配置信息等，而静态变量通常用于存储可变的数据，如计数器、全局状态等。\n总之，静态变量是与类相关的变量，具有唯一性和共享性，可以用于存储整个程序都需要使用的数据，但需要注意初始化时机和与常量的区别。\n​\n​",
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_1787936217430_w3zmzl",
@@ -7563,7 +7515,9 @@
     "answered": false,
     "relatedNodeId": "k_java_io_nio",
     "createdAt": 1787936217430,
-    "updatedAt": 1787936217430
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_1787936247780_cxwpz2",
@@ -7571,8 +7525,10 @@
     "answered": true,
     "relatedNodeId": "k_java_io_nio",
     "createdAt": 1787936247780,
-    "updatedAt": 1787936270078,
-    "answer": "传统 IO（java.io）与 NIO（java.nio）的全面对比，以及 NIO 存在的问题和适用场景。\n\n## NIO存在的问题\n\n使用NIO != 高性能，当连接数<1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。\n\nNIO并没有完全屏蔽平台差异，它仍然是基于各个操作系统的I/O系统实现的，差异仍然存在。使用NIO做网络编程构建事件驱动模型并不容易，陷阱重重。\n\n推荐大家使用成熟的NIO框架，如Netty，MINA等。解决了很多NIO的陷阱，并屏蔽了操作系统的差异，有较好的性能和编程模型。\n\n## 总结\n\n最后总结一下NIO有哪些优势：\n\n事件驱动模型\n\n避免多线程\n\n单线程处理多任务\n\n非阻塞I/O，I/O读写不再阻塞\n\n基于block的传输，通常比基于流的传输更高效\n\n更高级的IO函数，Zero Copy\n\nI/O多路复用大大提高了Java网络应用的可伸缩性和实用性\n\n【核心区别对比】\n\n| 维度 | 传统 IO（java.io） | NIO（java.nio） |\n|------|-------------------|-----------------|\n| 面向 | 面向流（Stream） | 面向缓冲区（Buffer） |\n| 通道 | 单向（InputStream/OutputStream 分开） | 双向（Channel 既可读又可写） |\n| 阻塞 | 阻塞式（read/write 阻塞线程） | 非阻塞式（可设置非阻塞模式） |\n| 多连接 | 每连接一线程（BIO） | 单线程管理多连接（Selector 多路复用） |\n| 数据处理 | 逐字节/逐字符读取，不可前后移动 | 数据读入 Buffer，可在缓冲区前后移动 |\n| 核心类 | InputStream/OutputStream/Reader/Writer | Channel/Buffer/Selector |\n| 文件操作 | File 类（功能有限） | Path + Files 工具类（功能强大） |\n| 适用场景 | 简单文件读写、低并发 | 高并发网络服务、大文件操作 |\n\n【面向流 vs 面向缓冲区】\n- 传统 IO 面向流：每次从流中读一个或多个字节，直至读取所有字节，没有被缓存在任何地方，不能前后移动流中的数据\n- NIO 面向缓冲区：数据读取到缓冲区，需要时可在缓冲区前后移动，增加了处理灵活性；但需检查缓冲区是否包含所有需要的数据，且避免覆盖未处理数据\n\n【阻塞 vs 非阻塞】\n- 传统 IO 的流是阻塞的：线程调用 read()/write() 时被阻塞，直到有数据读取或数据完全写入，期间不能做其他事情\n- NIO 的非阻塞模式：线程从通道请求读取数据，仅能得到目前可用的数据；如果没有数据可用，什么都不获取，线程可继续做其他事情；非阻塞写同理\n- 线程通常将非阻塞 IO 的空闲时间用于在其他通道上执行 IO 操作，所以单个线程可管理多个输入输出通道\n\n【适用场景选择】\n- 使用传统 IO：\n  - 简单的文件读写操作\n  - 低并发的网络服务\n  - 代码简单性优先于性能\n  - 处理文本文件（字符流方便）\n\n- 使用 NIO：\n  - 高并发网络服务器（如聊天服务器、游戏服务器）\n  - 需要管理大量连接的场景\n  - 大文件的高效处理（FileChannel + 内存映射）\n  - 需要非阻塞 IO 的场景\n  - 需要文件变更监听（WatchService）\n\n- 使用 NIO.2 文件 API（Path + Files）：\n  - 新项目的文件操作推荐\n  - 需要符号链接、文件权限、属性操作\n  - 需要目录递归遍历、文件复制移动\n  - 需要文件变更监听\n\n【NIO 存在的问题】\n- NIO 的非阻塞模式编程复杂度高，需要处理半包、粘包、事件循环等\n- Selector 的 select() 在某些平台可能存在空轮询（epoll bug），导致 CPU 100%\n- FileChannel 不支持非阻塞模式\n- 直接缓冲区的内存管理需要注意（堆外内存不受 GC 直接管理）\n- NIO 的 API 相对底层，实际开发中常使用 Netty、Mina 等框架封装\n\n【IO 模型演进总结】\n- BIO（Blocking IO）：阻塞式，每连接一线程，简单但并发能力有限\n- NIO（Non-blocking IO / New IO）：非阻塞 + IO 多路复用，单线程管理多连接，高并发能力强\n- AIO（Asynchronous IO）：异步非阻塞，操作系统完成 IO 后通知，理论上性能最好但实际应用较少（Linux 上 AIO 支持不完善）\n- 实际高性能网络服务大多基于 NIO + Reactor 模式实现（如 Netty）"
+    "updatedAt": 1788106914383,
+    "answer": "传统 IO（java.io）与 NIO（java.nio）的全面对比，以及 NIO 存在的问题和适用场景。\n\n## NIO存在的问题\n\n使用NIO != 高性能，当连接数<1000，并发程度不高或者局域网环境下NIO并没有显著的性能优势。\n\nNIO并没有完全屏蔽平台差异，它仍然是基于各个操作系统的I/O系统实现的，差异仍然存在。使用NIO做网络编程构建事件驱动模型并不容易，陷阱重重。\n\n推荐大家使用成熟的NIO框架，如Netty，MINA等。解决了很多NIO的陷阱，并屏蔽了操作系统的差异，有较好的性能和编程模型。\n\n## 总结\n\n最后总结一下NIO有哪些优势：\n\n事件驱动模型\n\n避免多线程\n\n单线程处理多任务\n\n非阻塞I/O，I/O读写不再阻塞\n\n基于block的传输，通常比基于流的传输更高效\n\n更高级的IO函数，Zero Copy\n\nI/O多路复用大大提高了Java网络应用的可伸缩性和实用性\n\n【核心区别对比】\n\n| 维度 | 传统 IO（java.io） | NIO（java.nio） |\n|------|-------------------|-----------------|\n| 面向 | 面向流（Stream） | 面向缓冲区（Buffer） |\n| 通道 | 单向（InputStream/OutputStream 分开） | 双向（Channel 既可读又可写） |\n| 阻塞 | 阻塞式（read/write 阻塞线程） | 非阻塞式（可设置非阻塞模式） |\n| 多连接 | 每连接一线程（BIO） | 单线程管理多连接（Selector 多路复用） |\n| 数据处理 | 逐字节/逐字符读取，不可前后移动 | 数据读入 Buffer，可在缓冲区前后移动 |\n| 核心类 | InputStream/OutputStream/Reader/Writer | Channel/Buffer/Selector |\n| 文件操作 | File 类（功能有限） | Path + Files 工具类（功能强大） |\n| 适用场景 | 简单文件读写、低并发 | 高并发网络服务、大文件操作 |\n\n【面向流 vs 面向缓冲区】\n- 传统 IO 面向流：每次从流中读一个或多个字节，直至读取所有字节，没有被缓存在任何地方，不能前后移动流中的数据\n- NIO 面向缓冲区：数据读取到缓冲区，需要时可在缓冲区前后移动，增加了处理灵活性；但需检查缓冲区是否包含所有需要的数据，且避免覆盖未处理数据\n\n【阻塞 vs 非阻塞】\n- 传统 IO 的流是阻塞的：线程调用 read()/write() 时被阻塞，直到有数据读取或数据完全写入，期间不能做其他事情\n- NIO 的非阻塞模式：线程从通道请求读取数据，仅能得到目前可用的数据；如果没有数据可用，什么都不获取，线程可继续做其他事情；非阻塞写同理\n- 线程通常将非阻塞 IO 的空闲时间用于在其他通道上执行 IO 操作，所以单个线程可管理多个输入输出通道\n\n【适用场景选择】\n- 使用传统 IO：\n  - 简单的文件读写操作\n  - 低并发的网络服务\n  - 代码简单性优先于性能\n  - 处理文本文件（字符流方便）\n\n- 使用 NIO：\n  - 高并发网络服务器（如聊天服务器、游戏服务器）\n  - 需要管理大量连接的场景\n  - 大文件的高效处理（FileChannel + 内存映射）\n  - 需要非阻塞 IO 的场景\n  - 需要文件变更监听（WatchService）\n\n- 使用 NIO.2 文件 API（Path + Files）：\n  - 新项目的文件操作推荐\n  - 需要符号链接、文件权限、属性操作\n  - 需要目录递归遍历、文件复制移动\n  - 需要文件变更监听\n\n【NIO 存在的问题】\n- NIO 的非阻塞模式编程复杂度高，需要处理半包、粘包、事件循环等\n- Selector 的 select() 在某些平台可能存在空轮询（epoll bug），导致 CPU 100%\n- FileChannel 不支持非阻塞模式\n- 直接缓冲区的内存管理需要注意（堆外内存不受 GC 直接管理）\n- NIO 的 API 相对底层，实际开发中常使用 Netty、Mina 等框架封装\n\n【IO 模型演进总结】\n- BIO（Blocking IO）：阻塞式，每连接一线程，简单但并发能力有限\n- NIO（Non-blocking IO / New IO）：非阻塞 + IO 多路复用，单线程管理多连接，高并发能力强\n- AIO（Asynchronous IO）：异步非阻塞，操作系统完成 IO 后通知，理论上性能最好但实际应用较少（Linux 上 AIO 支持不完善）\n- 实际高性能网络服务大多基于 NIO + Reactor 模式实现（如 Netty）",
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_1",
@@ -7581,16 +7537,20 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "SQL语句主要分为哪几类",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_2",
-    "text": "数据定义语言DDL （Data Ddefinition Language）CREATE，DROP，ALTER 主要为以上操作 即对逻辑结构等有操作的，其中包括表结构，视图和索引。",
+    "text": "什么是数据定义语言（DDL）？包括哪些操作？",
     "answered": true,
-    "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
+    "relatedNodeId": "concept_ddl",
     "answer": "数据查询语言DQL（Data Query Language）SELECT\n这个较为好理解 即查询操作，以select关键字。各种简单查询，连接查询等 都属于DQL。\n数据操纵语言DML（Data Manipulation Language）\nINSERT，UPDATE，DELETE\n主要为以上操作 即对数据进行操作的，对应上面所说的查询操作 DQL与DML共同构建了多数初级程序员常用的增删改查操作。而查询是较为特殊的一种 被划分到DQL中。\n数据控制功能DCL（Data Control Language）\nGRANT，REVOKE，COMMIT，ROLLBACK\n主要为以上操作 即对数据库安全性完整性等有操作的，可以简单的理解为权限控制等",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788107483662,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_sql_notes_3",
@@ -7599,7 +7559,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "一个数据列只能有一个主键,且主键的取值不能缺失,即不能为空值(Null)。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_4",
@@ -7608,7 +7570,9 @@
     "relatedNodeId": "concept_not_null_constraint",
     "answer": "NOT NULL: 用于控制字段的内容一定不能为空（NULL）。\nUNIQUE: 控件字段内容不能重复，一个表允许有多个 Unique 约束。\nPRIMARY KEY: 也是用于控件字段内容不能重复，但它在一个表只允许出现一个。\nFOREIGN KEY: 用于预防破坏表之间连接的动作，也能防止非法数据插入外键列，因为它必须是它指向的那个表中的值之一。\nCHECK: 用于控制字段的值范围。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_5",
@@ -7617,7 +7581,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "交叉连接（CROSS JOIN）\n内连接（INNER JOIN）\n外连接（LEFT JOIN/RIGHT JOIN）\n联合查询（UNION与UNION ALL）\n全连接（FULL JOIN）\n交叉连接（CROSS JOIN）\nSELECT * FROM A,B(,C)或者SELECT * FROM A CROSS JOIN B (CROSS JOIN C)#没有任何关联条件，结果是笛卡尔积，结果集会很大，没有意义，很少使用",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_6",
@@ -7626,7 +7592,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "ON A.id=B.id多表中同时符合某种条件的数据记录的集合，INNER JOIN可以缩写为JOIN\n内连接分为三类",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_7",
@@ -7635,7 +7603,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "SELECT * FROM A UNION SELECT * FROM B UNION ..\n就是把多个结果集集中在一起，UNION前的结果为基准，需要注意的是联合查询的列数要相等，相同的记录行会合并如果使用UNION ALL，不会合并重复的记录行效率 UNION 高于UNION ALL",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_8",
@@ -7644,7 +7614,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "MySQL不支持全连接\n可以使用LEFT JOIN 和UNION和RIGHT JOIN联合使用\nSELECT * FROM A LEFT JOIN B ON A.id=B.id UNION SELECT * FROM A RIGHT JOIN B ON A.id=B.id",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_9",
@@ -7653,7 +7625,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "1. 条件：一条SQL语句的查询结果做为另一条查询语句的条件或查询结果\n2. 嵌套：多条SQL语句嵌套使用，内部的SQL查询语句称为子查询。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_sql_notes_10",
@@ -7662,7 +7636,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "3. 子查询是单行单列的情况：结果集是一个值，父查询使用：=、 <、 > 等运算符\n4. 2. 子查询是多行单列的情况：结果集类似于一个数组，父查询使用：in 运算符\n5. 子查询是多行多列的情况：结果集类似于一张虚拟表，不能用于where 条件，用于select子句中做为子表",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_11",
@@ -7671,7 +7647,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "mysql中的in语句是把外表和内表作hash 连接，而exists语句是对外表作loop循环，每次loop循环再对内表进行查询。一直大家都认为exists比in语句的效率要高，这种说法其实是不准确的。这个是要区分环境的。\n6. 如果查询的两个表大小相当，那么用in和exists差别不大。\n7. 如果两个表中一个较小，一个是大表，则子查询表大的用exists，子查询表小的用in。\n8. not in 和not exists：如果查询语句使用了not in，那么内外表都进行全表扫描，没有用到索引；而\nnot extsts的子查询依然能用到表上的索引。所以无论那个表大，用not exists都比not in要快。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_12",
@@ -7680,7 +7658,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "char的特点\nchar表示定长字符串，长度是固定的；如果插入数据的长度小于char的固定长度时，则用空格填充；\n因为长度固定，所以存取速度要比varchar快很多，甚至能快50%，但正因为其长度固定，所以会占据多余的空间，是空间换时间的做法；\n对于char来说， 多能存放的字符个数为255，和编码无关\nvarchar的特点\nvarchar表示可变长字符串，长度是可变的；\n插入的数据是多长，就按照多长来存储；\nvarchar在存取方面与char相反，它存取慢，因为长度不固定，但正因如此，不占据多余的空间，是时间换空间的做法；\n对于varchar来说， 多能存放的字符个数为65532 总之，结合性能角度（char更快）和节省磁盘空间角度（varchar更小），具体情况还需具体来设计数据库才是妥当的做法。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_13",
@@ -7689,7 +7669,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "limit (PageNO-1) * pageSize pageSize\n1. 基础语法\n     SELECT * FROM 表名 LIMIT [偏移量,] 行数;\n●行数：指定返回的最大记录数。\n●偏移量（可选）：跳过前N条记录后开始返回（默认为0）。语法等价形式：\n**语法等价形式**：LIMIT 行数 OFFSET 偏移量;\n示例\n```\n-- 返回前5条记录\nSELECT * FROM users LIMIT 5;\n\n-- 跳过前10条，返回接下来的5条（第11-15条）\nSELECT * FROM users LIMIT 10, 5;\n-- 等价写法\nSELECT * FROM users LIMIT 5 OFFSET 10;\n```\n\n2. 核心用途\n（1）分页查询\n```\n-- 假设每页显示10条数据\n-- 第1页\nSELECT * FROM products LIMIT 0, 10;\n-- 第2页\nSELECT * FROM products LIMIT 10, 10;\n-- 第n页（偏移量计算公式：offset = (page_num - 1) * page_size）\nSELECT * FROM products LIMIT (n-1)*10, 10;```\n\n（2）快速取样\n```\n-- 随机取3条记录（结合ORDER BY RAND()）\nSELECT * FROM logs ORDER BY RAND() LIMIT 3;\n\n-- 取最新插入的10条记录（按时间倒序）\nSELECT * FROM orders ORDER BY create_time DESC LIMIT 10;\n```\n（3）性能优化\n●对于大表查询，﻿LIMIT﻿ 可减少结果集大小，降低内存和网络开销。\n●结合索引使用可加速查询（需确保 ﻿ORDER BY﻿ 的字段有索引）。\n\n3. 注意事项\n（1）必须与 ﻿ORDER BY﻿ 配合\n●若未指定 ﻿ORDER BY﻿，查询结果的顺序可能不稳定（受数据存储物理顺序影响）。\n●正确写法：\n`SELECT * FROM users ORDER BY id DESC LIMIT 5;`\n（2）避免大偏移量性能问题\n●当 ﻿偏移量﻿ 很大时（如 ﻿LIMIT 1000000, 10﻿），MySQL需遍历前1000000条记录，效率极低。\n●优化方案：\n○使用覆盖索引：仅查询索引字段。\n○改用游标分页（基于上一页的最后一条记录的ID）：\n-- 传统分页（慢）\n`SELECT * FROM orders LIMIT 100000, 10;`\n-- 游标分页（快）\n`SELECT * FROM orders WHERE id > 100000 ORDER BY id LIMIT 10;`\n（3）与聚合函数结合\n●LIMIT﻿ 在聚合后生效，需注意逻辑顺序：\n-- 错误：LIMIT 在聚合前执行，可能返回不完整的分组统计\n`SELECT COUNT(*) FROM sales GROUP BY product_id LIMIT 5;`\n-- 正确：先聚合，再限制结果行数\n`SELECT product_id, COUNT(*) AS total` \n`FROM sales` \n`GROUP BY product_id` \n`ORDER BY total DESC` \n`LIMIT 5;`\n4. 特殊场景\n（1）动态分页\n●结合变量实现动态偏移量：\nSET @page_num = 2, @page_size = 10;\nSELECT * FROM users \nLIMIT (@page_num - 1) * @page_size, @page_size;\n（2）联合查询中的 ﻿LIMIT﻿\n●在子查询中使用 ﻿LIMIT﻿ 需谨慎，可能影响最终结果逻辑：\n-- 获取每个分类下销量前3的商品\nSELECT category_id, product_id, sales\nFROM (  \nSELECT \n    category_id, \n    product_id, \n    sales,\n    ROW_NUMBER() OVER (PARTITION BY category_id ORDER BY sales DESC) AS rank  \nFROM products\n) AS ranked\nWHERE rank <= 3;\n```",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_14",
@@ -7698,7 +7680,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "多存放50个字符，varchar(50)和(200)存储hello所占空间一样，但后者在排序时会消耗更多内存，因为order by col采用fixed_length计算col长度(memory引擎也一样)。在早期 MySQL 版本中， 50 代表字节数，现在代表字符数。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_15",
@@ -7707,7 +7691,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "是指显示字符的长度。20表示 大显示宽度为20，但仍占4字节存储，存储范围不变；\n不影响内部存储，只是影响带 zerofill 定义的 int 时，前面补多少个 0，易于报表展示",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_16",
@@ -7716,7 +7702,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "对大多数应用没有意义，只是规定一些工具用来显示字符的个数；int(1)和 int(20)存储和计算均一样；",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_17",
@@ -7725,7 +7713,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "int(10)的10表示显示的数据的长度，不是存储数据的大小； chart(10)和varchar(10)的10表示存储数据的大小，即表示存储多少个字符。\nint(10) 10位的数据长度 9999999999，占32个字节，int型4位 char(10) 10位固定字符串，不足补空格多10个字符\nvarchar(10) 10位可变字符串，不足补空格 多10个字符\nchar(10)表示存储定长的10个字符，不足10个就用空格补齐，占用更多的存储空间\nvarchar(10)表示存储10个变长的字符，存储多少个就是多少个，空格也按一个字符存储，这一点是和char(10)的空格不同的，char(10)的空格表示占位不算一个字符",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_18",
@@ -7734,7 +7724,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "FLOAT类型数据可以存储至多8位十进制数，并在内存中占4字节。\nDOUBLE类型数据可以存储至多18位十进制数，并在内存中占8字节。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_19",
@@ -7743,7 +7735,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "【对比表】\n| | Delete | Truncate | Drop |\n| --- | --- | --- | --- |\n| 类型 | 属于 DML | 属于 DDL | 属于 DDL |\n| 回滚 | 可回滚 | 不可回滚 | 不可回滚 |\n| 删除内容 | 表结构还在，删除表的全部或者一部分数据行 | 表结构还在，删除表中的所有数据 | 从数据库中删除表，所有的数据行，索引和权限也会被删除 |\n| 删除速度 | 删除速度慢，需要逐行删除 | 删除速度快 | 删除速度快 |",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_20",
@@ -7752,16 +7746,20 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "如果使用UNION ALL，不会合并重复的记录行\n效率 UNION 高于 UNION ALL",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_21",
     "text": "创建的索引有没有被使用到或者说怎么才可以知道这条语句运行很慢的原因？",
     "answered": true,
-    "relatedNodeId": "concept_not_null_constraint",
+    "relatedNodeId": "concept_index_statistics",
     "answer": "对于低性能的SQL语句的定位， 重要也是 有效的方法就是使用执行计划， MySQL提供了explain命令来查看语句的执行计划。 我们知道，不管是哪种数据库，或者是哪种数据库引擎，在对一条SQL语句进行执行的过程中都会做很多相关的优化，对于查询语句，最重要的优化方式就是使用索引。 而执行计划，就是显示数据库引擎对于SQL语句的执行的详细情况，其中包含了是否使用索引，使用什么索引，使用的索引的相关信息等。\n【图：EXPLAIN 示例】SQL：`SELECT o.card_amount FROM orders o INNER JOIN order_item oi ON o.order_id = oi.order_id`；执行计划：第一行 id=1、SIMPLE、table=o、type=ALL（全表扫描）、possible_keys=PRIMARY、key=(Null)、rows=1441512；第二行 id=1、SIMPLE、table=oi、type=ref、key=ORDER_8、ref=rcims。\n执行计划包含的信息 id 有一组数字组成。表示一个查询中各个子查询的执行顺序;\nid相同执行顺序由上至下。\nid不同，id值越大优先级越高，越先被执行。\nid为null时表示一个结果集，不需要使用它查询，常出现在包含union等查询语句中。\n【表：select_type 取值】\n| id | select_type | description |\n| --- | --- | --- |\n| 1 | SIMPLE | 不包含任何子查询或 union 等查询 |\n| 2 | PRIMARY | 包含子查询，外层查询就显示为 PRIMARY |\n| 3 | SUBQUERY | 在 select 或 where 字句中包含的查询 |\n| 4 | DERIVED | from 字句中包含的查询 |\n| 5 | UNION | 出现在 union 后的查询语句中 |\n| 6 | UNION RESULT | 从 UNION 中获取结果集，例如上文的第三个例子 |\ntable 查询的数据表，当从衍生表中查数据时会显示 x 表示对应的执行计划id\npartitions 表分区、表创建的时候可以指定通过那个列进行表分区。 \ntype(非常重要，可以看到有没有走索引) 访问类型\nALL 扫描全表数据 index 遍历索引 range 索引范围查找 index_subquery 在子查询中使用 ref\nunique_subquery 在子查询中使用 eq_ref ref_or_null 对Null进行索引的优化的 ref fulltext 使用全文索\n引\nref 使用非唯一索引查找数据 eq_ref 在join查询中使用PRIMARY KEYorUNIQUE NOT NULL索引关联。\npossible_keys 可能使用的索引，注意不一定会使用。查询涉及到的字段上若存在索引，则该索引将被\n列出来。当该列为 NULL时就要考虑当前的SQL是否需要优化了。\nkey 显示MySQL在查询中实际使用的索引，若没有使用索引，显示为NULL。 TIPS:查询中若使用了覆盖\n索引(覆盖索引：索引的数据覆盖了需要查询的所有数据)，则该索引仅出现在key列表中\nkey_length 索引长度\nref 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值 rows 返回估算的结果集数目，并不是一个准确的值。\nextra 的信息非常丰富，常见的有：\n1. Using index 使用覆盖索引\n2. Using where 使用了用where子句来过滤结果集\n3. Using filesort 使用文件排序，使用非索引列进行排序时出现，非常消耗性能，尽量优化。\n4. Using temporary 使用了临时表 sql优化的目标可以参考阿里开发手册\n【推荐】SQL性能优化的目标：至少要达到 range 级别，要求是ref级别，如果可以是consts 好。 说明：\n1） consts 单表中 多只有一个匹配行（主键或者唯一索引），在优化阶段即可读取到数据。\n2） ref 指的是使用普通的索引（normal index）。\n3） range 对索引进行范围检索。 反例：explain表的结果，type=index，索引物理文件全扫描，速度非常慢，这个index级别比较range还低，与全表扫描是小巫见大巫",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_22",
@@ -7770,7 +7768,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "1.应用服务器与数据库服务器建立一个连接\n2.数据库进程拿到请求sql\n3.解析并生成执行计划,执行\n4.读取数据到内存并进行逻辑处理\n5.通过步骤一的连接,发送结果到客户端\n6.关掉连接,释放资源\n【图：SQL 生命周期与 MySQL 架构】Client Apps ⇅ MySQLD：连接管理 → 连接进程 → 用户模块 → 查询缓存 → 命令分发器 → 命令解析器（select→查询优化器；dml→表变更；ddl→表维护；rep→复制；status→状态）→ 访问控制 → 表管理 → 存储引擎接口；旁路：日志记录、网络交互、核心 API；底层 Storage Engines（MyISAM/InnoDB/NDB/Falcon/Memory/Archive/Merge/Federated/User defined）。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_23",
@@ -7779,7 +7779,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "1.优化shema、sql语句+索引;\n2.第二加缓存,memcached,redis;\n3.主从复制,读写分离;\n4.垂直拆分,根据你模块的耦合度,将一个大的系统分为多个小小的系统,也就是分布式系统;\n5.水平切分,针对数据量大的表,这一步麻烦,能考验技术水平,要选择一个合理的sharding key,为了有好的查询效率,表结构也要改动,\n做一定的冗余,应用也要改,sql中尽量带sharding key,将数据定立到限定的表上去查,而不是扫描全部的表;",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_24",
@@ -7788,7 +7790,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "超大的分页一般从两个方向上来解决.\n数据库层面,这也是我们主要集中关注的(虽然收效没那么大),\n类似于select * from table where age >20 limit 1000000,10这种查询其实也是有可以优化的余地的. 这条语句需要load1000000数据然后基本上全部丢弃,只取10条当然比较慢. 当时我们可以修改为select * from table where id in(select id from table where age > 20 limit 1000000,10).这样虽然也load了一百万的数据,但是由\n于索引覆盖,要查询的所有字段都在索引中,所以速度会很快. 同时如果ID连续的好,我们还可以select* from table where id > 1000000 limit 10,效率也是不错的,优化的可能性有许多种, 但是核心思想都一样,就是减少load的数据.\n从需求的角度减少这种请求…主要是不做类似的需求(直接跳转到几百万页之后的具体某一页.只允许逐页查看或者按照给定的路线走,这样可预测,可缓存)以及防止ID泄漏且连续被人恶意攻击.\n解决超大分页,其实主要是靠缓存,可预测性的提前查到内容,缓存至redis等k-V数据库中,直接返回即可.\n在阿里巴巴《Java开发手册》中,对超大分页的解决办法是类似于上面提到的第一种.\n【推荐】利用延迟关联或者子查询优化超多分页场景。 说明：MySQL并不是跳过offset行，而是取offset+N行，然后返回放弃前offset行，返回N行，那当offset特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过特定阈值的页数进行SQL改写。 正例：先快速定位需要获取的id段，然后再关联：\nSELECT a.* FROM 表1 a,(select id from 表1 where 条件 LIMIT 100000,20) b where a.id=b.id",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_25",
@@ -7797,7 +7801,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "mysql>SELECT * FROM table LIMIT 5,10;//检索记录行6-15\n为了检索从某一个偏移量到记录集的结束所有的记录行,可以指定定第二个参数为-1:\nmysql>SELECT * FROM table LIMIT 95,-1;//检索记录行96-last \n如果只给定一个参数,它表示返回大的记录行数目:\nmysql>SELECT* FROM table LIMIT 5;//检索前5个记录行 换句话说,LIMITn等价于LIMIT 0,n。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_26",
@@ -7806,7 +7812,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "用于记录执行时间超过某个临界值的SQL日志，用于快速定位慢查询，为我们的优化做参考。\n开启慢查询日志\n配置项：slow_query_log 可以使用show variables like ‘slov_query_log’查看是否开启，如果状态值为OFF，可以使用set GLOBAL slow_query_log = on来开启，它会在datadir下产生一个xxx-slow.log的文件。\n设置临界时间\n配置项：long_query_time 查看：show VARIABLES like 'long_query_time'，单位秒设置：set\nlong_query_time=0.5\n实操时应该从长时间设置到短的时间，即将慢的SQL优化掉\n查看日志，一旦SQL超过了我们设置的临界时间就会被记录到xxx-slow.log中",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_27",
@@ -7815,7 +7823,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "慢查询都怎么优化过？\n在业务系统中，除了使用主键进行的查询，其他的我都会在测试库上测试其耗时，慢查询的统计主要由运维在做，会定期将业务中的慢查询反馈给我们。慢查询的优化首先要搞明白慢的原因是什么？ 是查询条件没有命中索引？是 load了不需要的数据列？还是数据量太大？所以优化也是针对这三个方向来的，\n首先分析语句，看看是否load了额外的数据，可能是查询了多余的行并且抛弃掉了，可能是加载了许多结果中并不需要的列，对语句进行分析以及重写。\n分析语句的执行计划，然后获得其使用索引的情况，之后修改语句或者修改索引，使得语句可以尽可能的命中索引\n如果对语句的优化已经无法进行,可以考虑表中的数据量是否力太大,如果是的话可以进行横向或者纵向的分表。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_28",
@@ -7824,7 +7834,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "主键是数据库确保数据行在整张表唯一性的保障，即使业务上本张表没有主键，也建议添加一个自增长的ID列作为主键。设定了主键之后，在后续的删改查的时候可能更加快速以及确保操作数据范围安全。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_29",
@@ -7833,7 +7845,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "查询不需要的数据。解决办法：使用limit解决\n多表关联返回全部列。解决办法：指定列名\n总是返回全部列。解决办法：避免使用SELECT * 重复查询相同的数据。\n解决办法：可以缓存数据，下次直接读取缓存是否在扫描额外的记录。解决办法：使用explain进行分析，如果发现查询需要扫描大量的数据，但只返回少数的行，可以通过如下技巧去优化：使用索引覆盖扫描，把所有的列都放到索引中，这样存储引擎不需要回表获取对应行就可以返回结果。改变数据库和表的结构，修改数据表范式重写SQL语句，让优化器可以以更优的方式执行查询。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_30",
@@ -7842,7 +7856,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "一个复杂查询还是多个简单查询\nMySQL内部每秒能扫描内存中上百万行数据，相比之下，响应数据给客户端就要慢得多\n使用尽可能小的查询是好的，但是有时将一个大的查询分解为多个小的查询是很有必要的。\n切分查询将一个大的查询分为多个小的相同的查询\n一次性删除1000万的数据要比一次删除1万，暂停一会的方案更加损耗服务器开销。\n分解关联查询，让缓存的效率更高。\n执行单个查询可以减少锁的竞争。\n在应用层做关联更容易对数据库进行拆分。\n查询效率会有大幅提升。\n较少冗余记录的查询",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_31",
@@ -7851,7 +7867,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "count()会忽略所有的列,直接统计所有列数,不要使用count(列名)MyISAM中,没有任何where条件的count()非常快。\n当有where条件时,MyISAM的count统计不一定比其它引擎快。\n可以使用explain查询近似值,用近似值替代count(* )增加汇总表使用缓存",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_32",
@@ -7860,7 +7878,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "确定ON或者USING子句中是否有索引。\n确保GROUP BY和ORDER BY只有一个表中的列,这样MySQL才有可能使用索引",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_33",
@@ -7869,7 +7889,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "用关联查询替代\n优化GROUP BY和DISTINCT\n这两种查询据可以使用索引来优化,是有效的优化方法关联查询中,,使用标识列分组的效率更高\n如果不需要ORDERBY,进行GROUPBY时加ORDERBYNULL,MySQL不会再进行文件排序。\nWITHROLLUP超级聚合,可以挪到应用程序处理",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_34",
@@ -7878,7 +7900,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "LIMIT偏移量大的时候，查询效率较低\n可以记录上次查询的 大ID，下次查询时直接根据该ID来查询",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_35",
@@ -7887,7 +7911,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "UNION ALL的效率高于UNION",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_36",
@@ -7896,7 +7922,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "解题方法对于此类考题，先说明如何定位低效SQL语句，然后根据SQL语句可能低效的原因做排查，先从索引着手，如果索引没有问题，考虑以上几个方面，数据访问的问题，长难查询句的问题还是一些特定类型优化的问题，逐一回答。\nSQL语句优化的一些方法？\n1.对查询进行优化，应尽量避免全表扫描，首先应考虑在 where 及 order by 涉及的列上建立索引。\n2.应尽量避免在 where 子句中对字段进行 null 值判断，否则将导致引擎放弃使用索引而进行全表扫描，如：\n select id from t where num is null -- 可以在num上设置默认值0，确保表中num列没有null值，\n然后这样查询：select id from t where num=0\n3.应尽量避免在 where 子句中使用!=或<>操作符，否则引擎将放弃使用索引而进行全表扫描。\n4.应尽量避免在 where 子句中使用or 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，\n如：select id from t where num=10 or num=20 -- 可以这样查询：select id from t where\nnum=10 union all select id from t where num=20\n5.in和notin也要慎用,否则会导致全表扫描,如:\nselect id from t where num in(1,2,3) -- 对于连续的数值,能用between就不要用 in了:\nselect id from t where num between 1 and :3\n6.下面的查询也将导致全表扫描:select id fromtwhere name like'%李% 李%若要提高效率,可以考虑全\n文检索。\n7.如果在where子句中使用参数,也会导致全表扫描。因为SQL只有在运行时才会解析局部变量,但优化程序不能将访问计划的选择推迟到运行时;它必须在编译时进行选择。然而,如果在编译时建立访问计划,变量的值还是未知的,因而无法作为索引选择的输入项。如下面语句将进行全表扫描:select id from t where num=@num--可以改为强制查询使用索引:select id from t with(index(索引名)) where num=@num\n8.应尽量避免在where子句中对字段进行表达式操作,这将导致引擎放弃使用索引而进行全表扫描。\n如: select id from t where num/2=100 -- 应改为:select id from t where num=100* 2\n9.应尽量避免在where子句中对字段进行函数操作,这将导致引擎放弃使用索引而进行全表扫描。如:\nselect id from t where substring(name,1,3)='abc'--name以abc开头的id应改为:\nselect  id from t where name like 'abc%*\n10.不要在where子句中的\"=\"左边进行函数、算术运算或其他表达达运算,否则系统将可能无法正确使用索引。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_37",
@@ -7905,7 +7933,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "为什么要优化\n系统的吞吐量瓶颈往往出现在数据库的访问速度上随着应用程序的运行，数据库的中的数据会越来越多，处理时间会相应变慢数据是存放在磁盘上的，读写速度无法和内存相比优化原则：减少系统瓶颈，减少资源占用，增加系统的反应速度。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_38",
@@ -7914,7 +7944,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "一个好的数据库设计方案对于数据库的性能往往会起到事半功倍的效果。\n需要考虑数据冗余、查询和更新的速度、字段的数据类型是否合理等多方面的内容。\n将字段很多的表分解成多个表对于字段较多的表，如果有些字段的使用频率很低，可以将这些字段分离出来形成新表。\n因为当一个表的数据量很大时，会由于使用频率低的字段的存在而变慢。\n增加中间表对于需要经常联合查询的表，可以建立中间表以提高查询效率。\n通过建立中间表，将需要通过联合查询的数据插入到中间表中，然后将原来的联合查询改为对中间表的查询。\n增加冗余字段设计数据表时应尽量遵循范式理论的规约，尽可能的减少冗余字段，让数据库设计看起来精致、优雅。但是，合理的加入冗余字段可以提高查询速度。\n表的规范化程度越高，表和表之间的关系越多，需要连接查询的情况也就越多，性能也就越差。\n注意：\n冗余字段的值在一个表中修改了，就要想办法在其他表中更新，否则就会导致数据不一致的问题",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_39",
@@ -7923,7 +7955,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "当cpu飙升到500%时,先用操作系统命令top命令观察是不是rmysqld占用导致的,如果不是,找出占用高的进程,并进行相关处理。\n如果是mysqld造成的,show process list,看看里面跑的sessioon情况,是不是有消耗资源的sql在运行。找出消耗高的sql,看看执行计划是否准确,index是否缺失,或者实在是数据量太大造成。\n一般来说,肯定要kill掉这些线程(同时观察cpu使用率是否下降),等进行相应的调整(比如说加索引、改sql、改内存参数)之后,再重新跑这些SQL。\n也有可能是每个sql消耗资源并不多,但是突然之间,有大量的seession连进来导致cpu飙升,这种情况就需要跟应用一起来分析为何连接数会激增,再做出相应的调整,比如说限制连接数等",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_40",
@@ -7932,7 +7966,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "CRUD比较慢，如何优化？分库分表了是怎么做的？分表分库了有什么问题？有用到中间件么？他们的原理知道么？\n当MySQL单表记录数过大时，数据库的CRUD性能会明显下降，一些常见的优化措施如下：\n5. 限定数据的范围： 务必禁止不带任何限制数据范围条件的查询语句。比如：我们当用户在查询订单历史的时候，我们可以控制在一个月的范围内。；\n6. 读/写分离： 经典的数据库拆分方案，主库负责写，从库负责读；\n7. 缓存： 使用MySQL的缓存，另外对重量级、更新少的数据可以考虑使用应用级别的缓存；有就是通过分库分表的方式进行优化，主要有垂直分表和水平分表\n8. 垂直分区：\n根据数据库里面数据表的相关性进行拆分。 例如，用户表中既有用户的登录信息又有用户的基本信息，\n可以将用户表拆分成两个单独的表，甚至放到单独的库做分库。\n简单来说垂直拆分是指数据表列的拆分，把一张列比较多的表拆分为多张表。 \n【图：垂直分区】一张〔列1~列7〕的表按列拆分为〔列1~列4〕与〔列1、列6、列7〕两张表。\n垂直拆分的优点： 可以使得行数据变小，在查询时减少读取的Block数，减少I/O次数。此外，垂直分区可以简化表的结构，易于维护。\n垂直拆分的缺点： 主键会出现冗余，需要管理冗余列，并会引起Join操作，可以通过在应用层进行Join来解决。此外，垂直分区会让事务变得更加复杂；",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_41",
@@ -7941,7 +7977,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "把主键和一些列放在一个表,然后把主键和另外的列放在另一个表中\n【图：垂直分表】原表〔id, C1, C2, C3, Cn〕沿列拆分为〔id, C1〕与〔id, C2, C3, Cn〕。\n适用场景\n1、 如果一个表中某些列常用，另外一些列不常用\n2、 可以使数据行变小，一个数据页能存储更多数据，查询时减少I/O次数\n缺点\n有些分表的策略基于应用层的逻辑算法，一旦逻辑算法改变，整个分表逻辑都会改变，扩展性较差 对于应用层来说，逻辑算法增加开发成本管理冗余列，查询所有数据需要join操作",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_42",
@@ -7950,7 +7988,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "保持数据表结构不变,通过某种策略存储数据分片。这样每一片数据分散到不同的表或者库中,达到了分布式的目的。水平拆分可以支撑非常大的数据量。\n水平拆分是指数据表行的拆分,表的行数超过200万行时,就会变慢,这时可以把一张的表的数据拆成多张表来存放。举个例子:我们可以将用户信息表拆分成多个用户信息表,这样就可以避免单一表数据量过大对性能造成影响。\n【图：水平分区】一张表按行拆分为两张结构完全相同的表。\n水品拆分可以支持非常大的数据量。需要注意的一点是:分表仅仅是解决了单一表数据过大的问题，但由于表的数据还是在同一台机器上，其实对于提升MySQL并发能力没有什么意义，所以 水平拆分最好分库 。\n水平拆分能够 支持非常大的数据量存储，应用端改造也少，但 分片事务难以解决 ，跨界点Join性能较\n差，逻辑复杂。\n《Java工程师修炼之道》的作者推荐 尽量不要对数据进行分片，因为拆分会带来逻辑、部署、运维的各种复杂度 ，一般的数据表在优化得当的情况下支撑千万以下的数据量是没有太大问题的。如果实在要分片，尽量选择客户端分片架构，这样可以减少一次和中间件的网络I/O。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_43",
@@ -7959,7 +7999,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "表很大，分割后可以降低在查询时需要读的数据和索引的页数，同时也降低了索引的层数，提高查询次数\n【图：水平分表】一张大表沿行方向切分为 1、2、3 多段独立数据表。\n适用场景\n1、表中的数据本身就有独立性,例如表中分表记录各个地区的数据或者不同时期的数据,特别是有些数据常用,有些不常用。\n2、需要把数据存放在多个介质上。\n水平切分的缺点\n1、给应用增加复杂度,通常查询时需要多个表名,查询所有数据都需UNION操作\n2、在许多数据库应用中,这种复杂度会超过它带来的优点,查询时会增加读一个索引层的磁盘次数\n下面补充一下数据库分片的两种常见方案:\n客户端代理:分片逻辑在应用端,封装在jar包中,通过修改或者封装JDBC层来实现。当当网的Sharding-JDBC、阿里的TDDL是两种比较常用的实现。\n中间件代理:在应用和数据中间加了一个代理层。分片逻辑统一维护在中间件服务中。我们现在谈的\nMycat,360的Atlas、网易的DDB等等都是这种架构的实现。\n分库分表后面临的问题\n事务支持分库分表后,就成了分布式事务了。如果依赖数据库本身的分布式事务管理功能去执行事务,\n将付出高昂的性能代价;如果由应用程序去协助控制,形成程序存逻辑上的事务,又会造成编程方面的负担",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_44",
@@ -7968,7 +8010,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "只要是进行切分,跨节点Join的问题是不可避免的。但是良好的设计和切分却可以减少此类情况的发生。解决这一问题的普遍做法是分两次查询实现。在第一次查询的结果集中找出关联数据的id,根据这些id发起第二次请求得到关联数据。分库分表方案产品\n跨节点的count,order by,group by以及聚合函数问题这些是一类问题,因为它们都需要基于全部数据集合进行计算。多数的代理都不会自动处理合并工作。解决方案:与解决跨节点join问题的类似,分别在各个节点上得到结果后在应用程序端进行合并。和join不同的是每个结点的查询可以并行执行,因此很多时候它的速度要比单一大表快很多。但如果结果集很大,对应用程序内存的消耗是一个问题。\n数据迁移,容量规划,扩容等问题来自淘宝综合业务平台团队队,它利用对2的倍数取余具有向前兼容的特性(如对4取余得1的数对2取余也是1)来分配数据,避免了行级别的数据迁移,但是依然需要进行表级别的迁移,同时对扩容规模和分表数量都有限制。总得来说,这些方案都不是十分的理想,多多少少都存在一些缺点,这也从一个侧面反映出了Sharding扩容的难度。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_45",
@@ -7977,7 +8021,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "一旦数据库被切分到多个物理结点上,我们将不能再依赖数据库自身的主键生成机制。一方面,某个分区数据库自生成的ID无法保证在全局上是唯一的;另一方面,应用程序在插入数据之前需要先获得ID,以便进行SQL路由.",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_46",
@@ -7986,7 +8032,9 @@
     "relatedNodeId": "concept_primary_key",
     "answer": "UUID使用UUID作主键是简单的方案,但是缺点也是非常明显的。由于UUID非常的长,除占用大量存储空间外,主要的问题是在索引上,在建立索引和基于索引进行查询时都存在性能问题。\nTwitter的分布式自增ID算法\nSnowflake在分布式系统中,需要生成全局UID的场合还是比较多的,twitter的snowflake解决了这种需求,实现也还是很简单的,除去配置信息,核心代码就是毫秒级时间41位机器ID10位毫秒内序列12位。\n跨分片的排序分页般来讲,分页时需要按照指定字段进行排序。当排非序字段就是分片字段的时候,我们通过分片规则可以比较容易定位到指定的分片，而当排序字段非分片字段的时候，情况就会变得比较复杂了。为了 最终结果的准确性，我们需要在不同的分片节点中将数据进行排序并返回，并将不同分片返回的结果集进行汇总和再次排序， 后再返回给用户。如下图所示：\n【图：跨分片排序分页】Data Node1（ID 1-10000）与 Data Node2（ID 10001-20000）各自执行 select …order by date desc limit 0,10 取前 10 条，合并后再次排序截取，返回最终结果集。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_47",
@@ -7995,7 +8043,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "主从复制的作用\n1.主数据库出现问题,可以切换到从数据库。\n2.可以进行数据库层面的读写分离。\n3.可以在从数据库上进行日常备份。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_48",
@@ -8004,7 +8054,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "数据分布:随意开始或停止复制,并在不同地理位置分布数据备价分负载均衡:降低单个服务器的压力高可用和故障切换:帮助应用程序避免单点失败升级测试:可以以用更高版本的MySQL作为从库\n● MySQL主从复制工作原理\n在主库上把数据更高记录到二进制日志从库将主库的日志复制到自自己的中继日志\n从库读取中继日志的事件,将其重放到从库数据中基本原理理流程,3个线程以及之间的关联\n主:binlog线程一一记录下所有改变了数据库数据的语句,放进master上的binlog中;从:io线程在使用start slave之后,负责从master上拉取binlog内容,放进自己的relay log中;\n从:sql执行线程--执行relay log中的语句;\n【图：主从复制】Master：数据变更写入 Binary log；Slave：I/O thread 读取 Binlog 写入 Relay log，SQL thread 读取 Relay log 并重放。\nBinary log：主数据库的二进制日志\nRelay log：从服务器的中继日志\n第一步：master在每个事务更新数据完成之前，将该操作记录串行地写入到 binlog文件中。\n第二步：salve开启一个I/O Thread，该线程在master打开一个普通连接，主要工作是binlog dump\nprocess。如果读取的进度已经跟上了master，就进入睡眠状态并等待master产生新的事件。I/O线程\n终的目的是将这些事件写入到中继日志中。\n第三步：SQL Thread会读取中继日志，并顺序执行该日志中的SQL事件，从而与主数据库中的数据保持\n一致。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_49",
@@ -8013,7 +8065,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "读写分离是依赖于主从复制,而主从复制又是为读写分离服务多的。因为主从复制要求slave不能写只能读\n(如果对slave执行写操作,那么show   slave status将会呈现Slave_SQL_Running=NO,此时你需要按照前面提到的手动同步一下slave)。\n方案一\n使用mysql-proxy代理\n优点:直接实现读写分离和负载均衡,不用修改代码,master和slave用一样的帐号,mysql官方不建议实际生产中使用\n缺点:降低性能,不支持事务\n方案二\n使用AbstractRoutingDataSource+aop+annotation在dao层决定数据源。如果采用了mybatis,可以将读写分离放在ORM层,比如mybatis可以通过mybatis plugin拦截sql语句,所有的insert/update/delete都访问master库,所有的select都访问salve库,这样对于dao层都是透明。plugin实现时可以通过注解可我者分析语句是读写方法来选定主从库。不过这样依然有一个问题,也就是不支持事务,所以我们还需要重写ー下DataSourceTransactionManager,将read-only的事务扔进读库,其余的有读有写的扔进写库。\n方案三\n使用AbstractRoutingDataSource+aop+annotation在service层决定数据源，可以支持事务. \n缺点：类内部方法通过this.xx()方式相互调用时，aop不会进行拦截，需进行特殊处理",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_50",
@@ -8022,7 +8076,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "(1)备份计划视库的大小来定，一般来说 100G 内的库，可以考虑使用 mysqldump 来做，因为mysqldump更加轻巧灵活，备份时间选在业务低峰期，可以每天进行都进行全量备份(mysqldump 备份出来的文件比较小，压缩之后更小)。100G 以上的库，可以考虑用 xtranbackup 来做，备份速度明显要比mysqldump 要快。一般是选择一周一个全备，其余每天进行增量备份，备份时间为业务低峰期。\n(2)备份恢复时间\n物理备份恢复快，逻辑备份恢复慢\n这里跟机器，尤其是硬盘的速率有关系，以下列举几个仅供参考\n20G的2分钟（mysqldump）\n80G的30分钟(mysqldump)\n111G的30分钟（mysqldump)\n288G的3小时（xtra)\n3T的4小时（xtra)\n逻辑导入时间一般是备份时间的5倍以上\n(3)备份恢复失败如何处理首先在恢复之前就应该做足准备工作，避免恢复的时候出错。比如说备份之后的有效性检查、权限检查、空间检查等。如果万一报错，再根据报错的提示来进行相应的调整。\n(4)mysqldump和xtrabackup实现原理 mysqldump mysqldump 属于逻辑备份。加入–single-transaction 选项可以进行一致性备份。后台进程会先设置 session 的事务隔离级别为 RR(SET SESSION TRANSACTION ISOLATION LEVELREPEATABLE READ)，之后显式开启一个事务(START TRANSACTION /* !40100 WITH CONSISTENTSNAPSHOT * /)，这样就保证了该事务里读到的数据都是事务事务时候的快照。之后再把表的数据读取出来。如果加上–master-data=1 的话，在刚开始的时候还会加一个数据库的读锁(FLUSH TABLES WITH READ LOCK),等开启事务后，再记录下数据库此时 binlog 的位置(showmaster status)，马上解锁，再读取表的数据。等所有的数据都已经导完，就可以结束事务\nXtrabackup:\nxtrabackup属于物理备份,直接拷贝表空间文件,同时不断扫描产生的redo日志并保存下来。后完成innodb的备份后,会做一个flushengine logs的操作(老版本在有bug,在5.6上不做此操作会丢数据),确保所有的redolog都已经落盘(涉及到事务的两阶段提交概念,因为xtrabackup并不拷贝binlog,所以必须保证所有的redolog都落盘,否则可能会丢后一组提交事务的数据)。这个时间点就是innodb完成备份的时间点,数据文件虽然不是一致性的,但是有这段时间的redo就可以让数据文件达到一致性(恢复的时候做的事情)。然后还需要flush tables with read lock,把myisam等其他引擎的表给备份出来,备份完后解锁。这样就做到了完美的热备。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_51",
@@ -8031,7 +8087,9 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "使用 myisamchk 来修复，具体步骤：\n1） 修复前将mysql服务停止。\n2） 打开命令行方式，然后进入到mysql的/bin目录。\n3） 执行myisamchk –recover 数据库所在路径/* .MYI使用repair table 或者 OPTIMIZE table命令来修复，REPAIR TABLE \ntable_name 修复表 OPTIMIZE TABLE table_name 优化表 REPAIR TABLE 用于修复被破坏的表。\nOPTIMIZE TABLE 用于回收闲置的数据库空间，当表上的数据行被删除时，所占据的磁盘空间并没有立即被回收，使用了OPTIMIZE TABLE命令后这些空间将被回收，并且对磁盘上的数据行进行重排（注意：是磁盘上，而非数据库）",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_sql_notes_52",
@@ -8040,214 +8098,207 @@
     "relatedNodeId": "k_wiki_en_outline_of_databases_s5_b5",
     "answer": "mysql复制主要有三种方式：基于SQL语句的复制(statement-based replication, SBR)，基于行的复制(row-based replication, RBR)，混合模式复制(mixed-based replication, MBR)。对应的，binlog的格式也有三种：STATEMENT，ROW，MIXED。\n① STATEMENT模式（SBR） 每一条会修改数据的sql语句会记录到binlog中。优点是并不需要记录每一条sql语句和每一行的 数据变化，减少了binlog日志量，节约IO，提高性能。缺点是在某些情况下会导致master-slave 中的数据不一致( 如sleep()函数， last_insert_id()，以及user-defined functions(udf)等会出现 问题)\n② ROW模式（RBR） 不记录每条sql语句的上下文信息，仅需记录哪条数据被修改了，修改成什么样了。而且不会出 现某些特定情况下的存储过程、或function、或trigger的调用和触发无法被正确复制的问题。缺 点是会产生大量的日志，尤其是alter table的时候会让日志暴涨。\n③ MIXED模式（MBR） 以上两种模式的混合使用，一般的复制使用STATEMENT模式保存binlog，对于STATEMENT 模式无法复制的操作使用ROW模式保存binlog，MySQL会根据执行的SQL语句选择日志保存方式。",
     "createdAt": 1788015205535,
-    "updatedAt": 1788015205535
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_1",
     "text": "什么是索引？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。 索引是一种数据结构。数据库索引，是数据库管理系统中一个排序的数据结构，以协助快速查询、更新数据库表中数据。索引的实现通常使用B树及其变种 B+树。 更通俗的说，索引就相当于目录。为了方便查找书中的内容，通过对内容建立索引形成目录。索引是一 个文件，它是要占据物理空间的。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_2",
-    "text": "索引有哪些优缺点？ 索引使用场景（重点）",
+    "text": "索引有哪些优缺点？适用场景是什么？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "【图：EXPLAIN 使用主键索引示例】`EXPLAIN select * from innodb1 where id<20` 的执行计划：id=1、select_type=SIMPLE、table=innodb1、type=range、possible_keys=PRIMARY（红框标注「可选的索引」）、key=PRIMARY（红框标注「真正用来检索的索引」）。\n【图：无索引字段查询走全表扫描】上图说明：根据 id 查询时因 id 字段仅建了主键索引，可选索引只有主键索引，若有多个最终会选一个较优的作为检索依据。实验：`1--增加一个没有建立索引的字段 2 alter table innodb1 add sex char(1); 3--按 sex 检索时可选的索引为 null 4 EXPLAIN SELECT * from innodb1 where sex='男';` 下方执行计划显示 type=ALL、possible_keys=(Null)、key=(Null)——无索引字段查询走全表扫描。\n可以尝试在一个字段未建立索引时，根据该字段查询的效率，然后对该字段建立索引 （altertable表名addindex(字段名)），同样的SQL执行的效率，你会发现查询效率 会有明显的提升（数据量越大越明显）。\norderby 当我们使用orderby将查询结果按照某个字段排序时，如果该字段没有建立索 引，那么执行计划会将查询出的所有数据使用外部排序（将数据从硬盘分批读取到内存使用内部排序， 最后合并排序结果），这个操作是很影响性能的，因为需要将查询涉及到的所有数据从磁盘中读到内存 （如果单条数据过大或者数据量过多都会降低效率），更无论读到内存之后的排序了。 但是如果我们对该字段建立索引altertable表名addindex(字段名)，那么由于索引本身是有序的，因此直 接按照索引的顺序和映射关系逐条取出数据即可。而且如果分页的，那么只用取出索引表某个范围内的 索引对应的数据，而不用像上述那取出所有数据进行排序再返回某个范围内的数据。（从磁盘取数据是 最影响性能的） \njoin 对join语句匹配关系（on）涉及的字段建立索引能够提高效率",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788180662917,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_3",
     "text": "索引有哪几种类型？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "主键索引:数据列不允许重复，不允许为NULL， 一个表只能有一个主键。\n唯一索引:数据列不允许重复，允许为NULL值， 一个表允许多个列创建唯一索引。 \n可以通过ALTER  TABLE  table_name  ADD  UNIQUE(column); 创建唯一索引\n可以通过ALTER TABLE table_name ADD UNIQUE(column1,column2); 创建唯一组合索引 \n普通索引:基本的索引类型，没有唯一性的限制，允许为NULL值。 \n可以通过ALTER TABLE table_name ADD INDEX index_name(column); 创建普通索引 \n可以通过ALTER TABLE table_name ADD INDEX index_name(column1,column2,column3); 创建组合索引\n全文索引：是目前搜索引擎使用的一种关键技术。 可以通过ALTERTABLEtable_nameADDFULLTEXT(column); 创建全文索引",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_4",
-    "text": "索引的数据结构（b树，hash）",
+    "text": "索引常用的数据结构有哪些？B 树和哈希各适用什么场景？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "索引的数据结构和具体存储引擎的实现有关，在MySQL中使用较多的索引有 Hash索引，B+树索引等，而我们经常使用的InnoDB存储引擎的默认索引实现为：B+树索引。对于哈希索引来说，底层的数据结构就是哈希表，因此在绝大多数需求为单条记录查询的时候，可以选择哈希索引，查询性能快；其余大部分场景，建议选择BTree索引。 \n1）B树索引mysql通过存储引擎取数据，基本上90%的人用的就是InnoDB了，\n按照实现方式分， InnoDB的索引类型目前只有两种：BTREE（B树）索引和HASH索引。\nB树索引是Mysql数据库中使用频 繁的索引类型，基本所有存储引擎都支持BTree索引。通常我们说的索引不出意外指的就是（B树）索引（实际是用B+树实现的，因为在查看表索引时，mysql一律打印BTREE，所以简称为B树索引）\n【图解：B+ 树索引结构（三层）】根节点磁盘块1（索引项 17、35；指针 P1、P2、P3）指向三个子磁盘块：磁盘块2（8、12；P1~P3）、磁盘块3（26、30；P1~P3）、磁盘块4（65、87；P1~P3）；再向下指向叶子层磁盘块5~11，叶子中存放实际数据（3,5 / 9,10 / 13,15 / 28,29 / 36,60 / 75,79 / 90,99）——经典的 B+ 树索引三层结构。\n\n查询方式：\n主键索引区:PI(关联保存的时数据的地址)按主键查询,\n普通索引区:si(关联的id的地址,然后再到达上面的地址)。所以按主键查询,速度快\nB+tree性质：\n1.）n棵子tree的节点包含n个关键字，不用来保存数据而是保存数据的索引。\n2.）所有的叶子结点中包含了全部关键字的信息，及指向含这些关键字记录的指针，且叶子结点本身依关键字的大小自小而大顺序链接。\n3.）所有的非终端结点可以看成是索引部分，结点中仅含其子树中的大（或小）关键字。\n4.）B+树中，数据对象的插入和删除仅在叶节点上进行。\n5.）B+树有2个头指针，一个是树的根节点，一个是小关键码的叶节点。2）哈希索引简要说下，类似于数据结构中简单实现的HASH表（散列表）一样，当我们在\nmysql中用哈希索引时，主要就是通过Hash算法（常见的Hash算法有直接定址法、平方取中法、折叠法、除数取余法、随机数法），将数据库字段数据转换成定长的Hash值，与这条数据的行指针一并存入Hash表的对应位置；如果发生Hash碰撞（两个不同关键字的Hash值相同），则在对应Hash键下以链表形式存储。当然这只是简略模 拟图。\n【图解：哈希索引】左侧哈希表：键 1201~1205 分别对应 hash value 2033/2085/2097/3012/3036，address 0X75/0X7F/0X86/0X6B/0X3C；箭头指向右侧数据表记录（1 July、2 Mary、3 Paul、4 Rose、5 Yale）——哈希索引通过 hash 值直接映射到数据行地址。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
-  },
-  {
-    "id": "q_dbnotes_index_5",
-    "text": "索引的基本原理",
-    "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "索引用来快速地寻找那些具有特定值的记录。如果没有索引，一般来说执行查询时遍历整张表。 索引的原理很简单，就是把无序的数据变成有序的查询 \n1. 把创建了索引的列的内容进行排序\n2. 对排序结果生成倒排表 \n3. 在倒排表内容上拼上数据地址链 \n4. 在查询的时候，先拿到倒排表内容，再取出数据地址链，从而拿到具体数据\n索引算法有哪些？\n索引算法有BTree算法和Hash算法\nBTree算法 BTree是常用的mysql数据库索引算法，也是mysql默认的算法。因为它不仅可以被用在=,>,>=,<,<=和 between这些比较操作符上，而且还可以用于like操作符，只要它的查询条件是一个不以通配符开头的 常量，例如： 1 2 3 4 --只要它的查询条件是一个不以通配符开头的常量 select * from user where name like 'jack%';--如果一通配符开头，或者没有使用常量，则不会使用索引，例如： select * from user where name like'%jack'; Hash算法 HashHash索引只能用于对等比较，例如=,<=>（相当于=）操作符。由于是一次定位数据，不像BTree索 引需要从根节点到枝节点，后才能访问到页节点这样多次IO访问，所以检索效率远高于BTree索引。",
-    "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
-  },
-  {
-    "id": "q_dbnotes_index_6",
-    "text": "索引设计的原则？",
-    "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "1.适合索引的列是出现在where子句中的列，或者连接子句中指定的列\n2.基数较小的类，索引效果较差，没有必要在此列建立索引 \n3.使用短索引，如果对长字符串列进行索引，应该指定一个前缀长度，这样能够节省大量索引空间 \n4.不要过度索引。索引需要额外的磁盘空间，并降低写操作的性能。在修改表内容的时候，索引会进行 更新甚至重构，索引列越多，这个时间就会越长。所以只保持需要的索引有利于查询即可。",
-    "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
-  },
-  {
-    "id": "q_dbnotes_index_7",
-    "text": "创建索引的原则",
-    "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "索引虽好，但也不是无限制的使用，好符合一下几个原则 \n1）左前缀匹配原则，\n组合索引非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、 between、like)就停止匹配，比如a=1 and b=2 and c>3 and d=4如果建立(a,b,c,d)顺序的索引，d是用不到 索引的，如果建立 (a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。\n2）较频繁作为查询条件的字段才去创建索引\n3）更新频繁字段不适合创建索引 \n4）若是不能有效区分数据的列不适合做索引列(如性别，男女未知，多也就三种，区分度实在太低) \n5）尽量的扩展索引，不要新建索引。比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要修改原来的索引即可。\n6）定义有外键的数据列一定要建立索引。\n7）对于那些查询中很少涉及的列，重复值比较多的列不要建立索引。\n8）对于定义为text、image和bit 的数据类型的列不要建立索引。",
-    "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_8",
-    "text": "创建索引的三种方式，",
+    "text": "创建索引有哪几种方式？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "第一种方式：在执行CREATETABLE时创建索引 \nCREATE TABLE user_index2( id INT auto_incrementPRIMARYKEY, first_nameVARCHAR(16), last_name VARCHAR(16), id_cardVARCHAR(18), informationtext, KEYname(first_name,last_name), FULLTEXTKEY(information), UNIQUEKEY(id_card));\n第二种方式：使用ALTERTABLE命令去增加索引 ALTER TABLE table_name ADD  INDEX  index_name(column_list);\nALTERTABLE用来创建普通索引、UNIQUE索引或PRIMARYKEY索引。 其中table_name是要增加索引的表名，column_list指出对哪些列进行索引，多列时各列之间用逗号分 隔。 索引名index_name可自己命名，缺省时，MySQL将根据第一个索引列赋一个名称。另外， ALTERTABLE允许在单个语句中更改多个表，因此可以在同时创建多个索引。\n第三种方式：使用CREATE INDEX命令创建\nCREATE INDEX index_name ON table_name(column_list); \nCREATE INDEX可对表增加普通索引或UNIQUE索引。（但是，不能创建PRIMARY KEY索引）",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "application",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_9",
-    "text": "删除索引",
+    "text": "如何删除索引？有什么注意事项？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "根据索引名删除普通索引、唯一索引、全文索引：alter table 表名 drop KEY 索引名\nalter table user_index drop KEY name; alter table user_index drop KEY id_card; \nalter table user_index drop KEY information; \n删除主键索引：alter table 表名 drop primary key（因为主键只有一个）。\n这里值得注意的是，如果主键自增长，那么不能直接执行此操作（自增长依赖于主键索引）：\nalter table user_index drop primary key\n[SQL]alter table user_index drop primary key\n[Err] 1075 - Incorrect table defintion; there can be only one auto column \n需要取消自增长再行删除:\nalter table  user_index\n--重新定义字段\nMODIFY id int.\ndrop  PRIMARYKEY",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
-  },
-  {
-    "id": "q_dbnotes_index_10",
-    "text": "创建索引时需要注意什么？",
-    "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "非空字段：应该指定列为NOT NULL，除非你想存储NULL。在mysql中，含有空值的列很难进行查询优化，因为它们使得索引、索引的统计信息以及比较运算更加复杂。你应该用0、一个特殊的值或者一个空串代替空值；\n取值离散大的字段：（变量各个取值之间的差异程度）的列放到联合索引的前面，可以通过count()函数查看字段的差异值，返回值越大说明字段的唯一值越多字段的离散程度高；\n索引字段越小越好：数据库的数据存储以页为单位一页存储的数据越多一次IO操作获取的数据越大，效率越高。",
-    "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "application",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_11",
     "text": "使用索引查询一定能提高查询的性能吗？为什么",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "通常，通过索引查询数据比全表扫描要快。但是我们也必须注意到它的代价。索引需要空间来存储，也需要定期维护，每当有记录在表中增减或索引列被修改时，索引本身也会被修改。这意味着每条记录的INSERT，DELETE，UPDATE将为此多付出4，5次的磁盘I/O。因为索引需要额外的存储空间和处理，那些不必要的索引反而会使查询反应时间变慢。使用索引查询不一定能提高查询性能，索引范围查询(INDEXRANGESCAN)适用于两种情况:基于一个范围的检索，一般查询返回结果集小于表中记录数的30%\n基于非唯一性索引的检索",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_12",
     "text": "百万级别或以上的数据如何删除",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "关于索引：由于索引需要额外的维护成本，因为索引文件是单独存在的文件,所以当我们对数据的增加,修改,删除,都会产生额外的对索引文件的操作,这些操作需要消耗额外的IO,会降低增/改/删的执行效率。所以，在我们删除数据库百万级别数据的时候，查询MySQL官方手册得知删除数据的速度和创建的索引数量是成正比的。\n1. 所以我们想要删除百万数据的时候可以先删除索引（此时大概耗时三分多钟）\n2. 然后删除其中无用数据（此过程需要不到两分钟）\n3. 删除完成后重新创建索引(此时数据较少了)创建索引也非常快，约十分钟左右。\n4. 与之前的直接删除绝对是要快速很多，更别说万一删除中断,一切删除会回滚。那更是坑了。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_13",
-    "text": "前缀索引",
+    "text": "什么是前缀索引？如何选择前缀长度？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "concept_prefix_index",
     "answer": "语法：index(field(10))，使用字段值的前10个字符建立索引，默认是使用字段的全部内容建立索引。\n前提：前缀的标识度高。比如密码就适合建立前缀索引，因为密码几乎各不相同。\n实操的难度：在于前缀截取的长度。\n我们可以利用select count( * )/count(distinctleft(password,prefixLen));，通过从调整prefixLen的值（从1自增）查看不同前缀长度的一个平均匹配度，接近1时就可以了（表示一个密码的前prefixLen个字符几乎能确定唯一一条记录）",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_14",
     "text": "什么是最左前缀原则？什么是最左匹配原则",
     "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "顾名思义，就是最左优先，在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。\n最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，比如a=1 and b=2 and c>3 and d=4如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。=和in可以乱序，比如a=1 and b=2 and c=3建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式",
+    "relatedNodeId": "n_0xxb9cqy",
+    "answer": "就是最左优先，在创建多列索引时，要根据业务需求，where子句中使用最频繁的一列放在最左边。\n最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(>、<、between、like)就停止匹配，比如a=1 and b=2 and c>3 and d=4如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。=和in可以乱序，比如a=1 and b=2 and c=3建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788150671929,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_15",
     "text": "B树和B+树的区别",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "在B树中，你可以将键和值存放在内部节点和叶子节点；但在B+树中，内部节点都是键，没有值，叶子节点同时存放键和值。B+树的叶子节点有一条链相连，而B树的叶子节点各自独立。\n【图解：B 树与 B+ 树对比（order 4）】左侧 B-tree：根节点 10，中间节点 5、15 20，叶子 1 3 4 / 6 / 12 / 16 18 / 25——每个节点都带指向数据记录的指针（粉色箭头），数据可存放在所有节点。右侧 B+-tree：根节点 6，中间节点 5、15 18，数据全部在叶子层（1 3 4 / 5 / 6 10 12 / 15 16 / 18 20 25），且叶子节点之间用红色箭头串联成有序链表——支持范围查询与顺序遍历。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_16",
     "text": "使用B树的好处",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "B树可以在内部节点同时存储键和值，因此，把频繁访问的数据放在靠近根节点的地方将会大大提高热点数据的查询效率。这种特性使得B树在特定数据重复多次查询的场景中更加高效。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_17",
     "text": "使用B+树的好处",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "由于B+树的内部节点只存放键，不存放值，因此，一次读取，可以在内存页中获取更多的键，有利于更快地缩小查找范围。B+树的叶节点由一条链相连，因此，当需要进行一次全数据遍历的时候，B+树只需要使用O(logN)时间找到最小的一个节点，然后通过链进行O(N)的顺序遍历即可。而B树则需要对树的每一层进行遍历，这会需要更多的内存置换次数，因此也就需要花费更多的时间",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
-  },
-  {
-    "id": "q_dbnotes_index_18",
-    "text": "Hash索引和B+树所有有什么区别或者说优劣呢?",
-    "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "首先要知道Hash索引和B+树索引的底层实现原理：\nhash索引底层就是hash表，进行查找时，调用一次hash函数就可以获取到相应的键值，之后进行回表查询获得实际数据。B+树底层实现是多路平衡查找树。\n对于每一次的查询都是从根节点出发，查找到叶子节点方可以获得所查键值，然后根据查询判断是否需要回表查询数据。\nhash索引进行等值查询更快(一般情况下)，但是却无法进行范围查询。\n因为在hash索引中经过hash函数建立索引之后，索引的顺序与原顺序无法保持一致，不能支持范围查询。而B+树的的所有节点皆遵循(左节点小于父节点，右节点大于父节点，多叉树也类似)，天然支持范围。\nhash索引不支持使用索引进行排序，原理同上。\nhash索引不支持模糊查询以及多列索引的最左前缀匹配。原理也是因为hash函数的不可预测。AAAA和AAAAB的索引没有相关性。\nhash索引任何时候都避免不了回表查询数据，而B+树在符合某些条件(聚簇索引，覆盖索引等)的时候可以只通过索引完成查询。\nhash索引虽然在等值查询上较快，但是不稳定。性能不可预测，当某个键值存在大量重复的时候，发生hash碰撞，此时效率可能极差。而B+树的查询效率比较稳定，对于所有的查询都是从根节点到叶子节点，且树的高度较低。\n因此，在大多数情况下，直接选择B+树索引可以获得稳定且较好的查询速度。而不需要使用hash索引。",
-    "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_19",
     "text": "数据库为什么使用B+树而不是B树",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "B树只适合随机检索，而B+树同时支持随机检索和顺序检索；\nB+树空间利用率更高，可减少I/O次数，磁盘读写代价更低。一般来说，索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗。B+树的内部结点并没有指向关键字具体信息的指针，只是作为索引使用，其内部结点比B树小，盘块能容纳的结点中关键字数量更多，一次性读入内存中可以查找的关键字也就越多，相对的，IO读写次数也就降低了。而IO读写次数是影响索引检索效率的最大因素；\nB+树的查询效率更加稳定。B树搜索有可能会在非叶子结点结束，越靠近根节点的记录查找时间越短，只要找到关键字即可确定记录的存在，其性能等价于在关键字全集内做一次二分查找。而在B+树中，顺序检索比较明显，随机检索时，任何关键字的查找都必须走一条从根节点到叶节点的路，所有关键字的查找路径长度相同，导致每一个关键字的查询效率相当。B-树在提高了磁盘IO性能的同时并没有解决元素遍历的效率低下的问题。B+树的叶子节点使用指针顺序连接在一起，只要遍历叶子节点就可以实现整棵树的遍历。而且在数据库中基于范围的查询是非常频繁的，而B树不支持这样的操作。增删文件（节点）时，效率更高。因为B+树的叶子节点包含所有关键字，并以有序的链表结构存储，这样可很好提高增删效率。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_20",
-    "text": "B+树在满足聚簇索引和覆盖索引的时候不需要回表查询数据",
+    "text": "为什么满足聚簇索引或覆盖索引时不需要回表查询？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "concept_covering_index",
     "answer": "在B+树的索引中，叶子节点可能存储了当前的key值，也可能存储了当前的key值以及整行的数据，这就是聚簇索引和非聚簇索引。在InnoDB中，只有主键索引是聚簇索引，如果没有主键，则挑选一个唯一键建立聚簇索引。如果没有唯一键，则隐式的生成一个键来建立聚簇索引。当查询使用聚簇索引时，在对应的叶子节点，可以获取到整行数据，因此不用再次进行回表查询。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_21",
     "text": "什么是聚簇索引？何时使用聚簇索引与非聚簇索引",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "n_0xxb9cqy",
     "answer": "聚簇索引：将数据存储与索引放到了一块，找到索引也就找到了数据\n非聚簇索引：将数据存储于索引分开结构，索引结构的叶子节点指向了数据的对应行，myisam通过key_buffer把索引先缓存到内存中，当需要访问数据时（通过索引访问数据），在内存中直接搜索索引，然后通过索引找到磁盘相应数据，这也就是为什么索引不在key buffer命中时，速度慢的原因\n澄清一个概念：innodb中，在聚簇索引之上创建的索引称之为辅助索引，辅助索引访问数据总是需要二次查找，非聚簇索引都是辅助索引，像复合索引、前缀索引、唯一索引，辅助索引叶子节点存储的不再是行的物理位置，而是主键值\n何时使用聚簇索引与非聚簇索引\n【表：聚簇索引与非聚簇索引的使用场景】动作 / 使用聚簇索引 / 使用非聚簇索引：列经常被分组排序（应/应）；返回某范围内的数据（应/不应）；一个或极少不同值（不应/不应）；小数目的不同值（应/不应）；大数目的不同值（不应/应）；频繁更新的列（不应/应）；外键列（应/应）；主键列（应/应）；频繁修改索引列（不应/应）。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108037990,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_index_22",
     "text": "非聚簇索引一定会回表查询吗？",
     "answered": true,
-    "relatedNodeId": "concept_index",
+    "relatedNodeId": "concept_clustered_index",
     "answer": "不一定，这涉及到查询语句所要求的字段是否全部命中了索引，如果全部命中了索引，那么就不必再进行回表查询\n举个简单的例子，假设我们在员工表的年龄上建立了索引，那么当进行select age from employee  where age < 20的查询时，在索引的叶子节点上，已经包含了age信息，不会再次进行回表查询。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788107129482,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_index_23",
     "text": "联合索引是什么？为什么需要注意联合索引中的顺序？",
     "answered": true,
-    "relatedNodeId": "concept_index",
-    "answer": "MySQL可以使用多个字段同时建立一个索引，叫做联合索引。在联合索引中，如果想要命中索引，需要按照建立索引时的字段顺序挨个使用，否则无法命中索引。\n具体原因为:\nMySQL使用索引时需要索引有序，假设现在建立了\"name，age，school\"的联合索引，那么索引的排序为: 先按照name排序，如果name相同，则按照age排序，如果age的值也相等，则按照school进行排序。\n当进行查询时，此时索引仅仅按照name严格有序，因此必须首先使用name字段进行等值查询，之后对于匹配到的列而言，其按照age字段严格有序，此时可以使用age字段用做索引查找，以此类推。因此在建立联合索引的时候应该注意索引列的顺序，一般情况下，将查询需求频繁或者字段选择性高的列放在前面。此外可以根据特例的查询或者表结构进行单独的调整。",
+    "relatedNodeId": "concept_composite_index",
+    "answer": "MySQL可以使用多个字段同时建立一个索引，叫做联合索引。在联合索引中，如果想要命中索引，需要按照建立索引时的字段顺序挨个使用，否则无法命中索引。\n具体原因为:\nMySQL使用索引时需要索引有序，假设现在建立了\"name，age，school\"的联合索引，那么索引的排序为: 先按照name排序，如果name相同，则按照age排序，如果age的值也相等，则按照school进行排序。\n当进行查询时，此时索引仅仅按照name严格有序，因此必须首先使用name字段进行等值查询，之后对于匹配到的列而言，其按照age字段严格有序，此时可以使用age字段用做索引查找，以此类推。因此在建立联合索引的时候应该注意索引列的顺序，一般情况下，将查询需求频繁或者字段选择性高的列放在前面。此外可以根据特例的查询或者表结构进行单独的调整。\n\n补充：若查询条件的书写顺序与索引顺序不一致（如 WHERE user_age=17 AND user_name='tom' AND user_level='A'），MySQL 优化器会自动调整条件顺序，仍能命中索引；但直接跳过最左列（只用 age、level 查询）则用不到索引——最左列才是全局有序的，第二列只在第一列相等的范围内局部有序（B+ 树结构决定）。",
     "createdAt": 1788038680800,
-    "updatedAt": 1788038680800
+    "updatedAt": 1788108419538,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_24",
@@ -8256,7 +8307,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "在Read Uncommitted级别下，读取数据不需要加共享锁，这样就不会跟被修改的数据上的排他锁冲突\n在Read Committed级别下，读操作需要加共享锁，但是在语句执行完以后释放共享锁；\n在Repeatable Read级别下，读操作需要加共享锁，但是在事务提交之前并不释放共享锁，也就是必须等待事务执行完毕以后才释放共享锁。\nSERIALIZABLE 是限制性最强的隔离级别，因为该级别锁定整个范围的键，并一直持有锁，直到事务完成。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_25",
@@ -8265,7 +8318,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "在关系型数据库中，可以按照锁的粒度把数据库锁分为",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_26",
@@ -8274,7 +8329,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "#页级锁(BDB引擎 )。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_27",
@@ -8283,7 +8340,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "MyISAM采用表级锁(table-level locking)。\nInnoDB支持行级锁(row-level locking)和表级锁，默认为行级锁",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_28",
@@ -8292,7 +8351,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "行级锁 行级锁是Mysql中锁定粒度最细的一种锁，表示只针对当前操作的行进行加锁。行级锁能大大减\n少数据库操作的冲突。其加锁粒度最小，但加锁的开销也最大。行级锁分为 #共享锁 和  #排他锁。\n特点：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。\n表级锁 表级锁是MySQL中锁定粒度最大的一种锁，表示对当前操作的整张表加锁，它实现简单，资源消耗较少，被大部分MySQL引擎支持。最常使用的MYISAM与INNODB都支持表级锁定。\n表级锁定分为 #表共享读锁（共享锁） 与 #表独占写锁（排他锁）。\n特点：开销小，加锁快；不会出现死锁；锁定粒度大，发出锁冲突的概率最高，并发度最低。\n页级锁 页级锁是MySQL中锁定粒度介于行级锁和表级锁中间的一种锁。表级锁速度快，但冲突多，行级冲突少，但速度慢。所以取了折衷的页级，一次锁定相邻的一组记录。\n特点：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "comparison",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_29",
@@ -8301,7 +8362,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "从锁的类别上来讲，有共享锁和排他锁。\n共享锁: 又叫做读锁。 当用户要进行数据的读取时，对数据加上共享锁。共享锁可以同时加上多个。\n排他锁: 又叫做写锁。 当用户要进行数据的写入时，对数据加上排他锁。排他锁只可以加一个，他和其\n他的排他锁，共享锁都相斥。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_30",
@@ -8310,25 +8373,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "数据库管理系统（DBMS）中的并发控制的任务是确保在多个事务同时存取数据库中同一数据时不破坏事务的隔离性和统一性以及数据库的统一性。乐观并发控制（乐观锁）和悲观并发控制（悲观锁）是并发控制主要采用的技术手段。\n悲观锁：假定会发生并发冲突，屏蔽一切可能违反数据完整性的操作。在查询完数据的时候就把事务锁起来，直到提交事务。实现方式：使用数据库中的锁机制乐观锁：假设不会发生并发冲突，只在提交操作时检查是否违反数据完整性。在修改数据的时候把事务锁起来，通过version的方式来进行锁定。实现方式：乐一般会使用版本号机制或CAS算法实现。\n两种锁的使用场景从上面对两种锁的介绍，我们知道两种锁各有优缺点，不可认为一种好于另一种，像乐观锁适用于写比较少的情况下（多读场景），即冲突真的很少发生的时候，这样可以省去了锁的开销，加大了系统的整个吞吐量但如果是多写的情况,一般会经常产生冲突,这就会导致上层应用会不断的进行retry,这样反倒是降低了性能,所以一般多写的场景下用悲观锁就比较合适",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
-  },
-  {
-    "id": "q_dbnotes_lock_31",
-    "text": "乐观锁",
-    "answered": true,
-    "relatedNodeId": "concept_lock_mechanism",
-    "answer": "用数据版本（Version）记录机制实现，这是乐观锁最常用的一种实现方式。何谓数据版本？即 为数据增加一个版本标识，一般是通过为数据库表增加一个数字类型的 “version” 字段来实 现。当读取数据时，将version字段的值一同读出，数据每更新一次，对此version值加1。当我 们提交更新的时候，判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比 对，如果数据库表当前版本号与第一次取出来的version值相等，则予以更新，否则认为是过期 数据。",
-    "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
-  },
-  {
-    "id": "q_dbnotes_lock_32",
-    "text": "悲观锁",
-    "answered": true,
-    "relatedNodeId": "concept_lock_mechanism",
-    "answer": "在进行每次操作时都要通过获取锁才能进行对相同数据的操作，这点跟java中synchronized很 相似，共享锁（读锁）和排它锁（写锁）是悲观锁的不同的实现",
-    "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_33",
@@ -8337,7 +8384,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "共享锁又叫做读锁,所有的事务只能对其进行读操作不能写操作,加上共享锁后在事务结束之前其他事务只能再加共享锁,除此之外其他任何类型的锁都不能再加了。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_34",
@@ -8346,7 +8395,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "若某个事物对某一行加上了排他锁,只能这个事务对其进行读写,在此事务结束之前,其他事务不能对其进行加任何锁,其他进程可以读取,不能进行写操作,需等待其释放。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_35",
@@ -8355,7 +8406,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "innodb的行锁是在有索引的情况下,没有索引的表是锁定全表的",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_36",
@@ -8364,7 +8417,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "行锁又分共享锁和排他锁,由字面意思理解,就是给某一行加上锁,也就是一条记录加上锁。注意:行级锁都是基于索引的,如果一条SQL语句用不到索引是不会使用行级锁的,会使用表级锁。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_37",
@@ -8373,7 +8428,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "MySQL/InnoDB的加锁,一直是一个面试中常问的话题。例如,数据库如果有高并发请求,如何保证数据完整性?产生死锁问题如何排查并解决?我在工作过程中,也会经常用到,乐观锁,排它锁,等。于是今天就对这几个概念进行学习,屡屡思路,记录一下。\n注:MySQL是一个支持插件式存储引擎的数据库系统。本文下面的房所有介绍,都是基于InnoDB存储引擎,其他引擎的表现,会有较大的区别。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_38",
@@ -8382,25 +8439,31 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "MySQL给开发者提供了查询存储引擎的功能,我这里使用的是MySQL5.6.4,可以使用:SHOW ENGINES",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_39",
-    "text": "乐观锁",
+    "text": "乐观锁是怎么实现的？",
     "answered": true,
-    "relatedNodeId": "concept_lock_mechanism",
+    "relatedNodeId": "concept_optimistic_lock",
     "answer": "用数据版本(Version)记录机制实现,这是乐观锁最常用的一种实现方式。何谓数据版本?即为数据增加一个版本标识,一般是通过为数据库表增加一个数字类型的\"version\"字段来实现。当读取数据时,将version字段的值一同读出,数据每更新一次,对此versior值加1。当我们提交更新的时候,判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比对,如果数据库表当前版本号与第一次取出来的version值相等,则予以更新,否则认为是过期数据。\n举例\n1、数据库表设计\n三个字段,分别是id,value、version\nselect id,value,version from TABLE where id=#{id=#{id}\n2、每次更新表中的value字段时,为了防止发生冲突,需要这样操作 \nupdate TABLE\nset value=2,version=version+1\nwhere id=#{id} and version=#{version};",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788107018144,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_40",
-    "text": "悲观锁",
+    "text": "什么是悲观锁？它和乐观锁有什么区别？",
     "answered": true,
-    "relatedNodeId": "concept_lock_mechanism",
+    "relatedNodeId": "concept_pessimistic_lock",
     "answer": "悲观锁就是在操作数据时，认为此操作会出现数据冲突，所以在进行每次操作时都要通过获取锁才能进行对相同数据的操作，这点跟java中的synchronized很相似，所以悲观锁需要耗费较多的时间。另外与乐观锁相对应的，悲观锁是由数据库自己实现了的，要用的时候，我们直接调用数据库的相关语句就可以了。\n说到这里，由悲观锁涉及到的另外两个锁概念就出来了，它们就是共享锁与排它锁。共享锁和排它锁是悲观锁的不同的实现，它俩都属于悲观锁的范畴。\n使用，排它锁 举例\n要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，\n也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。\n```sql\nset autocommit=0;",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788107018144,
+    "kind": "definition",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_41",
@@ -8409,7 +8472,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "begin;/begin work;/start transaction; (三者选一就可以)",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_42",
@@ -8418,7 +8483,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "select status from TABLE where id=1 for update;",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_43",
@@ -8427,7 +8494,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "insert into TABLE (id,value) values (2,2);",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_44",
@@ -8436,7 +8505,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "update TABLE set_value=2 where id=1;",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_45",
@@ -8445,7 +8516,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "commit;//commit work;\n```",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_46",
@@ -8454,7 +8527,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "共享锁又称读锁 read lock，是读取操作创建的锁。其他用户可以并发读取数据，但任何事务都不能对数据进行修改（获取数据上的排他锁），直到已释放所有共享锁。\n如果事务T对数据A加上共享锁后，则其他事务只能对A再加共享锁，不能加排他锁。获得共享锁的事务只能读数据，不能修改数据\n打开第一个查询窗口\n```\nbegin;/begin work;/start transaction;(三者选一就可以)\nSELECT * from TABLE where id = 1 lock in shaare mode;\n```\n然后在另一个查询窗口中,对id为1的数据进行更新\nupdate TABLE set name=\"www.souyunku.com\" where id =1;\n此时,操作界面进入了卡顿状态,过了超时间,提示错误信息如果在超时前,执行 commit,此更新语句就会成功。\n[SQL]update test_one set name=\"www.souyunku.com\" where id =1;\n[Err] 1205 - Lock wait timeout exceeded; try restartting transaction\n加上共享锁后,也提示错误信息\nupdate test_one set name=\"www.souyunku.com\"where id =1 lock in share mode;\n[SQL]update test_one set name=\"www.souyunku.com\" wihere id =1 lock in share  mode;\n[Err] 1064 - You have an error in your SQL syntax; ccheck the manual that\ncorresponds to your MySQL server version for the right syntax to use near 'lock  in share mode' at line 1\n在查询语句后面增加LOCK IN SHARE MODE Mysql会对查询结果中的每行都加共享锁,当没有其他线程对查询结果集中的任何一行使用排他锁时,可以成功申请共享锁,否则会被阻塞。其他线程也可以读取使用了共享锁的表,而且这些线程读取的是同一个版本的数据居。\n加上共享锁后,对于update,insert,delete语句会自动加排它锁。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_47",
@@ -8463,7 +8538,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "排他锁 exclusive lock（也叫writer lock）又称写锁。\n排它锁是悲观锁的一种实现，在上面悲观锁也介绍过。\n若事务 1 对数据对象A加上X锁，事务 1 可以读A也可以修改A，其他事务不能再对A加任何锁，直到事务1 释放A上的锁。这保证了其他事务在事物 1 释放A上的锁之前不能再读取和修改A。排它锁会阻塞所有的排它锁和共享锁读取为什么要加读锁呢：防止数据在被读取的时候被别的线程加上写锁，\n使用方式：在需要执行的语句后面加上 for update 就可以了",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_48",
@@ -8472,7 +8549,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "行锁又分共享锁和排他锁,由字面意思理解，就是给某一行加上锁，也就是一条记录加上锁。\n注意：行级锁都是基于索引的，如果一条SQL语句用不到索引是不会使用行级锁的，会使用表级锁",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_49",
@@ -8481,7 +8560,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "名词解释：共享锁又叫做读锁，所有的事务只能对其进行读操作不能写操作，加上共享锁后在事务结束之前其他事务只能再加共享锁，除此之外其他任何类型的锁都不能再加了。\n```sql\nSELECT * from TABLE where id = \"1\" lock insharemode;结果集的数据都会加共享锁\n```",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_50",
@@ -8490,7 +8571,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "名词解释：若某个事物对某一行加上了排他锁，只能这个事务对其进行读写，在此事务结束之前，其他事务不能对其进行加任何锁，其他进程可以读取,不能进行写操作，需等待其释放。\nselect status from TABLE where id=1 for update;\n由于对于表中,id字段为主键，就也相当于索引。执行加锁时，会将id这个索引为1的记录加上锁，那么这个锁就是行锁。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_51",
@@ -8499,7 +8582,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "如何加表锁\ninnodb 的行锁是在有索引的情况下,没有索引的表是锁定全表的.\nInnodb中的行锁与表锁\n前面提到过，在Innodb引擎中既支持行锁也支持表锁，那么什么时候会锁住整张表，什么时候或只锁住一行呢？\n只有通过索引条件检索数据，InnoDB才使用行级锁，否则，InnoDB将使用表锁！\n在实际应用中，要特别注意InnoDB行锁的这一特性，不然的话，可能导致大量的锁冲突，从而影响并发\n性能。\n行级锁都是基于索引的，如果一条SQL语句用不到索引是不会使用行级锁的，会使用表级锁。行级锁的缺点是：由于需要请求大量的锁资源，所以速度慢，内存消耗大。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_52",
@@ -8508,7 +8593,9 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "死锁（Deadlock）\n所谓死锁：是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。由于资源占用是互斥的，当某个进程提出申请资源后，使得有关进程在无外力协助下，永远分配不到必需的资源而无法继续运行，这就产生了一种特殊现象死锁。\n解除正在死锁的状态有两种方法：\n第一种:\n1.查询是否锁表\nshow OPEN TABLES Where In_use > 0;\n2.查询进程(如果您有SUPER权限,您可以看到所有线程。否则,您只能看到您自己的线程)\nshow processlist\n3.杀死进程id(就是上面命令的id列)\nkill id\n第二种:\n1:查看当前的事务\nSELECT * FROM INFORMATION_SCHEMA.INNNODB_TRX\n2:查看当前锁定的事务\nSELECT * FROM INFORMATION_SCHEMA.INNODB_LOCKS\n3:查看当前等锁的事务\nSELECT * FROM INFORMATION_SCHEMA.INNODB_LOCK_WAITS;\n杀死进程\nkill线程ID\n如果系统资源充足,进程的资源请求都能够得到满足,死锁出现见的可能性就很低,否则就会因争夺有限的资源而陷入死锁。其次,进程运行推进顺序与速度不同,也可能产生死锁。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_lock_53",
@@ -8517,70 +8604,86 @@
     "relatedNodeId": "concept_lock_mechanism",
     "answer": "(1)互斥条件:一个资源每次只能被一个进程使用。\n(2)请求与保持条件:一个进程因请求资源而阻塞时,对已获得的资源保持不放。\n(3)不剥夺条件:进程已获得的资源,在未使用完之前,不能强行剥夺。\n(4)循环等待条件:若干进程之间形成一种头尾相接的循环等待资源关系\",\n虽然不能完全避免死锁,但可以使死锁的数量减至最少。将死锁减至最少可以增加事务的吞吐量并减少系统开销,因为只有很少的事务回滚,而回滚会取消事务执行的所有工作。由于死锁时回滚而由应用程序重新提交。\n下列方法有助于最大限度地降低死锁:\n按同一顺序访问对象。\n避免事务中的用户交互。\n保持事务简短并在一个批处理中。\n使用低隔离级别。\n使用绑定连接。",
     "createdAt": 1788038680802,
-    "updatedAt": 1788038680802
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_tx_54",
     "text": "数据库事务",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "事务是由一组SQL语句组成的逻辑处理单元，事务具有以下4个属性，通常简称为事务的ACID属性：\n原子性（Atomicity）：事务是一个原子操作单元，其对数据的修改，要么全都执行，要么全都不执行。\n一致性（Consistent）：在事务开始和完成时，数据都必须保持一致状态。这意味着所有相关的数据规则都必须应用于事务的修改，以保持数据的完整性；事务结束时，所有的内部数据结构（如B树索引或双向链表）也都必须是正确的。\n隔离性（Isoation）：数据库系统提供一定的隔离机制，保证事务在不受外部并发操作影响的“独立”环境执行。这意味着事务处理过程中的中间状态对外部是不可见的，反之亦然。\n持久性（Durabe）：事务完成之后，它对于数据的修改是永久性的，即使出现系统故障也能够保持。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_tx_55",
     "text": "事务类型：",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "JDBC事务：即为上面说的数据库事务中的本地事务，通过connection对象控制管理。\nJTA事务：JTA指Java事务API(Java  Transaction API)，是Java EE数据库事务规范， JTA只提供了事务管理接口，由应用程序服务器厂商（如WebSphere Application Server）提供实现，JTA事务比JDBC更强大，支持分布式事务。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_tx_56",
     "text": "本地事务(mysql之InnoDB):",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "InnoDB支持事务,同Oracle类似,事务提交需要写redo、undo。采用日志先行的策略,将数据的变更在内存中完成,并且将事务记录成redo,顺序的写入redo日志中,即表示该事务已经完成,就可以返回给客户已提交的信息。但是实际上被更改的数据还在内存中,并没有刷新到磁盘,即还没有落地,当达到一定的条件,会触发checkpoint,将内存中的数据(page)1合并写入到磁盘,这样就减少了离散写IOPS,提高性能。\n在这个过程中,如果服务器宕机了,内存中的数据丢失,当重启后,会会通过redo日志进行recovery重做。确保不会丢失数据。因此只要redo能够实时的写入到磁盘,InnoDB就不会丢数据。\n[[分布式事务]]:",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_tx_57",
     "text": "什么是数据库事务？",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "事务是一个不可分割的数据库操作序列，也是数据库并发控制的基本单位，其执行的结果必须使数据库从一种一致性状态变到另一种一致性状态。事务是逻辑上的一组操作，要么都执行，要么都不执行。\n #什么是脏读，幻读，不可重复读?",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_tx_58",
     "text": "脏读(Drity Read):",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "某个事务已更新一份数据,另一个事务在此时请读取了同一份数据,由于某些原因,前一个RollBack了操作,则后一个事务所读取的数据就会是不正确的。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_tx_59",
     "text": "什么是事务的隔离级别？MySQL的默认隔离级别是什么？",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "为了达到事务的四大特性，数据库定义了4种不同的事务隔离级别，由低到高依次为Read，uncommitted、Read committed、Repeatable read、Serializable，这四个级别可以逐个解决脏读、不可重复读、幻读这几类问题。\n【表：隔离级别与读现象对照】READ-UNCOMMITTED：脏读√、不可重复读√、幻影读√；READ-COMMITTED：脏读×、不可重复读√、幻影读√；REPEATABLE-READ：脏读×、不可重复读×、幻影读√；SERIALIZABLE：脏读×、不可重复读×、幻影读×。\nSQL 标准定义了四个隔离级别：\nREAD-UNCOMMITTED(读取未提交)： 最低的隔离级别，允许读取尚未提交的数据变更，可能会导致脏读、幻读或不可重复读。\nREAD-COMMITTED(读取已提交)： 允许读取并发事务已经提交的数据，可以阻止脏读，但是幻读或不可重复读仍有可能发生。\nREPEATABLE-READ(可重复读)： 对同一字段的多次读取结果都是一致的，除非数据是被本身事务自己所修改，可以阻止脏读和不可重复读，但幻读仍有可能发生。\nSERIALIZABLE(可串行化)： 最高的隔离级别，完全服从ACID的隔离级别。所有的事务依次逐个执行，这样事务之间就完全不可能产生干扰，也就是说，该级别可以防止脏读、不可重复读以及幻读。这里需要注意的是：Mysql 默认采用的 REPEATABLE_READ隔离级别 Oracle默认采用的READ_COMMITTED隔离级别\n事务隔离机制的实现基于锁机制和并发调度。其中并发调度使用的是MVVC（多版本并发控制），通过保存修改的旧版本信息来支持并发一致性读和回滚等特性。因为隔离级别越低，事务请求的锁越少，所以大部分数据库系统的隔离级别都是READ-COMMITTED(读取提交内容):，但是你要知道的是InnoDB 存储引擎默认使用 REPEATABLE-READ（可重读）并不会有任何性能损失。InnoDB 存储引擎在 分布式事务 的情况下一般会用到SERIALIZABLE(可串行化)隔离级别。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_tx_60",
     "text": "实现分布式事务解决方案",
     "answered": true,
-    "relatedNodeId": "concept_transaction",
+    "relatedNodeId": "n_ag24bbkc",
     "answer": "基于XA协议的两阶段提交(2PC)\nXA是由X/Open组织提出的分布式事务的规范。\nXA规范主要定义了(全局)事务管理器(Transaction Manager)和(局部)资源管理器(Resource Manager)之间的接口。XA接口是双向的系统接口,在事务管理器(Transaction Manager)以及一个或多个资源管理器(Resource Manager)之间形成通信桥梁。XA之所以需要引入事务管理器是因为,\n在分布式系统中,从理论上讲(参考Fischer等的论文),两台合机器理论上无法达到一致的状态,需要引入一个单点进行协调。事务管理器控制着全局事务,管理事务生命周期,并协调资源。资源管理器负责控制和管理实际资源(如数据库或JMS队列)。下图说明了事务管理器、资源管理器,与应用程序之间的关系:",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788108037990,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_61",
@@ -8589,16 +8692,20 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "查询偏移量过大的场景我们称为深度分页，这会导致查询性能较低\n原因：当查询偏移量过大时，MySQL 的查询优化器可能会选择全表扫描而不是利用索引来优化查询。这是因为扫描索引和跳过大量记录可能比直接全表扫描更耗费资源。\nMySQL 的查询优化器采用基于成本的策略来选择最优的查询执行计划。它会根据 CPU 和 I/O 的成本来决定是否使用索引扫描或全表扫描。如果优化器认为全表扫描的成本更低，它就会放弃使用索引。不过，即使偏移量很大，如果查询中使用了覆盖索引（covering index），MySQL 仍然可能会使用索引，避免回表操作。\n\n```sql",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_62",
-    "text": "MySQL 在无法利用索引的情况下跳过1000000条记录后，再获取10条记录",
+    "text": "无法利用索引的深分页（LIMIT 1000000,10）如何优化？",
     "answered": true,
     "relatedNodeId": "concept_query_processing",
     "answer": "SELECT * FROM t_order ORDER BY id LIMIT 1000000, 10\n```\n1. 范围查询: 基于 ID 连续性进行分页，通过记录上一页最后一条记录的 ID 来获取下一页数据。适合 ID 连续且按 ID 查询的场景，但在 ID 不连续或需要按其他字段排序时存在局限。\n\t```sql\n\t# 查询指定 ID 范围的数据\n\tSELECT * FROM t_order WHERE id > 100000 AND id <= 100010 ORDER BY id\n\t# 也可以通过记录上次查询结果的最后一条记录的ID进行下一页的查询：\n\tSELECT * FROM t_order WHERE id > 100000 LIMIT 10\n\t```\n2. 子查询: 先通过子查询获取分页的起始主键值，再根据主键进行筛选分页。利用主键索引提高效率，但子查询会生成临时表，复杂场景下性能不佳。\n\t```sql\n\t# 通过子查询来获取 id 的起始值，把 limit 1000000 的条件转移到子查询\n\tSELECT * FROM t_order WHERE id >= (SELECT id FROM t_order where id > 1000000 limit 1) LIMIT 10;\n\t```\n\t工作原理:\n\t子查询 (SELECT id FROM t_order where id > 1000000 limit 1) 会利用主键索引快速定位到第 1000001 条记录，并返回其 ID 值。\n\t主查询 SELECT * FROM t_order WHERE id >= ... LIMIT 10 将子查询返回的起始 ID 作为过滤条件，使用 id >= 获取从该 ID 开始的后续 10 条记录。我们先查询出 limit 第一个参数对应的主键值，再根据这个主键值再去过滤并 limit，这样效率会更快一些。\n\t不过，子查询的结果会产生一张新表，会影响性能，应该尽量避免大量使用子查询。并且，这种方法只适用于 ID 是正序的。在复杂分页场景，往往需要通过过滤条件，筛选到符合条件的 ID，此时的 ID 是离散且不连续的。\n\t当然，我们也可以利用子查询先去获取目标分页的 ID 集合，然后再根据 ID 集合获取内容，但这种写法非常繁琐，不如使用 INNER JOIN 延迟关联。\n3. 延迟关联 (INNER JOIN): 使用 INNER JOIN 将分页操作转移到主键索引上，减少回表次数。相比子查询，延迟关联的性能更优，适合大数据量的分页查询。\n\t```sql\n\t-- 使用 INNER JOIN 进行延迟关联\n\tSELECT t1.*\n\tFROM t_order t1\n\tINNER JOIN (SELECT id FROM t_order where id > 1000000 LIMIT 10) t2 ON t1.id = t2.id;\n\t```\n\t工作原理:\n\t\t子查询 (SELECT id FROM t_order where id > 1000000 LIMIT 10) 利用主键索引快速定位目标分页的 10 条记录的 ID。\n\t\t通过 INNER JOIN 将子查询结果与主表 t_order 关联，获取完整的记录数据。\n\t除了使用 INNER JOIN 之外，还可以使用逗号连接子查询。\n\t```sql\n\t\t-- 使用逗号进行延迟关联\n\tSELECT t1.* FROM t_order t1,\n\t(SELECT id FROM t_order where id > 1000000 LIMIT 10) t2\n\tWHERE t1.id = t2.id;\n\t```\n4. 覆盖索引: 通过索引直接获取所需字段，避免回表操作，减少 IO 开销，适合查询特定字段的场景。但当结果集较大时，MySQL 可能会选择全表扫描。\n\t\t# 如果只需要查询 id, code, type 这三列，可建立 code 和 type 的覆盖索引\n\t\tSELECT id, code, type FROM t_order\n\t\tORDER BY code\n\t\tLIMIT 1000000, 10;",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "advanced"
   },
   {
     "id": "q_dbnotes_qp_63",
@@ -8607,7 +8714,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "(如果不是按分表字段来查询的话，几乎效率低下，无解)\n如果按时间排序查询，使用limit n （不要使用limit m, n 页数多了之后效率低）然后记录最后一条的时间，下次从最后一条的时间开始查询",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_64",
@@ -8616,7 +8725,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "1.如果只是为了分页,可以考虑这种分表,就是表的id是范围围性的,且id是连续的,比如第一张表id是1到10万,第二张是10万到20万,这样分页应该没什么问题。\n2.如果是其他的分表方式,建议用sphinx先建索引,然后查询分页,我们公司现在就是这样干的",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "application",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_65",
@@ -8625,7 +8736,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "1.为什么要分表：\n当一张表的数据达到几千万时，你查询一次所花的时间会变多，如果有联合查询的话，我想有可能会死在那儿了。分表的目的就在于此，减小数据库的负担，缩短查询时间。\nmysql中有一种机制是表锁定和行锁定，是为了保证数据的完整性。表锁定表示你们都不能对这张表进行操作，必须等我对表操作完才行。行锁定也一样，别的sql必须等我对这条数据操作完了，才能对这条数据进行操作。\n5. mysql proxy：amoeba\n做mysql集群,利用amoeba。\n从上层的java程序来讲，不需要知道主服务器和从服务器的来源，即主从数据库服务器对于上层来讲是透明的。可以通过amoeba来配置。\n3.大数据量并且访问频繁的表，将其分为若干个表\n比如对于某网站平台的数据库表-公司表，数据量很大，这种能预估出来的大数据量表，我们就事先分出个N个表，这个N是多少，根据实际情况而定。\n某网站现在的数据量至多是5000万条，可以设计每张表容纳的数据量是500万条，也就是拆分成10张表，\n那么如何判断某张表的数据是否容量已满呢？可以在程序段对于要新增数据的表，在插入前先做统计表记录数量的操作，当<500万条数据，就直接插入，当已经到达阀值，可以在程序段新创建数据库表（或者已经事先创建好），再执行插入操作。\n6. 利用merge存储引擎来实现分表\n如果要把已有的大数据量表分开比较痛苦，最痛苦的事就是改代码，因为程序里面的sql语句已经写好了。用merge存储引擎来实现分表, 这种方法比较适合\n7. 利用merge存储引擎来实现分表\n如果要把已有的大数据量表分开比较痛苦，最痛苦的事就是改代码，因为程序里面的sql语句已经写好了。用merge存储引擎来实现分表, 这种方法比较适合",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_66",
@@ -8634,7 +8747,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "1、简单的MySQL主从复制:\nMySQL的主从复制解决了数据库的读写分离,并很好的提升了读的性能,其图如下:\n【图解：读写分离架构】apache+php 应用通过 write 箭头写入主数据库；主数据库通过「主/从复制」将数据同步到 read cluster（读集群）中的 3 个从数据库；php 应用从读集群读取数据（蓝色箭头）——写走主库、读走从库的经典读写分离架构。\n其主从复制的过程如下图所示：\n【图解：主从复制数据流】主库执行 UPDATE t1、INSERT t2、ALTER t1 等变更写入 binary log（条目 100…、101 UPDATE t1…、102 INSERT t2…、103 ALTER t1…、104…）；主从之间通过 tcp 长连接，从库 I/O thread 读取主库 binlog 写入本地 relay log（条目相同）；SQL thread 读取 relay log 中的事件重放到从库，使从库与主库数据一致。\n但是,主从复制也带来其他一系列性能瓶颈问题:\n1.写入无法扩展\n2.写入无法缓存\n3.复制延时\n4.锁表率上升\n5.表变大,缓存率下降\n那问题产生总得解决的,这就产生下面的优化方案,一起来看看\n2、MySQL垂直分区\n如果把业务切割得足够独立,那把不同业务的数据放到不下同的数据库服务器将是一个不错的方案,而且万一其中一个业务崩溃了也不会影响其他业务的正常进行,并且也起到了负载分流的作用,大大提升了数据库的吞吐能力。经过垂直分区后的数据库架构图如下:\n【图解：垂直拆分后跨库 join 不可用】数据库按业务垂直拆分为 Part 1（其他）、Part 2（用户）、Part 3（消息）三个库，分片之间的红色连线被打上 ✕——拆分后原本的表间关联无法直接 join，需要在应用层完成跨库关联。\n然而,尽管业务之间已经足够独立了,但是有些业务之间或多或少总会有点联系,如用户,基本上都会和每个业务相关联,况且这种分区方式,也不能解决单张表数据量暴涨的问题,因此为何不试试水平分割呢?\n3、MySQL水平分片(Sharding)\n这是一个非常好的思路,将用户按一定规则(按id哈希)分组,并把该组用户的数据存储到一个数据库分片中,即一个sharding,这样随着用户数量的增加,只要简前单地配置一台服务器即可,原理图如下:\n【图解：水平拆分按 user_id 分片】原表（含 其他、用户、消息 等业务数据）按 user_id 分片，蓝色箭头将数据分散到 Shard 1 和 Shard 2 两个分片，每个分片内都保留 其他/用户/消息 的表结构——同一用户的数据路由到同一分片。\n如何来确定某个用户所在的shard呢,可以建一张用户和shaird对应的数据表,每次请求先从这张表找用户的shard  id,再从对应shard中查询相关数据,如下图所示:\n【图解：跨分片查询流程（目录表路由）】(1) 获取 user 103 的 messages → apache/php；(2) user 103 在哪？→ 查询 Sharding Manager 的目录表（User_ID→Shard_ID：101→1、102→1、103→2）；(3) 得知在 shard 2；(4) connect_db(shard 2)；(5) select m_id from message where user_id=103，从 Shard 2 取回数据。\nmysql大数据量使用limit分页，随着页码的增大，查询效率越低下。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_67",
@@ -8643,7 +8758,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "利用表的覆盖索引来加速分页查询我们都知道，利用了索引查询的语句中如果只包含了那个索引列（覆盖索引），那么这种情况会查询很快。因为利用索引查找有优化算法，且数据就在查询索引上面，不用再去找相关的数据地址了，这样节省了很多时间。另外Mysql中也有相关的索引缓存，在并发高的时候利用缓存就效果更好了。在我们的例子中，我们知道id字段是主键，自然就包含了默认的主键索引。现在让我们看看利用覆盖索引的查询效果如何：这次我们之间查询最后一页的数据（利用覆盖索引，只包含id列），如下：select id from product limit 866613, 20 0.2秒相对于查询了所有列的37.44秒，提升了大概100多倍的速度那么如果我们也要查询所有列，有两种方法，一种是id>=的形式，另一种就是利用join，看下实际情况：SELECT * FROM product WHERE ID > =(select id from product limit 866613, 1) limit 20查询时间为0.2秒，简直是一个质的飞跃啊，哈哈另一种写法\nSELECT * FROM product a JOIN (select id from product limit 866613, 20) b ON a.ID = b.id 查询时间也很短",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_68",
@@ -8652,7 +8769,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "解决方案   当我们对MySQL进行分表操作后，将不能依赖MySQL的自动增量来产生唯一ID了，因为数据已经分散到多个表中。应尽量避免使用自增Id来做为主键，为数据库分表操作带来极大的不便。在postgreSQL、oracle、db2数据库中有一个特殊的特性---sequence。 任何时候数据库可以根据当前表中的记录数大小和步长来获取到该表下一条记录数。然而，MySQL是没有这种序列对象的。可以通过下面的方法来实现sequence特性产生唯一ID：\n1.通过MySQL表生成ID\n在《关于MySQL分表操作的研究》提到了一种方法:\n对于插入也就是insert操作,首先就是获取唯一的id了,就需要一个表来专门创建id,插入一条记录,并获取最后插入的ID。代码如下:\nCREATE TABLE `ttlsa_com`. create_id`(\n`id` BIGINT( 20 ) NOT NULL AUTO_INCREMENTPRIMARY KEY\n) ENGINE = MYISAM\n也就是说,当我们需要插入数据的时候,必须由这个表来产生id值,我的php代码的方法如下:\n< ?php\nfunction get_AI_ID() {\n$sql = \"insert into create_id (id) valuess('1)\";\n$this->db->query($sql);\nreturn $this->db->insertID();\n} ？>\n这种方法效果很好，但是在高并发情况下，MySQL的AUTO_INCREMENT将导致整个数据库慢。如果存在自增字段，MySQL会维护一个自增锁，innodb会在内存里保存一个计数器来记录auto_increment值，当插入一个新行数据时，就会用一个表锁来锁住这个计数器，直到插入结束。如果是一行一行的插入是没有问题的，但是在高并发情况下，那就悲催了，表锁会引起SQL阻塞，极大的影响性能，还可能会达到max_connections值。\ninnodb_autoinc_lock_mode：可以设定3个值：0、1、2\n0：traditonal （每次都会产生表锁）\n1：consecutive （默认,可预判行数时使用新方式，不可时使用表锁，对于simple insert会获得批量的锁，保证连续插入）\n2：interleaved （不会锁表，来一个处理一个，并发最高）\n对于myisam表引擎是traditional，每次都会进行表锁的。\n 2.通过redis生成ID\n 3 队列方式\n使用队列服务，如redis、memcacheq等等，将一定量的ID预分配在一个队列里，每次插入操作，先从队列中获取一个ID，若插入失败的话，将该ID再次添加到队列中，同时监控队列数量，当小于阀值时，自动向队列中添加元素。这种方式可以有规划的对ID进行分配，还会带来经济效应，比如ＱＱ号码，各种靓号，明码标价。如网站的userid, 允许uid登陆，推出各种靓号，明码标价，对于普通的ID打乱后再随机分配.",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_69",
@@ -8661,7 +8780,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": ">分布式id生成算法的有很多种，Twitter的SnowFlake就是其中经典的一种\n\n概述\nSnowFlake算法生成id的结果是一个64bit大小的整数，它的结构如下图：\n【图解：Snowflake 64bit 位分布】snowflake-64bit：1bit-不用（符号位）→ 41bit-时间戳 → 10bit-工作机器 id → 12bit-序列号。\n1位,不用。二进制中最高位为1的都是负数,但是我们生成的id一般都使用整数,所以这个最高位固定是0\n41位,用来记录时间戳(毫秒)。\n41位可以表示2^{41}-1241-1个数字,\n如果只用来表示正整数(计算机中正数包含0),可以表示的数值范围是:0至2^{41}-1241-1,减1是因为可表示的数值范围是从0开始算的,而不是1。\n也就是说41位可以表示2^{41}-1241-1个毫秒的值,转化成单位年则是(2^{41}-1)/(1000*60 * 60 * 24 * 365) = 69(241-1)/(1000*60*24*365)69年\n10位,用来记录工作机器id。\n可以部署在2^{10}=1024210=1024个节点,包括5位datadenterid 和 5位workerid\n 5位(bit)可以表示的最大正整数是2^{5}-1=3125-1=3125-1=31,即可以用0、1、2、3、....31这32个数字,来表示不同的datecenterld或workerld\n12位,序列号,用来记录同毫秒内产生的不同id。\no 12位(bit)可以表示的最大正整数是2^{12}-1=4095212-1=4095,即可以用0、1、2、3、....4094这4095个数字,来表示同一机器同一时间截(毫秒)内产生的4095个ID序号\n由于在Java中64bit的整数是long类型,所以在Java中SnowFlake算法生成的id就是long来存储的。\nSnowFlake可以保证:\n所有生成的id按时间趋势递增\n整个分布式系统内不会产生重复id(因为有datacenterld和workerld来做区分)",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_70",
@@ -8670,7 +8791,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "1、什么是mysql主从同步？\n当master(主)库的数据发生变化的时候，变化会实时的同步到slave(从)库。\n2、主从同步有什么好处？\n水平扩展数据库的负载能力。\n容错，高可用。Failover(失败切换)/High Availability\n数据备份。\n【图解：一主多从 Replication】MySQL Master 通过 Replication 将数据同步到 MySQL Slave 1、MySQL Slave 2、MySQL Slave 3——一主三从复制架构。\n不管是delete、update、insert，还是创建函数、存储过程，所有的操作都在master上。当master有操作的时候,slave会快速的接收到这些操作，从而做同步。\n但是，这个机制是怎么实现的呢？\n在master机器上，主从同步事件会被写到特殊的log文件中(binary-log);在slave机器上，slave读取主从同步事件，并根据读取的事件变化，在slave库上做相应的更改。如此，就实现了主从同步了\n3.1主从同步事件有哪些\n上面说到:\n在master机器上,主从同步事件会被写到特殊的log文件中(binary-log:):\n主从同步事件有3种形式:statement、row、mixed。\n1.statement:会将对数据库操作的sql语句写入到binlog中。\n2.row:会将每一条数据的变化写入到binlog中。\n3.mixed:statement与row的混合。Mysql决定什么时候写statement格式的,什么时候写row格式的binlog。\n3.2在master机器上的操作\n当master上的数据发生改变的时候,该事件(insert、update、deelete)变化会按照顺序写入到binlog中。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_71",
@@ -8679,7 +8802,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "当slave连接到master的时候，master机器会为slave开启binlog dump线程。当master 的 binlog发生变化的时候，binlog dump线程会通知slave，并将相应的binlog内容发送给slave。\n3.3在slave机器上的操作\n当主从同步开启的时候，slave上会创建2个线程。\n- I/O线程。该线程连接到master机器，master机器上的binlog dump线程会将binlog的内容发送给该I/O线程。该I/O线程接收到binlog内容后，再将内容写入到本地的relay log。\n- SQL线程。该线程读取I/O线程写入的relay log。并且根据relay log的内容对slave数据库做相应的操作\n3.4如何在master、slave上查看上述的线程？\n如图，在master机器上查看binlog dump线程\n【图：主库上的 binlog dump 线程】mysql> SHOW PROCESSLIST/G 输出示例：1. row — Id: 4、User: slave1、Host: 192.168.33.33:59956、Command: Binlog Dump、Time: 2444、State: Master has sent all binlog to slave; waiting for more updates、Info: NULL（红箭头标注即 binlog dump 线程）；2. row — Id: 7、User: root、Host: localhost、Command: Query、State: starting。\n如图,在slave机器上查看l/O、SQL线程。\n【图：从库上的 I/O 线程与 SQL 线程】mysql> SHOW PROCESSLIST/G 输出示例：1. row — Id: 5、User: root、Command: Query；2. row — Id: 8、User: system user、Command: Connect、Time: 15799、State: Waiting for master to send event（红箭头标注 I/O threads）；3. row — Id: 9、User: system user、Command: Connect、Time: 2366、State: Slave has read all relay log; waiting for more updates（红箭头标注 SQL threads）。\n使用SHOW PROCESSLIST命令可以查看。\n【图解：主从复制流程】Master：Database ← MySQL DML commands → Binary Log → Binlog dump 线程；Slave：I/O 从 Binlog dump 拉取数据写入 Relay Log → SQL 线程应用到 Database；顶部要点：Slave connects to Master、I/O thread asks for data、Binlog dump thread sends content to I/O thread、SQL thread applies data。",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_qp_72",
@@ -8688,7 +8813,9 @@
     "relatedNodeId": "concept_query_processing",
     "answer": "MySQL对于干万级的大表要怎么优化?\n很多人第一反应是各种切分;我给的顺序是:\n第一优化你的sql和索引;\n第二加缓存,memcached,redis;\n第三以上都做了后,还是慢,就做主从复制或主主复制,读写分分离,可以在应用层做,效率高,也可以用三方工具,第三方工具推荐360的atlas,其它的要么效率不高,要么没人维护;\n第四如果以上都做了还是慢,不要想着去做切分,mysql自带分区表,先试试这个,对你的应用是透明的,无需更改代码,但是sql语句是需要针对分区表做优化的,sc条件中要带上分区条件的列,从而使查询定位到少量的分区上,否则就会扫描全部分区,另外分分区表还有一些坑,在这里就不多说了;\n第五如果以上都做了,那就先做垂直拆分,其实就是根据居你模块的耦合度,将一个大的系统分为多个小的系统,也就是分布式系统;\n第六才是水平切分,针对数据量大的表,这一步最麻烦,最能考验技术水平,要选择一个合理的sharding key,为了有好的查询效率,表结构也要改动,做一定的冗余,应用也要改,sql中尽量带sharding key,将数据定位到限定的表上去查,而不是扫描全部的表mysql数据库一般都是按照这个步骤去演化的,成本也是由低到高;\n有人也许要说第一步优化sql和索引这还用说吗?的确,大家都知道,但是很多情况下,这一步做的并不到位,甚至有的只做了根据sql去建索引,根本没对sql优化(中抢了没?),除了最简单的增删改查外,想实现一个查询,可以写出很多种查询语句,不同的语句,根据你选择的引擎、表中数据的分布情况、索引情况、数据库优化策略、查询中的锁策略等因素,最终查询的效率相差很大;优化要从整体去\n考虑,有时你优化一条语句后,其它查询反而效率被降低了,所以要取一个平衡点;即使精通mysql的话,除了纯技术面优化,还要根据业务面去优化sql语句,这样才能达到最优效果;你敢说你的sql和索引已经是最优了吗?\n再说一下不同引擎的优化,myisam读的效果好,写的效率差,这和它数据存储格式,索引的指针和锁的策略有关的,它的数据是顺序存储的(innodb数据存储方式是聚簇索引),他的索引btree上的节点是一个指向数据物理位置的指针,所以查找起来很快,(innodb索引节点存的则是数据的主键,所以需要根据主键二次查找);myisam锁是表锁,只有读读之间是并发的,写写之间和读写之间(读和插入之间是可以并发的,去设置concurrent_insert参数,定期执行表优化操作,更新操作就没有办法了)是串行的,所以写起来慢,并且默认的写优先级比读优先级高,高到写操作来了后,可以马上插入到读操作前面去,如果批量写,会导致读请求饿死,所以要设置读写优先级或设置多少写操作后执行读操作的策略;myisam不要使用查询时间太长的sql,如果策略使用不当,也会导致写饿死,所以尽量去拆分查询效率低的sql,\ninnodb一般都是行锁,这个一般指的是sql用到索引的时候,行锁是加在索引上的,不是加在数据记录上的,如果sql没有用到索引,仍然会锁定表,mysql的读写之间是可以并发的,普通的select是不需要锁的,当查询的记录遇到锁时,用的是一致性的非锁定快照读,也就是根据数据库隔离级别策略,会去读被锁定行的快照,其它更新或加锁读语句用的是当前读,读取原始行;因为普通读与写不冲突,所以\ninnodb不会出现读写饿死的情况,又因为在使用索引的时候用的是行锁,锁的粒度小,竞争相同锁的情况就少,就增加了并发处理,所以并发读写的效率还是很优秀的,问题在于索引查询后的根据主键的二次查找些致效率低\nps:很奇怪，为什innodb的索引叶子节点存的是主键而不是像mysism一样存数据的物理地址指针吗？如果存的是物理地址指针不就不需要二次查找了吗，这也是我开始的疑惑，根据mysism和innodb数据存储方式的差异去想，你就会明白了，我就不费口舌了！\n所以innodb为了避免二次查找可以使用索引覆盖技术，无法使用索引覆盖的，再延伸一下就是基于索引覆盖实现延迟关联；不知道什么是索引覆盖的，建议你无论如何都要弄清楚它是怎么回事！\n尽你所能去优化你的sql吧！说它成本低，却又是一项费时费力的活，需要在技术与业务都熟悉的情况下，用心去优化才能做到最优，优化后的效果也是立竿见影的！",
     "createdAt": 1788038680804,
-    "updatedAt": 1788038680804
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_basic_73",
@@ -8697,7 +8824,9 @@
     "relatedNodeId": "concept_database",
     "answer": "数据保存在内存\n优点：存取速度快\n缺点：数据不能永久保存\n数据保存在文件\n优点：数据永久保存\n缺点：1）速度比内存操作慢，频繁的IO操作。\n2)查询数据不方便\n数据保存在数据库\n1）数据永久保存\n2）使用SQL语句，查询方便效率高。\n3）管理数据方便",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "mechanism",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_basic_74",
@@ -8706,7 +8835,9 @@
     "relatedNodeId": "concept_database",
     "answer": "结构化查询语言(StructuredQueryLanguage)简称SQL，是一种数据库查询语言。\n作用：用于存取数据、查询、更新和管理关系数据库系统。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_basic_75",
@@ -8715,7 +8846,9 @@
     "relatedNodeId": "concept_database",
     "answer": "MySQL是一个关系型数据库管理系统，由瑞典MySQLAB公司开发，属于Oracle旗下产品。MySQL是最流行的关系型数据库管理系统之一，在WEB应用方面，MySQL是最好的RDBMS(RelationalDatabaseManagementSystem，关系数据库管理系统)应用软件之一。在Java企业级开发中非常常用，因为MySQL是开源免费的，并且方便扩展。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_basic_76",
@@ -8724,7 +8857,9 @@
     "relatedNodeId": "concept_database",
     "answer": "第一范式：每个列都不可以再拆分。\n第二范式：在第一范式的基础上，非主键列完全依赖于主键，而不能是依赖于主键的一部分。\n第三范式：在第二范式的基础上，非主键列只依赖于主键，不依赖于其他非主键。\n在设计数据库结构的时候，要尽量遵守三范式，如果不遵守，必须有足够的理由。比如性能。事实上我们经常会为了性能而妥协数据库的设计。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788107018144,
+    "kind": "definition",
+    "difficulty": "basic"
   },
   {
     "id": "q_dbnotes_disttx_77",
@@ -8733,7 +8868,9 @@
     "relatedNodeId": "k_vault_java02_yikc89",
     "answer": "1）基于XA协议的两阶段提交（2PC） XA 规范主要 定义了 ( 全局 ) 事务管理器 ( Transaction Manager )和 ( 局部 ) 资源管理器 ( Resource Manager ) 之间的接口。\n2）两阶段提交 事务的提交分为两个阶段： 预提交阶段(Pre-Commit Phase) 决策后阶段（Post-Decision Phase）\n3）补偿事务（TCC） 针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段\nTry 阶段主要是对业务系统做检测及资源预留 Confirm 阶段主要是对业务系统做确认提交，Try 阶段执行成功并开始执行 Confirm 阶段时， 默认Confirm 阶段是不会出错的。即：只要 Try 成功，Confirm一定成功。 Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放\n4）本地消息表（MQ 异步确保） 其基本的设计思想是将远程分布式事务拆分成一系列的本地事务。\n5）MQ 事务消息 有一些第三方的 MQ 是支持事务消息的，比如 RocketMQ，他们支持事务消息的方式也是类似 于采用的二阶段提交，但是市面上一些主流的 MQ 都是不支持事务消息的，比如 RabbitMQ和 Kafka 都不支持。\n6）Sagas 事务模型 该模型其核心思想就是拆分分布式系统中的长事务为多个短事务，或者叫多个本地事务，然后由 Sagas 工作流引擎负责协调，如果整个流程正常结束，那么就算是业务成功完成，如果在这过程中实现失败，那么Sagas工作流引擎就会以相反的顺序调用补偿操作，重新进行业务回滚。\n7）其他补偿方式 加入详细日志记录的，一旦系统内部引发类似致命异常，会有邮件通知。同时，后台会有定时任 务扫描和分析此类日志，检查出这种特殊的情况，会尝试通过程序来补偿并邮件通知相关人员。在某些特殊的情况下，还会有 \"人工补偿\" 的，这也是最后一道屏障。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_disttx_78",
@@ -8742,7 +8879,9 @@
     "relatedNodeId": "k_vault_java02_yikc89",
     "answer": "前言\n分布式事务就是指事务的参与者、支持事务的服务器、资源服务器以及事务管理器分别位于不同的分布式系统的不同节点之上。简单的说，就是一次大的操作由不同的小操作组成，这些小的操作分布在不同的服务器上，且属于不同的应用，分布式事务需要保证这些小操作要么全部成功，要么全部失败。本质上来说，分布式事务就是为了保证不同数据库的数据一致性。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_disttx_79",
@@ -8751,7 +8890,9 @@
     "relatedNodeId": "k_vault_java02_yikc89",
     "answer": "数据库分库分表：\n当数据库单表一年产生的数据超过1000W，那么就要考虑分库分表（具体分库分表的原理在此不做解释），简单的说就是原来的一个数据库变成了多个数据库。这时候，如果一个操作既访问01库，又访问02库，而且要保证数据的一致性，那么就要用到分布式事务。\n应用SOA化：\n所谓的SOA化，就是业务的服务化。比如原来单机支撑了整个电商网站，现在对整个网站进行拆解，分离出了订单中心、用户中心、库存中心。对于订单中心，有专门的数据库存储订单信息，用户中心也有专门的数据库存储用户信息，库存中心也会有专门的数据库存储库存信息。这时候如果要同时对订单和库存进行操作，那么就会涉及到订单数据库和库存数据库，为了保证数据一致性，就需要用到分布式事务。\n分布式事务是企业集成中的一个技术难点，也是每一个分布式系统架构中都会涉及到的一个东西，特别是在微服务架构中，几乎可以说是无法避免。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate"
   },
   {
     "id": "q_dbnotes_disttx_80",
@@ -8760,6 +8901,17 @@
     "relatedNodeId": "k_vault_java02_yikc89",
     "answer": "支付、转账:\n最经典的场景就是支付了,一笔支付,是对买家账户进行扣款,同时对卖家账户进行加钱,这些操作必须在一个事务里执行,要么全部成功,要么全部失败。而对于买家账户属于买家中心,对应的是买家数据库,而卖家账户属于卖家中心,对应的是卖家数据库,对不同数据库的操作必然需要引入分布式事务。\n在线下单:\n买家在电商平台下单,往往会涉及到两个动作,一个是扣库存,第二个是更新订单状态,库存和订单一般属于不同的数据库,需要使用分布式事务保证数据一致性。\n电商场景:流量充值业务\n中国移动-流量充值能力中心,核心业务流程为:\n1、用户进入流量充值商品购买页面,选择流量商品;\n2、购买流量充值商品,有库存限制则判断库存,生成流量购买订单;\n3、选择对应的支付方式(和包、银联、支付宝、微信)进行支付时操作;\n4、支付成功后,近实时流量到账即可使用流量商品;\n此业务流程看似不是很复杂对吧,不涉及到类似电商业务的实物购买,但是我认为其中的区别并不是很大,只是缺少电商中的物流发货流程,其他流程几乎是一样的,也有库存以及优惠折扣等业务存在。",
     "createdAt": 1788038680805,
-    "updatedAt": 1788038680805
+    "updatedAt": 1788106914383,
+    "kind": "recall",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": "q_1788180475904_y3zcei",
+    "text": "索引哪些情况下会失效",
+    "answered": true,
+    "relatedNodeId": "container:chapter_db_11",
+    "createdAt": 1788180475904,
+    "updatedAt": 1788180487050,
+    "answer": "1.查询条件包含or，会导致索引失效。\n2.隐式类型转换，会导致索引失效，例如age字段类型是int，我们\nwhere age = “1”，这样就会触发隐式类型转换\n3.like通配符会导致索引失效，注意:”ABC%”不会失效，会⾛range索引，”% ABC”索引会失效\n4.联合索引，查询时的条件列不是联合索引中的第⼀个列，索引失效。\n5.对索引字段进⾏函数运算。\n6.对索引列运算（如，+、-、* 、/），索引失效。\n7.索引字段上使⽤（!=或者< >，not in）时，会导致索引失效。\n8.索引字段上使⽤is null，is not null，可能导致索引失效。\n9.相join的两个表的字符编码不同，不能命中索引，会导致笛卡尔积的循环计算\n10.mysql估计使⽤全表扫描要⽐使⽤索引快，则不使⽤索引。"
   }
 ]

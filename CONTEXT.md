@@ -19,3 +19,6 @@ Knowledge-OS treats Markdown as a lossless transport format, not as the knowledg
 3. Navigation parentage is derived from structure or classification relations; causality and dependency remain graph relations.
 4. Every imported node and relation remains traceable to source spans.
 5. A semantic import may produce a forest. Disconnected roots are valid.
+6. Nodes are never physically deleted. A node with any association (tree mount, edge, question, timeline snapshot) stays in the node pool; placeholders and empty-card skeleton nodes are kept as-is.
+7. Deduplication means content fusion, not node removal: when merging same-topic nodes, fold the substance of the retired node into the kept card, unmount the duplicate from the tree, mark it `archived-redirect`, and register a redirect in knowledge governance.
+8. Question `relatedNodeId` must resolve to a node that exists in the pool and is mounted on the tree, so tree-linked navigation and card jumps always land.

@@ -215,6 +215,29 @@ export default defineConfig(({ mode }) => {
         ignored: ['**/data/**'],
       },
     },
+    optimizeDeps: {
+      // mermaid 为动态 import，预先打包避免首次渲染图表时触发依赖发现导致整页刷新
+      include: ['mermaid'],
+    },
+    build: {
+      rollupOptions: {
+        output: {
+          // rolldown 要求函数形式：把 React 运行时拆成稳定命名的供应商块
+          manualChunks(id) {
+            const normalized = id.replace(/\\/g, '/');
+            if (
+              normalized.includes('/node_modules/react-dom/')
+              || normalized.includes('/node_modules/react/')
+              || normalized.includes('/node_modules/scheduler/')
+              || normalized.includes('/node_modules/zustand/')
+            ) {
+              return 'vendor-react';
+            }
+            return undefined;
+          },
+        },
+      },
+    },
   };
 });
 

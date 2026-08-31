@@ -12,6 +12,7 @@ export default function QuestionBank() {
   const setActiveView = useGraphStore((s) => s.setActiveView);
   const addNotification = useGraphStore((s) => s.addNotification);
   const answerQuestion = useGraphStore((s) => s.answerQuestion);
+  const removeQuestion = useGraphStore((s) => s.removeQuestion);
 
   const [editingAnswer, setEditingAnswer] = useState(false);
   const [editAnswer, setEditAnswer] = useState('');
@@ -74,6 +75,14 @@ export default function QuestionBank() {
   const handleCancelAnswerEdit = () => {
     setEditingAnswer(false);
     setEditAnswer('');
+  };
+
+  const handleDeleteQuestion = () => {
+    if (!currentQuestion) return;
+    if (window.confirm(`确定要删除问题"${currentQuestion.text}"吗？`)) {
+      removeQuestion(currentQuestion.id);
+      addNotification('问题已删除', 'success');
+    }
   };
 
   const statusLabel = currentQuestion?.answered
@@ -157,6 +166,15 @@ export default function QuestionBank() {
                 🔗 {relatedLabel}
               </button>
             )}
+            <button
+              type="button"
+              className="btn-icon-sm"
+              style={{ marginLeft: 'auto', color: '#ef4444' }}
+              onClick={handleDeleteQuestion}
+              title="删除问题"
+            >
+              🗑
+            </button>
           </div>
 
           <div className="question-detail-text">{currentQuestion.text}</div>
