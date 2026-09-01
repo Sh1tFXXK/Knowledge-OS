@@ -1047,6 +1047,7 @@
       "rootContent": "MySQL 哈希索引 / hash index **MySQL 哈希索引 / hash index** 一种用于使用相等运算符而非范围运算符（如大于或 BETWEEN）的 index 类型。它适用于 MEMORY 表。虽然由于历史原因，哈希索引是 MEMORY 表的默认选项，但该存储引擎也支持 B-tree 索引，这通常是通用查询的更好选择。 \"MySQL 包含这种索引类型的一个变体，adaptive hash index，该索引会根据运行时条件在需要时自动为InnoDB 表构建。\""
     },
     "tags": [
+      "MySQL 哈希索引 / hash index",
       "哈希索引 / hash index",
       "mysql"
     ]
@@ -1150,7 +1151,6 @@
       "rootContent": "MySQL 组合索引 **MySQL 组合索引** 包含多个列的索引，按列顺序构建搜索树。别名：**复合索引**（composite index）、**连接索引**（concatenated index）——MySQL 官方术语为 composite index，三者同义。 使用联合索引需遵循**最佳左前缀法则**：where 条件从最左列开始、连续匹配、不跳列；能否命中由联合索引的排序结构决定。"
     },
     "tags": [
-      "MySQL 组合索引",
       "组合索引",
       "mysql",
       "复合索引",
@@ -1178,6 +1178,7 @@
       "rootContent": "在一个列或一组列上建立的索引具有 **unique constraint**。因为这个 索引已知不含任何重复值，所以某些类型的查找和计数操作比正常类型的索引更有效。对这种类型索引的大多数查找仅仅是为了确定某个值是否存在。索引中的值的数量与表中的行数相同，或者至少与相关列的非空值的行数相同。 \"**Change buffering**优化 不适用于唯一索引。作为一种解决方法，您可以 在将数据大量加载到`InnoDB`表时，暂时设置`unique_checks=0`。\n\"定义** 数据列不允许重复，允许为NULL值， 一个表允许多个列创建唯一索引 \n机制** 可以通过ALTER TABLE table_name ADD UNIQUE(column); 创建唯一索引 可以通过ALTER TABLE table_name ADD UNIQUE(column1,column2); 创建唯一组合索引 \n边界** 唯一检查在行锁范围内进行——RC 下可能出现幻读唯一冲突。"
     },
     "tags": [
+      "MySQL 唯一索引 / unique index",
       "唯一索引 / unique index",
       "mysql"
     ]
@@ -1200,10 +1201,9 @@
           "content": "**MySQL 全文索引 / FULLTEXT index**\n**FULLTEXT index**：供**全文搜索**查询使用的一种特殊**索引**。MySQL 5.6.4 起 `InnoDB` 与 `MyISAM` 表均支持 `FULLTEXT` 索引（此前仅 `MyISAM` 支持）。\n\n**全文搜索 / full-text search**：MySQL 的一项功能，配合 `MATCH()` 等 SQL 函数使用 `FULLTEXT` 索引，比 `LIKE` 操作符或自行编写应用层搜索更快、更灵活地查找单词、短语与布尔组合。\n\n缩写 **FTS** 通常即 full-text search；但在性能讨论中有时指 full table scan（全表扫描），注意区分。"
         }
       ],
-      "rootContent": "MySQL 全文索引 / FULLTEXT index **MySQL 全文索引 / FULLTEXT index** **FULLTEXT index**：供**全文搜索**查询使用的一种特殊**索引**。MySQL 5.6.4 起 `InnoDB` 与 `MyISAM` 表均支持 `FULLTEXT` 索引（此前仅 `MyISAM` 支持）。 **全文搜索 / full-text search**：MySQL 的一项功能，配合 `MATCH()` 等 SQL 函数使用 `FULLTEXT` 索引，比 `LIKE` 操作符或自行编写应用层搜索更快、更灵活地查找单词、短语与布尔组合。 缩写 **FTS** 通常即 full-text search；但在性能讨论中有时指 full table scan（全表扫描），注意区分。"
+      "rootContent": "供**全文搜索**查询使用的一种特殊**索引**。MySQL 5.6.4 起 `InnoDB` 与 `MyISAM` 表均支持 `FULLTEXT` 索引（此前仅 `MyISAM` 支持）。 **全文搜索 / full-text search**：MySQL 的一项功能，配合 `MATCH()` 等 SQL 函数使用 `FULLTEXT` 索引，比 `LIKE` 操作符或自行编写应用层搜索更快、更灵活地查找单词、短语与布尔组合。 缩写 **FTS** 通常即 full-text search；但在性能讨论中有时指 full table scan（全表扫描），注意区分。全⽂索引⽅式有⾃然语⾔检索INNATURALLANGUAGEMODE和布尔检索\nINBOOLEANMODE两种和常⽤的like模糊查询不同，全⽂索引有⾃⼰的语法格式，使⽤match和against关键字，⽐如\nSELECT * FROM users3 WHERE MATCH(NAME)  AGAINST('aabb'); -- * 表示通配符,只能在词的后⾯\nSELECT * FROM users3 WHERE MATCH(NAME) AGAINST ( 'aa*' IN  BOOLEANMODE);\n全⽂索引使⽤注意事项：\n全⽂索引必须在字符串、⽂本字段上建⽴。\n全⽂索引字段值必须在最⼩字符和最⼤字符之间的才会有效。（innodb：3-84；myisam：4-84）"
     },
     "tags": [
-      "MySQL 全文索引 / FULLTEXT index",
       "全文索引 / FULLTEXT index",
       "Mysql"
     ]
@@ -9572,9 +9572,8 @@
       "mysql"
     ],
     "tags": [
-      "MySQL主键索引",
-      "主键 / primary key",
-      "mysql"
+      "mysql",
+      "主键索引"
     ]
   },
   "k_dict_nkw47274": {
@@ -154884,6 +154883,32 @@
       "nodeId": "k_1788179275554_knwq7e",
       "title": "主键",
       "tabs": []
+    }
+  },
+  "k_1788189196672_0mqnkt": {
+    "id": "k_1788189196672_0mqnkt",
+    "label": "语法",
+    "tags": [
+      "语法"
+    ],
+    "card": {
+      "nodeId": "k_1788189196672_0mqnkt",
+      "title": "语法",
+      "tabs": [],
+      "rootContent": "CREATE   INDEX<索引的名>ON tablename(字段名1，字段名2...);\nALTER TABLE tablename ADD INDEX[索引的名字] (字段名1，字段名2 ...);\nCREATE TABLE tablename([...],INDEX[索引的名字] (字段名1，字段名2...));"
+    }
+  },
+  "k_1788189313785_gs40tz": {
+    "id": "k_1788189313785_gs40tz",
+    "label": "语法",
+    "tags": [
+      "语法"
+    ],
+    "card": {
+      "nodeId": "k_1788189313785_gs40tz",
+      "title": "语法",
+      "tabs": [],
+      "rootContent": "CREATE FULLTEXT INDEX<索引的名字>ON tablename(字段名);\nALTER TABLE tablename ADD FULLTEXT [ 索引的名字 ] (字段名);\nCREATE TABLE tablename([...],FULLTEXT KEY[索引的名字] (字段名);"
     }
   }
 }

@@ -40683,5 +40683,40 @@
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure"
+  },
+  {
+    "id": "treebind:governance:canonical:demo_composite_index:tree_1788189196675_u1ckc0",
+    "source": "demo_composite_index",
+    "target": "k_1788189196672_0mqnkt",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql"
+    ]
+  },
+  {
+    "id": "treebind:mysql_functional_ref_demo_fulltext_index:tree_1788189313788_b1male",
+    "source": "demo_fulltext_index",
+    "target": "k_1788189313785_gs40tz",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "storage",
+      "mysql"
+    ]
+  },
+  {
+    "id": "treebind:tree_1788164734351_r23zu3:governance:canonical:k_auto_yb9yyu",
+    "source": "k_1788164734347_br5rza",
+    "target": "k_auto_yb9yyu",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "mysql"
+    ]
   }
 ]
