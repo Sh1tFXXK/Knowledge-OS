@@ -40718,5 +40718,25 @@
     "dimensions": [
       "mysql"
     ]
+  },
+  {
+    "id": "clustered_secondary_contrast_edge",
+    "source": "demo_clustered_index",
+    "target": "demo_secondary_index",
+    "type": "contrasts-with",
+    "label": "聚簇 vs 非聚簇",
+    "dimensions": [
+      "storage"
+    ]
+  },
+  {
+    "id": "innodb_myisam_contrast_edge",
+    "source": "demo_innodb",
+    "target": "demo_myisam",
+    "type": "contrasts-with",
+    "label": "聚簇 vs 非聚簇",
+    "dimensions": [
+      "storage"
+    ]
   }
 ]
