@@ -39900,5 +39900,117 @@
       "storage",
       "transaction"
     ]
+  },
+  {
+    "id": "treebind:tree_1784461463664_gj6m4f:tree_springmvc_nine_components",
+    "source": "k_1784461463543_at67h0",
+    "target": "k_springmvc_nine_components",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_multipart_resolver",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_multipart_resolver",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_locale_resolver",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_locale_resolver",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_theme_resolver",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_theme_resolver",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_handler_mapping",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_handler_mapping",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_handler_adapter",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_handler_adapter",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_handler_exception_resolver",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_handler_exception_resolver",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_request_to_view_name_translator",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_request_to_view_name_translator",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_view_resolvers",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_view_resolvers",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_springmvc_nine_components:tree_springmvc_flash_map_manager",
+    "source": "k_springmvc_nine_components",
+    "target": "k_springmvc_flash_map_manager",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "edge_springmvc_mapping_to_adapter",
+    "source": "k_springmvc_handler_mapping",
+    "target": "k_springmvc_handler_adapter",
+    "type": "leads-to",
+    "label": "找到 Handler 后交由 HandlerAdapter 调用",
+    "relationKind": "causality"
+  },
+  {
+    "id": "edge_springmvc_adapter_to_viewresolver",
+    "source": "k_springmvc_handler_adapter",
+    "target": "k_springmvc_view_resolvers",
+    "type": "leads-to",
+    "label": "返回 ModelAndView，视图名交给 ViewResolver 解析",
+    "relationKind": "causality"
+  },
+  {
+    "id": "edge_springmvc_viewresolver_needs_locale",
+    "source": "k_springmvc_view_resolvers",
+    "target": "k_springmvc_locale_resolver",
+    "type": "depends-on",
+    "label": "视图解析时需要 Locale",
+    "relationKind": "dependency"
+  },
+  {
+    "id": "edge_springmvc_viewname_fallback",
+    "source": "k_springmvc_view_resolvers",
+    "target": "k_springmvc_request_to_view_name_translator",
+    "type": "depends-on",
+    "label": "Handler 未设置 ViewName 时从请求中获取",
+    "relationKind": "dependency"
   }
 ]
