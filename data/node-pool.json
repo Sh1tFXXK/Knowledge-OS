@@ -145130,5 +145130,229 @@
       "title": "日志管理",
       "tabs": []
     }
+  },
+  "k_springmvc_nine_components": {
+    "id": "k_springmvc_nine_components",
+    "label": "Spring MVC 九大组件",
+    "role": "subsystem",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "Spring MVC 九大组件"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_nine_components",
+      "title": "Spring MVC 九大组件",
+      "rootContent": "SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式、请求驱动类型的轻量级 Web 框架。它采用 MVC 架构模式的思想，通过把 Model、View、Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件。DispatcherServlet 在初始化时依次初始化九大组件。\n\n涉及请求处理响应的核心组件是：\n\n1. HandlerMapping\n2. HandlerAdapter\n3. ViewResolver\n\n整体执行流程：\n\n1. HandlerMapping 找到 Handler 后交由 HandlerAdapter 调用\n2. HandlerAdapter 会返回 ModelAndView\n3. ModelAndView 根据用户传入参数得到 ViewResolvers\n4. ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染\n\n注意：大家最熟悉的两个类 ModelAndView 和 View 并不属于 Spring MVC 九大组件之列。",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "SpringMVC 是一种基于 Java 语言开发，实现了 Web MVC 设计模式、请求驱动类型的轻量级 Web 框架。它采用 MVC 架构模式的思想，通过把 Model、View、Controller 分离，将 Web 层进行职责解耦，从而把复杂的 Web 应用分成逻辑清晰的几个组件。DispatcherServlet 在初始化时依次初始化九大组件。\n\n涉及请求处理响应的核心组件是：\n\n1. HandlerMapping\n2. HandlerAdapter\n3. ViewResolver\n\n整体执行流程：\n\n1. HandlerMapping 找到 Handler 后交由 HandlerAdapter 调用\n2. HandlerAdapter 会返回 ModelAndView\n3. ModelAndView 根据用户传入参数得到 ViewResolvers\n4. ViewResolvers 会将用户传入的参数封装为 View，交给引擎进行渲染\n\n注意：大家最熟悉的两个类 ModelAndView 和 View 并不属于 Spring MVC 九大组件之列。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_multipart_resolver": {
+    "id": "k_springmvc_multipart_resolver",
+    "label": "MultipartResolver 文件处理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "MultipartResolver 文件处理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_multipart_resolver",
+      "title": "MultipartResolver 文件处理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initMultipartResolver(context)`。\n\n用于处理上传请求。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_locale_resolver": {
+    "id": "k_springmvc_locale_resolver",
+    "label": "LocaleResolver 当前环境处理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "LocaleResolver 当前环境处理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_locale_resolver",
+      "title": "LocaleResolver 当前环境处理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initLocaleResolver(context)`。\n\nSpringMVC 主要有两个地方用到了 Locale：\n\n一是 ViewResolver 视图解析的时候；\n\n二是用到国际化资源或者主题的时候。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_theme_resolver": {
+    "id": "k_springmvc_theme_resolver",
+    "label": "ThemeResolver 主题处理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "ThemeResolver 主题处理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_theme_resolver",
+      "title": "ThemeResolver 主题处理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initThemeResolver(context)`。\n\n用于解析主题。也就是解析样式、图片及它们所形成的显示效果的集合。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_handler_mapping": {
+    "id": "k_springmvc_handler_mapping",
+    "label": "HandlerMapping 处理器映射器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "核心组件",
+      "HandlerMapping 处理器映射器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_handler_mapping",
+      "title": "HandlerMapping 处理器映射器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initHandlerMappings(context)`。\n\n在 SpringMVC 中会有很多请求，每个请求都需要一个 Handler 处理。HandlerMapping 的作用便是找到请求相应的处理器 Handler 和 Interceptor。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_handler_adapter": {
+    "id": "k_springmvc_handler_adapter",
+    "label": "HandlerAdapter 处理器适配器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "核心组件",
+      "HandlerAdapter 处理器适配器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_handler_adapter",
+      "title": "HandlerAdapter 处理器适配器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initHandlerAdapters(context)`。\n\n从名字上看，它就是一个适配器。HandlerAdapter 要做的事情就是如何让固定的 Servlet 处理方法调用灵活的 Handler 来进行处理。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_handler_exception_resolver": {
+    "id": "k_springmvc_handler_exception_resolver",
+    "label": "HandlerExceptionResolver 异常处理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "HandlerExceptionResolver 异常处理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_handler_exception_resolver",
+      "title": "HandlerExceptionResolver 异常处理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initHandlerExceptionResolvers(context)`。\n\n它的主要作用是处理其他组件产生的异常情况。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_request_to_view_name_translator": {
+    "id": "k_springmvc_request_to_view_name_translator",
+    "label": "RequestToViewNameTranslator 视图名称翻译器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "RequestToViewNameTranslator 视图名称翻译器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_request_to_view_name_translator",
+      "title": "RequestToViewNameTranslator 视图名称翻译器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initRequestToViewNameTranslator(context)`。\n\n它的作用是从请求中获取 ViewName。有的 Handler 处理完后并没有设置 View 也没有设置 ViewName，这时就需要从 request 中获取，而 RequestToViewNameTranslator 就是为 request 提供获取 ViewName 的实现。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_view_resolvers": {
+    "id": "k_springmvc_view_resolvers",
+    "label": "ViewResolvers 页面渲染处理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "核心组件",
+      "ViewResolvers 页面渲染处理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_view_resolvers",
+      "title": "ViewResolvers 页面渲染处理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initViewResolvers(context)`。\n\nViewResolvers 的主要作用是将 String 类型的视图名和 Locale 解析为 View 类型的视图。"
+        }
+      ]
+    }
+  },
+  "k_springmvc_flash_map_manager": {
+    "id": "k_springmvc_flash_map_manager",
+    "label": "FlashMapManager 参数传递管理器",
+    "role": "plain",
+    "tags": [
+      "spring",
+      "springmvc",
+      "web",
+      "FlashMapManager 参数传递管理器"
+    ],
+    "card": {
+      "nodeId": "k_springmvc_flash_map_manager",
+      "title": "FlashMapManager 参数传递管理器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "对应的初始化方法是 `initFlashMapManager(context)`。\n\n在实际应用中，为了避免重复提交，我们可以在处理完 post 请求后重定向到另外一个 get 请求，这个 get 请求可以用来返回页面渲染需要的信息。FlashMap 就是用于这种请求重定向场景中的参数传递。"
+        }
+      ]
+    }
   }
 }
