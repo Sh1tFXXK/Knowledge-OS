@@ -6,7 +6,7 @@ import ipaddr from 'ipaddr.js';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
-import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
+import { applyImportAtTreeNode } from './lib/import-wikipedia.mjs';
 import { createTranslationService } from './translation.mjs';
 import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
 import { applySemanticImportAtTreeNode } from './semantic-persistence.mjs';

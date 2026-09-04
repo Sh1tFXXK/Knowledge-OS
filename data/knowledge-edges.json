@@ -8821,15 +8821,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:tree_1785843194648_eukkr2:tree_1786007130862_28kj02",
-    "source": "k_1785843194451_b6cvb2",
-    "target": "k_1786007130617_bg40je",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
     "id": "treebind:tree_1784367220424_14rpaj:tree_1785933871037_4quzee",
     "source": "k_1784367220387_2v9vdv",
     "target": "k_1785933870843_mvj4ix",
@@ -13669,29 +13660,6 @@
     "label": "contains",
     "relationKind": "structure",
     "dimensions": []
-  },
-  {
-    "id": "treebind:tree_1782928696623_almc5c:tree_1782928703685_fuj7ev",
-    "source": "k_1784531131067_9tdszo",
-    "target": "demo_optimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:tree_1782928696623_almc5c:tree_1782928843771_cmjyzt",
-    "source": "k_1784531131067_9tdszo",
-    "target": "demo_pessimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction"
-    ]
   },
   {
     "id": "treebind:tree_1782928696623_almc5c:tree_1784913687030_1l3ffc",
@@ -22254,19 +22222,6 @@
     ]
   },
   {
-    "id": "treebind:demo_tree_mvcc:tree_mvcc_secondary_index_existing",
-    "source": "demo_mvcc",
-    "target": "demo_secondary_index",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
-    ]
-  },
-  {
     "id": "treebind:demo_tree_mvcc:tree_1782024448026_vs0xa9",
     "source": "demo_mvcc",
     "target": "k_1782024448012_sl16gv",
@@ -23062,15 +23017,6 @@
     ]
   },
   {
-    "id": "treebind:tree_1786175188148_3flq6j:governance:canonical:k_auto_yb9yyu",
-    "source": "n_0xxb9cqy",
-    "target": "k_auto_yb9yyu",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
     "id": "treebind:tree_1786175188148_3flq6j:governance:canonical:k_auto_es1cgt",
     "source": "n_0xxb9cqy",
     "target": "k_auto_es1cgt",
@@ -23274,30 +23220,6 @@
     ]
   },
   {
-    "id": "treebind:demo_tree_lock:demo_tree_optimistic",
-    "source": "demo_lock",
-    "target": "demo_optimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:demo_tree_pessimistic",
-    "source": "demo_lock",
-    "target": "demo_pessimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
     "id": "treebind:demo_tree_lock:mysql_lock_range_insert",
     "source": "demo_lock",
     "target": "mysql_lock_range_insert",
@@ -23326,18 +23248,6 @@
     "id": "treebind:demo_tree_lock:mysql_functional_ref_k_dict_m5qakvks",
     "source": "demo_lock",
     "target": "k_dict_m5qakvks",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:mysql_functional_ref_k_dict_yvuxhe74",
-    "source": "demo_lock",
-    "target": "k_dict_yvuxhe74",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -23394,19 +23304,6 @@
     "dimensions": [
       "transaction",
       "performance"
-    ]
-  },
-  {
-    "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
-    "source": "demo_lock",
-    "target": "mysql_glossary_exclusive_lock_ksqz5a",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance",
-      "storage"
     ]
   },
   {
@@ -24693,18 +24590,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_shared_lock_pfppmy",
-    "source": "theory_domain_concurrency_theory",
-    "target": "k_dict_yvuxhe74",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage",
-      "transaction"
-    ]
-  },
-  {
     "id": "treebind:theory_domain_concurrency_theory:mysql_term_concurrency_theory_deadlock_y1d9j4",
     "source": "theory_domain_concurrency_theory",
     "target": "k_dict_mq68vpwg",
@@ -25408,18 +25293,6 @@
     "label": "contains",
     "relationKind": "structure",
     "dimensions": []
-  },
-  {
-    "id": "treebind:tree_1784554590313_a37dme:tree_1784703345527_fqrnql",
-    "source": "k_1784554590257_xa43c1",
-    "target": "demo_optimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "transaction",
-      "performance"
-    ]
   },
   {
     "id": "treebind:tree_1784703345527_fqrnql:tree_1784703642892_2j0wiv",
@@ -34348,18 +34221,6 @@
     ]
   },
   {
-    "id": "treebind:tree_concept_secondary_index:governance:canonical:k_auto_yb9yyu",
-    "source": "concept_secondary_index",
-    "target": "k_auto_yb9yyu",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "索引",
-      "mysql"
-    ]
-  },
-  {
     "id": "treebind:tree_concept_prefix_index:governance:canonical:k_auto_es1cgt",
     "source": "concept_prefix_index",
     "target": "k_auto_es1cgt",
@@ -34482,45 +34343,6 @@
     ]
   },
   {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_shared_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_shared_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_shared_lock:mysql_functional_ref_k_dict_yvuxhe74",
-    "source": "concept_shared_lock",
-    "target": "k_dict_yvuxhe74",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "transaction",
-      "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_gap_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_gap_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "索引"
-    ]
-  },
-  {
     "id": "treebind:tree_concept_gap_lock:mysql_glossary_gap_lock_1gfoi1",
     "source": "concept_gap_lock",
     "target": "mysql_glossary_gap_lock_1gfoi1",
@@ -34533,19 +34355,6 @@
       "索引",
       "transaction",
       "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_next_key_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_next_key_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "索引"
     ]
   },
   {
@@ -34591,18 +34400,6 @@
     ]
   },
   {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_row_level_locking",
-    "source": "concept_lock_mechanism",
-    "target": "concept_row_level_locking",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
     "id": "treebind:tree_concept_row_level_locking:mysql_functional_ref_k_dict_fb1f2eh2",
     "source": "concept_row_level_locking",
     "target": "k_dict_fb1f2eh2",
@@ -34615,98 +34412,6 @@
       "transaction",
       "storage",
       "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_exclusive_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_exclusive_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_exclusive_lock:projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
-    "source": "concept_exclusive_lock",
-    "target": "mysql_glossary_exclusive_lock_ksqz5a",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "transaction",
-      "storage",
-      "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_optimistic_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_optimistic_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_optimistic_lock:tree_1782928703685_fuj7ev",
-    "source": "concept_optimistic_lock",
-    "target": "demo_optimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "transaction",
-      "performance",
-      "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_pessimistic_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_pessimistic_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_pessimistic_lock:tree_1782928843771_cmjyzt",
-    "source": "concept_pessimistic_lock",
-    "target": "demo_pessimistic",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "transaction",
-      "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_intention_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_intention_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
     ]
   },
   {
@@ -34738,18 +34443,6 @@
     ]
   },
   {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_record_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_record_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
     "id": "treebind:tree_concept_record_lock:projection:mysql-term:mysql_glossary_record_lock_1pixn1",
     "source": "concept_record_lock",
     "target": "mysql_glossary_record_lock_1pixn1",
@@ -34762,31 +34455,6 @@
       "transaction",
       "storage",
       "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_table_level_locking",
-    "source": "concept_lock_mechanism",
-    "target": "concept_table_level_locking",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_auto_increment_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_auto_increment_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "MySQL"
     ]
   },
   {
@@ -34822,18 +34490,6 @@
     ]
   },
   {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_insert_intention_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_insert_intention_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
-    ]
-  },
-  {
     "id": "treebind:tree_concept_insert_intention_lock:projection:mysql-term:mysql_glossary_insert_intention_lock_1pnwh6",
     "source": "concept_insert_intention_lock",
     "target": "mysql_glossary_insert_intention_lock_1pnwh6",
@@ -34846,18 +34502,6 @@
       "transaction",
       "storage",
       "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_implicit_row_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_implicit_row_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
     ]
   },
   {
@@ -34887,19 +34531,6 @@
       "锁",
       "操作系统",
       "同步"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_metadata_lock",
-    "source": "concept_lock_mechanism",
-    "target": "concept_metadata_lock",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁",
-      "元数据"
     ]
   },
   {
@@ -34943,18 +34574,6 @@
       "读现象",
       "transaction",
       "mysql"
-    ]
-  },
-  {
-    "id": "treebind:tree_concept_lock_mechanism:tree_concept_locking_read",
-    "source": "concept_lock_mechanism",
-    "target": "concept_locking_read",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "并发",
-      "锁"
     ]
   },
   {
@@ -37674,17 +37293,6 @@
     ]
   },
   {
-    "id": "treebind:tree_1782846767208_uw6zxc:tree_vault_java00_xqq5bt",
-    "source": "k_1782846767165_l599je",
-    "target": "k_vault_java00_xqq5bt",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
     "id": "treebind:tree_1782846767208_uw6zxc:tree_vault_java01_1hsx4k",
     "source": "k_1782846767165_l599je",
     "target": "k_vault_java01_1hsx4k",
@@ -37699,17 +37307,6 @@
     "id": "treebind:tree_1782846767208_uw6zxc:tree_vault_java02_hjsqh3",
     "source": "k_1782846767165_l599je",
     "target": "k_vault_java02_hjsqh3",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_1782846767208_uw6zxc:tree_vault_java03volatilethreadlocal_1mspjr",
-    "source": "k_1782846767165_l599je",
-    "target": "k_vault_java03volatilethreadlocal_1mspjr",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -38213,28 +37810,6 @@
     ]
   },
   {
-    "id": "treebind:tree_java_fw_spring:tree_vault_javaspring03aop_m5revs",
-    "source": "k_java_fw_spring",
-    "target": "k_vault_javaspring03aop_m5revs",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_vault_javaspring04springmvc_133lis",
-    "source": "k_java_fw_spring",
-    "target": "k_vault_javaspring04springmvc_133lis",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
     "id": "treebind:tree_java_fw_spring:tree_vault_javaspring05_i92q3o",
     "source": "k_java_fw_spring",
     "target": "k_vault_javaspring05_i92q3o",
@@ -38249,17 +37824,6 @@
     "id": "treebind:tree_java_fw_spring:tree_vault_javaspring06_1868fr",
     "source": "k_java_fw_spring",
     "target": "k_vault_javaspring06_1868fr",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_vault_javaspringspring_ikuxww",
-    "source": "k_java_fw_spring",
-    "target": "k_vault_javaspringspring_ikuxww",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -39744,72 +39308,6 @@
     ]
   },
   {
-    "id": "treebind:tree_java_fw_spring:tree_1785228764111_vy9ilh",
-    "source": "k_java_fw_spring",
-    "target": "k_1785228764111_vy9ilh",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_1785228834518_r08hca",
-    "source": "k_java_fw_spring",
-    "target": "k_1785228834518_r08hca",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_1785228924980_irl0z4",
-    "source": "k_java_fw_spring",
-    "target": "k_1785228924980_irl0z4",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_1785228955207_9nqbli",
-    "source": "k_java_fw_spring",
-    "target": "k_1785228955207_9nqbli",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_1785296399373_ibj3ms",
-    "source": "k_java_fw_spring",
-    "target": "k_1785296399373_ibj3ms",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring:tree_1785296821866_imouaf",
-    "source": "k_java_fw_spring",
-    "target": "k_1785296821866_imouaf",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
     "id": "treebind:tree_acm2012_software_notations_tools_programming_languages:tree_acm2012_software_notations_tools_sql",
     "source": "k_acm2012_software_notations_tools_programming_languages",
     "target": "k_wiki_en_outline_of_databases_s5_b5",
@@ -40621,14 +40119,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:chapter_db_11:tree_1788164734351_r23zu3",
-    "source": "container:chapter_db_11",
-    "target": "k_1788164734347_br5rza",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure"
-  },
-  {
     "id": "treebind:mysql_functional_ref_demo_unique_index:tree_1788165277114_mm8y3e",
     "source": "demo_unique_index",
     "target": "k_1788165277106_8doot7",
@@ -40639,14 +40129,6 @@
       "storage",
       "mysql"
     ]
-  },
-  {
-    "id": "treebind:tree_1788164734351_r23zu3:tree_1788178513868_xojas1",
-    "source": "k_1788164734347_br5rza",
-    "target": "k_1788178513859_30o6p5",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure"
   },
   {
     "id": "treebind:chapter_db_11:tree_concept_primary_key",
@@ -40709,17 +40191,6 @@
     ]
   },
   {
-    "id": "treebind:tree_1788164734351_r23zu3:governance:canonical:k_auto_yb9yyu",
-    "source": "k_1788164734347_br5rza",
-    "target": "k_auto_yb9yyu",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "mysql"
-    ]
-  },
-  {
     "id": "clustered_secondary_contrast_edge",
     "source": "demo_clustered_index",
     "target": "demo_secondary_index",
@@ -40738,5 +40209,3240 @@
     "dimensions": [
       "storage"
     ]
+  },
+  {
+    "id": "rel:concept_secondary_index:instance-of:demo_secondary_index",
+    "source": "demo_secondary_index",
+    "target": "concept_secondary_index",
+    "type": "instance-of",
+    "label": "MySQL 实例",
+    "dimensions": [
+      "storage",
+      "performance"
+    ]
+  },
+  {
+    "id": "treebind:tree_concept_secondary_index:tree_mvcc_secondary_index_existing",
+    "source": "concept_secondary_index",
+    "target": "demo_secondary_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_secondary_index:governance:canonical:k_auto_yb9yyu",
+    "source": "concept_secondary_index",
+    "target": "k_auto_yb9yyu",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_dict_fb1f2eh2:demo_tree_row_lock",
+    "source": "k_dict_fb1f2eh2",
+    "target": "demo_row_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_perf:tree_concept_optimistic_lock",
+    "source": "lock_by_perf",
+    "target": "concept_optimistic_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_perf:tree_concept_pessimistic_lock",
+    "source": "lock_by_perf",
+    "target": "concept_pessimistic_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_demo_lock:tree_lock_taxonomy",
+    "source": "demo_lock",
+    "target": "lock_taxonomy",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_taxonomy:tree_lock_by_type",
+    "source": "lock_taxonomy",
+    "target": "lock_by_type",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_taxonomy:tree_lock_by_grain",
+    "source": "lock_taxonomy",
+    "target": "lock_by_grain",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_taxonomy:tree_lock_by_perf",
+    "source": "lock_taxonomy",
+    "target": "lock_by_perf",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_lock_page_size",
+    "source": "lock_by_grain",
+    "target": "lock_page_size",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_type:mysql_functional_ref_k_dict_yvuxhe74",
+    "source": "lock_by_type",
+    "target": "k_dict_yvuxhe74",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_type:projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
+    "source": "lock_by_type",
+    "target": "mysql_glossary_exclusive_lock_ksqz5a",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_type:tree_concept_locking_read",
+    "source": "lock_by_type",
+    "target": "concept_locking_read",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_type:tree_concept_intention_lock",
+    "source": "lock_by_type",
+    "target": "concept_intention_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_table_level_locking",
+    "source": "lock_by_grain",
+    "target": "concept_table_level_locking",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_metadata_lock",
+    "source": "lock_by_grain",
+    "target": "concept_metadata_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_auto_increment_lock",
+    "source": "lock_by_grain",
+    "target": "concept_auto_increment_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_row_level_locking",
+    "source": "lock_by_grain",
+    "target": "concept_row_level_locking",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_record_lock",
+    "source": "lock_by_grain",
+    "target": "concept_record_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_gap_lock",
+    "source": "lock_by_grain",
+    "target": "concept_gap_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_next_key_lock",
+    "source": "lock_by_grain",
+    "target": "concept_next_key_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_insert_intention_lock",
+    "source": "lock_by_grain",
+    "target": "concept_insert_intention_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_grain:tree_concept_implicit_row_lock",
+    "source": "lock_by_grain",
+    "target": "concept_implicit_row_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_perf:tree_1782928703685_fuj7ev",
+    "source": "lock_by_perf",
+    "target": "demo_optimistic",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_lock_by_perf:tree_1782928843771_cmjyzt",
+    "source": "lock_by_perf",
+    "target": "demo_pessimistic",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_lock_mechanism:tree_concept_shared_lock",
+    "source": "concept_lock_mechanism",
+    "target": "concept_shared_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_lock_mechanism:tree_concept_exclusive_lock",
+    "source": "concept_lock_mechanism",
+    "target": "concept_exclusive_lock",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1787326496104_zbtx44:tree_msr_overview",
+    "source": "k_1787326496104_zbtx44",
+    "target": "msr_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_overview:tree_k_dict_rukxx2as",
+    "source": "msr_overview",
+    "target": "k_dict_rukxx2as",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_overview:tree_msr_purpose",
+    "source": "msr_overview",
+    "target": "msr_purpose",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_overview:tree_msr_prereq",
+    "source": "msr_overview",
+    "target": "msr_prereq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_overview:tree_msr_principle",
+    "source": "msr_overview",
+    "target": "msr_principle",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_overview:tree_msr_flow",
+    "source": "msr_overview",
+    "target": "msr_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_flow:tree_msr_dump_thread",
+    "source": "msr_flow",
+    "target": "msr_dump_thread",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_flow:tree_msr_io_thread",
+    "source": "msr_flow",
+    "target": "msr_io_thread",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_msr_flow:tree_msr_sql_thread",
+    "source": "msr_flow",
+    "target": "msr_sql_thread",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "msr:msr_c_1",
+    "source": "msr_master_db",
+    "target": "msr_state_written",
+    "type": "produces",
+    "label": "主库更新产生事件，写入 binlog",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_t_1",
+    "source": "msr_state_written",
+    "target": "msr_state_sent",
+    "type": "transitions-to",
+    "label": "dump 线程发送 binlog",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_2",
+    "source": "msr_state_written",
+    "target": "msr_dump_thread",
+    "type": "triggers",
+    "label": "binlog 有新事件",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_3",
+    "source": "msr_dump_thread",
+    "target": "msr_state_sent",
+    "type": "produces",
+    "label": "dump 线程把 binlog 发给从库",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_t_2",
+    "source": "msr_state_sent",
+    "target": "msr_state_relayed",
+    "type": "transitions-to",
+    "label": "I/O 线程写入 relay log",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_4",
+    "source": "msr_state_sent",
+    "target": "msr_io_thread",
+    "type": "triggers",
+    "label": "从库收到 binlog 内容",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_5",
+    "source": "msr_io_thread",
+    "target": "msr_state_relayed",
+    "type": "produces",
+    "label": "I/O 线程写入 relay log",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_t_3",
+    "source": "msr_state_relayed",
+    "target": "msr_state_replayed",
+    "type": "transitions-to",
+    "label": "SQL 线程重放",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_6",
+    "source": "msr_state_relayed",
+    "target": "msr_sql_thread",
+    "type": "triggers",
+    "label": "relay log 有待执行事件",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_7",
+    "source": "msr_sql_thread",
+    "target": "msr_state_replayed",
+    "type": "produces",
+    "label": "SQL 线程重放到从库",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_t_4",
+    "source": "msr_state_replayed",
+    "target": "msr_state_consistent",
+    "type": "transitions-to",
+    "label": "数据达成一致",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_c_8",
+    "source": "msr_state_replayed",
+    "target": "msr_slave_db",
+    "type": "writes-to",
+    "label": "更新写入从库数据",
+    "relationKind": "causality",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_s_1",
+    "source": "msr_dump_thread",
+    "target": "k_1782029566469_60woxz",
+    "type": "belongs-to",
+    "label": "dump 线程读 binlog",
+    "relationKind": "structure",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_s_2",
+    "source": "msr_io_thread",
+    "target": "msr_relay_log",
+    "type": "belongs-to",
+    "label": "I/O 线程写 relay log",
+    "relationKind": "structure",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "msr:msr_s_3",
+    "source": "msr_sql_thread",
+    "target": "msr_relay_log",
+    "type": "belongs-to",
+    "label": "SQL 线程读 relay log",
+    "relationKind": "structure",
+    "dimensions": [
+      "存储",
+      "可靠性"
+    ]
+  },
+  {
+    "id": "treebind:tree_demo_join:tree_join_types",
+    "source": "demo_join",
+    "target": "join_types",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_demo_join:tree_join_driving_table",
+    "source": "demo_join",
+    "target": "join_driving_table",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_demo_join:tree_join_algorithms",
+    "source": "demo_join",
+    "target": "join_algorithms",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_join_algorithms:tree_join_snl",
+    "source": "join_algorithms",
+    "target": "join_snl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_join_algorithms:tree_join_inl",
+    "source": "join_algorithms",
+    "target": "join_inl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_join_algorithms:tree_join_bnl",
+    "source": "join_algorithms",
+    "target": "join_bnl",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_join_algorithms:tree_k_dict_lf4tbrsa",
+    "source": "join_algorithms",
+    "target": "k_dict_lf4tbrsa",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_demo_join:tree_join_principles",
+    "source": "demo_join",
+    "target": "join_principles",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_mysql_glossary_query_execution_plan_17fdf4:tree_k_dict_txc4v2ss",
+    "source": "mysql_glossary_query_execution_plan_17fdf4",
+    "target": "k_dict_txc4v2ss",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_dict_txc4v2ss:tree_explain_type",
+    "source": "k_dict_txc4v2ss",
+    "target": "explain_type",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_system",
+    "source": "explain_type",
+    "target": "explain_type_system",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_const",
+    "source": "explain_type",
+    "target": "explain_type_const",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_eq_ref",
+    "source": "explain_type",
+    "target": "explain_type_eq_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_ref",
+    "source": "explain_type",
+    "target": "explain_type_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_range",
+    "source": "explain_type",
+    "target": "explain_type_range",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_index",
+    "source": "explain_type",
+    "target": "explain_type_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_explain_type_all",
+    "source": "explain_type",
+    "target": "explain_type_all",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_k_dict_mkv3t3vi",
+    "source": "explain_type",
+    "target": "k_dict_mkv3t3vi",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_explain_type:tree_k_dict_csflfif1",
+    "source": "explain_type",
+    "target": "k_dict_csflfif1",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_concept_query_processing:tree_pagination_overview",
+    "source": "concept_query_processing",
+    "target": "pagination_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_overview:tree_pagination_basic",
+    "source": "pagination_overview",
+    "target": "pagination_basic",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_basic:tree_pagination_exp_offset",
+    "source": "pagination_basic",
+    "target": "pagination_exp_offset",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_basic:tree_pagination_exp_count",
+    "source": "pagination_basic",
+    "target": "pagination_exp_count",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_overview:tree_pagination_opts",
+    "source": "pagination_overview",
+    "target": "pagination_opt_wrapper",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_opt_wrapper:tree_pagination_opt_index",
+    "source": "pagination_opt_wrapper",
+    "target": "pagination_opt_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_opt_wrapper:tree_pagination_opt_subquery",
+    "source": "pagination_opt_wrapper",
+    "target": "pagination_opt_subquery",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_overview:tree_k_dict_wxe0al75",
+    "source": "pagination_overview",
+    "target": "k_dict_wxe0al75",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1782029599317_nn6hzg:tree_slowlog_mysql",
+    "source": "k_1782029599317_nn6hzg",
+    "target": "slowlog_mysql",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_slowlog_mysql:tree_slowlog_params",
+    "source": "slowlog_mysql",
+    "target": "slowlog_params",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_slowlog_mysql:tree_slowlog_config",
+    "source": "slowlog_mysql",
+    "target": "slowlog_config",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_slowlog_mysql:tree_slowlog_entry",
+    "source": "slowlog_mysql",
+    "target": "slowlog_entry",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_slowlog_mysql:tree_k_dict_fncpbi74",
+    "source": "slowlog_mysql",
+    "target": "k_dict_fncpbi74",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1782033508063_xspnmd:tree_sqopt_overview",
+    "source": "k_1782033508063_xspnmd",
+    "target": "sqopt_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_overview:tree_sqopt_causes",
+    "source": "sqopt_overview",
+    "target": "sqopt_causes",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_overview:tree_sqopt_ideas",
+    "source": "sqopt_overview",
+    "target": "sqopt_ideas",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_highconc",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_highconc",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_bottleneck",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_bottleneck",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_target",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_target",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_explain",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_explain",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_small_drive",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_small_drive",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_sort_index",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_sort_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_columns",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_columns",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_filter",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_filter",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_join",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_join",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sqopt_ideas:tree_sqopt_idea_index",
+    "source": "sqopt_ideas",
+    "target": "sqopt_idea_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_dict_txc4v2ss:tree_explain_fields",
+    "source": "k_dict_txc4v2ss",
+    "target": "explain_fields",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_info",
+    "source": "explain_fields",
+    "target": "explain_info",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_usage",
+    "source": "explain_fields",
+    "target": "explain_usage",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_id",
+    "source": "explain_fields",
+    "target": "explain_field_id",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_select_type",
+    "source": "explain_fields",
+    "target": "explain_field_select_type",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_table",
+    "source": "explain_fields",
+    "target": "explain_field_table",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_type",
+    "source": "explain_fields",
+    "target": "explain_field_type",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_keys",
+    "source": "explain_fields",
+    "target": "explain_field_keys",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_keylen",
+    "source": "explain_fields",
+    "target": "explain_field_keylen",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_ref",
+    "source": "explain_fields",
+    "target": "explain_field_ref",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_rows",
+    "source": "explain_fields",
+    "target": "explain_field_rows",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_explain_field_extra",
+    "source": "explain_fields",
+    "target": "explain_field_extra",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_explain_fields:tree_k_sql_explain",
+    "source": "explain_fields",
+    "target": "k_sql_explain",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "qproc:q_1",
+    "source": "qproc_client",
+    "target": "qproc_cache",
+    "type": "routes-to",
+    "label": "客户端经通信协议发送 SQL",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_2",
+    "source": "qproc_client",
+    "target": "qproc_state_connected",
+    "type": "produces",
+    "label": "连接建立、SQL 送达",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_3",
+    "source": "qproc_cache",
+    "target": "qproc_parser",
+    "type": "routes-to",
+    "label": "缓存未命中，SQL 进入解析",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_4",
+    "source": "qproc_cache",
+    "target": "qproc_state_cached",
+    "type": "produces",
+    "label": "命中缓存直接返回",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_5",
+    "source": "qproc_parser",
+    "target": "qproc_preprocessor",
+    "type": "routes-to",
+    "label": "解析树交给预处理器",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_6",
+    "source": "qproc_parser",
+    "target": "qproc_preprocessor",
+    "type": "produces",
+    "label": "解析器生成解析树",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_7",
+    "source": "qproc_preprocessor",
+    "target": "qproc_optimizer",
+    "type": "routes-to",
+    "label": "新解析树交给优化器",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_8",
+    "source": "qproc_optimizer",
+    "target": "qproc_executor",
+    "type": "routes-to",
+    "label": "执行计划交给执行引擎",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_9",
+    "source": "qproc_executor",
+    "target": "qproc_storage",
+    "type": "calls",
+    "label": "执行引擎调存储引擎 API 查询接口",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_10",
+    "source": "qproc_executor",
+    "target": "qproc_client",
+    "type": "routes-to",
+    "label": "结果返回客户端",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_11",
+    "source": "qproc_executor",
+    "target": "qproc_cache",
+    "type": "writes-to",
+    "label": "执行结果写回查询缓存",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:t_1",
+    "source": "qproc_state_connected",
+    "target": "qproc_state_cached",
+    "type": "transitions-to",
+    "label": "查缓存：命中→直接返回",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:t_2",
+    "source": "qproc_state_connected",
+    "target": "qproc_state_parsed",
+    "type": "transitions-to",
+    "label": "未命中→进入解析",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:t_3",
+    "source": "qproc_state_parsed",
+    "target": "qproc_state_planned",
+    "type": "transitions-to",
+    "label": "优化器生成执行计划",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:t_4",
+    "source": "qproc_state_planned",
+    "target": "qproc_state_executing",
+    "type": "transitions-to",
+    "label": "执行引擎取数",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:t_5",
+    "source": "qproc_state_executing",
+    "target": "qproc_state_returned",
+    "type": "transitions-to",
+    "label": "结果返回客户端",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_12",
+    "source": "qproc_preprocessor",
+    "target": "qproc_state_parsed",
+    "type": "produces",
+    "label": "解析+预处理完成",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_13",
+    "source": "qproc_optimizer",
+    "target": "qproc_state_planned",
+    "type": "produces",
+    "label": "优化产出计划",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_14",
+    "source": "qproc_executor",
+    "target": "qproc_state_executing",
+    "type": "produces",
+    "label": "执行取到数据",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:q_15",
+    "source": "qproc_storage",
+    "target": "qproc_state_executing",
+    "type": "produces",
+    "label": "存储引擎供数",
+    "relationKind": "causality",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "qproc:s_1",
+    "source": "qproc_cache",
+    "target": "qproc_executor",
+    "type": "belongs-to",
+    "label": "缓存与执行引擎互写",
+    "relationKind": "structure",
+    "dimensions": [
+      "performance",
+      "mysql",
+      "查询处理"
+    ]
+  },
+  {
+    "id": "treebind:tree_container:chapter_db_06:tree_qproc_overview",
+    "source": "container:chapter_db_06",
+    "target": "qproc_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_overview:tree_qproc_flow",
+    "source": "qproc_overview",
+    "target": "qproc_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_client",
+    "source": "qproc_flow",
+    "target": "qproc_client",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_cache",
+    "source": "qproc_flow",
+    "target": "qproc_cache",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_parser",
+    "source": "qproc_flow",
+    "target": "qproc_parser",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_preprocessor",
+    "source": "qproc_flow",
+    "target": "qproc_preprocessor",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_optimizer",
+    "source": "qproc_flow",
+    "target": "qproc_optimizer",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_executor",
+    "source": "qproc_flow",
+    "target": "qproc_executor",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_storage",
+    "source": "qproc_flow",
+    "target": "qproc_storage",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_connected",
+    "source": "qproc_flow",
+    "target": "qproc_state_connected",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_cached",
+    "source": "qproc_flow",
+    "target": "qproc_state_cached",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_parsed",
+    "source": "qproc_flow",
+    "target": "qproc_state_parsed",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_planned",
+    "source": "qproc_flow",
+    "target": "qproc_state_planned",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_executing",
+    "source": "qproc_flow",
+    "target": "qproc_state_executing",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_qproc_state_returned",
+    "source": "qproc_flow",
+    "target": "qproc_state_returned",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_k_dict_hlduom8b",
+    "source": "qproc_flow",
+    "target": "k_dict_hlduom8b",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_flow:tree_k_dict_yaz6f56l",
+    "source": "qproc_flow",
+    "target": "k_dict_yaz6f56l",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_client:tree_qproc_thread_state",
+    "source": "qproc_client",
+    "target": "qproc_thread_state",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_thread_state:tree_qproc_thread_commands",
+    "source": "qproc_thread_state",
+    "target": "qproc_thread_commands",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_thread_state:tree_qproc_thread_states",
+    "source": "qproc_thread_state",
+    "target": "qproc_thread_states",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_optimizer:tree_qproc_opt_strategies",
+    "source": "qproc_optimizer",
+    "target": "qproc_opt_strategies",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_opt_strategies:tree_qproc_opt_equivalent",
+    "source": "qproc_opt_strategies",
+    "target": "qproc_opt_equivalent",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_opt_strategies:tree_qproc_opt_functions",
+    "source": "qproc_opt_strategies",
+    "target": "qproc_opt_functions",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_opt_strategies:tree_qproc_opt_earlystop",
+    "source": "qproc_opt_strategies",
+    "target": "qproc_opt_earlystop",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_qproc_opt_strategies:tree_qproc_opt_in",
+    "source": "qproc_opt_strategies",
+    "target": "qproc_opt_in",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_container:chapter_db_14:tree_sharding_overview",
+    "source": "container:chapter_db_14",
+    "target": "sharding_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_overview:tree_sharding_what",
+    "source": "sharding_overview",
+    "target": "sharding_what",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_overview:tree_sharding_when",
+    "source": "sharding_overview",
+    "target": "sharding_when",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_overview:tree_sharding_ways",
+    "source": "sharding_overview",
+    "target": "sharding_ways",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_ways:tree_sharding_v_db",
+    "source": "sharding_ways",
+    "target": "sharding_v_db",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_ways:tree_sharding_v_table",
+    "source": "sharding_ways",
+    "target": "sharding_v_table",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_ways:tree_sharding_h_db",
+    "source": "sharding_ways",
+    "target": "sharding_h_db",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_ways:tree_sharding_h_table",
+    "source": "sharding_ways",
+    "target": "sharding_h_table",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_overview:tree_k_dict_zsu3d9zk",
+    "source": "sharding_overview",
+    "target": "k_dict_zsu3d9zk",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_overview:tree_k_dict_wu1sq9s4",
+    "source": "sharding_overview",
+    "target": "k_dict_wu1sq9s4",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sharding_ways:tree_sharding_evolution",
+    "source": "sharding_ways",
+    "target": "sharding_evolution",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1788179275554_knwq7e:tree_pk_choice",
+    "source": "k_1788179275554_knwq7e",
+    "target": "pk_choice",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_choice:tree_pk_auto",
+    "source": "pk_choice",
+    "target": "pk_auto",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_choice:tree_pk_uuid",
+    "source": "pk_choice",
+    "target": "pk_uuid",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_choice:tree_pk_index_struct",
+    "source": "pk_choice",
+    "target": "pk_index_struct",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_choice:tree_pk_conclusion",
+    "source": "pk_choice",
+    "target": "pk_conclusion",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_choice:tree_k_dict_bki84n9o",
+    "source": "pk_choice",
+    "target": "k_dict_bki84n9o",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_index_struct:tree_pk_struct_auto",
+    "source": "pk_index_struct",
+    "target": "pk_struct_auto",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pk_index_struct:tree_pk_struct_uuid",
+    "source": "pk_index_struct",
+    "target": "pk_struct_uuid",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1782033508063_xspnmd:tree_diag_overview",
+    "source": "k_1782033508063_xspnmd",
+    "target": "diag_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_causes",
+    "source": "diag_overview",
+    "target": "diag_causes",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_flow",
+    "source": "diag_overview",
+    "target": "diag_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_index",
+    "source": "diag_overview",
+    "target": "diag_index",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_split",
+    "source": "diag_overview",
+    "target": "diag_split",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_rw_split",
+    "source": "diag_overview",
+    "target": "diag_rw_split",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_diag_overview:tree_diag_hot_cache",
+    "source": "diag_overview",
+    "target": "diag_hot_cache",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_0xxb9cqy:tree_idx_fail_root",
+    "source": "n_0xxb9cqy",
+    "target": "idx_fail_root",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_idx_fail_root:tree_idx_fail_bg",
+    "source": "idx_fail_root",
+    "target": "idx_fail_bg",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_idx_fail_root:tree_idx_fail_cases",
+    "source": "idx_fail_root",
+    "target": "idx_fail_cases",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_idx_fail_root:tree_idx_fail_unfit",
+    "source": "idx_fail_root",
+    "target": "idx_fail_unfit",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_idx_fail_root:tree_idx_fail_rules",
+    "source": "idx_fail_root",
+    "target": "idx_fail_rules",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_s7t5dbya:tree_sk_perf_overview",
+    "source": "n_s7t5dbya",
+    "target": "sk_perf_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_overview:tree_sk_perf_def",
+    "source": "sk_perf_overview",
+    "target": "sk_perf_def",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_overview:tree_sk_perf_rt",
+    "source": "sk_perf_overview",
+    "target": "sk_perf_rt",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_overview:tree_sk_perf_threads",
+    "source": "sk_perf_overview",
+    "target": "sk_perf_threads",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_overview:tree_sk_perf_bottleneck",
+    "source": "sk_perf_overview",
+    "target": "sk_perf_bottleneck",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_overview:tree_sk_perf_opt",
+    "source": "sk_perf_overview",
+    "target": "sk_perf_opt",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_opt:tree_sk_opt_encoding",
+    "source": "sk_perf_opt",
+    "target": "sk_opt_encoding",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_opt:tree_sk_opt_serialize",
+    "source": "sk_perf_opt",
+    "target": "sk_opt_serialize",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_opt:tree_sk_opt_java",
+    "source": "sk_perf_opt",
+    "target": "sk_opt_java",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_sk_perf_opt:tree_sk_opt_concurrent",
+    "source": "sk_perf_opt",
+    "target": "sk_opt_concurrent",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785228764111_vy9ilh",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785228764111_vy9ilh",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785228834518_r08hca",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785228834518_r08hca",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785228924980_irl0z4",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785228924980_irl0z4",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785228955207_9nqbli",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785228955207_9nqbli",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785296399373_ibj3ms",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785296399373_ibj3ms",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_7b4q3y:tree_1785296821866_imouaf",
+    "source": "k_vault_javaspringspring_7b4q3y",
+    "target": "k_1785296821866_imouaf",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_java_fw_spring_mvc:tree_vault_javaspring04springmvc_133lis",
+    "source": "k_java_fw_spring_mvc",
+    "target": "k_vault_javaspring04springmvc_133lis",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_k_1785225243066_ds8pn6:tree_bean_lc_prepare",
+    "source": "k_1785225243066_ds8pn6",
+    "target": "bean_lc_prepare",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1785225243066_ds8pn6:tree_bean_lc_instantiate",
+    "source": "k_1785225243066_ds8pn6",
+    "target": "bean_lc_instantiate",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1785225243066_ds8pn6:tree_bean_lc_inject",
+    "source": "k_1785225243066_ds8pn6",
+    "target": "bean_lc_inject",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1785225243066_ds8pn6:tree_bean_lc_cache",
+    "source": "k_1785225243066_ds8pn6",
+    "target": "bean_lc_cache",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1785225243066_ds8pn6:tree_bean_lc_destroy",
+    "source": "k_1785225243066_ds8pn6",
+    "target": "bean_lc_destroy",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "bcs:t_1",
+    "source": "bcs_state_requested",
+    "target": "bcs_state_def_loaded",
+    "type": "transitions-to",
+    "label": "按 beanName 查 beanDefinitionMap",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:t_2",
+    "source": "bcs_state_def_loaded",
+    "target": "bcs_state_scope_decided",
+    "type": "transitions-to",
+    "label": "读取 scope 判定创建策略",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:t_3",
+    "source": "bcs_state_scope_decided",
+    "target": "bcs_state_created",
+    "type": "transitions-to",
+    "label": "singleton 未命中 / prototype：反射实例化+注入+初始化",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:t_4",
+    "source": "bcs_state_scope_decided",
+    "target": "bcs_state_ready",
+    "type": "transitions-to",
+    "label": "singleton 缓存命中：直接返回既有实例",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:t_5",
+    "source": "bcs_state_created",
+    "target": "bcs_state_ready",
+    "type": "transitions-to",
+    "label": "singleton 入缓存 / prototype 直接返回",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_1",
+    "source": "bcs_caller",
+    "target": "bcs_state_requested",
+    "type": "produces",
+    "label": "调用方发起 getBean",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_2",
+    "source": "bcs_caller",
+    "target": "bcs_bdmap",
+    "type": "routes-to",
+    "label": "按 beanName 查询定义",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_3",
+    "source": "bcs_bdmap",
+    "target": "bcs_state_def_loaded",
+    "type": "produces",
+    "label": "返回 BeanDefinition",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_4",
+    "source": "bcs_def",
+    "target": "bcs_state_scope_decided",
+    "type": "produces",
+    "label": "scope 属性决定策略",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_5",
+    "source": "bcs_cache",
+    "target": "bcs_state_ready",
+    "type": "produces",
+    "label": "命中缓存供出既有实例",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:c_6",
+    "source": "bcs_state_created",
+    "target": "bcs_cache",
+    "type": "writes-to",
+    "label": "singleton 实例放入单例缓存",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:s_1",
+    "source": "bcs_def",
+    "target": "bcs_bdmap",
+    "type": "belongs-to",
+    "label": "BeanDefinition 存于 beanDefinitionMap",
+    "relationKind": "structure",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "bcs:s_2",
+    "source": "bcs_cache",
+    "target": "bcs_caller",
+    "type": "caches",
+    "label": "缓存供调用方获取",
+    "relationKind": "structure",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "treebind:tree_k_1785165721061_hcv0g1:tree_bcs_flow",
+    "source": "k_1785165721061_hcv0g1",
+    "target": "bcs_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_caller",
+    "source": "bcs_flow",
+    "target": "bcs_caller",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_bdmap",
+    "source": "bcs_flow",
+    "target": "bcs_bdmap",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_def",
+    "source": "bcs_flow",
+    "target": "bcs_def",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_cache",
+    "source": "bcs_flow",
+    "target": "bcs_cache",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_state_requested",
+    "source": "bcs_flow",
+    "target": "bcs_state_requested",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_state_def_loaded",
+    "source": "bcs_flow",
+    "target": "bcs_state_def_loaded",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_state_scope_decided",
+    "source": "bcs_flow",
+    "target": "bcs_state_scope_decided",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_state_created",
+    "source": "bcs_flow",
+    "target": "bcs_state_created",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_bcs_flow:tree_bcs_state_ready",
+    "source": "bcs_flow",
+    "target": "bcs_state_ready",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "aopm:t_1",
+    "source": "aop_state_proxy_created",
+    "target": "aop_state_intercepted",
+    "type": "transitions-to",
+    "label": "用户调用被 AopProxy 拦截",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:t_2",
+    "source": "aop_state_intercepted",
+    "target": "aop_state_chain_running",
+    "type": "transitions-to",
+    "label": "proceed() 执行拦截器链",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:t_3",
+    "source": "aop_state_chain_running",
+    "target": "aop_state_advice_done",
+    "type": "transitions-to",
+    "label": "织入代码（Advice）执行",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:t_4",
+    "source": "aop_state_advice_done",
+    "target": "aop_state_target_invoked",
+    "type": "transitions-to",
+    "label": "反射调用目标方法",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_1",
+    "source": "aop_getbean",
+    "target": "aop_proxyfactory",
+    "type": "routes-to",
+    "label": "匹配切面规则成功 → 创建代理",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_2",
+    "source": "aop_proxyfactory",
+    "target": "aop_state_proxy_created",
+    "type": "produces",
+    "label": "代理 Bean 生成并缓存",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_3",
+    "source": "aop_state_proxy_created",
+    "target": "aop_aproxy",
+    "type": "triggers",
+    "label": "调用进入 AopProxy",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_4",
+    "source": "aop_aproxy",
+    "target": "aop_minvoke",
+    "type": "routes-to",
+    "label": "invoke() 触发 proceed()",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_5",
+    "source": "aop_minvoke",
+    "target": "aop_minterceptor",
+    "type": "routes-to",
+    "label": "链中逐个执行 MethodInterceptor",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:c_6",
+    "source": "aop_minterceptor",
+    "target": "aop_state_target_invoked",
+    "type": "produces",
+    "label": "invoke() 反射调用目标方法",
+    "relationKind": "causality",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:s_1",
+    "source": "aop_minterceptor",
+    "target": "aop_minvoke",
+    "type": "belongs-to",
+    "label": "MethodInterceptor 组成拦截器链",
+    "relationKind": "structure",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "aopm:s_2",
+    "source": "aop_minvoke",
+    "target": "aop_aproxy",
+    "type": "belongs-to",
+    "label": "MethodInvocation 由 AopProxy 触发",
+    "relationKind": "structure",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ]
+  },
+  {
+    "id": "treebind:tree_k_vault_javaspringaopaop_1gf9np:tree_aop_flow",
+    "source": "k_vault_javaspringaopaop_1gf9np",
+    "target": "aop_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_getbean",
+    "source": "aop_flow",
+    "target": "aop_getbean",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_proxyfactory",
+    "source": "aop_flow",
+    "target": "aop_proxyfactory",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_aproxy",
+    "source": "aop_flow",
+    "target": "aop_aproxy",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_minvoke",
+    "source": "aop_flow",
+    "target": "aop_minvoke",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_minterceptor",
+    "source": "aop_flow",
+    "target": "aop_minterceptor",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_state_proxy_created",
+    "source": "aop_flow",
+    "target": "aop_state_proxy_created",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_state_intercepted",
+    "source": "aop_flow",
+    "target": "aop_state_intercepted",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_state_chain_running",
+    "source": "aop_flow",
+    "target": "aop_state_chain_running",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_state_advice_done",
+    "source": "aop_flow",
+    "target": "aop_state_advice_done",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_aop_flow:tree_aop_state_target_invoked",
+    "source": "aop_flow",
+    "target": "aop_state_target_invoked",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1784453342028_cfmbey:tree_aop_term_proxy",
+    "source": "k_1784453342028_cfmbey",
+    "target": "aop_term_proxy",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1784453342028_cfmbey:tree_aop_term_woven",
+    "source": "k_1784453342028_cfmbey",
+    "target": "aop_term_woven",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "tpl:t_1",
+    "source": "tpl_state_running",
+    "target": "tpl_state_shutdown",
+    "type": "transitions-to",
+    "label": "shutdown()：不收新任务，处理完队列任务",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:t_2",
+    "source": "tpl_state_running",
+    "target": "tpl_state_stop",
+    "type": "transitions-to",
+    "label": "shutdownNow()：不收新任务、不处理队列、中断运行中任务",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:t_3",
+    "source": "tpl_state_shutdown",
+    "target": "tpl_state_tidying",
+    "type": "transitions-to",
+    "label": "队列为空且执行任务为空 → taskCount=0",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:t_4",
+    "source": "tpl_state_stop",
+    "target": "tpl_state_tidying",
+    "type": "transitions-to",
+    "label": "执行任务为空 → taskCount=0",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:t_5",
+    "source": "tpl_state_tidying",
+    "target": "tpl_state_terminated",
+    "type": "transitions-to",
+    "label": "terminated() 执行完毕",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:c_1",
+    "source": "tpl_trigger_shutdown",
+    "target": "tpl_state_running",
+    "type": "triggers",
+    "label": "关闭调用作用于 RUNNING 池",
+    "relationKind": "causality",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:c_2",
+    "source": "tpl_trigger_shutdown",
+    "target": "tpl_state_shutdown",
+    "type": "produces",
+    "label": "shutdown() 温和关闭",
+    "relationKind": "causality",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:c_3",
+    "source": "tpl_trigger_shutdown",
+    "target": "tpl_state_stop",
+    "type": "produces",
+    "label": "shutdownNow() 立即关闭",
+    "relationKind": "causality",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "tpl:s_1",
+    "source": "tpl_flow",
+    "target": "k_1785934396536_as412a",
+    "type": "contrasts-with",
+    "label": "线程池状态 ≠ 线程的六种状态（NEW/RUNNABLE/…）",
+    "relationKind": "structure",
+    "dimensions": [
+      "java",
+      "并发"
+    ]
+  },
+  {
+    "id": "treebind:tree_k_1786092322231_lhhbvt:tree_tpl_flow",
+    "source": "k_1786092322231_lhhbvt",
+    "target": "tpl_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_trigger_shutdown",
+    "source": "tpl_flow",
+    "target": "tpl_trigger_shutdown",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_state_running",
+    "source": "tpl_flow",
+    "target": "tpl_state_running",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_state_shutdown",
+    "source": "tpl_flow",
+    "target": "tpl_state_shutdown",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_state_stop",
+    "source": "tpl_flow",
+    "target": "tpl_state_stop",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_state_tidying",
+    "source": "tpl_flow",
+    "target": "tpl_state_tidying",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tpl_flow:tree_tpl_state_terminated",
+    "source": "tpl_flow",
+    "target": "tpl_state_terminated",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_k_1782846767165_l599je:tree_concept_thread_confinement",
+    "source": "k_1782846767165_l599je",
+    "target": "concept_thread_confinement",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_thread_confinement:tree_1785820543100_i1zgfg",
+    "source": "concept_thread_confinement",
+    "target": "k_java_type_c1ecc4e34ff2913c",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_1785820543100_i1zgfg:tree_1786007130862_28kj02",
+    "source": "k_java_type_c1ecc4e34ff2913c",
+    "target": "k_1786007130617_bg40je",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1785820543100_i1zgfg:tree_1788445344173_jv4g6b",
+    "source": "k_java_type_c1ecc4e34ff2913c",
+    "target": "k_1788445344164_41oyga",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_n_s7t5dbya:tree_surge_overview",
+    "source": "n_s7t5dbya",
+    "target": "surge_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_estimate",
+    "source": "surge_overview",
+    "target": "surge_estimate",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_stress",
+    "source": "surge_overview",
+    "target": "surge_stress",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_bottleneck",
+    "source": "surge_overview",
+    "target": "surge_bottleneck",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_scale",
+    "source": "surge_overview",
+    "target": "surge_scale",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_degrade",
+    "source": "surge_overview",
+    "target": "surge_degrade",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_ha",
+    "source": "surge_overview",
+    "target": "surge_ha",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_surge_overview:tree_surge_auto_scale",
+    "source": "surge_overview",
+    "target": "surge_auto_scale",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_s7t5dbya:tree_skd_overview",
+    "source": "n_s7t5dbya",
+    "target": "skd_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_principles",
+    "source": "skd_overview",
+    "target": "skd_principles",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_evolution",
+    "source": "skd_overview",
+    "target": "skd_evolution",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_static_dynamic",
+    "source": "skd_overview",
+    "target": "skd_static_dynamic",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_hotspot",
+    "source": "skd_overview",
+    "target": "skd_hotspot",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_shaving",
+    "source": "skd_overview",
+    "target": "skd_shaving",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_skd_overview:tree_skd_inventory",
+    "source": "skd_overview",
+    "target": "skd_inventory",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "tio:t_1",
+    "source": "tio_state_read_syscall",
+    "target": "tio_state_disk_to_kernel",
+    "type": "transitions-to",
+    "label": "内核发起 DMA 读",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "tio:t_2",
+    "source": "tio_state_disk_to_kernel",
+    "target": "tio_state_kernel_to_user",
+    "type": "transitions-to",
+    "label": "CPU 拷贝到用户空间，read 返回",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "tio:t_3",
+    "source": "tio_state_kernel_to_user",
+    "target": "tio_state_write_syscall",
+    "type": "transitions-to",
+    "label": "应用发起 write 调用",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "tio:t_4",
+    "source": "tio_state_write_syscall",
+    "target": "tio_state_user_to_socket",
+    "type": "transitions-to",
+    "label": "CPU 拷贝到 socket 缓冲区",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "tio:t_5",
+    "source": "tio_state_user_to_socket",
+    "target": "tio_state_socket_to_nic",
+    "type": "transitions-to",
+    "label": "DMA 拷贝到网卡，write 返回",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "tio:c_1",
+    "source": "tio_caller",
+    "target": "tio_state_read_syscall",
+    "type": "produces",
+    "label": "应用调用 read",
+    "relationKind": "causality",
+    "dimensions": [
+      "操作系统",
+      "IO"
+    ]
+  },
+  {
+    "id": "treebind:tree_k_io_zero_copy:tree_tio_flow",
+    "source": "k_io_zero_copy",
+    "target": "tio_flow",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_caller",
+    "source": "tio_flow",
+    "target": "tio_caller",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_read_syscall",
+    "source": "tio_flow",
+    "target": "tio_state_read_syscall",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_disk_to_kernel",
+    "source": "tio_flow",
+    "target": "tio_state_disk_to_kernel",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_kernel_to_user",
+    "source": "tio_flow",
+    "target": "tio_state_kernel_to_user",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_write_syscall",
+    "source": "tio_flow",
+    "target": "tio_state_write_syscall",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_user_to_socket",
+    "source": "tio_flow",
+    "target": "tio_state_user_to_socket",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_tio_flow:tree_tio_state_socket_to_nic",
+    "source": "tio_flow",
+    "target": "tio_state_socket_to_nic",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_s7t5dbya:tree_ordexp_overview",
+    "source": "n_s7t5dbya",
+    "target": "ordexp_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_timer",
+    "source": "ordexp_overview",
+    "target": "ordexp_timer",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_delayqueue",
+    "source": "ordexp_overview",
+    "target": "ordexp_delayqueue",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_redis_ex",
+    "source": "ordexp_overview",
+    "target": "ordexp_redis_ex",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_redisson",
+    "source": "ordexp_overview",
+    "target": "ordexp_redisson",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_rocketmq",
+    "source": "ordexp_overview",
+    "target": "ordexp_rocketmq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_ordexp_overview:tree_ordexp_rabbitmq",
+    "source": "ordexp_overview",
+    "target": "ordexp_rabbitmq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_s7t5dbya:tree_hps_overview",
+    "source": "n_s7t5dbya",
+    "target": "hps_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_scale",
+    "source": "hps_overview",
+    "target": "hps_scale",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_rpc",
+    "source": "hps_overview",
+    "target": "hps_rpc",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_mq",
+    "source": "hps_overview",
+    "target": "hps_mq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_cache",
+    "source": "hps_overview",
+    "target": "hps_cache",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_db",
+    "source": "hps_overview",
+    "target": "hps_db",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_hps_overview:tree_hps_ha",
+    "source": "hps_overview",
+    "target": "hps_ha",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_n_0xxb9cqy:tree_idxf_overview",
+    "source": "n_0xxb9cqy",
+    "target": "idxf_overview",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_idxf_overview:tree_idxf_cost",
+    "source": "idxf_overview",
+    "target": "idxf_cost",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_pagination_opt_wrapper:tree_pagination_opt_join",
+    "source": "pagination_opt_wrapper",
+    "target": "pagination_opt_join",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
   }
 ]

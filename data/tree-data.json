@@ -1122,13 +1122,6 @@
                                   "count": 0,
                                   "nodeRef": "k_1786006383348_b3urv6",
                                   "children": []
-                                },
-                                {
-                                  "id": "tree_1786007130862_28kj02",
-                                  "name": "ThreadLocal的使用",
-                                  "count": 0,
-                                  "nodeRef": "k_1786007130617_bg40je",
-                                  "children": []
                                 }
                               ]
                             },
@@ -1364,13 +1357,6 @@
                                   "name": "最终字段",
                                   "count": 0,
                                   "nodeRef": "k_1784367699421_6t8yh9",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785820543100_i1zgfg",
-                                  "name": "ThreadLocal",
-                                  "count": 0,
-                                  "nodeRef": "k_java_type_c1ecc4e34ff2913c",
                                   "children": []
                                 }
                               ]
@@ -4977,7 +4963,52 @@
                                   "name": "关闭线程池",
                                   "count": 0,
                                   "nodeRef": "k_1786092322231_lhhbvt",
-                                  "children": []
+                                  "children": [
+                                    {
+                                      "id": "tree_tpl_flow",
+                                      "name": "线程池状态机（五状态）",
+                                      "count": 0,
+                                      "nodeRef": "tpl_flow",
+                                      "children": [
+                                        {
+                                          "id": "tree_tpl_trigger_shutdown",
+                                          "name": "shutdown() / shutdownNow() 调用",
+                                          "count": 0,
+                                          "nodeRef": "tpl_trigger_shutdown"
+                                        },
+                                        {
+                                          "id": "tree_tpl_state_running",
+                                          "name": "RUNNING（运行中）",
+                                          "count": 0,
+                                          "nodeRef": "tpl_state_running"
+                                        },
+                                        {
+                                          "id": "tree_tpl_state_shutdown",
+                                          "name": "SHUTDOWN（关闭中）",
+                                          "count": 0,
+                                          "nodeRef": "tpl_state_shutdown"
+                                        },
+                                        {
+                                          "id": "tree_tpl_state_stop",
+                                          "name": "STOP（停止）",
+                                          "count": 0,
+                                          "nodeRef": "tpl_state_stop"
+                                        },
+                                        {
+                                          "id": "tree_tpl_state_tidying",
+                                          "name": "TIDYING（整理中）",
+                                          "count": 0,
+                                          "nodeRef": "tpl_state_tidying"
+                                        },
+                                        {
+                                          "id": "tree_tpl_state_terminated",
+                                          "name": "TERMINATED（已终止）",
+                                          "count": 0,
+                                          "nodeRef": "tpl_state_terminated"
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 },
                                 {
                                   "id": "tree_1786092342461_a1uk2e",
@@ -5063,13 +5094,6 @@
                           "children": []
                         },
                         {
-                          "id": "tree_vault_java00_xqq5bt",
-                          "name": "并发知识地图",
-                          "count": 0,
-                          "nodeRef": "k_vault_java00_xqq5bt",
-                          "children": []
-                        },
-                        {
                           "id": "tree_vault_java01_1hsx4k",
                           "name": "线程基础与生命周期",
                           "count": 0,
@@ -5081,13 +5105,6 @@
                           "name": "线程安全与锁",
                           "count": 0,
                           "nodeRef": "k_vault_java02_hjsqh3",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_vault_java03volatilethreadlocal_1mspjr",
-                          "name": "volatile 与 ThreadLocal",
-                          "count": 0,
-                          "nodeRef": "k_vault_java03volatilethreadlocal_1mspjr",
                           "children": []
                         },
                         {
@@ -5124,6 +5141,35 @@
                           "count": 0,
                           "nodeRef": "k_vault_javasynchronized_czjq2n",
                           "children": []
+                        },
+                        {
+                          "id": "tree_concept_thread_confinement",
+                          "name": "线程封闭 / thread confinement",
+                          "count": 0,
+                          "nodeRef": "concept_thread_confinement",
+                          "children": [
+                            {
+                              "id": "tree_1785820543100_i1zgfg",
+                              "name": "ThreadLocal",
+                              "count": 0,
+                              "nodeRef": "k_java_type_c1ecc4e34ff2913c",
+                              "children": [
+                                {
+                                  "id": "tree_1786007130862_28kj02",
+                                  "name": "ThreadLocal的使用",
+                                  "count": 0,
+                                  "nodeRef": "k_1786007130617_bg40je",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_1788445344173_jv4g6b",
+                                  "name": "ThreadLocal 原理",
+                                  "count": 0,
+                                  "nodeRef": "k_1788445344164_41oyga"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     },
@@ -10756,20 +10802,6 @@
                       "children": []
                     },
                     {
-                      "id": "tree_vault_javaspring03aop_m5revs",
-                      "name": "AOP 与代理机制",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspring03aop_m5revs",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_vault_javaspring04springmvc_133lis",
-                      "name": "SpringMVC 请求链路",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspring04springmvc_133lis",
-                      "children": []
-                    },
-                    {
                       "id": "tree_vault_javaspring05_i92q3o",
                       "name": "事务与传播机制",
                       "count": 0,
@@ -10781,13 +10813,6 @@
                       "name": "配置驱动与注解编程",
                       "count": 0,
                       "nodeRef": "k_vault_javaspring06_1868fr",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_vault_javaspringspring_ikuxww",
-                      "name": "Spring 知识主线",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspringspring_ikuxww",
                       "children": []
                     },
                     {
@@ -10837,7 +10862,50 @@
                       "name": "Spring 注解",
                       "count": 0,
                       "nodeRef": "k_vault_javaspringspring_7b4q3y",
-                      "children": []
+                      "children": [
+                        {
+                          "id": "tree_1785228764111_vy9ilh",
+                          "name": "@Required",
+                          "count": 0,
+                          "nodeRef": "k_1785228764111_vy9ilh",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785228834518_r08hca",
+                          "name": "@Autowired",
+                          "count": 0,
+                          "nodeRef": "k_1785228834518_r08hca",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785228924980_irl0z4",
+                          "name": "@Qualiﬁer",
+                          "count": 0,
+                          "nodeRef": "k_1785228924980_irl0z4",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785228955207_9nqbli",
+                          "name": "@RequestMapping",
+                          "count": 0,
+                          "nodeRef": "k_1785228955207_9nqbli",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785296399373_ibj3ms",
+                          "name": "@Indexed",
+                          "count": 0,
+                          "nodeRef": "k_1785296399373_ibj3ms",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785296821866_imouaf",
+                          "name": "@Import",
+                          "count": 0,
+                          "nodeRef": "k_1785296821866_imouaf",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "id": "tree_vault_javaspringspring_1n53n1",
@@ -10864,7 +10932,76 @@
                           "name": "AOP 原理",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringaopaop_1gf9np",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_aop_flow",
+                              "name": "Spring AOP 执行机制（四阶段）",
+                              "count": 0,
+                              "nodeRef": "aop_flow",
+                              "children": [
+                                {
+                                  "id": "tree_aop_getbean",
+                                  "name": "getBean 与切面匹配",
+                                  "count": 0,
+                                  "nodeRef": "aop_getbean"
+                                },
+                                {
+                                  "id": "tree_aop_proxyfactory",
+                                  "name": "ProxyFactory 与代理策略",
+                                  "count": 0,
+                                  "nodeRef": "aop_proxyfactory"
+                                },
+                                {
+                                  "id": "tree_aop_aproxy",
+                                  "name": "AopProxy（外层拦截器）",
+                                  "count": 0,
+                                  "nodeRef": "aop_aproxy"
+                                },
+                                {
+                                  "id": "tree_aop_minvoke",
+                                  "name": "MethodInvocation（执行拦截器链）",
+                                  "count": 0,
+                                  "nodeRef": "aop_minvoke"
+                                },
+                                {
+                                  "id": "tree_aop_minterceptor",
+                                  "name": "MethodInterceptor（执行织入代码）",
+                                  "count": 0,
+                                  "nodeRef": "aop_minterceptor"
+                                },
+                                {
+                                  "id": "tree_aop_state_proxy_created",
+                                  "name": "① 代理对象已创建",
+                                  "count": 0,
+                                  "nodeRef": "aop_state_proxy_created"
+                                },
+                                {
+                                  "id": "tree_aop_state_intercepted",
+                                  "name": "② 调用已被拦截",
+                                  "count": 0,
+                                  "nodeRef": "aop_state_intercepted"
+                                },
+                                {
+                                  "id": "tree_aop_state_chain_running",
+                                  "name": "③ 拦截器链执行中",
+                                  "count": 0,
+                                  "nodeRef": "aop_state_chain_running"
+                                },
+                                {
+                                  "id": "tree_aop_state_advice_done",
+                                  "name": "④ 织入代码已执行",
+                                  "count": 0,
+                                  "nodeRef": "aop_state_advice_done"
+                                },
+                                {
+                                  "id": "tree_aop_state_target_invoked",
+                                  "name": "⑤ 目标方法已调用（返回）",
+                                  "count": 0,
+                                  "nodeRef": "aop_state_target_invoked"
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "id": "tree_vault_javaspringaopspringaop_1fz8q2",
@@ -10929,6 +11066,13 @@
                           "name": "Spring 如何保证并发 Controller 的安全",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringspringmvcspringcontroller_1aryyx",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_vault_javaspring04springmvc_133lis",
+                          "name": "SpringMVC 请求链路",
+                          "count": 0,
+                          "nodeRef": "k_vault_javaspring04springmvc_133lis",
                           "children": []
                         }
                       ]
@@ -11203,6 +11347,18 @@
                               "count": 0,
                               "nodeRef": "k_1785231834062_2jpqwk",
                               "children": []
+                            },
+                            {
+                              "id": "tree_aop_term_proxy",
+                              "name": "代理对象（Proxy）",
+                              "count": 0,
+                              "nodeRef": "aop_term_proxy"
+                            },
+                            {
+                              "id": "tree_aop_term_woven",
+                              "name": "织入代码（Woven Code）",
+                              "count": 0,
+                              "nodeRef": "aop_term_woven"
                             }
                           ]
                         },
@@ -11369,7 +11525,38 @@
                           "name": "生命周期",
                           "count": 0,
                           "nodeRef": "k_1785225243066_ds8pn6",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_bean_lc_prepare",
+                              "name": "1. 创建前准备阶段",
+                              "count": 0,
+                              "nodeRef": "bean_lc_prepare"
+                            },
+                            {
+                              "id": "tree_bean_lc_instantiate",
+                              "name": "2. 创建实例阶段",
+                              "count": 0,
+                              "nodeRef": "bean_lc_instantiate"
+                            },
+                            {
+                              "id": "tree_bean_lc_inject",
+                              "name": "3. 依赖注入阶段",
+                              "count": 0,
+                              "nodeRef": "bean_lc_inject"
+                            },
+                            {
+                              "id": "tree_bean_lc_cache",
+                              "name": "4. 容器缓存阶段",
+                              "count": 0,
+                              "nodeRef": "bean_lc_cache"
+                            },
+                            {
+                              "id": "tree_bean_lc_destroy",
+                              "name": "5. 销毁实例阶段",
+                              "count": 0,
+                              "nodeRef": "bean_lc_destroy"
+                            }
+                          ]
                         },
                         {
                           "id": "tree_1785227788826_6wm0jq",
@@ -11377,6 +11564,68 @@
                           "count": 0,
                           "nodeRef": "k_1784453158872_rsqoiy",
                           "children": []
+                        },
+                        {
+                          "id": "tree_bcs_flow",
+                          "name": "Bean 创建策略机制",
+                          "count": 0,
+                          "nodeRef": "bcs_flow",
+                          "children": [
+                            {
+                              "id": "tree_bcs_caller",
+                              "name": "调用方（getBean 请求）",
+                              "count": 0,
+                              "nodeRef": "bcs_caller"
+                            },
+                            {
+                              "id": "tree_bcs_bdmap",
+                              "name": "beanDefinitionMap",
+                              "count": 0,
+                              "nodeRef": "bcs_bdmap"
+                            },
+                            {
+                              "id": "tree_bcs_def",
+                              "name": "BeanDefinition",
+                              "count": 0,
+                              "nodeRef": "bcs_def"
+                            },
+                            {
+                              "id": "tree_bcs_cache",
+                              "name": "单例缓存（singletonObjects）",
+                              "count": 0,
+                              "nodeRef": "bcs_cache"
+                            },
+                            {
+                              "id": "tree_bcs_state_requested",
+                              "name": "getBean 已发起",
+                              "count": 0,
+                              "nodeRef": "bcs_state_requested"
+                            },
+                            {
+                              "id": "tree_bcs_state_def_loaded",
+                              "name": "BeanDefinition 已取得",
+                              "count": 0,
+                              "nodeRef": "bcs_state_def_loaded"
+                            },
+                            {
+                              "id": "tree_bcs_state_scope_decided",
+                              "name": "作用域已判定",
+                              "count": 0,
+                              "nodeRef": "bcs_state_scope_decided"
+                            },
+                            {
+                              "id": "tree_bcs_state_created",
+                              "name": "实例已创建",
+                              "count": 0,
+                              "nodeRef": "bcs_state_created"
+                            },
+                            {
+                              "id": "tree_bcs_state_ready",
+                              "name": "Bean 就绪返回",
+                              "count": 0,
+                              "nodeRef": "bcs_state_ready"
+                            }
+                          ]
                         }
                       ]
                     },
@@ -11385,48 +11634,6 @@
                       "name": "循环依赖",
                       "count": 0,
                       "nodeRef": "k_1785251031271_kd84f6",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785228764111_vy9ilh",
-                      "name": "@Required",
-                      "count": 0,
-                      "nodeRef": "k_1785228764111_vy9ilh",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785228834518_r08hca",
-                      "name": "@Autowired",
-                      "count": 0,
-                      "nodeRef": "k_1785228834518_r08hca",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785228924980_irl0z4",
-                      "name": "@Qualiﬁer",
-                      "count": 0,
-                      "nodeRef": "k_1785228924980_irl0z4",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785228955207_9nqbli",
-                      "name": "@RequestMapping",
-                      "count": 0,
-                      "nodeRef": "k_1785228955207_9nqbli",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785296399373_ibj3ms",
-                      "name": "@Indexed",
-                      "count": 0,
-                      "nodeRef": "k_1785296399373_ibj3ms",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1785296821866_imouaf",
-                      "name": "@Import",
-                      "count": 0,
-                      "nodeRef": "k_1785296821866_imouaf",
                       "children": []
                     }
                   ]
@@ -12567,7 +12774,254 @@
                   "name": "性能优化",
                   "nodeRef": "n_s7t5dbya",
                   "count": 0,
-                  "children": []
+                  "children": [
+                    {
+                      "id": "tree_sk_perf_overview",
+                      "name": "秒杀系统性能优化方法",
+                      "count": 0,
+                      "nodeRef": "sk_perf_overview",
+                      "children": [
+                        {
+                          "id": "tree_sk_perf_def",
+                          "name": "性能的定义与 QPS 公式",
+                          "count": 0,
+                          "nodeRef": "sk_perf_def"
+                        },
+                        {
+                          "id": "tree_sk_perf_rt",
+                          "name": "响应时间对 QPS 的影响",
+                          "count": 0,
+                          "nodeRef": "sk_perf_rt"
+                        },
+                        {
+                          "id": "tree_sk_perf_threads",
+                          "name": "线程数对 QPS 的影响",
+                          "count": 0,
+                          "nodeRef": "sk_perf_threads"
+                        },
+                        {
+                          "id": "tree_sk_perf_bottleneck",
+                          "name": "如何发现瓶颈",
+                          "count": 0,
+                          "nodeRef": "sk_perf_bottleneck"
+                        },
+                        {
+                          "id": "tree_sk_perf_opt",
+                          "name": "四种优化手段（Java 系统）",
+                          "count": 0,
+                          "nodeRef": "sk_perf_opt",
+                          "children": [
+                            {
+                              "id": "tree_sk_opt_encoding",
+                              "name": "优化1：减少编码",
+                              "count": 0,
+                              "nodeRef": "sk_opt_encoding"
+                            },
+                            {
+                              "id": "tree_sk_opt_serialize",
+                              "name": "优化2：减少序列化",
+                              "count": 0,
+                              "nodeRef": "sk_opt_serialize"
+                            },
+                            {
+                              "id": "tree_sk_opt_java",
+                              "name": "优化3：Java 极致优化",
+                              "count": 0,
+                              "nodeRef": "sk_opt_java"
+                            },
+                            {
+                              "id": "tree_sk_opt_concurrent",
+                              "name": "优化4：并发读优化",
+                              "count": 0,
+                              "nodeRef": "sk_opt_concurrent"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_surge_overview",
+                      "name": "流量激增应对方法",
+                      "count": 0,
+                      "nodeRef": "surge_overview",
+                      "children": [
+                        {
+                          "id": "tree_surge_estimate",
+                          "name": "1. 预估流量",
+                          "count": 0,
+                          "nodeRef": "surge_estimate"
+                        },
+                        {
+                          "id": "tree_surge_stress",
+                          "name": "2. 全链路压测",
+                          "count": 0,
+                          "nodeRef": "surge_stress"
+                        },
+                        {
+                          "id": "tree_surge_bottleneck",
+                          "name": "3. 定位并解决链路瓶颈",
+                          "count": 0,
+                          "nodeRef": "surge_bottleneck"
+                        },
+                        {
+                          "id": "tree_surge_scale",
+                          "name": "4. 加机器扩容",
+                          "count": 0,
+                          "nodeRef": "surge_scale"
+                        },
+                        {
+                          "id": "tree_surge_degrade",
+                          "name": "5. 降级",
+                          "count": 0,
+                          "nodeRef": "surge_degrade"
+                        },
+                        {
+                          "id": "tree_surge_ha",
+                          "name": "6. 常态高可用：限流 + 监控报警",
+                          "count": 0,
+                          "nodeRef": "surge_ha"
+                        },
+                        {
+                          "id": "tree_surge_auto_scale",
+                          "name": "进阶思路：监控驱动动态扩容",
+                          "count": 0,
+                          "nodeRef": "surge_auto_scale"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_skd_overview",
+                      "name": "秒杀系统设计",
+                      "count": 0,
+                      "nodeRef": "skd_overview",
+                      "children": [
+                        {
+                          "id": "tree_skd_principles",
+                          "name": "五大架构原则",
+                          "count": 0,
+                          "nodeRef": "skd_principles"
+                        },
+                        {
+                          "id": "tree_skd_evolution",
+                          "name": "架构演进（淘宝三阶段）",
+                          "count": 0,
+                          "nodeRef": "skd_evolution"
+                        },
+                        {
+                          "id": "tree_skd_static_dynamic",
+                          "name": "动静分离",
+                          "count": 0,
+                          "nodeRef": "skd_static_dynamic"
+                        },
+                        {
+                          "id": "tree_skd_hotspot",
+                          "name": "热点数据处理",
+                          "count": 0,
+                          "nodeRef": "skd_hotspot"
+                        },
+                        {
+                          "id": "tree_skd_shaving",
+                          "name": "流量削峰",
+                          "count": 0,
+                          "nodeRef": "skd_shaving"
+                        },
+                        {
+                          "id": "tree_skd_inventory",
+                          "name": "减库存设计",
+                          "count": 0,
+                          "nodeRef": "skd_inventory"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_ordexp_overview",
+                      "name": "订单超时自动关闭方案",
+                      "count": 0,
+                      "nodeRef": "ordexp_overview",
+                      "children": [
+                        {
+                          "id": "tree_ordexp_timer",
+                          "name": "方案1：定时任务",
+                          "count": 0,
+                          "nodeRef": "ordexp_timer"
+                        },
+                        {
+                          "id": "tree_ordexp_delayqueue",
+                          "name": "方案2：JDK DelayQueue",
+                          "count": 0,
+                          "nodeRef": "ordexp_delayqueue"
+                        },
+                        {
+                          "id": "tree_ordexp_redis_ex",
+                          "name": "方案3：Redis 过期监听",
+                          "count": 0,
+                          "nodeRef": "ordexp_redis_ex"
+                        },
+                        {
+                          "id": "tree_ordexp_redisson",
+                          "name": "方案4：Redisson 分布式延迟队列",
+                          "count": 0,
+                          "nodeRef": "ordexp_redisson"
+                        },
+                        {
+                          "id": "tree_ordexp_rocketmq",
+                          "name": "方案5：RocketMQ 延迟消息",
+                          "count": 0,
+                          "nodeRef": "ordexp_rocketmq"
+                        },
+                        {
+                          "id": "tree_ordexp_rabbitmq",
+                          "name": "方案6：RabbitMQ 死信队列",
+                          "count": 0,
+                          "nodeRef": "ordexp_rabbitmq"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_hps_overview",
+                      "name": "QPS 提升 10 倍的系统设计",
+                      "count": 0,
+                      "nodeRef": "hps_overview",
+                      "children": [
+                        {
+                          "id": "tree_hps_scale",
+                          "name": "① 硬件扩展 + 微服务拆分",
+                          "count": 0,
+                          "nodeRef": "hps_scale"
+                        },
+                        {
+                          "id": "tree_hps_rpc",
+                          "name": "② 高性能 RPC",
+                          "count": 0,
+                          "nodeRef": "hps_rpc"
+                        },
+                        {
+                          "id": "tree_hps_mq",
+                          "name": "③ 消息队列削峰解耦",
+                          "count": 0,
+                          "nodeRef": "hps_mq"
+                        },
+                        {
+                          "id": "tree_hps_cache",
+                          "name": "④ 三级缓存架构",
+                          "count": 0,
+                          "nodeRef": "hps_cache"
+                        },
+                        {
+                          "id": "tree_hps_db",
+                          "name": "⑤ 读写分离 + 分库分表",
+                          "count": 0,
+                          "nodeRef": "hps_db"
+                        },
+                        {
+                          "id": "tree_hps_ha",
+                          "name": "⑥ 高可用五板斧",
+                          "count": 0,
+                          "nodeRef": "hps_ha"
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "id": "tree_concept_release_model_rm",
@@ -14954,7 +15408,7 @@
                       ]
                     },
                     {
-                      "name": "四、数据约束与标识",
+                      "name": "数据约束与标识",
                       "id": "chapter_db_04",
                       "nodeRef": "container:chapter_db_04",
                       "children": [
@@ -15064,7 +15518,63 @@
                           "id": "tree_1788179275561_216qli",
                           "name": "主键",
                           "count": 0,
-                          "nodeRef": "k_1788179275554_knwq7e"
+                          "nodeRef": "k_1788179275554_knwq7e",
+                          "children": [
+                            {
+                              "id": "tree_pk_choice",
+                              "name": "主键类型选择：自增 vs UUID",
+                              "count": 0,
+                              "nodeRef": "pk_choice",
+                              "children": [
+                                {
+                                  "id": "tree_pk_auto",
+                                  "name": "自增主键（auto_increment）",
+                                  "count": 0,
+                                  "nodeRef": "pk_auto",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_pk_uuid",
+                                  "name": "UUID 主键",
+                                  "count": 0,
+                                  "nodeRef": "pk_uuid",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_pk_index_struct",
+                                  "name": "uuid 和自增 id 的索引结构对比",
+                                  "count": 0,
+                                  "nodeRef": "pk_index_struct",
+                                  "children": [
+                                    {
+                                      "id": "tree_pk_struct_auto",
+                                      "name": "自增 id 的索引结构",
+                                      "count": 0,
+                                      "nodeRef": "pk_struct_auto"
+                                    },
+                                    {
+                                      "id": "tree_pk_struct_uuid",
+                                      "name": "UUID 的索引结构",
+                                      "count": 0,
+                                      "nodeRef": "pk_struct_uuid"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_pk_conclusion",
+                                  "name": "选择结论",
+                                  "count": 0,
+                                  "nodeRef": "pk_conclusion"
+                                },
+                                {
+                                  "id": "tree_k_dict_bki84n9o",
+                                  "name": "自增",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_bki84n9o"
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     },
@@ -15303,10 +15813,172 @@
                       ]
                     },
                     {
-                      "name": "六、查询系统",
+                      "name": "查询系统",
                       "id": "chapter_db_06",
                       "nodeRef": "container:chapter_db_06",
                       "children": [
+                        {
+                          "id": "tree_qproc_overview",
+                          "name": "MySQL 查询执行过程",
+                          "count": 0,
+                          "nodeRef": "qproc_overview",
+                          "children": [
+                            {
+                              "id": "tree_qproc_flow",
+                              "name": "内部执行流程（六步）",
+                              "count": 0,
+                              "nodeRef": "qproc_flow",
+                              "children": [
+                                {
+                                  "id": "tree_qproc_client",
+                                  "name": "客户端（Client）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_client",
+                                  "children": [
+                                    {
+                                      "id": "tree_qproc_thread_state",
+                                      "name": "连接与线程状态",
+                                      "count": 0,
+                                      "nodeRef": "qproc_thread_state",
+                                      "children": [
+                                        {
+                                          "id": "tree_qproc_thread_commands",
+                                          "name": "Command 取值",
+                                          "count": 0,
+                                          "nodeRef": "qproc_thread_commands"
+                                        },
+                                        {
+                                          "id": "tree_qproc_thread_states",
+                                          "name": "State 取值",
+                                          "count": 0,
+                                          "nodeRef": "qproc_thread_states"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_qproc_cache",
+                                  "name": "查询缓存（Query Cache）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_cache"
+                                },
+                                {
+                                  "id": "tree_qproc_parser",
+                                  "name": "解析器（Parser）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_parser"
+                                },
+                                {
+                                  "id": "tree_qproc_preprocessor",
+                                  "name": "预处理器（Preprocessor）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_preprocessor"
+                                },
+                                {
+                                  "id": "tree_qproc_optimizer",
+                                  "name": "查询优化器（Optimizer）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_optimizer",
+                                  "children": [
+                                    {
+                                      "id": "tree_qproc_opt_strategies",
+                                      "name": "查询优化的策略",
+                                      "count": 0,
+                                      "nodeRef": "qproc_opt_strategies",
+                                      "children": [
+                                        {
+                                          "id": "tree_qproc_opt_equivalent",
+                                          "name": "等价变换策略",
+                                          "count": 0,
+                                          "nodeRef": "qproc_opt_equivalent"
+                                        },
+                                        {
+                                          "id": "tree_qproc_opt_functions",
+                                          "name": "优化 count、min、max 等函数",
+                                          "count": 0,
+                                          "nodeRef": "qproc_opt_functions"
+                                        },
+                                        {
+                                          "id": "tree_qproc_opt_earlystop",
+                                          "name": "提前终止查询",
+                                          "count": 0,
+                                          "nodeRef": "qproc_opt_earlystop"
+                                        },
+                                        {
+                                          "id": "tree_qproc_opt_in",
+                                          "name": "in 的优化",
+                                          "count": 0,
+                                          "nodeRef": "qproc_opt_in"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_qproc_executor",
+                                  "name": "查询执行引擎（Executor）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_executor"
+                                },
+                                {
+                                  "id": "tree_qproc_storage",
+                                  "name": "存储引擎（Storage Engine）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_storage"
+                                },
+                                {
+                                  "id": "tree_qproc_state_connected",
+                                  "name": "连接已建立（①）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_connected"
+                                },
+                                {
+                                  "id": "tree_qproc_state_cached",
+                                  "name": "查询缓存命中（②）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_cached"
+                                },
+                                {
+                                  "id": "tree_qproc_state_parsed",
+                                  "name": "解析树已生成（③）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_parsed"
+                                },
+                                {
+                                  "id": "tree_qproc_state_planned",
+                                  "name": "执行计划已生成（④）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_planned"
+                                },
+                                {
+                                  "id": "tree_qproc_state_executing",
+                                  "name": "执行中，取到数据（⑤）",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_executing"
+                                },
+                                {
+                                  "id": "tree_qproc_state_returned",
+                                  "name": "结果已返回客户端",
+                                  "count": 0,
+                                  "nodeRef": "qproc_state_returned"
+                                },
+                                {
+                                  "id": "tree_k_dict_hlduom8b",
+                                  "name": "查询缓存",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_hlduom8b"
+                                },
+                                {
+                                  "id": "tree_k_dict_yaz6f56l",
+                                  "name": "Query Cache",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_yaz6f56l"
+                                }
+                              ]
+                            }
+                          ]
+                        },
                         {
                           "id": "tree_concept_query_optimizer",
                           "name": "查询优化器 / query optimizer",
@@ -15318,7 +15990,134 @@
                               "name": "MySQL 查询优化器（Optimizer）",
                               "nodeRef": "k_1782033508063_xspnmd",
                               "projection": false,
-                              "children": []
+                              "children": [
+                                {
+                                  "id": "tree_sqopt_overview",
+                                  "name": "MySQL 慢查询 SQL 优化思路",
+                                  "count": 0,
+                                  "nodeRef": "sqopt_overview",
+                                  "children": [
+                                    {
+                                      "id": "tree_sqopt_causes",
+                                      "name": "SQL 性能下降的原因",
+                                      "count": 0,
+                                      "nodeRef": "sqopt_causes"
+                                    },
+                                    {
+                                      "id": "tree_sqopt_ideas",
+                                      "name": "慢查询优化思路（十条）",
+                                      "count": 0,
+                                      "nodeRef": "sqopt_ideas",
+                                      "children": [
+                                        {
+                                          "id": "tree_sqopt_idea_highconc",
+                                          "name": "1. 优先优化高并发执行的 SQL",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_highconc"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_bottleneck",
+                                          "name": "2. 定位优化对象的性能瓶颈",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_bottleneck"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_target",
+                                          "name": "3. 明确优化目标",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_target"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_explain",
+                                          "name": "4. 从 EXPLAIN 执行计划入手",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_explain"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_small_drive",
+                                          "name": "5. 永远用小的结果集驱动大的结果集",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_small_drive"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_sort_index",
+                                          "name": "6. 尽可能在索引中完成排序",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_sort_index"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_columns",
+                                          "name": "7. 只获取自己需要的列",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_columns"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_filter",
+                                          "name": "8. 只使用最有效的过滤条件",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_filter"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_join",
+                                          "name": "9. 尽可能避免复杂的 join 和子查询",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_join"
+                                        },
+                                        {
+                                          "id": "tree_sqopt_idea_index",
+                                          "name": "10. 合理设计并利用索引",
+                                          "count": 0,
+                                          "nodeRef": "sqopt_idea_index"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_diag_overview",
+                                  "name": "MySQL 慢 SQL 排查思路",
+                                  "count": 0,
+                                  "nodeRef": "diag_overview",
+                                  "children": [
+                                    {
+                                      "id": "tree_diag_causes",
+                                      "name": "SQL 执行慢的常见原因",
+                                      "count": 0,
+                                      "nodeRef": "diag_causes"
+                                    },
+                                    {
+                                      "id": "tree_diag_flow",
+                                      "name": "整体排查流程",
+                                      "count": 0,
+                                      "nodeRef": "diag_flow"
+                                    },
+                                    {
+                                      "id": "tree_diag_index",
+                                      "name": "索引问题的排查",
+                                      "count": 0,
+                                      "nodeRef": "diag_index"
+                                    },
+                                    {
+                                      "id": "tree_diag_split",
+                                      "name": "表拆分与分库优化",
+                                      "count": 0,
+                                      "nodeRef": "diag_split"
+                                    },
+                                    {
+                                      "id": "tree_diag_rw_split",
+                                      "name": "读写分离优化",
+                                      "count": 0,
+                                      "nodeRef": "diag_rw_split"
+                                    },
+                                    {
+                                      "id": "tree_diag_hot_cache",
+                                      "name": "热点数据与缓存优化",
+                                      "count": 0,
+                                      "nodeRef": "diag_hot_cache"
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         },
@@ -15333,7 +16132,158 @@
                               "name": "MySQL 查询执行计划 / query execution plan",
                               "nodeRef": "mysql_glossary_query_execution_plan_17fdf4",
                               "projection": false,
-                              "children": []
+                              "children": [
+                                {
+                                  "id": "tree_k_dict_txc4v2ss",
+                                  "name": "Explain",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_txc4v2ss",
+                                  "children": [
+                                    {
+                                      "id": "tree_explain_type",
+                                      "name": "EXPLAIN 的 type 字段（访问类型）",
+                                      "count": 0,
+                                      "nodeRef": "explain_type",
+                                      "children": [
+                                        {
+                                          "id": "tree_explain_type_system",
+                                          "name": "type = system",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_system"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_const",
+                                          "name": "type = const",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_const"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_eq_ref",
+                                          "name": "type = eq_ref",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_eq_ref"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_ref",
+                                          "name": "type = ref",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_ref"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_range",
+                                          "name": "type = range",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_range"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_index",
+                                          "name": "type = index",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_index"
+                                        },
+                                        {
+                                          "id": "tree_explain_type_all",
+                                          "name": "type = ALL",
+                                          "count": 0,
+                                          "nodeRef": "explain_type_all"
+                                        },
+                                        {
+                                          "id": "tree_k_dict_mkv3t3vi",
+                                          "name": "System",
+                                          "count": 0,
+                                          "nodeRef": "k_dict_mkv3t3vi"
+                                        },
+                                        {
+                                          "id": "tree_k_dict_csflfif1",
+                                          "name": "Range",
+                                          "count": 0,
+                                          "nodeRef": "k_dict_csflfif1"
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_explain_fields",
+                                      "name": "EXPLAIN 的主要字段",
+                                      "count": 0,
+                                      "nodeRef": "explain_fields",
+                                      "children": [
+                                        {
+                                          "id": "tree_explain_info",
+                                          "name": "EXPLAIN 能获得的信息",
+                                          "count": 0,
+                                          "nodeRef": "explain_info"
+                                        },
+                                        {
+                                          "id": "tree_explain_usage",
+                                          "name": "EXPLAIN 使用方式",
+                                          "count": 0,
+                                          "nodeRef": "explain_usage"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_id",
+                                          "name": "字段 id（读取顺序）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_id"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_select_type",
+                                          "name": "字段 select_type（查询类型）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_select_type"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_table",
+                                          "name": "字段 table / partitions",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_table"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_type",
+                                          "name": "字段 type（访问类型）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_type"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_keys",
+                                          "name": "字段 possible_keys / key（索引使用）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_keys"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_keylen",
+                                          "name": "字段 key_len（索引长度）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_keylen"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_ref",
+                                          "name": "字段 ref（连接匹配条件）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_ref"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_rows",
+                                          "name": "字段 rows（估算行数）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_rows"
+                                        },
+                                        {
+                                          "id": "tree_explain_field_extra",
+                                          "name": "字段 Extra（额外信息）",
+                                          "count": 0,
+                                          "nodeRef": "explain_field_extra"
+                                        },
+                                        {
+                                          "id": "tree_k_sql_explain",
+                                          "name": "SQL 执行计划（EXPLAIN）",
+                                          "count": 0,
+                                          "nodeRef": "k_sql_explain"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ]
                             }
                           ]
                         },
@@ -15412,7 +16362,58 @@
                               "count": 0,
                               "nodeRef": "demo_join",
                               "projection": false,
-                              "children": []
+                              "children": [
+                                {
+                                  "id": "tree_join_types",
+                                  "name": "JOIN 的连接方式",
+                                  "count": 0,
+                                  "nodeRef": "join_types"
+                                },
+                                {
+                                  "id": "tree_join_driving_table",
+                                  "name": "驱动表",
+                                  "count": 0,
+                                  "nodeRef": "join_driving_table"
+                                },
+                                {
+                                  "id": "tree_join_algorithms",
+                                  "name": "JOIN 的三种执行算法",
+                                  "count": 0,
+                                  "nodeRef": "join_algorithms",
+                                  "children": [
+                                    {
+                                      "id": "tree_join_snl",
+                                      "name": "简单嵌套循环连接（SNL）",
+                                      "count": 0,
+                                      "nodeRef": "join_snl"
+                                    },
+                                    {
+                                      "id": "tree_join_inl",
+                                      "name": "索引嵌套循环连接（INL）",
+                                      "count": 0,
+                                      "nodeRef": "join_inl"
+                                    },
+                                    {
+                                      "id": "tree_join_bnl",
+                                      "name": "块嵌套循环连接（BNL）",
+                                      "count": 0,
+                                      "nodeRef": "join_bnl"
+                                    },
+                                    {
+                                      "id": "tree_k_dict_lf4tbrsa",
+                                      "name": "Nested Loop Join",
+                                      "count": 0,
+                                      "nodeRef": "k_dict_lf4tbrsa"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_join_principles",
+                                  "name": "JOIN 优化原则",
+                                  "count": 0,
+                                  "nodeRef": "join_principles"
+                                }
+                              ]
                             }
                           ]
                         },
@@ -15531,6 +16532,67 @@
                                   "nodeRef": "mysql_glossary_stemming_w8xwzt",
                                   "projection": false,
                                   "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_pagination_overview",
+                              "name": "MySQL 分页查询优化",
+                              "count": 0,
+                              "nodeRef": "pagination_overview",
+                              "children": [
+                                {
+                                  "id": "tree_pagination_basic",
+                                  "name": "LIMIT 一般性分页",
+                                  "count": 0,
+                                  "nodeRef": "pagination_basic",
+                                  "children": [
+                                    {
+                                      "id": "tree_pagination_exp_offset",
+                                      "name": "实验一：偏移量固定，返回量变化",
+                                      "count": 0,
+                                      "nodeRef": "pagination_exp_offset"
+                                    },
+                                    {
+                                      "id": "tree_pagination_exp_count",
+                                      "name": "实验二：返回量固定，偏移量变化",
+                                      "count": 0,
+                                      "nodeRef": "pagination_exp_count"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_pagination_opts",
+                                  "name": "分页优化方案",
+                                  "count": 0,
+                                  "nodeRef": "pagination_opt_wrapper",
+                                  "children": [
+                                    {
+                                      "id": "tree_pagination_opt_index",
+                                      "name": "优化1：通过索引进行分页",
+                                      "count": 0,
+                                      "nodeRef": "pagination_opt_index"
+                                    },
+                                    {
+                                      "id": "tree_pagination_opt_subquery",
+                                      "name": "优化2：利用子查询优化",
+                                      "count": 0,
+                                      "nodeRef": "pagination_opt_subquery"
+                                    },
+                                    {
+                                      "id": "tree_pagination_opt_join",
+                                      "name": "优化3：ID 与主表 inner join",
+                                      "count": 0,
+                                      "nodeRef": "pagination_opt_join",
+                                      "children": []
+                                    }
+                                  ]
+                                },
+                                {
+                                  "id": "tree_k_dict_wxe0al75",
+                                  "name": "LIMIT / FETCH",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_wxe0al75"
                                 }
                               ]
                             }
@@ -16024,13 +17086,6 @@
                                   ]
                                 },
                                 {
-                                  "id": "tree_mvcc_secondary_index_existing",
-                                  "name": "二级索引中的 MVCC",
-                                  "count": 0,
-                                  "nodeRef": "demo_secondary_index",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_1782024448026_vs0xa9",
                                   "name": "当前读（CurrentRead）",
                                   "count": 0,
@@ -16096,6 +17151,317 @@
                                   "projectionKind": "canonical-topic",
                                   "sourceNodeId": "mysql_glossary_locking_1ofljy",
                                   "children": []
+                                },
+                                {
+                                  "id": "tree_lock_taxonomy",
+                                  "name": "MySQL 锁的分类体系",
+                                  "count": 0,
+                                  "nodeRef": "lock_taxonomy",
+                                  "children": [
+                                    {
+                                      "id": "tree_lock_by_type",
+                                      "name": "按操作类型分（读锁 / 写锁）",
+                                      "count": 0,
+                                      "nodeRef": "lock_by_type",
+                                      "children": [
+                                        {
+                                          "id": "mysql_functional_ref_k_dict_yvuxhe74",
+                                          "name": "MySQL 共享锁 / shared lock",
+                                          "count": 0,
+                                          "nodeRef": "k_dict_yvuxhe74",
+                                          "projection": false,
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
+                                          "name": "MySQL 独占锁 / exclusive lock",
+                                          "count": 0,
+                                          "nodeRef": "mysql_glossary_exclusive_lock_ksqz5a",
+                                          "projection": false,
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_concept_locking_read",
+                                          "name": "锁定读 / locking read",
+                                          "count": 0,
+                                          "nodeRef": "concept_locking_read",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_locking_read_16dto0",
+                                              "name": "MySQL 锁定读 / locking read",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_locking_read_16dto0",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_intention_lock",
+                                          "name": "意向锁 / intention lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_intention_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_intention_shared_lock_4x8ciz",
+                                              "name": "MySQL 意图共享锁 / intention shared lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_intention_shared_lock_4x8ciz",
+                                              "projection": false,
+                                              "children": []
+                                            },
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_intention_exclusive_lock_1rd4p1",
+                                              "name": "MySQL 意图独占锁 / intention exclusive lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_intention_exclusive_lock_1rd4p1",
+                                              "projection": false,
+                                              "children": []
+                                            },
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_intention_lock_1ejpzi",
+                                              "name": "MySQL 意向锁 / intention lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_intention_lock_1ejpzi",
+                                              "projection": true,
+                                              "view": "mysql-architecture",
+                                              "projectionKind": "canonical-topic",
+                                              "sourceNodeId": "mysql_glossary_intention_lock_1ejpzi",
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_lock_by_grain",
+                                      "name": "按粒度分（表 / 行 / 页）",
+                                      "count": 0,
+                                      "nodeRef": "lock_by_grain",
+                                      "children": [
+                                        {
+                                          "id": "tree_lock_page_size",
+                                          "name": "页面锁 / page lock",
+                                          "count": 0,
+                                          "nodeRef": "lock_page_size"
+                                        },
+                                        {
+                                          "id": "tree_concept_table_level_locking",
+                                          "name": "表级锁 / table-level locking",
+                                          "count": 0,
+                                          "nodeRef": "concept_table_level_locking",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_table_lock_15y9vl",
+                                              "name": "MySQL 表锁 / table lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_table_lock_15y9vl",
+                                              "projection": true,
+                                              "view": "mysql-architecture",
+                                              "projectionKind": "canonical-topic",
+                                              "sourceNodeId": "mysql_glossary_table_lock_15y9vl",
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_metadata_lock",
+                                          "name": "元数据锁 / metadata lock (MDL)",
+                                          "count": 0,
+                                          "nodeRef": "concept_metadata_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_metadata_lock_qiqw4n",
+                                              "name": "MySQL 元数据锁 / metadata lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_metadata_lock_qiqw4n",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_auto_increment_lock",
+                                          "name": "自增锁 / auto-increment lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_auto_increment_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
+                                              "name": "MySQL 自增锁 / auto-increment locking",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_auto_increment_locking_lrps8v",
+                                              "projection": false,
+                                              "children": []
+                                            },
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+                                              "name": "MySQL innodb_autoinc_lock_mode",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_row_level_locking",
+                                          "name": "行级锁定 / row-level locking",
+                                          "count": 0,
+                                          "nodeRef": "concept_row_level_locking",
+                                          "children": [
+                                            {
+                                              "id": "mysql_functional_ref_k_dict_fb1f2eh2",
+                                              "name": "MySQL 行级锁定 / row-level locking",
+                                              "count": 0,
+                                              "nodeRef": "k_dict_fb1f2eh2",
+                                              "projection": false,
+                                              "children": [
+                                                {
+                                                  "id": "demo_tree_row_lock",
+                                                  "name": "MySQL 行锁 / row lock",
+                                                  "count": 0,
+                                                  "nodeRef": "demo_row_lock",
+                                                  "projection": false,
+                                                  "children": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_record_lock",
+                                          "name": "记录锁 / record lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_record_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_record_lock_1pixn1",
+                                              "name": "MySQL 记录锁 / record lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_record_lock_1pixn1",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_gap_lock",
+                                          "name": "间隙锁 / gap lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_gap_lock",
+                                          "children": [
+                                            {
+                                              "id": "mysql_glossary_gap_lock_1gfoi1",
+                                              "name": "MySQL 间隙锁 / gap lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_gap_lock_1gfoi1",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_next_key_lock",
+                                          "name": "临键锁 / next-key lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_next_key_lock",
+                                          "children": [
+                                            {
+                                              "id": "mysql_functional_ref_k_dict_m5qakvks",
+                                              "name": "MySQL 临键锁 / next-key lock",
+                                              "count": 0,
+                                              "nodeRef": "k_dict_m5qakvks",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_insert_intention_lock",
+                                          "name": "插入意向锁 / insert intention lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_insert_intention_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_insert_intention_lock_1pnwh6",
+                                              "name": "MySQL 插入意向锁 / insert intention lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_insert_intention_lock_1pnwh6",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        },
+                                        {
+                                          "id": "tree_concept_implicit_row_lock",
+                                          "name": "隐式行锁 / implicit row lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_implicit_row_lock",
+                                          "children": [
+                                            {
+                                              "id": "projection:mysql-term:mysql_glossary_implicit_row_lock_ac6u2d",
+                                              "name": "MySQL 隐式行锁 / implicit row lock",
+                                              "count": 0,
+                                              "nodeRef": "mysql_glossary_implicit_row_lock_ac6u2d",
+                                              "projection": false,
+                                              "children": []
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "id": "tree_lock_by_perf",
+                                      "name": "按操作性能分（乐观 / 悲观）",
+                                      "count": 0,
+                                      "nodeRef": "lock_by_perf",
+                                      "children": [
+                                        {
+                                          "id": "tree_concept_optimistic_lock",
+                                          "name": "乐观锁 / optimistic lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_optimistic_lock",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_concept_pessimistic_lock",
+                                          "name": "悲观锁 / pessimistic lock",
+                                          "count": 0,
+                                          "nodeRef": "concept_pessimistic_lock",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_1782928703685_fuj7ev",
+                                          "name": "MySQL 乐观锁 / optimistic lock",
+                                          "count": 0,
+                                          "nodeRef": "demo_optimistic",
+                                          "supplement": {
+                                            "tabs": [
+                                              {
+                                                "id": "context:java:optimistic-lock:overview",
+                                                "label": "Java 应用中的乐观锁",
+                                                "content": "乐观锁就是用户修改数据时心态很乐观，不管别人修改不修改数据，我都不上锁，我修改的时候判断下数据有没有发生变化，没发生变化我就认为更新成功，发生变化了就不认为更新成功我再去重试之前的动作直到更新成功",
+                                                "tags": [
+                                                  "乐观锁"
+                                                ]
+                                              }
+                                            ]
+                                          },
+                                          "projection": false,
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_1782928843771_cmjyzt",
+                                          "name": "MySQL 悲观锁 / pessimistic lock",
+                                          "count": 0,
+                                          "nodeRef": "demo_pessimistic",
+                                          "projection": false,
+                                          "children": []
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             },
@@ -16132,54 +17498,6 @@
                               ]
                             },
                             {
-                              "id": "tree_concept_shared_lock",
-                              "name": "共享锁 / shared lock",
-                              "count": 0,
-                              "nodeRef": "concept_shared_lock",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_k_dict_yvuxhe74",
-                                  "name": "MySQL 共享锁 / shared lock",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_yvuxhe74",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_gap_lock",
-                              "name": "间隙锁 / gap lock",
-                              "count": 0,
-                              "nodeRef": "concept_gap_lock",
-                              "children": [
-                                {
-                                  "id": "mysql_glossary_gap_lock_1gfoi1",
-                                  "name": "MySQL 间隙锁 / gap lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_gap_lock_1gfoi1",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_next_key_lock",
-                              "name": "临键锁 / next-key lock",
-                              "count": 0,
-                              "nodeRef": "concept_next_key_lock",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_k_dict_m5qakvks",
-                                  "name": "MySQL 临键锁 / next-key lock",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_m5qakvks",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
                               "id": "tree_concept_lock_escalation",
                               "name": "锁升级 / lock escalation",
                               "count": 0,
@@ -16190,217 +17508,6 @@
                                   "name": "MySQL 锁升级 / lock escalation",
                                   "count": 0,
                                   "nodeRef": "k_dict_nqeoggvl",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_row_level_locking",
-                              "name": "行级锁定 / row-level locking",
-                              "count": 0,
-                              "nodeRef": "concept_row_level_locking",
-                              "children": [
-                                {
-                                  "id": "mysql_functional_ref_k_dict_fb1f2eh2",
-                                  "name": "MySQL 行级锁定 / row-level locking",
-                                  "count": 0,
-                                  "nodeRef": "k_dict_fb1f2eh2",
-                                  "projection": false,
-                                  "children": [
-                                    {
-                                      "id": "demo_tree_row_lock",
-                                      "name": "MySQL 行锁 / row lock",
-                                      "count": 0,
-                                      "nodeRef": "demo_row_lock",
-                                      "projection": false,
-                                      "children": []
-                                    }
-                                  ]
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_exclusive_lock",
-                              "name": "排他锁 / exclusive lock",
-                              "count": 0,
-                              "nodeRef": "concept_exclusive_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a",
-                                  "name": "MySQL 独占锁 / exclusive lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_exclusive_lock_ksqz5a",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_optimistic_lock",
-                              "name": "乐观锁 / optimistic lock",
-                              "count": 0,
-                              "nodeRef": "concept_optimistic_lock",
-                              "children": [
-                                {
-                                  "id": "tree_1782928703685_fuj7ev",
-                                  "name": "MySQL 乐观锁 / optimistic lock",
-                                  "count": 0,
-                                  "nodeRef": "demo_optimistic",
-                                  "supplement": {
-                                    "tabs": [
-                                      {
-                                        "id": "context:java:optimistic-lock:overview",
-                                        "label": "Java 应用中的乐观锁",
-                                        "content": "乐观锁就是用户修改数据时心态很乐观，不管别人修改不修改数据，我都不上锁，我修改的时候判断下数据有没有发生变化，没发生变化我就认为更新成功，发生变化了就不认为更新成功我再去重试之前的动作直到更新成功",
-                                        "tags": [
-                                          "乐观锁"
-                                        ]
-                                      }
-                                    ]
-                                  },
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_pessimistic_lock",
-                              "name": "悲观锁 / pessimistic lock",
-                              "count": 0,
-                              "nodeRef": "concept_pessimistic_lock",
-                              "children": [
-                                {
-                                  "id": "tree_1782928843771_cmjyzt",
-                                  "name": "MySQL 悲观锁 / pessimistic lock",
-                                  "count": 0,
-                                  "nodeRef": "demo_pessimistic",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_intention_lock",
-                              "name": "意向锁 / intention lock",
-                              "count": 0,
-                              "nodeRef": "concept_intention_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_intention_shared_lock_4x8ciz",
-                                  "name": "MySQL 意图共享锁 / intention shared lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_intention_shared_lock_4x8ciz",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_intention_exclusive_lock_1rd4p1",
-                                  "name": "MySQL 意图独占锁 / intention exclusive lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_intention_exclusive_lock_1rd4p1",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_intention_lock_1ejpzi",
-                                  "name": "MySQL 意向锁 / intention lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_intention_lock_1ejpzi",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_intention_lock_1ejpzi",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_record_lock",
-                              "name": "记录锁 / record lock",
-                              "count": 0,
-                              "nodeRef": "concept_record_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_record_lock_1pixn1",
-                                  "name": "MySQL 记录锁 / record lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_record_lock_1pixn1",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_table_level_locking",
-                              "name": "表级锁 / table-level locking",
-                              "count": 0,
-                              "nodeRef": "concept_table_level_locking",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_table_lock_15y9vl",
-                                  "name": "MySQL 表锁 / table lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_table_lock_15y9vl",
-                                  "projection": true,
-                                  "view": "mysql-architecture",
-                                  "projectionKind": "canonical-topic",
-                                  "sourceNodeId": "mysql_glossary_table_lock_15y9vl",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_auto_increment_lock",
-                              "name": "自增锁 / auto-increment lock",
-                              "count": 0,
-                              "nodeRef": "concept_auto_increment_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
-                                  "name": "MySQL 自增锁 / auto-increment locking",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_auto_increment_locking_lrps8v",
-                                  "projection": false,
-                                  "children": []
-                                },
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
-                                  "name": "MySQL innodb_autoinc_lock_mode",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_insert_intention_lock",
-                              "name": "插入意向锁 / insert intention lock",
-                              "count": 0,
-                              "nodeRef": "concept_insert_intention_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_insert_intention_lock_1pnwh6",
-                                  "name": "MySQL 插入意向锁 / insert intention lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_insert_intention_lock_1pnwh6",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_implicit_row_lock",
-                              "name": "隐式行锁 / implicit row lock",
-                              "count": 0,
-                              "nodeRef": "concept_implicit_row_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_implicit_row_lock_ac6u2d",
-                                  "name": "MySQL 隐式行锁 / implicit row lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_implicit_row_lock_ac6u2d",
                                   "projection": false,
                                   "children": []
                                 }
@@ -16422,22 +17529,6 @@
                               ]
                             },
                             {
-                              "id": "tree_concept_metadata_lock",
-                              "name": "元数据锁 / metadata lock (MDL)",
-                              "count": 0,
-                              "nodeRef": "concept_metadata_lock",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_metadata_lock_qiqw4n",
-                                  "name": "MySQL 元数据锁 / metadata lock",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_metadata_lock_qiqw4n",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
                               "id": "tree_concept_non_locking_read",
                               "name": "非锁定读 / non-locking read",
                               "count": 0,
@@ -16448,22 +17539,6 @@
                                   "name": "MySQL 非锁定读 / non-locking read",
                                   "count": 0,
                                   "nodeRef": "mysql_glossary_non_locking_read_12iidl",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_concept_locking_read",
-                              "name": "锁定读 / locking read",
-                              "count": 0,
-                              "nodeRef": "concept_locking_read",
-                              "children": [
-                                {
-                                  "id": "projection:mysql-term:mysql_glossary_locking_read_16dto0",
-                                  "name": "MySQL 锁定读 / locking read",
-                                  "count": 0,
-                                  "nodeRef": "mysql_glossary_locking_read_16dto0",
                                   "projection": false,
                                   "children": []
                                 }
@@ -16523,6 +17598,20 @@
                                   "children": []
                                 }
                               ]
+                            },
+                            {
+                              "id": "tree_concept_shared_lock",
+                              "name": "共享锁 / shared lock",
+                              "count": 0,
+                              "nodeRef": "concept_shared_lock",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_concept_exclusive_lock",
+                              "name": "排他锁 / exclusive lock",
+                              "count": 0,
+                              "nodeRef": "concept_exclusive_lock",
+                              "children": []
                             }
                           ]
                         },
@@ -17139,7 +18228,43 @@
                               "view": "mysql-concept-taxonomy",
                               "projectionKind": "concept-part",
                               "sourceNodeId": "k_1782029599317_nn6hzg",
-                              "children": []
+                              "children": [
+                                {
+                                  "id": "tree_slowlog_mysql",
+                                  "name": "MySQL 慢查询日志实践",
+                                  "count": 0,
+                                  "nodeRef": "slowlog_mysql",
+                                  "children": [
+                                    {
+                                      "id": "tree_slowlog_params",
+                                      "name": "慢查询相关参数",
+                                      "count": 0,
+                                      "nodeRef": "slowlog_params",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_slowlog_config",
+                                      "name": "慢查询配置方式",
+                                      "count": 0,
+                                      "nodeRef": "slowlog_config",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_slowlog_entry",
+                                      "name": "慢日志记录内容",
+                                      "count": 0,
+                                      "nodeRef": "slowlog_entry",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_k_dict_fncpbi74",
+                                      "name": "慢查询",
+                                      "count": 0,
+                                      "nodeRef": "k_dict_fncpbi74"
+                                    }
+                                  ]
+                                }
+                              ]
                             },
                             {
                               "id": "projection:mysql-concept:mysql-log-files:k_1782029546712_okgd59",
@@ -17707,7 +18832,54 @@
                           "count": 0,
                           "nodeRef": "n_0xxb9cqy",
                           "projection": false,
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_idx_fail_root",
+                              "name": "索引失效与适用边界",
+                              "count": 0,
+                              "nodeRef": "idx_fail_root",
+                              "children": [
+                                {
+                                  "id": "tree_idx_fail_bg",
+                                  "name": "InnoDB 索引与失效背景",
+                                  "count": 0,
+                                  "nodeRef": "idx_fail_bg"
+                                },
+                                {
+                                  "id": "tree_idx_fail_cases",
+                                  "name": "索引失效的七种情况",
+                                  "count": 0,
+                                  "nodeRef": "idx_fail_cases"
+                                },
+                                {
+                                  "id": "tree_idx_fail_unfit",
+                                  "name": "索引不适合的场景",
+                                  "count": 0,
+                                  "nodeRef": "idx_fail_unfit"
+                                },
+                                {
+                                  "id": "tree_idx_fail_rules",
+                                  "name": "索引的潜规则",
+                                  "count": 0,
+                                  "nodeRef": "idx_fail_rules"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_idxf_overview",
+                              "name": "为什么命中索引比不命中快",
+                              "count": 0,
+                              "nodeRef": "idxf_overview",
+                              "children": [
+                                {
+                                  "id": "tree_idxf_cost",
+                                  "name": "索引的弊端",
+                                  "count": 0,
+                                  "nodeRef": "idxf_cost"
+                                }
+                              ]
+                            }
+                          ]
                         },
                         {
                           "id": "tree_concept_unique_index",
@@ -17993,7 +19165,23 @@
                           "name": "二级索引 / secondary index",
                           "count": 0,
                           "nodeRef": "concept_secondary_index",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_mvcc_secondary_index_existing",
+                              "name": "MySQL 二级索引 / secondary index",
+                              "count": 0,
+                              "nodeRef": "demo_secondary_index",
+                              "children": []
+                            },
+                            {
+                              "id": "governance:canonical:k_auto_yb9yyu",
+                              "name": "MySQL 普通索引",
+                              "count": 0,
+                              "nodeRef": "k_auto_yb9yyu",
+                              "projection": false,
+                              "children": []
+                            }
+                          ]
                         },
                         {
                           "id": "tree_concept_prefix_index",
@@ -18157,28 +19345,6 @@
                               "name": "MySQL 极小记录 / infimum record",
                               "count": 0,
                               "nodeRef": "mysql_glossary_infimum_record_1jiz41",
-                              "projection": false,
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_1788164734351_r23zu3",
-                          "name": "普通索引",
-                          "count": 0,
-                          "nodeRef": "k_1788164734347_br5rza",
-                          "children": [
-                            {
-                              "id": "tree_1788178513868_xojas1",
-                              "name": "语法",
-                              "count": 0,
-                              "nodeRef": "k_1788178513859_30o6p5"
-                            },
-                            {
-                              "id": "governance:canonical:k_auto_yb9yyu",
-                              "name": "MySQL 普通索引",
-                              "count": 0,
-                              "nodeRef": "k_auto_yb9yyu",
                               "projection": false,
                               "children": []
                             }
@@ -18524,11 +19690,81 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "tree_sharding_overview",
+                          "name": "MySQL 分库分表",
+                          "count": 0,
+                          "nodeRef": "sharding_overview",
+                          "children": [
+                            {
+                              "id": "tree_sharding_what",
+                              "name": "什么是分库分表",
+                              "count": 0,
+                              "nodeRef": "sharding_what"
+                            },
+                            {
+                              "id": "tree_sharding_when",
+                              "name": "什么时候需要分库分表",
+                              "count": 0,
+                              "nodeRef": "sharding_when"
+                            },
+                            {
+                              "id": "tree_sharding_ways",
+                              "name": "四种拆分方式",
+                              "count": 0,
+                              "nodeRef": "sharding_ways",
+                              "children": [
+                                {
+                                  "id": "tree_sharding_v_db",
+                                  "name": "垂直分库",
+                                  "count": 0,
+                                  "nodeRef": "sharding_v_db"
+                                },
+                                {
+                                  "id": "tree_sharding_v_table",
+                                  "name": "垂直分表",
+                                  "count": 0,
+                                  "nodeRef": "sharding_v_table"
+                                },
+                                {
+                                  "id": "tree_sharding_h_db",
+                                  "name": "水平分库",
+                                  "count": 0,
+                                  "nodeRef": "sharding_h_db"
+                                },
+                                {
+                                  "id": "tree_sharding_h_table",
+                                  "name": "水平分表",
+                                  "count": 0,
+                                  "nodeRef": "sharding_h_table"
+                                },
+                                {
+                                  "id": "tree_sharding_evolution",
+                                  "name": "架构演进路线",
+                                  "count": 0,
+                                  "nodeRef": "sharding_evolution"
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_k_dict_zsu3d9zk",
+                              "name": "分表",
+                              "count": 0,
+                              "nodeRef": "k_dict_zsu3d9zk"
+                            },
+                            {
+                              "id": "tree_k_dict_wu1sq9s4",
+                              "name": "Sharding",
+                              "count": 0,
+                              "nodeRef": "k_dict_wu1sq9s4"
+                            }
+                          ]
                         }
                       ]
                     },
                     {
-                      "name": "十五、备份与恢复",
+                      "name": "备份与恢复",
                       "id": "chapter_db_15",
                       "nodeRef": "container:chapter_db_15",
                       "children": [
@@ -18570,7 +19806,115 @@
                                   "name": "MySQL Replication",
                                   "count": 0,
                                   "nodeRef": "k_1787326496104_zbtx44",
-                                  "projection": false
+                                  "projection": false,
+                                  "children": [
+                                    {
+                                      "id": "tree_msr_overview",
+                                      "name": "MySQL 主从复制",
+                                      "count": 0,
+                                      "nodeRef": "msr_overview",
+                                      "children": [
+                                        {
+                                          "id": "tree_k_dict_rukxx2as",
+                                          "name": "主从复制",
+                                          "count": 0,
+                                          "nodeRef": "k_dict_rukxx2as"
+                                        },
+                                        {
+                                          "id": "tree_msr_purpose",
+                                          "name": "用途",
+                                          "count": 0,
+                                          "nodeRef": "msr_purpose"
+                                        },
+                                        {
+                                          "id": "tree_msr_prereq",
+                                          "name": "部署必要条件",
+                                          "count": 0,
+                                          "nodeRef": "msr_prereq"
+                                        },
+                                        {
+                                          "id": "tree_msr_principle",
+                                          "name": "复制原理",
+                                          "count": 0,
+                                          "nodeRef": "msr_principle"
+                                        },
+                                        {
+                                          "id": "tree_msr_flow",
+                                          "name": "复制流程（三线程）",
+                                          "count": 0,
+                                          "nodeRef": "msr_flow",
+                                          "children": [
+                                            {
+                                              "id": "tree_msr_master_db",
+                                              "name": "主库 db（Master）",
+                                              "count": 0,
+                                              "nodeRef": "msr_master_db"
+                                            },
+                                            {
+                                              "id": "tree_msr_dump_thread",
+                                              "name": "binlog dump 线程（主库）",
+                                              "count": 0,
+                                              "nodeRef": "msr_dump_thread"
+                                            },
+                                            {
+                                              "id": "tree_msr_io_thread",
+                                              "name": "I/O 线程与 relay log（从库）",
+                                              "count": 0,
+                                              "nodeRef": "msr_io_thread"
+                                            },
+                                            {
+                                              "id": "tree_msr_sql_thread",
+                                              "name": "SQL 线程（从库）",
+                                              "count": 0,
+                                              "nodeRef": "msr_sql_thread"
+                                            },
+                                            {
+                                              "id": "tree_msr_relay_log",
+                                              "name": "relay log（中继日志）",
+                                              "count": 0,
+                                              "nodeRef": "msr_relay_log"
+                                            },
+                                            {
+                                              "id": "tree_msr_slave_db",
+                                              "name": "从库 db（Slave）",
+                                              "count": 0,
+                                              "nodeRef": "msr_slave_db"
+                                            },
+                                            {
+                                              "id": "tree_msr_state_written",
+                                              "name": "事件已写入 binlog",
+                                              "count": 0,
+                                              "nodeRef": "msr_state_written"
+                                            },
+                                            {
+                                              "id": "tree_msr_state_sent",
+                                              "name": "事件已发送",
+                                              "count": 0,
+                                              "nodeRef": "msr_state_sent"
+                                            },
+                                            {
+                                              "id": "tree_msr_state_relayed",
+                                              "name": "事件已入 relay log",
+                                              "count": 0,
+                                              "nodeRef": "msr_state_relayed"
+                                            },
+                                            {
+                                              "id": "tree_msr_state_replayed",
+                                              "name": "事件已重放",
+                                              "count": 0,
+                                              "nodeRef": "msr_state_replayed"
+                                            },
+                                            {
+                                              "id": "tree_msr_state_consistent",
+                                              "name": "主从数据一致",
+                                              "count": 0,
+                                              "nodeRef": "msr_state_consistent"
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ]
                                 }
                               ]
                             }
@@ -22553,7 +23897,58 @@
                   "name": "零拷贝",
                   "count": 0,
                   "nodeRef": "k_io_zero_copy",
-                  "children": []
+                  "children": [
+                    {
+                      "id": "tree_tio_flow",
+                      "name": "传统 IO 执行流程",
+                      "count": 0,
+                      "nodeRef": "tio_flow",
+                      "children": [
+                        {
+                          "id": "tree_tio_caller",
+                          "name": "应用程序（read/write 调用）",
+                          "count": 0,
+                          "nodeRef": "tio_caller"
+                        },
+                        {
+                          "id": "tree_tio_state_read_syscall",
+                          "name": "① read 发起（用户态→内核态）",
+                          "count": 0,
+                          "nodeRef": "tio_state_read_syscall"
+                        },
+                        {
+                          "id": "tree_tio_state_disk_to_kernel",
+                          "name": "② DMA：磁盘 → 内核缓冲区",
+                          "count": 0,
+                          "nodeRef": "tio_state_disk_to_kernel"
+                        },
+                        {
+                          "id": "tree_tio_state_kernel_to_user",
+                          "name": "③ CPU：内核缓冲区 → 用户缓冲区（返回）",
+                          "count": 0,
+                          "nodeRef": "tio_state_kernel_to_user"
+                        },
+                        {
+                          "id": "tree_tio_state_write_syscall",
+                          "name": "④ write 发起（用户态→内核态）",
+                          "count": 0,
+                          "nodeRef": "tio_state_write_syscall"
+                        },
+                        {
+                          "id": "tree_tio_state_user_to_socket",
+                          "name": "⑤ CPU：用户缓冲区 → socket 缓冲区",
+                          "count": 0,
+                          "nodeRef": "tio_state_user_to_socket"
+                        },
+                        {
+                          "id": "tree_tio_state_socket_to_nic",
+                          "name": "⑥ DMA：socket 缓冲区 → 网卡（返回）",
+                          "count": 0,
+                          "nodeRef": "tio_state_socket_to_nic"
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },

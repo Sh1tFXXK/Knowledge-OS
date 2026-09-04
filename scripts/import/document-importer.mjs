@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import mammoth from 'mammoth';
 import { PDFParse } from 'pdf-parse';
-import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
+import { applyImportAtTreeNode } from './lib/import-wikipedia.mjs';
 import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
 import { createTranslationService } from './translation.mjs';
 import { MINERU_PARSE_METHOD } from './mineru-ocr.mjs';

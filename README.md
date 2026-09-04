@@ -1,6 +1,6 @@
 # Knowledge-OS
 
-> 最新状态：2026-08-09
+> 最新状态：2026-09-04
 
 Knowledge-OS 是一个本地优先的多维知识图谱工作台。它把目录、知识节点、解释索引、问题、类型关系、时间线和机制视图组织在同一套显式数据模型中，适合维护需要持续拆解、关联和回顾的技术知识。
 
@@ -22,10 +22,9 @@ npm install
 npm run dev
 ```
 
-生产构建与测试：
+生产构建：
 
 ```bash
-npm test
 npm run build
 ```
 
@@ -43,7 +42,7 @@ npm run setup:mineru
 npm run import:jdk-collections -- --source="C:/Program Files/Java/jdk-26"
 ```
 
-网页、普通文档和 Java 源码也可以直接从顶部工具栏导入。
+网页、普通文档和 Java 源码也可以直接从顶部工具栏导入。导入实现位于 `scripts/import/`，共享引擎模块位于 `scripts/import/lib/`。
 
 文档导入支持“自动 / 文章 / 题库”结构选择。选择题库 PDF 时会使用 MinerU 恢复编号结构，并把问题写入问题库；同名但题号不同的问题会分别保留。
 
@@ -76,4 +75,4 @@ KNOWLEDGE_OS_LLM_MODEL=gpt-4.1-mini
 - [文档导入标准](docs/DOCUMENT_IMPORT_STANDARD.md)
 - [开发与分支流程](CONTRIBUTING.md)
 
-历史实施方案、修复记录、对话恢复稿、工具运行状态和截图不再进入版本库。历史分支如需恢复，使用 `.git/branch-archives/` 中的本地 Git bundle。
+历史实施方案、修复记录、对话恢复稿、工具运行状态和截图不再进入版本库。一次性迁移脚本已从运行时目录移除；历史分支如需恢复，使用 `.git/branch-archives/` 中的本地 Git bundle。

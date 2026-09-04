@@ -6,8 +6,8 @@ import {
   javadocTextToMarkdown,
   MEMBER_KIND,
   renderDocumentationSection,
-} from '../import-jdk-collections.mjs';
-import { javaTypeKnowledgeNodeId } from '../knowledge-identity.mjs';
+} from './lib/import-jdk-collections.mjs';
+import { javaTypeKnowledgeNodeId } from './lib/knowledge-identity.mjs';
 
 export const JAVA_SOURCE_API_TAB_PREFIX = 'java_source_api_';
 

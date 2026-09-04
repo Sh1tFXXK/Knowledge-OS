@@ -41,17 +41,20 @@ export default function MermaidDiagram({ code }: { code: string }) {
     setError(null);
     renderSeq += 1;
     const renderId = `mmd-svg-${renderSeq}`;
-    loadMermaid()
-      .then((mermaid) => mermaid.render(renderId, code))
-      .then(({ svg: rendered }) => {
-        if (!cancelled) setSvg(rendered);
-      })
-      .catch((err: unknown) => {
-        // mermaid 解析失败时会把错误 SVG 残留在 document.body，需要清掉
-        document.getElementById(renderId)?.remove();
-        document.getElementById(`d${renderId}`)?.remove();
-        if (!cancelled) setError(err instanceof Error ? err.message : String(err));
-      });
+    // ponytail: mermaid 11 在浏览器首帧测量偶发失败（SVG append 时序），失败后静默重试一次即可覆盖
+    const attempt = (retriesLeft: number): Promise<void> =>
+      loadMermaid()
+        .then((mermaid) => mermaid.render(`${renderId}-${retriesLeft}`, code))
+        .then(({ svg: rendered }) => {
+          if (!cancelled) setSvg(rendered);
+        })
+        .catch((err: unknown) => {
+          document.getElementById(`${renderId}-${retriesLeft}`)?.remove();
+          document.getElementById(`d${renderId}-${retriesLeft}`)?.remove();
+          if (retriesLeft > 0 && !cancelled) return attempt(retriesLeft - 1);
+          if (!cancelled) setError(err instanceof Error ? err.message : String(err));
+        });
+    void attempt(1);
     return () => { cancelled = true; };
   }, [code]);
 
