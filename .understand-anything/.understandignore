@@ -1,29 +1,40 @@
 # .understandignore — 要排除分析的文件的模式
 # 语法: 同 .gitignore (glob, # 注释, ! 取反, / 后缀表示目录)
-# 以下是建议 — 取消注释以激活。
-# 使用 ! 前缀强制包含被默认排除的项目。
-#
-# 内置默认（除非取反，否则始终排除）:
-#   node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js, 等
-#
-# --- 来自 .gitignore (取消注释以排除) ---
+# 内置默认（始终排除，除非取反）: node_modules/, .git/, dist/, build/, obj/, *.lock, *.min.js 等
 
-# *.swp
-# *.swo
-# *.agent
-# .claude
-# npm-debug.log*
-# .DS_Store
-# Thumbs.db
-# *_[0-9]*_[0-9]*_[0-9]*.tsx
-# *_[0-9]*_[0-9]*_[0-9]*.ts
+# --- 工具 / 环境 / 第三方 skill 目录 ---
+.agents/
+.vite/
+.kimchi/
+.claude/
+.codex/
+.idea/
+.playwright-cli/
+.reasonix/
+.workbuddy/
+.understand-anything/
 
-# --- 检测到的目录 (取消注释以排除) ---
+# --- 临时 / 浏览器 / 抓取产物 ---
+.tmp_redis_pages/
+.tmp-chrome-profile/
+.tmp-db2-images/
+.tmp-nio-images/
+.tmp-scripts-list.txt
 
-# scripts/
+# --- 输出 / OCR / 诊断产物 ---
+ocr-output/
+output/
+outputs/
+diag-check.json
 
-# --- 测试文件模式 (取消注释以排除) ---
+# --- 日志 ---
+*.log
 
-# *.test.*
-# *.spec.*
-# *.snap
+# --- 根目录调试截图 ---
+/*.png
+
+# --- 用户选择进一步排除：导入内容 + 项目设计文档 + 根目录杂项 ---
+docs/
+check_tx_perf.mjs
+check_tx_perf2.mjs
+概念字典.md
