@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "gitCommitHash": "91a5da32cbc9e6e9dfa6c6c3fda069b53f8598b6",
-  "generatedAt": "2026-09-04T17:52:46.765Z",
+  "gitCommitHash": "e0dcb732e53c93992a60af7603d0ebef65a456c2",
+  "generatedAt": "2026-09-05T11:11:53.003Z",
   "files": {
     ".env.example": {
       "filePath": ".env.example",
@@ -5481,8 +5481,16 @@
     },
     "src/components/TimelineView.tsx": {
       "filePath": "src/components/TimelineView.tsx",
-      "contentHash": "e53e06b73f4371c224e3633e67f4b8b0ce8190fcab5d0016c3ffd96d678e4ebd",
+      "contentHash": "b560a45ae7f0e0a788c543ef3b070eeba4a932db78b2b4c416b3330698d38a90",
       "functions": [
+        {
+          "name": "ModeSwitch",
+          "params": [
+            "{\n  mode,\n  onChange,\n}"
+          ],
+          "exported": false,
+          "lineCount": 30
+        },
         {
           "name": "formatTimestamp",
           "params": [
@@ -5521,7 +5529,7 @@
           "name": "TimelineView",
           "params": [],
           "exported": true,
-          "lineCount": 233
+          "lineCount": 252
         }
       ],
       "classes": [],
@@ -5571,12 +5579,18 @@
           "specifiers": [
             "getKnowledgePointSnapshotStats"
           ]
+        },
+        {
+          "source": "./KnowledgeEvolutionTimeline",
+          "specifiers": [
+            "KnowledgeEvolutionTimeline"
+          ]
         }
       ],
       "exports": [
         "TimelineView"
       ],
-      "totalLines": 319,
+      "totalLines": 371,
       "hasStructuralAnalysis": true
     },
     "src/components/TreeDestinationPicker.tsx": {
@@ -6117,7 +6131,7 @@
     },
     "src/core/ExplanationIndexView.tsx": {
       "filePath": "src/core/ExplanationIndexView.tsx",
-      "contentHash": "2e772f1fd252a4794f265098039f302cfce3b03b3612c802dff26ac624d83b9f",
+      "contentHash": "888b4e3f17f0582937624c3346ab83505bf926f98eab82b14d911234e93f0548",
       "functions": [
         {
           "name": "splitDirectionForDepth",
@@ -6167,7 +6181,7 @@
             "{\r\n  isFocusMode,\r\n  onToggleFocusMode,\r\n}"
           ],
           "exported": true,
-          "lineCount": 918
+          "lineCount": 1060
         }
       ],
       "classes": [],
@@ -6246,6 +6260,19 @@
           ]
         },
         {
+          "source": "../knowledge/indexEvolution",
+          "specifiers": [
+            "annotationsForIndexScope",
+            "buildIndexEvolutionProjection"
+          ]
+        },
+        {
+          "source": "../knowledge/timelineAnnotations",
+          "specifiers": [
+            "BUILT_IN_TIMELINE_ANNOTATIONS"
+          ]
+        },
+        {
           "source": "../store/useGraph",
           "specifiers": [
             "useGraphStore"
@@ -6258,6 +6285,7 @@
             "TypeRelationKind",
             "ExplanationIndexSelection",
             "ExplanationSelection",
+            "KnowledgeEdge",
             "KnowledgeNode"
           ]
         },
@@ -6277,90 +6305,7 @@
       "exports": [
         "ExplanationIndexView"
       ],
-      "totalLines": 1024,
-      "hasStructuralAnalysis": true
-    },
-    "src/core/FunnelCanvas.tsx": {
-      "filePath": "src/core/FunnelCanvas.tsx",
-      "contentHash": "cc892a39bce980d1aef6d020bb297084972b42c4f57e27e902d1c533fd84aaa8",
-      "functions": [
-        {
-          "name": "roleColor",
-          "params": [
-            "role"
-          ],
-          "exported": false,
-          "lineCount": 4
-        },
-        {
-          "name": "nodeIcon",
-          "params": [
-            "label"
-          ],
-          "exported": false,
-          "lineCount": 8
-        },
-        {
-          "name": "arcPath",
-          "params": [
-            "x1",
-            "y1",
-            "x2",
-            "y2",
-            "r1",
-            "r2"
-          ],
-          "exported": false,
-          "lineCount": 6
-        },
-        {
-          "name": "FunnelCanvas",
-          "params": [
-            "{ focusNodeId, focusLabel }"
-          ],
-          "exported": true,
-          "lineCount": 315
-        }
-      ],
-      "classes": [],
-      "imports": [
-        {
-          "source": "react",
-          "specifiers": [
-            "React",
-            "useMemo",
-            "useState"
-          ]
-        },
-        {
-          "source": "../store/useGraph",
-          "specifiers": [
-            "useGraphStore"
-          ]
-        },
-        {
-          "source": "../knowledge/extractSubgraph",
-          "specifiers": [
-            "extractSubgraph"
-          ]
-        },
-        {
-          "source": "./funnelLayout",
-          "specifiers": [
-            "layoutFunnelZone"
-          ]
-        },
-        {
-          "source": "../types",
-          "specifiers": [
-            "KnowledgeRole"
-          ]
-        }
-      ],
-      "exports": [
-        "FunnelCanvas"
-      ],
-      "totalLines": 372,
+      "totalLines": 1172,
       "hasStructuralAnalysis": true
     },
     "src/core/ReasoningKernel.tsx": {
@@ -6399,82 +6344,6 @@
         "ReasoningKernel"
       ],
       "totalLines": 34,
-      "hasStructuralAnalysis": true
-    },
-    "src/core/RuleComposer.tsx": {
-      "filePath": "src/core/RuleComposer.tsx",
-      "contentHash": "defd9d7282d69491a25804f5d197780af8efc6dc094a971bf05b6a3f13660b7a",
-      "functions": [
-        {
-          "name": "RuleComposer",
-          "params": [],
-          "exported": true,
-          "lineCount": 96
-        }
-      ],
-      "classes": [],
-      "imports": [
-        {
-          "source": "react",
-          "specifiers": [
-            "useState"
-          ]
-        },
-        {
-          "source": "../store/useGraph",
-          "specifiers": [
-            "useGraphStore"
-          ]
-        }
-      ],
-      "exports": [
-        "RuleComposer"
-      ],
-      "totalLines": 100,
-      "hasStructuralAnalysis": true
-    },
-    "src/core/SubsystemDeck.tsx": {
-      "filePath": "src/core/SubsystemDeck.tsx",
-      "contentHash": "d31714b4c8e61a080191eb8965e16df4e1d30f574f4b4c117e0b6e1a729c5c5e",
-      "functions": [
-        {
-          "name": "SubsystemDeck",
-          "params": [],
-          "exported": true,
-          "lineCount": 58
-        }
-      ],
-      "classes": [],
-      "imports": [
-        {
-          "source": "react",
-          "specifiers": [
-            "useMemo"
-          ]
-        },
-        {
-          "source": "../store/useGraph",
-          "specifiers": [
-            "useGraphStore"
-          ]
-        },
-        {
-          "source": "../knowledge/extractSubgraph",
-          "specifiers": [
-            "extractSubgraph"
-          ]
-        },
-        {
-          "source": "../knowledge/treeUtils",
-          "specifiers": [
-            "getTreePathNames"
-          ]
-        }
-      ],
-      "exports": [
-        "SubsystemDeck"
-      ],
-      "totalLines": 64,
       "hasStructuralAnalysis": true
     },
     "src/core/SubsystemStrip.tsx": {
@@ -6596,7 +6465,7 @@
     },
     "src/core/explanation-index/UnifiedIndexGraph.tsx": {
       "filePath": "src/core/explanation-index/UnifiedIndexGraph.tsx",
-      "contentHash": "f69ba4ef1722d3f1b37dd63ef30c524ea68c95c0aab032c9621ae288a5b06134",
+      "contentHash": "afc98e7bb5e3ac065a25f72b7a6daa3a20d414f0c1c01a689f55ea68cddf7eee",
       "functions": [
         {
           "name": "parseTagDraft",
@@ -6667,10 +6536,10 @@
         {
           "name": "UnifiedIndexGraph",
           "params": [
-            "{\r\n  ownerId,\r\n  ownerLabel,\r\n  index,\r\n  relationRootId,\r\n  relationRootLabel,\r\n  relationGraph,\r\n  knowledgeEdges,\r\n  containmentEdges,\r\n  nodePool,\r\n  activeSelection,\r\n  editable,\r\n  isEditing,\r\n  onOpenNode,\r\n  onSelectTitle,\r\n  onRenameSelection,\r\n  onSetSelectionTags,\r\n  onAddChildSelection,\r\n  canRemoveSelection,\r\n  onRemoveSelection,\r\n  onCreateNodeAt,\r\n  onCreateGroup,\r\n  onUngroup,\r\n  onRemoveNodes,\r\n  onDeleteNodes,\r\n  onRemoveEdges,\r\n}"
+            "{\r\n  ownerId,\r\n  ownerLabel,\r\n  index,\r\n  relationRootId,\r\n  relationRootLabel,\r\n  relationGraph,\r\n  knowledgeEdges,\r\n  containmentEdges,\n  excludedKnowledgeNodeIds = new Set(),\n  nodePool,\r\n  activeSelection,\r\n  editable,\r\n  isEditing,\r\n  onOpenNode,\r\n  onSelectTitle,\r\n  onRenameSelection,\r\n  onSetSelectionTags,\r\n  onAddChildSelection,\r\n  canRemoveSelection,\r\n  onRemoveSelection,\r\n  onCreateNodeAt,\r\n  onCreateGroup,\r\n  onUngroup,\r\n  onRemoveNodes,\r\n  onDeleteNodes,\n  onRemoveEdges,\n  timelineAppearingNodeIds = new Set(),\n  timelineChangedNodeIds = new Set(),\n  timelineHiddenNodeIds = new Set(),\n  timelineRevision = 0,\n}"
           ],
           "exported": true,
-          "lineCount": 1588
+          "lineCount": 1620
         }
       ],
       "classes": [],
@@ -6776,7 +6645,7 @@
       "exports": [
         "UnifiedIndexGraph"
       ],
-      "totalLines": 1818,
+      "totalLines": 1855,
       "hasStructuralAnalysis": true
     },
     "src/core/explanation-index/cuttingGesture.ts": {
@@ -7223,7 +7092,7 @@
     },
     "src/core/explanation-index/indexGraphLayout.ts": {
       "filePath": "src/core/explanation-index/indexGraphLayout.ts",
-      "contentHash": "dd3a6b6db0edd2b9a6c3275b76b10b730ec46409735407ba084ea053459ad4f7",
+      "contentHash": "bbf84d3c6667c57f9de99660c8c2fecb7832616fe6d692ac8728ce076f4b29d9",
       "functions": [
         {
           "name": "insetRect",
@@ -7483,11 +7352,11 @@
         {
           "name": "buildUnifiedIndexGraph",
           "params": [
-            "{\r\n  ownerId,\r\n  ownerLabel,\r\n  index,\r\n  relationRootId,\r\n  relationRootLabel,\r\n  relationGraph,\r\n  knowledgeEdges,\r\n  containmentEdges,\r\n  nodePool,\r\n  collapsedNodeIds = new Set(),\r\n  targetAspectRatio,\r\n}"
+            "{\r\n  ownerId,\r\n  ownerLabel,\r\n  index,\r\n  relationRootId,\r\n  relationRootLabel,\r\n  relationGraph,\r\n  knowledgeEdges,\n  containmentEdges,\n  excludedKnowledgeNodeIds = new Set(),\n  nodePool,\n  collapsedNodeIds = new Set(),\r\n  targetAspectRatio,\r\n}"
           ],
           "returnType": "UnifiedIndexGraphLayout",
           "exported": true,
-          "lineCount": 236
+          "lineCount": 248
         }
       ],
       "classes": [],
@@ -7538,31 +7407,7 @@
         "collectIndexMembers",
         "buildUnifiedIndexGraph"
       ],
-      "totalLines": 1115,
-      "hasStructuralAnalysis": true
-    },
-    "src/core/funnelLayout.ts": {
-      "filePath": "src/core/funnelLayout.ts",
-      "contentHash": "bd20dffffff368f26fed6b2255b35c5b2ee3ae61e9f4554dcc28216ff0d97eca",
-      "functions": [
-        {
-          "name": "layoutFunnelZone",
-          "params": [
-            "zone",
-            "nodes",
-            "opts"
-          ],
-          "returnType": "LaidNode<T>[]",
-          "exported": true,
-          "lineCount": 72
-        }
-      ],
-      "classes": [],
-      "imports": [],
-      "exports": [
-        "layoutFunnelZone"
-      ],
-      "totalLines": 99,
+      "totalLines": 1128,
       "hasStructuralAnalysis": true
     },
     "src/core/sections/BPlusTreeSection.tsx": {
@@ -12419,41 +12264,6 @@
       "totalLines": 447,
       "hasStructuralAnalysis": true
     },
-    "src/panels/InferenceEngine.tsx": {
-      "filePath": "src/panels/InferenceEngine.tsx",
-      "contentHash": "a3aa9ea74252d46d34036f561f040e959ff0cd2a95e7bb88bda12a2b96c0650a",
-      "functions": [
-        {
-          "name": "InferenceEngine",
-          "params": [],
-          "exported": true,
-          "lineCount": 176
-        }
-      ],
-      "classes": [],
-      "imports": [
-        {
-          "source": "react",
-          "specifiers": [
-            "useState",
-            "useCallback",
-            "useRef",
-            "useEffect"
-          ]
-        },
-        {
-          "source": "../store/useGraph",
-          "specifiers": [
-            "useGraphStore"
-          ]
-        }
-      ],
-      "exports": [
-        "InferenceEngine"
-      ],
-      "totalLines": 180,
-      "hasStructuralAnalysis": true
-    },
     "src/panels/QuestionBank.tsx": {
       "filePath": "src/panels/QuestionBank.tsx",
       "contentHash": "9c58b42f35e495da450a6f62e6ea22216942bb9c6a99e901e81650d984188c7d",
@@ -13116,7 +12926,7 @@
     },
     "src/store/useGraph.ts": {
       "filePath": "src/store/useGraph.ts",
-      "contentHash": "894dd33f34601b3b7c8966a7703eb7d373cc1caeb147c2ffbb1033e1e1b268ba",
+      "contentHash": "4d3788351f87b91a354ecfd03839f547e7421253001eb34f592aa71148b86c10",
       "functions": [
         {
           "name": "pagesForTab",
@@ -13259,7 +13069,7 @@
             "data"
           ],
           "exported": false,
-          "lineCount": 21
+          "lineCount": 22
         },
         {
           "name": "appendUniqueKnowledgeEdge",
@@ -13461,7 +13271,7 @@
       "exports": [
         "useGraphStore"
       ],
-      "totalLines": 2077,
+      "totalLines": 2082,
       "hasStructuralAnalysis": true
     },
     "src/styles/animations.css": {
@@ -13496,12 +13306,12 @@
     },
     "src/styles/index-diagram.css": {
       "filePath": "src/styles/index-diagram.css",
-      "contentHash": "e5c9a309efccc910594b13221c23a61628861145f021c2b44627586a56aa0b65",
+      "contentHash": "ca2e6f0105dedf95fbf318f85454804beaf93ec7ce45677684174a409ee90997",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 1282,
+      "totalLines": 1461,
       "hasStructuralAnalysis": false
     },
     "src/styles/layout.css": {
@@ -13546,12 +13356,12 @@
     },
     "src/styles/timeline.css": {
       "filePath": "src/styles/timeline.css",
-      "contentHash": "85ef23021c9d8911b71afa9bd1cadeace2e1ec226def79a2f874f00555d86897",
+      "contentHash": "cd4c3932edcb41e17cc86c1c18eb1ca94cf65b0978a68b4e502654675386537f",
       "functions": [],
       "classes": [],
       "imports": [],
       "exports": [],
-      "totalLines": 906,
+      "totalLines": 1804,
       "hasStructuralAnalysis": false
     },
     "src/styles/tokens.css": {
@@ -13728,6 +13538,528 @@
       ],
       "exports": [],
       "totalLines": 244,
+      "hasStructuralAnalysis": true
+    },
+    "scripts/index-evolution.test.mjs": {
+      "filePath": "scripts/index-evolution.test.mjs",
+      "contentHash": "b095b1d99f6705236fd18a81e4ff61d92b825eaba0365b45c457da920571cc12",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "node:assert/strict",
+          "specifiers": [
+            "assert"
+          ]
+        },
+        {
+          "source": "node:test",
+          "specifiers": [
+            "test"
+          ]
+        },
+        {
+          "source": "../src/knowledge/indexEvolution.ts",
+          "specifiers": [
+            "annotationsForIndexScope",
+            "buildIndexEvolutionProjection"
+          ]
+        },
+        {
+          "source": "../src/knowledge/timelineEvolution.ts",
+          "specifiers": [
+            "TimelineFacet"
+          ]
+        }
+      ],
+      "exports": [],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "src/components/KnowledgeEvolutionTimeline.tsx": {
+      "filePath": "src/components/KnowledgeEvolutionTimeline.tsx",
+      "contentHash": "41184b31c4ae5dc2f3699764072d816c551c0f2a60b77627b7d8c13354555984",
+      "functions": [
+        {
+          "name": "formatTimestamp",
+          "params": [
+            "timestamp"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "eventLabel",
+          "params": [
+            "event"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "eventSummary",
+          "params": [
+            "event"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "BatchPicker",
+          "params": [
+            "{\n  batches,\n  selectedId,\n  query,\n  changesOnly,\n  onQueryChange,\n  onChangesOnlyChange,\n  onSelect,\n}"
+          ],
+          "exported": false,
+          "lineCount": 74
+        },
+        {
+          "name": "FacetOverview",
+          "params": [
+            "{ events }"
+          ],
+          "exported": false,
+          "lineCount": 24
+        },
+        {
+          "name": "ChangeCard",
+          "params": [
+            "{\n  nodeLabel,\n  change,\n}"
+          ],
+          "exported": false,
+          "lineCount": 27
+        },
+        {
+          "name": "AffectedEntries",
+          "params": [
+            "{\n  events,\n  selectedId,\n  onSelect,\n}"
+          ],
+          "exported": false,
+          "lineCount": 38
+        },
+        {
+          "name": "EventInspector",
+          "params": [
+            "{\n  event,\n  nodePool,\n  onOpen,\n}"
+          ],
+          "exported": false,
+          "lineCount": 99
+        },
+        {
+          "name": "BatchInspector",
+          "params": [
+            "{\n  batch,\n  nodePool,\n  selectedEventId,\n  onSelectEvent,\n  onOpenNode,\n  onOpenInIndex,\n}"
+          ],
+          "exported": false,
+          "lineCount": 50
+        },
+        {
+          "name": "KnowledgeEvolutionTimeline",
+          "params": [],
+          "exported": true,
+          "lineCount": 107
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "react",
+          "specifiers": [
+            "useEffect",
+            "useMemo",
+            "useState"
+          ]
+        },
+        {
+          "source": "lucide-react",
+          "specifiers": [
+            "ArrowRight",
+            "Check",
+            "Clock3",
+            "ExternalLink",
+            "GitBranch",
+            "Layers3",
+            "Play",
+            "Search"
+          ]
+        },
+        {
+          "source": "../store/useGraph",
+          "specifiers": [
+            "useGraphStore"
+          ]
+        },
+        {
+          "source": "../knowledge/timelineEvolution",
+          "specifiers": [
+            "buildKnowledgeTimeline",
+            "facetLabel",
+            "nodeContentSummary",
+            "TimelineFacet",
+            "KnowledgeTimelineBatch",
+            "KnowledgeTimelineEvent",
+            "TimelineFacetChange"
+          ]
+        },
+        {
+          "source": "../knowledge/timelineAnnotations",
+          "specifiers": [
+            "BUILT_IN_TIMELINE_ANNOTATIONS"
+          ]
+        },
+        {
+          "source": "../types",
+          "specifiers": [
+            "KnowledgeNode"
+          ]
+        }
+      ],
+      "exports": [
+        "KnowledgeEvolutionTimeline"
+      ],
+      "totalLines": 468,
+      "hasStructuralAnalysis": true
+    },
+    "src/knowledge/indexEvolution.ts": {
+      "filePath": "src/knowledge/indexEvolution.ts",
+      "contentHash": "94823e955aba53aa54c210ab090dee1964f80f749fd32d8762cd2559c1a2986e",
+      "functions": [
+        {
+          "name": "annotationsForIndexScope",
+          "params": [
+            "scopeNodeIds",
+            "annotations"
+          ],
+          "returnType": "TimelineAnnotation[]",
+          "exported": true,
+          "lineCount": 11
+        },
+        {
+          "name": "buildIndexEvolutionProjection",
+          "params": [
+            "annotations",
+            "activeAnnotationId"
+          ],
+          "returnType": "IndexEvolutionProjection",
+          "exported": true,
+          "lineCount": 40
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./timelineEvolution.ts",
+          "specifiers": [
+            "TimelineAnnotation",
+            "TimelineIntroducedNode"
+          ]
+        }
+      ],
+      "exports": [
+        "annotationsForIndexScope",
+        "buildIndexEvolutionProjection"
+      ],
+      "totalLines": 66,
+      "hasStructuralAnalysis": true
+    },
+    "src/knowledge/timelineAnnotations.ts": {
+      "filePath": "src/knowledge/timelineAnnotations.ts",
+      "contentHash": "0f6ca641d3f037fc7e7d3ceeef9cd46d63489c0cff26d248be3ddd76068544e8",
+      "functions": [],
+      "classes": [],
+      "imports": [
+        {
+          "source": "./timelineEvolution.ts",
+          "specifiers": [
+            "TimelineFacet",
+            "TimelineAnnotation"
+          ]
+        }
+      ],
+      "exports": [
+        "BUILT_IN_TIMELINE_ANNOTATIONS"
+      ],
+      "totalLines": 112,
+      "hasStructuralAnalysis": true
+    },
+    "src/knowledge/timelineEvolution.ts": {
+      "filePath": "src/knowledge/timelineEvolution.ts",
+      "contentHash": "516821d52da064cca34d1dcdea13e5e4d8778ee699599cde0715a1903295f4db",
+      "functions": [
+        {
+          "name": "normalizeText",
+          "params": [
+            "value"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "stableSerialize",
+          "params": [
+            "value"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "contentPage",
+          "params": [
+            "page"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "contentTab",
+          "params": [
+            "tab"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "metadataPage",
+          "params": [
+            "page"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "metadataTab",
+          "params": [
+            "tab"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "structurePage",
+          "params": [
+            "page"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "structureTab",
+          "params": [
+            "tab"
+          ],
+          "returnType": "unknown",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "allContent",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "allStructure",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "allMetadata",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 18
+        },
+        {
+          "name": "allProjection",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 3
+        },
+        {
+          "name": "contentSummary",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "structureSummary",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 10
+        },
+        {
+          "name": "metadataSummary",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 6
+        },
+        {
+          "name": "projectionSummary",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": false,
+          "lineCount": 7
+        },
+        {
+          "name": "compareFacet",
+          "params": [
+            "facet",
+            "before",
+            "after",
+            "beforeFingerprint",
+            "afterFingerprint"
+          ],
+          "returnType": "TimelineFacetChange | null",
+          "exported": false,
+          "lineCount": 16
+        },
+        {
+          "name": "compareNodes",
+          "params": [
+            "previous",
+            "current"
+          ],
+          "returnType": "TimelineFacetChange[]",
+          "exported": false,
+          "lineCount": 8
+        },
+        {
+          "name": "stableFacets",
+          "params": [
+            "changes"
+          ],
+          "returnType": "TimelineFacet[]",
+          "exported": false,
+          "lineCount": 4
+        },
+        {
+          "name": "snapshotWeight",
+          "params": [
+            "snapshot"
+          ],
+          "returnType": "number",
+          "exported": false,
+          "lineCount": 9
+        },
+        {
+          "name": "pickCanonicalSnapshot",
+          "params": [
+            "snapshots"
+          ],
+          "returnType": "KnowledgePointSnapshot",
+          "exported": false,
+          "lineCount": 5
+        },
+        {
+          "name": "eventFromSnapshot",
+          "params": [
+            "snapshot",
+            "previousNode",
+            "isBaseline",
+            "coalescedSnapshotCount"
+          ],
+          "returnType": "KnowledgeTimelineEvent",
+          "exported": false,
+          "lineCount": 21
+        },
+        {
+          "name": "eventFromAnnotation",
+          "params": [
+            "annotation",
+            "targetNodeId",
+            "changes",
+            "nodePool"
+          ],
+          "returnType": "KnowledgeTimelineEvent | null",
+          "exported": false,
+          "lineCount": 33
+        },
+        {
+          "name": "buildKnowledgeTimeline",
+          "params": [
+            "nodePool",
+            "snapshots",
+            "annotations"
+          ],
+          "returnType": "KnowledgeTimelineProjection",
+          "exported": true,
+          "lineCount": 129
+        },
+        {
+          "name": "facetLabel",
+          "params": [
+            "facet"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 3
+        },
+        {
+          "name": "nodeContentSummary",
+          "params": [
+            "node"
+          ],
+          "returnType": "string",
+          "exported": true,
+          "lineCount": 3
+        }
+      ],
+      "classes": [],
+      "imports": [
+        {
+          "source": "../types.ts",
+          "specifiers": [
+            "ExplanationPage",
+            "ExplanationTab",
+            "KnowledgeNode"
+          ]
+        },
+        {
+          "source": "./state.ts",
+          "specifiers": [
+            "KnowledgePointSnapshot"
+          ]
+        }
+      ],
+      "exports": [
+        "TimelineFacet",
+        "buildKnowledgeTimeline",
+        "facetLabel",
+        "nodeContentSummary"
+      ],
+      "totalLines": 478,
       "hasStructuralAnalysis": true
     }
   }

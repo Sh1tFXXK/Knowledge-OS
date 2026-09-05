@@ -226,6 +226,12 @@
       "fileCategory": "code"
     },
     {
+      "path": "scripts/index-evolution.test.mjs",
+      "language": "javascript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
       "path": "skills-lock.json",
       "language": "json",
       "sizeLines": 83,
@@ -247,6 +253,12 @@
       "path": "src/components/JavaSourceImportPanel.tsx",
       "language": "typescript",
       "sizeLines": 196,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/components/KnowledgeEvolutionTimeline.tsx",
+      "language": "typescript",
+      "sizeLines": 467,
       "fileCategory": "code"
     },
     {
@@ -294,7 +306,7 @@
     {
       "path": "src/components/TimelineView.tsx",
       "language": "typescript",
-      "sizeLines": 318,
+      "sizeLines": 370,
       "fileCategory": "code"
     },
     {
@@ -354,31 +366,13 @@
     {
       "path": "src/core/ExplanationIndexView.tsx",
       "language": "typescript",
-      "sizeLines": 1023,
-      "fileCategory": "code"
-    },
-    {
-      "path": "src/core/FunnelCanvas.tsx",
-      "language": "typescript",
-      "sizeLines": 371,
+      "sizeLines": 1171,
       "fileCategory": "code"
     },
     {
       "path": "src/core/ReasoningKernel.tsx",
       "language": "typescript",
       "sizeLines": 33,
-      "fileCategory": "code"
-    },
-    {
-      "path": "src/core/RuleComposer.tsx",
-      "language": "typescript",
-      "sizeLines": 99,
-      "fileCategory": "code"
-    },
-    {
-      "path": "src/core/SubsystemDeck.tsx",
-      "language": "typescript",
-      "sizeLines": 63,
       "fileCategory": "code"
     },
     {
@@ -396,7 +390,7 @@
     {
       "path": "src/core/explanation-index/UnifiedIndexGraph.tsx",
       "language": "typescript",
-      "sizeLines": 1817,
+      "sizeLines": 1854,
       "fileCategory": "code"
     },
     {
@@ -420,13 +414,7 @@
     {
       "path": "src/core/explanation-index/indexGraphLayout.ts",
       "language": "typescript",
-      "sizeLines": 1114,
-      "fileCategory": "code"
-    },
-    {
-      "path": "src/core/funnelLayout.ts",
-      "language": "typescript",
-      "sizeLines": 98,
+      "sizeLines": 1127,
       "fileCategory": "code"
     },
     {
@@ -586,6 +574,12 @@
       "fileCategory": "code"
     },
     {
+      "path": "src/knowledge/indexEvolution.ts",
+      "language": "typescript",
+      "sizeLines": 65,
+      "fileCategory": "code"
+    },
+    {
       "path": "src/knowledge/linkImport.ts",
       "language": "typescript",
       "sizeLines": 56,
@@ -655,6 +649,18 @@
       "path": "src/knowledge/timeline.ts",
       "language": "typescript",
       "sizeLines": 122,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/knowledge/timelineAnnotations.ts",
+      "language": "typescript",
+      "sizeLines": 111,
+      "fileCategory": "code"
+    },
+    {
+      "path": "src/knowledge/timelineEvolution.ts",
+      "language": "typescript",
+      "sizeLines": 477,
       "fileCategory": "code"
     },
     {
@@ -766,12 +772,6 @@
       "fileCategory": "code"
     },
     {
-      "path": "src/panels/InferenceEngine.tsx",
-      "language": "typescript",
-      "sizeLines": 179,
-      "fileCategory": "code"
-    },
-    {
       "path": "src/panels/QuestionBank.tsx",
       "language": "typescript",
       "sizeLines": 234,
@@ -840,7 +840,7 @@
     {
       "path": "src/store/useGraph.ts",
       "language": "typescript",
-      "sizeLines": 2076,
+      "sizeLines": 2081,
       "fileCategory": "code"
     },
     {
@@ -864,7 +864,7 @@
     {
       "path": "src/styles/index-diagram.css",
       "language": "css",
-      "sizeLines": 1281,
+      "sizeLines": 1460,
       "fileCategory": "markup"
     },
     {
@@ -894,7 +894,7 @@
     {
       "path": "src/styles/timeline.css",
       "language": "css",
-      "sizeLines": 905,
+      "sizeLines": 1803,
       "fileCategory": "markup"
     },
     {
@@ -929,7 +929,7 @@
     }
   ],
   "totalFiles": 152,
-  "filteredByIgnore": 543,
+  "filteredByIgnore": 544,
   "estimatedComplexity": "large",
   "importMap": {
     ".env.example": [],
@@ -1005,6 +1005,10 @@
       "scripts/import/semantic-projector.mjs",
       "scripts/import/translation.mjs"
     ],
+    "scripts/index-evolution.test.mjs": [
+      "src/knowledge/indexEvolution.ts",
+      "src/knowledge/timelineEvolution.ts"
+    ],
     "skills-lock.json": [],
     "src/App.tsx": [
       "src/core/ReasoningKernel.tsx",
@@ -1029,6 +1033,12 @@
       "src/components/TreeDestinationPicker.tsx",
       "src/knowledge/documentImport.ts",
       "src/store/useGraph.ts"
+    ],
+    "src/components/KnowledgeEvolutionTimeline.tsx": [
+      "src/knowledge/timelineAnnotations.ts",
+      "src/knowledge/timelineEvolution.ts",
+      "src/store/useGraph.ts",
+      "src/types.ts"
     ],
     "src/components/KnowledgePointTimeline.tsx": [
       "src/knowledge/state.ts",
@@ -1070,6 +1080,7 @@
       "src/store/useGraph.ts"
     ],
     "src/components/TimelineView.tsx": [
+      "src/components/KnowledgeEvolutionTimeline.tsx",
       "src/knowledge/state.ts",
       "src/knowledge/timeline.ts",
       "src/store/useGraph.ts",
@@ -1118,30 +1129,18 @@
       "src/knowledge/containment.ts",
       "src/knowledge/explanationIndex.ts",
       "src/knowledge/explanationIndexMutations.ts",
+      "src/knowledge/indexEvolution.ts",
       "src/knowledge/supertags.ts",
+      "src/knowledge/timelineAnnotations.ts",
       "src/knowledge/treeBinding.ts",
       "src/knowledge/treeUtils.ts",
       "src/knowledge/typeRelations.ts",
       "src/store/useGraph.ts",
       "src/types.ts"
     ],
-    "src/core/FunnelCanvas.tsx": [
-      "src/core/funnelLayout.ts",
-      "src/knowledge/extractSubgraph.ts",
-      "src/store/useGraph.ts",
-      "src/types.ts"
-    ],
     "src/core/ReasoningKernel.tsx": [
       "src/core/DimensionCanvas.tsx",
       "src/core/SubsystemStrip.tsx",
-      "src/store/useGraph.ts"
-    ],
-    "src/core/RuleComposer.tsx": [
-      "src/store/useGraph.ts"
-    ],
-    "src/core/SubsystemDeck.tsx": [
-      "src/knowledge/extractSubgraph.ts",
-      "src/knowledge/treeUtils.ts",
       "src/store/useGraph.ts"
     ],
     "src/core/SubsystemStrip.tsx": [
@@ -1175,7 +1174,6 @@
       "src/knowledge/typeRelations.ts",
       "src/types.ts"
     ],
-    "src/core/funnelLayout.ts": [],
     "src/core/sections/BPlusTreeSection.tsx": [
       "src/core/sections/SectionRenderer.tsx",
       "src/types.ts"
@@ -1287,6 +1285,9 @@
       "src/types.ts"
     ],
     "src/knowledge/index.ts": [],
+    "src/knowledge/indexEvolution.ts": [
+      "src/knowledge/timelineEvolution.ts"
+    ],
     "src/knowledge/linkImport.ts": [],
     "src/knowledge/migrateViewDimensions.ts": [
       "src/knowledge/defaults.ts",
@@ -1327,6 +1328,13 @@
     ],
     "src/knowledge/timeline.ts": [
       "src/knowledge/explanationContentOwnership.ts",
+      "src/knowledge/state.ts",
+      "src/types.ts"
+    ],
+    "src/knowledge/timelineAnnotations.ts": [
+      "src/knowledge/timelineEvolution.ts"
+    ],
+    "src/knowledge/timelineEvolution.ts": [
       "src/knowledge/state.ts",
       "src/types.ts"
     ],
@@ -1416,9 +1424,6 @@
       "src/store/useGraph.ts",
       "src/types.ts"
     ],
-    "src/panels/InferenceEngine.tsx": [
-      "src/store/useGraph.ts"
-    ],
     "src/panels/QuestionBank.tsx": [
       "src/knowledge/questionLink.ts",
       "src/store/useGraph.ts"
@@ -1496,5 +1501,5 @@
       "scripts/import/link-import-api.mjs"
     ]
   },
-  "contentDigest": "28279d2ef76576a787bcd157a082980582fc00a23cd0265504863a86a366999a"
+  "contentDigest": "b5560d5ef8f819e30866d26f3394c9a721b2e42bd133b51a50655443a9af4639"
 }
