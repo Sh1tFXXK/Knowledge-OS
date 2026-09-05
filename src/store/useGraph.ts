@@ -267,6 +267,7 @@ interface GraphState {
   activeView: AppView;
   selectedSupertag: string | null;
   selectedTimelineSnapshotId: string | null;
+  activeTimelineAnnotationId: string | null;
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
@@ -341,6 +342,7 @@ interface GraphState {
     note?: string,
   ) => string | null;
   selectTimelineSnapshot: (id: string | null) => void;
+  setActiveTimelineAnnotation: (id: string | null) => void;
   removeTimelineSnapshot: (id: string) => void;
   openSupertag: (tag: string) => void;
   undo: () => void;
@@ -470,6 +472,7 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     selectedQuestionId: null,
     activeExplanationSelection: null,
     selectedTimelineSnapshotId: null,
+    activeTimelineAnnotationId: null,
   });
 }
 
@@ -562,6 +565,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     activeView: 'universe',
     selectedSupertag: null,
     selectedTimelineSnapshotId: null,
+    activeTimelineAnnotationId: null,
     history: [],
 
     initialize: async () => {
@@ -1115,6 +1119,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (id !== null && !get().timeline.some((snapshot) => snapshot.id === id)) return;
       set({ selectedTimelineSnapshotId: id });
     },
+    setActiveTimelineAnnotation: (id) => set({ activeTimelineAnnotationId: id }),
     removeTimelineSnapshot: (id) => {
       const state = get();
       if (!state.timeline.some((snapshot) => snapshot.id === id)) return;

@@ -57,6 +57,8 @@ flowchart LR
 - `Question.source` 保留文档或网页来源。
 - `KnowledgePointSnapshot` 描述时间线快照。
 
+时间线使用两层模型：`KnowledgePointSnapshot` 是可持久化的原始观察，`timelineEvolution` 在读取时按时间批次聚合，并把变化压缩为内容、结构、元数据和视图投影四个语义面。时间线组件只读取这个通用投影，不把 Spring 或其他领域的版本说明写回节点池；跨节点改进可以通过 `TimelineAnnotation` 作为可复用数据输入。
+
 ## 视图结构
 
 应用外壳保持三栏布局：

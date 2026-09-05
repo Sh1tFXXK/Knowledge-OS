@@ -55,6 +55,7 @@ interface Props {
   relationGraph: TypeRelationGraph;
   knowledgeEdges: readonly KnowledgeEdge[];
   containmentEdges?: readonly KnowledgeEdge[];
+  excludedKnowledgeNodeIds?: ReadonlySet<string>;
   nodePool: Record<string, KnowledgeNode>;
   activeSelection: ExplanationSelection | null;
   editable: boolean;
@@ -78,6 +79,10 @@ interface Props {
   onDeleteNodes: (knowledgeNodeIds: readonly string[]) => void;
   /** 右键滑删边：按 KnowledgeEdge.id 删除 */
   onRemoveEdges: (knowledgeEdgeIds: readonly string[]) => void;
+  timelineAppearingNodeIds?: ReadonlySet<string>;
+  timelineChangedNodeIds?: ReadonlySet<string>;
+  timelineHiddenNodeIds?: ReadonlySet<string>;
+  timelineRevision?: number;
 }
 
 interface ActiveGraphContext {
@@ -236,6 +241,7 @@ export function UnifiedIndexGraph({
   relationGraph,
   knowledgeEdges,
   containmentEdges,
+  excludedKnowledgeNodeIds = new Set(),
   nodePool,
   activeSelection,
   editable,
@@ -253,6 +259,10 @@ export function UnifiedIndexGraph({
   onRemoveNodes,
   onDeleteNodes,
   onRemoveEdges,
+  timelineAppearingNodeIds = new Set(),
+  timelineChangedNodeIds = new Set(),
+  timelineHiddenNodeIds = new Set(),
+  timelineRevision = 0,
 }: Props) {
   const [canvasViewportSize, setCanvasViewportSize] = useState<CanvasSize>({
     width: 0,
@@ -287,6 +297,7 @@ export function UnifiedIndexGraph({
     relationGraph,
     knowledgeEdges,
     containmentEdges: physicalContainmentEdges,
+    excludedKnowledgeNodeIds,
     nodePool,
     collapsedNodeIds,
     targetAspectRatio,
@@ -302,6 +313,7 @@ export function UnifiedIndexGraph({
     relationRootLabel,
     targetAspectRatio,
     physicalContainmentEdges,
+    excludedKnowledgeNodeIds,
   ]);
   // 拖动后的位置覆盖层：布局结果 + 用户手动拖动的位移
   const effectiveNodes = useMemo(
@@ -314,6 +326,17 @@ export function UnifiedIndexGraph({
   const nodeById = useMemo(
     () => new Map(effectiveNodes.map((node) => [node.id, node])),
     [effectiveNodes],
+  );
+  const hiddenGraphNodeIds = useMemo(() => new Set(
+    effectiveNodes
+      .filter((node) => timelineHiddenNodeIds.has(node.knowledgeNodeId))
+      .map((node) => node.id),
+  ), [effectiveNodes, timelineHiddenNodeIds]);
+  const visibleLayoutEdges = useMemo(
+    () => layout.edges.filter(
+      (edge) => !hiddenGraphNodeIds.has(edge.sourceId) && !hiddenGraphNodeIds.has(edge.targetId),
+    ),
+    [hiddenGraphNodeIds, layout.edges],
   );
   const containmentChildrenById = useMemo(() => {
     const graphIdByKnowledgeId = new Map<string, string>(
@@ -401,7 +424,7 @@ export function UnifiedIndexGraph({
       height: frame.height,
       priority: 160 - Math.min(frame.depth, 100),
     })),
-    ...effectiveNodes.map((node) => ({
+    ...effectiveNodes.filter((node) => !hiddenGraphNodeIds.has(node.id)).map((node) => ({
       id: `overview:${node.id}`,
       entityId: node.id,
       label: node.label,
@@ -421,6 +444,7 @@ export function UnifiedIndexGraph({
   ], [
     containmentDepthById,
     effectiveNodes,
+    hiddenGraphNodeIds,
     layout.containmentFrames,
     matrixHostKnowledgeIds,
     nodePool,
@@ -434,13 +458,13 @@ export function UnifiedIndexGraph({
     [containmentDepthById, effectiveNodes],
   );
   const edgeRoutingPlans = useMemo<Record<EdgeRoutingMode, EdgeRoutingPlan>>(() => ({
-    detail: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'detail'),
-    compact: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'compact'),
-    overview: computeEdgeRoutingPlan(effectiveNodes, layout.edges, 'overview'),
-  }), [effectiveNodes, layout.edges]);
+    detail: computeEdgeRoutingPlan(effectiveNodes, visibleLayoutEdges, 'detail'),
+    compact: computeEdgeRoutingPlan(effectiveNodes, visibleLayoutEdges, 'compact'),
+    overview: computeEdgeRoutingPlan(effectiveNodes, visibleLayoutEdges, 'overview'),
+  }), [effectiveNodes, visibleLayoutEdges]);
   const edgeById = useMemo(
-    () => new Map(layout.edges.map((edge) => [edge.id, edge])),
-    [layout.edges],
+    () => new Map(visibleLayoutEdges.map((edge) => [edge.id, edge])),
+    [visibleLayoutEdges],
   );
   const knowledgeEdgeById = useMemo(
     () => new Map(knowledgeEdges.map((edge) => [edge.id, edge])),
@@ -452,7 +476,7 @@ export function UnifiedIndexGraph({
       .map((edge) => edge.id),
   ), [knowledgeEdges, nodePool]);
   const cuttingNodeTargets = useMemo<CuttingNodeTarget[]>(
-    () => effectiveNodes.map((graphNode) => ({
+    () => effectiveNodes.filter((graphNode) => !hiddenGraphNodeIds.has(graphNode.id)).map((graphNode) => ({
       id: graphNode.id,
       rect: {
         left: graphNode.position.x - graphNode.size.width / 2,
@@ -462,7 +486,7 @@ export function UnifiedIndexGraph({
       },
       deletable: !nodePool[graphNode.knowledgeNodeId]?.locked,
     })),
-    [effectiveNodes, nodePool],
+    [effectiveNodes, hiddenGraphNodeIds, nodePool],
   );
   const cuttingEdgeTargets = useMemo<Record<EdgeRoutingMode, CuttingEdgeTarget[]>>(() => ({
     detail: edgeCuttingTargets(edgeRoutingPlans.detail, deletableEdgeIds),
@@ -470,11 +494,13 @@ export function UnifiedIndexGraph({
     overview: edgeCuttingTargets(edgeRoutingPlans.overview, deletableEdgeIds),
   }), [deletableEdgeIds, edgeRoutingPlans]);
   const ownerGraphNode = effectiveNodes.find((node) => node.owner) ?? null;
-  const focusedGraphNode = effectiveNodes.find((node) => node.id === focusedNodeId)
+  const focusedGraphNode = effectiveNodes.find(
+    (node) => node.id === focusedNodeId && !hiddenGraphNodeIds.has(node.id),
+  )
     ?? ownerGraphNode
     ?? effectiveNodes[0]
     ?? null;
-  const activeContext = collectActiveContext(focusedNodeId, layout.edges);
+  const activeContext = collectActiveContext(focusedNodeId, visibleLayoutEdges);
   const focusTarget: CanvasFocusTarget | undefined = focusedGraphNode
     ? {
         id: focusedGraphNode.id,
@@ -587,6 +613,7 @@ export function UnifiedIndexGraph({
   // ---- 框选 ----
   const handleMarqueeSelect = (rect: WorldRect, additive: boolean) => {
     const hit = effectiveNodes
+      .filter((node) => !hiddenGraphNodeIds.has(node.id))
       .filter((node) => {
         const nx0 = node.position.x - node.size.width / 2;
         const nx1 = node.position.x + node.size.width / 2;
@@ -610,7 +637,7 @@ export function UnifiedIndexGraph({
     () => effectiveNodes
       .filter((node) => selectedNodeIds.has(node.id))
       .map((node) => node.knowledgeNodeId),
-    [effectiveNodes, selectedNodeIds],
+    [effectiveNodes, hiddenGraphNodeIds, selectedNodeIds],
   );
   const existingNodeSuggestions = useMemo(() => {
     if (actionDraft?.kind !== 'node') return [];
@@ -1340,6 +1367,9 @@ export function UnifiedIndexGraph({
             const isDragging = graphNode.id === draggingNodeId;
             const isSelected = selectedNodeIds.has(graphNode.id);
             const isPendingDelete = pendingDeleteNodeIds.has(graphNode.id);
+            const isTimelineAppearing = timelineAppearingNodeIds.has(graphNode.knowledgeNodeId);
+            const isTimelineChanged = timelineChangedNodeIds.has(graphNode.knowledgeNodeId);
+            const isTimelineHidden = timelineHiddenNodeIds.has(graphNode.knowledgeNodeId);
             const isMatrixHost = graphNode.containerHost;
             const isLeaf = !isMatrixHost && graphNode.memberCount === 0;
             const nodeEditTargetId = `node:${graphNode.id}`;
@@ -1356,9 +1386,10 @@ export function UnifiedIndexGraph({
 
             return (
               <article
-                key={graphNode.id}
+                key={`${graphNode.id}:${isTimelineAppearing || isTimelineChanged ? timelineRevision : 0}`}
                 data-graph-node-id={graphNode.id}
-                className={`explanation-index-class-node${isMatrixHost ? ' is-matrix-host is-container-header' : ''}${isLeaf ? ' is-leaf' : ''}${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}`}
+                className={`explanation-index-class-node${isMatrixHost ? ' is-matrix-host is-container-header' : ''}${isLeaf ? ' is-leaf' : ''}${graphNode.owner ? ' is-owner' : ''}${graphNode.relationRoot ? ' is-relation-root' : ''}${graphNode.containedChild ? ' is-contained-child' : ''}${graphNode.logicalReference ? ' is-logical-reference' : ''}${graphNode.collapsed ? ' is-collapsed' : ''}${isActive ? ' is-active' : ''}${isContext ? ' is-context' : ''}${isMuted ? ' is-muted' : ''}${isDragging ? ' is-dragging' : ''}${isSelected ? ' is-selected' : ''}${isPendingDelete ? ' is-delete-pending' : ''}${isTimelineHidden ? ' is-timeline-hidden' : ''}${isTimelineAppearing ? ' is-timeline-appearing' : ''}${isTimelineChanged ? ' is-timeline-changed' : ''}`}
+                aria-hidden={isTimelineHidden || undefined}
                 style={{
                   left: graphNode.position.x,
                   top: graphNode.position.y,
@@ -1453,6 +1484,12 @@ export function UnifiedIndexGraph({
                       }}
                     >
                       <strong>{graphNode.label}</strong>
+                      {isTimelineAppearing && (
+                        <span className="explanation-index-timeline-badge is-new">新出现</span>
+                      )}
+                      {isTimelineChanged && (
+                        <span className="explanation-index-timeline-badge is-changed">已改变</span>
+                      )}
                       {graphNode.tags.length > 0 && (
                         <span className="explanation-index-class-stereotypes">
                           {graphNode.tags.slice(0, 3).map((tag) => `#${tag}`).join('  ')}

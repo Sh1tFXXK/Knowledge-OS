@@ -114,6 +114,7 @@ interface BuildUnifiedIndexGraphParams {
   relationGraph: TypeRelationGraph;
   knowledgeEdges: readonly KnowledgeEdge[];
   containmentEdges?: readonly KnowledgeEdge[];
+  excludedKnowledgeNodeIds?: ReadonlySet<string>;
   nodePool: Record<string, KnowledgeNode>;
   collapsedNodeIds?: ReadonlySet<string>;
   targetAspectRatio?: number;
@@ -885,15 +886,23 @@ export function buildUnifiedIndexGraph({
   relationGraph,
   knowledgeEdges,
   containmentEdges,
+  excludedKnowledgeNodeIds = new Set(),
   nodePool,
   collapsedNodeIds = new Set(),
   targetAspectRatio,
 }: BuildUnifiedIndexGraphParams): UnifiedIndexGraphLayout {
-  const physicalContainmentEdges = containmentEdges ?? knowledgeEdges;
+  const visibleKnowledgeEdges = knowledgeEdges.filter(
+    (edge) => !excludedKnowledgeNodeIds.has(edge.source) && !excludedKnowledgeNodeIds.has(edge.target),
+  );
+  const physicalContainmentEdges = (containmentEdges ?? visibleKnowledgeEdges).filter(
+    (edge) => !excludedKnowledgeNodeIds.has(edge.source) && !excludedKnowledgeNodeIds.has(edge.target),
+  );
   const splitRoots = ownerId !== relationRootId;
   const drafts = new Map<string, KnowledgeDraft>();
   const relationDepths = new Map(
-    relationGraph.nodes.map((node) => [node.nodeId, node.depth]),
+    relationGraph.nodes
+      .filter((node) => !excludedKnowledgeNodeIds.has(node.nodeId))
+      .map((node) => [node.nodeId, node.depth]),
   );
   if (!relationDepths.has(relationRootId)) relationDepths.set(relationRootId, 0);
 
@@ -966,7 +975,7 @@ export function buildUnifiedIndexGraph({
     }
   }
 
-  for (const edge of knowledgeEdges) {
+  for (const edge of visibleKnowledgeEdges) {
     if (edge.source !== ownerId || edge.target === ownerId) continue;
     const kind = logicalRelationKind(edge);
     if (!kind) continue;
@@ -991,14 +1000,18 @@ export function buildUnifiedIndexGraph({
   const knowledgeNodeIds = new Set(
     [...drafts.values()].map((draft) => draft.knowledgeNodeId),
   );
-  const edges: UnifiedIndexGraphEdge[] = relationGraph.edges.map((edge) => ({
-    id: edge.edgeId,
-    sourceId: graphIdForKnowledge(edge.sourceId, ownerId, splitRoots),
-    targetId: graphIdForKnowledge(edge.targetId, ownerId, splitRoots),
-    kind: edge.kind,
-  }));
+  const edges: UnifiedIndexGraphEdge[] = relationGraph.edges
+    .filter(
+      (edge) => !excludedKnowledgeNodeIds.has(edge.sourceId) && !excludedKnowledgeNodeIds.has(edge.targetId),
+    )
+    .map((edge) => ({
+      id: edge.edgeId,
+      sourceId: graphIdForKnowledge(edge.sourceId, ownerId, splitRoots),
+      targetId: graphIdForKnowledge(edge.targetId, ownerId, splitRoots),
+      kind: edge.kind,
+    }));
   const edgeIds = new Set(edges.map((edge) => edge.id));
-  for (const edge of collectTypeEdgesForNodes(knowledgeNodeIds, knowledgeEdges)) {
+  for (const edge of collectTypeEdgesForNodes(knowledgeNodeIds, visibleKnowledgeEdges)) {
     if (edgeIds.has(edge.id)) continue;
     edgeIds.add(edge.id);
     edges.push({
@@ -1008,7 +1021,7 @@ export function buildUnifiedIndexGraph({
     });
   }
 
-  for (const edge of knowledgeEdges) {
+  for (const edge of visibleKnowledgeEdges) {
     if (edge.source !== ownerId || edge.target === ownerId) continue;
     const kind = logicalRelationKind(edge);
     if (!kind) continue;

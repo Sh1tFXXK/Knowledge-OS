@@ -14,8 +14,41 @@ import { useGraphStore } from '../store/useGraph';
 import type { KnowledgePointSnapshot } from '../knowledge/state';
 import type { KnowledgeNode } from '../types';
 import { getKnowledgePointSnapshotStats } from '../knowledge/timeline';
+import KnowledgeEvolutionTimeline from './KnowledgeEvolutionTimeline';
 
 type InputChangeEvent = { target: { value: string } };
+type TimelineMode = 'evolution' | 'snapshots';
+
+function ModeSwitch({
+  mode,
+  onChange,
+}: {
+  mode: TimelineMode;
+  onChange: (mode: TimelineMode) => void;
+}) {
+  return (
+    <div className="timeline-mode-switch" role="tablist" aria-label="时间线模式">
+      <button
+        type="button"
+        role="tab"
+        aria-selected={mode === 'evolution'}
+        className={`timeline-mode-button${mode === 'evolution' ? ' is-active' : ''}`}
+        onClick={() => onChange('evolution')}
+      >
+        知识演化
+      </button>
+      <button
+        type="button"
+        role="tab"
+        aria-selected={mode === 'snapshots'}
+        className={`timeline-mode-button${mode === 'snapshots' ? ' is-active' : ''}`}
+        onClick={() => onChange('snapshots')}
+      >
+        知识点快照
+      </button>
+    </div>
+  );
+}
 
 function formatTimestamp(timestamp: number): string {
   return new Intl.DateTimeFormat('zh-CN', {
@@ -95,6 +128,7 @@ export default function TimelineView() {
     createKnowledgePointSnapshot,
     removeTimelineSnapshot,
   } = store;
+  const [mode, setMode] = useState<TimelineMode>('evolution');
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
 
@@ -116,6 +150,7 @@ export default function TimelineView() {
   const displayedStats = displayedNode ? getKnowledgePointSnapshotStats(displayedNode) : null;
 
   useEffect(() => {
+    if (mode !== 'snapshots') return;
     if (!selectedNodeId || !selectedNode) return;
     if (timeline.some((snapshot) => snapshot.knowledgeNodeId === selectedNodeId)) return;
     const baselineId = createKnowledgePointSnapshot(
@@ -124,7 +159,14 @@ export default function TimelineView() {
       '首次建立这个知识点的时间线',
     );
     if (baselineId) selectTimelineSnapshot(null);
-  }, [createKnowledgePointSnapshot, selectedNode, selectedNodeId, selectTimelineSnapshot, timeline]);
+  }, [createKnowledgePointSnapshot, mode, selectedNode, selectedNodeId, selectTimelineSnapshot, timeline]);
+
+  useEffect(() => {
+    if (mode !== 'snapshots' || !selectedSnapshotId) return;
+    if (!snapshots.some((snapshot) => snapshot.id === selectedSnapshotId)) {
+      selectTimelineSnapshot(null);
+    }
+  }, [mode, selectedSnapshotId, selectTimelineSnapshot, snapshots]);
 
   const handleCreate = (event: { preventDefault: () => void }) => {
     event.preventDefault();
@@ -135,38 +177,46 @@ export default function TimelineView() {
     setNote('');
   };
 
-  if (!selectedNode) {
-    return (
-      <div className="timeline-view">
-        <header className="timeline-header">
-          <div>
-            <span className="timeline-kicker">KNOWLEDGE POINT HISTORY</span>
-            <h1>知识点时间线</h1>
-            <p>选择一个知识点，查看它的定义、标签和结构如何随时间变化。</p>
-          </div>
-          <div className="timeline-header-meta">
-            <FileClock size={17} />
-            <span>{timeline.length} 个已保存版本</span>
-          </div>
-        </header>
-        <NodePicker nodes={nodes} onSelect={openCard} />
-      </div>
-    );
-  }
-
   return (
     <div className="timeline-view">
       <header className="timeline-header">
         <div>
-          <span className="timeline-kicker">KNOWLEDGE POINT HISTORY</span>
-          <h1>{selectedNode.label}</h1>
-          <p>这个知识点的独立演化轨迹。其他知识点不会出现在这里。</p>
+          <span className="timeline-kicker">
+            {mode === 'evolution' ? 'KNOWLEDGE EVOLUTION' : 'KNOWLEDGE POINT HISTORY'}
+          </span>
+          <h1>
+            {mode === 'evolution' ? '知识演化时间线' : selectedNode?.label ?? '知识点时间线'}
+          </h1>
+          <p>
+            {mode === 'evolution'
+              ? '所有知识点复用同一套时间线，只呈现有意义的语义变化。'
+              : selectedNode
+                ? '这个知识点的独立演化轨迹。其他知识点不会出现在这里。'
+                : '选择一个知识点，查看它的定义、标签和结构如何随时间变化。'}
+          </p>
         </div>
         <div className="timeline-header-meta">
-          <Clock3 size={17} />
-          <span>{snapshots.length} 个历史版本</span>
+          <ModeSwitch mode={mode} onChange={setMode} />
+          {mode === 'evolution' ? (
+            <>
+              <GitBranch size={17} />
+              <span>全知识点共享</span>
+            </>
+          ) : (
+            <>
+              {selectedNode ? <Clock3 size={17} /> : <FileClock size={17} />}
+              <span>{selectedNode ? `${snapshots.length} 个历史版本` : `${timeline.length} 个已保存版本`}</span>
+            </>
+          )}
         </div>
       </header>
+
+      {mode === 'evolution' ? (
+        <KnowledgeEvolutionTimeline />
+      ) : !selectedNode ? (
+        <NodePicker nodes={nodes} onSelect={openCard} />
+      ) : (
+        <>
 
       <form className="timeline-capture" onSubmit={handleCreate}>
         <div className="timeline-capture-icon"><ScanLine size={17} /></div>
@@ -313,6 +363,8 @@ export default function TimelineView() {
           </div>
         </section>
       </div>
+        </>
+      )}
     </div>
   );
 }

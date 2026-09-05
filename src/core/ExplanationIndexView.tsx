@@ -26,12 +26,18 @@ import {
 } from '../knowledge/typeRelations';
 import { collectTreeReferencesByNodeRef, findTreeNodeById } from '../knowledge/treeUtils';
 import { buildTreeProjectionContainmentEdges } from '../knowledge/treeBinding';
+import {
+  annotationsForIndexScope,
+  buildIndexEvolutionProjection,
+} from '../knowledge/indexEvolution';
+import { BUILT_IN_TIMELINE_ANNOTATIONS } from '../knowledge/timelineAnnotations';
 import { useGraphStore } from '../store/useGraph';
 import {
   ExplanationSelectionKind,
   TypeRelationKind,
   type ExplanationIndexSelection,
   type ExplanationSelection,
+  type KnowledgeEdge,
   type KnowledgeNode,
 } from '../types';
 import { UnifiedIndexGraph } from './explanation-index/UnifiedIndexGraph';
@@ -132,6 +138,8 @@ export default function ExplanationIndexView({
   const removeTypeRelation = useGraphStore((state) => state.removeTypeRelation);
   const addContainmentRelation = useGraphStore((state) => state.addContainmentRelation);
   const removeContainmentRelation = useGraphStore((state) => state.removeContainmentRelation);
+  const activeTimelineAnnotationId = useGraphStore((state) => state.activeTimelineAnnotationId);
+  const setActiveTimelineAnnotation = useGraphStore((state) => state.setActiveTimelineAnnotation);
   const [titleDraft, setTitleDraft] = useState('');
   const [tagDraft, setTagDraft] = useState('');
   const [relationTargetQuery, setRelationTargetQuery] = useState('');
@@ -142,9 +150,11 @@ export default function ExplanationIndexView({
   const [splitCount, setSplitCount] = useState('1');
   const [weightDraft, setWeightDraft] = useState('1');
   const [isEditing, setIsEditing] = useState(false);
+  const [evolutionRevision, setEvolutionRevision] = useState(0);
   const [childDraft, setChildDraft] = useState<{ parentId: string; label: string } | null>(null);
   const [diagramOwnerId, setDiagramOwnerId] = useState<string | null>(selectedNodeId);
   const titleInputRef = useRef<HTMLInputElement>(null);
+  const evolutionPlaybackTimersRef = useRef<number[]>([]);
 
   const treeDiagramOwnerId = useMemo(
     () => (selectedTreeNodeId
@@ -221,6 +231,52 @@ export default function ExplanationIndexView({
     ));
     return [...treeEdges, ...supplementalEdges];
   }, [diagramTreeContext, knowledgeEdges]);
+  const diagramScopeNodeIds = useMemo(() => new Set([
+    ...(diagramOwnerId ? [diagramOwnerId] : []),
+    ...(relationRootId ? [relationRootId] : []),
+    ...relationGraph.nodes.map((item) => item.nodeId),
+    ...diagramContainmentEdges.flatMap((edge) => [edge.source, edge.target]),
+  ]), [diagramContainmentEdges, diagramOwnerId, relationGraph.nodes, relationRootId]);
+  const indexTimelineAnnotations = useMemo(
+    () => annotationsForIndexScope(diagramScopeNodeIds, BUILT_IN_TIMELINE_ANNOTATIONS),
+    [diagramScopeNodeIds],
+  );
+  const indexEvolution = useMemo(
+    () => buildIndexEvolutionProjection(indexTimelineAnnotations, activeTimelineAnnotationId),
+    [activeTimelineAnnotationId, indexTimelineAnnotations],
+  );
+  useEffect(() => {
+    if (
+      activeTimelineAnnotationId
+      && !indexTimelineAnnotations.some((annotation) => annotation.id === activeTimelineAnnotationId)
+    ) {
+      setActiveTimelineAnnotation(null);
+    }
+  }, [activeTimelineAnnotationId, indexTimelineAnnotations, setActiveTimelineAnnotation]);
+  const temporalContainmentEdges = useMemo<KnowledgeEdge[]>(() => {
+    const introducedNodeIds = new Set(
+      indexEvolution.allIntroducedNodes.map((introduced) => introduced.nodeId),
+    );
+    const stableEdges = diagramContainmentEdges.filter((edge) => (
+      !indexEvolution.excludedNodeIds.has(edge.source)
+      && !indexEvolution.excludedNodeIds.has(edge.target)
+      && !introducedNodeIds.has(edge.target)
+    ));
+    const introducedEdges = indexEvolution.allIntroducedNodes
+      .filter((introduced) => (
+        diagramScopeNodeIds.has(introduced.parentNodeId)
+        && nodePool[introduced.nodeId]
+        && nodePool[introduced.parentNodeId]
+      ))
+      .map((introduced): KnowledgeEdge => ({
+        id: `timeline:${introduced.parentNodeId}:${introduced.nodeId}`,
+        source: introduced.parentNodeId,
+        target: introduced.nodeId,
+        type: CONTAINMENT_EDGE_TYPE,
+        label: CONTAINMENT_EDGE_LABEL,
+      }));
+    return [...stableEdges, ...introducedEdges];
+  }, [diagramContainmentEdges, diagramScopeNodeIds, indexEvolution, nodePool]);
   const directTypeRelations = useMemo(
     () => (editingRelationRootId ? collectDirectTypeRelations(knowledgeEdges, editingRelationRootId) : []),
     [editingRelationRootId, knowledgeEdges],
@@ -243,17 +299,29 @@ export default function ExplanationIndexView({
           relationRootLabel: relationRootNode?.label ?? diagramOwnerNode.label,
           relationGraph,
           knowledgeEdges,
-          containmentEdges: diagramContainmentEdges,
+          containmentEdges: temporalContainmentEdges,
+          excludedKnowledgeNodeIds: indexEvolution.excludedNodeIds,
           nodePool,
         })
       : null),
-    [diagramContainmentEdges, diagramIndex, diagramOwnerNode, knowledgeEdges, nodePool, relationGraph, relationRootId, relationRootNode?.label],
+    [diagramIndex, diagramOwnerNode, indexEvolution.excludedNodeIds, knowledgeEdges, nodePool, relationGraph, relationRootId, relationRootNode?.label, temporalContainmentEdges],
   );
-  const diagramNodeCount = diagramLayout?.nodes.length ?? 0;
-  const diagramRelationCount = diagramLayout?.edges.length ?? 0;
+  const hiddenGraphNodeIds = useMemo(() => new Set(
+    diagramLayout?.nodes
+      .filter((item) => indexEvolution.hiddenIntroducedNodeIds.has(item.knowledgeNodeId))
+      .map((item) => item.id) ?? [],
+  ), [diagramLayout?.nodes, indexEvolution.hiddenIntroducedNodeIds]);
+  const diagramNodeCount = diagramLayout?.nodes.filter(
+    (item) => !indexEvolution.hiddenIntroducedNodeIds.has(item.knowledgeNodeId),
+  ).length ?? 0;
+  const diagramRelationCount = diagramLayout?.edges.filter(
+    (edge) => !hiddenGraphNodeIds.has(edge.sourceId) && !hiddenGraphNodeIds.has(edge.targetId),
+  ).length ?? 0;
   const diagramVisibleKnowledgeIds = useMemo(
-    () => new Set(diagramLayout?.nodes.map((node) => node.knowledgeNodeId) ?? []),
-    [diagramLayout],
+    () => new Set(diagramLayout?.nodes
+      .filter((item) => !indexEvolution.hiddenIntroducedNodeIds.has(item.knowledgeNodeId))
+      .map((item) => item.knowledgeNodeId) ?? []),
+    [diagramLayout, indexEvolution.hiddenIntroducedNodeIds],
   );
   const relationTargetSuggestions = useMemo(() => {
     const query = relationTargetQuery.trim().toLowerCase();
@@ -320,6 +388,35 @@ export default function ExplanationIndexView({
     if (!isEditing) setChildDraft(null);
   }, [isEditing]);
 
+  useEffect(() => {
+    if (indexEvolution.activeAnnotation) setIsEditing(false);
+  }, [indexEvolution.activeAnnotation]);
+
+  useEffect(() => () => {
+    evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+  }, []);
+
+  const selectEvolutionStage = (annotationId: string | null) => {
+    evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+    evolutionPlaybackTimersRef.current = [];
+    setActiveTimelineAnnotation(annotationId);
+    setEvolutionRevision((current) => current + 1);
+  };
+
+  const playEvolution = () => {
+    evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
+    evolutionPlaybackTimersRef.current = [];
+    setActiveTimelineAnnotation(null);
+    setEvolutionRevision((current) => current + 1);
+    indexTimelineAnnotations.forEach((annotation, index) => {
+      const timer = window.setTimeout(() => {
+        setActiveTimelineAnnotation(annotation.id);
+        setEvolutionRevision((current) => current + 1);
+      }, 700 * (index + 1));
+      evolutionPlaybackTimersRef.current.push(timer);
+    });
+  };
+
   if (!node || !index || !diagramOwnerNode || !diagramIndex || !diagramOwnerId || !selectedNodeId || !currentSelection || !selectedIndexNode) {
     return (
       <div className="explanation-index-empty">
@@ -329,7 +426,8 @@ export default function ExplanationIndexView({
     );
   }
 
-  const locked = Boolean(node.locked);
+  const timelineReadOnly = Boolean(indexEvolution.activeAnnotation);
+  const locked = Boolean(node.locked) || timelineReadOnly;
   const isRoot = currentSelection.kind === ExplanationSelectionKind.Root;
   const isLeaf = selectedIndexNode.children.length === 0;
   const canSplit = !locked && isLeaf;
@@ -961,6 +1059,51 @@ export default function ExplanationIndexView({
         </div>
       </header>
 
+      {indexTimelineAnnotations.length > 0 && (
+        <section className="explanation-index-timeline-lens" aria-label="索引时间维度">
+          <div className="explanation-index-timeline-state">
+            <span>时间维度</span>
+            <strong>{indexEvolution.activeAnnotation?.title ?? '稳定知识'}</strong>
+          </div>
+          <div className="explanation-index-timeline-stages" role="tablist" aria-label="知识演化阶段">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={!indexEvolution.activeAnnotation}
+              className={!indexEvolution.activeAnnotation ? 'is-active' : undefined}
+              onClick={() => selectEvolutionStage(null)}
+            >
+              稳定知识
+            </button>
+            {indexTimelineAnnotations.map((annotation) => (
+              <button
+                type="button"
+                role="tab"
+                key={annotation.id}
+                aria-selected={indexEvolution.activeAnnotation?.id === annotation.id}
+                className={indexEvolution.activeAnnotation?.id === annotation.id ? 'is-active' : undefined}
+                onClick={() => selectEvolutionStage(annotation.id)}
+              >
+                {annotation.title}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="explanation-index-timeline-play"
+              title="播放知识演化"
+              aria-label="播放知识演化"
+              onClick={playEvolution}
+            >
+              <Play size={12} aria-hidden="true" />
+            </button>
+          </div>
+          <p>
+            {indexEvolution.activeAnnotation?.summary
+              ?? '版本说明不进入稳定索引，真正新增的知识会在对应时间点出现。'}
+          </p>
+        </section>
+      )}
+
       {pathTabs.length > 0 && activePathContext && (
         <nav className="explanation-index-paths" aria-label="路径标题索引">
           {pathTabs.map((tab) => {
@@ -994,13 +1137,18 @@ export default function ExplanationIndexView({
           relationRootLabel={relationRootNode?.label ?? diagramOwnerNode.label}
           relationGraph={relationGraph}
           knowledgeEdges={knowledgeEdges}
-          containmentEdges={diagramContainmentEdges}
+          containmentEdges={temporalContainmentEdges}
+          excludedKnowledgeNodeIds={indexEvolution.excludedNodeIds}
           nodePool={nodePool}
           activeSelection={
             activeSelection?.kind === ExplanationSelectionKind.Path ? null : currentSelection
           }
-          editable
+          editable={!timelineReadOnly}
           isEditing={isEditing}
+          timelineAppearingNodeIds={indexEvolution.currentIntroducedNodeIds}
+          timelineChangedNodeIds={indexEvolution.currentChangedNodeIds}
+          timelineHiddenNodeIds={indexEvolution.hiddenIntroducedNodeIds}
+          timelineRevision={evolutionRevision}
           onOpenNode={openRelatedNode}
           onSelectTitle={handleSelect}
           onRenameSelection={renameGraphSelection}

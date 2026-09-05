@@ -3,6 +3,94 @@
   background: #17191d;
 }
 
+.explanation-index-timeline-lens {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: minmax(130px, auto) minmax(260px, 1fr);
+  align-items: center;
+  gap: 7px 14px;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: #202329;
+}
+
+.explanation-index-timeline-state {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.explanation-index-timeline-state span {
+  color: #8c929d;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.explanation-index-timeline-state strong {
+  overflow: hidden;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.explanation-index-timeline-stages {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  overflow-x: auto;
+}
+
+.explanation-index-timeline-stages button {
+  min-height: 25px;
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 3px;
+  background: #2b2e34;
+  color: #aeb4bf;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.explanation-index-timeline-stages button:hover,
+.explanation-index-timeline-stages button:focus-visible,
+.explanation-index-timeline-stages button.is-active {
+  border-color: rgba(96, 165, 250, 0.68);
+  color: #eff6ff;
+  outline: none;
+}
+
+.explanation-index-timeline-stages button.is-active {
+  background: #273548;
+  box-shadow: inset 0 2px #60a5fa;
+}
+
+.explanation-index-timeline-stages .explanation-index-timeline-play {
+  width: 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-color: rgba(74, 222, 128, 0.42);
+  color: #86efac;
+}
+
+.explanation-index-timeline-lens p {
+  grid-column: 1 / -1;
+  margin: 0;
+  overflow: hidden;
+  color: #8c929d;
+  font-size: 9px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .explanation-index-count {
   width: auto;
   min-width: 0;
@@ -591,6 +679,97 @@
 .explanation-index-class-node.is-delete-pending .explanation-index-class-header {
   border-bottom-color: rgba(254, 202, 202, 0.35);
   background: rgba(153, 27, 27, 0.78);
+}
+
+@keyframes index-timeline-appear {
+  0% {
+    opacity: 0;
+    filter: blur(9px) brightness(1.8);
+    box-shadow: 0 0 0 rgba(74, 222, 128, 0), 0 0 0 rgba(0, 0, 0, 0);
+  }
+  45% {
+    opacity: 1;
+    filter: blur(1px) brightness(1.3);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25), 0 20px 42px rgba(0, 0, 0, 0.48);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    box-shadow: inset 3px 0 rgba(74, 222, 128, 0.75), 0 14px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes index-timeline-change {
+  0%, 100% {
+    box-shadow: inset 3px 0 rgba(245, 158, 11, 0.72), 0 10px 24px rgba(0, 0, 0, 0.3);
+  }
+  45% {
+    box-shadow: inset 3px 0 rgba(245, 158, 11, 1), 0 0 0 3px rgba(245, 158, 11, 0.24), 0 18px 38px rgba(0, 0, 0, 0.46);
+  }
+}
+
+.explanation-index-class-node.is-timeline-appearing {
+  z-index: 7;
+  border-color: rgba(74, 222, 128, 0.92);
+  animation: index-timeline-appear 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.explanation-index-class-node.is-timeline-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.explanation-index-class-node.is-timeline-appearing .explanation-index-class-header {
+  background: linear-gradient(180deg, #365044, #304139);
+  border-bottom-color: rgba(134, 239, 172, 0.4);
+}
+
+.explanation-index-class-node.is-timeline-changed:not(.is-timeline-appearing) {
+  z-index: 6;
+  border-color: rgba(245, 158, 11, 0.94);
+  animation: index-timeline-change 900ms ease-out both;
+}
+
+.explanation-index-timeline-badge {
+  align-self: center;
+  margin-top: 5px;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.explanation-index-timeline-badge.is-new {
+  color: #86efac;
+}
+
+.explanation-index-timeline-badge.is-changed {
+  color: #fbbf24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explanation-index-class-node.is-timeline-appearing,
+  .explanation-index-class-node.is-timeline-changed {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .explanation-index-timeline-lens {
+    grid-template-columns: 1fr;
+  }
+
+  .explanation-index-timeline-stages {
+    justify-content: flex-start;
+  }
+
+  .explanation-index-timeline-lens p {
+    grid-column: 1;
+  }
 }
 
 .explanation-index-class-header {
