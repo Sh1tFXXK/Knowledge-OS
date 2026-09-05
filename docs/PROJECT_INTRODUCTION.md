@@ -14,6 +14,7 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 - **解释索引**：支持根内容、标题层级、页面、标签，以及可编辑的统一索引图。
 - **类型与结构关系**：支持 `extends`、`implements`、`belongs-to`、依赖、关联与投影等关系。
 - **多视图工作区**：知识宇宙、解释索引、时间线、节点库、问题库、SuperTag、机制视图、系统连接图。
+- **知识演化时间线**：在内容 / 结构 / 元数据 / 投影四个语义面上记录知识节点的演化事件，通过标注（annotation）驱动索引视图中的累积揭示。
 - **文档导入**：Markdown / PDF / HTML / DOCX / TXT；扫描型 PDF 走本地 MinerU OCR。
 - **网页导入**：普通网页、GitHub Markdown、Wikipedia，自动清理正文、规范 Markdown、提取标签。
 - **Java 源码导入**：通过 JDK Compiler Tree API 提取包、类型、成员、Javadoc 与直接类型关系。
@@ -39,13 +40,13 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 | 层 | 文件数 | 职责 |
 |---|---|---|
 | 应用入口层 | 3 | `main.tsx` / `App.tsx` 启动与根布局装配 |
-| 界面组件层 | 34 | `components/` 各类对话框、面板、选择器、视图 |
-| 可视化引擎层 | 26 | `core/` 多维画布、漏斗图、推理内核、子系统 |
-| 领域逻辑与状态层 | 39 | `knowledge/` + `store/` + `mechanism/` 核心业务 |
+| 界面组件层 | 28 | `components/` 各类对话框、面板、选择器、视图 |
+| 可视化引擎层 | 37 | `core/` + `mechanism/` 多维画布、解释索引、机制视图与布局渲染器 |
+| 领域逻辑与状态层 | 33 | `knowledge/` + `store/` 核心业务 |
 | 类型与样式基础层 | 12 | `types.ts`、`env.d.ts`、`styles/` 设计令牌 |
 | 数据导入脚本层 | 20 | `scripts/import/` 各类导入流水线 |
 | 数据层 | 8 | `data/*.json` 数据真源 |
-| 配置与支撑层 | 7 | `package.json`、`tsconfig`、`vite.config` 等 |
+| 配置与支撑层 | 8 | `package.json`、`tsconfig`、`vite.config` 等 |
 | 文档层 | 3 | `README` / `CONTEXT` / `CONTRIBUTING` |
 
 **依赖枢纽**：`src/knowledge/` 是被引用最多的模块（100+ 条入边），是整张图的中心；`src/store/useGraph.ts`（约 2076 行）是运行时状态的核心，拥有最高扇出（fan-out 17）。
@@ -63,6 +64,9 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 
 ### `src/mechanism/` — 机制视图
 把知识图谱投影为「机制」流程图/序列图：`core.ts`（领域类型）、`diagram.ts`（帧投影）、`lens.ts`（图/时间线/场景三种镜头）、`knowledgeProjection.ts`（图谱→机制模型）、`validation.ts`（结构校验），外加 InnoDB、Java 线程生命周期、MySQL UPDATE 等示例数据。
+
+### 知识演化时间线
+记录知识节点随时间在语义面上的演化：`knowledge/timelineEvolution.ts`（核心引擎，定义 `TimelineFacet` 语义面与 `KnowledgeTimelineEvent`，`buildKnowledgeTimeline` 聚合快照与标注）、`knowledge/timelineAnnotations.ts`（精选标注数据，如 Spring 4/5 演化）、`knowledge/indexEvolution.ts`（索引视图投影，累积揭示新增节点）、`components/KnowledgeEvolutionTimeline.tsx`（演化时间线组件）、`TimelineView.tsx`（「知识演化」/「知识点快照」双模式）。
 
 ### `src/panels/` 与 `src/layout/`
 `panels/` 承载各功能面板（解释卡片、题库、关系网络、系统连接图）；`layout/` 承载 `TopBar`、`UniverseTree`（约 1103 行的知识宇宙树）、`RightSidePanel`。
