@@ -21,19 +21,13 @@
     ],
     "changes": [
       {
-        "targetNodeId": "k_vault_javaspring01ioc_1haton",
-        "facet": "content",
-        "before": "容器负责创建、装配和管理对象。",
-        "after": "泛型限定式注入、@Nullable 和函数式 ApplicationContext 让同一职责更易表达。"
-      },
-      {
         "targetNodeId": "k_vault_javaspring04springmvc_133lis",
         "facet": "content",
         "before": "DispatcherServlet 组织路由、参数绑定和响应处理。",
         "after": "@RestController、Servlet 3.1、异步 REST 和不可变对象绑定扩展了同一条请求链路。"
       },
       {
-        "targetNodeId": "k_vault_javaspring06_1868fr",
+        "targetNodeId": "k_vault_javaspring_1antjp",
         "facet": "structure",
         "before": "XML、注解和 Java Config 表达 BeanDefinition。",
         "after": "继续保留声明式配置，同时增加 Groovy Bean DSL、脚本和更灵活的注册入口。"
@@ -56,16 +50,14 @@
       },
       {
         "nodeId": "k_1785296399373_ibj3ms",
-        "parentNodeId": "k_vault_javaspring06_1868fr"
+        "parentNodeId": "k_vault_javaspring_1antjp"
+      },
+      {
+        "nodeId": "k_1788694446334_9jflri",
+        "parentNodeId": "k_vault_javaspringspring_7b4q3y"
       }
     ],
     "changes": [
-      {
-        "targetNodeId": "k_vault_javaspring01ioc_1haton",
-        "facet": "metadata",
-        "before": "容器在旧 Java 平台上提供通用对象管理。",
-        "after": "框架以 Java 8 为基线，并支持候选组件索引来减少运行时扫描。"
-      },
       {
         "targetNodeId": "k_vault_javaspring04springmvc_133lis",
         "facet": "content",
@@ -73,10 +65,16 @@
         "after": "新增 WebFlux，在同一 Spring Web 领域提供 reactive、异步非阻塞和 event-loop 路径。"
       },
       {
-        "targetNodeId": "k_vault_javaspring06_1868fr",
+        "targetNodeId": "k_vault_javaspring_1antjp",
         "facet": "metadata",
         "before": "配置驱动模型与具体日志实现耦合较多。",
         "after": "spring-jcl 等基础设施提供更统一的日志抽象，应用模型保持不变。"
+      },
+      {
+        "targetNodeId": "k_vault_javaspringspring_7b4q3y",
+        "facet": "structure",
+        "before": "注解清单覆盖 @Required、@Autowired、@Qualifier、@RequestMapping、@Import。",
+        "after": "注解清单继续扩展：新增 @Indexed，编译期生成 spring.components 索引，提升 @ComponentScan 的启动性能。"
       }
     ]
   }

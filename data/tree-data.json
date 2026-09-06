@@ -7904,21 +7904,21 @@
                                   "id": "tree_1785340521267_j7je9h",
                                   "name": "String",
                                   "count": 0,
-                                  "nodeRef": "k_1785340521063_6f448a",
+                                  "nodeRef": "k_java_lang_string",
                                   "children": []
                                 },
                                 {
                                   "id": "tree_1785378444842_wglz53",
                                   "name": "StringBuilder",
                                   "count": 0,
-                                  "nodeRef": "k_1785378444664_8sv2s4",
+                                  "nodeRef": "k_java_lang_stringbuilder",
                                   "children": []
                                 },
                                 {
                                   "id": "tree_1785378491125_qwcncm",
                                   "name": "StringBuffer",
                                   "count": 0,
-                                  "nodeRef": "k_1785378490951_r5lay5",
+                                  "nodeRef": "k_java_lang_stringbuffer",
                                   "children": []
                                 },
                                 {
@@ -7932,7 +7932,7 @@
                                   "id": "tree_1785379879357_2xsrxd",
                                   "name": "Scanner",
                                   "count": 0,
-                                  "nodeRef": "k_1785379879184_eaxpdi",
+                                  "nodeRef": "k_java_util_scanner",
                                   "children": []
                                 }
                               ]
@@ -9578,7 +9578,7 @@
                                   "id": "tree_1782819920689_83wx5c",
                                   "name": "enum",
                                   "count": 0,
-                                  "nodeRef": "k_1782819920656_qzzmfs",
+                                  "nodeRef": "k_java_lang_enum",
                                   "children": []
                                 }
                               ]
@@ -10871,20 +10871,6 @@
                   "nodeRef": "k_java_fw_spring",
                   "children": [
                     {
-                      "id": "tree_vault_javaspring05_i92q3o",
-                      "name": "事务与传播机制",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspring05_i92q3o",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_vault_javaspring06_1868fr",
-                      "name": "配置驱动与注解编程",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspring06_1868fr",
-                      "children": []
-                    },
-                    {
                       "id": "tree_vault_javaspringspring_1nbiew",
                       "name": "Spring 事务管理",
                       "count": 0,
@@ -10945,15 +10931,14 @@
                           "count": 0,
                           "nodeRef": "k_1785296821866_imouaf",
                           "children": []
+                        },
+                        {
+                          "id": "tree_1788694446336_p5m3ia",
+                          "name": "@Indexed",
+                          "count": 0,
+                          "nodeRef": "k_1788694446334_9jflri"
                         }
                       ]
-                    },
-                    {
-                      "id": "tree_vault_javaspringspring_8jukbg",
-                      "name": "Spring 数据访问",
-                      "count": 0,
-                      "nodeRef": "k_vault_javaspringspring_8jukbg",
-                      "children": []
                     },
                     {
                       "id": "tree_java_fw_spring_aop",
@@ -11114,49 +11099,6 @@
                               "name": "字段注入",
                               "count": 0,
                               "nodeRef": "k_1788687205854_318tes",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_k_1788687205854_nmsu8t",
-                              "name": "循环依赖问题",
-                              "count": 0,
-                              "nodeRef": "k_1788687205854_nmsu8t",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_k_1788687262287_xkw1l3",
-                          "name": "依赖注入方式",
-                          "count": 0,
-                          "nodeRef": "k_1788687262287_xkw1l3",
-                          "children": [
-                            {
-                              "id": "tree_k_1788687262287_2mbxso",
-                              "name": "构造函数注入",
-                              "count": 0,
-                              "nodeRef": "k_1788687262287_2mbxso",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_k_1788687262287_ttdlm9",
-                              "name": "Setter注入",
-                              "count": 0,
-                              "nodeRef": "k_1788687262287_ttdlm9",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_k_1788687262287_i0b8b7",
-                              "name": "字段注入",
-                              "count": 0,
-                              "nodeRef": "k_1788687262287_i0b8b7",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_k_1788687262287_2ct30p",
-                              "name": "循环依赖问题",
-                              "count": 0,
-                              "nodeRef": "k_1788687262287_2ct30p",
                               "children": []
                             }
                           ]
@@ -11568,56 +11510,6 @@
                       "children": []
                     },
                     {
-                      "id": "tree_1785131428656_4r7wb3",
-                      "name": "Spring控制反转(IOC)",
-                      "count": 0,
-                      "nodeRef": "k_1785131428510_m2nz5f",
-                      "children": [
-                        {
-                          "id": "tree_1785214842845_4n40a4",
-                          "name": "依赖注入",
-                          "count": 0,
-                          "nodeRef": "k_1784466531162_zcrhl7",
-                          "supplement": {
-                            "tabs": [
-                              {
-                                "id": "context:spring-ioc:dependency-injection:overview",
-                                "label": "Spring IOC 中的依赖注入",
-                                "content": "依赖注入（Dependency Injection），即组件之间的依赖关系由容器在应用系统运行期来决定，也就是由容器动态地将某种依赖关系的目标对象实例注入到应用系统中的各个关联的组件之中。组件不做定位查询，只提供普通的Java方法让容器去决定依赖关系。",
-                                "tags": [
-                                  "依赖注入",
-                                  "DI"
-                                ]
-                              }
-                            ]
-                          },
-                          "children": [
-                            {
-                              "id": "tree_1785215209618_afpo59",
-                              "name": "构造器依赖注入",
-                              "count": 0,
-                              "nodeRef": "k_1785215209521_iy79dx",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1785215244060_2vb0d6",
-                              "name": "Setter方法注入",
-                              "count": 0,
-                              "nodeRef": "k_1785215243961_qjtjbb",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_vault_javaspring02bean_eazzu3",
-                          "name": "依赖注入与 Bean 生命周期",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspring02bean_eazzu3",
-                          "children": []
-                        }
-                      ]
-                    },
-                    {
                       "id": "tree_1785165721128_kan0tw",
                       "name": "Spring Beans",
                       "count": 0,
@@ -11669,6 +11561,13 @@
                               "name": "5. 销毁实例阶段",
                               "count": 0,
                               "nodeRef": "bean_lc_destroy",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_vault_javaspring02bean_eazzu3",
+                              "name": "依赖注入与 Bean 生命周期",
+                              "count": 0,
+                              "nodeRef": "k_vault_javaspring02bean_eazzu3",
                               "children": []
                             }
                           ]
