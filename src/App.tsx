@@ -21,8 +21,7 @@ import ReasoningKernel from './core/ReasoningKernel';
 import RightSidePanel from './layout/RightSidePanel';
 
 // 非默认视图按需加载：只有切到对应视图才拉取对应代码块
-const ExplanationIndexView = lazy(() => import('./core/ExplanationIndexView'));
-const TimelineView = lazy(() => import('./components/TimelineView'));
+const TemporalIndexWorkspace = lazy(() => import('./core/TemporalIndexWorkspace'));
 const NodeDatabase = lazy(() => import('./components/NodeDatabase'));
 const QuestionDatabase = lazy(() => import('./components/QuestionDatabase'));
 const SupertagLibrary = lazy(() => import('./components/SupertagLibrary'));
@@ -158,14 +157,10 @@ export default function App() {
         >
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
-            <ExplanationIndexView
+            <TemporalIndexWorkspace
               isFocusMode={isIndexFocusActive}
               onToggleFocusMode={() => setIsIndexFocusMode((value) => !value)}
             />
-          </section>
-        ) : activeView === 'timeline' ? (
-          <section className="center-view" id="center-view">
-            <TimelineView />
           </section>
         ) : activeView === 'database' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>

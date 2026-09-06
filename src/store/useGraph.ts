@@ -38,9 +38,9 @@ import {
 import {
   createEmptyAppState,
   APP_STATE_VERSION,
-  type KnowledgePointSnapshot,
   type PersistedAppState,
 } from '../knowledge/state';
+import type { KnowledgeEvolutionEvent } from '../knowledge/timelineEvolution';
 import {
   appendTreeChild,
   cloneTree,
@@ -78,7 +78,7 @@ import {
   typeRelationLabel,
   wouldIntroduceTypeRelationCycle,
 } from '../knowledge/typeRelations';
-import { createKnowledgePointSnapshot } from '../knowledge/timeline';
+import { saveLastSelectedEvent, clearTemporalPreferences } from '../knowledge/temporalPreferences';
 import {
   CONTAINMENT_EDGE_LABEL,
   CONTAINMENT_EDGE_TYPE,
@@ -259,15 +259,15 @@ interface GraphState {
   inferenceResponses: Record<string, string>;
   rules: Rule[];
   perspectives: Perspective[];
-  timeline: KnowledgePointSnapshot[];
+  evolutionEvents: KnowledgeEvolutionEvent[];
 
   notifications: NotificationItem[];
   theme: ThemeType;
   currentPerspective: Perspective | null;
   activeView: AppView;
   selectedSupertag: string | null;
-  selectedTimelineSnapshotId: string | null;
-  activeTimelineAnnotationId: string | null;
+  activeEventId: string | null;
+  followSelection: boolean;
   history: Array<{ action: string; data: unknown }>;
 
   initialize: () => Promise<void>;
@@ -336,14 +336,8 @@ interface GraphState {
   toggleTheme: () => void;
   setCurrentPerspective: (p: Perspective | null) => void;
   setActiveView: (view: AppView) => void;
-  createKnowledgePointSnapshot: (
-    knowledgeNodeId: string,
-    title: string,
-    note?: string,
-  ) => string | null;
-  selectTimelineSnapshot: (id: string | null) => void;
-  setActiveTimelineAnnotation: (id: string | null) => void;
-  removeTimelineSnapshot: (id: string) => void;
+  setActiveEvent: (id: string | null) => void;
+  setFollowSelection: (follow: boolean) => void;
   openSupertag: (tag: string) => void;
   undo: () => void;
   getAllNodes: () => GraphNode[];
@@ -443,7 +437,7 @@ function snapshotState(state: GraphState): PersistedAppState {
     rules: state.rules,
     perspectives: state.perspectives,
     inferenceResponses: state.inferenceResponses,
-    timeline: state.timeline,
+    evolutionEvents: state.evolutionEvents,
   };
 }
 
@@ -466,13 +460,13 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     rules: data.rules,
     perspectives: data.perspectives,
     inferenceResponses: data.inferenceResponses,
-    timeline: data.timeline,
+    evolutionEvents: data.evolutionEvents,
     selectedNodeId: null,
     selectedTreeNodeId: null,
     selectedQuestionId: null,
     activeExplanationSelection: null,
-    selectedTimelineSnapshotId: null,
-    activeTimelineAnnotationId: null,
+    activeEventId: null,
+    followSelection: true,
   });
 }
 
@@ -540,6 +534,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
     saveTimer = setTimeout(flushPersist, PERSIST_DEBOUNCE_MS);
   };
 
+  // StrictMode 双调用 App 的挂载 effect 会让 initialize() 跑两次；
+  // 第二次 applyPersisted 会把用户刚选中的节点重置掉。这里做幂等：
+  // 进行中或已完成的初始化直接复用，失败则允许重试。
+  let initializePromise: Promise<void> | null = null;
+
   return {
     axioms: initialApp.graph.axioms,
     mechanisms: initialApp.graph.mechanisms,
@@ -558,22 +557,31 @@ export const useGraphStore = create<GraphState>((set, get) => {
     inferenceResponses: initialApp.inferenceResponses,
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
-    timeline: initialApp.timeline,
+    evolutionEvents: initialApp.evolutionEvents,
     notifications: [],
     theme: 'dark',
     currentPerspective: null,
     activeView: 'universe',
     selectedSupertag: null,
-    selectedTimelineSnapshotId: null,
-    activeTimelineAnnotationId: null,
+    activeEventId: null,
+    followSelection: true,
     history: [],
 
     initialize: async () => {
-      const fileState = await loadCompleteStateFromFiles();
-      applyPersisted(set, fileState);
-      // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件
-      lastSavedSlices = pickPersistedSlices(fileState);
-      get().addNotification('Knowledge loaded from local files', 'info');
+      if (initializePromise) return initializePromise;
+      initializePromise = (async () => {
+        const fileState = await loadCompleteStateFromFiles();
+        applyPersisted(set, fileState);
+        // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件
+        lastSavedSlices = pickPersistedSlices(fileState);
+        get().addNotification('Knowledge loaded from local files', 'info');
+      })();
+      try {
+        return await initializePromise;
+      } catch (error) {
+        initializePromise = null;
+        throw error;
+      }
     },
 
     save: () => {
@@ -771,10 +779,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const id = state.selectedNodeId ?? selectedTree?.nodeRef ?? null;
       if (!id) return null;
       const directCard = state.nodePool[id]?.card ?? null;
-      const snapshot = [...state.timeline].reverse().find((item) =>
-        item.knowledgeNodeId === id || item.node?.id === id,
-      );
-      const base = directCard ?? snapshot?.node?.card ?? {
+      const base = directCard ?? {
         nodeId: id,
         title: state.nodePool[id]?.label ?? id,
         tabs: [],
@@ -1097,39 +1102,14 @@ export const useGraphStore = create<GraphState>((set, get) => {
     toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
     setCurrentPerspective: (p) => set({ currentPerspective: p }),
     setActiveView: (view) => set({ activeView: view }),
-    createKnowledgePointSnapshot: (knowledgeNodeId, title, note) => {
-      const state = get();
-      const node = state.nodePool[knowledgeNodeId];
-      if (!node) return null;
-      const snapshot = createKnowledgePointSnapshot(
-        node,
-        title,
-        note,
-        genId('snapshot'),
-      );
-      set({
-        timeline: [snapshot, ...state.timeline],
-        selectedTimelineSnapshotId: snapshot.id,
-      });
-      persist();
-      get().addNotification(`已保存知识点版本：${snapshot.title}`, 'success');
-      return snapshot.id;
+    setActiveEvent: (id) => {
+      if (id) {
+        const event = get().evolutionEvents.find((item) => item.id === id);
+        if (event) saveLastSelectedEvent(event.scopeRootId, id);
+      }
+      set({ activeEventId: id });
     },
-    selectTimelineSnapshot: (id) => {
-      if (id !== null && !get().timeline.some((snapshot) => snapshot.id === id)) return;
-      set({ selectedTimelineSnapshotId: id });
-    },
-    setActiveTimelineAnnotation: (id) => set({ activeTimelineAnnotationId: id }),
-    removeTimelineSnapshot: (id) => {
-      const state = get();
-      if (!state.timeline.some((snapshot) => snapshot.id === id)) return;
-      set({
-        timeline: state.timeline.filter((snapshot) => snapshot.id !== id),
-        selectedTimelineSnapshotId:
-          state.selectedTimelineSnapshotId === id ? null : state.selectedTimelineSnapshotId,
-      });
-      persist();
-    },
+    setFollowSelection: (follow) => set({ followSelection: follow }),
     openSupertag: (tag) => {
       const selectedSupertag = normalizeSupertag(tag);
       if (!selectedSupertag) return;
@@ -1165,11 +1145,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
           nodePool,
           knowledgeEdges,
           questions: (data.questions as Question[]) ?? get().questions,
-          timeline: (data.timeline as KnowledgePointSnapshot[]) ?? get().timeline,
           selectedNodeId: data.selectedNodeId as string | null,
           selectedTreeNodeId: data.selectedTreeNodeId as string | null,
           selectedQuestionId: data.selectedQuestionId as string | null,
-          selectedTimelineSnapshotId: data.selectedTimelineSnapshotId as string | null,
           focusNodeId: data.focusNodeId as string | null,
         });
         persist();
@@ -1297,6 +1275,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     importKnowledgeJson: (json) => {
       const data = parseImportedAppState(json);
       if (!data) return false;
+      clearTemporalPreferences();
       applyPersisted(set, data);
       persist();
       return true;
@@ -1304,6 +1283,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     resetAllKnowledge: () => {
       clearPersistedAppState();
+      clearTemporalPreferences();
       const fresh = createEmptyAppState();
       applyPersisted(set, fresh);
       persist();
@@ -1632,20 +1612,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
         delete inferenceResponses[deletedNode.label];
       }
-      const timeline = state.timeline.filter(
-        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
-      );
-
       set({
         nodePool,
         knowledgeEdges,
         treeData,
         questions,
         inferenceResponses,
-        timeline,
-        selectedTimelineSnapshotId: timeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
         selectedTreeNodeId,
@@ -1706,10 +1678,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
         delete inferenceResponses[deletedNode.label];
       }
-      const timeline = state.timeline.filter(
-        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
-      );
-
       const removedTreeNodes = collectTreeNodes(state.treeData)
         .filter((node) => node.nodeRef === knowledgeId);
       // 删除当前选中节点后自动跳到父目录，避免索引视图空白。
@@ -1737,10 +1705,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         treeData,
         questions,
         inferenceResponses,
-        timeline,
-        selectedTimelineSnapshotId: timeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: nextSelectedNodeId,
         selectedTreeNodeId: nextSelectedTreeNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
@@ -1923,10 +1887,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
           );
           return { ...q, answerSteps: remainingSteps };
         });
-      const nextTimeline = state.timeline.filter(
-        (snapshot) => !knowledgeIdsToReallyDelete.has(snapshot.knowledgeNodeId),
-      );
-
       // 9. Handle selection and focus state cleanup
       let selectedTreeNodeId = state.selectedTreeNodeId;
       let selectedNodeId = state.selectedNodeId;
@@ -1952,14 +1912,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
         nodePool,
         knowledgeEdges: nextEdges,
         questions: nextQuestions,
-        timeline: nextTimeline,
         selectedTreeNodeId,
         selectedNodeId,
         focusNodeId,
         selectedQuestionId,
-        selectedTimelineSnapshotId: nextTimeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         history: [
           ...state.history,
           {
@@ -1969,11 +1925,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
               nodePool: state.nodePool,
               knowledgeEdges: state.knowledgeEdges,
               questions: state.questions,
-              timeline: state.timeline,
               selectedNodeId: state.selectedNodeId,
               selectedTreeNodeId: state.selectedTreeNodeId,
               selectedQuestionId: state.selectedQuestionId,
-              selectedTimelineSnapshotId: state.selectedTimelineSnapshotId,
               focusNodeId: state.focusNodeId,
             },
           },

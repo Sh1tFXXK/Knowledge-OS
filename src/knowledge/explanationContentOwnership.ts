@@ -5,7 +5,6 @@ import type {
   NodeExplanation,
   TreeNode,
 } from '../types';
-import type { KnowledgePointSnapshot } from './state';
 
 export const SYNTHETIC_PAGE_LABELS = new Set(['通用页面', '通用定义']);
 
@@ -196,24 +195,4 @@ export function normalizeExplanationContentOwnership({
 
   const nextTree = tree ? normalizeTreeSupplements(tree, stats) : tree;
   return { tree: nextTree, nodePool: nextNodePool, stats };
-}
-
-export function normalizeTimelineExplanationContent(
-  timeline: KnowledgePointSnapshot[],
-): {
-  timeline: KnowledgePointSnapshot[];
-  stats: ExplanationContentOwnershipStats & { snapshotsChanged: number };
-} {
-  const stats = { ...createStats(), snapshotsChanged: 0 };
-  const normalizedTimeline = timeline.map((snapshot) => {
-    const result = normalizeExplanationCard(snapshot.node.card);
-    mergeStats(stats, result.stats);
-    if (result.card === snapshot.node.card) return snapshot;
-    stats.snapshotsChanged += 1;
-    return {
-      ...snapshot,
-      node: { ...snapshot.node, card: result.card },
-    };
-  });
-  return { timeline: normalizedTimeline, stats };
 }

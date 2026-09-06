@@ -9340,5 +9340,152 @@
     "createdAt": 1788528708322,
     "updatedAt": 1788528733769,
     "answer": "| 方式 | 特点 |\n| --- | --- |\n| 构造器注入 | 适合强依赖，语义最完整 |\n| Setter 注入 | 适合可选依赖 |\n| 字段注入 | 使用方便，但显式性弱 |"
+  },
+  {
+    "id": "q_1788681347773_lxiy9o",
+    "text": "为什么需要容器",
+    "answered": true,
+    "relatedNodeId": "k_java_fw_spring_ioc",
+    "createdAt": 1788681347773,
+    "updatedAt": 1788681381567,
+    "answer": "对象一旦多起来，真正难的不是 `new`，而是：\n\n- 依赖关系怎么组织\n- 创建顺序怎么控制\n- 配置怎么统一管理\n- 扩展逻辑放在哪里\n\nSpring 用 IoC 容器把这些问题从业务代码里抽离出去。"
+  },
+  {
+    "id": "q_1788684916991_748097",
+    "text": "为什么生命周期重要",
+    "answered": true,
+    "relatedNodeId": "k_1785225243066_ds8pn6",
+    "createdAt": 1788684916991,
+    "updatedAt": 1788684940698,
+    "answer": "很多框架能力都不是直接写在业务类里的，而是挂在生命周期扩展点上：\n\n- 自动注入\n- 代理创建\n- 初始化校验\n- 销毁资源释放"
+  },
+  {
+    "id": "q_1788685140810_w45oz5",
+    "text": "实践原则",
+    "answered": true,
+    "relatedNodeId": "k_1784466531162_zcrhl7",
+    "createdAt": 1788685140810,
+    "updatedAt": 1788685171437,
+    "answer": "- 优先构造器注入表达强依赖\n- 单例 Bean 默认不保证有状态线程安全\n- 生命周期回调用于基础设施逻辑，不要堆业务流程"
+  },
+  {
+    "id": "q_1788687205907_l7he8l",
+    "text": "Spring有哪几种依赖注入方式？",
+    "answered": true,
+    "answer": "Spring主要有以下几种依赖注入方式：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖，适合必填依赖\n2. **Setter注入** - 通过setter方法注入依赖，适合可选依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（较少使用）\n\n不同的注入方式各有优缺点，需要根据实际场景选择。",
+    "kind": "recall",
+    "difficulty": "basic",
+    "relatedNodeId": "k_1788687205852_lhoemy",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687205907_gl7172",
+    "text": "构造函数注入有什么优点？",
+    "answered": true,
+    "answer": "构造函数注入的主要优点：\n\n1. **依赖明确** - 依赖对象在对象创建时就已经注入\n2. **不可变性** - 可以声明依赖为final，保证不可变\n3. **适合必填依赖** - 如果缺少依赖，对象无法创建\n4. **利于测试** - 单元测试时可以直接通过构造函数传入mock对象\n\n这是Spring官方推荐的注入方式。",
+    "kind": "definition",
+    "difficulty": "basic",
+    "relatedNodeId": "k_1788687205854_6znktx",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687205907_sfjt6n",
+    "text": "字段注入有什么缺点？",
+    "answered": true,
+    "answer": "字段注入虽然代码简洁，但有以下缺点：\n\n1. **不适合final字段** - 无法声明为final，不能保证不可变性\n2. **难以进行单元测试** - 必须通过反射或Spring容器才能注入依赖，无法直接new对象测试\n3. **违反单一职责原则** - 容易不自觉地添加过多依赖\n4. **隐藏依赖** - 依赖关系不明确，不如构造函数注入直观\n\n尽管字段注入很流行，但Spring官方更推荐构造函数注入。",
+    "kind": "definition",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687205854_318tes",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687205907_imn4xz",
+    "text": "Spring如何处理循环依赖问题？",
+    "answered": true,
+    "answer": "Spring对不同类型的循环依赖处理能力不同：\n\n**可以处理的情况**：\n- **Setter循环依赖（单例）**：Spring通过三级缓存解决\n  - 一级缓存：完整的单例对象\n  - 二级缓存：早期的半成品对象\n  - 三级缓存：对象工厂\n\n**无法处理的情况**：\n- **构造函数循环依赖**：会抛出BeanCurrentlyInCreationException\n- **prototype作用域循环依赖**：每次都创建新对象，无法缓存\n\n最佳实践是避免循环依赖，通过重构代码解决。",
+    "kind": "mechanism",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687205854_nmsu8t",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687205907_xlhuh9",
+    "text": "@Autowired和@Resource的区别是什么？",
+    "answered": true,
+    "answer": "@Autowired和@Resource的主要区别：\n\n| 特性 | @Autowired | @Resource |\n|-----|-----------|----------|\n| 来源 | Spring原生 | JSR-250 |\n| 默认注入方式 | byType（按类型） | byName（按名称） |\n| required属性 | 支持 | 不支持 |\n| 使用位置 | 构造函数、字段、setter | 字段、setter |\n\n**使用建议**：\n- @Autowired配合@Qualifier可以指定bean名称\n- @Resource可以通过name属性指定bean名称\n- Spring项目中优先使用@Autowired\n- 需要JDK标准时使用@Resource",
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687205852_lhoemy",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687205907_zcnxlr",
+    "text": "如何选择合适的依赖注入方式？",
+    "answered": true,
+    "answer": "选择依赖注入方式的建议：\n\n1. **必填依赖** → 使用构造函数注入\n   - 依赖是对象运行的必要条件\n   - 需要保证依赖的不可变性\n   \n2. **可选依赖** → 使用Setter注入\n   - 依赖可以有默认值\n   - 需要在对象创建后修改依赖\n   \n3. **简化开发** → 字段注入（需权衡）\n   - 快速原型开发\n   - 对测试要求不高的场景\n   \n**推荐优先级**：构造函数注入 > Setter注入 > 字段注入\n\nSpring官方推荐使用构造函数注入作为首选方式。",
+    "kind": "recall",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687205852_lhoemy",
+    "updatedAt": 1788687205907
+  },
+  {
+    "id": "q_1788687262324_spip73",
+    "text": "Spring有哪几种依赖注入方式？",
+    "answered": true,
+    "answer": "Spring主要有以下几种依赖注入方式：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖，适合必填依赖\n2. **Setter注入** - 通过setter方法注入依赖，适合可选依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（较少使用）\n\n不同的注入方式各有优缺点，需要根据实际场景选择。",
+    "kind": "recall",
+    "difficulty": "basic",
+    "relatedNodeId": "k_1788687262287_xkw1l3",
+    "updatedAt": 1788687262324
+  },
+  {
+    "id": "q_1788687262324_70q8em",
+    "text": "构造函数注入有什么优点？",
+    "answered": true,
+    "answer": "构造函数注入的主要优点：\n\n1. **依赖明确** - 依赖对象在对象创建时就已经注入\n2. **不可变性** - 可以声明依赖为final，保证不可变\n3. **适合必填依赖** - 如果缺少依赖，对象无法创建\n4. **利于测试** - 单元测试时可以直接通过构造函数传入mock对象\n\n这是Spring官方推荐的注入方式。",
+    "kind": "definition",
+    "difficulty": "basic",
+    "relatedNodeId": "k_1788687262287_2mbxso",
+    "updatedAt": 1788687262324
+  },
+  {
+    "id": "q_1788687262324_zurzro",
+    "text": "字段注入有什么缺点？",
+    "answered": true,
+    "answer": "字段注入虽然代码简洁，但有以下缺点：\n\n1. **不适合final字段** - 无法声明为final，不能保证不可变性\n2. **难以进行单元测试** - 必须通过反射或Spring容器才能注入依赖，无法直接new对象测试\n3. **违反单一职责原则** - 容易不自觉地添加过多依赖\n4. **隐藏依赖** - 依赖关系不明确，不如构造函数注入直观\n\n尽管字段注入很流行，但Spring官方更推荐构造函数注入。",
+    "kind": "definition",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687262287_i0b8b7",
+    "updatedAt": 1788687262324
+  },
+  {
+    "id": "q_1788687262324_yqapfu",
+    "text": "Spring如何处理循环依赖问题？",
+    "answered": true,
+    "answer": "Spring对不同类型的循环依赖处理能力不同：\n\n**可以处理的情况**：\n- **Setter循环依赖（单例）**：Spring通过三级缓存解决\n  - 一级缓存：完整的单例对象\n  - 二级缓存：早期的半成品对象\n  - 三级缓存：对象工厂\n\n**无法处理的情况**：\n- **构造函数循环依赖**：会抛出BeanCurrentlyInCreationException\n- **prototype作用域循环依赖**：每次都创建新对象，无法缓存\n\n最佳实践是避免循环依赖，通过重构代码解决。",
+    "kind": "mechanism",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687262287_2ct30p",
+    "updatedAt": 1788687262324
+  },
+  {
+    "id": "q_1788687262324_osvi31",
+    "text": "@Autowired和@Resource的区别是什么？",
+    "answered": true,
+    "answer": "@Autowired和@Resource的主要区别：\n\n| 特性 | @Autowired | @Resource |\n|-----|-----------|----------|\n| 来源 | Spring原生 | JSR-250 |\n| 默认注入方式 | byType（按类型） | byName（按名称） |\n| required属性 | 支持 | 不支持 |\n| 使用位置 | 构造函数、字段、setter | 字段、setter |\n\n**使用建议**：\n- @Autowired配合@Qualifier可以指定bean名称\n- @Resource可以通过name属性指定bean名称\n- Spring项目中优先使用@Autowired\n- 需要JDK标准时使用@Resource",
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687262287_xkw1l3",
+    "updatedAt": 1788687262324
+  },
+  {
+    "id": "q_1788687262324_fx5atu",
+    "text": "如何选择合适的依赖注入方式？",
+    "answered": true,
+    "answer": "选择依赖注入方式的建议：\n\n1. **必填依赖** → 使用构造函数注入\n   - 依赖是对象运行的必要条件\n   - 需要保证依赖的不可变性\n   \n2. **可选依赖** → 使用Setter注入\n   - 依赖可以有默认值\n   - 需要在对象创建后修改依赖\n   \n3. **简化开发** → 字段注入（需权衡）\n   - 快速原型开发\n   - 对测试要求不高的场景\n   \n**推荐优先级**：构造函数注入 > Setter注入 > 字段注入\n\nSpring官方推荐使用构造函数注入作为首选方式。",
+    "kind": "recall",
+    "difficulty": "intermediate",
+    "relatedNodeId": "k_1788687262287_xkw1l3",
+    "updatedAt": 1788687262324
   }
 ]

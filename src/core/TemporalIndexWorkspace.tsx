@@ -24,13 +24,14 @@ import {
   resolveTypeRelationGraph,
   typeRelationLabel,
 } from '../knowledge/typeRelations';
-import { collectTreeReferencesByNodeRef, findTreeNodeById } from '../knowledge/treeUtils';
+import { collectTreeReferencesByNodeRef, findTreeNodeById, findTreeParent, getTreePathNames } from '../knowledge/treeUtils';
 import { buildTreeProjectionContainmentEdges } from '../knowledge/treeBinding';
 import {
-  annotationsForIndexScope,
-  buildIndexEvolutionProjection,
+  eventsForIndexScope,
+  buildTemporalIndexProjection,
+  resolveTemporalContext,
 } from '../knowledge/indexEvolution';
-import { BUILT_IN_TIMELINE_ANNOTATIONS } from '../knowledge/timelineAnnotations';
+import { loadLastSelectedEventByScope, saveLastSelectedEvent } from '../knowledge/temporalPreferences';
 import { useGraphStore } from '../store/useGraph';
 import {
   ExplanationSelectionKind,
@@ -39,9 +40,12 @@ import {
   type ExplanationSelection,
   type KnowledgeEdge,
   type KnowledgeNode,
+  type TreeNode,
 } from '../types';
 import { UnifiedIndexGraph } from './explanation-index/UnifiedIndexGraph';
 import { buildUnifiedIndexGraph } from './explanation-index/indexGraphLayout';
+import { TemporalRail } from './temporal/TemporalRail';
+import { EventDrawer } from './temporal/EventDrawer';
 
 enum MatrixSplitDirection {
   UpDown = 'up-down',
@@ -103,20 +107,31 @@ function relationTargetRank(label: string, query: string): number {
   return 2;
 }
 
-interface ExplanationIndexViewProps {
+/** 事件作用域的根：优先当前画布宿主节点，其次事件自身声明的作用域根。 */
+function resolveEventScopeRootId(
+  diagramOwnerId: string | null,
+  scopeEvents: ReturnType<typeof eventsForIndexScope>,
+): string | null {
+  if (diagramOwnerId) return diagramOwnerId;
+  const declared = scopeEvents.find((event) => event.scopeRootId)?.scopeRootId;
+  return declared ?? null;
+}
+
+interface TemporalIndexWorkspaceProps {
   isFocusMode: boolean;
   onToggleFocusMode: () => void;
 }
 
-export default function ExplanationIndexView({
+export default function TemporalIndexWorkspace({
   isFocusMode,
   onToggleFocusMode,
-}: ExplanationIndexViewProps) {
+}: TemporalIndexWorkspaceProps) {
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
   const selectedTreeNodeId = useGraphStore((state) => state.selectedTreeNodeId);
   const treeData = useGraphStore((state) => state.treeData);
   const nodePool = useGraphStore((state) => state.nodePool);
   const knowledgeEdges = useGraphStore((state) => state.knowledgeEdges);
+  const evolutionEvents = useGraphStore((state) => state.evolutionEvents);
   const node = useGraphStore((state) =>
     state.selectedNodeId ? state.nodePool[state.selectedNodeId] : undefined,
   );
@@ -138,8 +153,10 @@ export default function ExplanationIndexView({
   const removeTypeRelation = useGraphStore((state) => state.removeTypeRelation);
   const addContainmentRelation = useGraphStore((state) => state.addContainmentRelation);
   const removeContainmentRelation = useGraphStore((state) => state.removeContainmentRelation);
-  const activeTimelineAnnotationId = useGraphStore((state) => state.activeTimelineAnnotationId);
-  const setActiveTimelineAnnotation = useGraphStore((state) => state.setActiveTimelineAnnotation);
+  const activeEventId = useGraphStore((state) => state.activeEventId);
+  const setActiveEvent = useGraphStore((state) => state.setActiveEvent);
+  const followSelection = useGraphStore((state) => state.followSelection);
+  const setFollowSelection = useGraphStore((state) => state.setFollowSelection);
   const [titleDraft, setTitleDraft] = useState('');
   const [tagDraft, setTagDraft] = useState('');
   const [relationTargetQuery, setRelationTargetQuery] = useState('');
@@ -155,6 +172,7 @@ export default function ExplanationIndexView({
   const [diagramOwnerId, setDiagramOwnerId] = useState<string | null>(selectedNodeId);
   const titleInputRef = useRef<HTMLInputElement>(null);
   const evolutionPlaybackTimersRef = useRef<number[]>([]);
+  const lastSelectedEventByScopeRef = useRef(loadLastSelectedEventByScope());
 
   const treeDiagramOwnerId = useMemo(
     () => (selectedTreeNodeId
@@ -237,22 +255,77 @@ export default function ExplanationIndexView({
     ...relationGraph.nodes.map((item) => item.nodeId),
     ...diagramContainmentEdges.flatMap((edge) => [edge.source, edge.target]),
   ]), [diagramContainmentEdges, diagramOwnerId, relationGraph.nodes, relationRootId]);
-  const indexTimelineAnnotations = useMemo(
-    () => annotationsForIndexScope(diagramScopeNodeIds, BUILT_IN_TIMELINE_ANNOTATIONS),
-    [diagramScopeNodeIds],
+
+  // ── 时态上下文 ──
+  // 先按画布作用域收集事件；若当前宿主不在任何事件作用域，从选中节点的目录
+  // 引用向上找命中事件的祖先 nodeRef（点击"Spring 4 新特性"等来源节点时定位到
+  // Spring 根作用域）。
+  const diagramScopeEvents = useMemo(
+    () => eventsForIndexScope(diagramScopeNodeIds, evolutionEvents),
+    [diagramScopeNodeIds, evolutionEvents],
   );
-  const indexEvolution = useMemo(
-    () => buildIndexEvolutionProjection(indexTimelineAnnotations, activeTimelineAnnotationId),
-    [activeTimelineAnnotationId, indexTimelineAnnotations],
-  );
-  useEffect(() => {
-    if (
-      activeTimelineAnnotationId
-      && !indexTimelineAnnotations.some((annotation) => annotation.id === activeTimelineAnnotationId)
-    ) {
-      setActiveTimelineAnnotation(null);
+  const scopeFallbackRootId = useMemo(() => {
+    if (diagramScopeEvents.length > 0 || !selectedNodeId) return null;
+    const hasScopeEvent = (nodeRef: string) =>
+      eventsForIndexScope(new Set([nodeRef]), evolutionEvents).length > 0;
+    for (const reference of contextReferences) {
+      const path = getTreePathNames(treeData, reference.treeNodeId);
+      if (path.length === 0) continue;
+      // 沿目录祖先逐级向上，找第一个命中事件作用域的 nodeRef
+      let current: TreeNode | null = findTreeNodeById(treeData, reference.treeNodeId);
+      while (current) {
+        if (current.nodeRef && hasScopeEvent(current.nodeRef)) return current.nodeRef;
+        current = current.id ? findTreeParent(treeData, current.id) : null;
+      }
     }
-  }, [activeTimelineAnnotationId, indexTimelineAnnotations, setActiveTimelineAnnotation]);
+    return null;
+  }, [contextReferences, diagramScopeEvents.length, evolutionEvents, selectedNodeId, treeData]);
+  const effectiveScopeRootId = useMemo(
+    () => resolveEventScopeRootId(diagramOwnerId, diagramScopeEvents),
+    [diagramOwnerId, diagramScopeEvents],
+  );
+  const scopedForFallback = useMemo(
+    () => (scopeFallbackRootId
+      ? eventsForIndexScope(new Set([scopeFallbackRootId]), evolutionEvents)
+      : []),
+    [evolutionEvents, scopeFallbackRootId],
+  );
+  const temporalEvents = diagramScopeEvents.length > 0 ? diagramScopeEvents : scopedForFallback;
+  const effectiveScopeRootIdForContext = diagramScopeEvents.length > 0
+    ? effectiveScopeRootId
+    : scopeFallbackRootId;
+
+  const resolvedTemporalContext = useMemo(
+    () => resolveTemporalContext({
+      events: temporalEvents,
+      scopeRootId: effectiveScopeRootIdForContext,
+      selectedNodeId,
+      lastActiveEventId: activeEventId
+        ?? (effectiveScopeRootIdForContext
+          ? lastSelectedEventByScopeRef.current[effectiveScopeRootIdForContext] ?? null
+          : null),
+      followSelection,
+    }),
+    [activeEventId, effectiveScopeRootIdForContext, followSelection, selectedNodeId, temporalEvents],
+  );
+  const scopeEvents = resolvedTemporalContext.scopeEvents;
+  const resolvedActiveEventId = resolvedTemporalContext.activeEventId;
+  const indexEvolution = useMemo(
+    () => buildTemporalIndexProjection(scopeEvents, resolvedActiveEventId),
+    [resolvedActiveEventId, scopeEvents],
+  );
+  // 跟随解析出的上下文（store 的 activeEventId 只承载用户显式选择；
+  // resolveTemporalContext 派生的结果在事件或作用域变化时同步回来，避免越界残留）。
+  useEffect(() => {
+    if (indexEvolution.activeEvent && indexEvolution.activeEvent.id !== activeEventId) {
+      setActiveEvent(indexEvolution.activeEvent.id);
+    }
+    if (!indexEvolution.activeEvent && activeEventId && scopeEvents.length > 0) {
+      setActiveEvent(null);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexEvolution.activeEvent?.id]);
+
   const temporalContainmentEdges = useMemo<KnowledgeEdge[]>(() => {
     const introducedNodeIds = new Set(
       indexEvolution.allIntroducedNodes.map((introduced) => introduced.nodeId),
@@ -389,28 +462,41 @@ export default function ExplanationIndexView({
   }, [isEditing]);
 
   useEffect(() => {
-    if (indexEvolution.activeAnnotation) setIsEditing(false);
-  }, [indexEvolution.activeAnnotation]);
+    if (indexEvolution.activeEvent) setIsEditing(false);
+  }, [indexEvolution.activeEvent]);
 
   useEffect(() => () => {
     evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
   }, []);
 
-  const selectEvolutionStage = (annotationId: string | null) => {
+  const selectEvolutionStage = (eventId: string | null) => {
     evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
     evolutionPlaybackTimersRef.current = [];
-    setActiveTimelineAnnotation(annotationId);
+    setActiveEvent(eventId);
+    // 显式选择（含「稳定知识」）按作用域记忆，下次进入该作用域时恢复。
+    if (effectiveScopeRootIdForContext) {
+      lastSelectedEventByScopeRef.current[effectiveScopeRootIdForContext] = eventId;
+      saveLastSelectedEvent(effectiveScopeRootIdForContext, eventId);
+    }
     setEvolutionRevision((current) => current + 1);
   };
 
   const playEvolution = () => {
     evolutionPlaybackTimersRef.current.forEach((timer) => window.clearTimeout(timer));
     evolutionPlaybackTimersRef.current = [];
-    setActiveTimelineAnnotation(null);
+    setActiveEvent(null);
+    if (effectiveScopeRootIdForContext) {
+      lastSelectedEventByScopeRef.current[effectiveScopeRootIdForContext] = null;
+      saveLastSelectedEvent(effectiveScopeRootIdForContext, null);
+    }
     setEvolutionRevision((current) => current + 1);
-    indexTimelineAnnotations.forEach((annotation, index) => {
+    scopeEvents.forEach((event, index) => {
       const timer = window.setTimeout(() => {
-        setActiveTimelineAnnotation(annotation.id);
+        setActiveEvent(event.id);
+        if (effectiveScopeRootIdForContext) {
+          lastSelectedEventByScopeRef.current[effectiveScopeRootIdForContext] = event.id;
+          saveLastSelectedEvent(effectiveScopeRootIdForContext, event.id);
+        }
         setEvolutionRevision((current) => current + 1);
       }, 700 * (index + 1));
       evolutionPlaybackTimersRef.current.push(timer);
@@ -426,7 +512,7 @@ export default function ExplanationIndexView({
     );
   }
 
-  const timelineReadOnly = Boolean(indexEvolution.activeAnnotation);
+  const timelineReadOnly = Boolean(indexEvolution.activeEvent);
   const locked = Boolean(node.locked) || timelineReadOnly;
   const isRoot = currentSelection.kind === ExplanationSelectionKind.Root;
   const isLeaf = selectedIndexNode.children.length === 0;
@@ -1059,50 +1145,14 @@ export default function ExplanationIndexView({
         </div>
       </header>
 
-      {indexTimelineAnnotations.length > 0 && (
-        <section className="explanation-index-timeline-lens" aria-label="索引时间维度">
-          <div className="explanation-index-timeline-state">
-            <span>时间维度</span>
-            <strong>{indexEvolution.activeAnnotation?.title ?? '稳定知识'}</strong>
-          </div>
-          <div className="explanation-index-timeline-stages" role="tablist" aria-label="知识演化阶段">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={!indexEvolution.activeAnnotation}
-              className={!indexEvolution.activeAnnotation ? 'is-active' : undefined}
-              onClick={() => selectEvolutionStage(null)}
-            >
-              稳定知识
-            </button>
-            {indexTimelineAnnotations.map((annotation) => (
-              <button
-                type="button"
-                role="tab"
-                key={annotation.id}
-                aria-selected={indexEvolution.activeAnnotation?.id === annotation.id}
-                className={indexEvolution.activeAnnotation?.id === annotation.id ? 'is-active' : undefined}
-                onClick={() => selectEvolutionStage(annotation.id)}
-              >
-                {annotation.title}
-              </button>
-            ))}
-            <button
-              type="button"
-              className="explanation-index-timeline-play"
-              title="播放知识演化"
-              aria-label="播放知识演化"
-              onClick={playEvolution}
-            >
-              <Play size={12} aria-hidden="true" />
-            </button>
-          </div>
-          <p>
-            {indexEvolution.activeAnnotation?.summary
-              ?? '版本说明不进入稳定索引，真正新增的知识会在对应时间点出现。'}
-          </p>
-        </section>
-      )}
+      <TemporalRail
+        events={scopeEvents}
+        activeEvent={indexEvolution.activeEvent}
+        followSelection={followSelection}
+        onSelect={selectEvolutionStage}
+        onToggleFollow={setFollowSelection}
+        onPlay={playEvolution}
+      />
 
       {pathTabs.length > 0 && activePathContext && (
         <nav className="explanation-index-paths" aria-label="路径标题索引">
@@ -1165,7 +1215,12 @@ export default function ExplanationIndexView({
         />
         {isEditing && editor}
       </div>
+
+      <EventDrawer
+        event={indexEvolution.activeEvent}
+        nodePool={nodePool}
+        onOpenNode={openRelatedNode}
+      />
     </div>
   );
 }
-

@@ -23,7 +23,7 @@ export interface GraphEdge {
   label: string;
 }
 
-export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags' | 'timeline';
+export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags';
 
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
 export interface TreeRefSupplement {

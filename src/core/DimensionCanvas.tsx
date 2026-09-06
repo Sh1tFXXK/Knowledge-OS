@@ -512,8 +512,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
     <div className="dimension-canvas">
       <div className="dc-head">
         <div className="dc-title-block">
-          <span className="dc-node-name">{node.label}</span>
-          <span className="dc-hint">Dimensions are ordered section containers.</span>
+        <span className="dc-node-name">{node.label}</span>
+        <span className="dc-hint">维度即有序的 Section 容器</span>
         </div>
       </div>
 
@@ -671,8 +671,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
                   </label>
                 </div>
                 <div className="dc-modal-actions">
-                  <button type="button" className="btn btn-ghost" onClick={() => setAddingSection(false)}>Cancel</button>
-                  <button type="button" className="btn btn-primary" onClick={handleAddSection}>Add section</button>
+                  <button type="button" className="btn btn-ghost" onClick={() => setAddingSection(false)}>取消</button>
+                  <button type="button" className="btn btn-primary" onClick={handleAddSection}>添加 Section</button>
                 </div>
               </div>
             </div>
@@ -680,9 +680,9 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
 
           {groupSelectedIds.size > 0 && (
             <div className="dc-group-create">
-              <span>{groupSelectedIds.size} selected</span>
-              <input className="input" value={groupLabel} onChange={(event: any) => setGroupLabel(event.target.value)} placeholder="Group label" />
-              <input className="input" value={groupNodeSearch} onChange={(event: any) => setGroupNodeSearch(event.target.value)} placeholder="Optional logic node" />
+              <span className="dc-group-count">{groupSelectedIds.size} 项已选</span>
+              <input className="input" value={groupLabel} onChange={(event: any) => setGroupLabel(event.target.value)} placeholder="组标签" />
+              <input className="input" value={groupNodeSearch} onChange={(event: any) => setGroupNodeSearch(event.target.value)} placeholder="可选：关联逻辑节点" />
               {groupNodeSearch && (
                 <div className="dc-inline-suggestions">
                   {groupSuggestions.map((item: KnowledgeNode) => (
@@ -699,8 +699,8 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
                   ))}
                 </div>
               )}
-              <button type="button" className="btn btn-primary btn-sm" onClick={createGroup}>Create group</button>
-              <button type="button" className="btn btn-sm" onClick={() => setGroupSelectedIds(new Set() as Set<string>)}>Clear</button>
+              <button type="button" className="btn btn-primary btn-sm" onClick={createGroup}>创建组</button>
+              <button type="button" className="btn btn-sm" onClick={() => setGroupSelectedIds(new Set() as Set<string>)}>清除</button>
             </div>
           )}
 
@@ -761,7 +761,19 @@ export default function DimensionCanvas({ node, viewDimensions }: Props) {
           </div>
         </>
       ) : (
-        <div className="dc-empty">No dimensions yet.</div>
+        <div className="dc-empty">
+          {/* 空态示意：线框矩阵 + 引导动作，替代纯文字占位 */}
+          <div className="dc-empty-figure" aria-hidden="true">
+            <span /><span /><span />
+            <span /><span /><span />
+            <span /><span /><span />
+          </div>
+          <strong className="dc-empty-title">尚无维度</strong>
+          <span className="dc-empty-desc">维度是有序的 Section 容器——按视角拆分子结构，例如「子项」「对比」「阶段」。</span>
+          <button type="button" className="btn btn-primary btn-sm" onClick={() => setAddingDim(true)}>
+            ＋ 新建第一个维度
+          </button>
+        </div>
       )}
 
       {editingAtom && (
@@ -886,7 +898,7 @@ function DimensionSections({
                 onChange={(event: any) => updateSection(section.id, { title: event.target.value })}
               />
               <span className="dc-section-layout">{section.layout}</span>
-              <button type="button" className="dc-section-delete" onClick={() => deleteSection(section.id)}>Delete</button>
+              <button type="button" className="dc-section-delete" onClick={() => deleteSection(section.id)}>删除</button>
             </div>
             <SectionRenderer
               section={section}

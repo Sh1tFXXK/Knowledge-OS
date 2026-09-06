@@ -39790,10 +39790,10 @@
   },
   "k_1784445218734_mbutiz": {
     "id": "k_1784445218734_mbutiz",
-    "label": "Spring Framework 模块（维基）",
+    "label": "Spring Framework 模块",
     "card": {
       "nodeId": "k_1784445218734_mbutiz",
-      "title": "Spring Framework 模块（维基）",
+      "title": "Spring Framework 模块",
       "tabs": [
         {
           "id": "tab_1785167265367_75tdm0",
@@ -39970,6 +39970,7 @@
       "rootContent": "Spring Framework 包含多个模块，提供一系列服务：\nSpring总共大约有20个模块，由1300多个不同的文件构成。而这些组件被分别整合在核心容\n器（CoreContainer）、AOP（AspectOrientedProgramming）和设备支持\n（Instrmentation）、数据访问与集成（DataAccess/Integeration）、Web、消息\n（Messaging）、Test等6个模块中.\nSpring核心容器：这是Spring的基础模块，提供Spring容器（BeanFactory和ApplicationContext）。在此上下文中，spring-core是核心模块中找到的工件，属于org.springframework组。spring-core工件包含IoC容器，以及在整个应用程序中使用的实用类。\n面向切面编程：使得实现 跨切关注点成为可能。spring-aop 是 AOP 框架的一个工件。\n身份验证 和 授权：可配置的安全过程，通过 Spring Security 子项目（前身是 Acegi Security System for Spring）支持一系列标准、协议、工具和实践。\n约定优于配置：为基于 Spring 的企业应用提供快速应用开发解决方案的 Spring Roo 模块。\n数据访问：使用 关系数据库管理系统 在 Java 平台上使用 Java 数据库连接（JDBC） 和 对象关系映射 工具，以及 NoSQL数据库。spring-jdbc 是 JDBC 模块中的一个工件，通过包含数据源设置类来支持 JDBC 访问。\n控制反转容器：应用组件的配置和Java对象的生命周期管理，主要通过依赖注入完成。\n消息传递：声明性注册消息监听对象，以便通过消息队列透明消费消息，使用Java消息服务（JMS），改善标准JMS API上消息发送的效率。\n模型–视图–控制器：一个基于HTTP和servlet的框架，为Web应用程序和RESTful（表现状态转移）Web服务提供扩展和自定义的钩子。\n远程访问框架：声明式的远程过程调用（RPC）风格马歇尔在支持Java远程方法调用（RMI）的网络上，将Java对象进行处理，[38] CORBA（通用对象请求代理架构）和包括HTTP的基于协议的Web服务，如SOAP（简单对象访问协议）。\n事务管理：统一多个事务管理API，并协调Java对象的事务。\n远程管理：通过 Java 管理扩展 (JMX) 对 Java 对象进行声明性暴露和远程或本地配置管理。\n测试：支持编写 单元测试 和 集成测试 的支持类。\nWebFlux支持：支持使用反应式运行时或web服务器，例如UnderTow和Netty。\nWeb Socket支持：支持使用WebSocket协议进行通信。本模块的构件是spring-websocket。\n\"XML 支持：支持对象到 XML 的映射。 支持的库包括 Jakarta XML Binding(JAXB) 和 XStream。 此模块的构件是 spring-oxm。\n\nSpring 模块以 JAR 文件的形式打包。 可以通过 Maven 中央仓库使用 Maven 或 Gradle 来访问这些构件。"
     },
     "tags": [
+      "Spring Framework 模块",
       "Spring Framework 模块(维基)",
       "模块",
       "Spring Security",
@@ -55327,84 +55328,6 @@
     "tags": [
       "自动配置",
       "自动装配"
-    ]
-  },
-  "k_1785065384656_orlcrz": {
-    "id": "k_1785065384656_orlcrz",
-    "label": "Spring的组成",
-    "card": {
-      "nodeId": "k_1785065384656_orlcrz",
-      "title": "Spring的组成",
-      "tabs": [
-        {
-          "id": "tab_1785065453155_ot5epk",
-          "label": "Spring Core",
-          "content": "核心类库，提供IOC服务",
-          "weight": 1,
-          "tags": [
-            "Spring Core"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_vcbmw1",
-          "label": "Spring Context",
-          "content": "提供框架式的Bean访问方式，以及企业级功能（JNDI、定时任务等）；",
-          "weight": 1,
-          "tags": [
-            "Spring Context"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_b38t9d",
-          "label": "Spring AOP",
-          "content": "AOP服务；",
-          "weight": 1,
-          "tags": [
-            "Spring AOP"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_3gdkqw",
-          "label": "Spring DAO",
-          "content": "对JDBC的抽象，简化了数据访问异常的处理；",
-          "weight": 1,
-          "tags": [
-            "Spring DAO"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_alpsv8",
-          "label": "Spring ORM",
-          "content": "对现有的ORM框架的支持",
-          "weight": 1,
-          "tags": [
-            "Spring ORM"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_ghm2il",
-          "label": "Spring Web",
-          "content": "提供了基本的面向Web的综合特性，例如多方文件上传；",
-          "weight": 1,
-          "tags": [
-            "Spring Web"
-          ]
-        },
-        {
-          "id": "tab_1785065453155_uivxqi",
-          "label": "Spring MVC",
-          "content": "提供面向Web应用的Model-View-Controller实现",
-          "weight": 1,
-          "tags": [
-            "Spring MVC",
-            "mvc"
-          ]
-        }
-      ],
-      "rootContent": "Spring是一个轻量级的IoC和AOP容器框架。是为Java应用程序提供基础性服务的一套框架，目的是用于简化企业应用程序的开发，它使得开发者只需要关心业务需求。\n常见的配置方式有三种：\n基于XML的配置、\n基于注解的配置、\n基于Java的配置"
-    },
-    "tags": [
-      "Spring的组成"
     ]
   },
   "k_1785070432300_tlnpoq": {
@@ -149176,31 +149099,6 @@
       "rootContent": "Spring > Spring 关注的是把对象系统继续封装成一个可管理、可扩展、可织入、可声明的应用框架。\n\n## 结构图\n\n```mermaid\nmindmap\n  root((Spring))\n    容器\n      IoC\n      BeanFactory\n      ApplicationContext\n    对象管理\n      DI\n      生命周期\n      作用域\n    横切增强\n      AOP\n      代理\n      切面\n    Web\n      DispatcherServlet\n      Controller\n      参数绑定\n    事务\n      声明式事务\n      传播行为\n      回滚\n    配置\n      注解\n      Java Config\n      XML\n```\n\n## 主线导航\n\n- spring\n- 01-IoC与容器模型\n- 02-依赖注入与Bean生命周期\n- 03-AOP与代理机制\n- 04-SpringMVC请求链路\n- 05-事务与传播机制\n- 06-配置驱动与注解编程\n\n## 补充资料\n\n### IoC\n\n- 控制反转\n- ioc原理\n- ioc理解，初始化\n- spring beanfactory和applicationcontext的区别\n\n### AOP\n\n- 面向切面编程\n- aop的原理\n- Spring aop 的两种代理方式\n\n### Spring MVC\n\n- spring mvc 概述\n- spring mvc 的原理\n- mvc 面试题\n- spring如何保证并发controller的安全\n\n### 事务、配置、验证\n\n- spring 的事务管理\n- 配置\n- spring注解\n- spring注入的几种方式\n- spring数据访问\n- 集成Bean Validation 1.1到SpringMVC\n- 自定义验证规则\n- 分组验证与级联验证\n- 类级别验证器\n- 返回值验证\n\n### 版本特性\n\n- Spring4新特性\n- Spring5新特性\n- JSR310日期API支持\n- Web开发增强\n\n## 学习顺序\n\n1. 先看 IoC 与容器模型\n2. 再看依赖注入和生命周期\n3. 再看 AOP 和代理\n4. 然后进入 Spring MVC\n5. 最后看事务、配置和扩展能力"
     }
   },
-  "k_vault_javaspring01ioc_1haton": {
-    "id": "k_vault_javaspring01ioc_1haton",
-    "label": "IoC 与容器模型",
-    "role": "concept",
-    "dimensions": [
-      "java"
-    ],
-    "tags": [
-      "IoC 与容器模型",
-      "java",
-      "Spring"
-    ],
-    "card": {
-      "nodeId": "k_vault_javaspring01ioc_1haton",
-      "title": "IoC 与容器模型",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "## 为什么需要容器\n\n对象一旦多起来，真正难的不是 `new`，而是：\n\n- 依赖关系怎么组织\n- 创建顺序怎么控制\n- 配置怎么统一管理\n- 扩展逻辑放在哪里\n\nSpring 用 IoC 容器把这些问题从业务代码里抽离出去。\n\n## IoC 的本质\n\nIoC 不是“神秘概念”，本质是对象控制权转移：\n\n- 以前：业务代码自己创建依赖\n- 现在：容器负责创建、装配、管理对象\n\n```mermaid\nflowchart LR\n    A[业务类] -->|自己 new 依赖| B[强耦合]\n    C[Spring 容器] --> D[创建 Bean]\n    D --> E[注入依赖]\n    E --> F[业务类只声明需要什么]\n```\n\n## 两层容器理解\n\n| 容器 | 角色 |\n| --- | --- |\n| `BeanFactory` | 基础容器，负责 Bean 定义与获取 |\n| `ApplicationContext` | 高级容器，增加事件、资源、国际化、自动注册等能力 |\n\n## 容器做了什么\n\n- 读取 Bean 定义\n- 生成 `BeanDefinition`\n- 实例化对象\n- 注入依赖\n- 管理生命周期\n- 提供扩展点\n\n## 封装提升\n\nSpring 把“对象工厂”继续封装成“应用上下文”。  \n这样开发者面对的就不再是离散对象，而是一整套受管理的运行容器。"
-        }
-      ],
-      "rootContent": "IoC 与容器模型 ## 为什么需要容器\n\n对象一旦多起来，真正难的不是 `new`，而是：\n\n- 依赖关系怎么组织\n- 创建顺序怎么控制\n- 配置怎么统一管理\n- 扩展逻辑放在哪里\n\nSpring 用 IoC 容器把这些问题从业务代码里抽离出去。\n\n## IoC 的本质\n\nIoC 不是“神秘概念”，本质是对象控制权转移：\n\n- 以前：业务代码自己创建依赖\n- 现在：容器负责创建、装配、管理对象\n\n```mermaid\nflowchart LR\n    A[业务类] -->|自己 new 依赖| B[强耦合]\n    C[Spring 容器] --> D[创建 Bean]\n    D --> E[注入依赖]\n    E --> F[业务类只声明需要什么]\n```\n\n## 两层容器理解\n\n| 容器 | 角色 |\n| --- | --- |\n| `BeanFactory` | 基础容器，负责 Bean 定义与获取 |\n| `ApplicationContext` | 高级容器，增加事件、资源、国际化、自动注册等能力 |\n\n## 容器做了什么\n\n- 读取 Bean 定义\n- 生成 `BeanDefinition`\n- 实例化对象\n- 注入依赖\n- 管理生命周期\n- 提供扩展点\n\n## 封装提升\n\nSpring 把“对象工厂”继续封装成“应用上下文”。 \n这样开发者面对的就不再是离散对象，而是一整套受管理的运行容器。"
-    }
-  },
   "k_vault_javaspring02bean_eazzu3": {
     "id": "k_vault_javaspring02bean_eazzu3",
     "label": "依赖注入与 Bean 生命周期",
@@ -149223,7 +149121,7 @@
           "content": "## 依赖注入解决什么问题\n\n类之间真正麻烦的地方不是调用，而是依赖获取。  \nDI 把“找依赖”变成“声明依赖”。\n\n## 常见注入方式\n\n| 方式 | 特点 |\n| --- | --- |\n| 构造器注入 | 适合强依赖，语义最完整 |\n| Setter 注入 | 适合可选依赖 |\n| 字段注入 | 使用方便，但显式性弱 |\n\n## Bean 生命周期主线\n\n```mermaid\nflowchart TD\n    A[读取 BeanDefinition] --> B[实例化 Bean]\n    B --> C[属性注入]\n    C --> D[Aware 回调]\n    D --> E[BeanPostProcessor Before]\n    E --> F[初始化方法]\n    F --> G[BeanPostProcessor After]\n    G --> H[可用状态]\n    H --> I[销毁回调]\n```\n\n## 为什么生命周期重要\n\n很多框架能力都不是直接写在业务类里的，而是挂在生命周期扩展点上：\n\n- 自动注入\n- 代理创建\n- 初始化校验\n- 销毁资源释放\n\n## 作用域理解\n\n- `singleton`：容器级单例\n- `prototype`：每次获取新对象\n- `request` / `session`：Web 作用域\n\n## 实践原则\n\n- 优先构造器注入表达强依赖\n- 单例 Bean 默认不保证有状态线程安全\n- 生命周期回调用于基础设施逻辑，不要堆业务流程"
         }
       ],
-      "rootContent": "\n## 常见注入方式\n\n| 方式 | 特点 |\n| --- | --- |\n| 构造器注入 | 适合强依赖，语义最完整 |\n| Setter 注入 | 适合可选依赖 |\n| 字段注入 | 使用方便，但显式性弱 |\n\n## Bean 生命周期主线\n\n```mermaid\nflowchart TD\n    A[读取 BeanDefinition] --> B[实例化 Bean]\n    B --> C[属性注入]\n    C --> D[Aware 回调]\n    D --> E[BeanPostProcessor Before]\n    E --> F[初始化方法]\n    F --> G[BeanPostProcessor After]\n    G --> H[可用状态]\n    H --> I[销毁回调]\n```\n\n## 为什么生命周期重要\n\n很多框架能力都不是直接写在业务类里的，而是挂在生命周期扩展点上：\n\n- 自动注入\n- 代理创建\n- 初始化校验\n- 销毁资源释放\n\n## 作用域理解\n\n- `singleton`：容器级单例\n- `prototype`：每次获取新对象\n- `request` / `session`：Web 作用域\n\n## 实践原则\n\n- 优先构造器注入表达强依赖\n- 单例 Bean 默认不保证有状态线程安全\n- 生命周期回调用于基础设施逻辑，不要堆业务流程"
+      "rootContent": "## 常见注入方式\n\n| 方式 | 特点 |\n| --- | --- |\n| 构造器注入 | 适合强依赖，语义最完整 |\n| Setter 注入 | 适合可选依赖 |\n| 字段注入 | 使用方便，但显式性弱 |\n\n## Bean 生命周期主线\n\n```mermaid\nflowchart TD\n    A[读取 BeanDefinition] --> B[实例化 Bean]\n    B --> C[属性注入]\n    C --> D[Aware 回调]\n    D --> E[BeanPostProcessor Before]\n    E --> F[初始化方法]\n    F --> G[BeanPostProcessor After]\n    G --> H[可用状态]\n    H --> I[销毁回调]\n```\n"
     }
   },
   "k_vault_javaspring04springmvc_133lis": {
@@ -149273,7 +149171,7 @@
           "content": "## 为什么事务属于框架层\n\n事务本质上是跨多条数据库操作的一致性边界。  \n如果让每个业务方法手工处理提交和回滚，复杂度会快速失控。\n\n## Spring 的做法\n\nSpring 通过 AOP 把事务边界织入 Service 调用链。\n\n```mermaid\nflowchart LR\n    A[Service 方法调用] --> B[事务代理]\n    B --> C[开启事务]\n    C --> D[执行业务逻辑]\n    D --> E[提交或回滚]\n```\n\n## 传播行为\n\n传播行为回答的是：  \n一个事务方法调用另一个事务方法时，事务边界如何继承或新建。\n\n常见理解：\n\n- `REQUIRED`：加入当前事务，没有就创建\n- `REQUIRES_NEW`：挂起当前事务，开启新事务\n- `SUPPORTS`：有就加入，没有就非事务运行\n\n## 常见陷阱\n\n- 自调用事务不生效\n- 事务边界放错层级\n- 异常被吞掉导致回滚不符合预期\n\n## 原因\n\n事务通常依赖代理对象触发。  \n类内部直接调用自己的方法，绕过了代理链，所以增强不生效。"
         }
       ],
-      "rootContent": "事务与传播机制 ## 为什么事务属于框架层\n\n事务本质上是跨多条数据库操作的一致性边界。 \n如果让每个业务方法手工处理提交和回滚，复杂度会快速失控。\n\n## Spring 的做法\n\nSpring 通过 AOP 把事务边界织入 Service 调用链。\n\n```mermaid\nflowchart LR\n    A[Service 方法调用] --> B[事务代理]\n    B --> C[开启事务]\n    C --> D[执行业务逻辑]\n    D --> E[提交或回滚]\n```\n\n## 传播行为\n\n传播行为回答的是： \n一个事务方法调用另一个事务方法时，事务边界如何继承或新建。\n\n常见理解：\n\n- `REQUIRED`：加入当前事务，没有就创建\n- `REQUIRES_NEW`：挂起当前事务，开启新事务\n- `SUPPORTS`：有就加入，没有就非事务运行\n\n## 常见陷阱\n\n- 自调用事务不生效\n- 事务边界放错层级\n- 异常被吞掉导致回滚不符合预期\n\n## 原因\n\n事务通常依赖代理对象触发。 \n类内部直接调用自己的方法，绕过了代理链，所以增强不生效。"
+      "rootContent": "事务与传播机制 \n## 为什么事务属于框架层\n\n事务本质上是跨多条数据库操作的一致性边界。 \n如果让每个业务方法手工处理提交和回滚，复杂度会快速失控。\n\n## Spring 的做法\n\nSpring 通过 AOP 把事务边界织入 Service 调用链。\n\n```mermaid\nflowchart LR\n    A[Service 方法调用] --> B[事务代理]\n    B --> C[开启事务]\n    C --> D[执行业务逻辑]\n    D --> E[提交或回滚]\n```\n\n## 传播行为\n\n传播行为回答的是： \n一个事务方法调用另一个事务方法时，事务边界如何继承或新建。\n\n常见理解：\n\n- `REQUIRED`：加入当前事务，没有就创建\n- `REQUIRES_NEW`：挂起当前事务，开启新事务\n- `SUPPORTS`：有就加入，没有就非事务运行\n\n## 常见陷阱\n\n- 自调用事务不生效\n- 事务边界放错层级\n- 异常被吞掉导致回滚不符合预期\n\n## 原因\n\n事务通常依赖代理对象触发。 \n类内部直接调用自己的方法，绕过了代理链，所以增强不生效。"
     }
   },
   "k_vault_javaspring06_1868fr": {
@@ -149298,7 +149196,7 @@
           "content": "## Spring 为什么重视配置\n\nSpring 的很多能力并不是写死在业务类中，而是通过配置把对象关系和框架行为声明出来。\n\n## 配置方式演进\n\n| 阶段 | 特点 |\n| --- | --- |\n| XML | 显式、集中、冗长 |\n| 注解 | 靠近代码、侵入更低 |\n| Java Config | 类型安全、组合能力更强 |\n\n## 常见注解角色\n\n- `@Component` / `@Service` / `@Repository` / `@Controller`\n- `@Autowired`\n- `@Configuration`\n- `@Bean`\n- `@Value`\n\n## 真正的价值\n\n配置驱动让框架从“调用库”升级为“声明系统结构”：\n\n- 哪些类归容器管理\n- 依赖如何注入\n- 哪些方法需要事务或切面\n- Web 层如何暴露能力\n\n```mermaid\nflowchart TD\n    A[注解 / 配置类 / XML] --> B[容器解析]\n    B --> C[BeanDefinition]\n    C --> D[实例化与注入]\n    D --> E[代理与扩展]\n```\n\n## 使用原则\n\n- 注解适合局部声明\n- 配置类适合模块装配\n- 复杂基础设施配置仍要保持集中和可读"
         }
       ],
-      "rootContent": "配置驱动与注解编程 ## Spring 为什么重视配置\n\nSpring 的很多能力并不是写死在业务类中，而是通过配置把对象关系和框架行为声明出来。\n\n## 配置方式演进\n\n| 阶段 | 特点 |\n| --- | --- |\n| XML | 显式、集中、冗长 |\n| 注解 | 靠近代码、侵入更低 |\n| Java Config | 类型安全、组合能力更强 |\n\n## 常见注解角色\n\n- `@Component` / `@Service` / `@Repository` / `@Controller`\n- `@Autowired`\n- `@Configuration`\n- `@Bean`\n- `@Value`\n\n## 真正的价值\n\n配置驱动让框架从“调用库”升级为“声明系统结构”：\n\n- 哪些类归容器管理\n- 依赖如何注入\n- 哪些方法需要事务或切面\n- Web 层如何暴露能力\n\n```mermaid\nflowchart TD\n    A[注解 / 配置类 / XML] --> B[容器解析]\n    B --> C[BeanDefinition]\n    C --> D[实例化与注入]\n    D --> E[代理与扩展]\n```\n\n## 使用原则\n\n- 注解适合局部声明\n- 配置类适合模块装配\n- 复杂基础设施配置仍要保持集中和可读"
+      "rootContent": "配置驱动与注解编程\n ## Spring 为什么重视配置\n\nSpring 的很多能力并不是写死在业务类中，而是通过配置把对象关系和框架行为声明出来。\n\n## 配置方式演进\n\n| 阶段 | 特点 |\n| --- | --- |\n| XML | 显式、集中、冗长 |\n| 注解 | 靠近代码、侵入更低 |\n| Java Config | 类型安全、组合能力更强 |\n\n## 常见注解角色\n\n- `@Component` / `@Service` / `@Repository` / `@Controller`\n- `@Autowired`\n- `@Configuration`\n- `@Bean`\n- `@Value`\n\n## 真正的价值\n\n配置驱动让框架从“调用库”升级为“声明系统结构”：\n\n- 哪些类归容器管理\n- 依赖如何注入\n- 哪些方法需要事务或切面\n- Web 层如何暴露能力\n\n```mermaid\nflowchart TD\n    A[注解 / 配置类 / XML] --> B[容器解析]\n    B --> C[BeanDefinition]\n    C --> D[实例化与注入]\n    D --> E[代理与扩展]\n```\n\n## 使用原则\n\n- 注解适合局部声明\n- 配置类适合模块装配\n- 复杂基础设施配置仍要保持集中和可读"
     }
   },
   "k_java_fw_spring_aop": {
@@ -149428,7 +149326,7 @@
           "content": "概念\nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。\nSpring容器高层视图\nSpring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现\nIOC 容器实现\nBeanFactory-框架基础设施\nBeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框\n架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n\n# ApplicationContext 面向开发应用\n# WebApplication 体系架构\n# Spring Bean 作用域\n# Spring Bean 生命周期\n# Spring 依赖注入四种方式\nSpring IOC是什么？优点是什么？\nIoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\"\nioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处：\n1）资源集中管理，实现资源的可配置和易管理\n2）降低了使用资源双方的依赖程度，也就是我们说的耦合度\n\n## 一、ioc\n\n## 二、 Spring IOC体系结构\n\n## 三、IoC容器的初始化\n\n# 四、IOC容器的依赖注入\n# 五、IoC容器的高级特性"
         }
       ],
-      "rootContent": "IoC 原理 概念 Spring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。 # ApplicationContext 面向开发应用 # WebApplication 体系架构 # Spring Bean 作用域 # Spring Bean 生命周期 # Spring 依赖注入四种方式 Spring IOC是什么？优点是什么？ IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处： 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度 ## 一、ioc ## 二、 Spring IOC体系结构 ## 三、IoC容器的初始化 # 四、IOC容器的依赖注入 # 五、IoC容器的高级特性"
+      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n # ApplicationContext 面向开发应用 \n# WebApplication 体系架构 \n# Spring Bean 作用域 \n# Spring Bean 生命周期 \n# Spring 依赖注入四种方式 Spring IOC是什么？优点是什么？ IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处： 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度 \n## 一、ioc \n## 二、 Spring IOC体系结构 \n## 三、IoC容器的初始化\n # 四、IOC容器的依赖注入 \n# 五、IoC容器的高级特性"
     }
   },
   "k_vault_javaspringiocioc_1jelty": {
@@ -149454,7 +149352,7 @@
           "content": "IoC容器是什么？ IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器： \"把某些业务对象的的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC 容器。\" 我们刚开始学习spring的时候会经常看到的类似下面的这代码\nApplicationContext appContext = new ClassPathXmlApplicationContext(\"cjj/models/beans.xml\"); \nPerson p = (Person)appContext.getBean(\"person\");\n上面代码中，在创建ApplicationContext实例对象过程中会创建一个spring容器，该容器会读取配置文 件\"cjj/models/beans.xml\",并统一管理由该文件中定义好的所有bean实例对象，如果要获取某个bean 实例，使用getBean方法就行了。例如我们只需要将Person提前配置在beans.xml文件中（可以理解为 注入），之后我们可以不需使用new Person()的方式创建实例，而是通过容器来获取Person实例，这就 相当于将Person的控制权交由spring容器了，差不多这就是控制反转的概念。\n那在创建IoC容器时经历了哪些呢？\n为此，先来了解下Spring中IoC容器分类，继而根据一个具体的容器 来讲解IoC容器初始化的过程。 Spring中有两个主要的容器系列： 1. 实现BeanFactory接口的简单容器； 2. 实现ApplicationContext接口的高级容器。 ApplicationContext比较复杂，它不但继承了BeanFactory的大部分属性，还继承其它可扩展接口，扩 展的了许多高级的属性。\n\n在BeanFactory子类中有一个DefaultListableBeanFactory类，它包含了基本Spirng IoC容器所具有的重要功能，开发时不论是使用BeanFactory系列还是ApplicationContext系列来创建容器基本都会使用 到DefaultListableBeanFactory类，可以这么说，在spring中实际上把它当成默认的IoC容器来使用。\n\n回到本文正题上来，关于Spirng IoC容器的初始化过程，IoC容器的初始化过程可以分为三步：\n1. Resource定位（Bean的定义文件定位）\n2. 将Resource定位好的资源载入到BeanDefinition\n3. 将BeanDefiniton注册到容器中\n\n第一步 Resource定位\nResource是Sping中用于封装I/O操作的接口。在创建spring容器时，通常要访问XML配 置文件，除此之外还可以通过访问文件类型，二进制流等方式访问资源，Spring把这些文件统称为Resource。\n\n常用的resource资源类型如下：\n- FileSystemResource：以文件的绝对路径方式进行访问资源\n- ClassPathResourcee：以类路径的方式访问资源\n- ServletContextResource：web应用根目录的方式访问资源\n- UrlResource：访问网络资源\n- ByteArrayResource: 访问字节数组资源\n\n第二步 通过返回的resource对象，进行BeanDefinition的载入\n什么是BeanDefinition?\nBeanDefinition与Resource的联系：BeanDefinition相当于一个数据结构，这个数据结构的生成过程是根据定位的resource资源 对象中的bean而来的，这些bean在Spirng IoC容器内部表示成了的BeanDefintion这样的数据结构， IoC容器对bean的管理和依赖注入的实现都是通过操作BeanDefinition来进行的。\n\n第三步,将BeanDefiniton注册到容器中\n最终Bean配置会被解析成BeanDefinition并与beanName,Alias封装到BeanDefinitionHolder类中,之后beanFactory.registerBeanDefinition(beanName, bdHHolder.getBeanDefinition()),注册到DefaultListableBeanFactory.beanDefinitionMap中。"
         }
       ],
-      "rootContent": "IoC 理解与初始化 IoC容器是什么？ IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器： \"把某些业务对象的的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC 容器。\" 我们刚开始学习spring的时候会经常看到的类似下面的这代码 ApplicationContext appContext = new ClassPathXmlApplicationContext(\"cjj/models/beans.xml\"); Person p = (Person)appContext.getBean(\"person\"); 上面代码中，在创建ApplicationContext实例对象过程中会创建一个spring容器，该容器会读取配置文 件\"cjj/models/beans.xml\",并统一管理由该文件中定义好的所有bean实例对象，如果要获取某个bean 实例，使用getBean方法就行了。例如我们只需要将Person提前配置在beans.xml文件中（可以理解为 注入），之后我们可以不需使用new Person()的方式创建实例，而是通过容器来获取Person实例，这就 相当于将Person的控制权交由spring容器了，差不多这就是控制反转的概念。 那在创建IoC容器时经历了哪些呢？ 为此，先来了解下Spring中IoC容器分类，继而根据一个具体的容器 来讲解IoC容器初始化的过程。 Spring中有两个主要的容器系列： 1. 实现BeanFactory接口的简单容器； 2. 实现ApplicationContext接口的高级容器。 ApplicationContext比较复杂，它不但继承了BeanFactory的大部分属性，还继承其它可扩展接口，扩 展的了许多高级的属性。 在BeanFactory子类中有一个DefaultListableBeanFactory类，它包含了基本Spirng IoC容器所具有的重要功能，开发时不论是使用BeanFactory系列还是ApplicationContext系列来创建容器基本都会使用 到DefaultListableBeanFactory类，可以这么说，在spring中实际上把它当成默认的IoC容器来使用。 回到本文正题上来，关于Spirng IoC容器的初始化过程，IoC容器的初始化过程可以分为三步： 1. Resource定位（Bean的定义文件定位） 2. 将Resource定位好的资源载入到BeanDefinition 3. 将BeanDefiniton注册到容器中 第一步 Resource定位 Resource是Sping中用于封装I/O操作的接口。在创建spring容器时，通常要访问XML配 置文件，除此之外还可以通过访问文件类型，二进制流等方式访问资源，Spring把这些文件统称为Resource。 常用的resource资源类型如下： - FileSystemResource：以文件的绝对路径方式进行访问资源 - ClassPathResourcee：以类路径的方式访问资源 - ServletContextResource：web应用根目录的方式访问资源 - UrlResource：访问网络资源 - ByteArrayResource: 访问字节数组资源 第二步 通过返回的resource对象，进行BeanDefinition的载入 什么是BeanDefinition? BeanDefinition与Resource的联系：BeanDefinition相当于一个数据结构，这个数据结构的生成过程是根据定位的resource资源 对象中的bean而来的，这些bean在Spirng IoC容器内部表示成了的BeanDefintion这样的数据结构， IoC容器对bean的管理和依赖注入的实现都是通过操作BeanDefinition来进行的。 第三步,将BeanDefiniton注册到容器中 最终Bean配置会被解析成BeanDefinition并与beanName,Alias封装到BeanDefinitionHolder类中,之后beanFactory.registerBeanDefinition(beanName, bdHHolder.getBeanDefinition()),注册到DefaultListableBeanFactory.beanDefinitionMap中。"
+      "rootContent": "IoC 理解与初始化 \nIoC容器是什么？ \nIoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器： \"把某些业务对象的的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC 容器。\" 我们刚开始学习spring的时候会经常看到的类似下面的这代码 ApplicationContext appContext = new ClassPathXmlApplicationContext(\"cjj/models/beans.xml\"); Person p = (Person)appContext.getBean(\"person\"); 上面代码中，在创建ApplicationContext实例对象过程中会创建一个spring容器，该容器会读取配置文 件\"cjj/models/beans.xml\",并统一管理由该文件中定义好的所有bean实例对象，如果要获取某个bean 实例，使用getBean方法就行了。例如我们只需要将Person提前配置在beans.xml文件中（可以理解为 注入），之后我们可以不需使用new Person()的方式创建实例，而是通过容器来获取Person实例，这就 相当于将Person的控制权交由spring容器了，差不多这就是控制反转的概念。 那在创建IoC容器时经历了哪些呢？ 为此，先来了解下Spring中IoC容器分类，继而根据一个具体的容器 来讲解IoC容器初始化的过程。 Spring中有两个主要的容器系列： 1. 实现BeanFactory接口的简单容器； 2. 实现ApplicationContext接口的高级容器。 ApplicationContext比较复杂，它不但继承了BeanFactory的大部分属性，还继承其它可扩展接口，扩 展的了许多高级的属性。 在BeanFactory子类中有一个DefaultListableBeanFactory类，它包含了基本Spirng IoC容器所具有的重要功能，开发时不论是使用BeanFactory系列还是ApplicationContext系列来创建容器基本都会使用 到DefaultListableBeanFactory类，可以这么说，在spring中实际上把它当成默认的IoC容器来使用。 回到本文正题上来，关于Spirng IoC容器的初始化过程，IoC容器的初始化过程可以分为三步： 1. Resource定位（Bean的定义文件定位） 2. 将Resource定位好的资源载入到BeanDefinition 3. 将BeanDefiniton注册到容器中 第一步 Resource定位 Resource是Sping中用于封装I/O操作的接口。在创建spring容器时，通常要访问XML配 置文件，除此之外还可以通过访问文件类型，二进制流等方式访问资源，Spring把这些文件统称为Resource。 常用的resource资源类型如下： - FileSystemResource：以文件的绝对路径方式进行访问资源 - ClassPathResourcee：以类路径的方式访问资源 - ServletContextResource：web应用根目录的方式访问资源 - UrlResource：访问网络资源 - ByteArrayResource: 访问字节数组资源 第二步 通过返回的resource对象，进行BeanDefinition的载入 \n什么是BeanDefinition? \nBeanDefinition与Resource的联系：BeanDefinition相当于一个数据结构，这个数据结构的生成过程是根据定位的resource资源 对象中的bean而来的，这些bean在Spirng IoC容器内部表示成了的BeanDefintion这样的数据结构， IoC容器对bean的管理和依赖注入的实现都是通过操作BeanDefinition来进行的。 第三步,将BeanDefiniton注册到容器中 最终Bean配置会被解析成BeanDefinition并与beanName,Alias封装到BeanDefinitionHolder类中,之后beanFactory.registerBeanDefinition(beanName, bdHHolder.getBeanDefinition()),注册到DefaultListableBeanFactory.beanDefinitionMap中。\n## 两层容器理解\n\n| 容器 | 角色 |\n| --- | --- |\n| `BeanFactory` | 基础容器，负责 Bean 定义与获取 |\n| `ApplicationContext` | 高级容器，增加事件、资源、国际化、自动注册等能力 |\n\n## 容器做了什么\n\n- 读取 Bean 定义\n- 生成 `BeanDefinition`\n- 实例化对象\n- 注入依赖\n- 管理生命周期\n- 提供扩展点\n\n## 封装提升\n\nSpring 把“对象工厂”继续封装成“应用上下文”。 \n这样开发者面对的就不再是离散对象，而是一整套受管理的运行容器。"
     }
   },
   "k_vault_ngiocspringbeanfactoryapplicationcontext_18ka3n": {
@@ -149869,7 +149767,7 @@
           "content": "## 事务四大特性（ACID）\n\n1. **原子性（Atomicity）**\n   - 事务是一个原子操作，由一系列动作组成\n   - 要么全部完成，要么完全不起作用\n\n2. **一致性（Consistency）**\n   - 事务完成后，系统必须确保业务处于一致状态\n   - 现实中的数据不应该被破坏\n\n3. **隔离性（Isolation）**\n   - 许多事务同时处理相同数据\n   - 每个事务应该与其他事务隔离开来\n\n4. **持久性（Durability）**\n   - 一旦事务完成，无论发生什么系统错误\n   - 结果都不应该受到影响\n\n## Spring事务实现方式\n\n1. **编程式事务管理**\n   - 通过代码直接管理事务\n\n2. **声明式事务管理**\n   - 基于TransactionProxyFactoryBean\n   - 基于AspectJ的XML配置\n   - 基于注解（@Transactional）\n\n## 核心接口\n\n### PlatformTransactionManager\nSpring事务管理器的接口，为各个平台提供事务管理：\n\n```java\nPublic interface PlatformTransactionManager() {\n    // 由TransactionDefinition得到TransactionStatus对象\n    TransactionStatus getTransaction(TransactionDefinition definition);\n    // 提交\n    Void commit(TransactionStatus status);\n    // 回滚\n    Void rollback(TransactionStatus status);\n}\n```\n\n## 事务管理器类型\n\n| 类型 | 说明 |\n|------|------|\n| DataSourceTransactionManager | JDBC事务 |\n| HibernateTransactionManager | Hibernate事务 |\n| JtaTransactionManager | JTA事务 |\n| JpaTransactionManager | JPA事务 |"
         }
       ],
-      "rootContent": "## Spring事务实现方式 1. **编程式事务管理** - 通过代码直接管理事务 2. **声明式事务管理** - 基于TransactionProxyFactoryBean - 基于AspectJ的XML配置 - 基于注解（@Transactional） ## 核心接口 ### PlatformTransactionManager Spring事务管理器的接口，为各个平台提供事务管理： ```java Public interface PlatformTransactionManager() { // 由TransactionDefinition得到TransactionStatus对象 TransactionStatus getTransaction(TransactionDefinition definition); // 提交 Void commit(TransactionStatus status); // 回滚 Void rollback(TransactionStatus status); } ``` ## 事务管理器类型 | 类型 | 说明 | |------|------| | DataSourceTransactionManager | JDBC事务 | | HibernateTransactionManager | Hibernate事务 | | JtaTransactionManager | JTA事务 | | JpaTransactionManager | JPA事务 |"
+      "rootContent": "## Spring事务实现方式 \n1. **编程式事务管理** \n- 通过代码直接管理事务 \n2. **声明式事务管理** \n- 基于TransactionProxyFactoryBean \n- 基于AspectJ的XML配置 \n- 基于注解（@Transactional） \n## 核心接口 \n### PlatformTransactionManager Spring事务管理器的接口，为各个平台提供事务管理：\n ```java \nPublic interface PlatformTransactionManager() { // 由TransactionDefinition得到TransactionStatus对象 TransactionStatus getTransaction(TransactionDefinition definition); // 提交 Void commit(TransactionStatus status); // 回滚 Void rollback(TransactionStatus status); } ``` \n## 事务管理器类型 | 类型 | 说明 | |------|------| | DataSourceTransactionManager | JDBC事务 | | HibernateTransactionManager | Hibernate事务 | | JtaTransactionManager | JTA事务 | | JpaTransactionManager | JPA事务 |"
     }
   },
   "k_vault_javaspringspring4_bn9s51": {
@@ -149994,7 +149892,7 @@
           "content": "Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。使用 JavaConfig 的优点在于：\n（1）  面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分发挥 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。\n（2）  减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。\n（3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。\n\n# Spring Boot 自动配置原理是什么？\n注解 @EnableAutoConfiguration, @Configuration, @ConditionalOnClass 就是自动配置的核心，@EnableAutoConfiguration 给容器导入META-INF/spring.factories 里定义的自动配置类。筛选有效的自动配置类。每一个自动配置类结合对应的 xxxProperties.java 读取配置文件进行自动配置功能。\n\n# 你如何理解 Spring Boot 配置加载顺序？\n在 Spring Boot 里面，可以使用以下几种方式来加载配置：\n1）     properties文件；\n2）     YAML文件；\n3）     系统环境变量；等等……\n4）命令行参数；\n\n# 什么是 YAML？\nYAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。\n\n# YAML 配置的优势在哪里 ?\nYAML 现在可以算是非常流行的一种配置文件格式了，无论是前端还是后端，都可以见到 YAML 配置。那么 YAML 配置和传统的 properties 配置相比到底有哪些优势呢？\n1. 配置有序，在一些特殊的场景下，配置有序很关键\n2. 支持数组，数组中的元素可以是基本数据类型也可以是对象\n3. 简洁\n\n相比 properties 配置文件，YAML 还有一个缺点，就是不支持 @PropertySource 注解导入自定义的 YAML 配置。\n\n# Spring Boot 是否可以使用 XML 配置 ?\nSpring Boot 推荐使用 Java 配置而非 XML 配置，但是 Spring Boot 中也可以使用 XML 配置，通过 @ImportResource 注解可以引入一个 XML 配置。\n\n# spring boot 核心配置文件是什么？bootstrap.properties 和 application.properties 有何区别 ?\n单纯做 Spring Boot 开发，可能不太容易遇到 bootstrap.properties 配置文件，但是在结合 Spring Cloud 时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。\n\nspring boot 核心的两个配置文件：\nbootstrap (. yml 或者 . properties)：boostrap 由父 ApplicationContext 加载的，比 applicaton 优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在 Spring Cloud Config 或者 Nacos 中会用到它。且 boostrap 里面的属性不能被覆盖；\napplication (. yml 或者 . properties)： 由ApplicatonContext 加载，用于 spring boot 项目的自动化配置。\n\n# 什么是 Spring Profiles？\nSpring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。\n\n# 如何在自定义端口上运行 Spring Boot 应用程序？\n为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090"
         }
       ],
-      "rootContent": "Spring 配置 Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。使用 JavaConfig 的优点在于： （1） 面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分发挥 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。 （2） 减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。 （3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。 # Spring Boot 自动配置原理是什么？ 注解 @EnableAutoConfiguration, @Configuration, @ConditionalOnClass 就是自动配置的核心，@EnableAutoConfiguration 给容器导入META-INF/spring.factories 里定义的自动配置类。筛选有效的自动配置类。每一个自动配置类结合对应的 xxxProperties.java 读取配置文件进行自动配置功能。 # 你如何理解 Spring Boot 配置加载顺序？ 在 Spring Boot 里面，可以使用以下几种方式来加载配置： 1） properties文件； 2） YAML文件； 3） 系统环境变量；等等…… 4）命令行参数； # 什么是 YAML？ YAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。 # YAML 配置的优势在哪里 ? YAML 现在可以算是非常流行的一种配置文件格式了，无论是前端还是后端，都可以见到 YAML 配置。那么 YAML 配置和传统的 properties 配置相比到底有哪些优势呢？ 1. 配置有序，在一些特殊的场景下，配置有序很关键 2. 支持数组，数组中的元素可以是基本数据类型也可以是对象 3. 简洁 相比 properties 配置文件，YAML 还有一个缺点，就是不支持 @PropertySource 注解导入自定义的 YAML 配置。 # Spring Boot 是否可以使用 XML 配置 ? Spring Boot 推荐使用 Java 配置而非 XML 配置，但是 Spring Boot 中也可以使用 XML 配置，通过 @ImportResource 注解可以引入一个 XML 配置。 # spring boot 核心配置文件是什么？bootstrap.properties 和 application.properties 有何区别 ? 单纯做 Spring Boot 开发，可能不太容易遇到 bootstrap.properties 配置文件，但是在结合 Spring Cloud 时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。 spring boot 核心的两个配置文件： bootstrap (. yml 或者 . properties)：boostrap 由父 ApplicationContext 加载的，比 applicaton 优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在 Spring Cloud Config 或者 Nacos 中会用到它。且 boostrap 里面的属性不能被覆盖； application (. yml 或者 . properties)： 由ApplicatonContext 加载，用于 spring boot 项目的自动化配置。 # 什么是 Spring Profiles？ Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。 # 如何在自定义端口上运行 Spring Boot 应用程序？ 为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090"
+      "rootContent": "Spring 配置 Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。\n使用 JavaConfig 的优点在于： \n（1） 面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分发挥 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。 （2） 减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。 \n（3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。\n # Spring Boot 自动配置原理是什么？ 注解 @EnableAutoConfiguration, @Configuration, @ConditionalOnClass 就是自动配置的核心，@EnableAutoConfiguration 给容器导入META-INF/spring.factories 里定义的自动配置类。筛选有效的自动配置类。每一个自动配置类结合对应的 xxxProperties.java 读取配置文件进行自动配置功能。 \n# 你如何理解 Spring Boot 配置加载顺序？\n 在 Spring Boot 里面，可以使用以下几种方式来加载配置： \n1） properties文件； 2） YAML文件； 3） 系统环境变量；等等…… 4）命令行参数； \n# 什么是 YAML？\n YAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。 \n# YAML 配置的优势在哪里 ? \nYAML 现在可以算是非常流行的一种配置文件格式了，无论是前端还是后端，都可以见到 YAML 配置。那么 YAML 配置和传统的 properties 配置相比到底有哪些优势呢？ 1. 配置有序，在一些特殊的场景下，配置有序很关键 2. 支持数组，数组中的元素可以是基本数据类型也可以是对象 3. 简洁 相比 properties 配置文件，YAML 还有一个缺点，就是不支持 @PropertySource 注解导入自定义的 YAML 配置。 # Spring Boot 是否可以使用 XML 配置 ? Spring Boot 推荐使用 Java 配置而非 XML 配置，但是 Spring Boot 中也可以使用 XML 配置，通过 @ImportResource 注解可以引入一个 XML 配置。 \n# spring boot 核心配置文件是什么？bootstrap.properties 和 application.properties 有何区别 ? 单纯做 Spring Boot 开发，可能不太容易遇到 bootstrap.properties 配置文件，但是在结合 Spring Cloud 时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。 spring boot 核心的两个配置文件： bootstrap (. yml 或者 . properties)：boostrap 由父 ApplicationContext 加载的，比 applicaton 优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在 Spring Cloud Config 或者 Nacos 中会用到它。且 boostrap 里面的属性不能被覆盖； application (. yml 或者 . properties)： 由ApplicatonContext 加载，用于 spring boot 项目的自动化配置。 \n# 什么是 Spring Profiles？ \nSpring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。\n # 如何在自定义端口上运行 Spring Boot 应用程序？ \n为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090"
     }
   },
   "k_vault_javaspringspring_7b4q3y": {
@@ -150020,31 +149918,6 @@
         }
       ],
       "rootContent": "Spring 注解 什么是基于Java的Spring注解配置? 给一些注解的例子 基于Java的配置，允许你在少量的Java注解的帮助下，进行你的大部分Spring 配置而非通过XML文件。 以@Configuration 注解为例，它用来标记类可以当做一个bean的定义，被 Spring IOC容器使用。 另一个例子是@Bean注解，它表示此方法将要返回一个对象，作为一个bean注册进Spring应用上下文。 怎样开启注解装配？ 注解装配在默认情况下是不开启的，为了使用注解装配，我们必须在Spring配置文件中配置 <context:annotation-config/> 元素。 @Component, @Controller, @Repository, @Service 有何区别？ - @Component：这将 java 类标记为 bean。它是任何 Spring 管理组件的通用构造型。spring 的组件扫描机制现在可以将其拾取并将其拉入应用程序环境中。 - @Controller：这将一个类标记为 Spring Web MVC 控制器。标有它的 Bean 会自动导入到 IoC 容器 中。 - @Service：此注解是组件注解的特化。它不会对 @Component 注解提供任何其他行为。您可以在服务层类中使用 @Service 而不是 @Component，因为它以更好的方式指定了意图。 - @Repository：这个注解是具有类似用途和功能的 @Component 注解的特化。它为 DAO 提供了额外的好处。它将 DAO 导入 IoC 容器，并使未经检查的异常有资格转换为 Spring DataAccessException。 @Required 注解有什么作用 这个注解表明bean的属性必须在配置的时候设置，通过一个bean定义的显式的属性值或通过自动装配，若@Required注解的bean属性未被设置，容器将抛出 BeanInitializationException。 @Autowired 注解有什么作用 @Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required 属性为false）。@Autowired 注解提供了更细粒度的控制，包括在何处以及如何完成自动装配。它的用法和@Required一样，修饰 setter方法、构造器、属性或者具有任意名称和/或多个参数的PN方法。 @Autowired和@Resource之间的区别 - @Autowired可用于：构造函数、成员变量、Setter方法 - @Autowired默认是按照类型装配注入的，默认情况下它要求依赖对象必须存在（可以设置它required 属性为false）。 - @Resource默认是按照名称来装配注入的，只有当找不到与名称匹配的bean才会按照类型来装配注入。 @Qualifier 注解有什么作用 当您创建多个相同类型的 bean 并希望仅使用属性装配其中一个 bean 时，您可以使用@Qualifier 注解和 @Autowired 通过指定应该装配哪个确切的 bean 来消除歧义。 @RequestMapping 注解有什么用？ @RequestMapping 注解用于将特定 HTTP 请求方法映射到将处理相应请求的控制器中的特定类/方法。 此注释可应用于两个级别： - 类级别：映射请求的 URL - 方法级别：映射 URL 以及 HTTP 请求方法"
-    }
-  },
-  "k_vault_javaspringspring_1n53n1": {
-    "id": "k_vault_javaspringspring_1n53n1",
-    "label": "Spring 注入的几种方式",
-    "role": "concept",
-    "dimensions": [
-      "java"
-    ],
-    "tags": [
-      "Spring 注入的几种方式",
-      "java",
-      "Spring"
-    ],
-    "card": {
-      "nodeId": "k_vault_javaspringspring_1n53n1",
-      "title": "Spring 注入的几种方式",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。\n\n## 构造函数注入\n\n通过构造函数参数注入依赖，是最常用的注入方式之一。\n\n```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public UserService(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```\n\n**优点**：\n- 依赖对象在对象创建时就已经注入\n- 可以声明依赖为final，保证不可变\n- 适合必填依赖\n\n## Setter注入\n\n通过setter方法注入依赖，灵活性高。\n\n```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public void setUserDao(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```\n\n**优点**：\n- 依赖可选\n- 可以在对象创建后修改依赖\n- 适合可选依赖\n\n## 字段注入（注解方式）\n\n直接在字段上使用@Autowired或@Resource注解。\n\n```java\npublic class UserService {\n    @Autowired\n    private UserDao userDao;\n}\n```\n\n**优点**：\n- 代码简洁\n- 减少样板代码\n\n**缺点**：\n- 不适合final字段\n- 难以进行单元测试\n- 违反单一职责原则\n\n## 接口注入\n\n通过实现特定接口来注入依赖（较少使用）。\n\n## 循环依赖问题\n\nSpring容器可以处理以下类型的循环依赖：\n\n1. **构造函数循环依赖**：无法处理，会抛出BeanCurrentlyInCreationException\n2. **Setter循环依赖（单例）**：可以处理，Spring通过三级缓存解决\n3. **prototype作用域循环依赖**：无法处理\n\n## @Autowired vs @Resource\n\n| 特性 | @Autowired | @Resource |\n|-----|-----------|----------|\n| 来源 | Spring原生 | JSR-250 |\n| 默认注入方式 | byType | byName |\n| required属性 | 支持 | 不支持 |\n| 位置 | 构造函数、字段、setter | 字段、setter |\n\n## 如何选择注入方式\n\n1. **必填依赖**：使用构造函数注入\n2. **可选依赖**：使用Setter注入\n3. **简化开发**：字段注入（注意权衡）"
-        }
-      ],
-      "rootContent": "Spring 注入的几种方式 Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。 ## 构造函数注入 通过构造函数参数注入依赖，是最常用的注入方式之一。 ```java public class UserService { private UserDao userDao; public UserService(UserDao userDao) { this.userDao = userDao; } } ``` **优点**： - 依赖对象在对象创建时就已经注入 - 可以声明依赖为final，保证不可变 - 适合必填依赖 ## Setter注入 通过setter方法注入依赖，灵活性高。 ```java public class UserService { private UserDao userDao; public void setUserDao(UserDao userDao) { this.userDao = userDao; } } ``` **优点**： - 依赖可选 - 可以在对象创建后修改依赖 - 适合可选依赖 ## 字段注入（注解方式） 直接在字段上使用@Autowired或@Resource注解。 ```java public class UserService { @Autowired private UserDao userDao; } ``` **优点**： - 代码简洁 - 减少样板代码 **缺点**： - 不适合final字段 - 难以进行单元测试 - 违反单一职责原则 ## 接口注入 通过实现特定接口来注入依赖（较少使用）。 ## 循环依赖问题 Spring容器可以处理以下类型的循环依赖： 1. **构造函数循环依赖**：无法处理，会抛出BeanCurrentlyInCreationException 2. **Setter循环依赖（单例）**：可以处理，Spring通过三级缓存解决 3. **prototype作用域循环依赖**：无法处理 ## @Autowired vs @Resource | 特性 | @Autowired | @Resource | |-----|-----------|----------| | 来源 | Spring原生 | JSR-250 | | 默认注入方式 | byType | byName | | required属性 | 支持 | 不支持 | | 位置 | 构造函数、字段、setter | 字段、setter | ## 如何选择注入方式 1. **必填依赖**：使用构造函数注入 2. **可选依赖**：使用Setter注入 3. **简化开发**：字段注入（注意权衡）"
     }
   },
   "k_vault_javaspringspring_8jukbg": {
@@ -160330,5 +160203,375 @@
       ],
       "rootContent": "优化3：ID 与主表 inner join\n\n先 limit 查出**主键 ID**，然后用主表与查出的 ID 做 **inner join** 内连接：\n\n```sql\nSELECT * FROM product p\nINNER JOIN (SELECT id FROM product LIMIT 1000000, 20) t ON p.id = t.id;\n```\n\n**提速原因**：减少了回表——查 ID 只需走**聚集索引**（覆盖索引扫描），拿到 20 个主键后再回表取整行，避免 limit 大偏移时逐行回表百万次。"
     }
+  },
+  "k_1788681463569_fqwfp2": {
+    "id": "k_1788681463569_fqwfp2",
+    "label": "本质",
+    "tags": [
+      "本质"
+    ],
+    "card": {
+      "nodeId": "k_1788681463569_fqwfp2",
+      "title": "本质",
+      "tabs": [],
+      "rootContent": "## IoC 的本质\n\nIoC 不是“神秘概念”，本质是对象控制权转移：\n\n- 以前：业务代码自己创建依赖\n- 现在：容器负责创建、装配、管理对象\n\n```mermaid\nflowchart LR\n    A[业务类] -->|自己 new 依赖| B[强耦合]\n    C[Spring 容器] --> D[创建 Bean]\n    D --> E[注入依赖]\n    E --> F[业务类只声明需要什么]\n```"
+    }
+  },
+  "k_1788683294815_qvh7np": {
+    "id": "k_1788683294815_qvh7np",
+    "label": "常见的配置方式",
+    "tags": [
+      "常见的配置方式"
+    ],
+    "card": {
+      "nodeId": "k_1788683294815_qvh7np",
+      "title": "常见的配置方式",
+      "tabs": [],
+      "rootContent": "基于XML的配置、\n基于注解的配置、\n基于Java的配置"
+    }
+  },
+  "k_1788687205852_lhoemy": {
+    "id": "k_1788687205852_lhoemy",
+    "label": "Spring 依赖注入方式",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687205852_lhoemy",
+      "title": "Spring 依赖注入方式",
+      "tabs": [
+        {
+          "id": "overview",
+          "label": "概述",
+          "content": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。主要包括：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖\n2. **Setter注入** - 通过setter方法注入依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（较少使用）\n\n不同的注入方式适用于不同的场景，需要根据实际需求选择合适的方式。"
+        }
+      ],
+      "rootContent": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。"
+    },
+    "tags": [
+      "Spring",
+      "依赖注入",
+      "IoC",
+      "DI"
+    ]
+  },
+  "k_1788687205854_6znktx": {
+    "id": "k_1788687205854_6znktx",
+    "label": "构造函数注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687205854_6znktx",
+      "title": "构造函数注入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过构造函数参数注入依赖，是最常用的注入方式之一。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public UserService(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```"
+        },
+        {
+          "id": "pros",
+          "label": "优点",
+          "content": "- 依赖对象在对象创建时就已经注入\n- 可以声明依赖为final，保证不可变\n- 适合必填依赖\n- 利于单元测试"
+        }
+      ],
+      "rootContent": "构造函数注入通过构造函数参数注入依赖，是最常用的注入方式之一。依赖对象在对象创建时就已经注入，可以声明依赖为final保证不可变，适合必填依赖。"
+    },
+    "tags": [
+      "Spring",
+      "构造函数注入",
+      "依赖注入"
+    ]
+  },
+  "k_1788687205854_qdt7dp": {
+    "id": "k_1788687205854_qdt7dp",
+    "label": "Setter注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687205854_qdt7dp",
+      "title": "Setter注入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过setter方法注入依赖，灵活性高。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public void setUserDao(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```"
+        },
+        {
+          "id": "pros",
+          "label": "优点",
+          "content": "- 依赖可选\n- 可以在对象创建后修改依赖\n- 适合可选依赖"
+        }
+      ],
+      "rootContent": "Setter注入通过setter方法注入依赖，灵活性高。依赖可选，可以在对象创建后修改依赖，适合可选依赖。"
+    },
+    "tags": [
+      "Spring",
+      "Setter注入",
+      "依赖注入"
+    ]
+  },
+  "k_1788687205854_318tes": {
+    "id": "k_1788687205854_318tes",
+    "label": "字段注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687205854_318tes",
+      "title": "字段注入（注解方式）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "直接在字段上使用@Autowired或@Resource注解进行依赖注入。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    @Autowired\n    private UserDao userDao;\n}\n```"
+        },
+        {
+          "id": "pros-cons",
+          "label": "优缺点",
+          "content": "**优点**：\n- 代码简洁\n- 减少样板代码\n\n**缺点**：\n- 不适合final字段\n- 难以进行单元测试\n- 违反单一职责原则"
+        }
+      ],
+      "rootContent": "字段注入直接在字段上使用@Autowired或@Resource注解。代码简洁但不适合final字段，难以进行单元测试。"
+    },
+    "tags": [
+      "Spring",
+      "字段注入",
+      "依赖注入",
+      "@Autowired"
+    ]
+  },
+  "k_1788687205854_nmsu8t": {
+    "id": "k_1788687205854_nmsu8t",
+    "label": "Spring 循环依赖问题",
+    "role": "problem",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687205854_nmsu8t",
+      "title": "Spring 循环依赖问题",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "循环依赖是指两个或多个Bean相互依赖，形成一个环形的依赖关系。"
+        },
+        {
+          "id": "types",
+          "label": "处理方式",
+          "content": "Spring容器对不同类型循环依赖的处理能力：\n\n1. **构造函数循环依赖**：无法处理，会抛出BeanCurrentlyInCreationException\n2. **Setter循环依赖（单例）**：可以处理，Spring通过三级缓存解决\n3. **prototype作用域循环依赖**：无法处理"
+        }
+      ],
+      "rootContent": "Spring循环依赖是指两个或多个Bean相互依赖形成环形关系。Spring通过三级缓存可以解决单例Setter循环依赖，但无法处理构造函数循环依赖和prototype作用域循环依赖。"
+    },
+    "tags": [
+      "Spring",
+      "循环依赖",
+      "三级缓存"
+    ]
+  },
+  "k_1788687262287_xkw1l3": {
+    "id": "k_1788687262287_xkw1l3",
+    "label": "Spring 依赖注入方式",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687262287_xkw1l3",
+      "title": "Spring 依赖注入方式",
+      "tabs": [
+        {
+          "id": "overview",
+          "label": "概述",
+          "content": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。主要包括：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖\n2. **Setter注入** - 通过setter方法注入依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（较少使用）\n\n不同的注入方式适用于不同的场景，需要根据实际需求选择合适的方式。"
+        }
+      ],
+      "rootContent": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。"
+    },
+    "tags": [
+      "Spring",
+      "依赖注入",
+      "IoC",
+      "DI"
+    ]
+  },
+  "k_1788687262287_2mbxso": {
+    "id": "k_1788687262287_2mbxso",
+    "label": "构造函数注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687262287_2mbxso",
+      "title": "构造函数注入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过构造函数参数注入依赖，是最常用的注入方式之一。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public UserService(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```"
+        },
+        {
+          "id": "pros",
+          "label": "优点",
+          "content": "- 依赖对象在对象创建时就已经注入\n- 可以声明依赖为final，保证不可变\n- 适合必填依赖\n- 利于单元测试"
+        }
+      ],
+      "rootContent": "构造函数注入通过构造函数参数注入依赖，是最常用的注入方式之一。依赖对象在对象创建时就已经注入，可以声明依赖为final保证不可变，适合必填依赖。"
+    },
+    "tags": [
+      "Spring",
+      "构造函数注入",
+      "依赖注入"
+    ]
+  },
+  "k_1788687262287_ttdlm9": {
+    "id": "k_1788687262287_ttdlm9",
+    "label": "Setter注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687262287_ttdlm9",
+      "title": "Setter注入",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "通过setter方法注入依赖，灵活性高。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    private UserDao userDao;\n    \n    public void setUserDao(UserDao userDao) {\n        this.userDao = userDao;\n    }\n}\n```"
+        },
+        {
+          "id": "pros",
+          "label": "优点",
+          "content": "- 依赖可选\n- 可以在对象创建后修改依赖\n- 适合可选依赖"
+        }
+      ],
+      "rootContent": "Setter注入通过setter方法注入依赖，灵活性高。依赖可选，可以在对象创建后修改依赖，适合可选依赖。"
+    },
+    "tags": [
+      "Spring",
+      "Setter注入",
+      "依赖注入"
+    ]
+  },
+  "k_1788687262287_i0b8b7": {
+    "id": "k_1788687262287_i0b8b7",
+    "label": "字段注入",
+    "role": "concept",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687262287_i0b8b7",
+      "title": "字段注入（注解方式）",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "直接在字段上使用@Autowired或@Resource注解进行依赖注入。"
+        },
+        {
+          "id": "example",
+          "label": "示例",
+          "content": "```java\npublic class UserService {\n    @Autowired\n    private UserDao userDao;\n}\n```"
+        },
+        {
+          "id": "pros-cons",
+          "label": "优缺点",
+          "content": "**优点**：\n- 代码简洁\n- 减少样板代码\n\n**缺点**：\n- 不适合final字段\n- 难以进行单元测试\n- 违反单一职责原则"
+        }
+      ],
+      "rootContent": "字段注入直接在字段上使用@Autowired或@Resource注解。代码简洁但不适合final字段，难以进行单元测试。"
+    },
+    "tags": [
+      "Spring",
+      "字段注入",
+      "依赖注入",
+      "@Autowired"
+    ]
+  },
+  "k_1788687262287_2ct30p": {
+    "id": "k_1788687262287_2ct30p",
+    "label": "Spring 循环依赖问题",
+    "role": "problem",
+    "dimensions": [
+      "spring",
+      "java",
+      "ioc"
+    ],
+    "card": {
+      "nodeId": "k_1788687262287_2ct30p",
+      "title": "Spring 循环依赖问题",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "循环依赖是指两个或多个Bean相互依赖，形成一个环形的依赖关系。"
+        },
+        {
+          "id": "types",
+          "label": "处理方式",
+          "content": "Spring容器对不同类型循环依赖的处理能力：\n\n1. **构造函数循环依赖**：无法处理，会抛出BeanCurrentlyInCreationException\n2. **Setter循环依赖（单例）**：可以处理，Spring通过三级缓存解决\n3. **prototype作用域循环依赖**：无法处理"
+        }
+      ],
+      "rootContent": "Spring循环依赖是指两个或多个Bean相互依赖形成环形关系。Spring通过三级缓存可以解决单例Setter循环依赖，但无法处理构造函数循环依赖和prototype作用域循环依赖。"
+    },
+    "tags": [
+      "Spring",
+      "循环依赖",
+      "三级缓存"
+    ]
   }
 }

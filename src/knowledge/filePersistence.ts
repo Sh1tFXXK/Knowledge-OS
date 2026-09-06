@@ -3,7 +3,7 @@ import { APP_STATE_VERSION, createEmptyAppState } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question } from '../types';
 import { migrateNodePool } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
-import { normalizeKnowledgePointTimeline } from './timeline';
+import { normalizeEvolutionEvents, type KnowledgeEvolutionEvent } from './timelineEvolution';
 
 const FILES = {
   treeData: 'tree-data.json',
@@ -11,7 +11,7 @@ const FILES = {
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
   inferenceResponses: 'inference-responses.json',
-  timeline: 'timeline.json',
+  evolutionEvents: 'evolution-events.json',
 };
 
 async function fetchFile<T>(filename: string, fallback: T): Promise<T> {
@@ -48,7 +48,7 @@ export type PersistedSliceKey =
   | 'knowledgeEdges'
   | 'questions'
   | 'inferenceResponses'
-  | 'timeline';
+  | 'evolutionEvents';
 
 export type PersistedSlices = Pick<PersistedAppState, PersistedSliceKey>;
 
@@ -58,7 +58,7 @@ export const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
   'knowledgeEdges',
   'questions',
   'inferenceResponses',
-  'timeline',
+  'evolutionEvents',
 ] as const;
 
 const SLICE_FILES: Record<PersistedSliceKey, string> = {
@@ -67,7 +67,7 @@ const SLICE_FILES: Record<PersistedSliceKey, string> = {
   knowledgeEdges: FILES.knowledgeEdges,
   questions: FILES.questions,
   inferenceResponses: FILES.inferenceResponses,
-  timeline: FILES.timeline,
+  evolutionEvents: FILES.evolutionEvents,
 };
 
 export function pickPersistedSlices(state: PersistedAppState): PersistedSlices {
@@ -77,7 +77,7 @@ export function pickPersistedSlices(state: PersistedAppState): PersistedSlices {
     knowledgeEdges: state.knowledgeEdges,
     questions: state.questions,
     inferenceResponses: state.inferenceResponses,
-    timeline: state.timeline,
+    evolutionEvents: state.evolutionEvents,
   };
 }
 
@@ -113,14 +113,14 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     knowledgeEdges,
     questions,
     inferenceResponses,
-    timeline,
+    evolutionEvents,
   ] = await Promise.all([
     fetchFile<TreeNode | null>(FILES.treeData, null),
     fetchFile<Record<string, KnowledgeNode> | null>(FILES.nodePool, null),
     fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
     fetchFile<Question[] | null>(FILES.questions, null),
     fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
-    fetchFile<unknown>(FILES.timeline, null),
+    fetchFile<unknown>(FILES.evolutionEvents, null),
   ]);
 
   const state: Partial<PersistedAppState> = {
@@ -132,7 +132,7 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
   if (inferenceResponses) state.inferenceResponses = inferenceResponses;
-  state.timeline = normalizeKnowledgePointTimeline(timeline);
+  state.evolutionEvents = normalizeEvolutionEvents(evolutionEvents);
 
   return state;
 }
@@ -159,7 +159,7 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
       ...emptyState.inferenceResponses,
       ...(fileState.inferenceResponses ?? {}),
     },
-    timeline: fileState.timeline ?? emptyState.timeline,
+    evolutionEvents: fileState.evolutionEvents ?? emptyState.evolutionEvents,
   };
 }
 

@@ -6,7 +6,7 @@ import {
 } from './state';
 import { migrateAppState } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
-import { normalizeKnowledgePointTimeline } from './timeline';
+import { normalizeEvolutionEvents } from './timelineEvolution';
 
 // 历史版本曾把全量状态写入 localStorage（STORAGE_KEY = 'knowledge-os:app-state-v1'），
 // 但加载路径始终读取 data/*.json，localStorage 从未被读回——每次 mutation 同步序列化
@@ -32,7 +32,7 @@ function normalizeAppState(raw: Record<string, unknown>): PersistedAppState {
     nodePool: (raw.nodePool as Record<string, KnowledgeNode>) || empty.nodePool,
     knowledgeEdges: (raw.knowledgeEdges as any[]) || [],
     questions: (raw.questions as any[]) || [],
-    timeline: normalizeKnowledgePointTimeline(raw.timeline),
+    evolutionEvents: normalizeEvolutionEvents(raw.evolutionEvents),
   } as PersistedAppState);
   return {
     ...migrated,
@@ -76,7 +76,7 @@ export function parseImportedAppState(json: string): PersistedAppState | null {
       return {
         ...migrated,
         version: APP_STATE_VERSION,
-        timeline: normalizeKnowledgePointTimeline(migrated.timeline),
+        evolutionEvents: normalizeEvolutionEvents(migrated.evolutionEvents),
         treeData: normalizeTreeNode(migrated.treeData),
       };
     }
