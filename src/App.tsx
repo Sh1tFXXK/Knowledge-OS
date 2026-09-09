@@ -17,7 +17,7 @@ import './styles/timeline.css';
 
 import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
-import ReasoningKernel from './core/ReasoningKernel';
+import FocusStage from './core/FocusStage';
 import RightSidePanel from './layout/RightSidePanel';
 
 // 非默认视图按需加载：只有切到对应视图才拉取对应代码块
@@ -193,7 +193,7 @@ export default function App() {
         ) : (
           /* 默认：永远显示推理内核（核心视图） */
           <section className="center-view" id="center-view">
-            <ReasoningKernel />
+            <FocusStage />
           </section>
         )}
         </Suspense>

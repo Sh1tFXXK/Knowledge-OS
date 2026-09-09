@@ -3,7 +3,7 @@ import DimensionCanvas from './DimensionCanvas';
 import SubsystemStrip from './SubsystemStrip';
 
 /** 中心主镜头：所有树节点统一为知识节点，不做文件夹/节点区分 */
-export default function ReasoningKernel() {
+export default function FocusStage() {
   const nodePool = useGraphStore((s) => s.nodePool);
   const focusNodeId = useGraphStore((s) => s.focusNodeId);
 
