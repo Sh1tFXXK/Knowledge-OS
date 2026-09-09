@@ -268,7 +268,6 @@ interface GraphState {
 
   initialize: () => Promise<void>;
   save: () => void;
-  setSelectedNode: (id: string | null) => void;
   /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
   /** @alias setSelectedNodeOnly */
@@ -284,11 +283,7 @@ interface GraphState {
     tags: readonly string[],
   ) => boolean;
   selectTreeEntry: (treeNodeId: string) => void;
-  getTreeSupplement: () => TreeRefSupplement | null;
   getKnowledgeExplanation: () => NodeExplanation | null;
-  getActiveDimension: () => string;
-  extractView: (scope: ViewScope) => ViewDataPack;
-  setHoveredNode: (id: string | null) => void;
 
   addKnowledgeEdge: (
     source: string,
@@ -314,7 +309,6 @@ interface GraphState {
     id: string,
     relationKind: KnowledgeEdge['relationKind'],
   ) => void;
-  updateKnowledgeNodeLabel: (id: string, label: string) => void;
   updateKnowledgeViewDimensions: (
     id: string,
     viewDimensions: NonNullable<KnowledgeNode['viewDimensions']>,
@@ -322,29 +316,22 @@ interface GraphState {
 
   addNode: (node: GraphNode, zone: 'axiom' | 'mechanism' | 'conclusion') => void;
   removeNode: (id: string) => void;
-  updateNode: (id: string, updates: Partial<GraphNode>) => void;
   addEdge: (edge: GraphEdge) => void;
   removeEdge: (id: string) => void;
 
   addNotification: (message: string, type: NotificationItem['type']) => void;
   removeNotification: (id: string) => void;
-  setTheme: (theme: ThemeType) => void;
-  toggleTheme: () => void;
-  setCurrentPerspective: (p: Perspective | null) => void;
   setActiveView: (view: AppView) => void;
   setActiveEvent: (id: string | null) => void;
   setFollowSelection: (follow: boolean) => void;
   openSupertag: (tag: string) => void;
   undo: () => void;
-  getAllNodes: () => GraphNode[];
 
   toggleQuestion: (id: string) => void;
   addQuestion: (text: string, relatedNodeId?: string) => void;
   removeQuestion: (id: string) => void;
   updateQuestion: (id: string, text: string) => void;
   answerQuestion: (id: string, answer: string, answerSteps?: QuestionAnswerStep[]) => void;
-  linkQuestionToNode: (questionId: string, nodeId: string) => void;
-  addRule: (rule: Rule) => void;
 
   exportKnowledgeJson: () => string;
   importKnowledgeJson: (json: string) => boolean;
@@ -359,22 +346,12 @@ interface GraphState {
   ) => void;
   updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
   updateKnowledgeRootTable: (knowledgeId: string, table: ExplanationTable | undefined) => void;
-  addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
-  removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
   updateKnowledgeTabTable: (
     knowledgeId: string,
     tabId: string,
     table: ExplanationTable | undefined,
   ) => void;
-  renameKnowledgeTab: (knowledgeId: string, tabId: string, label: string) => void;
-  addKnowledgeTabPage: (
-    knowledgeId: string,
-    tabId: string,
-    label: string,
-    parentPageId?: string | null,
-  ) => string | null;
-  removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
   updateKnowledgeTabPageTable: (
     knowledgeId: string,
@@ -382,7 +359,6 @@ interface GraphState {
     pageId: string,
     table: ExplanationTable | undefined,
   ) => void;
-  renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   /** 删除知识节点并同步移除对应目录项（子目录上移保留） */
   removeKnowledgeNodeKeepTree: (knowledgeId: string) => void;
@@ -412,9 +388,6 @@ interface GraphState {
   copyTreeNode: (nodeId: string, nextParentId: string) => boolean;
   copyTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
-
-  /** @deprecated 璇风敤 createKnowledgeAndLink */
-  addChildNode: (parentId: string, label: string) => void;
 }
 
 function snapshotState(state: GraphState): PersistedAppState {
@@ -582,17 +555,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().addNotification('已保存到本地文件', 'success');
     },
 
-    setSelectedNode: (id) => {
-      const state = get();
-      set({
-        selectedNodeId: id,
-        focusNodeId: id,
-        selectedTreeNodeId: null,
-        selectedQuestionId: pickQuestionForFocus(state.questions, id),
-        activeExplanationSelection: null,
-      });
-    },
-
     setSelectedNodeOnly: (id) =>
       set((state) => ({
         selectedNodeId: id,
@@ -758,12 +720,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       });
     },
 
-    getTreeSupplement: () => {
-      const state = get();
-      if (!state.selectedTreeNodeId) return null;
-      return findTreeNodeById(state.treeData, state.selectedTreeNodeId)?.supplement ?? null;
-    },
-
     getKnowledgeExplanation: () => {
       const state = get();
       const selectedTree = state.selectedTreeNodeId
@@ -815,19 +771,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       }));
       return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, rootContent: String(base.rootContent ?? '').trim() || cardDefinition, tabs };
     },
-
-    getActiveDimension: () => get().currentPerspective?.id ?? 'all',
-
-    extractView: (scope) => {
-      const state = get();
-      return extractSubgraph(state.nodePool, state.knowledgeEdges, {
-        focus: state.focusNodeId,
-        scope,
-        dimension: state.currentPerspective?.id ?? 'all',
-      });
-    },
-
-    setHoveredNode: (id) => set({ hoveredNodeId: id }),
 
     addKnowledgeEdge: (source, target, type, label, dimensions) => {
       if (!get().nodePool[source] || !get().nodePool[target]) return;
@@ -956,30 +899,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    updateKnowledgeNodeLabel: (id, label) => {
-      const trimmed = label.trim();
-      if (!trimmed) return;
-      const state = get();
-      const node = state.nodePool[id];
-      if (!node) return;
-      if (node.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const card = { ...node.card, title: trimmed };
-      const nodePool = {
-        ...state.nodePool,
-        [id]: {
-          ...node,
-          label: trimmed,
-          tags: tagsForRenamedKnowledgeNode(node, trimmed),
-          card,
-        },
-      };
-      set({ nodePool });
-      persist();
-    },
-
     updateKnowledgeViewDimensions: (id, viewDimensions) => {
       const state = get();
       const node = state.nodePool[id];
@@ -1050,18 +969,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    updateNode: (id, updates) => {
-      const state = get();
-      const updateIn = (arr: GraphNode[]) =>
-        arr.map((n) => (n.id === id ? { ...n, ...updates } : n));
-      set({
-        axioms: updateIn(state.axioms),
-        mechanisms: updateIn(state.mechanisms),
-        conclusions: updateIn(state.conclusions),
-      });
-      persist();
-    },
-
     addEdge: (edge) => {
       const state = get();
       set({
@@ -1091,9 +998,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
     removeNotification: (id) =>
       set((s) => ({ notifications: s.notifications.filter((n) => n.id !== id) })),
 
-    setTheme: (theme) => set({ theme }),
-    toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
-    setCurrentPerspective: (p) => set({ currentPerspective: p }),
     setActiveView: (view) => set({ activeView: view }),
     setActiveEvent: (id) => {
       if (id) {
@@ -1148,11 +1052,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         set({ edges: data as unknown as GraphEdge[] });
       }
       set((s) => ({ history: s.history.slice(0, -1) }));
-    },
-
-    getAllNodes: () => {
-      const s = get();
-      return [...s.axioms, ...s.mechanisms, ...s.conclusions];
     },
 
     toggleQuestion: (id) => {
@@ -1245,24 +1144,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    linkQuestionToNode: (questionId, nodeId) => {
-      const state = get();
-      // 妫€鏌ヨ妭鐐规槸鍚﹀瓨鍦?
-      if (!state.nodePool[nodeId]) return;
-
-      set((s) => ({
-        questions: s.questions.map((q) =>
-          q.id === questionId ? { ...q, relatedNodeId: nodeId, updatedAt: Date.now() } : q,
-        ),
-      }));
-      persist();
-    },
-
-    addRule: (rule) => {
-      set((s) => ({ rules: [...s.rules, rule] }));
-      persist();
-    },
-
     exportKnowledgeJson: () => exportAppStateJson(snapshotState(get())),
 
     importKnowledgeJson: (json) => {
@@ -1320,60 +1201,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    addKnowledgeTab: (knowledgeId, label, parentTabId = null) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || existing.locked || !trimmedLabel) return null;
-
-      const idPrefix = `${knowledgeId}-tab-`;
-      let tabId = `${idPrefix}${Date.now()}`;
-      let suffix = 1;
-      // ID 在整棵 Tab 树中保持唯一（包含子 Tab）
-      const allTabIds = new Set<string>();
-      const collectIds = (tabs: ExplanationTab[]) => {
-        for (const t of tabs) {
-          allTabIds.add(t.id);
-          if (t.tabs) collectIds(t.tabs);
-        }
-      };
-      collectIds(existing.card.tabs);
-      while (allTabIds.has(tabId)) {
-        tabId = `${idPrefix}${Date.now()}-${suffix}`;
-        suffix += 1;
-      }
-
-      const newTab: ExplanationTab = { id: tabId, label: trimmedLabel, content: '' };
-
-      if (parentTabId) {
-        // 加为子 Tab
-        const parentExists = findTabRecursive(existing.card.tabs, parentTabId);
-        if (!parentExists) return null;
-        const tabs = appendChildTab(existing.card.tabs, parentTabId, newTab);
-        get().updateKnowledgeCard(knowledgeId, { tabs });
-      } else {
-        // 加为顶层 Tab
-        get().updateKnowledgeCard(knowledgeId, {
-          tabs: [...existing.card.tabs, newTab],
-        });
-      }
-      return tabId;
-    },
-
-    removeKnowledgeTab: (knowledgeId, tabId) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked) return;
-      const isTopLevel = existing.card.tabs.some((t) => t.id === tabId);
-      if (tabId === DEFINITION_TAB_ID && !isTopLevel) return;
-      // 递归查找并删除（支持删子 Tab）
-      const before = JSON.stringify(existing.card.tabs);
-      const nextTabs = removeTabRecursive(existing.card.tabs, tabId);
-      const after = JSON.stringify(nextTabs);
-      if (before === after) return;
-      get().updateKnowledgeCard(knowledgeId, { tabs: nextTabs });
-    },
-
     updateKnowledgeTab: (knowledgeId, tabId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -1420,81 +1247,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().updateKnowledgeCard(knowledgeId, { rootTable: table });
     },
 
-    renameKnowledgeTab: (knowledgeId, tabId, label) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || !trimmedLabel) return;
-      if (existing.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, label: trimmedLabel }));
-      if (tabs.every((tab, index) => tab === existing.card.tabs[index])) return;
-      get().updateKnowledgeCard(knowledgeId, { tabs });
-    },
-
-    addKnowledgeTabPage: (knowledgeId, tabId, label, parentPageId = null) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || existing.locked || !trimmedLabel) return null;
-
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return null;
-      const pages = pagesForTab(existing.card, tab);
-
-      const pageIdPrefix = `${knowledgeId}-${tabId}-page-`;
-      let pageId = `${pageIdPrefix}${Date.now()}`;
-      let suffix = 1;
-      // ID 在整棵 Page 树中保持唯一
-      const allPageIds = new Set<string>();
-      const collectIds = (list: ExplanationPage[]) => {
-        for (const p of list) {
-          allPageIds.add(p.id);
-          if (p.pages) collectIds(p.pages);
-        }
-      };
-      collectIds(pages);
-      while (allPageIds.has(pageId)) {
-        pageId = `${pageIdPrefix}${Date.now()}-${suffix}`;
-        suffix += 1;
-      }
-
-      const newPage: ExplanationPage = { id: pageId, label: trimmedLabel, content: '' };
-
-      let nextPages: ExplanationPage[];
-      if (parentPageId) {
-        // 加为子 Page
-        const parentExists = findPageRecursive(pages, parentPageId);
-        if (!parentExists) return null;
-        nextPages = appendChildPage(pages, parentPageId, newPage);
-      } else {
-        // 加为顶层 Page（在该 Tab 下）
-        nextPages = [...pages, newPage];
-      }
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-      return pageId;
-    },
-
-    removeKnowledgeTabPage: (knowledgeId, tabId, pageId) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked) return;
-
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      // 递归删除
-      const nextPages = removePageRecursive(pages, pageId);
-      const before = JSON.stringify(pages);
-      const after = JSON.stringify(nextPages);
-      if (before === after) return;
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-    },
-
     updateKnowledgeTabPage: (knowledgeId, tabId, pageId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -1526,24 +1278,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (!tab) return;
       const pages = pagesForTab(existing.card, tab);
       const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, table }));
-      if (nextPages.every((page, index) => page === pages[index])) return;
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-    },
-
-    renameKnowledgeTabPage: (knowledgeId, tabId, pageId, label) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || !trimmedLabel) return;
-      if (existing.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, label: trimmedLabel }));
       if (nextPages.every((page, index) => page === pages[index])) return;
 
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
@@ -1786,10 +1520,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       }
       set({ treeData, knowledgeEdges });
       persist();
-    },
-
-    addChildNode: (parentId, label) => {
-      get().createKnowledgeAndLink(parentId, label);
     },
 
     removeTreeNode: (nodeId) => {

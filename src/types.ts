@@ -302,7 +302,7 @@ export enum ExplanationSelectionKind {
   Path = 'path',
 }
 
-export interface ExplanationRootSelection {
+interface ExplanationRootSelection {
   kind: ExplanationSelectionKind.Root;
   nodeId: string;
 }
@@ -314,7 +314,7 @@ export interface ExplanationContentSelection {
   pageId: string | null;
 }
 
-export interface ExplanationPathSelection {
+interface ExplanationPathSelection {
   kind: ExplanationSelectionKind.Path;
   nodeId: string;
   treeNodeId: string;
@@ -340,7 +340,7 @@ export interface QuestionAnswerStep {
   note?: string;
 }
 
-export enum QuestionKind {
+enum QuestionKind {
   Definition = 'definition',
   Mechanism = 'mechanism',
   Comparison = 'comparison',
@@ -349,18 +349,18 @@ export enum QuestionKind {
   Recall = 'recall',
 }
 
-export enum QuestionDifficulty {
+enum QuestionDifficulty {
   Basic = 'basic',
   Intermediate = 'intermediate',
   Advanced = 'advanced',
 }
 
-export enum QuestionSourceKind {
+enum QuestionSourceKind {
   Document = 'document',
   Web = 'web',
 }
 
-export interface QuestionSource {
+interface QuestionSource {
   kind: QuestionSourceKind;
   /** 稳定来源标识：文档内容哈希或网页 URL。 */
   sourceId: string;

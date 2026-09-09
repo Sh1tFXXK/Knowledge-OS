@@ -62,13 +62,6 @@ export function buildTemporalIndexProjection(
   };
 }
 
-/** 瞬时的时态上下文：当前作用域、当前事件、是否跟随外部节点选择。 */
-export interface TemporalContext {
-  scopeRootId: string | null;
-  activeEventId: string | null;
-  followSelection: boolean;
-}
-
 export function resolveTemporalContext(params: {
   events: readonly KnowledgeEvolutionEvent[];
   scopeRootId: string | null;

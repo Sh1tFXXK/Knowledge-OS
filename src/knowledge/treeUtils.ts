@@ -193,7 +193,7 @@ export function moveTreeNode(
   };
 }
 
-export function setTreeSupplement(
+function setTreeSupplement(
   root: TreeNode,
   treeNodeId: string,
   supplement: TreeRefSupplement | undefined,

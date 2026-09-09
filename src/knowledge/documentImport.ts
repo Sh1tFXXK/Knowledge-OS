@@ -1,5 +1,5 @@
-export const MAX_DOCUMENT_IMPORT_BYTES = 20 * 1024 * 1024;
-export const MAX_PDF_IMPORT_BYTES = 100 * 1024 * 1024;
+const MAX_DOCUMENT_IMPORT_BYTES = 20 * 1024 * 1024;
+const MAX_PDF_IMPORT_BYTES = 100 * 1024 * 1024;
 
 export enum DocumentKind {
   Pdf = 'pdf',
@@ -29,7 +29,7 @@ export enum DocumentOcrProvider {
   MinerU = 'mineru',
 }
 
-export interface DocumentImportStandardResult {
+interface DocumentImportStandardResult {
   characterCount: number;
   sectionCount: number;
   questionCount: number;
@@ -38,7 +38,7 @@ export interface DocumentImportStandardResult {
   relationCount: number;
 }
 
-export enum DocumentStructureMode {
+enum DocumentStructureMode {
   Outline = 'outline',
   QuestionBank = 'question-bank',
 }

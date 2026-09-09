@@ -7,7 +7,7 @@ export interface DirectContainmentRelation {
   edge: KnowledgeEdge;
 }
 
-export function isContainmentEdge(edge: KnowledgeEdge): boolean {
+function isContainmentEdge(edge: KnowledgeEdge): boolean {
   return edge.type === CONTAINMENT_EDGE_TYPE;
 }
 

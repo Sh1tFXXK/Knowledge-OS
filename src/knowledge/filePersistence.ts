@@ -50,7 +50,7 @@ export type PersistedSliceKey =
 
 export type PersistedSlices = Pick<PersistedAppState, PersistedSliceKey>;
 
-export const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
+const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
   'treeData',
   'nodePool',
   'knowledgeEdges',
@@ -101,7 +101,7 @@ export async function savePersistedSlices(
   return results.filter((key): key is PersistedSliceKey => key !== null);
 }
 
-export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> {
+async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> {
   const [
     treeData,
     nodePool,

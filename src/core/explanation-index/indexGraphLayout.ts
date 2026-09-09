@@ -16,11 +16,11 @@ import {
 
 const ROOT_SELECTION_KIND = 'root' as ExplanationSelectionKind.Root;
 
-export const UnifiedIndexNodeKind = {
+const UnifiedIndexNodeKind = {
   Knowledge: 'knowledge',
 } as const;
 
-export type UnifiedIndexNodeKind = typeof UnifiedIndexNodeKind[keyof typeof UnifiedIndexNodeKind];
+type UnifiedIndexNodeKind = typeof UnifiedIndexNodeKind[keyof typeof UnifiedIndexNodeKind];
 
 export const UnifiedIndexMemberKind = {
   Tab: 'tab',
@@ -38,17 +38,17 @@ export const UnifiedIndexEdgeKind = {
 
 export type UnifiedIndexEdgeKind = typeof UnifiedIndexEdgeKind[keyof typeof UnifiedIndexEdgeKind];
 
-export interface UnifiedIndexNodePosition {
+interface UnifiedIndexNodePosition {
   x: number;
   y: number;
 }
 
-export interface UnifiedIndexNodeSize {
+interface UnifiedIndexNodeSize {
   width: number;
   height: number;
 }
 
-export interface UnifiedIndexMember {
+interface UnifiedIndexMember {
   id: string;
   kind: UnifiedIndexMemberKind;
   label: string;
@@ -86,7 +86,7 @@ export interface UnifiedIndexGraphEdge {
   kind: TypeRelationKind | UnifiedIndexEdgeKind;
 }
 
-export interface UnifiedIndexContainmentFrame {
+interface UnifiedIndexContainmentFrame {
   id: string;
   nodeId: string;
   knowledgeNodeId: string;
@@ -501,7 +501,7 @@ function tagsForSelection(
   return findPage(explicitPagesForTab(explanation, tab), selection.pageId)?.tags ?? [];
 }
 
-export function collectIndexMembers(
+function collectIndexMembers(
   index: ExplanationIndexNode,
   explanation?: NodeExplanation,
 ): UnifiedIndexMember[] {

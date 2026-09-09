@@ -25,7 +25,7 @@ export interface SectionProps {
 
 type SectionComponent = (props: SectionProps) => any;
 
-export const LAYOUT_RENDERERS: Record<SectionLayout, SectionComponent> = {
+const LAYOUT_RENDERERS: Record<SectionLayout, SectionComponent> = {
   stack: StackSection,
   grid: GridSection,
   tree: TreeSection,

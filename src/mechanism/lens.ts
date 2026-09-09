@@ -14,7 +14,7 @@ import {
   type RelationVisual,
 } from './core';
 
-export interface GraphLensNode {
+interface GraphLensNode {
   entity: Entity;
   visual: EntityVisual | null;
   active: boolean;
@@ -46,26 +46,26 @@ export interface TimelineLens {
   items: readonly TimelineLensItem[];
 }
 
-export interface ScenePoint {
+interface ScenePoint {
   x: number;
   y: number;
   z: number;
 }
 
-export interface SceneLensObject {
+interface SceneLensObject {
   entity: Entity;
   position: ScenePoint;
   visual: EntityVisual | null;
 }
 
-export interface SceneLensConnection {
+interface SceneLensConnection {
   relation: Relation;
   source: ScenePoint;
   target: ScenePoint;
   visual: RelationVisual | null;
 }
 
-export interface SceneLensPulse {
+interface SceneLensPulse {
   stepId: ProcessStepId;
   sourceId: EntityId;
   targetId: EntityId;

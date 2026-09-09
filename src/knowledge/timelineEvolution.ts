@@ -8,7 +8,7 @@ export const TimelineFacet = {
 
 export type TimelineFacet = typeof TimelineFacet[keyof typeof TimelineFacet];
 
-export interface KnowledgeEvolutionChange {
+interface KnowledgeEvolutionChange {
   targetNodeId: string;
   facet: TimelineFacet;
   before: string;

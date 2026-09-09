@@ -60,7 +60,7 @@ export interface RelationVisual {
   weight: VisualWeight;
 }
 
-export interface ProcessStep {
+interface ProcessStep {
   id: ProcessStepId;
   label: string;
   relationId: RelationId;

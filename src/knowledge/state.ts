@@ -22,7 +22,7 @@ import type {
 } from '../types';
 import type { KnowledgeEvolutionEvent } from './timelineEvolution';export const APP_STATE_VERSION = 7 as const;
 
-export interface GraphSlice {
+interface GraphSlice {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
   conclusions: GraphNode[];

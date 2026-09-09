@@ -21,12 +21,12 @@ export interface TypeRelationProjection {
   path: readonly string[];
 }
 
-export interface TypeRelationGraphNode {
+interface TypeRelationGraphNode {
   nodeId: string;
   depth: number;
 }
 
-export interface TypeRelationGraphEdge {
+interface TypeRelationGraphEdge {
   edgeId: string;
   sourceId: string;
   targetId: string;

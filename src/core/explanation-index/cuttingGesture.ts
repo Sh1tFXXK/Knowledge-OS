@@ -8,7 +8,7 @@ export interface CuttingSegment {
   end: CuttingPoint;
 }
 
-export interface CuttingRect {
+interface CuttingRect {
   left: number;
   top: number;
   right: number;
@@ -51,7 +51,7 @@ function pointOnSegment(point: CuttingPoint, segment: CuttingSegment): boolean {
   );
 }
 
-export function segmentsIntersect(left: CuttingSegment, right: CuttingSegment): boolean {
+function segmentsIntersect(left: CuttingSegment, right: CuttingSegment): boolean {
   const leftStart = cross(left.start, left.end, right.start);
   const leftEnd = cross(left.start, left.end, right.end);
   const rightStart = cross(right.start, right.end, left.start);
@@ -81,7 +81,7 @@ function pointInRect(point: CuttingPoint, rect: CuttingRect): boolean {
   );
 }
 
-export function segmentIntersectsRect(segment: CuttingSegment, rect: CuttingRect): boolean {
+function segmentIntersectsRect(segment: CuttingSegment, rect: CuttingRect): boolean {
   if (pointInRect(segment.start, rect) || pointInRect(segment.end, rect)) return true;
 
   const topLeft = { x: rect.left, y: rect.top };
