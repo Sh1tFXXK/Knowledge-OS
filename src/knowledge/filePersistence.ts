@@ -10,7 +10,6 @@ const FILES = {
   nodePool: 'node-pool.json',
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
-  inferenceResponses: 'inference-responses.json',
   evolutionEvents: 'evolution-events.json',
 };
 
@@ -41,13 +40,12 @@ async function saveFile<T>(filename: string, data: T): Promise<void> {
   }
 }
 
-/** 持久化到本地文件的六个数据切片。 */
+/** 持久化到本地文件的数据切片。 */
 export type PersistedSliceKey =
   | 'treeData'
   | 'nodePool'
   | 'knowledgeEdges'
   | 'questions'
-  | 'inferenceResponses'
   | 'evolutionEvents';
 
 export type PersistedSlices = Pick<PersistedAppState, PersistedSliceKey>;
@@ -57,7 +55,6 @@ export const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
   'nodePool',
   'knowledgeEdges',
   'questions',
-  'inferenceResponses',
   'evolutionEvents',
 ] as const;
 
@@ -66,7 +63,6 @@ const SLICE_FILES: Record<PersistedSliceKey, string> = {
   nodePool: FILES.nodePool,
   knowledgeEdges: FILES.knowledgeEdges,
   questions: FILES.questions,
-  inferenceResponses: FILES.inferenceResponses,
   evolutionEvents: FILES.evolutionEvents,
 };
 
@@ -76,12 +72,11 @@ export function pickPersistedSlices(state: PersistedAppState): PersistedSlices {
     nodePool: state.nodePool,
     knowledgeEdges: state.knowledgeEdges,
     questions: state.questions,
-    inferenceResponses: state.inferenceResponses,
     evolutionEvents: state.evolutionEvents,
   };
 }
 
-/** 通过引用对比找出真正变化过的切片：zustand 每次 set 只替换被改的切片。 */
+/** 通过引用对比找出真正变化过的切片：zustand 每个 action 只替换被改的切片。 */
 export function dirtyPersistedSlices(
   next: PersistedSlices,
   saved: Partial<PersistedSlices> | null,
@@ -112,14 +107,12 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
     nodePool,
     knowledgeEdges,
     questions,
-    inferenceResponses,
     evolutionEvents,
   ] = await Promise.all([
     fetchFile<TreeNode | null>(FILES.treeData, null),
     fetchFile<Record<string, KnowledgeNode> | null>(FILES.nodePool, null),
     fetchFile<KnowledgeEdge[] | null>(FILES.knowledgeEdges, null),
     fetchFile<Question[] | null>(FILES.questions, null),
-    fetchFile<Record<string, string> | null>(FILES.inferenceResponses, null),
     fetchFile<unknown>(FILES.evolutionEvents, null),
   ]);
 
@@ -131,7 +124,6 @@ export async function loadStateFromFiles(): Promise<Partial<PersistedAppState>> 
   if (nodePool) state.nodePool = migrateNodePool(nodePool);
   if (knowledgeEdges) state.knowledgeEdges = knowledgeEdges;
   if (questions) state.questions = questions;
-  if (inferenceResponses) state.inferenceResponses = inferenceResponses;
   state.evolutionEvents = normalizeEvolutionEvents(evolutionEvents);
 
   return state;
@@ -155,10 +147,6 @@ export async function loadCompleteStateFromFiles(): Promise<PersistedAppState> {
     questions: fileState.questions ?? emptyState.questions,
     rules: fileState.rules ?? emptyState.rules,
     perspectives: fileState.perspectives ?? emptyState.perspectives,
-    inferenceResponses: {
-      ...emptyState.inferenceResponses,
-      ...(fileState.inferenceResponses ?? {}),
-    },
     evolutionEvents: fileState.evolutionEvents ?? emptyState.evolutionEvents,
   };
 }

@@ -1,0 +1,167 @@
+================ Spring 如何保证并发 Controller 的安全 ================
+## 单例模式的问题
+
+Spring MVC中Controller默认是单例的，这带来了并发安全问题。
+
+## 常见问题
+
+### 实例变量线程不安全
+```java
+@Controller
+public class UserController {
+    private int count; // 实例变量，线程不安全
+    
+    @GetMapping("/count")
+    public int getCount() {
+        return count++; // 并发问题
+    }
+}
+```
+
+## 解决方案
+
+### 方案一：使用局部变量
+```java
+@Controller
+public class UserController {
+    @GetMapping("/count")
+    public int getCount() {
+        int count = 0; // 局部变量，线程安全
+        return count;
+    }
+}
+```
+
+### 方案二：使用ThreadLocal
+```java
+@Controller
+public class UserController {
+    private ThreadLocal<Integer> count = new ThreadLocal<>();
+}
+```
+
+### 方案三：改为多例模式
+```java
+@Controller
+@Scope("prototype")
+public class UserController {
+    private int count;
+}
+```
+
+## 最佳实践
+
+1. 尽量不要在Controller中定义实例变量
+2. 如果必须使用实例变量，使用ThreadLocal
+3. 或者将Controller设为多例
+4. 推荐使用无状态的Controller
+
+================ SpringMVC 面试题 ================
+## 1. Spring MVC的核心组件
+
+- DispatcherServlet：前端控制器
+- HandlerMapping：处理器映射器
+- Controller：控制器
+- ViewResolver：视图解析器
+- View：视图
+
+## 2. Spring MVC的工作流程
+
+1. 请求到达DispatcherServlet
+2. HandlerMapping查找Handler
+3. HandlerAdapter执行Handler
+4. 返回ModelAndView
+5. ViewResolver解析视图
+6. 渲染视图并返回
+
+## 3. @RequestMapping注解的作用
+
+用于映射请求URL到处理方法上，可用于类和方法上。
+
+## 4. @GetMapping和@RequestMapping的区别
+
+- @GetMapping是@RequestMapping的特化
+- @GetMapping只处理GET请求
+- @RequestMapping可以处理所有HTTP方法
+
+## 5. Spring MVC如何保证线程安全
+
+Controller默认是单例的，需要注意：
+- 不在Controller中定义实例变量
+- 使用ThreadLocal管理线程私有数据
+- 或者将Controller设为多例(@Scope("prototype"))
+
+## 6. Spring MVC的参数绑定
+
+- 基本类型：@RequestParam
+- 对象类型：直接绑定
+- 路径变量：@PathVariable
+- 请求体：@RequestBody
+
+## 7. RESTful风格
+
+- GET：查询
+- POST：新增
+- PUT：更新
+- DELETE：删除
+
+================ Spring Boot 面试题 ================
+## 问题一：什么是 Spring Boot？
+
+Spring Boot 是解决这个问题的方法。Spring Boot 已经建立在现有 spring 框架之上。使用 spring 启动，我们避免了之前我们必须做的所有样板代码和配置。
+
+## 问题二：Spring Boot 有哪些优点？
+
+- 减少开发，测试时间和努力
+- 使用 JavaConfig 有助于避免使用 XML
+- 避免大量的 Maven 导入和各种版本冲突
+- 没有单独的 Web 服务器需要
+- 没有 web.xml 文件
+
+## 问题三：什么是 JavaConfig？
+
+Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯 Java 方法。
+
+优点：
+- 面向对象的配置
+- 减少或消除 XML 配置
+- 类型安全和重构友好
+
+## 问题四：如何重新加载 Spring Boot 上的更改？
+
+使用 DEV 工具来实现热部署。
+
+## 问题五：Spring Boot 中的监视器是什么？
+
+Spring Boot Actuator 可帮助您访问生产环境中正在运行的应用程序的当前状态。
+
+## 问题六：如何在自定义端口上运行？
+
+在 application.properties 中指定端口：
+
+```properties
+server.port = 8090
+```
+
+## 问题七：什么是 YAML？
+
+YAML 是一种人类可读的数据序列化语言，通常用于配置文件。
+
+## 问题八：如何实现安全性？
+
+使用 spring-boot-starter-security 依赖项。
+
+## 问题九：什么是 Spring Profiles？
+
+Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。
+
+## 问题十：什么是 Swagger？
+
+Swagger 广泛用于可视化 API，使用 Swagger UI 为前端开发人员提供在线沙箱。
+
+---
+
+## 相关链接
+
+- Spring - 返回Spring主目录
+

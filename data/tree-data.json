@@ -10954,7 +10954,7 @@
                           "children": [
                             {
                               "id": "tree_aop_flow",
-                              "name": "Spring AOP 执行机制（四阶段）",
+                              "name": "执行阶段",
                               "count": 0,
                               "nodeRef": "aop_flow",
                               "children": [
@@ -11034,10 +11034,23 @@
                         },
                         {
                           "id": "tree_vault_javaspringaopspringaop_1fz8q2",
-                          "name": "Spring AOP 的两种代理方式",
+                          "name": "代理方式",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringaopspringaop_1fz8q2",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_aop_proxy_jdk",
+                              "name": "JDK 动态代理",
+                              "count": 0,
+                              "nodeRef": "aop_proxy_jdk"
+                            },
+                            {
+                              "id": "tree_aop_proxy_cglib",
+                              "name": "CGLIB 动态代理",
+                              "count": 0,
+                              "nodeRef": "aop_proxy_cglib"
+                            }
+                          ]
                         }
                       ]
                     },
@@ -11059,13 +11072,6 @@
                           "name": "IoC 理解与初始化",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringiocioc_1jelty",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_vault_ngiocspringbeanfactoryapplicationcontext_18ka3n",
-                          "name": "BeanFactory 与 ApplicationContext 的区别",
-                          "count": 0,
-                          "nodeRef": "k_vault_ngiocspringbeanfactoryapplicationcontext_18ka3n",
                           "children": []
                         },
                         {
@@ -11102,6 +11108,18 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "tree_spring_beanfactory",
+                          "name": "BeanFactory",
+                          "count": 0,
+                          "nodeRef": "spring_beanfactory"
+                        },
+                        {
+                          "id": "tree_spring_appcontext",
+                          "name": "ApplicationContext",
+                          "count": 0,
+                          "nodeRef": "spring_appcontext"
                         }
                       ]
                     },
@@ -11119,25 +11137,41 @@
                           "children": []
                         },
                         {
-                          "id": "tree_vault_javaspringspringmvcmvc_1qc9ok",
-                          "name": "SpringMVC 面试题",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspringspringmvcmvc_1qc9ok",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_vault_javaspringspringmvcspringcontroller_1aryyx",
-                          "name": "Spring 如何保证并发 Controller 的安全",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspringspringmvcspringcontroller_1aryyx",
-                          "children": []
-                        },
-                        {
                           "id": "tree_vault_javaspring04springmvc_133lis",
                           "name": "SpringMVC 请求链路",
                           "count": 0,
                           "nodeRef": "k_vault_javaspring04springmvc_133lis",
                           "children": []
+                        },
+                        {
+                          "id": "tree_mvc_dispatcher",
+                          "name": "DispatcherServlet",
+                          "count": 0,
+                          "nodeRef": "mvc_dispatcher"
+                        },
+                        {
+                          "id": "tree_mvc_handlermapping",
+                          "name": "HandlerMapping",
+                          "count": 0,
+                          "nodeRef": "mvc_handlermapping"
+                        },
+                        {
+                          "id": "tree_mvc_handleradapter",
+                          "name": "HandlerAdapter",
+                          "count": 0,
+                          "nodeRef": "mvc_handleradapter"
+                        },
+                        {
+                          "id": "tree_mvc_viewresolver",
+                          "name": "ViewResolver",
+                          "count": 0,
+                          "nodeRef": "mvc_viewresolver"
+                        },
+                        {
+                          "id": "tree_mvc_view",
+                          "name": "View",
+                          "count": 0,
+                          "nodeRef": "mvc_view"
                         }
                       ]
                     },
@@ -11162,18 +11196,24 @@
                           "children": []
                         },
                         {
-                          "id": "tree_vault_javaspringspringbootspring_tdf3nn",
-                          "name": "Spring Boot 与 Spring 对比",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspringspringbootspring_tdf3nn",
-                          "children": []
-                        },
-                        {
                           "id": "tree_vault_javaspringspringboot_yjdx1u",
                           "name": "Spring Boot 安全",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringspringboot_yjdx1u",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_boot_cors",
+                              "name": "跨域（CORS）",
+                              "count": 0,
+                              "nodeRef": "boot_cors"
+                            },
+                            {
+                              "id": "tree_boot_csrf",
+                              "name": "CSRF 攻击",
+                              "count": 0,
+                              "nodeRef": "boot_csrf"
+                            }
+                          ]
                         },
                         {
                           "id": "tree_vault_javaspringspringboot_woqe5o",
@@ -11201,21 +11241,32 @@
                           "name": "Spring Boot 整合第三方",
                           "count": 0,
                           "nodeRef": "k_vault_javaspringspringboot_g9wkoh",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_vault_javaspringspringboot_1tusfd",
-                          "name": "Spring Boot 其他核心功能",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspringspringboot_1tusfd",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_vault_javaspringspringboot_1cqrx6",
-                          "name": "Spring Boot 面试题",
-                          "count": 0,
-                          "nodeRef": "k_vault_javaspringspringboot_1cqrx6",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_boot_spring_data",
+                              "name": "Spring Data",
+                              "count": 0,
+                              "nodeRef": "boot_spring_data"
+                            },
+                            {
+                              "id": "tree_boot_spring_batch",
+                              "name": "Spring Batch",
+                              "count": 0,
+                              "nodeRef": "boot_spring_batch"
+                            },
+                            {
+                              "id": "tree_boot_websockets",
+                              "name": "WebSockets",
+                              "count": 0,
+                              "nodeRef": "boot_websockets"
+                            },
+                            {
+                              "id": "tree_boot_messaging",
+                              "name": "消息中间件（ActiveMQ / Kafka）",
+                              "count": 0,
+                              "nodeRef": "boot_messaging"
+                            }
+                          ]
                         },
                         {
                           "id": "tree_1785058836669_eiipl5",
@@ -11238,6 +11289,12 @@
                           "count": 0,
                           "nodeRef": "k_1785247674069_capddv",
                           "children": []
+                        },
+                        {
+                          "id": "tree_boot_starter",
+                          "name": "Starter",
+                          "count": 0,
+                          "nodeRef": "boot_starter"
                         }
                       ]
                     },
@@ -11334,28 +11391,6 @@
                           "count": 0,
                           "nodeRef": "k_1784453342028_cfmbey",
                           "children": [
-                            {
-                              "id": "tree_1785231174037_w8amw1",
-                              "name": "AOP",
-                              "count": 0,
-                              "nodeRef": "k_1785231173946_ojp5ux",
-                              "children": [
-                                {
-                                  "id": "tree_1785231334474_qugo58",
-                                  "name": "静态代理",
-                                  "count": 0,
-                                  "nodeRef": "k_1785231334344_i6k8vr",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785231355436_bpwhus",
-                                  "name": "动态代理",
-                                  "count": 0,
-                                  "nodeRef": "k_1785231355339_1plkmy",
-                                  "children": []
-                                }
-                              ]
-                            },
                             {
                               "id": "tree_1785231643819_6g4ywl",
                               "name": "切面（Aspect）",
@@ -12632,7 +12667,20 @@
                                   "name": "代理模式",
                                   "count": 0,
                                   "nodeRef": "k_vault_se_pat_proxy",
-                                  "children": []
+                                  "children": [
+                                    {
+                                      "id": "tree_se_pat_static_proxy",
+                                      "name": "静态代理",
+                                      "count": 0,
+                                      "nodeRef": "se_pat_static_proxy"
+                                    },
+                                    {
+                                      "id": "tree_se_pat_dynamic_proxy",
+                                      "name": "动态代理",
+                                      "count": 0,
+                                      "nodeRef": "se_pat_dynamic_proxy"
+                                    }
+                                  ]
                                 },
                                 {
                                   "id": "tree_vault_se_pat_facade",

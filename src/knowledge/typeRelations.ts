@@ -1,9 +1,12 @@
-import { TypeRelationKind, type KnowledgeEdge } from '../types';
+// 带 .ts 后缀：node --test 直接加载本模块时 ESM 解析要求显式扩展名
+import { TypeRelationKind, type KnowledgeEdge } from '../types.ts';
 
-export enum TypeRelationOrigin {
-  Direct = 'direct',
-  Derived = 'derived',
-}
+// const 对象而非 enum：node --test 以 type-stripping 直接加载本模块，enum 不被支持
+export const TypeRelationOrigin = {
+  Direct: 'direct',
+  Derived: 'derived',
+} as const;
+export type TypeRelationOrigin = typeof TypeRelationOrigin[keyof typeof TypeRelationOrigin];
 
 export interface DirectTypeRelation {
   edge: KnowledgeEdge;

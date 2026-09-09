@@ -79,8 +79,7 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 | `data/tree-data.json` | 目录层级与节点引用 |
 | `data/knowledge-edges.json` | 类型、结构和语义关系 |
 | `data/questions.json` | 问题、答案、难度与来源 |
-| `data/inference-responses.json` | 推理响应记录 |
-| `data/timeline.json` | 知识点快照时间线 |
+| `data/evolution-events.json` | 知识演化事件 |
 
 ## 七、知识导入流水线
 

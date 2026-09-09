@@ -20,9 +20,7 @@ import type {
   Rule,
   TreeNode,
 } from '../types';
-import type { KnowledgeEvolutionEvent } from './timelineEvolution';
-
-export const APP_STATE_VERSION = 7 as const;
+import type { KnowledgeEvolutionEvent } from './timelineEvolution';export const APP_STATE_VERSION = 7 as const;
 
 export interface GraphSlice {
   axioms: GraphNode[];
@@ -40,7 +38,6 @@ export interface PersistedAppState {
   questions: Question[];
   rules: Rule[];
   perspectives: Perspective[];
-  inferenceResponses: Record<string, string>;
   evolutionEvents: KnowledgeEvolutionEvent[];
 }
 
@@ -66,7 +63,6 @@ export function createEmptyAppState(): PersistedAppState {
     questions: [],
     rules: [],
     perspectives: [],
-    inferenceResponses: {},
     evolutionEvents: [],
   };
 }

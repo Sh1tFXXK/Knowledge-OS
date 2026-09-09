@@ -247,7 +247,7 @@ interface GraphState {
   selectedTreeNodeId: string | null;
   focusNodeId: string | null;
   activeExplanationSelection: ExplanationSelection | null;
-  /** 鍙充晶闂璇︽儏闈㈡澘褰撳墠灞曠ず鐨勯棶棰?*/
+  /** 右侧问题详情面板当前展示的问题 */
   selectedQuestionId: string | null;
   hoveredNodeId: string | null;
 
@@ -256,7 +256,6 @@ interface GraphState {
   knowledgeEdges: KnowledgeEdge[];
 
   questions: Question[];
-  inferenceResponses: Record<string, string>;
   rules: Rule[];
   perspectives: Perspective[];
   evolutionEvents: KnowledgeEvolutionEvent[];
@@ -273,7 +272,7 @@ interface GraphState {
   initialize: () => Promise<void>;
   save: () => void;
   setSelectedNode: (id: string | null) => void;
-  /** 浠呮墦寮€鍙充晶瑙ｉ噴鍗★紝涓嶆敼鍙樹腑蹇冮暅澶寸劍鐐?*/
+  /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
   /** @alias setSelectedNodeOnly */
   openCard: (id: string | null) => void;
@@ -436,7 +435,6 @@ function snapshotState(state: GraphState): PersistedAppState {
     questions: state.questions,
     rules: state.rules,
     perspectives: state.perspectives,
-    inferenceResponses: state.inferenceResponses,
     evolutionEvents: state.evolutionEvents,
   };
 }
@@ -459,7 +457,6 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     questions: data.questions,
     rules: data.rules,
     perspectives: data.perspectives,
-    inferenceResponses: data.inferenceResponses,
     evolutionEvents: data.evolutionEvents,
     selectedNodeId: null,
     selectedTreeNodeId: null,
@@ -554,7 +551,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
     nodePool: initialApp.nodePool,
     knowledgeEdges: initialApp.knowledgeEdges,
     questions: initialApp.questions,
-    inferenceResponses: initialApp.inferenceResponses,
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
     evolutionEvents: initialApp.evolutionEvents,
@@ -586,7 +582,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     save: () => {
       persist();
-      get().addNotification('宸蹭繚瀛樺埌鏈湴鏂囦欢', 'success');
+      get().addNotification('已保存到本地文件', 'success');
     },
 
     setSelectedNode: (id) => {
@@ -1559,7 +1555,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     removeKnowledgeNode: (knowledgeId) => {
       const state = get();
 
-      // 1. 鍒犻櫎鑺傜偣锛屽苟绾ц仈娓呴櫎鎵€鏈夊叾瀹冭妭鐐?viewDimensions 涓寚鍚戣 nodeId 鐨勫紩鐢?
+      // 1. 删除节点，并级联清除所有其它节点 viewDimensions 中指向该 nodeId 的引用
       const { [knowledgeId]: _, ...rawNodePool } = state.nodePool;
       const removedIds = new Set([knowledgeId]);
       const nodePool = Object.entries(rawNodePool).reduce((acc, [id, node]) => {
@@ -1572,12 +1568,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return acc;
       }, {} as Record<string, KnowledgeNode>);
 
-      // 2. 鍒犻櫎鐩稿叧鐨勮竟
+      // 2. 删除相关的边
       const knowledgeEdges = state.knowledgeEdges.filter(
         (e) => e.source !== knowledgeId && e.target !== knowledgeId,
       );
 
-      // 3. 绾ц仈鍒犻櫎鐩綍涓墍鏈夊紩鐢ㄦ鑺傜偣鐨勯」鍙婂叾瀛愭爲
+      // 3. 级联删除目录中所有引用该节点的项及其子树
       const cascadeRemoveRefs = (node: TreeNode): TreeNode | null => {
         if (node.nodeRef === knowledgeId) {
           return null;
@@ -1596,7 +1592,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
           ? state.selectedTreeNodeId
           : null;
 
-      // 4. 鍒犻櫎鎴栨竻闄ょ浉鍏抽棶棰樼殑鍏宠仈
+      // 4. 删除或清理相关问题的关联
       const questions = state.questions.map((q) => {
         const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);
         return {
@@ -1606,18 +1602,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
         };
       });
 
-      // 5. 鍒犻櫎鐩稿叧鐨勬帹鐞嗗搷搴?
-      const deletedNode = state.nodePool[knowledgeId];
-      const inferenceResponses = { ...state.inferenceResponses };
-      if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
-        delete inferenceResponses[deletedNode.label];
-      }
       set({
         nodePool,
         knowledgeEdges,
         treeData,
         questions,
-        inferenceResponses,
         selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
         selectedTreeNodeId,
@@ -1673,11 +1662,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         };
       });
 
-      const deletedNode = state.nodePool[knowledgeId];
-      const inferenceResponses = { ...state.inferenceResponses };
-      if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
-        delete inferenceResponses[deletedNode.label];
-      }
       const removedTreeNodes = collectTreeNodes(state.treeData)
         .filter((node) => node.nodeRef === knowledgeId);
       // 删除当前选中节点后自动跳到父目录，避免索引视图空白。
@@ -1704,7 +1688,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         knowledgeEdges,
         treeData,
         questions,
-        inferenceResponses,
         selectedNodeId: nextSelectedNodeId,
         selectedTreeNodeId: nextSelectedTreeNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,

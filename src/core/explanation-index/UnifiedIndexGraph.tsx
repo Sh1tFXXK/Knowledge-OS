@@ -1253,7 +1253,7 @@ export function UnifiedIndexGraph({
   );
 
   return (
-    <div className="explanation-index-unified-graph">
+    <div className={`explanation-index-unified-graph${editable ? ' is-editable' : ''}`}>
       <IndexCanvas
         ariaLabel={`${ownerLabel} IDEA 类型关系图`}
         contentSize={{ width: layout.width, height: layout.height }}
@@ -1559,6 +1559,28 @@ export function UnifiedIndexGraph({
                         }}
                       >
                         <Pencil size={13} aria-hidden="true" />
+                      </button>
+                    )}
+                    {editable
+                      && !graphNode.owner
+                      && !nodePool[graphNode.knowledgeNodeId]?.locked && (
+                      <button
+                        type="button"
+                        className="explanation-index-class-node-delete"
+                        aria-label={`删除节点 ${graphNode.label}（目录保留）`}
+                        title={`删除节点 ${graphNode.label}（目录保留）`}
+                        onClick={(event) => {
+                          event.stopPropagation();
+                          if (!window.confirm(`删除节点“${graphNode.label}”本体？所在目录会保留。`)) return;
+                          onDeleteNodes([graphNode.knowledgeNodeId]);
+                          setSelectedNodeIds((current) => {
+                            const next = new Set(current);
+                            next.delete(graphNode.id);
+                            return next;
+                          });
+                        }}
+                      >
+                        <Trash2 size={13} aria-hidden="true" />
                       </button>
                     )}
                   </div>

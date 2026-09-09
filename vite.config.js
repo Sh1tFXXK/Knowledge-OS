@@ -3,13 +3,16 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { linkImportApi } from './scripts/import/link-import-api.mjs';
 
-const DATA_DIR = path.resolve(process.cwd(), 'data');
+const DATA_DIR = path.resolve(
+  process.env.KNOWLEDGE_OS_DATA_DIR
+    ? path.resolve(process.env.KNOWLEDGE_OS_DATA_DIR)
+    : path.resolve(process.cwd(), 'data'),
+);
 const DATA_FILES = Object.freeze({
   treeData: 'tree-data.json',
   nodePool: 'node-pool.json',
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
-  inferenceResponses: 'inference-responses.json',
   evolutionEvents: 'evolution-events.json',
 });
 const DATA_FILE_NAMES = new Set(Object.values(DATA_FILES));
@@ -25,7 +28,6 @@ const DATA_PAYLOAD_VALIDATORS = new Map([
   [DATA_FILES.nodePool, isRecordPayload],
   [DATA_FILES.knowledgeEdges, Array.isArray],
   [DATA_FILES.questions, Array.isArray],
-  [DATA_FILES.inferenceResponses, isRecordPayload],
   [DATA_FILES.evolutionEvents, Array.isArray],
 ]);
 
@@ -135,6 +137,11 @@ function readJsonBody(req) {
 }
 
 function dataFileApi() {
+  // 追踪每个数据文件最后一次被 GET 服务的 mtime。
+  // PUT 时对比：如果 mtime 已变（被外部脚本/编辑器修改），拒绝覆盖并返回 409，
+  // 防止前端旧内存态静默覆盖外部改动。用户刷新浏览器即可加载最新文件。
+  const servedMtimes = new Map();
+
   const attach = server => {
     server.middlewares.use('/api/data', async (req, res, next) => {
       const method = req.method?.toUpperCase();
@@ -156,6 +163,8 @@ function dataFileApi() {
         if (method === 'GET') {
           try {
             const file = await fs.readFile(filePath, 'utf8');
+            const stat = await fs.stat(filePath);
+            servedMtimes.set(filename, stat.mtimeMs);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json; charset=utf-8');
             res.end(file);
@@ -170,6 +179,21 @@ function dataFileApi() {
         }
 
         if (method === 'PUT') {
+          // 冲突检测：文件被外部修改后，拒绝旧内存态的覆盖
+          try {
+            const stat = await fs.stat(filePath);
+            const servedMtime = servedMtimes.get(filename);
+            if (servedMtime !== undefined && stat.mtimeMs > servedMtime + 1) {
+              sendJson(res, 409, {
+                error: `File ${filename} was modified externally (mtime ${stat.mtimeMs} > served ${servedMtime}). Refresh the browser to load the latest data, then retry.`,
+                code: 'EXTERNAL_MODIFICATION',
+              });
+              return;
+            }
+          } catch {
+            // 文件不存在（首次创建），允许写入
+          }
+
           const body = await readJsonBody(req);
           if (!isDataPayload(filename, body)) {
             sendJson(res, 400, { error: `Invalid payload for ${filename}.` });
@@ -177,6 +201,11 @@ function dataFileApi() {
           }
 
           await enqueueFileWrite(filePath, body);
+          // 写入后更新追踪的 mtime
+          try {
+            const stat = await fs.stat(filePath);
+            servedMtimes.set(filename, stat.mtimeMs);
+          } catch {}
           sendJson(res, 200, { ok: true, file: filename });
           return;
         }

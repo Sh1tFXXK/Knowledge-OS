@@ -187,6 +187,13 @@
   visibility: hidden;
 }
 
+/* 手势（平移/缩放）进行中：隐藏 overview 标签层，避免错位撕裂与逐帧重排卡顿。
+   手势静默/结束后恢复，标签一次性到位。 */
+.index-canvas.is-gesturing .index-canvas-overview-label {
+  opacity: 0;
+  transition: opacity 120ms ease-out;
+}
+
 .explanation-index-diagram-overlay {
   display: flex;
   align-items: center;
@@ -1080,11 +1087,25 @@
   transition: opacity 120ms ease;
 }
 
+/* 编辑态（点开"编辑"后）按钮常驻可见；平时 hover/focus/选中浮现，
+   避免大面积知识图上漂浮一排小按钮造成视觉噪音 */
+.explanation-index-unified-graph.is-editable .explanation-index-class-header-actions {
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
 .explanation-index-class-node:hover .explanation-index-class-header-actions,
 .explanation-index-class-node:focus-within .explanation-index-class-header-actions,
 .explanation-index-class-node.is-active .explanation-index-class-header-actions {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* 远缩档位按钮小于可点击尺寸，隐藏避免噪点 */
+.index-canvas.is-compact .explanation-index-class-header-actions,
+.index-canvas.is-overview .explanation-index-class-header-actions {
+  opacity: 0;
+  pointer-events: none;
 }
 
 .explanation-index-class-header-actions button,
@@ -1122,6 +1143,14 @@
   color: #93c5fd;
   opacity: 1;
   outline: none;
+}
+
+/* 方框删除按钮：删除节点本体（目录保留），红色语义与成员删除一致 */
+.explanation-index-class-header-actions .explanation-index-class-node-delete:hover,
+.explanation-index-class-header-actions .explanation-index-class-node-delete:focus-visible {
+  border-color: rgba(239, 68, 68, 0.62);
+  background: #3a2226;
+  color: #fca5a5;
 }
 
 .explanation-index-class-members {
