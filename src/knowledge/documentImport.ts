@@ -39,16 +39,11 @@ export interface DocumentImportStandardResult {
 }
 
 export enum DocumentStructureMode {
-  Semantic = 'semantic',
   Outline = 'outline',
   QuestionBank = 'question-bank',
 }
 
 export interface DocumentImportCapabilities {
-  ai: {
-    configured: boolean;
-    model: string;
-  };
   maxBytes: number;
   maxPdfBytes: number;
   extensions: string[];
@@ -69,7 +64,6 @@ export interface DocumentImportRequest {
   file: File;
   parentTreeNodeId: string;
   translate: boolean;
-  useAi: boolean;
   profileMode: DocumentProfileMode;
 }
 
@@ -168,7 +162,6 @@ export async function importDocumentFile(
     fileName: request.file.name,
     parentTreeNodeId: request.parentTreeNodeId,
     translate: String(request.translate),
-    useAi: String(request.useAi),
     profileMode: request.profileMode,
   });
   const response = await fetch(`/api/import-document?${query}`, {

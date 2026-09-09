@@ -4,7 +4,6 @@ import path from 'node:path';
 import mammoth from 'mammoth';
 import { PDFParse } from 'pdf-parse';
 import { applyImportAtTreeNode } from './lib/import-wikipedia.mjs';
-import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
 import { createTranslationService } from './translation.mjs';
 import { MINERU_PARSE_METHOD } from './mineru-ocr.mjs';
 import {
@@ -29,8 +28,6 @@ import {
   translateMarkdownPreservingStructure,
   writeFileAtomically,
 } from './web-link-importer.mjs';
-import { applySemanticImportAtTreeNode } from './semantic-persistence.mjs';
-import { projectSemanticDraft } from './semantic-projector.mjs';
 
 export const DOCUMENT_KIND = Object.freeze({
   Pdf: 'pdf',
@@ -433,76 +430,11 @@ export async function prepareDocumentImport(options) {
   const detected = resolveDocumentProfile(markdown, options.profileMode);
   let profile = detected.profile;
   let questions = detected.questions;
-  let semanticDraft = null;
-
-  if (options.useAi) {
-    const organizer = options.aiOrganizer ?? createAiOrganizerFromEnv(options.aiEnv);
-    if (!organizer) {
-      throw new Error('AI 整理尚未配置，请设置 KNOWLEDGE_OS_LLM_API_KEY');
-    }
-    if (profile === DOCUMENT_PROFILE.Article) {
-      if (typeof organizer.compile !== 'function') {
-        throw new Error('当前 AI 分析器不支持语义编译');
-      }
-      semanticDraft = await organizer.compile({
-        title,
-        markdown,
-        sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
-      });
-      title = cleanKeyword(semanticDraft.title) || title;
-      categories = semanticDraft.categories;
-    } else {
-      const organized = await organizer.organize({
-        title,
-        markdown,
-        sourceLanguage: shouldTranslate ? 'zh' : parsed.language,
-      });
-      title = cleanKeyword(organized.title) || title;
-      markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
-      categories = organized.categories;
-      aiKeywords = organized.keywords;
-      const organizedQuestions = organized.questions
-        .map((question) => normalizeQuestionDraft(question))
-        .filter(Boolean);
-      const preserveExplicitQuestionBank = options.profileMode === DOCUMENT_PROFILE_MODE.QuestionBank;
-      questions = preserveExplicitQuestionBank
-        ? questions
-        : (organizedQuestions.length > 0 ? organizedQuestions : questions);
-    }
-  }
 
   let built;
   let structureMode;
   let validation;
-  if (semanticDraft) {
-    built = projectSemanticDraft({
-      draft: semanticDraft,
-      sourceId,
-      sourceTitle: title,
-      sourceKind: IMPORT_SOURCE_KIND.Document,
-    });
-    built.tags = [...new Set([
-      ...categories,
-      ...built.nodes.flatMap((node) => node.tags ?? []),
-    ])].slice(0, 80);
-    built.documentBody = polishArticleMarkdown(markdown).documentBody;
-    built.articleIdPrefix = built.nodeId;
-    questions = built.questions
-      .map((question) => {
-        const normalized = normalizeQuestionDraft(question);
-        return normalized ? { ...normalized, relatedNodeId: question.relatedNodeId } : null;
-      })
-      .filter(Boolean);
-    structureMode = 'semantic';
-    validation = {
-      characterCount: markdown.replace(/\s/g, '').length,
-      sectionCount: markdownSectionCount(markdown),
-      questionCount: questions.length,
-      nodeCount: built.stats.nodeCount,
-      rootCount: built.stats.rootCount,
-      relationCount: built.stats.relationCount,
-    };
-  } else {
+  {
     built = profile === DOCUMENT_PROFILE.QuestionBank
       ? buildQuestionBankNodes({
       title,
@@ -527,8 +459,7 @@ export async function prepareDocumentImport(options) {
       relationCount: 0,
     };
     structureMode = profile === DOCUMENT_PROFILE.QuestionBank ? 'question-bank' : 'outline';
-  }
-  const date = (options.now ?? new Date()).toISOString().slice(0, 10);
+  }  const date = (options.now ?? new Date()).toISOString().slice(0, 10);
   return {
     ...built,
     ...parsed,
@@ -600,24 +531,14 @@ export async function importDocument(options) {
   if (!options.parentTreeNodeId) throw new Error('请选择要挂载的项目目录');
 
   const prepared = await prepareDocumentImport(options);
-  if (prepared.structureMode === 'semantic') {
-    applySemanticImportAtTreeNode({
-      pool,
-      tree,
-      edges,
-      projected: prepared,
-      parentTreeNodeId: options.parentTreeNodeId,
-    });
-  } else {
-    applyImportAtTreeNode(
-      pool,
-      tree,
-      prepared.nodes,
-      options.parentTreeNodeId,
-      prepared.articleIdPrefix,
-      prepared.tags,
-    );
-  }
+  applyImportAtTreeNode(
+    pool,
+    tree,
+    prepared.nodes,
+    options.parentTreeNodeId,
+    prepared.articleIdPrefix,
+    prepared.tags,
+  );
   const questionCount = applyImportedQuestions(
     questions,
     prepared.sourceId,

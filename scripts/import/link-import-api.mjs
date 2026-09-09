@@ -1,6 +1,5 @@
 import { importWebLink } from './web-link-importer.mjs';
 import { DOCUMENT_KIND, documentKindForFile, importDocument } from './document-importer.mjs';
-import { aiOrganizerCapabilities } from './ai-organizer.mjs';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -92,14 +91,10 @@ function validateRequest(body) {
   if (body.translate !== undefined && typeof body.translate !== 'boolean') {
     throw new Error('翻译选项无效');
   }
-  if (body.useAi !== undefined && typeof body.useAi !== 'boolean') {
-    throw new Error('AI 整理选项无效');
-  }
   return {
     url: body.url.trim(),
     parentTreeNodeId: body.parentTreeNodeId,
     translate: body.translate !== false,
-    useAi: body.useAi === true,
   };
 }
 
@@ -108,15 +103,11 @@ export function validateDocumentRequest(request) {
   const fileName = requestUrl.searchParams.get('fileName')?.trim() ?? '';
   const parentTreeNodeId = requestUrl.searchParams.get('parentTreeNodeId')?.trim() ?? '';
   const translateValue = requestUrl.searchParams.get('translate');
-  const useAiValue = requestUrl.searchParams.get('useAi');
   const profileMode = requestUrl.searchParams.get('profileMode') ?? DOCUMENT_PROFILE_MODE.Auto;
   documentKindForFile(fileName);
   if (!parentTreeNodeId) throw new HttpError('请选择要挂载的项目目录');
   if (translateValue !== null && translateValue !== 'true' && translateValue !== 'false') {
     throw new HttpError('翻译选项无效');
-  }
-  if (useAiValue !== null && useAiValue !== 'true' && useAiValue !== 'false') {
-    throw new HttpError('AI 整理选项无效');
   }
   if (!Object.values(DOCUMENT_PROFILE_MODE).includes(profileMode)) {
     throw new HttpError('文档结构选项无效');
@@ -125,7 +116,6 @@ export function validateDocumentRequest(request) {
     fileName,
     parentTreeNodeId,
     translate: translateValue !== 'false',
-    useAi: useAiValue === 'true',
     profileMode,
   };
 }
@@ -229,7 +219,7 @@ export function linkImportApi(projectRoot, runtimeEnv = process.env) {
         return;
       }
       if (method === 'GET') {
-        sendJson(response, 200, { ai: aiOrganizerCapabilities(runtimeEnv) });
+        sendJson(response, 200, {});
         return;
       }
       if (method !== 'POST') {
@@ -261,7 +251,6 @@ export function linkImportApi(projectRoot, runtimeEnv = process.env) {
       if (method === 'GET') {
         const ocr = await mineruOcr.capabilities();
         sendJson(response, 200, {
-          ai: aiOrganizerCapabilities(runtimeEnv),
           maxBytes: MAX_DOCUMENT_BYTES,
           maxPdfBytes: MAX_PDF_BYTES,
           extensions: ['.pdf', '.md', '.markdown', '.txt', '.html', '.htm', '.docx'],

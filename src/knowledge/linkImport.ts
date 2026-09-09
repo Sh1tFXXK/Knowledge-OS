@@ -2,14 +2,6 @@ export interface LinkImportRequest {
   url: string;
   parentTreeNodeId: string;
   translate: boolean;
-  useAi: boolean;
-}
-
-export interface LinkImportCapabilities {
-  ai: {
-    configured: boolean;
-    model: string;
-  };
 }
 
 export interface LinkImportResult {
@@ -27,14 +19,8 @@ export interface LinkImportResult {
   sectionCount: number;
   questionCount: number;
   categories: string[];
-  structureMode: 'semantic' | 'outline';
+  structureMode: 'outline';
   markdownPath: string;
-}
-
-export async function getLinkImportCapabilities(): Promise<LinkImportCapabilities> {
-  const response = await fetch('/api/import-link', { cache: 'no-store' });
-  if (!response.ok) throw new Error(`无法读取导入能力（HTTP ${response.status}）`);
-  return await response.json() as LinkImportCapabilities;
 }
 
 interface LinkImportErrorPayload {
