@@ -199,10 +199,6 @@ function replaceTabPages(
   return {
     ...explanation,
     tabs: mapped.items,
-    definitionPages:
-      tabId === DEFINITION_TAB_ID && explanation.definitionPages !== undefined
-        ? pages
-        : explanation.definitionPages,
   };
 }
 
@@ -481,7 +477,7 @@ function mergeItem(
   if (selection.kind === ExplanationSelectionKind.Root) {
     if (explanation.tabs.length === 0) return unchanged(explanation, selection);
     return changed(
-      { ...explanation, tabs: [], definitionPages: undefined },
+      { ...explanation, tabs: [] },
       selection,
     );
   }
@@ -500,8 +496,6 @@ function mergeItem(
       {
         ...explanation,
         tabs: mapped.items,
-        definitionPages:
-          tab.id === DEFINITION_TAB_ID ? undefined : explanation.definitionPages,
       },
       selection,
     );

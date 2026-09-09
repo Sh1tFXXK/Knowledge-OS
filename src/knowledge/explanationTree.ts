@@ -68,8 +68,6 @@ export function findPagePath(pages: ExplanationPage[], pageId: string): Explanat
  * - 一直渲染到某行的活跃 Page 没有子 pages 为止
  *
  * 返回每一行的 { pages, activePageId } 列表，便于 UI 渲染多行页签。
- *
- * 注意：不要直接传 tab.pages，否则会漏掉 def Tab 的 legacy definitionPages 兜底。
  */
 /** 计算 Tab 树每一层需要渲染的横向页签行。 */
 export function computeTabRows(

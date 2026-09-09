@@ -103,23 +103,20 @@ const DEFINITION_TAB_ID = 'def';
 
 function pagesForTab(card: NodeExplanation, tab: NodeExplanation['tabs'][number]): ExplanationPage[] {
   if (tab.pages?.length) return tab.pages;
-  const legacyPages = tab.id === DEFINITION_TAB_ID ? card.definitionPages : undefined;
-  return legacyPages?.length ? legacyPages : [];
+  return [];
 }
 
 function patchTabPages(
   card: NodeExplanation,
   tabId: string,
   pages: ExplanationPage[],
-): Partial<Pick<NodeExplanation, 'tabs' | 'definitionPages'>> {
+): Partial<Pick<NodeExplanation, 'tabs'>> {
   const tabs = mapTabRecursive(card.tabs, tabId, (tab) => ({
     ...tab,
     content: tab.content,
     pages: pages.length > 0 ? pages : undefined,
   }));
-  return tabId === DEFINITION_TAB_ID
-    ? { tabs, definitionPages: undefined }
-    : { tabs };
+  return { tabs };
 }
 
 // ===================== 递归树遍历工具 =====================
@@ -358,7 +355,7 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'definitionPages' | 'notes'>>,
+    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'notes'>>,
   ) => void;
   updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
   updateKnowledgeRootTable: (knowledgeId: string, table: ExplanationTable | undefined) => void;

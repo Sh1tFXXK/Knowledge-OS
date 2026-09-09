@@ -201,7 +201,6 @@ export function createJavaSourceNodes({
       canonicalKey: `java:type:${type.className}`,
       kind: existing?.kind ?? 'entity',
       aliases: existing?.aliases,
-      provenance: existing?.provenance,
       tags: [...new Set([
         ...(existing?.tags ?? []),
         'Java',
@@ -252,7 +251,6 @@ export function createJavaSourceNodes({
           canonicalKey: `java:type:${className}`,
           kind: existing.kind ?? 'entity',
           aliases: existing.aliases,
-          provenance: existing.provenance,
           tags: [...new Set([...(existing.tags ?? []), 'Java', className])],
           relationIndex: { rootNodeId: nodeId },
         });

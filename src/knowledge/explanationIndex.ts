@@ -38,8 +38,7 @@ export function explicitPagesForTab(
   tab: ExplanationTab,
 ): ExplanationPage[] {
   if (tab.pages?.length) return tab.pages;
-  if (tab.id !== DEFINITION_TAB_ID) return [];
-  return explanation.definitionPages?.length ? explanation.definitionPages : [];
+  return [];
 }
 
 function pageNode(nodeId: string, tabId: string, page: ExplanationPage): ExplanationIndexNode {

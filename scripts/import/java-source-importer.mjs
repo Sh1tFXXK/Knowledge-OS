@@ -134,7 +134,6 @@ export async function importJavaSource(options) {
     if (node.canonicalKey) stored.canonicalKey = node.canonicalKey;
     if (node.kind) stored.kind = node.kind;
     if (node.aliases) stored.aliases = node.aliases;
-    if (node.provenance) stored.provenance = node.provenance;
   }
 
   const managedEdgePrefix = `java_source:${imported.sourceHash}:`;

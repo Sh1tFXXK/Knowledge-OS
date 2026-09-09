@@ -57,19 +57,6 @@ export enum KnowledgeNodeKind {
   Evidence = 'evidence',
 }
 
-export interface KnowledgeSourceSpan {
-  startLine: number;
-  endLine: number;
-}
-
-export interface KnowledgeProvenance {
-  sourceId: string;
-  sourceKind: string;
-  sourceTitle: string;
-  spanBasis?: 'normalized-markdown-body';
-  sourceSpans: KnowledgeSourceSpan[];
-}
-
 export type AtomAttrValue = string | number;
 
 /** A projection-space binding to a node-pool atom. */
@@ -154,7 +141,6 @@ export interface KnowledgeNode {
   /** Source-independent semantic identity proposed by an importer. */
   canonicalKey?: string;
   aliases?: string[];
-  provenance?: KnowledgeProvenance[];
   mechanismSpec?: MechanismSpec;
   shared?: boolean;
   locked?: boolean;
@@ -185,7 +171,6 @@ export interface KnowledgeEdge {
   label: string;
   dimensions?: string[];
   relationKind?: KnowledgeRelationKind;
-  provenance?: KnowledgeProvenance[];
 }
 
 export interface MechanismSpec {
@@ -347,8 +332,6 @@ export interface NodeExplanation {
   rootContent?: string;
   rootTable?: ExplanationTable;
   tabs: ExplanationTab[];
-  /** Legacy storage for definition child pages; new pages live on their parent tab. */
-  definitionPages?: ExplanationPage[];
   notes?: string;
 }
 
