@@ -98,6 +98,10 @@
 
 | 方法 | 还信？ | 产物在哪 | 判断 |
 |---|---|---|---|
+| ~~考古脚本 `data-archaeology*.mjs`~~（2026-09-09 已删） | 已完成使命 | 摘要在 `outputs/archaeology-*.json`，结论在本文 | 产物即本文，脚本不再保留 |
+| ~~`migrate-to-evolution-events.mjs`~~（2026-09-09 已删） | 一次性迁移 | `data/evolution-events.json` 全量 | 迁移已完成，重跑会误覆盖 |
+| ~~`split-mvc-boot.mjs`~~（2026-09-09 已删） | 一次性拆分 | 拆出的节点已进池（Spring MVC/Boot 簇） | 拆分已落盘 |
+| ~~`add-spring-di-knowledge.mjs`~~（2026-09-09 已删） | 一次性写入 | Spring DI 簇已在池内 | 写入已落盘 |
 | Wikipedia CLI（`lib/import-wikipedia`） | **是** | C3 `k_wiki_*` ~380 | 池内证据足 |
 | JDK collections / java-source API | **是** | C2 `k_java_type_*` 409 + `k_java_source_*` 3 | 正式入口仍在 |
 | Web-link API | **是** | C4 `k_web_*` 15 | 小但干净 |
