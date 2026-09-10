@@ -89,8 +89,7 @@
 
 **分不出来**
 
-- **C12 `k_<timestamp>_`（923）** 与 **C13/`k_dict_`（531）**：可能是 UI 手打、粘贴导入、旧 glossary 批跑、或半自动脚本；**没有 origin 字段，无法只靠记忆拆开**。
-- 因此：「加 `origin`（或等价：`createdBy` + `sourceRef`）」是回填优先级 #1；约 70% 节点可先靠 id 前缀规则自动标，剩余 timestamp/dict 要人工或启发式。
+- **C12 `k_<timestamp>_`（923）** 与 **C13/`k_dict_`（531）**：可能是 UI 手打、粘贴导入、旧 glossary 批跑、或半自动脚本；**没有 origin 字段，无法只靠记忆拆开**。现状就是分不出来；本轮不做任何回填，也不预设标签体系，等从数据里自己归纳。
 
 ---
 
@@ -105,11 +104,11 @@
 | Wikipedia CLI（`lib/import-wikipedia`） | **是** | C3 `k_wiki_*` ~380 | 池内证据足 |
 | JDK collections / java-source API | **是** | C2 `k_java_type_*` 409 + `k_java_source_*` 3 | 正式入口仍在 |
 | Web-link API | **是** | C4 `k_web_*` 15 | 小但干净 |
-| Document + semantic 链（draft/projector/persistence/ai-organizer） | **部分→偏否** | 期望 `k_document_*`/`k_semantic_*` = **0**；笔记在 docs，池 id 断档 | 代码还接线，沉积对不上 |
+| ~~Document + semantic 链（draft/projector/persistence/ai-organizer）~~（2026-09-10 已删） | **已否** | 期望 `k_document_*`/`k_semantic_*` = **0**；笔记在 docs，池 id 断档 | 从未成功沉积，链与全部接线（importers/API/对话框开关/LLM env）已删；outline/题库路径保留（docs/notes 里 5 个 document-*.md 是它的产物） |
 | `genId('k')` UI 新建 | **否（作身份）** | C12 全部 | 能用，但不能当身份；重导必复制 |
-| 不明 `k_dict_*` 批 | **否** | C13 主体；大量无树无边 | 第一批整批退役候选 |
+| 不明 `k_dict_*` 批 | **否** | C13 主体；大量无树无边 | 第一批整批融合/处置候选（知识不删） |
 | vault / ACM / glossary 批 | **部分** | C5/C6/C8 | 不在 `scripts/import/` 账本里；产物在，入口分散/遗忘 |
-| `knowledge-governance.json` / `ontology-mapping-report.json` | **否（作运行态）** | data 里有，**src 零读写** | 漏网沉积，不是活视图 |
+| `knowledge-governance.json` / `ontology-mapping-report.json` | **否（作运行态）** | 已移 `outputs/`（2026-09-10），data 里不留 | 漏网沉积，不是活视图 |
 
 ---
 
@@ -127,9 +126,9 @@
 
 ## 5. 下一个要验证的假设（一条）
 
-**假设**：`k_dict_*` 中「不在 tree 且无边」的约 430+ 节点，是旧 glossary/字典批的尸骸，删了对任何存活视图的可达内容零影响。
+**假设**：`k_dict_*` 中「不在 tree 且无边」的约 430+ 节点，是旧 glossary/字典批的尸骸，对任何存活视图的可达内容零影响。
 
-验证方式：对这批做只读引用扫描（questions / evolution-events / viewDimensions 内 id）→ 零命中则整批可退役；同时给剩余节点用前缀规则回填 `origin`，专攻 C12 里「有树有正文」的子集标成 `ui-manual` vs `ui-import-unknown`。
+验证方式：对这批做只读引用扫描（questions / evolution-events / viewDimensions 内 id）→ 零命中则说明这批没有任何活引用，是干净的处置/融合对象。处置按「融合不删」走：正文有内容的标别名挂到正身，纯占位符另行判断，不开删除的口子。
 
 ---
 
