@@ -3321,6 +3321,8 @@
 .dc-band-track {
   grid-column: 2 / -1;
   display: grid;
+  /* 每条 lane 占一行：覆盖同一批原子的分类会被分到不同 lane，渲染时纵向错开 */
+  grid-template-rows: repeat(var(--band-lane-count, 1), auto);
   grid-template-columns: repeat(var(--band-column-count), minmax(82px, 1fr));
   gap: 6px;
   min-height: 66px;
@@ -3360,7 +3362,8 @@
 }
 
 .dc-band-block {
-  grid-row: 1;
+  /* 不再硬编码 grid-row: 1；同一批原子被多条分类覆盖时，渲染侧用 inline
+     gridRow = lane+1 把它们分配到不同 lane，纵向错开、不再互相覆盖 */
   position: relative;
   z-index: 2;
   display: grid;
