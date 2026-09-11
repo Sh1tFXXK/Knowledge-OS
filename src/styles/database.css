@@ -1068,3 +1068,26 @@
     max-height: 520px;
   }
 }
+
+/* ── 问题卡拖拽到目录树：视觉反馈 ─────────────────────────────
+   拖动中的源卡片/行加 is-dragging 类（dragstart/dragend 由组件状态控制）；
+   目录树目标行高亮见 layout.css 的 .drop-target-question。 */
+.question-database .question-card[draggable="true"],
+.question-database .database-table tbody tr[draggable="true"],
+.right-question-card[draggable="true"] {
+  cursor: grab;
+}
+
+.question-database .is-dragging {
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+.question-database .question-card.is-dragging:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.right-question-card.is-dragging {
+  opacity: 0.5;
+}

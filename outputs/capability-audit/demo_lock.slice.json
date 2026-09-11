@@ -1,0 +1,404 @@
+{
+  "note": "demo_lock 完整切片：节点 + 与它相关的边 + 引用它的问题。原文来自 data/*.json，未做任何改写。",
+  "node": {
+    "id": "demo_lock",
+    "label": "MySQL 锁机制",
+    "role": "mechanism",
+    "locked": false,
+    "dimensions": [
+      "transaction",
+      "performance",
+      "mysql"
+    ],
+    "tags": [
+      "MySQL 锁机制",
+      "锁机制",
+      "mysql"
+    ],
+    "viewDimensions": [
+      {
+        "id": "lock_composition",
+        "name": "多维分类",
+        "color": "#E58522",
+        "hint": "同一批锁原子，按粒度/引擎/操作/策略四套规矩分别投影；粒度对比矩阵归属本节点结论区，子节点引用并高亮自己。",
+        "sections": [
+          {
+            "id": "lock_grain_grid",
+            "title": "按锁粒度",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_table_lock"
+              },
+              {
+                "nodeId": "demo_row_lock"
+              },
+              {
+                "nodeId": "demo_page_lock"
+              }
+            ]
+          },
+          {
+            "id": "lock_engine_grid",
+            "title": "按存储引擎",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_myisam"
+              },
+              {
+                "nodeId": "k_auto_1hl4cg6"
+              },
+              {
+                "nodeId": "demo_innodb"
+              },
+              {
+                "nodeId": "k_auto_pysvvf"
+              }
+            ]
+          },
+          {
+            "id": "lock_type_grid",
+            "title": "按操作类型",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_shared_lock"
+              },
+              {
+                "nodeId": "demo_exclusive_lock"
+              }
+            ]
+          },
+          {
+            "id": "lock_strategy_grid",
+            "title": "按锁策略",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "demo_optimistic"
+              },
+              {
+                "nodeId": "demo_pessimistic"
+              }
+            ]
+          },
+          {
+            "id": "lock_grain_matrix",
+            "title": "锁粒度对比",
+            "layout": "matrix",
+            "config": {
+              "columns": [
+                {
+                  "key": "grain",
+                  "label": "粒度"
+                },
+                {
+                  "key": "cost",
+                  "label": "开销"
+                },
+                {
+                  "key": "deadlock",
+                  "label": "死锁"
+                },
+                {
+                  "key": "concurrency",
+                  "label": "并发"
+                }
+              ]
+            },
+            "atoms": [
+              {
+                "nodeId": "demo_table_lock",
+                "attrs": {
+                  "grain": "粗",
+                  "cost": "低",
+                  "deadlock": "不会",
+                  "concurrency": "低"
+                }
+              },
+              {
+                "nodeId": "demo_page_lock",
+                "attrs": {
+                  "grain": "中",
+                  "cost": "中",
+                  "deadlock": "会",
+                  "concurrency": "中"
+                }
+              },
+              {
+                "nodeId": "demo_row_lock",
+                "attrs": {
+                  "grain": "细",
+                  "cost": "高",
+                  "deadlock": "会",
+                  "concurrency": "高"
+                }
+              }
+            ]
+          }
+        ],
+        "groups": []
+      }
+    ],
+    "card": {
+      "nodeId": "demo_lock",
+      "title": "MySQL 锁机制",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义（MySQL 实例）",
+          "content": "**MySQL 锁机制**\nMySQL 因多存储引擎架构，各引擎支持的锁机制不同：**MyISAM / MEMORY 采用表级锁；InnoDB 行级锁与表级锁都支持，默认行级锁；BDB 采用页面锁，也支持表级锁**。\nMySQL 锁的三种分类标准（操作类型 / 粒度 / 操作性能）及各标准下的锁类型见子节点「MySQL 锁的分类体系」；意向锁、间隙锁、临键锁、自增锁、MDL 等具体锁见本概念的其余子节点。"
+        }
+      ],
+      "rootContent": "MySQL 锁机制 **MySQL 锁机制** MySQL 因多存储引擎架构，各引擎支持的锁机制不同：**MyISAM / MEMORY 采用表级锁；InnoDB 行级锁与表级锁都支持，默认行级锁；BDB 采用页面锁，也支持表级锁**。 MySQL 锁的三种分类标准（操作类型 / 粒度 / 操作性能）及各标准下的锁类型见子节点「MySQL 锁的分类体系」；意向锁、间隙锁、临键锁、自增锁、MDL 等具体锁见本概念的其余子节点。"
+    }
+  },
+  "relatedEdges": [
+    {
+      "id": "demo_e17",
+      "source": "demo_isolation",
+      "target": "demo_lock",
+      "type": "needs-for",
+      "label": "需要",
+      "dimensions": [
+        "transaction"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:demo_tree_page_lock",
+      "source": "demo_lock",
+      "target": "demo_page_lock",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:mysql_lock_range_insert",
+      "source": "demo_lock",
+      "target": "mysql_lock_range_insert",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:mysql_functional_ref_k_dict_m5qakvks",
+      "source": "demo_lock",
+      "target": "k_dict_m5qakvks",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_implicit_row_lock_ac6u2d",
+      "source": "demo_lock",
+      "target": "mysql_glossary_implicit_row_lock_ac6u2d",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_intention_shared_lock_4x8ciz",
+      "source": "demo_lock",
+      "target": "mysql_glossary_intention_shared_lock_4x8ciz",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_intention_exclusive_lock_1rd4p1",
+      "source": "demo_lock",
+      "target": "mysql_glossary_intention_exclusive_lock_1rd4p1",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_rw_lock_1c4qu9",
+      "source": "demo_lock",
+      "target": "mysql_glossary_rw_lock_1c4qu9",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_non_locking_read_12iidl",
+      "source": "demo_lock",
+      "target": "mysql_glossary_non_locking_read_12iidl",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_metadata_lock_qiqw4n",
+      "source": "demo_lock",
+      "target": "mysql_glossary_metadata_lock_qiqw4n",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_locking_read_16dto0",
+      "source": "demo_lock",
+      "target": "mysql_glossary_locking_read_16dto0",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_record_lock_1pixn1",
+      "source": "demo_lock",
+      "target": "mysql_glossary_record_lock_1pixn1",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_locking_1ofljy",
+      "source": "demo_lock",
+      "target": "mysql_glossary_locking_1ofljy",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_lock_mode_h31or1",
+      "source": "demo_lock",
+      "target": "mysql_glossary_lock_mode_h31or1",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_insert_intention_lock_1pnwh6",
+      "source": "demo_lock",
+      "target": "mysql_glossary_insert_intention_lock_1pnwh6",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v",
+      "source": "demo_lock",
+      "target": "mysql_glossary_auto_increment_locking_lrps8v",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:mysql_functional_ref_k_dict_nqeoggvl",
+      "source": "demo_lock",
+      "target": "k_dict_nqeoggvl",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "treebind:demo_tree_lock:projection:mysql-term:mysql_glossary_semi_consistent_read_luof7q",
+      "source": "demo_lock",
+      "target": "mysql_glossary_semi_consistent_read_luof7q",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "transaction",
+        "performance",
+        "storage"
+      ]
+    },
+    {
+      "id": "rel:concept_lock_mechanism:instance-of:demo_lock",
+      "source": "demo_lock",
+      "target": "concept_lock_mechanism",
+      "type": "instance-of",
+      "label": "MySQL 实例"
+    }
+  ],
+  "relatedQuestions": [
+    {
+      "id": "q_lock_1",
+      "text": "MySQL 有哪些锁类型？",
+      "answered": true,
+      "relatedNodeId": "demo_lock",
+      "answer": "MySQL 数据库由于其自身架构的特点，存在多种数据存储引擎，不同存储引擎支持不同的锁机制。\n\n【按存储引擎】\nMyISAM 和 MEMORY 存储引擎采用表级锁；\nInnoDB 存储引擎既支持行级锁，也支持表级锁，默认情况下采用行级锁；\nBDB 采用的是页面锁，也支持表级锁。\n\n【按数据操作的类型分】\n读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。\n写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。\n\n【按数据操作的粒度分】\n表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。\n行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。\n页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。\n\n【按操作性能分】\n乐观锁：一般的实现方式是对记录数据版本进行比对，在数据更新提交的时候才会进行冲突检测，如果发现冲突了，则提示错误信息。\n悲观锁：在对一条数据修改的时候，为了避免同时被其他人修改，在修改数据之前先锁定，再修改的控制方式。共享锁和排他锁是悲观锁的不同实现，但都属于悲观锁范畴。",
+      "createdAt": 1780812181640,
+      "updatedAt": 1780812181640,
+      "kind": "recall",
+      "difficulty": "basic"
+    }
+  ]
+}

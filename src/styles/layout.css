@@ -1299,3 +1299,10 @@ body.is-resizing-right-panel {
   opacity: 0.7;
   margin-left: 3px;
 }
+
+/* 问题卡拖入目录树时的目标行高亮（与目录拖拽的 drop-target 区分色） */
+.tree-node-row.drop-target-question {
+  background: rgba(139, 92, 246, 0.14);
+  outline: 1px solid rgba(139, 92, 246, 0.45);
+  outline-offset: -1px;
+}

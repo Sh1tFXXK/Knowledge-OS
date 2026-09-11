@@ -25559,7 +25559,7 @@
           "content": "**Java**\n\n一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。\n\n\"另见 C, Connector/J, C++, JDBC.\"\n\n来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
         }
       ],
-      "rootContent": "java **Java** 一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。 \"另见 C, Connector/J, C++, JDBC.\" 来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java **Java** 一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。 \"另见 C, Connector/J, C++, JDBC.\" 来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
+      "rootContent": "java **Java** 一种结合高性能、丰富内置功能和数据类型、面向对象机制、广泛标准库以及各种可重用第三方模块的编程语言。企业开发受到许多框架、应用服务器和其他技术的支持。其语法对于C和C++开发者来说大部分是熟悉的。要使用MySQL编写Java应用程序，您需要使用名为JDBC的驱动程序，该驱动程序被称为Connector/J。 "
     },
     "tags": [
       "java"
@@ -55535,7 +55535,7 @@
       "nodeId": "k_1785248932503_c7c9d2",
       "title": "自动装配原理",
       "tabs": [],
-      "rootContent": "在启动SpringBoot项目的main方法的头部有一个@SpringBootApplication注解，在这个注解中组合了\n一个EnableAutoConfiguration注解，这个注解的作用就是打开自动装配，而在这个注解中又包含了一\n个@Import注解，在这个注解中引入了一个实现了 ImportSelector接口的类型，在对应的\nselectImports方法中会读取META/INF目录下的spring.factories文件中需要被自动装配的所有的配置类，然后通过META-INF下面的spring-autoconfigure-metadata.properties文件做条件过滤。最后返回的就是需要自动装配的相关的对象。"
+      "rootContent": "在启动SpringBoot项目的main方法的头部有一个@SpringBootApplication注解，在这个注解中组合了\n一个EnableAutoConfiguration注解，这个注解的作用就是打开自动装配，而在这个注解中又包含了一\n个@Import注解，在这个注解中引入了一个实现了 ImportSelector接口的类型，在对应的\nselectImports方法中会读取META/INF目录下的spring.factories文件中需要被自动装配的所有的配置类，然后通过META-INF下面的spring-autoconfigure-metadata.properties文件做条件过滤。最后返回的就是需要自动装配的相关的对象。Spring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现： \n- 扫描 classpath 下的配置文件 \n- 根据条件注解决定配置是否生效 \n- 自动配置 Bean"
     },
     "tags": [
       "自动装配原理"
@@ -143730,7 +143730,7 @@
     "card": {
       "nodeId": "k_goexplain_design",
       "title": "语言设计",
-      "rootContent": "静态类型 和 运行时 效率（如 C）\n可读性 和 可用性（如 Python）\n高性能网络和多处理\n其设计者主要因为共同对C++的不喜欢而受到激励。\n\nGo于2009年11月正式发布， 1.0版本于2012年3月发布。 Go在Google及许多其他组织和开源项目中广泛使用。\n\n回顾过去，Go的作者认为Go之所以成功，归功于围绕该语言的整体工程工作，包括对该语言并发特性的运行时支持。\n\n尽管大多数编程语言的设计集中于语法、语义或类型的创新，但 Go 专注于软件开发过程本身。... 该语言本身的主要不寻常属性——并发——解决了2010年代多核CPU普及带来的问题。但更重要的是早期的工作为软件开发领域的打包、依赖、构建、测试、部署以及其他日常任务奠定了基础，这些方面通常在语言设计中并不是最重要的。\n\n泛型\n初始版本的Go缺乏对通用编程的支持，受到相当大的批评。 设计者对通用编程表示开放，并指出内置函数实际上是类型通用的，但被视为特殊情况；Pike称这是一种弱点，可能会在某个时刻进行改变。 谷歌团队为一个带有泛型的实验性Go方言构建了至少一个编译器，但没有发布它。\n\n在2018年8月，Go的主要贡献者发布了通用编程和错误处理的草案设计，并请求用户提交反馈。然而，错误处理提案最终被放弃。\n\n在2020年6月，发布了一份新的草案设计文档，该文档将为Go添加声明通用函数和类型所需的语法。提供了一种代码翻译工具.mw-parser-output.monospaced{font-family:monospace,monospace}go2go，允许用户尝试新的语法，以及一个启用泛型的在线Go Playground版本。\n\n在2022年3月15日，泛型终于在版本1.18中添加到Go中。\n\nVersioning\nGo 1 guarantees compatibility for the language specification and major parts of the standard library. All versions up through the current Go 1.26 release have maintained this promise.\n\nGo uses a go1.[major].[patch] versioning format, such as go1.26.0 and each major Go release is supported until there are two newer major releases. Unlike most software, Go calls the second number in a version the major, i.e., in go1.26.0 the 26 is the major version. This is because Go plans to never reach 2.0, prioritizing backwards compatibility over potential breaking changes.\n\n设计编辑\n2015年Rob Pike的讲座（Go语言的创始人之一）\n\"Go 的影响来源于 C（尤其是 Plan 9 方言[failed verification – see discussion]），但更强调简单性和安全性。它由以下内容组成：\"\n\n一种采用在动态语言中更常见模式的语法和环境:\n通过类型推断进行可选的简洁变量声明和初始化（x:= 0，而不是var x int = 0;或var x = 0;）\n快速编译\n远程包管理（go get）和在线包文档\n针对特定问题的独特方法：\n内置并发原语：轻量级进程（goroutines），通道和select语句\n一个接口系统替代虚拟继承，并通过类型嵌入替代非虚拟继承\n一个默认生成静态链接本地二进制文件的工具链，无需外部Go依赖\n\"希望将语言规范保持足够简单，以便程序员能够记住， 部分通过 省略在类似语言中常见的特性 来实现。",
+      "rootContent": "静态类型 和 运行时 效率（如 C）\n可读性 和 可用性（如 Python）\n高性能网络和多处理\n其设计者主要因为共同对C++的不喜欢而受到激励。\n\nGo于2009年11月正式发布， 1.0版本于2012年3月发布。 Go在Google及许多其他组织和开源项目中广泛使用。\n\n回顾过去，Go的作者认为Go之所以成功，归功于围绕该语言的整体工程工作，包括对该语言并发特性的运行时支持。\n\n尽管大多数编程语言的设计集中于语法、语义或类型的创新，但 Go 专注于软件开发过程本身。... 该语言本身的主要不寻常属性——并发——解决了2010年代多核CPU普及带来的问题。但更重要的是早期的工作为软件开发领域的打包、依赖、构建、测试、部署以及其他日常任务奠定了基础，这些方面通常在语言设计中并不是最重要的。\n\n泛型\n初始版本的Go缺乏对通用编程的支持，受到相当大的批评。 设计者对通用编程表示开放，并指出内置函数实际上是类型通用的，但被视为特殊情况；Pike称这是一种弱点，可能会在某个时刻进行改变。 谷歌团队为一个带有泛型的实验性Go方言构建了至少一个编译器，但没有发布它。\n\n在2018年8月，Go的主要贡献者发布了通用编程和错误处理的草案设计，并请求用户提交反馈。然而，错误处理提案最终被放弃。\n\n在2020年6月，发布了一份新的草案设计文档，该文档将为Go添加声明通用函数和类型所需的语法。提供了一种代码翻译工具.mw-parser-output.monospaced{font-family:monospace,monospace}go2go，允许用户尝试新的语法，以及一个启用泛型的在线Go Playground版本。\n\n在2022年3月15日，泛型终于在版本1.18中添加到Go中。\n\nVersioning\nGo 1 guarantees compatibility for the language specification and major parts of the standard library. All versions up through the current Go 1.26 release have maintained this promise.\n\nGo uses a go1.[major].[patch] versioning format, such as go1.26.0 and each major Go release is supported until there are two newer major releases. Unlike most software, Go calls the second number in a version the major, i.e., in go1.26.0 the 26 is the major version. This is because Go plans to never reach 2.0, prioritizing backwards compatibility over potential breaking changes.\n\n设计\n2015年Rob Pike的讲座（Go语言的创始人之一）\n\"Go 的影响来源于 C（尤其是 Plan 9 方言[failed verification – see discussion]），但更强调简单性和安全性。它由以下内容组成：\"\n\n一种采用在动态语言中更常见模式的语法和环境:\n通过类型推断进行可选的简洁变量声明和初始化（x:= 0，而不是var x int = 0;或var x = 0;）\n快速编译\n远程包管理（go get）和在线包文档\n针对特定问题的独特方法：\n内置并发原语：轻量级进程（goroutines），通道和select语句\n一个接口系统替代虚拟继承，并通过类型嵌入替代非虚拟继承\n一个默认生成静态链接本地二进制文件的工具链，无需外部Go依赖\n\"希望将语言规范保持足够简单，以便程序员能够记住， 部分通过 省略在类似语言中常见的特性 来实现。",
       "tabs": []
     }
   },
@@ -144687,14 +144687,26 @@
     "id": "k_1787818794698_9mccgx",
     "label": "序列化",
     "tags": [
-      "序列化"
+      "序列化",
+      "Serializable",
+      "java"
     ],
     "card": {
       "nodeId": "k_1787818794698_9mccgx",
       "title": "序列化",
-      "tabs": [],
-      "rootContent": "Java 序列化是一种将对象转换为字节流的过程，以便可以将对象保存到磁盘上，将其传输到网络上，或者将其存储在内存中，以后再进行反序列化，将字节流重新转换为对象。\n\n序列化在 Java 中是通过 java.io.Serializable 接口来实现的，该接口没有任何方法，只是一个标记接口，用于标识类可以被序列化。\n\n当你序列化对象时，你把它包装成一个特殊文件，可以保存、传输或存储。反序列化则是打开这个文件，读取序列化的数据，然后将其还原为对象，以便在程序中使用。\n\n序列化是一种用于保存、传输和还原对象的方法，它使得对象可以在不同的计算机之间移动和共享，这对于分布式系统、数据存储和跨平台通信非常有用。\n\n以下是 Java 序列化的基本概念和用法：\n\n实现 Serializable 接口： 要使一个类可序列化，需要让该类实现 java.io.Serializable 接口，这告诉 Java 编译器这个类可以被序列化，例如：\n\n## 实例\n\nimport java.io.Serializable;  \n  \npublic class MyClass implements Serializable {  \n    // 类的成员和方法  \n}  \n\n**序列化对象：** 使用 ObjectOutputStream 类来将对象序列化为字节流，以下是一个简单的实例：\n\n## 实例\n\nMyClass obj = new MyClass();  \ntry {  \n    FileOutputStream fileOut = new FileOutputStream(\"object.ser\");  \n    ObjectOutputStream out = new ObjectOutputStream(fileOut);  \n    out.writeObject(obj);  \n    out.close();  \n    fileOut.close();  \n} catch (IOException e) {  \n    e.printStackTrace();  \n}  \n\n上述代码将一个名为 \"object.ser\" 文件中的 obj 对象序列化。\n\n**反序列化对象：** 使用 ObjectInputStream 类来从字节流中反序列化对象，以下是一个简单的实例：\n\n## 实例\n\nMyClass obj = null;  \ntry {  \n    FileInputStream fileIn = new FileInputStream(\"object.ser\");  \n    ObjectInputStream in = new ObjectInputStream(fileIn);  \n    obj = (MyClass) in.readObject();  \n    in.close();  \n    fileIn.close();  \n} catch (IOException e) {  \n    e.printStackTrace();  \n} catch (ClassNotFoundException e) {  \n    e.printStackTrace();  \n}  \n\n上述代码从 \"object.ser\" 文件中读取字节流并将其反序列化为一个 MyClass 对象。\n\n类 ObjectInputStream 和 ObjectOutputStream 是高层次的数据流，它们包含反序列化和序列化对象的方法。\n\nObjectOutputStream 类包含很多写方法来写各种数据类型，但是一个特别的方法例外：\n\npublic final void writeObject(Object x) throws IOException\n\n上面的方法序列化一个对象，并将它发送到输出流。相似的 ObjectInputStream 类包含如下反序列化一个对象的方法：\n\npublic final Object readObject() throws IOException, ClassNotFoundException\n\n该方法从流中取出下一个对象，并将对象反序列化。它的返回值为Object，因此，你需要将它转换成合适的数据类型。\n\n### 实例\n\n为了演示序列化在 Java 中是怎样工作的，我将使用之前教程中提到的 Employee 类，假设我们定义了如下的 Employee 类，该类实现了Serializable 接口。\n\n## Employee.java 文件代码：\n\npublic class Employee implements java.io.Serializable { \n\tpublic String name; \n\tpublic String address; \n\tpublic transient int SSN; \n\tpublic int number; \n\tpublic void mailCheck() { System.out.println(\"Mailing a check to \" + name + \" \" + address); } \n}\n\n请注意，一个类的对象要想序列化成功，必须满足两个条件：\n\n该类必须实现 java.io.Serializable 接口。\n\n该类的所有属性必须是可序列化的。如果有一个属性不是可序列化的，则该属性必须注明是短暂的。\n\n如果你想知道一个 Java 标准类是否是可序列化的，请查看该类的文档。检验一个类的实例是否能序列化十分简单， 只需要查看该类有没有实现 java.io.Serializable接口。\n\n---\n\n## 序列化对象\n\nObjectOutputStream 类用来序列化一个对象，如下的 SerializeDemo 例子实例化了一个 Employee 对象，并将该对象序列化到一个文件中。\n\n该程序执行后，就创建了一个名为 employee.ser 文件。该程序没有任何输出，但是你可以通过代码研读来理解程序的作用。\n\n**注意：** 当序列化一个对象到文件时， 按照 Java 的标准约定是给文件一个 .ser 扩展名。\n\n## SerializeDemo.java 文件代码：\n\nimport java.io.* ;\npublic class SerializeDemo { \n\tpublic static void main(String [] args) { \nEmployee e = new Employee(); \ne.name = \"Reyan Ali\"; \ne.address = \"Phokka Kuan, Ambehta Peer\"; \ne.SSN = 11122333; \ne.number = 101; \ntry { \n\tFileOutputStream fileOut = new FileOutputStream(\"/tmp/employee.ser\"); \n\tObjectOutputStream out = new ObjectOutputStream(fileOut); \n\tout.writeObject(e); out.close(); \n\tfileOut.close(); \n\tSystem.out.printf(\"Serialized data is saved in /tmp/employee.ser\"); \n\t}catch(IOException i) { i.printStackTrace(); } } }\n\n---\n\n## 反序列化对象\n\n下面的 DeserializeDemo 程序实例了反序列化，/tmp/employee.ser 存储了 Employee 对象。\n\n## DeserializeDemo.java 文件代码：\n\nimport java.io.* ; public class DeserializeDemo { public static void main(String [] args) { Employee e = null; try { FileInputStream fileIn = new FileInputStream(\"/tmp/employee.ser\"); ObjectInputStream in = new ObjectInputStream(fileIn); e = (Employee) in.readObject(); in.close(); fileIn.close(); }catch(IOException i) { i.printStackTrace(); return; }catch(ClassNotFoundException c) { System.out.println(\"Employee class not found\"); c.printStackTrace(); return; } System.out.println(\"Deserialized Employee...\"); System.out.println(\"Name: \" + e.name); System.out.println(\"Address: \" + e.address); System.out.println(\"SSN: \" + e.SSN); System.out.println(\"Number: \" + e.number); } }\n\n以上程序编译运行结果如下所示：\n\nDeserialized Employee...\nName: Reyan Ali\nAddress:Phokka Kuan, Ambehta Peer\nSSN: 0\nNumber:101\n\n这里要注意以下要点：\n\nreadObject() 方法中的 try/catch代码块尝试捕获 ClassNotFoundException 异常。对于 JVM 可以反序列化对象，它必须是能够找到字节码的类。如果JVM在反序列化对象的过程中找不到该类，则抛出一个 ClassNotFoundException 异常。\n\n注意，readObject() 方法的返回值被转化成 Employee 引用。\n\n当对象被序列化时，属性 SSN 的值为 111222333，但是因为该属性是短暂的，该值没有被发送到输出流。所以反序列化后 Employee 对象的 SSN 属性为 0。"
-    }
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "**Java 序列化**：将对象转换为字节流的过程——以便将对象保存到磁盘、在网络上传输或存入内存，之后再**反序列化**把字节流还原为对象。\n\n**实现方式**：通过 `java.io.Serializable` 接口——该接口没有任何方法，只是一个**标记接口**，用于标识类可以被序列化。\n\n**用途**：使对象可以在不同计算机之间移动和共享，对**分布式系统、数据存储、跨平台通信**非常有用。\n\n子节点：实现 Serializable 接口（条件与标记语义）、序列化对象（ObjectOutputStream）、反序列化对象（ObjectInputStream）。"
+        }
+      ],
+      "rootContent": "Java 序列化：对象 ↔ 字节流。通过标记接口 java.io.Serializable 实现，用于持久化、网络传输与跨平台共享。"
+    },
+    "role": "group",
+    "dimensions": [
+      "java"
+    ]
   },
   "k_1787824989173_a1sdqs": {
     "id": "k_1787824989173_a1sdqs",
@@ -148168,7 +148180,7 @@
           "content": "Spring IoC 的实现机制 \nSpring 中的 IoC 的实现原理就是工厂模式加反射机制。"
         }
       ],
-      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n # ApplicationContext 面向开发应用 \n# WebApplication 体系架构 \n# Spring Bean 作用域 \n# Spring Bean 生命周期 \n# Spring 依赖注入四种方式 Spring IOC是什么？优点是什么？ IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处： 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度 \n## 一、ioc \n## 二、 Spring IOC体系结构 \n## 三、IoC容器的初始化\n # 四、IOC容器的依赖注入 \n# 五、IoC容器的高级特性"
+      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n # ApplicationContext 面向开发应用 \n# WebApplication 体系架构 \n# Spring Bean 作用域 \n# Spring Bean 生命周期 \n# Spring 依赖注入四种方式\n Spring IOC是什么？优点是什么？ \nIoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处： 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度"
     }
   },
   "k_vault_javaspringiocioc_1jelty": {
@@ -148272,7 +148284,7 @@
           "content": "## 什么是 Spring Boot？\n\nSpring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。\n\n## Spring Boot 有哪些优点？\n\n1. 容易上手，提升开发效率，为 Spring 开发提供一个更快、更广泛的入门体验。\n2. 开箱即用，远离繁琐的配置。\n3. 提供了一系列大型项目通用的非业务性功能，例如：内嵌服务器，安全管理、运行数据监控、运行状况检查和外部化配置等。\n4. 没有代码生成，也不需要XML配置。\n5. 避免大量的 Maven 导入和各种版本冲突。\n\n## 核心注解\n\n启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：\n\n- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。\n- @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。\n- @ComponentScan：Spring组件扫描。\n\n---\n\n## 相关链接\n\n- 原理 - Spring Boot 原理详解\n- 与Spring对比 - Spring Boot 与 Spring 的区别\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": " Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。 ## Spring Boot 有哪些优点？ 1. 容易上手，提升开发效率，为 Spring 开发提供一个更快、更广泛的入门体验。 2. 开箱即用，远离繁琐的配置。 3. 提供了一系列大型项目通用的非业务性功能，例如：内嵌服务器，安全管理、运行数据监控、运行状况检查和外部化配置等。 4. 没有代码生成，也不需要XML配置。 5. 避免大量的 Maven 导入和各种版本冲突。 ## 核心注解 启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解： - @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。 - @ComponentScan：Spring组件扫描。 --- ## 相关链接 - 原理 - Spring Boot 原理详解 - 与Spring对比 - Spring Boot 与 Spring 的区别 - Spring - 返回Spring主目录"
+      "rootContent": "Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。 \nSpring Boot：约定优于配置的 Spring 快速开发方案，独立运行、内嵌服务器、自动配置、starter 依赖管理、生产就绪特性。\n\n## 核心注解 \n启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解： - @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。 - @ComponentScan：Spring组件扫描。"
     }
   },
   "k_vault_javaspringspringboot_lhipgq": {
@@ -148298,7 +148310,7 @@
           "content": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n\n## 核心设计思想\n\n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。\n\n## 主要特点\n\n1. **创建独立的 Spring 应用程序** - 可以独立运行\n2. **嵌入的 Tomcat** - 无需部署 WAR 文件，直接运行\n3. **简化 Maven 配置** - 自动管理依赖版本\n4. **自动配置 Spring** - 智能配置，减少手动配置\n5. **提供生产就绪型功能** - 如指标，健康检查和外部配置\n6. **没有代码生成** - 对 XML 没有要求配置\n\n## 自动配置原理\n\nSpring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现：\n- 扫描 classpath 下的配置文件\n- 根据条件注解决定配置是否生效\n- 自动配置 Bean\n"
         }
       ],
-      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n ## 核心设计思想 该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。 \n## 主要特点 1. **创建独立的 Spring 应用程序** - 可以独立运行 2. **嵌入的 Tomcat** - 无需部署 WAR 文件，直接运行 3. **简化 Maven 配置** - 自动管理依赖版本 4. **自动配置 Spring** - 智能配置，减少手动配置 5. **提供生产就绪型功能** - 如指标，健康检查和外部配置 6. **没有代码生成** - 对 XML 没有要求配置 ## 自动配置原理 Spring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现： - 扫描 classpath 下的配置文件 - 根据条件注解决定配置是否生效 - 自动配置 Bean --- ## 相关链接 - 概述 - Spring Boot 概述 - 与Spring对比 - Spring Boot 与 Spring 的区别 - Spring - 返回Spring主目录"
+      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n ## 核心设计思想 \n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。 \n## 主要特点 \n1. **创建独立的 Spring 应用程序** \n- 可以独立运行 \n2. **嵌入的 Tomcat** \n- 无需部署 WAR 文件，直接运行 \n3. **简化 Maven 配置** \n- 自动管理依赖版本\n4. **自动配置 Spring** \n- 智能配置，减少手动配置 \n5. **提供生产就绪型功能** \n- 如指标，健康检查和外部配置 \n6. **没有代码生成** \n- 对 XML 没有要求配置 \n"
     }
   },
   "k_vault_javaspringspringboot_yjdx1u": {
@@ -148350,7 +148362,7 @@
           "content": "## 缓存设置过期时间\n\nSpring Cache可以通过配置CacheManager来配置过期时间。\n\n### 核心接口\n\n- CacheManager - 管理Cache\n- Cache - 缓存操作接口\n\n### 配置过期时间\n\n```java\n// 设置默认过期时间\nredisCacheManager.setDefaultExpiration(3600);\n\n// 根据特定名称设置有效时间\nredisCacheManager.setExpires(Map<String, Long> expires);\n```\n\n## 自动刷新缓存\n\n在调用Cache的get方法时，检查缓存的有效时间，如果小于配置的自动刷新时间，则刷新缓存。\n\n### 实现步骤\n\n1. 解析配置文件中的时间\n2. 在getMissingCache方法中设置过期时间\n3. 重写get方法实现自动刷新\n\n### 注意事项\n\n- 高并发下建议使用分布式锁\n- 一个缓存名称只能配置一个过期时间\n\n---\n\n## 相关链接\n\n- 监视器 - Spring Boot 监视器\n- 热加载 - Spring Boot 热加载\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 缓存 ## 缓存设置过期时间 Spring Cache可以通过配置CacheManager来配置过期时间。 ### 核心接口 - CacheManager - 管理Cache - Cache - 缓存操作接口 ### 配置过期时间 ```java // 设置默认过期时间 redisCacheManager.setDefaultExpiration(3600); // 根据特定名称设置有效时间 redisCacheManager.setExpires(Map<String, Long> expires); ``` ## 自动刷新缓存 在调用Cache的get方法时，检查缓存的有效时间，如果小于配置的自动刷新时间，则刷新缓存。 ### 实现步骤 1. 解析配置文件中的时间 2. 在getMissingCache方法中设置过期时间 3. 重写get方法实现自动刷新 ### 注意事项 - 高并发下建议使用分布式锁 - 一个缓存名称只能配置一个过期时间 "
+      "rootContent": "Spring Boot 缓存 \n## 缓存设置过期时间 \nSpring Cache可以通过配置CacheManager来配置过期时间。 \n### 核心接口 \n- CacheManager \n- 管理Cache \n- Cache \n- 缓存操作接口 \n### 配置过期时间 \n```java \n// 设置默认过期时间 \nredisCacheManager.setDefaultExpiration(3600); \n// 根据特定名称设置有效时间 \nredisCacheManager.setExpires(Map<String, Long> expires); \n``` \n## 自动刷新缓存 \n在调用Cache的get方法时，检查缓存的有效时间，如果小于配置的自动刷新时间，则刷新缓存。 \n### 实现步骤 \n1. 解析配置文件中的时间 \n2. 在getMissingCache方法中设置过期时间 \n3. 重写get方法实现自动刷新 \n### 注意事项 \n- 高并发下建议使用分布式锁 \n- 一个缓存名称只能配置一个过期时间"
     }
   },
   "k_vault_javaspringspringboot_1rp75f": {
@@ -148376,7 +148388,7 @@
           "content": "## devtools 实现热部署\n\nSpring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。\n\n### 添加依赖\n\n```xml\n<dependency>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-devtools</artifactId>\n    <optional>true</optional>\n</dependency>\n```\n\n## 触发重启条件\n\n当DevTools监视类路径资源时，修改类文件会触发重新启动。\n\n- Eclipse: 保存修改的文件\n- IntelliJ IDEA: 构建项目 (Build -> Make Project)\n\n## 自定义排除项\n\n配置不触发重启的路径：\n\n```properties\nspring.devtools.restart.exclude=static/,public/\n```\n\n## 禁用热加载\n\n```java\npublic static void main(String[] args) {\n    System.setProperty(\"spring.devtools.restart.enabled\", \"false\");\n    SpringApplication.run(MyApp.class, args);\n}\n```\n\n## 触发文件\n\n使用触发文件控制重启时机，避免频繁重启。\n\n---\n\n## 相关链接\n\n- 缓存 - Spring Boot 缓存\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 热加载 ## devtools 实现热部署 Spring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。 ### 添加依赖 ```xml <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> <optional>true</optional> </dependency> ``` ## 触发重启条件 当DevTools监视类路径资源时，修改类文件会触发重新启动。 - Eclipse: 保存修改的文件 - IntelliJ IDEA: 构建项目 (Build -> Make Project) ## 自定义排除项 配置不触发重启的路径： ```properties spring.devtools.restart.exclude=static/,public/ ``` ## 禁用热加载 ```java public static void main(String[] args) { System.setProperty(\"spring.devtools.restart.enabled\", \"false\"); SpringApplication.run(MyApp.class, args); } ``` ## 触发文件 使用触发文件控制重启时机，避免频繁重启。"
+      "rootContent": "Spring Boot 热加载 \n## devtools 实现热部署 \nSpring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。 \n### 添加依赖 \n```xml \n<dependency> \n<groupId>org.springframework.boot</groupId> \n<artifactId>spring-boot-devtools</artifactId> \n<optional>true</optional> \n</dependency> \n``` \n## 触发重启条件 \n当DevTools监视类路径资源时，修改类文件会触发重新启动。 \n- Eclipse: 保存修改的文件 \n- IntelliJ IDEA: 构建项目 (Build -> Make Project) \n## 自定义排除项 配置不触发重启的路径： \n```properties \nspring.devtools.restart.exclude=static/,public/ \n``` \n## 禁用热加载 \n```java \npublic static void main(String[] args) { System.setProperty(\"spring.devtools.restart.enabled\", \"false\"); SpringApplication.run(MyApp.class, args); } \n``` \n## 触发文件 \n使用触发文件控制重启时机，避免频繁重启。"
     }
   },
   "k_vault_javaspringspringboot_1qq545": {
@@ -148402,7 +148414,7 @@
           "content": "## 什么是 Actuator\n\nSpring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。\n\n## 主要功能\n\n- 监控应用程序运行状态\n- 检查组件（如数据库等）是否正常运行\n- 提供 REST 端点供外部访问\n\n## 常用端点\n\n- `/actuator/health` - 健康检查\n- `/actuator/info` - 应用信息\n- `/actuator/metrics` - 指标数据\n\n## 禁用端点安全性\n\n默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。\n\n禁用安全性：\n```properties\nmanagement.security.enabled = false\n```\n\n**注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。\n\n## 监视多个微服务\n\nSpring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。\n\n---\n\n## 相关链接\n\n- 安全 - Spring Boot 安全配置\n- 缓存 - 缓存配置\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 监视器\n ## 什么是 Actuator Spring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。 ## 主要功能 - 监控应用程序运行状态 - 检查组件（如数据库等）是否正常运行 - 提供 REST 端点供外部访问 ## 常用端点 - `/actuator/health` - 健康检查 - `/actuator/info` - 应用信息 - `/actuator/metrics` - 指标数据 ## 禁用端点安全性 默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。 禁用安全性： ```properties management.security.enabled = false ``` **注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。 ## 监视多个微服务 Spring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。"
+      "rootContent": "Spring Boot 监视器\n ## 什么是 Actuator \nSpring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。 \n## 主要功能 - 监控应用程序运行状态 - 检查组件（如数据库等）是否正常运行 - 提供 REST 端点供外部访问 ## 常用端点 - `/actuator/health` - 健康检查 - `/actuator/info` - 应用信息 - `/actuator/metrics` - 指标数据 ## 禁用端点安全性 默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。 禁用安全性： ```properties management.security.enabled = false ``` **注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。 ## 监视多个微服务 Spring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。"
     }
   },
   "k_vault_javaspringspringboot_g9wkoh": {
@@ -148665,7 +148677,7 @@
           "content": "假设我们需要显示如：用户名[NAME]长度必须在[MIN]到[MAX]之间，此处大家可以看到，我们不想把一些数据写死，如NAME、MIN、MAX；此时我们可以使用EL表达式。\n\n如：${validatedValue}可以获取输入的值。\n\n## 使用EL表达式获取验证注解属性\n\n其中我们可以使用{验证注解的属性}得到这些值。如：\n- {min}得到@Length中的min值\n- {max}得到@Length中的max值\n- 其他验证注解的属性类似\n\n## 使用EL表达式获取输入值\n\n使用如EL表达式：${validatedValue}得到输入的值，如zhangsan。\n\n示例错误消息：\n```\n用户名[${validatedValue}]长度必须在5到20之间\n```\n\n## 条件表达式\n\n我们还可以使用如${min > 1 ? '大于1' : '小于等于1'}，即在EL表达式中也能拿到如@Length的min等数据。\n\n## 格式化器\n\n另外我们还可以拿到一个java.util.Formatter类型的formatter变量进行格式化。"
         }
       ],
-      "rootContent": "验证消息中使用 EL 表达式 假设我们需要显示如：用户名[NAME]长度必须在[MIN]到[MAX]之间，此处大家可以看到，我们不想把一些数据写死，如NAME、MIN、MAX；此时我们可以使用EL表达式。 如：${validatedValue}可以获取输入的值。 ## 使用EL表达式获取验证注解属性 其中我们可以使用{验证注解的属性}得到这些值。如： - {min}得到@Length中的min值 - {max}得到@Length中的max值 - 其他验证注解的属性类似 ## 使用EL表达式获取输入值 使用如EL表达式：${validatedValue}得到输入的值，如zhangsan。 示例错误消息： ``` 用户名[${validatedValue}]长度必须在5到20之间 ``` ## 条件表达式 我们还可以使用如${min > 1 ? '大于1' : '小于等于1'}，即在EL表达式中也能拿到如@Length的min等数据。 ## 格式化器 另外我们还可以拿到一个java.util.Formatter类型的formatter变量进行格式化。"
+      "rootContent": "验证消息中使用 EL 表达式 假设我们需要显示如：用户名[NAME]长度必须在[MIN]到[MAX]之间，此处大家可以看到，我们不想把一些数据写死，如NAME、MIN、MAX；此时我们可以使用EL表达式。 如：${validatedValue}可以获取输入的值。 \n## 使用EL表达式获取验证注解属性\n 其中我们可以使用{验证注解的属性}得到这些值。如： - {min}得到@Length中的min值 - {max}得到@Length中的max值 - 其他验证注解的属性类似 ## 使用EL表达式获取输入值 使用如EL表达式：${validatedValue}得到输入的值，如zhangsan。 示例错误消息： ``` 用户名[${validatedValue}]长度必须在5到20之间 ``` ## 条件表达式 我们还可以使用如${min > 1 ? '大于1' : '小于等于1'}，即在EL表达式中也能拿到如@Length的min等数据。 ## 格式化器 另外我们还可以拿到一个java.util.Formatter类型的formatter变量进行格式化。"
     }
   },
   "k_vault_javaspring_x40su7": {
@@ -148691,7 +148703,7 @@
           "content": "类级别验证器用于验证多个字段之间的约束关系，而不是单个字段。\n\n## 定义验证注解\n\n创建类级别的验证注解，@Target需要包含ANNOTATION_TYPE。\n\n## 定义验证器\n\n实现ConstraintValidator接口，泛型参数为注解类型和被验证的对象类型。\n\n## 使用\n\n将注解放在类级别，而不是字段级别。\n\n## 应用场景\n\n- 密码和确认密码一致性验证\n- 日期范围验证（如结束日期晚于开始日期）\n- 多个字段组合的业务规则验证"
         }
       ],
-      "rootContent": "类级别验证器 类级别验证器用于验证多个字段之间的约束关系，而不是单个字段。 ## 定义验证注解 创建类级别的验证注解，@Target需要包含ANNOTATION_TYPE。 ## 定义验证器 实现ConstraintValidator接口，泛型参数为注解类型和被验证的对象类型。 ## 使用 将注解放在类级别，而不是字段级别。 ## 应用场景 - 密码和确认密码一致性验证 - 日期范围验证（如结束日期晚于开始日期） - 多个字段组合的业务规则验证"
+      "rootContent": "类级别验证器 类级别验证器用于验证多个字段之间的约束关系，而不是单个字段。 \n## 定义验证注解 \n创建类级别的验证注解，@Target需要包含ANNOTATION_TYPE。\n ## 定义验证器 \n实现ConstraintValidator接口，泛型参数为注解类型和被验证的对象类型。 \n## 使用\n 将注解放在类级别，而不是字段级别。 \n## 应用场景 \n- 密码和确认密码一致性验证 \n- 日期范围验证（如结束日期晚于开始日期） \n- 多个字段组合的业务规则验证"
     }
   },
   "k_vault_javaspring_12ziva": {
@@ -148717,7 +148729,7 @@
           "content": "有时候默认的规则可能还不够，有时候还需要自定义规则，比如屏蔽关键词验证是非常常见的一个功能，比如在发帖时帖子中不允许出现admin等关键词。\n\n## 1、定义验证注解\n\n```java\npackage com.sishuok.spring4.validator;\n\nimport javax.validation.Constraint;\nimport javax.validation.Payload;\nimport java.lang.annotation.Documented;\nimport java.lang.annotation.Retention;\nimport java.lang.annotation.Target;\nimport static java.lang.annotation.ElementType.*;\nimport static java.lang.annotation.RetentionPolicy.*;\n\n@Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })\n@Retention(RUNTIME)\n//指定验证器\n@Constraint(validatedBy = ForbiddenValidator.class)\n@Documented\npublic @interface Forbidden {\n    //默认错误消息\n    String message() default \"{forbidden.word}\";\n    //分组\n    Class<?>[] groups() default { };\n    //负载\n    Class<? extends Payload>[] payload() default { };\n    //指定多个时使用\n    @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE })\n    @Retention(RUNTIME)\n    @Documented\n    @interface List {\n        Forbidden[] value();\n    }\n}\n```\n\n## 2、定义验证器\n\n## 3、使用\n\n## 4、当我们在提交name中含有admin的时候会输出错误消息"
         }
       ],
-      "rootContent": "自定义验证规则 有时候默认的规则可能还不够，有时候还需要自定义规则，比如屏蔽关键词验证是非常常见的一个功能，比如在发帖时帖子中不允许出现admin等关键词。 ## 1、定义验证注解 ```java package com.sishuok.spring4.validator; import javax.validation.Constraint; import javax.validation.Payload; import java.lang.annotation.Documented; import java.lang.annotation.Retention; import java.lang.annotation.Target; import static java.lang.annotation.ElementType.*; import static java.lang.annotation.RetentionPolicy.*; @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE }) @Retention(RUNTIME) //指定验证器 @Constraint(validatedBy = ForbiddenValidator.class) @Documented public @interface Forbidden { //默认错误消息 String message() default \"{forbidden.word}\"; //分组 Class<?>[] groups() default { }; //负载 Class<? extends Payload>[] payload() default { }; //指定多个时使用 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE }) @Retention(RUNTIME) @Documented @interface List { Forbidden[] value(); } } ``` ## 2、定义验证器 ## 3、使用 ## 4、当我们在提交name中含有admin的时候会输出错误消息"
+      "rootContent": "自定义验证规则 有时候默认的规则可能还不够，有时候还需要自定义规则，比如屏蔽关键词验证是非常常见的一个功能，比如在发帖时帖子中不允许出现admin等关键词。 \n## 1、定义验证注解 \n```java \npackage com.sishuok.spring4.validator; \nimport javax.validation.Constraint; \nimport javax.validation.Payload; \nimport java.lang.annotation.Documented; \nimport java.lang.annotation.Retention; \nimport java.lang.annotation.Target; \nimport static java.lang.annotation.ElementType.*; \nimport static java.lang.annotation.RetentionPolicy.*;\n @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE }) \n@Retention(RUNTIME) //指定验证器 @Constraint(validatedBy = ForbiddenValidator.class) @Documented public @interface Forbidden { //默认错误消息 String message() default \"{forbidden.word}\"; //分组 Class<?>[] groups() default { }; //负载 Class<? extends Payload>[] payload() default { }; //指定多个时使用 @Target({ FIELD, METHOD, PARAMETER, ANNOTATION_TYPE }) @Retention(RUNTIME) @Documented @interface List { Forbidden[] value(); } } \n``` \n## 2、定义验证器 \n## 3、使用 \n## 4、当我们在提交name中含有admin的时候会输出错误消息"
     }
   },
   "k_vault_javaspring_106727": {
@@ -148743,7 +148755,7 @@
           "content": "Spring 4引入了方法级别验证的支持，允许对方法的返回值进行验证。\n\n## 基本概念\n\n通过@Validated注解结合Bean Validation可以对方法的返回值进行验证。\n\n## 使用方式\n\n```java\n@Validated\npublic class UserService {\n    public @NotNull User getUser(Long id) {\n        return userRepository.findById(id);\n    }\n}\n```\n\n## 返回值验证的触发\n\n- 当方法返回非null值时进行验证\n- 可以配合@Valid注解进行嵌套对象验证\n\n## 验证结果处理\n\n可以通过BindingResult或异常处理器获取验证错误信息。\n\n## 相关文档\n\n- 集成Bean Validation 1.1到SpringMVC - Validation集成\n- 自定义验证规则 - 自定义规则\n- 分组验证与级联验证 - 分组验证"
         }
       ],
-      "rootContent": "返回值验证 Spring 4引入了方法级别验证的支持，允许对方法的返回值进行验证。 ## 基本概念 通过@Validated注解结合Bean Validation可以对方法的返回值进行验证。 ## 使用方式 ```java @Validated public class UserService { public @NotNull User getUser(Long id) { return userRepository.findById(id); } } ``` ## 返回值验证的触发 - 当方法返回非null值时进行验证 - 可以配合@Valid注解进行嵌套对象验证 ## 验证结果处理 可以通过BindingResult或异常处理器获取验证错误信息。 ## 相关文档 - 集成Bean Validation 1.1到SpringMVC - Validation集成 - 自定义验证规则 - 自定义规则 - 分组验证与级联验证 - 分组验证"
+      "rootContent": "返回值验证 Spring 4引入了方法级别验证的支持，允许对方法的返回值进行验证。\n ## 基本概念\n 通过@Validated注解结合Bean Validation可以对方法的返回值进行验证。\n ## 使用方式 \n```java\n @Validated public class UserService { public @NotNull User getUser(Long id) { return userRepository.findById(id); } } \n``` \n## 返回值验证的触发 \n- 当方法返回非null值时进行验证 \n- 可以配合@Valid注解进行嵌套对象验证 \n## 验证结果处理 \n可以通过BindingResult或异常处理器获取验证错误信息。 \n"
     }
   },
   "k_vault_javaspringbeanvalidation11springmvc_1b3bqh": {
@@ -149901,32 +149913,6 @@
           "content": "Doug Lea util.concurrent 工具包中执行器（Executor）与线程池的早期笔记（原文为 OCR 稿，供参考；现役内容见 java.util.concurrent 包的 Executor 框架与线程池详解）。\n\nclass Service { // ... final Channel msgQ = new LinkedQueue(); public void serve() throws InterruptedException { String status = doService(); msgQ.put(status); } public Service() { // start background thread Runnable logger = new Runnable() { public void run() { try { for(;;) System.out.println(msqQ.take()); } catch(InterruptedException ie) {} } }; new Thread(logger).start(); } } \n\n在后台服务器中，缓冲和队列都是最常用到的。试想，如果对所有远端的请求不排个队列，让它们一拥而上的去争夺cpu、内存、资源，那服务器瞬间不当掉才怪。而在这里，成熟的队列和缓冲实现已经提供，您只需要对其进行正确初始化并使用即可，大大缩短了开发时间。\n\n## 2.3执行器(Executor)\n\nExecutor是这里最重要、也是我们往往最终写程序要用到的，下面重点对其进行介绍。\n\n类似线程的类的主接口\n\n## - 线程池\n\n- 轻量级运行框架\n\n- 可以定制调度算法\n\n只需要支持execute(Runnable r)\n\n- 同Thread.start类似\n\n## 实现\n\n- PooledExecutor, ThreadedExecutor, QueuedExecutor, FJTaskRunnerGroup \n\nPooledExecutor（线程池执行器）是个最常用到的类，以它为例：可修改得属性如下：- 任务队列的类型- 最大线程数- 最小线程数- 预热(预分配)和立即(分配)线程- 保持活跃直到工作线程结束\n\n```java\n使用PooledExecutor例子\nimport java.net.*;\n/**\n *\n结束语\nTitle:\n*\nDescription: 负责初始化线程池以及启动服务器\n*\nCopyright: Copyright (c) 2003\n*\nCompany:\n* @author not attributable\n* @version 1.0\n*/\npublic class MainServer {\n    //初始化常量\n    public static final int MAX_CLIENT=100; //系统最大同时服务客户数\n    //初始化线程池\n    public static final PooledExecutor pool =\n    new PooledExecutor(new BoundedBuffer(10), MAX_CLIENT); //chanel容量为10,\n    //在这里为线程池初始化了一个\n    //长度为10的任务缓冲队列。\npublic MainServer() {\n    //设置线程池运行参数\n    pool.setMinimumPoolSize(5); //设置线程池初始容量为5个线程\n    pool.discardOldestWhenBlocked(); //对于超出队列的请求，使用了抛弃策略。\n    pool.createThreads(2); //在线程池启动的时候，初始化了具有一定生命周期的2个“热”线程\n}\n```\n\n-- 以后如果需要可能被一个新的代替- 饱和(Saturation)协议-- 阻塞，丢弃，生产者运行，等等\n\n可不要小看上面这数条属性，对这些属性的设置完全可以等同于您自己撰写的线程池的成百上千行代码。下面以笔者撰写过得一个GIS服务器为例：\n\n该GIS服务器是一个典型的“请求－服务”类型的服务器，遵循后端程序设计的一般框架。首先对所有的请求按照先来先服务排入一个请求队列，如果瞬间到达的请求超过了请求队列的容量，则将溢出的请求转移至一个临时队列。如果临时队列也排满了，则对以后达到的请求给予一个“服务器忙”的提示后将其简单抛弃。这个就够忙活一阵的了。\n\n然后，结合链表结构实现一个线程池，给池一个初始容量。如果该池满，以x2的策略将池的容量动态增加一倍，依此类推，直到总线程数服务达到系统能力上限，之后线程池容量不在增加，所有请求将等待一个空余的返回线程。每从池中得到一个线程，该线程就开始最请求进行GIS信息的服务，如取坐标、取地图，等等。服务完成后，该线程返回线程池继续为请求队列离地后续请求服务，周而复始。当时用矢量链表来暂存请求，用wait()、 notify() 和 synchronized等原语结合矢量链表实现线程池，总共约600行程序，而且在运行时间较长的情况下服务器不稳定，线程池被取用的线程有异常消失的情况发生。而使用util.concurrent相关类之后，仅用了几十行程序就完成了相同的工作而且服务器运行稳定，线程池没有丢失线程的情况发生。由此可见util.concurrent包极大的提高了开发效率，为项目节省了大量的时间。\n\n使用PooledExecutor例子\n\n```groovy\npublic static void main(String[] args) {\n    MainServer MainServer1 = new MainServer();\n    new HTTPListener().start(); // 启动服务器监听和处理线程\n    new manageServer().start(); // 启动管理线程\n}\n类HTTPListener\nimport java.net.*;\n/**\n *\nTitle:\n *\nDescription: 负责监听端口以及将任务交给线程池处理\n *\nCopyright: Copyright (c) 2003\n *\nCompany:\n * @author not attributable\n * @version 1.0\n */\npublic class HTTPListener extends Thread{\n    public HTTPListener() {\n    }\n    public void run(){\n    try{\n    ServerSocket server=null;\n    Socket clientconnection=null;\n    server = new ServerSocket(8008); // 服务套接字监听某地址端口对\n    while(true){//无限循环\n    clientconnection =server.accept();\n    System.out.println(\"Client connected in!\");\n    // 使用线程池启动服务\n    MainServer.pool.execute(new HTTPRequest(clientconnection)); // 如果收到一个请求，则从线程池中取一个线程进行服务，任务完成后，该线程自动返还线程池\n    }\n} catch(Exception e){\n    System.err.println(\"Unable to start serve listen:\" + e.getMessage());\n    e.printStackTrace();\n    }\n}\n```\n\n关于util.concurrent工具包就有选择的介绍到这，更详细的信息可以阅读这些java源代码的API文档。Doug Lea是个很具有“open”精神的作者，他将util.concurrent工具包的java源代码全部公布出来，有兴趣的读者可以下载这些源代码并细细品味。\n\n线程池是组织服务器应用程序的有用工具。它在概念上十分简单，但在实现和使用一个池时，却需要注意几个问题，例如死锁、资源不足和 wait() 及 notify() 的复杂性。如果您发现您的应用程序需要线程池，那么请考虑使用 util.concurrent 中的某个 Executor 类，例如 PooledExecutor，而不用从头开始编写。如果您要自己创建线程来处理生存期很短的任务，那么您绝对应该考虑使用线程池来替代。"
         }
       ]
-    }
-  },
-  "k_java_fw_springboot_wiki_concept": {
-    "id": "k_java_fw_springboot_wiki_concept",
-    "label": "Spring Boot（维基）",
-    "role": "reference",
-    "dimensions": [
-      "java"
-    ],
-    "tags": [
-      "Spring Boot(维基)",
-      "Spring",
-      "Spring Boot",
-      "维基"
-    ],
-    "card": {
-      "nodeId": "k_java_fw_springboot_wiki_concept",
-      "title": "Spring Boot（维基）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**Spring Boot**：Spring 的\"约定优于配置\"解决方案，用于创建独立的、生产级的、可直接运行的 Spring 应用程序——经 Spring 团队\"意见化视图\"预配置，最小化配置烦恼。\n\n核心特性：\n- 创建独立的 Spring 应用程序\n- 直接嵌入 Tomcat / Jetty / Undertow（无需部署 WAR）\n- 提供\"入门\" starter POM 简化 Maven/Gradle 配置\n- 尽可能自动配置 Spring 与第三方库\n- 生产就绪功能：度量、健康检查、外部化配置\n- 无需代码生成、无需 XML 配置\n- 可选支持 Kotlin 与 Groovy\n\n启动注解 **@SpringBootApplication** = @SpringBootConfiguration（@Configuration 特化）+ @EnableAutoConfiguration（开启自动配置）+ @ComponentScan（组件扫描）。配置属性写入 application.properties 或 application.yml（如 server.port、spring.application.name）。Spring Boot 自动配置 DispatcherServlet，无需手动配置。"
-        }
-      ],
-      "rootContent": "Spring Boot：约定优于配置的 Spring 快速开发方案，独立运行、内嵌服务器、自动配置、starter 依赖管理、生产就绪特性。"
     }
   },
   "k_sql_statement_types": {
@@ -159542,5 +159528,125 @@
       ],
       "rootContent": "Starter：Spring Boot 场景化依赖包，引入即用，自动配置 + 默认值。"
     }
+  },
+  "k_1789032923900_eg5g5j": {
+    "id": "k_1789032923900_eg5g5j",
+    "label": "实现 Serializable 接口",
+    "tags": [
+      "Serializable",
+      "标记接口",
+      "transient",
+      "java"
+    ],
+    "card": {
+      "nodeId": "k_1789032923900_eg5g5j",
+      "title": "实现 Serializable 接口",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "**Serializable 是标记接口**：没有任何方法，只用于标识类可被序列化。检验一个类能否序列化，只需查看它有没有实现 `java.io.Serializable`。\n\n**序列化成功的两个条件**：\n1. 该类必须实现 `java.io.Serializable` 接口\n2. 该类的所有属性必须是可序列化的；不可序列化的属性必须标注 `transient`（短暂）\n\n**transient 的效果**：被修饰的字段不进入字节流——序列化时被跳过，反序列化后为类型默认值（如 int 为 0）。\n\n### 示例类\n```java\npublic class Employee implements java.io.Serializable {\n    public String name;\n    public String address;\n    public transient int SSN;   // 不参与序列化\n    public int number;\n    public void mailCheck() {\n        System.out.println(\"Mailing a check to \" + name + \" \" + address);\n    }\n}\n```"
+        }
+      ],
+      "rootContent": "Serializable 标记接口 + 两个序列化条件；transient 字段不参与序列化，反序列化后为默认值。"
+    },
+    "role": "concept",
+    "dimensions": [
+      "java"
+    ],
+    "parentId": "k_1787818794698_9mccgx"
+  },
+  "k_1789032990253_rt74t1": {
+    "id": "k_1789032990253_rt74t1",
+    "label": "实例",
+    "tags": [
+      "实例"
+    ],
+    "card": {
+      "nodeId": "k_1789032990253_rt74t1",
+      "title": "实例",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "### MyClass 声明示例\n\n```java\nimport java.io.Serializable;\n\npublic class MyClass implements Serializable {\n    // 类的成员和方法\n}\n```\n\n只需 implements Serializable 即可让类获得序列化能力——不需要实现任何方法（标记接口）。"
+        }
+      ],
+      "rootContent": "MyClass implements Serializable：标记接口，声明即得序列化能力，无需实现任何方法。"
+    }
+  },
+  "k_1789033016897_n3sb52": {
+    "id": "k_1789033016897_n3sb52",
+    "label": "序列化对象",
+    "tags": [
+      "ObjectOutputStream",
+      "writeObject",
+      "序列化",
+      "java"
+    ],
+    "card": {
+      "nodeId": "k_1789033016897_n3sb52",
+      "title": "序列化对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "**ObjectOutputStream**：高层次数据流，用来序列化对象。核心方法：\n\n```java\npublic final void writeObject(Object x) throws IOException\n```\n\n序列化一个对象并将其发送到输出流。（该类还包含写各种数据类型的众多方法，writeObject 是唯一的对象方法。）\n\n### SerializeDemo\n```java\nimport java.io.*;\npublic class SerializeDemo {\n    public static void main(String[] args) {\n        Employee e = new Employee();\n        e.name = \"Reyan Ali\";\n        e.address = \"Phokka Kuan, Ambehta Peer\";\n        e.SSN = 11122333;\n        e.number = 101;\n        try {\n            FileOutputStream fileOut = new FileOutputStream(\"/tmp/employee.ser\");\n            ObjectOutputStream out = new ObjectOutputStream(fileOut);\n            out.writeObject(e);\n            out.close();\n            fileOut.close();\n            System.out.printf(\"Serialized data is saved in /tmp/employee.ser\");\n        } catch (IOException i) { i.printStackTrace(); }\n    }\n}\n```\n\n**约定**：序列化到文件的扩展名为 `.ser`。"
+        }
+      ],
+      "rootContent": "序列化对象：ObjectOutputStream.writeObject() 把对象写入输出流；文件按约定用 .ser 扩展名。"
+    },
+    "role": "concept",
+    "dimensions": [
+      "java"
+    ],
+    "parentId": "k_1787818794698_9mccgx"
+  },
+  "k_1789033067250_h38102": {
+    "id": "k_1789033067250_h38102",
+    "label": "实例",
+    "tags": [
+      "实例"
+    ],
+    "card": {
+      "nodeId": "k_1789033067250_h38102",
+      "title": "实例",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "### 序列化 MyClass 简式示例\n\n```java\nMyClass obj = new MyClass();\ntry {\n    FileOutputStream fileOut = new FileOutputStream(\"object.ser\");\n    ObjectOutputStream out = new ObjectOutputStream(fileOut);\n    out.writeObject(obj);\n    out.close();\n    fileOut.close();\n} catch (IOException e) {\n    e.printStackTrace();\n}\n```\n\n将 obj 对象序列化到 \"object.ser\" 文件。完整 Employee 版本见父节点「序列化对象」。"
+        }
+      ],
+      "rootContent": "MyClass obj = new MyClass();  \ntry {  \n    FileOutputStream fileOut = new FileOutputStream(\"object.ser\");  \n    ObjectOutputStream out = new ObjectOutputStream(fileOut);  \n    out.writeObject(obj);  \n    out.close();  \n    fileOut.close();  \n} catch (IOException e) {  \n    e.printStackTrace();  \n}  \n\n上述代码将一个名为 \"object.ser\" 文件中的 obj 对象序列化。"
+    }
+  },
+  "k_1789033106723_46xsvp": {
+    "id": "k_1789033106723_46xsvp",
+    "label": "反序列化对象",
+    "tags": [
+      "ObjectInputStream",
+      "readObject",
+      "反序列化",
+      "ClassNotFoundException",
+      "java"
+    ],
+    "card": {
+      "nodeId": "k_1789033106723_46xsvp",
+      "title": "反序列化对象",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "### 反序列化 MyClass 简式示例\n\n```java\nMyClass obj = null;\ntry {\n    FileInputStream fileIn = new FileInputStream(\"object.ser\");\n    ObjectInputStream in = new ObjectInputStream(fileIn);\n    obj = (MyClass) in.readObject();\n    in.close();\n    fileIn.close();\n} catch (IOException e) {\n    e.printStackTrace();\n} catch (ClassNotFoundException e) {\n    e.printStackTrace();\n}\n```\n\n从 \"object.ser\" 文件读取字节流并反序列化为 MyClass 对象。完整 Employee 版本：\n\n**ObjectInputStream**：高层次数据流，从字节流反序列化对象。核心方法：\n\n```java\npublic final Object readObject() throws IOException, ClassNotFoundException\n```\n\n从流中取出下一个对象并反序列化；返回值为 Object，需要转换成合适的数据类型。\n\n### DeserializeDemo\n```java\nimport java.io.*;\npublic class DeserializeDemo {\n    public static void main(String[] args) {\n        Employee e = null;\n        try {\n            FileInputStream fileIn = new FileInputStream(\"/tmp/employee.ser\");\n            ObjectInputStream in = new ObjectInputStream(fileIn);\n            e = (Employee) in.readObject();\n            in.close();\n            fileIn.close();\n        } catch (IOException i) { i.printStackTrace(); return; }\n        catch (ClassNotFoundException c) { System.out.println(\"Employee class not found\"); c.printStackTrace(); return; }\n        System.out.println(\"Deserialized Employee...\");\n        System.out.println(\"Name: \" + e.name);      // Reyan Ali\n        System.out.println(\"Address: \" + e.address); // Phokka Kuan, Ambehta Peer\n        System.out.println(\"SSN: \" + e.SSN);          // 0 —— transient 未序列化\n        System.out.println(\"Number: \" + e.number);    // 101\n    }\n}\n```\n\n### 三个要点\n1. **ClassNotFoundException**：JVM 反序列化时必须能找到类的字节码，找不到即抛出——try/catch 必须捕获\n2. **返回值转型**：readObject() 返回 Object，需强转（如 `(Employee)`）\n3. **transient 效果**：序列化时 SSN=11122333，但因 transient 未写入流，反序列化后 SSN 为 0"
+        }
+      ],
+      "rootContent": "反序列化对象：ObjectInputStream.readObject() 从流还原对象，需强转、需捕获 ClassNotFoundException；transient 字段还原为默认值。"
+    },
+    "role": "concept",
+    "dimensions": [
+      "java"
+    ],
+    "parentId": "k_1787818794698_9mccgx"
   }
 }

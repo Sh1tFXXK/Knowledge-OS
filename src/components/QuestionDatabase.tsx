@@ -3,11 +3,24 @@ import { useGraphStore } from '../store/useGraph';
 import type { QuestionAnswerStep } from '../types';
 import QuestionAnswerEditor from './QuestionAnswerEditor';
 import { useDebouncedValue, useProgressiveRender } from './useProgressiveRender';
+import { QUESTION_DRAG_TYPE, handleQuestionDropOnTree } from '../knowledge/questionLink';
 
 type ViewMode = 'table' | 'cards';
 type SortBy = 'text' | 'status' | 'created';
 type SortOrder = 'asc' | 'desc';
 type GroupBy = 'none' | 'status' | 'keyword';
+
+/** 问题卡拖拽源：把问题 ID 写入 dataTransfer，目录树据此改归属 */
+function questionDragSource(
+  questionId: string,
+  event: React.DragEvent,
+  onDragStart?: (questionId: string) => void,
+) {
+  event.dataTransfer.effectAllowed = 'move';
+  event.dataTransfer.setData(QUESTION_DRAG_TYPE, questionId);
+  event.dataTransfer.setData('text/plain', questionId);
+  onDragStart?.(questionId);
+}
 
 export default function QuestionDatabase() {
   const questions = useGraphStore((s) => s.questions);
@@ -22,6 +35,7 @@ export default function QuestionDatabase() {
   const removeQuestion = useGraphStore((s) => s.removeQuestion);
   const updateQuestion = useGraphStore((s) => s.updateQuestion);
   const answerQuestion = useGraphStore((s) => s.answerQuestion);
+  const moveQuestionToNode = useGraphStore((s) => s.moveQuestionToNode);
 
   const [viewMode, setViewMode] = useState<ViewMode>('table');
   const [showAddForm, setShowAddForm] = useState(false);
@@ -34,6 +48,7 @@ export default function QuestionDatabase() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState('');
   const [editingAnswerId, setEditingAnswerId] = useState<string | null>(null);
+  const [draggingQuestionId, setDraggingQuestionId] = useState<string | null>(null);
 
   // 扩展问题数据，添加状态
   const questionsWithStatus = useMemo(() => {
@@ -259,7 +274,20 @@ export default function QuestionDatabase() {
   };
 
   return (
-    <div className="question-database">
+    <div
+      className="question-database"
+      onDragOver={(e) => {
+        // 不 preventDefault 的话 drop 事件不会触发；这里允许问题卡在本视图内释放（走兜底提示）
+        if (e.dataTransfer.types.includes(QUESTION_DRAG_TYPE)) e.preventDefault();
+      }}
+      onDrop={(e) => {
+        if (!e.dataTransfer.types.includes(QUESTION_DRAG_TYPE)) return;
+        e.preventDefault();
+        if (handleQuestionDropOnTree(e, moveQuestionToNode, addNotification)) {
+          e.stopPropagation();
+        }
+      }}
+    >
       {/* 工具栏 */}
       <div className="database-toolbar">
         <div className="toolbar-left">
@@ -431,9 +459,15 @@ export default function QuestionDatabase() {
                     return (
                       <tr
                         key={q.id}
-                        className={q.id === selectedQuestionId ? 'row-selected' : undefined}
+                        className={[
+                          q.id === selectedQuestionId ? 'row-selected' : '',
+                          q.id === draggingQuestionId ? 'is-dragging' : '',
+                        ].filter(Boolean).join(' ') || undefined}
                         onClick={() => handleQuestionClick(q)}
                         style={{ cursor: 'pointer' }}
+                        draggable
+                        onDragStart={(e) => questionDragSource(q.id, e, setDraggingQuestionId)}
+                        onDragEnd={() => setDraggingQuestionId(null)}
                       >
                         <td>{q.text}</td>
                         <td>
@@ -546,8 +580,11 @@ export default function QuestionDatabase() {
                   return (
                     <div
                       key={q.id}
-                      className={`question-card${q.id === selectedQuestionId ? ' question-card-selected' : ''}`}
+                      className={`question-card${q.id === selectedQuestionId ? ' question-card-selected' : ''}${q.id === draggingQuestionId ? ' is-dragging' : ''}`}
                       onClick={() => handleQuestionClick(q)}
+                      draggable
+                      onDragStart={(e) => questionDragSource(q.id, e, setDraggingQuestionId)}
+                      onDragEnd={() => setDraggingQuestionId(null)}
                     >
                       <div className="question-card-header">
                         <span className={`status-badge status-${q.status}`}>

@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useEffect, useRef, memo, CSSProperties 
 import { useShallow } from 'zustand/react/shallow';
 import { useGraphStore } from '../store/useGraph';
 import { useDebouncedValue } from '../components/useProgressiveRender';
+import { QUESTION_DRAG_TYPE } from '../knowledge/questionLink';
 
 import { countTreeNodes, findTreeNodeById, findTreeParent } from '../knowledge/treeUtils';
 import type { TreeNode } from '../types';
@@ -26,6 +27,10 @@ interface TreeDirectoryOption {
 const TREE_NODE_DRAG_TYPE = 'application/x-knowledge-os-tree-node';
 /** 拖拽悬停多久后才自动展开目标文件夹（毫秒）；过短易误开，过长难用 */
 const DRAG_EXPAND_DWELL_MS = 650;
+
+/** 是否为问题卡拖入（dataTransfer.types 在 dragover 阶段即可读） */
+const isQuestionDrag = (e: React.DragEvent) =>
+  e.dataTransfer.types.includes(QUESTION_DRAG_TYPE);
 
 interface UniverseTreeProps {
   isCollapsed: boolean;
@@ -106,6 +111,7 @@ const TreeItem = memo(({
   onAddQuestion,
   draggingTreeNodeId,
   dropTargetTreeNodeId,
+  isQuestionDragActive,
   onDragStartNode,
   onDragEndNode,
   onDragOverNode,
@@ -125,6 +131,8 @@ const TreeItem = memo(({
   onAddQuestion: (treeNodeId: string, label: string) => void;
   draggingTreeNodeId: string | null;
   dropTargetTreeNodeId: string | null;
+  /** 问题卡拖拽进行中（区分高亮样式；目录拖拽时为 false） */
+  isQuestionDragActive: boolean;
   onDragStartNode: (nodeId: string) => void;
   onDragEndNode: () => void;
   onDragOverNode: (nodeId: string) => void;
@@ -142,10 +150,19 @@ const TreeItem = memo(({
   const poolId = node.nodeRef;
   // 选中态逐项自订阅：选择变化时仅旧/新两个选中项重渲染，而不是整棵 3000+ 节点的树
   const isSelected = useGraphStore((s) => (poolId ? s.selectedNodeId === poolId : false));
+  // 拖问题卡到本目录项：直接改问题归属（树节点 memo 内自订阅，避免整树感知问题数据）
+  const moveQuestionToNode = useGraphStore((s) => s.moveQuestionToNode);
+  const addNotification = useGraphStore((s) => s.addNotification);
   const isBulkSelected = selectedTreeIds.has(node.id);
   const isSearchMatch = !!(searchQuery && node.name.toLowerCase().includes(searchQuery.toLowerCase()));
   const isDragging = draggingTreeNodeId === node.id;
-  const isDropTarget = dropTargetTreeNodeId === node.id && draggingTreeNodeId !== node.id;
+  // 问题卡拖入也算放置目标（根行除外：drop 会落到根节点指向的知识点，语义不合理）
+  const isDropTarget = dropTargetTreeNodeId === node.id
+    && draggingTreeNodeId !== node.id
+    && !isTreeRoot;
+  const dropTargetClass = isDropTarget
+    ? (isQuestionDragActive ? 'drop-target-question' : 'drop-target')
+    : '';
   const canDrag = level > 0 && !editing;
   const canBulkSelect = level > 0;
 
@@ -156,7 +173,8 @@ const TreeItem = memo(({
   };
 
   useEffect(() => {
-    if (draggingTreeNodeId) return;
+    // 任一拖拽（目录或问题卡）进行中都不收起；结束后统一收起悬停展开的目录
+    if (draggingTreeNodeId || isQuestionDragActive) return;
     cancelDragExpand();
     if (dragCloseTimerRef.current !== null) {
       window.clearTimeout(dragCloseTimerRef.current);
@@ -166,7 +184,7 @@ const TreeItem = memo(({
       setIsOpen(false);
       setOpenedByDrag(false);
     }
-  }, [draggingTreeNodeId, openedByDrag]);
+  }, [draggingTreeNodeId, isQuestionDragActive, openedByDrag]);
 
   useEffect(() => () => {
     cancelDragExpand();
@@ -236,7 +254,8 @@ const TreeItem = memo(({
   };
 
   const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    if (draggingTreeNodeId === node.id) return;
+    if (!draggingTreeNodeId && (isTreeRoot || !isQuestionDrag(e))) return;
     e.preventDefault();
     e.stopPropagation();
     cancelDragAutoClose();
@@ -245,7 +264,8 @@ const TreeItem = memo(({
   };
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    if (draggingTreeNodeId === node.id) return;
+    if (!draggingTreeNodeId && (isTreeRoot || !isQuestionDrag(e))) return;
     e.preventDefault();
     e.stopPropagation();
     e.dataTransfer.dropEffect = 'move';
@@ -255,18 +275,44 @@ const TreeItem = memo(({
   };
 
   const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!draggingTreeNodeId || draggingTreeNodeId === node.id) return;
+    if (draggingTreeNodeId === node.id) return;
+    if (!draggingTreeNodeId && !isQuestionDrag(e)) return;
     if (e.currentTarget.contains(e.relatedTarget as Node | null)) return;
     e.stopPropagation();
     scheduleDragAutoClose();
   };
 
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+  /** 问题卡拖入：仅改问题归属，不走目录移动逻辑（根行不是有效目标） */
+  const handleQuestionDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+    const questionId = e.dataTransfer.getData(QUESTION_DRAG_TYPE);
+    if (!questionId) return;
+    if (isTreeRoot) {
+      addNotification('请拖到具体的目录节点上', 'warning');
+      return;
+    }
+    const targetLabel = moveQuestionToNode(questionId, node.id);
+    addNotification(
+      targetLabel
+        ? `问题已移动到「${targetLabel}」`
+        : '该目录没有关联知识点，无法移动问题',
+      targetLabel ? 'success' : 'warning',
+    );
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     cancelDragExpand();
     cancelDragAutoClose();
     setOpenedByDrag(false);
+
+    if (e.dataTransfer.types.includes(QUESTION_DRAG_TYPE)) {
+      handleQuestionDrop(e);
+      return;
+    }
+
+    e.preventDefault();
+    e.stopPropagation();
     const draggedId = e.dataTransfer.getData(TREE_NODE_DRAG_TYPE) || draggingTreeNodeId;
     if (draggedId) onDropNode(draggedId, node.id);
   };
@@ -286,7 +332,7 @@ const TreeItem = memo(({
           isBulkSelected ? 'bulk-selected' : '',
           isSearchMatch ? 'search-match' : '',
           isDragging ? 'dragging' : '',
-          isDropTarget ? 'drop-target' : '',
+          dropTargetClass,
         ].filter(Boolean).join(' ')}
         data-tree-node-id={node.id}
         draggable={canDrag}
@@ -364,6 +410,7 @@ const TreeItem = memo(({
               onRename={onRename} onDelete={onDelete} onMove={onMove} onCopy={onCopy}
               draggingTreeNodeId={draggingTreeNodeId}
               dropTargetTreeNodeId={dropTargetTreeNodeId}
+              isQuestionDragActive={isQuestionDragActive}
               onDragStartNode={onDragStartNode}
               onDragEndNode={onDragEndNode}
               onDragOverNode={onDragOverNode}
@@ -445,6 +492,7 @@ const PoolKnowledgeSelect = memo(function PoolKnowledgeSelect({
   const [draggingTreeNodeId, setDraggingTreeNodeId] = useState<string | null>(null);
   const [draggingTreeNodeIds, setDraggingTreeNodeIds] = useState<string[]>([]);
   const [dropTargetTreeNodeId, setDropTargetTreeNodeId] = useState<string | null>(null);
+  const [isQuestionDragActive, setIsQuestionDragActive] = useState(false);
   const importInputRef = useRef<HTMLInputElement>(null);
   const directoryOptions = useMemo(() => collectDirectoryOptions(treeData), [treeData]);
   const treeNodeCount = useMemo(() => countTreeNodes(treeData), [treeData]);
@@ -610,6 +658,7 @@ const PoolKnowledgeSelect = memo(function PoolKnowledgeSelect({
   }, [handleOpenTransferDialog]);
 
   const handleDragStartNode = useCallback((nodeId: string) => {
+    setIsQuestionDragActive(false);
     setDraggingTreeNodeId(nodeId);
     setDraggingTreeNodeIds(selectedTreeIds.includes(nodeId) ? selectedTreeIds : [nodeId]);
     setDropTargetTreeNodeId(null);
@@ -619,6 +668,23 @@ const PoolKnowledgeSelect = memo(function PoolKnowledgeSelect({
     setDraggingTreeNodeId(null);
     setDraggingTreeNodeIds([]);
     setDropTargetTreeNodeId(null);
+  }, []);
+
+  // 问题卡拖拽进行中：目录树容器侧监听（dragstart 无法在拖拽源组件外捕获）
+  useEffect(() => {
+    const handleDragStart = (e: DragEvent) => {
+      if (e.dataTransfer?.types.includes(QUESTION_DRAG_TYPE)) setIsQuestionDragActive(true);
+    };
+    const handleDragEnd = () => {
+      setIsQuestionDragActive(false);
+      setDropTargetTreeNodeId(null);
+    };
+    window.addEventListener('dragstart', handleDragStart);
+    window.addEventListener('dragend', handleDragEnd);
+    return () => {
+      window.removeEventListener('dragstart', handleDragStart);
+      window.removeEventListener('dragend', handleDragEnd);
+    };
   }, []);
 
   const handleDropNode = useCallback((nodeId: string, nextParentId: string) => {
@@ -817,6 +883,7 @@ const PoolKnowledgeSelect = memo(function PoolKnowledgeSelect({
           onCopy={handleCopy}
           draggingTreeNodeId={draggingTreeNodeId}
           dropTargetTreeNodeId={dropTargetTreeNodeId}
+          isQuestionDragActive={isQuestionDragActive}
           onDragStartNode={handleDragStartNode}
           onDragEndNode={handleDragEndNode}
           onDragOverNode={setDropTargetTreeNodeId}

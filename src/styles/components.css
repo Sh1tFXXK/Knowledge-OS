@@ -5578,3 +5578,101 @@
 .right-question-answer-input:hover {
   border-color: rgba(139, 92, 246, 0.35);
 }
+
+/* ── 数据加载诊断横幅 ─────────────────────────────────────────── */
+.data-load-banner {
+  margin: 0 0 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--border-secondary);
+  border-left: 3px solid var(--accent-amber);
+  border-radius: 4px;
+  background: var(--bg-card);
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.data-load-banner.is-error {
+  border-left-color: var(--accent-red);
+  background: var(--accent-red-dim);
+}
+
+.data-load-banner.is-warning {
+  border-left-color: var(--accent-amber);
+  background: var(--accent-amber-dim);
+}
+
+.data-load-banner-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.data-load-banner-head strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.data-load-banner-row {
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.data-load-banner-row code {
+  color: var(--text-accent);
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+/* ── 区域级错误边界 ───────────────────────────────────────────── */
+.error-boundary {
+  margin: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--accent-red-dim);
+  border-left: 3px solid var(--accent-red);
+  border-radius: 4px;
+  background: var(--bg-card);
+  font-size: 12.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+}
+
+.error-boundary-title {
+  font-weight: 600;
+  color: var(--accent-red);
+}
+
+.error-boundary-message {
+  font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 12px;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+.error-boundary-details summary {
+  cursor: pointer;
+  color: var(--text-tertiary);
+  font-size: 11.5px;
+}
+
+.error-boundary-details pre {
+  margin: 6px 0 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  overflow: auto;
+  max-height: 220px;
+}
+
+.error-boundary-actions {
+  display: flex;
+  gap: 8px;
+}

@@ -69,8 +69,10 @@ import {
   dirtyPersistedSlices,
   pickPersistedSlices,
   savePersistedSlices,
+  type LoadedAppState,
   type PersistedSliceKey,
   type PersistedSlices,
+  type SliceFailure,
 } from '../knowledge/filePersistence';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 import {
@@ -235,6 +237,17 @@ function appendChildTab(
   }));
 }
 
+/** 数据文件加载诊断。 */
+export interface DataLoadReport {
+  loadedAt: number;
+  /** 加载失败、已禁止回写的切片 */
+  failures: SliceFailure[];
+  /** 形状可容忍但需上报的问题 */
+  warnings: string[];
+  /** 文件不存在、按新文件处理的切片 */
+  missing: SliceFailure[];
+}
+
 interface GraphState {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
@@ -266,7 +279,15 @@ interface GraphState {
   followSelection: boolean;
   history: Array<{ action: string; data: unknown }>;
 
+  /**
+   * 最近一次数据文件加载的诊断结果。`failures` 里的切片处于"禁止回写"状态：
+   * 加载没过校验，就绝不允许把当前内存态写回正式文件。
+   */
+  dataLoadReport: DataLoadReport | null;
+
   initialize: () => Promise<void>;
+  /** 重新从正式文件装载（加载失败后使用）；成功后解除禁止回写 */
+  reloadFromFiles: () => Promise<void>;
   save: () => void;
   /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
@@ -332,6 +353,8 @@ interface GraphState {
   removeQuestion: (id: string) => void;
   updateQuestion: (id: string, text: string) => void;
   answerQuestion: (id: string, answer: string, answerSteps?: QuestionAnswerStep[]) => void;
+  /** 把问题移动到指定目录项/知识点下（targetId 可为目录项 ID 或节点池 ID），返回目标名称 */
+  moveQuestionToNode: (questionId: string, targetId: string) => string | null;
 
   exportKnowledgeJson: () => string;
   importKnowledgeJson: (json: string) => boolean;
@@ -470,13 +493,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
   let lastSavedSlices: Partial<PersistedSlices> | null = null;
   let writeChain: Promise<void> = Promise.resolve();
 
+  // 加载没过校验的切片：禁止回写。
+  // 这是"加载失败 → 内存里是空状态 → 回写把正式文件清空"这条破坏性链路的唯一闸门。
+  const blockedSlices = new Set<PersistedSliceKey>();
+
   const flushPersist = () => {
     if (saveTimer !== null) {
       clearTimeout(saveTimer);
       saveTimer = null;
     }
     const slices = pickPersistedSlices(snapshotState(get()));
-    const dirty = dirtyPersistedSlices(slices, lastSavedSlices);
+    const dirty = dirtyPersistedSlices(slices, lastSavedSlices)
+      .filter((key) => !blockedSlices.has(key));
     if (dirty.length === 0) return;
     if (!lastSavedSlices) lastSavedSlices = {};
     const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
@@ -499,6 +527,31 @@ export const useGraphStore = create<GraphState>((set, get) => {
   const persist = () => {
     if (saveTimer !== null) clearTimeout(saveTimer);
     saveTimer = setTimeout(flushPersist, PERSIST_DEBOUNCE_MS);
+  };
+
+  /** 把加载诊断写进 store，并把失败切片登记为"禁止回写"。 */
+  const applyLoadReport = (loaded: LoadedAppState) => {
+    blockedSlices.clear();
+    for (const failure of loaded.failures) blockedSlices.add(failure.key);
+
+    set({
+      dataLoadReport: {
+        loadedAt: Date.now(),
+        failures: loaded.failures,
+        warnings: loaded.warnings,
+        missing: loaded.missing,
+      },
+    });
+
+    for (const failure of loaded.failures) {
+      get().addNotification(
+        `${failure.label}（${failure.file}）加载失败，已保留原状态并禁止自动保存该文件：${failure.reason}`,
+        'error',
+      );
+    }
+    for (const warning of loaded.warnings) {
+      get().addNotification(warning, 'warning');
+    }
   };
 
   // StrictMode 双调用 App 的挂载 effect 会让 initialize() 跑两次；
@@ -532,21 +585,40 @@ export const useGraphStore = create<GraphState>((set, get) => {
     activeEventId: null,
     followSelection: true,
     history: [],
+    dataLoadReport: null,
 
     initialize: async () => {
       if (initializePromise) return initializePromise;
       initializePromise = (async () => {
-        const fileState = await loadCompleteStateFromFiles();
-        applyPersisted(set, fileState);
-        // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件
-        lastSavedSlices = pickPersistedSlices(fileState);
-        get().addNotification('Knowledge loaded from local files', 'info');
+        const loaded = await loadCompleteStateFromFiles();
+        applyPersisted(set, loaded.state);
+        // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件。
+        // 加载失败的切片绝不进基线——否则第一次编辑就会把空状态写回正式文件。
+        const baseline = pickPersistedSlices(loaded.state);
+        for (const failure of loaded.failures) delete baseline[failure.key];
+        lastSavedSlices = baseline;
+        applyLoadReport(loaded);
+        if (loaded.failures.length === 0) {
+          get().addNotification('Knowledge loaded from local files', 'info');
+        }
       })();
       try {
         return await initializePromise;
       } catch (error) {
         initializePromise = null;
         throw error;
+      }
+    },
+
+    reloadFromFiles: async () => {
+      const loaded = await loadCompleteStateFromFiles();
+      applyPersisted(set, loaded.state);
+      const baseline = pickPersistedSlices(loaded.state);
+      for (const failure of loaded.failures) delete baseline[failure.key];
+      lastSavedSlices = baseline;
+      applyLoadReport(loaded);
+      if (loaded.failures.length === 0) {
+        get().addNotification('已重新从本地文件装载数据', 'success');
       }
     },
 
@@ -1144,6 +1216,31 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
+    moveQuestionToNode: (questionId, targetId) => {
+      const state = get();
+      const question = state.questions.find((q) => q.id === questionId);
+      if (!question || !targetId) return null;
+
+      // targetId 可能是节点池 ID，也可能是目录项 ID：统一归一化为节点池 ID
+      const poolId = state.nodePool[targetId]
+        ? targetId
+        : resolvePoolIdFromTree(state.treeData, targetId);
+      if (!poolId || !state.nodePool[poolId]) return null;
+
+      const targetLabel = state.nodePool[poolId].label;
+      if (question.relatedNodeId === poolId) return targetLabel;
+
+      set((s) => ({
+        questions: s.questions.map((q) =>
+          q.id === questionId ? { ...q, relatedNodeId: poolId, updatedAt: Date.now() } : q,
+        ),
+        // 当前正展示这题时，同步右侧面板到新归属
+        selectedQuestionId: s.selectedQuestionId === questionId ? null : s.selectedQuestionId,
+      }));
+      persist();
+      return targetLabel;
+    },
+
     exportKnowledgeJson: () => exportAppStateJson(snapshotState(get())),
 
     importKnowledgeJson: (json) => {
@@ -1164,10 +1261,16 @@ export const useGraphStore = create<GraphState>((set, get) => {
     },
 
     loadDemoData: async () => {
-      const fresh = await loadCompleteStateFromFiles();
-      applyPersisted(set, fresh);
+      const loaded = await loadCompleteStateFromFiles();
+      applyPersisted(set, loaded.state);
+      const baseline = pickPersistedSlices(loaded.state);
+      for (const failure of loaded.failures) delete baseline[failure.key];
+      lastSavedSlices = baseline;
+      applyLoadReport(loaded);
       persist();
-      get().addNotification('Demo knowledge restored', 'success');
+      if (loaded.failures.length === 0) {
+        get().addNotification('Demo knowledge restored', 'success');
+      }
     },
 
     addKnowledgeNode: (label, shared = false) => {

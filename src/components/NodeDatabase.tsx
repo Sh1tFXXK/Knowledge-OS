@@ -8,6 +8,29 @@ type SortBy = 'name' | 'role' | 'created' | 'dimensions';
 type SortOrder = 'asc' | 'desc';
 type GroupBy = 'none' | 'role' | 'dimension' | 'shared';
 
+/** 池内数据来自外部文件与导入脚本，字段类型不能假设，渲染前统一兜底。 */
+function labelOf(node: KnowledgeNode): string {
+  return typeof node?.label === 'string' ? node.label : '';
+}
+
+function tagsOf(node: KnowledgeNode): string[] {
+  return Array.isArray(node?.tags) ? node.tags.filter((t): t is string => typeof t === 'string') : [];
+}
+
+function dimensionsOf(node: KnowledgeNode): string[] {
+  return Array.isArray(node?.dimensions)
+    ? node.dimensions.filter((d): d is string => typeof d === 'string')
+    : [];
+}
+
+/** 取首个 tab 的正文预览；缺 content / 空 tabs 都返回空串，绝不抛错。 */
+function previewOf(node: KnowledgeNode): string {
+  const tabs = node?.card?.tabs;
+  if (!Array.isArray(tabs) || tabs.length === 0) return '';
+  const content = tabs[0]?.content;
+  return typeof content === 'string' ? content : '';
+}
+
 export default function NodeDatabase() {
   const nodePool = useGraphStore((s) => s.nodePool);
   const perspectives = useGraphStore((s) => s.perspectives);
@@ -27,7 +50,12 @@ export default function NodeDatabase() {
   // 收集所有存在的维度（动态从节点中提取）
   const allDimensions = useMemo(() => {
     const dims = new Set<string>();
-    Object.values(nodePool).forEach((n) => n.dimensions?.forEach((d) => dims.add(d)));
+    Object.values(nodePool).forEach((n) => {
+      if (!Array.isArray(n?.dimensions)) return;
+      n.dimensions.forEach((d) => {
+        if (typeof d === 'string') dims.add(d);
+      });
+    });
     return [...dims].sort();
   }, [nodePool]);
 
@@ -44,10 +72,14 @@ export default function NodeDatabase() {
     // 搜索
     if (debouncedSearch.trim()) {
       const query = debouncedSearch.toLowerCase();
+      // 池内数据由外部文件/导入脚本产生，字段类型不能假设。
+      // 历史上这里直接 tab.content.toLowerCase()，一条缺 content 的记录就会让整页白屏。
       result = result.filter((node) =>
-        node.label.toLowerCase().includes(query) ||
-        node.card?.title?.toLowerCase().includes(query) ||
-        node.card?.tabs?.some(tab => tab.content.toLowerCase().includes(query))
+        (typeof node.label === 'string' && node.label.toLowerCase().includes(query)) ||
+        (typeof node.card?.title === 'string' && node.card.title.toLowerCase().includes(query)) ||
+        (Array.isArray(node.card?.tabs) && node.card.tabs.some(
+          (tab) => typeof tab?.content === 'string' && tab.content.toLowerCase().includes(query),
+        ))
       );
     }
 
@@ -59,7 +91,7 @@ export default function NodeDatabase() {
     // 维度过滤
     if (filterDimension !== 'all') {
       result = result.filter((node) =>
-        node.dimensions?.includes(filterDimension)
+        Array.isArray(node.dimensions) && node.dimensions.includes(filterDimension)
       );
     }
 
@@ -74,7 +106,7 @@ export default function NodeDatabase() {
 
       switch (sortBy) {
         case 'name':
-          compareValue = a.label.localeCompare(b.label, 'zh-CN');
+          compareValue = labelOf(a).localeCompare(labelOf(b), 'zh-CN');
           break;
         case 'role':
           compareValue = (a.role || '').localeCompare(b.role || '', 'zh-CN');
@@ -112,7 +144,7 @@ export default function NodeDatabase() {
             : '其他';
           break;
         case 'dimension':
-          const dims = node.dimensions || [];
+          const dims = dimensionsOf(node);
           groupKey = dims.length > 0 ? dims[0] : '无维度';
           break;
         case 'shared':
@@ -152,8 +184,7 @@ export default function NodeDatabase() {
   };
 
   const handleDeleteNode = (nodeId: string, label: string) => {
-    if (window.confirm(`确定要删除节点"${label}"吗？这将同时删除所有引用。`)) {
-      removeKnowledgeNode(nodeId);
+    if (window.confirm(`确定要删除节点"${label}"吗？这将同时删除所有引用。`)) {      removeKnowledgeNode(nodeId);
       addNotification('节点已删除', 'success');
     }
   };
@@ -276,7 +307,7 @@ export default function NodeDatabase() {
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                           {node.shared && <span title="共享节点">⟳</span>}
-                          <span>{node.label}</span>
+                          <span>{labelOf(node)}</span>
                         </div>
                       </td>
                       <td>
@@ -290,18 +321,20 @@ export default function NodeDatabase() {
                       </td>
                       <td>
                         <div className="dimension-tags">
-                          {node.dimensions?.map((dim) => (
-                            <span key={dim} className="dimension-tag">{dim}</span>
-                          )) || '-'}
+                          {dimensionsOf(node).length > 0
+                            ? dimensionsOf(node).map((dim) => (
+                              <span key={dim} className="dimension-tag">{dim}</span>
+                            ))
+                            : '-'}
                         </div>
                       </td>
                       <td>
-                        {node.tags?.length ? node.tags.join(', ') : '-'}
+                        {tagsOf(node).length ? tagsOf(node).join(', ') : '-'}
                       </td>
                       <td onClick={(e) => e.stopPropagation()}>
                         <button
                           className="btn-icon-sm"
-                          onClick={() => handleDeleteNode(node.id, node.label)}
+                          onClick={() => handleDeleteNode(node.id, labelOf(node))}
                           title="删除"
                           style={{ color: '#ef4444' }}
                         >
@@ -323,13 +356,13 @@ export default function NodeDatabase() {
                     <div className="node-card-header">
                       <span className="node-card-title">
                         {node.shared && <span>⟳ </span>}
-                        {node.label}
+                        {labelOf(node)}
                       </span>
                       <button
                         className="btn-icon-sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteNode(node.id, node.label);
+                          handleDeleteNode(node.id, labelOf(node));
                         }}
                         title="删除"
                         style={{ color: '#ef4444' }}
@@ -347,17 +380,17 @@ export default function NodeDatabase() {
                             : '其他'}
                         </span>
                       </div>
-                      {node.dimensions && node.dimensions.length > 0 && (
+                      {dimensionsOf(node).length > 0 && (
                         <div className="dimension-tags">
-                          {node.dimensions.map((dim) => (
+                          {dimensionsOf(node).map((dim) => (
                             <span key={dim} className="dimension-tag">{dim}</span>
                           ))}
                         </div>
                       )}
-                      {node.card?.tabs?.[0] && (
+                      {previewOf(node) !== '' && (
                         <div className="node-card-preview">
-                          {node.card.tabs[0].content.substring(0, 100)}
-                          {node.card.tabs[0].content.length > 100 && '...'}
+                          {previewOf(node).substring(0, 100)}
+                          {previewOf(node).length > 100 && '...'}
                         </div>
                       )}
                     </div>

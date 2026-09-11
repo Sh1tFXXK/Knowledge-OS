@@ -19,6 +19,8 @@ import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
 import FocusStage from './core/FocusStage';
 import RightSidePanel from './layout/RightSidePanel';
+import ErrorBoundary from './components/ErrorBoundary';
+import DataLoadBanner from './components/DataLoadBanner';
 
 // 非默认视图按需加载：只有切到对应视图才拉取对应代码块
 const TemporalIndexWorkspace = lazy(() => import('./core/TemporalIndexWorkspace'));
@@ -138,6 +140,8 @@ export default function App() {
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
+        <DataLoadBanner />
+        <ErrorBoundary key={activeView} scope="中间视图">
         <Suspense
           fallback={
             <section
@@ -197,9 +201,10 @@ export default function App() {
           </section>
         )}
         </Suspense>
+        </ErrorBoundary>
       </main>
 
-      {/* ── 右侧：详情解释卡 + 关系网 ── */}
+      {/* ── 右侧：详情解释卡 + 关系网（错误边界在面板内部，避免破坏栅格命名区域） ── */}
       <RightSidePanel onResizeStart={startRightPanelResize} />
 
       {/* ── 通知 Toast ── */}
