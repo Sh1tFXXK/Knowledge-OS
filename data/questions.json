@@ -98,9 +98,39 @@
     "relatedNodeId": "demo_lock",
     "answer": "MySQL 数据库由于其自身架构的特点，存在多种数据存储引擎，不同存储引擎支持不同的锁机制。\n\n【按存储引擎】\nMyISAM 和 MEMORY 存储引擎采用表级锁；\nInnoDB 存储引擎既支持行级锁，也支持表级锁，默认情况下采用行级锁；\nBDB 采用的是页面锁，也支持表级锁。\n\n【按数据操作的类型分】\n读锁（共享锁）：针对同一份数据，多个读操作可以同时进行而不会互相影响。\n写锁（排他锁）：当前写操作没有完成前，它会阻断其他写锁和读锁。\n\n【按数据操作的粒度分】\n表级锁：开销小，加锁快；不会出现死锁；锁定粒度大，发生锁冲突的概率最高，并发度最低。\n行级锁：开销大，加锁慢；会出现死锁；锁定粒度最小，发生锁冲突的概率最低，并发度也最高。\n页面锁：开销和加锁时间界于表锁和行锁之间；会出现死锁；锁定粒度界于表锁和行锁之间，并发度一般。\n\n【按操作性能分】\n乐观锁：一般的实现方式是对记录数据版本进行比对，在数据更新提交的时候才会进行冲突检测，如果发现冲突了，则提示错误信息。\n悲观锁：在对一条数据修改的时候，为了避免同时被其他人修改，在修改数据之前先锁定，再修改的控制方式。共享锁和排他锁是悲观锁的不同实现，但都属于悲观锁范畴。",
     "createdAt": 1780812181640,
-    "updatedAt": 1780812181640,
+    "updatedAt": 1789120835787,
     "kind": "recall",
-    "difficulty": "basic"
+    "difficulty": "basic",
+    "answerSteps": [
+      {
+        "nodeId": "demo_lock"
+      },
+      {
+        "nodeId": "demo_lock",
+        "dimensionId": "lock_composition",
+        "sectionId": "lock_engine_grid"
+      },
+      {
+        "nodeId": "demo_lock",
+        "dimensionId": "lock_composition",
+        "sectionId": "lock_type_grid"
+      },
+      {
+        "nodeId": "demo_lock",
+        "dimensionId": "lock_composition",
+        "sectionId": "lock_grain_grid"
+      },
+      {
+        "nodeId": "demo_lock",
+        "dimensionId": "lock_composition",
+        "sectionId": "lock_strategy_grid"
+      },
+      {
+        "nodeId": "demo_lock",
+        "dimensionId": "lock_composition",
+        "sectionId": "lock_grain_matrix"
+      }
+    ]
   },
   {
     "id": "q_lock_2",

@@ -311,6 +311,34 @@
   font-size: 12px;
 }
 
+/* 右栏很窄：两个下拉 + 按钮要能换行，否则结构定位的下拉会被压到看不见 */
+.answer-step-add {
+  flex-wrap: wrap;
+}
+
+.answer-step-add .answer-node-select,
+.answer-structure-select {
+  flex: 1 1 132px;
+  min-width: 0;
+  font-size: 12px;
+}
+
+/* 步骤上的「结构定位」徽章：节点 › 维度 › section，按稳定 ID 记录 */
+.answer-step-locator {
+  flex: 0 0 auto;
+  max-width: 44%;
+  padding: 1px 6px;
+  border: 1px solid color-mix(in srgb, var(--accent-purple) 42%, transparent);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent-purple) 12%, transparent);
+  color: var(--accent-purple);
+  font-size: 10px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .answer-step-list {
   display: flex;
   flex-direction: column;

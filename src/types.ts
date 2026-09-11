@@ -336,7 +336,16 @@ export interface NodeExplanation {
 }
 
 export interface QuestionAnswerStep {
+  /** 引用的知识节点 ID */
   nodeId: string;
+  /**
+   * 可选「结构定位」：只取该节点 viewDimensions 里某个维度下的某个 section。
+   * 两个都是**稳定 ID**（ViewDimension.id / ViewSection.id），不是数组下标，
+   * 所以结构增删 section 不会把已有的答案步骤指到别处去。
+   * 缺省时退化为"引用整个节点的第一个 tab 正文"。
+   */
+  dimensionId?: string;
+  sectionId?: string;
   note?: string;
 }
 
