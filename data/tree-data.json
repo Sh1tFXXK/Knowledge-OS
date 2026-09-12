@@ -234,7 +234,7 @@
               "children": [
                 {
                   "id": "tree_reactor_overview",
-                  "name": "Reactor概述",
+                  "name": "Reactor 模式",
                   "count": 0,
                   "nodeRef": "k_reactor_overview",
                   "children": []
@@ -1471,13 +1471,6 @@
                               "nodeRef": "k_1785931334554_fxsjnl",
                               "children": [
                                 {
-                                  "id": "tree_1785931432315_8qaiym",
-                                  "name": "各种内存模型之间的关系",
-                                  "count": 0,
-                                  "nodeRef": "k_1785931432129_axjwn9",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_1785931466669_o47rih",
                                   "name": "JMM的内存可见性保证",
                                   "count": 0,
@@ -1587,6 +1580,14 @@
                                     "id": "context:java-interview:concurrent-hash-map:jimi-68",
                                     "label": "扩容实现深入分析",
                                     "content": "ConcurrentHashMap相关的文章写了不少，有个遗留问题一直没有分析，也被好多人请教过，被搁置在一旁，即如何在并发的情况下实现数组的扩容。\n\n## 什么情况会触发扩容\n\n当往hashMap中成功插入一个key/value节点时，有可能触发扩容动作：\n\n1、如果新增节点之后，所在链表的元素个数达到了阈值 8，则会调用treeifyBin方法把链表转换成红黑树，不过在结构转换之前，会对数组长度进行判断，实现如下：\n\n```java\nprivate final void treeifyBin(Node<K,V>[ ] tab, int index) {\n    Node<K,V> b; int n, sC;\n    if (tab != null) {\n    if ((n = tab.length) < MIN_TREEIFY_CAPACITY)\n    tryPresize(n << 1);\n    else if ((b = tabAt(tab, index)) != null && b.hash >= 0) {\n    synchronized (b) {\n    if (tabAt(tab, index) == b) {\n    TreeNode<K,V> hd = null, t1 = null;\n    for (Node<K,V> e = b; e != null; e = e.next) {\n    TreeNode<K,V> p =\n    new TreeNode<K,V>(e.hash, e.key, e.val, null, null);\n    if ((p.prev = t1) == null)\n    hd = p;\n    else\n    tl.next = p;\n    tl = p;\n    }\n    setTabAt(tab, index, new TreeBin<K,V>(hd));\n    }\n    }\n    }\n    }\n} \n```\n\n如果数组长度n小于阈值 MIN_TREEIFY_CAPACITY ，默认是64，则会调用 tryPresize 方法把数组长度扩大到原来的两倍，并触发transfer方法，重新调整节点的位置。\n\nelse if (tab == table) { int rs = resizeStamp(n); if (sc < θ) { Node<K,V>[] nt; if ((sc >>> RESIZE STAMP SHIFT) != rs | sc == rs + 1 | sc == rs + MAX_RESIZERS  (nt = nextTable) == nul1 | transferIndex <= 0) break; if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1)) transfer(tab, nt); else if (U.compareAndSwapInt(this, SIZECTL, sc, (rs << RESIZE_STAMP_SHIFT) + 2)) transfer(tab, null); \n\n2、新增节点之后，会调用addCount方法记录元素个数，并检查是否需要进行扩容，当数组元素个数达到阈值时，会触发 transfer 方法，重新调整节点的位置。\n\n```cpp\nif (check >= 0) {\n    Node<K,V>[] tab, nt; int n, sc;\n    while (s >= (long)(sc = sizeCtl) && (tab = table) != null && (n = tab.length) < MAXIMUM_CAPACITY) {\n    int rs = resizeStamp(n);\n    if (sc < 0) {\n    if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 || sc == rs + MAX_RESIZERS || (nt = nextTable) == null || transferIndex <= 0)\n    break;\n    if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))\n    transfer(tab, nt);\n    }\n    else if (U.compareAndSwapInt(this, SIZECTL, sc, (rs << RESIZE_STAMP_SHIFT) + 2))\n    transfer(tab, null);\n    s = sumCount();\n    }\n} \n```\n\n## transfer实现\n\ntransfer方法实现了在并发的情况下，高效的从原始组数往新数组中移动元素，假设扩容之前节点的分布如下，这里区分蓝色节点和红色节点，是为了后续更好的分析：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/14a593ecb8d4ef77237c9c983a1dfc2b20a1665c18e9cceda5bccf2490ebce35.jpg)\n\n在上图中，第14个槽位插入新节点之后，链表元素个数已经达到了8，且数组长度为16，优先通过扩容来缓解链表过长的问题，实现如下：\n\n1、根据当前数组长度n，新建一个两倍长度的数组nextTable；\n\n```txt\nif (nextTab == null) { // initiating\n    try {\n    /unchecked/\n    Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n << 1];\n    nextTab = nt;\n    } catch (Throwable ex) { // try to cope with OOME\n    sizeCtl = Integer.MAX_VALUE;\n    return;\n    }\n    nextTable = nextTab;\n    transferIndex = n;\n} \n```\n\n2、初始化ForwardingNode节点，其中保存了新数组nextTable的引用，在处理完每个槽位的节点之后当做占位节点，表示该槽位已经处理过了；\n\n```txt\nint nextn = nextTab.length;\nForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);\nboolean advance = true;\nboolean finishing = false; // to ensure sweep before committing nextTab \n```\n\n3、通过for自循环处理每个槽位中的链表元素，默认advace为真，通过CAS设置transferIndex属性值，并初始化i和bound值，i指当前处理的槽位序号，bound指需要处理的槽位边界，先处理槽位15的节点；\n\n```lisp\nfor (int i = 0, bound = 0;) {\n    Node<K,V> f; int fh;\n    while (advance) {\n    int nextIndex, nextBound;\n    if (--i >= bound || finishing)\n    advance = false;\n    else if ((nextIndex = transferIndex) <= 0) {\n    i = -1;\n    advance = false;\n    }\n    else if (U.compareAndSwapInt\n    (this, TRANSFERINDEX, nextIndex,\n    nextBound = (nextIndex > stride ?\n    nextIndex - stride : 0))) {\n    bound = nextBound;\n    i = nextIndex - 1;\n    advance = false;\n    }\n} \n```\n\n4、在当前假设条件下，槽位15中没有节点，则通过CAS插入在第二步中初始化的ForwardingNode节点，用于告诉其它线程该槽位已经处理过了；\n\n$$\n\\begin{array}{l} \\text {else if ((f = tabAt(tab, i)) == null)} \\\\ \\text {advance = casTabAt(tab, i, null, fwd);} \\end{array}\n$$\n\n5、如果槽位15已经被线程A处理了，那么线程B处理到这个节点时，取到该节点的hash值应该为MOVED ，值为 -1 ，则直接跳过，继续处理下一个槽位14的节点；\n\n$$\n\\begin{array}{l} \\text {else if ((fh = f.hash) == MOVED)} \\\\ \\text {advance = true; // already processed} \\end{array}\n$$\n\n6、处理槽位14的节点，是一个链表结构，先定义两个变量节点 ln 和 hn ，按我的理解应该是 lowNode和highNode，分别保存hash值的第X位为0和1的节点，具体实现如下：\n\n```txt\nsynchronized (f) {\n    if (tabAt(tab, i) == f) {\n    Node<K,V> ln, hn;\n    if (fh >= 0) {\n    int runBit = fh & n;\n    Node<K,V> lastRun = f;\n    for (Node<K,V> p = f.next; p != null; p = p.next) {\n    int b = p.hash & n;\n    if (b != runBit) {\n    runBit = b;\n    lastRun = p;\n    }\n    }\n    if (runBit == 0) {\n    ln = lastRun;\n    hn = null;\n    }\n    else {\n    hn = lastRun;\n    ln = null;\n    }\n    for (Node<K,V> p = f; p != lastRun; p = p.next) {\n    int ph = p.hash; K pk = p.key; V pv = p.val;\n    if ((ph & n) == 0)\n    ln = new Node<K,V>(ph, pk, pv, ln);\n    else\n    hn = new Node<K,V>(ph, pk, pv, hn);\n    }\n    setTabAt(nextTab, i, ln);\n    setTabAt(nextTab, i + n, hn);\n    setTabAt(tab, i, fwd);\n    advance = true;\n} \n```\n\n使用fn&n可以快速把链表中的元素区分成两类，A类是hash值的第X位为0，B类是hash值的第X位为1，并通过lastRun记录最后需要处理的节点，A类和B类节点可以分散到新数组的槽位14和30中，在原数组的槽位14中，蓝色节点第X为0，红色节点第X为1，把链表拉平显示如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/c49b6c81274443ac39a9345c8aa5303defff1211cc08ddf9115f475eb720dccc.jpg)\n\n1、通过遍历链表，记录runBit和lastRun，分别为1和节点6，所以设置hn为节点6，ln为null；2、重新遍历链表，以lastRun节点为终止条件，根据第X位的值分别构造ln链表和hn链表：\n\nln链：和原来链表相比，顺序已经不一样了\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/861450a230bff1c2a0d45ca90513910138af65721c624428242c947f2304b883.jpg)\n\nhn链：\n\n通过CAS把ln链表设置到新数组的i位置，hn链表设置到i+n的位置；\n\n7、如果该槽位是红黑树结构，则构造树节点lo和hi，遍历红黑树中的节点，同样根据hash&n算法，把节点分为两类，分别插入到lo和hi为头的链表中，根据lo和hi链表中的元素个数分别生成ln和hn节点，其中ln节点的生成逻辑如下：\n\n（1）如果 lo 链表的元素个数小于等于 UNTREEIFY_THRESHOLD ，默认为6，则通过 untreeify 方法把树节点链表转化成普通节点链表；\n\n（2）否则判断hi链表中的元素个数是否等于0：如果等于0，表示lo链表中包含了所有原始节点，则设置原始红黑树给ln，否则根据lo链表重新构造红黑树。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/29c768b3896d1544820ae409e818d22b747b981e01d0c9109124349b4b377914.jpg)\n\n最后，同样的通过CAS把ln设置到新数组的i位置，hn设置到i+n位置。\n\n## 老生常谈，HashMap的死循环\n\n## 问题\n\n最近的几次面试中，我都问了是否了解HashMap在并发使用时可能发生死循环，导致cpu100%，结果让我很意外，都表示不知道有这样的问题，让我意外的是面试者的工作年限都不短。\n\n由于HashMap并非是线程安全的，所以在高并发的情况下必然会出现问题，这是一个普遍的问题，虽然网上分析的文章很多，还是觉得有必须写一篇文章，让关注我公众号的同学能够意识到这个问题，并了解这个死循环是如何产生的。\n\n如果是在单线程下使用HashMap，自然是没有问题的，如果后期由于代码优化，这段逻辑引入了多线程并发执行，在一个未知的时间点，会发现CPU占用100%，居高不下，通过查看堆栈，你会惊讶的发现，线程都Hang在hashMap的get()方法上，服务重启之后，问题消失，过段时间可能又复现了。\n\n这是为什么？\n\n## 原因分析\n\n在了解来龙去脉之前，我们先看看HashMap的数据结构。\n\n在内部，HashMap使用一个Entry数组保存key、value数据，当一对key、value被加入时，会通过一个hash算法得到数组的下标index，算法很简单，根据key的hash值，对数组的大小取模 hash & (length1)，并把结果插入数组该位置，如果该位置上已经有元素了，就说明存在hash冲突，这样会在index位置生成链表。\n\n如果存在hash冲突，最惨的情况，就是所有元素都定位到同一个位置，形成一个长长的链表，这样get一个值时，最坏情况需要遍历所有节点，性能变成了O(n)，所以元素的hash值算法和HashMap的初始化大小很重要。\n\n当插入一个新的节点时，如果不存在相同的key，则会判断当前内部元素是否已经达到阈值（默认是数组大小的0.75），如果已经达到阈值，会对数组进行扩容，也会对链表中的元素进行rehash。\n\n## 实现\n\nHashMap的put方法实现：\n\n1、判断key是否已经存在\n\n```javascript\npublic V put(K key, V value) {\n    if (key == null)\n    return putForNullKey(value);\n    int hash = hash(key);\n    int i = indexFor(hash, table.length);\n    // 如果key已经存在，则替换value，并返回旧值\n    for (Entry<K,V> e = table[i]; e != null; e = e.next) {\n    object k;\n    if (e.hash == hash && ((k = e.key) == key || key.equals(k))) {\n    v oldValue = e.value;\n    e.value = value;\n    e.recordAccess(this);\n    return oldValue;\n    }\n    }\n```\n\n```c\nmodCount++;\n// key不存在，则插入新的元素\naddEntry(hash, key, value, i);\nreturn null;\n}\n```\n\n## 2、检查容量是否达到阈值threshold\n\n```javascript\nvoid addEntry(int hash, K key, V value, int bucketIndex) {\n    if ((size >= threshold) && (null != table[bucketIndex])) {\n    resize(2 * table.length);\n    hash = (null != key) ? hash(key) : 0;\n    bucketIndex = indexFor(hash, table.length);\n    }\n\n    createEntry(hash, key, value, bucketIndex);\n} \n```\n\n如果元素个数已经达到阈值，则扩容，并把原来的元素移动过去。\n\n## 3、扩容实现\n\n```txt\nvoid resize(int newCapacity) {\n    Entry[] oldTable = table;\n    int oldCapacity = oldTable.length;\n    ...\n    Entry[] newTable = new Entry[newCapacity];\n    ...\n    transfer(newTable, rehash);\n    table = newTable;\n    threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);\n} \n```\n\n这里会新建一个更大的数组，并通过transfer方法，移动元素。\n\n```javascript\nvoid transfer(Entry[] newTable, boolean rehash) {\n    int newCapacity = newTable.length;\n    for (Entry<K,V> e : table) {\n    while(null != e) {\n    Entry<K,V> next = e.next;\n    if (rehash) {\n    e.hash = null == e.key ? 0 : hash(e.key);\n    }\n    int i = indexFor(e.hash, newCapacity);\n    e.next = newTable[i];\n    newTable[i] = e;\n    e = next;\n    }\n    }\n} \n```\n\n移动的逻辑也很清晰，遍历原来table中每个位置的链表，并对每个元素进行重新hash，在新的newTable找到归宿，并插入。\n\n## 案例分析\n\n假设HashMap初始化大小为4，插入个3节点，不巧的是，这3个节点都hash到同一个位置，如果按照默认的负载因子的话，插入第3个节点就会扩容，为了验证效果，假设负载因子是1.\n\n```javascript\nvoid transfer(Entry[] newTable, boolean rehash) {\n    int newCapacity = newTable.length;\n    for (Entry<K,V> e : table) {\n    while(null != e) {\n    Entry<K,V> next = e.next;\n    if (rehash) {\n    e.hash = null == e.key ? 0 : hash(e.key);\n    }\n    int i = indexFor(e.hash, newCapacity);\n    e.next = newTable[i];\n    newTable[i] = e;\n    e = next;\n    }\n    }\n} \n```\n\n以上是节点移动的相关逻辑。\n\n```csv\n0\n1\n2\n3\na\nb\nc \n```\n\n插入第4个节点时，发生rehash，假设现在有两个线程同时进行，线程1和线程2，两个线程都会新建新的数组。\n\n线程1的newTable\n\n线程2的newTable\n\n$$\n\\begin{array}{c} \\hline 0 \\\\ \\hline 1 \\\\ \\hline 2 \\\\ \\hline 3 \\\\ \\hline 4 \\\\ \\hline 5 \\\\ \\hline 6 \\\\ \\hline 7 \\\\ \\hline \\end{array}\n$$\n\n$$\n\\begin{array}{c} \\hline 0 \\\\ \\hline 1 \\\\ \\hline 2 \\\\ \\hline 3 \\\\ \\hline 4 \\\\ \\hline 5 \\\\ \\hline 6 \\\\ \\hline 7 \\\\ \\hline \\end{array}\n$$\n\n假设 线程2 在执行到 Entry<K,V> next = e.next; 之后，cpu时间片用完了，这时变量e指向节点a，变量next指向节点b。\n\n线程1继续执行，很不巧，a、b、c节点rehash之后又是在同一个位置7，开始移动节点第一步，移动节点a\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/93aa1bfda3ab3cda29061a271566ef5e31171aac3ad64891800f657d810a4a28.jpg)\n\n第二步，移动节点b\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/a08320d6ee1cfe4218d41ba1bd62709ed549bed274afc4c396dad0491eb19e9a.jpg)\n\n注意，这里的顺序是反过来的，继续移动节点c\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/05b3f069e15fbdd4df6d0a8c485b3e6938f33f17db5a9276a79dedf0f30a1025.jpg)\n\n这个时候 线程1 的时间片用完，内部的table还没有设置成新的newTable， 线程2 开始执行，这时内部的引用关系如下：\n\n线程1的newTable\n\n线程2的newTable\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/867845839eb404381143ed12ec8ff914a88860e57e1bbe2eb063a32b9cc735d3.jpg)\n\n这时，在 线程2 中，变量e指向节点a，变量next指向节点b，开始执行循环体的剩余逻辑。\n\n```javascript\nEntry<K,V> next = e.next;\nint i = indexFor(e.hash, newCapacity);\ne.next = newTable[i];\nnewTable[i] = e;\ne = next; \n```\n\n执行之后的引用关系如下图\n\n线程1的newTable\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/47972477cc5aa03c8354897e1251e2011d49e539ea8a395275ac994fbc0682ee.jpg)\n\n执行后，变量e指向节点b，因为e不是null，则继续执行循环体，执行后的引用关系\n\n线程1的newTable\n\n线程2的newTable\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/f5170dddf94bf3c999bfa7d782c38b282d65ff6fd3632e14334fad04ef8ee199.jpg)\n\n变量e又重新指回节点a，只能继续执行循环体，这里仔细分析下：\n\n1、执行完 Entry<K,V> next = e.next; ，目前节点a没有next，所以变量next指向null；\n\n2、 e.next = newTable[i]; 其中 newTable[i] 指向节点b，那就是把a的next指向了节点b，这样a和b就相互引用了，形成了一个环；\n\n3、 newTable[i] = e 把节点a放到了数组i位置；\n\n4、 $\\textsf { e } = \\mathsf { n e x t } ;$ 把变量e赋值为null，因为第一步中变量next就是指向null；\n\n所以最终的引用关系是这样的：\n\n线程1的newTable\n\n线程2的newTable\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/ef51b140abc1c882ef9e482c1c0ec5a08c390de94d87e41bd4e37a78a06d133d.jpg)\n\n节点a和b互相引用，形成了一个环，当在数组该位置get寻找对应的key时，就发生了死循环。\n\n另外，如果线程2把newTable设置成到内部的table，节点c的数据就丢了，看来还有数据遗失的问题。\n\n## 总结\n\n所以在并发的情况，发生扩容时，可能会产生循环链表，在执行get的时候，会触发死循环，引起CPU的100%问题，所以一定要避免在并发环境下使用HashMap。\n\n曾经有人把这个问题报给了Sun，不过Sun不认为这是一个bug，因为在HashMap本来就不支持多线程使用，要并发就用ConcurrentHashmap。"
+                                  },
+                                  {
+                                    "id": "context:java:concurrent-hash-map:structure",
+                                    "label": "ConcurrentHashMap 的结构",
+                                    "content": "ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁（ReentrantLock），在ConcurrentHashMap里扮演锁的角色；HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组。Segment的结构和HashMap类似，是一种数组和链表结构。一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素，每个Segment守护着一个HashEntry数组里的元素，当对HashEntry数组的数据进行修改时，必须首先获得与它对应的Segment锁，",
+                                    "tags": [
+                                      "ConcurrentHashMap的结构"
+                                    ]
                                   }
                                 ]
                               },
@@ -1643,43 +1644,6 @@
                               "count": 0,
                               "nodeRef": "k_1785906707326_5fx8oh",
                               "children": []
-                            },
-                            {
-                              "id": "tree_1785906968977_wyftg6",
-                              "name": "Executor框架的结构与成员",
-                              "count": 0,
-                              "nodeRef": "k_1785906968783_0dyspy",
-                              "children": [
-                                {
-                                  "id": "tree_1785906997939_izihn3",
-                                  "name": "Executor框架的结构",
-                                  "count": 0,
-                                  "nodeRef": "k_1785906997755_571bbl",
-                                  "children": [
-                                    {
-                                      "id": "tree_1785918560147_r0lv4e",
-                                      "name": "FutureTask",
-                                      "count": 0,
-                                      "nodeRef": "k_java_type_3f228f7655fb94df",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_1785918765751_aguaej",
-                                      "name": "ScheduleThreadPoolExecutor",
-                                      "count": 0,
-                                      "nodeRef": "k_1785417434549_gyz4q5",
-                                      "children": []
-                                    }
-                                  ]
-                                },
-                                {
-                                  "id": "tree_1786093035888_037b78",
-                                  "name": "Executor框架的成员",
-                                  "count": 0,
-                                  "nodeRef": "k_1786093035635_3g0tyz",
-                                  "children": []
-                                }
-                              ]
                             },
                             {
                               "id": "tree_1786093144146_ajv4cr",
@@ -1760,8 +1724,42 @@
                               "count": 0,
                               "nodeRef": "k_java_concurrent_util_executor_notes",
                               "children": []
+                            },
+                            {
+                              "id": "tree_1785918560147_r0lv4e",
+                              "name": "FutureTask",
+                              "count": 0,
+                              "nodeRef": "k_java_type_3f228f7655fb94df",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1785918765751_aguaej",
+                              "name": "ScheduleThreadPoolExecutor",
+                              "count": 0,
+                              "nodeRef": "k_1785417434549_gyz4q5",
+                              "children": []
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "context:java:executor-framework:structure",
+                                "label": "Executor 框架的结构",
+                                "content": "- 任务。包括被执行任务需要实现的接口：Runnable接口或Callable接口。\n- 任务的执行。包括任务执行机制的核心接口Executor，以及继承自Executor的\nExecutorService接口。Executor框架有两个关键类实现了ExecutorService接口（ThreadPoolExecutor和ScheduledThreadPoolExecutor）。\n- 异步计算的结果。包括接口Future和实现Future接口的FutureTask类。\n框架包含的这些类和接口的简介。\n·Executor是一个接口，它是Executor框架的基础，它将任务的提交与任务的执行分离开来。\n·ThreadPoolExecutor是线程池的核心实现类，用来执行被提交的任务。\n·ScheduledThreadPoolExecutor是一个实现类，可以在给定的延迟后运行命令，或者定期执行命令。ScheduledThreadPoolExecutor比Timer更灵活，功能更强大。\n·Future接口和实现Future接口的FutureTask类，代表异步计算的结果。\n·Runnable接口和Callable接口的实现类，都可以被ThreadPoolExecutor或Scheduled-\nThreadPoolExecutor执行\n主线程首先要创建实现Runnable或者Callable接口的任务对象。工具类Executors可以把一\n个Runnable对象封装为一个Callable对象（Executors.callable（Runnable task）或\nExecutors.callable（Runnable task，Object resule））。\n然后可以把Runnable对象直接交给ExecutorService执行（ExecutorService.execute（Runnable\ncommand））；或者也可以把Runnable对象或Callable对象提交给ExecutorService执行（Executor-\nService.submit（Runnable task）或ExecutorService.submit（Callable<T>task））。\n如果执行ExecutorService.submit（…），ExecutorService将返回一个实现Future接口的对象\n（到目前为止的JDK中，返回的是FutureTask对象）。由于FutureTask实现了Runnable，程序员也可\n以创建FutureTask，然后直接交给ExecutorService执行。\n最后，主线程可以执行FutureTask.get()方法来等待任务执行完成。主线程也可以执行FutureTask.cancel（boolean mayInterruptIfRunning）来取消此任务的执行。",
+                                "tags": [
+                                  "Executor框架的结构"
+                                ]
+                              },
+                              {
+                                "id": "context:java:executor-framework:members",
+                                "label": "Executor 框架的成员",
+                                "content": "本节将介绍Executor框架的主要成员：ThreadPoolExecutor、ScheduledThreadPoolExecutor、\nFuture接口、Runnable接口、Callable接口和Executors。\n（1）ThreadPoolExecutor\nThreadPoolExecutor通常使用工厂类Executors来创建。Executors可以创建3种类型的\nThreadPoolExecutor：SingleThreadExecutor、FixedThreadPool和CachedThreadPool。\n下面分别介绍这3种ThreadPoolExecutor。\n1）FixedThreadPool。下面是Executors提供的，创建使用固定线程数的FixedThreadPool的\nAPI。\npublicstaticExecutorService newFixedThreadPool(intnThreads)\npublicstaticExecutorService newFixedThreadPool(intnThreads,ThreadFactorythreadFacto\nFixedThreadPool适用于为了满足资源管理的需求，而需要限制当前线程数量的应用场\n景，它适用于负载比较重的服务器。\n2）SingleThreadExecutor。下面是Executors提供的，创建使用单个线程的SingleThread-\nExecutor的API。\npublicstaticExecutorService newSingleThreadExecutor()\npublicstaticExecutorService newSingleThreadExecutor(ThreadFactory threadFactory)\nSingleThreadExecutor适用于需要保证顺序地执行各个任务；并且在任意时间点，不会有多\n个线程是活动的应用场景。3）CachedThreadPool。下面是Executors提供的，创建一个会根据需要创建新线程的\nCachedThreadPool的API。\npublic static ExecutorServicenewCachedThreadPool()\npublic static ExecutorServicenewCachedThreadPool(ThreadFactorythreadFactory)\nCachedThreadPool是大小无界的线程池，适用于执行很多的短期异步任务的小程序，或者\n是负载较轻的服务器。\n（2）ScheduledThreadPoolExecutor\nScheduledThreadPoolExecutor通常使用工厂类Executors来创建。Executors可以创建2种类\n型的ScheduledThreadPoolExecutor，如下。\n·ScheduledThreadPoolExecutor。包含若干个线程的ScheduledThreadPoolExecutor。\n·SingleThreadScheduledExecutor。只包含一个线程的ScheduledThreadPoolExecutor。\n下面分别介绍这两种ScheduledThreadPoolExecutor。\n下面是工厂类Executors提供的，创建固定个数线程的ScheduledThreadPoolExecutor的API。\npublic static ScheduledExecutorServicenewScheduledThreadPool(int corePoolSize)\npublic static ScheduledExecutorServicenewScheduledThreadPool(int corePoolSize,ThreadFa\nScheduledThreadPoolExecutor适用于需要多个后台线程执行周期任务，同时为了满足资源\n管理的需求而需要限制后台线程的数量的应用场景。下面是Executors提供的，创建单个线程\n的SingleThreadScheduledExecutor的API。\npublic static ScheduledExecutorServicenewSingleThreadScheduledExecutor()\npublic static ScheduledExecutorServicenewSingleThreadScheduledExecutor\n(ThreadFactorythreadFactory)SingleThreadScheduledExecutor适用于需要单个后台线程执行周期任务，同时需要保证顺\n序地执行各个任务的应用场景。\n（3）Future接口\nFuture接口和实现Future接口的FutureTask类用来表示异步计算的结果。当我们把Runnable\n接口或Callable接口的实现类提交（submit）给ThreadPoolExecutor或\nScheduledThreadPoolExecutor时，ThreadPoolExecutor或ScheduledThreadPoolExecutor会向我们\n返回一个FutureTask对象。下面是对应的API。\n<T> Future<T>submit(Callable<T>task)\n<T> Future<T>submit(Runnabletask, Tresult)\nFuture<>submit(Runnable task)\n有一点需要读者注意，到目前最新的JDK 8为止，Java通过上述API返回的是一个\nFutureTask对象。但从API可以看到，Java仅仅保证返回的是一个实现了Future接口的对象。在将\n来的JDK实现中，返回的可能不一定是FutureTask。（4）Runnable接口和Callable接口\nRunnable接口和Callable接口的实现类，都可以被ThreadPoolExecutor或Scheduled-\nThreadPoolExecutor执行。它们之间的区别是Runnable不会返回结果，而Callable可以返回结\n果。\n除了可以自己创建实现Callable接口的对象外，还可以使用工厂类Executors来把一个\nRunnable包装成一个Callable。\n下面是Executors提供的，把一个Runnable包装成一个Callable的API。\npublicstaticCallable<Object>callable(Runnable task)//假设返回对象Callable1下面是Executors提供的，把一个Runnable和一个待返回的结果包装成一个Callable的API。\npublic static <T>Callable<T>callable(Runnabletask,T result)//假设返回对象Calla\n前面讲过，当我们把一个Callable对象（比如上面的Callable1或Callable2）提交给\nThreadPoolExecutor或ScheduledThreadPoolExecutor执行时，submit（…）会向我们返回一个\nFutureTask对象。我们可以执行FutureTask.get()方法来等待任务执行完成。当任务成功完成后\nFutureTask.get()将返回该任务的结果。例如，如果提交的是对象Callable1，FutureTask.get()方法\n将返回null；如果提交的是对象Callable2，FutureTask.get()方法将返回result对象。",
+                                "tags": [
+                                  "Executor框架的成员"
+                                ]
+                              }
+                            ]
+                          }
                         },
                         {
                           "id": "tree_1785914825630_jv1pn3",
@@ -4492,13 +4490,6 @@
                               "nodeRef": "k_1786029977438_n8rnz9",
                               "children": [
                                 {
-                                  "id": "tree_1786031455750_firnt2",
-                                  "name": "ConcurrentHashMap的结构",
-                                  "count": 0,
-                                  "nodeRef": "k_1786031455498_0hhkpd",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_1786031508059_m7hw5h",
                                   "name": "初始化",
                                   "count": 0,
@@ -4579,17 +4570,18 @@
                                     "tags": [
                                       "ConcurrentLinkedQueue"
                                     ]
+                                  },
+                                  {
+                                    "id": "context:java:concurrent-linked-queue:structure",
+                                    "label": "ConcurrentLinkedQueue 的结构",
+                                    "content": "ConcurrentLinkedQueue由head节点和tail节点组成，每个节点（Node）由节点元素（item）和指向下一个节点（next）的引用组成，节点与节点之间就是通过这个next关联起来，从而组成一张链表结构的队列。默认情况下head节点存储的元素为空，tail节点等于head节点。",
+                                    "tags": [
+                                      "ConcurrentLinkedQueue的结构"
+                                    ]
                                   }
                                 ]
                               },
                               "children": [
-                                {
-                                  "id": "tree_1786030906471_b1v7pf",
-                                  "name": "ConcurrentLinkedQueue的结构",
-                                  "count": 0,
-                                  "nodeRef": "k_1786030906252_kngk5k",
-                                  "children": []
-                                },
                                 {
                                   "id": "tree_1786031340980_2pdywc",
                                   "name": "入队列",
@@ -4749,27 +4741,25 @@
                               "nodeRef": "k_1786089851947_drblzk",
                               "children": [
                                 {
-                                  "id": "tree_1786089941259_4c03f1",
-                                  "name": "CyclicBarrier简介",
-                                  "count": 0,
-                                  "nodeRef": "k_1786089941002_b81wxc",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_1786090194974_8p8klx",
                                   "name": "CyclicBarrier的应用场景",
                                   "count": 0,
                                   "nodeRef": "k_1786090194728_y9wdsd",
                                   "children": []
-                                },
-                                {
-                                  "id": "tree_1786090301124_59hnmh",
-                                  "name": "CyclicBarrier和CountDownLatch的区别",
-                                  "count": 0,
-                                  "nodeRef": "k_1786090300883_brm9sq",
-                                  "children": []
                                 }
-                              ]
+                              ],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "context:java:cyclic-barrier:brief",
+                                    "label": "简介",
+                                    "content": "CyclicBarrier默认的构造方法是CyclicBarrier（int parties），其参数表示屏障拦截的线程数量，每个线程调用await方法告诉CyclicBarrier我已经到达了屏障，然后当前线程被阻塞。",
+                                    "tags": [
+                                      "CyclicBarrier简介"
+                                    ]
+                                  }
+                                ]
+                              }
                             },
                             {
                               "id": "tree_1786090458678_1g53gg",
@@ -5419,10 +5409,17 @@
                               "children": []
                             },
                             {
-                              "id": "tree_1786026134763_dg7up8",
-                              "name": "公平与非公平获取锁的区别",
+                              "id": "tree_1789213558020_m0yoeru",
+                              "name": "公平锁",
                               "count": 0,
-                              "nodeRef": "k_1786026134480_l4zxsc",
+                              "nodeRef": "k_1789213558020_84f3pr4",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1789213558020_mzlisti",
+                              "name": "非公平锁",
+                              "count": 0,
+                              "nodeRef": "k_1789213558020_2w9cmeo",
                               "children": []
                             }
                           ]
@@ -6340,13 +6337,6 @@
                       "name": "Documentation",
                       "count": 0,
                       "nodeRef": "k_1784343357387_qbdat0",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1784343538488_s9bguc",
-                      "name": "实现",
-                      "count": 0,
-                      "nodeRef": "k_1784343538435_2potgn",
                       "children": []
                     },
                     {
@@ -9229,7 +9219,8 @@
                               "id": "tree_1789032990256_bd7aia",
                               "name": "实例",
                               "count": 0,
-                              "nodeRef": "k_1789032990253_rt74t1"
+                              "nodeRef": "k_1789032990253_rt74t1",
+                              "children": []
                             }
                           ]
                         },
@@ -9243,7 +9234,8 @@
                               "id": "tree_1789033067268_cbwivf",
                               "name": "实例",
                               "count": 0,
-                              "nodeRef": "k_1789033067250_h38102"
+                              "nodeRef": "k_1789033067250_h38102",
+                              "children": []
                             }
                           ]
                         },
@@ -9251,7 +9243,8 @@
                           "id": "tree_1789033106733_gol0lt",
                           "name": "反序列化对象",
                           "count": 0,
-                          "nodeRef": "k_1789033106723_46xsvp"
+                          "nodeRef": "k_1789033106723_46xsvp",
+                          "children": []
                         }
                       ]
                     },
@@ -9327,7 +9320,19 @@
                         }
                       ]
                     }
-                  ]
+                  ],
+                  "supplement": {
+                    "tabs": [
+                      {
+                        "id": "context:java:implementation",
+                        "label": "Java 实现生态",
+                        "content": "甲骨文公司（Oracle Corporation）因于 2010 年 1 月 27 日收购了 Sun Microsystems，从而拥有了 Java SE 平台的官方实现。该实现基于 Sun 最初开发的 Java 实现，并可在 Windows、macOS、Linux 和 Solaris 平台上运行。由于 Java 缺乏由 Ecma International、ISO/IEC、ANSI 或其他第三方标准组织认可的正式标准化规范，因此甲骨文公司的实现成为了事实上的标准。\n\n甲骨文公司的实现分为两种不同的发行版本：一是 Java 运行时环境（JRE），包含运行 Java 程序所需的 Java SE 平台组件，主要面向最终用户；二是 Java 开发工具包（JDK），主要面向软件开发人员，包含 Java 编译器、Javadoc、Jar 和调试器等开发工具。此外，甲骨文公司还发布了 GraalVM，这是一款高性能的 Java 动态编译器和解释器。\n\nOpenJDK 是另一种基于 GNU GPL 许可的 Java SE 实现。该项目始于 Sun 开始以 GPL 许可发布 Java 源代码之时。自 Java SE 7 版本起，OpenJDK 便成为了 Java 的官方参考实现。\n\nJava 的目标是确保所有 Java 实现之间保持兼容。历史上，Sun 针对 Java 品牌使用权的商标许可协议强制要求所有实现必须保持兼容。这导致了 Sun 与微软之间的法律纠纷：Sun 指控微软的实现不支持 Java 远程方法调用（RMI）或 Java 本地接口（JNI），并且擅自添加了特定于平台的专有功能。Sun 于 1997 年提起诉讼，并于 2001 年胜诉，获得了 2000 万美元的赔偿，同时法院还下令强制执行 Sun 的许可条款。[89] 结果，微软不再随 Windows 操作系统捆绑提供 Java。平台无关的 Java 对 Java EE 来说至关重要，并且需要更严格的验证来认证一个实现。这个环境可以支持可移植的服务器端应用程序。",
+                        "tags": [
+                          "实现"
+                        ]
+                      }
+                    ]
+                  }
                 },
                 {
                   "id": "tree_1784820871692_uel7rq",
@@ -10433,28 +10438,6 @@
                           "nodeRef": "k_acm2012_software_organization_virtual_machines",
                           "children": [
                             {
-                              "id": "tree_wiki_en_virtual_machine_s1",
-                              "name": "定义",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_virtual_machine_s1",
-                              "children": [
-                                {
-                                  "id": "tree_wiki_en_virtual_machine_s1_s2",
-                                  "name": "系统虚拟机",
-                                  "count": 0,
-                                  "nodeRef": "k_wiki_en_virtual_machine_s2",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_wiki_en_virtual_machine_s1_s3",
-                                  "name": "处理虚拟机",
-                                  "count": 0,
-                                  "nodeRef": "k_wiki_en_virtual_machine_s3",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
                               "id": "tree_wiki_en_virtual_machine_s4",
                               "name": "历史",
                               "count": 0,
@@ -10524,6 +10507,20 @@
                               "name": "虚拟机安全",
                               "count": 0,
                               "nodeRef": "k_wiki_en_virtual_machine_s13",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_wiki_en_virtual_machine_s1_s2",
+                              "name": "系统虚拟机",
+                              "count": 0,
+                              "nodeRef": "k_wiki_en_virtual_machine_s2",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_wiki_en_virtual_machine_s1_s3",
+                              "name": "处理虚拟机",
+                              "count": 0,
+                              "nodeRef": "k_wiki_en_virtual_machine_s3",
                               "children": []
                             }
                           ]
@@ -10636,13 +10633,6 @@
                               "children": []
                             },
                             {
-                              "id": "tree_wiki_en_interpreter_computing_s2",
-                              "name": "使用",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_interpreter_computing_s2",
-                              "children": []
-                            },
-                            {
                               "id": "tree_wiki_en_interpreter_computing_s3",
                               "name": "效率",
                               "count": 0,
@@ -10677,7 +10667,28 @@
                               "nodeRef": "k_wiki_en_interpreter_computing_s7",
                               "children": []
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "context:wiki:interpreter:usage",
+                                "label": "使用",
+                                "content": "口译员的显着用途包括：\n\n**命令和脚本：解释器经常用于执行命令和脚本**\n\n**虚拟化：解释器充当虚拟机，为不同于运行解释器的硬件架构执行机器代码。**\n\n**模拟：解释器（虚拟机）可以模拟另一个计算机系统，以便运行为该系统编写的代码。**\n\n**沙盒：虽然某些类型的沙箱依赖于操作系统保护，但解释器（虚拟机）可以提供额外的控制，例如阻止违反安全规则的代码。**\n\n**自修改代码：自修改代码可以用解释型语言实现。这与 Lisp 解释的起源和人工智能研究有关。**",
+                                "tags": [
+                                  "使用",
+                                  "command-line interface",
+                                  "script language",
+                                  "Virtualization",
+                                  "virtual machine",
+                                  "emulator",
+                                  "Sandbox (computer security)",
+                                  "computer security",
+                                  "Self-modifying code",
+                                  "artificial intelligence"
+                                ]
+                              }
+                            ]
+                          }
                         },
                         {
                           "id": "tree_wiki_en_linker_computing",
@@ -10685,13 +10696,6 @@
                           "count": 0,
                           "nodeRef": "k_wiki_en_linker_computing",
                           "children": [
-                            {
-                              "id": "tree_wiki_en_linker_computing_s1",
-                              "name": "概述",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_linker_computing_s1",
-                              "children": []
-                            },
                             {
                               "id": "tree_wiki_en_linker_computing_s2",
                               "name": "动态链接",
@@ -10749,7 +10753,36 @@
                                 }
                               ]
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "context:wiki:linker:overview",
+                                "label": "概述",
+                                "content": "计算机程序通常由几个部分或模块组成；这些部分/模块不需要包含在单个目标文件中，在这种情况下，使用符号作为其他模块的地址相互引用，这些模块在链接执行时被映射到内存地址。\n\n虽然链接过程的目的是最终组合这些独立的部分，但有很多充分的理由在源级别单独开发这些部分。其中原因包括在整体整体上组织几个较小的部分的容易性，以及更好地定义每个单独部分的目的和职责的能力，这对于管理软件架构的复杂性和提高长期可维护性至关重要。\n\n通常，目标文件可以包含三种符号：\n\n- 定义的“外部”符号，有时称为“公共”或“入口”符号，允许其他模块调用它，\n- 未定义的“外部”符号，它们引用定义了这些符号的其他模块，以及\n- 本地符号，在目标文件内部使用以方便重定位。\n\n对于大多数编译器来说，每个目标文件都是编译一个输入源代码文件的结果。当程序包含多个目标文件时，链接器将这些文件组合成一个统一的可执行程序，并在运行过程中解析符号。\n\n链接器可以从称为库或运行时库的集合中获取对象。大多数链接器不会在输出可执行文件中包含静态库中的所有目标文件；它们仅包括库中被其他对象文件或库直接或间接引用的那些对象文件。但对于共享库，整个库必须在运行时加载，因为不知道在运行时将调用哪些函数或方法。因此，库链接可能是一个迭代过程，一些引用的模块需要链接附加模块，等等。库的存在有多种目的，并且通常默认链接一个或多个系统库。\n\n链接器还负责在程序的地址空间中排列对象。这可能涉及将假定特定基地址的代码*重新定位到另一个基地址。由于编译器很少知道对象将驻留在哪里，因此它通常假设一个固定的基本位置（例如，zero）。重新定位机器代码可能涉及重新定位绝对跳转、加载和存储。\n\n当链接器的可执行输出最终加载到内存中（就在执行之前）时，可能需要另一次重定位传递。在提供虚拟内存的硬件上通常会省略此过程：每个程序都放入自己的地址空间中，因此即使所有程序加载到相同的基地址，也不会发生冲突。如果可执行文件是位置独立可执行文件，则也可以省略此过程。\n\n此外，在某些操作系统中，同一个程序可以处理链接和加载程序的工作（动态链接）。",
+                                "tags": [
+                                  "概述",
+                                  "object file",
+                                  "symbol (computing)",
+                                  "Source code",
+                                  "Monolithic codebase",
+                                  "software architecture",
+                                  "relocation (computer science)",
+                                  "library (computing)",
+                                  "runtime library",
+                                  "static library",
+                                  "shared libraries",
+                                  "address space",
+                                  "base address",
+                                  "zero base",
+                                  "computer hardware",
+                                  "virtual memory",
+                                  "position independent",
+                                  "dynamic linking"
+                                ]
+                              }
+                            ]
+                          }
                         }
                       ]
                     }
@@ -10922,7 +10955,8 @@
                           "id": "tree_1788683294830_y80ep0",
                           "name": "常见的配置方式",
                           "count": 0,
-                          "nodeRef": "k_1788683294815_qvh7np"
+                          "nodeRef": "k_1788683294815_qvh7np",
+                          "children": []
                         }
                       ]
                     },
@@ -10971,7 +11005,8 @@
                           "id": "tree_1788694446336_p5m3ia",
                           "name": "@Indexed",
                           "count": 0,
-                          "nodeRef": "k_1788694446334_9jflri"
+                          "nodeRef": "k_1788694446334_9jflri",
+                          "children": []
                         }
                       ]
                     },
@@ -11077,13 +11112,15 @@
                               "id": "tree_aop_proxy_jdk",
                               "name": "JDK 动态代理",
                               "count": 0,
-                              "nodeRef": "aop_proxy_jdk"
+                              "nodeRef": "aop_proxy_jdk",
+                              "children": []
                             },
                             {
                               "id": "tree_aop_proxy_cglib",
                               "name": "CGLIB 动态代理",
                               "count": 0,
-                              "nodeRef": "aop_proxy_cglib"
+                              "nodeRef": "aop_proxy_cglib",
+                              "children": []
                             }
                           ]
                         }
@@ -11113,7 +11150,8 @@
                           "id": "tree_1788681463582_0s1q8o",
                           "name": "本质",
                           "count": 0,
-                          "nodeRef": "k_1788681463569_fqwfp2"
+                          "nodeRef": "k_1788681463569_fqwfp2",
+                          "children": []
                         },
                         {
                           "id": "tree_k_1788687205852_lhoemy",
@@ -11148,13 +11186,15 @@
                           "id": "tree_spring_beanfactory",
                           "name": "BeanFactory",
                           "count": 0,
-                          "nodeRef": "spring_beanfactory"
+                          "nodeRef": "spring_beanfactory",
+                          "children": []
                         },
                         {
                           "id": "tree_spring_appcontext",
                           "name": "ApplicationContext",
                           "count": 0,
-                          "nodeRef": "spring_appcontext"
+                          "nodeRef": "spring_appcontext",
+                          "children": []
                         }
                       ]
                     },
@@ -11182,31 +11222,36 @@
                           "id": "tree_mvc_dispatcher",
                           "name": "DispatcherServlet",
                           "count": 0,
-                          "nodeRef": "mvc_dispatcher"
+                          "nodeRef": "mvc_dispatcher",
+                          "children": []
                         },
                         {
                           "id": "tree_mvc_handlermapping",
                           "name": "HandlerMapping",
                           "count": 0,
-                          "nodeRef": "mvc_handlermapping"
+                          "nodeRef": "mvc_handlermapping",
+                          "children": []
                         },
                         {
                           "id": "tree_mvc_handleradapter",
                           "name": "HandlerAdapter",
                           "count": 0,
-                          "nodeRef": "mvc_handleradapter"
+                          "nodeRef": "mvc_handleradapter",
+                          "children": []
                         },
                         {
                           "id": "tree_mvc_viewresolver",
                           "name": "ViewResolver",
                           "count": 0,
-                          "nodeRef": "mvc_viewresolver"
+                          "nodeRef": "mvc_viewresolver",
+                          "children": []
                         },
                         {
                           "id": "tree_mvc_view",
                           "name": "View",
                           "count": 0,
-                          "nodeRef": "mvc_view"
+                          "nodeRef": "mvc_view",
+                          "children": []
                         }
                       ]
                     },
@@ -11233,13 +11278,15 @@
                               "id": "tree_boot_cors",
                               "name": "跨域（CORS）",
                               "count": 0,
-                              "nodeRef": "boot_cors"
+                              "nodeRef": "boot_cors",
+                              "children": []
                             },
                             {
                               "id": "tree_boot_csrf",
                               "name": "CSRF 攻击",
                               "count": 0,
-                              "nodeRef": "boot_csrf"
+                              "nodeRef": "boot_csrf",
+                              "children": []
                             }
                           ]
                         },
@@ -11274,25 +11321,29 @@
                               "id": "tree_boot_spring_data",
                               "name": "Spring Data",
                               "count": 0,
-                              "nodeRef": "boot_spring_data"
+                              "nodeRef": "boot_spring_data",
+                              "children": []
                             },
                             {
                               "id": "tree_boot_spring_batch",
                               "name": "Spring Batch",
                               "count": 0,
-                              "nodeRef": "boot_spring_batch"
+                              "nodeRef": "boot_spring_batch",
+                              "children": []
                             },
                             {
                               "id": "tree_boot_websockets",
                               "name": "WebSockets",
                               "count": 0,
-                              "nodeRef": "boot_websockets"
+                              "nodeRef": "boot_websockets",
+                              "children": []
                             },
                             {
                               "id": "tree_boot_messaging",
                               "name": "消息中间件（ActiveMQ / Kafka）",
                               "count": 0,
-                              "nodeRef": "boot_messaging"
+                              "nodeRef": "boot_messaging",
+                              "children": []
                             }
                           ]
                         },
@@ -11322,7 +11373,8 @@
                           "id": "tree_boot_starter",
                           "name": "Starter",
                           "count": 0,
-                          "nodeRef": "boot_starter"
+                          "nodeRef": "boot_starter",
+                          "children": []
                         }
                       ]
                     },
@@ -11557,13 +11609,6 @@
                           "children": []
                         }
                       ]
-                    },
-                    {
-                      "id": "tree_1784509153898_bhzt7r",
-                      "name": "与雅加达企业 beans (EJB) 的关系",
-                      "count": 0,
-                      "nodeRef": "k_1784509153854_vab6c6",
-                      "children": []
                     },
                     {
                       "id": "tree_1784509255949_8p4sic",
@@ -11801,13 +11846,6 @@
                       "children": []
                     },
                     {
-                      "id": "tree_vault_javamybatishibernateibatis_1mvvfq",
-                      "name": "Hibernate 和 iBatis 的区别",
-                      "count": 0,
-                      "nodeRef": "k_vault_javamybatishibernateibatis_1mvvfq",
-                      "children": []
-                    },
-                    {
                       "id": "tree_vault_javamybatismybatis_1pkfbo",
                       "name": "MyBatis 的连接池",
                       "count": 0,
@@ -11863,15 +11901,22 @@
                       "count": 0,
                       "nodeRef": "k_vault_javanetty05nettyrpc_mq7c8m",
                       "children": []
-                    },
-                    {
-                      "id": "tree_vault_javanetty_1343pt",
-                      "name": "Netty 基础概念",
-                      "count": 0,
-                      "nodeRef": "k_vault_javanetty_1343pt",
-                      "children": []
                     }
-                  ]
+                  ],
+                  "supplement": {
+                    "tabs": [
+                      {
+                        "id": "context:java:netty:basics",
+                        "label": "Netty 基础概念",
+                        "content": "Netty 基础概念 > Netty 是对 Java NIO 继续封装后的网络编程框架，它把通道、事件循环、处理器链、异步回调这些底层概念，组织成一套可扩展的通信运行时。\n\n## 知识主线\n\n1. [01-Netty定位与通信抽象.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\01-Netty定位与通信抽象.md)\n2. [02-Reactor与线程模型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\02-Reactor与线程模型.md)\n3. [03-Channel与Pipeline.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\03-Channel与Pipeline.md)\n4. [04-异步能力与高性能设计.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\04-异步能力与高性能设计.md)\n5. [05-Netty与RPC实践.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\05-Netty与RPC实践.md)\n\n## 从 NIO 到 Netty\n\n```mermaid\nflowchart LR\n    A[Socket / TCP] --> B[Java NIO]\n    B --> C[Selector + Channel + Buffer]\n    C --> D[Netty EventLoop]\n    D --> E[Pipeline / Handler]\n    E --> F[协议框架与 RPC]\n```\n\n## 学习顺序\n\n先理解为什么原生 NIO 难写，再看 Reactor 和线程模型，最后理解 `ChannelPipeline` 怎样把“网络事件”封装成“业务处理链”。\n\n## 关联入口\n\n- [00-Netty知识地图.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\00-Netty知识地图.md)\n- [Java框架和中间件.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Java框架和中间件.md)\n\n> Netty 是对 Java NIO 继续封装后的网络编程框架，它把通道、事件循环、处理器链、异步回调这些底层概念，组织成一套可扩展的通信运行时。\n\n## 知识主线\n\n1. [01-Netty定位与通信抽象.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\01-Netty定位与通信抽象.md)\n2. [02-Reactor与线程模型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\02-Reactor与线程模型.md)\n3. [03-Channel与Pipeline.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\03-Channel与Pipeline.md)\n4. [04-异步能力与高性能设计.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\04-异步能力与高性能设计.md)\n5. [05-Netty与RPC实践.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\05-Netty与RPC实践.md)\n\n## 从 NIO 到 Netty\n\n```mermaid\nflowchart LR\n    A[Socket / TCP] --> B[Java NIO]\n    B --> C[Selector + Channel + Buffer]\n    C --> D[Netty EventLoop]\n    D --> E[Pipeline / Handler]\n    E --> F[协议框架与 RPC]\n```\n\n## 学习顺序\n\n先理解为什么原生 NIO 难写，再看 Reactor 和线程模型，最后理解 `ChannelPipeline` 怎样把“网络事件”封装成“业务处理链”。\n\n## 关联入口\n\n- [00-Netty知识地图.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Netty\\00-Netty知识地图.md)\n- [Java框架和中间件.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Java框架和中间件.md)",
+                        "tags": [
+                          "Netty 基础概念",
+                          "java",
+                          "Netty"
+                        ]
+                      }
+                    ]
+                  }
                 },
                 {
                   "id": "tree_java_fw_kafka",
@@ -11956,15 +12001,23 @@
                       "count": 0,
                       "nodeRef": "k_vault_javarabbitmq05rabbitmqkafka_16ryk1",
                       "children": []
-                    },
-                    {
-                      "id": "tree_vault_javarabbitmq_vcvmol",
-                      "name": "RabbitMQ 基础概念",
-                      "count": 0,
-                      "nodeRef": "k_vault_javarabbitmq_vcvmol",
-                      "children": []
                     }
-                  ]
+                  ],
+                  "supplement": {
+                    "tabs": [
+                      {
+                        "id": "context:java:rabbitmq:basics",
+                        "label": "RabbitMQ 基础概念",
+                        "content": "RabbitMQ 基础概念 > RabbitMQ 关注的不是“超大规模日志流”，而是把业务系统之间的异步通信、路由分发和消息解耦封装成稳定的消息中间件能力。\n\n## 知识主线\n\n1. [01-MQ为什么存在.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\01-MQ为什么存在.md)\n2. [02-RabbitMQ核心模型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\02-RabbitMQ核心模型.md)\n3. [03-交换机路由与工作模式.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\03-交换机路由与工作模式.md)\n4. [04-可靠性顺序与幂等.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\04-可靠性顺序与幂等.md)\n5. [05-RabbitMQ与Kafka选型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\05-RabbitMQ与Kafka选型.md)\n\n## 从同步调用到消息系统\n\n```mermaid\nflowchart LR\n    A[业务系统 A] --> B[Exchange]\n    B --> C[Queue]\n    C --> D[Consumer]\n    B --> E[Queue]\n    E --> F[Consumer]\n```\n\n## 学习顺序\n\n先理解 MQ 为什么存在，再理解 RabbitMQ 的 `Exchange -> Queue -> Consumer` 模型，最后再看可靠性、顺序性和技术选型。\n\n## 关联入口\n\n- [00-RabbitMQ知识地图.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\00-RabbitMQ知识地图.md)\n- [Java框架和中间件.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Java框架和中间件.md)\n\n> RabbitMQ 关注的不是“超大规模日志流”，而是把业务系统之间的异步通信、路由分发和消息解耦封装成稳定的消息中间件能力。\n\n## 知识主线\n\n1. [01-MQ为什么存在.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\01-MQ为什么存在.md)\n2. [02-RabbitMQ核心模型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\02-RabbitMQ核心模型.md)\n3. [03-交换机路由与工作模式.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\03-交换机路由与工作模式.md)\n4. [04-可靠性顺序与幂等.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\04-可靠性顺序与幂等.md)\n5. [05-RabbitMQ与Kafka选型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\05-RabbitMQ与Kafka选型.md)\n\n## 从同步调用到消息系统\n\n```mermaid\nflowchart LR\n    A[业务系统 A] --> B[Exchange]\n    B --> C[Queue]\n    C --> D[Consumer]\n    B --> E[Queue]\n    E --> F[Consumer]\n```\n\n## 学习顺序\n\n先理解 MQ 为什么存在，再理解 RabbitMQ 的 `Exchange -> Queue -> Consumer` 模型，最后再看可靠性、顺序性和技术选型。\n\n## 关联入口\n\n- [00-RabbitMQ知识地图.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\rabbitMQ\\00-RabbitMQ知识地图.md)\n- [Java框架和中间件.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Java框架和中间件.md)",
+                        "tags": [
+                          "RabbitMQ 基础概念",
+                          "java",
+                          "RabbitMQ",
+                          "消息队列"
+                        ]
+                      }
+                    ]
+                  }
                 },
                 {
                   "id": "tree_java_fw_springcloud",
@@ -12172,6 +12225,20 @@
                       "children": []
                     }
                   ]
+                },
+                {
+                  "id": "tree_1789213558020_bc8y1op",
+                  "name": "Hibernate",
+                  "count": 0,
+                  "nodeRef": "k_1789213558020_f1h0imz",
+                  "children": []
+                },
+                {
+                  "id": "tree_1789213558020_d3vsl1m",
+                  "name": "EJB（企业 JavaBeans）",
+                  "count": 0,
+                  "nodeRef": "k_1789213558020_6rswrz3",
+                  "children": []
                 }
               ]
             },
@@ -12700,13 +12767,15 @@
                                       "id": "tree_se_pat_static_proxy",
                                       "name": "静态代理",
                                       "count": 0,
-                                      "nodeRef": "se_pat_static_proxy"
+                                      "nodeRef": "se_pat_static_proxy",
+                                      "children": []
                                     },
                                     {
                                       "id": "tree_se_pat_dynamic_proxy",
                                       "name": "动态代理",
                                       "count": 0,
-                                      "nodeRef": "se_pat_dynamic_proxy"
+                                      "nodeRef": "se_pat_dynamic_proxy",
+                                      "children": []
                                     }
                                   ]
                                 },
@@ -13872,56 +13941,6 @@
                               "nodeRef": "k_wiki_en_outline_of_databases_s21",
                               "children": [
                                 {
-                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22",
-                                  "name": "概念",
-                                  "count": 0,
-                                  "nodeRef": "k_wiki_en_outline_of_databases_s22",
-                                  "children": [
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b1",
-                                      "name": "维度)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b1",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b2",
-                                      "name": "维度建模 (DM)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b2",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b3",
-                                      "name": "事实)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b3",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b4",
-                                      "name": "在线分析处理 (OLAP)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b4",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b5",
-                                      "name": "星型架构",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b5",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b6",
-                                      "name": "聚合)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s22_b6",
-                                      "children": []
-                                    }
-                                  ]
-                                },
-                                {
                                   "id": "tree_wiki_en_outline_of_databases_s20_s21_s23",
                                   "name": "变体",
                                   "count": 0,
@@ -14107,8 +14126,70 @@
                                       "children": []
                                     }
                                   ]
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b1",
+                                  "name": "维度)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b1",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b2",
+                                  "name": "维度建模 (DM)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b2",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b3",
+                                  "name": "事实)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b3",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b4",
+                                  "name": "在线分析处理 (OLAP)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b4",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b5",
+                                  "name": "星型架构",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b5",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s21_s22_b6",
+                                  "name": "聚合)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s22_b6",
+                                  "children": []
                                 }
-                              ]
+                              ],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "context:wiki:data-warehouse:concepts",
+                                    "label": "数据仓库核心概念",
+                                    "content": "- 维度) –\n- 维度建模 (DM) – 是数据仓库设计中使用的一组技术和概念的名称。\n- 事实) –\n- 在线分析处理 (OLAP) – 或者是一种快速回答多维分析（多维分析|MDA）查询的方法。\n- 星型架构 –\n- 聚合) –",
+                                    "tags": [
+                                      "概念",
+                                      "wikipedia",
+                                      "wikipedia-import",
+                                      "Dimension (data warehouse)",
+                                      "Dimensional modeling",
+                                      "Fact (data warehouse)",
+                                      "Online analytical processing",
+                                      "Star schema",
+                                      "Aggregate (Data Warehouse)"
+                                    ]
+                                  }
+                                ]
+                              }
                             },
                             {
                               "id": "tree_wiki_en_outline_of_databases_s20_s28",
@@ -14116,49 +14197,6 @@
                               "count": 0,
                               "nodeRef": "k_wiki_en_outline_of_databases_s28",
                               "children": [
-                                {
-                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29",
-                                  "name": "概念",
-                                  "count": 0,
-                                  "nodeRef": "k_wiki_en_outline_of_databases_s29",
-                                  "children": [
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b1",
-                                      "name": "商业智能 (BI)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s29_b1",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b2",
-                                      "name": "仪表板)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s29_b2",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b3",
-                                      "name": "数据挖掘",
-                                      "count": 0,
-                                      "nodeRef": "k_acm2012_information_systems_data_mining",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b4",
-                                      "name": "决策支持系统 (DSS)",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s29_b4",
-                                      "children": []
-                                    },
-                                    {
-                                      "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b5",
-                                      "name": "OLAP 立方体",
-                                      "count": 0,
-                                      "nodeRef": "k_wiki_en_outline_of_databases_s29_b5",
-                                      "children": []
-                                    }
-                                  ]
-                                },
                                 {
                                   "id": "tree_wiki_en_outline_of_databases_s20_s28_s30",
                                   "name": "语言",
@@ -14216,8 +14254,62 @@
                                       "children": []
                                     }
                                   ]
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b1",
+                                  "name": "商业智能 (BI)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s29_b1",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b2",
+                                  "name": "仪表板)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s29_b2",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b3",
+                                  "name": "数据挖掘",
+                                  "count": 0,
+                                  "nodeRef": "k_acm2012_information_systems_data_mining",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b4",
+                                  "name": "决策支持系统 (DSS)",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s29_b4",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_wiki_en_outline_of_databases_s20_s28_s29_b5",
+                                  "name": "OLAP 立方体",
+                                  "count": 0,
+                                  "nodeRef": "k_wiki_en_outline_of_databases_s29_b5",
+                                  "children": []
                                 }
-                              ]
+                              ],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "context:wiki:data-warehouse-usage:concepts",
+                                    "label": "使用数据仓库相关概念",
+                                    "content": "- 商业智能 (BI) – 被定义为组织利用其所有能力并将其转化为知识的能力，最终在正确的时间通过正确的渠道向正确的人员提供正确的信息。\n- 仪表板) –\n- 数据挖掘 – 是在大型数据集中发现新模式的过程。  它是“数据库中的知识发现”过程（KDD）的分析步骤。\n- 决策支持系统 (DSS) –\n- OLAP 立方体 – 数据集，以促进聚合信息的非预定查询的方式组织，或者换句话说，在线分析处理。",
+                                    "tags": [
+                                      "概念",
+                                      "wikipedia",
+                                      "wikipedia-import",
+                                      "Business intelligence",
+                                      "Dashboard (business)",
+                                      "Data mining",
+                                      "Decision support system",
+                                      "OLAP cube"
+                                    ]
+                                  }
+                                ]
+                              }
                             },
                             {
                               "id": "tree_wiki_en_outline_of_databases_s20_s32",
@@ -17532,7 +17624,22 @@
                                                   "count": 0,
                                                   "nodeRef": "demo_row_lock",
                                                   "projection": false,
-                                                  "children": []
+                                                  "children": [],
+                                                  "supplement": {
+                                                    "tabs": [
+                                                      {
+                                                        "id": "context:mysql:row-lock:vault",
+                                                        "label": "InnoDB 行锁实现",
+                                                        "content": "InnoDB⾏锁是通过对索引数据⻚上的记录加锁实现的，主要实现算法有3种：Record Lock、Gap Lock和Next-key Lock。\n#RecordLock锁：\n锁定单个⾏记录的锁。（记录锁，RC、RR隔离级别都⽀持）\n#GapLock锁：\n间隙锁，锁定索引记录间隙，确保索引记录的间隙不变。（范围锁，RR隔离级别⽀持）\n#Next-keyLock锁：\n记录锁和间隙锁组合，同时锁住数据，并且锁住数据前后范围。（记录锁+范围锁，RR隔离级别⽀持）\n> 注意：InnoDB这种⾏锁实现特点意味着：只有通过索引条件检索数据，InnoDB才使⽤⾏级锁，否则，InnoDB将使⽤表锁\n\n在RR隔离级别，InnoDB对于记录加锁⾏为都是先采⽤Next-Key Lock，但是当SQL操作含有唯⼀索引时，Innodb会对Next-Key Lock进⾏优化，降级为RecordLock，仅锁住索引本身⽽⾮范围。\n各种操作加锁的特点\n1）select ... from语句：InnoDB引擎采⽤MVCC机制实现⾮阻塞读，所以对于普通的select语句，InnoDB不加锁\n2）select ... from lock in share mode语句：追加了共享锁，InnoDB会使⽤Next-Key Lock锁进⾏处理，如果扫描发现唯⼀索引，可以降级为RecordLock锁。\n3）select ... from for update语句：追加了排他锁，InnoDB会使⽤Next-Key Lock锁进⾏处理，如果扫描发现唯⼀索引，可以降级为RecordLock锁。\n4）update ... where语句：InnoDB会使⽤Next-Key Lock锁进⾏处理，如果扫描发现唯⼀索引，可以降级为RecordLock锁。\n5）delete ... where语句：InnoDB会使⽤Next-Key Lock锁进⾏处理，如果扫描发现唯⼀索引，可以降级为RecordLock锁。\n6）insert语句：InnoDB会在将要插⼊的那⼀⾏设置⼀个排他的RecordLock锁。下⾯以“update t1 set name=‘lisi’ where id=10”操作为例，举例⼦分析下InnoDB对不同索引的加锁⾏为，以RR隔离级别为例。\n1.主键加锁\n加锁⾏为：仅在id=10的主键索引记录上加X锁。\n【图解：主键索引加 X 锁】Table: T1(id primary key, name)，主键索引（Primary Key）叶子：id = 1,6,7,10,20,30（name 对应 a,c,b,a,d,b）；id=10 的记录被蓝色高亮并标注「X锁」——对主键加排他锁时，锁住主键索引上对应的整条记录。\n2.唯⼀键加锁\n加锁⾏为：现在唯⼀索引id上加X锁，然后在id=10的主键索引记录上加X锁。\n【图解：唯一索引加 X 锁联动主键索引】Table: T1(name primary key, id unique key)。Unique Key(id) 索引叶子：id=1,2,3,5,6,10（name 对应 f,zz,b,a,c,d），id=10/d 的记录标注「X锁」；同时下方 Primary key(name) 索引中 name=d、id=10 的记录也标注「X锁」，两棵索引树用虚线关联——对唯一索引加锁时，主键索引上对应的记录同样被加锁。\n3.⾮唯⼀键加锁\n加锁⾏为：对满⾜id=10条件的记录和主键分别加X锁，然后在(6,c)-(10,b)、(10,b)-(10,d)、(10,d)-(11,f)范围分别加Gap Lock。\n【图解：普通索引加 X 锁与 /GAP 锁】Table: T1(name primary key, id key)。Key(id) 索引中 id=10 的两条记录（name=b、d）被高亮并加「X锁」，记录两侧及之间的间隙加红色 /GAP锁（绿框标注）；虚线关联下方主键索引（name 有序：a,b,c,d,f,zz / id: 15,10,6,10,11,2），其中对应记录同样加 X锁——普通索引（非唯一）加锁时，除记录本身外还要锁住记录间的间隙（临键锁），并联动主键索引。\n4.⽆索引加锁\n加锁⾏为：表⾥所有⾏和间隙都会加X锁。（当没有索引时，会导致全表锁定，因为InnoDB引擎锁机制是基于索引实现的记录锁定）。\n【图解：无索引加锁 → 锁全部记录与间隙】Table: T1(name primary key, id)，对非索引列（id 上存在重复值 10）加锁时：Key(id) 索引中所有记录（name: a,b,d,f,g,zz）全部被高亮并加「X锁」，记录之间及两侧的间隙全部加红色 /GAP 锁——当加锁条件无索引可用时，InnoDB 会锁住全部记录和间隙，相当于锁表。",
+                                                        "tags": [
+                                                          "InnoDB 的行锁是怎么实现的",
+                                                          "InnoDB 的行锁是怎么实现的(笔记)",
+                                                          "InnoDB",
+                                                          "行锁"
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
                                                 }
                                               ]
                                             }
@@ -18725,7 +18832,22 @@
                               "sourceNodeId": "mysql_glossary_delete_buffering_15389r",
                               "children": []
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "context:mysql:buffer-pool:vault",
+                                "label": "InnoDB 语境中的缓冲池",
+                                "content": "Buffer Pool：缓冲池，简称BP。其作⽤是⽤来缓存表数据与索引数据，减少磁盘IO操作，提升效率。\nBuffer Pool由缓存数据⻚(Page)和对缓存数据⻚进⾏描述的控制块组成,\n控制块中存储着对应缓存⻚的所属的表空间、数据⻚的编号、以及对应缓存⻚在Buffer Pool中的地址等信息.\nBuffer Pool默认⼤⼩是128M,以Page⻚为单位，Page⻚默认⼤⼩16K，⽽控制块的⼤⼩约为数据⻚的5%，⼤概是800字节。\n【图解：Buffer Pool 结构与数据加载】MySQL InnoDB 内含 Buffer Pool(128M)：控制块(800b)×2、缓存页(16KB)×2，标注「控制块与缓冲页一一对应」；下方：缓存数据页(16KB)（一行数据×3）通过「加载数据到Buffer Pool」箭头从磁盘文件（很多数据页）加载进 Buffer Pool。\n注: Buffer Pool⼤⼩为128M指的就是缓存⻚的⼤⼩，控制块则⼀般占5%，所以每次会多申请6M的内存空间⽤于存放控制块\n#如何判断⼀个⻚是否在BufferPool中缓存?\nMySQl中有⼀个哈希表数据结构，它使⽤表空间号+数据⻚号，作为⼀个key，然后缓冲⻚对应的控制块作为value。\n【图解：数据页缓存的 Hash 表】KEY → VALUE 对照表：KEY 为「表空间号+数据页号」，VALUE 为「对应控制块」（两行示例+省略号）——通过表空间号+页号组成的 key 在哈希表中定位缓存页对应的控制块。\n当需要访问某个⻚的数据时，先从哈希表中根据表空间号+⻚号看看是否存在对应的缓冲⻚。\n如果有，则直接使⽤；如果没有，就从free链表中选出⼀个空闲的缓冲⻚，然后把磁盘中对应的⻚加载到该缓冲⻚的位置",
+                                "tags": [
+                                  "什么是 BufferPool",
+                                  "什么是 BufferPool(笔记)",
+                                  "InnoDB",
+                                  "BufferPool"
+                                ]
+                              }
+                            ]
+                          }
                         },
                         {
                           "id": "tree_concept_change_buffer",
@@ -19934,13 +20056,6 @@
                           "nodeRef": "sharding_overview",
                           "children": [
                             {
-                              "id": "tree_sharding_what",
-                              "name": "什么是分库分表",
-                              "count": 0,
-                              "nodeRef": "sharding_what",
-                              "children": []
-                            },
-                            {
                               "id": "tree_sharding_when",
                               "name": "什么时候需要分库分表",
                               "count": 0,
@@ -20004,7 +20119,19 @@
                               "nodeRef": "k_dict_wu1sq9s4",
                               "children": []
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "context:mysql:sharding:what",
+                                "label": "什么是分库分表",
+                                "content": "什么是分库分表 简单来说，就是指**通过某种特定的条件，将存放在同一个数据库中的数据分散存放到多个数据库（主机）上面**，以达到分散单台设备负载的效果。 **解决的问题**：数据量过大会导致数据库性能降低——将原来单体服务的数据库进行拆分，将大数据表拆分成若干数据表组成，使得单一数据库、单一数据表的数据量变小，从而达到提升数据库性能的目的。\n\n简单来说，就是指**通过某种特定的条件，将存放在同一个数据库中的数据分散存放到多个数据库（主机）上面**，以达到分散单台设备负载的效果。\n\n**解决的问题**：数据量过大会导致数据库性能降低——将原来单体服务的数据库进行拆分，将大数据表拆分成若干数据表组成，使得单一数据库、单一数据表的数据量变小，从而达到提升数据库性能的目的。",
+                                "tags": [
+                                  "什么是分库分表"
+                                ]
+                              }
+                            ]
+                          }
                         }
                       ]
                     },
@@ -20812,7 +20939,33 @@
                                               "nodeRef": "k_1781974733348_6b1lb3",
                                               "children": []
                                             }
-                                          ]
+                                          ],
+                                          "supplement": {
+                                            "tabs": [
+                                              {
+                                                "id": "context:mysql:page:vault-mgmt",
+                                                "label": "InnoDB 如何管理页",
+                                                "content": "BP的底层采⽤链表数据结构管理Page。在InnoDB访问表记录和索引时会在Page⻚中缓存，以后使⽤可以减少磁盘IO操作，提升效率。\nPage根据状态可以分为三种类型：\n【图解：Buffer Pool 与页的三种状态】Buffer Pool 中是一格一格的 Page，按状态分三种（右侧图例）：free page（空闲页，白色）、clean page（干净页，绿色，数据与磁盘一致）、dirty page（脏页，棕色，数据已修改但尚未刷盘）。\nfree page：空闲page，未被使⽤\nclean page：被使⽤page，数据没有被修改过\ndirty page：脏⻚，被使⽤page，数据被修改过，Page⻚中数据和磁盘的数据产⽣了不⼀致\n#Page⻚如何管理\n针对上⾯所说的三种page类型，InnoDB通过三种链表结构来维护和管理\n1.free list：表示空闲缓冲区，管理free page\nfree链表是把所有空闲的缓冲⻚对应的控制块作为⼀个个的节点放到⼀个链表中，这个链表便称之为free链表\n基节点: free链表中只有⼀个基节点是不记录缓存⻚信息(单独申请空间)，它⾥⾯就存放了free链表的头节点的地址，尾节点的地址，还有free链表⾥当前有多少个节点。\n【图解：FreeList 链表管理空闲页】右上为 Buffer Pool（page 网格）；左下为 FreeList 链表：基础节点记录链表头尾信息和节点个数信息，其后串联若干控制块（描述数据、记录空白页的位置）；控制块通过「指向对应的数据页」箭头指向 Buffer Pool 中的页。注释：当一个控制块所指定的页被使用，这个控制块就会被移除；当一个页空闲出来，就会新增一个控制块记录这个空白页。\n2.flush list：表示需要刷新到磁盘的缓冲区，管理dirty page，内部page按修改时间排序。\nInnoDB引擎为了提⾼处理效率，在每次修改缓冲⻚后，并不是⽴刻把修改刷新到磁盘上，⽽是在未来的某个时间点进⾏刷新操作.所以需要使⽤到flush链表存储脏⻚，凡是被修改过的缓冲⻚对应的控制块都会作为节点加⼊到flush链表.\n【图解：Flush 链表】Buffer Pool 中标记为脏页（棕色）的 page，通过其控制块串联成 Flush 链表：善节点（记录有多少脏页，记录当前链表的头节点和尾节点）⇄ 控制块（记录脏页的位置）⇄ 控制块（脏页）；右侧注释：后台线程负责每隔一段时间把脏页刷新到磁盘。\n3.lru list：表示正在使⽤的缓冲区，管理clean page和dirty page，缓冲区以midpoint为基点，前⾯链表称为new列表区，存放经常访问的数据，占63%；后⾯的链表称为old列表区，存放使⽤较少数据，占37%\n【图解：改进型 LRU 链表】链表分为 Young 区域（热数据，占 63% 区域）和 Old 区域（冷数据，占 37% 区域），以 midpoint 为分界；注释：链表分为 new 和 old 两个部分，加入元素时并不是从表头插入，而是从中间 midpoint 位置插入。",
+                                                "tags": [
+                                                  "InnoDB 如何管理 Page 页",
+                                                  "InnoDB 如何管理 Page 页(笔记)",
+                                                  "InnoDB",
+                                                  "Page"
+                                                ]
+                                              },
+                                              {
+                                                "id": "context:mysql:page:vault-struct",
+                                                "label": "InnoDB 页结构",
+                                                "content": "Page是整个InnoDB存储的最基本构件，也是InnoDB磁盘管理的最⼩单位，与数据库相关的所有内容都存储在这种Page结构⾥。\nPage分为⼏种类型，常⻅的⻚类型有数据⻚（B+tree Node）Undo⻚（Undo Log Page）系统⻚（System Page）事务数据⻚（TransactionSystem Page）等\n【图解：InnoDB Page 结构】自上而下：File Header（38字节）→ Page Header（56字节）→ Infimum + Supremum Records → User Records → Free Space → Page Directory → File Trailer（8字节）；整体大小为 Page Size。\n#Page各部分说明\n【表：Page 结构各部分说明】File Header（38字节）：文件头，描述页信息；Page Header（56字节）：页头，页的状态；Infimum + Supremum（26字节）：最大和最小记录，这是两个虚拟的行记录；User Records：用户记录，存储数据行记录；Free Space：空闲空间，页中还没有被使用的空间；Page Directory：页目录，存储用户记录的相对位置；File Trailer（8字节）：文件尾，校验页是否完整。\n- File Header字段⽤于记录Page的头信息，其中⽐较重要的是FIL_PAGE_PREV和FIL_PAGE_NEXT字段，通过这两个字段，我们可以找到该⻚的上⼀⻚和下⼀⻚，实际上所有⻚通过两个字段可以形成⼀条双向链表。\n- Page Header字段⽤于记录Page的状态信息。\n- Infimum和Supremum是两个伪⾏记录，Infimum（下确界）记录⽐该⻚中任何主键值都要⼩的值，Supremum（上确界）记录⽐该⻚中任何主键值都要⼤的值，这个伪记录分别构成了⻚中记录的边界。\n- User Records中存放的是实际的数据⾏记录\n- Free Space中存放的是空闲空间，被删除的⾏记录会被记录成空闲空间\n- Page Directory记录着与⼆叉查找相关的信息\n- File Trailer存储⽤于检测数据完整性的校验和等数据。\n⻚结构整体上可以分为三⼤部分，分别为通⽤部分(⽂件头、⽂件尾)、存储记录空间、索引部分。\n1.通⽤部分(File Header&File Trailer )\n通⽤部分:主要指⽂件头和⽂件尾，将⻚的内容进⾏封装，通过⽂件头和⽂件尾校验的CheckSum⽅式来确保⻚的传输是完整的。\n其中⽐较重要的是在⽂件头中的FIL_PAGE_PREV和FIL_PAGE_NEXT字段，通过这两个字段，我们可以找到该⻚的上⼀⻚和下⼀⻚，实际上所有⻚通过两个字段可以形成⼀条双向链表\n【图解：数据页之间的双向链表】三个数据页方块，蓝色箭头指向前一页、橙色箭头指向后一页——数据页之间通过双向链表连接，支持双向遍历。\n2.记录部分(User Records&Free Space)\n⻚的主要作⽤是存储记录，所以“最⼩和最⼤记录”和“⽤户记录”部分占了⻚结构的主要空间。另外空闲空间是个灵活的部分，当有新的记录插⼊时，会从空闲空间中进⾏分配⽤于存储新记录\n【图解：Page 页如何存储数据】页头（含 prev 指针和 next 指针）→ 页目录（目录项1、目录项2、目录项3）→ 用户数据区域（记录1 → 记录2 → 记录3 依次单链表连接）→ 空闲空间。\n3)数据⽬录部分(Page Directory)\n数据⻚中⾏记录按照主键值由⼩到⼤顺序串联成⼀个单链表(⻚中记录是以单向链表的形式进⾏存储的)，且单链表的链表头为最⼩记录，链表尾为最⼤记录。并且为了更快速地定位到指定的⾏记录，通过PageDirectory实现⽬录的功能，借助PageDirectory使⽤⼆分法快速找到需要查找的⾏记录。\n【图解：Page Directory 页目录】左侧目录槽（最小记录地址、……、记录N地址、最大记录地址）通过红色箭头分别指向右侧的记录分组：infimum（最小记录）→ ID=1 记录 → ID=2 记录 → … → ID=N 记录 → ID=N+1 记录（supremum）→ 最大记录——页目录的每个槽指向一组记录的起始位置，可对槽做二分查找快速定位记录。",
+                                                "tags": [
+                                                  "介绍一下 Page 页的结构",
+                                                  "介绍一下 Page 页的结构(笔记)",
+                                                  "InnoDB",
+                                                  "Page"
+                                                ]
+                                              }
+                                            ]
+                                          }
                                         },
                                         {
                                           "id": "tree_1781976251213_tgm4pn",
@@ -20971,21 +21124,25 @@
                           ]
                         },
                         {
-                          "id": "tree_wiki_en_database_s13",
-                          "name": "应用",
+                          "id": "tree_wiki_en_database_s13_s14",
+                          "name": "应用程序接口",
                           "count": 0,
-                          "nodeRef": "k_wiki_en_database_s13",
-                          "children": [
-                            {
-                              "id": "tree_wiki_en_database_s13_s14",
-                              "name": "应用程序接口",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_database_s14",
-                              "children": []
-                            }
-                          ]
+                          "nodeRef": "k_wiki_en_database_s14",
+                          "children": []
                         }
-                      ]
+                      ],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "context:wiki:db-programming:applications",
+                            "label": "应用",
+                            "content": "主要入口：数据库应用\n与数据库的外部交互将通过与 DBMS 接口的应用程序进行。Connolly 的范围包括从允许用户以文本或图形方式执行 SQL 查询的数据库工具，到恰好使用数据库来存储和搜索信息的网站。",
+                            "tags": [
+                              "应用"
+                            ]
+                          }
+                        ]
+                      }
                     },
                     {
                       "name": "十九、数据库产品",
@@ -21400,34 +21557,6 @@
                               "count": 0,
                               "nodeRef": "k_vault_mysql_innodb",
                               "children": [
-                                {
-                                  "id": "tree_vault_mysql_innodb_bufferpool",
-                                  "name": "什么是 BufferPool",
-                                  "count": 0,
-                                  "nodeRef": "k_vault_mysql_innodb_bufferpool",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_vault_mysql_innodb_page_mgmt",
-                                  "name": "InnoDB 如何管理 Page 页",
-                                  "count": 0,
-                                  "nodeRef": "k_vault_mysql_innodb_page_mgmt",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_vault_mysql_innodb_page_struct",
-                                  "name": "介绍一下 Page 页的结构",
-                                  "count": 0,
-                                  "nodeRef": "k_vault_mysql_innodb_page_struct",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_vault_mysql_innodb_rowlock",
-                                  "name": "InnoDB 的行锁是怎么实现的",
-                                  "count": 0,
-                                  "nodeRef": "k_vault_mysql_innodb_rowlock",
-                                  "children": []
-                                },
                                 {
                                   "id": "tree_vault_mysql_innodb_dict",
                                   "name": "概念字典-InnoDB",
@@ -22290,28 +22419,6 @@
               "nodeRef": "k_1784346336047_teogm0",
               "children": [
                 {
-                  "id": "tree_1784346820159_y2asqz",
-                  "name": "介绍",
-                  "count": 0,
-                  "nodeRef": "k_1784346820123_3r1xxg",
-                  "children": [
-                    {
-                      "id": "tree_1784347930717_pgzvpz",
-                      "name": "协调对共享资源的访问",
-                      "count": 0,
-                      "nodeRef": "k_1784347930676_uit7ys",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_1784347983395_53hxvw",
-                      "name": "优势",
-                      "count": 0,
-                      "nodeRef": "k_1784347983357_lq7e9k",
-                      "children": []
-                    }
-                  ]
-                },
-                {
                   "id": "tree_1784348023501_meuzf6",
                   "name": "模型",
                   "count": 0,
@@ -22327,21 +22434,39 @@
                   ]
                 },
                 {
-                  "id": "tree_1784348517133_zwjqw6",
-                  "name": "实现",
+                  "id": "tree_1784347930717_pgzvpz",
+                  "name": "协调对共享资源的访问",
                   "count": 0,
-                  "nodeRef": "k_1784348517053_72vt2j",
-                  "children": [
-                    {
-                      "id": "tree_1784348625758_u7db4f",
-                      "name": "交互与通信",
-                      "count": 0,
-                      "nodeRef": "k_1784348625706_s595yo",
-                      "children": []
-                    }
-                  ]
+                  "nodeRef": "k_1784347930676_uit7ys",
+                  "children": []
+                },
+                {
+                  "id": "tree_1784347983395_53hxvw",
+                  "name": "优势",
+                  "count": 0,
+                  "nodeRef": "k_1784347983357_lq7e9k",
+                  "children": []
+                },
+                {
+                  "id": "tree_1784348625758_u7db4f",
+                  "name": "交互与通信",
+                  "count": 0,
+                  "nodeRef": "k_1784348625706_s595yo",
+                  "children": []
                 }
-              ]
+              ],
+              "supplement": {
+                "tabs": [
+                  {
+                    "id": "context:cs:concurrency:intro",
+                    "label": "并发计算导览",
+                    "content": "并发计算的概念通常与相关但不同的 并行计算 概念混淆，尽管两者都可以描述为“多个过程在同一时间段内执行”。 在并行计算中，执行发生在相同的物理瞬间：例如，在 多处理器 机器的独立 处理器 上，目的是加快计算——在一个 单核心 的单处理器上，无法进行并行计算，因为在任何瞬间（在任何单个时钟周期内）只能发生一个计算。相反，并发计算由过程 生命周期 重叠组成，但执行不会在同一瞬间发生。这里的目标是模拟并发发生的过程，比如多个客户端同时访问服务器。将软件系统构建为由多个并发、通信部分组成，可以在处理复杂性时非常有用，无论这些部分是否可以并行执行。\n\n例如，可以通过时间分片在一个核心上交错执行并发过程：同一时间内只运行一个过程，如果它在其时间片内未完成，则 暂停，另一个过程开始或恢复，然后稍后恢复原始过程。这样，在同一瞬间多个过程正在执行，但在该瞬间仅有一个过程正在被执行。\n\n并发计算 可以 在并行中执行，例如，通过将每个过程分配给独立的处理器或处理器核心，或 在网络间分配 计算。\n\n在并发系统中，任务执行的确切时间取决于 调度，并且任务不必总是同时执行。例如，给定两个任务 T1 和 T2：[citation needed]\n\nT1 可能在 T2 之前执行并完成，或者 反之亦然（串行 与 顺序）\nT1 和 T2 可能交替执行（串行 与 并发）\nT1 和 T2 可能在同一瞬间同时执行（并行 与 并发）\n单词“顺序”被用作“并发”和“并行”的反义词；当这些术语被明确区分时，并发/顺序和 并行/串行 被用作对立的词对。[7] 一种任务一次执行（串行，没有并行）的调度，没有交错（顺序，没有并发：没有任务在前一个任务结束之前开始）被称为 串行调度。可以按串行调度方案调度的一组任务被称为 serializable，这简化了 并发控制。",
+                    "tags": [
+                      "介绍"
+                    ]
+                  }
+                ]
+              }
             },
             {
               "id": "tree_acm2012_concurrency_parallel_computing",
