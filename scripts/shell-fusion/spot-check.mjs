@@ -119,6 +119,23 @@ try {
     if (visible) console.log(`  展开 ${round + 1} 轮后找到「${TARGET}」（本轮点开 ${clicked} 个）`)
     else if (clicked === 0) break
   }
+  // 树是虚拟化的：深层节点即便全展开也不会进 DOM，退回搜索框过滤定位。
+  if (!visible) {
+    await evaluate(`
+      (() => {
+        const input = document.querySelector('#tree-search-input');
+        const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+        setter.call(input, ${JSON.stringify(TARGET)});
+        input.dispatchEvent(new Event('input', { bubbles: true }));
+        return true;
+      })()
+    `)
+    await sleep(1200)
+    visible = await evaluate(`
+      [...document.querySelectorAll('.tree-node-row')].some(r => (r.querySelector('.tree-node-label')?.textContent||'').trim() === ${JSON.stringify(TARGET)})
+    `)
+    if (visible) console.log(`  展开不可达（虚拟化），改用搜索框定位到「${TARGET}」`)
+  }
   check(visible, `树中出现目标节点「${TARGET}」`)
 
   if (visible) {
