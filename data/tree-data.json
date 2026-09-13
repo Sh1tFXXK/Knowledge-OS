@@ -11542,6 +11542,25 @@
                                   "count": 0,
                                   "nodeRef": "aop_state_target_invoked",
                                   "children": []
+                                },
+                                {
+                                  "id": "tree_aop_proxyfactory_restored",
+                                  "name": "ProxyFactory",
+                                  "count": 0,
+                                  "nodeRef": "aop_proxyfactory",
+                                  "children": [],
+                                  "supplement": {
+                                    "tabs": [
+                                      {
+                                        "id": "asplit:s62:strategy",
+                                        "label": "代理策略（JDK / Cglib）",
+                                        "content": "代理策略（差异补充）：\n\nProxyFactory 满足切面规则时，调用 **ProxyFactory 创建代理 Bean 并缓存到 IoC 容器**中。根据目标对象**自动选择**不同的代理策略： - 目标类**实现了接口** → 默认 **JDK Proxy**； - 目标类**没有实现接口** → 默认 **Cglib Proxy**； - 也可以通过配置**强制使用 Cglib Proxy**。 ![创建代理对象阶段](/notes/spring/aop-stage1-create-proxy.png) **核心组件关系**：**ProxyConfig**（代理配置，包含多个内层拦截器、依赖 MethodPointcut）←**继承**— **ProxyFactory**（代理工厂，创建代理对象）→ **AopProxy**（外层代理，invoke()）。 **创建代理流程六步**：Bean 初始化 → 读取 AOP 配置 → 创建 ProxyFactory → 生成 AopProxy → 创建代理对象 → 返回代理 Bean。\n满足切面规则时，调用 **ProxyFactory 创建代理 Bean 并缓存到 IoC 容器**中。根据目标对象**自动选择**不同的代理策略：\n- 目标类**实现了接口** → 默认 **JDK Proxy**；\n- 目标类**没有实现接口** → 默认 **Cglib Proxy**；\n- 也可以通过配置**强制使用 Cglib Proxy**。",
+                                        "tags": [
+                                          "ProxyFactory 与代理策略"
+                                        ]
+                                      }
+                                    ]
+                                  }
                                 }
                               ]
                             }
