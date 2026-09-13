@@ -8,9 +8,9 @@
 | B 第二类 · 对比与区别型 | 0 | 0 | 0 | 0 | 0 |
 | D 第四类 · 动作/任务/状态型 | 43 | 43 | 2 | 43 | 0 |
 | C 第三类 · 教程/专栏标题型 | 37 | 37 | 20 | 37 | 0 |
-| A 第一类 · 「A 与 B」强行捆绑型 | 50 | 50 | 16 | 48 | 0 |
+| A 第一类 · 「A 与 B」强行捆绑型 | 22 | 22 | 12 | 20 | 0 |
 
-**全树 3289 条目 · 定罪 137 条（唯一节点 137）· 若全部卸载剩 3152 条**
+**全树 3267 条目 · 定罪 109 条（唯一节点 109）· 若全部卸载剩 3158 条**
 
 ## 第五类 · 直接提问型（7 条）
 
@@ -41,7 +41,7 @@
 |---|---|---:|---|---|---|---|
 | 合理地配置线程池 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / 线程池的使用 / 合理地配置线程池 | 0 | 有 |  | tree_1786092342461_a1uk2e | k_1786092342085_3zwh4c |
 | 线上问题定位 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Java并发编程实践 / 线上问题定位 | 0 | 有 |  | tree_1786096587342_j05qf9 | k_1786096587014_vzab8u |
-| 执行阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 | 9 | 有 |  | tree_aop_flow | aop_flow |
+| 执行阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 | 10 | 有 |  | tree_aop_flow | aop_flow |
 | ① 代理对象已创建 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ① 代理对象已创建 | 0 | 有 |  | tree_aop_state_proxy_created | aop_state_proxy_created |
 | ② 调用已被拦截 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ② 调用已被拦截 | 0 | 有 |  | tree_aop_state_intercepted | aop_state_intercepted |
 | ③ 拦截器链执行中 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ③ 拦截器链执行中 | 0 | 有 |  | tree_aop_state_chain_running | aop_state_chain_running |
@@ -108,7 +108,7 @@
 | Kafka 定位总览 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Kafka / Kafka 定位总览 | 0 | 有 |  | tree_vault_javakafkakafka_1qlqb8 | k_vault_javakafkakafka_1qlqb8 |
 | MyBatis 定位总览 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Mybatis / MyBatis 定位总览 | 0 | 有 |  | tree_vault_javamybatismybatis_14eqlq | k_vault_javamybatismybatis_14eqlq |
 | Spring Cloud 定位总览 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Cloud / Spring Cloud 定位总览 | 0 | 有 |  | tree_vault_javaspringcloudspringcloud_33p5su | k_vault_javaspringcloudspringcloud_33p5su |
-| 软件开发（实践总览） | 知识宇宙 / 计算机科学 / 软件开发（实践总览） | 143 | 有 |  | tree_1783873300414_0y8oon | k_1783873300296_o38v1d |
+| 软件开发（实践总览） | 知识宇宙 / 计算机科学 / 软件开发（实践总览） | 142 | 有 |  | tree_1783873300414_0y8oon | k_1783873300296_o38v1d |
 | 进阶思路：监控驱动动态扩容 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 流量激增应对方法 / 进阶思路：监控驱动动态扩容 | 0 | 有 |  | tree_surge_auto_scale | surge_auto_scale |
 | 跨系统标准与约定（总览） | 知识宇宙 / 计算机科学 / 信息系统 / 跨系统标准与约定（总览） | 0 | 有 |  | governance:canonical:school_real_world_conventions | school_real_world_conventions |
 | 八、恢复系统 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 八、恢复系统 | 37 | 有 |  | chapter_db_08 | container:chapter_db_08 |
@@ -127,60 +127,32 @@
 | 五、数据库操作 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 五、数据库操作 | 29 | 有 |  | chapter_db_05 | container:chapter_db_05 |
 | 一、数据库系统 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 | 131 | 有 |  | chapter_db_01 | container:chapter_db_01 |
 
-## 第一类 · 「A 与 B」强行捆绑型（50 条）
+## 第一类 · 「A 与 B」强行捆绑型（22 条）
 
 处置：→ 拆成独立名词 + 语义边；特化场景写 supplement
 
 | 树节点 | 路径 | 子树 | 正文 | 题库 | 树ID | nodeRef |
 |---|---|---:|---|---|---|---|
-| 交互与通信 | 知识宇宙 / 计算机科学 / 并发 / 并发计算 / 交互与通信 | 0 | 有 |  | tree_1784348625758_u7db4f | k_1784348625706_s595yo |
 | 复杂度与算法分析 | 知识宇宙 / 计算机科学 / 计算理论 / 算法 / 算法分析 / 复杂度与算法分析 | 0 | 有 |  | tree_vault_java01_36x0hj | k_vault_java01_36x0hj |
-| 算法与数据结构 | 知识宇宙 / 计算机科学 / 计算理论 / 算法 / 算法与数据结构 | 0 | 有 |  | governance:canonical:n_9hr0nvvv | n_9hr0nvvv |
-| 知识表示与推理 | 知识宇宙 / 计算机科学 / 人工智能 / 知识表示与推理 | 0 | 有 |  | tree_acm2012_artificial_intelligence_knowledge_representation_reasoning | k_acm2012_artificial_intelligence_knowledge_representation_reasoning |
-| 自动化规划与调度 | 知识宇宙 / 计算机科学 / 人工智能 / 自动化规划与调度 | 0 | 有 |  | tree_acm2012_artificial_intelligence_automated_planning_scheduling | k_acm2012_artificial_intelligence_automated_planning_scheduling |
-| 软件符号与工具 | 知识宇宙 / 计算机科学 / 软件符号与工具 | 1623 | 有 |  | tree_1783260209337_u6gsoz | k_1783260209305_4t111y |
+| 软件符号与工具 | 知识宇宙 / 计算机科学 / 软件符号与工具 | 1610 | 有 |  | tree_1783260209337_u6gsoz | k_1783260209305_4t111y |
 | 类与对象 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 | 33 | 空 |  | tree_1783184803336_zgc1z2 | k_1783184803301_75p0j1 |
-| 面向对象与数据库 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 面向对象与数据库 | 0 | 有 |  | tree_1784222473084_0qpr3k | k_1784222473047_i8okyb |
-| 责任驱动设计与数据驱动设计 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 责任驱动设计与数据驱动设计 | 0 | 有 |  | tree_1784222526110_9qu5ne | k_1784222526071_nwu5h9 |
-| 与口译员的比较 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 编译器 / 与口译员的比较 | 0 | 有 |  | tree_wiki_en_compiler_s1 | k_wiki_en_compiler_s1 |
-| 注释和参考文献 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 编译器 / 注释和参考文献 | 0 | 有 |  | tree_wiki_en_compiler_s12 | k_wiki_en_compiler_s12 |
 | Unix 和类 Unix | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 链接器（计算） / 值得注意的实施 / Unix 和类 Unix | 0 | 有 |  | tree_wiki_en_linker_computing_s7_s8 | k_wiki_en_linker_computing_s8 |
-| 与其他语言的比较 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 程序分析 / 动态程序分析 / Java性能 / 与其他语言的比较 | 9 | 有 |  | tree_wiki_en_java_performance_s14 | k_wiki_en_java_performance_s14 |
-| 语言评估与争议 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / go / 语言评估与争议 | 0 | 有 |  | tree_goexplain_eval | k_goexplain_eval |
-| 读写锁的接口与示例 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 读写锁 / 读写锁的接口与示例 | 0 | 有 |  | tree_1786026226848_dk9pdh | k_1786026226542_k0x0er |
-| 队列同步器的接口与示例 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 队列同步器 / 队列同步器的接口与示例 | 2 | 有 |  | tree_1786017052478_4qbdcw | k_1786017052246_ok0jl6 |
-| Condition接口与示例 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / Condition接口 / Condition接口与示例 | 0 | 有 |  | tree_1786029570194_v543za | k_1786029569920_2k0ima |
 | JVM 参数与调优（学习笔记） | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / JVM 参数与调优（学习笔记） | 0 | 有 |  | tree_vault_javajvm04jvm_i15q6w | k_vault_javajvm04jvm_i15q6w |
 | 类与对象 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 类与对象 | 10 | 有 |  | tree_java_syntax_class_object | k_java_syntax_class_object |
 | 类与接口 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 类与接口 | 1 | 空 |  | tree_1786343608082_382n5k | k_1786343607773_qq5y28 |
-| 重写（Override）与重载（Overload） | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 重写（Override）与重载（Overload） | 0 | 有 |  | tree_vault_javajavaoverrideoverload_18u2us | k_vault_javajavaoverrideoverload_18u2us |
 | 进程与线程 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 进程与线程 | 35 | 有 |  | tree_1784367220424_14rpaj | k_1784367220387_2v9vdv |
 | 原子性和锁 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 原子性和锁 | 1 | 有 |  | tree_1784367853517_ql6yr7 | k_1784367853474_o8r7o6 |
 | Request/Response 与作用域 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / JavaWeb / Request/Response 与作用域 | 0 | 有 |  | tree_vault_javajavaweb03requestresponse_1s68kh | k_vault_javajavaweb03requestresponse_1s68kh |
 | Session/Cookie 与状态管理 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / JavaWeb / Session/Cookie 与状态管理 | 0 | 有 |  | tree_vault_javajavaweb04sessioncookie_ihdd8v | k_vault_javajavaweb04sessioncookie_ihdd8v |
-| Kafka 顺序、吞吐与适用场景 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Kafka / Kafka 顺序、吞吐与适用场景 | 0 | 有 |  | tree_vault_javakafka04_1s6eok | k_vault_javakafka04_1s6eok |
 | Producer/Consumer 与消费组 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Kafka / Producer/Consumer 与消费组 | 0 | 有 |  | tree_vault_javakafka03producerconsumer_y4d5ch | k_vault_javakafka03producerconsumer_y4d5ch |
 | Topic/Partition 与 Broker | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Kafka / Topic/Partition 与 Broker | 0 | 有 |  | tree_vault_javakafka02topicpartitionbroker_1ae46h | k_vault_javakafka02topicpartitionbroker_1ae46h |
-| RabbitMQ 与 Kafka 选型 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / RabbitMQ / RabbitMQ 与 Kafka 选型 | 0 | 有 |  | tree_vault_javarabbitmq05rabbitmqkafka_16ryk1 | k_vault_javarabbitmq05rabbitmqkafka_16ryk1 |
-| 服务注册与发现 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Cloud / 服务注册与发现 | 0 | 有 |  | asplit_s1_asplit_svc_registry_discovery | asplit_svc_registry_discovery |
-| Spring Cloud 定位与系统问题 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Cloud / Spring Cloud 定位与系统问题 | 0 | 有 |  | tree_vault_javaspringcloud01springcloud_1gr4uj | k_vault_javaspringcloud01springcloud_1gr4uj |
-| Spring Cloud 生态与技术选型 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring Cloud / Spring Cloud 生态与技术选型 | 0 | 有 |  | tree_vault_javaspringcloud06springcloud_acgmi2 | k_vault_javaspringcloud06springcloud_acgmi2 |
 | 发布与版本模型 / Release & Versioning Model | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 发布与版本模型 / Release & Versioning Model | 9 | 有 |  | tree_concept_release_model_rm | concept_release_model |
-| 性能的定义与 QPS 公式 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 秒杀系统性能优化方法 / 性能的定义与 QPS 公式 | 0 | 有 |  | tree_sk_perf_def | sk_perf_def |
-| 微服务架构与网络调用 | 知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 微服务架构与网络调用 | 0 | 有 |  | tree_vault_arch_micro_net | k_vault_arch_micro_net |
-| 主从延迟与解决方案 | 知识宇宙 / 计算机科学 / 系统组织 / 分布式系统 / 主从延迟与解决方案 | 0 | 有 |  | tree_vault_arch_replica_lag | k_vault_arch_replica_lag |
 | 备份与恢复 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 备份与恢复 | 23 | 有 |  | chapter_db_15 | container:chapter_db_15 |
 | 备份和恢复 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 备份与恢复 / 备份和恢复 | 19 | 有 |  | tree_wiki_en_database_s24 | k_wiki_en_database_s24 |
-| 优化3：ID 与主表 inner join | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询处理 / query processing / MySQL 分页查询优化 / 分页优化方案 / 优化3：ID 与主表 inner join | 0 | 有 |  | tree_pagination_opt_join | pagination_opt_join |
-| 表拆分与分库优化 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询优化器 / query optimizer / MySQL 查询优化器（Optimizer） / MySQL 慢 SQL 排查思路 / 表拆分与分库优化 | 0 | 有 |  | tree_diag_split | diag_split |
-| 热点数据与缓存优化 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询优化器 / query optimizer / MySQL 查询优化器（Optimizer） / MySQL 慢 SQL 排查思路 / 热点数据与缓存优化 | 0 | 有 |  | tree_diag_hot_cache | diag_hot_cache |
 | 连接与线程状态 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / MySQL 查询执行过程 / 内部执行流程（六步） / 客户端（Client） / 连接与线程状态 | 9 | 有 |  | tree_qproc_thread_state | qproc_thread_state |
-| 认证与权限校验 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / MySQL 查询执行过程 / 内部执行流程（六步） / 客户端（Client） / 连接与线程状态 / 认证与权限校验 | 0 | 有 |  | asplit_s2_asplit_conn_state_auth | asplit_conn_state_auth |
 | 备份与恢复 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十九、数据库产品 / MySQL / MySQL Server / 结构 / 服务层 / 备份与恢复 | 15 | 有 |  | mysql:theme:backup-recovery | mysql:theme:backup-recovery |
 | 校验和 / checksum | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十九、数据库产品 / MySQL / MySQL Server / 结构 / 服务层 / 备份与恢复 / 校验和 / checksum | 0 | 有 |  | projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_checksum_qnrmvm | mysql_glossary_checksum_qnrmvm |
 | 范围锁与插入锁 / range & insert locks | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库事务 / 锁机制 / locking mechanism / 范围锁与插入锁 / range & insert locks | 1 | 有 |  | tree_concept_range_insert_lock | concept_range_insert_lock |
 | MySQL 范围锁与插入锁 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库事务 / 锁机制 / locking mechanism / 范围锁与插入锁 / range & insert locks / MySQL 范围锁与插入锁 | 0 | 有 |  | mysql_lock_range_insert | mysql_lock_range_insert |
-| 索引失效与适用边界 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 索引 / MySQL 索引 / 索引失效与适用边界 | 3 | 有 |  | tree_idx_fail_root | idx_fail_root |
 | 对象关系映射（ORM、O/RM 和 O/R 映射） | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 / 数据库使用 / 数据库编程 / 对象关系映射（ORM、O/RM 和 O/R 映射） | 0 | 有 |  | tree_wiki_en_outline_of_databases_s4_s8_b2 | k_wiki_en_outline_of_databases_s8_b2 |
-| uuid 和自增 id 的索引结构对比 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 主键 / 主键类型选择：自增 vs UUID / uuid 和自增 id 的索引结构对比 | 2 | 有 |  | tree_pk_index_struct | pk_index_struct |
 

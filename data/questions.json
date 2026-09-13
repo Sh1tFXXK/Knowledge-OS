@@ -3691,12 +3691,17 @@
     "id": "q_1786345017473_ms61bg",
     "text": "重载（Overload）和重写（Override）的区别。重载的方法能 否根据返回类型进行区分？",
     "answered": true,
-    "relatedNodeId": "k_java_syntax_zh_veri4o",
+    "relatedNodeId": "k_vault_javajavaoverrideoverload_18u2us",
     "createdAt": 1786345017473,
-    "updatedAt": 1786345032180,
+    "updatedAt": 1789312204887,
     "answer": "方法的重载和重写都是实现多态的方式，区别在于前者实现的是编译时的多态 性，而后者实现的是运行时的多态性。\n重载：发生在同一个类中，方法名相同参数列表不同（参数类型不同、个数不 同、顺序不同），与方法返回值和访问修饰符无关，即重载的方法不能根据返回 类型进行区分\n重写：发生在父子类中，方法名、参数列表必须相同，返回值小于等于父类，抛 出的异常小于等于父类，访问修饰符大于等于父类（里氏代换原则）；如果父类 方法访问修饰符为private则子类中就不是重写。",
     "kind": "comparison",
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_javajavaoverrideoverload_18u2us"
+      }
+    ]
   },
   {
     "id": "q_1786347048837_9r4lxv",
@@ -9848,5 +9853,309 @@
         "nodeId": "k_1789213558020_6rswrz3"
       }
     ]
+  },
+  {
+    "id": "q_asplit_4",
+    "text": "责任驱动设计与数据驱动设计有何区别与适用场景？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "answer": "在 责任驱动设计 中，类是围绕它们需要做的事情和它们共享的信息构建的，形成一种契约。这与 数据驱动设计 不同，后者的类是基于它们需要存储的数据构建的。根据责任驱动设计的创始人 Wirfs-Brock 和 Wilkerson 的说法，责任驱动设计是更好的方法",
+    "relatedNodeId": "k_1784222526071_nwu5h9",
+    "answerSteps": [
+      {
+        "nodeId": "k_1784222526071_nwu5h9"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_5",
+    "text": "面向对象范式与关系型数据库之间如何进行映射与适配？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "answer": "面向对象编程（OOP）和关系数据库管理系统（RDBMS）在今天的软件中被广泛使用。然而，关系数据库并不直接存储对象，这在一起使用时会带来挑战。这个问题被称为对象-关系阻抗不匹配。\n\n为了解决这个问题，开发者使用不同的方法，但没有一个是完美的。最常见的解决方案之一是对象-关系映射（ORM），它帮助连接面向对象的程序与关系数据库。ORM工具的例子包括Visual FoxPro、Java数据对象和Ruby on Rails ActiveRecord。\n\nSome databases, called object databases, are designed to work with OOP. However, they have not been as popular or successful as relational databases.\n\nDate 和 Darwen 提出了一个理论基础，使用 OOP 作为一种可定制的 类型系统 来支持 RDBMS，但它禁止对象包含指向其他对象的指针。",
+    "relatedNodeId": "k_1784222473047_i8okyb",
+    "answerSteps": [
+      {
+        "nodeId": "k_1784222473047_i8okyb"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_24",
+    "text": "AQS 队列同步器提供了哪些核心接口？如何使用模板方法实现自定义同步器？",
+    "answered": true,
+    "kind": "definition",
+    "difficulty": "intermediate",
+    "answer": "同步器的设计是基于模板方法模式的，也就是说，使用者需要继承同步器并重写指定的方法，随后将同步器组合在自定义同步组件的实现中，并调用同步器提供的模板方法，而这些模板方法将会调用使用者重写的方法。\n重写同步器指定的方法时，需要使用同步器提供的如下3个方法来访问或修改同步状态。\n·getState()：获取当前同步状态。\n·setState(int newState)：设置当前同步状态。\n·compareAndSetState(int expect,int update)：使用CAS设置当前状态，该方法能够保证状态\n设置的原子性。实现自定义同步组件时，将会调用同步器提供的模板方法，同步器提供的模板方法基本上分为3类：独占式获取与释放同步状态、共享式获取与释放同步状态和查询同步队列中的等待线程情况。自定义同步组件将使用同步器提供的模板方法来实现自己的同步语义。\n顾名思义，独占锁就是在同一时刻只能有一个线程获取到锁，而其他获取锁的线程只能处于同步队列中等待，只有获取锁的线程释放了锁，后继的线程才能够获取锁，",
+    "relatedNodeId": "k_1786017052246_ok0jl6",
+    "answerSteps": [
+      {
+        "nodeId": "k_1786017052246_ok0jl6"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_25",
+    "text": "ReentrantReadWriteLock 读写锁提供了哪些核心接口？具体如何使用？",
+    "answered": true,
+    "kind": "definition",
+    "difficulty": "intermediate",
+    "answer": "ReadWriteLock仅定义了获取读锁和写锁的两个方法，即readLock()方法和writeLock()方法，而其实现——ReentrantReadWriteLock，除了接口方法之外，还提供了一些便于外界监控其内部工作状态的方法，",
+    "relatedNodeId": "k_1786026226542_k0x0er",
+    "answerSteps": [
+      {
+        "nodeId": "k_1786026226542_k0x0er"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_28",
+    "text": "Condition 接口及其 await/signal 机制如何使用？与 Object wait/notify 有何区别？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "answer": "Condition定义了等待/通知两种类型的方法，当前线程调用这些方法时，需要提前获取到\nCondition对象关联的锁。Condition对象是由Lock对象（调用Lock对象的newCondition()方法）创建出来的，换句话说，Condition是依赖Lock对象的。",
+    "relatedNodeId": "k_1786029569920_2k0ima",
+    "answerSteps": [
+      {
+        "nodeId": "k_1786029569920_2k0ima"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_50",
+    "text": "Go 语言在设计上有哪些核心评估与主要争议点？",
+    "answered": true,
+    "kind": "recall",
+    "difficulty": "intermediate",
+    "answer": "Go提供了有趣的语言特性，也允许简洁和标准化的表示法。该语言的编译器仍然不够成熟，这在性能和二进制大小上都有所体现。\n\n—R. Hundt\n这一评估遭到了 Go 开发团队的反驳。Ian Lance Taylor 改善了 Hundt 论文的 Go 代码，他并不知道要发布他的代码，并表示他的版本“从未旨在成为典范或高效 Go 的例子”；随后，Russ Cox 优化了 Go 代码以及 C++ 代码，使 Go 代码的运行速度几乎与 C++ 版本一样快，而且比论文中的代码快多个数量级。\n\nGo 的 nil 加上缺乏 代数类型，导致处理失败和 基本情况 变得困难。\nGo 因专注于实现的简洁性而非正确性和灵活性而受到批评；例如，该语言在所有平台上使用 POSIX 文件语义，因此在不遵循上述标准的平台（如 Windows）上提供了不正确的信息。\nA study showed that it is as easy to make concurrency bugs with message passing as with shared memory, sometimes even more.\nNaming dispute\nOn November 10, 2009, the day of the general release of the language, Francis McCabe, developer of the Go! programming language (note the exclamation point), requested a name change of Google's language to prevent confusion with his language, which he had spent 10 years developing. McCabe raised concerns that \"the 'big guy' will end up steam-rollering over\" him, and this concern resonated with the more than 120 developers who commented on Google's official issues thread saying they should change the name, with some even saying the issue contradicts Google's motto of: Don't be evil.\n\nOn October 12, 2010, the filed public issue ticket was closed by Google developer Russ Cox (@rsc) with the custom label \"Unfortunate\" accompanied by the following comment:\n\n\"There are many computing products and services named Go. In the 11 months since our release, there has been minimal confusion of the two languages.",
+    "relatedNodeId": "k_goexplain_eval",
+    "answerSteps": [
+      {
+        "nodeId": "k_goexplain_eval"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_53",
+    "text": "Java 与其他主流编程语言在性能与执行效率上有何比较？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "answer": "客观地比较 Java 程序和用另一种语言（例如 C++ 编写的等效程序的性能）需要一个仔细且深思熟虑构建的基准来比较完成相同任务的程序。 Java的字节码编译器的目标平台是Java平台，字节码由JVM解释或编译为机器代码。其他编译器几乎总是针对特定的硬件和软件平台，生成的机器代码在执行过程中几乎保持不变。这两种不同的方法产生了非常不同且难以比较的场景：静态编译与动态编译和重新编译、有关运行时环境的精确信息的可用性和其他。\n\nJava 通常是在运行时由 Java 虚拟机即时编译，但也可能是提前编译，C++ 也是如此。当及时编译时，计算机语言基准游戏的微基准表明其性能如下：\n- 比编译语言慢，例如 C 或 C++，\n- 类似于其他即时编译语言，例如 C#，\n- 比没有有效的本机代码编译器的语言（JIT 或 AOT）快得多，例如 Perl， Ruby、PHP 和 Python。",
+    "relatedNodeId": "k_wiki_en_java_performance_s14",
+    "answerSteps": [
+      {
+        "nodeId": "k_wiki_en_java_performance_s14"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_54",
+    "text": "编译器（Compiler）与解释器（Interpreter）在执行原理上有何比较？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "basic",
+    "answer": "关于使源代码可运行，解释器提供了与编译器类似的功能，但通过不同的机制。解释器执行代码而不将其转换为机器代码。因此，一些解释器执行源代码，而另一些解释器则执行中间形式，例如字节码。\n\n编译为本机代码的程序往往比解释时运行得更快，而具有字节码中间形式的环境则倾向于中等速度。或者，即时编译 允许以一次性启动处理时间成本实现本机执行速度。\n\n低级编程语言，例如汇编和C，通常是编译的，特别是当速度是一个重要问题时，而不是跨平台 支持。对于此类语言，源代码和生成的机器代码之间存在更多的一一对应关系，使程序员更容易控制硬件的使用。\n\n理论上，任何编程语言都可以通过编译器或解释器来使用，但实际上，语言往往只与其中一种一起使用。尽管如此，为通用解释语言编写编译器是可能的。例如，Common Lisp可以编译为Java字节码（然后由Java虚拟机解释）、C代码（然后可以再次编译为本机机器代码），或直接编译为本机代码。",
+    "relatedNodeId": "k_wiki_en_compiler_s1",
+    "answerSteps": [
+      {
+        "nodeId": "k_wiki_en_compiler_s1"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_76",
+    "text": "Kafka 如何保证消息顺序与高吞吐？其典型适用场景是什么？",
+    "answered": true,
+    "kind": "mechanism",
+    "difficulty": "intermediate",
+    "answer": "Kafka 顺序、吞吐与适用场景 ## Kafka 的核心取舍 Kafka 的设计重心是吞吐，而不是最复杂的消息投递语义。 ## 常见权衡 | 目标 | 代价 | | --- | --- | | 更强顺序性 | 更少分区，更低并行度 | | 更高吞吐 | 更多分区，更弱全局顺序 | | 更多消费者扩展 | 更复杂的消费组协调 | ## 典型场景 - 日志采集 - 埋点流转 - 实时数据同步 - 事件流处理 - 大数据计算链路 ## 不要误用 如果核心需求是复杂路由、灵活交换机模型、传统业务异步任务，Kafka 不是唯一首选。\n\n## Kafka 的核心取舍\n\nKafka 的设计重心是吞吐，而不是最复杂的消息投递语义。\n\n## 常见权衡\n\n| 目标 | 代价 |\n| --- | --- |\n| 更强顺序性 | 更少分区，更低并行度 |\n| 更高吞吐 | 更多分区，更弱全局顺序 |\n| 更多消费者扩展 | 更复杂的消费组协调 |\n\n## 典型场景\n\n- 日志采集\n- 埋点流转\n- 实时数据同步\n- 事件流处理\n- 大数据计算链路\n\n## 不要误用\n\n如果核心需求是复杂路由、灵活交换机模型、传统业务异步任务，Kafka 不是唯一首选。",
+    "relatedNodeId": "k_vault_javakafka04_1s6eok",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_javakafka04_1s6eok"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_79",
+    "text": "在分布式消息中间件选型中，RabbitMQ 与 Kafka 应该如何对比与选择？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "intermediate",
+    "answer": "RabbitMQ 与 Kafka 选型 ## 关注点不同 | 维度 | RabbitMQ | Kafka | | --- | --- | --- | | 核心定位 | 业务消息中间件 | 分布式日志与高吞吐消息流 | | 强项 | 路由灵活、模型清晰 | 吞吐高、回放能力强 | | 常见场景 | 异步任务、系统解耦、业务通知 | 日志、埋点、流处理、数据同步 | ## 选择思路 - 如果你更关心业务异步解耦和灵活路由，RabbitMQ 更自然 - 如果你更关心大规模流式数据和吞吐，Kafka 更合适 ## 认知重点 它们都能传消息，但设计重心不同，不能只看“是不是 MQ”这一层。\n\n## 关注点不同\n\n| 维度 | RabbitMQ | Kafka |\n| --- | --- | --- |\n| 核心定位 | 业务消息中间件 | 分布式日志与高吞吐消息流 |\n| 强项 | 路由灵活、模型清晰 | 吞吐高、回放能力强 |\n| 常见场景 | 异步任务、系统解耦、业务通知 | 日志、埋点、流处理、数据同步 |\n\n## 选择思路\n\n- 如果你更关心业务异步解耦和灵活路由，RabbitMQ 更自然\n- 如果你更关心大规模流式数据和吞吐，Kafka 更合适\n\n## 认知重点\n\n它们都能传消息，但设计重心不同，不能只看“是不是 MQ”这一层。",
+    "relatedNodeId": "k_vault_javarabbitmq05rabbitmqkafka_16ryk1",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_javarabbitmq05rabbitmqkafka_16ryk1"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_80",
+    "text": "Spring Cloud 的核心定位是什么？它解决了分布式系统中的哪些问题？",
+    "answered": true,
+    "kind": "definition",
+    "difficulty": "basic",
+    "answer": "Spring Cloud 定位与系统问题 \n\n## 它在系统中的位置 \n| 层次 | 代表内容 | \n| --- | --- | \n| 业务层 | 订单、用户、支付 | \n| 框架层 | Spring Boot | | 分布式工程层 | Spring Cloud | \n| 基础设施层 | 注册中心、配置仓库、MQ、网关 | \n## 核心价值\n - 把分布式通用问题标准化 \n- 把多组件接入统一到 Spring 生态 \n- 降低微服务工程化门槛\n\n## 为什么会出现 Spring Cloud\n\n应用从单体走向微服务后，新增的不是“业务功能”，而是系统协作问题：\n\n- 服务实例位置不固定\n- 调用链更长\n- 网络失败成为常态\n- 配置分散\n- 入口治理复杂\n\nSpring Cloud 处理的正是这些“横跨多个服务”的基础设施问题。\n\n## 它在系统中的位置\n\n| 层次 | 代表内容 |\n| --- | --- |\n| 业务层 | 订单、用户、支付 |\n| 框架层 | Spring Boot |\n| 分布式工程层 | Spring Cloud |\n| 基础设施层 | 注册中心、配置仓库、MQ、网关 |\n\n## 核心价值\n\n- 把分布式通用问题标准化\n- 把多组件接入统一到 Spring 生态\n- 降低微服务工程化门槛",
+    "relatedNodeId": "k_vault_javaspringcloud01springcloud_1gr4uj",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_javaspringcloud01springcloud_1gr4uj"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_85",
+    "text": "Spring Cloud 生态包含哪些核心组件？如何进行技术选型？",
+    "answered": true,
+    "kind": "definition",
+    "difficulty": "intermediate",
+    "answer": "Spring Cloud 生态与技术选型 ## Spring Boot 和 Spring Cloud | 维度 | Spring Boot | Spring Cloud | | --- | --- | --- | | 关注点 | 单应用快速构建 | 分布式系统协作 | | 核心问题 | 应用启动与装配 | 服务治理与基础设施 | | 关系 | 基础 | 建立在 Boot 之上 | ## Spring Cloud 和 Dubbo | 维度 | Spring Cloud | Dubbo | | --- | --- | --- | | 定位 | 微服务全家桶 | RPC 框架 | | 通信风格 | 常见为 HTTP/REST | 偏 RPC | | 能力覆盖 | 注册、配置、网关、链路、消息等 | 重点在服务调用 | ## 选型思路 - 如果问题核心是“服务治理体系”，Spring Cloud 更完整 - 如果问题核心是“高性能 RPC 调用”，Dubbo 更聚焦 - 很多企业实际是混合使用，而不是二选一 ## 认知重点 Spring Cloud 不是为了替代业务逻辑，而是为了把分布式系统里反复出现的工程问题模块化、标准化。\n\n## Spring Boot 和 Spring Cloud\n\n| 维度 | Spring Boot | Spring Cloud |\n| --- | --- | --- |\n| 关注点 | 单应用快速构建 | 分布式系统协作 |\n| 核心问题 | 应用启动与装配 | 服务治理与基础设施 |\n| 关系 | 基础 | 建立在 Boot 之上 |\n\n## Spring Cloud 和 Dubbo\n\n| 维度 | Spring Cloud | Dubbo |\n| --- | --- | --- |\n| 定位 | 微服务全家桶 | RPC 框架 |\n| 通信风格 | 常见为 HTTP/REST | 偏 RPC |\n| 能力覆盖 | 注册、配置、网关、链路、消息等 | 重点在服务调用 |\n\n## 选型思路\n\n- 如果问题核心是“服务治理体系”，Spring Cloud 更完整\n- 如果问题核心是“高性能 RPC 调用”，Dubbo 更聚焦\n- 很多企业实际是混合使用，而不是二选一\n\n## 认知重点\n\nSpring Cloud 不是为了替代业务逻辑，而是为了把分布式系统里反复出现的工程问题模块化、标准化。",
+    "relatedNodeId": "k_vault_javaspringcloud06springcloud_acgmi2",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_javaspringcloud06springcloud_acgmi2"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_86",
+    "text": "什么是系统性能？QPS 计算公式及其影响因素有哪些？",
+    "answered": true,
+    "kind": "definition",
+    "difficulty": "basic",
+    "answer": "性能的定义与 QPS 公式 **性能的定义因设备而异**：CPU 主要看主频、磁盘主要看 IOPS（每秒读写操作次数）。 服务端性能一般用 **QPS（Query Per Second，每秒请求数）** 衡量；另一个密切相关的是**响应时间（Response Time，RT）**——服务器处理响应的耗时。RT 越短，单线程下一秒能处理的请求越多（单线程下近似线性）。 RT 有极限，不可能无限下降，于是引入**多线程**维度： **总 QPS =（1000ms / 响应时间）× 线程数量** 即性能与两个因素相关：一次响应的服务端耗时、处理请求的线程数。\n\n**性能的定义因设备而异**：CPU 主要看主频、磁盘主要看 IOPS（每秒读写操作次数）。\n\n服务端性能一般用 **QPS（Query Per Second，每秒请求数）** 衡量；另一个密切相关的是**响应时间（Response Time，RT）**——服务器处理响应的耗时。RT 越短，单线程下一秒能处理的请求越多（单线程下近似线性）。\n\nRT 有极限，不可能无限下降，于是引入**多线程**维度：\n\n**总 QPS =（1000ms / 响应时间）× 线程数量**\n\n即性能与两个因素相关：一次响应的服务端耗时、处理请求的线程数。",
+    "relatedNodeId": "sk_perf_def",
+    "answerSteps": [
+      {
+        "nodeId": "sk_perf_def"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_98",
+    "text": "UUID 主键与自增 ID 主键在 B+树索引结构和性能上有何对比？",
+    "answered": true,
+    "kind": "comparison",
+    "difficulty": "advanced",
+    "answer": "uuid 和自增 id 的索引结构对比 聚簇索引（InnoDB 默认索引类型）中两种主键的内部结构差异：自增 id 顺序插入 vs UUID 随机插入。见子节点。\n\n聚簇索引（InnoDB 默认索引类型）中两种主键的内部结构差异：自增 id 顺序插入 vs UUID 随机插入。见子节点。",
+    "relatedNodeId": "pk_index_struct",
+    "answerSteps": [
+      {
+        "nodeId": "pk_index_struct"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_100",
+    "text": "在慢 SQL 排查与数据库优化中，如何进行表拆分与分库优化？",
+    "answered": true,
+    "kind": "application",
+    "difficulty": "intermediate",
+    "answer": "表拆分与分库优化 **第二类原因：单表数据量过大**——即使 SQL 用了索引，单表 100 万 → 1000 万 → 1 亿，查询压力仍会上升。 **水平分表**：按业务主键把一张大表拆成多张**结构相同**的小表——如订单表 1 亿数据拆为 order_0 ~ order_999，按**订单 ID 路由**；适用于数据量巨大、单表压力高。 **垂直分表**：按业务逻辑把**关联性强的字段**拆到一起——如 user 表（id/name/age/address/description/avatar）拆为 user_base（id/name/age）+ user_detail（id/address/description/avatar）。 **分库**：分表之后（如 1000 张表）继续拆分到多个库：db1 存 table_0~100、db2 存 table_101~200 …… db10 存 table_900~1000，业务请求经**分片路由**分发；效果：降低单库压力、提升并发能力、分散数据库资源消耗。 （四种拆分方式详解与路由规则见「MySQL 分库分表」节点树。）\n\n**第二类原因：单表数据量过大**——即使 SQL 用了索引，单表 100 万 → 1000 万 → 1 亿，查询压力仍会上升。\n\n**水平分表**：按业务主键把一张大表拆成多张**结构相同**的小表——如订单表 1 亿数据拆为 order_0 ~ order_999，按**订单 ID 路由**；适用于数据量巨大、单表压力高。\n\n**垂直分表**：按业务逻辑把**关联性强的字段**拆到一起——如 user 表（id/name/age/address/description/avatar）拆为 user_base（id/name/age）+ user_detail（id/address/description/avatar）。\n\n**分库**：分表之后（如 1000 张表）继续拆分到多个库：db1 存 table_0~100、db2 存 table_101~200 …… db10 存 table_900~1000，业务请求经**分片路由**分发；效果：降低单库压力、提升并发能力、分散数据库资源消耗。\n\n（四种拆分方式详解与路由规则见「MySQL 分库分表」节点树。）",
+    "relatedNodeId": "diag_split",
+    "answerSteps": [
+      {
+        "nodeId": "diag_split"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_101",
+    "text": "如何针对高并发场景下的热点数据进行缓存设计与慢 SQL 优化？",
+    "answered": true,
+    "kind": "application",
+    "difficulty": "intermediate",
+    "answer": "热点数据与缓存优化 **第四类原因：热点数据**——某些数据访问频率极高，如商品 ID=10000 每秒 100 万次访问，单节点压力集中。 **增加缓存**： ``` 用户请求 → 缓存(Redis) ──命中──→ 直接返回 │未命中 ↓ 查询 MySQL → 结果写回缓存 ``` 第一次请求 Redis 没有 → 查 MySQL → 写入 Redis；之后的请求 Redis 直接返回，无需访问 MySQL。 可选组件：**Redis / MongoDB / ES**——减少数据库压力，提高响应速度。\n\n**第四类原因：热点数据**——某些数据访问频率极高，如商品 ID=10000 每秒 100 万次访问，单节点压力集中。\n\n**增加缓存**：\n\n```\n用户请求 → 缓存(Redis) ──命中──→ 直接返回\n              │未命中\n              ↓\n            查询 MySQL → 结果写回缓存\n```\n\n第一次请求 Redis 没有 → 查 MySQL → 写入 Redis；之后的请求 Redis 直接返回，无需访问 MySQL。\n\n可选组件：**Redis / MongoDB / ES**——减少数据库压力，提高响应速度。",
+    "relatedNodeId": "diag_hot_cache",
+    "answerSteps": [
+      {
+        "nodeId": "diag_hot_cache"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_102",
+    "text": "深度分页 LIMIT 查询如何利用 ID 与主表 inner join 进行性能优化？",
+    "answered": true,
+    "kind": "application",
+    "difficulty": "advanced",
+    "answer": "优化3：ID 与主表 inner join\n\n先 limit 查出**主键 ID**，然后用主表与查出的 ID 做 **inner join** 内连接：\n\n```sql\nSELECT * FROM product p\nINNER JOIN (SELECT id FROM product LIMIT 1000000, 20) t ON p.id = t.id;\n```\n\n**提速原因**：减少了回表——查 ID 只需走**聚集索引**（覆盖索引扫描），拿到 20 个主键后再回表取整行，避免 limit 大偏移时逐行回表百万次。\n\n先 limit 查出**主键 ID**，然后用主表与查出的 ID 做 **inner join** 内连接：\n\n```sql\nSELECT * FROM product p\nINNER JOIN (SELECT id FROM product LIMIT 1000000, 20) t ON p.id = t.id;\n```\n\n**提速原因**：减少了回表——查 ID 只需走**聚集索引**（覆盖索引扫描），拿到 20 个主键后再回表取整行，避免 limit 大偏移时逐行回表百万次。",
+    "relatedNodeId": "pagination_opt_join",
+    "answerSteps": [
+      {
+        "nodeId": "pagination_opt_join"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_103",
+    "text": "MySQL 索引在哪些常见场景下会导致失效？其适用边界是什么？",
+    "answered": true,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate",
+    "answer": "索引失效与适用边界 使用索引列查询本可以提升效率，但**不规范的使用会导致索引失效**。三个维度：哪些情况会失效（七种）、哪些场景不适合建索引（三种）、索引的潜规则（覆盖索引 / 回表 / B+树 / 最左前缀 / 索引下推）。见子节点。最终是否走索引，用 EXPLAIN 看执行计划针对性调优。\n\n使用索引列查询本可以提升效率，但**不规范的使用会导致索引失效**。三个维度：哪些情况会失效（七种）、哪些场景不适合建索引（三种）、索引的潜规则（覆盖索引 / 回表 / B+树 / 最左前缀 / 索引下推）。见子节点。最终是否走索引，用 EXPLAIN 看执行计划针对性调优。",
+    "relatedNodeId": "idx_fail_root",
+    "answerSteps": [
+      {
+        "nodeId": "idx_fail_root"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
+  },
+  {
+    "id": "q_asplit_133",
+    "text": "MySQL 主从复制为什么会产生延迟？常见解决方案有哪些？",
+    "answered": true,
+    "kind": "troubleshooting",
+    "difficulty": "intermediate",
+    "answer": "数据库读/写分离架构依赖数据库主从复制技术，而数据库主从复制存在数据复制延迟（主从延迟），因此会导致数据复制延迟期间主从数据的不一致，Slave获取不到最新的数据。\n# 同步数据复制\n数据库主从复制默认是异步模式,Master在写完数据后就返回成功了,而不管Slave是否收到此数据。我们可以将主从复制配置为同步模式,Master在写完数据后,要等到全部Slave都收到此数据后才返回成功。这种方案可以保证数据库每次写操作成功后,Master和Slave都能读取到最新数据。这种方案相对简单,将数据库主从复制修改为同步模式即可,无须改造业务服务。但是由于在处理业务写请求时,Master要等到全部Slave都收到数据后才能返回成功,写请求的延迟将大大增加,数据库的吞吐量也会有明显的下滑。这种方案的实用价值较低,仅适合在低并发请求的业务场景中使用。\n# 强制读主\n不同的业务场景对主从延迟的容忍性不一样。例如,用户a刚刚发布了一条状态,他浏览个人主页时应该展示这条状态,这个场景不太能容忍主从延迟;而好友用户b此时浏览用户a的个人主页时,可以暂时看不到用户a最新发布的状态,这个场景可以容忍主从延迟。我们可以对业务场景按照主从延迟容忍性的高低进行划分,对于主从延迟容忍性高的场景, 执行正常的读/写分离逻辑 ; 而对于 主从延迟容忍性低的场景 , 强制将读请由到数据库Master,即强制读主。\n# 会话分离\n比如某会话在数据库中执行了写操作,那么在接下来极短的一段时间内,此会话的读请求暂时被强制路由到数据库Master,与“强制读主”方案中的例子很像,保证每个用户的写操作立刻对自己可见。暂时强制读主的时间可以被设定为略高于数据库完成主从数据复制的延迟时间,尽量使强制读主的时间段覆盖主从数据复制的实际延迟时间。",
+    "relatedNodeId": "k_vault_arch_replica_lag",
+    "answerSteps": [
+      {
+        "nodeId": "k_vault_arch_replica_lag"
+      }
+    ],
+    "createdAt": 1789312204887,
+    "updatedAt": 1789312204887
   }
 ]
