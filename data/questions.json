@@ -642,12 +642,26 @@
     "id": "q_1784954488087_1nxeeg",
     "text": "CyclicBarrier与CountDownLatch比较",
     "answered": true,
-    "relatedNodeId": "k_1784939888323_m0ojte",
+    "relatedNodeId": "k_1786089851947_drblzk",
     "createdAt": 1784954488087,
-    "updatedAt": 1784954497867,
-    "answer": "1）CountDownLatch:一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；CyclicBarrier:N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。\n\n2）CountDownLatch:一次性的；CyclicBarrier:可以重复使用。\n\n3）CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的。",
+    "updatedAt": 1789211338477,
+    "answer": "1）CountDownLatch:一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；CyclicBarrier:N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。\n\n2）CountDownLatch:一次性的；CyclicBarrier:可以重复使用。\n\n3）CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的。\n\nCountDownLatch的计数器只能使用一次，而CyclicBarrier的计数器可以使用reset()方法重置。所以CyclicBarrier能处理更为复杂的业务场景。例如，如果计算发生错误，可以重置计数器，并让线程重新执行一次。\nCyclicBarrier还提供其他有用的方法，比如getNumberWaiting方法可以获得Cyclic-Barrier阻塞的线程数量。isBroken()方法用来了解阻塞的线程是否被中断。",
     "kind": "comparison",
-    "difficulty": "intermediate"
+    "difficulty": "intermediate",
+    "answerSteps": [
+      {
+        "nodeId": "k_1786089851947_drblzk",
+        "note": "CyclicBarrier：同步屏障，计数器可 reset() 重复使用"
+      },
+      {
+        "nodeId": "k_java_type_19be8fb57595e954",
+        "note": "CountDownLatch：JDK 文档侧（计数器一次性）"
+      },
+      {
+        "nodeId": "k_1784954416184_ths59d",
+        "note": "闭锁概念：一次性同步语义"
+      }
+    ]
   },
   {
     "id": "q_1784978966021_3nnzrq",
@@ -2192,14 +2206,27 @@
   },
   {
     "id": "q_1785772885753_inwxvu",
-    "text": "C y c l i c B a r r i e r和C o u n t D o w n L a t c h看 起 来 很 相 似 ， 请 对 比下 呢 ？",
+    "text": "CyclicBarrier和CountDownLatch看起来很相似，请对比下呢？",
     "answered": true,
-    "relatedNodeId": "k_1785772820347_x6vfp9",
+    "relatedNodeId": "k_1786089851947_drblzk",
     "createdAt": 1785772885753,
-    "updatedAt": 1785774165462,
-    "answer": "C o u n t D o w n L a t c h是 不 可 以 重 置 的 ， 所 以 无 法 重 用 ，C y c l i c B a r r i e r没有 这 种 限 制 ， 可 以 重 用 。\nC o u n t D o w n L a t c h的 基 本 操 作 组 合 是c o u n t D o w n / a w a i t， 调 用a w a i t的 线 程 阻 塞 等 待c o u n t D o w n足 够 的 次 数 ， 不 管 你 是 在 一 个 线程 还 是 多个 线 程 里c o u n t D o w n， 只 要 次 数 足 够 即 可 。C y c l i c B a r r i e r的 基 本 操 作 组 合 就 是a w a i t， 当 所 有 的 伙 伴 都 调 用 了a w a i t， 才 会 继 续进 行 任 务 ， 并 自 动 进 行 重 置 。\nC o u n t D o w n L a t c h目 的 是 让 一 个 线 程 等 待 其 他N个 线 程 达 到 某 个 条件 后 ， 自 己 再 去 做 某 个 事 （ 通 过C y c l i c B a r r i e r的 第 二 个 构 造 方 法p u b l i c  C y c l i c B a r r i e r ( i n t  p a r t i e s ,R u n n a b l e b a r r i e r A c t i o n )， 在 新 线程 里 做 事 可 以 达 到 同 样 的 效 果 ） 。 而C y c l i c B a r r i e r的 目 的 是 让N多线 程 互 相 等 待 直 到 所 有 的 都 达 到 某 个 状 态 ， 然 后 这N个 线 程 再 继 续 执行 各 自 后 续 （ 通 过C o u n t D o w n L a t c h在 某 些 场 合 也 能 完 成 类 似 的 效果 ）",
-    "answerSteps": [],
-    "kind": "recall",
+    "updatedAt": 1789211338477,
+    "answer": "CountDownLatch 是不可以重置的，所以无法重用；CyclicBarrier 没有这种限制，可以重用。\nCountDownLatch 的基本操作组合是 countDown/await：调用 await 的线程阻塞等待 countDown 足够的次数，不管是在一个线程还是多个线程里 countDown，只要次数足够即可。CyclicBarrier 的基本操作组合就是 await：当所有的伙伴都调用了 await，才会继续进行任务，并自动进行重置。\nCountDownLatch 目的是让一个线程等待其他 N 个线程达到某个条件后，自己再去做某个事（通过 CyclicBarrier 的第二个构造方法 public CyclicBarrier(int parties, Runnable barrierAction)，在新线程里做事可以达到同样的效果）。而 CyclicBarrier 的目的是让 N 个线程互相等待直到所有的都达到某个状态，然后这 N 个线程再继续执行各自后续（通过 CountDownLatch 在某些场合也能完成类似的效果）。",
+    "answerSteps": [
+      {
+        "nodeId": "k_1786089851947_drblzk",
+        "note": "CyclicBarrier：同步屏障，计数器可 reset() 重复使用"
+      },
+      {
+        "nodeId": "k_java_type_19be8fb57595e954",
+        "note": "CountDownLatch：JDK 文档侧（计数器一次性）"
+      },
+      {
+        "nodeId": "k_1784954416184_ths59d",
+        "note": "闭锁概念：一次性同步语义"
+      }
+    ],
+    "kind": "comparison",
     "difficulty": "basic"
   },
   {
@@ -9736,5 +9763,90 @@
     "answer": "Serializable 只起**标记**作用：告诉 JVM / ObjectOutputStream 该类允许被序列化。\n\n- 序列化逻辑由 ObjectOutputStream 按**反射 + 对象图遍历**完成，不需要类自己实现任何序列化方法\n- 标记即契约：类设计者显式声明\"我同意被序列化\"（涉及安全与兼容性决策），而非默认可序列化\n- 同类设计：Cloneable（可克隆）、RandomAccess（支持随机访问）",
     "kind": "mechanism",
     "difficulty": "intermediate"
+  },
+  {
+    "id": "q_cmp_fair_lock",
+    "text": "公平与非公平获取锁的区别是什么？",
+    "answered": true,
+    "kind": "comparison",
+    "createdAt": 1789211338477,
+    "updatedAt": 1789213558020,
+    "difficulty": "basic",
+    "answer": "公平性与否是针对获取锁而言的，如果一个锁是公平的，那么锁的获取顺序就应该符合请求的绝对时间顺序，也就是FIFO。公平性锁保证了锁的获取按照FIFO原则，而代价是进行大量的线程切换。非公平性锁虽然可能造成线程“饥饿”，但极少的线程切换，保证了其更大的吞吐量。",
+    "relatedNodeId": "k_1789213558020_84f3pr4",
+    "answerSteps": [
+      {
+        "nodeId": "k_1789213558020_84f3pr4"
+      },
+      {
+        "nodeId": "k_1789213558020_2w9cmeo"
+      },
+      {
+        "nodeId": "k_1786017169554_blpxjf"
+      }
+    ]
+  },
+  {
+    "id": "q_cmp_memory_models",
+    "text": "各种内存模型之间是什么关系？",
+    "answered": true,
+    "kind": "comparison",
+    "createdAt": 1789211338477,
+    "updatedAt": 1789211338477,
+    "difficulty": "intermediate",
+    "answer": "JMM是一个语言级的内存模型，处理器内存模型是硬件级的内存模型，顺序一致性内存模型是一个理论参考模型。",
+    "relatedNodeId": "k_1784367508652_7bajap",
+    "answerSteps": [
+      {
+        "nodeId": "k_1784367508652_7bajap",
+        "note": "JMM：语言级内存模型"
+      },
+      {
+        "nodeId": "k_1785931334554_fxsjnl",
+        "note": "处理器内存模型：硬件级"
+      },
+      {
+        "nodeId": "k_1785862311642_1jk0yl",
+        "note": "顺序一致性内存模型：理论参考模型"
+      }
+    ]
+  },
+  {
+    "id": "q_cmp_hibernate_ibatis",
+    "text": "Hibernate 和 iBatis 的区别是什么？",
+    "answered": true,
+    "kind": "comparison",
+    "createdAt": 1789211338477,
+    "updatedAt": 1789213558020,
+    "difficulty": "basic",
+    "answer": "Ibatis与Hibernate的区别 \n一、 hibernate与ibatis之间的比较： \nhibernate 是当前最流行的o/r mapping框架，它出身于sf.NET，现在已经成为jboss的一部分了。 ibatis 是另外一种优秀的o/r mapping框架，目前属于apache的一个子项目了。\n相对hibernate“o/r”而言，ibatis是一种“sql mapping”的orm实现。\nhibernate对数据库结构提供了较为完整的封装，hibernate的o/r mapping实现了pojo 和数据库表之间的映射，以及sql 的自动生成和执行。程序员往往只需定义好了pojo 到数据库表的映射关系，即可通过hibernate 提供的方法完成持久层操作。程序员甚至不需要对sql的熟练掌握，hibernate/ojb 会根据制定的存储逻辑，自动生成对应的sql 并调用jdbc 接口加以执行。\n而ibatis 的着力点，则在于pojo 与sql之间的映射关系。也就是说ibatis并不会为程序员在运行期自动生成sql 执行具体的sql 需要程序员编写，然后通过映射配置文件将sql所需的参数，以及返回的结果字段映射到指定pojo。\n使用ibatis 提供的orm机制，对业务逻辑实现人员而言，面对的是纯粹的Java对象。\n这一层与通过hibernate 实现orm 而言基本一致，而对于具体的数据操作，hibernate会自动生成sql 语句，而ibatis 则要求开发者编写具体的sql 语句。相对hibernate而言，ibatis 以sql开发的工作量和数据库移植性上的让步，为系统设计提供了更大的自由空间。\n二、hibernate与ibatis两者的对比： \n1．ibatis非常简单易学，hibernate相对较复杂，门槛较高。 \n2．二者都是比较优秀的开源产品\n3．当系统属于二次开发,无法对数据库结构做到控制和修改,那ibatis的灵活性将比hibernate更适合   \n4．系统数据处理量巨大，性能要求极为苛刻，这往往意味着我们必须通过经过高度优化的sql语句（或存储过程）才能达到系统性能设计指标。在这种情况下ibatis会有更好的可控性和表现。   \n5．ibatis需要手写sql语句，也可以生成一部分，hibernate则基本上可以自动生成，偶尔会写一些hql。同样的需求,ibatis的工作量比hibernate要大很多。类似的，如果涉及到数据库字段的修改，hibernate修改的地方很少，而ibatis要把那些sql mapping的地方一一修改。\n6．以数据库字段一一对应映射得到的po和hibernte这种对象化映射得到的po是截然不同的，本质区别在于这种po是扁平化的，不像hibernate映射的po是可以表达立体的对象继承，聚合等等关系的，这将会直接影响到你的整个软件系统的设计思路。\n7．hibernate现在已经是主流o/r mapping框架，从文档的丰富性，产品的完善性，版本的开发速度都要强于ibatis\n三、iBatis与Hibernate区别？ \n1． iBatis 需要手写sql语句，也可以生成一部分，Hibernate则基本上可以自动生成，偶尔会写一些Hql。同样的需求,iBATIS的工作量比 Hibernate要大很多。类似的，如果涉及到数据库字段的修改，Hibernate修改的地方很少，而iBATIS要把那些sql mapping的地方一一修改。\n2. iBatis 可以进行细粒度的优化比如说我有一个表，这个表有几个或者几十个字段，我需要更新其中的一个字段，iBatis 很简单，执行一个sql UPDATE TABLE_A SET column_1=#column_1# WHERE id=#id# 但是用 Hibernate 的话就比较麻烦了,缺省的情况下 hibernate 会更新所有字段。 当然我记得 hibernate 有一个选项可以控制只保存修改过的字段，但是我不太确定这个功能的负面效果。\n例如：我需要列出一个表的部分内容，用 iBatis 的时候，这里面的好处是可以少从数据库读很多数据，节省流量SELECT ID, NAME FROM TABLE_WITH_A_LOT_OF_COLUMN WHERE …一般情况下Hibernate 会把所有的字段都选出来。比如说有一个上面表有8个字段，其中有一两个比较大的字段，varchar(255)/text。上面的场景中我为什么要把他们 也选出来呢？用hibernate 的话，你又不能把这两个不需要的字段设置为lazy load，因为还有很多地方需要一次把整个 domain object 加载出来。这个时候就能显现出ibatis 的好处了。如果我需要更新一条记录（一个对象），如果使用 hibernate，需要现把对象 select 出来，然后再做 update。这对数据库来说就是两条sql。而iBatis只需要一条update的sql就可以了。减少一次与数据库的交互，对于性能的提升是非常重 要。\n3. 开发方面：开发效率上，我觉得两者应该差不多。可维护性方面，我觉得 iBatis 更好一些。因为 iBatis 的 sql 都保存到单独的文件中。而 Hibernate 在有些情况下可能会在 java 代码中保sql/hql。相对Hibernate“O/R”而言，iBATIS 是一种“Sql Mapping”的ORM实现。 而iBATIS 的着力点，则在于POJO 与SQL之间的映射关系。也就是说，iBATIS并不会为程序员在运行期自动生成SQL 执行。具体的SQL 需要程序员编写，然后通过映射配置文件，将SQL所需的参数，以及返回的结果字段映射到指定POJO。使用iBATIS 提供的ORM机制，对业务逻辑实现人员而言，面对的是纯粹的Java对象，这一层与通过Hibernate 实现ORM 而言基本一致，而对于具体的数据操作，Hibernate会自动生成SQL 语句，而iBATIS 则要求开发者编写具体的SQL 语句。相对Hibernate而言，iBATIS 以SQL开发的工作量和数据库移植性上的让步，为系统设计提供了更大的自由空间。\n4. 运行效率：在不考虑 cache 的情况下，iBatis 应该会比hibernate 快一些或者很多。\n四、选择Hibernate还是iBATIS都有它的道理： \n（1）、Hibernate功能强大，数据库无关性好，O/R映射能力强，如果你对Hibernate相当精通，而且对Hibernate进行了适当的封装，那么你的项目整个持久层代码会相当简单，需要写的代码很少，开发速度很快，非常爽。\nHibernate的缺点就是学习门槛不低，要精通门槛更高，而且怎么设计O/R映射，在性能和对象模型之间如何权衡取得平衡，以及怎样用好Hibernate方面需要你的经验和能力都很强才行。\n（2）、iBATiS入门简单，即学即用，提供了数据库查询的自动对象绑定功能，而且延续了很好的SQL使用经验，对于没有那么高的对象模型要求的项目来说，相当完美。\niBATIS的缺点就是框架还是比较简陋，功能尚有缺失，虽然简化了数据绑定代码，但是整个底层数据库查询实际还是要自己写的，工作量也比较大，而且不太容易适应快速数据库修改。",
+    "relatedNodeId": "k_1789213558020_f1h0imz",
+    "answerSteps": [
+      {
+        "nodeId": "k_1789213558020_f1h0imz"
+      },
+      {
+        "nodeId": "k_java_fw_mybatis"
+      }
+    ]
+  },
+  {
+    "id": "q_cmp_spring_ejb",
+    "text": "Spring 与雅加达企业 Beans（EJB）是什么关系？",
+    "answered": true,
+    "kind": "comparison",
+    "createdAt": 1789211338477,
+    "updatedAt": 1789213558020,
+    "difficulty": "basic",
+    "answer": "Spring 容器可以通过 Pitchfork 项目转变为部分兼容的 EJB (企业JavaBeans) 3.0 容器。一些批评 Spring 框架不符合标准。 然而，SpringSource 并不认为 EJB 3 的合规性是一个主要目标，并声称 Spring 框架和容器允许更强大的编程模型。",
+    "relatedNodeId": "k_1789213558020_6rswrz3",
+    "answerSteps": [
+      {
+        "nodeId": "k_java_fw_spring"
+      },
+      {
+        "nodeId": "k_1789213558020_6rswrz3"
+      }
+    ]
   }
 ]
