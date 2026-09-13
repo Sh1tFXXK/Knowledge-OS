@@ -8,9 +8,9 @@
 | B 第二类 · 对比与区别型 | 0 | 0 | 0 | 0 | 0 |
 | D 第四类 · 动作/任务/状态型 | 43 | 43 | 2 | 43 | 0 |
 | C 第三类 · 教程/专栏标题型 | 37 | 37 | 20 | 37 | 0 |
-| A 第一类 · 「A 与 B」强行捆绑型 | 22 | 22 | 12 | 20 | 0 |
+| A 第一类 · 「A 与 B」强行捆绑型 | 18 | 18 | 12 | 16 | 0 |
 
-**全树 3267 条目 · 定罪 109 条（唯一节点 109）· 若全部卸载剩 3158 条**
+**全树 3265 条目 · 定罪 105 条（唯一节点 105）· 若全部卸载剩 3160 条**
 
 ## 第五类 · 直接提问型（7 条）
 
@@ -127,17 +127,14 @@
 | 五、数据库操作 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 五、数据库操作 | 29 | 有 |  | chapter_db_05 | container:chapter_db_05 |
 | 一、数据库系统 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 | 131 | 有 |  | chapter_db_01 | container:chapter_db_01 |
 
-## 第一类 · 「A 与 B」强行捆绑型（22 条）
+## 第一类 · 「A 与 B」强行捆绑型（18 条）
 
 处置：→ 拆成独立名词 + 语义边；特化场景写 supplement
 
 | 树节点 | 路径 | 子树 | 正文 | 题库 | 树ID | nodeRef |
 |---|---|---:|---|---|---|---|
-| 复杂度与算法分析 | 知识宇宙 / 计算机科学 / 计算理论 / 算法 / 算法分析 / 复杂度与算法分析 | 0 | 有 |  | tree_vault_java01_36x0hj | k_vault_java01_36x0hj |
-| 软件符号与工具 | 知识宇宙 / 计算机科学 / 软件符号与工具 | 1610 | 有 |  | tree_1783260209337_u6gsoz | k_1783260209305_4t111y |
+| 软件符号与工具 | 知识宇宙 / 计算机科学 / 软件符号与工具 | 1609 | 有 |  | tree_1783260209337_u6gsoz | k_1783260209305_4t111y |
 | 类与对象 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程范式 / 面向对象 / 类与对象 | 33 | 空 |  | tree_1783184803336_zgc1z2 | k_1783184803301_75p0j1 |
-| Unix 和类 Unix | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / 编译原理 / 执行 / 链接器（计算） / 值得注意的实施 / Unix 和类 Unix | 0 | 有 |  | tree_wiki_en_linker_computing_s7_s8 | k_wiki_en_linker_computing_s8 |
-| JVM 参数与调优（学习笔记） | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / JVM 参数与调优（学习笔记） | 0 | 有 |  | tree_vault_javajvm04jvm_i15q6w | k_vault_javajvm04jvm_i15q6w |
 | 类与对象 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 类与对象 | 10 | 有 |  | tree_java_syntax_class_object | k_java_syntax_class_object |
 | 类与接口 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 数据类型 / 引用类型 / Java类 / 类与接口 | 1 | 空 |  | tree_1786343608082_382n5k | k_1786343607773_qq5y28 |
 | 进程与线程 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 进程与线程 | 35 | 有 |  | tree_1784367220424_14rpaj | k_1784367220387_2v9vdv |
@@ -151,7 +148,6 @@
 | 备份和恢复 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 备份与恢复 / 备份和恢复 | 19 | 有 |  | tree_wiki_en_database_s24 | k_wiki_en_database_s24 |
 | 连接与线程状态 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / MySQL 查询执行过程 / 内部执行流程（六步） / 客户端（Client） / 连接与线程状态 | 9 | 有 |  | tree_qproc_thread_state | qproc_thread_state |
 | 备份与恢复 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十九、数据库产品 / MySQL / MySQL Server / 结构 / 服务层 / 备份与恢复 | 15 | 有 |  | mysql:theme:backup-recovery | mysql:theme:backup-recovery |
-| 校验和 / checksum | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十九、数据库产品 / MySQL / MySQL Server / 结构 / 服务层 / 备份与恢复 / 校验和 / checksum | 0 | 有 |  | projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_checksum_qnrmvm | mysql_glossary_checksum_qnrmvm |
 | 范围锁与插入锁 / range & insert locks | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库事务 / 锁机制 / locking mechanism / 范围锁与插入锁 / range & insert locks | 1 | 有 |  | tree_concept_range_insert_lock | concept_range_insert_lock |
 | MySQL 范围锁与插入锁 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 数据库事务 / 锁机制 / locking mechanism / 范围锁与插入锁 / range & insert locks / MySQL 范围锁与插入锁 | 0 | 有 |  | mysql_lock_range_insert | mysql_lock_range_insert |
 | 对象关系映射（ORM、O/RM 和 O/R 映射） | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 / 数据库使用 / 数据库编程 / 对象关系映射（ORM、O/RM 和 O/R 映射） | 0 | 有 |  | tree_wiki_en_outline_of_databases_s4_s8_b2 | k_wiki_en_outline_of_databases_s8_b2 |

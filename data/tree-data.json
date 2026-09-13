@@ -6240,13 +6240,6 @@
                               "children": []
                             },
                             {
-                              "id": "tree_vault_javajvm04jvm_i15q6w",
-                              "name": "JVM 参数与调优（学习笔记）",
-                              "count": 0,
-                              "nodeRef": "k_vault_javajvm04jvm_i15q6w",
-                              "children": []
-                            },
-                            {
                               "id": "tree_vault_javajvm05jvm_v8wpw8",
                               "name": "JVM 排障实战",
                               "count": 0,
@@ -23761,15 +23754,23 @@
                   "name": "算法分析",
                   "count": 0,
                   "nodeRef": "k_acm2012_algorithms_algorithm_analysis",
-                  "children": [
-                    {
-                      "id": "tree_vault_java01_36x0hj",
-                      "name": "复杂度与算法分析",
-                      "count": 0,
-                      "nodeRef": "k_vault_java01_36x0hj",
-                      "children": []
-                    }
-                  ]
+                  "children": [],
+                  "supplement": {
+                    "tabs": [
+                      {
+                        "id": "asplit:s124:adsorbed",
+                        "label": "复杂度与算法分析（吸附）",
+                        "content": "复杂度与算法分析 ## 为什么先学复杂度\n\n算法不是“能跑就行”，而是要比较在输入规模变大时，时间和空间会怎样增长。\n\n## 两个核心维度\n\n| 维度 | 含义 |\n| --- | --- |\n| 时间复杂度 | 操作次数随输入规模变化的趋势 |\n| 空间复杂度 | 额外占用内存随输入规模变化的趋势 |\n\n## 常见量级\n\n```mermaid\nflowchart LR\n    A[O(1)] --> B[O(log n)]\n    B --> C[O(n)]\n    C --> D[O(n log n)]\n    D --> E[O(n^2)]\n    E --> F[O(2^n)]\n```\n\n## 理解重点\n\n- Big-O 关注增长趋势，不关注常数项\n- 同一问题可以通过不同结构把复杂度换掉\n- 很多数据结构设计，本质就是在时间和空间之间做取舍\n\n## 复杂度的作用\n\n它是后面所有结构和算法的统一评估语言。\n\n## 为什么先学复杂度\n\n算法不是“能跑就行”，而是要比较在输入规模变大时，时间和空间会怎样增长。\n\n## 两个核心维度\n\n| 维度 | 含义 |\n| --- | --- |\n| 时间复杂度 | 操作次数随输入规模变化的趋势 |\n| 空间复杂度 | 额外占用内存随输入规模变化的趋势 |\n\n## 常见量级\n\n```mermaid\nflowchart LR\n    A[O(1)] --> B[O(log n)]\n    B --> C[O(n)]\n    C --> D[O(n log n)]\n    D --> E[O(n^2)]\n    E --> F[O(2^n)]\n```\n\n## 理解重点\n\n- Big-O 关注增长趋势，不关注常数项\n- 同一问题可以通过不同结构把复杂度换掉\n- 很多数据结构设计，本质就是在时间和空间之间做取舍\n\n## 复杂度的作用\n\n它是后面所有结构和算法的统一评估语言。",
+                        "tags": [
+                          "复杂度与算法分析",
+                          "java",
+                          "算法",
+                          "数据结构与算法",
+                          "复杂度"
+                        ]
+                      }
+                    ]
+                  }
                 },
                 {
                   "id": "tree_acm2012_algorithms_algorithm_efficiency",
@@ -23963,7 +23964,19 @@
                       "nodeRef": "asplit_graph_search",
                       "children": []
                     }
-                  ]
+                  ],
+                  "supplement": {
+                    "tabs": [
+                      {
+                        "id": "asplit:s125:adsorbed-ds",
+                        "label": "算法与数据结构（吸附）",
+                        "content": "\"算法与数据结构\" 知识节点，作为该层级的核心聚合节点。",
+                        "tags": [
+                          "算法与数据结构"
+                        ]
+                      }
+                    ]
+                  }
                 },
                 {
                   "id": "projection:mysql-term:mysql_glossary_lru_1mxcfz",
