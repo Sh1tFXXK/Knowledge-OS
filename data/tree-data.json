@@ -4728,6 +4728,20 @@
                               "count": 0,
                               "nodeRef": "k_1786353277269_msn0ma9gv",
                               "children": []
+                            },
+                            {
+                              "id": "final_atomic_producer",
+                              "name": "生产者",
+                              "count": 0,
+                              "nodeRef": "atomic_producer",
+                              "children": []
+                            },
+                            {
+                              "id": "final_atomic_consumer",
+                              "name": "消费者",
+                              "count": 0,
+                              "nodeRef": "atomic_consumer",
+                              "children": []
                             }
                           ]
                         },
@@ -5015,27 +5029,39 @@
                               "name": "等待/通知机制",
                               "count": 0,
                               "nodeRef": "k_1785843242128_bus7le",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1786006035005_87qlbs",
-                              "name": "等待/通知的经典范式",
-                              "count": 0,
-                              "nodeRef": "k_1786006034803_zh191w",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1786006089126_zdz2pe",
-                              "name": "管道输入/输出流",
-                              "count": 0,
-                              "nodeRef": "k_1786006088920_imdsjx",
-                              "children": []
+                              "children": [],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "final:s6:paradigm",
+                                    "label": "等待/通知的经典范式",
+                                    "content": "该范式分为两部分，分别针对等待方（消费者）和通知方（生产者）。\n等待方遵循如下原则。\n1）获取对象的锁。\n2）如果条件不满足，那么调用对象的wait()方法，被通知后仍要检查条件。\n3）条件满足则执行对应的逻辑。\n通知方遵循如下原则。\n1）获得对象的锁。\n2）改变条件。\n3）通知所有等待在对象上的线程。",
+                                    "tags": [
+                                      "等待/通知的经典范式"
+                                    ]
+                                  }
+                                ]
+                              }
                             },
                             {
                               "id": "tree_1786006383596_c1nxnl",
                               "name": "Thread.join()的使用",
                               "count": 0,
                               "nodeRef": "k_1786006383348_b3urv6",
+                              "children": []
+                            },
+                            {
+                              "id": "final_atomic_piped_input_stream",
+                              "name": "PipedInputStream",
+                              "count": 0,
+                              "nodeRef": "atomic_piped_input_stream",
+                              "children": []
+                            },
+                            {
+                              "id": "final_atomic_piped_output_stream",
+                              "name": "PipedOutputStream",
+                              "count": 0,
+                              "nodeRef": "atomic_piped_output_stream",
                               "children": []
                             }
                           ]
@@ -10605,10 +10631,17 @@
                                   "children": []
                                 },
                                 {
-                                  "id": "tree_wiki_en_profiling_computer_programming_s8_s13",
-                                  "name": "管理程序/模拟器",
+                                  "id": "final_atomic_hypervisor",
+                                  "name": "管理程序",
                                   "count": 0,
-                                  "nodeRef": "k_wiki_en_profiling_computer_programming_s13",
+                                  "nodeRef": "atomic_hypervisor",
+                                  "children": []
+                                },
+                                {
+                                  "id": "final_atomic_emulator",
+                                  "name": "模拟器",
+                                  "count": 0,
+                                  "nodeRef": "atomic_emulator",
                                   "children": []
                                 }
                               ]
@@ -16513,6 +16546,20 @@
                                   "children": []
                                 }
                               ]
+                            },
+                            {
+                              "id": "mysql_term_formal_languages_automata_dcl_15jd89",
+                              "name": "数据控制语言 / DCL",
+                              "count": 0,
+                              "nodeRef": "k_dict_7w36vehk",
+                              "children": []
+                            },
+                            {
+                              "id": "mysql_term_formal_languages_automata_dml_16qewn",
+                              "name": "数据操纵语言 / DML",
+                              "count": 0,
+                              "nodeRef": "k_dict_qv4sloxd",
+                              "children": []
                             }
                           ]
                         },
@@ -16581,7 +16628,7 @@
                                         },
                                         {
                                           "id": "asplit_s2_asplit_conn_state_auth",
-                                          "name": "连接认证",
+                                          "name": "客户端鉴权",
                                           "count": 0,
                                           "nodeRef": "asplit_conn_state_auth",
                                           "children": []
@@ -16619,6 +16666,20 @@
                                           "name": "Connection Pool（连接池）",
                                           "count": 0,
                                           "nodeRef": "asplit_conn_pool",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "final_k_vault_se_auth",
+                                          "name": "身份认证",
+                                          "count": 0,
+                                          "nodeRef": "k_vault_se_auth",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "final_atomic_privilege_check",
+                                          "name": "权限校验",
+                                          "count": 0,
+                                          "nodeRef": "atomic_privilege_check",
                                           "children": []
                                         }
                                       ]
@@ -23306,41 +23367,11 @@
                           "children": []
                         },
                         {
-                          "id": "tree_wiki_en_monitor_synchronization_s2_s4",
-                          "name": "案例研究：经典的有界生产者/消费者问题",
-                          "count": 0,
-                          "nodeRef": "k_wiki_en_monitor_synchronization_s4",
-                          "children": [
-                            {
-                              "id": "tree_wiki_en_monitor_synchronization_s2_s4_s5",
-                              "name": "不同步不正确",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_monitor_synchronization_s5",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_wiki_en_monitor_synchronization_s2_s4_s6",
-                              "name": "旋转等待",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_monitor_synchronization_s6",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
                           "id": "tree_wiki_en_monitor_synchronization_s2_s8",
                           "name": "监控使用情况",
                           "count": 0,
                           "nodeRef": "k_wiki_en_monitor_synchronization_s8",
-                          "children": [
-                            {
-                              "id": "tree_wiki_en_monitor_synchronization_s2_s8_s9",
-                              "name": "解决有界生产者/消费者问题",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_monitor_synchronization_s9",
-                              "children": []
-                            }
-                          ]
+                          "children": []
                         },
                         {
                           "id": "tree_wiki_en_monitor_synchronization_s2_s10",
@@ -23395,6 +23426,20 @@
                           "name": "隐式信号",
                           "count": 0,
                           "nodeRef": "k_wiki_en_monitor_synchronization_s15",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_wiki_en_monitor_synchronization_s2_s4_s5",
+                          "name": "不同步不正确",
+                          "count": 0,
+                          "nodeRef": "k_wiki_en_monitor_synchronization_s5",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_wiki_en_monitor_synchronization_s2_s4_s6",
+                          "name": "旋转等待",
+                          "count": 0,
+                          "nodeRef": "k_wiki_en_monitor_synchronization_s6",
                           "children": []
                         }
                       ]
@@ -23774,28 +23819,6 @@
               "children": []
             },
             {
-              "id": "theory_domain_formal_languages_automata",
-              "name": "形式语言理论 / 自动机理论",
-              "count": 0,
-              "nodeRef": "theory_domain_formal_languages_automata",
-              "children": [
-                {
-                  "id": "mysql_term_formal_languages_automata_dcl_15jd89",
-                  "name": "数据控制语言 / DCL",
-                  "count": 0,
-                  "nodeRef": "k_dict_7w36vehk",
-                  "children": []
-                },
-                {
-                  "id": "mysql_term_formal_languages_automata_dml_16qewn",
-                  "name": "数据操纵语言 / DML",
-                  "count": 0,
-                  "nodeRef": "k_dict_qv4sloxd",
-                  "children": []
-                }
-              ]
-            },
-            {
               "id": "theory_domain_complexity_theory",
               "name": "计算复杂性理论",
               "count": 0,
@@ -24100,6 +24123,20 @@
                   }
                 ]
               }
+            },
+            {
+              "id": "final_atomic_formal_language_theory",
+              "name": "形式语言理论",
+              "count": 0,
+              "nodeRef": "atomic_formal_language_theory",
+              "children": []
+            },
+            {
+              "id": "final_atomic_automata_theory",
+              "name": "自动机理论",
+              "count": 0,
+              "nodeRef": "atomic_automata_theory",
+              "children": []
             }
           ]
         },
@@ -24789,7 +24826,7 @@
                                 },
                                 {
                                   "id": "tree_atomic_k_atom_reachability",
-                                  "name": "可达性分析算法/引用链法/跟踪垃圾收集",
+                                  "name": "可达性分析算法",
                                   "count": 0,
                                   "nodeRef": "k_atom_reachability",
                                   "children": []

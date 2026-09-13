@@ -24650,30 +24650,6 @@
       ]
     }
   },
-  "theory_domain_formal_languages_automata": {
-    "id": "theory_domain_formal_languages_automata",
-    "label": "形式语言理论 / 自动机理论",
-    "role": "subsystem",
-    "dimensions": [
-      "storage"
-    ],
-    "tags": [
-      "形式语言理论 / 自动机理论",
-      "mysql",
-      "directory-taxonomy"
-    ],
-    "card": {
-      "nodeId": "theory_domain_formal_languages_automata",
-      "title": "形式语言理论 / 自动机理论",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "SQL 文法、语法、标识符、语句类型和模式规则。\n\n当前归入 9 个知识节点。"
-        }
-      ]
-    }
-  },
   "theory_domain_complexity_theory": {
     "id": "theory_domain_complexity_theory",
     "label": "计算复杂性理论",
@@ -28004,7 +27980,7 @@
   },
   "k_atom_reachability": {
     "id": "k_atom_reachability",
-    "label": "可达性分析算法/引用链法/跟踪垃圾收集",
+    "label": "可达性分析算法",
     "role": "mechanism",
     "dimensions": [
       "jvm",
@@ -28012,7 +27988,7 @@
     ],
     "card": {
       "nodeId": "k_atom_reachability",
-      "title": "可达性分析算法/引用链法/跟踪垃圾收集",
+      "title": "可达性分析算法",
       "tabs": [
         {
           "id": "def",
@@ -28026,6 +28002,10 @@
       "jvm",
       "interview",
       "atomic-concept"
+    ],
+    "aliases": [
+      "引用链法",
+      "跟踪垃圾收集"
     ]
   },
   "k_atom_gc_roots": {
@@ -51456,32 +51436,6 @@
       "Just-in-time compilation"
     ]
   },
-  "k_wiki_en_profiling_computer_programming_s13": {
-    "id": "k_wiki_en_profiling_computer_programming_s13",
-    "label": "管理程序/模拟器",
-    "card": {
-      "nodeId": "k_wiki_en_profiling_computer_programming_s13",
-      "title": "管理程序/模拟器",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "-**虚拟机监控程序**：通过在虚拟机监控程序下运行（通常）未修改的程序来收集数据。示例：SIMMON\n-**模拟器**和**管理程序**：通过在指令集模拟器下运行未修改的程序，以交互方式和选择性地收集数据。",
-          "tags": [
-            "hypervisor",
-            "SIMMON",
-            "instruction set simulator"
-          ]
-        }
-      ]
-    },
-    "tags": [
-      "管理程序/模拟器",
-      "hypervisor",
-      "SIMMON",
-      "instruction set simulator"
-    ]
-  },
   "k_wiki_en_java_performance": {
     "id": "k_wiki_en_java_performance",
     "label": "Java性能",
@@ -53283,36 +53237,6 @@
     "tags": [
       "问题陈述",
       "busy waiting"
-    ]
-  },
-  "k_wiki_en_monitor_synchronization_s4": {
-    "id": "k_wiki_en_monitor_synchronization_s4",
-    "label": "案例研究：经典的有界生产者/消费者问题",
-    "card": {
-      "nodeId": "k_wiki_en_monitor_synchronization_s4",
-      "title": "案例研究：经典的有界生产者/消费者问题",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "一个经典的并发问题是**有界生产者/消费者**，其中存在一个具有最大大小的任务的队列或环形缓冲区，一个或多个线程是向队列添加任务的“生产者”线程，一个或多个其他线程是从队列中取出任务的“消费者”线程队列。  假设队列本身是非线程安全的，它可以是空的、满的、或者介于空和满之间。  每当队列充满任务时，我们就需要生产者线程阻塞，直到消费者线程有空间将任务出队。  另一方面，每当队列为空时，我们就需要消费者线程阻塞，直到由于生产者线程添加它们而有更多任务可用。\n\n由于队列是线程之间共享的并发对象，因此对它的访问必须是原子，因为在队列访问过程中队列可能会进入**不一致状态**，而这种状态永远不应该在线程之间公开。  因此，访问队列的任何代码都构成一个必须通过互斥同步的**关键部分**。  如果访问队列的代码关键部分中的代码和处理器指令可以通过同一处理器上的线程之间的任意上下文切换或多个处理器上同时运行的线程来**交错**，则存在暴露不一致状态并导致竞争条件的风险。",
-          "tags": [
-            "queue (data structure)",
-            "circular buffer",
-            "atomicity (database systems)",
-            "critical section",
-            "race condition"
-          ]
-        }
-      ]
-    },
-    "tags": [
-      "案例研究:经典的有界生产者/消费者问题",
-      "queue (data structure)",
-      "circular buffer",
-      "atomicity (database systems)",
-      "critical section",
-      "race condition"
     ]
   },
   "k_wiki_en_monitor_synchronization_s5": {
@@ -71477,32 +71401,6 @@
       "java.lang",
       "Java",
       "包"
-    ]
-  },
-  "k_1786006034803_zh191w": {
-    "id": "k_1786006034803_zh191w",
-    "label": "等待/通知的经典范式",
-    "card": {
-      "nodeId": "k_1786006034803_zh191w",
-      "title": "等待/通知的经典范式",
-      "tabs": [],
-      "rootContent": "该范式分为两部分，分别针对等待方（消费者）和通知方（生产者）。\n等待方遵循如下原则。\n1）获取对象的锁。\n2）如果条件不满足，那么调用对象的wait()方法，被通知后仍要检查条件。\n3）条件满足则执行对应的逻辑。\n通知方遵循如下原则。\n1）获得对象的锁。\n2）改变条件。\n3）通知所有等待在对象上的线程。"
-    },
-    "tags": [
-      "等待/通知的经典范式"
-    ]
-  },
-  "k_1786006088920_imdsjx": {
-    "id": "k_1786006088920_imdsjx",
-    "label": "管道输入/输出流",
-    "card": {
-      "nodeId": "k_1786006088920_imdsjx",
-      "title": "管道输入/输出流",
-      "tabs": [],
-      "rootContent": "管道输入/输出流和普通的文件输入/输出流或者网络输入/输出流不同之处在于，它主要用于线程之间的数据传输，而传输的媒介为内存。\n管道输入/输出流主要包括了如下4种具体实现：PipedOutputStream、PipedInputStream、\nPipedReader和PipedWriter，前两种面向字节，而后两种面向字符。"
-    },
-    "tags": [
-      "管道输入/输出流"
     ]
   },
   "k_1786006383348_b3urv6": {
@@ -158885,7 +158783,7 @@
   },
   "asplit_conn_state_auth": {
     "id": "asplit_conn_state_auth",
-    "label": "连接认证",
+    "label": "客户端鉴权",
     "role": "conclusion",
     "dimensions": [
       "performance",
@@ -158898,7 +158796,7 @@
     "kind": "state",
     "card": {
       "nodeId": "asplit_conn_state_auth",
-      "title": "连接认证",
+      "title": "客户端鉴权",
       "tabs": [
         {
           "id": "def",
@@ -158906,7 +158804,7 @@
           "content": "校验用户名、密码与来源主机，加载该账号的权限表。"
         }
       ],
-      "rootContent": "连接认证\n\n校验用户名、密码与来源主机，加载该账号的权限表。"
+      "rootContent": "客户端鉴权\n\n校验用户名、密码与来源主机，加载该账号的权限表。"
     }
   },
   "asplit_conn_state_alloc_thread": {
@@ -159620,6 +159518,244 @@
         }
       ],
       "rootContent": "MySQL 恢复\n\nMySQL 恢复：用 MySQL 备份产物重建实例数据，配合 binlog 做时间点恢复（PITR）；关注恢复时长（RTO）与恢复点目标（RPO）。"
+    }
+  },
+  "atomic_producer": {
+    "id": "atomic_producer",
+    "label": "生产者",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "生产者"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_producer",
+      "title": "生产者",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "生产者：向共享队列或缓冲区提交任务/数据的一方；缓冲区满时需阻塞或等待，直到消费者释放空间。"
+        },
+        {
+          "id": "case",
+          "label": "案例：经典的有界生产者、消费者问题",
+          "content": "一个经典的并发问题是**有界生产者/消费者**，其中存在一个具有最大大小的任务的队列或环形缓冲区，一个或多个线程是向队列添加任务的“生产者”线程，一个或多个其他线程是从队列中取出任务的“消费者”线程队列。  假设队列本身是非线程安全的，它可以是空的、满的、或者介于空和满之间。  每当队列充满任务时，我们就需要生产者线程阻塞，直到消费者线程有空间将任务出队。  另一方面，每当队列为空时，我们就需要消费者线程阻塞，直到由于生产者线程添加它们而有更多任务可用。\n\n由于队列是线程之间共享的并发对象，因此对它的访问必须是原子，因为在队列访问过程中队列可能会进入**不一致状态**，而这种状态永远不应该在线程之间公开。  因此，访问队列的任何代码都构成一个必须通过互斥同步的**关键部分**。  如果访问队列的代码关键部分中的代码和处理器指令可以通过同一处理器上的线程之间的任意上下文切换或多个处理器上同时运行的线程来**交错**，则存在暴露不一致状态并导致竞争条件的风险。"
+        }
+      ],
+      "rootContent": "生产者\n\n生产者：向共享队列或缓冲区提交任务/数据的一方；缓冲区满时需阻塞或等待，直到消费者释放空间。"
+    }
+  },
+  "atomic_consumer": {
+    "id": "atomic_consumer",
+    "label": "消费者",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "消费者"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_consumer",
+      "title": "消费者",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "消费者：从共享队列或缓冲区取出任务/数据的一方；缓冲区空时需阻塞或等待，直到生产者放入新数据。"
+        },
+        {
+          "id": "case",
+          "label": "案例：经典的有界生产者、消费者问题",
+          "content": "一个经典的并发问题是**有界生产者/消费者**，其中存在一个具有最大大小的任务的队列或环形缓冲区，一个或多个线程是向队列添加任务的“生产者”线程，一个或多个其他线程是从队列中取出任务的“消费者”线程队列。  假设队列本身是非线程安全的，它可以是空的、满的、或者介于空和满之间。  每当队列充满任务时，我们就需要生产者线程阻塞，直到消费者线程有空间将任务出队。  另一方面，每当队列为空时，我们就需要消费者线程阻塞，直到由于生产者线程添加它们而有更多任务可用。\n\n由于队列是线程之间共享的并发对象，因此对它的访问必须是原子，因为在队列访问过程中队列可能会进入**不一致状态**，而这种状态永远不应该在线程之间公开。  因此，访问队列的任何代码都构成一个必须通过互斥同步的**关键部分**。  如果访问队列的代码关键部分中的代码和处理器指令可以通过同一处理器上的线程之间的任意上下文切换或多个处理器上同时运行的线程来**交错**，则存在暴露不一致状态并导致竞争条件的风险。"
+        }
+      ],
+      "rootContent": "消费者\n\n消费者：从共享队列或缓冲区取出任务/数据的一方；缓冲区空时需阻塞或等待，直到生产者放入新数据。"
+    }
+  },
+  "atomic_formal_language_theory": {
+    "id": "atomic_formal_language_theory",
+    "label": "形式语言理论",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "形式语言理论"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_formal_language_theory",
+      "title": "形式语言理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "形式语言理论：用严格的数学定义研究字符串集合（语言）及其生成与识别，是编译原理与计算理论的基础层。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 形式语言理论 / 自动机理论）",
+          "content": "SQL 文法、语法、标识符、语句类型和模式规则。\n\n当前归入 9 个知识节点。"
+        }
+      ],
+      "rootContent": "形式语言理论\n\n形式语言理论：用严格的数学定义研究字符串集合（语言）及其生成与识别，是编译原理与计算理论的基础层。"
+    }
+  },
+  "atomic_automata_theory": {
+    "id": "atomic_automata_theory",
+    "label": "自动机理论",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "自动机理论"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_automata_theory",
+      "title": "自动机理论",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "自动机理论：用抽象机器模型刻画计算的识别与判定能力——有限自动机、下推自动机、图灵机等，为形式语言提供识别装置。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 形式语言理论 / 自动机理论）",
+          "content": "SQL 文法、语法、标识符、语句类型和模式规则。\n\n当前归入 9 个知识节点。"
+        }
+      ],
+      "rootContent": "自动机理论\n\n自动机理论：用抽象机器模型刻画计算的识别与判定能力——有限自动机、下推自动机、图灵机等，为形式语言提供识别装置。"
+    }
+  },
+  "atomic_hypervisor": {
+    "id": "atomic_hypervisor",
+    "label": "管理程序",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "管理程序"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_hypervisor",
+      "title": "管理程序",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "管理程序（Hypervisor / VMM）：在硬件之上创建并调度虚拟机的软件层，直接管理物理资源并隔离各虚拟机的执行。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 管理程序/模拟器）",
+          "content": "-**虚拟机监控程序**：通过在虚拟机监控程序下运行（通常）未修改的程序来收集数据。示例：SIMMON\n-**模拟器**和**管理程序**：通过在指令集模拟器下运行未修改的程序，以交互方式和选择性地收集数据。"
+        }
+      ],
+      "rootContent": "管理程序\n\n管理程序（Hypervisor / VMM）：在硬件之上创建并调度虚拟机的软件层，直接管理物理资源并隔离各虚拟机的执行。"
+    }
+  },
+  "atomic_emulator": {
+    "id": "atomic_emulator",
+    "label": "模拟器",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "模拟器"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_emulator",
+      "title": "模拟器",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "模拟器（Emulator）：用软件在一种平台上复现另一种平台的行为，逐指令或按状态转换解释执行目标架构的程序。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 管理程序/模拟器）",
+          "content": "-**虚拟机监控程序**：通过在虚拟机监控程序下运行（通常）未修改的程序来收集数据。示例：SIMMON\n-**模拟器**和**管理程序**：通过在指令集模拟器下运行未修改的程序，以交互方式和选择性地收集数据。"
+        }
+      ],
+      "rootContent": "模拟器\n\n模拟器（Emulator）：用软件在一种平台上复现另一种平台的行为，逐指令或按状态转换解释执行目标架构的程序。"
+    }
+  },
+  "atomic_piped_input_stream": {
+    "id": "atomic_piped_input_stream",
+    "label": "PipedInputStream",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "PipedInputStream"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_piped_input_stream",
+      "title": "PipedInputStream",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "PipedInputStream：Java 管道输入流，从一个配对的 PipedOutputStream 读取字节，用于同一 JVM 内两个线程之间的管道通信。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 管道输入、输出流）",
+          "content": "管道输入/输出流主要包括了如下4种具体实现：PipedOutputStream、PipedInputStream、\nPipedReader和PipedWriter，前两种面向字节，而后两种面向字符。"
+        }
+      ],
+      "rootContent": "PipedInputStream\n\nPipedInputStream：Java 管道输入流，从一个配对的 PipedOutputStream 读取字节，用于同一 JVM 内两个线程之间的管道通信。"
+    }
+  },
+  "atomic_piped_output_stream": {
+    "id": "atomic_piped_output_stream",
+    "label": "PipedOutputStream",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "PipedOutputStream"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_piped_output_stream",
+      "title": "PipedOutputStream",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "PipedOutputStream：Java 管道输出流，把字节写入与之配对的 PipedInputStream，与读取端构成线程间的管道通道。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 管道输入、输出流）",
+          "content": "管道输入/输出流和普通的文件输入/输出流或者网络输入/输出流不同之处在于，它主要用于线程之间的数据传输，而传输的媒介为内存。"
+        }
+      ],
+      "rootContent": "PipedOutputStream\n\nPipedOutputStream：Java 管道输出流，把字节写入与之配对的 PipedInputStream，与读取端构成线程间的管道通道。"
+    }
+  },
+  "atomic_privilege_check": {
+    "id": "atomic_privilege_check",
+    "label": "权限校验",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "权限校验"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_privilege_check",
+      "title": "权限校验",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "权限校验（AuthZ）：按账号加载权限表，判定该会话对具体对象的操作是否被授权；以身份认证通过为前提。"
+        }
+      ],
+      "rootContent": "权限校验\n\n权限校验（AuthZ）：按账号加载权限表，判定该会话对具体对象的操作是否被授权；以身份认证通过为前提。"
     }
   }
 }

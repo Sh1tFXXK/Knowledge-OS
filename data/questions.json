@@ -10173,5 +10173,24 @@
     ],
     "createdAt": 1789312594087,
     "updatedAt": 1789312594087
+  },
+  {
+    "id": "q_asplit_bpc_1",
+    "text": "如何解决经典的有界生产者/消费者问题？",
+    "answered": true,
+    "kind": "application",
+    "difficulty": "advanced",
+    "answer": "部分\n\n介绍了条件变量的用法后，让我们用它来重新审视并解决经典的有界生产者/消费者问题。  经典的解决方案是使用两个监视器，其中两个条件变量共享队列上的一个锁：\n\n全局易失性RingBuffer队列； // 任务的线程不安全环形缓冲区。\n全局锁queueLock； // 任务环形缓冲区的互斥体。 （不是自旋锁。）\n全局CV队列EmptyCV； // 消费者线程等待队列的条件变量\n\t\t\t\t        // 变为非空。其关联的锁是“queueLock”。\n全局CV队列FullCV； // 生产者线程等待队列的条件变量\n// 变为非满。其关联的锁也是“queueLock”。\n\n// 代表每个生产者线程行为的方法：\n公共方法生产者（）{\n    而（真）{\n        // 生产者添加一些新任务。\n        任务 myTask = ...;\n\n// 获取“queueLock”以进行初始谓词检查。\n        队列锁.acquire();\n\n// 检查队列是否未满的关键部分。\n        while (queue.isFull()) {\n            // 释放“queueLock”，将该线程加入“queueFullCV”队列并睡眠该线程。\n            等待（queueLock，queueFullCV）；\n            // 当该线程被唤醒时，重新获取“queueLock”以进行下一次谓词检查。\n        }\n\n// 将任务添加到队列的关键部分（请注意，我们持有“queueLock”）。\n        队列.enqueue(myTask);\n\n// 唤醒一个或所有正在等待队列非空的消费者线程\n        // 既然已经保证了，那么消费者线程将接管该任务。\n        信号（queueEmptyCV）； // 或者：广播(queueEmptyCV);\n        // 临界区结束。\n\n// 释放“queueLock”，直到我们再次需要它来添加下一个任务。\n        队列锁.release();\n    }\n}\n\n// 代表每个消费者线程行为的方法：\n公共方法消费者（）{\n    而（真）{\n        // 获取“queueLock”以进行初始谓词检查。\n        队列锁.acquire();\n\n// 检查队列是否非空的关键部分。\n        while (queue.isEmpty()) {\n            // 释放“queueLock”，将该线程放入“queueEmptyCV”队列并睡眠该线程。\n            等待（queueLock，queueEmptyCV）；\n            // 当该线程被唤醒时，重新获取“queueLock”以进行下一次谓词检查。\n        }\n\n// 将任务从队列中取出的关键部分（请注意，我们持有“queueLock”）。\n        myTask = queue.dequeue();\n\n// 唤醒一个或所有等待队列未满的生产者线程\n        // 既然已经保证了，那么生产者线程就会添加一个任务。\n        信号（queueFullCV）； // 或者：广播(queueFullCV);\n        // 临界区结束。\n\n// 释放“queueLock”，直到我们再次需要它来执行下一个任务。\n        队列锁.release();\n\n// 继续执行任务。\n        doStuff(我的任务);\n    }\n}\n\n这确保了共享任务队列的生产者线程和消费者线程之间的并发性，并阻塞那些无事可做的线程，而不是如上述使用自旋锁的方法所示的忙等待线程。\n\n该解决方案的一个变体可以为生产者和消费者使用单个条件变量，可能命名为“queueFullOrEmptyCV”或“queueSizeChangedCV”。  在这种情况下，多于一个的条件与条件变量相关联，使得条件变量表示比各个线程正在检查的条件更弱的条件。  条件变量表示正在等待队列非满的线程*和等待队列非空的线程。  然而，这样做需要在所有使用条件变量的线程中使用“广播”，并且不能使用常规的“信号”。  这是因为常规*信号*可能会唤醒尚未满足条件的错误类型的线程，并且该线程将在没有正确类型的线程收到信号的情况下返回睡眠状态。  例如，生产者可能使队列已满并唤醒另一个生产者而不是消费者，并且被唤醒的生产者将返回睡眠状态。  在互补的情况下，消费者可能会将队列清空并唤醒另一个消费者而不是生产者，然后消费者将重新进入睡眠状态。  使用“广播”可确保某些正确类型的线程将按问题陈述的预期进行。\n\n这是仅使用一个条件变量和广播的变体：\n\n全局易失性RingBuffer队列； // 任务的线程不安全环形缓冲区。\n全局锁queueLock； // 任务环形缓冲区的互斥体。  （不是自旋锁。）\n全局CV队列FullOrEmptyCV； // 当队列没有为任何线程准备好时的单个条件变量\n                              // 即对于等待队列未满的生产者线程\n                              // 消费者线程等待队列变为非空。\n// 其关联的锁是“queueLock”。\n                              // 使用常规“信号”不安全，因为它与\n                              // 多个谓词条件（断言）。\n\n// 代表每个生产者线程行为的方法：\n公共方法生产者（）{\n    而（真）{\n        // 生产者添加一些新任务。\n        任务 myTask = ...;\n\n// 获取“queueLock”以进行初始谓词检查。\n        队列锁.acquire();\n\n// 检查队列是否未满的关键部分。\n        while (queue.isFull()) {\n            // 释放“queueLock”，将该线程加入“queueFullOrEmptyCV”队列并睡眠该线程。\n            等待（queueLock，queueFullOrEmptyCV）；\n            // 当该线程被唤醒时，重新获取“queueLock”以进行下一次谓词检查。\n        }\n\n// 将任务添加到队列的关键部分（请注意，我们持有“queueLock”）。\n        队列.enqueue(myTask);\n\n// 分别唤醒所有正在等待队列的生产者和消费者线程\n        // 非满且非空，既然后者得到保证，那么消费者线程将接管该任务。\n        广播（队列FullOrEmptyCV）； // 不要使用“信号”（因为它可能只会唤醒另一个生产者线程）。\n        // 临界区结束。\n\n// 释放“queueLock”，直到我们再次需要它来添加下一个任务。\n        队列锁.release();\n    }\n}\n\n// 代表每个消费者线程行为的方法：\n公共方法消费者（）{\n    而（真）{\n        // 获取“queueLock”以进行初始谓词检查。\n        队列锁.acquire();\n\n// 检查队列是否非空的关键部分。\n        while (queue.isEmpty()) {\n            // 释放“queueLock”，将该线程加入“queueFullOrEmptyCV”队列并睡眠该线程。\n            等待（queueLock，queueFullOrEmptyCV）；\n            // 当该线程被唤醒时，重新获取“queueLock”以进行下一次谓词检查。\n        }\n\n// 将任务从队列中取出的关键部分（请注意，我们持有“queueLock”）。\n        myTask = queue.dequeue();\n\n// 分别唤醒所有正在等待队列的生产者和消费者线程\n        // 非满和非空现在前者得到保证，因此生产者线程将添加任务。\n        广播（队列FullOrEmptyCV）； // 不要使用“信号”（因为它可能只会唤醒另一个消费者线程）。\n        // 临界区结束。\n\n// 释放“queueLock”，直到我们再次需要它来执行下一个任务。\n        队列锁.release();\n\n// 继续执行任务。\n        doStuff(我的任务);\n    }\n}",
+    "relatedNodeId": "k_wiki_en_monitor_synchronization_s9",
+    "answerSteps": [
+      {
+        "nodeId": "atomic_producer"
+      },
+      {
+        "nodeId": "atomic_consumer"
+      }
+    ],
+    "createdAt": 1789316056755,
+    "updatedAt": 1789316056755
   }
 ]
