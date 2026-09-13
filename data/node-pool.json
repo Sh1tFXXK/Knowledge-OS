@@ -11323,9 +11323,15 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "\"Session\" 待补充内容。"
+          "content": "Session：服务端会话状态存储。登录态、会话数据保存在服务端，浏览器只持 SessionId 作为会话标识；分布式场景下演进为共享会话。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Session / Cookie）",
+          "content": "Session/Cookie 与状态管理 ## 为什么需要状态\nHTTP 是无状态协议。\n但登录态、购物车、用户偏好这些能力都要求跨请求保存上下文。\n## 两种基础手段\n| 手段 | 存放位置 | 典型用途 |\n| --- | --- | --- |\n| Session | 服务端 | 登录态、会话数据 |\n## 协作方式\n```mermaid\nflowchart LR\nA[浏览器] --> B[Cookie: SessionId]\nB --> C[服务器]\nC --> D[HttpSession]\nD --> E[用户状态]\n```\n## 理解重点\n- Session 更像服务端状态存储\n- 分布式系统里，Session 会继续演化成共享会话或 Token 机制\n## 为什么需要状态\nHTTP 是无状态协议。\n但登录态、购物车、用户偏好这些能力都要求跨请求保存上下文。\n## 两种基础手段\n| 手段 | 存放位置 | 典型用途 |\n| --- | --- | --- |\n| Session | 服务端 | 登录态、会话数据 |\n## 协作方式\n```mermaid\nflowchart LR\nA[浏览器] --> B[Cookie: SessionId]\nB --> C[服务器]\nC --> D[HttpSession]\nD --> E[用户状态]\n```\n## 理解重点\n- Session 更像服务端状态存储\n- 分布式系统里，Session 会继续演化成共享会话或 Token 机制"
         }
-      ]
+      ],
+      "rootContent": "Session\n\nSession：服务端会话状态存储。登录态、会话数据保存在服务端，浏览器只持 SessionId 作为会话标识。"
     },
     "tags": [
       "Session"
@@ -29533,24 +29539,6 @@
     },
     "tags": [
       "JRE"
-    ]
-  },
-  "k_1783184803301_75p0j1": {
-    "id": "k_1783184803301_75p0j1",
-    "label": "面向对象：类、对象",
-    "card": {
-      "nodeId": "k_1783184803301_75p0j1",
-      "title": "面向对象：类、对象",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": ""
-        }
-      ]
-    },
-    "tags": [
-      "类与对象"
     ]
   },
   "k_1783184829912_usl41q": {
@@ -134199,25 +134187,6 @@
     ],
     "status": "canonical"
   },
-  "mysql:theme:backup-recovery": {
-    "id": "mysql:theme:backup-recovery",
-    "label": "MySQL 备份、恢复",
-    "card": {
-      "nodeId": "mysql:theme:backup-recovery",
-      "title": "MySQL 备份、恢复",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "MySQL 术语按知识森林模型归入的主题分类：备份与恢复。"
-        }
-      ]
-    },
-    "tags": [
-      "备份与恢复"
-    ],
-    "status": "canonical"
-  },
   "mysql:theme:security-access": {
     "id": "mysql:theme:security-access",
     "label": "安全",
@@ -145098,29 +145067,6 @@
       "rootContent": "Synchronized 关键字 synchronized它可以把任意一个非NULL的对象当作锁。他属于独占式的悲观锁，同时属于可重入锁。Synchronized作用范围** 1.作用于方法时，锁住的是对象的实例(this)； 2.当作用于静态方法时，锁住的是Class实例，又因为Class的相关数据存储在永久带PermGen（jdk1.8则是metaspace），永久带是全 局共享的，因此静态方法锁相当于类的一个全局锁，会锁所有调用该方法的线程； 3.synchronized作用于一个对象实例时，锁住的是所有以该对象为锁的代码块。它有多个队列，当多个线程一起访问某个对象监视器的 时候，对象监视器会将这些线程存储在不同的容器中。 # Synchronized核心组件 1) Wait Set：哪些调用wait方法被阻塞的线程被放置在这里； 2) Contention List：竞争队列，所有请求锁的线程首先被放在这个竞争队列中； 3) Entry List：Contention List中那些有资格成为候选资源的线程被移动到Entry List中； 4) OnDeck：任意时刻，最多只有一个线程正在竞争锁资源，该线程被成为OnDeck； 5) Owner：当前已经获取到所资源的线程被称为Owner； 6) !Owner：当前释放锁的线程。 # Synchronized实现 1.JVM每次从队列的尾部取出一个数据用于锁竞争候选者（OnDeck），但是并发情况下， ContentionList会被大量的并发线程进行CAS访问，为了降低对尾部元素的竞争，JVM会将一部分线程移动到EntryList中作为候选竞争线程。 2.Owner线程会在unlock时，将ContentionList中的部分线程迁移到EntryList中，并指定EntryList中的某个线程为OnDeck线程（一般是昀先进去的那个线程）。 3.Owner线程并不直接把锁传递给OnDeck线程，而是把锁竞争的权利交给OnDeck，OnDeck需要重新竞争锁。这样虽然牺牲了一些公平性，但是能极大的提升系统的吞吐量，在JVM中，也把这种选择行为称之为“竞争切换”。 4.OnDeck线程获取到锁资源后会变为Owner线程，而没有得到锁资源的仍然停留在EntryList中。如果Owner线程被wait方法阻塞，则转移到WaitSet队列中，直到某个时刻通过notify或者notifyAll唤醒，会重新进去EntryList中。 5.处于ContentionList、EntryList、WaitSet中的线程都处于阻塞状态，该阻塞是由操作系统来完成的（Linux内核下采用pthread_mutex_lock内核函数实现的）。 6.Synchronized是非公平锁。Synchronized在线程进入ContentionList时，等待的线程会先尝试自旋获取锁，如果获取不到就进入ContentionList，这明显对于已经进入队列的线程是不公平的，还有一个不公平的事情就是自旋获取锁的线程还可能直接抢占OnDeck线程的锁资源。 参考：https://blog.csdn.net/zqz_zqz/article/details/70233767 7.每个对象都有个monitor对象，加锁就是在竞争monitor对象，代码块加锁是在前后分别加上monitorenter和monitorexit指令来实现的，方法加锁是通过一个标记位来判断的 8.synchronized是一个重量级操作，需要调用操作系统相关接口，性能是低效的，有可能给线程加锁消耗的时间比有用操作消耗的时间更多。 9.Java1.6，synchronized进行了很多的优化，有适应自旋、锁消除、锁粗化、轻量级锁及偏向锁等，效率有了本质上的提高。在之后推出的Java1.7与1.8中，均对该关键字的实现机理做了优化。引入了偏向锁和轻量级锁。都是在对象头中有标记位，不需要经过操作系统加锁。 10.锁可以从偏向锁升级到轻量级锁，再升级到重量级锁。这种升级过程叫做锁膨胀； 11.JDK 1.6中默认是开启偏向锁和轻量级锁，可以通过-XX:-UseBiasedLocking来禁用偏向锁。"
     }
   },
-  "k_java_syntax_class_object": {
-    "id": "k_java_syntax_class_object",
-    "label": "Java 类、对象",
-    "role": "group",
-    "dimensions": [
-      "java"
-    ],
-    "tags": [
-      "类与对象",
-      "java"
-    ],
-    "card": {
-      "nodeId": "k_java_syntax_class_object",
-      "title": "Java 类、对象",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "面向对象的基本单元：类、对象、封装、继承、多态，以及 Java 语言层面的修饰符与泛型。\n\n子主题：\n- 类基础：Java 对象和类、封装、成员内部类、静态内部类\n- 继承与多态：继承、多态、抽象类、接口\n- 修饰符与泛型：访问修饰符、泛型"
-        }
-      ]
-    }
-  },
   "k_vault_javajava_vb7ofw": {
     "id": "k_vault_javajava_vb7ofw",
     "label": "Java 封装",
@@ -149676,28 +149622,6 @@
         }
       ],
       "rootContent": "十四、数据库分布与复制 本节点是导航容器，聚合 2 个子主题：连接 / connection、连接池 / connection pool。点击子节点查看具体内容。"
-    }
-  },
-  "container:chapter_db_15": {
-    "id": "container:chapter_db_15",
-    "label": "数据库备份、恢复",
-    "role": "subsystem",
-    "dimensions": [],
-    "tags": [
-      "备份与恢复",
-      "十五、备份与恢复"
-    ],
-    "card": {
-      "nodeId": "container:chapter_db_15",
-      "title": "数据库备份、恢复",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**十五、备份与恢复**\n本节点是导航容器，聚合 2 个子主题：贮存、备份和恢复。点击子节点查看具体内容。"
-        }
-      ],
-      "rootContent": "十五、备份与恢复 本节点是导航容器，聚合 2 个子主题：贮存、备份和恢复。点击子节点查看具体内容。"
     }
   },
   "container:chapter_db_16": {
@@ -158961,7 +158885,7 @@
   },
   "asplit_conn_state_auth": {
     "id": "asplit_conn_state_auth",
-    "label": "认证 / 权限校验",
+    "label": "连接认证",
     "role": "conclusion",
     "dimensions": [
       "performance",
@@ -158974,7 +158898,7 @@
     "kind": "state",
     "card": {
       "nodeId": "asplit_conn_state_auth",
-      "title": "认证 / 权限校验",
+      "title": "连接认证",
       "tabs": [
         {
           "id": "def",
@@ -158982,7 +158906,7 @@
           "content": "校验用户名、密码与来源主机，加载该账号的权限表。"
         }
       ],
-      "rootContent": "认证 / 权限校验\n\n校验用户名、密码与来源主机，加载该账号的权限表。"
+      "rootContent": "连接认证\n\n校验用户名、密码与来源主机，加载该账号的权限表。"
     }
   },
   "asplit_conn_state_alloc_thread": {
@@ -159409,28 +159333,6 @@
       "rootContent": "Web 属性作用域\n\nWeb 属性作用域：request 作用域一次请求内有效；session 作用域跨请求；application 与 ServletContext 作用域整个应用共享，是后续 Web 框架状态管理的基础层。"
     }
   },
-  "asplit_session_cookie": {
-    "id": "asplit_session_cookie",
-    "label": "Session / Cookie",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "Session / Cookie"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "asplit_session_cookie",
-      "title": "Session / Cookie",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "Session / Cookie：HTTP 无状态，两项基础手段补齐上下文。Cookie 存于客户端（会话标识、轻量偏好），Session 存于服务端（登录态、会话数据），浏览器持 SessionId 与服务端 HttpSession 协作。"
-        }
-      ],
-      "rootContent": "Session / Cookie\n\nSession / Cookie：HTTP 无状态，两项基础手段补齐上下文。Cookie 存于客户端（会话标识、轻量偏好），Session 存于服务端（登录态、会话数据），浏览器持 SessionId 与服务端 HttpSession 协作。"
-    }
-  },
   "asplit_web_state_management": {
     "id": "asplit_web_state_management",
     "label": "Web 状态管理",
@@ -159451,28 +159353,6 @@
         }
       ],
       "rootContent": "Web 状态管理\n\nWeb 状态管理：跨请求保存登录态、购物车、用户偏好等上下文的能力；分布式场景下 Session 演进为共享会话或 Token 机制。"
-    }
-  },
-  "asplit_kafka_producer_consumer": {
-    "id": "asplit_kafka_producer_consumer",
-    "label": "Kafka 生产者 / 消费者",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "Kafka 生产者 / 消费者"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "asplit_kafka_producer_consumer",
-      "title": "Kafka 生产者 / 消费者",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "Kafka 生产者 / 消费者：生产者选择 Topic、按 Key 或策略决定写入哪个 Partition 并把消息追加到 Broker；消费者从指定 Partition 拉取消息、维护消费位点并处理业务逻辑。"
-        }
-      ],
-      "rootContent": "Kafka 生产者 / 消费者\n\nKafka 生产者 / 消费者：生产者选择 Topic、按 Key 或策略决定写入哪个 Partition 并把消息追加到 Broker；消费者从指定 Partition 拉取消息、维护消费位点并处理业务逻辑。"
     }
   },
   "asplit_kafka_consumer_group": {
@@ -159497,28 +159377,6 @@
       "rootContent": "Kafka 消费组\n\nKafka 消费组：把多个消费者封装成一个逻辑消费实体。同一消费组内一个 Partition 只分给一个消费者，不同消费组可独立消费同一份数据，这是 Kafka 横向扩展消费能力的基础。"
     }
   },
-  "asplit_kafka_topic_partition": {
-    "id": "asplit_kafka_topic_partition",
-    "label": "Kafka Topic / Partition",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "Kafka Topic / Partition"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "asplit_kafka_topic_partition",
-      "title": "Kafka Topic / Partition",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "Kafka Topic / Partition：Topic 是逻辑概念，Partition 是并行与顺序的基本单元。单 Partition 内有序，跨 Partition 不保证全局有序；增加 Partition 数可提升并行度与吞吐。"
-        }
-      ],
-      "rootContent": "Kafka Topic / Partition\n\nKafka Topic / Partition：Topic 是逻辑概念，Partition 是并行与顺序的基本单元。单 Partition 内有序，跨 Partition 不保证全局有序；增加 Partition 数可提升并行度与吞吐。"
-    }
-  },
   "asplit_kafka_broker": {
     "id": "asplit_kafka_broker",
     "label": "Kafka Broker",
@@ -159539,6 +159397,229 @@
         }
       ],
       "rootContent": "Kafka Broker\n\nKafka Broker：物理承载节点，负责存储 Partition 副本并提供读写服务；Partition 分布在多个 Broker 上以实现负载均衡与容错。"
+    }
+  },
+  "atomic_cookie": {
+    "id": "atomic_cookie",
+    "label": "Cookie",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "Cookie"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_cookie",
+      "title": "Cookie",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Cookie：客户端状态载体。由服务端下发、浏览器保存并随请求回传，用于承载会话标识与轻量偏好；本身容量小且可被用户清除。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Session / Cookie）",
+          "content": "| Cookie | 客户端 | 标识、轻量偏好 |\n- Cookie 更像会话标识载体\n| Cookie | 客户端 | 标识、轻量偏好 |\n- Cookie 更像会话标识载体"
+        }
+      ],
+      "rootContent": "Cookie\n\nCookie：客户端状态载体。由服务端下发、浏览器保存并随请求回传，用于承载会话标识与轻量偏好；本身容量小且可被用户清除。"
+    }
+  },
+  "atomic_kafka_producer": {
+    "id": "atomic_kafka_producer",
+    "label": "Kafka 生产者",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "Kafka 生产者"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_kafka_producer",
+      "title": "Kafka 生产者",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Kafka 生产者：选择 Topic、按 Key 或策略决定写入哪个 Partition，并把消息追加到 Broker 的客户端角色。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Kafka 生产者 / 消费者）",
+          "content": "Producer/Consumer 与消费组 ## Producer 做什么\n- 选择 Topic\n- 根据 Key 或策略决定写入哪个 Partition\n- 把消息追加到 Broker\n- 从指定 Partition 拉取消息\n- 维护消费位点\n- 处理业务逻辑\n## 消费组的意义\n```mermaid\nflowchart TD\n```\n## 结果\n- 不同消费组可以独立消费同一份数据\n这让 Kafka 同时支持“横向扩展消费能力”和“多业务复用同一数据流”。\n## Producer 做什么\n- 选择 Topic\n- 根据 Key 或策略决定写入哪个 Partition\n- 把消息追加到 Broker\n- 从指定 Partition 拉取消息\n- 维护消费位点\n- 处理业务逻辑\n## 消费组的意义\n```mermaid\nflowchart TD\n```\n## 结果\n- 不同消费组可以独立消费同一份数据\n这让 Kafka 同时支持“横向扩展消费能力”和“多业务复用同一数据流”。"
+        }
+      ],
+      "rootContent": "Kafka 生产者\n\nKafka 生产者：选择 Topic、按 Key 或策略决定写入哪个 Partition，并把消息追加到 Broker 的客户端角色。"
+    }
+  },
+  "atomic_kafka_consumer": {
+    "id": "atomic_kafka_consumer",
+    "label": "Kafka 消费者",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "Kafka 消费者"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_kafka_consumer",
+      "title": "Kafka 消费者",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Kafka 消费者：从指定 Partition 拉取消息、维护消费位点并处理业务逻辑的客户端角色；同组内一个 Partition 只分给一个消费者。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Kafka 生产者 / 消费者）",
+          "content": "## Consumer 做什么\n消费组把“多个消费者”封装成“一个逻辑消费实体”。\nA[Topic Partitions] --> B[Consumer Group]\nB --> C[Consumer 1]\nB --> D[Consumer 2]\nB --> E[Consumer 3]\n- 同一消费组内，一个 Partition 只会分给一个消费者\n## Consumer 做什么\n消费组把“多个消费者”封装成“一个逻辑消费实体”。\nA[Topic Partitions] --> B[Consumer Group]\nB --> C[Consumer 1]\nB --> D[Consumer 2]\nB --> E[Consumer 3]\n- 同一消费组内，一个 Partition 只会分给一个消费者"
+        }
+      ],
+      "rootContent": "Kafka 消费者\n\nKafka 消费者：从指定 Partition 拉取消息、维护消费位点并处理业务逻辑的客户端角色；同组内一个 Partition 只分给一个消费者。"
+    }
+  },
+  "atomic_kafka_topic": {
+    "id": "atomic_kafka_topic",
+    "label": "Kafka Topic",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "Kafka Topic"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_kafka_topic",
+      "title": "Kafka Topic",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Kafka Topic：消息的逻辑分类单元，是生产者写入与消费者订阅的目标；单个 Topic 下划分为多个 Partition。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Kafka Topic / Partition）",
+          "content": "Topic/Partition 与 Broker ## 为什么需要分区\n单机、单文件很难同时满足高吞吐和可扩展。\nKafka 用 Topic 下的多个 Partition 来切分数据。\n```mermaid\nflowchart LR\nA[Topic] --> B[Partition 0]\nB --> E[Broker A]\nC --> F[Broker B]\nD --> G[Broker C]\n```\n## 理解重点\n- Topic 是逻辑概念\n- Broker 是物理承载节点\n## 顺序边界\n## 工程含义\n## 为什么需要分区\n单机、单文件很难同时满足高吞吐和可扩展。\nKafka 用 Topic 下的多个 Partition 来切分数据。\n```mermaid\nflowchart LR\nA[Topic] --> B[Partition 0]\nB --> E[Broker A]\nC --> F[Broker B]\nD --> G[Broker C]\n```\n## 理解重点\n- Topic 是逻辑概念\n- Broker 是物理承载节点\n## 顺序边界\n## 工程含义"
+        }
+      ],
+      "rootContent": "Kafka Topic\n\nKafka Topic：消息的逻辑分类单元，是生产者写入与消费者订阅的目标；单个 Topic 下划分为多个 Partition。"
+    }
+  },
+  "atomic_kafka_partition": {
+    "id": "atomic_kafka_partition",
+    "label": "Kafka Partition",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "Kafka Partition"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_kafka_partition",
+      "title": "Kafka Partition",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Kafka Partition：Topic 的物理分片，是并行与顺序的基本单元。单 Partition 内有序，跨 Partition 不保证全局有序。"
+        },
+        {
+          "id": "orig",
+          "label": "原文归位（拆分自 Kafka Topic / Partition）",
+          "content": "A --> C[Partition 1]\nA --> D[Partition 2]\n- Partition 是并行和顺序的基本单元\n- 单个 Partition 内有序\n- 不同 Partition 之间不保证全局有序\n想要更高吞吐，通常增加 Partition。\n但 Partition 增多，也意味着全局顺序更难保证。\nA --> C[Partition 1]\nA --> D[Partition 2]\n- Partition 是并行和顺序的基本单元\n- 单个 Partition 内有序\n- 不同 Partition 之间不保证全局有序\n想要更高吞吐，通常增加 Partition。\n但 Partition 增多，也意味着全局顺序更难保证。"
+        }
+      ],
+      "rootContent": "Kafka Partition\n\nKafka Partition：Topic 的物理分片，是并行与顺序的基本单元。单 Partition 内有序，跨 Partition 不保证全局有序。"
+    }
+  },
+  "atomic_database_backup": {
+    "id": "atomic_database_backup",
+    "label": "数据库备份",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "数据库备份"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_database_backup",
+      "title": "数据库备份",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "数据库备份：把数据库在某一时刻的一致状态复制到独立介质（逻辑导出或物理拷贝），用于故障恢复与数据迁移。"
+        }
+      ],
+      "rootContent": "数据库备份\n\n数据库备份：把数据库在某一时刻的一致状态复制到独立介质（逻辑导出或物理拷贝），用于故障恢复与数据迁移。"
+    }
+  },
+  "atomic_database_restore": {
+    "id": "atomic_database_restore",
+    "label": "数据库恢复",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "数据库恢复"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_database_restore",
+      "title": "数据库恢复",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "数据库恢复：由备份副本（配合日志重放）把数据库重建到指定时间点，分为全量恢复与时间点恢复（PITR）。"
+        }
+      ],
+      "rootContent": "数据库恢复\n\n数据库恢复：由备份副本（配合日志重放）把数据库重建到指定时间点，分为全量恢复与时间点恢复（PITR）。"
+    }
+  },
+  "atomic_mysql_backup": {
+    "id": "atomic_mysql_backup",
+    "label": "MySQL 备份",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "MySQL 备份"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_mysql_backup",
+      "title": "MySQL 备份",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "MySQL 备份：MySQL 语境下的备份技术与机制族——逻辑备份 mysqldump、物理热备 XtraBackup、mysqlbackup 企业备份，以及检查点、redo 应用与一致性控制。"
+        }
+      ],
+      "rootContent": "MySQL 备份\n\nMySQL 备份：MySQL 语境下的备份技术与机制族——逻辑备份 mysqldump、物理热备 XtraBackup、mysqlbackup 企业备份，以及检查点、redo 应用与一致性控制。"
+    }
+  },
+  "atomic_mysql_restore": {
+    "id": "atomic_mysql_restore",
+    "label": "MySQL 恢复",
+    "role": "plain",
+    "dimensions": [],
+    "tags": [
+      "MySQL 恢复"
+    ],
+    "kind": "concept",
+    "card": {
+      "nodeId": "atomic_mysql_restore",
+      "title": "MySQL 恢复",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "MySQL 恢复：用 MySQL 备份产物重建实例数据，配合 binlog 做时间点恢复（PITR）；关注恢复时长（RTO）与恢复点目标（RPO）。"
+        }
+      ],
+      "rootContent": "MySQL 恢复\n\nMySQL 恢复：用 MySQL 备份产物重建实例数据，配合 binlog 做时间点恢复（PITR）；关注恢复时长（RTO）与恢复点目标（RPO）。"
     }
   }
 }

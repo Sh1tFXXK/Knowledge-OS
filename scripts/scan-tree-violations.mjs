@@ -44,6 +44,34 @@ const PRIORITY = ['E', 'B', 'D', 'C', 'A'];
 //   ⚠️ 本正则含 `\/`：条目名里的斜杠必须转义，否则会提前终止正则字面量（曾致扫描器 SyntaxError）
 const FALSE_POSITIVE_A = /^(逻辑与 \(?&&\)?|逻辑与|逻辑或|按位与|与门|交互与通信|知识表示与推理|自动化规划与调度|服务注册与发现|Unix 和类 Unix|校验和 \/ checksum|软件符号与工具|发布与版本模型 \/ Release & Versioning Model|连接与线程状态|对象关系映射（ORM、O\/RM 和 O\/R 映射）)$/;
 
+/**
+ * 标点绕过封堵（2026-09-14）：用 `、` 或 `/` 连接两个实体，本体上仍是复合节点，
+ * 不能靠换标点逃过 A 类检测。判定为复合需同时满足：
+ *   ① 连接符在括号 **外**（（…）内是别名/分组标注，如「按粒度分（表 / 行 / 页）」不算复合）
+ *   ② 顿号两侧均为中文，且整名不是章节编号前缀（一、二、…二十、 是序号不是连接词）
+ *   ③ 斜杠两侧均为中文，且**任一侧都不含 ASCII 字母/数字**
+ *      —— 这条排除双语对照（「服务器 / server」）与专名/代码（Fork/Join、JVM/JRE/JDK、read/write），
+ *         它们是一个概念的不同书写形式，拆开是错的
+ * 说明：用户曾提议直接用 /[与和及]|\/|、/，实测会命中 625 条，其中 559 条是双语对照 →
+ *       一刀切会制造 559 个假违规，故采用上述带排除项的精确规则。
+ */
+const CJK_RE = /[\u4e00-\u9fff]/;
+const ASCII_RE = /[A-Za-z0-9]/;
+const CHAPTER_NUM_RE = /^[一二三四五六七八九十百零〇\d]+[、.]/;
+function isPunctCompound(name) {
+  const outside = String(name).replace(/（[^）]*）|\([^)]*\)/g, '');
+  for (const sep of ['、', '/']) {
+    if (!outside.includes(sep)) continue;
+    const parts = outside.split(sep).map((s) => s.trim()).filter(Boolean);
+    if (parts.length < 2) continue;
+    if (!parts.every((p) => CJK_RE.test(p))) continue;
+    if (parts.some((p) => ASCII_RE.test(p))) continue;
+    if (sep === '、' && CHAPTER_NUM_RE.test(outside.trim())) continue;
+    return true;
+  }
+  return false;
+}
+
 const matchers = {
   E: (n) =>
     /(什么是|为什么|如何|怎样|怎么|什么时候|何时|介绍一下|谈谈|说说|啥是)/.test(n) ||
@@ -56,8 +84,9 @@ const matchers = {
     /(优点|缺点)/.test(n) ||
     /调用方/.test(n) ||
     /(合理地|线上问题定位|创建数据仓库)/.test(n),
-  // 与/和 作为连接词；剔除 与/和 作为语素的常见词（饱和/参与…）+ 运算符白名单
-  A: (n) => !FALSE_POSITIVE_A.test(n.trim()) && /与|和/.test(n.replace(/(参与|赠与|饱和|缓和|共和|总和|和尚|亲和)/g, '')),
+  // A = 与/和 连接词（剔除 与/和 作语素的常见词 + 白名单）**或** 顿号/斜杠连接两个中文实体
+  A: (n) => !FALSE_POSITIVE_A.test(n.trim())
+    && (/与|和/.test(n.replace(/(参与|赠与|饱和|缓和|共和|总和|和尚|亲和)/g, '')) || isPunctCompound(n)),
   C: (n) =>
     /(详解|入门|总览|初识|宝典|进阶|面试)/.test(n) ||
     /基础$/.test(n) ||
