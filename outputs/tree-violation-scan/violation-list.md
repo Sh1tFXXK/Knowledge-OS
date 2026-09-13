@@ -4,27 +4,20 @@
 
 | 类 | 条目 | 唯一节点 | 带子树 | 正文有 | 题库重合 |
 |---|---:|---:|---:|---:|---:|
-| E 第五类 · 直接提问型 | 7 | 7 | 3 | 6 | 1 |
+| E 第五类 · 直接提问型 | 0 | 0 | 0 | 0 | 0 |
 | B 第二类 · 对比与区别型 | 0 | 0 | 0 | 0 | 0 |
-| D 第四类 · 动作/任务/状态型 | 43 | 43 | 2 | 43 | 0 |
+| D 第四类 · 动作/任务/状态型 | 31 | 31 | 1 | 31 | 0 |
 | C 第三类 · 教程/专栏标题型 | 37 | 37 | 20 | 37 | 0 |
 | A 第一类 · 「A 与 B」强行捆绑型 | 0 | 0 | 0 | 0 | 0 |
 
-**全树 3274 条目 · 定罪 87 条（唯一节点 87）· 若全部卸载剩 3187 条**
+**全树 3257 条目 · 定罪 68 条（唯一节点 68）· 若全部卸载剩 3189 条**
 
-## 第五类 · 直接提问型（7 条）
+## 第五类 · 直接提问型（0 条）
 
 处置：→ 问题库（relatedNodeId 指向名词本体），树条目卸载
 
 | 树节点 | 路径 | 子树 | 正文 | 题库 | 树ID | nodeRef |
 |---|---|---:|---|---|---|---|
-| JSR-133为什么要增强final的语义 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 / 关键字 / final / final域的内存语义 / JSR-133为什么要增强final的语义 | 0 | 有 |  | tree_1785923886640_ydkgnc | k_1785923886439_k5so6c |
-| MQ 为什么存在 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / RabbitMQ / MQ 为什么存在 | 0 | 有 |  | tree_vault_javarabbitmq01mq_j62j4c | k_vault_javarabbitmq01mq_j62j4c |
-| 如何发现瓶颈 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 秒杀系统性能优化方法 / 如何发现瓶颈 | 0 | 有 |  | tree_sk_perf_bottleneck | sk_perf_bottleneck |
-| 如何判断对象可以被回收 | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 内存管理 / 垃圾回收 / 垃圾回收判定 / 如何判断对象可以被回收 | 2 | 空 | 同题 | tree_1783264901125_rlyl58 | k_1783264901088_1s02ir |
-| 什么时候需要分库分表 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十四、数据库分布与复制 / MySQL 分库分表 / 什么时候需要分库分表 | 0 | 有 |  | tree_sharding_when | sharding_when |
-| 为什么命中索引比不命中快 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 索引 / MySQL 索引 / 为什么命中索引比不命中快 | 1 | 有 |  | tree_idxf_overview | idxf_overview |
-| 数据库是什么类型的东西？ | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 / 数据库是什么类型的东西？ | 3 | 有 |  | tree_wiki_en_outline_of_databases_s1 | k_wiki_en_outline_of_databases_s1 |
 
 ## 第二类 · 对比与区别型（0 条）
 
@@ -33,7 +26,7 @@
 | 树节点 | 路径 | 子树 | 正文 | 题库 | 树ID | nodeRef |
 |---|---|---:|---|---|---|---|
 
-## 第四类 · 动作/任务/状态型（43 条）
+## 第四类 · 动作/任务/状态型（31 条）
 
 处置：→ 步骤进 mechanismSpec / 优缺点进 viewDimensions / 实战进 supplement
 
@@ -41,18 +34,12 @@
 |---|---|---:|---|---|---|---|
 | 合理地配置线程池 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池 / 线程池的使用 / 合理地配置线程池 | 0 | 有 |  | tree_1786092342461_a1uk2e | k_1786092342085_3zwh4c |
 | 线上问题定位 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Java并发编程实践 / 线上问题定位 | 0 | 有 |  | tree_1786096587342_j05qf9 | k_1786096587014_vzab8u |
-| 执行阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 | 10 | 有 |  | tree_aop_flow | aop_flow |
-| ① 代理对象已创建 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ① 代理对象已创建 | 0 | 有 |  | tree_aop_state_proxy_created | aop_state_proxy_created |
-| ② 调用已被拦截 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ② 调用已被拦截 | 0 | 有 |  | tree_aop_state_intercepted | aop_state_intercepted |
-| ③ 拦截器链执行中 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ③ 拦截器链执行中 | 0 | 有 |  | tree_aop_state_chain_running | aop_state_chain_running |
-| ④ 织入代码已执行 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ④ 织入代码已执行 | 0 | 有 |  | tree_aop_state_advice_done | aop_state_advice_done |
-| ⑤ 目标方法已调用（返回） | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / AOP / AOP 原理 / 执行阶段 / ⑤ 目标方法已调用（返回） | 0 | 有 |  | tree_aop_state_target_invoked | aop_state_target_invoked |
 | 1. 创建前准备阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 生命周期 / 1. 创建前准备阶段 | 0 | 有 |  | tree_bean_lc_prepare | bean_lc_prepare |
 | 2. 创建实例阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 生命周期 / 2. 创建实例阶段 | 0 | 有 |  | tree_bean_lc_instantiate | bean_lc_instantiate |
 | 3. 依赖注入阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 生命周期 / 3. 依赖注入阶段 | 0 | 有 |  | tree_bean_lc_inject | bean_lc_inject |
 | 4. 容器缓存阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 生命周期 / 4. 容器缓存阶段 | 0 | 有 |  | tree_bean_lc_cache | bean_lc_cache |
 | 5. 销毁实例阶段 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / 生命周期 / 5. 销毁实例阶段 | 0 | 有 |  | tree_bean_lc_destroy | bean_lc_destroy |
-| 调用方（getBean 请求） | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / Bean 创建策略机制 / 调用方（getBean 请求） | 0 | 有 |  | tree_bcs_caller | bcs_caller |
+| getBean 请求调用方 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 软件框架 / Spring / Spring Beans / Bean 创建策略机制 / getBean 请求调用方 | 0 | 有 |  | tree_bcs_caller | bcs_caller |
 | 1. 预估流量 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 流量激增应对方法 / 1. 预估流量 | 0 | 有 |  | tree_surge_estimate | surge_estimate |
 | 2. 全链路压测 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 流量激增应对方法 / 2. 全链路压测 | 0 | 有 |  | tree_surge_stress | surge_stress |
 | 3. 定位并解决链路瓶颈 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / 流量激增应对方法 / 3. 定位并解决链路瓶颈 | 0 | 有 |  | tree_surge_bottleneck | surge_bottleneck |
@@ -65,12 +52,6 @@
 | ④ 三级缓存架构 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / QPS 提升 10 倍的系统设计 / ④ 三级缓存架构 | 0 | 有 |  | tree_hps_cache | hps_cache |
 | ⑤ 读写分离 + 分库分表 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / QPS 提升 10 倍的系统设计 / ⑤ 读写分离 + 分库分表 | 0 | 有 |  | tree_hps_db | hps_db |
 | ⑥ 高可用五板斧 | 知识宇宙 / 计算机科学 / 软件开发（实践总览） / 软件工程 / 性能优化 / QPS 提升 10 倍的系统设计 / ⑥ 高可用五板斧 | 0 | 有 |  | tree_hps_ha | hps_ha |
-| ① read 发起（用户态→内核态） | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ① read 发起（用户态→内核态） | 0 | 有 |  | tree_tio_state_read_syscall | tio_state_read_syscall |
-| ② DMA：磁盘 → 内核缓冲区 | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ② DMA：磁盘 → 内核缓冲区 | 0 | 有 |  | tree_tio_state_disk_to_kernel | tio_state_disk_to_kernel |
-| ③ CPU：内核缓冲区 → 用户缓冲区（返回） | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ③ CPU：内核缓冲区 → 用户缓冲区（返回） | 0 | 有 |  | tree_tio_state_kernel_to_user | tio_state_kernel_to_user |
-| ④ write 发起（用户态→内核态） | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ④ write 发起（用户态→内核态） | 0 | 有 |  | tree_tio_state_write_syscall | tio_state_write_syscall |
-| ⑤ CPU：用户缓冲区 → socket 缓冲区 | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ⑤ CPU：用户缓冲区 → socket 缓冲区 | 0 | 有 |  | tree_tio_state_user_to_socket | tio_state_user_to_socket |
-| ⑥ DMA：socket 缓冲区 → 网卡（返回） | 知识宇宙 / 计算机科学 / 系统组织 / 操作系统 / 零拷贝 / 传统 IO 执行流程 / ⑥ DMA：socket 缓冲区 → 网卡（返回） | 0 | 有 |  | tree_tio_state_socket_to_nic | tio_state_socket_to_nic |
 | 1. 优先优化高并发执行的 SQL | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询优化器 / query optimizer / MySQL 查询优化器（Optimizer） / MySQL 慢查询 SQL 优化思路 / 慢查询优化思路（十条） / 1. 优先优化高并发执行的 SQL | 0 | 有 |  | tree_sqopt_idea_highconc | sqopt_idea_highconc |
 | 10. 合理设计并利用索引 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询优化器 / query optimizer / MySQL 查询优化器（Optimizer） / MySQL 慢查询 SQL 优化思路 / 慢查询优化思路（十条） / 10. 合理设计并利用索引 | 0 | 有 |  | tree_sqopt_idea_index | sqopt_idea_index |
 | 2. 定位优化对象的性能瓶颈 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 查询系统 / 查询优化器 / query optimizer / MySQL 查询优化器（Optimizer） / MySQL 慢查询 SQL 优化思路 / 慢查询优化思路（十条） / 2. 定位优化对象的性能瓶颈 | 0 | 有 |  | tree_sqopt_idea_bottleneck | sqopt_idea_bottleneck |
@@ -96,7 +77,7 @@
 | Java 数据结构基础 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / Java 数据结构基础 | 0 | 有 |  | tree_vault_javajava_ii523d | k_vault_javajava_ii523d |
 | LinkedList 详解 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 集合框架 / LinkedList 详解 | 0 | 有 |  | tree_vault_javajavalinkedlist_1uc0ii | k_vault_javajavalinkedlist_1uc0ii |
 | JVM 基础 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 执行系统 / jvm / JVM 基础 | 0 | 有 |  | tree_vault_javajvm01jvm_1h8bru | k_vault_javajvm01jvm_1h8bru |
-| 基础 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 | 58 | 有 |  | tree_java_syntax_zh_1oty7br | k_java_syntax_zh_1oty7br |
+| 基础 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / Java syntax / 基础 | 57 | 有 |  | tree_java_syntax_zh_1oty7br | k_java_syntax_zh_1oty7br |
 | 线程池详解 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 线程池详解 | 0 | 有 |  | tree_vault_java_1n4uei | k_vault_java_1n4uei |
 | FutureTask详解 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Executor框架 / FutureTask详解 | 2 | 有 |  | tree_1786095193397_uyjgsm | k_1786095193093_odfdcm |
 | ScheduledThreadPoolExecutor详解 | 知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / Executor框架 / ScheduledThreadPoolExecutor详解 | 2 | 有 |  | tree_1786093347020_15dntb | k_1786093346748_5mapqp |
@@ -123,9 +104,9 @@
 | 十六、数据库安全 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十六、数据库安全 | 1 | 有 |  | chapter_db_16 | container:chapter_db_16 |
 | 十七、数据库运维 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十七、数据库运维 | 27 | 有 |  | chapter_db_17 | container:chapter_db_17 |
 | 十三、数据库设计 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十三、数据库设计 | 20 | 有 |  | chapter_db_13 | container:chapter_db_13 |
-| 十四、数据库分布与复制 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十四、数据库分布与复制 | 15 | 有 |  | chapter_db_14 | container:chapter_db_14 |
+| 十四、数据库分布与复制 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 十四、数据库分布与复制 | 14 | 有 |  | chapter_db_14 | container:chapter_db_14 |
 | 五、数据库操作 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 五、数据库操作 | 31 | 有 |  | chapter_db_05 | container:chapter_db_05 |
-| 一、数据库系统 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 | 131 | 有 |  | chapter_db_01 | container:chapter_db_01 |
+| 一、数据库系统 | 知识宇宙 / 计算机科学 / 信息系统 / 数据库管理 / 数据库 / 一、数据库系统 | 130 | 有 |  | chapter_db_01 | container:chapter_db_01 |
 
 ## 第一类 · 「A 与 B」强行捆绑型（0 条）
 

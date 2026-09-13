@@ -30796,7 +30796,10 @@
     },
     "tags": [
       "如何判断对象可以被回收"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_1783171786650_rheusm",
+    "canonicalNodeId": "k_1783171786650_rheusm"
   },
   "k_1783265159022_nzdh2q": {
     "id": "k_1783265159022_nzdh2q",
@@ -42711,7 +42714,10 @@
     },
     "tags": [
       "数据库是什么类型的东西?"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "container:chapter_db_01",
+    "canonicalNodeId": "container:chapter_db_01"
   },
   "k_wiki_en_outline_of_databases_s2": {
     "id": "k_wiki_en_outline_of_databases_s2",
@@ -70725,7 +70731,10 @@
     },
     "tags": [
       "JSR-133为什么要增强final的语义"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_1784045501009_x9izc5",
+    "canonicalNodeId": "k_1784045501009_x9izc5"
   },
   "k_1785927625536_a1tvc6": {
     "id": "k_1785927625536_a1tvc6",
@@ -146901,7 +146910,10 @@
         }
       ],
       "rootContent": "MQ 为什么存在 ## 核心问题\n\n系统直接同步调用时，常见问题是：\n\n- 强耦合\n- 链路过长\n- 高峰期压力集中\n- 非核心逻辑拖慢主链路\n\n## MQ 提供的三种基础价值\n\n| 价值 | 含义 |\n| --- | --- |\n| 解耦 | 生产方不必直接依赖消费方 |\n| 异步 | 主链路快速返回，后续逻辑延后处理 |\n| 削峰 | 用队列缓冲突发流量 |\n\n## 抽象升级\n\n```mermaid\nflowchart LR\n    A[同步接口调用] --> B[异步消息投递]\n    B --> C[队列缓冲]\n    C --> D[消费者处理]\n```\n\n## 代价\n\n- 系统复杂度上升\n- 一致性问题更显著\n- 需要处理重复消费、可靠投递、积压等问题"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_java_fw_rabbitmq",
+    "canonicalNodeId": "k_java_fw_rabbitmq"
   },
   "k_vault_javarabbitmq02rabbitmq_wrgcym": {
     "id": "k_vault_javarabbitmq02rabbitmq_wrgcym",
@@ -152744,7 +152756,10 @@
         }
       ],
       "rootContent": "什么时候需要分库分表 **两个信号**： - 单机存储容量遇到瓶颈； - 连接数、处理能力达到上限。 **注意**：分库分表之前，要根据项目的实际情况确定**数据量是不是够大、并发量是不是够大**，来决定是否分库分表——数据量不够就不要分表。**单表数据量超过 1000 万或 100G 的时候，速度就会变慢（官方测试）**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sharding_overview",
+    "canonicalNodeId": "sharding_overview"
   },
   "sharding_ways": {
     "id": "sharding_ways",
@@ -153448,7 +153463,7 @@
   },
   "sk_perf_bottleneck": {
     "id": "sk_perf_bottleneck",
-    "label": "如何发现瓶颈",
+    "label": "系统性能瓶颈定位",
     "role": "plain",
     "dimensions": [
       "performance",
@@ -153456,7 +153471,9 @@
       "高并发"
     ],
     "tags": [
-      "如何发现瓶颈"
+      "如何发现瓶颈",
+      "系统性能瓶颈定位",
+      "工程问题"
     ],
     "card": {
       "nodeId": "sk_perf_bottleneck",
@@ -153723,7 +153740,7 @@
   },
   "bcs_caller": {
     "id": "bcs_caller",
-    "label": "调用方（getBean 请求）",
+    "label": "getBean 请求调用方",
     "role": "axiom",
     "dimensions": [
       "Spring",
@@ -153731,7 +153748,8 @@
       "软件框架"
     ],
     "tags": [
-      "调用方(getBean 请求)"
+      "调用方(getBean 请求)",
+      "getBean 请求调用方"
     ],
     "card": {
       "nodeId": "bcs_caller",
@@ -154267,7 +154285,7 @@
   },
   "aop_flow": {
     "id": "aop_flow",
-    "label": "执行阶段",
+    "label": "AOP 执行流程",
     "role": "mechanism",
     "dimensions": [
       "Spring",
@@ -154276,7 +154294,8 @@
     ],
     "tags": [
       "执行阶段",
-      "Spring AOP 执行机制(四阶段)"
+      "Spring AOP 执行机制(四阶段)",
+      "AOP 执行流程"
     ],
     "card": {
       "nodeId": "aop_flow",
@@ -155616,7 +155635,10 @@
         }
       ],
       "rootContent": "为什么命中索引比不命中快\n\n**执行原理**：InnoDB 用 **B+ 树**存储索引。无索引时查数据要从磁盘读取——涉及**磁盘随机 IO**：系统把逻辑地址传给磁盘，磁盘控制线路翻译成物理地址（哪个磁道、哪个扇区），磁头寻道 + 磁盘旋转把目标扇区转到磁头下——**寻道时间与旋转时间损耗大**，数据量多时开销非常大。\n\n![磁盘 IO 寻址](/notes/seckill/disk-io-seek.png)\n\nInnoDB 对磁盘数据建索引，把**索引数据及索引列对应的磁盘地址以 B+ 树方式存储**：查找时根据索引从 B+ 树查找——**B+ 树子树多，只需较少次数的磁盘 IO 就能定位目标数据**。\n\n![B+ 树索引](/notes/seckill/btree-index-io.png)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "n_0xxb9cqy",
+    "canonicalNodeId": "n_0xxb9cqy"
   },
   "idxf_cost": {
     "id": "idxf_cost",

@@ -6895,17 +6895,19 @@
                                           "count": 0,
                                           "nodeRef": "k_1785923827211_su53t2",
                                           "children": []
-                                        },
-                                        {
-                                          "id": "tree_1785923886640_ydkgnc",
-                                          "name": "JSR-133为什么要增强final的语义",
-                                          "count": 0,
-                                          "nodeRef": "k_1785923886439_k5so6c",
-                                          "children": []
                                         }
                                       ]
                                     }
-                                  ]
+                                  ],
+                                  "supplement": {
+                                    "tabs": [
+                                      {
+                                        "id": "final87:e1-jsr133-final",
+                                        "label": "JSR-133 为何增强 final 语义",
+                                        "content": "在旧的Java内存模型中，一个最严重的缺陷就是线程可能看到final域的值会改变。比如，\n一个线程当前看到一个整型final域的值为0（还未初始化之前的默认值），过一段时间之后这个\n线程再去读这个final域的值时，却发现值变为1（被某个线程初始化之后的值）。最常见的例子\n就是在旧的Java内存模型中，String的值可能会改变。\n为了修补这个漏洞，JSR-133专家组增强了final的语义。通过为final域增加写和读重排序规则，可以为Java程序员提供初始化安全保证：只要对象是正确构造的（被构造对象的引用在构造函数中没有“逸出”），那么不需要使用同步（指lock和volatile的使用）就可以保证任意线程都能看到这个final域在构造函数中被初始化之后的值。"
+                                      }
+                                    ]
+                                  }
                                 },
                                 {
                                   "id": "tree_web_8c66406b75e1",
@@ -11475,7 +11477,7 @@
                           "children": [
                             {
                               "id": "tree_aop_flow",
-                              "name": "执行阶段",
+                              "name": "AOP 执行流程",
                               "count": 0,
                               "nodeRef": "aop_flow",
                               "children": [
@@ -11508,41 +11510,6 @@
                                   "children": []
                                 },
                                 {
-                                  "id": "tree_aop_state_proxy_created",
-                                  "name": "① 代理对象已创建",
-                                  "count": 0,
-                                  "nodeRef": "aop_state_proxy_created",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_aop_state_intercepted",
-                                  "name": "② 调用已被拦截",
-                                  "count": 0,
-                                  "nodeRef": "aop_state_intercepted",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_aop_state_chain_running",
-                                  "name": "③ 拦截器链执行中",
-                                  "count": 0,
-                                  "nodeRef": "aop_state_chain_running",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_aop_state_advice_done",
-                                  "name": "④ 织入代码已执行",
-                                  "count": 0,
-                                  "nodeRef": "aop_state_advice_done",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_aop_state_target_invoked",
-                                  "name": "⑤ 目标方法已调用（返回）",
-                                  "count": 0,
-                                  "nodeRef": "aop_state_target_invoked",
-                                  "children": []
-                                },
-                                {
                                   "id": "tree_aop_proxyfactory_restored",
                                   "name": "ProxyFactory",
                                   "count": 0,
@@ -11561,7 +11528,36 @@
                                     ]
                                   }
                                 }
-                              ]
+                              ],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "final87:d1-aop_state_proxy_created",
+                                    "label": "① 代理对象已创建",
+                                    "content": "① 代理对象已创建 getBean 创建实例后匹配切面规则成功，ProxyFactory 已按策略（JDK/Cglib）生成代理 Bean 并缓存到 IoC 容器。\n\ngetBean 创建实例后匹配切面规则成功，ProxyFactory 已按策略（JDK/Cglib）生成代理 Bean 并缓存到 IoC 容器。"
+                                  },
+                                  {
+                                    "id": "final87:d1-aop_state_intercepted",
+                                    "label": "② 调用已被拦截",
+                                    "content": "② 调用已被拦截 用户调用目标方法，被 AopProxy（InvocationHandler）拦截，invoke() 触发 MethodInvocation.proceed()。\n\n用户调用目标方法，被 AopProxy（InvocationHandler）拦截，invoke() 触发 MethodInvocation.proceed()。"
+                                  },
+                                  {
+                                    "id": "final87:d1-aop_state_chain_running",
+                                    "label": "③ 拦截器链执行中",
+                                    "content": "③ 拦截器链执行中 MethodInvocation.proceed() 按顺序执行拦截器链中的 MethodInterceptor（Advice 通知）。\n\nMethodInvocation.proceed() 按顺序执行拦截器链中的 MethodInterceptor（Advice 通知）。"
+                                  },
+                                  {
+                                    "id": "final87:d1-aop_state_advice_done",
+                                    "label": "④ 织入代码已执行",
+                                    "content": "④ 织入代码已执行 MethodInterceptor 的织入代码片段（Advice）已执行完毕。\n\nMethodInterceptor 的织入代码片段（Advice）已执行完毕。"
+                                  },
+                                  {
+                                    "id": "final87:d1-aop_state_target_invoked",
+                                    "label": "⑤ 目标方法已调用（返回）",
+                                    "content": "⑤ 目标方法已调用（返回） MethodInterceptor.invoke() 反射调用目标对象方法，业务代码执行，结果沿链返回。\n\nMethodInterceptor.invoke() 反射调用目标对象方法，业务代码执行，结果沿链返回。"
+                                  }
+                                ]
+                              }
                             }
                           ]
                         },
@@ -12170,7 +12166,7 @@
                           "children": [
                             {
                               "id": "tree_bcs_caller",
-                              "name": "调用方（getBean 请求）",
+                              "name": "getBean 请求调用方",
                               "count": 0,
                               "nodeRef": "bcs_caller",
                               "children": []
@@ -12598,13 +12594,6 @@
                   "nodeRef": "k_java_fw_rabbitmq",
                   "children": [
                     {
-                      "id": "tree_vault_javarabbitmq01mq_j62j4c",
-                      "name": "MQ 为什么存在",
-                      "count": 0,
-                      "nodeRef": "k_vault_javarabbitmq01mq_j62j4c",
-                      "children": []
-                    },
-                    {
                       "id": "tree_vault_javarabbitmq02rabbitmq_wrgcym",
                       "name": "RabbitMQ 核心模型",
                       "count": 0,
@@ -12647,6 +12636,11 @@
                           "RabbitMQ",
                           "消息队列"
                         ]
+                      },
+                      {
+                        "id": "final87:e2-mq-why",
+                        "label": "MQ 为什么存在",
+                        "content": "MQ 为什么存在 ## 核心问题\n\n系统直接同步调用时，常见问题是：\n\n- 强耦合\n- 链路过长\n- 高峰期压力集中\n- 非核心逻辑拖慢主链路\n\n## MQ 提供的三种基础价值\n\n| 价值 | 含义 |\n| --- | --- |\n| 解耦 | 生产方不必直接依赖消费方 |\n| 异步 | 主链路快速返回，后续逻辑延后处理 |\n| 削峰 | 用队列缓冲突发流量 |\n\n## 抽象升级\n\n```mermaid\nflowchart LR\n    A[同步接口调用] --> B[异步消息投递]\n    B --> C[队列缓冲]\n    C --> D[消费者处理]\n```\n\n## 代价\n\n- 系统复杂度上升\n- 一致性问题更显著\n- 需要处理重复消费、可靠投递、积压等问题\n\n## 核心问题\n\n系统直接同步调用时，常见问题是：\n\n- 强耦合\n- 链路过长\n- 高峰期压力集中\n- 非核心逻辑拖慢主链路\n\n## MQ 提供的三种基础价值\n\n| 价值 | 含义 |\n| --- | --- |\n| 解耦 | 生产方不必直接依赖消费方 |\n| 异步 | 主链路快速返回，后续逻辑延后处理 |\n| 削峰 | 用队列缓冲突发流量 |\n\n## 抽象升级\n\n```mermaid\nflowchart LR\n    A[同步接口调用] --> B[异步消息投递]\n    B --> C[队列缓冲]\n    C --> D[消费者处理]\n```\n\n## 代价\n\n- 系统复杂度上升\n- 一致性问题更显著\n- 需要处理重复消费、可靠投递、积压等问题"
                       }
                     ]
                   }
@@ -13662,7 +13656,7 @@
                         },
                         {
                           "id": "tree_sk_perf_bottleneck",
-                          "name": "如何发现瓶颈",
+                          "name": "系统性能瓶颈定位",
                           "count": 0,
                           "nodeRef": "sk_perf_bottleneck",
                           "children": []
@@ -14289,33 +14283,25 @@
                           "children": []
                         },
                         {
-                          "id": "tree_wiki_en_outline_of_databases_s1",
-                          "name": "数据库是什么类型的东西？",
+                          "id": "tree_wiki_en_outline_of_databases_s1_b1",
+                          "name": "信息",
                           "count": 0,
-                          "nodeRef": "k_wiki_en_outline_of_databases_s1",
-                          "children": [
-                            {
-                              "id": "tree_wiki_en_outline_of_databases_s1_b1",
-                              "name": "信息",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_outline_of_databases_s1_b1",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_wiki_en_outline_of_databases_s1_b2",
-                              "name": "数据",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_outline_of_databases_s1_b2",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_wiki_en_outline_of_databases_s1_b3",
-                              "name": "计算机数据",
-                              "count": 0,
-                              "nodeRef": "k_wiki_en_outline_of_databases_s1_b3",
-                              "children": []
-                            }
-                          ]
+                          "nodeRef": "k_wiki_en_outline_of_databases_s1_b1",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_wiki_en_outline_of_databases_s1_b2",
+                          "name": "数据",
+                          "count": 0,
+                          "nodeRef": "k_wiki_en_outline_of_databases_s1_b2",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_wiki_en_outline_of_databases_s1_b3",
+                          "name": "计算机数据",
+                          "count": 0,
+                          "nodeRef": "k_wiki_en_outline_of_databases_s1_b3",
+                          "children": []
                         },
                         {
                           "id": "tree_wiki_en_outline_of_databases_s4",
@@ -15139,7 +15125,16 @@
                           "nodeRef": "k_wiki_en_outline_of_databases",
                           "children": []
                         }
-                      ]
+                      ],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "final87:tree_wiki_en_outline_of_databases_s1-body",
+                            "label": "数据库是什么类型的东西？",
+                            "content": "数据库可以描述为以下所有内容：\n\n- 信息 – 可以解释为消息的符号序列。信息可以作为符号记录，也可以作为信号传输。\n- 数据 – 属于一组项目的定性或定量变量的值。计算（或数据处理）中的数据通常由按行组织的项目和按列组织的多个变量的组合来表示。数据通常是测量结果，可以使用图表或图像进行可视化。\n- 计算机数据 – 适合计算机使用的形式的信息。数据通常与程序不同。程序是一系列指令，详细说明了计算机要执行的任务。从这个意义上说，数据是软件中除程序代码之外的一切。"
+                          }
+                        ]
+                      }
                     },
                     {
                       "name": "二、数据模型",
@@ -19771,19 +19766,11 @@
                           "projection": false,
                           "children": [
                             {
-                              "id": "tree_idxf_overview",
-                              "name": "为什么命中索引比不命中快",
+                              "id": "tree_idxf_cost",
+                              "name": "索引的弊端",
                               "count": 0,
-                              "nodeRef": "idxf_overview",
-                              "children": [
-                                {
-                                  "id": "tree_idxf_cost",
-                                  "name": "索引的弊端",
-                                  "count": 0,
-                                  "nodeRef": "idxf_cost",
-                                  "children": []
-                                }
-                              ]
+                              "nodeRef": "idxf_cost",
+                              "children": []
                             },
                             {
                               "id": "tree_idx_fail_cases",
@@ -19806,7 +19793,16 @@
                               "nodeRef": "idx_fail_rules",
                               "children": []
                             }
-                          ]
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "final87:tree_idxf_overview-body",
+                                "label": "为什么命中索引比不命中快",
+                                "content": "为什么命中索引比不命中快\n\n**执行原理**：InnoDB 用 **B+ 树**存储索引。无索引时查数据要从磁盘读取——涉及**磁盘随机 IO**：系统把逻辑地址传给磁盘，磁盘控制线路翻译成物理地址（哪个磁道、哪个扇区），磁头寻道 + 磁盘旋转把目标扇区转到磁头下——**寻道时间与旋转时间损耗大**，数据量多时开销非常大。\n\n![磁盘 IO 寻址](/notes/seckill/disk-io-seek.png)\n\nInnoDB 对磁盘数据建索引，把**索引数据及索引列对应的磁盘地址以 B+ 树方式存储**：查找时根据索引从 B+ 树查找——**B+ 树子树多，只需较少次数的磁盘 IO 就能定位目标数据**。\n\n![B+ 树索引](/notes/seckill/btree-index-io.png)\n\n**执行原理**：InnoDB 用 **B+ 树**存储索引。无索引时查数据要从磁盘读取——涉及**磁盘随机 IO**：系统把逻辑地址传给磁盘，磁盘控制线路翻译成物理地址（哪个磁道、哪个扇区），磁头寻道 + 磁盘旋转把目标扇区转到磁头下——**寻道时间与旋转时间损耗大**，数据量多时开销非常大。\n\n![磁盘 IO 寻址](/notes/seckill/disk-io-seek.png)\n\nInnoDB 对磁盘数据建索引，把**索引数据及索引列对应的磁盘地址以 B+ 树方式存储**：查找时根据索引从 B+ 树查找——**B+ 树子树多，只需较少次数的磁盘 IO 就能定位目标数据**。\n\n![B+ 树索引](/notes/seckill/btree-index-io.png)"
+                              }
+                            ]
+                          }
                         },
                         {
                           "id": "tree_concept_unique_index",
@@ -20663,13 +20659,6 @@
                           "nodeRef": "sharding_overview",
                           "children": [
                             {
-                              "id": "tree_sharding_when",
-                              "name": "什么时候需要分库分表",
-                              "count": 0,
-                              "nodeRef": "sharding_when",
-                              "children": []
-                            },
-                            {
                               "id": "tree_sharding_ways",
                               "name": "四种拆分方式",
                               "count": 0,
@@ -20750,6 +20739,15 @@
                                 "content": "什么是分库分表 简单来说，就是指**通过某种特定的条件，将存放在同一个数据库中的数据分散存放到多个数据库（主机）上面**，以达到分散单台设备负载的效果。 **解决的问题**：数据量过大会导致数据库性能降低——将原来单体服务的数据库进行拆分，将大数据表拆分成若干数据表组成，使得单一数据库、单一数据表的数据量变小，从而达到提升数据库性能的目的。\n\n简单来说，就是指**通过某种特定的条件，将存放在同一个数据库中的数据分散存放到多个数据库（主机）上面**，以达到分散单台设备负载的效果。\n\n**解决的问题**：数据量过大会导致数据库性能降低——将原来单体服务的数据库进行拆分，将大数据表拆分成若干数据表组成，使得单一数据库、单一数据表的数据量变小，从而达到提升数据库性能的目的。",
                                 "tags": [
                                   "什么是分库分表"
+                                ]
+                              },
+                              {
+                                "id": "final87:e5-when-sharding",
+                                "label": "什么时候需要分库分表",
+                                "content": "什么时候需要分库分表 **两个信号**： - 单机存储容量遇到瓶颈； - 连接数、处理能力达到上限。 **注意**：分库分表之前，要根据项目的实际情况确定**数据量是不是够大、并发量是不是够大**，来决定是否分库分表——数据量不够就不要分表。**单表数据量超过 1000 万或 100G 的时候，速度就会变慢（官方测试）**。\n\n**两个信号**：\n- 单机存储容量遇到瓶颈；\n- 连接数、处理能力达到上限。\n\n**注意**：分库分表之前，要根据项目的实际情况确定**数据量是不是够大、并发量是不是够大**，来决定是否分库分表——数据量不够就不要分表。**单表数据量超过 1000 万或 100G 的时候，速度就会变慢（官方测试）**。",
+                                "tags": [
+                                  "工程问题",
+                                  "分库分表"
                                 ]
                               }
                             ]
@@ -24810,30 +24808,22 @@
                                   "children": []
                                 }
                               ]
-                            },
-                            {
-                              "id": "tree_1783264901125_rlyl58",
-                              "name": "如何判断对象可以被回收",
-                              "count": 0,
-                              "nodeRef": "k_1783264901088_1s02ir",
-                              "children": [
-                                {
-                                  "id": "tree_1783171290335_i1egql",
-                                  "name": "引用计数法",
-                                  "count": 0,
-                                  "nodeRef": "k_1783171290294_ib0kwi",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_atomic_k_atom_reachability",
-                                  "name": "可达性分析算法",
-                                  "count": 0,
-                                  "nodeRef": "k_atom_reachability",
-                                  "children": []
-                                }
-                              ]
                             }
                           ]
+                        },
+                        {
+                          "id": "tree_1783171290335_i1egql",
+                          "name": "引用计数法",
+                          "count": 0,
+                          "nodeRef": "k_1783171290294_ib0kwi",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_atomic_k_atom_reachability",
+                          "name": "可达性分析算法",
+                          "count": 0,
+                          "nodeRef": "k_atom_reachability",
+                          "children": []
                         }
                       ],
                       "supplement": {
@@ -25209,50 +25199,42 @@
                           "count": 0,
                           "nodeRef": "tio_caller",
                           "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_read_syscall",
-                          "name": "① read 发起（用户态→内核态）",
-                          "count": 0,
-                          "nodeRef": "tio_state_read_syscall",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_disk_to_kernel",
-                          "name": "② DMA：磁盘 → 内核缓冲区",
-                          "count": 0,
-                          "nodeRef": "tio_state_disk_to_kernel",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_kernel_to_user",
-                          "name": "③ CPU：内核缓冲区 → 用户缓冲区（返回）",
-                          "count": 0,
-                          "nodeRef": "tio_state_kernel_to_user",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_write_syscall",
-                          "name": "④ write 发起（用户态→内核态）",
-                          "count": 0,
-                          "nodeRef": "tio_state_write_syscall",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_user_to_socket",
-                          "name": "⑤ CPU：用户缓冲区 → socket 缓冲区",
-                          "count": 0,
-                          "nodeRef": "tio_state_user_to_socket",
-                          "children": []
-                        },
-                        {
-                          "id": "tree_tio_state_socket_to_nic",
-                          "name": "⑥ DMA：socket 缓冲区 → 网卡（返回）",
-                          "count": 0,
-                          "nodeRef": "tio_state_socket_to_nic",
-                          "children": []
                         }
-                      ]
+                      ],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "final87:d1-tio_state_read_syscall",
+                            "label": "① read 发起（用户态→内核态）",
+                            "content": "① read 发起（用户态→内核态）\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。"
+                          },
+                          {
+                            "id": "final87:d1-tio_state_disk_to_kernel",
+                            "label": "② DMA：磁盘 → 内核缓冲区",
+                            "content": "② DMA：磁盘 → 内核缓冲区\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。"
+                          },
+                          {
+                            "id": "final87:d1-tio_state_kernel_to_user",
+                            "label": "③ CPU：内核缓冲区 → 用户缓冲区（返回）",
+                            "content": "③ CPU：内核缓冲区 → 用户缓冲区（返回）\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。"
+                          },
+                          {
+                            "id": "final87:d1-tio_state_write_syscall",
+                            "label": "④ write 发起（用户态→内核态）",
+                            "content": "④ write 发起（用户态→内核态）\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。"
+                          },
+                          {
+                            "id": "final87:d1-tio_state_user_to_socket",
+                            "label": "⑤ CPU：用户缓冲区 → socket 缓冲区",
+                            "content": "⑤ CPU：用户缓冲区 → socket 缓冲区\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。"
+                          },
+                          {
+                            "id": "final87:d1-tio_state_socket_to_nic",
+                            "label": "⑥ DMA：socket 缓冲区 → 网卡（返回）",
+                            "content": "⑥ DMA：socket 缓冲区 → 网卡（返回）\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。"
+                          }
+                        ]
+                      }
                     }
                   ]
                 },
