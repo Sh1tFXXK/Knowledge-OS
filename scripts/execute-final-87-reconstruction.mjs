@@ -26,12 +26,9 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import {
-  ROOT, loadAll, saveAll, flatten, findTreeById, shellContent,
-  addSupplementTab, detachChild, attachChild,
-  dropTreebindEdgesForTreeIds, createTreeBindingEdge, upsertEdge, rel,
-} from './shell-fusion/lib.mjs'
-import { gateScan, statLine } from './shell-fusion/a-split/common.mjs'
+import { ROOT, loadAll, saveAll, shellContent, rel } from './shell-fusion/lib.mjs'
+import { statLine } from './shell-fusion/a-split/common.mjs'
+import { makeCore } from './shell-fusion/final87-core.mjs'
 
 const apply = process.argv.includes('--apply')
 const groupArg = (process.argv.find((a) => a.startsWith('--group=')) ?? '--group=E,D1').slice('--group='.length)
@@ -46,100 +43,13 @@ for (const g of groups) {
 const state = loadAll()
 state.events = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'evolution-events.json'), 'utf8'))
 const { pool, tree, edges } = state
-const flat = flatten(tree)
-const entryOf = (id) => flat.find((f) => f.node.id === id)
 
-const journal = []
-const errors = []
-const warnings = []
-const note = (s) => journal.push(s)
+// 原语已抽到 scripts/shell-fusion/final87-core.mjs，与 batch2 共用一份实现。
+// batch1 沿用既有软口径（门一命中只记警告、不阻断落盘）。
+const core = makeCore(state)
+const { flat, entryOf, journal, errors, warnings, note, unloadTree, promoteChildren, mirrorSupplement, renameInPlace, addTag } = core
+const retire = (ref, canonicalRef, opts = {}) => core.retire(ref, canonicalRef, { ...opts, soft: true })
 
-// ── 原语 ─────────────────────────────────────────────────────────────────
-function unloadTree(treeId, why) {
-  const hit = entryOf(treeId)
-  if (!hit) { errors.push(`卸载失败：树里找不到 ${treeId}`); return null }
-  const parent = hit.parent ?? tree
-  const removed = detachChild(parent, treeId)
-  const dropped = dropTreebindEdgesForTreeIds(edges, [treeId])
-  note(`卸树「${removed.name}」(${treeId}) — ${why} · 删 treebind 边 ${dropped} 条`)
-  return removed
-}
-
-function promoteChildren(shellTreeId, targetTreeId, why) {
-  const shellHit = entryOf(shellTreeId)
-  const targetHit = entryOf(targetTreeId)
-  if (!shellHit || !targetHit) { errors.push(`提级失败：${shellTreeId} → ${targetTreeId} 有一端不存在`); return 0 }
-  const oldParent = shellHit.parent ?? tree
-  const oldIndex = (oldParent.children ?? []).findIndex((c) => c.id === shellTreeId)
-  const kids = [...(shellHit.node.children ?? [])]
-  const sameParent = oldParent === targetHit.node
-  detachChild(oldParent, shellTreeId)
-  dropTreebindEdgesForTreeIds(edges, [shellTreeId])
-  let n = 0
-  kids.forEach((kid, i) => {
-    attachChild(targetHit.node, kid, { index: sameParent ? oldIndex + i : -1 })
-    dropTreebindEdgesForTreeIds(edges, [kid.id])
-    const e = createTreeBindingEdge({ tree, pool, parentTreeId: targetTreeId, childTreeId: kid.id, childKnowledgeId: kid.nodeRef })
-    if (e && upsertEdge(edges, e)) n += 1
-    else if (!e) warnings.push(`提级后未建 treebind 边：${kid.id}「${kid.name}」（父子同源或端点不在池）`)
-  })
-  note(`提级 ${kids.length} 个子节点：${shellTreeId} → ${targetTreeId} — ${why} · 新建 treebind 边 ${n} 条`)
-  return kids.length
-}
-
-function mirrorSupplement(hostTreeId, { id, label, content, tags }) {
-  const hit = entryOf(hostTreeId)
-  if (!hit) { errors.push(`镜像失败：宿主树条目 ${hostTreeId} 不存在`); return 0 }
-  const text = String(content ?? '').trim()
-  if (!text) { warnings.push(`镜像跳过（源正文为空）：${id}`); return 0 }
-  const r = addSupplementTab(hit.node, { id, label, content: text, tags })
-  note(`supplement 追加到「${hit.node.name}」(${hostTreeId})：${r} ${id} · ${text.length} 字`)
-  return text.length
-}
-
-function renameInPlace(treeId, newName, why) {
-  const hit = entryOf(treeId)
-  if (!hit) { errors.push(`改名失败：${treeId} 不存在`); return }
-  const dup = flat.filter((f) => f.node.name === newName)
-  if (dup.length > 0) { errors.push(`改名「${hit.node.name}」→「${newName}」会与 ${dup.length} 处同名冲突：${dup.map((d) => d.node.id).join(', ')}`); return }
-  const old = hit.node.name
-  hit.node.name = newName
-  const pn = pool[hit.node.nodeRef]
-  if (pn) {
-    pn.label = newName
-    // 池内绝大多数节点（3538/3786）的 tags 含自身 label —— 改名必须同步补新名，
-    // 否则该节点会落进「自名不在 tags」的少数派，且搜索按新名找不到。
-    // 旧名保留为别名 tag，不删除（保住按旧名搜索的能力）。
-    const tags = Array.isArray(pn.tags) ? pn.tags : []
-    if (!tags.includes(newName)) { tags.push(newName); pn.tags = tags }
-  }
-  note(`改名「${old}」→「${newName}」(${treeId}) — ${why}`)
-}
-
-function addTag(ref, tag) {
-  const n = pool[ref]
-  if (!n) { errors.push(`打标签失败：池节点 ${ref} 不存在`); return }
-  if (!Array.isArray(n.tags)) n.tags = []
-  if (n.tags.includes(tag)) return
-  n.tags.push(tag)
-  note(`打 tag「${tag}」→ ${ref}`)
-}
-
-/** 退休：门一零活引用（排除正在卸载的树条目）通过才允许标记。 */
-function retire(ref, canonicalRef, { excludeTreeIds = [], why } = {}) {
-  const n = pool[ref]
-  if (!n) { errors.push(`退休失败：池节点 ${ref} 不存在`); return false }
-  const { hits } = gateScan(state, [ref], { excludeTreeIds })
-  if (hits.length > 0) {
-    warnings.push(`退休跳过（门一有活引用 ${hits.length} 处）：${ref} — ${hits.slice(0, 4).join(' | ')}`)
-    return false
-  }
-  n.status = 'archived-redirect'
-  n.redirectTo = canonicalRef
-  n.canonicalNodeId = canonicalRef
-  note(`退休 ${ref}「${n.label}」→ 正身 ${canonicalRef} — ${why}`)
-  return true
-}
 
 // ── E 组（7 条） ─────────────────────────────────────────────────────────
 const E_PLAN = [

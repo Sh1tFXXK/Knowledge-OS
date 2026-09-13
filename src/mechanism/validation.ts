@@ -4,7 +4,7 @@ import {
   type KnowledgeEdge,
   type KnowledgeNode,
   type MechanismSpec,
-} from '../types';
+} from '../types.ts';
 
 export interface MechanismValidationResult {
   valid: boolean;

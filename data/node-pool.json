@@ -25120,7 +25120,7 @@
   },
   "school_real_world_conventions": {
     "id": "school_real_world_conventions",
-    "label": "标准与约定",
+    "label": "跨系统标准与约定",
     "role": "subsystem",
     "dimensions": [
       "information-systems"
@@ -25133,7 +25133,8 @@
       "time",
       "character-encoding",
       "information-systems",
-      "taxonomy"
+      "taxonomy",
+      "跨系统标准与约定"
     ],
     "card": {
       "nodeId": "school_real_world_conventions",
@@ -33055,7 +33056,7 @@
   },
   "k_java_syntax_zh_1oty7br": {
     "id": "k_java_syntax_zh_1oty7br",
-    "label": "基础",
+    "label": "Java 语法要素",
     "card": {
       "nodeId": "k_java_syntax_zh_1oty7br",
       "title": "基础",
@@ -33069,7 +33070,8 @@
     },
     "tags": [
       "基础",
-      "Java"
+      "Java",
+      "Java 语法要素"
     ]
   },
   "k_java_syntax_zh_1o83fje": {
@@ -43173,7 +43175,10 @@
       "创建数据仓库",
       "wikipedia",
       "wikipedia-import"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_wiki_en_outline_of_databases_s20",
+    "canonicalNodeId": "k_wiki_en_outline_of_databases_s20"
   },
   "k_wiki_en_outline_of_databases_s23": {
     "id": "k_wiki_en_outline_of_databases_s23",
@@ -47910,7 +47915,10 @@
     "canonicalKey": "database:security",
     "aliases": [
       "安全"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "container:chapter_db_16",
+    "canonicalNodeId": "container:chapter_db_16"
   },
   "k_wiki_en_database_s22": {
     "id": "k_wiki_en_database_s22",
@@ -73091,7 +73099,10 @@
     },
     "tags": [
       "合理地配置线程池"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_1786092211800_3qjdgk",
+    "canonicalNodeId": "k_1786092211800_3qjdgk"
   },
   "k_1786092398055_xddkc6": {
     "id": "k_1786092398055_xddkc6",
@@ -73144,11 +73155,14 @@
     "tags": [
       "ThreadPoolExecutor详解",
       "Java面试突击"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_java_type_ff6db88dc6746818",
+    "canonicalNodeId": "k_java_type_ff6db88dc6746818"
   },
   "k_1786093174816_8f6sp8": {
     "id": "k_1786093174816_8f6sp8",
-    "label": "FixedThreadPool详解",
+    "label": "FixedThreadPool",
     "card": {
       "nodeId": "k_1786093174816_8f6sp8",
       "title": "FixedThreadPool详解",
@@ -73156,12 +73170,13 @@
       "rootContent": "FixedThreadPool被称为可重用固定线程数的线程池。下面是FixedThreadPool的源代码实\n现。\npublicstaticExecutorService newFixedThreadPool(intnThreads){\nreturnnewThreadPoolExecutor(nThreads,nThreads,\n0L,TimeUnit.MILLISECONDS,\nnewLinkedBlockingQueue<Runnable>());\n}\nFixedThreadPool的corePoolSize和maximumPoolSize都被设置为创建FixedThreadPool时指\n定的参数nThreads。\n当线程池中的线程数大于corePoolSize时，keepAliveTime为多余的空闲线程等待新任务的\n最长时间，超过这个时间后多余的线程将被终止。这里把keepAliveTime设置为0L，意味着多余\n的空闲线程会被立即终止。\n1）如果当前运行的线程数少于corePoolSize，则创建新线程来执行任务。\n2）在线程池完成预热之后（当前运行的线程数等于corePoolSize），将任务加入\nLinkedBlockingQueue。\n3）线程执行完1中的任务后，会在循环中反复从LinkedBlockingQueue获取任务来执行。\nFixedThreadPool使用无界队列LinkedBlockingQueue作为线程池的工作队列（队列的容量为\nInteger.MAX_VALUE）。使用无界队列作为工作队列会对线程池带来如下影响。1）当线程池中的线程数达到corePoolSize后，新任务将在无界队列中等待，因此线程池中\n的线程数不会超过corePoolSize。\n2）由于1，使用无界队列时maximumPoolSize将是一个无效参数。\n3）由于1和2，使用无界队列时keepAliveTime将是一个无效参数。\n4）由于使用无界队列，运行中的FixedThreadPool（未执行方法shutdown()或\nshutdownNow()）不会拒绝任务（不会调用RejectedExecutionHandler.rejectedExecution方法）。"
     },
     "tags": [
-      "FixedThreadPool详解"
+      "FixedThreadPool详解",
+      "FixedThreadPool"
     ]
   },
   "k_1786093231291_1p3kk2": {
     "id": "k_1786093231291_1p3kk2",
-    "label": "SingleThreadExecutor详解",
+    "label": "SingleThreadExecutor",
     "card": {
       "nodeId": "k_1786093231291_1p3kk2",
       "title": "SingleThreadExecutor详解",
@@ -73169,12 +73184,13 @@
       "rootContent": "SingleThreadExecutor是使用单个worker线程的Executor。下面是SingleThreadExecutor的源\n代码实现。\npublicstaticExecutorService newSingleThreadExecutor(){\nreturnnewFinalizableDelegatedExecutorService\n(new ThreadPoolExecutor(1,1,\n0L, TimeUnit.MILLISECONDS,\nnew LinkedBlockingQueue<Runnable>()));\n}\nSingleThreadExecutor的corePoolSize和maximumPoolSize被设置为1。其他参数与\nFixedThreadPool相同。SingleThreadExecutor使用无界队列LinkedBlockingQueue作为线程池的工\n作队列（队列的容量为Integer.MAX_VALUE）。SingleThreadExecutor使用无界队列作为工作队列\n对线程池带来的影响与FixedThreadPool相同，这里就不赘述了。1）如果当前运行的线程数少于corePoolSize（即线程池中无运行的线程），则创建一个新线\n程来执行任务。\n2）在线程池完成预热之后（当前线程池中有一个运行的线程），将任务加入Linked-\nBlockingQueue。\n3）线程执行完1中的任务后，会在一个无限循环中反复从LinkedBlockingQueue获取任务来\n执行。"
     },
     "tags": [
-      "SingleThreadExecutor详解"
+      "SingleThreadExecutor详解",
+      "SingleThreadExecutor"
     ]
   },
   "k_1786093265033_rqvw3n": {
     "id": "k_1786093265033_rqvw3n",
-    "label": "CachedThreadPool详解",
+    "label": "CachedThreadPool",
     "card": {
       "nodeId": "k_1786093265033_rqvw3n",
       "title": "CachedThreadPool详解",
@@ -73182,7 +73198,8 @@
       "rootContent": "CachedThreadPool是一个会根据需要创建新线程的线程池。下面是创建CachedThread-\nPool的源代码。\npublicstaticExecutorService newCachedThreadPool() {\nreturnnewThreadPoolExecutor(0,Integer.MAX_VALUE,\n60L, TimeUnit.SECONDS,\nnewSynchronousQueue<Runnable>());\n}\nCachedThreadPool的corePoolSize被设置为0，即corePool为空；maximumPoolSize被设置为\nInteger.MAX_VALUE，即maximumPool是无界的。这里把keepAliveTime设置为60L，意味着\nCachedThreadPool中的空闲线程等待新任务的最长时间为60秒，空闲线程超过60秒后将会被\n终止。\nFixedThreadPool和SingleThreadExecutor使用无界队列LinkedBlockingQueue作为线程池的\n工作队列。CachedThreadPool使用没有容量的SynchronousQueue作为线程池的工作队列，但\nCachedThreadPool的maximumPool是无界的。这意味着，如果主线程提交任务的速度高于\nmaximumPool中线程处理任务的速度时，CachedThreadPool会不断创建新线程。极端情况下，\nCachedThreadPool会因为创建过多线程而耗尽CPU和内存资源。1）首先执行SynchronousQueue.offer（Runnable task）。如果当前maximumPool中有空闲线程\n正在执行SynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS），那么主线程执行\noffer操作与空闲线程执行的poll操作配对成功，主线程把任务交给空闲线程执行，execute()方\n法执行完成；否则执行下面的步骤2）。\n2）当初始maximumPool为空，或者maximumPool中当前没有空闲线程时，将没有线程执行\nSynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS）。这种情况下，步骤1）将失\n败。此时CachedThreadPool会创建一个新线程执行任务，execute()方法执行完成。\n3）在步骤2）中新创建的线程将任务执行完后，会执行\nSynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS）。这个poll操作会让空闲线程最多在SynchronousQueue中等待60秒钟。如果60秒钟内主线程提交了一个新任务（主线程执\n行步骤1）），那么这个空闲线程将执行主线程提交的新任务；否则，这个空闲线程将终止。由于\n空闲60秒的空闲线程会被终止，因此长时间保持空闲的CachedThreadPool不会使用任何资源。\n前面提到过，SynchronousQueue是一个没有容量的阻塞队列。每个插入操作必须等待另一\n个线程的对应移除操作，反之亦然。CachedThreadPool使用SynchronousQueue，把主线程提交的\n任务传递给空闲线程执行"
     },
     "tags": [
-      "CachedThreadPool详解"
+      "CachedThreadPool详解",
+      "CachedThreadPool"
     ]
   },
   "k_1786093346748_5mapqp": {
@@ -73196,7 +73213,10 @@
     },
     "tags": [
       "ScheduledThreadPoolExecutor详解"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_java_type_af32be37bc61aea4",
+    "canonicalNodeId": "k_java_type_af32be37bc61aea4"
   },
   "k_1786093374519_hpf2za": {
     "id": "k_1786093374519_hpf2za",
@@ -73235,7 +73255,10 @@
     },
     "tags": [
       "FutureTask详解"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_java_type_3f228f7655fb94df",
+    "canonicalNodeId": "k_java_type_3f228f7655fb94df"
   },
   "k_1786095306516_p6jjye": {
     "id": "k_1786095306516_p6jjye",
@@ -73311,7 +73334,10 @@
     },
     "tags": [
       "线上问题定位"
-    ]
+    ],
+    "status": "archived-redirect",
+    "redirectTo": "k_1786096444701_f6gecl",
+    "canonicalNodeId": "k_1786096444701_f6gecl"
   },
   "k_1786096660928_3cmb3b": {
     "id": "k_1786096660928_3cmb3b",
@@ -144798,7 +144824,7 @@
   },
   "k_vault_javajvm01jvm_1h8bru": {
     "id": "k_vault_javajvm01jvm_1h8bru",
-    "label": "JVM 基础",
+    "label": "JVM 核心概念",
     "role": "concept",
     "dimensions": [
       "java"
@@ -144806,7 +144832,8 @@
     "tags": [
       "JVM 基础",
       "java",
-      "JVM"
+      "JVM",
+      "JVM 核心概念"
     ],
     "card": {
       "nodeId": "k_vault_javajvm01jvm_1h8bru",
@@ -144920,11 +144947,14 @@
         }
       ],
       "rootContent": "线程池详解 #线程池的基础概念 core,maxPoolSize,keepalive 执行任务时 1. 如果线程池中线程数量 < core，新建一个线程执行任务； 2. 如果线程池中线程数量 >= core ,则将任务放入任务队列 3. 如果线程池中线程数量 >= core 且 < maxPoolSize，则创建新的线程； 4. 如果线程池中线程数量 > core ,当线程空闲时间超过了keepalive时，则会销毁线程；由此可见线程池的队列如果是无界队列，那么设置线程池最大数量是无效的； #为啥要用线程池 在Java中，如果每当一个请求到达就创建一个新线程，开销是相当大的。在实际使用中，每个请求创建新线程的服务器在创建和销毁线程上花费的时间和消耗的系统资源，甚至可能要比花在处理实际的用户请求的时间和资源要多得多。除了创建和销毁线程的开销之外，活动的线程也需要消耗系统资源。如果在一个JVM里创建太多的线程，可能会导致系统由于过度消耗内存或“切换过度”而导致系统资源不足。为了防止资源不足，服务器应用程序需要一些办法来限制任何给定时刻处理的请求数目，尽可能减少创建和销毁线程的次数，特别是一些资源耗费比较大的线程的创建和销毁，尽量利用已有对象来进行服务，这就是“池化资源”技术产生的原因。 线程池主要用来解决线程生命周期开销问题和资源不足问题。通过对多个任务重用线程，线程创建的开销就被分摊到了多个任务上了，而且由于在请求到达时线程已经存在，所以消除了线程创建所带来的延迟。这样，就可以立即为请求服务，使应用程序响应更快。另外，通过适当地调整线程池中的线程数目可以防止出现资源不足的情况。 #创建一个线程池 一个比较简单的线程池至少应包含线程池管理器、工作线程、任务队列、任务接口等部分。其中线程池管理器（ThreadPool Manager）的作用是创建、销毁并管理线程池，将工作线程放入线程池中；工作线程是一个可以循环执行任务的线程，在没有任务时进行等待；任务队列的作用是提供一种缓冲机制，将没有处理的任务放在任务队列中；任务接口是每个任务必须实现的接口，主要用来规定任务的入口、任务执行完后的收尾工作、任务的执行状态等，工作线程通过该接口调度任务的执行。 #线程池适应的场合 当一个Web服务器接受到大量短小线程的请求时，使用线程池技术是非常合适的，它可以大大减少线程的创建和销毁次数，提高服务器的工作效率。但如果线程要求的运行时间比较长，此时线程的运行时间比创建时间要长得多，单靠减少创建时间对系统效率的提高不明显，此时就不适合应用线程池技术，需要借助其它的技术来提高服务器的服务效率。 #使用线程池的风险 虽然线程池是构建多线程应用程序的强大机制，但使用它并不是没有风险的。用线程池构建的应用程序容易遭受任何其它多线程应用程序容易遭受的所有并发风险，诸如同步错误和死锁，它还容易遭受特定于线程池的少数其它风险，诸如与池有关的死锁、资源不足和线程泄漏。 #死锁 任何多线程应用程序都有死锁风险。当一组进程或线程中的每一个都在等待一个只有该组中另一个进程才能引起的事件时，我们就说这组进程或线程死锁了。死锁的最简单情形是：线程 A 持有对象 X 的独占锁，并且在等待对象 Y 的锁，而线程 B 持有对象 Y 的独占锁，却在等待对象 X 的锁。除非有某种方法来打破对锁的等待（Java 锁定不支持这种方法），否则死锁的线程将永远等下去。 虽然任何多线程程序中都有死锁的风险，但线程池却引入了另一种死锁可能，所有池线程都在执行已阻塞的等待队列中另一任务的执行结果的任务，但这一任务却因为没有未被占用的线程而不能运行。当线程池被用来实现涉及许多交互对象的模拟，被模拟的对象可以相互发送查询，这些查询接下来作为排队的任务执行，查询对象又同步等待着响应时，会发生这种情况。 #资源不足 线程池的一个优点在于：相对于其它替代调度机制（有些我们已经讨论过）而言，它们通常执行得很好。但只有恰当地调整了线程池大小时才是这样的。线程消耗包括内存和其它系统资源在内的大量资源。除了 Thread 对象所需的内存之外，每个线程都需要两个可能很大的执行调用堆栈。除此以外，JVM可能会为每个 Java 线程创建一个本机线程，这些本机线程将消耗额外的系统资源。最后，虽然线程之间切换的调度开销很小，但如果有很多线程，环境切换也可能严重地影响程序的性能。如果线程池太大，那么被那些线程消耗的资源可能严重地影响系统性能。在线程之间进行切换将会浪费时间，而且使用超出比您实际需要的线程可能会引起资源匮乏问题，因为池线程正在消耗一些资源，而这些资源可能会被其它任务更有效地利用。除了线程自身所使用的资源以外，服务请求时所做的工作可能需要其它资源，例如 JDBC 连接、套接字或文件。这些也都是有限资源，有太多的并发请求也可能引起失效，例如不能分配 JDBC 连接。 #并发错误 线程池和其它排队机制依靠使用 wait() 和 notify() 方法，这两个方法都难于使用。如果编码不正确，那么可能丢失通知，导致线程保持空闲状态，尽管队列中有工作要处理。使用这些方法时，必须格外小心；即便是专家也可能在它们上面出错。而最好使用现有的、已经知道能工作的实现，例如在下面的无须编写您自己的池中讨论的 util.concurrent 包。 #线程泄漏 各种类型的线程池中一个严重的风险是线程泄漏，当从池中除去一个线程以执行一项任务，而在任务完成后该线程却没有返回池时，会发生这种情况。发生线程泄漏的一种情形出现在任务抛出一个 RuntimeException 或一个 Error 时。如果池类没有捕捉到它们，那么线程只会退出而线程池的大小将会永久减少一个。当这种情况发生的次数足够多时，线程池最终就为空，而且系统将停止，因为没有可用的线程来处理任务。 有些任务可能会永远等待某些资源或来自用户的输入，而这些资源又不能保证变得可用，用户可能也已经回家了，诸如此类的任务会永久停止，而这些停止的任务也会引起和线程泄漏同样的问题。如果某个线程被这样一个任务永久地消耗着，那么它实际上就被从池除去了。对于这样的任务，应该要么只给予它们自己的线程，要么只让它们等待有限的时间。 #请求过载 仅仅是请求就压垮了服务器，这种情况是可能的。在这种情形下，我们可能不想将每个到来的请求都排队到我们的工作队列，因为排在队列中等待执行的任务可能会消耗太多的系统资源并引起资源缺乏。在这种情形下决定如何做取决于您自己；在某些情况下，您可以简单地抛弃请求，依靠更高级别的协议稍后重试请求，您也可以用一个指出服务器暂时很忙的响应来拒绝请求。 #有效使用线程池的准则 只要您遵循几条简单的准则，线程池可以成为构建服务器应用程序的极其有效的方法： 不要对那些同步等待其它任务结果的任务排队。这可能会导致上面所描述的那种形式的死锁，在那种死锁中，所有线程都被一些任务所占用，这些任务依次等待排队任务的结果，而这些任务又无法执行，因为所有的线程都很忙。 在为时间可能很长的操作使用合用的线程时要小心。如果程序必须等待诸如 I/O 完成这样的某个资源，那么请指定最长的等待时间，以及随后是失效还是将任务重新排队以便稍后执行。这样做保证了：通过将某个线程释放给某个可能成功完成的任务，从而将最终取得某些进展。 #理解任务 要有效地调整线程池大小，您需要理解正在排队的任务以及它们正在做什么。它们是 CPU 限制的（CPU-bound）吗？它们是 I/O 限制的（I/O-bound）吗？您的答案将影响您如何调整应用程序。如果您有不同的任务类，这些类有着截然不同的特征，那么为不同任务类设置多个工作队列可能会有意义，这样可以相应地调整每个池。 #调整池的大小 调整线程池的大小基本上就是避免两类错误：线程太少或线程太多。幸运的是，对于大多数应用程序来说，太多和太少之间的余地相当宽。 请回忆：在应用程序中使用线程有两个主要优点，尽管在等待诸如 I/O 的慢操作，但允许继续进行处理，并且可以利用多处理器。在运行于具有 N 个处理器机器上的计算限制的应用程序中，在线程数目接近 N 时添加额外的线程可能会改善总处理能力，而在线程数目超过 N 时添加额外的线程将不起作用。事实上，太多的线程甚至会降低性能，因为它会导致额外的环境切换开销。 线程池的最佳大小取决于可用处理器的数目以及工作队列中的任务的性质。若在一个具有 N 个处理器的系统上只有一个工作队列，其中全部是计算性质的任务，在线程池具有 N 或 N+1 个线程时一般会获得最大的 CPU 利用率。 对于那些可能需要等待 I/O 完成的任务（例如，从套接字读取 HTTP 请求的任务），需要让池的大小超过可用处理器的数目，因为并不是所有线程都一直在工作。通过使用概要分析，您可以估计某个典型请求的等待时间（WT）与服务时间（ST）之间的比例。如果我们将这一比例称之为 WT/ST，那么对于一个具有 N 个处理器的系统，需要设置大约 N*(1+WT/ST) 个线程来保持处理器得到充分利用。 处理器利用率不是调整线程池大小过程中的唯一考虑事项。随着线程池的增长，您可能会碰到调度程序、可用内存方面的限制，或者其它系统资源方面的限制，例如套接字、打开的文件句柄或数据库连接等的数目。 #无须编写您自己的池 Doug Lea 编写了一个优秀的并发实用程序开放源码库 util.concurrent，它包括互斥、信号量、诸如在并发访问下执行得很好的队列和散列表之类集合类以及几个工作队列实现。该包中的 PooledExecutor类是一种有效的、广泛使用的以工作队列为基础的线程池的正确实现。 #线程池的原理，为什么要创建线程池？创建线程池的方式 #原理: 线程池做的工作主要是控制运行的线程的数量，处理过程中将任务放入队列，然后在线程创建后启动这些任务，如果线程数量超过了最大数量超出数量的线程排队等候，等其它线程执行完毕，再从队列中取出任务来执行。他的主要特点为：线程复用；控制最大并发数；管理线程。 #线程复用 每一个 Thread 的类都有一个 start 方法。 当调用 start 启动线程时 Java 虚拟机会调用该类的 run 方法。 那么该类的 run() 方法中就是调用了 Runnable 对象的 run() 方法。 我们可以继承重写 Thread类，在其 start 方法中添加不断循环调用传递过来的 Runnable 对象。 这就是线程池的实现原理。循环方法中不断获取 Runnable 是用 Queue 实现的，在获取下一个 Runnable 之前可以是阻塞的。线程池的组成一般的线程池主要分为以下 4 个组成部分： 1. 线程池管理器：用于创建并管理线程池 2. 工作线程：线程池中的线程 3. 任务接口：每个任务必须实现的接口，用于工作线程调度其运行 4. 任务队列：用于存放待处理的任务，提供一种缓冲机制 Java 中的线程池是通过 Executor 框架实现的，该框架中用到了 Executor，Executors，ExecutorService，ThreadPoolExecutor ，Callable 和 Future、FutureTask 这几个类。 #Java线程池工作过程 1 线程池刚创建时，里面没有一个线程。任务队列是作为参数传进来的。不过，就算队列里面有任务，线程池也不会马上执行它们。 当调用 execute() 方法添加一个任务时，线程池会做如下判断： a) 如果正在运行的线程数量小于 corePoolSize，那么马上创建线程运行这个任务； b) 如果正在运行的线程数量大于或等于 corePoolSize，那么将这个任务放入队列； c) 如果这时候队列满了，而且正在运行的线程数量小于 maximumPoolSize，那么还是要创建非核心线程立刻运行这个任务； d) 如果队列满了，而且正在运行的线程数量大于或等于 maximumPoolSize，那么线程池会抛出异常 RejectExecutionException。 2 当一个线程完成任务时，它会从队列中取下一个任务来执行。 3当一个线程无事可做，超过一定的时间（keepAliveTime）时，线程池会判断，如果当前运行的线程数大于 corePoolSize，那么这个线程就被停掉。所以线程池的所有任务完成后，它最终会收缩到 corePoolSize 的大小。 #线程池的优点 1、线程是稀缺资源，使用线程池可以减少创建和销毁线程的次数，每个工作线程都可以重复使用。 2、可以根据系统的承受能力，调整线程池中工作线程的数量，防止因为消耗过多内存导致服务器崩溃。 #线程池的创建 ```java /** * corePoolSize：线程池核心线程数量 * maximumPoolSize:线程池最大线程数量 * keepAliverTime：当活跃线程数大于核心线程数时，空闲的多余线程最大存活时间 * unit：存活时间的单位 * workQueue：存放任务的队列 * handler：超出线程范围和队列容量的任务的处理程序 */ public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, RejectedExecutionHandler handler) ``` #线程池的实现原理 提交一个任务到线程池中，线程池的处理流程如下： 1、判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。 2、线程池判断工作队列是否已满，如果工作队列没有满，则将新提交的任务存储在这个工作队列里。如果工作队列满了，则进入下个流程。 3、判断线程池里的线程是否都处于工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务。 #RejetedExecutionHandler：饱和策略 当队列和线程池都满了，说明线程池处于饱和状态，那么必须对新提交的任务采用一种特殊的策略来进行处理。这个策略默认配置是AbortPolicy，表示无法处理新的任务而抛出异常。 JAVA提供了4中策略： 1、AbortPolicy：直接抛出异常 2、CallerRunsPolicy：只用调用所在的线程运行任务 3、DiscardOldestPolicy：丢弃队列里最近的一个任务，并执行当前任务。 4、DiscardPolicy：不处理，丢弃掉。 #创建线程池的几种方式: ThreadPoolExecutor、ThreadScheduledExecutor、ForkJoinPool #Callable、Future、FutureTash详解 三者之间的关系： Callable是Runnable封装的异步运算任务。 Future用来保存Callable异步运算的结果 FutureTask封装Future的实体类 #Callable与Runnbale的区别 a、Callable定义的方法是call，而Runnable定义的方法是run。 b、call方法有返回值，而run方法是没有返回值的。 c、call方法可以抛出异常，而run方法不能抛出异常。 #Future Future表示异步计算的结果，提供了以下方法，主要是判断任务是否完成、中断任务、获取任务执行结果 #FutureTask 可取消的异步计算，此类提供了对Future的基本实现，仅在计算完成时才能获取结果，如果计算尚未完 成，则阻塞get方法 #常用的线程池模式以及不同线程池的使用场景 一.线程池 关于为什么要使用线程池久不赘述了，首先看一下java中作为线程池Executor底层实现类的ThredPoolExecutor的构造函数 ```java public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) { ...} ``` 其中各个参数含义如下： *corePoolSize*- 池中所保存的线程数，包括空闲线程。需要注意的是在初创建线程池时线程不会立即启动，直到有任务提交才开始启动线程并逐渐时线程数目达到corePoolSize。若想一开始就创建所有核心线程需调用prestartAllCoreThreads方法。 *maximumPoolSize*-池中允许的最大线程数。需要注意的是当核心线程满且阻塞队列也满时才会判断当前线程数是否小于最大线程数，并决定是否创建新线程。 *keepAliveTime* - 当线程数大于核心时，多于的空闲线程最多存活时间 *unit* - keepAliveTime 参数的时间单位。 *workQueue* - 当线程数目超过核心线程数时用于保存任务的队列。主要有3种类型的BlockingQueue可供选择 无界队列，有界队列和同步移交。将在下文中详细阐述。从参数中可以看到，此队列仅保存实现Runnable接口的任务。 threadFactory - 执行程序创建新线程时使用的工厂。 handler - 阻塞队列已满且线程数达到最大值时所采取的饱和策略。java默认提供了4种饱和策略的实现方式：中止、抛弃、抛弃最旧的、调用者运行。将在下文中详细阐述。 #可选择的阻塞队列BlockingQueue详解 首先看一下新任务进入时线程池的执行策略： 如果运行的线程少于corePoolSize，则 Executor始终首选添加新的线程，而不进行排队。（如果当前运行的线程小于corePoolSize，则任务根本不会存入queue中，而是直接运行） 如果运行的线程大于等于 corePoolSize，则 Executor始终首选将请求加入队列，而不添加新的线程。 如果无法将请求加入队列，则创建新的线程，除非创建此线程超出 maximumPoolSize，在这种情况下，任务将被拒绝。 主要有3种类型的BlockingQueue： #无界队列 队列大小无限制，常用的为无界的LinkedBlockingQueue，使用该队列做为阻塞队列时要尤其当心，当任务耗时较长时可能会导致大量新任务在队列中堆积最终导致OOM。 #有界队列 常用的有两类，一类是遵循FIFO原则的队列如ArrayBlockingQueue与有界的LinkedBlockingQueue， 另一类是优先级队列如PriorityBlockingQueue。PriorityBlockingQueue中的优先级由任务的Comparator决定。 使用有界队列时队列大小需和线程池大小互相配合，线程池较小有界队列较大时可减少内存消耗，降低cpu使用率和上下文切换，但是可能会限制系统吞吐量。 #同步移交 如果不希望任务在队列中等待而是希望将任务直接移交给工作线程，可使用SynchronousQueue作为等待队列。SynchronousQueue不是一个真正的队列，而是一种线程之间移交的机制。要将一个元素放入SynchronousQueue中，必须有另一个线程正在等待接收这个元素。只有在使用无界线程池或者有饱和策略时才建议使用该队列。 #可选择的饱和策略RejectedExecutionHandler详解 JDK主要提供了4种饱和策略供选择。4种策略都做为静态内部类在ThreadPoolExcutor中进行实现。 #AbortPolicy中止策略 该策略是默认饱和策略使用该策略时在饱和时会抛出RejectedExecutionException(继承自RuntimeException),调用者可捕获该异常自行处理。 #DiscardPolicy抛弃策略 不做任何处理直接抛弃任务 #DiscardOldestPolicy抛弃旧任务策略 先将阻塞队列中的头元素出队抛弃,再尝试提交任务。如果此时阻塞队列使用PriorityBlockingQueue优先级队列,将会导致优先级最高的任务被抛弃,因此不建议将该种策略配合优 先级队列使用。 #CallerRunsPolicy调用者运行 既不抛弃任务也不抛出异常，直接运行任务的run方法，换言之将任务回退给调用者来直接运行。使用该策略时线程池饱和后将由调用线程池的主线程自己来执行任务，因此在执行任务的这段时间里主线程无法再提交新任务，从而使线程池中工作线程有时间将正在处理的任务处理完成。 #创建线程池有哪几个核心参数？如何合理配置线程池的大小？ 1）核心参数 ``` public ThreadPoolExecutor(int corePoolSize, // 核心线程数量大小 int maximumPoolSize, // 线程池最大容纳线程数 long keepAliveTime, // 线程空闲后的存活时长 TimeUnit unit, //缓存异步任务的队列 //用来构造线程池里的worker线程 BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, //线程池任务满载后采取的任务拒绝策略 RejectedExecutionHanlder handler) ``` 2) 核心说明 1. 当线程池中线程数量小于 corePoolSize 则创建线程，并处理请求。 2. 当线程池中线程数量大于等于 corePoolSize 时，则把请求放入 workQueue 中,随着线程池 中的核心线程们不断执行任务，只要线程池中有空闲的核心线程，线程池就从 workQueue 中取 任务并处理。 3. 当 workQueue 已存满，放不下新任务时则新建非核心线程入池，并处理请求直到线程数目 达到maximumPoolSize（最大线程数量设置值）。 4. 如果线程池中线程数大于 maximumPoolSize 则使用RejectedExecutionHandler 来进行任 务拒绝处理。 3)线程池大小分配 线程池究竟设置多大要看你的线程池执行的什么任务了，CPU密集型、IO密集型、混合型,任务类型不同，设置的方式也不一样。 任务一般分为：CPU密集型、IO密集型、混合型，对于不同类型的任务需要分配不同大小的线 程池。 3.1）CPU密集型 尽量使用较小的线程池，一般Cpu核心数+1 3.2）IO密集型 方法一：可以使用较大的线程池，一般CPU核心数 * 2 方法二：（线程等待时间与线程CPU时间之比 + 1）* CPU数目 3.3）混合型 可以将任务分为CPU密集型和IO密集型，然后分别使用不同的线程池去处理，按情况而定 #关于线程池的执行原则及配置参数详解 在软件开发中，池一直都是一种非常优秀的设计思想，通过建立池可以有效的利用系统资源，节约系统性能。Java 中的线程池就是一种非常好的实现，从 JDK 1.5 开始 Java 提供了一个线程工厂 Executors 用来生成线程池，通过 Executors 可以方便的生成不同类型的线程池。但是要更好的理解使用线程池，就需要了解线程池的配置参数意义以及线程池的具体工作机制。 下面先介绍一下线程池的好处以及创建方式，接着会着重介绍关于线程池的执行原则以及构造方法的参数详解。 #线程池的好处 降低资源消耗。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。 提高响应速度。当任务到达时，任务可以不需要等到线程创建就能立即执行。 提高线程的可管理性。线程是稀缺资源，如果无限制的创建，不仅会消耗系统资源，还会降低系统的稳定性，使用线程池可以进行统一的分配，调优和监控。 #创建线程池 ``` //参数初始化 private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors(); //核心线程数量大小 private static final int corePoolsize = Math.max(2, Math.min(CPU_COUNT - 1, 4)); //线程池最大容纳线程数 private static final int maximumPoolsize = CFU_COUNT * 2 + 1; //线程空闲后的存活时长 private static final int keepAliveTime = 30; //任务过多后,存储任务的一个阻塞队列 BlockingQueue<Runnable> workqueue = new SynckhronousQueue<> //线程的创建工厂 ThreadFactory threadFactory = new ThreadFactory() { private final AtomicInteger mCount = new Atomnicinteger(1); public Thread newThread(Runnable r) { return new Thread(r, \"AdvacnedAsyncTask #\" + mCountgetAndIncrement } //线程池任务满载后来取的任务拒绝策略 RejectedExecutionHandler rejectHandler = new ThreadPoolExecutor.DiscardoldestPolicy(); //线程池对象,创建线程 ThreadPoolExecutor mExecute = new ThreadPooleExecutor \"corePoolSize,\" \"maximumPoolSize,\" \"keepAliveTime,\" TimeUnit.SECONDS, \"workQueue,\" \"threadFactory,\" rejectHandler); ``` #具体参数介绍 corePoolSize 线程池的核心线程数。在没有设置 allowCoreThreadTimeOut 为 true 的情况下，核心线程会在线程池中一直存活，即使处于闲置状态。 maximumPoolSize 线程池所能容纳的最大线程数。当活动线程(核心线程+非核心线程)达到这个数值后，后续任务将会根据 RejectedExecutionHandler 来进行拒绝策略处理。 keepAliveTime 非核心线程 闲置时的超时时长。超过该时长，非核心线程就会被回收。若线程池通设置核心线程也允许 timeOut，即 allowCoreThreadTimeOut 为 true，则该时长同样会作用于核心线程，在超过aliveTime 时，核心线程也会被回收，AsyncTask 配置的线程池就是这样设置的。 unit keepAliveTime 时长对应的单位。 workQueue 线程池中的任务队列，通过线程池的 execute() 方法提交的 Runnable 对象会存储在该队列中。 ThreadFactory 线程工厂，功能很简单，就是为线程池提供创建新线程的功能。这是一个接口，可以通过自定义， 做一些自定义线程名的操作。 RejectedExecutionHandler 当任务无法被执行时(超过线程最大容量 maximum 并且 workQueue 已经被排满了)的处理策略， 这里有四种任务拒绝类型。 #线程池工作原则 1、当线程池中线程数量小于 corePoolSize 则创建线程，并处理请求。 2、当线程池中线程数量大于等于 corePoolSize 时，则把请求放入 workQueue 中,随着线程池中的核心线程们不断执行任务，只要线程池中有空闲的核心线程，线程池就从 workQueue 中取任务并处理。 3 、当 workQueue 已存满，放不下新任务时则新建非核心线程入池，并处理请求直到线程数目达到 maximumPoolSize（最大线程数量设置值）。 4、如果线程池中线程数大于 maximumPoolSize 则使用 RejectedExecutionHandler 来进行任务拒绝处理。 #任务队列 BlockingQueue 任务队列 workQueue 是用于存放不能被及时处理掉的任务的一个队列，它是 一个 BlockingQueue 类型。 关于 BlockingQueue，虽然它是 Queue 的子接口，但是它的主要作用并不是容器，而是作为线程同步的工具，他有一个特征，当生产者试图向 BlockingQueue 放入(put)元素，如果队列已满，则该线程被阻塞；当消费者试图从 BlockingQueue 取出(take)元素，如果队列已空，则该线程被阻塞。 #任务拒绝类型 ThreadPoolExecutor.AbortPolicy: 当线程池中的数量等于最大线程数时抛 java.util.concurrent.RejectedExecutionException 异常， 涉及到该异常的任务也不会被执行，线程池默认的拒绝策略就是该策略。 ThreadPoolExecutor.DiscardPolicy(): 当线程池中的数量等于最大线程数时,默默丢弃不能执行的新加任务，不报任何异常。 ThreadPoolExecutor.CallerRunsPolicy(): 当线程池中的数量等于最大线程数时，重试添加当前的任务；它会自动重复调用execute()方法。 ThreadPoolExecutor.DiscardOldestPolicy(): 当线程池中的数量等于最大线程数时,抛弃线程池中工作队列头部的任务(即等待时间最久的任务)，并执行新传入的任务 #java线程池如何合理的设置大小 线程池究竟设置多大要看你的线程池执行的什么任务了,CPU密集型、10密集型、混合型,任务类型不同,设置的方式也不一样 任务一般分为:CPU密集型、10密集型、混合型,对于不同类型的任务需要分配不同大小的线程池 1、CPU密集型 尽量使用较小的线程池,一般Cpu核心数+1 因为CPU密集型任务CPU的使用率很高,若开过多的线程,只能增加线程上下文的切换次数,带来额外的开销 2、10密集型 方法-:可以使用较大的线程池,一般CPU核心数*2 10密集型CPU使用率不高,可以让CPU等待IO的时候处理别的任务,充分利用cpu时间 方法二:线程等待时间所占比例越高,需要越多线程。线程CPU时间所占比例越高,需要越少线程。 下面举个例子: 比如平均每个线程CPU运行时间为0.5s,而线程等待时间(非CPU运行时间,比如IO)为1.5s,CPU核心数为8,那么根据上面这个公式估算得到:((0.5+1.5)/0.5)*8=32。这个公式进一步转化为:最佳线程数目=(线程等待时间与线程CPU时间之比+1)*CPU数目 3、混合型 可以将任务分为CPU密集型和IO密集型,然后分别使用不同的线程池去处理,按情况而定"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_1784597083135_287nro",
+    "canonicalNodeId": "k_1784597083135_287nro"
   },
   "k_vault_javajava_vzjv8p": {
     "id": "k_vault_javajava_vzjv8p",
-    "label": "Java 多线程编程入门",
+    "label": "Java 多线程编程",
     "role": "concept",
     "dimensions": [
       "java"
@@ -144933,7 +144963,8 @@
       "Java 多线程编程入门",
       "java",
       "并发",
-      "多线程"
+      "多线程",
+      "Java 多线程编程"
     ],
     "card": {
       "nodeId": "k_vault_javajava_vzjv8p",
@@ -145277,7 +145308,7 @@
   },
   "k_vault_javajava_15bnft": {
     "id": "k_vault_javajava_15bnft",
-    "label": "Java 集合框架总览",
+    "label": "Java 集合框架",
     "role": "concept",
     "dimensions": [
       "java"
@@ -145286,7 +145317,8 @@
       "Java 集合框架总览",
       "java",
       "集合框架",
-      "java.util"
+      "java.util",
+      "Java 集合框架"
     ],
     "card": {
       "nodeId": "k_vault_javajava_15bnft",
@@ -145303,7 +145335,7 @@
   },
   "k_vault_javajava_ii523d": {
     "id": "k_vault_javajava_ii523d",
-    "label": "Java 数据结构基础",
+    "label": "Java 数据结构",
     "role": "concept",
     "dimensions": [
       "java"
@@ -145312,7 +145344,8 @@
       "Java 数据结构基础",
       "java",
       "集合框架",
-      "java.util"
+      "java.util",
+      "Java 数据结构"
     ],
     "card": {
       "nodeId": "k_vault_javajava_ii523d",
@@ -145351,7 +145384,10 @@
         }
       ],
       "rootContent": "ArrayList 详解 ArrayList 类是一个可以动态修改的数组，与普通数组的区别就是它是没有固定大小的限制，我们可以添加或删除元素。 ArrayList 继承了 AbstractList ，并实现了 List 接口。 ArrayList 类位于 java.util 包中，使用前需要引入它，语法格式如下： import java.util.ArrayList; // 引入 ArrayList 类 ArrayList< E> objectName =new ArrayList<>(); // 初始化 - **E**: 泛型数据类型，用于设置 objectName 的数据类型，**只能为引用数据类型**。 - **objectName**: 对象名。 ArrayList 是一个数组队列，提供了相关的添加、删除、修改、遍历等功能。 ### 添加元素 ArrayList 类提供了很多有用的方法，添加元素到 ArrayList 可以使用 add() 方法: ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); System.out.println(sites); } } 以上实例，执行输出结果为： [ Google, Runoob, Taobao, Weibo ] ### 访问元素 访问 ArrayList 中的元素可以使用 get() 方法： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); System.out.println(sites.get(1)); // 访问第二个元素 } } **注意**：数组的索引值从 0 开始。 以上实例，执行输出结果为： Runoob ### 修改元素 如果要修改 ArrayList 中的元素可以使用 set() 方法， set(int index, E element) 方法的第一个参数是索引（index），表示要替换的元素的位置，第二个参数是新元素（element），表示要设置的新值： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); sites.set(2, \"Wiki\"); // 第一个参数为索引位置，第二个为要修改的值 System.out.println(sites); } } 以上实例，执行输出结果为： [Google, Runoob, Wiki, Weibo] ### 删除元素 如果要删除 ArrayList 中的元素可以使用 remove() 方法： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); sites.remove(3); // 删除第四个元素 System.out.println(sites); } } 以上实例，执行输出结果为： [Google, Runoob, Taobao] ### 计算大小 如果要计算 ArrayList 中的元素数量可以使用 size() 方法： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); System.out.println(sites.size()); } } 以上实例，执行输出结果为： 4 ### 迭代数组列表 我们可以使用 for 来迭代数组列表中的元素： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); for (int i = 0; i < sites.size(); i++) { System.out.println(sites.get(i)); } } } 以上实例，执行输出结果为： Google Runoob Taobao Weibo 也可以使用 for-each 来迭代元素： ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); for (String i : sites) { System.out.println(i); } } } 以上实例，执行输出结果为： Google Runoob Taobao Weibo ### 其他的引用类型 ArrayList 中的元素实际上是对象，在以上实例中，数组列表元素都是字符串 String 类型。 如果我们要存储其他类型，而 < E> 只能为引用数据类型，这时我们就需要使用到基本类型的包装类。 基本类型对应的包装类表如下： | 基本类型 | 引用类型 | | ------- | --------- | | boolean | Boolean | | byte | Byte | | short | Short | | int | Integer | | long | Long | | float | Float | | double | Double | | char | Character | 此外，BigInteger、BigDecimal 用于高精度的运算，BigInteger 支持任意精度的整数，也是引用类型，但它们没有相对应的基本类型。 ArrayList< Integer> li=new ArrayList<>(); // 存放整数元素 ArrayList< Character> li=new ArrayList<>(); // 存放字符元素 以下实例使用 ArrayList 存储数字(使用 Integer 类型): ## 实例 import java.util.ArrayList; public class RunoobTest { public static void main(String[] args) { ArrayList< Integer> myNumbers = new ArrayList< Integer>(); myNumbers.add(10); myNumbers.add(15); myNumbers.add(20); myNumbers.add(25); for (int i : myNumbers) { System.out.println(i); } } } 以上实例，执行输出结果为： 10 15 20 25 ### ArrayList 排序 Collections 类也是一个非常有用的类，位于 java.util 包中，提供的 sort() 方法可以对字符或数字列表进行排序。 以下实例对字母进行排序： ## 实例 import java.util.ArrayList; import java.util.Collections; // 引入 Collections 类 public class RunoobTest { public static void main(String[] args) { ArrayList< String> sites = new ArrayList< String>(); sites.add(\"Taobao\"); sites.add(\"Wiki\"); sites.add(\"Runoob\"); sites.add(\"Weibo\"); sites.add(\"Google\"); Collections.sort(sites); // 字母排序 for (String i : sites) { System.out.println(i); } } } 以上实例，执行输出结果为： Google Runoob Taobao Weibo Wiki 以下实例对数字进行排序： ## 实例 import java.util.ArrayList; import java.util.Collections; // 引入 Collections 类 public class RunoobTest { public static void main(String[] args) { ArrayList< Integer> myNumbers = new ArrayList< Integer>(); myNumbers.add(33); myNumbers.add(15); myNumbers.add(20); myNumbers.add(34); myNumbers.add(8); myNumbers.add(12); Collections.sort(myNumbers); // 数字排序 for (int i : myNumbers) { System.out.println(i); } } } 以上实例，执行输出结果为： 8 12 15 20 33 34 --- ## Java ArrayList 方法 Java ArrayList 常用方法列表如下： | 方法 | 描述 | | -------------------------------------------------------------------------------- | ---------------------------- | | [add()](https://www.runoob.com/java/java-arraylist-add.html) | 将元素插入到指定位置的 arraylist 中 | | [addAll()](https://www.runoob.com/java/java-arraylist-addall.html) | 添加集合中的所有元素到 arraylist 中 | | [clear()](https://www.runoob.com/java/java-arraylist-clear.html) | 删除 arraylist 中的所有元素 | | [clone()](https://www.runoob.com/java/java-arraylist-clone.html) | 复制一份 arraylist | | [contains()](https://www.runoob.com/java/java-arraylist-contains.html) | 判断元素是否在 arraylist | | [get()](https://www.runoob.com/java/java-arraylist-get.html) | 通过索引值获取 arraylist 中的元素 | | [indexOf()](https://www.runoob.com/java/java-arraylist-indexof.html) | 返回 arraylist 中元素的索引值 | | [removeAll()](https://www.runoob.com/java/java-arraylist-removeall.html) | 删除存在于指定集合中的 arraylist 里的所有元素 | | [remove()](https://www.runoob.com/java/java-arraylist-remove.html) | 删除 arraylist 里的单个元素 | | [size()](https://www.runoob.com/java/java-arraylist-size.html) | 返回 arraylist 里元素数量 | | [isEmpty()](https://www.runoob.com/java/java-arraylist-isempty.html) | 判断 arraylist 是否为空 | | [subList()](https://www.runoob.com/java/java-arraylist-sublist.html) | 截取部分 arraylist 的元素 | | [set()](https://www.runoob.com/java/java-arraylist-set.html) | 替换 arraylist 中指定索引的元素 | | [sort()](https://www.runoob.com/java/java-arraylist-sort.html) | 对 arraylist 元素进行排序 | | [toArray()](https://www.runoob.com/java/java-arraylist-toarray.html) | 将 arraylist 转换为数组 | | [toString()](https://www.runoob.com/java/java-arraylist-tostring.html) | 将 arraylist 转换为字符串 | | [ensureCapacity](https://www.runoob.com/java/java-arraylist-surecapacity.html)() | 设置指定容量大小的 arraylist | | [lastIndexOf()](https://www.runoob.com/java/java-arraylist-lastindexof.html) | 返回指定元素在 arraylist 中最后一次出现的位置 | | [retainAll()](https://www.runoob.com/java/java-arraylist-retainall.html) | 保留 arraylist 中在指定集合中也存在的那些元素 | | [containsAll()](https://www.runoob.com/java/java-arraylist-containsall.html) | 查看 arraylist 是否包含指定集合中的所有元素 | | [trimToSize()](https://www.runoob.com/java/java-arraylist-trimtosize.html) | 将 arraylist 中的容量调整为数组中的元素个数 | | [removeRange()](https://www.runoob.com/java/java-arraylist-removerange.html) | 删除 arraylist 中指定索引之间存在的元素 | | [replaceAll()](https://www.runoob.com/java/java-arraylist-replaceall.html) | 将给定的操作内容替换掉数组中每一个元素 | | [removeIf()](https://www.runoob.com/java/java-arraylist-removeif.html) | 删除所有满足特定条件的 arraylist 元素 | | [forEach()](https://www.runoob.com/java/java-arraylist-foreach.html) | 遍历 arraylist 中每一个元素并执行特定操作 | 更多 API 方法可以查看：[https://www.runoob.com/manual/jdk11api/java.base/java/util/ArrayList.html](https://www.runoob.com/manual/jdk11api/java.base/java/util/ArrayList.html)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_demo_java_array_list",
+    "canonicalNodeId": "k_demo_java_array_list"
   },
   "k_vault_javajavalinkedlist_1uc0ii": {
     "id": "k_vault_javajavalinkedlist_1uc0ii",
@@ -145377,7 +145413,10 @@
         }
       ],
       "rootContent": "LinkedList 详解 链表（Linked list）是一种常见的基础数据结构，是一种线性表，但是并不会按线性的顺序存储数据，而是在每一个节点里存到下一个节点的地址。 链表可分为单向链表和双向链表。 一个单向链表包含两个值: 当前节点的值和一个指向下一个节点的链接。 一个双向链表有三个整数值: 数值、向后的节点链接、向前的节点链接。 Java LinkedList（链表） 类似于 ArrayList，是一种常用的数据容器。 与 ArrayList 相比，LinkedList 的增加和删除的操作效率更高，而查找和修改的操作效率较低。 **以下情况使用 ArrayList :** - 频繁访问列表中的某一个元素。 - 只需要在列表末尾进行添加和删除元素操作。 **以下情况使用 LinkedList :** - 你需要通过循环迭代来访问列表中的某些元素。 - 需要频繁的在列表开头、中间、末尾等位置进行添加和删除元素操作。 LinkedList 继承了 AbstractSequentialList 类。 LinkedList 实现了 Queue 接口，可作为队列使用。 LinkedList 实现了 List 接口，可进行列表的相关操作。 LinkedList 实现了 Deque 接口，可作为队列使用。 LinkedList 实现了 Cloneable 接口，可实现克隆。 LinkedList 实现了 java.io.Serializable 接口，即可支持序列化，能通过序列化去传输。 LinkedList 类位于 java.util 包中，使用前需要引入它，语法格式如下： // 引入 LinkedList 类 import java.util.LinkedList; LinkedList< E> list = new LinkedList< E>(); // 普通创建方法 或者 LinkedList< E> list = new LinkedList(Collection< ? extends E> c); // 使用集合创建链表 创建一个简单的链表实例： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); System.out.println(sites); } } 以上实例，执行输出结果为： [Google, Runoob, Taobao, Weibo] 更多的情况下我们使用 ArrayList 访问列表中的随机元素更加高效，但以下几种情况 LinkedList 提供了更高效的方法。 # 在列表开头添加元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); // 使用 addFirst() 在头部添加元素 sites.addFirst(\"Wiki\"); System.out.println(sites); } } 以上实例，执行输出结果为： [Wiki, Google, Runoob, Taobao] # 在列表结尾添加元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); // 使用 addLast() 在尾部添加元素 sites.addLast(\"Wiki\"); System.out.println(sites); } } 以上实例，执行输出结果为： [Google, Runoob, Taobao, Wiki] # 在列表开头移除元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); // 使用 removeFirst() 移除头部元素 sites.removeFirst(); System.out.println(sites); } } 以上实例，执行输出结果为： [Runoob, Taobao, Weibo] # 在列表结尾移除元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); // 使用 removeLast() 移除尾部元素 sites.removeLast(); System.out.println(sites); } } 以上实例，执行输出结果为： [Google, Runoob, Taobao] # 获取列表开头的元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); // 使用 getFirst() 获取头部元素 System.out.println(sites.getFirst()); } } 以上实例，执行输出结果为： Google # 获取列表结尾的元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); // 使用 getLast() 获取尾部元素 System.out.println(sites.getLast()); } } 以上实例，执行输出结果为： Weibo ### 迭代元素 我们可以使用 for 配合 size() 方法来迭代列表中的元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); for (int size = sites.size(), i = 0; i < size; i++) { System.out.println(sites.get(i)); } } } # size() 方法用于计算链表的大小。 以上实例，执行输出结果为： Google Runoob Taobao Weibo # 也可以使用 for-each 来迭代元素： ## 实例 // 引入 LinkedList 类 import java.util.LinkedList; public class RunoobTest { public static void main(String[] args) { LinkedList< String> sites = new LinkedList< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Weibo\"); for (String i : sites) { System.out.println(i); } } } 以上实例，执行输出结果为： Google Runoob Taobao Weibo ### 常用方法 | 方法 | 描述 | | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------- | | [public boolean add(E e)](https://www.runoob.com/java/java-linkedlist-add.html) | 链表末尾添加元素，返回是否成功，成功为 true，失败为 false。 | | [public void add(int index, E element)](https://www.runoob.com/java/java-linkedlist-addall.html) | 向指定位置插入元素。 | | [public boolean addAll(Collection c)](https://www.runoob.com/java/java-linkedlist-addall.html) | 将一个集合的所有元素添加到链表后面，返回是否成功，成功为 true，失败为 false。 | | [public boolean addAll(int index, Collection c)](https://www.runoob.com/java/java-linkedlist-addall.html) | 将一个集合的所有元素添加到链表的指定位置后面，返回是否成功，成功为 true，失败为 false。 | | [public void addFirst(E e)](https://www.runoob.com/java/java-linkedlist-addfirst.html) | 元素添加到头部。 | | [public void addLast(E e)](https://www.runoob.com/java/java-linkedlist-addlast.html) | 元素添加到尾部。 | | [public boolean offer(E e)](https://www.runoob.com/java/java-linkedlist-offer.html) | 向链表末尾添加元素，返回是否成功，成功为 true，失败为 false。 | | [public boolean offerFirst(E e)](https://www.runoob.com/java/java-linkedlist-offerfirst.html) | 头部插入元素，返回是否成功，成功为 true，失败为 false。 | | [public boolean offerLast(E e)](https://www.runoob.com/java/java-linkedlist-offerlast.html) | 尾部插入元素，返回是否成功，成功为 true，失败为 false。 | | [public void clear()](https://www.runoob.com/java/java-linkedlist-clear.html) | 清空链表。 | | [public E removeFirst()](https://www.runoob.com/java/java-linkedlist-removefirst.html) | 删除并返回第一个元素。 | | [public E removeLast()](https://www.runoob.com/java/java-linkedlist-removelast.html) | 删除并返回最后一个元素。 | | [public boolean remove(Object o)](https://www.runoob.com/java/java-linkedlist-remove.html) | 删除某一元素，返回是否成功，成功为 true，失败为 false。 | | [public E remove(int index)](https://www.runoob.com/java/java-linkedlist-remove.html) | 删除指定位置的元素。 | | [public E poll()](https://www.runoob.com/java/java-linkedlist-poll.html) | 删除并返回第一个元素。 | | [public E remove()](https://www.runoob.com/java/java-linkedlist-remove.html) | 删除并返回第一个元素。 | | [public boolean contains(Object o)<](https://www.runoob.com/java/java-linkedlist-contains.html)/td> | 判断是否含有某一元素。 | | [public E get(int index)](https://www.runoob.com/java/java-linkedlist-get.html) | 返回指定位置的元素。 | | [public E getFirst()](https://www.runoob.com/java/java-linkedlist-getfirst.html) | 返回第一个元素。 | | [public E getLast()](https://www.runoob.com/java/java-linkedlist-getlast.html) | 返回最后一个元素。 | | [public int indexOf(Object o)](https://www.runoob.com/java/java-linkedlist-indexof.html) | 查找指定元素从前往后第一次出现的索引。 | | [public int lastIndexOf(Object o)](https://www.runoob.com/java/java-linkedlist-lastindexof.html) | 查找指定元素最后一次出现的索引。 | | [public E peek()](https://www.runoob.com/java/java-linkedlist-peek.html) | 返回第一个元素。 | | [public E element()](https://www.runoob.com/java/java-linkedlist-element.html) | 返回第一个元素。 | | [public E peekFirst()](https://www.runoob.com/java/java-linkedlist-peekfirst.html) | 返回头部元素。 | | [public E peekLast()](https://www.runoob.com/java/java-linkedlist-peeklast.html) | 返回尾部元素。 | | [public E set(int index, E element)](https://www.runoob.com/java/java-linkedlist-set.html) | 设置指定位置的元素。 | | [public Object clone()](https://www.runoob.com/java/java-linkedlist-clone.html) | 克隆该列表。 | | [public Iterator descendingIterator()](https://www.runoob.com/java/java-linkedlist-descendingiterator.html) | 返回倒序迭代器。 | | [public int size()](https://www.runoob.com/java/java-linkedlist-size.html) | 返回链表元素个数。 | | [public ListIterator listIterator(int index)](https://www.runoob.com/java/java-linkedlist-listiterator.html) | 返回从指定位置开始到末尾的迭代器。 | | [public Object[] toArray()](https://www.runoob.com/java/java-linkedlist-toarray.html) | 返回一个由链表元素组成的数组。 | | [public T[] toArray(T[] a)](https://www.runoob.com/java/java-linkedlist-toarray.html) | 返回一个由链表元素转换类型而成的数组。 | 更多 API 方法可以查看：[https://www.runoob.com/manual/jdk11api/java.base/java/util/LinkedList.html](https://www.runoob.com/manual/jdk11api/java.base/java/util/LinkedList.html)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_1785683698024_f962oj",
+    "canonicalNodeId": "k_1785683698024_f962oj"
   },
   "k_vault_javajavahashmap_14a6f2": {
     "id": "k_vault_javajavahashmap_14a6f2",
@@ -145403,7 +145442,10 @@
         }
       ],
       "rootContent": "HashMap 详解 HashMap 是一个散列表，它存储的内容是键值对(key-value)映射。 HashMap 实现了 Map 接口，根据键的 HashCode 值存储数据，具有很快的访问速度，最多允许一条记录的键为 null，不支持线程同步。 HashMap 是无序的，即不会记录插入的顺序。 HashMap 继承于AbstractMap，实现了 Map、Cloneable、java.io.Serializable 接口。 HashMap 的 key 与 value 类型可以相同也可以不同，可以是字符串（String）类型的 key 和 value，也可以是整型（Integer）的 key 和字符串（String）类型的 value。 HashMap 中的元素实际上是对象，一些常见的基本类型可以使用它的包装类。 基本类型对应的包装类表如下： | 基本类型 | 引用类型 | | ------- | --------- | | boolean | Boolean | | byte | Byte | | short | Short | | int | Integer | | long | Long | | float | Float | | double | Double | | char | Character | HashMap 类位于 java.util 包中，使用前需要引入它，语法格式如下： import java.util.HashMap; // 引入 HashMap 类 以下实例我们创建一个 HashMap 对象 Sites， 整型（Integer）的 key 和字符串（String）类型的 value： HashMap<Integer, String> Sites = new HashMap<Integer, String>(); ### 添加元素 HashMap 类提供了很多有用的方法，添加键值对(key-value)可以使用 put() 方法: ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); System.out.println(Sites); } } 执行以上代码，输出结果如下： {1=Google, 2=Runoob, 3=Taobao, 4=Zhihu} 以下实例创建一个字符串（String）类型的 key 和字符串（String）类型的 value： ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<String, String> Sites = new HashMap<String, String>(); // 添加键值对 Sites.put(\"one\", \"Google\"); Sites.put(\"two\", \"Runoob\"); Sites.put(\"three\", \"Taobao\"); Sites.put(\"four\", \"Zhihu\"); System.out.println(Sites); } } 执行以上代码，输出结果如下： {four=Zhihu, one=Google, two=Runoob, three=Taobao} ### 访问元素 我们可以使用 get(key) 方法来获取 key 对应的 value: ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); System.out.println(Sites.get(3)); } } 执行以上代码，输出结果如下： Taobao ### 删除元素 我们可以使用 remove(key) 方法来删除 key 对应的键值对(key-value): ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); Sites.remove(4); System.out.println(Sites); } } 执行以上代码，输出结果如下： {1=Google, 2=Runoob, 3=Taobao} # 删除所有键值对(key-value)可以使用 clear 方法： ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); Sites.clear(); System.out.println(Sites); } } 执行以上代码，输出结果如下： {} ### 计算大小 如果要计算 HashMap 中的元素数量可以使用 size() 方法： ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); System.out.println(Sites.size()); } } 执行以上代码，输出结果如下： 4 ### 迭代 HashMap 可以使用 for-each 来迭代 HashMap 中的元素。 如果你只想获取 key，可以使用 keySet() 方法，然后可以通过 get(key) 获取对应的 value，如果你只想获取 value，可以使用 values() 方法。 ## 实例 // 引入 HashMap 类 import java.util.HashMap; public class RunoobTest { public static void main(String[] args) { // 创建 HashMap 对象 Sites HashMap<Integer, String> Sites = new HashMap<Integer, String>(); // 添加键值对 Sites.put(1, \"Google\"); Sites.put(2, \"Runoob\"); Sites.put(3, \"Taobao\"); Sites.put(4, \"Zhihu\"); // 输出 key 和 value for (Integer i : Sites.keySet()) { System.out.println(\"key: \" + i + \" value: \" + Sites.get(i)); } // 返回所有 value 值 for(String value: Sites.values()) { // 输出每一个value System.out.print(value + \", \"); } } } 执行以上代码，输出结果如下： key: 1 value: Google key: 2 value: Runoob key: 3 value: Taobao key: 4 value: Zhihu Google, Runoob, Taobao, Zhihu, --- ## Java HashMap 方法 Java HashMap 常用方法列表如下： | 方法 | 描述 | | ------------------------------------------------------------------------------------ | ----------------------------------------------------- | | [clear()](https://www.runoob.com/java/java-hashmap-clear.html) | 删除 hashMap 中的所有键/值对 | | [clone()](https://www.runoob.com/java/java-hashmap-clone.html) | 复制一份 hashMap | | [isEmpty()](https://www.runoob.com/java/java-hashmap-isempty.html) | 判断 hashMap 是否为空 | | [size()](https://www.runoob.com/java/java-hashmap-size.html) | 计算 hashMap 中键/值对的数量 | | [put()](https://www.runoob.com/java/java-hashmap-put.html) | 将键/值对添加到 hashMap 中 | | [putAll()](https://www.runoob.com/java/java-hashmap-putall.html) | 将所有键/值对添加到 hashMap 中 | | [putIfAbsent()](https://www.runoob.com/java/java-hashmap-putifabsent.html) | 如果 hashMap 中不存在指定的键，则将指定的键/值对插入到 hashMap 中。 | | [remove()](https://www.runoob.com/java/java-hashmap-remove.html) | 删除 hashMap 中指定键 key 的映射关系 | | [containsKey()](https://www.runoob.com/java/java-hashmap-containskey.html) | 检查 hashMap 中是否存在指定的 key 对应的映射关系。 | | [containsValue()](https://www.runoob.com/java/java-hashmap-containsvalue.html) | 检查 hashMap 中是否存在指定的 value 对应的映射关系。 | | [replace()](https://www.runoob.com/java/java-hashmap-replace.html) | 替换 hashMap 中是指定的 key 对应的 value。 | | [replaceAll()](https://www.runoob.com/java/java-hashmap-replaceall.html) | 将 hashMap 中的所有映射关系替换成给定的函数所执行的结果。 | | [get()](https://www.runoob.com/java/java-hashmap-get.html) | 获取指定 key 对应对 value | | [getOrDefault()](https://www.runoob.com/java/java-hashmap-getordefault.html) | 获取指定 key 对应对 value，如果找不到 key ，则返回设置的默认值 | | [forEach()](https://www.runoob.com/java/java-hashmap-foreach.html) | 对 hashMap 中的每个映射执行指定的操作。 | | [entrySet()](https://www.runoob.com/java/java-hashmap-entryset.html) | 返回 hashMap 中所有映射项的集合集合视图。 | | [keySet](https://www.runoob.com/java/java-hashmap-keyset.html)() | 返回 hashMap 中所有 key 组成的集合视图。 | | [values()](https://www.runoob.com/java/java-hashmap-values.html) | 返回 hashMap 中存在的所有 value 值。 | | [merge()](https://www.runoob.com/java/java-hashmap-merge.html) | 添加键值对到 hashMap 中 | | [compute()](https://www.runoob.com/java/java-hashmap-compute.html) | 对 hashMap 中指定 key 的值进行重新计算 | | [computeIfAbsent()](https://www.runoob.com/java/java-hashmap-computeifabsent.html) | 对 hashMap 中指定 key 的值进行重新计算，如果不存在这个 key，则添加到 hashMap 中 | | [computeIfPresent()](https://www.runoob.com/java/java-hashmap-computeifpresent.html) | 对 hashMap 中指定 key 的值进行重新计算，前提是该 key 存在于 hashMap 中。 |"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_1785463930010_invjhq",
+    "canonicalNodeId": "k_1785463930010_invjhq"
   },
   "k_vault_javajavahashset_176pvr": {
     "id": "k_vault_javajavahashset_176pvr",
@@ -145429,7 +145471,10 @@
         }
       ],
       "rootContent": "HashSet 详解 HashSet 基于 HashMap 来实现的，是一个不允许有重复元素的集合。 HashSet 允许有 null 值。 HashSet 是无序的，即不会记录插入的顺序。 HashSet 不是线程安全的， 如果多个线程尝试同时修改 HashSet，则最终结果是不确定的。 您必须在多线程访问时显式同步对 HashSet 的并发访问。 HashSet 实现了 Set 接口。 HashSet 中的元素实际上是对象，一些常见的基本类型可以使用它的包装类。 基本类型对应的包装类表如下： | 基本类型 | 引用类型 | | ------- | --------- | | boolean | Boolean | | byte | Byte | | short | Short | | int | Integer | | long | Long | | float | Float | | double | Double | | char | Character | HashSet 类位于 java.util 包中，使用前需要引入它，语法格式如下： import java.util.HashSet; // 引入 HashSet 类 以下实例我们创建一个 HashSet 对象 sites，用于保存字符串元素： HashSet< String> sites = new HashSet< String>(); ### 添加元素 HashSet 类提供了很多有用的方法，添加元素可以使用 add() 方法: ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 System.out.println(sites); } } 执行以上代码，输出结果如下： [Google, Runoob, Zhihu, Taobao] 在上面的实例中，Runoob 被添加了两次，它在集合中也只会出现一次，因为集合中的每个元素都必须是唯一的。 ### 判断元素是否存在 我们可以使用 contains() 方法来判断元素是否存在于集合当中: ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 System.out.println(sites.contains(\"Taobao\")); } } 执行以上代码，输出结果如下： true ### 删除元素 我们可以使用 remove() 方法来删除集合中的元素: ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 sites.remove(\"Taobao\"); // 删除元素，删除成功返回 true，否则为 false System.out.println(sites); } } 执行以上代码，输出结果如下： [Google, Runoob, Zhihu] 删除集合中所有元素可以使用 clear 方法： ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 sites.clear(); System.out.println(sites); } } 执行以上代码，输出结果如下： [] ### 计算大小 如果要计算 HashSet 中的元素数量可以使用 size() 方法： ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 System.out.println(sites.size()); } } 执行以上代码，输出结果如下： 4 ### 迭代 HashSet 可以使用 for-each 来迭代 HashSet 中的元素。 ## 实例 // 引入 HashSet 类 import java.util.HashSet; public class RunoobTest { public static void main(String[] args) { HashSet< String> sites = new HashSet< String>(); sites.add(\"Google\"); sites.add(\"Runoob\"); sites.add(\"Taobao\"); sites.add(\"Zhihu\"); sites.add(\"Runoob\"); // 重复的元素不会被添加 for (String i : sites) { System.out.println(i); } } } 执行以上代码，输出结果如下： Google Runoob Zhihu Taobao --- ## HashSet 常用方法 | **方法** | **返回值** | **说明** | **示例** | | ---------------------------------- | ------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------- | | add(E e) | `boolean` | 添加元素到集合，成功返回 `true`，重复元素返回 `false`。 | `set.add(\"Java\");` | | remove(Object o) | `boolean` | 删除指定元素，成功返回 `true`，元素不存在返回 `false`。 | `set.remove(\"Python\");` | | contains(Object o) | `boolean` | 检查集合是否包含指定元素。 | `if (set.contains(\"Java\")) { ... }` | | size() | `int` | 返回集合中的元素数量。 | `int count = set.size();` | | isEmpty() | `boolean` | 判断集合是否为空。 | `if (set.isEmpty()) { ... }` | | clear() | `void` | 清空集合中的所有元素。 | `set.clear();` | | iterator() | `Iterator<E>` | 返回集合的迭代器，用于遍历元素。 | `for (String s : set) { ... }` | | toArray() | `Object[]` | 将集合转换为数组。 | `Object[] arr = set.toArray();` | | toArray(T[] a) | `T[]` | 将集合转换为指定类型的数组。 | `String[] arr = set.toArray(new String[0]);` | | addAll(Collection< ? extends E> c) | `boolean` | 添加另一个集合的所有元素（并集操作）。 | `[set.addAll(Arrays.asList(\"A\", \"B\"));](https://www.runoob.com/java/java-hashset-addall.html)` | | retainAll(Collection< ?> c) | `boolean` | 仅保留与指定集合共有的元素（交集操作）。 | `set.retainAll(otherSet);` | | removeAll(Collection< ?> c) | `boolean` | 删除与指定集合共有的元素（差集操作）。 | `set.removeAll(otherSet);` | 更多 API 方法可以查看：[https://www.runoob.com/manual/jdk11api/java.base/java/util/HashSet.html](https://www.runoob.com/manual/jdk11api/java.base/java/util/HashSet.html)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_1785731277675_rog9oy",
+    "canonicalNodeId": "k_1785731277675_rog9oy"
   },
   "k_vault_javajava8stream_rcy19a": {
     "id": "k_vault_javajava8stream_rcy19a",
@@ -146474,7 +146519,7 @@
   },
   "k_vault_javamybatismybatis_14eqlq": {
     "id": "k_vault_javamybatismybatis_14eqlq",
-    "label": "MyBatis 定位总览",
+    "label": "MyBatis",
     "role": "concept",
     "dimensions": [
       "java"
@@ -146482,7 +146527,8 @@
     "tags": [
       "MyBatis 定位总览",
       "java",
-      "Mybatis"
+      "Mybatis",
+      "MyBatis"
     ],
     "card": {
       "nodeId": "k_vault_javamybatismybatis_14eqlq",
@@ -146832,7 +146878,10 @@
         }
       ],
       "rootContent": "Kafka 定位总览 > Kafka 不是传统意义上“只负责投递消息”的 MQ，它更像一个面向高吞吐、可持久化、可回放的分布式日志系统。\n\n## 知识主线\n\n1. [01-Kafka定位与消息模型.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Kafka\\01-Kafka定位与消息模型.md)\n2. [02-TopicPartition与Broker.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Kafka\\02-TopicPartition与Broker.md)\n3. [03-ProducerConsumer与消费组.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Kafka\\03-ProducerConsumer与消费组.md)\n4. [04-顺序吞吐与适用场景.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Kafka\\04-顺序吞吐与适用场景.md)\n\n## 从消息到日志系统\n\n```mermaid\nflowchart LR\n    A[Producer] --> B[Topic]\n    B --> C[Partition]\n    C --> D[Broker]\n    D --> E[Consumer Group]\n    E --> F[流处理 / 数据同步 / 异步解耦]\n```\n\n## 学习顺序\n\n先理解 Kafka 为什么强调日志和分区，再理解消费组、顺序性和吞吐之间的取舍，最后再看它适合哪些场景。\n\n## 关联入口\n\n- [00-Kafka知识地图.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Kafka\\00-Kafka知识地图.md)\n- [Java框架和中间件.md](C:\\Users\\Administrator\\Documents\\Obsidian Vault\\编程语言\\java\\Java框架和中间件\\Java框架和中间件.md)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_java_fw_kafka",
+    "canonicalNodeId": "k_java_fw_kafka"
   },
   "k_vault_javakafka04_1s6eok": {
     "id": "k_vault_javakafka04_1s6eok",
@@ -147017,7 +147066,10 @@
         }
       ],
       "rootContent": "Spring Cloud 定位总览 > Spring Cloud 不是单个框架，而是一组围绕“分布式系统工程封装”组织起来的组件集合。它把注册发现、配置、路由、容错、调用、消息总线这些跨服务基础能力统一成 Spring 生态下的工程层。\n\n\n## 从单体到分布式工程层\n\n```mermaid\nflowchart LR\n    A[单体应用] --> B[服务拆分]\n    B --> C[注册与发现]\n    C --> D[调用与负载均衡]\n    D --> E[容错与熔断]\n    E --> F[配置与网关]\n    F --> G[完整微服务治理]\n```\n\n"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "k_java_fw_springcloud",
+    "canonicalNodeId": "k_java_fw_springcloud"
   },
   "k_vault_javaspringcloud01springcloud_1gr4uj": {
     "id": "k_vault_javaspringcloud01springcloud_1gr4uj",
@@ -149261,11 +149313,12 @@
   },
   "container:chapter_db_01": {
     "id": "container:chapter_db_01",
-    "label": "一、数据库系统",
+    "label": "数据库系统",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "一、数据库系统"
+      "一、数据库系统",
+      "数据库系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_01",
@@ -149282,11 +149335,12 @@
   },
   "container:chapter_db_02": {
     "id": "container:chapter_db_02",
-    "label": "二、数据模型",
+    "label": "数据模型",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "二、数据模型"
+      "二、数据模型",
+      "数据模型"
     ],
     "card": {
       "nodeId": "container:chapter_db_02",
@@ -149303,11 +149357,12 @@
   },
   "container:chapter_db_03": {
     "id": "container:chapter_db_03",
-    "label": "三、数据库结构",
+    "label": "数据库结构",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "三、数据库结构"
+      "三、数据库结构",
+      "数据库结构"
     ],
     "card": {
       "nodeId": "container:chapter_db_03",
@@ -149324,11 +149379,12 @@
   },
   "container:chapter_db_05": {
     "id": "container:chapter_db_05",
-    "label": "五、数据库操作",
+    "label": "数据库操作",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "五、数据库操作"
+      "五、数据库操作",
+      "数据库操作"
     ],
     "card": {
       "nodeId": "container:chapter_db_05",
@@ -149389,11 +149445,12 @@
   },
   "container:chapter_db_08": {
     "id": "container:chapter_db_08",
-    "label": "八、恢复系统",
+    "label": "恢复系统",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "八、恢复系统"
+      "八、恢复系统",
+      "恢复系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_08",
@@ -149410,11 +149467,12 @@
   },
   "container:chapter_db_09": {
     "id": "container:chapter_db_09",
-    "label": "九、日志系统",
+    "label": "日志系统",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "九、日志系统"
+      "九、日志系统",
+      "日志系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_09",
@@ -149431,11 +149489,12 @@
   },
   "container:chapter_db_10": {
     "id": "container:chapter_db_10",
-    "label": "十、存储系统",
+    "label": "存储系统",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十、存储系统"
+      "十、存储系统",
+      "存储系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_10",
@@ -149473,11 +149532,12 @@
   },
   "container:chapter_db_12": {
     "id": "container:chapter_db_12",
-    "label": "十二、数据表示",
+    "label": "数据表示",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十二、数据表示"
+      "十二、数据表示",
+      "数据表示"
     ],
     "card": {
       "nodeId": "container:chapter_db_12",
@@ -149494,11 +149554,12 @@
   },
   "container:chapter_db_13": {
     "id": "container:chapter_db_13",
-    "label": "十三、数据库设计",
+    "label": "数据库设计",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十三、数据库设计"
+      "十三、数据库设计",
+      "数据库设计"
     ],
     "card": {
       "nodeId": "container:chapter_db_13",
@@ -149515,11 +149576,12 @@
   },
   "container:chapter_db_14": {
     "id": "container:chapter_db_14",
-    "label": "十四、数据库分布与复制",
+    "label": "数据库分布与复制",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十四、数据库分布与复制"
+      "十四、数据库分布与复制",
+      "数据库分布与复制"
     ],
     "card": {
       "nodeId": "container:chapter_db_14",
@@ -149536,11 +149598,12 @@
   },
   "container:chapter_db_16": {
     "id": "container:chapter_db_16",
-    "label": "十六、数据库安全",
+    "label": "数据库安全",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十六、数据库安全"
+      "十六、数据库安全",
+      "数据库安全"
     ],
     "card": {
       "nodeId": "container:chapter_db_16",
@@ -149557,11 +149620,12 @@
   },
   "container:chapter_db_17": {
     "id": "container:chapter_db_17",
-    "label": "十七、数据库运维",
+    "label": "数据库运维",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十七、数据库运维"
+      "十七、数据库运维",
+      "数据库运维"
     ],
     "card": {
       "nodeId": "container:chapter_db_17",
@@ -149578,11 +149642,12 @@
   },
   "container:chapter_db_18": {
     "id": "container:chapter_db_18",
-    "label": "十八、数据库编程与接口",
+    "label": "数据库编程与接口",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十八、数据库编程与接口"
+      "十八、数据库编程与接口",
+      "数据库编程与接口"
     ],
     "card": {
       "nodeId": "container:chapter_db_18",
@@ -149599,11 +149664,12 @@
   },
   "container:chapter_db_19": {
     "id": "container:chapter_db_19",
-    "label": "十九、数据库产品",
+    "label": "数据库产品",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十九、数据库产品"
+      "十九、数据库产品",
+      "数据库产品"
     ],
     "card": {
       "nodeId": "container:chapter_db_19",
@@ -149620,11 +149686,12 @@
   },
   "container:chapter_db_20": {
     "id": "container:chapter_db_20",
-    "label": "二十、数据库文件与实现",
+    "label": "数据库文件与实现",
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "二十、数据库文件与实现"
+      "二十、数据库文件与实现",
+      "数据库文件与实现"
     ],
     "card": {
       "nodeId": "container:chapter_db_20",
@@ -151530,7 +151597,10 @@
         }
       ],
       "rootContent": "1. 优先优化高并发执行的 SQL 高并发的 SQL 发生出问题后果更严重，且优化成本更低。 对比：SQL1 每小时执行 10000 次、每次 20 个 IO，优化后每次 18 个 IO → 每小时节省 2 万次 IO；SQL2 每小时 10 次、每次 20000 个 IO，优化每次减少 2000 个 IO → 每小时同样节省 2 万次 IO。SQL2 更难优化，SQL1（高并发）更好优化、更急需优化。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_bottleneck": {
     "id": "sqopt_idea_bottleneck",
@@ -151554,7 +151624,10 @@
         }
       ],
       "rootContent": "2. 定位优化对象的性能瓶颈 优化前先了解性能瓶颈在哪，选择优化方向有三个： 1. **IO**——数据访问消耗了太多时间，查看是否正确使用了索引； 2. **CPU**——数据运算花费了太多时间，数据的运算、分组、排序是不是有问题； 3. **网络带宽**——加大网络带宽。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_target": {
     "id": "sqopt_idea_target",
@@ -151578,7 +151651,10 @@
         }
       ],
       "rootContent": "3. 明确优化目标 需要根据数据库当前的状态、数据库中与该条 SQL 的关系、当前 SQL 的具体功能，评估最好情况与最差情况下消耗的资源——优化的结果只有一个：**给用户一个好的体验**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_explain": {
     "id": "sqopt_idea_explain",
@@ -151602,7 +151678,10 @@
         }
       ],
       "rootContent": "4. 从 EXPLAIN 执行计划入手 只有 EXPLAIN 能告诉你当前 SQL 的执行状态（访问类型、索引使用、扫描行数等）。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_small_drive": {
     "id": "sqopt_idea_small_drive",
@@ -151626,7 +151705,10 @@
         }
       ],
       "rootContent": "5. 永远用小的结果集驱动大的结果集 小的数据集驱动大的数据集，减少内层表读取的次数，类似于嵌套循环： ``` for (int i = 0; i < 5; i++) for (int j = 0; j < 1000; j++) { ... } ``` 小的循环在外层，数据库连接只连接 5 次、进行 5000 次操作；如果 1000 在外，则需要进行 1000 次数据库连接，浪费资源、增加消耗——这就是为什么要**小表驱动大表**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_sort_index": {
     "id": "sqopt_idea_sort_index",
@@ -151650,7 +151732,10 @@
         }
       ],
       "rootContent": "6. 尽可能在索引中完成排序 排序操作用得比较多。order by 后面的字段如果在索引中——**索引本来就是排好序的**，所以速度很快；没有索引的话就需要从表中拿数据、在内存中进行排序，内存空间不够还会发生**落盘**操作。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_columns": {
     "id": "sqopt_idea_columns",
@@ -151674,7 +151759,10 @@
         }
       ],
       "rootContent": "7. 只获取自己需要的列 不要使用 select *——select * 很可能**不走索引**，而且数据量过大。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_filter": {
     "id": "sqopt_idea_filter",
@@ -151698,7 +151786,10 @@
         }
       ],
       "rootContent": "8. 只使用最有效的过滤条件 误区：where 后面的条件越多越好。实际上应该是**用最短的路径访问到数据**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_join": {
     "id": "sqopt_idea_join",
@@ -151722,7 +151813,10 @@
         }
       ],
       "rootContent": "9. 尽可能避免复杂的 join 和子查询 每条 SQL 的 JOIN 操作建议**不要超过三张表**；将复杂的 SQL 拆分成多个小的 SQL 单表执行，获取的结果在程序中进行封装；join 占用的资源比较多，会导致其他进程等待时间变长。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "sqopt_idea_index": {
     "id": "sqopt_idea_index",
@@ -151746,7 +151840,10 @@
         }
       ],
       "rootContent": "10. 合理设计并利用索引 **是否需要创建索引**： 1. 较为频繁的作为查询条件的字段应该创建索引； 2. 唯一性太差的字段不适合**单独**创建索引，即使频繁作为查询条件（如状态、类型字段，数据总共就那么几个/几十个数值重复使用）；当一条 Query 所返回的数据超过全表的 **15%** 时，就不应该再使用索引扫描来完成这个 Query； 3. 更新非常频繁的字段不适合创建索引——索引字段被更新时，不仅要更新表中的数据，还要更新索引数据以确保索引信息准确； 4. 不会出现在 WHERE 子句中的字段不该创建索引。 **如何选择合适的索引**： 1. 单键索引尽量选择针对当前 Query **过滤性更好**的索引； 2. 选择联合索引时，当前 Query 中**过滤性最好的字段在索引字段顺序中排列要靠前**； 3. 选择联合索引时，尽量选择索引字段出现在 WHERE 中比较多的索引。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "sqopt_ideas",
+    "canonicalNodeId": "sqopt_ideas"
   },
   "explain_fields": {
     "id": "explain_fields",
@@ -153471,7 +153568,6 @@
       "高并发"
     ],
     "tags": [
-      "如何发现瓶颈",
       "系统性能瓶颈定位",
       "工程问题"
     ],
@@ -153615,15 +153711,15 @@
   },
   "bean_lc_prepare": {
     "id": "bean_lc_prepare",
-    "label": "1. 创建前准备阶段",
-    "role": "plain",
+    "label": "创建前准备阶段",
+    "role": "conclusion",
     "dimensions": [
       "Spring",
       "java",
       "软件框架"
     ],
     "tags": [
-      "1. 创建前准备阶段"
+      "创建前准备阶段"
     ],
     "card": {
       "nodeId": "bean_lc_prepare",
@@ -153636,19 +153732,20 @@
         }
       ],
       "rootContent": "1. 创建前准备阶段 这个阶段主要是在开始 Bean 加载**之前**，从 Spring 上下文和相关配置中**解析并查找 Bean 有关的配置内容**，比如： - **init-method**：容器在初始化 Bean 时调用的方法； - **destroy-method**：容器在销毁 Bean 时调用的方法； - **BeanFactoryPostProcessor** 等 Bean 加载过程中的**前置/后置处理**。 这些类或配置是 Spring 提供给开发者的** Bean 加载扩展机制**，在很多与 Spring 集成的中间件中经常使用（比如 Dubbo）。 ![创建前准备阶段](/notes/spring/bean-lifecycle-1-prepare.png)"
-    }
+    },
+    "kind": "state"
   },
   "bean_lc_instantiate": {
     "id": "bean_lc_instantiate",
-    "label": "2. 创建实例阶段",
-    "role": "plain",
+    "label": "创建实例阶段",
+    "role": "conclusion",
     "dimensions": [
       "Spring",
       "java",
       "软件框架"
     ],
     "tags": [
-      "2. 创建实例阶段"
+      "创建实例阶段"
     ],
     "card": {
       "nodeId": "bean_lc_instantiate",
@@ -153661,19 +153758,20 @@
         }
       ],
       "rootContent": "2. 创建实例阶段 这个阶段主要是**通过反射来创建 Bean 的实例对象**，并且**扫描和解析 Bean 声明的一些属性**。 ![创建实例阶段](/notes/spring/bean-lifecycle-2-instantiate.png)"
-    }
+    },
+    "kind": "state"
   },
   "bean_lc_inject": {
     "id": "bean_lc_inject",
-    "label": "3. 依赖注入阶段",
-    "role": "plain",
+    "label": "依赖注入阶段",
+    "role": "conclusion",
     "dimensions": [
       "Spring",
       "java",
       "软件框架"
     ],
     "tags": [
-      "3. 依赖注入阶段"
+      "依赖注入阶段"
     ],
     "card": {
       "nodeId": "bean_lc_inject",
@@ -153686,19 +153784,20 @@
         }
       ],
       "rootContent": "3. 依赖注入阶段 在这个阶段会**检测被实例化的 Bean 是否存在其他依赖**——如果存在其他依赖，就需要对这些被依赖的 Bean 进行注入，比如通过读取 **@Autowired、@Setter** 等依赖注入的配置。 这个阶段还会触发一些**扩展调用**，常见的扩展类： - **BeanPostProcessors**：用来实现 Bean **初始化前后**的回调； - **InitializingBean**：有一个 `afterPropertiesSet()` 方法，给属性赋值； - **BeanFactoryAware** 等等。 ![依赖注入阶段](/notes/spring/bean-lifecycle-3-inject.png)"
-    }
+    },
+    "kind": "state"
   },
   "bean_lc_cache": {
     "id": "bean_lc_cache",
-    "label": "4. 容器缓存阶段",
-    "role": "plain",
+    "label": "容器缓存阶段",
+    "role": "conclusion",
     "dimensions": [
       "Spring",
       "java",
       "软件框架"
     ],
     "tags": [
-      "4. 容器缓存阶段"
+      "容器缓存阶段"
     ],
     "card": {
       "nodeId": "bean_lc_cache",
@@ -153711,19 +153810,20 @@
         }
       ],
       "rootContent": "4. 容器缓存阶段 容器缓存阶段主要是**把 Bean 保存到 IoC 容器中缓存起来**——到了这个阶段，Bean 就可以被开发者使用了。 这个阶段涉及的操作常见的有： - **init-method** 属性配置的方法，会在这个阶段调用； - **BeanPostProcessors** 的后置处理器方法，如 `postProcessAfterInitialization`，也是在这个阶段触发。 ![容器缓存阶段](/notes/spring/bean-lifecycle-4-cache.png)"
-    }
+    },
+    "kind": "state"
   },
   "bean_lc_destroy": {
     "id": "bean_lc_destroy",
-    "label": "5. 销毁实例阶段",
-    "role": "plain",
+    "label": "销毁实例阶段",
+    "role": "conclusion",
     "dimensions": [
       "Spring",
       "java",
       "软件框架"
     ],
     "tags": [
-      "5. 销毁实例阶段"
+      "销毁实例阶段"
     ],
     "card": {
       "nodeId": "bean_lc_destroy",
@@ -153736,7 +153836,8 @@
         }
       ],
       "rootContent": "5. 销毁实例阶段 这个阶段是 **Spring 应用上下文关闭**时，销毁 Spring 上下文中的所有 Bean。 如果 Bean 实现了 **DisposableBean** 接口（回调 `destroy()` 方法），或者配置了 **destroy-method** 属性，将会在这个阶段被调用。 ![销毁实例阶段](/notes/spring/bean-lifecycle-5-destroy.png)"
-    }
+    },
+    "kind": "state"
   },
   "bcs_caller": {
     "id": "bcs_caller",
@@ -153748,7 +153849,6 @@
       "软件框架"
     ],
     "tags": [
-      "调用方(getBean 请求)",
       "getBean 请求调用方"
     ],
     "card": {
@@ -154293,7 +154393,6 @@
       "软件框架"
     ],
     "tags": [
-      "执行阶段",
       "Spring AOP 执行机制(四阶段)",
       "AOP 执行流程"
     ],
@@ -154708,7 +154807,10 @@
         }
       ],
       "rootContent": "1. 预估流量\n\n根据**以往的量 + 活动力度**预估一个大概的量（没法准确评估）。活动类型影响并发量：**秒杀活动**并发量可能更高、组团活动相对平缓。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_stress": {
     "id": "surge_stress",
@@ -154733,7 +154835,10 @@
         }
       ],
       "rootContent": "2. 全链路压测\n\n微服务架构用到了较多组件（**MQ、Redis、MySQL** 等），整个链路比较长——压测**不能局限在单个接口**，需要进行**全链路压测**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_bottleneck": {
     "id": "surge_bottleneck",
@@ -154758,7 +154863,10 @@
         }
       ],
       "rootContent": "3. 定位并解决链路瓶颈\n\n找到链路瓶颈：**哪个服务、哪个接口、哪个组件**拖慢了性能（是 MySQL 还是 Redis）。\n\n找到瓶颈后解决——先**优化相关代码**：\n- 代码是否有低级错误；\n- 有不应该的重复请求；\n- 查询语句是否走到索引；\n- 哪些数据可以做**预热**。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_scale": {
     "id": "surge_scale",
@@ -154783,7 +154891,10 @@
         }
       ],
       "rootContent": "4. 加机器扩容\n\n如果代码和用法都没有问题，就到了**机器瓶颈**——对应的去**加机器**，对**热点接口以及服务**进行扩容。（扩容方案细节见分布式系统域「扩容方案」节点。）"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_degrade": {
     "id": "surge_degrade",
@@ -154808,7 +154919,10 @@
         }
       ],
       "rootContent": "5. 降级\n\n对于**复杂的但不是主流的场景**，进行**静态降级或者暂时不可用**——保住核心链路。（服务降级实现见 Spring Cloud/Hystrix 域「服务降级」；熔断与隔离见分布式系统域。）"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_ha": {
     "id": "surge_ha",
@@ -154833,11 +154947,14 @@
         }
       ],
       "rootContent": "6. 常态高可用：限流 + 监控报警\n\n像**实时监控与报警、限流**这些常见的高可用策略平时就会有。\n\n**限流**：控制请求流量，防止系统被过多请求压垮——代价是很多请求进不来（超量部分被拒绝/排队）。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "surge_overview",
+    "canonicalNodeId": "surge_overview"
   },
   "surge_auto_scale": {
     "id": "surge_auto_scale",
-    "label": "进阶思路：监控驱动动态扩容",
+    "label": "监控驱动动态扩容",
     "role": "plain",
     "dimensions": [
       "performance",
@@ -154845,7 +154962,8 @@
       "架构"
     ],
     "tags": [
-      "进阶思路:监控驱动动态扩容"
+      "进阶思路:监控驱动动态扩容",
+      "监控驱动动态扩容"
     ],
     "card": {
       "nodeId": "surge_auto_scale",
@@ -155485,7 +155603,10 @@
         }
       ],
       "rootContent": "① 硬件扩展 + 微服务拆分\n\n**单体架构**（所有业务一个项目一台机器）→ 流量起来问题暴露：机器挂了全部业务不可用。![单体](/notes/arch/qps-monolith.png)\n\n**集群架构**：水平横向扩容 + 负载均衡把流量分摊到不同机器——暂时解决单点不可用。![集群](/notes/arch/qps-cluster.png)\n\n**微服务**：业务发展后一个项目维护所有场景越来越难（一个改动发整个服务、合并冲突频繁、故障概率大）→ 把每个独立业务拆开独立部署：开发维护成本降低、集群承压提高、不再牵一发动全身。![微服务](/notes/arch/qps-microservice.png)"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "hps_rpc": {
     "id": "hps_rpc",
@@ -155510,7 +155631,10 @@
         }
       ],
       "rootContent": "② 高性能 RPC\n\n微服务化后服务间通信是关键——传统 HTTP 性能不太好（大量请求头等无效信息）。引入 **Dubbo 类 RPC 框架**：实测 **Dubbo RPC 性能约是 Feign HTTP RPC 的 10 倍**。![RPC](/notes/arch/qps-rpc.png)\n\n假设客户端 QPS 9000，负载均衡到每台 3000；HTTP RPC 改 Dubbo RPC 后接口耗时缩短，单机与整体 QPS 都提升。RPC 框架自带**负载均衡、熔断降级**机制，更好维护高可用。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "hps_mq": {
     "id": "hps_mq",
@@ -155535,7 +155659,10 @@
         }
       ],
       "rootContent": "③ 消息队列削峰解耦\n\nMQ 主要功能：**削峰填谷、解耦**；同步转异步降低微服务耦合。![MQ](/notes/arch/qps-mq.png)\n\n不需要同步执行的接口走 MQ 异步以提高响应时间：交易完成扣库存后要给会员发积分——发积分属于履约服务、实时性要求不高，**保证最终一致性能履约成功即可** → 走 MQ 异步，提高系统抗压能力。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "hps_cache": {
     "id": "hps_cache",
@@ -155560,7 +155687,10 @@
         }
       ],
       "rootContent": "④ 三级缓存架构\n\n缓存是高性能的代表，特殊业务可承担 **90% 以上热点流量**。秒杀类几十万 QPS 场景：预热缓存大幅降低数据库压力——**10 万 QPS 单机数据库就挂，对 redis 完全不是问题**。![缓存](/notes/arch/qps-cache.png)\n\n秒杀例：活动预热商品信息提前缓存提供查询；库存数据提前缓存；**下单流程完全走缓存扣减**，秒杀结束后再异步写入数据库——数据库压力小太多。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "hps_db": {
     "id": "hps_db",
@@ -155585,7 +155715,10 @@
         }
       ],
       "rootContent": "⑤ 读写分离 + 分库分表\n\n所有流量的查询和写入最终都落在数据库——数据库是支撑高并发的基石。流量是**漏斗**形态：DAU 20 万 → 提单页 3 万 QPS → 下单支付成功 1 万。![读写分离](/notes/arch/qps-readwrite-split.png)\n\n**读大于写** → 读写分离（数据库集群）降低单节点压力；数据急剧增长、单库单表撑不住 → **分库分表**（微服务的垂直分库已做过，剩下大部分是分表方案）。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "hps_ha": {
     "id": "hps_ha",
@@ -155610,7 +155743,10 @@
         }
       ],
       "rootContent": "⑥ 高可用五板斧\n\n![高可用](/notes/arch/qps-ha.png)\n1. **熔断**：营销服务挂了/大量超时不能影响下单主链路，积分扣减事后补救；\n2. **限流**：大促秒杀类突发高并发，不做限流可能直接打挂——按每个接口压测性能评估做合适限流；\n3. **降级**：熔断后短时间不再调用营销服务，恢复后再调用；\n4. **预案**：高峰期不允许任何变更，但通过配置合理预案可在紧急时做修改；\n5. **核对**：分布式事务一致性/攻击导致的数据异常，需要**核对平台**做最后兜底的数据验证（如支付系统与订单系统金额核对、防中间人攻击落库数据校验）。"
-    }
+    },
+    "status": "archived-redirect",
+    "redirectTo": "hps_overview",
+    "canonicalNodeId": "hps_overview"
   },
   "idxf_overview": {
     "id": "idxf_overview",
@@ -157277,8 +157413,10 @@
   "asplit_bean_lifecycle": {
     "id": "asplit_bean_lifecycle",
     "label": "Bean 生命周期",
-    "role": "plain",
-    "tags": [],
+    "role": "mechanism",
+    "tags": [
+      "Bean 生命周期"
+    ],
     "card": {
       "nodeId": "asplit_bean_lifecycle",
       "title": "Bean 生命周期",
@@ -157289,6 +157427,40 @@
           "content": "Bean 生命周期：从实例化、属性填充、初始化（InitializingBean/init-method）到销毁（DisposableBean/destroy-method）的完整过程；依赖注入发生在实例化后的属性填充阶段。"
         }
       ]
+    },
+    "kind": "mechanism",
+    "dimensions": [
+      "Spring",
+      "java",
+      "软件框架"
+    ],
+    "mechanismSpec": {
+      "phenomenonNodeId": "asplit_bean_lifecycle",
+      "triggerNodeIds": [
+        "bcs_caller"
+      ],
+      "participantNodeIds": [
+        "bcs_def",
+        "bcs_cache"
+      ],
+      "stateNodeIds": [
+        "bean_lc_prepare",
+        "bean_lc_instantiate",
+        "bean_lc_inject",
+        "bean_lc_cache",
+        "bean_lc_destroy"
+      ],
+      "transitionEdgeIds": [
+        "beanlc:t_1",
+        "beanlc:t_2",
+        "beanlc:t_3",
+        "beanlc:t_4"
+      ],
+      "constraintEdgeIds": [],
+      "outcomeNodeIds": [
+        "bean_lc_destroy"
+      ],
+      "failureNodeIds": []
     }
   },
   "asplit_mybatis_mapper": {

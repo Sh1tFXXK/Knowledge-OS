@@ -1,11 +1,20 @@
-import type { ExplanationTab, KnowledgeEdge, KnowledgeNode, TreeNode } from '../types';
-import { KnowledgeNodeKind, KnowledgeRelationKind } from '../types';
+// 带 .ts 后缀的运行时导入：node --test 以 type-stripping 直接加载本模块时，ESM 解析要求显式扩展名
+// （与 src/knowledge/typeRelations.ts 同一约定）。
+import {
+  KnowledgeNodeKind,
+  KnowledgeRelationKind,
+  type ExplanationTab,
+  type KnowledgeEdge,
+  type KnowledgeNode,
+  type MechanismSpec,
+  type TreeNode,
+} from '../types.ts';
 import {
   collectTreeNodes,
   collectTreeReferencesByNodeRef,
   findTreeNodeById,
-} from '../knowledge/treeUtils';
-import { isManagedContainmentEdge } from '../knowledge/containment';
+} from '../knowledge/treeUtils.ts';
+import { isManagedContainmentEdge } from '../knowledge/containment.ts';
 import {
   RelationKind,
   VisualTone,
@@ -18,8 +27,8 @@ import {
   type MechanismModel,
   type MechanismProcess,
   type Relation,
-} from './core';
-import { validateMechanismSpec, type MechanismValidationResult } from './validation';
+} from './core.ts';
+import { validateMechanismSpec, type MechanismValidationResult } from './validation.ts';
 
 const MECHANISM_RELATION_KINDS = new Set<KnowledgeRelationKind>([
   KnowledgeRelationKind.Structure,
@@ -226,6 +235,9 @@ function resolveOwningMechanismNodeId(
 
   for (const node of Object.values(nodePool)) {
     if (node.kind !== KnowledgeNodeKind.Mechanism) continue;
+    // 先认 spec 的显式声明：机制状态按「卸树留池」退出树后，无法靠树路径回溯到宿主机制，
+    // 但 spec 里已经把这个节点声明为参与方，宿主关系是确定的。
+    if (collectDeclaredMechanismNodeIds(node.mechanismSpec).includes(focusNodeId)) return node.id;
     const scopedIds = new Set(collectTreeDescendantNodeIds(node.id, nodePool, treeData));
     if (knowledgeEdges.some(
       (edge) => isMechanismRelation(edge)
@@ -245,6 +257,18 @@ function collectMechanismCandidateNodeIds(
 ): string[] {
   const orderedIds = collectTreeDescendantNodeIds(mechanismNodeId, nodePool, treeData);
   const includedIds = new Set(orderedIds);
+
+  // mechanismSpec 是参与者集合的**显式声明**，必须与树作用域并列作为候选来源。
+  // 原因：机制状态节点按「卸树留池」约定退出树（树只留名词），但 spec 仍需要渲染它们。
+  // 若候选只按树后代取，卸树后的状态全部落空 → 内部转移边两端都不在 scopedIds →
+  // processEdges 为空 → projectKnowledgeMechanism 直接 return null（表现为「当前知识不构成机制」）。
+  const declaredIds = collectDeclaredMechanismNodeIds(nodePool[mechanismNodeId]?.mechanismSpec);
+  for (const nodeId of declaredIds) {
+    if (!nodePool[nodeId] || includedIds.has(nodeId)) continue;
+    includedIds.add(nodeId);
+    orderedIds.push(nodeId);
+  }
+
   const scopedIds = new Set(includedIds);
 
   for (const edge of knowledgeEdges) {
@@ -258,6 +282,19 @@ function collectMechanismCandidateNodeIds(
     }
   }
   return orderedIds;
+}
+
+/** spec 显式声明的全部参与节点（与 validateMechanismSpec 的 declaredNodeIds 同一口径）。 */
+function collectDeclaredMechanismNodeIds(spec: MechanismSpec | undefined): string[] {
+  if (!spec) return [];
+  return [
+    spec.phenomenonNodeId,
+    ...spec.triggerNodeIds,
+    ...spec.participantNodeIds,
+    ...spec.stateNodeIds,
+    ...spec.outcomeNodeIds,
+    ...spec.failureNodeIds,
+  ].filter(Boolean);
 }
 
 function collectTreeDescendantNodeIds(
