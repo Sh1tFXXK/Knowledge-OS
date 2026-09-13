@@ -414,7 +414,7 @@
                     },
                     {
                       "id": "tree_1783184803336_zgc1z2",
-                      "name": "类与对象",
+                      "name": "面向对象：类、对象",
                       "count": 0,
                       "nodeRef": "k_1783184803301_75p0j1",
                       "children": [
@@ -1052,276 +1052,6 @@
                       "nodeRef": "k_1782846767165_l599je",
                       "children": [
                         {
-                          "id": "tree_1784367220424_14rpaj",
-                          "name": "进程与线程",
-                          "count": 0,
-                          "nodeRef": "k_1784367220387_2v9vdv",
-                          "children": [
-                            {
-                              "id": "tree_1784367244677_p159a6",
-                              "name": "线程对象",
-                              "count": 0,
-                              "nodeRef": "k_1784367244619_s01xtn",
-                              "children": [
-                                {
-                                  "id": "tree_1784367357686_kzgmm0",
-                                  "name": "线程启动",
-                                  "count": 0,
-                                  "nodeRef": "k_1784367357615_8x9izv",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1784367400851_405esr",
-                                  "name": "中断",
-                                  "count": 0,
-                                  "nodeRef": "k_1784367400813_wlhj68",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1784367452143_f2xy5w",
-                                  "name": "连接",
-                                  "count": 0,
-                                  "nodeRef": "k_1784367452084_2ehbw7",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1784367479165_r38z3w",
-                                  "name": "异常",
-                                  "count": 0,
-                                  "nodeRef": "k_1784367479094_3my77z",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1785843194648_eukkr2",
-                              "name": "线程间通信",
-                              "count": 0,
-                              "nodeRef": "k_1785843194451_b6cvb2",
-                              "children": [
-                                {
-                                  "id": "tree_1785843242311_kapxha",
-                                  "name": "等待/通知机制",
-                                  "count": 0,
-                                  "nodeRef": "k_1785843242128_bus7le",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1786006035005_87qlbs",
-                                  "name": "等待/通知的经典范式",
-                                  "count": 0,
-                                  "nodeRef": "k_1786006034803_zh191w",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1786006089126_zdz2pe",
-                                  "name": "管道输入/输出流",
-                                  "count": 0,
-                                  "nodeRef": "k_1786006088920_imdsjx",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1786006383596_c1nxnl",
-                                  "name": "Thread.join()的使用",
-                                  "count": 0,
-                                  "nodeRef": "k_1786006383348_b3urv6",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1785933871037_4quzee",
-                              "name": "线程优先级",
-                              "count": 0,
-                              "nodeRef": "k_1785933870843_mvj4ix",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1785934396723_afsojh",
-                              "name": "线程的状态",
-                              "count": 0,
-                              "nodeRef": "k_1785934396536_as412a",
-                              "children": [
-                                {
-                                  "id": "tree_java_thread_instance",
-                                  "name": "Thread 实例",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_instance",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_scheduler",
-                                  "name": "操作系统调度器",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_scheduler",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_monitor",
-                                  "name": "Object Monitor",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_monitor",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_lock",
-                                  "name": "synchronized 锁",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_lock",
-                                  "children": [],
-                                  "supplement": {
-                                    "tabs": [
-                                      {
-                                        "id": "context:asplit:s23",
-                                        "label": "锁的内存语义",
-                                        "content": "线程A释放一个锁，实质上是线程A向接下来将要获取这个锁的某个线程发出了（线程A对共享变量所做修改的）消息。\n·线程B获取一个锁，实质上是线程B接收了之前某个线程发出的（在释放这个锁之前对共享变量所做修改的）消息。\n线程A释放锁，随后线程B获取这个锁，这个过程实质上是线程A通过主内存向线程B发送消息。",
-                                        "tags": [
-                                          "synchronized 锁",
-                                          "java",
-                                          "thread",
-                                          "lifecycle"
-                                        ]
-                                      }
-                                    ]
-                                  }
-                                },
-                                {
-                                  "id": "tree_java_thread_state_new",
-                                  "name": "NEW（初始）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_new",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_runnable",
-                                  "name": "RUNNABLE（可运行）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_runnable",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_running",
-                                  "name": "RUNNING（运行中）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_running",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_ready",
-                                  "name": "READY（就绪）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_ready",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_waiting",
-                                  "name": "WAITING（等待）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_waiting",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_timed_waiting",
-                                  "name": "TIMED_WAITING（超时等待）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_timed_waiting",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_blocked",
-                                  "name": "BLOCKED（阻塞）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_blocked",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_java_thread_state_terminated",
-                                  "name": "TERMINATED（终止）",
-                                  "count": 0,
-                                  "nodeRef": "k_java_thread_state_terminated",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785948695696_5us7c8",
-                                  "name": "构造线程",
-                                  "count": 0,
-                                  "nodeRef": "k_1785948695500_4z2bcl",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785948737115_sgb6vg",
-                                  "name": "启动线程",
-                                  "count": 0,
-                                  "nodeRef": "k_1785948736907_qcq4lw",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785948855118_r5ik45",
-                                  "name": "理解中断",
-                                  "count": 0,
-                                  "nodeRef": "k_1785948854913_isyp7m",
-                                  "children": []
-                                },
-                                {
-                                  "id": "tree_1785949022722_ol5su5",
-                                  "name": "安全地终止线程",
-                                  "count": 0,
-                                  "nodeRef": "k_1785949022316_vctezb",
-                                  "children": []
-                                },
-                                {
-                                  "id": "asplit_s1_asplit_suspend_resume_methods",
-                                  "name": "suspend/resume 方法组",
-                                  "nodeRef": "asplit_suspend_resume_methods",
-                                  "children": []
-                                },
-                                {
-                                  "id": "asplit_s1_asplit_stop_method",
-                                  "name": "stop 方法",
-                                  "nodeRef": "asplit_stop_method",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1785943693938_dy2lu1",
-                              "name": "Daemon线程",
-                              "count": 0,
-                              "nodeRef": "k_1785943693747_clmf9f",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1786008060989_8kmqnp",
-                              "name": "线程应用实例",
-                              "count": 0,
-                              "nodeRef": "k_1786008060766_5bnwua",
-                              "children": [
-                                {
-                                  "id": "tree_1786008070985_ipywe8",
-                                  "name": "等待超时模式",
-                                  "count": 0,
-                                  "nodeRef": "k_1786008070763_nsrw3g",
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
-                              "id": "tree_1786353277269_msn0ma9jy",
-                              "name": "进程间通信",
-                              "count": 0,
-                              "nodeRef": "k_1786353277269_msn0ma9ix",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_1786353277269_msn0ma9l10",
-                              "name": "上下文切换",
-                              "count": 0,
-                              "nodeRef": "k_1786353277269_msn0ma9kz",
-                              "children": []
-                            }
-                          ]
-                        },
-                        {
                           "id": "tree_1784367508734_hrswml",
                           "name": "内存模型",
                           "count": 0,
@@ -1496,21 +1226,6 @@
                                   "children": []
                                 }
                               ]
-                            }
-                          ]
-                        },
-                        {
-                          "id": "tree_1784367853517_ql6yr7",
-                          "name": "原子性和锁",
-                          "count": 0,
-                          "nodeRef": "k_1784367853474_o8r7o6",
-                          "children": [
-                            {
-                              "id": "tree_1786353277269_msn0ma9p14",
-                              "name": "CAS",
-                              "count": 0,
-                              "nodeRef": "k_1786353277269_msn0ma9o13",
-                              "children": []
                             }
                           ]
                         },
@@ -5226,8 +4941,317 @@
                           "name": "并发容器",
                           "nodeRef": "asplit_concurrency_container",
                           "children": []
+                        },
+                        {
+                          "id": "asplit_s18_asplit_memory_atomicity",
+                          "name": "内存原子性",
+                          "count": 0,
+                          "nodeRef": "asplit_memory_atomicity",
+                          "children": [],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "asplit:s18:s11:orig",
+                                "label": "原子性和锁（原文）",
+                                "content": "Java在java.util.concurrent.atomic中提供了原子性特性。这些特点提供了无锁的线程安全类型，具备原子操作，同时避免使用同步。\n\n原始数据和原始数据的数组具有自己的原子类型（例如 java.util.concurrent.atomic.AtomicInteger 和 java.util.concurrent.atomic.AtomicIntegerArray），而对于引用类型，提供了类 java.util.concurrent.atomic.AtomicReference<T>。\n\nimport java.util.concurrent.atomic.AtomicReference;\n\nAtomicReference<String> ref = new AtomicReference<>(\"Hello...\");\nref.set(\"...world!\");\nboolean success = ref.compareAndSet(\"...world!\", \"Hello, world!\");\nSystem.out.println(ref.get()); // \"Hello, world!\"\n\nvolatile 禁止了指令重排。\n\n比sychronized 更轻量级的同步锁\n\n在访问 volatile 变量时不会执行加锁操作，因此也就不会使执行线程阻塞，因此 volatile 变量是一种比 sychronized 关键字更轻量级的同步机制。volatile 适合这种场景：一个变量被多个线程共享，线程直接给这个变量赋值。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/899036e4-5c6c-4e85-b1c9-ae185ddec326/4bee0ff5c98eb90f20ac4e1f4450d7e0f1acdee9a17fd698156c5201757269f7.jpg)\n\n当对非 volatile 变量进行读写的时候，每个线程先从内存拷贝变量到 CPU 缓存中。如果计算机有多个CPU，每个线程可能在不同的 CPU 上被处理，这意味着每个线程可以拷贝到不同的 CPU cache 中。而声明变量是 volatile 的，JVM 保证了每次读变量都从内存中读，跳过 CPU cache 这一步。\n\n适用场景值得说明的是对 volatile 变量的单次读/写操作可以保证原子性的，如 long 和 double 类型变量，但是并不能保证 i++这种操作的原子性，因为本质上 i++是读、写两次操作。在某些场景下可以代替Synchronized。但是,volatile 的不能完全取代 Synchronized 的位置，只有在一些特殊的场景下，才能适用 volatile。总的来说，必须同时满足下面两个条件才能保证在并发环境的线程安全：\n\n（1） 对变量的写操作不依赖于当前值（比如 i++），或者说是单纯的变量赋值（boolean flag =true）。\n\n（2） 该变量没有包含在具有其他变量的不变式中，也就是说，不同的 volatile 变量之间，不能互相依赖。只有在状态真正独立于程序内其他内容时才能使用 volatile。\n\n## 如何在两个线程之间共享数据\n\nJava 里面进行多线程通信的主要方式就是共享内存的方式，共享内存主要的关注点有两个：可见性和有序性原子性。Java 内存模型（JMM）解决了可见性和有序性的问题，而锁解决了原子性的问题，理想情况下我们希望做到“同步”和“互斥”。有以下常规实现方法：\n\n将数据抽象成一个类，并将数据的操作作为这个类的方法\n\n1. 将数据抽象成一个类，并将对这个数据的操作作为这个类的方法，这么设计可以和容易做到同步，只要在方法上加”synchronized“\n\n```java\npublic class MyData {\n    private int j=0; public synchronized void add(){\n    j++;\n    System.out.println(\"线程\"+Thread.currentThread().getName()+\"j 为: \"+j);\n    }\n    public synchronized void dec(){\n    j--;\n    System.out.println(\"线程\"+Thread.currentThread().getName()+\"j 为: \"+j);\n    }\n    public int getData(){ return j;\n    }\n}\n\npublic class AddRunnable implements Runnable{\n    MyData data; public AddRunnable(MyData data){ this.data = data;\n    }\n    public void run() { data.add();\n    }\n}\n\npublic class DecRunnable implements Runnable {\n    MyData data; public DecRunnable(MyData data){ this.data = data;\n    }\n    public void run() { data.dec();\n    }\n}\n\npublic static void main(String[] args) {\n    MyData data = new MyData();\n    Runnable add = new AddRunnable(data); Runnable dec = new DecRunnable(data); for(int i=0;i<2;i++) { new Thread(add).start(); new Thread(dec).start();\n}\n```\n\n## Runnable 对象作为一个类的内部类\n\n2. 将 Runnable 对象作为一个类的内部类，共享数据作为这个类的成员变量，每个线程对共享数据的操作方法也封装在外部类，以便实现对数据的各个操作的同步和互斥，作为内部类的各个Runnable 对象调用外部类的这些方法。\n\n```java\npublic class MyData {\n    private int j=0;    public synchronized void add(){    j++;\n    System.out.println(\"线程\"+Thread.currentThread().getName()+\"j 为: \"+j);\n    }\n    public synchronized void dec(){    j--;\n    System.out.println(\"线程\"+Thread.currentThread().getName()+\"j 为: \"+j);\n    }\n    public int getData(){\n    return j;\n}\n```\n\n```txt\nThread 当前线程\n属性：\n.....\nThreadLocalMap <ThreadLocal, T>threadLocals\n.....\n```\n\n```java\npublic class TestThread {\n    public static void main(String[] args) {\n    myData();    for(int i=0;i<2;i++) {\n    public void run() {\n    }\n    }).start();\n    new Thread(new Runnable() {\n    data.dec();\n    }\n    }).start();\n    }\n} \n```\n\n## ThreadLocal 作用（线程本地存储）\n\nThreadLocal，很多地方叫做线程本地变量，也有些地方叫做线程本地存储，ThreadLocal 的作用是提供线程内的局部变量，这种变量在线程的生命周期内起作用，减少同一个线程内多个函数或者组件之间一些公共变量的传递的复杂度。\n\n## ThreadLocalMap（线程的一个属性）\n\n1. 每个线程中都有一个自己的 ThreadLocalMap 类对象，可以将线程自己的对象保持到其中，各管各的，线程可以正确的访问到自己的对象。\n\n2. 将一个共用的 ThreadLocal 静态实例作为 key，将不同对象的引用保存到不同线程的\n\nThreadLocalMap 中，然后在线程执行的各处通过这个静态 ThreadLocal 实例的 get()方法取得自己线程保存的那个对象，避免了将这个对象作为参数传递的麻烦。\n\n3. ThreadLocalMap 其实就是线程里面的一个属性，它在 Thread 类中定义\n\nThreadLocal.ThreadLocalMap threadLocals = null; \n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/899036e4-5c6c-4e85-b1c9-ae185ddec326/9f04fe070525262015ce4bf9d2ca3407888f6fd571edd0557105dc871cf1810c.jpg)\n\n最常见的 ThreadLocal 使用场景为 用来解决 数据库连接、Session 管理等。\n\n```java\nprivate static final ThreadLocal threadSession = new ThreadLocal();\npublic static Session getSession() throws InfrastructureException {\n    Session s = (Session) threadSession.get();\n    try {\n    if (s == null) {\n    s = getSessionFactory().openSession(); threadSession.set(s);\n    }\n    } catch (HibernateException ex) {\n    throw new InfrastructureException(ex);\n    }\n    return s;\n} \n```\n\n## synchronized 和 ReentrantLock 的区别\n\n## 两者的共同点：\n\n1. 都是用来协调多线程对共享对象、变量的访问\n\n2. 都是可重入锁，同一线程可以多次获得同一个锁\n\n3. 都保证了可见性和互斥性\n\n## 两者的不同点：\n\n1. ReentrantLock 显示的获得、释放锁，synchronized 隐式获得释放锁\n\n2. ReentrantLock 可响应中断、可轮回，synchronized 是不可以响应中断的，为处理锁的不可用性提供了更高的灵活性\n\n3. ReentrantLock 是 API 级别的，synchronized 是 JVM 级别的\n\n4. ReentrantLock 可以实现公平锁\n\n5. ReentrantLock 通过 Condition 可以绑定多个条件\n\n6. 底层实现不一样， synchronized 是同步阻塞，使用的是悲观并发策略，lock 是同步非阻塞，采用的是乐观并发策略\n\n7. Lock 是一个接口，而 synchronized 是 Java 中的关键字，synchronized 是内置的语言实现。\n\n8. synchronized 在发生异常时，会自动释放线程占有的锁，因此不会导致死锁现象发生；而 Lock 在发生异常时，如果没有主动通过 unLock()去释放锁，则很可能造成死锁现象，因此使用 Lock 时需要在 finally 块中释放锁。\n\n9. Lock 可以让等待锁的线程响应中断，而 synchronized 却不行，使用 synchronized 时，等待的线程会一直等待下去，不能够响应中断。\n\n10. 通过 Lock 可以知道有没有成功获取锁，而 synchronized 却无法办到。\n\n11. Lock 可以提高多个线程进行读操作的效率，既就是实现读写锁等。\n\n## ConcurrentHashMap 并发\n\n## 减小锁粒度\n\n减小锁粒度是指缩小锁定对象的范围，从而减小锁冲突的可能性，从而提高系统的并发能力。减小锁粒度是一种削弱多线程锁竞争的有效手段，这种技术典型的应用是 ConcurrentHashMap(高性能的HashMap)类的实现。对于 HashMap 而言，最重要的两个方法是 get 与 set 方法，如果我们对整个HashMap 加锁，可以得到线程安全的对象，但是加锁粒度太大。Segment 的大小也被称为ConcurrentHashMap 的并发度。\n\n## ConcurrentHashMap 分段锁\n\nConcurrentHashMap，它内部细分了若干个小的 HashMap，称之为段(Segment)。默认情况下一个ConcurrentHashMap 被进一步细分为 16 个段，既就是锁的并发度。\n\n如果需要在 ConcurrentHashMap 中添加一个新的表项，并不是将整个 HashMap 加锁，而是首先根据hashcode得到该表项应该存放在哪个段中，然后对该段加锁，并完成put操作。在多线程环境中，如果多个线程同时进行put操作，只要被加入的表项不存放在同一个段中，则线程间可以做到真正的并行。\n\n## ConcurrentHashMap 是由Segment 数组结构和HashEntry 数组结构组成\n\nConcurrentHashMap 是由 Segment 数组结构和 HashEntry 数组结构组成。Segment 是一种可重入锁ReentrantLock，在 ConcurrentHashMap 里扮演锁的角色，HashEntry 则用于存储键值对数据。一个ConcurrentHashMap 里包含一个 Segment 数组，Segment 的结构和 HashMap 类似，是一种数组和链表结构， 一个 Segment 里包含一个 HashEntry 数组，每个 HashEntry 是一个链表结构的元素， 每个 Segment 守护一个 HashEntry 数组里的元素,当对 HashEntry 数组的数据进行修改时，必须首先获得它对应的 Segment 锁。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/899036e4-5c6c-4e85-b1c9-ae185ddec326/52377f39821610504e07a9081bb63a75834ea05e8a5f32cc27e29a436733242d.jpg)",
+                                "tags": [
+                                  "原子性和锁",
+                                  "Java面试突击"
+                                ]
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "id": "asplit_s18_asplit_concurrency_mutex_lock",
+                          "name": "并发互斥锁",
+                          "count": 0,
+                          "nodeRef": "asplit_concurrency_mutex_lock",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1786353277269_msn0ma9p14",
+                          "name": "CAS",
+                          "count": 0,
+                          "nodeRef": "k_1786353277269_msn0ma9o13",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1784367244677_p159a6",
+                          "name": "线程对象",
+                          "count": 0,
+                          "nodeRef": "k_1784367244619_s01xtn",
+                          "children": [
+                            {
+                              "id": "tree_1784367357686_kzgmm0",
+                              "name": "线程启动",
+                              "count": 0,
+                              "nodeRef": "k_1784367357615_8x9izv",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1784367400851_405esr",
+                              "name": "中断",
+                              "count": 0,
+                              "nodeRef": "k_1784367400813_wlhj68",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1784367452143_f2xy5w",
+                              "name": "连接",
+                              "count": 0,
+                              "nodeRef": "k_1784367452084_2ehbw7",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1784367479165_r38z3w",
+                              "name": "异常",
+                              "count": 0,
+                              "nodeRef": "k_1784367479094_3my77z",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1785843194648_eukkr2",
+                          "name": "线程间通信",
+                          "count": 0,
+                          "nodeRef": "k_1785843194451_b6cvb2",
+                          "children": [
+                            {
+                              "id": "tree_1785843242311_kapxha",
+                              "name": "等待/通知机制",
+                              "count": 0,
+                              "nodeRef": "k_1785843242128_bus7le",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1786006035005_87qlbs",
+                              "name": "等待/通知的经典范式",
+                              "count": 0,
+                              "nodeRef": "k_1786006034803_zh191w",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1786006089126_zdz2pe",
+                              "name": "管道输入/输出流",
+                              "count": 0,
+                              "nodeRef": "k_1786006088920_imdsjx",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1786006383596_c1nxnl",
+                              "name": "Thread.join()的使用",
+                              "count": 0,
+                              "nodeRef": "k_1786006383348_b3urv6",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1785933871037_4quzee",
+                          "name": "线程优先级",
+                          "count": 0,
+                          "nodeRef": "k_1785933870843_mvj4ix",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1785934396723_afsojh",
+                          "name": "线程的状态",
+                          "count": 0,
+                          "nodeRef": "k_1785934396536_as412a",
+                          "children": [
+                            {
+                              "id": "tree_java_thread_instance",
+                              "name": "Thread 实例",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_instance",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_scheduler",
+                              "name": "操作系统调度器",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_scheduler",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_monitor",
+                              "name": "Object Monitor",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_monitor",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_lock",
+                              "name": "synchronized 锁",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_lock",
+                              "children": [],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "context:asplit:s23",
+                                    "label": "锁的内存语义",
+                                    "content": "线程A释放一个锁，实质上是线程A向接下来将要获取这个锁的某个线程发出了（线程A对共享变量所做修改的）消息。\n·线程B获取一个锁，实质上是线程B接收了之前某个线程发出的（在释放这个锁之前对共享变量所做修改的）消息。\n线程A释放锁，随后线程B获取这个锁，这个过程实质上是线程A通过主内存向线程B发送消息。",
+                                    "tags": [
+                                      "synchronized 锁",
+                                      "java",
+                                      "thread",
+                                      "lifecycle"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "tree_java_thread_state_new",
+                              "name": "NEW（初始）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_new",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_runnable",
+                              "name": "RUNNABLE（可运行）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_runnable",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_running",
+                              "name": "RUNNING（运行中）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_running",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_ready",
+                              "name": "READY（就绪）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_ready",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_waiting",
+                              "name": "WAITING（等待）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_waiting",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_timed_waiting",
+                              "name": "TIMED_WAITING（超时等待）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_timed_waiting",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_blocked",
+                              "name": "BLOCKED（阻塞）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_blocked",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_java_thread_state_terminated",
+                              "name": "TERMINATED（终止）",
+                              "count": 0,
+                              "nodeRef": "k_java_thread_state_terminated",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1785948695696_5us7c8",
+                              "name": "构造线程",
+                              "count": 0,
+                              "nodeRef": "k_1785948695500_4z2bcl",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1785948737115_sgb6vg",
+                              "name": "启动线程",
+                              "count": 0,
+                              "nodeRef": "k_1785948736907_qcq4lw",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1785948855118_r5ik45",
+                              "name": "理解中断",
+                              "count": 0,
+                              "nodeRef": "k_1785948854913_isyp7m",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_1785949022722_ol5su5",
+                              "name": "安全地终止线程",
+                              "count": 0,
+                              "nodeRef": "k_1785949022316_vctezb",
+                              "children": []
+                            },
+                            {
+                              "id": "asplit_s1_asplit_suspend_resume_methods",
+                              "name": "suspend/resume 方法组",
+                              "nodeRef": "asplit_suspend_resume_methods",
+                              "children": []
+                            },
+                            {
+                              "id": "asplit_s1_asplit_stop_method",
+                              "name": "stop 方法",
+                              "nodeRef": "asplit_stop_method",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1785943693938_dy2lu1",
+                          "name": "Daemon线程",
+                          "count": 0,
+                          "nodeRef": "k_1785943693747_clmf9f",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1786008060989_8kmqnp",
+                          "name": "线程应用实例",
+                          "count": 0,
+                          "nodeRef": "k_1786008060766_5bnwua",
+                          "children": [
+                            {
+                              "id": "tree_1786008070985_ipywe8",
+                              "name": "等待超时模式",
+                              "count": 0,
+                              "nodeRef": "k_1786008070763_nsrw3g",
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1786353277269_msn0ma9jy",
+                          "name": "进程间通信",
+                          "count": 0,
+                          "nodeRef": "k_1786353277269_msn0ma9ix",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_1786353277269_msn0ma9l10",
+                          "name": "上下文切换",
+                          "count": 0,
+                          "nodeRef": "k_1786353277269_msn0ma9kz",
+                          "children": []
                         }
-                      ]
+                      ],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:tree_1784367220424_14rpaj:orig",
+                            "label": "进程、线程总览（拆前原文）",
+                            "content": "大多数Java虚拟机的实现以单个进程形式运行。在Java编程语言中，并发编程主要关注线程（也称为轻量级进程）。多个进程只能通过多个JVM实现。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/51bbca4b0f7fea4354d84f757ac93a4ea44fd020ac167b5ae61e6ac97b850335.jpg)\n\n## JAVA 线程实现/创建方式\n\n## 继承 Thread 类\n\nThread 类本质上是实现了 Runnable 接口的一个实例，代表一个线程的实例。启动线程的唯一方法就是通过 Thread 类的 start()实例方法。start()方法是一个 native 方法，它将启动一个新线程,并执行run()方法\n\n```java\npublic class MyThread extends Thread {\n    public void run() {\n    System.out.println(\"MyThread.run());\n    }\n}\nMyThread myThread1 = new MyThread();\nmyThread1.start(); \n```\n\n## 实现 Runnable 接口。\n\n如果自己的类已经 extends 另一个类，就无法直接 extends Thread，此时，可以实现一个 Runnable接口。\n\n```java\npublic class MyThread extends OtherClass implements Runnable {\n    public void run() {\n    System.out.println(\"MyThread.run());\n    }\n}\n\n//启动 MyThread，需要首先实例化一个 Thread，并传入自己的 MyThread 实例：\nMyThread myThread = new MyThread();\nThread thread = new Thread(myThread);\nthread.start();\n//事实上，当传入一个 Runnable target 参数给 Thread 后，Thread 的 run()方法就会调用 target.run()\npublic void run() {\n    if (target != null) {\n    target.run();\n    }\n}\n```\n\n## ExecutorService、Callable、Future 有返回值线程\n\n有返回值的任务必须实现 Callable 接口，类似的，无返回值的任务必须 Runnable 接口。执行 Callable任务后，可以获取一个 Future 的对象，在该对象上调用 get 就可以获取到 Callable 任务返回的 Object了，再结合线程池接口 ExecutorService 就可以实现传说中有返回结果的多线程了。\n\n```txt\n//创建一个线程池\nExecutorService pool = Executors.newFixedThreadPool(taskSize);\n// 创建多个有返回值的任务\nList<Future> list = new ArrayList<Future>();\nfor (int i = 0; i < taskSize; i++) {\nCallable c = new MyCallable(i + \" \");\n// 执行任务并获取 Future 对象\nFuture f = pool.submit(c);\nlist.add(f);\n}\n// 关闭线程池\npool.shutdown();\n// 获取所有并发任务的运行结果\nfor (Future f : list) {\n// 从 Future 对象上获取任务的返回值，并输出到控制台\nSystem.out.println(\"res: \" + f.get().toString());\n}\n```\n\n## 基于线程池的方式\n\n线程和数据库连接这些资源都是非常宝贵的资源。那么每次需要的时候创建，不需要的时候销毁，是非常浪费资源的。那么我们就可以使用缓存的策略，也就是使用线程池。\n\n```java\n// 创建线程池\n    ExecutorService threadPool = Executors.newFixedThreadPool(10);\n    while(true) {\n    threadPool.execute(new Runnable() { // 提交多个线程任务，并执行\n    @Override\n    public void run() {\n    System.out.println(Thread.currentThread().getName() + \" is running ..\");\n    try {\n    Thread.sleep(3000);\n    } catch (InterruptedException e) {\n    e.printStackTrace();\n    }\n    }\n    });\n    }\n}\n```\n\n## 4种线程池\n\nJava 里面线程池的顶级接口是 Executor，但是严格意义上讲 Executor 并不是一个线程池，而只是一个执行线程的工具。真正的线程池接口是 ExecutorService。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/9ace6559695fc4457b9260d494d9dbf84f43341eb25376f3e1b3e6b06ce21c09.jpg)\n\n## newCachedThreadPool\n\n创建一个可根据需要创建新线程的线程池，但是在以前构造的线程可用时将重用它们。对于执行很多短期异步任务的程序而言，这些线程池通常可提高程序性能。调用 execute 将重用以前构造的线程（如果线程可用）。如果现有线程没有可用的，则创建一个新线程并添加到池中。终止并从缓存中移除那些已有 60 秒钟未被使用的线程。因此，长时间保持空闲的线程池不会使用任何资源。\n\n## newFixedThreadPool\n\n创建一个可重用固定线程数的线程池，以共享的无界队列方式来运行这些线程。在任意点，在大多数nThreads 线程会处于处理任务的活动状态。如果在所有线程处于活动状态时提交附加任务，则在有可用线程之前，附加任务将在队列中等待。如果在关闭前的执行期间由于失败而导致任何线程终止，那么一个新线程将代替它执行后续的任务（如果需要）。在某个线程被显式地关闭之前，池中的线程将一直存在。\n\n## newScheduledThreadPoo\n\n创建一个线程池，它可安排在给定延迟后运行命令或者定期地执行。\n\n```txt\n\\ScheduledExecutorService scheduledThreadPool =\nExecutors.newScheduledThreadPool(3);\nscheduledThreadPool.schedule(newRunnable(){\n@Override\npublic void run() { System.out.println(\"延迟三秒\"); }\n}, 3, TimeUnit.SECONDS);\nscheduledThreadPool.scheduleAtFixedRate(newRunnable(){\n@Override\npublic void run() {\nSystem.out.println(\"延迟 1 秒后每三秒执行一次\");\n}\n}, 1, 3, TimeUnit.SECONDS);\n```\n\n## newSingleThreadExecutor\n\nExecutors.newSingleThreadExecutor()返回一个线程池（这个线程池只有一个线程）,这个线程池可以在线程死后（或发生异常时）重新启动一个线程来替代原来的线程继续执行下去！\n\n## 线程生命周期(状态)\n\n当线程被创建并启动以后，它既不是一启动就进入了执行状态，也不是一直处于执行状态。在线程的生命周期中，它要经过新建(New)、就绪（Runnable）、运行（Running）、阻塞(Blocked)和死亡(Dead)5 种状态。尤其是当线程启动以后，它不可能一直\"霸占\"着 CPU 独自运行，所以 CPU 需要在多条线程之间切换，于是线程状态也会多次在运行、阻塞之间切换\n\n## 新建状态（NEW）\n\n当程序使用 new 关键字创建了一个线程之后，该线程就处于新建状态，此时仅由 JVM 为其分配内存，并初始化其成员变量的值\n\n## 就绪状态（RUNNABLE）：\n\n当线程对象调用了 start()方法之后，该线程处于就绪状态。Java 虚拟机会为其创建方法调用栈和程序计数器，等待调度运行。\n\n## 阻塞状态（BLOCKED）：\n\n阻塞状态是指线程因为某种原因放弃了 cpu 使用权，也即让出了 cpu timeslice，暂时停止运行。直到线程进入可运行(runnable)状态，才有机会再次获得 cpu timeslice 转到运行(running)状\n\n## 态。阻塞的情况分三种：\n\n## 等待阻塞（o.wait->等待对列）：\n\n运行(running)的线程执行 o.wait()方法，JVM 会把该线程放入等待队列(waitting queue)中。\n\n## 同步阻塞(lock->锁池)\n\n运行(running)的线程在获取对象的同步锁时，若该同步锁被别的线程占用，则 JVM 会把该线程放入锁池(lock pool)中。\n\n## 其他阻塞(sleep/join)\n\n运行(running)的线程执行 Thread.sleep(long ms)或 t.join()方法，或者发出了 I/O 请求时，JVM 会把该线程置为阻塞状态。当 sleep()状态超时、join()等待线程终止或者超时、或者 I/O处理完毕时，线程重新转入可运行(runnable)状态。\n\n## 线程死亡（DEAD）\n\n线程会以下面三种方式结束，结束后就是死亡状态。\n\n## 正常结束\n\n1. run()或 call()方法执行完成，线程正常结束。\n\n## 异常结束\n\n2. 线程抛出一个未捕获的 Exception 或 Error。\n\n## 调用stop\n\n3. 直接调用该线程的 stop()方法来结束该线程—该方法通常容易导致死锁，不推荐使用。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/f5b67b6098fc031f7b81ac9c5f6648b3203e57658eecde965344ec81eb5717bb.jpg)\n\n## 终止线程 4 种方式\n\n正常运行结束\n\n程序运行结束，线程自动结束。\n\n## 使用退出标志退出线程\n\n一般 run()方法执行完，线程就会正常结束，然而，常常有些线程是伺服线程。它们需要长时间的运行，只有在外部某些条件满足的情况下，才能关闭这些线程。使用一个变量来控制循环，例如：\n\n最直接的方法就是设一个 boolean 类型的标志，并通过设置这个标志为 true 或 false 来控制 while循环是否退出，代码示例：\n\n```txt\npublic class ThreadSafe extends Thread {\n    public volatile boolean exit = false;\n    public void run() { while (!exit){\n    //do something\n    }\n    }\n} \n```\n\n定义了一个退出标志 exit，当 exit 为 true 时，while 循环退出，exit 的默认值为 false.在定义 exit时，使用了一个 Java 关键字 volatile，这个关键字的目的是使 exit 同步，也就是说在同一时刻只能由一个线程来修改 exit 的值。\n\n## Interrupt 方法结束线程\n\n使用 interrupt()方法来中断线程有两种情况：\n\n1. 线程处于阻塞状态：如使用了 sleep,同步锁的 wait,socket 中的 receiver,accept 等方法时，会使线程处于阻塞状态。当调用线程的 interrupt()方法时，会抛出 InterruptException 异常。阻塞中的那个方法抛出这个异常，通过代码捕获该异常，然后 break 跳出循环状态，从而让我们有机会结束这个线程的执行。通常很多人认为只要调用 interrupt 方法线程就会结束，实际上是错的， 一定要先捕获 InterruptedException 异常之后通过 break 来跳出循环，才能正常结束 run 方法。\n\n2. 线程未处于阻塞状态：使用 isInterrupted()判断线程的中断标志来退出循环。当使用interrupt()方法时，中断标志就会置 true，和使用自定义的标志来控制循环是一样的道理。\n\n```java\npublic class ThreadSafe extends Thread {\n    public void run() {\n    while (!isInterrupted()) { // 非阻塞过程中通过判断中断标志来退出\n    try {\n    Thread.sleep(5*1000); // 阻塞过程捕获中断异常来退出\n    } catch (InterruptedException e) {\n    e.printStackTrace();\n    break; // 捕获到异常之后，执行 break 跳出循环\n    }\n    }\n    }\n}\n```\n\n## stop 方法终止线程（线程不安全）\n\n程序中可以直接使用 thread.stop()来强行终止线程，但是 stop 方法是很危险的，就象突然关闭计算机电源，而不是按正常程序关机一样，可能会产生不可预料的结果，不安全主要是：thread.stop()调用之后，创建子线程的线程就会抛出 ThreadDeatherror 的错误，并且会释放子线程所持有的所有锁。一般任何进行加锁的代码块，都是为了保护数据的一致性，如果在调用thread.stop()后导致了该线程所持有的所有锁的突然释放(不可控制)，那么被保护数据就有可能呈现不一致性，其他线程在使用这些被破坏的数据时，有可能导致一些很奇怪的应用程序错误。因此，并不推荐使用 stop 方法来终止线程。\n\n## leep 与 wait 区别\n\n1. 对于 sleep()方法，我们首先要知道该方法是属于 Thread 类中的。而 wait()方法，则是属于 Object类中的。\n\n2. sleep()方法导致了程序暂停执行指定的时间，让出 cpu 该其他线程，但是他的监控状态依然保持者，当指定的时间到了又会自动恢复运行状态。\n\n3. 在调用 sleep()方法的过程中，线程不会释放对象锁。\n\n4. 而当调用 wait()方法的时候，线程会放弃对象锁，进入等待此对象的等待锁定池，只有针对此对象调用 notify()方法后本线程才进入对象锁定池准备获取对象锁进入运行状态。\n\n## start 与 run 区别\n\n1. start（）方法来启动线程，真正实现了多线程运行。这时无需等待 run 方法体代码执行完毕，可以直接继续执行下面的代码。\n\n2. 通过调用 Thread 类的 start()方法来启动一个线程， 这时此线程是处于就绪状态， 并没有运行。\n\n3. 方法 run()称为线程体，它包含了要执行的这个线程的内容，线程就进入了运行状态，开始运行run 函数当中的代码。 Run 方法运行结束， 此线程终止。然后 CPU 再调度其它线程。",
+                            "tags": [
+                              "进程与线程",
+                              "Java面试突击"
+                            ]
+                          }
+                        ]
+                      }
                     },
                     {
                       "id": "tree_1782928696623_almc5c",
@@ -7794,34 +7818,6 @@
                                       "children": []
                                     },
                                     {
-                                      "id": "tree_1786343608082_382n5k",
-                                      "name": "类与接口",
-                                      "count": 0,
-                                      "nodeRef": "k_1786343607773_qq5y28",
-                                      "children": [
-                                        {
-                                          "id": "tree_1786343651438_q205rt",
-                                          "name": "抽象类",
-                                          "count": 0,
-                                          "nodeRef": "k_1784295376153_uiovkk",
-                                          "children": [],
-                                          "supplement": {
-                                            "tabs": [
-                                              {
-                                                "id": "asplit:s1",
-                                                "label": "抽象与具体",
-                                                "content": "在支持继承的语言中，**抽象类**或**抽象基类**（ABC）是一个无法直接实例化的类。相反，**具体类**是一个可以被直接实例化的类。抽象类的实例化只能通过具体的子类间接发生。抽象类要么被明确标记，要么仅需指定abstract methods（或virtual methods）。抽象类可以提供某些方法的实现，并且还可以通过签名指定虚方法，这些方法将在抽象类的直接或间接子类中实现。在从抽象类派生的类可以实例化之前，其父类的所有抽象方法必须由派生链中的某个类实现。\n\n大多数面向对象编程语言允许程序员指定哪些类被视为抽象类，并不允许这些类被实例化。例如，在Java、C#和PHP中，使用保留字（关键字）abstract。 在C++中，抽象类是具有至少一个抽象方法的类，由该语言中的适当语法定义（在C++术语中是纯虚函数）。\n\n一个只包含纯虚方法的类在C++中称为纯抽象基类（或纯ABC），并且被该语言的用户称为接口。其他语言，特别是Java和C#，通过语言中的关键字支持一种叫做接口的抽象类变体。在这些语言中，多重继承是不允许的，但一个类可以实现多个接口。这样的类只能包含抽象的公共可访问方法。",
-                                                "tags": [
-                                                  "抽象类",
-                                                  "抽象类型"
-                                                ]
-                                              }
-                                            ]
-                                          }
-                                        }
-                                      ]
-                                    },
-                                    {
                                       "id": "tree_1786344035232_o5re5z",
                                       "name": "变量",
                                       "count": 0,
@@ -7851,6 +7847,26 @@
                                             "tags": [
                                               "内部类",
                                               "Java面试突击"
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "id": "tree_1786343651438_q205rt",
+                                      "name": "抽象类",
+                                      "count": 0,
+                                      "nodeRef": "k_1784295376153_uiovkk",
+                                      "children": [],
+                                      "supplement": {
+                                        "tabs": [
+                                          {
+                                            "id": "asplit:s1",
+                                            "label": "抽象与具体",
+                                            "content": "在支持继承的语言中，**抽象类**或**抽象基类**（ABC）是一个无法直接实例化的类。相反，**具体类**是一个可以被直接实例化的类。抽象类的实例化只能通过具体的子类间接发生。抽象类要么被明确标记，要么仅需指定abstract methods（或virtual methods）。抽象类可以提供某些方法的实现，并且还可以通过签名指定虚方法，这些方法将在抽象类的直接或间接子类中实现。在从抽象类派生的类可以实例化之前，其父类的所有抽象方法必须由派生链中的某个类实现。\n\n大多数面向对象编程语言允许程序员指定哪些类被视为抽象类，并不允许这些类被实例化。例如，在Java、C#和PHP中，使用保留字（关键字）abstract。 在C++中，抽象类是具有至少一个抽象方法的类，由该语言中的适当语法定义（在C++术语中是纯虚函数）。\n\n一个只包含纯虚方法的类在C++中称为纯抽象基类（或纯ABC），并且被该语言的用户称为接口。其他语言，特别是Java和C#，通过语言中的关键字支持一种叫做接口的抽象类变体。在这些语言中，多重继承是不允许的，但一个类可以实现多个接口。这样的类只能包含抽象的公共可访问方法。",
+                                            "tags": [
+                                              "抽象类",
+                                              "抽象类型"
                                             ]
                                           }
                                         ]
@@ -8029,7 +8045,7 @@
                         },
                         {
                           "id": "tree_java_syntax_class_object",
-                          "name": "类与对象",
+                          "name": "Java 类、对象",
                           "count": 10,
                           "nodeRef": "k_java_syntax_class_object",
                           "children": [
@@ -11244,20 +11260,6 @@
                   "nodeRef": "k_java_fw_javaweb",
                   "children": [
                     {
-                      "id": "tree_vault_javajavaweb03requestresponse_1s68kh",
-                      "name": "Request/Response 与作用域",
-                      "count": 0,
-                      "nodeRef": "k_vault_javajavaweb03requestresponse_1s68kh",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_vault_javajavaweb04sessioncookie_ihdd8v",
-                      "name": "Session/Cookie 与状态管理",
-                      "count": 0,
-                      "nodeRef": "k_vault_javajavaweb04sessioncookie_ihdd8v",
-                      "children": []
-                    },
-                    {
                       "id": "tree_vault_javajavawebjsp_elp41h",
                       "name": "JSP",
                       "count": 0,
@@ -11301,6 +11303,64 @@
                       "id": "asplit_s1_asplit_view_rendering",
                       "name": "视图渲染",
                       "nodeRef": "asplit_view_rendering",
+                      "children": []
+                    },
+                    {
+                      "id": "asplit_s18_asplit_http_request_response",
+                      "name": "HTTP Request/Response",
+                      "count": 0,
+                      "nodeRef": "asplit_http_request_response",
+                      "children": [],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:s13:orig",
+                            "label": "Request、Response 与作用域（原文）",
+                            "content": "Request/Response 与作用域 ## 两个核心对象\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n## 请求处理的本质\n\n```mermaid\nflowchart LR\n    A[Request] --> B[Servlet]\n    B --> C[读取参数]\n    C --> D[执行业务]\n    D --> E[写入 Response]\n```\n\n## 常见能力\n\n- 读取表单和 URL 参数\n- 请求转发\n- 响应输出\n- 设置状态码和内容类型\n\n## 作用域理解\n\n- Request：一次请求内有效\n- ServletContext：整个应用共享\n\n这些作用域是后续 Web 框架状态管理的基础层。\n\n## 两个核心对象\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n## 请求处理的本质\n\n```mermaid\nflowchart LR\n    A[Request] --> B[Servlet]\n    B --> C[读取参数]\n    C --> D[执行业务]\n    D --> E[写入 Response]\n```\n\n## 常见能力\n\n- 读取表单和 URL 参数\n- 请求转发\n- 响应输出\n- 设置状态码和内容类型\n\n## 作用域理解\n\n- Request：一次请求内有效\n- ServletContext：整个应用共享\n\n这些作用域是后续 Web 框架状态管理的基础层。",
+                            "tags": [
+                              "Request/Response 与作用域",
+                              "java",
+                              "框架",
+                              "中间件"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "asplit_s18_asplit_web_attribute_scope",
+                      "name": "Web 属性作用域",
+                      "count": 0,
+                      "nodeRef": "asplit_web_attribute_scope",
+                      "children": []
+                    },
+                    {
+                      "id": "asplit_s18_asplit_session_cookie",
+                      "name": "Session / Cookie",
+                      "count": 0,
+                      "nodeRef": "asplit_session_cookie",
+                      "children": [],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:s14:orig",
+                            "label": "Session、Cookie 与状态管理（原文）",
+                            "content": "Session/Cookie 与状态管理 ## 为什么需要状态\n\nHTTP 是无状态协议。 \n但登录态、购物车、用户偏好这些能力都要求跨请求保存上下文。\n\n## 两种基础手段\n\n| 手段 | 存放位置 | 典型用途 |\n| --- | --- | --- |\n| Cookie | 客户端 | 标识、轻量偏好 |\n| Session | 服务端 | 登录态、会话数据 |\n\n## 协作方式\n\n```mermaid\nflowchart LR\n    A[浏览器] --> B[Cookie: SessionId]\n    B --> C[服务器]\n    C --> D[HttpSession]\n    D --> E[用户状态]\n```\n\n## 理解重点\n\n- Cookie 更像会话标识载体\n- Session 更像服务端状态存储\n- 分布式系统里，Session 会继续演化成共享会话或 Token 机制\n\n## 为什么需要状态\n\nHTTP 是无状态协议。  \n但登录态、购物车、用户偏好这些能力都要求跨请求保存上下文。\n\n## 两种基础手段\n\n| 手段 | 存放位置 | 典型用途 |\n| --- | --- | --- |\n| Cookie | 客户端 | 标识、轻量偏好 |\n| Session | 服务端 | 登录态、会话数据 |\n\n## 协作方式\n\n```mermaid\nflowchart LR\n    A[浏览器] --> B[Cookie: SessionId]\n    B --> C[服务器]\n    C --> D[HttpSession]\n    D --> E[用户状态]\n```\n\n## 理解重点\n\n- Cookie 更像会话标识载体\n- Session 更像服务端状态存储\n- 分布式系统里，Session 会继续演化成共享会话或 Token 机制",
+                            "tags": [
+                              "Session/Cookie 与状态管理",
+                              "java",
+                              "框架",
+                              "中间件"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "asplit_s18_asplit_web_state_management",
+                      "name": "Web 状态管理",
+                      "count": 0,
+                      "nodeRef": "asplit_web_state_management",
                       "children": []
                     }
                   ]
@@ -12455,17 +12515,61 @@
                       "children": []
                     },
                     {
-                      "id": "tree_vault_javakafka02topicpartitionbroker_1ae46h",
-                      "name": "Topic/Partition 与 Broker",
+                      "id": "asplit_s18_asplit_kafka_producer_consumer",
+                      "name": "Kafka 生产者 / 消费者",
                       "count": 0,
-                      "nodeRef": "k_vault_javakafka02topicpartitionbroker_1ae46h",
+                      "nodeRef": "asplit_kafka_producer_consumer",
+                      "children": [],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:s15:orig",
+                            "label": "Producer、Consumer 与消费组（原文）",
+                            "content": "Producer/Consumer 与消费组 ## Producer 做什么\n\n- 选择 Topic\n- 根据 Key 或策略决定写入哪个 Partition\n- 把消息追加到 Broker\n\n## Consumer 做什么\n\n- 从指定 Partition 拉取消息\n- 维护消费位点\n- 处理业务逻辑\n\n## 消费组的意义\n\n消费组把“多个消费者”封装成“一个逻辑消费实体”。\n\n```mermaid\nflowchart TD\n    A[Topic Partitions] --> B[Consumer Group]\n    B --> C[Consumer 1]\n    B --> D[Consumer 2]\n    B --> E[Consumer 3]\n```\n\n## 结果\n\n- 同一消费组内，一个 Partition 只会分给一个消费者\n- 不同消费组可以独立消费同一份数据\n\n这让 Kafka 同时支持“横向扩展消费能力”和“多业务复用同一数据流”。\n\n## Producer 做什么\n\n- 选择 Topic\n- 根据 Key 或策略决定写入哪个 Partition\n- 把消息追加到 Broker\n\n## Consumer 做什么\n\n- 从指定 Partition 拉取消息\n- 维护消费位点\n- 处理业务逻辑\n\n## 消费组的意义\n\n消费组把“多个消费者”封装成“一个逻辑消费实体”。\n\n```mermaid\nflowchart TD\n    A[Topic Partitions] --> B[Consumer Group]\n    B --> C[Consumer 1]\n    B --> D[Consumer 2]\n    B --> E[Consumer 3]\n```\n\n## 结果\n\n- 同一消费组内，一个 Partition 只会分给一个消费者\n- 不同消费组可以独立消费同一份数据\n\n这让 Kafka 同时支持“横向扩展消费能力”和“多业务复用同一数据流”。",
+                            "tags": [
+                              "Producer/Consumer 与消费组",
+                              "java",
+                              "Kafka",
+                              "消息队列"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "asplit_s18_asplit_kafka_consumer_group",
+                      "name": "Kafka 消费组",
+                      "count": 0,
+                      "nodeRef": "asplit_kafka_consumer_group",
                       "children": []
                     },
                     {
-                      "id": "tree_vault_javakafka03producerconsumer_y4d5ch",
-                      "name": "Producer/Consumer 与消费组",
+                      "id": "asplit_s18_asplit_kafka_topic_partition",
+                      "name": "Kafka Topic / Partition",
                       "count": 0,
-                      "nodeRef": "k_vault_javakafka03producerconsumer_y4d5ch",
+                      "nodeRef": "asplit_kafka_topic_partition",
+                      "children": [],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:s16:orig",
+                            "label": "Topic、Partition 与 Broker（原文）",
+                            "content": "Topic/Partition 与 Broker ## 为什么需要分区\n\n单机、单文件很难同时满足高吞吐和可扩展。 \nKafka 用 Topic 下的多个 Partition 来切分数据。\n\n```mermaid\nflowchart LR\n    A[Topic] --> B[Partition 0]\n    A --> C[Partition 1]\n    A --> D[Partition 2]\n    B --> E[Broker A]\n    C --> F[Broker B]\n    D --> G[Broker C]\n```\n\n## 理解重点\n\n- Topic 是逻辑概念\n- Partition 是并行和顺序的基本单元\n- Broker 是物理承载节点\n\n## 顺序边界\n\n- 单个 Partition 内有序\n- 不同 Partition 之间不保证全局有序\n\n## 工程含义\n\n想要更高吞吐，通常增加 Partition。 \n但 Partition 增多，也意味着全局顺序更难保证。\n\n## 为什么需要分区\n\n单机、单文件很难同时满足高吞吐和可扩展。  \nKafka 用 Topic 下的多个 Partition 来切分数据。\n\n```mermaid\nflowchart LR\n    A[Topic] --> B[Partition 0]\n    A --> C[Partition 1]\n    A --> D[Partition 2]\n    B --> E[Broker A]\n    C --> F[Broker B]\n    D --> G[Broker C]\n```\n\n## 理解重点\n\n- Topic 是逻辑概念\n- Partition 是并行和顺序的基本单元\n- Broker 是物理承载节点\n\n## 顺序边界\n\n- 单个 Partition 内有序\n- 不同 Partition 之间不保证全局有序\n\n## 工程含义\n\n想要更高吞吐，通常增加 Partition。  \n但 Partition 增多，也意味着全局顺序更难保证。",
+                            "tags": [
+                              "Topic/Partition 与 Broker",
+                              "java",
+                              "Kafka",
+                              "消息队列"
+                            ]
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "id": "asplit_s18_asplit_kafka_broker",
+                      "name": "Kafka Broker",
+                      "count": 0,
+                      "nodeRef": "asplit_kafka_broker",
                       "children": []
                     }
                   ],
@@ -18331,22 +18435,6 @@
                               ]
                             },
                             {
-                              "id": "tree_concept_range_insert_lock",
-                              "name": "范围锁与插入锁 / range & insert locks",
-                              "count": 0,
-                              "nodeRef": "concept_range_insert_lock",
-                              "children": [
-                                {
-                                  "id": "mysql_lock_range_insert",
-                                  "name": "MySQL 范围锁与插入锁",
-                                  "count": 0,
-                                  "nodeRef": "mysql_lock_range_insert",
-                                  "projection": false,
-                                  "children": []
-                                }
-                              ]
-                            },
-                            {
                               "id": "tree_wiki_en_outline_of_databases_s4_b16",
                               "name": "有序共享锁 / ordered shared locks",
                               "count": 0,
@@ -18381,6 +18469,34 @@
                               "name": "排他锁 / exclusive lock",
                               "count": 0,
                               "nodeRef": "concept_exclusive_lock",
+                              "children": []
+                            },
+                            {
+                              "id": "asplit_s18_asplit_range_lock",
+                              "name": "范围锁",
+                              "count": 0,
+                              "nodeRef": "asplit_range_lock",
+                              "children": [],
+                              "supplement": {
+                                "tabs": [
+                                  {
+                                    "id": "asplit:s18:s12:orig",
+                                    "label": "范围锁、插入锁（原文）",
+                                    "content": "范围锁与插入锁 / range & insert locks 应对幻读的锁机制族：范围锁（锁定一个键值区间）、插入意向锁（区间插入意图）、临键锁（记录锁+间隙锁）等，共同阻止其他事务在区间内插入新行。\n\n**范围锁与插入锁 / range & insert locks**\n应对**幻读**的锁机制族：范围锁（锁定一个键值区间）、插入意向锁（区间插入意图）、临键锁（记录锁+间隙锁）等，共同阻止其他事务在区间内插入新行。\n\n本节点只承载模型本体；各 DBMS 的范围/插入锁实现作为实例挂其下。\n\n**同构实例**：InnoDB 间隙锁 + 插入意向锁 + 临键锁组合。",
+                                    "tags": [
+                                      "范围锁与插入锁 / range & insert locks",
+                                      "并发",
+                                      "锁"
+                                    ]
+                                  }
+                                ]
+                              }
+                            },
+                            {
+                              "id": "asplit_s18_asplit_insert_lock",
+                              "name": "插入锁",
+                              "count": 0,
+                              "nodeRef": "asplit_insert_lock",
                               "children": []
                             }
                           ]
@@ -20612,7 +20728,7 @@
                       ]
                     },
                     {
-                      "name": "备份与恢复",
+                      "name": "数据库备份、恢复",
                       "id": "chapter_db_15",
                       "nodeRef": "container:chapter_db_15",
                       "children": [
@@ -20639,141 +20755,133 @@
                           ]
                         },
                         {
-                          "id": "tree_wiki_en_database_s24",
-                          "name": "备份和恢复",
-                          "count": 0,
-                          "nodeRef": "k_wiki_en_database_s24",
+                          "id": "tree_concept_replication",
+                          "name": "复制 / replication",
+                          "nodeRef": "concept_replication",
                           "children": [
                             {
-                              "id": "tree_concept_replication",
-                              "name": "复制 / replication",
-                              "nodeRef": "concept_replication",
+                              "id": "tree_1787326496505_zi1nw7",
+                              "name": "MySQL Replication",
+                              "count": 0,
+                              "nodeRef": "k_1787326496104_zbtx44",
+                              "projection": false,
                               "children": [
                                 {
-                                  "id": "tree_1787326496505_zi1nw7",
-                                  "name": "MySQL Replication",
+                                  "id": "tree_msr_overview",
+                                  "name": "MySQL 主从复制",
                                   "count": 0,
-                                  "nodeRef": "k_1787326496104_zbtx44",
-                                  "projection": false,
+                                  "nodeRef": "msr_overview",
                                   "children": [
                                     {
-                                      "id": "tree_msr_overview",
-                                      "name": "MySQL 主从复制",
+                                      "id": "tree_k_dict_rukxx2as",
+                                      "name": "主从复制",
                                       "count": 0,
-                                      "nodeRef": "msr_overview",
+                                      "nodeRef": "k_dict_rukxx2as",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_msr_purpose",
+                                      "name": "用途",
+                                      "count": 0,
+                                      "nodeRef": "msr_purpose",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_msr_prereq",
+                                      "name": "部署必要条件",
+                                      "count": 0,
+                                      "nodeRef": "msr_prereq",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_msr_principle",
+                                      "name": "复制原理",
+                                      "count": 0,
+                                      "nodeRef": "msr_principle",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_msr_flow",
+                                      "name": "复制流程（三线程）",
+                                      "count": 0,
+                                      "nodeRef": "msr_flow",
                                       "children": [
                                         {
-                                          "id": "tree_k_dict_rukxx2as",
-                                          "name": "主从复制",
+                                          "id": "tree_msr_master_db",
+                                          "name": "主库 db（Master）",
                                           "count": 0,
-                                          "nodeRef": "k_dict_rukxx2as",
+                                          "nodeRef": "msr_master_db",
                                           "children": []
                                         },
                                         {
-                                          "id": "tree_msr_purpose",
-                                          "name": "用途",
+                                          "id": "tree_msr_dump_thread",
+                                          "name": "binlog dump 线程（主库）",
                                           "count": 0,
-                                          "nodeRef": "msr_purpose",
+                                          "nodeRef": "msr_dump_thread",
                                           "children": []
                                         },
                                         {
-                                          "id": "tree_msr_prereq",
-                                          "name": "部署必要条件",
+                                          "id": "tree_msr_io_thread",
+                                          "name": "I/O 线程（从库）",
                                           "count": 0,
-                                          "nodeRef": "msr_prereq",
+                                          "nodeRef": "msr_io_thread",
                                           "children": []
                                         },
                                         {
-                                          "id": "tree_msr_principle",
-                                          "name": "复制原理",
+                                          "id": "tree_msr_sql_thread",
+                                          "name": "SQL 线程（从库）",
                                           "count": 0,
-                                          "nodeRef": "msr_principle",
+                                          "nodeRef": "msr_sql_thread",
                                           "children": []
                                         },
                                         {
-                                          "id": "tree_msr_flow",
-                                          "name": "复制流程（三线程）",
+                                          "id": "tree_msr_relay_log",
+                                          "name": "relay log（中继日志）",
                                           "count": 0,
-                                          "nodeRef": "msr_flow",
-                                          "children": [
-                                            {
-                                              "id": "tree_msr_master_db",
-                                              "name": "主库 db（Master）",
-                                              "count": 0,
-                                              "nodeRef": "msr_master_db",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_dump_thread",
-                                              "name": "binlog dump 线程（主库）",
-                                              "count": 0,
-                                              "nodeRef": "msr_dump_thread",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_io_thread",
-                                              "name": "I/O 线程（从库）",
-                                              "count": 0,
-                                              "nodeRef": "msr_io_thread",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_sql_thread",
-                                              "name": "SQL 线程（从库）",
-                                              "count": 0,
-                                              "nodeRef": "msr_sql_thread",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_relay_log",
-                                              "name": "relay log（中继日志）",
-                                              "count": 0,
-                                              "nodeRef": "msr_relay_log",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_slave_db",
-                                              "name": "从库 db（Slave）",
-                                              "count": 0,
-                                              "nodeRef": "msr_slave_db",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_state_written",
-                                              "name": "事件已写入 binlog",
-                                              "count": 0,
-                                              "nodeRef": "msr_state_written",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_state_sent",
-                                              "name": "事件已发送",
-                                              "count": 0,
-                                              "nodeRef": "msr_state_sent",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_state_relayed",
-                                              "name": "事件已入 relay log",
-                                              "count": 0,
-                                              "nodeRef": "msr_state_relayed",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_state_replayed",
-                                              "name": "事件已重放",
-                                              "count": 0,
-                                              "nodeRef": "msr_state_replayed",
-                                              "children": []
-                                            },
-                                            {
-                                              "id": "tree_msr_state_consistent",
-                                              "name": "主从数据一致",
-                                              "count": 0,
-                                              "nodeRef": "msr_state_consistent",
-                                              "children": []
-                                            }
-                                          ]
+                                          "nodeRef": "msr_relay_log",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_slave_db",
+                                          "name": "从库 db（Slave）",
+                                          "count": 0,
+                                          "nodeRef": "msr_slave_db",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_state_written",
+                                          "name": "事件已写入 binlog",
+                                          "count": 0,
+                                          "nodeRef": "msr_state_written",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_state_sent",
+                                          "name": "事件已发送",
+                                          "count": 0,
+                                          "nodeRef": "msr_state_sent",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_state_relayed",
+                                          "name": "事件已入 relay log",
+                                          "count": 0,
+                                          "nodeRef": "msr_state_relayed",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_state_replayed",
+                                          "name": "事件已重放",
+                                          "count": 0,
+                                          "nodeRef": "msr_state_replayed",
+                                          "children": []
+                                        },
+                                        {
+                                          "id": "tree_msr_state_consistent",
+                                          "name": "主从数据一致",
+                                          "count": 0,
+                                          "nodeRef": "msr_state_consistent",
+                                          "children": []
                                         }
                                       ]
                                     }
@@ -20783,7 +20891,19 @@
                             }
                           ]
                         }
-                      ]
+                      ],
+                      "supplement": {
+                        "tabs": [
+                          {
+                            "id": "asplit:s18:tree_wiki_en_database_s24:orig",
+                            "label": "备份和恢复（维基原文）",
+                            "content": "有时需要将数据库恢复到以前的状态（出于多种原因，例如，发现数据库由于软件错误而损坏，或者使用错误的数据更新了数据库）。为了实现这一点，偶尔或连续地执行备份操作，其中每个所需的数据库状态（即，其数据的值及其在数据库数据结构中的嵌入）都保存在专用备份文件中（存在许多技术可以有效地做到这一点）。当数据库管理员决定将数据库恢复到该状态时（例如，通过数据库处于该状态时的所需时间点指定该状态），这些文件用于恢复该状态。\n\n主条目：备份\n有时需要将数据库恢复到以前的状态（出于多种原因，例如，发现数据库由于软件错误而损坏，或者使用错误的数据更新了数据库）。为了实现这一点，偶尔或连续地执行备份操作，其中每个所需的数据库状态（即，其数据的值及其在数据库数据结构中的嵌入）都保存在专用备份文件中（存在许多技术可以有效地做到这一点）。当数据库管理员决定将数据库恢复到该状态时（例如，通过数据库处于该状态时的所需时间点指定该状态），这些文件用于恢复该状态。",
+                            "tags": [
+                              "备份和恢复"
+                            ]
+                          }
+                        ]
+                      }
                     },
                     {
                       "name": "十六、数据库安全",
@@ -21695,7 +21815,7 @@
                                         },
                                         {
                                           "id": "mysql:theme:backup-recovery",
-                                          "name": "备份与恢复",
+                                          "name": "MySQL 备份、恢复",
                                           "count": 0,
                                           "view": "mysql-architecture",
                                           "canonicalCategory": true,
