@@ -155,6 +155,19 @@ try {
     `)
     check(panel.hasTab, `右栏出现 supplement 页签「${TAB_LABEL}」`)
     if (!panel.hasTab) console.log('    右栏文本片段：', panel.snippet.replace(/\s+/g, ' ').slice(0, 400))
+
+    // 可选：断言右栏出现某个关系对象（验证拆分后两卡之间有边可跳）
+    const RELATION = process.env.SPOT_RELATION
+    if (RELATION) {
+      const rel = await evaluate(`
+        (() => {
+          const t = document.body.innerText || '';
+          return { has: t.includes(${JSON.stringify(RELATION)}), snippet: t.slice(0, 1500) };
+        })()
+      `)
+      check(rel.has, `右栏出现关系对象「${RELATION}」`)
+      if (!rel.has) console.log('    右栏文本片段：', rel.snippet.replace(/\s+/g, ' ').slice(0, 400))
+    }
   }
 
   // F1 改名检查：搜 Reactor 应出现「Reactor 模式」且不再有「Reactor概述」
