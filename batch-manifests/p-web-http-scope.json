@@ -6,9 +6,24 @@
   "preBatchSnapshot": "data/backups/p-web-http-scope-2026-09-14T16-26-47-000Z",
   "preBatchSnapshotNote": "快照含 4 个 data 文件（tree / edges / pool / evolution-events）。**本批独立验证不 import apply 脚本**，而是由该快照 ↔ 工作树逐结构比对**反推**改动 ⇒ 快照是本批唯一的祖先证据。已用单进程 `Buffer.compare` 逐字节复核：HEAD(`3a36b8b`) ↔ 快照 4/4 相等（1939539 / 12651326 / 1139897 / 94553 字节）。",
   "commitSubjectHint": "data: P-WEB-HTTP-SCOPE a-split 源残留节点拆解 + HTTP/Servlet 本体归位 — 树 3212→3215 · 池 3855→3858 · 边 4159→4161（独立验证 20/20 · UI 11/11）",
-  "status": "READY_TO_COMMIT",
-  "commit": null,
-  "committedAt": null,
+  "status": "COMMITTED",
+  "commit": "83a3543",
+  "committedAt": "2026-09-15T00:48:50+08:00",
+  "commitAcceptance": {
+    "readinessGates": "8/8 PASS（`node scripts/verify-phase1-commit-readiness.mjs --batch p-web-http-scope`）→ READY。manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate 全 PASS。证据快照：`outputs/tree-violation-scan/readiness-p-web-http-scope.json`。",
+    "appliedPathspec": "14 项，= writeSet，由就绪门原样输出，**未手写**。提交实际落地 `14 files changed, 2108 insertions(+), 136 deletions(-)`（与 pathspec 逐项一致，未夹带任何外部改动；`create mode` 9 个新增文件）。",
+    "stagedDeltaAudit": "提交前对暂存区做了逐文件增删行核对，与预期相符：`tree-data.json` 49/40 · `knowledge-edges.json` 73/70 · `node-pool.json` 173/23 · `evolution-events.json` 66/1（1 行删除 = 原末条事件的对象收尾 `}` 补逗号，属**纯追加的结构后果**，不是内容改写）· `questions.json` **未出现在暂存区**。",
+    "structuralFinalAudit": "另跑一次逐结构终审（快照 ↔ 工作树）：**树** add 5 / rm 2，非 `children` 字段有变的既有节点**恰为 1 个**（`tree_java_fw_servlet_lifecycle`，= 本批声明的改名），`children` 有变的既有节点**恰为 3 个**（HTTP / JavaWeb / 生命周期 —— 各自的子列表按声明变化）；**边** add 9 / rm 7，且**既有边内容有变 = 0**；**事件** 既有 7 条逐字不变。⇒ 「无夹带」由结构断言证明，而非只看行数。",
+    "applyGate": "10/10 —— 见 `gates.applyGate`。",
+    "independentVerification": "20/20 INDEPENDENT_VERIFY_PASS —— 见 `gates.independentVerification`。",
+    "uiAcceptance": "11/11 UI_VERIFY_PASS —— 见 `gates.uiAcceptance`。",
+    "regression": "`npx tsc --noEmit` 0 错误 · `npm run build` ~30s · `npm test` 44/44（验收基准 = tracked 42/42）",
+    "probeDiscipline": "一条一次性浏览器探针 `scripts/shell-fusion/probe-p-web-http-scope.mjs` **用后即删**，删除后已跑命令复查（非仅声明）：探针路径不存在 · `.tmp-*` 计数 0 · 后台 preview(4192) 与 Chromium(9337) 进程已停且端口复查释放 · 剩余未跟踪项全部落在 declaredExternalSet ∪ excludedSet 内。`data/backups/p-web-http-scope-*` 由 `.gitignore` 覆盖，不进提交。",
+    "ancestorGatePostCommitNote": "⚠️ 提交后重跑本清单的就绪门，`ancestorGate` 必然报 BLOCK —— 这是**正确读数，不是回归**。该门比对 `HEAD ↔ preBatchSnapshot`，提交落地后 HEAD 已含本批写入，差异恰好等于本批 diff，**反而独立证明了提交没有夹带外部改动**。要重跑就绪门请先回退到 baseRef `3a36b8b`，或改用本批已产出的 `readiness-p-web-http-scope.json` 作为提交时点的证据快照。",
+    "scopeBoundaryHonesty": "本批**未扩大范围**：T3 家族已闭环不回头；T10 ④ `react_root` 串线只**登记不处置**（一个字节都没动，不在 writeSet 内）；用户草稿提到的 `Filter` / `Controller` / `HTTP 通信模型` **未建立**（最终裁决未要求）；池实体 id 的 `asplit_` 命名空间残留（`asplit_servlet_lifecycle` / `asplit_web_attribute_scope`）本批**只改 `label`/`card`、不改 id**，归 T10 ② 同类债。",
+    "gateDefectTransparency": "预检首跑 G12 FAIL、dry-run 首跑 P8 FAIL、独立验证首跑 V14 FAIL（读数 228）、UI 探针首跑 0/11 → 7/11 → 11/11 —— **全部定位到具体成因并保留在报告里而非抹掉**。其中 **V14 是一处真缺陷**（漏删上游 treebind 边），已回滚重跑；G12 / P8 / UI 探针三处是**仪器或脚本缺陷**。所有修法都是「改取数方式 / 改断言写法」，**没有一处靠放宽期望值过关**（宪法 §3.2）。",
+    "detectorFalsePositiveRegistered": "就绪门内联 `residuals` 检测器对「只改 `card`、`label` 未变」的实体产生**自命中误报**（旧值 ≡ 新值）：本批 3 个被改实体中 **2 个**（`k_1784340526295_skm8iw` · `asplit_web_attribute_scope`）被标 🔴 `defect-candidate`，而其 `label` 与改前**逐字相同**，不构成残留。**归 T5，本批不就地修**（改就绪门会污染本批 writeSet），已登记入 `governance-ledger.md` 的 T5 行 ④。"
+  },
 
   "provenance": {
     "trigger": "用户提问：「HTTP Request/Response 这个为什么没拆，位置也不对」",
@@ -315,6 +330,6 @@
     "independentVerify": "20/20 INDEPENDENT_VERIFY_PASS",
     "ui": "11/11 UI_VERIFY_PASS",
     "regression": "tsc 0 · test 44/44 · build 30s",
-    "verdict": "全部验收门通过，数据已落盘，待提交。"
+    "verdict": "全部验收门通过，数据已落盘，内容已提交 83a3543，本清单已登记为 COMMITTED。"
   }
 }
