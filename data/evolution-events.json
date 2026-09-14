@@ -1016,5 +1016,45 @@
         "after": "treeId `tree_distributed_systems_db_sharding`（域命名空间 `distributed_systems`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > 分库"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:t3-p2:1789399635504",
+    "scopeRootId": null,
+    "occurredAt": 1789399635504,
+    "title": "T3-P2：MyBatis 4 个「插件点」展示原子的卸树留池（只删 tree mount，池实体保留）",
+    "summary": "Mybatis 节点（k_java_fw_mybatis）下的 4 个插件点节点被解除树挂载：Executor / StatementHandler / ParameterHandler / ResultSetHandler。删除 4 个 tree mount 与对应 4 条 treebind 边；**池实体全部保留**，宿主的 viewDimensions「插件与执行链 / 四大对象插件点」网格（mybatis_plugin_grid，layout=grid）的 4 个 atom 引用**逐字不变**，故维度展示能力不受影响；题组不动。依据：这 4 项的真实身份是**维度展示原子**（4/4 均为该网格 atom），而维度原子走 nodePool 查表、不依赖树挂载 ⇒ tree mount 冗余。保留双入口（树 + 网格）会让树承担展示职责并与池实体漂移。处置语义 = 解除错误的物理归属，保留知识实体及其维度展示能力，不是删除知识。与 T3-P0.1（MySQL 服务层 3 条）同构，无范围变更。",
+    "sourceOnlyNodeIds": [
+      "asplit_mybatis_executor",
+      "asplit_mybatis_statement_handler",
+      "asplit_mybatis_parameter_handler",
+      "asplit_mybatis_resultset_handler"
+    ],
+    "introducedNodes": [],
+    "changes": [
+      {
+        "targetNodeId": "asplit_mybatis_executor",
+        "facet": "structure",
+        "before": "treeId `tree_java_fw_mybatis_executor`（挂在 `tree_java_fw_mybatis`「Mybatis」下）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > Executor（插件点）",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mybatis_executor` 与其正文 保留；仍作为宿主「Mybatis」viewDimensions 的 mybatis_plugin_grid 网格 atom 展示"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_statement_handler",
+        "facet": "structure",
+        "before": "treeId `tree_java_fw_mybatis_statement_handler`（挂在 `tree_java_fw_mybatis`「Mybatis」下）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > StatementHandler（插件点）",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mybatis_statement_handler` 与其正文 保留；仍作为宿主「Mybatis」viewDimensions 的 mybatis_plugin_grid 网格 atom 展示"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_parameter_handler",
+        "facet": "structure",
+        "before": "treeId `tree_java_fw_mybatis_parameter_handler`（挂在 `tree_java_fw_mybatis`「Mybatis」下）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ParameterHandler（插件点）",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mybatis_parameter_handler` 与其正文 保留；仍作为宿主「Mybatis」viewDimensions 的 mybatis_plugin_grid 网格 atom 展示"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_resultset_handler",
+        "facet": "structure",
+        "before": "treeId `tree_java_fw_mybatis_resultset_handler`（挂在 `tree_java_fw_mybatis`「Mybatis」下）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ResultSetHandler（插件点）",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mybatis_resultset_handler` 与其正文 保留；仍作为宿主「Mybatis」viewDimensions 的 mybatis_plugin_grid 网格 atom 展示"
+      }
+    ]
   }
 ]

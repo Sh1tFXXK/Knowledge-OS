@@ -1,0 +1,215 @@
+{
+  "batchId": "t3-p2",
+  "title": "T3-P2 · MyBatis 4 个「插件点」展示原子的卸树留池（P0.1 同构）",
+  "baseRef": "0df4ad1",
+  "baseRefNote": "前序提交链：… → 2518431（t3-p0.1 excludedSet 补登）→ 03051bc / 0df4ad1（T3-P1 apply + 登记）。本批从 T3-P1 收口后的干净基线出发。按「一个批次 / 一个 manifest / 一个 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」范式执行。",
+  "preBatchSnapshot": "data/backups/t3-p2-2026-09-14T15-27-15-288Z",
+  "preBatchSnapshotNote": "快照含全部 5 个 data 文件（`--freeze` 阶段落盘）。本批**独立验证不 import apply 脚本**，而是由该快照 ↔ 工作树逐结构比对**反推**改动 ⇒ 快照是本批唯一的祖先证据。",
+  "commitSubjectHint": "data: T3-P2 MyBatis 4 个插件点展示原子卸树留池 — tree 3216→3212 · 边 4163→4159 · 池 3855 不变（P0.1 同构，UI 10/10）",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/apply-t3-p2-unload-mybatis-plugin-atoms.mjs",
+    "scripts/verify-t3-p2-apply.mjs",
+    "scripts/classify-t3-medium-residuals.mjs",
+    "outputs/tree-violation-scan/medium-classification.json",
+    "outputs/tree-violation-scan/t3-p2-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p2-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p2-apply-report.md",
+    "outputs/tree-violation-scan/t3-p2-apply-verification.md",
+    "outputs/tree-violation-scan/t3-p2-ui-probe.md",
+    "outputs/tree-violation-scan/t10-node-ref-integrity.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/t3-p2.json"
+  ],
+  "writeSetNote": "四类需要解释：① 三个 data 文件是本批**唯一的数据写入**（tree 删 4 个 mount、edges 删 4 条 treebind id、evolution 追加 1 条审计事件）。② 两个落盘/验证脚本（apply 15 闸门 / verify 13 断言）。③ **`scripts/classify-t3-medium-residuals.mjs` + `medium-classification.json` 属本批** —— 它们不是「顺带的侦察产物」，而是本批**决策的判据来源**（A/B/C 分类扫出 4 条 B 类才是本批的立项依据）；判据住在未提交文件里 = 本机不可复现，故必须入库。④ `governance-ledger.md` 本批有两处写入：T13 新行（记录本批）+ T10 行追加第 ④ 项（`react_root`，**登记不修**）。⑤ 一次性浏览器探针 `scripts/shell-fusion/probe-t3-p2.mjs` **不进 writeSet** —— 按 AGENTS.md「临时产物用后即删」，已删除；断言与结论留在 `t3-p2-ui-probe.md`（与 T3-P0 / P0.1 / P1 的探针处理一致）。",
+
+  "governanceSet": [],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "declaredExternalSetNote": "与 T3-P1 的登记**逐项一致**（本批未新增任何外部声明）：全部为他人会话 / 其它批次（T5、索引图、文档）的在飞改动，本批不认领、不提交、一个字节都不碰。⚠️ `scripts/tree-utils.test.mjs` 已被外部会话修改 → 本批验收测试口径只认 **tracked 基线 42 项**。",
+
+  "excludedSet": [
+    "data/node-pool.json",
+    "data/questions.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "**全部精确路径，不使用任何目录前缀**（前缀是宽刷子，会盖住自己 writeSet 里的文件）。① `data/node-pool.json` / `data/questions.json`：本批**语义前提就是「池实体保留」**（4 个实体与其正文不动、宿主 `mybatis_plugin_grid` 网格 4 个 atom 逐字不变）⇒ 必须出现在排除集里以示「不是靠漏提交来假装没改」。已由独立验证 V8/V9 逐字节证明。② 各 `readiness-*.json` 是就绪门产物，按项目惯例以精确路径登记为排除（含本批自己将要生成的 `readiness-t3-p2.json`）。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/medium-classification.json",
+    "outputs/tree-violation-scan/t3-p2-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p2-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p2-apply-report.md",
+    "outputs/tree-violation-scan/t3-p2-apply-verification.md",
+    "outputs/tree-violation-scan/t3-p2-ui-probe.md",
+    "outputs/tree-violation-scan/t10-node-ref-integrity.md"
+  ],
+  "generatedArtifactsNote": "`medium-classification.json` 由只读分类器产出，含 `positiveControl`（P0.1 已知 B 类 3 条必须被 B 规则命中 —— 首跑因池 ref 猜错而**假失败**，修正后 PASS）、`crossCheck`（同一判据跑全量 130，验证「0/38」不是仪器坏）、`extraFindings`（全树 211 条 B 类树节点 / 87 ref 多挂载 / `react_root` 串线）。⚠️ 复现性：`t3-p2-apply-*` 需要 `data/backups/t3-p2-*` 快照；该快照被 `.gitignore:33` 覆盖，故在干净检出上不可直接复跑 —— 与各 `readiness-*.json` 处境同类。",
+
+  "expectedDelta": {
+    "note": "本批**只删 tree mount 与对应 treebind 边**：不新增任何节点或边，不改任何非 id 字段，不改池与题库。",
+    "data/tree-data.json": {
+      "nodeCount": "3216 → 3212（−4）",
+      "removedNodes": 4,
+      "addedNodes": 0,
+      "nonIdFieldsChanged": 0,
+      "hostChildren": "tree_java_fw_mybatis 15 → 11",
+      "removedIds": [
+        "tree_java_fw_mybatis_executor",
+        "tree_java_fw_mybatis_statement_handler",
+        "tree_java_fw_mybatis_parameter_handler",
+        "tree_java_fw_mybatis_resultset_handler"
+      ],
+      "leafNote": "4 个目标 childCount=0 ⇒ **无需提级**，卸载是纯减操作（G1 断言）。"
+    },
+    "data/knowledge-edges.json": {
+      "edgeCount": "4163 → 4159（−4）",
+      "removedEdges": 4,
+      "addedEdges": 0,
+      "endpointsTouched": 0,
+      "removedEdgeIds": [
+        "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_executor",
+        "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_statement_handler",
+        "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_parameter_handler",
+        "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_resultset_handler"
+      ],
+      "tbUnresolved": "18 → 18（既有债不增不减）"
+    },
+    "data/evolution-events.json": {
+      "before": 6,
+      "after": 7,
+      "addedEvents": 1,
+      "changes": 4,
+      "introducedNodes": 0,
+      "fieldRoleNote": "changes[].before / after 属**审计叙述**，按宪法 §3.6 **必须**保留旧 treeId，不计入「残留」。G6/V13 的残留检查因此**剥离叙述字段后再查**，而不是直接放宽闸门。"
+    },
+    "data/node-pool.json": "0 改动（逐字节等于批前快照）",
+    "data/questions.json": "0 改动（逐字节等于批前快照）",
+    "viewDimensionAtoms": "248 → 248（总数不变）· 宿主 mybatis_plugin_grid 的 4 个 atom 逐字不变"
+  },
+
+  "scopeRegistration": {
+    "inScope": "T3-P2 = MyBatis 4 个插件点的**错误物理归属解除**",
+    "outOfScope_explicitly": [
+      "T3-P1 —— 已闭环，**不回头处理**（用户 2026-09-14 明确）",
+      "react_root nodeRef 串线 —— **登记进 T10 观察项，本批不修**（用户明确：它不是 mount 问题，是 identity integrity violation，不是简单换指针）"
+    ],
+    "scopeBoundaryNote": "用户明确要求「不要扩大范围」，理由是已形成的边界模型：**T3 = 语义命名治理 + tree mount 清理（P0/P0.1/P2）**；**T10 = 结构一致性债（projection / treebind parser / nodeRef integrity）**。把 react_root 拉进本批会破坏已验证过的批次闭环模型。"
+  },
+
+  "adjudicationBasisNote": "本批立项**不依据人工逐条判断**，而依据 T3-AUDIT 的 A/B/C 批量分类（`medium-classification.json`）：A 已有 canonical → 卸载/归并；B 只是展示原子 → unloadTreeEntry；C 真缺语义容器 → 保留改名。MEDIUM-38 判为 A0/B0/C38（改名处置成立），但**全量 130 命中 B 类 4 条** —— 假设成立、落点不同。这 4 条即本批。审计同时做了正对照与交叉核对，以排除「0 命中是仪器坏」的可能。",
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "口径 = **测试项数**：已跟踪 6 个测试文件 → 42 项；未跟踪 1 个文件 → 2 项。本次实跑 `npm test` = **44/44 全绿**。其中 `scripts/tree-utils.test.mjs` 被**外部会话**修改过（在 declaredExternalSet 里），故本批验收只以 tracked 42 为准做保守断言。"
+  },
+
+  "gates": {
+    "ancestorGate": {
+      "definition": "HEAD ↔ preBatchSnapshot 逐字节（单进程 Buffer.compare，禁 git show 管道）",
+      "result": "PASS 5/5",
+      "mustBeEmpty": [
+        "data/tree-data.json",
+        "data/node-pool.json",
+        "data/knowledge-edges.json",
+        "data/questions.json",
+        "data/evolution-events.json"
+      ]
+    },
+    "applyScript": [
+      { "id": "G1", "name": "4 个目标存在 ∧ 均为宿主直接子 ∧ 均为叶子（childCount=0 ⇒ 无需提级）", "result": "PASS" },
+      { "id": "G2", "name": "宿主子数恰为 15", "result": "PASS" },
+      { "id": "G3", "name": "4 条 treebind 边按精确 id 各命中 1 条 ∧ 端点均在池", "result": "PASS" },
+      { "id": "G4", "name": "口径登记：宿主 treeId 不含冒号 ⇒ split(':') helper 对本批**恰好有效**（与 P0.1 相反）", "result": "PASS" },
+      { "id": "G5", "name": "4 个池实体保留 ∧ 网格 mybatis_plugin_grid atom 4/4 可解析 ∧ 4 个目标 atom 全在", "result": "PASS" },
+      { "id": "G6", "name": "引用闭合：池/题库 0 残留 ∧ 审计**叙述外**0 残留 ∧ 边侧命中恰为将删的 4 条 ∧ 端点引用 0", "result": "PASS" },
+      { "id": "G7", "name": "宿主剩余 11 个子顺序保持 ∧ 其余边逐字节不变 ∧ count 全树不变", "result": "PASS" },
+      { "id": "G8", "name": "node-pool 与 questions 零改动（池实体保留 = 本批不改池）", "result": "PASS" },
+      { "id": "G9", "name": "预期 diff：树 3216→3212 · 边 4163→4159 · 池不变 3855", "result": "PASS" },
+      { "id": "G10", "name": "4 个 treeId 在树中 0 残留", "result": "PASS" },
+      { "id": "G11", "name": "tree 节点 nodeRef 悬空 = 0（批前 0 → 批后 0）", "result": "PASS" },
+      { "id": "G12", "name": "本批引入的新未解析 treebind 边 = 0（既有债 18 条不归本批）", "result": "PASS" },
+      { "id": "G13", "name": "全库 viewDimensions atom 悬空 = 0（248 个 atom）", "result": "PASS" },
+      { "id": "G14", "name": "三个待写文件的末尾换行状态延续", "result": "PASS" },
+      { "id": "G15", "name": "dev server / preview 未在写数据端口监听", "result": "PASS（5173/4192 未监听）" }
+    ],
+    "gateDefectFixedDuringPreflight": "首跑 G6 报 FAIL —— 残留只出现在 `evolution-events.json` 的 `changes[].after`，即 **T3-P1 的审计叙述**。**没有**直接放宽闸门，而是按宪法 §3.6 把 `changes[].before/after` **剥离后再查剩余部分**（同时单独统计叙述内命中数并在闸门详情里显示），这样既不误伤叙述、又不放过叙述之外的引用。改后 15/15。",
+    "independentVerification": {
+      "verdict": "INDEPENDENT_VERIFY_PASS 13/13",
+      "artifact": "outputs/tree-violation-scan/t3-p2-apply-verification.md",
+      "method": "**不 import apply 脚本** · 由 `data/backups/t3-p2-*`（批前快照）↔ 当前工作树逐结构比对**反推**本批改了什么，再与宣称比对",
+      "highlights": [
+        "V1/V2/V3：反推树净减恰 4 个 ∧ 均叶子且同父 ∧ 宿主 children 15→11 且顺序 = 原顺序去掉 4 个",
+        "V4/V5：反推边净减恰 4 条 ∧ 逐字可预测 = `treebind:<宿主>:<被删子>`（4/4）",
+        "V6：其余 4159 条边逐字节不变 ∧ 顺序不变",
+        "V7：其余 3212 个节点**除 children 外**逐字节不变 ∧ children id 列表**仅宿主一处**变化",
+        "V8/V9：池与题库逐字节零改动 ∧ 网格 atoms 逐字不变 ∧ 4/4 可解析",
+        "V10：4 个被删树节点的 nodeRef 全部仍在池中（知识未丢）",
+        "V11：三类悬空均不劣化 —— nodeRef 0→0 · treebind 18→18 · atom 0→0",
+        "V12：审计 +1（6→7）∧ 既有 6 条逐条不变 ∧ 新事件记录 4 个池 ref",
+        "V13：被删 4 个 treeId 在 池/题库/审计叙述外 0 残留"
+      ],
+      "measurementDefectFixed": "V7 首跑报「5 个节点差异」——树是**嵌套** JSON，删一个子节点会让**宿主及其全部祖先**的序列化都变（它们的 children 里嵌着被改的宿主）。这是**断言写法错**、不是数据被改；改为「除 children 外逐字节比 + children id 列表单独比」后，差异恰好收敛为宿主 1 处。"
+    },
+    "uiAcceptance": {
+      "verdict": "UI_VERIFY_PASS 10/10",
+      "artifact": "outputs/tree-violation-scan/t3-p2-ui-probe.md",
+      "method": "`npm run build` → `vite preview`（真数据只读）→ 无头 Chromium CDP",
+      "userRequirement": "用户明确：**必须验证 MyBatis 宿主 → 视图 tab → 4 个 atom 可见。不能只看 JSON。**",
+      "highlights": [
+        "DOM 中 [data-tree-node-id] = 3212 ∧ 4 个被卸节点 0 残留 ∧ 宿主仍在",
+        "点中「Mybatis」→（视图 tab）→ **4 个插件点 atom 全部可见**（Executor / StatementHandler / ParameterHandler / ResultSetHandler（插件点））",
+        "刷新后复测：DOM 仍 3212 ∧ 重走一遍 4 个 atom 仍全在",
+        "/api/data 面：count=3212 ∧ asplit_=0 ∧ 4 个被卸 id 不存在 ∧ 宿主 children=11",
+        "全过程 0 未捕获异常"
+      ],
+      "keyInsight": "维度原子走**池**查表（`GridSection.tsx` 用 `nodePool[atom.nodeId]`），与树挂载无关 ⇒ 卸树后宿主「视图」里的 `mybatis_plugin_grid` 网格照旧完整渲染。这是「卸树留池」合法性的唯一无法由数据断言替代的证据。",
+      "probeDefectFixed": "U7 首跑报 `rows=1` —— 探针的等待条件写成 `count > 0`，第一帧只渲染 1 行就满足。**探针自身缺陷**，不是产品缺陷；改为等 `=== 3212`（折叠只靠 CSS，挂载数恒定）后 10/10。"
+    },
+    "regression": "`npx tsc --noEmit` 0 错误 · `npm run build` 34.89s · `npm test` 44/44（验收基准 = tracked 42/42）",
+    "probeDiscipline": "一条一次性浏览器探针 `scripts/shell-fusion/probe-t3-p2.mjs` **用后即删**（删除后已复查：`.tmp-*` 计数 0 · 探针路径不存在 · 剩余未跟踪项全部落在 declaredExternalSet ∪ excludedSet 内）。`data/backups/t3-p2-*` 由 `.gitignore:33` 覆盖，不进提交。"
+  }
+}

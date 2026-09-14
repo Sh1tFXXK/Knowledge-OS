@@ -1,0 +1,1609 @@
+{
+  "generatedAt": "2026-09-14T15:19:58.680Z",
+  "mode": "READ-ONLY 分类审计（不写 data/，不执行卸载）",
+  "scope": "medium-38",
+  "scopeSize": 38,
+  "verdict": {
+    "userHypothesis": "「很多 MEDIUM 不是缺节点，而是错误挂载」⇒ 应卸载/归并而非改名",
+    "hypothesisHeld": false,
+    "conclusion": "A+B = 0/38。**假设未被数据支持**：38 条既无 canonical 指向、也不是任何宿主的展示原子、也无等价同名节点 ⇒ 它们确实需要树内的一个语义位置，T3-P1 的改名处置成立。"
+  },
+  "counts": {
+    "total": 38,
+    "A_EXISTING_CANONICAL": 0,
+    "B_VIEW_ONLY": 0,
+    "C_NEED_NEW_CONTAINER": 38,
+    "autoClosable_A_plus_B": 0
+  },
+  "positiveControl": {
+    "passed": true,
+    "why": "若已知 B 类样本没被 B 规则命中，说明规则失效，此时「0 命中」是仪器坏了、不是结论",
+    "samples": [
+      {
+        "poolRef": "asplit_mysql_tool_backup",
+        "detectedByBRule": true,
+        "hosts": [
+          "k_1782032275682_61auc4"
+        ],
+        "stillMountedInTree": false,
+        "note": "P0.1 已按 B 类处置（卸树留池）"
+      },
+      {
+        "poolRef": "asplit_mysql_tool_security",
+        "detectedByBRule": true,
+        "hosts": [
+          "k_1782032275682_61auc4"
+        ],
+        "stillMountedInTree": false,
+        "note": "P0.1 已按 B 类处置（卸树留池）"
+      },
+      {
+        "poolRef": "asplit_mysql_tool_cluster",
+        "detectedByBRule": true,
+        "hosts": [
+          "k_1782032275682_61auc4"
+        ],
+        "stillMountedInTree": false,
+        "note": "P0.1 已按 B 类处置（卸树留池）"
+      }
+    ]
+  },
+  "extraFindings": {
+    "note": "以下**不在 38 条内**，是同一判据扫全树时发现的，登记备查，本脚本不处置",
+    "treeNodesWhoseRefIsSomeoneElsesViewAtom": {
+      "count": 211,
+      "inT3P1Scope": 4,
+      "examples": [
+        {
+          "treeId": "demo_cs",
+          "name": "计算机科学",
+          "nodeRef": "n_55jiel25",
+          "hosts": [
+            "n_a03cv4sd"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学"
+        },
+        {
+          "treeId": "projection:mysql-term:k_dict_mb72ps2c",
+          "name": "RAID",
+          "nodeRef": "k_dict_mb72ps2c",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 硬件 > RAID"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_hdd_eb2rxz",
+          "name": "HDD",
+          "nodeRef": "mysql_glossary_hdd_eb2rxz",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 硬件 > HDD"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_ssd_gyazmt",
+          "name": "SSD",
+          "nodeRef": "mysql_glossary_ssd_gyazmt",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 硬件 > SSD"
+        },
+        {
+          "treeId": "mysql_term_network_protocols_server_18q8qi",
+          "name": "服务器 / server",
+          "nodeRef": "k_dict_xhmtog57",
+          "hosts": [
+            "mysql_glossary_group_architecture"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络协议 > 服务器 / server"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_iops_1go6rk",
+          "name": "IOPS",
+          "nodeRef": "mysql_glossary_iops_1go6rk",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络性能评估 > IOPS"
+        },
+        {
+          "treeId": "tree_1786353277269_msn0ma9bq",
+          "name": "Tomcat",
+          "nodeRef": "k_1786353277269_msn0ma9ap",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件组织 > 中间件 > Tomcat"
+        },
+        {
+          "treeId": "tree_1784340526390_w18922",
+          "name": "Servlet",
+          "nodeRef": "k_1784340526295_skm8iw",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 特殊类 > Servlet"
+        },
+        {
+          "treeId": "tree_byte_stream_group",
+          "name": "java.io 字节流",
+          "nodeRef": "k_byte_stream_group",
+          "hosts": [
+            "asplit_java_io_group"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流"
+        },
+        {
+          "treeId": "tree_char_stream_group",
+          "name": "java.io 字符流",
+          "nodeRef": "k_char_stream_group",
+          "hosts": [
+            "asplit_java_io_group"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字符流"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_eiffel_75vlru",
+          "name": "埃菲尔 / Eiffel",
+          "nodeRef": "mysql_glossary_eiffel_75vlru",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 埃菲尔 / Eiffel"
+        },
+        {
+          "treeId": "tree_java_fw_mybatis_executor",
+          "name": "Executor（插件点）",
+          "nodeRef": "asplit_mybatis_executor",
+          "hosts": [
+            "k_java_fw_mybatis"
+          ],
+          "inT3P1Scope": true,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > Executor（插件点）"
+        },
+        {
+          "treeId": "tree_java_fw_mybatis_statement_handler",
+          "name": "StatementHandler（插件点）",
+          "nodeRef": "asplit_mybatis_statement_handler",
+          "hosts": [
+            "k_java_fw_mybatis"
+          ],
+          "inT3P1Scope": true,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > StatementHandler（插件点）"
+        },
+        {
+          "treeId": "tree_java_fw_mybatis_parameter_handler",
+          "name": "ParameterHandler（插件点）",
+          "nodeRef": "asplit_mybatis_parameter_handler",
+          "hosts": [
+            "k_java_fw_mybatis"
+          ],
+          "inT3P1Scope": true,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ParameterHandler（插件点）"
+        },
+        {
+          "treeId": "tree_java_fw_mybatis_resultset_handler",
+          "name": "ResultSetHandler（插件点）",
+          "nodeRef": "asplit_mybatis_resultset_handler",
+          "hosts": [
+            "k_java_fw_mybatis"
+          ],
+          "inT3P1Scope": true,
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ResultSetHandler（插件点）"
+        },
+        {
+          "treeId": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_embedded_yxsdnj",
+          "name": "嵌入式 Mysql",
+          "nodeRef": "mysql_glossary_embedded_yxsdnj",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件开发 > 软件部署 > 嵌入式 Mysql"
+        },
+        {
+          "treeId": "projection:mysql-repaired:mysql:theme:operations:mysql_glossary_bounce_e9awxp",
+          "name": "重启服务 / bounce",
+          "nodeRef": "mysql_glossary_bounce_e9awxp",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件开发 > 软件部署 > 重启服务 / bounce"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_innovation_series_1rj8dd",
+          "name": "MySQL 创新系列 / MySQL Innovation Series",
+          "nodeRef": "mysql_glossary_innovation_series_1rj8dd",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件开发 > 软件工程 > 发布与版本模型 / Release & Versioning Model > 创新系列 / Innovation Series > MySQL 创新系列 / MySQL Innovation Series"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_lts_series_lpbljr",
+          "name": "LTS系列 / LTS Series",
+          "nodeRef": "mysql_glossary_lts_series_lpbljr",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件开发 > 软件工程 > 发布与版本模型 / Release & Versioning Model > LTS系列 / LTS Series > LTS系列 / LTS Series"
+        },
+        {
+          "treeId": "projection:mysql-term:mysql_glossary_ga_ql2xt1",
+          "name": "GA",
+          "nodeRef": "mysql_glossary_ga_ql2xt1",
+          "hosts": [
+            "mysql_glossary_group_misc"
+          ],
+          "inT3P1Scope": false,
+          "path": "知识宇宙 > 计算机科学 > 软件开发 > 软件工程 > 发布与版本模型 / Release & Versioning Model > GA / Generally Available > GA"
+        }
+      ]
+    },
+    "sharedNodeRef": {
+      "refCount": 87,
+      "treeNodeCount": 180,
+      "top": [
+        {
+          "ref": "k_1784169555803_adzqks",
+          "treeIds": [
+            "tree_1784169555859_vgp9uv",
+            "tree_java_syntax_zh_z9ne3",
+            "tree_1783257371822_95li8t"
+          ]
+        },
+        {
+          "ref": "k_1783167541244_d3d092",
+          "treeIds": [
+            "tree_1783167541281_d5khnt",
+            "tree_class_programming_inheritance",
+            "tree_java_syntax_zh_scbpwz"
+          ]
+        },
+        {
+          "ref": "k_1785686881765_p1i0hq",
+          "treeIds": [
+            "tree_java_source_1a247659a8087e94_s_external_210d9b760f82d8ae",
+            "tree_1785686881905_uaq8gp",
+            "tree_java_source_937c739517d0031f_s_external_210d9b760f82d8ae"
+          ]
+        },
+        {
+          "ref": "k_1785684473197_7lhn5y",
+          "treeIds": [
+            "tree_java_source_1a247659a8087e94_s_external_eafeb8fd8836f660",
+            "tree_1785684473341_o3q8ir",
+            "tree_java_source_937c739517d0031f_s_external_eafeb8fd8836f660"
+          ]
+        },
+        {
+          "ref": "k_1789371087163_g81kcs",
+          "treeIds": [
+            "tree_java_syntax_zh_1hqaeyr",
+            "tree_1784295376195_3l31hb",
+            "tree_1786343651438_q205rt"
+          ]
+        },
+        {
+          "ref": "k_dict_s1u2tlxt",
+          "treeIds": [
+            "mysql:projection:change-buffer-merge",
+            "mysql_term_storage_systems_merge_1tg3an",
+            "projection:mysql-term:k_dict_s1u2tlxt"
+          ]
+        },
+        {
+          "ref": "k_dict_mb72ps2c",
+          "treeIds": [
+            "projection:mysql-term:k_dict_mb72ps2c",
+            "mysql_term_operating_systems_raid_1368e7"
+          ]
+        },
+        {
+          "ref": "k_acm2012_software_organization_virtual_machines",
+          "treeIds": [
+            "tree_acm2012_software_organization_virtual_machines",
+            "tree_wiki_en_virtual_machine"
+          ]
+        },
+        {
+          "ref": "k_1782834118965_n5r1fr",
+          "treeIds": [
+            "tree_1782834119007_8gxoi9",
+            "tree_1786338278239_rfh8os"
+          ]
+        },
+        {
+          "ref": "k_1784260051954_diol2t",
+          "treeIds": [
+            "tree_1783167530009_81diwm",
+            "tree_1784260051994_1lvc1p"
+          ]
+        }
+      ],
+      "interpretation": "「同一池实体多挂载」是**系统性现象**，本身**不构成**错误挂载的证据（本项目既有结论）"
+    },
+    "treeNameVsPoolLabelMismatch": {
+      "count": 67,
+      "examples": [
+        {
+          "treeId": "tree_network_programming_models",
+          "treeName": "网络编程模型",
+          "nodeRef": "k_network_programming_models",
+          "poolLabel": "网络编程模型（Reactor 与 Proactor）",
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络编程模型"
+        },
+        {
+          "treeId": "tree_reactor_overview",
+          "treeName": "Reactor 模式",
+          "nodeRef": "k_reactor_overview",
+          "poolLabel": "Reactor模式概述",
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络编程模型 > Reactor 模式"
+        },
+        {
+          "treeId": "tree_reactor_single_thread",
+          "treeName": "单线程模型",
+          "nodeRef": "k_reactor_single_thread",
+          "poolLabel": "Reactor单线程模型",
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络编程模型 > 单线程模型"
+        },
+        {
+          "treeId": "tree_reactor_multi_thread",
+          "treeName": "多线程模型",
+          "nodeRef": "k_reactor_multi_thread",
+          "poolLabel": "Reactor多线程模型",
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络编程模型 > 多线程模型"
+        },
+        {
+          "treeId": "tree_reactor_master_slave",
+          "treeName": "主从多线程模型",
+          "nodeRef": "k_reactor_master_slave",
+          "poolLabel": "主从Reactor多线程模型",
+          "path": "知识宇宙 > 计算机科学 > 网络 > 网络编程模型 > 主从多线程模型"
+        },
+        {
+          "treeId": "tree_1782820185830_vuzuox",
+          "treeName": "类加载机制",
+          "nodeRef": "k_1782820185793_jpet7h",
+          "poolLabel": "类的加载、链接与初始化机制",
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类加载机制"
+        },
+        {
+          "treeId": "tree_java_source_1a247659a8087e94_s_external_4bc2cd7a4e9d6ca5",
+          "treeName": "Exception",
+          "nodeRef": "k_1784304593387_dgjyi9",
+          "poolLabel": "java.lang.Exception",
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > juc > concurrent > 外部引用类型 > Exception"
+        },
+        {
+          "treeId": "tree_jvm_class_unload",
+          "treeName": "类卸载",
+          "nodeRef": "k_jvm_class_unload",
+          "poolLabel": "类卸载 / Class Unloading",
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 执行系统 > jvm > 类卸载"
+        },
+        {
+          "treeId": "tree_java_source_020f0cac60da5755_s_type_a6b9e05051861242",
+          "treeName": "Object",
+          "nodeRef": "k_java_syntax_java_lang_object_yk8ls4",
+          "poolLabel": "java.lang.Object",
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类 > java.lang > Object"
+        },
+        {
+          "treeId": "tree_1785340521267_j7je9h",
+          "treeName": "String",
+          "nodeRef": "k_java_lang_string",
+          "poolLabel": "java.lang.String",
+          "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类 > java.lang > Object > String"
+        }
+      ],
+      "note": "树节点名与池实体 label 不一致 —— 多数是**正当的投影命名**（「Reactor模式」→「Reactor模式概述」），本身不构成缺陷；只有与下面 crossWiredByDescendant 重合时才可疑"
+    },
+    "crossWiredByDescendant": {
+      "count": 1,
+      "rule": "父节点的 nodeRef 同时被它自己的后代使用 ⇒ 父的 nodeRef 极可能串线（点击父会渲染成子的实体）",
+      "findings": [
+        {
+          "treeId": "react_root",
+          "treeName": "React",
+          "nodeRef": "asplit_module_export",
+          "poolLabel": "模块导出",
+          "clashingDescendants": [
+            {
+              "id": "tree_javascript_module_export",
+              "name": "模块导出"
+            }
+          ],
+          "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React",
+          "inT3P1Scope": false
+        }
+      ]
+    }
+  },
+  "rows": [
+    {
+      "id": "asplit_s19_juc_tools",
+      "proposedTreeId": "tree_java_concurrency_juc_tools",
+      "name": "JUC 工具",
+      "nodeRef": "asplit_juc_tools",
+      "parentTreeId": "tree_1782846767208_uw6zxc",
+      "parentName": "java并发编程",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > JUC 工具",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "JUC 工具",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_concurrency_juc_tools"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_lazy_init",
+      "proposedTreeId": "tree_java_concurrency_lazy_init",
+      "name": "延迟初始化",
+      "nodeRef": "asplit_lazy_init",
+      "parentTreeId": "tree_1782846767208_uw6zxc",
+      "parentName": "java并发编程",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 延迟初始化",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "延迟初始化",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_concurrency_lazy_init"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_concurrency_container",
+      "proposedTreeId": "tree_java_concurrency_container",
+      "name": "并发容器",
+      "nodeRef": "asplit_concurrency_container",
+      "parentTreeId": "tree_1782846767208_uw6zxc",
+      "parentName": "java并发编程",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发容器",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "并发容器",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_concurrency_container"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s18_asplit_memory_atomicity",
+      "proposedTreeId": "tree_java_concurrency_memory_atomicity",
+      "name": "内存原子性",
+      "nodeRef": "asplit_memory_atomicity",
+      "parentTreeId": "tree_1782846767208_uw6zxc",
+      "parentName": "java并发编程",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存原子性",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "内存原子性",
+        "poolKind": "concept",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_concurrency_memory_atomicity"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s18_asplit_concurrency_mutex_lock",
+      "proposedTreeId": "tree_java_concurrency_mutex_lock",
+      "name": "并发互斥锁",
+      "nodeRef": "asplit_concurrency_mutex_lock",
+      "parentTreeId": "tree_1782846767208_uw6zxc",
+      "parentName": "java并发编程",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发互斥锁",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "并发互斥锁",
+        "poolKind": "concept",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_concurrency_mutex_lock"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_suspend_resume_methods",
+      "proposedTreeId": "tree_java_thread_suspend_resume_methods",
+      "name": "suspend/resume 方法组",
+      "nodeRef": "asplit_suspend_resume_methods",
+      "parentTreeId": "tree_1785934396723_afsojh",
+      "parentName": "线程的状态",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > suspend/resume 方法组",
+      "draftTier": "MEDIUM",
+      "finalGap": 3,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "suspend/resume 方法组",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_thread_suspend_resume_methods"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_stop_method",
+      "proposedTreeId": "tree_java_thread_stop_method",
+      "name": "stop 方法",
+      "nodeRef": "asplit_stop_method",
+      "parentTreeId": "tree_1785934396723_afsojh",
+      "parentName": "线程的状态",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > stop 方法",
+      "draftTier": "MEDIUM",
+      "finalGap": 3,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "stop 方法",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_thread_stop_method"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_java_class",
+      "proposedTreeId": "tree_java_syntax_java_class",
+      "name": "Java 类",
+      "nodeRef": "asplit_java_class",
+      "parentTreeId": "tree_1783867183132_g5tf12",
+      "parentName": "Java syntax",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > Java 类",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "Java 类",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_syntax_java_class"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_blocking_io_model",
+      "proposedTreeId": "tree_java_blocking_io_model",
+      "name": "阻塞 I/O（BIO 模型）",
+      "nodeRef": "asplit_blocking_io_model",
+      "parentTreeId": "tree_1782746457614_osttpr",
+      "parentName": "java",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 阻塞 I/O（BIO 模型）",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "阻塞 I/O（BIO 模型）",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_blocking_io_model"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_nonblocking_io_model",
+      "proposedTreeId": "tree_java_nonblocking_io_model",
+      "name": "非阻塞 I/O（NIO 模型）",
+      "nodeRef": "asplit_nonblocking_io_model",
+      "parentTreeId": "tree_1782746457614_osttpr",
+      "parentName": "java",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 非阻塞 I/O（NIO 模型）",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "非阻塞 I/O（NIO 模型）",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_nonblocking_io_model"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_lexical_analysis",
+      "proposedTreeId": "tree_pl_theory_lexical_analysis",
+      "name": "词法分析",
+      "nodeRef": "asplit_lexical_analysis",
+      "parentTreeId": "tree_1784820871692_uel7rq",
+      "parentName": "编程语言理论",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 词法分析",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "词法分析",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_pl_theory_lexical_analysis"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_syntax_analysis",
+      "proposedTreeId": "tree_pl_theory_syntax_analysis",
+      "name": "语法分析",
+      "nodeRef": "asplit_syntax_analysis",
+      "parentTreeId": "tree_1784820871692_uel7rq",
+      "parentName": "编程语言理论",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 语法分析",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "语法分析",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_pl_theory_syntax_analysis"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_single_pass_compiler",
+      "proposedTreeId": "tree_compiler_single_pass",
+      "name": "单遍编译器",
+      "nodeRef": "asplit_single_pass_compiler",
+      "parentTreeId": "tree_wiki_en_compiler_s3",
+      "parentName": "编译器构建",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 单遍编译器",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "单遍编译器",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_compiler_single_pass"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_multi_pass_compiler",
+      "proposedTreeId": "tree_compiler_multi_pass",
+      "name": "多遍编译器",
+      "nodeRef": "asplit_multi_pass_compiler",
+      "parentTreeId": "tree_wiki_en_compiler_s3",
+      "parentName": "编译器构建",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 多遍编译器",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "多遍编译器",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_compiler_multi_pass"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_bean_lifecycle",
+      "proposedTreeId": "tree_java_fw_bean_lifecycle",
+      "name": "Bean 生命周期",
+      "nodeRef": "asplit_bean_lifecycle",
+      "parentTreeId": "tree_1785225243163_ypgo3y",
+      "parentName": "生命周期",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring > Spring Beans > 生命周期 > Bean 生命周期",
+      "draftTier": "MEDIUM",
+      "finalGap": 2,
+      "predicateShift": false,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "Bean 生命周期",
+        "poolKind": "mechanism",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_java_fw_bean_lifecycle"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_newsql",
+      "proposedTreeId": "tree_db_newsql",
+      "name": "NewSQL",
+      "nodeRef": "asplit_newsql",
+      "parentTreeId": "tree_wiki_en_database_s2",
+      "parentName": "历史",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库系统 > 历史 > NewSQL",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "NewSQL",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_db_newsql"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s106_db_modeling",
+      "proposedTreeId": "tree_db_modeling",
+      "name": "数据库建模",
+      "nodeRef": "asplit_db_modeling",
+      "parentTreeId": "chapter_db_13",
+      "parentName": "数据库设计",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库设计 > 数据库建模",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "数据库建模",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_db_modeling"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_module_export",
+      "proposedTreeId": "tree_javascript_module_export",
+      "name": "模块导出",
+      "nodeRef": "asplit_module_export",
+      "parentTreeId": "react_root",
+      "parentName": "React",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导出",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "模块导出",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "react_root",
+          "tree_javascript_module_export"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_module_import",
+      "proposedTreeId": "tree_javascript_module_import",
+      "name": "模块导入",
+      "nodeRef": "asplit_module_import",
+      "parentTreeId": "react_root",
+      "parentName": "React",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导入",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "模块导入",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_javascript_module_import"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_js_control_flow",
+      "proposedTreeId": "tree_javascript_control_flow",
+      "name": "控制流",
+      "nodeRef": "asplit_js_control_flow",
+      "parentTreeId": "react_root",
+      "parentName": "React",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 控制流",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "控制流",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [
+          "tree_1787766874256_cfmxqe",
+          "tree_wiki_en_program_analysis_s1_s2",
+          "tree_acm2012_software_development_control_flow"
+        ],
+        "mountsOfSameRef": [
+          "tree_javascript_control_flow"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_function_design",
+      "proposedTreeId": "tree_javascript_function_design",
+      "name": "函数设计",
+      "nodeRef": "asplit_function_design",
+      "parentTreeId": "react_root",
+      "parentName": "React",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 函数设计",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "函数设计",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_javascript_function_design"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_js_expression",
+      "proposedTreeId": "tree_javascript_expression",
+      "name": "表达式",
+      "nodeRef": "asplit_js_expression",
+      "parentTreeId": "react_root",
+      "parentName": "React",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 表达式",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "表达式",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_javascript_expression"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_graph_search",
+      "proposedTreeId": "tree_data_structures_graph_search",
+      "name": "图搜索算法",
+      "nodeRef": "asplit_graph_search",
+      "parentTreeId": "theory_domain_data_structures",
+      "parentName": "数据结构",
+      "path": "知识宇宙 > 计算机科学 > 计算理论 > 算法 > 数据结构 > 图搜索算法",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "图搜索算法",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_data_structures_graph_search"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_trigger_new",
+      "proposedTreeId": "tree_jvm_obj_trigger_new",
+      "name": "new 指令触发对象创建",
+      "nodeRef": "asplit_obj_trigger_new",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > new 指令触发对象创建",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "new 指令触发对象创建",
+        "poolKind": "event",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_trigger_new"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_class_loaded",
+      "proposedTreeId": "tree_jvm_obj_state_class_loaded",
+      "name": "类型加载校验",
+      "nodeRef": "asplit_obj_state_class_loaded",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 类型加载校验",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "类型加载校验",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_class_loaded"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_alloc",
+      "proposedTreeId": "tree_jvm_obj_state_alloc",
+      "name": "分配内存",
+      "nodeRef": "asplit_obj_state_alloc",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 分配内存",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "分配内存",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_alloc"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_zerofill",
+      "proposedTreeId": "tree_jvm_obj_state_zerofill",
+      "name": "零值填充",
+      "nodeRef": "asplit_obj_state_zerofill",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 零值填充",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "零值填充",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_zerofill"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_set_header",
+      "proposedTreeId": "tree_jvm_obj_state_set_header",
+      "name": "设置对象头",
+      "nodeRef": "asplit_obj_state_set_header",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 设置对象头",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "设置对象头",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_set_header"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_init",
+      "proposedTreeId": "tree_jvm_obj_state_init",
+      "name": "执行构造方法",
+      "nodeRef": "asplit_obj_state_init",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 执行构造方法",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "执行构造方法",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_init"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_reference",
+      "proposedTreeId": "tree_jvm_obj_state_reference",
+      "name": "引用定位（对象可用）",
+      "nodeRef": "asplit_obj_state_reference",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 引用定位（对象可用）",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "引用定位（对象可用）",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_reference"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_alloc_tlab",
+      "proposedTreeId": "tree_jvm_obj_alloc_tlab",
+      "name": "TLAB（线程本地分配缓冲）",
+      "nodeRef": "asplit_obj_alloc_tlab",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > TLAB（线程本地分配缓冲）",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "TLAB（线程本地分配缓冲）",
+        "poolKind": "concept",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_alloc_tlab"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_access_handle",
+      "proposedTreeId": "tree_jvm_obj_access_handle",
+      "name": "句柄访问",
+      "nodeRef": "asplit_obj_access_handle",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 句柄访问",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "句柄访问",
+        "poolKind": "concept",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_access_handle"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_access_direct",
+      "proposedTreeId": "tree_jvm_obj_access_direct",
+      "name": "直接指针",
+      "nodeRef": "asplit_obj_access_direct",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 直接指针",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "直接指针",
+        "poolKind": "concept",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_access_direct"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s2_asplit_obj_state_oom",
+      "proposedTreeId": "tree_jvm_obj_state_oom",
+      "name": "内存溢出（OutOfMemoryError）",
+      "nodeRef": "asplit_obj_state_oom",
+      "parentTreeId": "tree_1783263380057_57s6hh",
+      "parentName": "内存管理",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 内存溢出（OutOfMemoryError）",
+      "draftTier": "MEDIUM",
+      "finalGap": 1,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "内存溢出（OutOfMemoryError）",
+        "poolKind": "state",
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_jvm_obj_state_oom"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_blocking_io",
+      "proposedTreeId": "tree_operating_systems_blocking_io",
+      "name": "阻塞非阻塞 I/O",
+      "nodeRef": "asplit_blocking_io",
+      "parentTreeId": "theory_domain_operating_systems",
+      "parentName": "操作系统",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 阻塞非阻塞 I/O",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "阻塞非阻塞 I/O",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_operating_systems_blocking_io"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s1_asplit_sync_async_io",
+      "proposedTreeId": "tree_operating_systems_sync_async_io",
+      "name": "同步异步 I/O",
+      "nodeRef": "asplit_sync_async_io",
+      "parentTreeId": "theory_domain_operating_systems",
+      "parentName": "操作系统",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 同步异步 I/O",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "同步异步 I/O",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_operating_systems_sync_async_io"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s132_base_theory",
+      "proposedTreeId": "tree_distributed_systems_base_theory",
+      "name": "BASE理论",
+      "nodeRef": "k_1783170416767_yaym2f",
+      "parentTreeId": "theory_domain_distributed_systems",
+      "parentName": "分布式系统",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > BASE理论",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "BASE理论",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_distributed_systems_base_theory"
+        ],
+        "childCount": 0
+      }
+    },
+    {
+      "id": "asplit_s134_db_sharding",
+      "proposedTreeId": "tree_distributed_systems_db_sharding",
+      "name": "分库",
+      "nodeRef": "asplit_db_sharding",
+      "parentTreeId": "theory_domain_distributed_systems",
+      "parentName": "分布式系统",
+      "path": "知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > 分库",
+      "draftTier": "MEDIUM(→HIGH，谓词修正)",
+      "finalGap": 0,
+      "predicateShift": true,
+      "category": "NEED_NEW_CONTAINER",
+      "action": "保留 T3-P1 改名结果（确实是树内的一个语义位置）",
+      "reason": "无 canonical 指向 · 未被任何宿主当作展示原子 · 无等价同名节点",
+      "facts": {
+        "poolExists": true,
+        "poolLabel": "分库",
+        "poolKind": null,
+        "canonicalNodeId": null,
+        "redirectTo": null,
+        "poolStatus": null,
+        "viewAtomHosts": [],
+        "sameNameOtherNodes": [],
+        "mountsOfSameRef": [
+          "tree_distributed_systems_db_sharding"
+        ],
+        "childCount": 0
+      }
+    }
+  ],
+  "crossCheck": {
+    "why": "38 条 MEDIUM 全判 C 之后，必须再确认「假设是否落在别处」——用同一判据跑 130 条全集，看 A/B 是否命中，以及命中的是否**不在** MEDIUM 组内",
+    "scope": 130,
+    "counts": {
+      "A_EXISTING_CANONICAL": 0,
+      "B_VIEW_ONLY": 4,
+      "C_NEED_NEW_CONTAINER": 126
+    },
+    "B_hits": [
+      {
+        "id": "asplit_s2_asplit_mybatis_executor",
+        "proposedTreeId": "tree_java_fw_mybatis_executor",
+        "name": "Executor（插件点）",
+        "nodeRef": "asplit_mybatis_executor",
+        "hosts": [
+          "k_java_fw_mybatis"
+        ],
+        "inMedium38": false,
+        "draftTier": "HIGH(始终)",
+        "reason": "作为展示原子被 1 个宿主实体的 viewDimensions 引用（k_java_fw_mybatis）"
+      },
+      {
+        "id": "asplit_s2_asplit_mybatis_statement_handler",
+        "proposedTreeId": "tree_java_fw_mybatis_statement_handler",
+        "name": "StatementHandler（插件点）",
+        "nodeRef": "asplit_mybatis_statement_handler",
+        "hosts": [
+          "k_java_fw_mybatis"
+        ],
+        "inMedium38": false,
+        "draftTier": "HIGH(始终)",
+        "reason": "作为展示原子被 1 个宿主实体的 viewDimensions 引用（k_java_fw_mybatis）"
+      },
+      {
+        "id": "asplit_s2_asplit_mybatis_parameter_handler",
+        "proposedTreeId": "tree_java_fw_mybatis_parameter_handler",
+        "name": "ParameterHandler（插件点）",
+        "nodeRef": "asplit_mybatis_parameter_handler",
+        "hosts": [
+          "k_java_fw_mybatis"
+        ],
+        "inMedium38": false,
+        "draftTier": "HIGH(始终)",
+        "reason": "作为展示原子被 1 个宿主实体的 viewDimensions 引用（k_java_fw_mybatis）"
+      },
+      {
+        "id": "asplit_s2_asplit_mybatis_resultset_handler",
+        "proposedTreeId": "tree_java_fw_mybatis_resultset_handler",
+        "name": "ResultSetHandler（插件点）",
+        "nodeRef": "asplit_mybatis_resultset_handler",
+        "hosts": [
+          "k_java_fw_mybatis"
+        ],
+        "inMedium38": false,
+        "draftTier": "HIGH(始终)",
+        "reason": "作为展示原子被 1 个宿主实体的 viewDimensions 引用（k_java_fw_mybatis）"
+      }
+    ],
+    "A_hits": [],
+    "reading": "全集命中 B 类 4 条，其中在 MEDIUM-38 内的 0 条 ⇒ 假设命中的**不是** MEDIUM 组，而是 HIGH(始终)/HIGH(始终)/HIGH(始终)/HIGH(始终) 组。这 4 条是真正的「形如 P0.1 的展示原子误挂载」候选，需单独裁决（卸载 or 保留改名），并须像 P0.1 一样做 UI 渲染实测（原子在宿主视图里是否照旧渲染）。"
+  }
+}
