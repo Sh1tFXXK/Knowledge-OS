@@ -6,9 +6,19 @@
   "preBatchSnapshot": "data/backups/phase1-oop-os-2026-09-14T07-37-26-424Z",
   "preBatchSnapshotNote": "本批的祖先基线**就是这个备份目录**：`HEAD + 本批改动 ≡ 该目录`。因为外部改动发生在 HEAD 之后、本次 apply 之前，落盘前备份恰好捕获了「HEAD + 外部改动」这一中间态。",
   "commitSubjectHint": "data: 外部打标归一化落盘 — tags[0] 规范名归一 127 键 + 悬空视图原子清理 3 处（外部会话 13:00 写入，经逐键定性后独立提交）",
-  "status": "REGISTERED_NOT_EXECUTED",
+  "status": "COMMITTED",
+  "commit": "0ccecaec10feb55047b03833ba6e8086337cef74",
+  "committedAt": "2026-09-14T20:40:32+08:00",
+  "commitVerification": {
+    "headBlobOfNodePool": "fa533a3aa1dba0ce6c0bb4c436a7ac3345d9a496",
+    "headBlobEqualsPreBatchSnapshot": true,
+    "worktreeUntouched": true,
+    "phase1SixNewOneModKeptAsUnstaged": true,
+    "blobContentMd5": "8ab8701dea416f2a41200fe6edefecfb",
+    "note": "blob 内容 md5 ≡ apply-baseline 的 node-pool.json md5 ≡ 落盘前备份文件 md5，三者同一 —— 证明 index 指向的确是「HEAD + 外部改动」的中间态，未夹带 phase1 产物（carriesPhase1Artifacts = 0）。"
+  },
   "requiresGovernanceApproval": true,
-  "requiresGovernanceApprovalNote": "本批内容是**外部会话**写入的改动。项目既有纪律（T7 登记的 `nodepool-external-drift.json` 注记）为「由其他会话负责提交；本台账仅登记事实，不代管」。本次改为由本任务独立提交，属对该纪律的**正式解除**，须用户明确授权后方可执行。",
+  "requiresGovernanceApprovalNote": "本批内容是**外部会话**写入的改动。项目既有纪律（T7 登记的 `nodepool-external-drift.json` 注记）为「由其他会话负责提交；本台账仅登记事实，不代管」。本次改为由本任务独立提交，属对该纪律的**正式解除**，须用户明确授权后方可执行。✅ 已授权：2026-09-14 用户明确选择「路线 A：blob 级独立提交（推荐）」，纪律解除生效，本批由本任务代为提交。",
 
   "writeSet": [
     "data/node-pool.json",
@@ -26,7 +36,6 @@
     "data/tree-data.json",
     "data/knowledge-edges.json",
     "data/evolution-events.json",
-    "data/",
     "src/",
     "docs/",
     "batch-manifests/phase1.json",
@@ -36,7 +45,7 @@
     "batch-manifests/t3-p0.json",
     "batch-manifests/t5-rename-evidence.json"
   ],
-  "excludedSetNote": "`data/tree-data.json` / `knowledge-edges.json` / `evolution-events.json` 的差异**全部**属 phase1（实测外部差异为 0），故精确排除，不得进本批。其余为其它批次的 manifest，精确列出。",
+  "excludedSetNote": "`data/tree-data.json` / `knowledge-edges.json` / `evolution-events.json` 的差异**全部**属 phase1（实测外部差异为 0），故精确排除，不得进本批。其余为其它批次的 manifest，精确列出。⚠️ 订正（2026-09-14）：原排除集含裸前缀 `data/`，与本批 writeSet 的 `data/node-pool.json` / `data/questions.json` 构成 `writeSet ∩ excludedSet` 自相矛盾（核验脚本 manifestGate 报出）。该前缀属宽刷子（不构成认领），且其下 5 个在飞文件已全部精确列出（2 认领 + 3 排除），故整条删除 —— 本批**不使用任何目录前缀排除**。",
 
   "generatedArtifacts": [
     "outputs/tree-violation-scan/nodepool-drift-classification.json",
@@ -161,10 +170,11 @@
   },
 
   "nextSteps": [
-    "用户授权（`requiresGovernanceApproval`）→ 执行 §6.1 的 blob 级提交；",
-    "提交后复验：HEAD blob ≡ fa533a3a… ∧ 工作树 ` M` 只剩 6 新增 + 1 修改；",
-    "重跑 `node scripts/verify-phase1-commit-readiness.mjs --batch phase1` → ancestorGate 应转 ✅；",
-    "phase1 按既有候选集提交（`node scripts/verify-phase1-commit-readiness.mjs --batch phase1` 生成的 pathspec，勿手写）。"
+    "✅ 用户授权（`requiresGovernanceApproval`）→ 已按路线 A 执行 §6.1 的 blob 级提交；",
+    "✅ 提交后复验：HEAD blob ≡ `fa533a3a…` ∧ 工作树 ` M` 只剩 6 新增 + 1 修改；",
+    "✅ 重跑 `node scripts/verify-phase1-commit-readiness.mjs --batch phase1` → ancestorGate 已转 ✅（8 闸门全 PASS / READY）；",
+    "⏭ 遗留：phase1 按既有候选集提交（用 `verify-phase1-commit-readiness.mjs --batch phase1` 生成的 pathspec，勿手写）—— 待本批台账订正提交后进行。",
+    "⏭ 遗留：本台账的排除集订正（删 `data/` 宽刷子前缀）与 4 个临时探针清理，需一次收尾提交纳入 HEAD。"
   ],
 
   "rationale": {
