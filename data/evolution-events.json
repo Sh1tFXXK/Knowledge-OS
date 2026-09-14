@@ -79,5 +79,65 @@
         "after": "@Indexed注解是Spring5.0提供\nIndexed注解解决的问题：是随着项目越来越复杂那么@ComponentScan需要扫描加载的Class会越来越多。在系统启动的时候会造成性能损耗。所以Indexed注解的作用其实就是提升系统启动的性能。\n在系统编译的时候那么会收集所有被@Indexed注解标识的Java类。然后记录在META-\nINF/spring.components文件中。那么系统启动的时候就只需要读取一个该文件中的内容就不用在遍历所有的目录了。提升的效率"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:phase1:1789371446647",
+    "scopeRootId": "k_class_programming_classification",
+    "occurredAt": 1789371446647,
+    "title": "阶段一：OOP 类的分类重组 + OS I/O 错位平移",
+    "summary": "按「实体语义优先于挂载路径」判据，把 4 个共享实体拆成 ontology/reference 两侧；把 管理程序/模拟器 迁入 虚拟化技术；在 操作系统 下新建 I/O 多路复用 与 系统调用与 I/O 两个中间层并迁入 select/epoll/零拷贝。新实体沿用 k_<ts>_<rand> 命名，批次信息只留本事件与报告。",
+    "sourceOnlyNodeIds": [],
+    "introducedNodes": [
+      {
+        "nodeId": "k_1789371087163_g81kcs",
+        "parentNodeId": "k_1784044457709_jt70a4"
+      },
+      {
+        "nodeId": "k_1789371087163_e9iafm",
+        "parentNodeId": "k_class_programming_classification"
+      },
+      {
+        "nodeId": "k_1789371436917_zo0k0j",
+        "parentNodeId": "k_class_programming_classification"
+      },
+      {
+        "nodeId": "k_1789371087163_g0db3p",
+        "parentNodeId": "k_1784044092211_wkjnz2"
+      },
+      {
+        "nodeId": "k_1789371087163_25m6ob",
+        "parentNodeId": "theory_domain_operating_systems"
+      },
+      {
+        "nodeId": "k_1789371087163_b7qj6l",
+        "parentNodeId": "theory_domain_operating_systems"
+      }
+    ],
+    "changes": [
+      {
+        "targetNodeId": "k_1784295376153_uiovkk",
+        "facet": "structure",
+        "before": "变更前 3 个挂载点共享同一实体（其中 OOP 树 0 处、Java 树 3 处）：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 修饰符 > 抽象类 ； 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 继承 > 抽象类 ； 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 抽象类。",
+        "after": "按「实体语义优先于挂载路径」判为 ontology：正文留在「本体」侧并保持原 identity k_1784295376153_uiovkk；本体挂载于 tree_class_programming_abstract_class（本批新建） → 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 抽象类；另一侧新建 k_1789371087163_g81kcs（reference）承接对应语义。"
+      },
+      {
+        "targetNodeId": "k_1784044129424_ffqm4z",
+        "facet": "structure",
+        "before": "变更前 2 个挂载点共享同一实体（其中 OOP 树 0 处、Java 树 2 处）：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 声明 > 内部类 ； 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 内部类。",
+        "after": "按「实体语义优先于挂载路径」判为 reference：正文留在「具象」侧并保持原 identity k_1784044129424_ffqm4z；本体挂载于 tree_class_programming_inner_class（本批新建） → 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 内部类；另一侧新建 k_1789371087163_e9iafm（ontology）承接对应语义。"
+      },
+      {
+        "targetNodeId": "k_1784045589643_icc5oo",
+        "facet": "structure",
+        "before": "变更前 2 个挂载点共享同一实体（其中 OOP 树 1 处、Java 树 1 处）：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 分类 > 最终类 ； 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 最终类。",
+        "after": "按「实体语义优先于挂载路径」判为 reference：正文留在「具象」侧并保持原 identity k_1784045589643_icc5oo；本体挂载于 tree_class_programming_final_class（原有挂载点，随「分类」→「类的分类」重命名保留） → 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 最终类；另一侧新建 k_1789371436917_zo0k0j（ontology）承接对应语义。"
+      },
+      {
+        "targetNodeId": "k_1784044171635_8etz45",
+        "facet": "structure",
+        "before": "变更前 2 个挂载点共享同一实体（其中 OOP 树 1 处、Java 树 1 处）：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 分类 > 匿名类 ； 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 声明 > 匿名类。",
+        "after": "按「实体语义优先于挂载路径」判为 ontology：正文留在「本体」侧并保持原 identity k_1784044171635_8etz45；本体挂载于 tree_class_programming_anonymous_class（原有挂载点，随「分类」→「类的分类」重命名保留） → 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 匿名类；另一侧新建 k_1789371087163_g0db3p（reference）承接对应语义。"
+      }
+    ]
   }
 ]

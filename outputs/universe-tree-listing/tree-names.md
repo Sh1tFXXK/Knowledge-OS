@@ -1,0 +1,3215 @@
+- 知识宇宙
+  - 计算机科学
+    - 硬件
+      - 印刷电路板
+      - 外设
+      - 集成电路
+      - 超大规模集成电路
+      - 系统芯片 (SoC)
+      - 能耗（绿色计算）
+      - 电子设计自动化
+      - 硬件加速
+      - 处理器
+      - 尺寸 – 外形
+      - RAID
+      - HDD
+      - SSD
+    - 网络
+      - 网络架构
+      - 网络协议
+        - 服务器 / server
+        - HTTP
+          - 报文格式
+            - 请求报文
+            - 响应报文
+      - 网络组件
+      - 网络调度器
+      - 网络性能评估
+        - IOPS
+      - 网络服务
+      - 应用层
+      - 网络编程模型
+        - Reactor 模式
+        - 单线程模型
+        - 多线程模型
+        - 主从多线程模型
+        - Proactor模式
+    - 软件组织
+      - 解释器
+      - 中间件
+        - Tomcat
+      - 虚拟机
+      - 软件质量
+    - 软件符号与工具
+      - 编程范式
+        - 面向对象
+          - 封装
+          - 多态
+            - 编译时多态（静态多态）
+              - 重载
+              - 运算符重载
+            - 运行时多态（动态多态）
+              - 重写
+              - 向上转型
+          - 抽象性
+          - 方法
+            - 静态方法
+          - Method overriding
+          - Function overloading
+          - 特性
+            - 信息隐藏
+            - 继承
+            - 多态性
+            - 开放递归
+            - 动态分派
+            - 封装
+          - 内聚性
+          - 对象模式
+          - SOLID and GRASP guidelines
+          - 类
+          - 成员变量
+          - 实例方法
+          - 类（编程）
+            - 属性
+              - 对象生命周期
+                - 创建
+                - 销毁
+              - 类型
+              - 结构
+              - 行为
+              - 接口
+              - 成员可访问性
+              - 对象生存周期
+            - 继承
+            - 类间关系
+              - 组合
+              - 层次结构
+              - 建模
+            - 分类
+              - 元类
+              - 最终类
+              - 封闭类
+              - 开放类
+              - Mixin
+              - 部分类
+              - 不可实例化类
+              - 匿名类
+              - 具体类
+              - 局部类
+            - 运行时表示
+            - 基于类的编程
+            - 基于原型的编程
+          - 对象
+      - 编程语言
+        - 代码
+          - 字节码
+          - 机器语言
+          - 目标代码
+          - 源代码 Source code
+          - 汇编代码
+            - Lock
+        - java
+          - 类加载机制
+            - 加载Loading
+            - 连接Linking
+              - 验证Verification
+              - 准备Preparation
+              - 解析Resolution
+            - 卸载Unloading
+            - 初始化Initalization
+            - 使用Using
+            - 双亲委派机制
+            - 卸载
+            - 类加载请求
+            - 发起加载器
+            - 定义加载器
+            - Class 文件字节
+            - 运行时 Class 对象
+            - 类身份规则
+            - 父加载器委派规则
+            - 类初始化锁
+            - REQUESTED（已请求）
+            - LOADING（加载中）
+            - LOADED（已加载）
+            - VERIFIED（已验证）
+            - PREPARED（已准备）
+            - RESOLVED（已解析）
+            - INITIALIZED（已初始化）
+            - LINKAGE_FAILED（链接失败）
+            - INITIALIZATION_FAILED（初始化失败）
+          - java并发编程
+            - 内存模型
+              - 主内存
+              - 本地内存
+              - happens-before规则
+              - 同步
+                - 易变字段
+                - 最终字段
+                - 互斥锁
+                - 同步代码块
+              - 内存间操作
+              - Java内存模型的抽象结构
+              - 指令序列的重排序
+                - 数据依赖性
+                  - 写后读
+                  - 写后写
+                  - 读后写
+                - as-if-serial语义
+                - 程序顺序规则
+              - 顺序一致性
+                - 顺序一致性内存模型
+                - 同步程序的顺序一致性效果
+                - 未同步程序的执行特性
+                - 数据竞争
+              - 处理器的内存模型
+                - JMM的内存可见性保证
+            - 常见类
+              - Futures
+              - AQS
+              - CylicBarrier
+              - ReentrantLock
+              - BlockingQueue
+                - SynchronousQueue
+              - ConcurrentHashMap
+                - 存储结构
+                - 存储操作
+                  - put方法
+                - 初始化
+                  - 初始化segments数组
+                  - 初始化每个segment
+                - 定位Segment
+                - ConcurrentHashMap的操作
+                  - get操作
+                  - put操作
+                  - size操作
+            - 并发编程模型的两个关键问题
+            - 并发编程模型的分类
+            - Executor框架
+              - Executor框架的两级调度模型
+              - util.concurrent 执行器（旧笔记）
+              - FutureTask
+                - FutureTask的使用
+                - FutureTask的实现
+              - ScheduleThreadPoolExecutor
+            - juc
+              - concurrent
+                - java.util.concurrent
+                  - AbstractExecutorService
+                  - ArrayBlockingQueue
+                    - Itr
+                    - Itrs
+                      - Node
+                  - BlockingDeque
+                  - BlockingQueue
+                  - BrokenBarrierException
+                  - Callable
+                  - CancellationException
+                  - CompletableFuture
+                    - AltResult
+                    - AnyOf
+                    - AsyncRun
+                    - AsyncSupply
+                    - AsynchronousCompletionTask
+                    - BiAccept
+                    - BiApply
+                    - BiCompletion
+                    - BiRelay
+                    - BiRun
+                    - Canceller
+                    - CoCompletion
+                    - Completion
+                    - DelayedExecutor
+                    - MinimalStage
+                    - OrAccept
+                    - OrApply
+                    - OrRun
+                    - Signaller
+                    - TaskSubmitter
+                    - Timeout
+                    - UniAccept
+                    - UniApply
+                    - UniCompletion
+                    - UniCompose
+                    - UniComposeExceptionally
+                    - UniExceptionally
+                    - UniHandle
+                    - UniRelay
+                    - UniRun
+                    - UniWhenComplete
+                  - CompletionException
+                  - CompletionService
+                  - CompletionStage
+                  - ConcurrentHashMap
+                    - BaseIterator
+                    - BulkTask
+                    - CollectionView
+                    - CounterCell
+                    - EntryIterator
+                    - EntrySetView
+                    - EntrySpliterator
+                    - ForEachEntryTask
+                    - ForEachKeyTask
+                    - ForEachMappingTask
+                    - ForEachTransformedEntryTask
+                    - ForEachTransformedKeyTask
+                    - ForEachTransformedMappingTask
+                    - ForEachTransformedValueTask
+                    - ForEachValueTask
+                    - ForwardingNode
+                    - KeyIterator
+                    - KeySetView
+                    - KeySpliterator
+                    - MapEntry
+                    - MapReduceEntriesTask
+                    - MapReduceEntriesToDoubleTask
+                    - MapReduceEntriesToIntTask
+                    - MapReduceEntriesToLongTask
+                    - MapReduceKeysTask
+                    - MapReduceKeysToDoubleTask
+                    - MapReduceKeysToIntTask
+                    - MapReduceKeysToLongTask
+                    - MapReduceMappingsTask
+                    - MapReduceMappingsToDoubleTask
+                    - MapReduceMappingsToIntTask
+                    - MapReduceMappingsToLongTask
+                    - MapReduceValuesTask
+                    - MapReduceValuesToDoubleTask
+                    - MapReduceValuesToIntTask
+                    - MapReduceValuesToLongTask
+                    - Node
+                    - ReduceEntriesTask
+                    - ReduceKeysTask
+                    - ReduceValuesTask
+                    - ReservationNode
+                    - SearchEntriesTask
+                    - SearchKeysTask
+                    - SearchMappingsTask
+                    - SearchValuesTask
+                    - Segment
+                    - TableStack
+                    - Traverser
+                    - TreeBin
+                    - TreeNode
+                    - ValueIterator
+                    - ValueSpliterator
+                    - ValuesView
+                  - ConcurrentLinkedDeque
+                    - AbstractItr
+                    - CLDSpliterator
+                    - DescendingItr
+                    - Itr
+                    - Node
+                  - ConcurrentLinkedQueue
+                    - CLQSpliterator
+                    - Itr
+                    - Node
+                  - ConcurrentMap
+                  - ConcurrentNavigableMap
+                  - ConcurrentSkipListMap
+                    - CSLMSpliterator
+                    - EntryIterator
+                    - EntrySet
+                    - EntrySpliterator
+                    - Index
+                    - Iter
+                    - KeyIterator
+                    - KeySet
+                    - KeySpliterator
+                    - Node
+                    - SubMap
+                      - SubMapEntryIterator
+                      - SubMapIter
+                      - SubMapKeyIterator
+                      - SubMapValueIterator
+                    - ValueIterator
+                    - ValueSpliterator
+                    - Values
+                  - ConcurrentSkipListSet
+                  - CopyOnWriteArrayList
+                    - COWIterator
+                    - COWSubList
+                    - COWSubListIterator
+                    - Reversed
+                      - DescendingIterator
+                      - DescendingListIterator
+                  - CopyOnWriteArraySet
+                  - CountDownLatch
+                    - Sync
+                  - CountedCompleter
+                  - CyclicBarrier
+                    - Generation
+                  - DelayQueue
+                    - Itr
+                  - DelayScheduler
+                    - ScheduledForkJoinTask
+                  - Delayed
+                  - Exchanger
+                    - Node
+                    - Participant
+                    - Slot
+                  - ExecutionException
+                  - Executor
+                  - ExecutorCompletionService
+                    - QueueingFuture
+                  - ExecutorService
+                  - Executors
+                    - AutoShutdownDelegatedExecutorService
+                    - DefaultThreadFactory
+                    - DelegatedExecutorService
+                    - DelegatedScheduledExecutorService
+                    - PrivilegedCallable
+                    - PrivilegedCallableUsingCurrentClassLoader
+                    - PrivilegedThreadFactory
+                    - RunnableAdapter
+                  - Flow
+                    - Processor
+                    - Publisher
+                    - Subscriber
+                    - Subscription
+                  - ForkJoinPool
+                    - DefaultForkJoinWorkerThreadFactory
+                    - ForkJoinWorkerThreadFactory
+                    - ManagedBlocker
+                    - TimeoutAction
+                    - WorkQueue
+                  - ForkJoinTask
+                    - AdaptedCallable
+                    - AdaptedInterruptibleCallable
+                    - AdaptedInterruptibleRunnable
+                    - AdaptedRunnable
+                    - AdaptedRunnableAction
+                    - Aux
+                    - CallableWithTimeout
+                    - InterruptibleTask
+                    - InvokeAnyRoot
+                    - InvokeAnyTask
+                    - RunnableExecuteAction
+                  - ForkJoinWorkerThread
+                    - InnocuousForkJoinWorkerThread
+                  - Future
+                    - State
+                  - FutureTask
+                    - WaitNode
+                  - Helpers
+                  - Joiners
+                    - AllSubtasks
+                    - AllSuccessful
+                    - AnySuccessful
+                    - AwaitSuccessful
+                  - LinkedBlockingDeque
+                    - AbstractItr
+                    - DescendingItr
+                    - Itr
+                    - LBDSpliterator
+                    - Node
+                  - LinkedBlockingQueue
+                    - Itr
+                    - LBQSpliterator
+                    - Node
+                  - LinkedTransferQueue
+                    - DualNode
+                    - Itr
+                    - LTQSpliterator
+                  - Phaser
+                    - QNode
+                  - PriorityBlockingQueue
+                    - Itr
+                    - PBQSpliterator
+                  - RecursiveAction
+                  - RecursiveTask
+                  - RejectedExecutionException
+                  - RejectedExecutionHandler
+                  - RunnableFuture
+                  - RunnableScheduledFuture
+                  - ScheduledExecutorService
+                  - ScheduledFuture
+                  - ScheduledThreadPoolExecutor
+                    - DelayedWorkQueue
+                      - Itr
+                    - ScheduledFutureTask
+                    - ScheduledThreadPoolExecutor的运行机制
+                    - ScheduledThreadPoolExecutor的实现
+                  - Semaphore
+                    - FairSync
+                    - NonfairSync
+                    - Sync
+                  - StructureViolationException
+                  - StructuredTaskScope
+                    - Configuration
+                    - FailedException
+                    - Joiner
+                    - Subtask
+                      - State
+                    - TimeoutException
+                  - StructuredTaskScopeImpl
+                    - ConfigImpl
+                    - SubtaskImpl
+                      - AltResult
+                  - SubmissionPublisher
+                    - BufferedSubscription
+                    - ConsumerSubscriber
+                    - ConsumerTask
+                  - SynchronousQueue
+                    - FifoWaitQueue
+                    - LifoWaitQueue
+                    - Transferer
+                    - WaitQueue
+                  - ThreadFactory
+                  - ThreadLocalRandom
+                    - Access
+                    - ThreadLocalRandomProxy
+                  - ThreadPerTaskExecutor
+                    - AnyResultHolder
+                    - TaskRunner
+                    - ThreadBoundFuture
+                  - ThreadPoolExecutor
+                    - AbortPolicy
+                    - CallerRunsPolicy
+                    - DiscardOldestPolicy
+                    - DiscardPolicy
+                    - Worker
+                  - TimeUnit
+                  - TimeoutException
+                  - TransferQueue
+                - java.util.concurrent.atomic
+                  - AtomicBoolean
+                  - AtomicInteger
+                  - AtomicIntegerArray
+                  - AtomicIntegerFieldUpdater
+                    - AtomicIntegerFieldUpdaterImpl
+                  - AtomicLong
+                  - AtomicLongArray
+                  - AtomicLongFieldUpdater
+                    - CASUpdater
+                  - AtomicMarkableReference
+                    - Pair
+                  - AtomicReference
+                  - AtomicReferenceArray
+                  - AtomicReferenceFieldUpdater
+                    - AtomicReferenceFieldUpdaterImpl
+                  - AtomicStampedReference
+                    - Pair
+                  - DoubleAccumulator
+                    - SerializationProxy
+                  - DoubleAdder
+                    - SerializationProxy
+                  - LongAccumulator
+                    - SerializationProxy
+                  - LongAdder
+                    - SerializationProxy
+                  - Striped64
+                    - Cell
+                - java.util.concurrent.locks
+                  - AbstractOwnableSynchronizer
+                  - AbstractQueuedLongSynchronizer
+                    - ConditionNode
+                    - ConditionObject
+                    - ExclusiveNode
+                    - Node
+                    - SharedNode
+                  - AbstractQueuedSynchronizer
+                    - ConditionNode
+                    - ConditionObject
+                    - ExclusiveNode
+                    - Node
+                    - SharedNode
+                  - Condition
+                  - Lock
+                  - LockSupport
+                  - ReadWriteLock
+                  - ReentrantLock
+                    - FairSync
+                    - NonfairSync
+                    - Sync
+                  - ReentrantReadWriteLock
+                    - FairSync
+                    - NonfairSync
+                    - ReadLock
+                    - Sync
+                      - HoldCounter
+                      - ThreadLocalHoldCounter
+                    - WriteLock
+                  - StampedLock
+                    - Node
+                    - ReadLockView
+                    - ReadWriteLockView
+                    - ReaderNode
+                    - WriteLockView
+                    - WriterNode
+                - 外部引用类型
+                  - Serializable
+                  - AutoCloseable
+                  - Cloneable
+                  - Comparable
+                  - Exception
+                  - IllegalStateException
+                  - Number
+                  - Runnable
+                  - RuntimeException
+                  - Thread
+                  - ThreadLocal
+                  - WeakReference
+                  - AbstractCollection
+                  - AbstractMap
+                  - AbstractQueue
+                  - AbstractSet
+                  - Collection
+                  - Deque
+                  - Enumeration
+                  - Iterator
+                  - List
+                  - ListIterator
+                  - Map
+                  - Entry
+                  - NavigableMap
+                  - NavigableSet
+                  - Queue
+                  - Random
+                  - RandomAccess
+                  - Set
+                  - Spliterator
+                  - BiConsumer
+                  - Supplier
+                  - ThreadContainer
+            - Java中的13个原子操作类
+              - 原子更新基本类型类
+              - 原子更新数组
+              - 原子更新引用类型
+              - 原子更新字段类
+            - Java中的并发工具类
+              - 等待多线程完成的CountDownLatch
+              - 同步屏障CyclicBarrier
+                - CyclicBarrier的应用场景
+              - 控制并发线程数的Semaphore
+                - 应用场景
+                - 其他方法
+              - 线程间交换数据的Exchanger
+            - 线程池
+              - newFixedThreadPool
+              - newSingleThreadExecutor
+              - newCachedThreadPool
+              - newScheduleThreadPool
+              - newWorkStealingPool
+              - ThreadPoolExecutor
+                - 拒绝策略
+                  - AbortPolicy
+                  - CallerRunsPolicy
+                  - DiscardPolicy
+                  - DiscardOldestPolicy
+                  - 自定义Policy
+                - FixedThreadPool
+                - SingleThreadExecutor
+                - CachedThreadPool
+              - ScheduleThreadPoolExecutor
+                - ScheduleThreadPoolExecutor应用
+              - 线程池的实现原理
+              - 线程池的使用
+                - 线程池的创建
+                - 向线程池提交任务
+                - 关闭线程池
+                  - 线程池状态机（五状态）
+                    - shutdown() / shutdownNow() 调用
+                    - RUNNING（运行中）
+                    - SHUTDOWN（关闭中）
+                    - STOP（停止）
+                    - TIDYING（整理中）
+                    - TERMINATED（已终止）
+                - 线程池的监控
+            - Java并发编程实践
+              - 生产者消费者模式
+                - 生产者消费者模式实战
+              - 性能测试
+              - 异步任务池
+              - 高并发架构
+              - 生产者
+              - 消费者
+            - 死锁
+            - Java 多线程编程
+            - Synchronized 关键字
+            - 线程封闭 / thread confinement
+              - ThreadLocal
+                - ThreadLocal的使用
+                - ThreadLocal 原理
+            - ConcurrentLinkedQueue
+              - 入队列
+              - 出队列
+            - Java中的阻塞队列
+              - Java里的阻塞队列
+                - ArrayBlockingQueue
+              - 阻塞队列的实现原理
+            - Fork/Join框架
+              - 工作窃取算法
+              - Fork/Join框架的设计
+              - 使用Fork/Join框架
+              - Fork/Join框架的异常处理
+              - Fork/Join框架的实现原理
+            - JUC 工具
+            - 延迟初始化
+            - 并发容器
+            - 内存原子性
+            - 并发互斥锁
+            - CAS
+            - 线程对象
+              - 线程启动
+              - 中断
+              - 连接
+              - 异常
+            - 线程间通信
+              - 等待/通知机制
+              - Thread.join()的使用
+              - PipedInputStream
+              - PipedOutputStream
+            - 线程优先级
+            - 线程的状态
+              - Thread 实例
+              - 操作系统调度器
+              - Object Monitor
+              - synchronized 锁
+              - NEW（初始）
+              - RUNNABLE（可运行）
+              - RUNNING（运行中）
+              - READY（就绪）
+              - WAITING（等待）
+              - TIMED_WAITING（超时等待）
+              - BLOCKED（阻塞）
+              - TERMINATED（终止）
+              - 构造线程
+              - 启动线程
+              - 理解中断
+              - 安全地终止线程
+              - suspend/resume 方法组
+              - stop 方法
+            - Daemon线程
+            - 线程应用实例
+              - 等待超时模式
+            - 进程间通信
+            - 上下文切换
+          - 锁
+            - 锁消除
+            - 闭锁
+            - 锁粗化
+            - 偏向锁
+              - 锁具有线程的局部性
+              - 关闭偏向锁
+              - 偏向锁的撤销
+              - 线程进入同步代码块
+              - 匿名偏向态
+              - 已偏向态（记录线程 ID）
+              - 撤销中（到达安全点）
+              - 已撤销（升级轻量级锁）
+              - 批量重偏向（epoch 递增）
+              - 批量撤销（整类禁用偏向）
+              - 对象头 Mark Word
+            - 锁升级
+            - 轻量级锁
+              - 轻量级锁加锁
+              - 轻量级锁解锁
+            - 锁的内存语义
+              - 锁的释放-获取建立的happens-before关系
+              - 锁内存语义的实现
+              - concurrent包的实现
+            - Lock接口
+              - Lock接口提供的synchronized关键字不具备的主要特性
+            - 队列同步器
+              - 队列同步器的实现分析
+                - 同步队列
+              - 同步器可重写的方法
+              - 同步器提供的模板方法
+            - 重入锁
+              - 实现重进入
+              - 公平锁
+              - 非公平锁
+            - 读写锁
+              - 读写锁的实现分析
+                - 读写状态的设计
+                - 读写锁实现机制
+                - 写锁申请（tryAcquire）
+                - 写锁持有（独占可重入）
+                - 写锁等待
+                - 写锁释放（tryRelease）
+                - 读锁申请（tryAcquireShared）
+                - 读锁持有（共享可重入）
+                - 读锁等待
+                - 读锁释放（tryReleaseShared）
+              - 锁降级
+            - Condition接口
+              - Condition的实现分析
+                - 等待队列
+                - 等待
+                - 通知
+            - LockSupport工具
+          - 版本
+            - Java 8 新特性
+            - Java 9 新特性
+          - 执行系统
+            - 非 JVM
+            - 自动内存管理
+            - JRE
+            - JDK
+            - jvm
+              - 运行时数据区
+                - 程序计数器
+                - 虚拟机栈
+                  - 栈帧
+                    - 局部变量表
+                    - 操作数栈
+                    - 动态链接
+                    - 返回地址
+                - 本地方法栈
+                - 方法区
+                  - 运行时常量池
+                - 堆
+                  - 新生代 Yong Generation
+                    - Eden区
+                    - Survivor区
+                      - from区
+                      - to 区
+                  - 老年代 Old Generation
+              - 类加载器
+                - Bootstrap类加载器
+                - Extention类加载器
+                - Application类加载器
+                - Custom自定义类加载器
+              - 内存可见性
+                - StoreLoad 屏障
+                - LoadLoad 屏障
+                - StoreStore 屏障
+                - LoadStore 屏障
+              - 内存碎片
+                - 内部碎片
+                - 外部碎片
+              - 直接内存
+              - JIT 编译器
+                - 热点探测
+                - C1 编译器
+                - C2 编译器
+                - 分层编译
+                - 方法内联
+                - 逃逸分析
+              - 内存泄漏排查
+              - 异常处理
+                - 异常表
+                - 栈展开
+                - 栈异常
+                  - StackOverflowError
+                  - OutOfMemoryError
+              - 类卸载
+              - JVM/JRE/JDK
+              - JVM 参数调优
+              - 安全点
+              - 调试工具
+              - 内存溢出
+              - JVM 知识地图
+              - JVM 核心概念
+              - 类加载机制（学习笔记）
+              - JVM 排障实战
+              - 永久代
+              - 元空间
+            - 字节码
+              - 魔数
+              - 版本号
+                - 主版本号
+                - 次版本号
+              - 常量池
+                - 字面量
+                - 符号引用
+                - 常量池计数器
+                - 常量池数据区
+              - 访问标志
+              - 当前类索引
+              - 父类索引
+              - 接口索引
+              - 字段表
+              - 方法表
+              - 附加属性
+            - 性能
+          - 特殊类
+            - 小程序
+            - Servlet
+            - JavaServer Pages
+            - Swing 应用程序
+            - JavaFX 应用程序
+            - 泛型
+          - 类库
+            - 常用
+            - Base64
+              - 内嵌类
+              - 方法
+          - Documentation
+          - 在 Java 平台之外的使用
+            - Android
+          - Java syntax
+            - Java 语法要素
+              - 标识符
+              - 字面量
+              - 变量
+                - 类型推断
+                - 变量类型
+                  - 局部变量（Local Variables）
+                    - java局部变量
+                  - 实例变量（Instance Variables）
+                  - 类变量（Class Variables）
+                    - 定义方式
+                    - 访问方式
+                    - 生命周期
+                    - 初始化时机
+                    - 静态变量的使用场景
+                    - 命名规范
+                    - 线程安全性
+                    - 访问修饰符
+                  - 参数变量（Parameters）
+              - 代码块
+              - 通用类型
+                - java.lang.System
+                - java.lang.Object
+                - java.lang.Record
+                - java.lang.Enum<E>
+                - java.lang.Class<T>
+                - java.lang.String
+                - java.lang.Throwable
+                - java.lang.Math
+                - java.lang.IO
+                - 原始类型
+                - java.lang.Error
+                - java.lang.Exception
+              - 关键字
+                - final
+                  - final域的内存语义
+                    - final域的重排序规则
+                    - 写final域的重排序规则
+                    - 读final域的重排序规则
+                    - final语义在处理器中的实现
+                - volatile
+                  - volatile的用法
+                  - volatile的原理
+                  - volatile的两条实现原则
+                  - 特性
+                    - 可见性
+                  - volatile内存语义的实现
+                    - volatile重排序规则表
+                - static
+                  - static关键字的用途
+                  - static方法
+                  - static变量
+                  - static块
+                    - static块的作用
+                - Synchronized
+                - this
+                  - 构造方法中的 this 关键字
+                - super
+            - 程序结构
+              - main 方法
+              - 包
+              - 模块
+              - 导入声明
+                - 类型导入声明
+                - 静态导入声明
+                - 模块导入声明
+            - 运算符
+              - 算术运算符
+              - 关系运算符
+              - 位运算符
+              - 逻辑运算符
+              - 赋值运算符
+              - 条件运算符
+              - instanceof 运算符
+              - Java运算符优先级
+            - 控制结构
+              - 条件语句
+                - if 语句
+                - switch 语句
+                  - switch 表达式（Java 14+）
+                - 三元运算符
+              - 迭代语句
+                - while 循环
+                - do-while 循环
+                - for 循环
+                - Foreach 循环（自 J2SE 5.0）
+              - 跳转语句
+                - 标签
+                - break 语句
+                - continue 语句
+                - return 语句
+              - 异常处理语句
+                - try-catch-finally 语句
+                - try-with-resources 语句（Java SE 7）
+                - throw 语句
+              - assert 语句
+            - 线程
+              - 线程并发控制
+              - 并发特性
+            - 数据类型
+              - 原始类型
+              - 引用类型
+                - 数组
+                  - 初始化器
+                  - 多维数组
+                - Java类
+                  - 声明
+                    - 顶级类
+                    - 内部类
+                      - 静态内部类
+                      - 成员内部类
+                      - 局部内部类
+                      - 匿名内部类
+                    - 嵌套类
+                    - 本地类
+                    - 匿名类
+                  - 实例化
+                  - 访问成员
+                    - 访问实例成员
+                    - 访问静态类成员
+                  - 修饰符
+                    - 抽象类
+                    - Final 类
+                    - 访问修饰符
+                      - parvate/public/default/proteed
+                  - 方法
+                    - 方法修饰符
+                      - Final 方法
+                    - 可变参数（J2SE 5.0 引入）
+                    - 方法参数变量的值传递方式
+                      - 值传递
+                      - 引用传递
+                    - 构造方法
+                      - 类型
+                        - 参数化构造函数
+                          - 复制构造函数
+                        - 默认构造函数
+                      - 构造方法的重载
+                    - 结构
+                    - 方法调用
+                    - 默认方法（Java SE 8）
+                    - 方法引用
+                      - 构造器引用
+                      - 静态方法引用
+                      - 特定类的任意对象的方法引用
+                      - 特定对象的方法引用
+                  - 字段
+                    - 字段修饰符
+                  - 继承
+                    - 重写方法
+                    - 抽象类
+                  - 枚举（J2SE 5.0 引入）
+                  - 最终类
+                  - 变量
+                    - 变量作用域
+                  - 内部类
+                  - 抽象类
+                - 接口
+                  - 实现接口
+                  - 接口继承
+                  - 接口中的静态方法（Java SE 8）
+                  - 接口中的私有方法（Java 9）
+                  - 注解（J2SE 5.0 引入）
+                  - 函数式接口
+                  - Lambda 表达式
+                    - 重要特征
+                    - 例子
+                - Java泛型
+                  - 泛型类
+                  - 通用接口
+                  - 泛型方法
+                  - 泛型构造函数
+              - 类型转换
+                - 自动类型转换
+                - 强制类型转换
+                  - 隐含强制类型转换
+            - 注释
+            - 注解
+            - 异常体系
+              - Java 异常处理（教程）
+            - 常用关键字速记（static/final）
+            - Java 封装
+            - 成员内部类
+            - 静态内部类
+            - Java 继承
+            - Java 多态
+            - Java 抽象类
+            - Java 接口
+            - Java 修饰符
+            - Java 泛型
+            - Java 类
+          - 类
+            - java.lang
+              - Object
+                - Number
+                - Math
+                  - 作用
+                  - 常见方法
+                - 类的构造函数
+                - 方法
+                - Optional
+                  - 方法
+                - String
+                - StringBuilder
+                - StringBuffer
+                - Files
+                - Scanner
+          - 集合框架
+            - RandomAccess
+            - Iterable
+              - Collection
+                - List
+                - ArrayList
+                - AbstractList
+                - SequencedCollection
+                - SequencedSet
+                - LinkedHashSet
+                - LinkedList
+                - AbstractSequentialList
+                - Deque
+                - AbstractCollection
+                - SortedSet
+                - NavigableSet
+                - Set
+                - TreeSet
+                - AbstractSet
+                - HashSet
+                - Stack
+                - Vector
+                - ArrayDeque
+                - Queue
+                  - SynchronousQueue
+                  - PriorityBlockingQueue
+                  - AbstractQueue
+                  - PriorityQueue
+                  - BlockingQueue
+                - Map
+                  - AbstractMap
+                  - HashMap
+                    - 数据结构
+                  - Hashtable
+                  - Dictionary
+                  - IdentityHashMap
+                  - SortedMap
+                  - NavigableMap
+                  - SequencedMap
+                  - TreeMap
+                  - WeakHashMap
+                  - LinkedHashMap
+            - Collections
+            - Cloneable
+            - Serializable
+            - Comparator
+            - Iterator
+            - Java 集合框架
+            - Java 数据结构
+          - 反射
+            - java.lang.reflect
+              - AccessFlag
+                - AccessFlagSet
+                  - AccessFlagIterator
+                - Location
+              - AccessibleObject
+                - Cache
+              - AnnotatedArrayType
+              - AnnotatedElement
+              - AnnotatedParameterizedType
+              - AnnotatedType
+              - AnnotatedTypeVariable
+              - AnnotatedWildcardType
+              - Array
+              - ClassFileFormatVersion
+              - Constructor
+              - Executable
+                - ParameterData
+              - Field
+                - FieldSetter
+              - GenericArrayType
+              - GenericDeclaration
+              - GenericSignatureFormatError
+              - InaccessibleObjectException
+              - InvocationHandler
+              - InvocationTargetException
+              - MalformedParameterizedTypeException
+              - MalformedParametersException
+              - Member
+              - Method
+              - Modifier
+              - Parameter
+              - ParameterizedType
+              - Proxy
+                - InvocationException
+                - ProxyBuilder
+                  - ProxyClassContext
+              - ProxyGenerator
+                - PrimitiveTypeInfo
+                - ProxyMethod
+              - RecordComponent
+              - ReflectAccess
+              - ReflectPermission
+              - Type
+              - TypeVariable
+              - UndeclaredThrowableException
+              - WildcardType
+            - 外部引用类型
+              - Serializable
+              - RuntimeException
+              - ClassFormatError
+              - ReflectiveOperationException
+              - BasicPermission
+              - AbstractSet
+              - Iterator
+              - JavaLangReflectAccess
+            - 工作流程
+          - 面向对象
+            - 三大特性
+            - 面向对象的特征
+            - 对象复制（深拷贝/浅拷贝）
+          - 对象
+            - 对象头
+              - Mark Word
+                - 哈希码
+                - GC 分代年龄
+                - 锁状态标志
+                - 线程持有的锁/偏向线程id
+                - 偏向时间戳
+              - 类型指针
+            - 实例数据
+            - 对齐填充
+          - 包
+            - 包的作用
+            - 创建
+              - 例子
+            - 目录结构
+          - 常用类库
+            - java.lang.String
+            - java.lang.StringBuilder
+            - java.lang.StringBuffer
+            - java.util.Scanner
+            - java.nio.file.Files
+              - 最佳实践
+              - 常见用法
+            - java.lang.Enum
+              - 用法
+            - java.util.Date
+            - Calendar
+            - GregorianCalendar
+            - java.io 字节流
+              - InputStream
+              - OutputStream
+              - 其他字节流
+              - FileInputStream
+              - BufferedInputStream
+              - DataInputStream
+              - ObjectInputStream
+              - java.io
+            - java.io 字符流
+              - Reader
+              - Writer
+              - 桥接流
+              - 其他字符流
+              - FileReader
+              - BufferedReader
+            - Java 8 Stream
+            - 常用类库整理
+            - Java 网络编程（Socket）
+            - JDBC 连接 MySQL
+            - Java 发送邮件（JavaMail）
+            - Character 类
+            - File 类
+              - File类
+              - RandomAccessFile
+              - 目录操作
+            - 控制台 I/O
+              - 控制台IO
+            - Selector使用
+            - Files工具类
+            - Path
+            - FileSystem
+          - 序列化
+            - 实现 Serializable 接口
+              - 实例
+            - 序列化对象
+              - 实例
+            - 反序列化对象
+          - 阻塞 I/O（BIO 模型）
+            - Java BIO 编程模型
+          - 非阻塞 I/O（NIO 模型）
+            - NIO实现原理
+            - NIO核心
+              - 三大组件概览
+              - Channel原理
+                - FileChannel
+                - SocketChannel
+                - ServerSocketChannel
+              - Buffer原理
+                - ByteBuffer
+              - Selector原理
+            - Java AIO（NIO.2）
+        - 编程语言理论
+          - 运行时理论
+            - 执行模型
+              - 局部变量
+          - 类型系统
+            - 数据类型
+              - 原始类型
+                - 字符
+                  - char
+                    - Char、acter
+                - 整数
+                  - int
+                    - Integer
+                  - short
+                    - Short
+                  - long
+                    - Long
+                  - byte
+                    - Byte
+                - 浮点数
+                  - float
+                    - Float
+                  - double
+                    - Double
+                - 布尔
+                  - boolean
+                    - Boolean
+              - 引用类型
+                - class
+                  - field
+                  - method
+                  - constructor
+                  - 修饰符
+                - interface
+                - enum
+              - 常量
+              - 复合类型
+              - 无解释的
+                - 比特
+                - 字节
+                - 字
+              - 字符串
+            - 接口
+            - 装箱
+            - 拆箱
+          - 词法分析
+            - 标识符
+              - 命名规则
+              - 命名规范
+          - 语法分析
+        - go
+          - 历史
+          - 测试
+          - 关键字
+          - 类型
+            - 复合数据类型
+              - 数组
+              - 切片
+              - Map
+              - 结构体
+              - 指针
+            - 基本数据类型
+          - 接口
+          - 应用程序
+          - 语言设计
+          - 语法
+            - 控制流
+            - 运算符
+          - 泛型
+          - 并发
+          - 使用参数化类型的泛型代码
+          - 枚举类型
+          - 包系统
+          - Web 应用程序
+          - 工具
+        - 程序分析
+          - 静态程序分析
+            - 控制流
+            - 数据流分析
+            - 抽象解读
+            - 类型系统
+            - 效果系统
+            - 模型检验
+            - 逃逸分析
+              - 优化
+              - 实际考虑
+              - 示例（Java）
+              - 示例（方案）
+            - 静态分析
+          - 动态程序分析
+            - 类型
+              - 功能测试
+              - 代码覆盖率
+              - 动态测试
+              - 内存错误检测
+              - 模糊测试
+              - 动态符号执行
+              - 动态数据流分析
+              - 不变推理
+              - 安全分析
+              - 并发错误
+              - 程序切片
+              - 性能分析
+            - 技巧
+              - 示例
+            - 测试
+            - 监控
+            - 程序切片
+            - 分析（计算机编程）
+              - 收集节目活动
+              - 分析器的使用
+              - 历史
+              - 基于输出的探查器类型
+                - 平面轮廓仪
+                - 调用图分析器
+                - 输入敏感的分析器
+              - 探查器类型中的数据粒度
+                - 基于事件的分析器
+                - 统计分析器
+                - 仪器仪表
+                - 口译仪器
+                - 管理程序
+                - 模拟器
+            - Java性能
+              - 虚拟机优化方法
+                - 即时编译
+                - 自适应优化
+                - 垃圾收集
+                - 其他优化方法
+                  - 压缩oops
+                  - 分割字节码验证
+                  - 寄存器分配改进
+                  - 班级数据共享
+              - 性能改进的历史
+                - Java SE 6 更新 10
+                - 爪哇7
+              - 程序速度
+              - 多核性能
+              - 启动时间
+              - 内存使用
+              - 三角函数
+              - Java 本机接口
+              - 用户界面
+              - 用于高性能计算
+              - 在编程竞赛中
+        - 编译原理
+          - 编译策略
+            - JIT
+          - 执行
+            - 虚拟机
+              - 历史
+              - 虚拟化技术
+                - 全虚拟化
+                  - 硬件辅助虚拟化
+                - 操作系统级虚拟化
+              - 快照
+              - 迁移
+              - 故障转移
+              - 嵌套虚拟化
+              - 虚拟机安全
+              - 系统虚拟机
+              - 处理虚拟机
+            - 编译器
+              - 历史
+              - 编译器构建
+                - 三阶段编译器结构
+                  - 前端
+                  - 中端
+                  - 后端
+                - 编译器正确性
+                - 单遍编译器
+                - 多遍编译器
+              - 相对于解释语言的编译
+              - 类型
+            - 解释器（计算）
+              - 历史
+              - 效率
+              - 执行
+              - 例子
+              - 即时编译
+              - 变化
+            - 链接器（计算）
+              - 动态链接
+              - 静态链接
+              - 搬迁
+              - 联动编辑器
+              - 链接器控制脚本
+              - 值得注意的实施
+                - Unix 和类 Unix
+                - GNU
+        - 程序设计语言理论
+          - 游标 / cursor
+          - Python
+          - 运行时系统
+        - 正则表达式理论
+        - Ruby
+        - 埃菲尔 / Eiffel
+        - SQL
+      - 编译器
+      - 领域特定语言
+      - 建模语言
+      - 软件框架
+        - JavaWeb
+          - JSP
+          - HTTP 请求
+          - Servlet 生命周期
+          - Servlet 容器
+          - 视图渲染
+          - HTTP Request/Response
+          - Web 属性作用域
+          - Web 状态管理
+          - Session
+          - Cookie
+        - Spring
+          - Spring 事务管理
+          - Spring 配置
+            - 常见的配置方式
+          - Spring 注解
+            - @Required
+            - @Autowired
+            - @Qualiﬁer
+            - @RequestMapping
+            - @Import
+            - @Indexed
+          - AOP
+            - AOP 原理
+              - AOP 执行流程
+                - getBean 请求
+                - AopProxy（外层拦截器）
+                - MethodInvocation（执行拦截器链）
+                - MethodInterceptor（执行织入代码）
+                - ProxyFactory
+            - 代理方式
+              - JDK 动态代理
+              - CGLIB 动态代理
+          - IoC容器
+            - IoC 原理
+            - 本质
+            - 依赖注入方式
+              - 构造函数注入
+              - Setter注入
+              - 字段注入
+            - BeanFactory
+            - ApplicationContext
+          - SpringMVC
+            - Spring MVC 原理
+            - SpringMVC 请求链路
+            - DispatcherServlet
+            - HandlerMapping
+            - HandlerAdapter
+            - ViewResolver
+            - View
+          - Spring Boot
+            - Spring Boot 原理
+            - Spring Boot 安全
+              - 跨域（CORS）
+              - CSRF 攻击
+            - Spring Boot 缓存
+            - Spring Boot 热加载
+            - Spring Boot 监视器
+            - Spring Boot 整合第三方
+              - Spring Data
+              - Spring Batch
+              - WebSockets
+              - 消息中间件（ActiveMQ / Kafka）
+            - 自动配置
+              - 自动装配原理
+            - JavaConﬁg
+            - Starter
+          - 验证
+            - 验证消息中使用 EL 表达式
+            - 类级别验证器
+            - 自定义验证规则
+            - 返回值验证
+          - Spring Framework 模块
+            - 控制反转容器
+              - 控制反转的类型
+                - 依赖注入
+                - 依赖查找
+              - 自动装配
+            - 面向切面编程框架
+              - 切面（Aspect）
+              - 连接点（Join point）
+              - 通知（Advice）
+              - 切入点（Pointcut）
+              - 引入（Introduction）
+              - 目标对象（Target Object）
+              - 织入（Weaving）
+              - 代理对象（Proxy）
+              - 织入代码（Woven Code）
+            - 数据访问框架
+            - 模型–视图–控制器框架
+              - Spring MVC 的工作流程
+              - DispatcherServlet的配置
+            - 远程访问框架
+            - 约定优于配置的快速应用程序开发
+              - Spring Roo
+            - 批处理框架
+            - 集成框架
+            - Spring WebSocket
+          - Spring4Shell 漏洞
+          - Spring Beans
+            - 作用域
+            - 生命周期
+              - Bean 生命周期
+            - 自动装配
+            - Bean 创建策略机制
+              - getBean 请求调用方
+              - beanDefinitionMap
+              - BeanDefinition
+              - 单例缓存（singletonObjects）
+              - getBean 已发起
+              - BeanDefinition 已取得
+              - 作用域已判定
+              - 实例已创建
+              - Bean 就绪返回
+          - 循环依赖
+        - Mybatis
+          - MyBatis
+          - SqlSession 生命周期
+            - openSession() 请求
+            - 会话已打开
+            - 执行 SQL
+            - 待提交（一级缓存有变更）
+            - 已提交
+            - 已回滚
+            - 已关闭
+            - SqlSessionFactory（单例）
+          - MyBatis 配置体系
+          - MyBatis-Spring 整合
+          - MyBatis 工程实践
+          - MyBatis-Plus
+          - MyBatis-Plus 常用对象
+          - MyBatis 的连接池
+          - MyBatis-Plus 条件构造器
+          - MyBatis Mapper
+          - 动态 SQL
+          - Executor（插件点）
+          - StatementHandler（插件点）
+          - ParameterHandler（插件点）
+          - ResultSetHandler（插件点）
+        - Netty
+          - Netty 线程模型
+          - Channel
+          - ChannelPipeline
+        - Kafka
+          - Kafka 消费组
+          - Kafka Broker
+          - Kafka 生产者
+          - Kafka 消费者
+          - Kafka Topic
+          - Kafka Partition
+        - RabbitMQ
+          - RabbitMQ 核心模型
+          - RabbitMQ 交换机
+          - 路由键
+        - Spring Cloud
+          - Zuul
+            - 网关
+          - Eureka
+          - Ribbon
+            - 断路器
+          - Hystrix
+            - 服务降级
+            - 服务熔断
+            - 服务隔离
+          - Feign
+          - Bus
+          - Conﬁg
+          - Gateway
+          - Netﬂix
+          - Consul
+          - Security
+          - Sleuth
+          - Stream
+          - Task
+          - Zookeeper
+          - Spring Cloud的版本关系
+          - 服务注册与发现
+          - 负载均衡
+          - 服务调用
+          - 服务容错
+          - 配置中心
+          - 消息总线
+          - 服务治理
+        - Hibernate
+        - EJB（企业 JavaBeans）
+      - 集成开发环境
+      - 软件配置管理
+      - 软件库
+        - 函数库
+      - 软件仓库
+      - 字符编码标准（Unicode/UTF-8）
+        - ANSI
+        - Unicode
+    - 软件开发
+      - 控制流
+      - 软件开发过程
+      - 需求分析
+      - 软件构建
+        - 程序设计
+          - 变量
+          - 程序架构
+            - 控制流程
+            - 数据类型
+            - 运算符
+            - 类
+            - 子程序
+              - 函数
+              - 过程
+              - 方法
+                - 析构函数
+                - 构造方法
+                  - 参数化构造器
+                  - 缺省构造器
+                  - 转换构造器
+                  - 复制构造器
+                  - 移动构造器
+                - 抽象方法
+                - 访问方法
+                - 静态（共享/类别）方法
+          - 引用
+      - 软件部署
+        - 嵌入式 Mysql
+        - 重启服务 / bounce
+      - 软件工程
+        - 软件开发过程（生命周期）
+          - 软件设计
+            - 软件架构
+            - 软件管理
+            - 设计模式
+              - 约定大于配置
+              - 架构模式
+                - 控制反转
+                - 前端控制器
+                - 拦截器
+                - 延迟加载
+                - MVC
+                - 微服务架构
+              - 其他模式
+                - 依赖注入
+                - 拦截过滤器
+                - 懒惰初始化
+              - 四人帮模式
+                - 创建者模式
+              - 并发模式
+                - 锁
+                - 读写锁
+                - 双重检查锁定
+                - 线程池
+              - 创建型模式
+                - 单例模式
+                - 原型模式
+                - 工厂方法模式
+                - 建造者模式
+                - 抽象工厂模式
+              - 结构型模式
+                - 享元模式
+                - 代理模式
+                  - 静态代理
+                  - 动态代理
+                - 外观模式
+                - 桥接模式
+                - 组合模式
+                - 装饰器模式
+                - 适配器模式
+              - 行为型模式
+                - 中介者模式
+                - 命令模式
+                - 备忘录模式
+                - 模板方法模式
+                - 状态模式
+                - 策略模式
+                - 观察者模式
+                - 解释器模式
+                - 访问者模式
+                - 责任链模式
+                - 迭代器模式
+        - 计算机编程
+          - 编程语言
+            - 语言结构
+            - 语法Syntax
+        - 性能优化
+          - 秒杀系统性能优化方法
+            - 响应时间对 QPS 的影响
+            - 线程数对 QPS 的影响
+            - 系统性能瓶颈定位
+            - 四种优化手段（Java 系统）
+              - 优化1：减少编码
+              - 优化2：减少序列化
+              - 优化3：Java 极致优化
+              - 优化4：并发读优化
+          - 流量激增应对方法
+            - 监控驱动动态扩容
+          - 秒杀系统设计
+            - 五大架构原则
+            - 架构演进（淘宝三阶段）
+            - 动静分离
+            - 热点数据处理
+            - 流量削峰
+            - 减库存设计
+          - 订单超时自动关闭方案
+            - 方案1：定时任务
+            - 方案2：JDK DelayQueue
+            - 方案3：Redis 过期监听
+            - 方案4：Redisson 分布式延迟队列
+            - 方案5：RocketMQ 延迟消息
+            - 方案6：RabbitMQ 死信队列
+          - QPS 提升 10 倍的系统设计
+        - 发布与版本模型 / Release & Versioning Model
+          - 创新系列 / Innovation Series
+            - MySQL 创新系列 / MySQL Innovation Series
+          - LTS系列 / LTS Series
+            - LTS系列 / LTS Series
+          - GA / Generally Available
+            - GA
+          - Beta / 测试版
+            - beta
+          - 早期采用者 / early adopter
+        - 面向对象
+          - 面向对象基本思想
+        - DRY 原则
+        - 身份认证
+      - 软件维护
+      - 编程团队
+      - 开源模型
+    - 计算数学
+      - 离散数学
+      - 概率
+      - 统计学
+      - 数学软件
+      - 信息论
+      - 数学分析
+      - 数值分析
+      - 理论计算机科学
+        - 计算问题
+    - 信息系统
+      - 数据库管理
+        - 数据库
+          - 数据库系统
+            - MySQL 数据库 / database
+            - 实例 / instance
+              - MySQL 实例 / instance
+            - 主机 / host
+              - MySQL 主机 / host
+            - 技术初衷
+            - 术语
+            - 历史
+              - 20 世纪 60 年代，导航 DBMS
+              - 20 世纪 70 年代，关系型 DBMS
+              - 综合方法
+              - 20 世纪 70 年代末，SQL DBMS
+              - 20 世纪 80 年代，在桌面上
+              - 20世纪90年代，面向对象
+              - NewSQL
+            - 数据库技术的发展
+            - 使用案例
+            - 研究
+            - 信息
+            - 数据
+            - 计算机数据
+            - 数据库使用
+              - 数据库使用要求
+              - 数据库理论
+              - 数据库机
+              - 数据库服务器
+              - 数据库应用程序
+              - 数据库管理系统 (DBMS)
+              - 数据库连接
+              - 数据源
+              - 数据源名称 (DSN)
+              - 数据库管理员 (DBA)
+              - 数据库工具比较
+              - 以数据库为中心的架构
+              - 智能数据库
+              - 加载文件
+              - 数据库发布
+              - 万圣节问题
+              - 数据库语言
+                - 数据定义语言
+                - 数据操作语言
+                - 查询语言
+                - 信息检索查询语言
+                - XQuery
+              - 数据库安全
+                - 数据库活动监控 (DAM)
+                - 数据库审计
+                - 数据库取证
+                - 负面数据库
+              - 数据库设计
+                - 实体关系模型（ER 模型）
+                - 数据库规范化
+                - 数据库重构
+              - 数据库编程
+                - 数据库抽象层
+                - 对象关系映射（ORM、O/RM 和 O/R 映射）
+              - 数据库管理
+                - 数据库虚拟化
+                - 数据库调整
+                - 数据库缓存
+                - 数据迁移
+                - 数据库保存
+                - 数据库完整性
+            - 数据仓库
+              - 变体
+                - 锚定建模
+                - 面向列的 DBMS
+                - 数据仓库建模
+                - HOLAP
+                - MOLAP
+                - ROLAP
+                - 操作数据存储 (ODS)
+              - 元素
+                - 数据字典
+                - 数据集市
+                - 第六范式 (6NF)
+                - 代理键
+              - 事实
+                - 事实表
+                - 提前到达事实
+                - 测量)
+              - 方面
+                - 维度表
+                - 退化维度
+                - 缓慢变化的维度
+              - 填充
+                - 提取
+                - 数据提取
+                - 数据转换
+                - 数据加载
+              - 维度)
+              - 维度建模 (DM)
+              - 事实)
+              - 在线分析处理 (OLAP)
+              - 星型架构
+              - 聚合)
+              - 使用数据仓库
+                - 语言
+                  - 数据挖掘扩展 (DMX)
+                  - 多维表达 (MDX)
+                  - XML 用于分析 (XMLA)
+                - 工具
+                  - 商业智能工具
+                  - 报告软件列表
+                  - 电子表格
+                - 商业智能 (BI)
+                - 仪表板)
+                - 数据挖掘
+                - 决策支持系统 (DSS)
+                - OLAP 立方体
+              - 人们
+                - Edgar F. Codd
+                - 比尔·英蒙
+                - Ralph Kimball（生于 1944 年）
+              - 产品
+                - OLAP 服务器比较
+              - 数据仓库 / data warehouse
+            - 数据库相关组织
+              - *数据库)*
+              - *数据库管理杂志*
+            - 数据库学者
+              - Serge Abiteboul
+              - 大卫·迈尔
+              - 拉尔夫·金博尔
+              - Kamran Parsaye
+              - C. J.日期
+              - Peter Chen
+            - 数据库管理系统
+            - 数据库概览（维基来源全文）
+          - 数据模型
+            - 关系型 / relational
+              - MySQL 关系型 / MySQL relational
+              - PostgreSQL
+            - 键值数据库
+            - NoSQL
+              - Redis
+                - 数据结构
+                - 数据类型
+                  - String
+                  - Hash
+                  - List
+                  - Set
+                  - zset
+                    - ZRANK
+                    - ZRANGE
+                - 发布订阅模式 / pub-sub
+                - 键
+                - Lua
+                - 分布式锁
+                  - 简易锁
+                  - 使用Redis构建锁
+                  - 细粒度锁
+                - 线程模型
+                - 集群方案
+                  - 哨兵模式
+                  - 官方Redis Cluster 方案(服务端路由查询)
+                    - 节点间的内部通信机制
+                  - 基于客户端分配
+                  - 基于代理服务器分片
+                  - Redis 主从架构
+                - 分区
+                - 缓存异常
+                  - redis穿透
+                  - redis雪崩
+                  - redis击穿
+                  - 缓存预热
+                  - 缓存降级
+                  - 缓存热点key
+                  - 热点数据
+                  - 冷数据
+                - 常用工具
+                - 持久化选项
+                  - 快照持久化
+                  - RDB持久化
+                    - SAVE / BGSAVE 命令到达
+                    - fork 子进程（写时复制）
+                    - 子进程写临时 RDB 文件
+                    - 父进程继续处理命令
+                    - 临时文件原子替换 dump.rdb
+                    - 启动时载入 RDB 恢复数据
+                  - AOF持久化
+                    - AOF持久化的实现
+              - MongoDB
+              - NoSQL 数据库
+            - 数据库模型（维基）
+            - 网状数据模型的数据结构
+              - 网状模型
+            - 分类术语（维基）
+            - 数据库类型（维基）
+              - 活动数据库
+              - 动画数据库
+              - 后端数据库
+              - 书目数据库
+              - 集中式数据库
+              - 云数据库
+              - 馆藏数据库
+              - 集体优化数据库
+              - 配置管理数据库
+              - 合作数据库
+              - 当前数据库
+              - Directory
+              - 分布式数据库
+              - 面向文档的数据库
+              - EDA 数据库
+              - Endgame tablebase
+              - 食品成分数据库 (FCDB)
+              - 全文数据库
+              - 政府数据库
+              - 图数据库
+              - 知识库
+              - 移动数据库
+              - 导航数据库
+              - 非母语语音数据库
+              - 在线数据库
+              - 运营数据库
+              - 并行数据库
+              - 概率数据库
+              - 实时数据库
+              - 关系数据库
+              - 空间数据库
+              - 时态数据库
+              - 时间序列数据库
+              - Triplestore
+              - 超大型数据库 (VLDB)
+              - 漏洞数据库
+              - XLDB
+              - XML 数据库
+          - 数据库结构
+            - 模式 / schema
+              - MySQL 模式 / MySQL schema
+            - 存储对象 / stored object
+              - MySQL 存储对象 / MySQL stored object
+              - 存储程序 / stored program
+                - MySQL 存储程序 / stored program
+                - MySQL 存储过程
+                - MySQL 触发器
+            - 数据字典 / data dictionary
+              - MySQL 数据字典 / data dictionary
+              - MySQL INFORMATION_SCHEMA
+              - MySQL 序列化字典信息 (SDI) / serialized dictionary information (SDI)
+            - 表 / table
+              - MySQL 表 / table
+                - 种类
+                  - 内在临时表 / intrinsic temporary table
+                  - 表类型 / table type
+                  - compressed table
+                - 行
+            - 列 / column
+              - MySQL 列 / column
+                - 种类
+                  - 虚拟生成列 / virtual generated column
+                  - 基础列 / base column
+                  - 生成的存储列 / generated stored column
+                  - 离页列 / off-page column
+                  - 存储生成列 / stored generated column
+            - 行 / row
+              - MySQL 行 / row
+                - 行格式 / row format
+                  - 紧凑行格式 / compact row format
+                  - 冗余行格式 / redundant row format
+                  - 动态行格式 / dynamic row format
+                  - 固定行格式 / fixed row format
+                  - compressed row format
+            - 生成列 / generated column
+              - MySQL 生成列 / generated column
+            - 临时表 / temporary table
+              - MySQL 临时表 / temporary table
+            - 参照完整性 / referential integrity
+              - MySQL 参照完整性 / referential integrity
+            - 子表 / child table
+              - MySQL 子表 / child table
+            - 父级表 / parent table
+              - MySQL 父级表 / parent table
+            - 分区 / partitioning
+              - MySQL 分区管理（Partitioning）
+            - 分隔标识符 / delimited identifier
+              - MySQL 反引号 / backticks
+            - 视图
+              - MySQL 视图
+                - 物化视图 / Materialized View
+            - 架构（维基）
+          - 数据库操作
+            - 预处理语句 / prepared statement
+              - MySQL 客户端预处理语句 / MySQL client-side prepared statement
+              - MySQL 服务器端预处理语句 / MySQL server-side prepared statement
+              - MySQL 预处理语句 / MySQL prepared statement
+            - 插入 / insert
+              - MySQL 插入 / insert
+              - MySQL 混合模式插入 / mixed-mode insert
+            - 删除 / delete
+              - MySQL 删除 / delete
+            - 截断 / truncate
+              - MySQL 截断 / truncate
+            - 落下 / drop
+              - MySQL 落下 / drop
+            - 动态 SQL / dynamic SQL
+              - MySQL 动态语句 / dynamic statement
+            - 在线 DDL / online DDL
+              - MySQL 在线 DDL / online DDL
+            - 原子 DDL / atomic DDL
+              - MySQL 原子DDL / atomic DDL
+            - 数据库语言
+              - DQL / 数据查询语言
+                - MySQL DQL / 数据查询语言
+              - DML / 数据操作语言
+                - MySQL DML / 数据操作语言
+              - DDL / 数据定义语言
+                - MySQL DDL / 数据定义语言
+              - DCL / 数据控制语言
+                - MySQL DCL / 数据控制语言
+              - 数据控制语言 / DCL
+              - 数据操纵语言 / DML
+            - CRUD
+          - 查询系统
+            - MySQL 查询执行过程
+              - 内部执行流程（六步）
+                - 客户端（Client）
+                  - 连接与线程状态
+                    - Command 取值
+                    - State 取值
+                    - TCP 连接建立
+                    - 客户端鉴权
+                    - 分配线程
+                    - 用户线程执行命令
+                    - Sleep 空闲等待
+                    - 连接关闭
+                    - Connection Pool（连接池）
+                    - 身份认证
+                    - 权限校验
+                - 查询缓存（Query Cache）
+                - 解析器（Parser）
+                - 预处理器（Preprocessor）
+                - 查询优化器（Optimizer）
+                  - 查询优化的策略
+                    - 等价变换策略
+                    - 优化 count、min、max 等函数
+                    - 提前终止查询
+                    - in 的优化
+                - 查询执行引擎（Executor）
+                - 存储引擎（Storage Engine）
+                - 连接已建立（①）
+                - 查询缓存命中（②）
+                - 解析树已生成（③）
+                - 执行计划已生成（④）
+                - 执行中，取到数据（⑤）
+                - 结果已返回客户端
+                - 查询缓存
+                - Query Cache
+            - 查询优化器 / query optimizer
+              - MySQL 查询优化器（Optimizer）
+                - MySQL 慢查询 SQL 优化思路
+                  - SQL 性能下降的原因
+                  - 慢查询优化思路（十条）
+                - MySQL 慢 SQL 排查思路
+                  - SQL 执行慢的常见原因
+                  - 整体排查流程
+                  - 索引问题的排查
+                  - 读写分离优化
+            - 查询执行计划 / query execution plan
+              - MySQL 查询执行计划 / query execution plan
+                - Explain
+                  - EXPLAIN 的 type 字段（访问类型）
+                    - type = system
+                    - type = const
+                    - type = eq_ref
+                    - type = ref
+                    - type = range
+                    - type = index
+                    - type = ALL
+                    - System
+                    - Range
+                  - EXPLAIN 的主要字段
+                    - EXPLAIN 能获得的信息
+                    - EXPLAIN 使用方式
+                    - 字段 id（读取顺序）
+                    - 字段 select_type（查询类型）
+                    - 字段 table / partitions
+                    - 字段 type（访问类型）
+                    - 字段 possible_keys / key（索引使用）
+                    - 字段 key_len（索引长度）
+                    - 字段 ref（连接匹配条件）
+                    - 字段 rows（估算行数）
+                    - 字段 Extra（额外信息）
+                    - SQL 执行计划（EXPLAIN）
+            - 全表扫描 / full table scan
+              - MySQL 全表扫描 / full table scan
+            - 选择性 / selectivity
+              - MySQL 选择性 / selectivity
+            - 索引提示 / index hint
+              - MySQL 索引提示 / index hint
+            - 解析器 / parser
+              - MySQL 解析器（Parser）
+            - 连接 / join
+              - MySQL JOIN 连接
+                - JOIN 的连接方式
+                - 驱动表
+                - JOIN 的三种执行算法
+                  - 简单嵌套循环连接（SNL）
+                  - 索引嵌套循环连接（INL）
+                  - 块嵌套循环连接（BNL）
+                  - Nested Loop Join
+                - JOIN 优化原则
+            - 子查询 / subquery
+              - MySQL 子查询
+            - 查询处理 / query processing
+              - 索引条件下推 / index condition pushdown
+                - MySQL 索引条件下推 / ICP
+              - 排序缓冲区 / sort buffer
+                - MySQL 排序缓冲区 / sort buffer
+              - 盲查询扩展 / blind query expansion
+                - MySQL 盲查询扩展 / blind query expansion
+              - 随机探查 / random dive
+                - MySQL 随机探查 / random dive
+              - 相关性 / relevance
+                - MySQL 相关性 / relevance
+              - 词干提取 / stemming
+                - MySQL 词干提取 / stemming
+              - MySQL 分页查询优化
+                - LIMIT 一般性分页
+                  - 实验一：偏移量固定，返回量变化
+                  - 实验二：返回量固定，偏移量变化
+                - 分页优化方案
+                  - 优化1：通过索引进行分页
+                  - 优化2：利用子查询优化
+                - LIMIT / FETCH
+          - 数据库事务
+            - MySQL 事务
+            - 事务原理
+              - 事务处理
+                - 补偿事务
+              - ACID
+                - 原子性
+                - 一致性
+                - 隔离性
+              - 快照 / snapshot
+              - 联机事务处理 / OLTP
+              - 自动提交 / autocommit
+              - 组提交 / group commit
+              - 事务处理系统
+              - 隔离级别 / isolation level
+                - 读未提交 / READ UNCOMMITTED
+                - 读已提交 / READ COMMITTED
+                - 可重复读 / REPEATABLE READ
+                - 可串行化 / SERIALIZABLE
+              - 故障转移 / failover
+              - 原子 / atomic
+            - 事务生命周期 / transaction lifecycle
+              - MySQL 事务生命周期
+            - 事务管理 / transaction management
+              - MySQL 事务管理
+            - 全局事务 / global transaction
+              - MySQL 全局事务 / global transaction
+            - 事务ID / transaction ID
+              - MySQL 事务 ID / transaction ID
+            - 只读事务 / read-only transaction
+              - MySQL 只读事务 / read-only transaction
+            - TCL / 事务控制语言
+              - MySQL TCL / 事务控制语言
+            - 分布式事务 / XA 协议 / XA
+            - 小型事务 / mini-transaction
+              - MySQL mini-transaction / 小型事务
+            - 每秒事务数 / TPS
+              - MySQL TPS
+            - 读现象 / read phenomena
+              - MySQL 读现象
+              - 幻读 / phantom read
+                - MySQL 幻读 / phantom
+              - 不可重复读 / non-repeatable read
+                - MySQL 不可重复读 / non-repeatable read
+              - 脏读 / dirty read
+                - MySQL 脏读 / dirty read
+            - 多版本并发控制
+              - MySQL 多版本并发控制
+                - 版本链
+                - Read View
+                - 可见性判断
+                - MVCC 隐藏系统列
+                  - DB_TRX_ID
+                  - DB_ROLL_PTR
+                  - DB_ROW_ID
+                  - 删除标记
+                - Purge 清理
+                  - 清理延迟 / purge lag
+                  - 清理线程 / purge thread
+                  - 高水位线 / high-water mark
+                  - 低水位线 / low-water mark
+                  - 历史列表 / history list
+                  - 清理操作 / Purge Operation
+                - 当前读（CurrentRead）
+                - 版本链子系统
+                - 快照读
+            - 锁机制 / locking mechanism
+              - MySQL 锁机制
+                - 页面锁
+                - 读写锁 / rw-lock
+                - 锁定 / locking
+                - MySQL 锁的分类体系
+                  - 按操作类型分（读锁 / 写锁）
+                    - MySQL 共享锁 / shared lock
+                    - MySQL 独占锁 / exclusive lock
+                    - 锁定读 / locking read
+                      - MySQL 锁定读 / locking read
+                    - 意向锁 / intention lock
+                      - MySQL 意图共享锁 / intention shared lock
+                      - MySQL 意图独占锁 / intention exclusive lock
+                      - MySQL 意向锁 / intention lock
+                  - 按粒度分（表 / 行 / 页）
+                    - 页面锁 / page lock
+                    - 表级锁 / table-level locking
+                      - MySQL 表锁 / table lock
+                    - 元数据锁 / metadata lock (MDL)
+                      - MySQL 元数据锁 / metadata lock
+                    - 自增锁 / auto-increment lock
+                      - MySQL 自增锁 / auto-increment locking
+                      - MySQL innodb_autoinc_lock_mode
+                    - 行级锁定 / row-level locking
+                      - MySQL 行级锁定 / row-level locking
+                        - MySQL 行锁 / row lock
+                    - 记录锁 / record lock
+                      - MySQL 记录锁 / record lock
+                    - 间隙锁 / gap lock
+                      - MySQL 间隙锁 / gap lock
+                    - 临键锁 / next-key lock
+                      - MySQL 临键锁 / next-key lock
+                    - 插入意向锁 / insert intention lock
+                      - MySQL 插入意向锁 / insert intention lock
+                    - 隐式行锁 / implicit row lock
+                      - MySQL 隐式行锁 / implicit row lock
+                  - 按操作性能分（乐观 / 悲观）
+                    - 乐观锁 / optimistic lock
+                    - 悲观锁 / pessimistic lock
+                    - MySQL 乐观锁 / optimistic lock
+                    - MySQL 悲观锁 / pessimistic lock
+              - 死锁 / deadlock
+                - MySQL 死锁 / deadlock
+              - 死锁检测 / deadlock detection
+                - MySQL 死锁检测 / deadlock detection
+              - 锁升级 / lock escalation
+                - MySQL 锁升级 / lock escalation
+              - 闩锁 / latch
+                - MySQL 闩锁 / latch
+              - 非锁定读 / non-locking read
+                - MySQL 非锁定读 / non-locking read
+              - 锁模式 / lock mode
+                - MySQL 锁模式 / lock mode
+              - 有序共享锁 / ordered shared locks
+              - 锁等待超时 / lock wait timeout
+                - MySQL innodb_lock_wait_timeout
+              - 共享锁 / shared lock
+              - 排他锁 / exclusive lock
+              - 范围锁
+              - 插入锁
+            - 一致性读取 / consistent read
+              - MySQL 一致性读取 / consistent read
+            - 半一致性读取 / semi-consistent read
+              - MySQL 半一致性读取 / semi-consistent read
+            - 回滚 / rollback
+              - MySQL 回滚 / rollback
+            - 并发 / concurrency
+              - MySQL 并发 / concurrency
+            - 受害者 / victim
+              - MySQL 受害者 / victim
+            - 丢失更新 / lost update
+              - MySQL 丢失更新
+              - 分类
+                - 回滚覆盖
+                - 提交覆盖
+          - 恢复系统
+            - 可用性 / availability
+            - 检查点 / checkpoint
+              - MySQL 检查点 / checkpoint
+            - 脏页 / dirty page
+              - MySQL 脏页 / dirty page
+            - 备份 / backup
+              - MySQL 备份 / backup
+              - 热备份 / hot backup
+                - MySQL 热备份 / hot backup
+              - 温备份 / warm backup
+                - MySQL 温备份 / warm backup
+              - 冷备份 / cold backup
+                - MySQL 冷备份 / cold backup
+              - 逻辑备份 / logical backup
+                - MySQL 逻辑备份 / logical backup
+              - 物理备份 / physical backup
+                - MySQL 物理备份 / physical backup
+              - 完整备份 / full backup
+                - MySQL 完整备份 / full backup
+              - 增量备份 / incremental backup
+                - MySQL 增量备份 / incremental backup
+              - 部分备份 / partial backup
+                - MySQL 部分备份 / partial backup
+              - 压缩备份 / compressed backup
+                - MySQL 压缩备份 / compressed backup
+            - 恢复 / restore
+              - MySQL 恢复 / restore
+            - 时间点恢复 / point-in-time recovery
+              - MySQL 时间点恢复 / point-in-time recovery
+            - 崩溃恢复 / crash recovery
+              - MySQL 崩溃恢复 / crash recovery
+            - 崩溃 / crash
+              - MySQL 崩溃 / crash
+            - 启动 / startup
+              - MySQL 启动 / startup
+            - 静默 / quiesce
+              - MySQL 静默 / quiesce
+          - 日志系统
+            - 刷新 / flush
+              - 刷新 / flush
+            - 日志传送
+            - ib_logfile0、ib_logfile1 文件组
+            - ib_logfile 文件 / ib_logfile
+            - ib_logfile0 文件
+            - ibbackup_logfile
+            - 日志结构
+              - 日志组 / log group
+            - 日志类型
+              - 事务日志
+                - 重做日志 / redo log
+                  - MySQL 重做日志 / redo log
+                    - redolog buffer
+                    - redolog file
+                - 撤销日志 / undo log
+                  - MySQL 撤销日志 / undo log
+                    - 更新 Undo 日志 / Update Undo Log
+                      - 重做日志归档 / redo log archiving
+                    - 插入 Undo 日志 / Insert Undo Log
+              - 二进制日志
+              - 慢查询日志
+                - MySQL 慢查询日志实践
+                  - 慢查询相关参数
+                  - 慢查询配置方式
+                  - 慢日志记录内容
+                  - 慢查询
+              - 通用查询日志
+              - 错误日志
+            - 日志管理
+          - 存储系统
+            - 数据压缩 / data compression
+              - 稀疏文件 / sparse file
+                - 稀疏文件 / sparse file
+              - 打孔 / hole punching
+                - 打孔 / hole punching
+              - 透明压缩 / transparent compression
+                - 透明页压缩 / transparent page compression
+              - 压缩失败 / compression failure
+                - 压缩失败 / compression failure
+              - KEY_BLOCK_SIZE
+            - 缓冲池 / buffer pool
+              - 缓冲池实例 / buffer pool instance
+              - Change Buffer 合并（merge）
+              - 字典对象缓存 / dictionary object cache
+              - 页面清理器 / page cleaner
+              - 自适应刷新 / adaptive flushing
+              - 撤销缓冲区 / undo buffer
+              - 双写缓冲区 / doublewrite buffer
+              - 变更缓冲 / change buffering
+              - 清理缓冲 / purge buffering
+              - 删除缓冲 / delete buffering
+            - 变更缓冲 / change buffering
+              - MySQL 变更缓冲区 / change buffer
+            - 表空间 / tablespace
+              - MySQL 表空间 / tablespace
+                - 种类
+              - 撤销表空间 / undo tablespace
+                - MySQL 撤销表空间 / undo tablespace
+              - 共享表空间 / shared tablespace
+                - MySQL 共享表空间 / shared tablespace
+                - MySQL 通用表空间 / general tablespace
+              - 系统表空间 / system tablespace
+                - MySQL 系统表空间
+              - 独立表空间 / independent tablespace
+                - MySQL 独立表空间
+              - 表空间标识符 / tablespace ID
+                - MySQL 空间 ID / space ID
+              - 可传输表空间 / transportable tablespace
+                - MySQL 可传输表空间 / transportable tablespace
+            - 段 / segment
+              - MySQL 段 / segment
+                - 种类
+            - 区段 / extent
+              - MySQL 区段 / extent
+            - 页 / page
+              - MySQL 干净页 / clean page
+              - MySQL 邻页 / neighbor page
+              - MySQL 撕裂页 / torn page
+              - MySQL 年轻页 / young
+              - MySQL 溢出页 / overflow page
+              - MySQL 页 / page
+                - 种类
+            - 页大小 / page size
+              - MySQL 页大小 / page size
+            - 回滚段 / rollback segment
+              - MySQL 回滚段 / rollback segment
+            - 撤销日志段 / undo log segment
+              - MySQL 撤销日志段 / undo log segment
+            - 基于磁盘 / disk-based
+          - 索引
+            - MySQL 索引
+              - 索引的弊端
+              - 索引失效的七种情况
+              - 索引不适合的场景
+              - 索引的潜规则
+            - 唯一索引 / unique index
+              - MySQL 唯一索引 / unique index
+                - 语法
+            - 哈希索引 / hash index
+              - MySQL 哈希索引 / hash index
+            - 聚簇索引 / clustered index
+              - MySQL 聚簇索引 / clustered index
+            - 覆盖索引 / covering index
+              - MySQL 覆盖索引 / covering index
+            - 部分索引 / partial index
+              - MySQL 部分索引 / partial index
+            - 全文索引 / full-text index
+              - MySQL 全文索引 / FULLTEXT index
+                - 停用词 / stopword
+                - 语法
+            - B+树索引 / B-tree index
+              - MySQL B+树索引
+                - B+树底层结构
+                  - 根节点 / root page
+                  - 内部节点 / internal page
+                    - 页内槽 / page directory
+                    - 键 + 子页指针
+                  - 叶子节点 / leaf page
+                    - 索引条目（键 + 行定位）
+                    - 叶子双向链表
+                  - 层间指针（连线语义）
+            - 组合索引 / composite index
+              - MySQL 组合索引
+                - 最佳左前缀法则 / leftmost prefix rule
+                  - 场景一：按索引列顺序使用（全命中）
+                  - 场景二：跳过最左列（索引失效）
+                  - 场景三：条件乱序（优化器重排，仍命中）
+                  - 联合索引排序结构（底层原理）
+                    - 第一列：全局有序
+                    - 第二列及以后：仅局部有序
+                    - 推论：跳过最左列无法定位
+                - 语法
+            - 二级索引 / secondary index
+              - MySQL 二级索引 / secondary index
+              - MySQL 普通索引
+            - 前缀索引 / prefix index
+              - MySQL 前缀索引
+            - 降序索引 / descending index
+              - MySQL 降序索引 / descending index
+            - 列索引 / column index
+              - MySQL 列索引 / column index
+            - 虚拟索引 / virtual index
+              - MySQL 虚拟索引 / virtual index
+            - 倒排索引 / inverted index
+              - MySQL 倒排索引 / inverted index
+            - 自适应哈希索引 / adaptive hash index
+              - MySQL 自适应哈希 / adaptive hash index
+            - 索引统计 / index statistics
+              - MySQL 索引统计 / index statistics
+            - 基数 / cardinality
+              - MySQL 基数 / cardinality
+            - 填充因子 / fill factor
+              - MySQL 填充因子 / fill factor
+            - 哨兵记录 / sentinel record
+              - MySQL 上确界记录 / supremum record
+              - MySQL 极小记录 / infimum record
+            - 主键索引
+              - MySQL主键索引
+          - 数据表示
+            - 可变长度类型 / variable-length type
+              - MySQL 可变长度类型 / MySQL variable-length type
+            - BLOB / binary large object
+              - MySQL BLOB
+            - CLOB / character large object
+              - MySQL CLOB
+            - 整数类型 / integer type
+              - MySQL 整数类型
+            - 实数类型 / real type
+              - MySQL 实数类型
+            - 字符串类型 / string type
+              - MySQL 字符串类型
+            - 枚举类型 / enum type
+              - MySQL 枚举类型
+          - 数据库设计
+            - 数据库理论
+              - 关系代数
+                - 查询 / query
+                - 连接 / join
+              - 规范化理论
+                - 依赖理论
+              - 恢复理论
+                - PITR
+                - 数据库关闭模式
+                  - 关闭 / shutdown
+                  - 快速关闭 / fast shutdown
+                  - 缓慢关闭 / slow shutdown
+                  - 干净关闭 / clean shutdown
+            - 模型
+            - 视图
+              - 物化视图
+            - 规范化 / normalized
+            - 反规范化 / denormalized
+            - 数据库建模
+          - 数据库分布与复制
+            - 连接 / connection
+              - MySQL 连接 / connection
+              - MySQL 连接字符串 / connection string
+            - 连接池 / connection pool
+              - MySQL 连接池 / connection pool
+            - MySQL 分库分表
+              - 四种拆分方式
+                - 垂直分库
+                - 垂直分表
+                - 水平分库
+                - 水平分表
+                - 架构演进路线
+              - 分表
+              - Sharding
+          - 数据库安全
+          - 数据库运维
+            - 瓶颈 / bottleneck
+              - MySQL 瓶颈 / bottleneck
+            - 工作负载 / workload
+              - MySQL 工作负载 / workload
+            - CPU 密集型 / CPU-bound
+              - MySQL CPU密集型 / CPU-bound
+            - I/O 密集型 / I/O-bound
+              - MySQL 磁盘绑定 / disk-bound
+            - 等待 / wait
+              - MySQL 等待 / wait
+            - 计数器 / counter
+              - MySQL 计数器 / counter
+            - 统计信息 / optimizer statistics
+              - MySQL 统计信息 / statistics
+              - MySQL 持久统计信息 / persistent statistics
+              - MySQL 表统计信息 / table statistics
+            - 预热 / cache warm-up
+              - MySQL 预热 / warm up
+            - 热 / hot
+              - MySQL 热 / hot
+            - 物理 / physical（相对逻辑而言）
+              - MySQL 物理 / physical
+            - 性能模式 / performance schema
+              - MySQL 性能模式 / Performance Schema
+            - 配置选项 / configuration option
+              - MySQL 选项 / option
+            - 迁移
+          - 数据库编程与接口
+            - 存储引擎 / storage engine
+              - MySQL 存储引擎
+                - MySQL InnoDB
+                  - Buffer Pool
+                    - Page
+                      - 事务数据页
+                      - File Trailer
+                      - Page Directory
+                      - Infimum + Supremum
+                      - 通用部分
+                      - 数据目录部分
+                      - 记录部分
+                      - 空间部分
+                      - 行记录
+                      - Page Header
+                      - File Header
+                      - User Records
+                      - Free Space
+                      - free page
+                      - clean page
+                    - 控制块
+                    - free list
+                      - 基节点
+                    - flush list
+                  - Log Buffer
+                  - System Tablespace
+                  - Adaptive Hash Index
+                  - General Tablespaces
+                  - Temporary Tablespaces
+                    - 会话临时表空间
+                    - 全局临时表空间
+                  - File-Per-Table Tablespaces
+                  - Row Formats
+                    - REDUNDANT
+                    - COMPACT
+                    - DYNAMIC
+                    - COMPRESSED
+                  - 组提交 / group commit
+                  - ib-file 集合 / ib-file set
+                - MySQL MyISAM
+            - 应用程序接口
+            - MySQL 连接器 / connector
+            - 客户端连接器 / client connectors
+              - JDBC
+                - SQLState
+              - ODBC
+              - .NET
+              - Perl API
+              - Python API
+                - MySQLdb
+              - Ruby API
+              - Perl
+              - ADO.NET
+              - Tcl
+              - 程序集 / assembly
+              - GAC
+              - ASP.net
+              - 客户端连接器（Client Connectors）
+              - 命令拦截器 / command interceptor
+              - 语句拦截器 / statement interceptor
+              - 异常拦截器 / exception interceptor
+              - Mono
+              - MySQL 生态 / memcached
+            - MySQL API
+            - MySQL PHP API
+          - 数据库产品
+            - MySQL
+              - MySQL Server
+                - 结构
+                  - 服务层
+                    - SQL接⼝（SQL Interface）
+                    - 横向
+                      - 计划稳定性 / plan stability
+                    - NoSQL Interface
+                    - Cluster
+                    - 管理工具（Instance Manager, Admin, Migration）
+                    - 备份恢复工具
+                    - 安全管理工具
+                    - 集群管理工具
+                    - MySQL 备份
+                      - MySQL 企业备份 / MySQL Enterprise Backup
+                      - 准备好的备份 / prepared backup
+                      - 模糊检查点 / fuzzy checkpointing
+                      - mysqlbackup 命令 / mysqlbackup command
+                      - 尖锐检查点 / sharp checkpoint
+                      - 重做 / redo
+                      - 应用 / apply
+                      - 自增 / auto-increment
+                      - 间隙 / gap
+                      - 严格模式 / strict mode
+                      - 在线 / online
+                      - 仪器仪表 / instrumentation
+                      - mysqldump
+                      - 校验和 / checksum
+                      - 故障排除 / troubleshooting
+                    - MySQL 恢复
+                  - 存储引擎层
+                    - ilist
+                  - 连接层
+              - MySQL 基础知识
+              - MySQL 存储引擎
+              - MySQL 数据类型
+              - InnoDB
+                - 概念字典-InnoDB
+                - 概念字典-InnoDB-机制
+              - Mysql客户端
+              - libmysqlclient
+                - mysqlclient
+                - C API
+                - libmysqld
+          - 数据库文件与实现
+            - 组成
+              - 配置文件
+                - 组成
+                  - my.cnf
+                  - my.ini
+                  - 选项文件 / option file
+                  - .cfg 文件 / .cfg file
+                  - .OPT 文件 / .OPT file
+                  - db.opt 文件
+                - 结构
+              - 数据文件
+                - 组成
+                  - MyISAM 文件
+                    - .MYD 文件 / .MYD file
+                    - .MYI 文件 / .MYI file
+                  - InnoDB 表空间文件
+                    - .ibd 文件 / .ibd file
+                    - ibdata 文件 / ibdata file
+                    - ibdata1 文件 / ibdata1 file
+                    - ibtmp 文件 / ibtmp file
+                    - .ibz 文件 / .ibz file
+                    - 每表一个文件 / file-per-table
+                    - innodb_file_per_table
+                  - 其他存储引擎文件
+                    - .ARM文件 / .ARM file
+                    - .ARZ文件 / .ARZ file
+                    - .MRG 文件 / .MRG file
+                    - .par 文件 / .par file
+                  - .frm 文件 / .frm file
+                  - 数据目录 / data directory
+                - 结构
+              - 日志文件
+                - 组成
+                - 结构
+              - 运行时文件
+                - 组成
+                  - PID 文件 / PID file
+                  - Socket 文件 / Socket file
+            - 文件格式 / file format
+            - 客户端库 / client libraries
+          - 代理键 / surrogate key
+            - MySQL 合成键 / MySQL synthetic key
+          - 自然键 / natural key
+            - MySQL 自然键 / MySQL natural key
+          - 唯一键 / unique key
+            - MySQL 唯一约束 / MySQL unique constraint
+          - 外键 / foreign key
+            - MySQL 外键 / MySQL foreign key
+          - NOT NULL 约束 / NOT NULL constraint
+            - MySQL NOT NULL 约束 / MySQL NOT NULL constraint
+          - 全局唯一标识符 / GUID
+            - MySQL GUID
+          - NULL
+          - 主键
+            - 主键类型选择：自增 vs UUID
+              - 自增主键（auto_increment）
+              - UUID 主键
+              - 选择结论
+              - 自增
+              - 自增 id 的索引结构
+              - UUID 的索引结构
+          - 数据库备份
+          - 数据库恢复
+          - 贮存
+            - 复制
+            - 虚拟化
+          - 复制 / replication
+            - MySQL Replication
+              - MySQL 主从复制
+                - 主从复制
+                - 用途
+                - 部署必要条件
+                - 复制原理
+                - 复制流程（三线程）
+                  - 主库 db（Master）
+                  - binlog dump 线程（主库）
+                  - I/O 线程（从库）
+                  - SQL 线程（从库）
+                  - relay log（中继日志）
+                  - 从库 db（Slave）
+                  - 事件已写入 binlog
+                  - 事件已发送
+                  - 事件已入 relay log
+                  - 事件已重放
+                  - 主从数据一致
+      - 信息存储
+      - 企业信息
+      - 社会信息
+      - 地理信息
+      - 决策支持
+      - 过程控制
+      - 多媒体信息
+      - 数据挖掘
+      - 数字图书馆
+      - 计算平台
+      - 数字营销
+      - 全球信息网
+        - Web 开发
+          - React
+            - 条件式渲染
+              - if 语句
+              - 三元操作符 (?:)
+              - 逻辑与 (&&)
+              - 内联渲染
+              - 隐式零值渲染陷阱
+            - 模块系统 / Import
+              - import X, { Y }
+              - 常规导入
+              - 重命名导入
+              - 解构导入
+            - 模块系统 / Export
+              - 混合导出
+              - 行内导出
+              - 末尾导出
+              - 声明导出
+              - 列表导出
+            - 模块导出
+              - 默认导出
+              - 命名导出
+            - 模块导入
+              - 导入重命名
+            - 控制流
+              - 提前返回 (Early Return)
+              - 多分支 if-else if
+            - 函数设计
+            - 表达式
+            - 短路求值
+            - 安全转换（布尔化）
+            - 嵌套三元（不推荐）
+      - 信息检索
+        - 信息检索理论
+      - 历法系统（公历/格里历）
+      - 时区标准（IANA tzdata）
+      - 跨系统标准与约定
+    - 以人为中心的计算
+      - 可访问性
+      - 扩展现实
+        - 增强的
+        - 虚拟
+      - 人机交互
+      - 交互设计
+      - 移动计算
+      - 社交计算
+      - 普适计算
+      - 可视化
+    - 并发
+      - 并发计算
+        - 模型
+          - 一致性模型
+        - 协调对共享资源的访问
+        - 优势
+        - 交互与通信
+      - 并行计算
+      - 分布式计算
+      - 多线程
+      - 多进程
+      - 并发控制
+        - 二阶段锁定（2PL
+        - 监控（同步）
+          - 相互排斥
+          - 条件变量
+            - 问题陈述
+            - 监控使用情况
+            - 同步原语
+              - Mesa 监视器示例
+            - 阻塞条件变量
+            - 非阻塞条件变量
+            - 隐式条件变量监视器
+            - 隐式信号
+            - 不同步不正确
+            - 旋转等待
+          - 历史
+      - 并发理论
+    - 人工智能
+      - 计算智能
+      - 自然语言处理
+      - 知识表示与推理
+      - 计算机视觉
+      - 自动化规划与调度
+      - 搜索方法论
+      - 控制方法
+      - 哲学
+      - 分布式
+    - 机器学习
+      - 监督式
+      - 无监督
+      - 增强学习
+      - 多任务
+      - 交叉验证
+    - 图形
+      - 动画
+      - 渲染
+      - 照片处理
+      - 图形处理单元
+      - 图像压缩
+      - 实体建模
+    - 应用计算
+      - 量子计算
+      - 电子商务
+      - 企业软件
+      - 计算数学
+      - 计算物理
+      - 计算化学
+      - 计算生物学
+      - 计算社会科学
+      - 计算工程
+      - 可微计算
+      - 计算医疗
+      - 数字艺术
+      - 电子出版
+      - 网络战争
+      - 电子投票
+      - 视频游戏
+      - 文字处理
+      - 运筹学
+      - 教育技术
+      - 文档管理
+    - 计算理论
+      - 计算模型
+        - 随机
+      - 可计算性理论
+      - 逻辑
+      - 语义
+      - 计算复杂性理论
+      - 算法
+        - 算法设计
+          - 算法思想
+        - 算法分析
+        - 算法效率
+        - 随机算法
+        - 计算几何
+        - 并发控制算法
+          - MVCC
+          - 自旋锁
+        - 分布式算法
+          - 两阶段提交协议
+        - 数据结构
+          - B树 / B-tree
+          - 元组 / tuple
+        - 抽象数据类型（ADT）理论
+        - 数据结构
+          - 双向链表
+          - B树 / B-tree
+          - R 树 / R-tree
+          - 列表 / list
+          - LRU 链表 / LRU list
+            - MySQL lru list
+              - 驱逐 / eviction
+              - 子列表 / sublist
+          - 线性结构
+          - 哈希结构
+          - 图搜索算法
+        - LRU
+        - 中点插入策略 / midpoint insertion strategy
+        - 工程中的算法模型
+        - 查找
+      - 形式语言理论
+      - 自动机理论
+    - 安全
+      - 形式化方法
+      - 安全黑客
+      - 安全服务
+      - 入侵检测系统
+      - 硬件安全
+      - 网络安全
+      - 信息安全
+      - 应用程序安全
+      - 密码学
+        - 安全套接层 / SSL
+      - 访问控制理论（RBAC）
+      - 认证服务器 / authentication server
+        - MySQL 认证服务器 / authentication server
+        - MySQL AS（认证服务器）
+      - 票证授予服务器 / ticket-granting server
+        - MySQL 票证授予服务器 / TGS
+      - 票证授予票证 / ticket-granting ticket
+        - MySQL 票证授予票证 / TGT
+      - 密钥分发中心 / key distribution center
+        - MySQL 密钥分发中心 / KDC
+      - 主体 / principal
+        - MySQL 主体 / principal
+      - 服务主体名称 / service principal name
+        - MySQL 服务主体名称 / SPN
+        - MySQL SPN（服务主名称）
+      - 服务票据 / service ticket
+        - MySQL 服务票据 / service ticket
+      - 用户主体名称 / user principal name
+        - MySQL 用户主体名称 / UPN
+      - 部分信任 / partial trust
+        - MySQL 部分信任 / partial trust
+        - MySQL 中等信任 / medium trust
+      - 密钥库 / keystore
+        - MySQL 密钥库 / keystore
+      - 信任库 / truststore
+        - MySQL 信任库 / truststore
+      - 安全套接层 / SSL
+        - MySQL 安全套接层 / SSL
+    - 系统组织
+      - 计算复杂性
+      - 可靠性
+      - 嵌入式系统
+      - 实时计算
+      - 网络物理系统
+      - 容错能力
+      - 无线传感器网络
+      - 操作系统
+        - 磁盘
+          - 磁盘页
+        - 内存屏障
+          - LoadLoad屏障
+          - StoreStore 屏障
+          - LoadStore 屏障
+          - StoreLoad 屏障
+        - 指令重排序
+        - 内存管理
+          - 垃圾回收
+            - 垃圾回收机制
+              - Minor GC
+              - Full GC
+            - 垃圾收集器GC
+              - CMS 收集器
+                - 初始标记
+                - 并发标记
+                - 重新标记
+                - 并发清除
+              - 并行收集器
+              - 串行收集器
+              - G1收集器
+            - 回收算法
+              - 标记-清除算法
+              - 标记-复制算法
+              - 标记-整理算法
+              - 分代收集
+              - 增量回收器
+            - 垃圾回收判定
+              - GC Roots
+              - 强引用
+              - 软引用
+              - 弱引用
+              - 虚引用
+              - 引用队列
+              - 收集器实现
+                - 引用计数收集器
+                - 跟踪收集器
+              - 引用计数法
+              - 可达性分析算法
+          - new 指令触发对象创建
+          - 类型加载校验
+          - 分配内存
+          - 零值填充
+          - 设置对象头
+          - 执行构造方法
+          - 引用定位（对象可用）
+          - TLAB（线程本地分配缓冲）
+          - 句柄访问
+          - 直接指针
+          - 内存溢出（OutOfMemoryError）
+        - 不可访问内存
+          - 不可访问对象
+        - 原子操作
+        - 写命中
+        - 上下文切换
+        - 写缺失
+        - 缓存命中
+        - 缓存行填充
+        - 缓存行
+        - CPU流水线
+        - 内存顺序冲突
+        - 关闭 / shutdown
+        - 进程 / process
+          - mysqld
+        - 快速关闭 / fast shutdown
+        - 线程 / thread
+        - RAID
+        - 异步I/O / asynchronous I/O
+          - mysql
+        - 互斥量 / mutex
+          - MySQL 互斥量 / mutex
+        - 自旋 / spin
+          - MySQL 自旋 / spin
+        - 原子指令 / atomic instruction
+          - MySQL 原子指令 / atomic instruction
+        - Pthreads / POSIX 线程
+          - MySQL Pthreads
+        - 缓冲区 / buffer
+          - MySQL 缓冲区 / buffer
+        - 缓存 / cache
+          - MySQL 缓存 / cache
+          - MySQL 缓存（Cache&Buffer）
+        - IO模型分类
+        - 零拷贝
+          - 传统 IO 执行流程
+            - 应用程序（read/write 调用）
+        - 阻塞非阻塞 I/O
+          - 非阻塞 I/O / nonblocking I/O
+        - 同步异步 I/O
+        - select
+        - epoll
+      - 计算机体系结构
+      - 存储系统
+        - 干净页 / clean page
+        - 实例 / instance
+        - 行格式 / row format
+        - 虚拟列 / virtual column
+        - 合并 / merge
+      - 分布式系统
+        - 从属服务器 / slave
+        - 复制 / replication
+        - 故障转移 / failover
+        - CAP定理
+        - 副本 / replica
+        - 主节点 / primary source
+        - 基于语句的复制 / statement-based replication
+        - 基于行的复制 / row-based replication
+        - 主线程 / master thread
+        - 负载均衡 / load balancing
+          - MySQL 负载均衡 / load balancing
+        - 心跳 / heartbeat
+          - MySQL 心跳 / heartbeat
+        - 向外扩展 / scale out
+          - MySQL 向外扩展 / scale out
+        - 向上扩展 / scale up
+          - MySQL 向上扩展 / scale up
+        - 可伸缩性 / scalability
+          - MySQL 可伸缩性 / scalability
+        - 分布式知识地图
+        - 分布式系统模型
+        - 分布式事务
+          - 分布式事务
+        - 分布式锁
+        - 分布式任务调度
+        - 高并发架构设计
+        - CQRS
+        - LVS
+        - 其他数据分片形式
+        - 写聚合
+        - 垂直拆分
+        - 基本的缓存淘汰策略
+        - 异步写
+        - 扩容方案
+        - 水平拆分
+        - 海量数据存储策略
+        - 缓存击穿
+        - 缓存更新
+        - 缓存穿透
+        - 缓存雪崩
+        - 读，写分离架构
+        - 重试
+        - Leaf
+        - Snowflake
+        - 分布式 ID
+        - 布隆过滤器
+        - 主从模式
+        - 高可用架构
+        - BASE理论
+        - 分库
+      - 多核 / multi-core
+      - 写入合并 / write combining
+      - 预读 / read-ahead
+      - 合并 / merge
+  - 数学
+    - 集合论
+      - 元组 / tuple
+    - 图论
+      - 物化视图 / Materialized View
+    - 统计学
+    - 概率论
+    - 数值分析
+    - 信息论
+    - 排队论
+  - 逻辑
+    - 一阶谓词逻辑
+    - 类型理论
+      - Abstract type
+        - 创建
+      - 自增 / auto-increment
+      - 数据类型
+    - 三值逻辑
+      - NULL

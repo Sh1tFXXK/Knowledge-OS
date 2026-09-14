@@ -656,7 +656,7 @@
                         },
                         {
                           "id": "tree_class_programming_classification",
-                          "name": "分类",
+                          "name": "类的分类",
                           "count": 0,
                           "nodeRef": "k_class_programming_classification",
                           "children": [
@@ -671,7 +671,7 @@
                               "id": "tree_class_programming_final_class",
                               "name": "最终类",
                               "count": 0,
-                              "nodeRef": "k_1784045589643_icc5oo",
+                              "nodeRef": "k_1789371436917_zo0k0j",
                               "children": []
                             },
                             {
@@ -726,6 +726,20 @@
                               "id": "asplit_s1_asplit_local_class",
                               "name": "局部类",
                               "nodeRef": "asplit_local_class",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_class_programming_abstract_class",
+                              "name": "抽象类",
+                              "count": 0,
+                              "nodeRef": "k_1784295376153_uiovkk",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_class_programming_inner_class",
+                              "name": "内部类",
+                              "count": 0,
+                              "nodeRef": "k_1789371087163_e9iafm",
                               "children": []
                             }
                           ]
@@ -7512,7 +7526,7 @@
                                           "id": "tree_1784044171666_9yd2is",
                                           "name": "匿名类",
                                           "count": 0,
-                                          "nodeRef": "k_1784044171635_8etz45",
+                                          "nodeRef": "k_1789371087163_g0db3p",
                                           "children": []
                                         }
                                       ]
@@ -7556,7 +7570,7 @@
                                           "id": "tree_java_syntax_zh_1hqaeyr",
                                           "name": "抽象类",
                                           "count": 0,
-                                          "nodeRef": "k_1784295376153_uiovkk",
+                                          "nodeRef": "k_1789371087163_g81kcs",
                                           "children": [],
                                           "supplement": {
                                             "tabs": [
@@ -7807,7 +7821,7 @@
                                           "id": "tree_1784295376195_3l31hb",
                                           "name": "抽象类",
                                           "count": 0,
-                                          "nodeRef": "k_1784295376153_uiovkk",
+                                          "nodeRef": "k_1789371087163_g81kcs",
                                           "children": [],
                                           "supplement": {
                                             "tabs": [
@@ -7878,7 +7892,7 @@
                                       "id": "tree_1786343651438_q205rt",
                                       "name": "抽象类",
                                       "count": 0,
-                                      "nodeRef": "k_1784295376153_uiovkk",
+                                      "nodeRef": "k_1789371087163_g81kcs",
                                       "children": [],
                                       "supplement": {
                                         "tabs": [
@@ -10641,20 +10655,6 @@
                                   "count": 0,
                                   "nodeRef": "k_wiki_en_profiling_computer_programming_s12",
                                   "children": []
-                                },
-                                {
-                                  "id": "final_atomic_hypervisor",
-                                  "name": "管理程序",
-                                  "count": 0,
-                                  "nodeRef": "atomic_hypervisor",
-                                  "children": []
-                                },
-                                {
-                                  "id": "final_atomic_emulator",
-                                  "name": "模拟器",
-                                  "count": 0,
-                                  "nodeRef": "atomic_emulator",
-                                  "children": []
                                 }
                               ]
                             }
@@ -10888,6 +10888,20 @@
                                   "name": "操作系统级虚拟化",
                                   "count": 0,
                                   "nodeRef": "k_wiki_en_virtual_machine_s8",
+                                  "children": []
+                                },
+                                {
+                                  "id": "final_atomic_hypervisor",
+                                  "name": "管理程序",
+                                  "count": 0,
+                                  "nodeRef": "atomic_hypervisor",
+                                  "children": []
+                                },
+                                {
+                                  "id": "final_atomic_emulator",
+                                  "name": "模拟器",
+                                  "count": 0,
+                                  "nodeRef": "atomic_emulator",
                                   "children": []
                                 }
                               ]
@@ -25115,63 +25129,6 @@
                   "children": []
                 },
                 {
-                  "id": "tree_io_zero_copy",
-                  "name": "零拷贝",
-                  "count": 0,
-                  "nodeRef": "k_io_zero_copy",
-                  "children": [
-                    {
-                      "id": "tree_tio_flow",
-                      "name": "传统 IO 执行流程",
-                      "count": 0,
-                      "nodeRef": "tio_flow",
-                      "children": [
-                        {
-                          "id": "tree_tio_caller",
-                          "name": "应用程序（read/write 调用）",
-                          "count": 0,
-                          "nodeRef": "tio_caller",
-                          "children": []
-                        }
-                      ],
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "final87:d1-tio_state_read_syscall",
-                            "label": "① read 发起（用户态→内核态）",
-                            "content": "① read 发起（用户态→内核态）\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。"
-                          },
-                          {
-                            "id": "final87:d1-tio_state_disk_to_kernel",
-                            "label": "② DMA：磁盘 → 内核缓冲区",
-                            "content": "② DMA：磁盘 → 内核缓冲区\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。"
-                          },
-                          {
-                            "id": "final87:d1-tio_state_kernel_to_user",
-                            "label": "③ CPU：内核缓冲区 → 用户缓冲区（返回）",
-                            "content": "③ CPU：内核缓冲区 → 用户缓冲区（返回）\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。"
-                          },
-                          {
-                            "id": "final87:d1-tio_state_write_syscall",
-                            "label": "④ write 发起（用户态→内核态）",
-                            "content": "④ write 发起（用户态→内核态）\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。"
-                          },
-                          {
-                            "id": "final87:d1-tio_state_user_to_socket",
-                            "label": "⑤ CPU：用户缓冲区 → socket 缓冲区",
-                            "content": "⑤ CPU：用户缓冲区 → socket 缓冲区\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。"
-                          },
-                          {
-                            "id": "final87:d1-tio_state_socket_to_nic",
-                            "label": "⑥ DMA：socket 缓冲区 → 网卡（返回）",
-                            "content": "⑥ DMA：socket 缓冲区 → 网卡（返回）\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。"
-                          }
-                        ]
-                      }
-                    }
-                  ]
-                },
-                {
                   "id": "asplit_s1_asplit_blocking_io",
                   "name": "阻塞非阻塞 I/O",
                   "nodeRef": "asplit_blocking_io",
@@ -25196,16 +25153,89 @@
                   "children": []
                 },
                 {
-                  "id": "asplit_s1_asplit_select_io",
-                  "name": "select",
-                  "nodeRef": "asplit_select_io",
-                  "children": []
+                  "id": "tree_concept_io_multiplexing",
+                  "name": "I/O 多路复用",
+                  "count": 0,
+                  "nodeRef": "k_1789371087163_25m6ob",
+                  "children": [
+                    {
+                      "id": "asplit_s1_asplit_select_io",
+                      "name": "select",
+                      "nodeRef": "asplit_select_io",
+                      "children": []
+                    },
+                    {
+                      "id": "asplit_s1_asplit_epoll",
+                      "name": "epoll",
+                      "nodeRef": "asplit_epoll",
+                      "children": []
+                    }
+                  ]
                 },
                 {
-                  "id": "asplit_s1_asplit_epoll",
-                  "name": "epoll",
-                  "nodeRef": "asplit_epoll",
-                  "children": []
+                  "id": "tree_concept_syscall_io",
+                  "name": "系统调用与 I/O",
+                  "count": 0,
+                  "nodeRef": "k_1789371087163_b7qj6l",
+                  "children": [
+                    {
+                      "id": "tree_io_zero_copy",
+                      "name": "零拷贝",
+                      "count": 0,
+                      "nodeRef": "k_io_zero_copy",
+                      "children": [
+                        {
+                          "id": "tree_tio_flow",
+                          "name": "传统 IO 执行流程",
+                          "count": 0,
+                          "nodeRef": "tio_flow",
+                          "children": [
+                            {
+                              "id": "tree_tio_caller",
+                              "name": "应用程序（read/write 调用）",
+                              "count": 0,
+                              "nodeRef": "tio_caller",
+                              "children": []
+                            }
+                          ],
+                          "supplement": {
+                            "tabs": [
+                              {
+                                "id": "final87:d1-tio_state_read_syscall",
+                                "label": "① read 发起（用户态→内核态）",
+                                "content": "① read 发起（用户态→内核态）\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。\n\n用户应用进程调用 read 函数，向操作系统发起 IO 调用，上下文从用户态转为内核态（切换 1）。"
+                              },
+                              {
+                                "id": "final87:d1-tio_state_disk_to_kernel",
+                                "label": "② DMA：磁盘 → 内核缓冲区",
+                                "content": "② DMA：磁盘 → 内核缓冲区\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。\n\nDMA 控制器把数据从磁盘读取到内核缓冲区（DMA 拷贝 1）。"
+                              },
+                              {
+                                "id": "final87:d1-tio_state_kernel_to_user",
+                                "label": "③ CPU：内核缓冲区 → 用户缓冲区（返回）",
+                                "content": "③ CPU：内核缓冲区 → 用户缓冲区（返回）\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。\n\nCPU 把内核缓冲区数据拷贝到用户应用缓冲区（CPU 拷贝 1），上下文从内核态转为用户态（切换 2），read 函数返回。"
+                              },
+                              {
+                                "id": "final87:d1-tio_state_write_syscall",
+                                "label": "④ write 发起（用户态→内核态）",
+                                "content": "④ write 发起（用户态→内核态）\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。\n\n用户应用进程通过 write 函数发起 IO 调用，上下文从用户态转为内核态（切换 3）。"
+                              },
+                              {
+                                "id": "final87:d1-tio_state_user_to_socket",
+                                "label": "⑤ CPU：用户缓冲区 → socket 缓冲区",
+                                "content": "⑤ CPU：用户缓冲区 → socket 缓冲区\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。\n\nCPU 将用户缓冲区中的数据拷贝到 socket 缓冲区（CPU 拷贝 2）。"
+                              },
+                              {
+                                "id": "final87:d1-tio_state_socket_to_nic",
+                                "label": "⑥ DMA：socket 缓冲区 → 网卡（返回）",
+                                "content": "⑥ DMA：socket 缓冲区 → 网卡（返回）\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。\n\nDMA 控制器把数据从 socket 缓冲区拷贝到网卡设备，上下文从内核态切换回用户态（切换 4），write 函数返回。"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             },

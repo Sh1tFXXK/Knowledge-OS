@@ -1,0 +1,610 @@
+{
+  "generatedAt": "2026-09-14T07:37:26.874Z",
+  "mode": "apply",
+  "wroteData": true,
+  "gates": [
+    {
+      "id": "G1",
+      "name": "数据文件 md5 与 dry-run 基线一致",
+      "ok": true,
+      "detail": "5 个文件全部一致"
+    },
+    {
+      "id": "G2",
+      "name": "外部会话未再写入已跟踪文件",
+      "ok": true,
+      "detail": "17 个已跟踪文件 md5 全部一致"
+    },
+    {
+      "id": "G7",
+      "name": "索引图白名单源文件未被改动",
+      "ok": true,
+      "detail": "src/core/explanation-index/indexGraphLayout.ts md5 一致"
+    },
+    {
+      "id": "G3",
+      "name": "每个共享实体拆分都有明确语义角色",
+      "ok": true,
+      "detail": "抽象类=ontology(HIGH) · 内部类=reference(HIGH) · 最终类=reference(MANUAL) · 匿名类=ontology(HIGH)"
+    },
+    {
+      "id": "G4",
+      "name": "每个 treeId 恰好映射一个目标实体",
+      "ok": true,
+      "detail": "11 个 treeId 映射明确（含 9 个既有挂载点）"
+    },
+    {
+      "id": "G5",
+      "name": "treebind 增 / 删 / 改 与预期逐条配对",
+      "ok": true,
+      "detail": "删除 5 条、新增 9 条、改 target 5 条，全部命中预期集合，无非相关变动"
+    },
+    {
+      "id": "G6",
+      "name": "implements 变更数符合当前口径",
+      "ok": true,
+      "detail": "实际新增非 treebind 边 4 条（口径 consistent，期望 4）：impl:abstract_class:k_1789371087163_g81kcs, impl:inner_class:k_1784044129424_ffqm4z, impl:final_class:k_1784045589643_icc5oo, impl:anonymous_class:k_1789371087163_g0db3p ⚠️ 你的闸门原文写「explicitly approved 2 changes」，但变体 B 把 抽象类、内部类 也变成了本体/具象对 → 语义一致应为 4 条。此处按 4 条，需要你确认；严格按字面 2 条请用 --implements-mode=minimal。"
+    },
+    {
+      "id": "G8",
+      "name": "dev server 不会静默覆盖本次写入",
+      "ok": true,
+      "detail": "5173 是 vite dev（含 /api/data 写通道）→ 已主动 GET 4/4 个文件，武装 mtime 守卫；浏览器后续旧的 PUT 将收到 409 EXTERNAL_MODIFICATION 而非覆盖"
+    }
+  ],
+  "roles": [
+    {
+      "ref": "k_1784295376153_uiovkk",
+      "label": "抽象类",
+      "role": "ontology",
+      "overridden": null,
+      "javaScore": 0,
+      "threshold": 3,
+      "margin": 3,
+      "confidence": "HIGH",
+      "bodyLength": 337,
+      "evidence": [
+        "±0 通用 OOP 语义表述"
+      ],
+      "excerpt": "一个抽象类是一个不完整的类，或者被认为是不完整的，并且不能被实例化（直接）。 一个类X如果满足以下任一条件，则具有抽象"
+    },
+    {
+      "ref": "k_1784044129424_ffqm4z",
+      "label": "内部类",
+      "role": "reference",
+      "overridden": null,
+      "javaScore": 20,
+      "threshold": 3,
+      "margin": 17,
+      "confidence": "HIGH",
+      "bodyLength": 3801,
+      "evidence": [
+        "+5 含语言代码围栏",
+        "+3 正文出现 Java 字面",
+        "+3 Java 类/接口声明语法",
+        "+3 Java API / 语法片段",
+        "+3 tags 含 [\"Java面试突击\"]",
+        "+3 页签标题含 [\"JAVA 内部类\"]",
+        "  代码围栏计数 20（10 段）"
+      ],
+      "excerpt": "Java 类中不仅可以定义变量和方法，还可以定义类，这样定义在类内部的类就被称为内部类。根据定义的方式不同，内部类分为静"
+    },
+    {
+      "ref": "k_1784045589643_icc5oo",
+      "label": "最终类",
+      "role": "reference",
+      "overridden": "ontology",
+      "javaScore": 1,
+      "threshold": 3,
+      "margin": 2,
+      "confidence": "MANUAL",
+      "bodyLength": 81,
+      "evidence": [
+        "+1 出现 “final class”（Java/C# 术语拼写；但该概念本身与语言无关）",
+        "±0 通用 OOP 语义表述"
+      ],
+      "excerpt": "一个 final class 不能被子类化。它基本上是抽象类的对立面，抽象类必须被子类化才能使用，不能被直接 实例化。最"
+    },
+    {
+      "ref": "k_1784044171635_8etz45",
+      "label": "匿名类",
+      "role": "ontology",
+      "overridden": null,
+      "javaScore": 0,
+      "threshold": 3,
+      "margin": 3,
+      "confidence": "HIGH",
+      "bodyLength": 42,
+      "evidence": [
+        "±0 通用 OOP 语义表述"
+      ],
+      "excerpt": "无名类（匿名类）在定义时不绑定名称或标识符。 这一点和具名函数与匿名函数的区别类似。"
+    }
+  ],
+  "newIds": {
+    "java:abstract_class": "k_1789371087163_g81kcs",
+    "java:anonymous_class": "k_1789371087163_g0db3p",
+    "ontology:inner_class": "k_1789371087163_e9iafm",
+    "ontology:final_class": "k_1789371436917_zo0k0j",
+    "os_layer:C4-03": "k_1789371087163_25m6ob",
+    "os_layer:C4-06": "k_1789371087163_b7qj6l"
+  },
+  "totals": {
+    "before": {
+      "tree": 3215,
+      "pool": 3849,
+      "edges": 4158
+    },
+    "after": {
+      "tree": 3219,
+      "pool": 3855,
+      "edges": 4166
+    }
+  },
+  "results": [
+    {
+      "id": "C1-02",
+      "action": "rename",
+      "title": "分类 → 类的分类（就地改名）",
+      "targetIds": {
+        "treeId": "tree_class_programming_classification",
+        "ref": "k_class_programming_classification"
+      },
+      "before": {
+        "name": "分类",
+        "kids": 10,
+        "poolLabel": "分类",
+        "tags": [
+          "分类",
+          "类",
+          "面向对象",
+          "编程"
+        ]
+      },
+      "after": {
+        "name": "类的分类",
+        "kids": 10,
+        "poolLabel": "类的分类",
+        "tags": [
+          "分类",
+          "类",
+          "面向对象",
+          "编程",
+          "类的分类"
+        ]
+      },
+      "edgeImpact": "无：treeId 不变 → treebind id 不变；仅改池 label 与 tags",
+      "postconditions": [
+        "树条目 name = 类的分类",
+        "池 label = 类的分类，tags 同时含 分类 与 类的分类",
+        "孩子数与后代 treeId 逐条不变"
+      ]
+    },
+    {
+      "id": "C1-09/abstract_class",
+      "action": "split-entity",
+      "title": "按语义角色拆分共享实体 抽象类",
+      "targetIds": {
+        "原实体": "k_1784295376153_uiovkk",
+        "本体实体": "k_1784295376153_uiovkk",
+        "Java实体": "k_1789371087163_g81kcs",
+        "本体挂载": "tree_class_programming_abstract_class",
+        "Java挂载": [
+          "tree_java_syntax_zh_1hqaeyr",
+          "tree_1784295376195_3l31hb",
+          "tree_1786343651438_q205rt"
+        ]
+      },
+      "before": {
+        "本体侧原ref": "(挂载点不存在)",
+        "Java侧原ref": "k_1784295376153_uiovkk",
+        "挂载数": 1
+      },
+      "after": {
+        "本体侧": "k_1784295376153_uiovkk",
+        "Java侧": "k_1789371087163_g81kcs"
+      },
+      "semanticRole": {
+        "role": "ontology",
+        "confidence": "HIGH",
+        "javaScore": 0,
+        "evidence": [
+          "±0 通用 OOP 语义表述"
+        ],
+        "excerpt": "一个抽象类是一个不完整的类，或者被认为是不完整的，并且不能被实例化（直接）。 一个类X如果满足以下任一条件，则具有抽象"
+      },
+      "edgeImpact": "本体侧新建 treebind 1 条（新挂载点） · Java 侧 3 条 treebind 同 id 改 target：treebind:tree_1784044457742_waame9:tree_java_syntax_zh_1hqaeyr (k_1784295376153_uiovkk→k_1789371087163_g81kcs)；treebind:tree_java_syntax_zh_scbpwz:tree_1784295376195_3l31hb (k_1784295376153_uiovkk→k_1789371087163_g81kcs)；treebind:tree_1784043760890_bptgal:tree_1786343651438_q205rt (k_1784295376153_uiovkk→k_1789371087163_g81kcs) · 新增 implements 1 条：impl:abstract_class:k_1789371087163_g81kcs",
+      "postconditions": [
+        "两个 treeId 不再共享 nodeRef（本体 k_1784295376153_uiovkk / Java k_1789371087163_g81kcs）",
+        "正文全部留在语义判定为 ontology 的一侧（k_1784295376153_uiovkk），未复制",
+        "新建 Java 具象实体 tabs 为空（待填 Java 专有正文）"
+      ]
+    },
+    {
+      "id": "C1-09/inner_class",
+      "action": "split-entity",
+      "title": "按语义角色拆分共享实体 内部类",
+      "targetIds": {
+        "原实体": "k_1784044129424_ffqm4z",
+        "本体实体": "k_1789371087163_e9iafm",
+        "Java实体": "k_1784044129424_ffqm4z",
+        "本体挂载": "tree_class_programming_inner_class",
+        "Java挂载": [
+          "tree_1784044129452_61ft68",
+          "tree_1786353277269_msn0ma91g"
+        ]
+      },
+      "before": {
+        "本体侧原ref": "(挂载点不存在)",
+        "Java侧原ref": "k_1784044129424_ffqm4z",
+        "挂载数": 2
+      },
+      "after": {
+        "本体侧": "k_1789371087163_e9iafm",
+        "Java侧": "k_1784044129424_ffqm4z"
+      },
+      "semanticRole": {
+        "role": "reference",
+        "confidence": "HIGH",
+        "javaScore": 20,
+        "evidence": [
+          "+5 含语言代码围栏",
+          "+3 正文出现 Java 字面",
+          "+3 Java 类/接口声明语法",
+          "+3 Java API / 语法片段",
+          "+3 tags 含 [\"Java面试突击\"]",
+          "+3 页签标题含 [\"JAVA 内部类\"]",
+          "  代码围栏计数 20（10 段）"
+        ],
+        "excerpt": "Java 类中不仅可以定义变量和方法，还可以定义类，这样定义在类内部的类就被称为内部类。根据定义的方式不同，内部类分为静"
+      },
+      "edgeImpact": "本体侧新建 treebind 1 条（新挂载点） · Java 侧 treebind 不变（原实体即具象） · 新增 implements 1 条：impl:inner_class:k_1784044129424_ffqm4z",
+      "postconditions": [
+        "两个 treeId 不再共享 nodeRef（本体 k_1789371087163_e9iafm / Java k_1784044129424_ffqm4z）",
+        "正文全部留在语义判定为 reference 的一侧（k_1784044129424_ffqm4z），未复制",
+        "新建本体实体 tabs 为空（待填通用定义）"
+      ]
+    },
+    {
+      "id": "C1-09/final_class",
+      "action": "split-entity",
+      "title": "按语义角色拆分共享实体 最终类",
+      "targetIds": {
+        "原实体": "k_1784045589643_icc5oo",
+        "本体实体": "k_1789371436917_zo0k0j",
+        "Java实体": "k_1784045589643_icc5oo",
+        "本体挂载": "tree_class_programming_final_class",
+        "Java挂载": [
+          "tree_1784045589689_drgfh8"
+        ]
+      },
+      "before": {
+        "本体侧原ref": "k_1784045589643_icc5oo",
+        "Java侧原ref": "k_1784045589643_icc5oo",
+        "挂载数": 1
+      },
+      "after": {
+        "本体侧": "k_1789371436917_zo0k0j",
+        "Java侧": "k_1784045589643_icc5oo"
+      },
+      "semanticRole": {
+        "role": "reference",
+        "confidence": "MANUAL",
+        "javaScore": 1,
+        "evidence": [
+          "+1 出现 “final class”（Java/C# 术语拼写；但该概念本身与语言无关）",
+          "±0 通用 OOP 语义表述"
+        ],
+        "excerpt": "一个 final class 不能被子类化。它基本上是抽象类的对立面，抽象类必须被子类化才能使用，不能被直接 实例化。最"
+      },
+      "edgeImpact": "本体侧 1 条 treebind 同 id 改 target：treebind:tree_class_programming_classification:tree_class_programming_final_class (k_1784045589643_icc5oo→k_1789371436917_zo0k0j) · Java 侧 treebind 不变（原实体即具象） · 新增 implements 1 条：impl:final_class:k_1784045589643_icc5oo",
+      "postconditions": [
+        "两个 treeId 不再共享 nodeRef（本体 k_1789371436917_zo0k0j / Java k_1784045589643_icc5oo）",
+        "正文全部留在语义判定为 reference 的一侧（k_1784045589643_icc5oo），未复制",
+        "新建本体实体 tabs 为空（待填通用定义）"
+      ]
+    },
+    {
+      "id": "C1-09/anonymous_class",
+      "action": "split-entity",
+      "title": "按语义角色拆分共享实体 匿名类",
+      "targetIds": {
+        "原实体": "k_1784044171635_8etz45",
+        "本体实体": "k_1784044171635_8etz45",
+        "Java实体": "k_1789371087163_g0db3p",
+        "本体挂载": "tree_class_programming_anonymous_class",
+        "Java挂载": [
+          "tree_1784044171666_9yd2is"
+        ]
+      },
+      "before": {
+        "本体侧原ref": "k_1784044171635_8etz45",
+        "Java侧原ref": "k_1784044171635_8etz45",
+        "挂载数": 1
+      },
+      "after": {
+        "本体侧": "k_1784044171635_8etz45",
+        "Java侧": "k_1789371087163_g0db3p"
+      },
+      "semanticRole": {
+        "role": "ontology",
+        "confidence": "HIGH",
+        "javaScore": 0,
+        "evidence": [
+          "±0 通用 OOP 语义表述"
+        ],
+        "excerpt": "无名类（匿名类）在定义时不绑定名称或标识符。 这一点和具名函数与匿名函数的区别类似。"
+      },
+      "edgeImpact": "本体侧 treebind 不变（挂载点在位、实体未变） · Java 侧 1 条 treebind 同 id 改 target：treebind:tree_1784044092244_76wkqz:tree_1784044171666_9yd2is (k_1784044171635_8etz45→k_1789371087163_g0db3p) · 新增 implements 1 条：impl:anonymous_class:k_1789371087163_g0db3p",
+      "postconditions": [
+        "两个 treeId 不再共享 nodeRef（本体 k_1784044171635_8etz45 / Java k_1789371087163_g0db3p）",
+        "正文全部留在语义判定为 ontology 的一侧（k_1784044171635_8etz45），未复制",
+        "新建 Java 具象实体 tabs 为空（待填 Java 专有正文）"
+      ]
+    },
+    {
+      "id": "C4-01",
+      "action": "move",
+      "title": "管理程序 → 虚拟机 > 虚拟化技术",
+      "targetIds": {
+        "treeId": "final_atomic_hypervisor",
+        "ref": "atomic_hypervisor",
+        "新父": "tree_wiki_en_virtual_machine_s5"
+      },
+      "before": {
+        "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 程序分析 > 动态程序分析 > 分析（计算机编程） > 探查器类型中的数据粒度 > 管理程序",
+        "旧父孩子数": 6,
+        "新父孩子数": 2
+      },
+      "after": {
+        "path": "虚拟机 > 虚拟化技术 > 管理程序",
+        "旧父孩子数": 5,
+        "新父孩子数": 3
+      },
+      "edgeImpact": "treebind：删 treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_hypervisor，建 treebind:tree_wiki_en_virtual_machine_s5:final_atomic_hypervisor（子节点 ref 未变）",
+      "postconditions": [
+        "后代 treeId 不变",
+        "池节点 atomic_hypervisor 未删未退休",
+        "语义边不受影响（ref 未变）"
+      ]
+    },
+    {
+      "id": "C4-02",
+      "action": "move",
+      "title": "模拟器 → 虚拟机 > 虚拟化技术",
+      "targetIds": {
+        "treeId": "final_atomic_emulator",
+        "ref": "atomic_emulator",
+        "新父": "tree_wiki_en_virtual_machine_s5"
+      },
+      "before": {
+        "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 程序分析 > 动态程序分析 > 分析（计算机编程） > 探查器类型中的数据粒度 > 模拟器",
+        "旧父孩子数": 5,
+        "新父孩子数": 3
+      },
+      "after": {
+        "path": "虚拟机 > 虚拟化技术 > 模拟器",
+        "旧父孩子数": 4,
+        "新父孩子数": 4
+      },
+      "edgeImpact": "treebind：删 treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_emulator，建 treebind:tree_wiki_en_virtual_machine_s5:final_atomic_emulator（子节点 ref 未变）",
+      "postconditions": [
+        "后代 treeId 不变",
+        "池节点 atomic_emulator 未删未退休",
+        "语义边不受影响（ref 未变）"
+      ]
+    },
+    {
+      "id": "C4-03",
+      "action": "create",
+      "title": "新建中间层 I/O 多路复用",
+      "targetIds": {
+        "newTreeId": "tree_concept_io_multiplexing",
+        "newRef": "k_1789371087163_25m6ob",
+        "父": "theory_domain_operating_systems"
+      },
+      "before": {
+        "操作系统孩子数": 32
+      },
+      "after": {
+        "操作系统孩子数": 33
+      },
+      "edgeImpact": "新增 treebind treebind:theory_domain_operating_systems:tree_concept_io_multiplexing",
+      "postconditions": [
+        "tree_concept_io_multiplexing 挂到 操作系统 下",
+        "池节点 k_1789371087163_25m6ob tabs 为空 → 空 tabs 计数 +1"
+      ]
+    },
+    {
+      "id": "C4-06",
+      "action": "create",
+      "title": "新建中间层 系统调用与 I/O",
+      "targetIds": {
+        "newTreeId": "tree_concept_syscall_io",
+        "newRef": "k_1789371087163_b7qj6l",
+        "父": "theory_domain_operating_systems"
+      },
+      "before": {
+        "操作系统孩子数": 33
+      },
+      "after": {
+        "操作系统孩子数": 34
+      },
+      "edgeImpact": "新增 treebind treebind:theory_domain_operating_systems:tree_concept_syscall_io",
+      "postconditions": [
+        "tree_concept_syscall_io 挂到 操作系统 下",
+        "池节点 k_1789371087163_b7qj6l tabs 为空 → 空 tabs 计数 +1"
+      ]
+    },
+    {
+      "id": "C4-04",
+      "action": "move",
+      "title": "select → 操作系统 > I/O 多路复用",
+      "targetIds": {
+        "treeId": "asplit_s1_asplit_select_io",
+        "ref": "asplit_select_io",
+        "新父": "tree_concept_io_multiplexing"
+      },
+      "before": {
+        "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > select",
+        "旧父": "操作系统",
+        "旧父孩子数": 34
+      },
+      "after": {
+        "path": "操作系统 > I/O 多路复用 > select",
+        "旧父孩子数": 33,
+        "新父孩子数": 1
+      },
+      "edgeImpact": "treebind：删 treebind:theory_domain_operating_systems:asplit_s1_asplit_select_io，建 treebind:tree_concept_io_multiplexing:asplit_s1_asplit_select_io；语义边不动（ref 未变）",
+      "postconditions": [
+        "asplit_s1_asplit_select_io 挂到 I/O 多路复用 下",
+        "后代 treeId 不变",
+        "池节点 asplit_select_io 未删未退休"
+      ]
+    },
+    {
+      "id": "C4-05",
+      "action": "move",
+      "title": "epoll → 操作系统 > I/O 多路复用",
+      "targetIds": {
+        "treeId": "asplit_s1_asplit_epoll",
+        "ref": "asplit_epoll",
+        "新父": "tree_concept_io_multiplexing"
+      },
+      "before": {
+        "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > epoll",
+        "旧父": "操作系统",
+        "旧父孩子数": 33
+      },
+      "after": {
+        "path": "操作系统 > I/O 多路复用 > epoll",
+        "旧父孩子数": 32,
+        "新父孩子数": 2
+      },
+      "edgeImpact": "treebind：删 treebind:theory_domain_operating_systems:asplit_s1_asplit_epoll，建 treebind:tree_concept_io_multiplexing:asplit_s1_asplit_epoll；语义边不动（ref 未变）",
+      "postconditions": [
+        "asplit_s1_asplit_epoll 挂到 I/O 多路复用 下",
+        "后代 treeId 不变",
+        "池节点 asplit_epoll 未删未退休"
+      ]
+    },
+    {
+      "id": "C4-07",
+      "action": "move",
+      "title": "零拷贝 → 操作系统 > 系统调用与 I/O",
+      "targetIds": {
+        "treeId": "tree_io_zero_copy",
+        "ref": "k_io_zero_copy",
+        "新父": "tree_concept_syscall_io"
+      },
+      "before": {
+        "path": "知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 零拷贝",
+        "旧父": "操作系统",
+        "旧父孩子数": 32
+      },
+      "after": {
+        "path": "操作系统 > 系统调用与 I/O > 零拷贝",
+        "旧父孩子数": 31,
+        "新父孩子数": 1
+      },
+      "edgeImpact": "treebind：删 treebind:theory_domain_operating_systems:tree_io_zero_copy，建 treebind:tree_concept_syscall_io:tree_io_zero_copy；语义边不动（ref 未变）",
+      "postconditions": [
+        "tree_io_zero_copy 挂到 系统调用与 I/O 下",
+        "后代 treeId 不变",
+        "池节点 k_io_zero_copy 未删未退休"
+      ]
+    }
+  ],
+  "journal": [
+    {
+      "opId": "C1-02",
+      "kind": "rename",
+      "treeId": "tree_class_programming_classification",
+      "ref": "k_class_programming_classification"
+    },
+    {
+      "opId": "C1-09:abstract_class",
+      "kind": "split-by-semantic-role",
+      "role": "ontology",
+      "existingRef": "k_1784295376153_uiovkk",
+      "ontologyRef": "k_1784295376153_uiovkk",
+      "javaNewRef": "k_1789371087163_g81kcs",
+      "ontologyNewRef": null
+    },
+    {
+      "opId": "C1-09:inner_class",
+      "kind": "split-by-semantic-role",
+      "role": "reference",
+      "existingRef": "k_1784044129424_ffqm4z",
+      "ontologyRef": "k_1789371087163_e9iafm",
+      "javaNewRef": null,
+      "ontologyNewRef": "k_1789371087163_e9iafm"
+    },
+    {
+      "opId": "C1-09:final_class",
+      "kind": "split-by-semantic-role",
+      "role": "reference",
+      "existingRef": "k_1784045589643_icc5oo",
+      "ontologyRef": "k_1789371436917_zo0k0j",
+      "javaNewRef": null,
+      "ontologyNewRef": "k_1789371436917_zo0k0j"
+    },
+    {
+      "opId": "C1-09:anonymous_class",
+      "kind": "split-by-semantic-role",
+      "role": "ontology",
+      "existingRef": "k_1784044171635_8etz45",
+      "ontologyRef": "k_1784044171635_8etz45",
+      "javaNewRef": "k_1789371087163_g0db3p",
+      "ontologyNewRef": null
+    },
+    {
+      "opId": "C4-01",
+      "kind": "move",
+      "treeId": "final_atomic_hypervisor",
+      "from": "treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_hypervisor",
+      "to": "treebind:tree_wiki_en_virtual_machine_s5:final_atomic_hypervisor"
+    },
+    {
+      "opId": "C4-02",
+      "kind": "move",
+      "treeId": "final_atomic_emulator",
+      "from": "treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_emulator",
+      "to": "treebind:tree_wiki_en_virtual_machine_s5:final_atomic_emulator"
+    },
+    {
+      "opId": "C4-03",
+      "kind": "create-layer",
+      "treeId": "tree_concept_io_multiplexing",
+      "ref": "k_1789371087163_25m6ob"
+    },
+    {
+      "opId": "C4-06",
+      "kind": "create-layer",
+      "treeId": "tree_concept_syscall_io",
+      "ref": "k_1789371087163_b7qj6l"
+    },
+    {
+      "opId": "C4-04",
+      "kind": "move",
+      "treeId": "asplit_s1_asplit_select_io",
+      "from": "treebind:theory_domain_operating_systems:asplit_s1_asplit_select_io",
+      "to": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_select_io"
+    },
+    {
+      "opId": "C4-05",
+      "kind": "move",
+      "treeId": "asplit_s1_asplit_epoll",
+      "from": "treebind:theory_domain_operating_systems:asplit_s1_asplit_epoll",
+      "to": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_epoll"
+    },
+    {
+      "opId": "C4-07",
+      "kind": "move",
+      "treeId": "tree_io_zero_copy",
+      "from": "treebind:theory_domain_operating_systems:tree_io_zero_copy",
+      "to": "treebind:tree_concept_syscall_io:tree_io_zero_copy"
+    }
+  ],
+  "backupDir": "E:\\project\\Knowledge-OS\\data\\backups\\phase1-oop-os-2026-09-14T07-37-26-424Z"
+}

@@ -1,0 +1,3260 @@
+# 知识宇宙 · 目录树名单
+
+> 数据源 `data/tree-data.json`（只读导出，未改动任何数据）
+> 导出时间 2026-09-14T05:13:50.305Z
+
+## 规模
+
+- 根：**知识宇宙**（`universe`）
+- 树条目总数（含根）：**3215**
+- 最大深度（根 = 0）：**13**
+- 一级域：**3** 个
+
+### 一级域概览
+
+| # | 域 | 亲儿子 | 子树条目 | 子树深度 | 树 id | 池 ref |
+|---|---|---|---|---|---|---|
+| 1 | 计算机科学 | 16 | 3195 | 12 | `demo_cs` | `n_55jiel25` |
+| 2 | 数学 | 7 | 10 | 2 | `school_mathematics` | `school_mathematics` |
+| 3 | 逻辑 | 3 | 9 | 3 | `school_logic` | `school_logic` |
+
+### 各层节点数
+
+| 层 | 节点数 |
+|---|---|
+| 0 | 1 |
+| 1 | 3 |
+| 2 | 26 |
+| 3 | 176 |
+| 4 | 168 |
+| 5 | 239 |
+| 6 | 504 |
+| 7 | 778 |
+| 8 | 469 |
+| 9 | 368 |
+| 10 | 404 |
+| 11 | 75 |
+| 12 | 3 |
+| 13 | 1 |
+
+---
+
+## 完整层级名单
+
+> 每行格式：`<缩进>- 名称 (N孩) · 树id · 池ref`。叶子省略「(N孩)」。
+
+- 知识宇宙 (3孩)  ·  universe  ·  n_a03cv4sd
+  - 计算机科学 (16孩)  ·  demo_cs  ·  n_55jiel25
+    - 硬件 (13孩)  ·  tree_acm2012_hardware  ·  k_acm2012_hardware
+      - 印刷电路板  ·  tree_acm2012_hardware_printed_circuit_board  ·  k_acm2012_hardware_printed_circuit_board
+      - 外设  ·  tree_acm2012_hardware_peripherals  ·  k_acm2012_hardware_peripherals
+      - 集成电路  ·  tree_acm2012_hardware_integrated_circuits  ·  k_acm2012_hardware_integrated_circuits
+      - 超大规模集成电路  ·  tree_acm2012_hardware_vlsi  ·  k_acm2012_hardware_vlsi
+      - 系统芯片 (SoC)  ·  tree_acm2012_hardware_soc  ·  k_acm2012_hardware_soc
+      - 能耗（绿色计算）  ·  tree_acm2012_hardware_green_computing  ·  k_acm2012_hardware_green_computing
+      - 电子设计自动化  ·  tree_acm2012_hardware_eda  ·  k_acm2012_hardware_eda
+      - 硬件加速  ·  tree_acm2012_hardware_hardware_acceleration  ·  k_acm2012_hardware_hardware_acceleration
+      - 处理器  ·  tree_acm2012_hardware_processors  ·  k_acm2012_hardware_processors
+      - 尺寸 – 外形  ·  tree_acm2012_hardware_form_factor  ·  k_acm2012_hardware_form_factor
+      - RAID  ·  projection:mysql-term:k_dict_mb72ps2c  ·  k_dict_mb72ps2c
+      - HDD  ·  projection:mysql-term:mysql_glossary_hdd_eb2rxz  ·  mysql_glossary_hdd_eb2rxz
+      - SSD  ·  projection:mysql-term:mysql_glossary_ssd_gyazmt  ·  mysql_glossary_ssd_gyazmt
+    - 网络 (8孩)  ·  tree_acm2012_networks  ·  k_acm2012_networks
+      - 网络架构  ·  tree_acm2012_networks_network_architecture  ·  k_acm2012_networks_network_architecture
+      - 网络协议 (2孩)  ·  tree_acm2012_networks_network_protocols  ·  theory_domain_network_protocols
+        - 服务器 / server  ·  mysql_term_network_protocols_server_18q8qi  ·  k_dict_xhmtog57
+        - HTTP (1孩)  ·  tree_1786898710541_l4hgm2  ·  k_1786898710067_dpzp8r
+          - 报文格式 (2孩)  ·  tree_1786898830078_iopwk0  ·  k_1786898829740_rz93sq
+            - 请求报文  ·  tree_1786898852112_uph5k3  ·  k_1786898851657_b3uj1z
+            - 响应报文  ·  tree_1786898862413_xhmyno  ·  k_1786898862091_zxw3qo
+      - 网络组件  ·  tree_acm2012_networks_network_components  ·  k_acm2012_networks_network_components
+      - 网络调度器  ·  tree_acm2012_networks_network_scheduler  ·  k_acm2012_networks_network_scheduler
+      - 网络性能评估 (1孩)  ·  tree_acm2012_networks_network_performance_evaluation  ·  k_acm2012_networks_network_performance_evaluation
+        - IOPS  ·  projection:mysql-term:mysql_glossary_iops_1go6rk  ·  mysql_glossary_iops_1go6rk
+      - 网络服务  ·  tree_acm2012_networks_network_services  ·  k_acm2012_networks_network_services
+      - 应用层  ·  tree_1786874260927_9y92b2  ·  k_1786874260568_6d4ruq
+      - 网络编程模型 (5孩)  ·  tree_network_programming_models  ·  k_network_programming_models
+        - Reactor 模式  ·  tree_reactor_overview  ·  k_reactor_overview
+        - 单线程模型  ·  tree_reactor_single_thread  ·  k_reactor_single_thread
+        - 多线程模型  ·  tree_reactor_multi_thread  ·  k_reactor_multi_thread
+        - 主从多线程模型  ·  tree_reactor_master_slave  ·  k_reactor_master_slave
+        - Proactor模式  ·  tree_proactor_mode  ·  k_proactor_mode
+    - 软件组织 (4孩)  ·  tree_acm2012_software_organization  ·  k_acm2012_software_organization
+      - 解释器  ·  tree_acm2012_software_organization_interpreters  ·  k_acm2012_software_organization_interpreters
+      - 中间件 (1孩)  ·  tree_acm2012_software_organization_middleware  ·  k_acm2012_software_organization_middleware
+        - Tomcat  ·  tree_1786353277269_msn0ma9bq  ·  k_1786353277269_msn0ma9ap
+      - 虚拟机  ·  tree_acm2012_software_organization_virtual_machines  ·  k_acm2012_software_organization_virtual_machines
+      - 软件质量  ·  tree_acm2012_software_organization_software_quality  ·  k_acm2012_software_organization_software_quality
+    - 软件符号与工具 (11孩)  ·  tree_1783260209337_u6gsoz  ·  k_1783260209305_4t111y
+      - 编程范式 (1孩)  ·  tree_1783183396985_1hmv5z  ·  k_1783183396947_46zdou
+        - 面向对象 (15孩)  ·  tree_1782834119007_8gxoi9  ·  k_1782834118965_n5r1fr
+          - 封装  ·  tree_1783167530009_81diwm  ·  k_1784260051954_diol2t
+          - 多态 (2孩)  ·  tree_1783167551389_pb80c2  ·  k_1783167551355_1zzuyq
+            - 编译时多态（静态多态） (2孩)  ·  tree_1783191702392_rgrtzl  ·  k_1783191702364_0jj8qu
+              - 重载  ·  tree_1783167737303_sqev75  ·  k_1783167737276_jlh50j
+              - 运算符重载  ·  tree_1783191721199_8kutfs  ·  k_1783191721172_1z8bir
+            - 运行时多态（动态多态） (2孩)  ·  tree_1783191752098_95mq11  ·  k_1783191752067_f7u3yy
+              - 重写  ·  tree_1783183435991_77dpb7  ·  k_1783183435962_lom0xc
+              - 向上转型  ·  tree_1783191777497_e2spic  ·  k_1783191777469_n9jlip
+          - 抽象性  ·  tree_1783233120003_noszdk  ·  k_1783233119967_ia2k7e
+          - 方法 (1孩)  ·  tree_1784169555859_vgp9uv  ·  k_1784169555803_adzqks
+            - 静态方法  ·  tree_1783167907462_zlt3zh  ·  k_1783167907433_5q9erq
+          - Method overriding  ·  tree_1784169710690_hfsdra  ·  k_1784169710601_3w2qgj
+          - Function overloading  ·  tree_1784170163092_a8arqc  ·  k_1784170163021_mv1rrh
+          - 特性 (6孩)  ·  tree_1784197948971_cqzpy3  ·  k_1784197948927_3c20z4
+            - 信息隐藏  ·  tree_1784209528502_74b8jh  ·  k_1784209528426_drz4ka
+            - 继承  ·  tree_1783167541281_d5khnt  ·  k_1783167541244_d3d092
+            - 多态性  ·  tree_1784212283721_eop6ph  ·  k_1784212283652_g9fg95
+            - 开放递归  ·  tree_1784200204560_f41jft  ·  k_oop_wiki_open_recursion
+            - 动态分派  ·  tree_1784200204560_s5uskn  ·  k_oop_wiki_dynamic_dispatch
+            - 封装  ·  tree_1784260051994_1lvc1p  ·  k_1784260051954_diol2t
+          - 内聚性  ·  tree_1784210387133_0y7wao  ·  k_1784210387085_fiqggs
+          - 对象模式  ·  tree_1784222253070_olxlyu  ·  k_1784222253026_05d8xf
+          - SOLID and GRASP guidelines  ·  tree_1784223183068_4psbub  ·  k_1784223183035_6d15js
+          - 类  ·  governance:canonical:k_1782836111549_qetpvx  ·  k_1782836111549_qetpvx
+          - 成员变量  ·  tree_1783167884489_ez9t07  ·  k_1783167884457_fbgsdd
+          - 实例方法  ·  tree_1783167897046_phaeih  ·  k_1783167897008_j9oxtc
+          - 类（编程） (7孩)  ·  tree_1783238652456_r0xift  ·  k_1783238652426_mxnh6v
+            - 属性 (7孩)  ·  tree_1784128568453_0v53xt  ·  k_1784128568399_dmfdv7
+              - 对象生命周期 (2孩)  ·  tree_1784128576723_ya5asi  ·  k_1784128576670_x3lunj
+                - 创建  ·  tree_1784129898713_xbups9  ·  k_1784129898661_hekldq
+                - 销毁  ·  tree_1784129929234_cyxt0f  ·  k_1784129929190_n0i0j4
+              - 类型  ·  tree_1784131155286_pscpxl  ·  k_1784131155243_r7iibz
+              - 结构  ·  tree_1784131257316_q1pqne  ·  k_1784131257273_qauz5z
+              - 行为  ·  tree_class_programming_behavior  ·  k_class_programming_behavior
+              - 接口  ·  tree_class_programming_interface  ·  k_1783167918831_zqk4a6
+              - 成员可访问性  ·  tree_class_programming_member_accessibility  ·  k_class_programming_member_accessibility
+              - 对象生存周期  ·  tree_1784090406131_22qanx  ·  k_1784090406098_5fh6ul
+            - 继承  ·  tree_class_programming_inheritance  ·  k_1783167541244_d3d092
+            - 类间关系 (3孩)  ·  tree_class_programming_relationships  ·  k_class_programming_relationships
+              - 组合  ·  tree_class_programming_composition  ·  k_class_programming_composition
+              - 层次结构  ·  tree_class_programming_hierarchy  ·  k_class_programming_hierarchy
+              - 建模  ·  tree_class_programming_modeling  ·  k_class_programming_modeling
+            - 分类 (10孩)  ·  tree_class_programming_classification  ·  k_class_programming_classification
+              - 元类  ·  tree_class_programming_metaclass  ·  k_class_programming_metaclass
+              - 最终类  ·  tree_class_programming_final_class  ·  k_1784045589643_icc5oo
+              - 封闭类  ·  tree_class_programming_sealed_class  ·  k_class_programming_sealed_class
+              - 开放类  ·  tree_class_programming_open_class  ·  k_class_programming_open_class
+              - Mixin  ·  tree_class_programming_mixin  ·  k_class_programming_mixin
+              - 部分类  ·  tree_class_programming_partial_class  ·  k_class_programming_partial_class
+              - 不可实例化类  ·  tree_class_programming_static_class  ·  k_class_programming_static_class
+              - 匿名类  ·  tree_class_programming_anonymous_class  ·  k_1784044171635_8etz45
+              - 具体类  ·  asplit_s1_asplit_concrete_class  ·  asplit_concrete_class
+              - 局部类  ·  asplit_s1_asplit_local_class  ·  asplit_local_class
+            - 运行时表示  ·  tree_class_programming_runtime_representation  ·  k_class_programming_runtime_representation
+            - 基于类的编程  ·  tree_class_programming_class_based  ·  k_class_programming_class_based
+            - 基于原型的编程  ·  tree_class_programming_prototype_based  ·  k_class_programming_prototype_based
+          - 对象  ·  tree_1783238676338_un175q  ·  k_1783238676302_ggr3kg
+      - 编程语言 (11孩)  ·  tree_acm2012_software_notations_tools_programming_languages  ·  k_acm2012_software_notations_tools_programming_languages
+        - 代码 (5孩)  ·  tree_1783824520686_deuh22  ·  k_1783824520627_omqxaa
+          - 字节码  ·  tree_1783824357936_s9lteb  ·  k_1783824357875_gs9rn2
+          - 机器语言  ·  tree_1783824727890_r3n4j3  ·  k_1783824727837_x3fjpf
+          - 目标代码  ·  tree_1783825181230_bjedbk  ·  k_1783825181188_v94njg
+          - 源代码 Source code  ·  tree_1783869545494_mgcnr6  ·  k_1783869545437_f2d1lg
+          - 汇编代码 (1孩)  ·  tree_1785836308996_tne25h  ·  k_1785836308830_z8nu54
+            - Lock  ·  tree_1785836347740_kh5q57  ·  k_1785836347581_lkhxs7
+        - java (20孩)  ·  tree_1782746457614_osttpr  ·  k_1782746457581_30q8ao
+          - 类加载机制 (24孩)  ·  tree_1782820185830_vuzuox  ·  k_1782820185793_jpet7h
+            - 加载Loading  ·  tree_1782820357511_ldq7x6  ·  k_1782820357471_875aqe
+            - 连接Linking (3孩)  ·  tree_1782820374718_3vlvr2  ·  k_1782820374682_ipugsy
+              - 验证Verification  ·  tree_1782826425965_wcrgw3  ·  k_1782826425922_5pjthq
+              - 准备Preparation  ·  tree_1782826452119_15la64  ·  k_1782826452083_aw2bvo
+              - 解析Resolution  ·  tree_1782826471562_lmopqc  ·  k_1782826471510_sd2aui
+            - 卸载Unloading  ·  tree_1782826366868_c9a0di  ·  k_1782826366835_whaav6
+            - 初始化Initalization  ·  tree_1782826391087_vpws9z  ·  k_1782826391040_p5q1jk
+            - 使用Using  ·  tree_1782826400123_5jbb3l  ·  k_1782826400092_ru8rnk
+            - 双亲委派机制  ·  tree_1782829209351_29uqtm  ·  k_1782829209297_ul6awg
+            - 卸载  ·  tree_1783173688379_ffab9p  ·  k_1783173688342_6b8756
+            - 类加载请求  ·  tree_java_class_load_request  ·  k_java_class_load_request
+            - 发起加载器  ·  tree_java_initiating_loader  ·  k_java_initiating_loader
+            - 定义加载器  ·  tree_java_defining_loader  ·  k_java_defining_loader
+            - Class 文件字节  ·  tree_java_class_bytes  ·  k_java_class_bytes
+            - 运行时 Class 对象  ·  tree_java_runtime_class  ·  k_java_runtime_class
+            - 类身份规则  ·  tree_java_class_identity_rule  ·  k_java_class_identity_rule
+            - 父加载器委派规则  ·  tree_java_parent_delegation_rule  ·  k_java_parent_delegation_rule
+            - 类初始化锁  ·  tree_java_initialization_lock  ·  k_java_initialization_lock
+            - REQUESTED（已请求）  ·  tree_java_class_state_requested  ·  k_java_class_state_requested
+            - LOADING（加载中）  ·  tree_java_class_state_loading  ·  k_java_class_state_loading
+            - LOADED（已加载）  ·  tree_java_class_state_loaded  ·  k_java_class_state_loaded
+            - VERIFIED（已验证）  ·  tree_java_class_state_verified  ·  k_java_class_state_verified
+            - PREPARED（已准备）  ·  tree_java_class_state_prepared  ·  k_java_class_state_prepared
+            - RESOLVED（已解析）  ·  tree_java_class_state_resolved  ·  k_java_class_state_resolved
+            - INITIALIZED（已初始化）  ·  tree_java_class_state_initialized  ·  k_java_class_state_initialized
+            - LINKAGE_FAILED（链接失败）  ·  tree_java_class_state_linkage_failed  ·  k_java_class_state_linkage_failed
+            - INITIALIZATION_FAILED（初始化失败）  ·  tree_java_class_state_init_failed  ·  k_java_class_state_init_failed
+          - java并发编程 (31孩)  ·  tree_1782846767208_uw6zxc  ·  k_1782846767165_l599je
+            - 内存模型 (9孩)  ·  tree_1784367508734_hrswml  ·  k_1784367508652_7bajap
+              - 主内存  ·  tree_1783104987454_z3pl7o  ·  k_1783104987426_s5wmh0
+              - 本地内存  ·  tree_1783104999025_6rrg5u  ·  k_1783104999001_trg3a1
+              - happens-before规则  ·  tree_1783106326972_d38frh  ·  k_1783106326946_m9gxsx
+              - 同步 (4孩)  ·  tree_1784367544335_zorevp  ·  k_1784367544296_w5eotg
+                - 易变字段  ·  tree_1784367662898_k0rxcz  ·  k_1784367662855_y91xdh
+                - 最终字段  ·  tree_1784367699494_y1g26s  ·  k_1784367699421_6t8yh9
+                - 互斥锁  ·  asplit_s1_asplit_mutex_lock  ·  asplit_mutex_lock
+                - 同步代码块  ·  asplit_s1_asplit_sync_block  ·  asplit_sync_block
+              - 内存间操作  ·  tree_1785763301435_l6nmij  ·  k_1785763301239_qc1yn4
+              - Java内存模型的抽象结构  ·  tree_1785854394441_of4v3s  ·  k_1785854394292_wleyfm
+              - 指令序列的重排序 (3孩)  ·  tree_1785855170097_pk1x0t  ·  k_1785861166223_u158wp
+                - 数据依赖性 (3孩)  ·  tree_1785860225036_yi1s5h  ·  k_1785860224826_3q6so4
+                  - 写后读  ·  tree_1785861613562_lf58ax  ·  k_1785861953839_cjxtf8
+                  - 写后写  ·  tree_1785861671591_x0j9jz  ·  k_1785861671424_chawqa
+                  - 读后写  ·  tree_1785861693650_g50job  ·  k_1785861932734_uyoqzt
+                - as-if-serial语义  ·  tree_1785861900294_sq509a  ·  k_1785861900116_paxkvv
+                - 程序顺序规则  ·  tree_1785862071695_8cqv7k  ·  k_1785862071514_zrutkl
+              - 顺序一致性 (4孩)  ·  tree_1785862113590_a5v1ya  ·  k_1785862113423_05qu2c
+                - 顺序一致性内存模型  ·  tree_1785862311838_8gjb2e  ·  k_1785862311642_1jk0yl
+                - 同步程序的顺序一致性效果  ·  tree_1785923242922_h6fqry  ·  k_1785923242738_b6vc0d
+                - 未同步程序的执行特性  ·  tree_1785923313251_n1jobu  ·  k_1785923313057_e6vhp7
+                - 数据竞争  ·  asplit_s1_asplit_data_race  ·  asplit_data_race
+              - 处理器的内存模型 (1孩)  ·  tree_1785931334737_g48472  ·  k_1785931334554_fxsjnl
+                - JMM的内存可见性保证  ·  tree_1785931466669_o47rih  ·  k_1785931466479_awg4ru
+            - 常见类 (6孩)  ·  tree_1784939888388_jmsdn2  ·  k_1784939888323_m0ojte
+              - Futures  ·  tree_1784367922315_9xk4yp  ·  k_1784367922268_fvpmaj
+              - AQS  ·  tree_1782846826333_n3pk78  ·  k_1782846826286_ekdql8
+              - CylicBarrier  ·  tree_1785772820532_aggrv4  ·  k_1785772820347_x6vfp9
+              - ReentrantLock  ·  tree_1785768121172_ta2fev  ·  k_java_type_8bda9fc7a4027ad0
+              - BlockingQueue (1孩)  ·  tree_1785464306318_o8ym0y  ·  k_1785464306149_hjc89n
+                - SynchronousQueue  ·  tree_1786353277269_msn0ma8xc  ·  k_1786353277269_msn0ma8wb
+              - ConcurrentHashMap (5孩)  ·  tree_1785293964453_8vqlt3  ·  k_java_type_48031e8c20570051
+                - 存储结构  ·  tree_1785293986665_ygvupb  ·  k_1785293986484_pvw4yr
+                - 存储操作 (1孩)  ·  tree_1785294245386_1gm04e  ·  k_1785294245203_xmusm4
+                  - put方法  ·  tree_1785294256075_6wvuu1  ·  k_1785294255885_wnym9h
+                - 初始化 (2孩)  ·  tree_1786031508059_m7hw5h  ·  k_1786031507840_gw9c7z
+                  - 初始化segments数组  ·  tree_1786031542066_pvzqi1  ·  k_1786031541803_rk4es1
+                  - 初始化每个segment  ·  tree_1786031601791_bi1pf2  ·  k_1786031601560_gvfqjr
+                - 定位Segment  ·  tree_1786031938484_wvlcu2  ·  k_1786031938241_awrh32
+                - ConcurrentHashMap的操作 (3孩)  ·  tree_1786032008547_6ivxjt  ·  k_1786032008292_s044x6
+                  - get操作  ·  tree_1786032019477_qhy9kl  ·  k_1786032019249_vei87k
+                  - put操作  ·  tree_1786032073196_67wsxa  ·  k_1786032072926_c8wwfd
+                  - size操作  ·  tree_1786032095453_lzkxb4  ·  k_1786032095224_v9kuqd
+            - 并发编程模型的两个关键问题  ·  tree_1785854306714_ia5pi0  ·  k_1785854306549_zibqlr
+            - 并发编程模型的分类  ·  tree_1785858027304_pywoi2  ·  k_1785858027135_0kyc09
+            - Executor框架 (4孩)  ·  tree_1785898835979_ape0ks  ·  k_1785898835766_erx4pw
+              - Executor框架的两级调度模型  ·  tree_1785906707515_pqvldq  ·  k_1785906707326_5fx8oh
+              - util.concurrent 执行器（旧笔记）  ·  tree_java_concurrent_util_executor_notes  ·  k_java_concurrent_util_executor_notes
+              - FutureTask (2孩)  ·  tree_1785918560147_r0lv4e  ·  k_java_type_3f228f7655fb94df
+                - FutureTask的使用  ·  tree_1786095306776_zhx2uf  ·  k_1786095306516_p6jjye
+                - FutureTask的实现  ·  tree_1786095970717_6zorck  ·  k_1786095970289_himodp
+              - ScheduleThreadPoolExecutor  ·  tree_1785918765751_aguaej  ·  k_1785417434549_gyz4q5
+            - juc (1孩)  ·  tree_1785914825630_jv1pn3  ·  k_1785914825360_aup6yu
+              - concurrent (4孩)  ·  tree_java_source_1a247659a8087e94  ·  k_1785909354346_oxtcgv
+                - java.util.concurrent (67孩)  ·  tree_java_source_1a247659a8087e94_s_package_70015a2b9822028c  ·  k_1785909354346_oxtcgv_s_package_70015a2b9822028c
+                  - AbstractExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_6d7027edce16271d  ·  k_java_type_6d7027edce16271d
+                  - ArrayBlockingQueue (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_65cc8d65742d8aa2  ·  k_java_type_65cc8d65742d8aa2
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_e11a6d941b1e5bdd  ·  k_java_type_e11a6d941b1e5bdd
+                    - Itrs (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_aa33f5dd975388bc  ·  k_java_type_aa33f5dd975388bc
+                      - Node  ·  tree_java_source_1a247659a8087e94_s_type_a5b8877c1ac3f94b  ·  k_java_type_a5b8877c1ac3f94b
+                  - BlockingDeque  ·  tree_java_source_1a247659a8087e94_s_type_db859d46240ccce8  ·  k_java_type_db859d46240ccce8
+                  - BlockingQueue  ·  tree_java_source_1a247659a8087e94_s_type_a52687868e9268a6  ·  k_jdk_type_a52687868e9268a6
+                  - BrokenBarrierException  ·  tree_java_source_1a247659a8087e94_s_type_f138c6a30b6bcbd0  ·  k_java_type_f138c6a30b6bcbd0
+                  - Callable  ·  tree_java_source_1a247659a8087e94_s_type_59e430b99b4f9efe  ·  k_java_type_59e430b99b4f9efe
+                  - CancellationException  ·  tree_java_source_1a247659a8087e94_s_type_b8ac2ecaa8411461  ·  k_java_type_b8ac2ecaa8411461
+                  - CompletableFuture (31孩)  ·  tree_java_source_1a247659a8087e94_s_type_3e6e0e6eeb99897e  ·  k_java_type_3e6e0e6eeb99897e
+                    - AltResult  ·  tree_java_source_1a247659a8087e94_s_type_5039fa7833f1b1d0  ·  k_java_type_5039fa7833f1b1d0
+                    - AnyOf  ·  tree_java_source_1a247659a8087e94_s_type_7b06d616c498e3c9  ·  k_java_type_7b06d616c498e3c9
+                    - AsyncRun  ·  tree_java_source_1a247659a8087e94_s_type_4b6f81343bb45efa  ·  k_java_type_4b6f81343bb45efa
+                    - AsyncSupply  ·  tree_java_source_1a247659a8087e94_s_type_dee3e522b2534eec  ·  k_java_type_dee3e522b2534eec
+                    - AsynchronousCompletionTask  ·  tree_java_source_1a247659a8087e94_s_type_9b4f0606d05b0334  ·  k_java_type_9b4f0606d05b0334
+                    - BiAccept  ·  tree_java_source_1a247659a8087e94_s_type_2f19e6a716fd7f7c  ·  k_java_type_2f19e6a716fd7f7c
+                    - BiApply  ·  tree_java_source_1a247659a8087e94_s_type_2f27fa772037b211  ·  k_java_type_2f27fa772037b211
+                    - BiCompletion  ·  tree_java_source_1a247659a8087e94_s_type_dabfee386b3b1285  ·  k_java_type_dabfee386b3b1285
+                    - BiRelay  ·  tree_java_source_1a247659a8087e94_s_type_722472ce92ffbd24  ·  k_java_type_722472ce92ffbd24
+                    - BiRun  ·  tree_java_source_1a247659a8087e94_s_type_b520c98d16dd18cb  ·  k_java_type_b520c98d16dd18cb
+                    - Canceller  ·  tree_java_source_1a247659a8087e94_s_type_eb18a70b819d40b9  ·  k_java_type_eb18a70b819d40b9
+                    - CoCompletion  ·  tree_java_source_1a247659a8087e94_s_type_7e2ba832f2f93215  ·  k_java_type_7e2ba832f2f93215
+                    - Completion  ·  tree_java_source_1a247659a8087e94_s_type_10d184cc980b2ae2  ·  k_java_type_10d184cc980b2ae2
+                    - DelayedExecutor  ·  tree_java_source_1a247659a8087e94_s_type_a255cb4af8eea73d  ·  k_java_type_a255cb4af8eea73d
+                    - MinimalStage  ·  tree_java_source_1a247659a8087e94_s_type_8176a0d50ac305a5  ·  k_java_type_8176a0d50ac305a5
+                    - OrAccept  ·  tree_java_source_1a247659a8087e94_s_type_9120996e0eb0d69c  ·  k_java_type_9120996e0eb0d69c
+                    - OrApply  ·  tree_java_source_1a247659a8087e94_s_type_13961f0829a4b13a  ·  k_java_type_13961f0829a4b13a
+                    - OrRun  ·  tree_java_source_1a247659a8087e94_s_type_115a74058dc7ca11  ·  k_java_type_115a74058dc7ca11
+                    - Signaller  ·  tree_java_source_1a247659a8087e94_s_type_4f9512409443192c  ·  k_java_type_4f9512409443192c
+                    - TaskSubmitter  ·  tree_java_source_1a247659a8087e94_s_type_23b3d6064ace120b  ·  k_java_type_23b3d6064ace120b
+                    - Timeout  ·  tree_java_source_1a247659a8087e94_s_type_7096446cdd436694  ·  k_java_type_7096446cdd436694
+                    - UniAccept  ·  tree_java_source_1a247659a8087e94_s_type_a82cfc9665a3e6cb  ·  k_java_type_a82cfc9665a3e6cb
+                    - UniApply  ·  tree_java_source_1a247659a8087e94_s_type_96063b43cbec47fa  ·  k_java_type_96063b43cbec47fa
+                    - UniCompletion  ·  tree_java_source_1a247659a8087e94_s_type_72cac5d5d2980ab6  ·  k_java_type_72cac5d5d2980ab6
+                    - UniCompose  ·  tree_java_source_1a247659a8087e94_s_type_910e67cd31003529  ·  k_java_type_910e67cd31003529
+                    - UniComposeExceptionally  ·  tree_java_source_1a247659a8087e94_s_type_c6bbc61e49c1fa78  ·  k_java_type_c6bbc61e49c1fa78
+                    - UniExceptionally  ·  tree_java_source_1a247659a8087e94_s_type_9dec5de447c169eb  ·  k_java_type_9dec5de447c169eb
+                    - UniHandle  ·  tree_java_source_1a247659a8087e94_s_type_3365bb78c3b17e0b  ·  k_java_type_3365bb78c3b17e0b
+                    - UniRelay  ·  tree_java_source_1a247659a8087e94_s_type_d621b8a1ca8a6efb  ·  k_java_type_d621b8a1ca8a6efb
+                    - UniRun  ·  tree_java_source_1a247659a8087e94_s_type_ef323636f03f8881  ·  k_java_type_ef323636f03f8881
+                    - UniWhenComplete  ·  tree_java_source_1a247659a8087e94_s_type_64fab5be91cc79ac  ·  k_java_type_64fab5be91cc79ac
+                  - CompletionException  ·  tree_java_source_1a247659a8087e94_s_type_132792e36905b45c  ·  k_java_type_132792e36905b45c
+                  - CompletionService  ·  tree_java_source_1a247659a8087e94_s_type_4719ec89f62b4bdb  ·  k_java_type_4719ec89f62b4bdb
+                  - CompletionStage  ·  tree_java_source_1a247659a8087e94_s_type_b37dbd40da0ab4b8  ·  k_java_type_b37dbd40da0ab4b8
+                  - ConcurrentHashMap (53孩)  ·  tree_java_source_1a247659a8087e94_s_type_48031e8c20570051  ·  k_java_type_48031e8c20570051
+                    - BaseIterator  ·  tree_java_source_1a247659a8087e94_s_type_7e74c460d30787fb  ·  k_java_type_7e74c460d30787fb
+                    - BulkTask  ·  tree_java_source_1a247659a8087e94_s_type_0ffd0829f30cda22  ·  k_java_type_0ffd0829f30cda22
+                    - CollectionView  ·  tree_java_source_1a247659a8087e94_s_type_ced7f4cdc43ecb18  ·  k_java_type_ced7f4cdc43ecb18
+                    - CounterCell  ·  tree_java_source_1a247659a8087e94_s_type_8dc81d81e434f2f2  ·  k_java_type_8dc81d81e434f2f2
+                    - EntryIterator  ·  tree_java_source_1a247659a8087e94_s_type_9e779f1fb5993f04  ·  k_java_type_9e779f1fb5993f04
+                    - EntrySetView  ·  tree_java_source_1a247659a8087e94_s_type_de7fa3932e9be0cc  ·  k_java_type_de7fa3932e9be0cc
+                    - EntrySpliterator  ·  tree_java_source_1a247659a8087e94_s_type_e00e003ac2818795  ·  k_java_type_e00e003ac2818795
+                    - ForEachEntryTask  ·  tree_java_source_1a247659a8087e94_s_type_1af3696e1e9a5788  ·  k_java_type_1af3696e1e9a5788
+                    - ForEachKeyTask  ·  tree_java_source_1a247659a8087e94_s_type_8f13b0067cc486bf  ·  k_java_type_8f13b0067cc486bf
+                    - ForEachMappingTask  ·  tree_java_source_1a247659a8087e94_s_type_06c1c7773a7d8eed  ·  k_java_type_06c1c7773a7d8eed
+                    - ForEachTransformedEntryTask  ·  tree_java_source_1a247659a8087e94_s_type_e1d5de7bfec39838  ·  k_java_type_e1d5de7bfec39838
+                    - ForEachTransformedKeyTask  ·  tree_java_source_1a247659a8087e94_s_type_d56c9deae0dbdacc  ·  k_java_type_d56c9deae0dbdacc
+                    - ForEachTransformedMappingTask  ·  tree_java_source_1a247659a8087e94_s_type_bd50094df5b70a0d  ·  k_java_type_bd50094df5b70a0d
+                    - ForEachTransformedValueTask  ·  tree_java_source_1a247659a8087e94_s_type_fba7be314f536e9d  ·  k_java_type_fba7be314f536e9d
+                    - ForEachValueTask  ·  tree_java_source_1a247659a8087e94_s_type_57843b72c6f9994d  ·  k_java_type_57843b72c6f9994d
+                    - ForwardingNode  ·  tree_java_source_1a247659a8087e94_s_type_30130e926595220e  ·  k_java_type_30130e926595220e
+                    - KeyIterator  ·  tree_java_source_1a247659a8087e94_s_type_aa01bf49559535dc  ·  k_java_type_aa01bf49559535dc
+                    - KeySetView  ·  tree_java_source_1a247659a8087e94_s_type_345a3bb03a50c56e  ·  k_java_type_345a3bb03a50c56e
+                    - KeySpliterator  ·  tree_java_source_1a247659a8087e94_s_type_56a993a1c7813373  ·  k_java_type_56a993a1c7813373
+                    - MapEntry  ·  tree_java_source_1a247659a8087e94_s_type_d778c87b8b9e26d0  ·  k_java_type_d778c87b8b9e26d0
+                    - MapReduceEntriesTask  ·  tree_java_source_1a247659a8087e94_s_type_1b7ee33708c878fd  ·  k_java_type_1b7ee33708c878fd
+                    - MapReduceEntriesToDoubleTask  ·  tree_java_source_1a247659a8087e94_s_type_4cd33ae9566645be  ·  k_java_type_4cd33ae9566645be
+                    - MapReduceEntriesToIntTask  ·  tree_java_source_1a247659a8087e94_s_type_8a51fe09a63e3f6f  ·  k_java_type_8a51fe09a63e3f6f
+                    - MapReduceEntriesToLongTask  ·  tree_java_source_1a247659a8087e94_s_type_41fdb77e590c2513  ·  k_java_type_41fdb77e590c2513
+                    - MapReduceKeysTask  ·  tree_java_source_1a247659a8087e94_s_type_39fb4c4cf0c4f73a  ·  k_java_type_39fb4c4cf0c4f73a
+                    - MapReduceKeysToDoubleTask  ·  tree_java_source_1a247659a8087e94_s_type_1e84863fd91fd2f0  ·  k_java_type_1e84863fd91fd2f0
+                    - MapReduceKeysToIntTask  ·  tree_java_source_1a247659a8087e94_s_type_9e1e05570f5923ce  ·  k_java_type_9e1e05570f5923ce
+                    - MapReduceKeysToLongTask  ·  tree_java_source_1a247659a8087e94_s_type_35b10c7dcca0d7b6  ·  k_java_type_35b10c7dcca0d7b6
+                    - MapReduceMappingsTask  ·  tree_java_source_1a247659a8087e94_s_type_12020f0d8a42993f  ·  k_java_type_12020f0d8a42993f
+                    - MapReduceMappingsToDoubleTask  ·  tree_java_source_1a247659a8087e94_s_type_ca1d7aba2ff570d6  ·  k_java_type_ca1d7aba2ff570d6
+                    - MapReduceMappingsToIntTask  ·  tree_java_source_1a247659a8087e94_s_type_7b8ffd37b78bc5bb  ·  k_java_type_7b8ffd37b78bc5bb
+                    - MapReduceMappingsToLongTask  ·  tree_java_source_1a247659a8087e94_s_type_21aa9994a625f139  ·  k_java_type_21aa9994a625f139
+                    - MapReduceValuesTask  ·  tree_java_source_1a247659a8087e94_s_type_9de4a3d5ac376885  ·  k_java_type_9de4a3d5ac376885
+                    - MapReduceValuesToDoubleTask  ·  tree_java_source_1a247659a8087e94_s_type_ccc9c3d020b461d2  ·  k_java_type_ccc9c3d020b461d2
+                    - MapReduceValuesToIntTask  ·  tree_java_source_1a247659a8087e94_s_type_82fc9c87fe783207  ·  k_java_type_82fc9c87fe783207
+                    - MapReduceValuesToLongTask  ·  tree_java_source_1a247659a8087e94_s_type_75491d787b11d81b  ·  k_java_type_75491d787b11d81b
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_f861477cc80eb784  ·  k_java_type_f861477cc80eb784
+                    - ReduceEntriesTask  ·  tree_java_source_1a247659a8087e94_s_type_38f7020c264ab5cb  ·  k_java_type_38f7020c264ab5cb
+                    - ReduceKeysTask  ·  tree_java_source_1a247659a8087e94_s_type_8ddf769f4a3837ee  ·  k_java_type_8ddf769f4a3837ee
+                    - ReduceValuesTask  ·  tree_java_source_1a247659a8087e94_s_type_de3824620dcd3b6a  ·  k_java_type_de3824620dcd3b6a
+                    - ReservationNode  ·  tree_java_source_1a247659a8087e94_s_type_fbe53553626f282d  ·  k_java_type_fbe53553626f282d
+                    - SearchEntriesTask  ·  tree_java_source_1a247659a8087e94_s_type_f63aed90dc0bf222  ·  k_java_type_f63aed90dc0bf222
+                    - SearchKeysTask  ·  tree_java_source_1a247659a8087e94_s_type_10ecb23207dcd284  ·  k_java_type_10ecb23207dcd284
+                    - SearchMappingsTask  ·  tree_java_source_1a247659a8087e94_s_type_25923b343b0f8b7f  ·  k_java_type_25923b343b0f8b7f
+                    - SearchValuesTask  ·  tree_java_source_1a247659a8087e94_s_type_54d88262cd202e70  ·  k_java_type_54d88262cd202e70
+                    - Segment  ·  tree_java_source_1a247659a8087e94_s_type_6cf2f0d4f45b635e  ·  k_java_type_6cf2f0d4f45b635e
+                    - TableStack  ·  tree_java_source_1a247659a8087e94_s_type_defc1077439a6906  ·  k_java_type_defc1077439a6906
+                    - Traverser  ·  tree_java_source_1a247659a8087e94_s_type_7a985202ac6236fe  ·  k_java_type_7a985202ac6236fe
+                    - TreeBin  ·  tree_java_source_1a247659a8087e94_s_type_a4bfa8e7d8d7aa74  ·  k_java_type_a4bfa8e7d8d7aa74
+                    - TreeNode  ·  tree_java_source_1a247659a8087e94_s_type_3cb0d6240c68d9be  ·  k_java_type_3cb0d6240c68d9be
+                    - ValueIterator  ·  tree_java_source_1a247659a8087e94_s_type_e16a3200b4781a3f  ·  k_java_type_e16a3200b4781a3f
+                    - ValueSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_73989bc2a9956f5a  ·  k_java_type_73989bc2a9956f5a
+                    - ValuesView  ·  tree_java_source_1a247659a8087e94_s_type_0a2f492e739ade12  ·  k_java_type_0a2f492e739ade12
+                  - ConcurrentLinkedDeque (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_e2f87b454c054007  ·  k_java_type_e2f87b454c054007
+                    - AbstractItr  ·  tree_java_source_1a247659a8087e94_s_type_6b6fe1389c6eee86  ·  k_java_type_6b6fe1389c6eee86
+                    - CLDSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_a7f119d76afb280c  ·  k_java_type_a7f119d76afb280c
+                    - DescendingItr  ·  tree_java_source_1a247659a8087e94_s_type_eec9cc8ec8443782  ·  k_java_type_eec9cc8ec8443782
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_70718e1676381ac4  ·  k_java_type_70718e1676381ac4
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_99c0493c6a2caa1e  ·  k_java_type_99c0493c6a2caa1e
+                  - ConcurrentLinkedQueue (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_acdfd0770043ef24  ·  k_java_type_acdfd0770043ef24
+                    - CLQSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_3e529b790d11a25a  ·  k_java_type_3e529b790d11a25a
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_c2f077a8cb122644  ·  k_java_type_c2f077a8cb122644
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_a2acde4d7d232a0f  ·  k_java_type_a2acde4d7d232a0f
+                  - ConcurrentMap  ·  tree_java_source_1a247659a8087e94_s_type_f5dc8923b5e724bd  ·  k_java_type_f5dc8923b5e724bd
+                  - ConcurrentNavigableMap  ·  tree_java_source_1a247659a8087e94_s_type_3d10b7c6f5f5ade7  ·  k_java_type_3d10b7c6f5f5ade7
+                  - ConcurrentSkipListMap (14孩)  ·  tree_java_source_1a247659a8087e94_s_type_377afc3f22d64d35  ·  k_java_type_377afc3f22d64d35
+                    - CSLMSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_43ea9b24425c70bc  ·  k_java_type_43ea9b24425c70bc
+                    - EntryIterator  ·  tree_java_source_1a247659a8087e94_s_type_c10c36b464c4aaee  ·  k_java_type_c10c36b464c4aaee
+                    - EntrySet  ·  tree_java_source_1a247659a8087e94_s_type_5fa11aa948bb1b5b  ·  k_java_type_5fa11aa948bb1b5b
+                    - EntrySpliterator  ·  tree_java_source_1a247659a8087e94_s_type_847ccaefb7d7f3d4  ·  k_java_type_847ccaefb7d7f3d4
+                    - Index  ·  tree_java_source_1a247659a8087e94_s_type_8bca3cffc37c22d0  ·  k_java_type_8bca3cffc37c22d0
+                    - Iter  ·  tree_java_source_1a247659a8087e94_s_type_07aa1c4e7b985099  ·  k_java_type_07aa1c4e7b985099
+                    - KeyIterator  ·  tree_java_source_1a247659a8087e94_s_type_1a3411c545e2a4d1  ·  k_java_type_1a3411c545e2a4d1
+                    - KeySet  ·  tree_java_source_1a247659a8087e94_s_type_2e43c26f9a15730f  ·  k_java_type_2e43c26f9a15730f
+                    - KeySpliterator  ·  tree_java_source_1a247659a8087e94_s_type_da47f3d7603ff955  ·  k_java_type_da47f3d7603ff955
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_4a0b3f5a8db40737  ·  k_java_type_4a0b3f5a8db40737
+                    - SubMap (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_9311605e0b16f8e0  ·  k_java_type_9311605e0b16f8e0
+                      - SubMapEntryIterator  ·  tree_java_source_1a247659a8087e94_s_type_26a89f1b938f7225  ·  k_java_type_26a89f1b938f7225
+                      - SubMapIter  ·  tree_java_source_1a247659a8087e94_s_type_971bb6a24ec83271  ·  k_java_type_971bb6a24ec83271
+                      - SubMapKeyIterator  ·  tree_java_source_1a247659a8087e94_s_type_bc1d4d0ccb861d02  ·  k_java_type_bc1d4d0ccb861d02
+                      - SubMapValueIterator  ·  tree_java_source_1a247659a8087e94_s_type_527ee91c89410cf7  ·  k_java_type_527ee91c89410cf7
+                    - ValueIterator  ·  tree_java_source_1a247659a8087e94_s_type_cb1ff393498d53ab  ·  k_java_type_cb1ff393498d53ab
+                    - ValueSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_327e8f5db9badb9d  ·  k_java_type_327e8f5db9badb9d
+                    - Values  ·  tree_java_source_1a247659a8087e94_s_type_92239ae99d5cb2d6  ·  k_java_type_92239ae99d5cb2d6
+                  - ConcurrentSkipListSet  ·  tree_java_source_1a247659a8087e94_s_type_1367af706f14665a  ·  k_java_type_1367af706f14665a
+                  - CopyOnWriteArrayList (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_2561c09dbab97a22  ·  k_java_type_2561c09dbab97a22
+                    - COWIterator  ·  tree_java_source_1a247659a8087e94_s_type_8719671683f82720  ·  k_java_type_8719671683f82720
+                    - COWSubList  ·  tree_java_source_1a247659a8087e94_s_type_ae394ac7c95f0153  ·  k_java_type_ae394ac7c95f0153
+                    - COWSubListIterator  ·  tree_java_source_1a247659a8087e94_s_type_5fc67b1481cab1d7  ·  k_java_type_5fc67b1481cab1d7
+                    - Reversed (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_0528e6d8b004d6b5  ·  k_java_type_0528e6d8b004d6b5
+                      - DescendingIterator  ·  tree_java_source_1a247659a8087e94_s_type_1afbf94c3bc2aaf7  ·  k_java_type_1afbf94c3bc2aaf7
+                      - DescendingListIterator  ·  tree_java_source_1a247659a8087e94_s_type_0cba104e9f73f951  ·  k_java_type_0cba104e9f73f951
+                  - CopyOnWriteArraySet  ·  tree_java_source_1a247659a8087e94_s_type_fd430440db3c0942  ·  k_java_type_fd430440db3c0942
+                  - CountDownLatch (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_19be8fb57595e954  ·  k_java_type_19be8fb57595e954
+                    - Sync  ·  tree_java_source_1a247659a8087e94_s_type_1a2379fd9d86cd3f  ·  k_java_type_1a2379fd9d86cd3f
+                  - CountedCompleter  ·  tree_java_source_1a247659a8087e94_s_type_0d1bff7393e72547  ·  k_java_type_0d1bff7393e72547
+                  - CyclicBarrier (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_ace2aed4ac59cf0e  ·  k_java_type_ace2aed4ac59cf0e
+                    - Generation  ·  tree_java_source_1a247659a8087e94_s_type_94c4da40b8c9f85c  ·  k_java_type_94c4da40b8c9f85c
+                  - DelayQueue (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_feefe27e611f3954  ·  k_java_type_feefe27e611f3954
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_aa2ead1ca716120b  ·  k_java_type_aa2ead1ca716120b
+                  - DelayScheduler (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_b54fcee71e2f66dd  ·  k_java_type_b54fcee71e2f66dd
+                    - ScheduledForkJoinTask  ·  tree_java_source_1a247659a8087e94_s_type_1c755d1225790fa5  ·  k_java_type_1c755d1225790fa5
+                  - Delayed  ·  tree_java_source_1a247659a8087e94_s_type_8562aaeb37547d54  ·  k_java_type_8562aaeb37547d54
+                  - Exchanger (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_3fef21bac14e8557  ·  k_java_type_3fef21bac14e8557
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_d8327c94e84ec335  ·  k_java_type_d8327c94e84ec335
+                    - Participant  ·  tree_java_source_1a247659a8087e94_s_type_4a8f00e7dd19a809  ·  k_java_type_4a8f00e7dd19a809
+                    - Slot  ·  tree_java_source_1a247659a8087e94_s_type_74cd0b3eee8ff52a  ·  k_java_type_74cd0b3eee8ff52a
+                  - ExecutionException  ·  tree_java_source_1a247659a8087e94_s_type_5df30cf670f09c51  ·  k_java_type_5df30cf670f09c51
+                  - Executor  ·  tree_java_source_1a247659a8087e94_s_type_01bf71e3f52c7539  ·  k_java_type_01bf71e3f52c7539
+                  - ExecutorCompletionService (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_b200a1e4d54d4b32  ·  k_java_type_b200a1e4d54d4b32
+                    - QueueingFuture  ·  tree_java_source_1a247659a8087e94_s_type_72319f972caee08b  ·  k_java_type_72319f972caee08b
+                  - ExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_60b21fca499c279e  ·  k_java_type_60b21fca499c279e
+                  - Executors (8孩)  ·  tree_java_source_1a247659a8087e94_s_type_c3b9cc1a492fd16e  ·  k_java_type_c3b9cc1a492fd16e
+                    - AutoShutdownDelegatedExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_12032c44a7b4af52  ·  k_java_type_12032c44a7b4af52
+                    - DefaultThreadFactory  ·  tree_java_source_1a247659a8087e94_s_type_f097038c95d66b51  ·  k_java_type_f097038c95d66b51
+                    - DelegatedExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_a8a37b7a2d4e4fec  ·  k_java_type_a8a37b7a2d4e4fec
+                    - DelegatedScheduledExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_b68a443204331d54  ·  k_java_type_b68a443204331d54
+                    - PrivilegedCallable  ·  tree_java_source_1a247659a8087e94_s_type_7f710606da6e300e  ·  k_java_type_7f710606da6e300e
+                    - PrivilegedCallableUsingCurrentClassLoader  ·  tree_java_source_1a247659a8087e94_s_type_4d39dbfa0622a3ca  ·  k_java_type_4d39dbfa0622a3ca
+                    - PrivilegedThreadFactory  ·  tree_java_source_1a247659a8087e94_s_type_11c3392ab443897a  ·  k_java_type_11c3392ab443897a
+                    - RunnableAdapter  ·  tree_java_source_1a247659a8087e94_s_type_e2c6a53c25966c53  ·  k_java_type_e2c6a53c25966c53
+                  - Flow (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_2483953329170c4a  ·  k_java_type_2483953329170c4a
+                    - Processor  ·  tree_java_source_1a247659a8087e94_s_type_379613706af70626  ·  k_java_type_379613706af70626
+                    - Publisher  ·  tree_java_source_1a247659a8087e94_s_type_4fdf073a524a624e  ·  k_java_type_4fdf073a524a624e
+                    - Subscriber  ·  tree_java_source_1a247659a8087e94_s_type_6a28e9e783eac710  ·  k_java_type_6a28e9e783eac710
+                    - Subscription  ·  tree_java_source_1a247659a8087e94_s_type_f446c8c86b088dc1  ·  k_java_type_f446c8c86b088dc1
+                  - ForkJoinPool (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_b6124da92506ff09  ·  k_java_type_b6124da92506ff09
+                    - DefaultForkJoinWorkerThreadFactory  ·  tree_java_source_1a247659a8087e94_s_type_abca973f88d98f83  ·  k_java_type_abca973f88d98f83
+                    - ForkJoinWorkerThreadFactory  ·  tree_java_source_1a247659a8087e94_s_type_e558d5ba42277938  ·  k_java_type_e558d5ba42277938
+                    - ManagedBlocker  ·  tree_java_source_1a247659a8087e94_s_type_215477de09249e61  ·  k_java_type_215477de09249e61
+                    - TimeoutAction  ·  tree_java_source_1a247659a8087e94_s_type_530bc660a2f13f3a  ·  k_java_type_530bc660a2f13f3a
+                    - WorkQueue  ·  tree_java_source_1a247659a8087e94_s_type_6eebcbb169855919  ·  k_java_type_6eebcbb169855919
+                  - ForkJoinTask (11孩)  ·  tree_java_source_1a247659a8087e94_s_type_0f0b773ae185dd4f  ·  k_java_type_0f0b773ae185dd4f
+                    - AdaptedCallable  ·  tree_java_source_1a247659a8087e94_s_type_fd1dd30b38d3b22d  ·  k_java_type_fd1dd30b38d3b22d
+                    - AdaptedInterruptibleCallable  ·  tree_java_source_1a247659a8087e94_s_type_2fa0a73c07661e10  ·  k_java_type_2fa0a73c07661e10
+                    - AdaptedInterruptibleRunnable  ·  tree_java_source_1a247659a8087e94_s_type_1126131484eaa7f9  ·  k_java_type_1126131484eaa7f9
+                    - AdaptedRunnable  ·  tree_java_source_1a247659a8087e94_s_type_a011ee384c195232  ·  k_java_type_a011ee384c195232
+                    - AdaptedRunnableAction  ·  tree_java_source_1a247659a8087e94_s_type_1aa0a89309b98ecb  ·  k_java_type_1aa0a89309b98ecb
+                    - Aux  ·  tree_java_source_1a247659a8087e94_s_type_a6805d11f230549d  ·  k_java_type_a6805d11f230549d
+                    - CallableWithTimeout  ·  tree_java_source_1a247659a8087e94_s_type_1becdf9c0fec64c6  ·  k_java_type_1becdf9c0fec64c6
+                    - InterruptibleTask  ·  tree_java_source_1a247659a8087e94_s_type_b0633705b5a2b512  ·  k_java_type_b0633705b5a2b512
+                    - InvokeAnyRoot  ·  tree_java_source_1a247659a8087e94_s_type_883f0cf06b0e3bf3  ·  k_java_type_883f0cf06b0e3bf3
+                    - InvokeAnyTask  ·  tree_java_source_1a247659a8087e94_s_type_144492328c90a924  ·  k_java_type_144492328c90a924
+                    - RunnableExecuteAction  ·  tree_java_source_1a247659a8087e94_s_type_d42ad5a436fe32ac  ·  k_java_type_d42ad5a436fe32ac
+                  - ForkJoinWorkerThread (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_d2b609204a2df488  ·  k_java_type_d2b609204a2df488
+                    - InnocuousForkJoinWorkerThread  ·  tree_java_source_1a247659a8087e94_s_type_f20f3828f8b4bf3e  ·  k_java_type_f20f3828f8b4bf3e
+                  - Future (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_59d3b483ce3e5977  ·  k_java_type_59d3b483ce3e5977
+                    - State  ·  tree_java_source_1a247659a8087e94_s_type_75c2a53960678a2d  ·  k_java_type_75c2a53960678a2d
+                  - FutureTask (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_3f228f7655fb94df  ·  k_java_type_3f228f7655fb94df
+                    - WaitNode  ·  tree_java_source_1a247659a8087e94_s_type_c61cb6b3a4be90e6  ·  k_java_type_c61cb6b3a4be90e6
+                  - Helpers  ·  tree_java_source_1a247659a8087e94_s_type_d08d19d796d65285  ·  k_java_type_d08d19d796d65285
+                  - Joiners (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_7d8037d5dea449e6  ·  k_java_type_7d8037d5dea449e6
+                    - AllSubtasks  ·  tree_java_source_1a247659a8087e94_s_type_0a133123a6e0b89c  ·  k_java_type_0a133123a6e0b89c
+                    - AllSuccessful  ·  tree_java_source_1a247659a8087e94_s_type_9c5dd2fca5b9d013  ·  k_java_type_9c5dd2fca5b9d013
+                    - AnySuccessful  ·  tree_java_source_1a247659a8087e94_s_type_d48968abf0215be9  ·  k_java_type_d48968abf0215be9
+                    - AwaitSuccessful  ·  tree_java_source_1a247659a8087e94_s_type_c168936f4d4fa1dc  ·  k_java_type_c168936f4d4fa1dc
+                  - LinkedBlockingDeque (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_ef79f1b7cefa0919  ·  k_java_type_ef79f1b7cefa0919
+                    - AbstractItr  ·  tree_java_source_1a247659a8087e94_s_type_8bd6623d9f077d6b  ·  k_java_type_8bd6623d9f077d6b
+                    - DescendingItr  ·  tree_java_source_1a247659a8087e94_s_type_43b8c3b767daa5d5  ·  k_java_type_43b8c3b767daa5d5
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_a0b53b5d05d9db0c  ·  k_java_type_a0b53b5d05d9db0c
+                    - LBDSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_101f4d76d18a7e79  ·  k_java_type_101f4d76d18a7e79
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_34f56459e80da202  ·  k_java_type_34f56459e80da202
+                  - LinkedBlockingQueue (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_10f0ad1bd02139b9  ·  k_java_type_10f0ad1bd02139b9
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_23dec2b39f03e031  ·  k_java_type_23dec2b39f03e031
+                    - LBQSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_13a6fd923e4c4356  ·  k_java_type_13a6fd923e4c4356
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_6dda9c6c29f97cd5  ·  k_java_type_6dda9c6c29f97cd5
+                  - LinkedTransferQueue (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_66ebeb2c58a1a022  ·  k_java_type_66ebeb2c58a1a022
+                    - DualNode  ·  tree_java_source_1a247659a8087e94_s_type_6e7d32012854e830  ·  k_java_type_6e7d32012854e830
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_ce32d862f5a84b8a  ·  k_java_type_ce32d862f5a84b8a
+                    - LTQSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_c9bc3faf3fc6b02d  ·  k_java_type_c9bc3faf3fc6b02d
+                  - Phaser (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_54c07bbcad3155be  ·  k_java_type_54c07bbcad3155be
+                    - QNode  ·  tree_java_source_1a247659a8087e94_s_type_e8319400a842f317  ·  k_java_type_e8319400a842f317
+                  - PriorityBlockingQueue (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_d5b80869dd13be20  ·  k_1785469604423_twie16
+                    - Itr  ·  tree_java_source_1a247659a8087e94_s_type_6cc9d9e543d62428  ·  k_java_type_6cc9d9e543d62428
+                    - PBQSpliterator  ·  tree_java_source_1a247659a8087e94_s_type_d2bc2fd4d1662089  ·  k_java_type_d2bc2fd4d1662089
+                  - RecursiveAction  ·  tree_java_source_1a247659a8087e94_s_type_8f7061a84daa8f59  ·  k_java_type_8f7061a84daa8f59
+                  - RecursiveTask  ·  tree_java_source_1a247659a8087e94_s_type_2f34cbdc07ab3f31  ·  k_java_type_2f34cbdc07ab3f31
+                  - RejectedExecutionException  ·  tree_java_source_1a247659a8087e94_s_type_5dbbb73ce50288d9  ·  k_java_type_5dbbb73ce50288d9
+                  - RejectedExecutionHandler  ·  tree_java_source_1a247659a8087e94_s_type_31768f1bf0d98fb9  ·  k_java_type_31768f1bf0d98fb9
+                  - RunnableFuture  ·  tree_java_source_1a247659a8087e94_s_type_a86d31441dfef8fb  ·  k_java_type_a86d31441dfef8fb
+                  - RunnableScheduledFuture  ·  tree_java_source_1a247659a8087e94_s_type_057aec148067e61e  ·  k_java_type_057aec148067e61e
+                  - ScheduledExecutorService  ·  tree_java_source_1a247659a8087e94_s_type_475160a952df351f  ·  k_java_type_475160a952df351f
+                  - ScheduledFuture  ·  tree_java_source_1a247659a8087e94_s_type_5d7299f120524bd7  ·  k_java_type_5d7299f120524bd7
+                  - ScheduledThreadPoolExecutor (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_af32be37bc61aea4  ·  k_java_type_af32be37bc61aea4
+                    - DelayedWorkQueue (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_c06a85e2d8f4cbe3  ·  k_java_type_c06a85e2d8f4cbe3
+                      - Itr  ·  tree_java_source_1a247659a8087e94_s_type_f7765419c22c9870  ·  k_java_type_f7765419c22c9870
+                    - ScheduledFutureTask  ·  tree_java_source_1a247659a8087e94_s_type_c6874dc265ae2d6f  ·  k_java_type_c6874dc265ae2d6f
+                    - ScheduledThreadPoolExecutor的运行机制  ·  tree_1786093374872_ktlz2y  ·  k_1786093374519_hpf2za
+                    - ScheduledThreadPoolExecutor的实现  ·  tree_1786093418632_rvs8hr  ·  k_1786093418355_sfztn1
+                  - Semaphore (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_2177848197d66a04  ·  k_java_type_2177848197d66a04
+                    - FairSync  ·  tree_java_source_1a247659a8087e94_s_type_76474c8cc0661c8d  ·  k_java_type_76474c8cc0661c8d
+                    - NonfairSync  ·  tree_java_source_1a247659a8087e94_s_type_12c78669f362c13e  ·  k_java_type_12c78669f362c13e
+                    - Sync  ·  tree_java_source_1a247659a8087e94_s_type_2cc47ab2711dd15f  ·  k_java_type_2cc47ab2711dd15f
+                  - StructureViolationException  ·  tree_java_source_1a247659a8087e94_s_type_c124b60897670690  ·  k_java_type_c124b60897670690
+                  - StructuredTaskScope (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_c76633bd5d8fa704  ·  k_java_type_c76633bd5d8fa704
+                    - Configuration  ·  tree_java_source_1a247659a8087e94_s_type_bc96bf3999d04467  ·  k_java_type_bc96bf3999d04467
+                    - FailedException  ·  tree_java_source_1a247659a8087e94_s_type_e815c316ad40f795  ·  k_java_type_e815c316ad40f795
+                    - Joiner  ·  tree_java_source_1a247659a8087e94_s_type_17598c7e2deaea7f  ·  k_java_type_17598c7e2deaea7f
+                    - Subtask (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_2bc41e2a3c4c21d8  ·  k_java_type_2bc41e2a3c4c21d8
+                      - State  ·  tree_java_source_1a247659a8087e94_s_type_a5a4434d11b5f0ef  ·  k_java_type_a5a4434d11b5f0ef
+                    - TimeoutException  ·  tree_java_source_1a247659a8087e94_s_type_a8481f0e3557eb32  ·  k_java_type_a8481f0e3557eb32
+                  - StructuredTaskScopeImpl (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_2bf4ab6e1f3390b5  ·  k_java_type_2bf4ab6e1f3390b5
+                    - ConfigImpl  ·  tree_java_source_1a247659a8087e94_s_type_3848c191c2205d0f  ·  k_java_type_3848c191c2205d0f
+                    - SubtaskImpl (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_cd75e1e4b3d1797e  ·  k_java_type_cd75e1e4b3d1797e
+                      - AltResult  ·  tree_java_source_1a247659a8087e94_s_type_3538b6bfc452da69  ·  k_java_type_3538b6bfc452da69
+                  - SubmissionPublisher (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_706078b86c9f9ce8  ·  k_java_type_706078b86c9f9ce8
+                    - BufferedSubscription  ·  tree_java_source_1a247659a8087e94_s_type_ad56ffbb59fc00db  ·  k_java_type_ad56ffbb59fc00db
+                    - ConsumerSubscriber  ·  tree_java_source_1a247659a8087e94_s_type_f1544e8a63fd5eac  ·  k_java_type_f1544e8a63fd5eac
+                    - ConsumerTask  ·  tree_java_source_1a247659a8087e94_s_type_5e0702947d57fefd  ·  k_java_type_5e0702947d57fefd
+                  - SynchronousQueue (4孩)  ·  tree_java_source_1a247659a8087e94_s_type_93184a0567b3fb17  ·  k_1785469566750_s41fsc
+                    - FifoWaitQueue  ·  tree_java_source_1a247659a8087e94_s_type_f6d968a1b1fa774e  ·  k_java_type_f6d968a1b1fa774e
+                    - LifoWaitQueue  ·  tree_java_source_1a247659a8087e94_s_type_78e120f021625908  ·  k_java_type_78e120f021625908
+                    - Transferer  ·  tree_java_source_1a247659a8087e94_s_type_0b0039536edb4b8a  ·  k_java_type_0b0039536edb4b8a
+                    - WaitQueue  ·  tree_java_source_1a247659a8087e94_s_type_dcd5cb4e5fb15dcc  ·  k_java_type_dcd5cb4e5fb15dcc
+                  - ThreadFactory  ·  tree_java_source_1a247659a8087e94_s_type_15fc91a15221b887  ·  k_java_type_15fc91a15221b887
+                  - ThreadLocalRandom (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_98cdf6aedb51f519  ·  k_java_type_98cdf6aedb51f519
+                    - Access  ·  tree_java_source_1a247659a8087e94_s_type_be0044594f281979  ·  k_java_type_be0044594f281979
+                    - ThreadLocalRandomProxy  ·  tree_java_source_1a247659a8087e94_s_type_34880be92db40759  ·  k_java_type_34880be92db40759
+                  - ThreadPerTaskExecutor (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_52e6a4e2768a182f  ·  k_java_type_52e6a4e2768a182f
+                    - AnyResultHolder  ·  tree_java_source_1a247659a8087e94_s_type_a62c3c8efff10ece  ·  k_java_type_a62c3c8efff10ece
+                    - TaskRunner  ·  tree_java_source_1a247659a8087e94_s_type_80670f07f3a588ab  ·  k_java_type_80670f07f3a588ab
+                    - ThreadBoundFuture  ·  tree_java_source_1a247659a8087e94_s_type_555cd39fff45182e  ·  k_java_type_555cd39fff45182e
+                  - ThreadPoolExecutor (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_ff6db88dc6746818  ·  k_java_type_ff6db88dc6746818
+                    - AbortPolicy  ·  tree_java_source_1a247659a8087e94_s_type_f61a585855a1deed  ·  k_java_type_f61a585855a1deed
+                    - CallerRunsPolicy  ·  tree_java_source_1a247659a8087e94_s_type_947e4a7998329b7f  ·  k_java_type_947e4a7998329b7f
+                    - DiscardOldestPolicy  ·  tree_java_source_1a247659a8087e94_s_type_10ccf1016bf16909  ·  k_java_type_10ccf1016bf16909
+                    - DiscardPolicy  ·  tree_java_source_1a247659a8087e94_s_type_3332e5371afb9fef  ·  k_java_type_3332e5371afb9fef
+                    - Worker  ·  tree_java_source_1a247659a8087e94_s_type_fae308f36e2bb901  ·  k_java_type_fae308f36e2bb901
+                  - TimeUnit  ·  tree_java_source_1a247659a8087e94_s_type_63b3397828f7430a  ·  k_java_type_63b3397828f7430a
+                  - TimeoutException  ·  tree_java_source_1a247659a8087e94_s_type_95ecffcfbd8b9287  ·  k_java_type_95ecffcfbd8b9287
+                  - TransferQueue  ·  tree_java_source_1a247659a8087e94_s_type_a88374c21f0e96e7  ·  k_java_type_a88374c21f0e96e7
+                - java.util.concurrent.atomic (17孩)  ·  tree_java_source_1a247659a8087e94_s_package_7a2464173a514147  ·  k_1785909354346_oxtcgv_s_package_7a2464173a514147
+                  - AtomicBoolean  ·  tree_java_source_1a247659a8087e94_s_type_4f089743a283ec57  ·  k_java_type_4f089743a283ec57
+                  - AtomicInteger  ·  tree_java_source_1a247659a8087e94_s_type_9a695db1b6e1665a  ·  k_java_type_9a695db1b6e1665a
+                  - AtomicIntegerArray  ·  tree_java_source_1a247659a8087e94_s_type_cd46a2af7a940086  ·  k_java_type_cd46a2af7a940086
+                  - AtomicIntegerFieldUpdater (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_293d7b5877d8d369  ·  k_java_type_293d7b5877d8d369
+                    - AtomicIntegerFieldUpdaterImpl  ·  tree_java_source_1a247659a8087e94_s_type_86bd862017381468  ·  k_java_type_86bd862017381468
+                  - AtomicLong  ·  tree_java_source_1a247659a8087e94_s_type_f7dce68eaa075016  ·  k_java_type_f7dce68eaa075016
+                  - AtomicLongArray  ·  tree_java_source_1a247659a8087e94_s_type_8f560f04c12f16e0  ·  k_java_type_8f560f04c12f16e0
+                  - AtomicLongFieldUpdater (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_bd4059db3db16ba4  ·  k_java_type_bd4059db3db16ba4
+                    - CASUpdater  ·  tree_java_source_1a247659a8087e94_s_type_3d3dcf0d216b18e4  ·  k_java_type_3d3dcf0d216b18e4
+                  - AtomicMarkableReference (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_892668bdb9d8aee8  ·  k_java_type_892668bdb9d8aee8
+                    - Pair  ·  tree_java_source_1a247659a8087e94_s_type_24f69667d2b11724  ·  k_java_type_24f69667d2b11724
+                  - AtomicReference  ·  tree_java_source_1a247659a8087e94_s_type_ba7532b159f35e4e  ·  k_java_type_ba7532b159f35e4e
+                  - AtomicReferenceArray  ·  tree_java_source_1a247659a8087e94_s_type_b8694f5df884d0d3  ·  k_java_type_b8694f5df884d0d3
+                  - AtomicReferenceFieldUpdater (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_51422a386dc12d0f  ·  k_java_type_51422a386dc12d0f
+                    - AtomicReferenceFieldUpdaterImpl  ·  tree_java_source_1a247659a8087e94_s_type_bb954db388ef0071  ·  k_java_type_bb954db388ef0071
+                  - AtomicStampedReference (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_f0d48cbdb993d881  ·  k_java_type_f0d48cbdb993d881
+                    - Pair  ·  tree_java_source_1a247659a8087e94_s_type_b95cb95f44911f77  ·  k_java_type_b95cb95f44911f77
+                  - DoubleAccumulator (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_6ed1b4a789b8800c  ·  k_java_type_6ed1b4a789b8800c
+                    - SerializationProxy  ·  tree_java_source_1a247659a8087e94_s_type_dae59319ec510a25  ·  k_java_type_dae59319ec510a25
+                  - DoubleAdder (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_2da9590bb5fd6224  ·  k_java_type_2da9590bb5fd6224
+                    - SerializationProxy  ·  tree_java_source_1a247659a8087e94_s_type_e5cf9c5a8e49e133  ·  k_java_type_e5cf9c5a8e49e133
+                  - LongAccumulator (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_2a636ed83f50d5ed  ·  k_java_type_2a636ed83f50d5ed
+                    - SerializationProxy  ·  tree_java_source_1a247659a8087e94_s_type_a85ea62d6224da7a  ·  k_java_type_a85ea62d6224da7a
+                  - LongAdder (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_666dfb24cf1e2cf6  ·  k_java_type_666dfb24cf1e2cf6
+                    - SerializationProxy  ·  tree_java_source_1a247659a8087e94_s_type_247644a9c599ad0d  ·  k_java_type_247644a9c599ad0d
+                  - Striped64 (1孩)  ·  tree_java_source_1a247659a8087e94_s_type_4ecb57d0ccbb8ad1  ·  k_java_type_4ecb57d0ccbb8ad1
+                    - Cell  ·  tree_java_source_1a247659a8087e94_s_type_fcf2347bb8786b9d  ·  k_java_type_fcf2347bb8786b9d
+                - java.util.concurrent.locks (10孩)  ·  tree_java_source_1a247659a8087e94_s_package_7de90cb419c7788f  ·  k_1785909354346_oxtcgv_s_package_7de90cb419c7788f
+                  - AbstractOwnableSynchronizer  ·  tree_java_source_1a247659a8087e94_s_type_31455fdc491d87f5  ·  k_java_type_31455fdc491d87f5
+                  - AbstractQueuedLongSynchronizer (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_862a0b4e8b3aa098  ·  k_java_type_862a0b4e8b3aa098
+                    - ConditionNode  ·  tree_java_source_1a247659a8087e94_s_type_d7e9883ead48b7f1  ·  k_java_type_d7e9883ead48b7f1
+                    - ConditionObject  ·  tree_java_source_1a247659a8087e94_s_type_22dee712dc7880f7  ·  k_java_type_22dee712dc7880f7
+                    - ExclusiveNode  ·  tree_java_source_1a247659a8087e94_s_type_0970bd6d85b473dd  ·  k_java_type_0970bd6d85b473dd
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_7d5268cac2fb65a9  ·  k_java_type_7d5268cac2fb65a9
+                    - SharedNode  ·  tree_java_source_1a247659a8087e94_s_type_37b7350ab987ae77  ·  k_java_type_37b7350ab987ae77
+                  - AbstractQueuedSynchronizer (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_1f4d71041f30c569  ·  k_java_type_1f4d71041f30c569
+                    - ConditionNode  ·  tree_java_source_1a247659a8087e94_s_type_37ac9d00dbf8c769  ·  k_java_type_37ac9d00dbf8c769
+                    - ConditionObject  ·  tree_java_source_1a247659a8087e94_s_type_d94069b9b051d7ba  ·  k_java_type_d94069b9b051d7ba
+                    - ExclusiveNode  ·  tree_java_source_1a247659a8087e94_s_type_0481e17413c6c55f  ·  k_java_type_0481e17413c6c55f
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_9794c85b199fc8c9  ·  k_java_type_9794c85b199fc8c9
+                    - SharedNode  ·  tree_java_source_1a247659a8087e94_s_type_0e4c9be34c88c88c  ·  k_java_type_0e4c9be34c88c88c
+                  - Condition  ·  tree_java_source_1a247659a8087e94_s_type_4462ef7dbb1efff1  ·  k_java_type_4462ef7dbb1efff1
+                  - Lock  ·  tree_java_source_1a247659a8087e94_s_type_4033a9a0f1d91289  ·  k_java_type_4033a9a0f1d91289
+                  - LockSupport  ·  tree_java_source_1a247659a8087e94_s_type_299b3140a43f80da  ·  k_java_type_299b3140a43f80da
+                  - ReadWriteLock  ·  tree_java_source_1a247659a8087e94_s_type_718e6c3821b48ad6  ·  k_java_type_718e6c3821b48ad6
+                  - ReentrantLock (3孩)  ·  tree_java_source_1a247659a8087e94_s_type_8bda9fc7a4027ad0  ·  k_java_type_8bda9fc7a4027ad0
+                    - FairSync  ·  tree_java_source_1a247659a8087e94_s_type_deeae461188af131  ·  k_java_type_deeae461188af131
+                    - NonfairSync  ·  tree_java_source_1a247659a8087e94_s_type_16ee6f147ef726ea  ·  k_java_type_16ee6f147ef726ea
+                    - Sync  ·  tree_java_source_1a247659a8087e94_s_type_cea1366085747c14  ·  k_java_type_cea1366085747c14
+                  - ReentrantReadWriteLock (5孩)  ·  tree_java_source_1a247659a8087e94_s_type_8d5f9e754651308e  ·  k_java_type_8d5f9e754651308e
+                    - FairSync  ·  tree_java_source_1a247659a8087e94_s_type_3d7206ca24c3c08a  ·  k_java_type_3d7206ca24c3c08a
+                    - NonfairSync  ·  tree_java_source_1a247659a8087e94_s_type_cf8c32807de9b0cc  ·  k_java_type_cf8c32807de9b0cc
+                    - ReadLock  ·  tree_java_source_1a247659a8087e94_s_type_f2598bdfeb7a7b3e  ·  k_java_type_f2598bdfeb7a7b3e
+                    - Sync (2孩)  ·  tree_java_source_1a247659a8087e94_s_type_ab89b485986a360f  ·  k_java_type_ab89b485986a360f
+                      - HoldCounter  ·  tree_java_source_1a247659a8087e94_s_type_e5a7f68a86c04e44  ·  k_java_type_e5a7f68a86c04e44
+                      - ThreadLocalHoldCounter  ·  tree_java_source_1a247659a8087e94_s_type_c212e7b2f68dff73  ·  k_java_type_c212e7b2f68dff73
+                    - WriteLock  ·  tree_java_source_1a247659a8087e94_s_type_7103086c0f26ecc0  ·  k_java_type_7103086c0f26ecc0
+                  - StampedLock (6孩)  ·  tree_java_source_1a247659a8087e94_s_type_dcde5f8fda64fc8d  ·  k_java_type_dcde5f8fda64fc8d
+                    - Node  ·  tree_java_source_1a247659a8087e94_s_type_bb843ef12ecc8e66  ·  k_java_type_bb843ef12ecc8e66
+                    - ReadLockView  ·  tree_java_source_1a247659a8087e94_s_type_1cbbda53b12d3ae8  ·  k_java_type_1cbbda53b12d3ae8
+                    - ReadWriteLockView  ·  tree_java_source_1a247659a8087e94_s_type_72dffd98c4639144  ·  k_java_type_72dffd98c4639144
+                    - ReaderNode  ·  tree_java_source_1a247659a8087e94_s_type_fd2680ce5d128cd8  ·  k_java_type_fd2680ce5d128cd8
+                    - WriteLockView  ·  tree_java_source_1a247659a8087e94_s_type_a0c5a7669abb1f87  ·  k_java_type_a0c5a7669abb1f87
+                    - WriterNode  ·  tree_java_source_1a247659a8087e94_s_type_1630ea5bd3335a90  ·  k_java_type_1630ea5bd3335a90
+                - 外部引用类型 (34孩)  ·  tree_java_source_1a247659a8087e94_s_external_types  ·  k_1785909354346_oxtcgv_s_external_types
+                  - Serializable  ·  tree_java_source_1a247659a8087e94_s_external_210d9b760f82d8ae  ·  k_1785686881765_p1i0hq
+                  - AutoCloseable  ·  tree_java_source_1a247659a8087e94_s_external_20e570abbd70a685  ·  k_java_type_20e570abbd70a685
+                  - Cloneable  ·  tree_java_source_1a247659a8087e94_s_external_270122f484f011bf  ·  k_1785686871250_7gi8cc
+                  - Comparable  ·  tree_java_source_1a247659a8087e94_s_external_63d7c3f6f48eb22f  ·  k_java_type_63d7c3f6f48eb22f
+                  - Exception  ·  tree_java_source_1a247659a8087e94_s_external_4bc2cd7a4e9d6ca5  ·  k_1784304593387_dgjyi9
+                  - IllegalStateException  ·  tree_java_source_1a247659a8087e94_s_external_76f39f88780c49e1  ·  k_java_type_76f39f88780c49e1
+                  - Number  ·  tree_java_source_1a247659a8087e94_s_external_ecd45d6627c4b1f2  ·  k_java_type_ecd45d6627c4b1f2
+                  - Runnable  ·  tree_java_source_1a247659a8087e94_s_external_4e7cd4755214df31  ·  k_java_type_4e7cd4755214df31
+                  - RuntimeException  ·  tree_java_source_1a247659a8087e94_s_external_07a1e5e1bcc604ee  ·  k_java_type_07a1e5e1bcc604ee
+                  - Thread  ·  tree_java_source_1a247659a8087e94_s_external_e21c6b43b74bf934  ·  k_java_type_e21c6b43b74bf934
+                  - ThreadLocal  ·  tree_java_source_1a247659a8087e94_s_external_c1ecc4e34ff2913c  ·  k_java_type_c1ecc4e34ff2913c
+                  - WeakReference  ·  tree_java_source_1a247659a8087e94_s_external_bccdc9f26968e618  ·  k_java_type_bccdc9f26968e618
+                  - AbstractCollection  ·  tree_java_source_1a247659a8087e94_s_external_3110465d7ce5bed9  ·  k_1785684343560_w11398
+                  - AbstractMap  ·  tree_java_source_1a247659a8087e94_s_external_f43930135541db67  ·  k_1785665355970_xe9gap
+                  - AbstractQueue  ·  tree_java_source_1a247659a8087e94_s_external_a6ff2583ec659a67  ·  k_1785684837090_uszvb6
+                  - AbstractSet  ·  tree_java_source_1a247659a8087e94_s_external_eafeb8fd8836f660  ·  k_1785684473197_7lhn5y
+                  - Collection  ·  tree_java_source_1a247659a8087e94_s_external_d7d466ccf1764e80  ·  k_1785671910048_sdtfht
+                  - Deque  ·  tree_java_source_1a247659a8087e94_s_external_451fd09c30e250aa  ·  k_1785683890358_ezprwy
+                  - Enumeration  ·  tree_java_source_1a247659a8087e94_s_external_4627f3e9a16e4864  ·  k_java_type_4627f3e9a16e4864
+                  - Iterator  ·  tree_java_source_1a247659a8087e94_s_external_489a7b472f0bdfb5  ·  k_java_type_489a7b472f0bdfb5
+                  - List  ·  tree_java_source_1a247659a8087e94_s_external_a0fb13f6304249a5  ·  k_demo_java_list
+                  - ListIterator  ·  tree_java_source_1a247659a8087e94_s_external_dcffdd810782a469  ·  k_java_type_dcffdd810782a469
+                  - Map  ·  tree_java_source_1a247659a8087e94_s_external_792667ecf0251b77  ·  k_1785665232348_fu4nd2
+                  - Entry  ·  tree_java_source_1a247659a8087e94_s_external_fa0d3fb9ebbbdd60  ·  k_java_type_fa0d3fb9ebbbdd60
+                  - NavigableMap  ·  tree_java_source_1a247659a8087e94_s_external_dd3bacc6132846b6  ·  k_1785668454725_msbh6g
+                  - NavigableSet  ·  tree_java_source_1a247659a8087e94_s_external_fba23554a19e6394  ·  k_1785684417735_y65d54
+                  - Queue  ·  tree_java_source_1a247659a8087e94_s_external_3dc0edcabc4ad81d  ·  k_1785685822269_z6ow3g
+                  - Random  ·  tree_java_source_1a247659a8087e94_s_external_2d4b89ebc904f1ce  ·  k_java_type_2d4b89ebc904f1ce
+                  - RandomAccess  ·  tree_java_source_1a247659a8087e94_s_external_0db49a13032cc56e  ·  k_jdk_type_0db49a13032cc56e
+                  - Set  ·  tree_java_source_1a247659a8087e94_s_external_46c7ba135e7e2e9f  ·  k_1785684450180_ry9ixw
+                  - Spliterator  ·  tree_java_source_1a247659a8087e94_s_external_29317fafd0f10535  ·  k_java_type_29317fafd0f10535
+                  - BiConsumer  ·  tree_java_source_1a247659a8087e94_s_external_09bcdc772ca0a6e4  ·  k_java_type_09bcdc772ca0a6e4
+                  - Supplier  ·  tree_java_source_1a247659a8087e94_s_external_c35a52c3d2e46d44  ·  k_java_type_c35a52c3d2e46d44
+                  - ThreadContainer  ·  tree_java_source_1a247659a8087e94_s_external_37f7c6193e03d681  ·  k_java_type_37f7c6193e03d681
+            - Java中的13个原子操作类 (4孩)  ·  tree_1786087143251_vxl94d  ·  k_1786087142999_vrl4ju
+              - 原子更新基本类型类  ·  tree_1786087221183_gkq8fb  ·  k_1786087220898_fjtk1k
+              - 原子更新数组  ·  tree_1786087385201_fyri1c  ·  k_1786087384939_a3dw03
+              - 原子更新引用类型  ·  tree_1786087440465_9o58rt  ·  k_1786087440200_u42izp
+              - 原子更新字段类  ·  tree_1786087475813_d9k8we  ·  k_1786087475547_2fefoa
+            - Java中的并发工具类 (4孩)  ·  tree_1786089226046_kki0pr  ·  k_1786089225532_w325sm
+              - 等待多线程完成的CountDownLatch  ·  tree_1786089247984_2p8zi3  ·  k_1786089247552_qt3bs0
+              - 同步屏障CyclicBarrier (1孩)  ·  tree_1786089852194_exfl3n  ·  k_1786089851947_drblzk
+                - CyclicBarrier的应用场景  ·  tree_1786090194974_8p8klx  ·  k_1786090194728_y9wdsd
+              - 控制并发线程数的Semaphore (2孩)  ·  tree_1786090458678_1g53gg  ·  k_1786090458399_kpfxe4
+                - 应用场景  ·  tree_1786090594792_w8q81d  ·  k_1786090594502_k07mvf
+                - 其他方法  ·  tree_1786090935248_brh5y4  ·  k_1786090934980_4qz7v0
+              - 线程间交换数据的Exchanger  ·  tree_1786090970523_viriwz  ·  k_1786090970282_3k8uwq
+            - 线程池 (9孩)  ·  tree_1785415709050_n3rbw5  ·  k_1784597083135_287nro
+              - newFixedThreadPool  ·  tree_1785415843815_xupjep  ·  k_1785415843679_72mpjo
+              - newSingleThreadExecutor  ·  tree_1785416184967_1myrtu  ·  k_1785416184802_jvgcw4
+              - newCachedThreadPool  ·  tree_1785416372111_nyigfx  ·  k_1785416371957_gaxxie
+              - newScheduleThreadPool  ·  tree_1785416471298_47eflw  ·  k_1785416471144_r2smqp
+              - newWorkStealingPool  ·  tree_1785416585901_jnff4z  ·  k_1785416585766_26rlp4
+              - ThreadPoolExecutor (4孩)  ·  tree_1785416767656_xllpk1  ·  k_java_type_ff6db88dc6746818
+                - 拒绝策略 (5孩)  ·  tree_1785416928476_wmzdyw  ·  k_1785416928300_18uhsj
+                  - AbortPolicy  ·  tree_1785416946249_fqndzc  ·  k_1785416946096_wlbilt
+                  - CallerRunsPolicy  ·  tree_1785416999698_o67y1s  ·  k_1785416999564_j2xfyj
+                  - DiscardPolicy  ·  tree_1785417027710_53iyih  ·  k_1785417027569_c26sey
+                  - DiscardOldestPolicy  ·  tree_1785417056759_v9ypyq  ·  k_1785417056602_xowck9
+                  - 自定义Policy  ·  tree_1785417097578_5h4qrq  ·  k_1785417097439_wmprlg
+                - FixedThreadPool  ·  tree_1786093175065_78z1xl  ·  k_1786093174816_8f6sp8
+                - SingleThreadExecutor  ·  tree_1786093231555_o69fau  ·  k_1786093231291_1p3kk2
+                - CachedThreadPool  ·  tree_1786093265279_n5f4vh  ·  k_1786093265033_rqvw3n
+              - ScheduleThreadPoolExecutor (1孩)  ·  tree_1785417434709_175gho  ·  k_1785417434549_gyz4q5
+                - ScheduleThreadPoolExecutor应用  ·  tree_1785417720996_lt3kb2  ·  k_1785417720832_7pl3o1
+              - 线程池的实现原理  ·  tree_1786091640638_r2mwht  ·  k_1786091640365_z1rs9f
+              - 线程池的使用 (4孩)  ·  tree_1786092212132_mr8yxp  ·  k_1786092211800_3qjdgk
+                - 线程池的创建  ·  tree_1786092227668_cfv76n  ·  k_1786092227392_dlv2bg
+                - 向线程池提交任务  ·  tree_1786092300397_ov4syn  ·  k_1786092300083_xoc2c1
+                - 关闭线程池 (1孩)  ·  tree_1786092322719_ohlq3z  ·  k_1786092322231_lhhbvt
+                  - 线程池状态机（五状态） (6孩)  ·  tree_tpl_flow  ·  tpl_flow
+                    - shutdown() / shutdownNow() 调用  ·  tree_tpl_trigger_shutdown  ·  tpl_trigger_shutdown
+                    - RUNNING（运行中）  ·  tree_tpl_state_running  ·  tpl_state_running
+                    - SHUTDOWN（关闭中）  ·  tree_tpl_state_shutdown  ·  tpl_state_shutdown
+                    - STOP（停止）  ·  tree_tpl_state_stop  ·  tpl_state_stop
+                    - TIDYING（整理中）  ·  tree_tpl_state_tidying  ·  tpl_state_tidying
+                    - TERMINATED（已终止）  ·  tree_tpl_state_terminated  ·  tpl_state_terminated
+                - 线程池的监控  ·  tree_1786092398324_pzx42t  ·  k_1786092398055_xddkc6
+            - Java并发编程实践 (6孩)  ·  tree_1786096444971_lwc3wc  ·  k_1786096444701_f6gecl
+              - 生产者消费者模式 (1孩)  ·  tree_1786096456222_l0v627  ·  k_1786096455966_qnfpwx
+                - 生产者消费者模式实战  ·  tree_1786096525441_6jf1s8  ·  k_1786096525191_t1e12x
+              - 性能测试  ·  tree_1786096661223_y5ri9a  ·  k_1786096660928_3cmb3b
+              - 异步任务池  ·  tree_1786096786438_83x78y  ·  k_1786096786154_01hsmx
+              - 高并发架构  ·  tree_1786353277269_msn0ma9hw  ·  k_1786353277269_msn0ma9gv
+              - 生产者  ·  final_atomic_producer  ·  atomic_producer
+              - 消费者  ·  final_atomic_consumer  ·  atomic_consumer
+            - 死锁  ·  tree_1786353277269_msn0ma9n12  ·  k_1786353277269_msn0ma9m11
+            - Java 多线程编程  ·  tree_vault_javajava_vzjv8p  ·  k_vault_javajava_vzjv8p
+            - Synchronized 关键字  ·  tree_vault_javasynchronized_czjq2n  ·  k_vault_javasynchronized_czjq2n
+            - 线程封闭 / thread confinement (1孩)  ·  tree_concept_thread_confinement  ·  concept_thread_confinement
+              - ThreadLocal (2孩)  ·  tree_1785820543100_i1zgfg  ·  k_java_type_c1ecc4e34ff2913c
+                - ThreadLocal的使用  ·  tree_1786007130862_28kj02  ·  k_1786007130617_bg40je
+                - ThreadLocal 原理  ·  tree_1788445344173_jv4g6b  ·  k_1788445344164_41oyga
+            - ConcurrentLinkedQueue (2孩)  ·  tree_1786030856071_2edcr6  ·  k_java_type_acdfd0770043ef24
+              - 入队列  ·  tree_1786031340980_2pdywc  ·  k_1786031340726_4j40cq
+              - 出队列  ·  tree_1786031421050_ka39t0  ·  k_1786031420758_xt48nu
+            - Java中的阻塞队列 (2孩)  ·  tree_1786032138166_dlpzt1  ·  k_1786032137936_081ni5
+              - Java里的阻塞队列 (1孩)  ·  tree_1786074343511_34udem  ·  k_1786074343231_2prq2l
+                - ArrayBlockingQueue  ·  tree_1786074380736_lgfhvg  ·  k_java_type_65cc8d65742d8aa2
+              - 阻塞队列的实现原理  ·  tree_1786074535410_teice6  ·  k_1786074535145_bld7cc
+            - Fork/Join框架 (5孩)  ·  tree_1786076058694_stnvzf  ·  k_1786076058461_gu0g51
+              - 工作窃取算法  ·  tree_1786085369788_s3e3fe  ·  k_1786085369578_9pmlay
+              - Fork/Join框架的设计  ·  tree_1786086744184_fd3rqb  ·  k_1786086743932_y3egnb
+              - 使用Fork/Join框架  ·  tree_1786086799317_aj6tmq  ·  k_1786086799083_5hdlxk
+              - Fork/Join框架的异常处理  ·  tree_1786086912740_jd2h2r  ·  k_1786086912522_3m5qn4
+              - Fork/Join框架的实现原理  ·  tree_1786086947686_uuci2f  ·  k_1786086947458_ktu546
+            - JUC 工具  ·  asplit_s19_juc_tools  ·  asplit_juc_tools
+            - 延迟初始化  ·  asplit_s1_asplit_lazy_init  ·  asplit_lazy_init
+            - 并发容器  ·  asplit_s1_asplit_concurrency_container  ·  asplit_concurrency_container
+            - 内存原子性  ·  asplit_s18_asplit_memory_atomicity  ·  asplit_memory_atomicity
+            - 并发互斥锁  ·  asplit_s18_asplit_concurrency_mutex_lock  ·  asplit_concurrency_mutex_lock
+            - CAS  ·  tree_1786353277269_msn0ma9p14  ·  k_1786353277269_msn0ma9o13
+            - 线程对象 (4孩)  ·  tree_1784367244677_p159a6  ·  k_1784367244619_s01xtn
+              - 线程启动  ·  tree_1784367357686_kzgmm0  ·  k_1784367357615_8x9izv
+              - 中断  ·  tree_1784367400851_405esr  ·  k_1784367400813_wlhj68
+              - 连接  ·  tree_1784367452143_f2xy5w  ·  k_1784367452084_2ehbw7
+              - 异常  ·  tree_1784367479165_r38z3w  ·  k_1784367479094_3my77z
+            - 线程间通信 (4孩)  ·  tree_1785843194648_eukkr2  ·  k_1785843194451_b6cvb2
+              - 等待/通知机制  ·  tree_1785843242311_kapxha  ·  k_1785843242128_bus7le
+              - Thread.join()的使用  ·  tree_1786006383596_c1nxnl  ·  k_1786006383348_b3urv6
+              - PipedInputStream  ·  final_atomic_piped_input_stream  ·  atomic_piped_input_stream
+              - PipedOutputStream  ·  final_atomic_piped_output_stream  ·  atomic_piped_output_stream
+            - 线程优先级  ·  tree_1785933871037_4quzee  ·  k_1785933870843_mvj4ix
+            - 线程的状态 (18孩)  ·  tree_1785934396723_afsojh  ·  k_1785934396536_as412a
+              - Thread 实例  ·  tree_java_thread_instance  ·  k_java_thread_instance
+              - 操作系统调度器  ·  tree_java_thread_scheduler  ·  k_java_thread_scheduler
+              - Object Monitor  ·  tree_java_thread_monitor  ·  k_java_thread_monitor
+              - synchronized 锁  ·  tree_java_thread_lock  ·  k_java_thread_lock
+              - NEW（初始）  ·  tree_java_thread_state_new  ·  k_java_thread_state_new
+              - RUNNABLE（可运行）  ·  tree_java_thread_state_runnable  ·  k_java_thread_state_runnable
+              - RUNNING（运行中）  ·  tree_java_thread_state_running  ·  k_java_thread_state_running
+              - READY（就绪）  ·  tree_java_thread_state_ready  ·  k_java_thread_state_ready
+              - WAITING（等待）  ·  tree_java_thread_state_waiting  ·  k_java_thread_state_waiting
+              - TIMED_WAITING（超时等待）  ·  tree_java_thread_state_timed_waiting  ·  k_java_thread_state_timed_waiting
+              - BLOCKED（阻塞）  ·  tree_java_thread_state_blocked  ·  k_java_thread_state_blocked
+              - TERMINATED（终止）  ·  tree_java_thread_state_terminated  ·  k_java_thread_state_terminated
+              - 构造线程  ·  tree_1785948695696_5us7c8  ·  k_1785948695500_4z2bcl
+              - 启动线程  ·  tree_1785948737115_sgb6vg  ·  k_1785948736907_qcq4lw
+              - 理解中断  ·  tree_1785948855118_r5ik45  ·  k_1785948854913_isyp7m
+              - 安全地终止线程  ·  tree_1785949022722_ol5su5  ·  k_1785949022316_vctezb
+              - suspend/resume 方法组  ·  asplit_s1_asplit_suspend_resume_methods  ·  asplit_suspend_resume_methods
+              - stop 方法  ·  asplit_s1_asplit_stop_method  ·  asplit_stop_method
+            - Daemon线程  ·  tree_1785943693938_dy2lu1  ·  k_1785943693747_clmf9f
+            - 线程应用实例 (1孩)  ·  tree_1786008060989_8kmqnp  ·  k_1786008060766_5bnwua
+              - 等待超时模式  ·  tree_1786008070985_ipywe8  ·  k_1786008070763_nsrw3g
+            - 进程间通信  ·  tree_1786353277269_msn0ma9jy  ·  k_1786353277269_msn0ma9ix
+            - 上下文切换  ·  tree_1786353277269_msn0ma9l10  ·  k_1786353277269_msn0ma9kz
+          - 锁 (13孩)  ·  tree_1782928696623_almc5c  ·  k_1784531131067_9tdszo
+            - 锁消除  ·  tree_1784913687030_1l3ffc  ·  k_1784913686973_93yvqh
+            - 闭锁  ·  tree_1784954416259_ju67vr  ·  k_1784954416184_ths59d
+            - 锁粗化  ·  tree_1784954614503_9xy08m  ·  k_1784954614447_9jj6qz
+            - 偏向锁 (11孩)  ·  tree_web_78137b704e08  ·  k_web_78137b704e08
+              - 锁具有线程的局部性  ·  tree_1785845466465_lnzze3  ·  k_1785845466283_86ylpy
+              - 关闭偏向锁  ·  tree_1785845864087_yuqf8z  ·  k_1785845863897_4s6vdu
+              - 偏向锁的撤销  ·  tree_1785847055096_hpfffa  ·  k_1785847054913_qbbv1z
+              - 线程进入同步代码块  ·  asplit_s2_asplit_bias_acquire  ·  asplit_bias_acquire
+              - 匿名偏向态  ·  asplit_s2_asplit_bias_state_anonymous  ·  asplit_bias_state_anonymous
+              - 已偏向态（记录线程 ID）  ·  asplit_s2_asplit_bias_state_biased  ·  asplit_bias_state_biased
+              - 撤销中（到达安全点）  ·  asplit_s2_asplit_bias_state_revoke_pending  ·  asplit_bias_state_revoke_pending
+              - 已撤销（升级轻量级锁）  ·  asplit_s2_asplit_bias_state_revoked  ·  asplit_bias_state_revoked
+              - 批量重偏向（epoch 递增）  ·  asplit_s2_asplit_bias_state_bulk_rebiased  ·  asplit_bias_state_bulk_rebiased
+              - 批量撤销（整类禁用偏向）  ·  asplit_s2_asplit_bias_state_bulk_revoked  ·  asplit_bias_state_bulk_revoked
+              - 对象头 Mark Word  ·  asplit_s2_asplit_bias_markword  ·  asplit_bias_markword
+            - 锁升级  ·  tree_1785840587156_9lnjik  ·  k_1785840586940_eqi4sb
+            - 轻量级锁 (2孩)  ·  tree_1785847240601_2rqrip  ·  k_1785847240426_l7js4e
+              - 轻量级锁加锁  ·  tree_1785847264628_fbp0l0  ·  k_1785847264455_3ixinc
+              - 轻量级锁解锁  ·  tree_1785847592777_2z09do  ·  k_1785847592604_yu6mt6
+            - 锁的内存语义 (3孩)  ·  tree_1785930338405_xw4ubo  ·  k_1785930338224_nsy21i
+              - 锁的释放-获取建立的happens-before关系  ·  tree_1785930358951_in7qod  ·  k_1785930358760_pvpwit
+              - 锁内存语义的实现  ·  tree_1785930453191_z3usvi  ·  k_1785930453004_76yzal
+              - concurrent包的实现  ·  tree_1785930533498_mexdxd  ·  k_1785930533314_v6o8w3
+            - Lock接口 (1孩)  ·  tree_1786012419762_h1wd10  ·  k_1786012419539_lcytrx
+              - Lock接口提供的synchronized关键字不具备的主要特性  ·  tree_1786013279293_4o5537  ·  k_1786013279000_sio9ju
+            - 队列同步器 (3孩)  ·  tree_1786016077956_lcoprc  ·  k_1786016077742_lg5b5a
+              - 队列同步器的实现分析 (1孩)  ·  tree_1786025062995_xqtzmg  ·  k_1786025062699_h1vx9m
+                - 同步队列  ·  tree_1786025270803_i4bm39  ·  k_1786025270479_ll5tbf
+              - 同步器可重写的方法  ·  tree_1786019933879_7hsd8b  ·  k_1786019933638_mb5sjn
+              - 同步器提供的模板方法  ·  tree_1786020936802_d0tdxy  ·  k_1786020936605_d9dpnj
+            - 重入锁 (3孩)  ·  tree_1786017169779_m2dean  ·  k_1786017169554_blpxjf
+              - 实现重进入  ·  tree_1786025678096_n66taq  ·  k_1786025677825_0rxd6o
+              - 公平锁  ·  tree_1789213558020_m0yoeru  ·  k_1789213558020_84f3pr4
+              - 非公平锁  ·  tree_1789213558020_mzlisti  ·  k_1789213558020_2w9cmeo
+            - 读写锁 (2孩)  ·  tree_1786017239718_fuvw86  ·  k_1784571058917_k7qd83
+              - 读写锁的实现分析 (10孩)  ·  tree_1786026688588_0mtvxh  ·  k_1786026688332_564okt
+                - 读写状态的设计  ·  tree_1786026731195_6h7dn0  ·  k_1786026730910_m3rub2
+                - 读写锁实现机制  ·  asplit_s2_asplit_rwlock_mechanism  ·  asplit_rwlock_mechanism
+                - 写锁申请（tryAcquire）  ·  asplit_s2_asplit_rw_state_write_acquire  ·  asplit_rw_state_write_acquire
+                - 写锁持有（独占可重入）  ·  asplit_s2_asplit_rw_state_write_held  ·  asplit_rw_state_write_held
+                - 写锁等待  ·  asplit_s2_asplit_rw_state_write_waiting  ·  asplit_rw_state_write_waiting
+                - 写锁释放（tryRelease）  ·  asplit_s2_asplit_rw_state_write_released  ·  asplit_rw_state_write_released
+                - 读锁申请（tryAcquireShared）  ·  asplit_s2_asplit_rw_state_read_acquire  ·  asplit_rw_state_read_acquire
+                - 读锁持有（共享可重入）  ·  asplit_s2_asplit_rw_state_read_held  ·  asplit_rw_state_read_held
+                - 读锁等待  ·  asplit_s2_asplit_rw_state_read_waiting  ·  asplit_rw_state_read_waiting
+                - 读锁释放（tryReleaseShared）  ·  asplit_s2_asplit_rw_state_read_released  ·  asplit_rw_state_read_released
+              - 锁降级  ·  tree_1786027606286_ufakww  ·  k_1786027605877_jnqzdw
+            - Condition接口 (1孩)  ·  tree_1786018757244_9lqzeg  ·  k_1786018757024_u757p8
+              - Condition的实现分析 (3孩)  ·  tree_1786029667276_2jn1ss  ·  k_1786029667053_xhg8hh
+                - 等待队列  ·  tree_1786029710475_wgdw4l  ·  k_1786029710206_83flz9
+                - 等待  ·  tree_1786029793268_dvp1i2  ·  k_1786029793000_oh4hws
+                - 通知  ·  tree_1786029820897_7qzzwc  ·  k_1786029820622_x86xhl
+            - LockSupport工具  ·  tree_1786019439782_k4twqf  ·  k_1786019439561_d5llou
+          - 版本 (2孩)  ·  tree_1784337508360_i5nch6  ·  k_1784337508326_5ef70s
+            - Java 8 新特性  ·  tree_1786353277269_msn0ma97m  ·  k_1786353277269_msn0ma96l
+            - Java 9 新特性  ·  tree_1786353277269_msn0ma99o  ·  k_1786353277269_msn0ma98n
+          - 执行系统 (7孩)  ·  tree_1784337564445_6mnbt8  ·  k_1784337564414_gfzbco
+            - 非 JVM  ·  tree_1784339879260_dixlir  ·  k_1784339879191_rfkkwo
+            - 自动内存管理  ·  tree_1784340047170_4oe2np  ·  k_1784340047134_uy6wag
+            - JRE  ·  tree_1783184196963_vc0k3u  ·  k_1783184196932_cpprvi
+            - JDK  ·  tree_1783184152433_7f17af  ·  k_1783184152399_h2bnjm
+            - jvm (20孩)  ·  tree_1782749694516_2ntoss  ·  k_1782749694486_vyrfzy
+              - 运行时数据区 (5孩)  ·  tree_1782794616780_kxlup2  ·  k_1782794616728_i5obct
+                - 程序计数器  ·  tree_1782798780122_r35vd1  ·  k_1782798780082_yrsuje
+                - 虚拟机栈 (1孩)  ·  tree_1782798788702_6k0vb3  ·  k_1782798788671_3fjikg
+                  - 栈帧 (4孩)  ·  tree_1783099702264_6tiwt5  ·  k_1783099702235_p1pa94
+                    - 局部变量表  ·  tree_1783107186995_40a0vl  ·  k_1783107186969_vbsod9
+                    - 操作数栈  ·  tree_1783107207571_cq71u4  ·  k_1783107207547_lxjap6
+                    - 动态链接  ·  tree_1783107227918_8ck3tn  ·  k_1783107227892_dqq4ek
+                    - 返回地址  ·  tree_1783107234851_8lkmd9  ·  k_1783107234826_gtq04l
+                - 本地方法栈  ·  tree_1782798797802_dxy71v  ·  k_1782798797768_ye8a51
+                - 方法区 (1孩)  ·  tree_1782798808606_2c4ae2  ·  k_1782798808568_5vubd8
+                  - 运行时常量池  ·  tree_1783107284602_7l8hzq  ·  k_1783107284577_bbdtnv
+                - 堆 (2孩)  ·  tree_1782798814350_qiq392  ·  k_1782798814309_j3jj7c
+                  - 新生代 Yong Generation (2孩)  ·  tree_1782931436121_inszy7  ·  k_1782931436091_nitl7a
+                    - Eden区  ·  tree_1782931475540_5ce8ex  ·  k_1782931475509_dlbrrp
+                    - Survivor区 (2孩)  ·  tree_1783103959743_ogwxtd  ·  k_1783103959715_nbih6n
+                      - from区  ·  tree_1783103969479_p2yron  ·  k_1783103969455_rj0nro
+                      - to 区  ·  tree_1783103977167_5k63d1  ·  k_1783103977143_ayoa75
+                  - 老年代 Old Generation  ·  tree_1782931459569_07u2gy  ·  k_1782931459541_ztt6cy
+              - 类加载器 (4孩)  ·  tree_1782812528712_gtd8d8  ·  k_1782812528662_wzvpbe
+                - Bootstrap类加载器  ·  tree_1782812543631_c57i6j  ·  k_1782812543566_42no1w
+                - Extention类加载器  ·  tree_1782812719464_o9cvlq  ·  k_1782812719415_bhdt0s
+                - Application类加载器  ·  tree_1782812912113_rtwh7t  ·  k_1782812912050_z5a5sp
+                - Custom自定义类加载器  ·  tree_1782813014341_h3985i  ·  k_1782813014267_u5zv9z
+              - 内存可见性 (4孩)  ·  tree_1783093717625_xh4qeo  ·  k_1783093717594_y3gttn
+                - StoreLoad 屏障  ·  tree_atomic_k_atom_storeload  ·  k_atom_storeload
+                - LoadLoad 屏障  ·  tree_atomic_k_atom_loadload  ·  k_atom_loadload
+                - StoreStore 屏障  ·  tree_atomic_k_atom_storestore  ·  k_atom_storestore
+                - LoadStore 屏障  ·  tree_atomic_k_atom_loadstore  ·  k_atom_loadstore
+              - 内存碎片 (2孩)  ·  tree_1783154640935_cmorrp  ·  k_1783154640901_0cwole
+                - 内部碎片  ·  tree_1783154915255_9pnxdt  ·  k_1783154915218_vc5xqg
+                - 外部碎片  ·  tree_1783154938380_h0ikq3  ·  k_1783154938346_xy9o6y
+              - 直接内存  ·  tree_1783155226103_7cmeo1  ·  k_1783155226069_2ffro6
+              - JIT 编译器 (6孩)  ·  tree_jvm_jit  ·  k_jvm_jit
+                - 热点探测  ·  tree_atomic_k_atom_hotspot_detect  ·  k_atom_hotspot_detect
+                - C1 编译器  ·  tree_atomic_k_atom_c1_compiler  ·  k_atom_c1_compiler
+                - C2 编译器  ·  tree_atomic_k_atom_c2_compiler  ·  k_atom_c2_compiler
+                - 分层编译  ·  tree_atomic_k_atom_tiered_comp  ·  k_atom_tiered_comp
+                - 方法内联  ·  tree_atomic_k_atom_method_inline  ·  k_atom_method_inline
+                - 逃逸分析  ·  tree_atomic_k_atom_escape_analysis  ·  k_atom_escape_analysis
+              - 内存泄漏排查  ·  tree_jvm_mem_leak  ·  k_jvm_mem_leak
+              - 异常处理 (3孩)  ·  tree_jvm_exception  ·  k_jvm_exception
+                - 异常表  ·  tree_atomic_k_atom_exception_table  ·  k_atom_exception_table
+                - 栈展开  ·  tree_atomic_k_atom_stack_unwind  ·  k_atom_stack_unwind
+                - 栈异常 (2孩)  ·  tree_jvm_stack_exception  ·  k_jvm_stack_exception
+                  - StackOverflowError  ·  tree_1783161122837_nkq9xz  ·  k_1783161122808_6s1zvz
+                  - OutOfMemoryError  ·  tree_1783161157004_tiqbhc  ·  k_1783161156973_zxi5x2
+              - 类卸载  ·  tree_jvm_class_unload  ·  k_jvm_class_unload
+              - JVM/JRE/JDK  ·  tree_jvm_jdk_jre  ·  k_jvm_jdk_jre
+              - JVM 参数调优  ·  tree_jvm_tuning  ·  k_jvm_tuning
+              - 安全点  ·  tree_atomic_k_atom_safepoint  ·  k_atom_safepoint
+              - 调试工具  ·  tree_1783173221043_ydhr9m  ·  k_1783173221009_ygz927
+              - 内存溢出  ·  tree_1786353277269_msn0ma9fu  ·  k_1786353277269_msn0ma9et
+              - JVM 知识地图  ·  tree_vault_javajvm00jvm_1bt7uj  ·  k_vault_javajvm00jvm_1bt7uj
+              - JVM 核心概念  ·  tree_vault_javajvm01jvm_1h8bru  ·  k_vault_javajvm01jvm_1h8bru
+              - 类加载机制（学习笔记）  ·  tree_vault_javajvm02_5esqz0  ·  k_vault_javajvm02_5esqz0
+              - JVM 排障实战  ·  tree_vault_javajvm05jvm_v8wpw8  ·  k_vault_javajvm05jvm_v8wpw8
+              - 永久代  ·  tree_atomic_k_atom_permgen  ·  k_atom_permgen
+              - 元空间  ·  tree_atomic_k_atom_metaspace  ·  k_atom_metaspace
+            - 字节码 (10孩)  ·  tree_1782809150150_a1neqh  ·  k_1783824357875_gs9rn2
+              - 魔数  ·  tree_1782809243248_7q92j2  ·  k_1782809243195_ntzmm2
+              - 版本号 (2孩)  ·  tree_1782809305477_ii9tmd  ·  k_1782809305431_5meyed
+                - 主版本号  ·  tree_1782810101965_zd3co2  ·  k_1782810101915_qea50y
+                - 次版本号  ·  tree_1782810113651_ileghi  ·  k_1782810113591_p7ab1i
+              - 常量池 (4孩)  ·  tree_1782809424701_thjieq  ·  k_1782809424650_c6xo8d
+                - 字面量  ·  tree_1782810274526_yozg28  ·  k_1782810274459_fc4dll
+                - 符号引用  ·  tree_1782810454375_2s22qb  ·  k_1782810454317_uh43xj
+                - 常量池计数器  ·  tree_1782810488543_468oy1  ·  k_1782810488481_ahot6h
+                - 常量池数据区  ·  tree_1782810495731_3edun8  ·  k_1782810495660_w3vt9q
+              - 访问标志  ·  tree_1782810550793_qcczc2  ·  k_1782810550706_10mcmg
+              - 当前类索引  ·  tree_1782810659965_srsohx  ·  k_1782810659762_nmwkrk
+              - 父类索引  ·  tree_1782810994759_9uuf6x  ·  k_1782810994704_o4tysd
+              - 接口索引  ·  tree_1782811075372_va9orn  ·  k_1782811075312_xd5lmc
+              - 字段表  ·  tree_1782811325734_2lx392  ·  k_1782811325682_r4gbq4
+              - 方法表  ·  tree_1782811715060_04x719  ·  k_1782811715001_nk3z9u
+              - 附加属性  ·  tree_1782811740629_p7jx70  ·  k_1782811740570_hdoie7
+            - 性能  ·  tree_1784339477166_8j45qg  ·  k_1784339477126_5c4gj7
+          - 特殊类 (6孩)  ·  tree_1784340459592_k67z1d  ·  k_1784340459554_wxadvs
+            - 小程序  ·  tree_1784340478133_d6unq0  ·  k_1784340478015_b4wl4q
+            - Servlet  ·  tree_1784340526390_w18922  ·  k_1784340526295_skm8iw
+            - JavaServer Pages  ·  tree_1784340972482_p2igi2  ·  k_1784340972378_s7xkur
+            - Swing 应用程序  ·  tree_1784341037931_5c25jp  ·  k_1784341037880_x4uj96
+            - JavaFX 应用程序  ·  tree_1784341129080_91f4k9  ·  k_1784341128951_b93e7k
+            - 泛型  ·  tree_1784341179849_p0ll58  ·  k_1784341179749_n18ikh
+          - 类库 (2孩)  ·  tree_1784343188605_zvliz7  ·  k_1784343188560_x1gylq
+            - 常用  ·  tree_1787744961246_qrx71j  ·  k_1787744960960_nuqg5v
+            - Base64 (2孩)  ·  tree_1787852489274_38y4mx  ·  k_1787852488347_zqzfjo
+              - 内嵌类  ·  tree_1787852534087_ihkz40  ·  k_1787852533507_uv8rwh
+              - 方法  ·  tree_1787852619447_kifsd4  ·  k_1787852618831_l95bj1
+          - Documentation  ·  tree_1784343357427_ao847d  ·  k_1784343357387_qbdat0
+          - 在 Java 平台之外的使用 (1孩)  ·  tree_1784343857104_vuo6ft  ·  k_1784343857067_9mwzhg
+            - Android  ·  tree_1784343898772_w4ak68  ·  k_1784343898675_2klf51
+          - Java syntax (20孩)  ·  tree_1783867183132_g5tf12  ·  k_1783867183071_xrnl1e
+            - Java 语法要素 (6孩)  ·  tree_java_syntax_zh_1oty7br  ·  k_java_syntax_zh_1oty7br
+              - 标识符  ·  tree_1783871308881_fo1067  ·  k_1783186425134_v31qjt
+              - 字面量  ·  tree_java_syntax_zh_1l9agwm  ·  k_java_syntax_zh_1l9agwm
+              - 变量 (2孩)  ·  tree_1783873400143_0arkrq  ·  k_1783873400066_pyp602
+                - 类型推断  ·  tree_java_syntax_zh_16f399n  ·  k_java_syntax_zh_16f399n
+                - 变量类型 (4孩)  ·  tree_1787767183281_ygbvvt  ·  k_1787767182961_p7adqn
+                  - 局部变量（Local Variables） (1孩)  ·  tree_1787767242969_oqaq1j  ·  k_1787767242651_hy5y5z
+                    - java局部变量  ·  tree_1787799401714_x591o8  ·  k_1787799400982_suvsy3
+                  - 实例变量（Instance Variables）  ·  tree_1787767321094_gzliha  ·  k_1787767320749_9goyqh
+                  - 类变量（Class Variables） (8孩)  ·  tree_1787767356444_oal2z8  ·  k_1787767356127_a0gk7u
+                    - 定义方式  ·  tree_1787801229639_1ztwq7  ·  k_1787801228479_nfb425
+                    - 访问方式  ·  tree_1787801296399_16ius6  ·  k_1787801295334_3sz2f7
+                    - 生命周期  ·  tree_1787801412376_c37lmk  ·  k_1787801411236_wvynhq
+                    - 初始化时机  ·  tree_1787801533079_5i03l9  ·  k_1787801532144_43je73
+                    - 静态变量的使用场景  ·  tree_1787802268662_6irphz  ·  k_1787802268024_kh5avw
+                    - 命名规范  ·  tree_1787802376895_ll1gwv  ·  k_1787802376072_zmlbxo
+                    - 线程安全性  ·  tree_1787802475148_7s4kxz  ·  k_1787802474495_pgyc9y
+                    - 访问修饰符  ·  tree_1787802536336_q1vixc  ·  k_1787802535774_rzvvfh
+                  - 参数变量（Parameters）  ·  tree_1787767404461_jdooe8  ·  k_1787767404133_6rizmn
+              - 代码块  ·  tree_java_syntax_zh_1nfe2hx  ·  k_java_syntax_zh_1nfe2hx
+              - 通用类型 (12孩)  ·  tree_1784039269745_bwhc9x  ·  k_1784039269701_ks8gob
+                - java.lang.System  ·  tree_java_syntax_java_lang_system_1d78yi2  ·  k_java_syntax_java_lang_system_1d78yi2
+                - java.lang.Object  ·  tree_java_syntax_java_lang_object_yk8ls4  ·  k_java_syntax_java_lang_object_yk8ls4
+                - java.lang.Record  ·  tree_java_syntax_java_lang_record_ohpvpu  ·  k_java_syntax_java_lang_record_ohpvpu
+                - java.lang.Enum<E>  ·  tree_java_syntax_java_lang_enum_6ieryv  ·  k_java_syntax_java_lang_enum_6ieryv
+                - java.lang.Class<T>  ·  tree_java_syntax_java_lang_class_1aiuycf  ·  k_java_syntax_java_lang_class_1aiuycf
+                - java.lang.String  ·  tree_java_syntax_java_lang_string_14pdgku  ·  k_java_syntax_java_lang_string_14pdgku
+                - java.lang.Throwable  ·  tree_java_syntax_java_lang_throwable_17to0wz  ·  k_java_syntax_java_lang_throwable_17to0wz
+                - java.lang.Math  ·  tree_java_syntax_java_lang_math_18goobn  ·  k_java_syntax_java_lang_math_18goobn
+                - java.lang.IO  ·  tree_java_syntax_java_lang_io_8ks85  ·  k_java_syntax_java_lang_io_8ks85
+                - 原始类型  ·  tree_java_syntax_zh_7oglyd  ·  k_1784039594063_ddeiyo
+                - java.lang.Error  ·  tree_1784304568549_qkr337  ·  k_1784304568508_suy5th
+                - java.lang.Exception  ·  tree_1784304593482_misbye  ·  k_1784304593387_dgjyi9
+              - 关键字 (6孩)  ·  tree_1784045454553_xe6ocl  ·  k_1784045454505_dsijbj
+                - final (1孩)  ·  tree_1784045501055_mkyads  ·  k_1784045501009_x9izc5
+                  - final域的内存语义 (4孩)  ·  tree_1785923688323_1fg794  ·  k_1785923688124_7st7co
+                    - final域的重排序规则  ·  tree_1785923704361_tq4qs0  ·  k_1785923704167_qe19jx
+                    - 写final域的重排序规则  ·  tree_1785923744552_mbcvag  ·  k_1785923744359_zsjik4
+                    - 读final域的重排序规则  ·  tree_1785923784797_w1j6se  ·  k_1785923784597_gvjm4s
+                    - final语义在处理器中的实现  ·  tree_1785923827409_55fbbt  ·  k_1785923827211_su53t2
+                - volatile (5孩)  ·  tree_web_8c66406b75e1  ·  k_web_8c66406b75e1
+                  - volatile的用法  ·  tree_web_8c66406b75e1_s1  ·  k_web_8c66406b75e1_s1
+                  - volatile的原理  ·  tree_web_8c66406b75e1_s2  ·  k_web_8c66406b75e1_s2
+                  - volatile的两条实现原则  ·  tree_1785837079049_932gqw  ·  k_1785837078875_6178rs
+                  - 特性 (1孩)  ·  tree_1785927625746_7n29xn  ·  k_1785927625536_a1tvc6
+                    - 可见性  ·  tree_web_8c66406b75e1_s3  ·  k_web_8c66406b75e1_s3
+                  - volatile内存语义的实现 (1孩)  ·  tree_1785928396486_uc6u6n  ·  k_1785928396279_obb0dn
+                    - volatile重排序规则表  ·  tree_1785928644239_gxc1ll  ·  k_1785928644041_2colji
+                - static (4孩)  ·  tree_web_4a06c6e69a03  ·  k_web_4a06c6e69a03
+                  - static关键字的用途  ·  tree_web_4a06c6e69a03_s1  ·  k_web_4a06c6e69a03_s1
+                  - static方法  ·  tree_web_4a06c6e69a03_s2  ·  k_web_4a06c6e69a03_s2
+                  - static变量  ·  tree_web_4a06c6e69a03_s3  ·  k_web_4a06c6e69a03_s3
+                  - static块 (1孩)  ·  tree_web_4a06c6e69a03_s4  ·  k_web_4a06c6e69a03_s4
+                    - static块的作用  ·  tree_web_4a06c6e69a03_s4_s5  ·  k_web_4a06c6e69a03_s5
+                - Synchronized  ·  tree_1785763472217_lwwi9q  ·  k_1785763472042_yd1lxg
+                - this (1孩)  ·  tree_1786335957708_9ptxug  ·  k_1786335957505_r6sqme
+                  - 构造方法中的 this 关键字  ·  tree_1787818359317_ko7elo  ·  k_1787818358344_n1t853
+                - super  ·  tree_1786336003290_qp3eeg  ·  k_1786336003059_o4habx
+            - 程序结构 (4孩)  ·  tree_1784276128098_gnwdak  ·  k_1784276128063_zbfkhx
+              - main 方法  ·  tree_1784277447555_iq5k3s  ·  k_1784277447511_urgenj
+              - 包  ·  tree_1784281148302_hp91vw  ·  k_1784281148267_2scm9i
+              - 模块  ·  tree_1784281281434_gnh3um  ·  k_1784281281401_d1ijds
+              - 导入声明 (3孩)  ·  tree_1784282904534_czsp2q  ·  k_1784282904504_fo1pqn
+                - 类型导入声明  ·  tree_1784282945676_99oftl  ·  k_1784282945643_hbphu3
+                - 静态导入声明  ·  tree_1784283048464_qbvw1e  ·  k_1784283048431_7srdwr
+                - 模块导入声明  ·  tree_1784283115938_nslab6  ·  k_1784283115902_qjmznd
+            - 运算符 (8孩)  ·  tree_1784283219044_pmtwgl  ·  k_1784283219004_ytuy5c
+              - 算术运算符  ·  tree_1787827423941_pjc3vf  ·  k_1787827423100_lq4zw2
+              - 关系运算符  ·  tree_1787827644094_d94tpu  ·  k_1787827643553_nytjos
+              - 位运算符  ·  tree_1787827776935_6yyz6k  ·  k_1787827776081_ldseh6
+              - 逻辑运算符  ·  tree_1787827959698_z9wftl  ·  k_1787827959037_f3eotb
+              - 赋值运算符  ·  tree_1787829187708_kvp85u  ·  k_1787829187115_v2np5w
+              - 条件运算符  ·  tree_1787829240965_jx1s40  ·  k_1787829240298_r2cx67
+              - instanceof 运算符  ·  tree_1787829263700_qmo63y  ·  k_1787829263018_ss2in0
+              - Java运算符优先级  ·  tree_1787829296904_baquxu  ·  k_1787829296254_n85xvf
+            - 控制结构 (5孩)  ·  tree_1784283493060_plrrhy  ·  k_1784283493027_3q8sty
+              - 条件语句 (3孩)  ·  tree_1784283505444_e6zl6q  ·  k_1784283505394_c9me1e
+                - if 语句  ·  tree_java_syntax_if_1xu5b8h  ·  k_java_syntax_if_1xu5b8h
+                - switch 语句 (1孩)  ·  tree_java_syntax_switch_3pbrgc  ·  k_java_syntax_switch_3pbrgc
+                  - switch 表达式（Java 14+）  ·  tree_java_syntax_switch_switch_java_14_12o5mof  ·  k_java_syntax_switch_switch_java_14_12o5mof
+                - 三元运算符  ·  tree_1784286513851_2qjsxg  ·  k_1784286513812_0epu4v
+              - 迭代语句 (4孩)  ·  tree_java_syntax_zh_1o83fje  ·  k_java_syntax_zh_1o83fje
+                - while 循环  ·  tree_java_syntax_while_1o88mwj  ·  k_java_syntax_while_1o88mwj
+                - do-while 循环  ·  tree_java_syntax_do_while_vwrhb1  ·  k_java_syntax_do_while_vwrhb1
+                - for 循环  ·  tree_java_syntax_for_94d2x5  ·  k_java_syntax_for_94d2x5
+                - Foreach 循环（自 J2SE 5.0）  ·  tree_java_syntax_foreach_j2se_5_0_12bn9kg  ·  k_java_syntax_foreach_j2se_5_0_12bn9kg
+              - 跳转语句 (4孩)  ·  tree_java_syntax_zh_1kk2a5d  ·  k_java_syntax_zh_1kk2a5d
+                - 标签  ·  tree_java_syntax_zh_1njonhn  ·  k_java_syntax_zh_1njonhn
+                - break 语句  ·  tree_java_syntax_break_13duo8t  ·  k_java_syntax_break_13duo8t
+                - continue 语句  ·  tree_java_syntax_continue_j9e90r  ·  k_java_syntax_continue_j9e90r
+                - return 语句  ·  tree_java_syntax_return_gnu17m  ·  k_java_syntax_return_gnu17m
+              - 异常处理语句 (3孩)  ·  tree_java_syntax_zh_1727dyq  ·  k_java_syntax_zh_1727dyq
+                - try-catch-finally 语句  ·  tree_java_syntax_try_catch_finally_knjof2  ·  k_java_syntax_try_catch_finally_knjof2
+                - try-with-resources 语句（Java SE 7）  ·  tree_java_syntax_try_with_resources_java_se_7_uldwy1  ·  k_java_syntax_try_with_resources_java_se_7_uldwy1
+                - throw 语句  ·  tree_java_syntax_throw_kbsvid  ·  k_java_syntax_throw_kbsvid
+              - assert 语句  ·  tree_java_syntax_assert_6h86hg  ·  k_java_syntax_assert_6h86hg
+            - 线程 (2孩)  ·  tree_java_syntax_zh_14yyxnj  ·  k_java_syntax_zh_14yyxnj
+              - 线程并发控制  ·  tree_java_syntax_zh_np66wi  ·  k_java_syntax_zh_np66wi
+              - 并发特性  ·  tree_java_syntax_zh_m1fwdh  ·  k_java_syntax_zh_m1fwdh
+            - 数据类型 (3孩)  ·  tree_1786333299620_7rfucv  ·  k_1786333299353_augb03
+              - 原始类型  ·  tree_1784039594110_lj9fj0  ·  k_1784039594063_ddeiyo
+              - 引用类型 (4孩)  ·  tree_1784042843965_1l907w  ·  k_1784042843935_picv84
+                - 数组 (2孩)  ·  tree_1784043356816_e87xca  ·  k_1784043356780_7iyl1s
+                  - 初始化器  ·  tree_java_syntax_zh_i0b5t6  ·  k_java_syntax_zh_i0b5t6
+                  - 多维数组  ·  tree_java_syntax_zh_1uycgei  ·  k_java_syntax_zh_1uycgei
+                - Java类 (12孩)  ·  tree_1784043760890_bptgal  ·  k_1784043760861_gcvn05
+                  - 声明 (5孩)  ·  tree_1784044092244_76wkqz  ·  k_1784044092211_wkjnz2
+                    - 顶级类  ·  tree_1784044119004_k7j5vu  ·  k_1784044118967_jpnip1
+                    - 内部类 (4孩)  ·  tree_1784044129452_61ft68  ·  k_1784044129424_ffqm4z
+                      - 静态内部类  ·  tree_1786344621774_b6w3mo  ·  k_1786344621359_5xlof7
+                      - 成员内部类  ·  tree_1786344710135_3s54q8  ·  k_1786344709850_rcbpr3
+                      - 局部内部类  ·  tree_1786344754499_8tdxns  ·  k_1786344754208_7gjg1l
+                      - 匿名内部类  ·  tree_1786344806543_jk7zjy  ·  k_1786344805936_k7mhs2
+                    - 嵌套类  ·  tree_1784044151397_2mlbgr  ·  k_1784044151359_w5od5q
+                    - 本地类  ·  tree_1784044157247_1r145v  ·  k_1784044157215_uy113d
+                    - 匿名类  ·  tree_1784044171666_9yd2is  ·  k_1784044171635_8etz45
+                  - 实例化  ·  tree_1784044266113_qzadws  ·  k_1784044266069_oocks7
+                  - 访问成员 (2孩)  ·  tree_1784044335558_h2s9pg  ·  k_1784044335526_j3x9x9
+                    - 访问实例成员  ·  tree_1784044366829_n9ymjb  ·  k_1784044366787_1tpeov
+                    - 访问静态类成员  ·  tree_1784044400019_jjirnp  ·  k_1784044399988_4sq6gl
+                  - 修饰符 (3孩)  ·  tree_1784044457742_waame9  ·  k_1784044457709_jt70a4
+                    - 抽象类  ·  tree_java_syntax_zh_1hqaeyr  ·  k_1784295376153_uiovkk
+                    - Final 类  ·  tree_java_syntax_final_11e2pox  ·  k_java_syntax_final_11e2pox
+                    - 访问修饰符 (1孩)  ·  tree_1784045643731_1x9z0u  ·  k_1784045643688_0g5s3i
+                      - parvate/public/default/proteed  ·  tree_1784078681356_ebybkk  ·  k_1784078681318_kv8c6o
+                  - 方法 (8孩)  ·  tree_java_syntax_zh_z9ne3  ·  k_1784169555803_adzqks
+                    - 方法修饰符 (1孩)  ·  tree_java_syntax_zh_1ij9wwy  ·  k_java_syntax_zh_1ij9wwy
+                      - Final 方法  ·  tree_java_syntax_final_158tsal  ·  k_java_syntax_final_158tsal
+                    - 可变参数（J2SE 5.0 引入）  ·  tree_java_syntax_j2se_5_0_14b8s2r  ·  k_java_syntax_j2se_5_0_14b8s2r
+                    - 方法参数变量的值传递方式 (2孩)  ·  tree_1787800087079_mfcqtw  ·  k_1787800086540_dkx48f
+                      - 值传递  ·  tree_1786347416427_yq3ir6  ·  k_1786347416141_uurfcq
+                      - 引用传递  ·  tree_1787800192949_dkg8jy  ·  k_1787800192437_w2n6ks
+                    - 构造方法 (2孩)  ·  tree_1784078753124_t8w4rv  ·  k_1783184829912_usl41q
+                      - 类型 (2孩)  ·  tree_1784113900195_ko97ot  ·  k_1784113900164_5cwlcb
+                        - 参数化构造函数 (1孩)  ·  tree_1784113921700_p1nyat  ·  k_1784113921646_3ouine
+                          - 复制构造函数  ·  tree_1784119683859_b7ah2w  ·  k_1784119683798_8hweq4
+                        - 默认构造函数  ·  tree_1784119572072_w09j7i  ·  k_1784119572004_mu2we4
+                      - 构造方法的重载  ·  tree_1787818246186_zbausy  ·  k_1787818245528_9w72ga
+                    - 结构  ·  tree_1787824989852_trbolp  ·  k_1787824989173_a1sdqs
+                    - 方法调用  ·  tree_1787825133612_okazcx  ·  k_1787825132971_9zuv8m
+                    - 默认方法（Java SE 8）  ·  tree_java_syntax_java_se_8_1nfiybt  ·  k_java_syntax_java_se_8_1nfiybt
+                    - 方法引用 (4孩)  ·  tree_java_syntax_zh_83eegb  ·  k_java_syntax_zh_83eegb
+                      - 构造器引用  ·  tree_1787851753389_9pdcn8  ·  k_1787851752774_k365p0
+                      - 静态方法引用  ·  tree_1787851784379_e2gb4j  ·  k_1787851783722_gwj2y5
+                      - 特定类的任意对象的方法引用  ·  tree_1787851815675_a9koql  ·  k_1787851815055_hbrbt8
+                      - 特定对象的方法引用  ·  tree_1787851842470_6q7l8c  ·  k_1787851841995_mqquym
+                  - 字段 (1孩)  ·  tree_java_syntax_zh_ofpwu9  ·  k_java_syntax_zh_ofpwu9
+                    - 字段修饰符  ·  tree_java_syntax_zh_7nkyx6  ·  k_java_syntax_zh_7nkyx6
+                  - 继承 (2孩)  ·  tree_java_syntax_zh_scbpwz  ·  k_1783167541244_d3d092
+                    - 重写方法  ·  tree_java_syntax_zh_veri4o  ·  k_java_syntax_zh_veri4o
+                    - 抽象类  ·  tree_1784295376195_3l31hb  ·  k_1784295376153_uiovkk
+                  - 枚举（J2SE 5.0 引入）  ·  tree_java_syntax_j2se_5_0_1g8zbh7  ·  k_java_syntax_j2se_5_0_1g8zbh7
+                  - 最终类  ·  tree_1784045589689_drgfh8  ·  k_1784045589643_icc5oo
+                  - 变量 (1孩)  ·  tree_1786344035232_o5re5z  ·  k_1786344034905_lslnka
+                    - 变量作用域  ·  tree_1787826023358_mllx2w  ·  k_1787826022705_8dho41
+                  - 内部类  ·  tree_1786353277269_msn0ma91g  ·  k_1784044129424_ffqm4z
+                  - 抽象类  ·  tree_1786343651438_q205rt  ·  k_1784295376153_uiovkk
+                - 接口 (7孩)  ·  tree_java_syntax_zh_cbn51n  ·  k_java_syntax_zh_cbn51n
+                  - 实现接口  ·  tree_java_syntax_zh_1akk95u  ·  k_java_syntax_zh_1akk95u
+                  - 接口继承  ·  tree_java_syntax_zh_1y1pbo6  ·  k_java_syntax_zh_1y1pbo6
+                  - 接口中的静态方法（Java SE 8）  ·  tree_java_syntax_java_se_8_ubvxu8  ·  k_java_syntax_java_se_8_ubvxu8
+                  - 接口中的私有方法（Java 9）  ·  tree_java_syntax_java_9_jpfphf  ·  k_java_syntax_java_9_jpfphf
+                  - 注解（J2SE 5.0 引入）  ·  tree_java_syntax_j2se_5_0_1h3ikif  ·  k_java_syntax_j2se_5_0_1h3ikif
+                  - 函数式接口  ·  tree_1787908911937_l6pmo1  ·  k_1787908911524_25jkdf
+                  - Lambda 表达式 (2孩)  ·  tree_1787913909517_an9rhb  ·  k_1787913909033_kvb8jo
+                    - 重要特征  ·  tree_1787913961542_xunp3k  ·  k_1787913960890_yw2bbo
+                    - 例子  ·  tree_1787914026553_vk16fn  ·  k_1787914025735_w6f0ru
+                - Java泛型 (4孩)  ·  tree_1783873515748_edsjp0  ·  k_1783873515654_g6ka8f
+                  - 泛型类  ·  tree_1783874843110_8teb7e  ·  k_1783874843014_ht8zoq
+                  - 通用接口  ·  tree_1784302644439_1wds0d  ·  k_1784302644368_65lsxn
+                  - 泛型方法  ·  asplit_s1_asplit_generic_method  ·  asplit_generic_method
+                  - 泛型构造函数  ·  asplit_s1_asplit_generic_constructor  ·  asplit_generic_constructor
+              - 类型转换 (2孩)  ·  tree_1787742821210_xe0utc  ·  k_1787742820906_sai9w2
+                - 自动类型转换  ·  tree_1787742836120_z5e19d  ·  k_1787742835802_yxpvqo
+                - 强制类型转换 (1孩)  ·  tree_1787742914629_olerqy  ·  k_1787742914328_tl7med
+                  - 隐含强制类型转换  ·  tree_1787742948117_jsaex4  ·  k_1787742947785_gzeq0r
+            - 注释  ·  tree_1786334277172_lq0zd3  ·  k_1786334276943_y741fa
+            - 注解  ·  tree_1786353277269_msn0ma8ze  ·  k_1786353277269_msn0ma8yd
+            - 异常体系 (1孩)  ·  tree_1786353277269_msn0ma93i  ·  k_1786353277269_msn0ma92h
+              - Java 异常处理（教程）  ·  tree_vault_javajava_4vovhq  ·  k_vault_javajava_4vovhq
+            - 常用关键字速记（static/final）  ·  tree_vault_java_1vxm5o  ·  k_vault_java_1vxm5o
+            - Java 封装  ·  tree_vault_javajava_vb7ofw  ·  k_vault_javajava_vb7ofw
+            - 成员内部类  ·  tree_vault_java_378vi0  ·  k_vault_java_378vi0
+            - 静态内部类  ·  tree_vault_java_73fnjs  ·  k_vault_java_73fnjs
+            - Java 继承  ·  tree_vault_javajava_i6gh44  ·  k_vault_javajava_i6gh44
+            - Java 多态  ·  tree_vault_javajava_c4k5g5  ·  k_vault_javajava_c4k5g5
+            - Java 抽象类  ·  tree_vault_javajava_sfczzr  ·  k_vault_javajava_sfczzr
+            - Java 接口  ·  tree_vault_javajava_1ftk5m  ·  k_vault_javajava_1ftk5m
+            - Java 修饰符  ·  tree_vault_javajava_25ottv  ·  k_vault_javajava_25ottv
+            - Java 泛型  ·  tree_vault_javajava_ezumc3  ·  k_vault_javajava_ezumc3
+            - Java 类  ·  asplit_s1_asplit_java_class  ·  asplit_java_class
+          - 类 (1孩)  ·  tree_1785339432677_doac9n  ·  k_1785339432462_ff5zs4
+            - java.lang (1孩)  ·  tree_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b  ·  k_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b
+              - Object (10孩)  ·  tree_java_source_020f0cac60da5755_s_type_a6b9e05051861242  ·  k_java_syntax_java_lang_object_yk8ls4
+                - Number  ·  tree_1787757263969_gzvuuf  ·  k_1787757263499_nd13h9
+                - Math (2孩)  ·  tree_1787759011635_peybdc  ·  k_1787759011267_pvd61e
+                  - 作用  ·  tree_1787759076399_z5epf1  ·  k_1787759076020_wjo8xg
+                  - 常见方法  ·  tree_1787759112680_t98pe7  ·  k_1787759112336_m73bs3
+                - 类的构造函数  ·  tree_1787759645795_xo83rg  ·  k_1787759645451_qajqen
+                - 方法  ·  tree_1787759684891_970onz  ·  k_1787759684586_mxh1vn
+                - Optional (1孩)  ·  tree_1787760076140_p42ecl  ·  k_1787760075739_onhtjj
+                  - 方法  ·  tree_1787760282694_ok0ern  ·  k_1787760282386_9k58j4
+                - String  ·  tree_1785340521267_j7je9h  ·  k_java_lang_string
+                - StringBuilder  ·  tree_1785378444842_wglz53  ·  k_java_lang_stringbuilder
+                - StringBuffer  ·  tree_1785378491125_qwcncm  ·  k_java_lang_stringbuffer
+                - Files  ·  tree_1785378638150_sai7z9  ·  k_1785378637961_iecl2a
+                - Scanner  ·  tree_1785379879357_2xsrxd  ·  k_java_util_scanner
+          - 集合框架 (9孩)  ·  tree_1785252754835_b77vuj  ·  k_1785664228019_k7eq57
+            - RandomAccess  ·  tree_demo_java_random_access  ·  k_jdk_type_0db49a13032cc56e
+            - Iterable (1孩)  ·  tree_demo_java_iterable  ·  k_1785676511176_xvc983
+              - Collection (21孩)  ·  tree_1785311814986_7aenei  ·  k_1785671910048_sdtfht
+                - List  ·  tree_demo_java_list  ·  k_demo_java_list
+                - ArrayList  ·  tree_demo_java_array_list  ·  k_demo_java_array_list
+                - AbstractList  ·  tree_demo_java_abstract_list  ·  k_demo_java_abstract_list
+                - SequencedCollection  ·  tree_1785672032645_ztij2v  ·  k_1785672032486_f4xvn0
+                - SequencedSet  ·  tree_1785678796051_yt0a3n  ·  k_1785678795902_lf2rwr
+                - LinkedHashSet  ·  tree_1785678814889_3wben9  ·  k_1785678814705_x9n0td
+                - LinkedList  ·  tree_1785683698292_nhrf3z  ·  k_1785683698024_f962oj
+                - AbstractSequentialList  ·  tree_1785683818475_ki43j0  ·  k_1785683818320_tjeljk
+                - Deque  ·  tree_1785683890510_0v2ikq  ·  k_1785683890358_ezprwy
+                - AbstractCollection  ·  tree_1785684343721_7zfk5t  ·  k_1785684343560_w11398
+                - SortedSet  ·  tree_1785684388004_23a08a  ·  k_1785684387870_lj1xe3
+                - NavigableSet  ·  tree_1785684417867_orq0i4  ·  k_1785684417735_y65d54
+                - Set  ·  tree_1785684450301_dlyc8l  ·  k_1785684450180_ry9ixw
+                - TreeSet  ·  tree_1785684457903_0daqyq  ·  k_1785684457778_wn98ic
+                - AbstractSet  ·  tree_1785684473341_o3q8ir  ·  k_1785684473197_7lhn5y
+                - HashSet  ·  tree_1785684483891_xdr40d  ·  k_1785731277675_rog9oy
+                - Stack  ·  tree_1785685491807_bo4r7j  ·  k_1785685491666_w1c8h4
+                - Vector  ·  tree_1785685502392_6ovjja  ·  k_1785685502241_lgz9eq
+                - ArrayDeque  ·  tree_1785685559300_9p9bdz  ·  k_1785685559173_ytuv2h
+                - Queue (5孩)  ·  tree_1785469482146_u55gen  ·  k_1785685822269_z6ow3g
+                  - SynchronousQueue  ·  tree_1785469566896_mfyi92  ·  k_1785469566750_s41fsc
+                  - PriorityBlockingQueue  ·  tree_1785469604604_92ffes  ·  k_1785469604423_twie16
+                  - AbstractQueue  ·  tree_1785684837263_rgvsk8  ·  k_1785684837090_uszvb6
+                  - PriorityQueue  ·  tree_1785685159269_552z45  ·  k_1785685159064_8krgbx
+                  - BlockingQueue  ·  tree_jdk_type_a52687868e9268a6  ·  k_jdk_type_a52687868e9268a6
+                - Map (11孩)  ·  tree_1785502582136_4a2y07  ·  k_1785665232348_fu4nd2
+                  - AbstractMap  ·  tree_1785502651148_ugflcd  ·  k_1785665355970_xe9gap
+                  - HashMap (1孩)  ·  tree_1785463930183_6xqdzx  ·  k_1785463930010_invjhq
+                    - 数据结构  ·  tree_1785471820645_p0t731  ·  k_1785471820450_v6okms
+                  - Hashtable  ·  tree_1785665455923_53bpk7  ·  k_1785665455780_1bnf5j
+                  - Dictionary  ·  tree_1785666617297_e07fje  ·  k_1785666617169_l6rkoy
+                  - IdentityHashMap  ·  tree_1785666688331_siudg9  ·  k_1785666688209_3zpc7b
+                  - SortedMap  ·  tree_1785668376487_y4vqyi  ·  k_1785668376335_c86f85
+                  - NavigableMap  ·  tree_1785668454869_rk2uck  ·  k_1785668454725_msbh6g
+                  - SequencedMap  ·  tree_1785668549120_yn1yqb  ·  k_1785668548980_nwa41d
+                  - TreeMap  ·  tree_1785669525102_532ujm  ·  k_1785669524969_nkpajb
+                  - WeakHashMap  ·  tree_1785669852184_qw99wl  ·  k_1785669852023_iqmbm3
+                  - LinkedHashMap  ·  tree_1785669939522_05a4h5  ·  k_1785669939384_xlof5k
+            - Collections  ·  tree_1785686741486_5u887s  ·  k_1785686741307_gi966e
+            - Cloneable  ·  tree_1785686871417_xehcwp  ·  k_1785686871250_7gi8cc
+            - Serializable  ·  tree_1785686881905_uaq8gp  ·  k_1785686881765_p1i0hq
+            - Comparator  ·  tree_1785742371846_dicoss  ·  k_1785742371669_zng9px
+            - Iterator  ·  tree_1785747858473_7ttfqe  ·  k_1785747858308_aoqbr5
+            - Java 集合框架  ·  tree_vault_javajava_15bnft  ·  k_vault_javajava_15bnft
+            - Java 数据结构  ·  tree_vault_javajava_ii523d  ·  k_vault_javajava_ii523d
+          - 反射 (3孩)  ·  tree_1786289210333_6n7y12  ·  k_1786289209529_37qs8h
+            - java.lang.reflect (35孩)  ·  tree_java_source_937c739517d0031f_s_package_c55daee2899f783b  ·  k_java_source_937c739517d0031f_s_package_c55daee2899f783b
+              - AccessFlag (2孩)  ·  tree_java_source_937c739517d0031f_s_type_709e71b6780f179a  ·  k_java_type_709e71b6780f179a
+                - AccessFlagSet (1孩)  ·  tree_java_source_937c739517d0031f_s_type_52781be957e82820  ·  k_java_type_52781be957e82820
+                  - AccessFlagIterator  ·  tree_java_source_937c739517d0031f_s_type_cf003ed47162c3a3  ·  k_java_type_cf003ed47162c3a3
+                - Location  ·  tree_java_source_937c739517d0031f_s_type_a7de4121560f6a6b  ·  k_java_type_a7de4121560f6a6b
+              - AccessibleObject (1孩)  ·  tree_java_source_937c739517d0031f_s_type_d426149443ea9781  ·  k_java_type_d426149443ea9781
+                - Cache  ·  tree_java_source_937c739517d0031f_s_type_b7b512f73f5aa846  ·  k_java_type_b7b512f73f5aa846
+              - AnnotatedArrayType  ·  tree_java_source_937c739517d0031f_s_type_44edbbab65a146d0  ·  k_java_type_44edbbab65a146d0
+              - AnnotatedElement  ·  tree_java_source_937c739517d0031f_s_type_107904219bb9470d  ·  k_java_type_107904219bb9470d
+              - AnnotatedParameterizedType  ·  tree_java_source_937c739517d0031f_s_type_d9eb0cb2473971fa  ·  k_java_type_d9eb0cb2473971fa
+              - AnnotatedType  ·  tree_java_source_937c739517d0031f_s_type_2f91ea087b3fd8b0  ·  k_java_type_2f91ea087b3fd8b0
+              - AnnotatedTypeVariable  ·  tree_java_source_937c739517d0031f_s_type_d17c47f5c8d203fc  ·  k_java_type_d17c47f5c8d203fc
+              - AnnotatedWildcardType  ·  tree_java_source_937c739517d0031f_s_type_deeb8e468d78991a  ·  k_java_type_deeb8e468d78991a
+              - Array  ·  tree_java_source_937c739517d0031f_s_type_e53c21388821e340  ·  k_java_type_e53c21388821e340
+              - ClassFileFormatVersion  ·  tree_java_source_937c739517d0031f_s_type_a6497aad411f5fad  ·  k_java_type_a6497aad411f5fad
+              - Constructor  ·  tree_java_source_937c739517d0031f_s_type_c873ab34e3d97ca1  ·  k_java_type_c873ab34e3d97ca1
+              - Executable (1孩)  ·  tree_java_source_937c739517d0031f_s_type_168cd2d7e7da3e8b  ·  k_java_type_168cd2d7e7da3e8b
+                - ParameterData  ·  tree_java_source_937c739517d0031f_s_type_5073a0ee6a67e542  ·  k_java_type_5073a0ee6a67e542
+              - Field (1孩)  ·  tree_java_source_937c739517d0031f_s_type_701f6fbf9393c946  ·  k_java_type_701f6fbf9393c946
+                - FieldSetter  ·  tree_java_source_937c739517d0031f_s_type_1c8cc5c37fdf1bc2  ·  k_java_type_1c8cc5c37fdf1bc2
+              - GenericArrayType  ·  tree_java_source_937c739517d0031f_s_type_26afb61b1fbfe64e  ·  k_java_type_26afb61b1fbfe64e
+              - GenericDeclaration  ·  tree_java_source_937c739517d0031f_s_type_b9ce94519ef400ca  ·  k_java_type_b9ce94519ef400ca
+              - GenericSignatureFormatError  ·  tree_java_source_937c739517d0031f_s_type_825764849ab34bbd  ·  k_java_type_825764849ab34bbd
+              - InaccessibleObjectException  ·  tree_java_source_937c739517d0031f_s_type_381e4e8b9e208f59  ·  k_java_type_381e4e8b9e208f59
+              - InvocationHandler  ·  tree_java_source_937c739517d0031f_s_type_8d16616dbe02f803  ·  k_java_type_8d16616dbe02f803
+              - InvocationTargetException  ·  tree_java_source_937c739517d0031f_s_type_b43a91bb9749eb49  ·  k_java_type_b43a91bb9749eb49
+              - MalformedParameterizedTypeException  ·  tree_java_source_937c739517d0031f_s_type_6d1d00021ecf08e9  ·  k_java_type_6d1d00021ecf08e9
+              - MalformedParametersException  ·  tree_java_source_937c739517d0031f_s_type_498a1429aefe5654  ·  k_java_type_498a1429aefe5654
+              - Member  ·  tree_java_source_937c739517d0031f_s_type_3501bbb1b28e7c1f  ·  k_java_type_3501bbb1b28e7c1f
+              - Method  ·  tree_java_source_937c739517d0031f_s_type_f85a855cf92392f4  ·  k_java_type_f85a855cf92392f4
+              - Modifier  ·  tree_java_source_937c739517d0031f_s_type_f22c6779e458fbd1  ·  k_java_type_f22c6779e458fbd1
+              - Parameter  ·  tree_java_source_937c739517d0031f_s_type_4c6cb6579b337aa9  ·  k_java_type_4c6cb6579b337aa9
+              - ParameterizedType  ·  tree_java_source_937c739517d0031f_s_type_9059d4c664fe159a  ·  k_java_type_9059d4c664fe159a
+              - Proxy (2孩)  ·  tree_java_source_937c739517d0031f_s_type_9e8b2e1c6df5deb9  ·  k_java_type_9e8b2e1c6df5deb9
+                - InvocationException  ·  tree_java_source_937c739517d0031f_s_type_ff165b8e3ab95b7a  ·  k_java_type_ff165b8e3ab95b7a
+                - ProxyBuilder (1孩)  ·  tree_java_source_937c739517d0031f_s_type_3ee370c2d4ac2070  ·  k_java_type_3ee370c2d4ac2070
+                  - ProxyClassContext  ·  tree_java_source_937c739517d0031f_s_type_e5813d41a498857d  ·  k_java_type_e5813d41a498857d
+              - ProxyGenerator (2孩)  ·  tree_java_source_937c739517d0031f_s_type_6c475d3b2b505aaf  ·  k_java_type_6c475d3b2b505aaf
+                - PrimitiveTypeInfo  ·  tree_java_source_937c739517d0031f_s_type_4d61ae04092c2f6d  ·  k_java_type_4d61ae04092c2f6d
+                - ProxyMethod  ·  tree_java_source_937c739517d0031f_s_type_6800167e8d898c2f  ·  k_java_type_6800167e8d898c2f
+              - RecordComponent  ·  tree_java_source_937c739517d0031f_s_type_bcf70392934f48d6  ·  k_java_type_bcf70392934f48d6
+              - ReflectAccess  ·  tree_java_source_937c739517d0031f_s_type_3f977f2866c11bda  ·  k_java_type_3f977f2866c11bda
+              - ReflectPermission  ·  tree_java_source_937c739517d0031f_s_type_770f0283b55b53f3  ·  k_java_type_770f0283b55b53f3
+              - Type  ·  tree_java_source_937c739517d0031f_s_type_5d28b829d55fb271  ·  k_java_type_5d28b829d55fb271
+              - TypeVariable  ·  tree_java_source_937c739517d0031f_s_type_7033ef0061a29a43  ·  k_java_type_7033ef0061a29a43
+              - UndeclaredThrowableException  ·  tree_java_source_937c739517d0031f_s_type_f5cfd0880a18a2af  ·  k_java_type_f5cfd0880a18a2af
+              - WildcardType  ·  tree_java_source_937c739517d0031f_s_type_be028e6fd4f8eaba  ·  k_java_type_be028e6fd4f8eaba
+            - 外部引用类型 (8孩)  ·  tree_java_source_937c739517d0031f_s_external_types  ·  k_java_source_937c739517d0031f_s_external_types
+              - Serializable  ·  tree_java_source_937c739517d0031f_s_external_210d9b760f82d8ae  ·  k_1785686881765_p1i0hq
+              - RuntimeException  ·  tree_java_source_937c739517d0031f_s_external_07a1e5e1bcc604ee  ·  k_java_type_07a1e5e1bcc604ee
+              - ClassFormatError  ·  tree_java_source_937c739517d0031f_s_external_37e0333525ff6111  ·  k_java_type_37e0333525ff6111
+              - ReflectiveOperationException  ·  tree_java_source_937c739517d0031f_s_external_60a5a13e6260b4ee  ·  k_java_type_60a5a13e6260b4ee
+              - BasicPermission  ·  tree_java_source_937c739517d0031f_s_external_db20f796efa7879d  ·  k_java_type_db20f796efa7879d
+              - AbstractSet  ·  tree_java_source_937c739517d0031f_s_external_eafeb8fd8836f660  ·  k_1785684473197_7lhn5y
+              - Iterator  ·  tree_java_source_937c739517d0031f_s_external_489a7b472f0bdfb5  ·  k_java_type_489a7b472f0bdfb5
+              - JavaLangReflectAccess  ·  tree_java_source_937c739517d0031f_s_external_4b792ebeff077511  ·  k_java_type_4b792ebeff077511
+            - 工作流程  ·  tree_1787910120629_comsz2  ·  k_1787910120071_jus3eu
+          - 面向对象 (3孩)  ·  tree_1786338278239_rfh8os  ·  k_1782834118965_n5r1fr
+            - 三大特性  ·  tree_1786340847155_aryljx  ·  k_1786340846614_ybiqdh
+            - 面向对象的特征  ·  tree_1786341536642_xu0mts  ·  k_1786341536354_d6zqjx
+            - 对象复制（深拷贝/浅拷贝）  ·  tree_1786353277269_msn0ma95k  ·  k_1786353277269_msn0ma94j
+          - 对象 (3孩)  ·  tree_1783101878501_k2j7ub  ·  k_1783238676302_ggr3kg
+            - 对象头 (2孩)  ·  tree_1783102308343_rbna6s  ·  k_1783102308317_h8s41c
+              - Mark Word (5孩)  ·  tree_1783145301884_oyisjh  ·  k_1783145301858_3023d5
+                - 哈希码  ·  tree_1783145419551_zeyooi  ·  k_1783145419527_y4cdsv
+                - GC 分代年龄  ·  tree_1783145445643_rteqfj  ·  k_1783145445616_i2xe19
+                - 锁状态标志  ·  tree_1783145458280_z9udhz  ·  k_1783145458254_5xki8d
+                - 线程持有的锁/偏向线程id  ·  tree_1783145492671_kv583c  ·  k_1783145492646_kbstjs
+                - 偏向时间戳  ·  tree_1783145503065_wfhe69  ·  k_1783145503039_yrmhnh
+              - 类型指针  ·  tree_1783145536073_fainrb  ·  k_1783145536047_wqowkv
+            - 实例数据  ·  tree_1783102320902_r9xuxg  ·  k_1783102320876_5ginrg
+            - 对齐填充  ·  tree_1783102332942_a0jn80  ·  k_1783102332914_poqlbm
+          - 包 (3孩)  ·  tree_1786347549204_kwgjwj  ·  k_1784281148267_2scm9i
+            - 包的作用  ·  tree_1787743962626_5ief6g  ·  k_1787743962287_k0jggt
+            - 创建 (1孩)  ·  tree_1787756264153_743kpu  ·  k_1787756263750_uhfc6q
+              - 例子  ·  tree_1787756977623_z5h81f  ·  k_1787756977195_m3axzg
+            - 目录结构  ·  tree_1787757045513_wcufgp  ·  k_1787757045120_id1gw7
+          - 常用类库 (23孩)  ·  tree_java_common_libraries  ·  k_java_common_libraries
+            - java.lang.String  ·  tree_java_lang_string  ·  k_java_lang_string
+            - java.lang.StringBuilder  ·  tree_java_lang_stringbuilder  ·  k_java_lang_stringbuilder
+            - java.lang.StringBuffer  ·  tree_java_lang_stringbuffer  ·  k_java_lang_stringbuffer
+            - java.util.Scanner  ·  tree_java_util_scanner  ·  k_java_util_scanner
+            - java.nio.file.Files (2孩)  ·  tree_java_nio_file_files  ·  k_java_nio_file_files
+              - 最佳实践  ·  tree_1787916125075_qsrbco  ·  k_1787916124192_mow0sq
+              - 常见用法  ·  tree_1787916227408_nkaljw  ·  k_1787916226907_9aq9u6
+            - java.lang.Enum (1孩)  ·  tree_java_lang_enum  ·  k_java_lang_enum
+              - 用法  ·  tree_1787809664230_ydwv5e  ·  k_1787809663840_4i0olr
+            - java.util.Date  ·  tree_1787889497333_msc4lv  ·  k_1787889496705_wo1lig
+            - Calendar  ·  tree_1787895069014_cg5rdn  ·  k_1787895068080_fnyw97
+            - GregorianCalendar  ·  tree_1787900242948_1val7c  ·  k_1787900242683_5xf3ph
+            - java.io 字节流 (8孩)  ·  tree_byte_stream_group  ·  k_byte_stream_group
+              - InputStream  ·  tree_input_stream  ·  k_input_stream
+              - OutputStream  ·  tree_output_stream  ·  k_output_stream
+              - 其他字节流  ·  tree_other_byte_stream  ·  k_other_byte_stream
+              - FileInputStream  ·  asplit_s1_asplit_file_input_stream  ·  asplit_file_input_stream
+              - BufferedInputStream  ·  asplit_s1_asplit_buffered_input_stream  ·  asplit_buffered_input_stream
+              - DataInputStream  ·  asplit_s1_asplit_data_input_stream  ·  asplit_data_input_stream
+              - ObjectInputStream  ·  asplit_s1_asplit_object_input_stream  ·  asplit_object_input_stream
+              - java.io  ·  asplit_s1_asplit_java_io_group  ·  asplit_java_io_group
+            - java.io 字符流 (6孩)  ·  tree_char_stream_group  ·  k_char_stream_group
+              - Reader  ·  tree_reader  ·  k_reader
+              - Writer  ·  tree_writer  ·  k_writer
+              - 桥接流  ·  tree_bridge_stream  ·  k_bridge_stream
+              - 其他字符流  ·  tree_other_char_stream  ·  k_other_char_stream
+              - FileReader  ·  asplit_s1_asplit_file_reader  ·  asplit_file_reader
+              - BufferedReader  ·  asplit_s1_asplit_buffered_reader  ·  asplit_buffered_reader
+            - Java 8 Stream  ·  tree_vault_javajava8stream_rcy19a  ·  k_vault_javajava8stream_rcy19a
+            - 常用类库整理  ·  tree_vault_javajava_1b1w4s  ·  k_vault_javajava_1b1w4s
+            - Java 网络编程（Socket）  ·  tree_vault_javajava_1xf3hv  ·  k_vault_javajava_1xf3hv
+            - JDBC 连接 MySQL  ·  tree_vault_javajavamysql_66tav5  ·  k_vault_javajavamysql_66tav5
+            - Java 发送邮件（JavaMail）  ·  tree_vault_javajava_9w1am  ·  k_vault_javajava_9w1am
+            - Character 类  ·  tree_vault_javajavacharacter_1wdwf5  ·  k_vault_javajavacharacter_1wdwf5
+            - File 类 (3孩)  ·  asplit_s1_asplit_java_io_file  ·  asplit_java_io_file
+              - File类  ·  tree_file_class  ·  k_file_class
+              - RandomAccessFile  ·  tree_random_access_file  ·  k_random_access_file
+              - 目录操作  ·  tree_dir_operation  ·  k_dir_operation
+            - 控制台 I/O (1孩)  ·  asplit_s1_asplit_console_io  ·  asplit_console_io
+              - 控制台IO  ·  tree_console_io  ·  k_console_io
+            - Selector使用  ·  tree_nio_selector_usage  ·  k_nio_selector_usage
+            - Files工具类  ·  tree_nio_files_util  ·  k_nio_files_util
+            - Path  ·  asplit_s1_asplit_java_nio_path  ·  asplit_java_nio_path
+            - FileSystem  ·  asplit_s1_asplit_java_nio_filesystem  ·  asplit_java_nio_filesystem
+          - 序列化 (3孩)  ·  tree_1787818795553_aooq4q  ·  k_1787818794698_9mccgx
+            - 实现 Serializable 接口 (1孩)  ·  tree_1789032923907_9ab6w9  ·  k_1789032923900_eg5g5j
+              - 实例  ·  tree_1789032990256_bd7aia  ·  k_1789032990253_rt74t1
+            - 序列化对象 (1孩)  ·  tree_1789033016908_shzrlg  ·  k_1789033016897_n3sb52
+              - 实例  ·  tree_1789033067268_cbwivf  ·  k_1789033067250_h38102
+            - 反序列化对象  ·  tree_1789033106733_gol0lt  ·  k_1789033106723_46xsvp
+          - 阻塞 I/O（BIO 模型） (1孩)  ·  asplit_s1_asplit_blocking_io_model  ·  asplit_blocking_io_model
+            - Java BIO 编程模型  ·  tree_io_bio_model  ·  k_io_bio_model
+          - 非阻塞 I/O（NIO 模型） (3孩)  ·  asplit_s1_asplit_nonblocking_io_model  ·  asplit_nonblocking_io_model
+            - NIO实现原理  ·  tree_io_nio_principle  ·  k_io_nio_principle
+            - NIO核心 (4孩)  ·  tree_nio_core_group  ·  k_nio_core_group
+              - 三大组件概览  ·  tree_nio_overview  ·  k_nio_overview
+              - Channel原理 (3孩)  ·  tree_nio_channel_principle  ·  k_nio_channel_principle
+                - FileChannel  ·  tree_nio_file_channel  ·  k_nio_file_channel
+                - SocketChannel  ·  tree_nio_socket_channel  ·  k_nio_socket_channel
+                - ServerSocketChannel  ·  tree_nio_server_socket_channel  ·  k_nio_server_socket_channel
+              - Buffer原理 (1孩)  ·  tree_nio_buffer_principle  ·  k_nio_buffer_principle
+                - ByteBuffer  ·  tree_nio_byte_buffer  ·  k_nio_byte_buffer
+              - Selector原理  ·  tree_nio_selector_principle  ·  k_nio_selector_principle
+            - Java AIO（NIO.2）  ·  tree_io_aio_model  ·  k_io_aio_model
+        - 编程语言理论 (4孩)  ·  tree_1784820871692_uel7rq  ·  k_1784820871642_lporyx
+          - 运行时理论 (1孩)  ·  tree_1783185524989_x6149u  ·  k_1783185524955_jmpw8e
+            - 执行模型 (1孩)  ·  tree_1783185488678_93h8nm  ·  k_1783185488648_yobuxy
+              - 局部变量  ·  tree_1783167860272_sx3j60  ·  k_1783167860244_04xrp4
+          - 类型系统 (4孩)  ·  tree_1782748382111_c2udec  ·  k_1782748382034_b8a1a9
+            - 数据类型 (6孩)  ·  tree_1782793389309_62md98  ·  k_1782793389266_8caigh
+              - 原始类型 (4孩)  ·  tree_1782793401091_5e6p7u  ·  k_1782793401051_nyxsei
+                - 字符 (1孩)  ·  tree_1783241972555_r15lcv  ·  k_1783241972525_r9d594
+                  - char (1孩)  ·  tree_1782814020958_n2un3r  ·  k_1782814020917_u54b3z
+                    - Char、acter  ·  tree_1783087909396_76n2vh  ·  k_1783087909368_sxmcqe
+                - 整数 (4孩)  ·  tree_1783242081882_momfg0  ·  k_1783242081853_1rz9pi
+                  - int (1孩)  ·  tree_1782813900863_41b58b  ·  k_1782813900716_0oixi3
+                    - Integer  ·  tree_1783087848566_d62icb  ·  k_1783087848544_mpfic6
+                  - short (1孩)  ·  tree_1782813876508_15dfxs  ·  k_1782813876473_f9kgq2
+                    - Short  ·  tree_1783087834374_s5xzth  ·  k_1783087834350_gmpg3u
+                  - long (1孩)  ·  tree_1782813922930_0xiawq  ·  k_1782813922894_kmrc5z
+                    - Long  ·  tree_1783087856858_n4z294  ·  k_1783087856834_zelajj
+                  - byte (1孩)  ·  tree_1782813819726_30bmec  ·  k_1782813819683_ntjiho
+                    - Byte  ·  tree_1783087818349_fu8wez  ·  k_1783087818322_st7eoj
+                - 浮点数 (2孩)  ·  tree_1783242173581_5ukcg4  ·  k_1783242173553_yf00vd
+                  - float (1孩)  ·  tree_1782813951312_jzp80c  ·  k_1782813951272_huivnu
+                    - Float  ·  tree_1783087864958_upthbo  ·  k_1783087864934_n0yzzj
+                  - double (1孩)  ·  tree_1782813973151_7l404n  ·  k_1782813973111_a25i2a
+                    - Double  ·  tree_1783087878229_egpsrd  ·  k_1783087878206_r1e7p8
+                - 布尔 (1孩)  ·  tree_1783242320640_9fmver  ·  k_1783242320610_hy6yui
+                  - boolean (1孩)  ·  tree_1782814002801_qlk43z  ·  k_1782814002747_fldlbm
+                    - Boolean  ·  tree_1783087884910_dhu1jy  ·  k_1783087884886_wy66ig
+              - 引用类型 (3孩)  ·  tree_1782793417825_zc42yu  ·  k_1782793417791_nvare3
+                - class (4孩)  ·  tree_1782819889603_38q309  ·  k_1782819889564_1cc93v
+                  - field  ·  tree_1782820135666_7l3s2i  ·  k_1782820135634_80r6cv
+                  - method  ·  tree_1782820141557_obzp1v  ·  k_1782820141514_7toivl
+                  - constructor  ·  tree_1782820155600_n8g1l9  ·  k_1782820155561_n3ma3o
+                  - 修饰符  ·  tree_1782820272058_6r8i2j  ·  k_1784044457709_jt70a4
+                - interface  ·  tree_1782819901153_rcpgkp  ·  k_1782819901124_7wm0iq
+                - enum  ·  tree_1782819920689_83wx5c  ·  k_java_lang_enum
+              - 常量  ·  tree_1782814122510_vtuz4a  ·  k_1782814122467_l5rgvz
+              - 复合类型  ·  tree_1783242458324_m6v54p  ·  k_1783242458293_jvz8tc
+              - 无解释的 (3孩)  ·  tree_1783242586488_23xu0w  ·  k_1783242586458_lc8wra
+                - 比特  ·  tree_1783242597073_6nry42  ·  k_1783242597042_wnhkxs
+                - 字节  ·  tree_1783242603197_ww7xet  ·  k_1783242603167_6cwn1r
+                - 字  ·  tree_1783242608339_70d7ld  ·  k_1783242608308_6xygyf
+              - 字符串  ·  tree_1783242642455_3ise1v  ·  k_1783242642426_oz4jm3
+            - 接口  ·  tree_1783167918864_8cl4fw  ·  k_1783167918831_zqk4a6
+            - 装箱  ·  tree_1783186382417_sqdkpp  ·  k_1783186382386_06a7l7
+            - 拆箱  ·  tree_1783191024422_f8kzw9  ·  k_1783191024388_6wm19u
+          - 词法分析 (1孩)  ·  asplit_s1_asplit_lexical_analysis  ·  asplit_lexical_analysis
+            - 标识符 (2孩)  ·  tree_1783186425166_crond2  ·  k_1783186425134_v31qjt
+              - 命名规则  ·  tree_1783186880584_3rlmu0  ·  k_1783186880545_vcool8
+              - 命名规范  ·  tree_1783190919578_mbom36  ·  k_1783190919547_xy3xo7
+          - 语法分析  ·  asplit_s1_asplit_syntax_analysis  ·  asplit_syntax_analysis
+        - go (15孩)  ·  tree_1786618025853_3qn55e  ·  k_1786618025492_dmwekx
+          - 历史  ·  tree_1787722763940_7gkyp2  ·  k_1787722763547_no5htk
+          - 测试  ·  tree_1787723404873_t9hog7  ·  k_1787723404548_tjn9xx
+          - 关键字  ·  tree_1787723651777_57iok2  ·  k_1787723651360_r3tqg7
+          - 类型 (2孩)  ·  tree_1787723925277_w03af4  ·  k_1787723924929_cc51xz
+            - 复合数据类型 (5孩)  ·  tree_1787766775348_cers5j  ·  k_1787766774971_dvs4k8
+              - 数组  ·  tree_1787766796655_0xh3r6  ·  k_1787766796342_u5bioh
+              - 切片  ·  tree_1787766808066_tlynfs  ·  k_1787766807759_ukiucr
+              - Map  ·  tree_1787766817455_jnv2oz  ·  k_1787766817113_4tn276
+              - 结构体  ·  tree_1787766827107_xrgkwh  ·  k_1787766826791_61ckc5
+              - 指针  ·  tree_1787766834088_rtu829  ·  k_1787766833800_7n22lh
+            - 基本数据类型  ·  tree_1787766911503_wf2fg3  ·  k_1787766911214_uud2jo
+          - 接口  ·  tree_1787724046252_p3a3cs  ·  k_1787724045886_9ac7md
+          - 应用程序  ·  tree_1787724113887_nll3hc  ·  k_1787724113497_rnr836
+          - 语言设计  ·  tree_goexplain_design  ·  k_goexplain_design
+          - 语法 (2孩)  ·  tree_goexplain_syntax  ·  k_goexplain_syntax
+            - 控制流  ·  tree_1787766874256_cfmxqe  ·  k_1787766873920_vi1blv
+            - 运算符  ·  tree_1787766892199_ekotdt  ·  k_1787766891829_wtb7jq
+          - 泛型  ·  tree_go_generic  ·  k_go_generic
+          - 并发  ·  tree_go_concurrency  ·  k_go_concurrency
+          - 使用参数化类型的泛型代码  ·  tree_1787731983672_nllsdb  ·  k_1787731983101_tjcyzw
+          - 枚举类型  ·  tree_1787732078169_w6kw6u  ·  k_1787732077681_fy1p3y
+          - 包系统  ·  tree_1787732124887_w76rgg  ·  k_1787732124349_hzf0jj
+          - Web 应用程序  ·  tree_1787732646621_80ishj  ·  k_1787732646225_8n6pjb
+          - 工具  ·  tree_1787732745218_n1p4hc  ·  k_1787732744683_8upi39
+        - 程序分析 (2孩)  ·  tree_wiki_en_program_analysis  ·  k_wiki_en_program_analysis
+          - 静态程序分析 (8孩)  ·  tree_wiki_en_program_analysis_s1  ·  k_wiki_en_program_analysis_s1
+            - 控制流  ·  tree_wiki_en_program_analysis_s1_s2  ·  k_acm2012_software_development_control_flow
+            - 数据流分析  ·  tree_wiki_en_program_analysis_s1_s3  ·  k_wiki_en_program_analysis_s3
+            - 抽象解读  ·  tree_wiki_en_program_analysis_s1_s4  ·  k_wiki_en_program_analysis_s4
+            - 类型系统  ·  tree_wiki_en_program_analysis_s1_s5  ·  k_1782748382034_b8a1a9
+            - 效果系统  ·  tree_wiki_en_program_analysis_s1_s6  ·  k_wiki_en_program_analysis_s6
+            - 模型检验  ·  tree_wiki_en_program_analysis_s1_s7  ·  k_wiki_en_program_analysis_s7
+            - 逃逸分析 (4孩)  ·  tree_wiki_en_escape_analysis  ·  k_atom_escape_analysis
+              - 优化  ·  tree_wiki_en_escape_analysis_s1  ·  k_wiki_en_escape_analysis_s1
+              - 实际考虑  ·  tree_wiki_en_escape_analysis_s2  ·  k_wiki_en_escape_analysis_s2
+              - 示例（Java）  ·  tree_wiki_en_escape_analysis_s3  ·  k_wiki_en_escape_analysis_s3
+              - 示例（方案）  ·  tree_wiki_en_escape_analysis_s4  ·  k_wiki_en_escape_analysis_s4
+            - 静态分析  ·  tree_wiki_en_database_s25  ·  k_wiki_en_database_s25
+          - 动态程序分析 (7孩)  ·  tree_wiki_en_program_analysis_s8  ·  k_wiki_en_program_analysis_s8
+            - 类型 (12孩)  ·  tree_wiki_en_dynamic_program_analysis_s1  ·  k_wiki_en_dynamic_program_analysis_s1
+              - 功能测试  ·  tree_wiki_en_dynamic_program_analysis_s1_s2  ·  k_wiki_en_dynamic_program_analysis_s2
+              - 代码覆盖率  ·  tree_wiki_en_dynamic_program_analysis_s1_s3  ·  k_wiki_en_dynamic_program_analysis_s3
+              - 动态测试  ·  tree_wiki_en_dynamic_program_analysis_s1_s4  ·  k_wiki_en_dynamic_program_analysis_s4
+              - 内存错误检测  ·  tree_wiki_en_dynamic_program_analysis_s1_s5  ·  k_wiki_en_dynamic_program_analysis_s5
+              - 模糊测试  ·  tree_wiki_en_dynamic_program_analysis_s1_s6  ·  k_wiki_en_dynamic_program_analysis_s6
+              - 动态符号执行  ·  tree_wiki_en_dynamic_program_analysis_s1_s7  ·  k_wiki_en_dynamic_program_analysis_s7
+              - 动态数据流分析  ·  tree_wiki_en_dynamic_program_analysis_s1_s8  ·  k_wiki_en_dynamic_program_analysis_s8
+              - 不变推理  ·  tree_wiki_en_dynamic_program_analysis_s1_s9  ·  k_wiki_en_dynamic_program_analysis_s9
+              - 安全分析  ·  tree_wiki_en_dynamic_program_analysis_s1_s10  ·  k_wiki_en_dynamic_program_analysis_s10
+              - 并发错误  ·  tree_wiki_en_dynamic_program_analysis_s1_s11  ·  k_wiki_en_dynamic_program_analysis_s11
+              - 程序切片  ·  tree_wiki_en_dynamic_program_analysis_s1_s12  ·  k_wiki_en_dynamic_program_analysis_s12
+              - 性能分析  ·  tree_wiki_en_dynamic_program_analysis_s1_s13  ·  k_wiki_en_dynamic_program_analysis_s13
+            - 技巧 (1孩)  ·  tree_wiki_en_dynamic_program_analysis_s14  ·  k_wiki_en_dynamic_program_analysis_s14
+              - 示例  ·  tree_wiki_en_dynamic_program_analysis_s14_s15  ·  k_wiki_en_dynamic_program_analysis_s15
+            - 测试  ·  tree_wiki_en_program_analysis_s8_s9  ·  k_wiki_en_program_analysis_s9
+            - 监控  ·  tree_wiki_en_program_analysis_s8_s10  ·  k_wiki_en_program_analysis_s10
+            - 程序切片  ·  tree_wiki_en_program_analysis_s8_s11  ·  k_wiki_en_program_analysis_s11
+            - 分析（计算机编程） (5孩)  ·  tree_wiki_en_profiling_computer_programming  ·  k_wiki_en_profiling_computer_programming
+              - 收集节目活动  ·  tree_wiki_en_profiling_computer_programming_s1  ·  k_wiki_en_profiling_computer_programming_s1
+              - 分析器的使用  ·  tree_wiki_en_profiling_computer_programming_s2  ·  k_wiki_en_profiling_computer_programming_s2
+              - 历史  ·  tree_wiki_en_profiling_computer_programming_s3  ·  k_wiki_en_profiling_computer_programming_s3
+              - 基于输出的探查器类型 (3孩)  ·  tree_wiki_en_profiling_computer_programming_s4  ·  k_wiki_en_profiling_computer_programming_s4
+                - 平面轮廓仪  ·  tree_wiki_en_profiling_computer_programming_s4_s5  ·  k_wiki_en_profiling_computer_programming_s5
+                - 调用图分析器  ·  tree_wiki_en_profiling_computer_programming_s4_s6  ·  k_wiki_en_profiling_computer_programming_s6
+                - 输入敏感的分析器  ·  tree_wiki_en_profiling_computer_programming_s4_s7  ·  k_wiki_en_profiling_computer_programming_s7
+              - 探查器类型中的数据粒度 (6孩)  ·  tree_wiki_en_profiling_computer_programming_s8  ·  k_wiki_en_profiling_computer_programming_s8
+                - 基于事件的分析器  ·  tree_wiki_en_profiling_computer_programming_s8_s9  ·  k_wiki_en_profiling_computer_programming_s9
+                - 统计分析器  ·  tree_wiki_en_profiling_computer_programming_s8_s10  ·  k_wiki_en_profiling_computer_programming_s10
+                - 仪器仪表  ·  tree_wiki_en_profiling_computer_programming_s8_s11  ·  k_wiki_en_profiling_computer_programming_s11
+                - 口译仪器  ·  tree_wiki_en_profiling_computer_programming_s8_s12  ·  k_wiki_en_profiling_computer_programming_s12
+                - 管理程序  ·  final_atomic_hypervisor  ·  atomic_hypervisor
+                - 模拟器  ·  final_atomic_emulator  ·  atomic_emulator
+            - Java性能 (11孩)  ·  tree_wiki_en_java_performance  ·  k_wiki_en_java_performance
+              - 虚拟机优化方法 (4孩)  ·  tree_wiki_en_java_performance_s1  ·  k_wiki_en_java_performance_s1
+                - 即时编译  ·  tree_wiki_en_java_performance_s1_s2  ·  k_wiki_en_java_performance_s2
+                - 自适应优化  ·  tree_wiki_en_java_performance_s1_s3  ·  k_wiki_en_java_performance_s3
+                - 垃圾收集  ·  tree_wiki_en_java_performance_s1_s4  ·  k_wiki_en_java_performance_s4
+                - 其他优化方法 (4孩)  ·  tree_wiki_en_java_performance_s1_s5  ·  k_wiki_en_java_performance_s5
+                  - 压缩oops  ·  tree_wiki_en_java_performance_s1_s5_s6  ·  k_wiki_en_java_performance_s6
+                  - 分割字节码验证  ·  tree_wiki_en_java_performance_s1_s5_s7  ·  k_wiki_en_java_performance_s7
+                  - 寄存器分配改进  ·  tree_wiki_en_java_performance_s1_s5_s9  ·  k_wiki_en_java_performance_s9
+                  - 班级数据共享  ·  tree_wiki_en_java_performance_s1_s5_s10  ·  k_wiki_en_java_performance_s10
+              - 性能改进的历史 (2孩)  ·  tree_wiki_en_java_performance_s11  ·  k_wiki_en_java_performance_s11
+                - Java SE 6 更新 10  ·  tree_wiki_en_java_performance_s11_s12  ·  k_wiki_en_java_performance_s12
+                - 爪哇7  ·  tree_wiki_en_java_performance_s11_s13  ·  k_wiki_en_java_performance_s13
+              - 程序速度  ·  tree_wiki_en_java_performance_s14_s15  ·  k_wiki_en_java_performance_s15
+              - 多核性能  ·  tree_wiki_en_java_performance_s14_s16  ·  k_wiki_en_java_performance_s16
+              - 启动时间  ·  tree_wiki_en_java_performance_s14_s17  ·  k_wiki_en_java_performance_s17
+              - 内存使用  ·  tree_wiki_en_java_performance_s14_s18  ·  k_wiki_en_java_performance_s18
+              - 三角函数  ·  tree_wiki_en_java_performance_s14_s19  ·  k_wiki_en_java_performance_s19
+              - Java 本机接口  ·  tree_wiki_en_java_performance_s14_s20  ·  k_wiki_en_java_performance_s20
+              - 用户界面  ·  tree_wiki_en_java_performance_s14_s21  ·  k_wiki_en_java_performance_s21
+              - 用于高性能计算  ·  tree_wiki_en_java_performance_s14_s22  ·  k_wiki_en_java_performance_s22
+              - 在编程竞赛中  ·  tree_wiki_en_java_performance_s14_s23  ·  k_wiki_en_java_performance_s23
+        - 编译原理 (2孩)  ·  theory_domain_compiler_principles  ·  theory_domain_compiler_principles
+          - 编译策略 (1孩)  ·  tree_1784820260102_pvad8t  ·  k_1784820260046_4sr9hx
+            - JIT  ·  tree_1784820281406_qgwk3b  ·  k_1784820281347_s0v648
+          - 执行 (4孩)  ·  tree_1784822169413_cpzi51  ·  k_1784822169362_2tqq6v
+            - 虚拟机 (9孩)  ·  tree_wiki_en_virtual_machine  ·  k_acm2012_software_organization_virtual_machines
+              - 历史  ·  tree_wiki_en_virtual_machine_s4  ·  k_wiki_en_virtual_machine_s4
+              - 虚拟化技术 (2孩)  ·  tree_wiki_en_virtual_machine_s5  ·  k_wiki_en_virtual_machine_s5
+                - 全虚拟化 (1孩)  ·  tree_wiki_en_virtual_machine_s5_s6  ·  k_wiki_en_virtual_machine_s6
+                  - 硬件辅助虚拟化  ·  tree_wiki_en_virtual_machine_s5_s6_s7  ·  k_wiki_en_virtual_machine_s7
+                - 操作系统级虚拟化  ·  tree_wiki_en_virtual_machine_s5_s8  ·  k_wiki_en_virtual_machine_s8
+              - 快照  ·  tree_wiki_en_virtual_machine_s9  ·  k_wiki_en_virtual_machine_s9
+              - 迁移  ·  tree_wiki_en_virtual_machine_s10  ·  k_wiki_en_virtual_machine_s10
+              - 故障转移  ·  tree_wiki_en_virtual_machine_s11  ·  k_wiki_en_virtual_machine_s11
+              - 嵌套虚拟化  ·  tree_wiki_en_virtual_machine_s12  ·  k_wiki_en_virtual_machine_s12
+              - 虚拟机安全  ·  tree_wiki_en_virtual_machine_s13  ·  k_wiki_en_virtual_machine_s13
+              - 系统虚拟机  ·  tree_wiki_en_virtual_machine_s1_s2  ·  k_wiki_en_virtual_machine_s2
+              - 处理虚拟机  ·  tree_wiki_en_virtual_machine_s1_s3  ·  k_wiki_en_virtual_machine_s3
+            - 编译器 (4孩)  ·  tree_wiki_en_compiler  ·  k_acm2012_software_notations_tools_compilers
+              - 历史  ·  tree_wiki_en_compiler_s2  ·  k_wiki_en_compiler_s2
+              - 编译器构建 (4孩)  ·  tree_wiki_en_compiler_s3  ·  k_wiki_en_compiler_s3
+                - 三阶段编译器结构 (3孩)  ·  tree_wiki_en_compiler_s3_s5  ·  k_wiki_en_compiler_s5
+                  - 前端  ·  tree_wiki_en_compiler_s3_s5_s6  ·  k_wiki_en_compiler_s6
+                  - 中端  ·  tree_wiki_en_compiler_s3_s5_s7  ·  k_wiki_en_compiler_s7
+                  - 后端  ·  tree_wiki_en_compiler_s3_s5_s8  ·  k_wiki_en_compiler_s8
+                - 编译器正确性  ·  tree_wiki_en_compiler_s3_s9  ·  k_wiki_en_compiler_s9
+                - 单遍编译器  ·  asplit_s1_asplit_single_pass_compiler  ·  asplit_single_pass_compiler
+                - 多遍编译器  ·  asplit_s1_asplit_multi_pass_compiler  ·  asplit_multi_pass_compiler
+              - 相对于解释语言的编译  ·  tree_wiki_en_compiler_s10  ·  k_wiki_en_compiler_s10
+              - 类型  ·  tree_wiki_en_compiler_s11  ·  k_wiki_en_compiler_s11
+            - 解释器（计算） (6孩)  ·  tree_wiki_en_interpreter_computing  ·  k_wiki_en_interpreter_computing
+              - 历史  ·  tree_wiki_en_interpreter_computing_s1  ·  k_wiki_en_interpreter_computing_s1
+              - 效率  ·  tree_wiki_en_interpreter_computing_s3  ·  k_wiki_en_interpreter_computing_s3
+              - 执行  ·  tree_wiki_en_interpreter_computing_s4  ·  k_wiki_en_interpreter_computing_s4
+              - 例子  ·  tree_wiki_en_interpreter_computing_s5  ·  k_wiki_en_interpreter_computing_s5
+              - 即时编译  ·  tree_wiki_en_interpreter_computing_s6  ·  k_wiki_en_interpreter_computing_s6
+              - 变化  ·  tree_wiki_en_interpreter_computing_s7  ·  k_wiki_en_interpreter_computing_s7
+            - 链接器（计算） (6孩)  ·  tree_wiki_en_linker_computing  ·  k_wiki_en_linker_computing
+              - 动态链接  ·  tree_wiki_en_linker_computing_s2  ·  k_wiki_en_linker_computing_s2
+              - 静态链接  ·  tree_wiki_en_linker_computing_s3  ·  k_wiki_en_linker_computing_s3
+              - 搬迁  ·  tree_wiki_en_linker_computing_s4  ·  k_wiki_en_linker_computing_s4
+              - 联动编辑器  ·  tree_wiki_en_linker_computing_s5  ·  k_wiki_en_linker_computing_s5
+              - 链接器控制脚本  ·  tree_wiki_en_linker_computing_s6  ·  k_wiki_en_linker_computing_s6
+              - 值得注意的实施 (2孩)  ·  tree_wiki_en_linker_computing_s7  ·  k_wiki_en_linker_computing_s7
+                - Unix 和类 Unix  ·  tree_wiki_en_linker_computing_s7_s8  ·  k_wiki_en_linker_computing_s8
+                - GNU  ·  tree_wiki_en_linker_computing_s7_s9  ·  k_wiki_en_linker_computing_s9
+        - 程序设计语言理论 (3孩)  ·  theory_domain_programming_language_theory  ·  theory_domain_programming_language_theory
+          - 游标 / cursor  ·  mysql_term_programming_language_theory_cursor_1dm61e  ·  k_dict_a7bwz8vl
+          - Python  ·  mysql_term_programming_language_theory_python_pwtz9q  ·  k_dict_qttpkbhf
+          - 运行时系统  ·  tree_1784821733779_70dps6  ·  k_1784821733733_hu6vmo
+        - 正则表达式理论  ·  theory_domain_regular_expression_theory  ·  theory_domain_regular_expression_theory
+        - Ruby  ·  projection:mysql-term:mysql_glossary_ruby_17cue0  ·  mysql_glossary_ruby_17cue0
+        - 埃菲尔 / Eiffel  ·  projection:mysql-term:mysql_glossary_eiffel_75vlru  ·  mysql_glossary_eiffel_75vlru
+        - SQL  ·  tree_wiki_en_outline_of_databases_s4_s5_b5  ·  k_wiki_en_outline_of_databases_s5_b5
+      - 编译器  ·  tree_acm2012_software_notations_tools_compilers  ·  k_acm2012_software_notations_tools_compilers
+      - 领域特定语言  ·  tree_acm2012_software_notations_tools_domain_specific_languages  ·  k_acm2012_software_notations_tools_domain_specific_languages
+      - 建模语言  ·  tree_acm2012_software_notations_tools_modeling_languages  ·  k_acm2012_software_notations_tools_modeling_languages
+      - 软件框架 (9孩)  ·  tree_acm2012_software_notations_tools_software_frameworks  ·  k_acm2012_software_notations_tools_software_frameworks
+        - JavaWeb (10孩)  ·  tree_java_fw_javaweb  ·  k_java_fw_javaweb
+          - JSP  ·  tree_vault_javajavawebjsp_elp41h  ·  k_vault_javajavawebjsp_elp41h
+          - HTTP 请求  ·  asplit_s1_asplit_http_request  ·  asplit_http_request
+          - Servlet 生命周期  ·  asplit_s1_asplit_servlet_lifecycle  ·  asplit_servlet_lifecycle
+          - Servlet 容器  ·  asplit_s1_asplit_servlet_container  ·  asplit_servlet_container
+          - 视图渲染  ·  asplit_s1_asplit_view_rendering  ·  asplit_view_rendering
+          - HTTP Request/Response  ·  asplit_s18_asplit_http_request_response  ·  asplit_http_request_response
+          - Web 属性作用域  ·  asplit_s18_asplit_web_attribute_scope  ·  asplit_web_attribute_scope
+          - Web 状态管理  ·  asplit_s18_asplit_web_state_management  ·  asplit_web_state_management
+          - Session  ·  atomic_k_dict_ef30sdky  ·  k_dict_ef30sdky
+          - Cookie  ·  atomic_atomic_cookie  ·  atomic_cookie
+        - Spring (12孩)  ·  tree_java_fw_spring  ·  k_java_fw_spring
+          - Spring 事务管理  ·  tree_vault_javaspringspring_1nbiew  ·  k_vault_javaspringspring_1nbiew
+          - Spring 配置 (1孩)  ·  tree_vault_javaspring_1antjp  ·  k_vault_javaspring_1antjp
+            - 常见的配置方式  ·  tree_1788683294830_y80ep0  ·  k_1788683294815_qvh7np
+          - Spring 注解 (6孩)  ·  tree_vault_javaspringspring_7b4q3y  ·  k_vault_javaspringspring_7b4q3y
+            - @Required  ·  tree_1785228764111_vy9ilh  ·  k_1785228764111_vy9ilh
+            - @Autowired  ·  tree_1785228834518_r08hca  ·  k_1785228834518_r08hca
+            - @Qualiﬁer  ·  tree_1785228924980_irl0z4  ·  k_1785228924980_irl0z4
+            - @RequestMapping  ·  tree_1785228955207_9nqbli  ·  k_1785228955207_9nqbli
+            - @Import  ·  tree_1785296821866_imouaf  ·  k_1785296821866_imouaf
+            - @Indexed  ·  tree_1788694446336_p5m3ia  ·  k_1788694446334_9jflri
+          - AOP (2孩)  ·  tree_java_fw_spring_aop  ·  k_java_fw_spring_aop
+            - AOP 原理 (1孩)  ·  tree_vault_javaspringaopaop_1gf9np  ·  k_vault_javaspringaopaop_1gf9np
+              - AOP 执行流程 (5孩)  ·  tree_aop_flow  ·  aop_flow
+                - getBean 请求  ·  tree_aop_getbean  ·  aop_getbean
+                - AopProxy（外层拦截器）  ·  tree_aop_aproxy  ·  aop_aproxy
+                - MethodInvocation（执行拦截器链）  ·  tree_aop_minvoke  ·  aop_minvoke
+                - MethodInterceptor（执行织入代码）  ·  tree_aop_minterceptor  ·  aop_minterceptor
+                - ProxyFactory  ·  tree_aop_proxyfactory_restored  ·  aop_proxyfactory
+            - 代理方式 (2孩)  ·  tree_vault_javaspringaopspringaop_1fz8q2  ·  k_vault_javaspringaopspringaop_1fz8q2
+              - JDK 动态代理  ·  tree_aop_proxy_jdk  ·  aop_proxy_jdk
+              - CGLIB 动态代理  ·  tree_aop_proxy_cglib  ·  aop_proxy_cglib
+          - IoC容器 (5孩)  ·  tree_java_fw_spring_ioc  ·  k_java_fw_spring_ioc
+            - IoC 原理  ·  tree_vault_javaspringiocioc_klf11o  ·  k_vault_javaspringiocioc_klf11o
+            - 本质  ·  tree_1788681463582_0s1q8o  ·  k_1788681463569_fqwfp2
+            - 依赖注入方式 (3孩)  ·  tree_k_1788687205852_lhoemy  ·  k_1788687205852_lhoemy
+              - 构造函数注入  ·  tree_k_1788687205854_6znktx  ·  k_1788687205854_6znktx
+              - Setter注入  ·  tree_k_1788687205854_qdt7dp  ·  k_1788687205854_qdt7dp
+              - 字段注入  ·  tree_k_1788687205854_318tes  ·  k_1788687205854_318tes
+            - BeanFactory  ·  tree_spring_beanfactory  ·  spring_beanfactory
+            - ApplicationContext  ·  tree_spring_appcontext  ·  spring_appcontext
+          - SpringMVC (7孩)  ·  tree_java_fw_spring_mvc  ·  k_java_fw_spring_mvc
+            - Spring MVC 原理  ·  tree_vault_javaspringspringmvcspringmvc_1932hl  ·  k_vault_javaspringspringmvcspringmvc_1932hl
+            - SpringMVC 请求链路  ·  tree_vault_javaspring04springmvc_133lis  ·  k_vault_javaspring04springmvc_133lis
+            - DispatcherServlet  ·  tree_mvc_dispatcher  ·  mvc_dispatcher
+            - HandlerMapping  ·  tree_mvc_handlermapping  ·  mvc_handlermapping
+            - HandlerAdapter  ·  tree_mvc_handleradapter  ·  mvc_handleradapter
+            - ViewResolver  ·  tree_mvc_viewresolver  ·  mvc_viewresolver
+            - View  ·  tree_mvc_view  ·  mvc_view
+          - Spring Boot (9孩)  ·  tree_java_fw_spring_boot  ·  k_java_fw_spring_boot
+            - Spring Boot 原理  ·  tree_vault_javaspringspringboot_lhipgq  ·  k_vault_javaspringspringboot_lhipgq
+            - Spring Boot 安全 (2孩)  ·  tree_vault_javaspringspringboot_yjdx1u  ·  k_vault_javaspringspringboot_yjdx1u
+              - 跨域（CORS）  ·  tree_boot_cors  ·  boot_cors
+              - CSRF 攻击  ·  tree_boot_csrf  ·  boot_csrf
+            - Spring Boot 缓存  ·  tree_vault_javaspringspringboot_woqe5o  ·  k_vault_javaspringspringboot_woqe5o
+            - Spring Boot 热加载  ·  tree_vault_javaspringspringboot_1rp75f  ·  k_vault_javaspringspringboot_1rp75f
+            - Spring Boot 监视器  ·  tree_vault_javaspringspringboot_1qq545  ·  k_vault_javaspringspringboot_1qq545
+            - Spring Boot 整合第三方 (4孩)  ·  tree_vault_javaspringspringboot_g9wkoh  ·  k_vault_javaspringspringboot_g9wkoh
+              - Spring Data  ·  tree_boot_spring_data  ·  boot_spring_data
+              - Spring Batch  ·  tree_boot_spring_batch  ·  boot_spring_batch
+              - WebSockets  ·  tree_boot_websockets  ·  boot_websockets
+              - 消息中间件（ActiveMQ / Kafka）  ·  tree_boot_messaging  ·  boot_messaging
+            - 自动配置 (1孩)  ·  tree_1785058836669_eiipl5  ·  k_1785058836571_znfh93
+              - 自动装配原理  ·  tree_1785248932582_mv8mni  ·  k_1785248932503_c7c9d2
+            - JavaConﬁg  ·  tree_1785247674167_f8h8ti  ·  k_1785247674069_capddv
+            - Starter  ·  tree_boot_starter  ·  boot_starter
+          - 验证 (4孩)  ·  tree_java_fw_spring_valid  ·  k_java_fw_spring_valid
+            - 验证消息中使用 EL 表达式  ·  tree_vault_javaspringel_17n463  ·  k_vault_javaspringel_17n463
+            - 类级别验证器  ·  tree_vault_javaspring_x40su7  ·  k_vault_javaspring_x40su7
+            - 自定义验证规则  ·  tree_vault_javaspring_12ziva  ·  k_vault_javaspring_12ziva
+            - 返回值验证  ·  tree_vault_javaspring_106727  ·  k_vault_javaspring_106727
+          - Spring Framework 模块 (9孩)  ·  tree_1784445218771_9vr7ru  ·  k_1784445218734_mbutiz
+            - 控制反转容器 (2孩)  ·  tree_1784445272820_4mpvvk  ·  k_1784445272782_69vrni
+              - 控制反转的类型 (2孩)  ·  tree_1784445488189_g7k9cd  ·  k_1784445488146_heiecz
+                - 依赖注入  ·  tree_1784452283804_by9a3l  ·  k_1784466531162_zcrhl7
+                - 依赖查找  ·  tree_1784452518430_xkiml2  ·  k_1784452518379_f4fgyv
+              - 自动装配  ·  tree_1784453158914_v0wahz  ·  k_1784453158872_rsqoiy
+            - 面向切面编程框架 (9孩)  ·  tree_1784453342068_c2h8xs  ·  k_1784453342028_cfmbey
+              - 切面（Aspect）  ·  tree_1785231643819_6g4ywl  ·  k_1785231643719_gx45hm
+              - 连接点（Join point）  ·  tree_1785231680111_v5smka  ·  k_1785231680019_j0lrvu
+              - 通知（Advice）  ·  tree_1785231720009_rfb9r5  ·  k_1785231719920_7ljzbg
+              - 切入点（Pointcut）  ·  tree_1785231764280_j31899  ·  k_1785231764171_fxrfdh
+              - 引入（Introduction）  ·  tree_1785231787675_8zeqh3  ·  k_1785231787578_h39zx9
+              - 目标对象（Target Object）  ·  tree_1785231812462_l8i9xq  ·  k_1785231812365_bo891q
+              - 织入（Weaving）  ·  tree_1785231834154_maxq0c  ·  k_1785231834062_2jpqwk
+              - 代理对象（Proxy）  ·  tree_aop_term_proxy  ·  aop_term_proxy
+              - 织入代码（Woven Code）  ·  tree_aop_term_woven  ·  aop_term_woven
+            - 数据访问框架  ·  tree_1784455027922_7cbadf  ·  k_1784455027875_096te2
+            - 模型–视图–控制器框架 (2孩)  ·  tree_1784461463664_gj6m4f  ·  k_1784461463543_at67h0
+              - Spring MVC 的工作流程  ·  tree_1784461594548_7b4g7c  ·  k_1784461594508_q20ctr
+              - DispatcherServlet的配置  ·  tree_1784461715661_dqshb9  ·  k_1784461715605_64hw35
+            - 远程访问框架  ·  tree_1784461786595_5iwzig  ·  k_1784461786546_nuiss7
+            - 约定优于配置的快速应用程序开发 (1孩)  ·  tree_1784461814631_iobj8b  ·  k_1784461814589_f8eecy
+              - Spring Roo  ·  tree_1784461910479_zciufl  ·  k_1784461910438_0ybk77
+            - 批处理框架  ·  tree_1784461947747_rvbghp  ·  k_1784461947692_rqvebj
+            - 集成框架  ·  tree_1784461992815_7idu10  ·  k_1784461992773_556orm
+            - Spring WebSocket  ·  tree_1784462034288_imreou  ·  k_1784462034248_ek14yn
+          - Spring4Shell 漏洞  ·  tree_1784509255949_8p4sic  ·  k_1784509255900_kt5kcs
+          - Spring Beans (4孩)  ·  tree_1785165721128_kan0tw  ·  k_1785165721061_hcv0g1
+            - 作用域  ·  tree_1785224904489_a6h5d2  ·  k_1785224904396_r27gmm
+            - 生命周期 (1孩)  ·  tree_1785225243163_ypgo3y  ·  k_1785225243066_ds8pn6
+              - Bean 生命周期  ·  asplit_s1_asplit_bean_lifecycle  ·  asplit_bean_lifecycle
+            - 自动装配  ·  tree_1785227788826_6wm0jq  ·  k_1784453158872_rsqoiy
+            - Bean 创建策略机制 (9孩)  ·  tree_bcs_flow  ·  bcs_flow
+              - getBean 请求调用方  ·  tree_bcs_caller  ·  bcs_caller
+              - beanDefinitionMap  ·  tree_bcs_bdmap  ·  bcs_bdmap
+              - BeanDefinition  ·  tree_bcs_def  ·  bcs_def
+              - 单例缓存（singletonObjects）  ·  tree_bcs_cache  ·  bcs_cache
+              - getBean 已发起  ·  tree_bcs_state_requested  ·  bcs_state_requested
+              - BeanDefinition 已取得  ·  tree_bcs_state_def_loaded  ·  bcs_state_def_loaded
+              - 作用域已判定  ·  tree_bcs_state_scope_decided  ·  bcs_state_scope_decided
+              - 实例已创建  ·  tree_bcs_state_created  ·  bcs_state_created
+              - Bean 就绪返回  ·  tree_bcs_state_ready  ·  bcs_state_ready
+          - 循环依赖  ·  tree_1785251031353_sy67bc  ·  k_1785251031271_kd84f6
+        - Mybatis (15孩)  ·  tree_java_fw_mybatis  ·  k_java_fw_mybatis
+          - MyBatis  ·  tree_vault_javamybatismybatis_14eqlq  ·  k_vault_javamybatismybatis_14eqlq
+          - SqlSession 生命周期 (8孩)  ·  tree_vault_javamybatis02sqlsession_5c5wcf  ·  k_vault_javamybatis02sqlsession_5c5wcf
+            - openSession() 请求  ·  asplit_s2_asplit_ss_trigger_open  ·  asplit_ss_trigger_open
+            - 会话已打开  ·  asplit_s2_asplit_ss_state_opened  ·  asplit_ss_state_opened
+            - 执行 SQL  ·  asplit_s2_asplit_ss_state_executing  ·  asplit_ss_state_executing
+            - 待提交（一级缓存有变更）  ·  asplit_s2_asplit_ss_state_dirty  ·  asplit_ss_state_dirty
+            - 已提交  ·  asplit_s2_asplit_ss_state_committed  ·  asplit_ss_state_committed
+            - 已回滚  ·  asplit_s2_asplit_ss_state_rolled_back  ·  asplit_ss_state_rolled_back
+            - 已关闭  ·  asplit_s2_asplit_ss_state_closed  ·  asplit_ss_state_closed
+            - SqlSessionFactory（单例）  ·  asplit_s2_asplit_ss_factory  ·  asplit_ss_factory
+          - MyBatis 配置体系  ·  tree_vault_javamybatis03mybatis_17ypok  ·  k_vault_javamybatis03mybatis_17ypok
+          - MyBatis-Spring 整合  ·  tree_vault_javamybatis06mybatisspring_wq41yx  ·  k_vault_javamybatis06mybatisspring_wq41yx
+          - MyBatis 工程实践  ·  tree_vault_javamybatis07mybatis_leuyf9  ·  k_vault_javamybatis07mybatis_leuyf9
+          - MyBatis-Plus  ·  tree_vault_javamybatisplus_1srs85  ·  k_vault_javamybatisplus_1srs85
+          - MyBatis-Plus 常用对象  ·  tree_vault_javamybatisplusmybatisplus_193zda  ·  k_vault_javamybatisplusmybatisplus_193zda
+          - MyBatis 的连接池  ·  tree_vault_javamybatismybatis_1pkfbo  ·  k_vault_javamybatismybatis_1pkfbo
+          - MyBatis-Plus 条件构造器  ·  tree_vault_javamybatis_p3kuh0  ·  k_vault_javamybatis_p3kuh0
+          - MyBatis Mapper  ·  asplit_s1_asplit_mybatis_mapper  ·  asplit_mybatis_mapper
+          - 动态 SQL  ·  asplit_s1_asplit_dynamic_sql  ·  asplit_dynamic_sql
+          - Executor（插件点）  ·  asplit_s2_asplit_mybatis_executor  ·  asplit_mybatis_executor
+          - StatementHandler（插件点）  ·  asplit_s2_asplit_mybatis_statement_handler  ·  asplit_mybatis_statement_handler
+          - ParameterHandler（插件点）  ·  asplit_s2_asplit_mybatis_parameter_handler  ·  asplit_mybatis_parameter_handler
+          - ResultSetHandler（插件点）  ·  asplit_s2_asplit_mybatis_resultset_handler  ·  asplit_mybatis_resultset_handler
+        - Netty (3孩)  ·  tree_java_fw_netty  ·  k_java_fw_netty
+          - Netty 线程模型  ·  asplit_s1_asplit_netty_thread_model  ·  asplit_netty_thread_model
+          - Channel  ·  asplit_s1_asplit_netty_channel  ·  asplit_netty_channel
+          - ChannelPipeline  ·  asplit_s1_asplit_channel_pipeline  ·  asplit_channel_pipeline
+        - Kafka (6孩)  ·  tree_java_fw_kafka  ·  k_java_fw_kafka
+          - Kafka 消费组  ·  asplit_s18_asplit_kafka_consumer_group  ·  asplit_kafka_consumer_group
+          - Kafka Broker  ·  asplit_s18_asplit_kafka_broker  ·  asplit_kafka_broker
+          - Kafka 生产者  ·  atomic_atomic_kafka_producer  ·  atomic_kafka_producer
+          - Kafka 消费者  ·  atomic_atomic_kafka_consumer  ·  atomic_kafka_consumer
+          - Kafka Topic  ·  atomic_atomic_kafka_topic  ·  atomic_kafka_topic
+          - Kafka Partition  ·  atomic_atomic_kafka_partition  ·  atomic_kafka_partition
+        - RabbitMQ (3孩)  ·  tree_java_fw_rabbitmq  ·  k_java_fw_rabbitmq
+          - RabbitMQ 核心模型  ·  tree_vault_javarabbitmq02rabbitmq_wrgcym  ·  k_vault_javarabbitmq02rabbitmq_wrgcym
+          - RabbitMQ 交换机  ·  asplit_s1_asplit_rabbitmq_exchange  ·  asplit_rabbitmq_exchange
+          - 路由键  ·  asplit_s1_asplit_routing_key  ·  asplit_routing_key
+        - Spring Cloud (23孩)  ·  tree_java_fw_springcloud  ·  k_java_fw_springcloud
+          - Zuul (1孩)  ·  tree_1786150226626_jqgdcn  ·  k_1786150226096_e6mtto
+            - 网关  ·  tree_1786150291271_7bgv1v  ·  k_1786150290711_8qx1ei
+          - Eureka  ·  tree_1786150441285_ip1zn4  ·  k_1786150440839_bez1t5
+          - Ribbon (1孩)  ·  tree_1786154975216_5yv6zv  ·  k_1786154975000_gv2ch5
+            - 断路器  ·  tree_1786157109752_8s1k1o  ·  k_1786157109435_qdqmvs
+          - Hystrix (3孩)  ·  tree_1786157092407_ecz3tg  ·  k_1786157092180_vfz2g9
+            - 服务降级  ·  tree_1786158049869_dhpjhh  ·  k_1786158049669_n9wgmi
+            - 服务熔断  ·  tree_1786158127576_5xn7qt  ·  k_1786158127369_fuypc2
+            - 服务隔离  ·  tree_1786158151387_237j4s  ·  k_1786158151129_seziai
+          - Feign  ·  tree_1786158209063_v1bmvq  ·  k_1786158208848_mhzb1x
+          - Bus  ·  tree_1786158303130_smem1p  ·  k_1786158302920_ysn4wx
+          - Conﬁg  ·  tree_1786158322566_6xr3gh  ·  k_1786158322346_frg57j
+          - Gateway  ·  tree_1786159047339_33rahm  ·  k_1786159047159_68qooi
+          - Netﬂix  ·  tree_1786159351993_9rljxn  ·  k_1786159351256_5vvl02
+          - Consul  ·  tree_1786159519515_8smzy0  ·  k_1786159519098_i14t11
+          - Security  ·  tree_1786159554515_j8dxl4  ·  k_1786159553876_tcfd24
+          - Sleuth  ·  tree_1786159575292_vcnky4  ·  k_1786159574844_8u1wfk
+          - Stream  ·  tree_1786159612022_xvxnmd  ·  k_1786159611563_2fq3dy
+          - Task  ·  tree_1786159635392_kiweqv  ·  k_1786159634880_fzo12d
+          - Zookeeper  ·  tree_1786159667235_9069yy  ·  k_1786159666801_7zxi2d
+          - Spring Cloud的版本关系  ·  tree_1786159808372_7fwpiz  ·  k_1786159807606_rg6rgc
+          - 服务注册与发现  ·  asplit_s1_asplit_svc_registry_discovery  ·  asplit_svc_registry_discovery
+          - 负载均衡  ·  asplit_s1_asplit_load_balancing  ·  asplit_load_balancing
+          - 服务调用  ·  asplit_s1_asplit_svc_invocation  ·  asplit_svc_invocation
+          - 服务容错  ·  asplit_s1_asplit_svc_fault_tolerance  ·  asplit_svc_fault_tolerance
+          - 配置中心  ·  asplit_s1_asplit_config_center  ·  asplit_config_center
+          - 消息总线  ·  asplit_s1_asplit_message_bus  ·  asplit_message_bus
+          - 服务治理  ·  asplit_s1_asplit_service_governance  ·  asplit_service_governance
+        - Hibernate  ·  tree_1789213558020_bc8y1op  ·  k_1789213558020_f1h0imz
+        - EJB（企业 JavaBeans）  ·  tree_1789213558020_d3vsl1m  ·  k_1789213558020_6rswrz3
+      - 集成开发环境  ·  tree_acm2012_software_notations_tools_ides  ·  k_acm2012_software_notations_tools_ides
+      - 软件配置管理  ·  tree_acm2012_software_notations_tools_software_configuration_management  ·  k_acm2012_software_notations_tools_software_configuration_management
+      - 软件库 (1孩)  ·  tree_acm2012_software_notations_tools_software_libraries  ·  k_acm2012_software_notations_tools_software_libraries
+        - 函数库  ·  tree_1783260261382_58eohv  ·  k_1783260261343_z00bvp
+      - 软件仓库  ·  tree_acm2012_software_notations_tools_software_repositories  ·  k_acm2012_software_notations_tools_software_repositories
+      - 字符编码标准（Unicode/UTF-8） (2孩)  ·  theory_domain_character_encoding_standards  ·  theory_domain_character_encoding_standards
+        - ANSI  ·  mysql_term_character_encoding_standards_ansi_su18oi  ·  k_dict_ij1x57s1
+        - Unicode  ·  mysql_glossary_unicode_fwfjuo  ·  mysql_glossary_unicode_fwfjuo
+    - 软件开发 (9孩)  ·  tree_1783873300414_0y8oon  ·  k_1783873300296_o38v1d
+      - 控制流  ·  tree_acm2012_software_development_control_flow  ·  k_acm2012_software_development_control_flow
+      - 软件开发过程  ·  tree_acm2012_software_development_development_process  ·  k_acm2012_software_development_development_process
+      - 需求分析  ·  tree_acm2012_software_development_requirements_analysis  ·  k_acm2012_software_development_requirements_analysis
+      - 软件构建 (1孩)  ·  tree_acm2012_software_development_software_construction  ·  k_acm2012_software_development_software_construction
+        - 程序设计 (3孩)  ·  tree_1783249623591_yidl1o  ·  k_1783249623557_8m2rjj
+          - 变量  ·  tree_1783249680780_bgqrr4  ·  k_1783249680752_eglr74
+          - 程序架构 (5孩)  ·  tree_1783257348421_tx6k6r  ·  k_1783257348387_zpwgyz
+            - 控制流程  ·  tree_1783257380007_lpw6o6  ·  k_1783257379975_3dbm5v
+            - 数据类型  ·  tree_1783257388709_0r3dmm  ·  k_1783257388677_uxt2vm
+            - 运算符  ·  tree_1783257396152_vjlh5h  ·  k_1783257396123_5jl7e4
+            - 类  ·  tree_1783257466416_mv4ll5  ·  k_1783257466386_qkloru
+            - 子程序 (3孩)  ·  tree_1783257957803_34ddqj  ·  k_1783257957775_eue1y7
+              - 函数  ·  tree_1783258053064_ltiiyp  ·  k_1783258053033_qytxe3
+              - 过程  ·  tree_1783258090783_kvlt3o  ·  k_1783258090747_vznnof
+              - 方法 (5孩)  ·  tree_1783257371822_95li8t  ·  k_1784169555803_adzqks
+                - 析构函数  ·  tree_1783259399634_l2rp8f  ·  k_1783259399604_jb6ieg
+                - 构造方法 (5孩)  ·  tree_1783184829948_b8gb6e  ·  k_1783184829912_usl41q
+                  - 参数化构造器  ·  tree_1783260678065_vnjkev  ·  k_1783260678029_y1d6ko
+                  - 缺省构造器  ·  tree_1783260831372_03v20k  ·  k_1783260831339_eyvsen
+                  - 转换构造器  ·  tree_1783260916629_h92k98  ·  k_1783260916600_msucmn
+                  - 复制构造器  ·  tree_1783260946088_4iuiui  ·  k_1783260946053_mylhzl
+                  - 移动构造器  ·  tree_1783261004938_v8bu4d  ·  k_1783261004905_nf1mq3
+                - 抽象方法  ·  tree_1783261196055_2pg8vt  ·  k_1783261196020_ghnkvf
+                - 访问方法  ·  tree_1783261245067_5b9xpo  ·  k_1783261245033_1y4e86
+                - 静态（共享/类别）方法  ·  tree_1783261320704_q1ourb  ·  k_1783261320670_urrcnt
+          - 引用  ·  tree_1783269128178_4sg6ge  ·  k_1783269128142_jpub7v
+      - 软件部署 (2孩)  ·  tree_acm2012_software_development_software_deployment  ·  k_acm2012_software_development_software_deployment
+        - 嵌入式 Mysql  ·  projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_embedded_yxsdnj  ·  mysql_glossary_embedded_yxsdnj
+        - 重启服务 / bounce  ·  projection:mysql-repaired:mysql:theme:operations:mysql_glossary_bounce_e9awxp  ·  mysql_glossary_bounce_e9awxp
+      - 软件工程 (7孩)  ·  tree_1782833214675_r6mivn  ·  k_1782833214639_nueg1f
+        - 软件开发过程（生命周期） (1孩)  ·  tree_1784224555355_v23wul  ·  k_1784224555283_zb08id
+          - 软件设计 (3孩)  ·  tree_1783091687296_213anx  ·  k_1783091687266_9tecxo
+            - 软件架构  ·  tree_1784222838658_qhteb6  ·  k_1784222838616_i5ki6j
+            - 软件管理  ·  tree_1783262074786_xnuwj2  ·  k_1783262074753_i3dpmd
+            - 设计模式 (8孩)  ·  tree_1784200204560_5eh7dl  ·  k_oop_wiki_design_patterns
+              - 约定大于配置  ·  tree_1784511610909_819hpg  ·  k_1784511610867_ifp8jk
+              - 架构模式 (6孩)  ·  tree_1784530098437_5ib8pp  ·  k_1784530098395_p4rqxu
+                - 控制反转  ·  tree_1784465605605_5mztxt  ·  k_1784465605563_26pvcr
+                - 前端控制器  ·  tree_1784599000081_9f54do  ·  k_1784599000017_wkqvb8
+                - 拦截器  ·  tree_1784615191113_835id3  ·  k_1784615191049_2tl1te
+                - 延迟加载  ·  tree_1784654825066_893jgi  ·  k_1784654824937_c78qhh
+                - MVC  ·  tree_1784656579428_gg2o40  ·  k_1784656579358_qyfiqk
+                - 微服务架构  ·  tree_1786141806736_t4l41g  ·  k_1786141806535_l28y6f
+              - 其他模式 (3孩)  ·  tree_1784530129727_qwjyfs  ·  k_1784530129683_qnjry6
+                - 依赖注入  ·  tree_1784466531212_b5qq27  ·  k_1784466531162_zcrhl7
+                - 拦截过滤器  ·  tree_1784598366283_v1nr2p  ·  k_1784598366233_yfoocs
+                - 懒惰初始化  ·  tree_1784656515882_cab1wy  ·  k_1784656515813_8e9ibw
+              - 四人帮模式 (1孩)  ·  tree_1784530162554_rbzalz  ·  k_1784530162507_7ri9rf
+                - 创建者模式  ·  tree_1784215499211_3nuv0b  ·  k_1784215499175_gyxzee
+              - 并发模式 (4孩)  ·  tree_1784530936878_58xgxg  ·  k_1784530936823_aeh7cp
+                - 锁  ·  tree_1784531131124_b7ae2n  ·  k_1784531131067_9tdszo
+                - 读写锁  ·  tree_1784571058967_yr22o7  ·  k_1784571058917_k7qd83
+                - 双重检查锁定  ·  tree_1784595434874_1bb0vx  ·  k_1784595434812_54qwge
+                - 线程池  ·  tree_1784597083191_0cc0nh  ·  k_1784597083135_287nro
+              - 创建型模式 (5孩)  ·  tree_vault_se_patterns_creational  ·  k_vault_se_patterns_creational
+                - 单例模式  ·  tree_vault_se_pat_singleton  ·  k_vault_se_pat_singleton
+                - 原型模式  ·  tree_vault_se_pat_prototype  ·  k_vault_se_pat_prototype
+                - 工厂方法模式  ·  tree_vault_se_pat_factory_method  ·  k_vault_se_pat_factory_method
+                - 建造者模式  ·  tree_vault_se_pat_builder  ·  k_vault_se_pat_builder
+                - 抽象工厂模式  ·  tree_vault_se_pat_abstract_factory  ·  k_vault_se_pat_abstract_factory
+              - 结构型模式 (7孩)  ·  tree_vault_se_patterns_structural  ·  k_vault_se_patterns_structural
+                - 享元模式  ·  tree_vault_se_pat_flyweight  ·  k_vault_se_pat_flyweight
+                - 代理模式 (2孩)  ·  tree_vault_se_pat_proxy  ·  k_vault_se_pat_proxy
+                  - 静态代理  ·  tree_se_pat_static_proxy  ·  se_pat_static_proxy
+                  - 动态代理  ·  tree_se_pat_dynamic_proxy  ·  se_pat_dynamic_proxy
+                - 外观模式  ·  tree_vault_se_pat_facade  ·  k_vault_se_pat_facade
+                - 桥接模式  ·  tree_vault_se_pat_bridge  ·  k_vault_se_pat_bridge
+                - 组合模式  ·  tree_vault_se_pat_composite  ·  k_vault_se_pat_composite
+                - 装饰器模式  ·  tree_vault_se_pat_decorator  ·  k_vault_se_pat_decorator
+                - 适配器模式  ·  tree_vault_se_pat_adapter  ·  k_vault_se_pat_adapter
+              - 行为型模式 (11孩)  ·  tree_vault_se_patterns_behavioral  ·  k_vault_se_patterns_behavioral
+                - 中介者模式  ·  tree_vault_se_pat_mediator  ·  k_vault_se_pat_mediator
+                - 命令模式  ·  tree_vault_se_pat_command  ·  k_vault_se_pat_command
+                - 备忘录模式  ·  tree_vault_se_pat_memento  ·  k_vault_se_pat_memento
+                - 模板方法模式  ·  tree_vault_se_pat_template_method  ·  k_vault_se_pat_template_method
+                - 状态模式  ·  tree_vault_se_pat_state  ·  k_vault_se_pat_state
+                - 策略模式  ·  tree_vault_se_pat_strategy  ·  k_vault_se_pat_strategy
+                - 观察者模式  ·  tree_vault_se_pat_observer  ·  k_vault_se_pat_observer
+                - 解释器模式  ·  tree_vault_se_pat_interpreter  ·  k_vault_se_pat_interpreter
+                - 访问者模式  ·  tree_vault_se_pat_visitor  ·  k_vault_se_pat_visitor
+                - 责任链模式  ·  tree_vault_se_pat_chain  ·  k_vault_se_pat_chain
+                - 迭代器模式  ·  tree_vault_se_pat_iterator  ·  k_vault_se_pat_iterator
+        - 计算机编程 (1孩)  ·  tree_1783873318144_enxl6s  ·  k_1783873318032_brfjbd
+          - 编程语言 (2孩)  ·  tree_1783235593713_9a5j44  ·  k_acm2012_software_notations_tools_programming_languages
+            - 语言结构  ·  tree_1784100417755_km5e3e  ·  k_1784100417720_qsd219
+            - 语法Syntax  ·  tree_1784100545497_y5l64v  ·  k_1784100545467_1wufhk
+        - 性能优化 (5孩)  ·  governance:canonical:n_s7t5dbya  ·  n_s7t5dbya
+          - 秒杀系统性能优化方法 (4孩)  ·  tree_sk_perf_overview  ·  sk_perf_overview
+            - 响应时间对 QPS 的影响  ·  tree_sk_perf_rt  ·  sk_perf_rt
+            - 线程数对 QPS 的影响  ·  tree_sk_perf_threads  ·  sk_perf_threads
+            - 系统性能瓶颈定位  ·  tree_sk_perf_bottleneck  ·  sk_perf_bottleneck
+            - 四种优化手段（Java 系统） (4孩)  ·  tree_sk_perf_opt  ·  sk_perf_opt
+              - 优化1：减少编码  ·  tree_sk_opt_encoding  ·  sk_opt_encoding
+              - 优化2：减少序列化  ·  tree_sk_opt_serialize  ·  sk_opt_serialize
+              - 优化3：Java 极致优化  ·  tree_sk_opt_java  ·  sk_opt_java
+              - 优化4：并发读优化  ·  tree_sk_opt_concurrent  ·  sk_opt_concurrent
+          - 流量激增应对方法 (1孩)  ·  tree_surge_overview  ·  surge_overview
+            - 监控驱动动态扩容  ·  tree_surge_auto_scale  ·  surge_auto_scale
+          - 秒杀系统设计 (6孩)  ·  tree_skd_overview  ·  skd_overview
+            - 五大架构原则  ·  tree_skd_principles  ·  skd_principles
+            - 架构演进（淘宝三阶段）  ·  tree_skd_evolution  ·  skd_evolution
+            - 动静分离  ·  tree_skd_static_dynamic  ·  skd_static_dynamic
+            - 热点数据处理  ·  tree_skd_hotspot  ·  skd_hotspot
+            - 流量削峰  ·  tree_skd_shaving  ·  skd_shaving
+            - 减库存设计  ·  tree_skd_inventory  ·  skd_inventory
+          - 订单超时自动关闭方案 (6孩)  ·  tree_ordexp_overview  ·  ordexp_overview
+            - 方案1：定时任务  ·  tree_ordexp_timer  ·  ordexp_timer
+            - 方案2：JDK DelayQueue  ·  tree_ordexp_delayqueue  ·  ordexp_delayqueue
+            - 方案3：Redis 过期监听  ·  tree_ordexp_redis_ex  ·  ordexp_redis_ex
+            - 方案4：Redisson 分布式延迟队列  ·  tree_ordexp_redisson  ·  ordexp_redisson
+            - 方案5：RocketMQ 延迟消息  ·  tree_ordexp_rocketmq  ·  ordexp_rocketmq
+            - 方案6：RabbitMQ 死信队列  ·  tree_ordexp_rabbitmq  ·  ordexp_rabbitmq
+          - QPS 提升 10 倍的系统设计  ·  tree_hps_overview  ·  hps_overview
+        - 发布与版本模型 / Release & Versioning Model (5孩)  ·  tree_concept_release_model_rm  ·  concept_release_model
+          - 创新系列 / Innovation Series (1孩)  ·  tree_concept_innovation_series_c1  ·  concept_innovation_series
+            - MySQL 创新系列 / MySQL Innovation Series  ·  projection:mysql-term:mysql_glossary_innovation_series_1rj8dd  ·  mysql_glossary_innovation_series_1rj8dd
+          - LTS系列 / LTS Series (1孩)  ·  tree_concept_lts_series  ·  concept_lts_series
+            - LTS系列 / LTS Series  ·  projection:mysql-term:mysql_glossary_lts_series_lpbljr  ·  mysql_glossary_lts_series_lpbljr
+          - GA / Generally Available (1孩)  ·  tree_concept_ga  ·  concept_ga
+            - GA  ·  projection:mysql-term:mysql_glossary_ga_ql2xt1  ·  mysql_glossary_ga_ql2xt1
+          - Beta / 测试版 (1孩)  ·  tree_concept_beta  ·  concept_beta
+            - beta  ·  projection:mysql-term:mysql_glossary_beta_1cp3ef  ·  mysql_glossary_beta_1cp3ef
+          - 早期采用者 / early adopter  ·  projection:mysql-term:mysql_glossary_early_adopter_518cax  ·  mysql_glossary_early_adopter_518cax
+        - 面向对象 (1孩)  ·  tree_vault_se_oo  ·  k_vault_se_oo
+          - 面向对象基本思想  ·  tree_vault_se_oo_basic  ·  k_vault_se_oo_basic
+        - DRY 原则  ·  tree_vault_se_dry  ·  k_vault_se_dry
+        - 身份认证  ·  tree_vault_se_auth  ·  k_vault_se_auth
+      - 软件维护  ·  tree_acm2012_software_development_software_maintenance  ·  k_acm2012_software_development_software_maintenance
+      - 编程团队  ·  tree_acm2012_software_development_programming_teams  ·  k_acm2012_software_development_programming_teams
+      - 开源模型  ·  tree_acm2012_software_development_open_source_model  ·  k_acm2012_software_development_open_source_model
+    - 计算数学 (8孩)  ·  tree_acm2012_mathematics_of_computing  ·  k_acm2012_mathematics_of_computing
+      - 离散数学  ·  tree_acm2012_mathematics_of_computing_discrete_mathematics  ·  k_acm2012_mathematics_of_computing_discrete_mathematics
+      - 概率  ·  tree_acm2012_mathematics_of_computing_probability  ·  k_acm2012_mathematics_of_computing_probability
+      - 统计学  ·  tree_acm2012_mathematics_of_computing_statistics  ·  theory_domain_statistics
+      - 数学软件  ·  tree_acm2012_mathematics_of_computing_mathematical_software  ·  k_acm2012_mathematics_of_computing_mathematical_software
+      - 信息论  ·  tree_acm2012_mathematics_of_computing_information_theory  ·  theory_domain_information_theory
+      - 数学分析  ·  tree_acm2012_mathematics_of_computing_mathematical_analysis  ·  k_acm2012_mathematics_of_computing_mathematical_analysis
+      - 数值分析  ·  tree_acm2012_mathematics_of_computing_numerical_analysis  ·  theory_domain_numerical_analysis
+      - 理论计算机科学 (1孩)  ·  tree_acm2012_mathematics_of_computing_theoretical_computer_science  ·  k_acm2012_mathematics_of_computing_theoretical_computer_science
+        - 计算问题  ·  tree_acm2012_mathematics_of_computing_computational_problem  ·  k_acm2012_mathematics_of_computing_computational_problem
+    - 信息系统 (17孩)  ·  tree_acm2012_information_systems  ·  k_acm2012_information_systems
+      - 数据库管理 (1孩)  ·  tree_acm2012_information_systems_database_management  ·  k_acm2012_information_systems_database_management
+        - 数据库 (30孩)  ·  demo_db  ·  n_u4va719e
+          - 数据库系统 (18孩)  ·  chapter_db_01  ·  container:chapter_db_01
+            - MySQL 数据库 / database  ·  mysql_functional_ref_k_dict_lc7qrne8  ·  k_dict_lc7qrne8
+            - 实例 / instance (1孩)  ·  tree_concept_instance  ·  concept_instance
+              - MySQL 实例 / instance  ·  projection:mysql-mysqld:mysql:mysqld-layer:connection:k_dict_12jqwwcl:6  ·  k_dict_12jqwwcl
+            - 主机 / host (1孩)  ·  tree_concept_host  ·  concept_host
+              - MySQL 主机 / host  ·  projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_host_1ctymw  ·  mysql_glossary_host_1ctymw
+            - 技术初衷  ·  tree_wiki_zh_数据库_s1  ·  k_wiki_zh_数据库_s1
+            - 术语  ·  tree_wiki_en_database_s1  ·  k_wiki_en_database_s1
+            - 历史 (7孩)  ·  tree_wiki_en_database_s2  ·  k_wiki_en_database_s2
+              - 20 世纪 60 年代，导航 DBMS  ·  tree_wiki_en_database_s2_s3  ·  k_wiki_en_database_s3
+              - 20 世纪 70 年代，关系型 DBMS  ·  tree_wiki_en_database_s2_s4  ·  k_wiki_en_database_s4
+              - 综合方法  ·  tree_wiki_en_database_s2_s5  ·  k_wiki_en_database_s5
+              - 20 世纪 70 年代末，SQL DBMS  ·  tree_wiki_en_database_s2_s6  ·  k_wiki_en_database_s6
+              - 20 世纪 80 年代，在桌面上  ·  tree_wiki_en_database_s2_s7  ·  k_wiki_en_database_s7
+              - 20世纪90年代，面向对象  ·  tree_wiki_en_database_s2_s8  ·  k_wiki_en_database_s8
+              - NewSQL  ·  asplit_s1_asplit_newsql  ·  asplit_newsql
+            - 数据库技术的发展  ·  tree_wiki_zh_数据库_s7  ·  k_wiki_zh_数据库_s7
+            - 使用案例  ·  tree_wiki_en_database_s10  ·  k_wiki_en_database_s10
+            - 研究  ·  tree_wiki_en_database_s30  ·  k_wiki_en_database_s30
+            - 信息  ·  tree_wiki_en_outline_of_databases_s1_b1  ·  k_wiki_en_outline_of_databases_s1_b1
+            - 数据  ·  tree_wiki_en_outline_of_databases_s1_b2  ·  k_wiki_en_outline_of_databases_s1_b2
+            - 计算机数据  ·  tree_wiki_en_outline_of_databases_s1_b3  ·  k_wiki_en_outline_of_databases_s1_b3
+            - 数据库使用 (21孩)  ·  tree_wiki_en_outline_of_databases_s4  ·  k_wiki_en_outline_of_databases_s4
+              - 数据库使用要求  ·  tree_wiki_en_outline_of_databases_s4_b1  ·  k_wiki_en_outline_of_databases_s4_b1
+              - 数据库理论  ·  tree_wiki_en_outline_of_databases_s4_b2  ·  school_database_theory
+              - 数据库机  ·  tree_wiki_en_outline_of_databases_s4_b3  ·  k_wiki_en_outline_of_databases_s4_b3
+              - 数据库服务器  ·  tree_wiki_en_outline_of_databases_s4_b4  ·  k_wiki_en_outline_of_databases_s4_b4
+              - 数据库应用程序  ·  tree_wiki_en_outline_of_databases_s4_b5  ·  k_wiki_en_outline_of_databases_s4_b5
+              - 数据库管理系统 (DBMS)  ·  tree_wiki_en_outline_of_databases_s4_b6  ·  k_wiki_en_outline_of_databases_s4_b6
+              - 数据库连接  ·  tree_wiki_en_outline_of_databases_s4_b7  ·  k_wiki_en_outline_of_databases_s4_b7
+              - 数据源  ·  tree_wiki_en_outline_of_databases_s4_b8  ·  k_wiki_en_outline_of_databases_s4_b8
+              - 数据源名称 (DSN)  ·  tree_wiki_en_outline_of_databases_s4_b9  ·  k_wiki_en_outline_of_databases_s4_b9
+              - 数据库管理员 (DBA)  ·  tree_wiki_en_outline_of_databases_s4_b10  ·  k_wiki_en_outline_of_databases_s4_b10
+              - 数据库工具比较  ·  tree_wiki_en_outline_of_databases_s4_b12  ·  k_wiki_en_outline_of_databases_s4_b12
+              - 以数据库为中心的架构  ·  tree_wiki_en_outline_of_databases_s4_b13  ·  k_wiki_en_outline_of_databases_s4_b13
+              - 智能数据库  ·  tree_wiki_en_outline_of_databases_s4_b14  ·  k_wiki_en_outline_of_databases_s4_b14
+              - 加载文件  ·  tree_wiki_en_outline_of_databases_s4_b17  ·  k_wiki_en_outline_of_databases_s4_b17
+              - 数据库发布  ·  tree_wiki_en_outline_of_databases_s4_b18  ·  k_wiki_en_outline_of_databases_s4_b18
+              - 万圣节问题  ·  tree_wiki_en_outline_of_databases_s4_b19  ·  k_wiki_en_outline_of_databases_s4_b19
+              - 数据库语言 (5孩)  ·  tree_wiki_en_outline_of_databases_s4_s5  ·  k_wiki_en_outline_of_databases_s5
+                - 数据定义语言  ·  tree_wiki_en_outline_of_databases_s4_s5_b1  ·  k_wiki_en_outline_of_databases_s5_b1
+                - 数据操作语言  ·  tree_wiki_en_outline_of_databases_s4_s5_b2  ·  k_wiki_en_outline_of_databases_s5_b2
+                - 查询语言  ·  tree_wiki_en_outline_of_databases_s4_s5_b3  ·  k_wiki_en_outline_of_databases_s5_b3
+                - 信息检索查询语言  ·  tree_wiki_en_outline_of_databases_s4_s5_b4  ·  k_wiki_en_outline_of_databases_s5_b4
+                - XQuery  ·  tree_wiki_en_outline_of_databases_s4_s5_b6  ·  k_wiki_en_outline_of_databases_s5_b6
+              - 数据库安全 (4孩)  ·  tree_wiki_en_outline_of_databases_s4_s6  ·  k_wiki_en_outline_of_databases_s6
+                - 数据库活动监控 (DAM)  ·  tree_wiki_en_outline_of_databases_s4_s6_b1  ·  k_wiki_en_outline_of_databases_s6_b1
+                - 数据库审计  ·  tree_wiki_en_outline_of_databases_s4_s6_b2  ·  k_wiki_en_outline_of_databases_s6_b2
+                - 数据库取证  ·  tree_wiki_en_outline_of_databases_s4_s6_b3  ·  k_wiki_en_outline_of_databases_s6_b3
+                - 负面数据库  ·  tree_wiki_en_outline_of_databases_s4_s6_b4  ·  k_wiki_en_outline_of_databases_s6_b4
+              - 数据库设计 (3孩)  ·  tree_wiki_en_outline_of_databases_s4_s7  ·  k_wiki_en_outline_of_databases_s7
+                - 实体关系模型（ER 模型）  ·  tree_wiki_en_outline_of_databases_s4_s7_b1  ·  k_wiki_en_outline_of_databases_s7_b1
+                - 数据库规范化  ·  tree_wiki_en_outline_of_databases_s4_s7_b2  ·  k_wiki_en_outline_of_databases_s7_b2
+                - 数据库重构  ·  tree_wiki_en_outline_of_databases_s4_s7_b3  ·  k_wiki_en_outline_of_databases_s7_b3
+              - 数据库编程 (2孩)  ·  tree_wiki_en_outline_of_databases_s4_s8  ·  k_wiki_en_outline_of_databases_s8
+                - 数据库抽象层  ·  tree_wiki_en_outline_of_databases_s4_s8_b1  ·  k_wiki_en_outline_of_databases_s8_b1
+                - 对象关系映射（ORM、O/RM 和 O/R 映射）  ·  tree_wiki_en_outline_of_databases_s4_s8_b2  ·  k_wiki_en_outline_of_databases_s8_b2
+              - 数据库管理 (6孩)  ·  tree_wiki_en_outline_of_databases_s4_s9  ·  k_wiki_en_outline_of_databases_s9
+                - 数据库虚拟化  ·  tree_wiki_en_outline_of_databases_s4_s9_b1  ·  k_wiki_en_outline_of_databases_s9_b1
+                - 数据库调整  ·  tree_wiki_en_outline_of_databases_s4_s9_b2  ·  k_wiki_en_outline_of_databases_s9_b2
+                - 数据库缓存  ·  tree_wiki_en_outline_of_databases_s4_s9_b3  ·  k_wiki_en_outline_of_databases_s9_b3
+                - 数据迁移  ·  tree_wiki_en_outline_of_databases_s4_s9_b4  ·  k_wiki_en_outline_of_databases_s9_b4
+                - 数据库保存  ·  tree_wiki_en_outline_of_databases_s4_s9_b5  ·  k_wiki_en_outline_of_databases_s9_b5
+                - 数据库完整性  ·  tree_wiki_en_outline_of_databases_s4_s9_b6  ·  k_wiki_en_outline_of_databases_s9_b6
+            - 数据仓库 (15孩)  ·  tree_wiki_en_outline_of_databases_s20  ·  k_wiki_en_outline_of_databases_s20
+              - 变体 (7孩)  ·  tree_wiki_en_outline_of_databases_s20_s21_s23  ·  k_wiki_en_outline_of_databases_s23
+                - 锚定建模  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b1  ·  k_wiki_en_outline_of_databases_s23_b1
+                - 面向列的 DBMS  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b2  ·  k_wiki_en_outline_of_databases_s23_b2
+                - 数据仓库建模  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b3  ·  k_wiki_en_outline_of_databases_s23_b3
+                - HOLAP  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b4  ·  k_wiki_en_outline_of_databases_s23_b4
+                - MOLAP  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b5  ·  k_wiki_en_outline_of_databases_s23_b5
+                - ROLAP  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b6  ·  k_wiki_en_outline_of_databases_s23_b6
+                - 操作数据存储 (ODS)  ·  tree_wiki_en_outline_of_databases_s20_s21_s23_b7  ·  k_wiki_en_outline_of_databases_s23_b7
+              - 元素 (4孩)  ·  tree_wiki_en_outline_of_databases_s20_s21_s24  ·  k_wiki_en_outline_of_databases_s24
+                - 数据字典  ·  tree_wiki_en_outline_of_databases_s20_s21_s24_b1  ·  k_wiki_en_outline_of_databases_s13_b2
+                - 数据集市  ·  tree_wiki_en_outline_of_databases_s20_s21_s24_b2  ·  k_wiki_en_outline_of_databases_s24_b2
+                - 第六范式 (6NF)  ·  tree_wiki_en_outline_of_databases_s20_s21_s24_b3  ·  k_wiki_en_outline_of_databases_s24_b3
+                - 代理键  ·  tree_wiki_en_outline_of_databases_s20_s21_s24_b4  ·  k_wiki_en_outline_of_databases_s24_b4
+              - 事实 (3孩)  ·  tree_wiki_en_outline_of_databases_s20_s21_s25  ·  k_wiki_en_outline_of_databases_s25
+                - 事实表  ·  tree_wiki_en_outline_of_databases_s20_s21_s25_b1  ·  k_wiki_en_outline_of_databases_s25_b1
+                - 提前到达事实  ·  tree_wiki_en_outline_of_databases_s20_s21_s25_b2  ·  k_wiki_en_outline_of_databases_s25_b2
+                - 测量)  ·  tree_wiki_en_outline_of_databases_s20_s21_s25_b3  ·  k_wiki_en_outline_of_databases_s25_b3
+              - 方面 (3孩)  ·  tree_wiki_en_outline_of_databases_s20_s21_s26  ·  k_wiki_en_outline_of_databases_s26
+                - 维度表  ·  tree_wiki_en_outline_of_databases_s20_s21_s26_b1  ·  k_wiki_en_outline_of_databases_s26_b1
+                - 退化维度  ·  tree_wiki_en_outline_of_databases_s20_s21_s26_b2  ·  k_wiki_en_outline_of_databases_s26_b2
+                - 缓慢变化的维度  ·  tree_wiki_en_outline_of_databases_s20_s21_s26_b3  ·  k_wiki_en_outline_of_databases_s26_b3
+              - 填充 (4孩)  ·  tree_wiki_en_outline_of_databases_s20_s21_s27  ·  k_wiki_en_outline_of_databases_s27
+                - 提取  ·  tree_wiki_en_outline_of_databases_s20_s21_s27_b1  ·  k_wiki_en_outline_of_databases_s27_b1
+                - 数据提取  ·  tree_wiki_en_outline_of_databases_s20_s21_s27_b2  ·  k_wiki_en_outline_of_databases_s27_b2
+                - 数据转换  ·  tree_wiki_en_outline_of_databases_s20_s21_s27_b3  ·  k_wiki_en_outline_of_databases_s27_b3
+                - 数据加载  ·  tree_wiki_en_outline_of_databases_s20_s21_s27_b4  ·  k_wiki_en_outline_of_databases_s27_b4
+              - 维度)  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b1  ·  k_wiki_en_outline_of_databases_s22_b1
+              - 维度建模 (DM)  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b2  ·  k_wiki_en_outline_of_databases_s22_b2
+              - 事实)  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b3  ·  k_wiki_en_outline_of_databases_s22_b3
+              - 在线分析处理 (OLAP)  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b4  ·  k_wiki_en_outline_of_databases_s22_b4
+              - 星型架构  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b5  ·  k_wiki_en_outline_of_databases_s22_b5
+              - 聚合)  ·  tree_wiki_en_outline_of_databases_s20_s21_s22_b6  ·  k_wiki_en_outline_of_databases_s22_b6
+              - 使用数据仓库 (7孩)  ·  tree_wiki_en_outline_of_databases_s20_s28  ·  k_wiki_en_outline_of_databases_s28
+                - 语言 (3孩)  ·  tree_wiki_en_outline_of_databases_s20_s28_s30  ·  k_wiki_en_outline_of_databases_s30
+                  - 数据挖掘扩展 (DMX)  ·  tree_wiki_en_outline_of_databases_s20_s28_s30_b1  ·  k_wiki_en_outline_of_databases_s30_b1
+                  - 多维表达 (MDX)  ·  tree_wiki_en_outline_of_databases_s20_s28_s30_b2  ·  k_wiki_en_outline_of_databases_s30_b2
+                  - XML 用于分析 (XMLA)  ·  tree_wiki_en_outline_of_databases_s20_s28_s30_b3  ·  k_wiki_en_outline_of_databases_s30_b3
+                - 工具 (3孩)  ·  tree_wiki_en_outline_of_databases_s20_s28_s31  ·  k_wiki_en_outline_of_databases_s31
+                  - 商业智能工具  ·  tree_wiki_en_outline_of_databases_s20_s28_s31_b1  ·  k_wiki_en_outline_of_databases_s31_b1
+                  - 报告软件列表  ·  tree_wiki_en_outline_of_databases_s20_s28_s31_b2  ·  k_wiki_en_outline_of_databases_s31_b2
+                  - 电子表格  ·  tree_wiki_en_outline_of_databases_s20_s28_s31_b3  ·  k_wiki_en_outline_of_databases_s31_b3
+                - 商业智能 (BI)  ·  tree_wiki_en_outline_of_databases_s20_s28_s29_b1  ·  k_wiki_en_outline_of_databases_s29_b1
+                - 仪表板)  ·  tree_wiki_en_outline_of_databases_s20_s28_s29_b2  ·  k_wiki_en_outline_of_databases_s29_b2
+                - 数据挖掘  ·  tree_wiki_en_outline_of_databases_s20_s28_s29_b3  ·  k_acm2012_information_systems_data_mining
+                - 决策支持系统 (DSS)  ·  tree_wiki_en_outline_of_databases_s20_s28_s29_b4  ·  k_wiki_en_outline_of_databases_s29_b4
+                - OLAP 立方体  ·  tree_wiki_en_outline_of_databases_s20_s28_s29_b5  ·  k_wiki_en_outline_of_databases_s29_b5
+              - 人们 (3孩)  ·  tree_wiki_en_outline_of_databases_s20_s32  ·  k_wiki_en_outline_of_databases_s32
+                - Edgar F. Codd  ·  tree_wiki_en_outline_of_databases_s20_s32_b1  ·  k_wiki_en_outline_of_databases_s32_b1
+                - 比尔·英蒙  ·  tree_wiki_en_outline_of_databases_s20_s32_b2  ·  k_wiki_en_outline_of_databases_s32_b2
+                - Ralph Kimball（生于 1944 年）  ·  tree_wiki_en_outline_of_databases_s20_s32_b3  ·  k_wiki_en_outline_of_databases_s32_b3
+              - 产品 (1孩)  ·  tree_wiki_en_outline_of_databases_s20_s33  ·  k_wiki_en_outline_of_databases_s33
+                - OLAP 服务器比较  ·  tree_wiki_en_outline_of_databases_s20_s33_b1  ·  k_wiki_en_outline_of_databases_s33_b1
+              - 数据仓库 / data warehouse  ·  mysql_term_transaction_theory_data_warehouse_1vp7y4  ·  k_dict_o5254svl
+            - 数据库相关组织 (2孩)  ·  tree_wiki_en_outline_of_databases_s34  ·  k_wiki_en_outline_of_databases_s34
+              - *数据库)*  ·  tree_wiki_en_outline_of_databases_s34_b1  ·  k_wiki_en_outline_of_databases_s34_b1
+              - *数据库管理杂志*  ·  tree_wiki_en_outline_of_databases_s34_b2  ·  k_wiki_en_outline_of_databases_s34_b2
+            - 数据库学者 (6孩)  ·  tree_wiki_en_outline_of_databases_s36  ·  k_wiki_en_outline_of_databases_s36
+              - Serge Abiteboul  ·  tree_wiki_en_outline_of_databases_s36_b1  ·  k_wiki_en_outline_of_databases_s36_b1
+              - 大卫·迈尔  ·  tree_wiki_en_outline_of_databases_s36_b2  ·  k_wiki_en_outline_of_databases_s36_b2
+              - 拉尔夫·金博尔  ·  tree_wiki_en_outline_of_databases_s36_b3  ·  k_wiki_en_outline_of_databases_s36_b3
+              - Kamran Parsaye  ·  tree_wiki_en_outline_of_databases_s36_b4  ·  k_wiki_en_outline_of_databases_s36_b4
+              - C. J.日期  ·  tree_wiki_en_outline_of_databases_s36_b5  ·  k_wiki_en_outline_of_databases_s36_b5
+              - Peter Chen  ·  tree_wiki_en_outline_of_databases_s36_b6  ·  k_wiki_en_outline_of_databases_s36_b6
+            - 数据库管理系统  ·  tree_wiki_zh_数据库_s2  ·  k_wiki_en_database_s12
+            - 数据库概览（维基来源全文）  ·  tree_wiki_en_outline_of_databases  ·  k_wiki_en_outline_of_databases
+          - 数据模型 (7孩)  ·  chapter_db_02  ·  container:chapter_db_02
+            - 关系型 / relational (2孩)  ·  tree_concept_relational  ·  concept_relational
+              - MySQL 关系型 / MySQL relational  ·  tree_mysql_instance_concept_relational_0  ·  mysql_glossary_relational_1yoaip
+              - PostgreSQL  ·  governance:canonical:demo_postgres  ·  demo_postgres
+            - 键值数据库  ·  tree_1783250218983_d5353r  ·  k_1783250218905_21uook
+            - NoSQL (3孩)  ·  demo_nosql  ·  n_21yoee5g
+              - Redis (12孩)  ·  demo_tree_redis  ·  demo_redis
+                - 数据结构  ·  tree_1786170062211_zqbfie  ·  k_1786170062009_1o5xtm
+                - 数据类型 (5孩)  ·  tree_1786232234666_2zcwva  ·  k_1786232234420_feohxw
+                  - String  ·  tree_1786234896127_hlptjk  ·  k_1786234895923_uqw3i5
+                  - Hash  ·  tree_1786235680956_9u2nly  ·  k_1786235680732_ypglrt
+                  - List  ·  tree_1786235705392_owmfm9  ·  k_1786235705160_2f2rd5
+                  - Set  ·  tree_1786235724964_ovaaer  ·  k_1786235724765_ienczm
+                  - zset (2孩)  ·  tree_1786235757428_osu8oj  ·  k_1786235757225_82in77
+                    - ZRANK  ·  asplit_s1_asplit_zrank  ·  asplit_zrank
+                    - ZRANGE  ·  asplit_s1_asplit_zrange  ·  asplit_zrange
+                - 发布订阅模式 / pub-sub  ·  tree_1786241152165_ujkgyc  ·  k_1786241151946_frfy1k
+                - 键  ·  tree_1786241637080_kx2akt  ·  k_1786241636814_4oxfbu
+                - Lua  ·  tree_1786247447929_wrznu8  ·  k_1786247447697_dgmbsj
+                - 分布式锁 (3孩)  ·  tree_1786247545356_bh4fui  ·  k_1786247545136_klxpw8
+                  - 简易锁  ·  tree_1786248136931_uxqd1m  ·  k_1786248136736_d0df3s
+                  - 使用Redis构建锁  ·  tree_1786248404173_c8yjs3  ·  k_1786248403898_s7a8cc
+                  - 细粒度锁  ·  tree_1786248535155_2bqjqq  ·  k_1786248534945_w98sxl
+                - 线程模型  ·  tree_1786287459516_38o7a3  ·  k_1786287459303_y8rjxd
+                - 集群方案 (5孩)  ·  tree_1786288129374_3wkto6  ·  k_1786288129141_kithia
+                  - 哨兵模式  ·  tree_1786339455571_ljdvne  ·  k_1786339455347_33797b
+                  - 官方Redis Cluster 方案(服务端路由查询) (1孩)  ·  tree_1786339545582_zaieus  ·  k_1786339545318_rg29dp
+                    - 节点间的内部通信机制  ·  tree_1786339605184_br66x2  ·  k_1786339604964_0sjbig
+                  - 基于客户端分配  ·  tree_1786339684184_zs651f  ·  k_1786339683947_kcqeiy
+                  - 基于代理服务器分片  ·  tree_1786339781228_f31n0y  ·  k_1786339780982_omxb5c
+                  - Redis 主从架构  ·  tree_1786339820733_pdogb3  ·  k_1786339820426_mkffnh
+                - 分区  ·  tree_1786340067613_wejdgr  ·  k_1786340067400_hpavtb
+                - 缓存异常 (8孩)  ·  tree_1786340438649_tbr6gs  ·  k_1786340438417_wmmxde
+                  - redis穿透  ·  tree_1786340457010_5jtoo8  ·  k_1786340456749_kkjwb4
+                  - redis雪崩  ·  tree_1786340490406_nh6kcm  ·  k_1786340490182_5owkof
+                  - redis击穿  ·  tree_1786340543323_fn7slv  ·  k_1786340543087_8xkvg2
+                  - 缓存预热  ·  tree_1786340565414_tb59hj  ·  k_1786340565182_pcw4pc
+                  - 缓存降级  ·  tree_1786340595359_dmr45o  ·  k_1786340595049_lmf81f
+                  - 缓存热点key  ·  tree_1786340652071_gudwro  ·  k_1786340651800_edhmhy
+                  - 热点数据  ·  asplit_s1_asplit_hot_data  ·  asplit_hot_data
+                  - 冷数据  ·  asplit_s1_asplit_cold_data  ·  asplit_cold_data
+                - 常用工具  ·  tree_1786340679407_lt9p4u  ·  k_1786340679196_bxccei
+                - 持久化选项 (3孩)  ·  tree_1786245246710_rw9q3v  ·  k_1786245246100_0lh1ld
+                  - 快照持久化  ·  tree_1786245301884_ra35hu  ·  k_1786245301433_seqw47
+                  - RDB持久化 (6孩)  ·  tree_1786245817114_ds2keo  ·  k_1786245816863_ntvyz2
+                    - SAVE / BGSAVE 命令到达  ·  asplit_s2_asplit_rdb_save_cmd  ·  asplit_rdb_save_cmd
+                    - fork 子进程（写时复制）  ·  asplit_s2_asplit_rdb_state_fork  ·  asplit_rdb_state_fork
+                    - 子进程写临时 RDB 文件  ·  asplit_s2_asplit_rdb_state_child_write  ·  asplit_rdb_state_child_write
+                    - 父进程继续处理命令  ·  asplit_s2_asplit_rdb_state_parent_serve  ·  asplit_rdb_state_parent_serve
+                    - 临时文件原子替换 dump.rdb  ·  asplit_s2_asplit_rdb_state_replaced  ·  asplit_rdb_state_replaced
+                    - 启动时载入 RDB 恢复数据  ·  asplit_s2_asplit_rdb_state_loaded  ·  asplit_rdb_state_loaded
+                  - AOF持久化 (1孩)  ·  tree_1786246940848_l6901i  ·  k_1786246940566_xsamv7
+                    - AOF持久化的实现  ·  tree_1786246986016_1gm1lm  ·  k_1786246985753_w4fbw9
+              - MongoDB  ·  demo_tree_mongodb  ·  demo_mongodb
+              - NoSQL 数据库  ·  tree_vault_nosql_overview  ·  k_vault_nosql_overview
+            - 数据库模型（维基）  ·  tree_1783250387114_cn55cf  ·  k_1783250387082_pp338r
+            - 网状数据模型的数据结构 (1孩)  ·  tree_wiki_zh_数据库_s8_s12  ·  k_wiki_zh_数据库_s12
+              - 网状模型  ·  tree_wiki_zh_数据库_s8_s12_s13  ·  k_wiki_zh_数据库_s13
+            - 分类术语（维基）  ·  tree_wiki_en_database_s11  ·  k_wiki_en_database_s11
+            - 数据库类型（维基） (38孩)  ·  tree_wiki_en_outline_of_databases_s2  ·  k_wiki_en_outline_of_databases_s2
+              - 活动数据库  ·  tree_wiki_en_outline_of_databases_s2_b1  ·  k_wiki_en_outline_of_databases_s2_b1
+              - 动画数据库  ·  tree_wiki_en_outline_of_databases_s2_b2  ·  k_wiki_en_outline_of_databases_s2_b2
+              - 后端数据库  ·  tree_wiki_en_outline_of_databases_s2_b3  ·  k_wiki_en_outline_of_databases_s2_b3
+              - 书目数据库  ·  tree_wiki_en_outline_of_databases_s2_b4  ·  k_wiki_en_outline_of_databases_s2_b4
+              - 集中式数据库  ·  tree_wiki_en_outline_of_databases_s2_b5  ·  k_wiki_en_outline_of_databases_s2_b5
+              - 云数据库  ·  tree_wiki_en_outline_of_databases_s2_b6  ·  k_wiki_en_outline_of_databases_s2_b6
+              - 馆藏数据库  ·  tree_wiki_en_outline_of_databases_s2_b7  ·  k_wiki_en_outline_of_databases_s2_b7
+              - 集体优化数据库  ·  tree_wiki_en_outline_of_databases_s2_b8  ·  k_wiki_en_outline_of_databases_s2_b8
+              - 配置管理数据库  ·  tree_wiki_en_outline_of_databases_s2_b9  ·  k_wiki_en_outline_of_databases_s2_b9
+              - 合作数据库  ·  tree_wiki_en_outline_of_databases_s2_b10  ·  k_wiki_en_outline_of_databases_s2_b10
+              - 当前数据库  ·  tree_wiki_en_outline_of_databases_s2_b11  ·  k_wiki_en_outline_of_databases_s2_b11
+              - Directory  ·  tree_wiki_en_outline_of_databases_s2_b12  ·  k_wiki_en_outline_of_databases_s2_b12
+              - 分布式数据库  ·  tree_wiki_en_outline_of_databases_s2_b13  ·  k_wiki_en_outline_of_databases_s2_b13
+              - 面向文档的数据库  ·  tree_wiki_en_outline_of_databases_s2_b14  ·  k_wiki_en_outline_of_databases_s2_b14
+              - EDA 数据库  ·  tree_wiki_en_outline_of_databases_s2_b15  ·  k_wiki_en_outline_of_databases_s2_b15
+              - Endgame tablebase  ·  tree_wiki_en_outline_of_databases_s2_b16  ·  k_wiki_en_outline_of_databases_s2_b16
+              - 食品成分数据库 (FCDB)  ·  tree_wiki_en_outline_of_databases_s2_b17  ·  k_wiki_en_outline_of_databases_s2_b17
+              - 全文数据库  ·  tree_wiki_en_outline_of_databases_s2_b18  ·  k_wiki_en_outline_of_databases_s2_b18
+              - 政府数据库  ·  tree_wiki_en_outline_of_databases_s2_b19  ·  k_wiki_en_outline_of_databases_s2_b19
+              - 图数据库  ·  tree_wiki_en_outline_of_databases_s2_b20  ·  k_wiki_en_outline_of_databases_s2_b20
+              - 知识库  ·  tree_wiki_en_outline_of_databases_s2_b21  ·  k_wiki_en_outline_of_databases_s2_b21
+              - 移动数据库  ·  tree_wiki_en_outline_of_databases_s2_b22  ·  k_wiki_en_outline_of_databases_s2_b22
+              - 导航数据库  ·  tree_wiki_en_outline_of_databases_s2_b23  ·  k_wiki_en_outline_of_databases_s2_b23
+              - 非母语语音数据库  ·  tree_wiki_en_outline_of_databases_s2_b24  ·  k_wiki_en_outline_of_databases_s2_b24
+              - 在线数据库  ·  tree_wiki_en_outline_of_databases_s2_b25  ·  k_wiki_en_outline_of_databases_s2_b25
+              - 运营数据库  ·  tree_wiki_en_outline_of_databases_s2_b26  ·  k_wiki_en_outline_of_databases_s2_b26
+              - 并行数据库  ·  tree_wiki_en_outline_of_databases_s2_b27  ·  k_wiki_en_outline_of_databases_s2_b27
+              - 概率数据库  ·  tree_wiki_en_outline_of_databases_s2_b28  ·  k_wiki_en_outline_of_databases_s2_b28
+              - 实时数据库  ·  tree_wiki_en_outline_of_databases_s2_b29  ·  k_wiki_en_outline_of_databases_s2_b29
+              - 关系数据库  ·  tree_wiki_en_outline_of_databases_s2_b30  ·  k_1783250122245_2rg7bc
+              - 空间数据库  ·  tree_wiki_en_outline_of_databases_s2_b31  ·  k_wiki_en_outline_of_databases_s2_b31
+              - 时态数据库  ·  tree_wiki_en_outline_of_databases_s2_b32  ·  k_wiki_en_outline_of_databases_s2_b32
+              - 时间序列数据库  ·  tree_wiki_en_outline_of_databases_s2_b33  ·  k_wiki_en_outline_of_databases_s2_b33
+              - Triplestore  ·  tree_wiki_en_outline_of_databases_s2_b34  ·  k_wiki_en_outline_of_databases_s2_b34
+              - 超大型数据库 (VLDB)  ·  tree_wiki_en_outline_of_databases_s2_b35  ·  k_wiki_en_outline_of_databases_s2_b35
+              - 漏洞数据库  ·  tree_wiki_en_outline_of_databases_s2_b36  ·  k_wiki_en_outline_of_databases_s2_b36
+              - XLDB  ·  tree_wiki_en_outline_of_databases_s2_b37  ·  k_wiki_en_outline_of_databases_s2_b37
+              - XML 数据库  ·  tree_wiki_en_outline_of_databases_s2_b38  ·  k_wiki_en_outline_of_databases_s2_b38
+          - 数据库结构 (15孩)  ·  chapter_db_03  ·  container:chapter_db_03
+            - 模式 / schema (1孩)  ·  tree_concept_schema  ·  concept_schema
+              - MySQL 模式 / MySQL schema  ·  tree_mysql_instance_concept_schema_0  ·  k_dict_8yoqxtuu
+            - 存储对象 / stored object (2孩)  ·  tree_concept_stored_object  ·  concept_stored_object
+              - MySQL 存储对象 / MySQL stored object  ·  tree_mysql_instance_concept_stored_object_0  ·  mysql_glossary_stored_object_od8fkh
+              - 存储程序 / stored program (3孩)  ·  tree_concept_stored_program  ·  concept_stored_program
+                - MySQL 存储程序 / stored program  ·  tree_mysql_instance_concept_stored_program_0  ·  mysql_glossary_stored_program_mzfpca
+                - MySQL 存储过程  ·  tree_wiki_en_outline_of_databases_s10_s12_b10  ·  k_1782930954484_nwtfg7
+                - MySQL 触发器  ·  mysql_term_programming_language_theory_kdzspc_65wo8b  ·  k_1782930904543_kxi0uk
+            - 数据字典 / data dictionary (3孩)  ·  tree_concept_data_dictionary  ·  concept_data_dictionary
+              - MySQL 数据字典 / data dictionary  ·  mysql_functional_ref_k_dict_nsqweksd  ·  k_dict_nsqweksd
+              - MySQL INFORMATION_SCHEMA  ·  tree_mysql_instance_concept_data_dictionary_1  ·  k_dict_qus727rl
+              - MySQL 序列化字典信息 (SDI) / serialized dictionary information (SDI)  ·  tree_mysql_instance_concept_data_dictionary_3  ·  mysql_glossary_serialized_dictionary_information_sdi_1ee69u
+            - 表 / table (1孩)  ·  tree_concept_table  ·  concept_table
+              - MySQL 表 / table (2孩)  ·  mysql_functional_ref_k_dict_7dvcv51p  ·  k_dict_7dvcv51p
+                - 种类 (3孩)  ·  tree_1787231015537_q3cgzw  ·  k_1787231015136_vzf5cp
+                  - 内在临时表 / intrinsic temporary table  ·  projection:mysql-term:mysql_glossary_intrinsic_temporary_table_1sl3hr  ·  mysql_glossary_intrinsic_temporary_table_1sl3hr
+                  - 表类型 / table type  ·  projection:mysql-term:mysql_glossary_table_type_1wu89y  ·  mysql_glossary_table_type_1wu89y
+                  - compressed table  ·  projection:mysql-term:mysql_glossary_compressed_table_zx6vsg  ·  mysql_glossary_compressed_table_zx6vsg
+                - 行  ·  tree_1787233573551_qu68vt  ·  k_1787233573161_ig79sb
+            - 列 / column (1孩)  ·  tree_concept_column  ·  concept_column
+              - MySQL 列 / column (1孩)  ·  mysql_functional_ref_k_dict_lepgecnd  ·  k_dict_lepgecnd
+                - 种类 (5孩)  ·  tree_1787230637836_qh3bh4  ·  k_1787230637478_0nvlbm
+                  - 虚拟生成列 / virtual generated column  ·  projection:mysql-term:mysql_glossary_virtual_generated_column_1smsm1  ·  mysql_glossary_virtual_generated_column_1smsm1
+                  - 基础列 / base column  ·  projection:mysql-term:mysql_glossary_base_column_jjprw2  ·  mysql_glossary_base_column_jjprw2
+                  - 生成的存储列 / generated stored column  ·  projection:mysql-term:mysql_glossary_generated_stored_column_1nr7fq  ·  mysql_glossary_generated_stored_column_1nr7fq
+                  - 离页列 / off-page column  ·  projection:mysql-term:mysql_glossary_off_page_column_i7tqi8  ·  mysql_glossary_off_page_column_i7tqi8
+                  - 存储生成列 / stored generated column  ·  projection:mysql-term:mysql_glossary_stored_generated_column_j7jiqj  ·  mysql_glossary_stored_generated_column_j7jiqj
+            - 行 / row (1孩)  ·  tree_concept_row  ·  concept_row
+              - MySQL 行 / row (1孩)  ·  mysql_functional_ref_k_dict_2uq4y41u  ·  k_dict_2uq4y41u
+                - 行格式 / row format (5孩)  ·  mysql_functional_ref_k_dict_ihguu98m  ·  k_dict_ihguu98m
+                  - 紧凑行格式 / compact row format  ·  projection:mysql-term:mysql_glossary_compact_row_format_16fa2a  ·  mysql_glossary_compact_row_format_16fa2a
+                  - 冗余行格式 / redundant row format  ·  projection:mysql-term:mysql_glossary_redundant_row_format_kd9bbp  ·  mysql_glossary_redundant_row_format_kd9bbp
+                  - 动态行格式 / dynamic row format  ·  projection:mysql-term:mysql_glossary_dynamic_row_format_1pdso5  ·  mysql_glossary_dynamic_row_format_1pdso5
+                  - 固定行格式 / fixed row format  ·  projection:mysql-term:mysql_glossary_fixed_row_format_ti21b0  ·  mysql_glossary_fixed_row_format_ti21b0
+                  - compressed row format  ·  projection:mysql-term:mysql_glossary_compressed_row_format_11axki  ·  mysql_glossary_compressed_row_format_11axki
+            - 生成列 / generated column (1孩)  ·  tree_concept_generated_column  ·  concept_generated_column
+              - MySQL 生成列 / generated column  ·  mysql_functional_ref_k_dict_reul960o  ·  k_dict_reul960o
+            - 临时表 / temporary table (1孩)  ·  tree_concept_temporary_table  ·  concept_temporary_table
+              - MySQL 临时表 / temporary table  ·  mysql_functional_ref_k_dict_6rxmba95  ·  k_dict_6rxmba95
+            - 参照完整性 / referential integrity (1孩)  ·  tree_concept_referential_integrity  ·  concept_referential_integrity
+              - MySQL 参照完整性 / referential integrity  ·  projection:mysql-term:k_dict_1a3p1hdq  ·  k_dict_1a3p1hdq
+            - 子表 / child table (1孩)  ·  tree_concept_child_table  ·  concept_child_table
+              - MySQL 子表 / child table  ·  projection:mysql-term:mysql_glossary_child_table_1l6dvq  ·  mysql_glossary_child_table_1l6dvq
+            - 父级表 / parent table (1孩)  ·  tree_concept_parent_table  ·  concept_parent_table
+              - MySQL 父级表 / parent table  ·  projection:mysql-term:mysql_glossary_parent_table_yqeba1  ·  mysql_glossary_parent_table_yqeba1
+            - 分区 / partitioning (1孩)  ·  tree_concept_partitioning  ·  concept_partitioning
+              - MySQL 分区管理（Partitioning）  ·  tree_1787326536361_b2tj2r  ·  k_1787326536038_77rvww
+            - 分隔标识符 / delimited identifier (1孩)  ·  tree_concept_delimited_identifier  ·  concept_delimited_identifier
+              - MySQL 反引号 / backticks  ·  projection:mysql-term:mysql_glossary_backticks_5z2ws  ·  mysql_glossary_backticks_5z2ws
+            - 视图 (1孩)  ·  tree_1784714555221_9s0o64  ·  k_1784714555181_hzcpf5
+              - MySQL 视图 (1孩)  ·  mysql_functional_ref_k_dict_lm90vzok  ·  k_dict_lm90vzok
+                - 物化视图 / Materialized View  ·  mysql_functional_ref_k_dict_1sj5w4mj  ·  k_dict_1sj5w4mj
+            - 架构（维基）  ·  tree_1783250411576_amv1j2  ·  k_1783250411548_9x4h5g
+          - 数据库操作 (10孩)  ·  chapter_db_05  ·  container:chapter_db_05
+            - 预处理语句 / prepared statement (3孩)  ·  tree_concept_prepared_statement  ·  concept_prepared_statement
+              - MySQL 客户端预处理语句 / MySQL client-side prepared statement  ·  tree_mysql_instance_concept_prepared_statement_0  ·  mysql_glossary_client_side_prepared_statement_1czk27
+              - MySQL 服务器端预处理语句 / MySQL server-side prepared statement  ·  tree_mysql_instance_concept_prepared_statement_1  ·  mysql_glossary_server_side_prepared_statement_1g5uc6
+              - MySQL 预处理语句 / MySQL prepared statement  ·  tree_mysql_instance_concept_prepared_statement_2  ·  mysql_glossary_prepared_statement_1tfqdw
+            - 插入 / insert (2孩)  ·  tree_concept_insert  ·  concept_insert
+              - MySQL 插入 / insert  ·  mysql_functional_ref_k_dict_pzcms560  ·  k_dict_pzcms560
+              - MySQL 混合模式插入 / mixed-mode insert  ·  projection:mysql-sql:mysql_glossary_mixed_mode_insert_1pvj4c  ·  mysql_glossary_mixed_mode_insert_1pvj4c
+            - 删除 / delete (1孩)  ·  tree_concept_delete  ·  concept_delete
+              - MySQL 删除 / delete  ·  mysql_functional_ref_k_dict_qvf5c9q7  ·  k_dict_qvf5c9q7
+            - 截断 / truncate (1孩)  ·  tree_concept_truncate  ·  concept_truncate
+              - MySQL 截断 / truncate  ·  mysql_functional_ref_k_dict_ntqiff2s  ·  k_dict_ntqiff2s
+            - 落下 / drop (1孩)  ·  tree_concept_drop  ·  concept_drop
+              - MySQL 落下 / drop  ·  projection:mysql-term:k_dict_t6m62us4  ·  k_dict_t6m62us4
+            - 动态 SQL / dynamic SQL (1孩)  ·  tree_concept_dynamic_sql  ·  concept_dynamic_sql
+              - MySQL 动态语句 / dynamic statement  ·  projection:mysql-term:mysql_glossary_dynamic_statement_1evhmv  ·  mysql_glossary_dynamic_statement_1evhmv
+            - 在线 DDL / online DDL (1孩)  ·  tree_concept_online_ddl  ·  concept_online_ddl
+              - MySQL 在线 DDL / online DDL  ·  mysql_functional_ref_k_dict_4m05mgz6  ·  k_dict_4m05mgz6
+            - 原子 DDL / atomic DDL (1孩)  ·  tree_concept_atomic_ddl  ·  concept_atomic_ddl
+              - MySQL 原子DDL / atomic DDL  ·  projection:mysql-sql:mysql_glossary_atomic_ddl_l48qcc  ·  mysql_glossary_atomic_ddl_l48qcc
+            - 数据库语言 (6孩)  ·  tree_wiki_en_database_s15  ·  k_wiki_en_database_s15
+              - DQL / 数据查询语言 (1孩)  ·  tree_concept_dql  ·  concept_dql
+                - MySQL DQL / 数据查询语言  ·  tree_mysql:sql:dql  ·  mysql:sql:dql
+              - DML / 数据操作语言 (1孩)  ·  tree_concept_dml  ·  concept_dml
+                - MySQL DML / 数据操作语言  ·  tree_mysql:sql:dml  ·  mysql:sql:dml
+              - DDL / 数据定义语言 (1孩)  ·  tree_concept_ddl  ·  concept_ddl
+                - MySQL DDL / 数据定义语言  ·  tree_mysql:sql:ddl  ·  mysql:sql:ddl
+              - DCL / 数据控制语言 (1孩)  ·  tree_concept_dcl  ·  concept_dcl
+                - MySQL DCL / 数据控制语言  ·  tree_mysql:sql:dcl  ·  mysql:sql:dcl
+              - 数据控制语言 / DCL  ·  mysql_term_formal_languages_automata_dcl_15jd89  ·  k_dict_7w36vehk
+              - 数据操纵语言 / DML  ·  mysql_term_formal_languages_automata_dml_16qewn  ·  k_dict_qv4sloxd
+            - CRUD  ·  projection:mysql-term:mysql_glossary_crud_1ihm43  ·  mysql_glossary_crud_1ihm43
+          - 查询系统 (10孩)  ·  chapter_db_06  ·  container:chapter_db_06
+            - MySQL 查询执行过程 (1孩)  ·  tree_qproc_overview  ·  qproc_overview
+              - 内部执行流程（六步） (15孩)  ·  tree_qproc_flow  ·  qproc_flow
+                - 客户端（Client） (1孩)  ·  tree_qproc_client  ·  qproc_client
+                  - 连接与线程状态 (11孩)  ·  tree_qproc_thread_state  ·  qproc_thread_state
+                    - Command 取值  ·  tree_qproc_thread_commands  ·  qproc_thread_commands
+                    - State 取值  ·  tree_qproc_thread_states  ·  qproc_thread_states
+                    - TCP 连接建立  ·  asplit_s2_asplit_conn_state_handshake  ·  asplit_conn_state_handshake
+                    - 客户端鉴权  ·  asplit_s2_asplit_conn_state_auth  ·  asplit_conn_state_auth
+                    - 分配线程  ·  asplit_s2_asplit_conn_state_alloc_thread  ·  asplit_conn_state_alloc_thread
+                    - 用户线程执行命令  ·  asplit_s2_asplit_conn_state_user_thread  ·  asplit_conn_state_user_thread
+                    - Sleep 空闲等待  ·  asplit_s2_asplit_conn_state_sleep  ·  asplit_conn_state_sleep
+                    - 连接关闭  ·  asplit_s2_asplit_conn_state_closing  ·  asplit_conn_state_closing
+                    - Connection Pool（连接池）  ·  asplit_s2_asplit_conn_pool  ·  asplit_conn_pool
+                    - 身份认证  ·  final_k_vault_se_auth  ·  k_vault_se_auth
+                    - 权限校验  ·  final_atomic_privilege_check  ·  atomic_privilege_check
+                - 查询缓存（Query Cache）  ·  tree_qproc_cache  ·  qproc_cache
+                - 解析器（Parser）  ·  tree_qproc_parser  ·  qproc_parser
+                - 预处理器（Preprocessor）  ·  tree_qproc_preprocessor  ·  qproc_preprocessor
+                - 查询优化器（Optimizer） (1孩)  ·  tree_qproc_optimizer  ·  qproc_optimizer
+                  - 查询优化的策略 (4孩)  ·  tree_qproc_opt_strategies  ·  qproc_opt_strategies
+                    - 等价变换策略  ·  tree_qproc_opt_equivalent  ·  qproc_opt_equivalent
+                    - 优化 count、min、max 等函数  ·  tree_qproc_opt_functions  ·  qproc_opt_functions
+                    - 提前终止查询  ·  tree_qproc_opt_earlystop  ·  qproc_opt_earlystop
+                    - in 的优化  ·  tree_qproc_opt_in  ·  qproc_opt_in
+                - 查询执行引擎（Executor）  ·  tree_qproc_executor  ·  qproc_executor
+                - 存储引擎（Storage Engine）  ·  tree_qproc_storage  ·  qproc_storage
+                - 连接已建立（①）  ·  tree_qproc_state_connected  ·  qproc_state_connected
+                - 查询缓存命中（②）  ·  tree_qproc_state_cached  ·  qproc_state_cached
+                - 解析树已生成（③）  ·  tree_qproc_state_parsed  ·  qproc_state_parsed
+                - 执行计划已生成（④）  ·  tree_qproc_state_planned  ·  qproc_state_planned
+                - 执行中，取到数据（⑤）  ·  tree_qproc_state_executing  ·  qproc_state_executing
+                - 结果已返回客户端  ·  tree_qproc_state_returned  ·  qproc_state_returned
+                - 查询缓存  ·  tree_k_dict_hlduom8b  ·  k_dict_hlduom8b
+                - Query Cache  ·  tree_k_dict_yaz6f56l  ·  k_dict_yaz6f56l
+            - 查询优化器 / query optimizer (1孩)  ·  tree_concept_query_optimizer  ·  concept_query_optimizer
+              - MySQL 查询优化器（Optimizer） (2孩)  ·  projection:mysql-mysqld:mysql:mysqld-layer:optimize:k_1782033508063_xspnmd:0  ·  k_1782033508063_xspnmd
+                - MySQL 慢查询 SQL 优化思路 (2孩)  ·  tree_sqopt_overview  ·  sqopt_overview
+                  - SQL 性能下降的原因  ·  tree_sqopt_causes  ·  sqopt_causes
+                  - 慢查询优化思路（十条）  ·  tree_sqopt_ideas  ·  sqopt_ideas
+                - MySQL 慢 SQL 排查思路 (4孩)  ·  tree_diag_overview  ·  diag_overview
+                  - SQL 执行慢的常见原因  ·  tree_diag_causes  ·  diag_causes
+                  - 整体排查流程  ·  tree_diag_flow  ·  diag_flow
+                  - 索引问题的排查  ·  tree_diag_index  ·  diag_index
+                  - 读写分离优化  ·  tree_diag_rw_split  ·  diag_rw_split
+            - 查询执行计划 / query execution plan (1孩)  ·  tree_concept_query_execution_plan  ·  concept_query_execution_plan
+              - MySQL 查询执行计划 / query execution plan (1孩)  ·  projection:mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4:2  ·  mysql_glossary_query_execution_plan_17fdf4
+                - Explain (2孩)  ·  tree_k_dict_txc4v2ss  ·  k_dict_txc4v2ss
+                  - EXPLAIN 的 type 字段（访问类型） (9孩)  ·  tree_explain_type  ·  explain_type
+                    - type = system  ·  tree_explain_type_system  ·  explain_type_system
+                    - type = const  ·  tree_explain_type_const  ·  explain_type_const
+                    - type = eq_ref  ·  tree_explain_type_eq_ref  ·  explain_type_eq_ref
+                    - type = ref  ·  tree_explain_type_ref  ·  explain_type_ref
+                    - type = range  ·  tree_explain_type_range  ·  explain_type_range
+                    - type = index  ·  tree_explain_type_index  ·  explain_type_index
+                    - type = ALL  ·  tree_explain_type_all  ·  explain_type_all
+                    - System  ·  tree_k_dict_mkv3t3vi  ·  k_dict_mkv3t3vi
+                    - Range  ·  tree_k_dict_csflfif1  ·  k_dict_csflfif1
+                  - EXPLAIN 的主要字段 (12孩)  ·  tree_explain_fields  ·  explain_fields
+                    - EXPLAIN 能获得的信息  ·  tree_explain_info  ·  explain_info
+                    - EXPLAIN 使用方式  ·  tree_explain_usage  ·  explain_usage
+                    - 字段 id（读取顺序）  ·  tree_explain_field_id  ·  explain_field_id
+                    - 字段 select_type（查询类型）  ·  tree_explain_field_select_type  ·  explain_field_select_type
+                    - 字段 table / partitions  ·  tree_explain_field_table  ·  explain_field_table
+                    - 字段 type（访问类型）  ·  tree_explain_field_type  ·  explain_field_type
+                    - 字段 possible_keys / key（索引使用）  ·  tree_explain_field_keys  ·  explain_field_keys
+                    - 字段 key_len（索引长度）  ·  tree_explain_field_keylen  ·  explain_field_keylen
+                    - 字段 ref（连接匹配条件）  ·  tree_explain_field_ref  ·  explain_field_ref
+                    - 字段 rows（估算行数）  ·  tree_explain_field_rows  ·  explain_field_rows
+                    - 字段 Extra（额外信息）  ·  tree_explain_field_extra  ·  explain_field_extra
+                    - SQL 执行计划（EXPLAIN）  ·  tree_k_sql_explain  ·  k_sql_explain
+            - 全表扫描 / full table scan (1孩)  ·  tree_concept_full_table_scan  ·  concept_full_table_scan
+              - MySQL 全表扫描 / full table scan  ·  mysql_functional_ref_k_dict_jan17ieo  ·  k_dict_jan17ieo
+            - 选择性 / selectivity (1孩)  ·  tree_concept_selectivity  ·  concept_selectivity
+              - MySQL 选择性 / selectivity  ·  projection:mysql-term:mysql_glossary_selectivity_4k9ksu  ·  mysql_glossary_selectivity_4k9ksu
+            - 索引提示 / index hint (1孩)  ·  tree_concept_index_hint  ·  concept_index_hint
+              - MySQL 索引提示 / index hint  ·  projection:mysql-term:mysql_glossary_index_hint_1nr0pl  ·  mysql_glossary_index_hint_1nr0pl
+            - 解析器 / parser (1孩)  ·  tree_concept_parser  ·  concept_parser
+              - MySQL 解析器（Parser）  ·  projection:mysql-mysqld:mysql:mysqld-layer:parse:k_1782033245872_81floi:0  ·  k_1782033245872_81floi
+            - 连接 / join (1孩)  ·  tree_concept_join  ·  concept_join
+              - MySQL JOIN 连接 (4孩)  ·  governance:canonical:demo_join  ·  demo_join
+                - JOIN 的连接方式  ·  tree_join_types  ·  join_types
+                - 驱动表  ·  tree_join_driving_table  ·  join_driving_table
+                - JOIN 的三种执行算法 (4孩)  ·  tree_join_algorithms  ·  join_algorithms
+                  - 简单嵌套循环连接（SNL）  ·  tree_join_snl  ·  join_snl
+                  - 索引嵌套循环连接（INL）  ·  tree_join_inl  ·  join_inl
+                  - 块嵌套循环连接（BNL）  ·  tree_join_bnl  ·  join_bnl
+                  - Nested Loop Join  ·  tree_k_dict_lf4tbrsa  ·  k_dict_lf4tbrsa
+                - JOIN 优化原则  ·  tree_join_principles  ·  join_principles
+            - 子查询 / subquery (1孩)  ·  tree_concept_subquery  ·  concept_subquery
+              - MySQL 子查询  ·  governance:canonical:demo_subquery  ·  demo_subquery
+            - 查询处理 / query processing (7孩)  ·  tree_concept_query_processing  ·  concept_query_processing
+              - 索引条件下推 / index condition pushdown (1孩)  ·  tree_concept_index_condition_pushdown  ·  concept_index_condition_pushdown
+                - MySQL 索引条件下推 / ICP  ·  projection:mysql-term:mysql_glossary_index_condition_pushdown_tudely  ·  mysql_glossary_index_condition_pushdown_tudely
+              - 排序缓冲区 / sort buffer (1孩)  ·  tree_concept_sort_buffer  ·  concept_sort_buffer
+                - MySQL 排序缓冲区 / sort buffer  ·  projection:mysql-repaired:mysql:theme:query-processing:mysql_glossary_sort_buffer_1x3j60  ·  mysql_glossary_sort_buffer_1x3j60
+              - 盲查询扩展 / blind query expansion (1孩)  ·  tree_concept_blind_query_expansion  ·  concept_blind_query_expansion
+                - MySQL 盲查询扩展 / blind query expansion  ·  projection:mysql-term:mysql_glossary_blind_query_expansion_17xip3  ·  mysql_glossary_blind_query_expansion_17xip3
+              - 随机探查 / random dive (1孩)  ·  tree_concept_random_dive  ·  concept_random_dive
+                - MySQL 随机探查 / random dive  ·  projection:mysql-term:mysql_glossary_random_dive_1sbv22  ·  mysql_glossary_random_dive_1sbv22
+              - 相关性 / relevance (1孩)  ·  tree_concept_relevance  ·  concept_relevance
+                - MySQL 相关性 / relevance  ·  projection:mysql-term:mysql_glossary_relevance_1schdd  ·  mysql_glossary_relevance_1schdd
+              - 词干提取 / stemming (1孩)  ·  tree_concept_stemming  ·  concept_stemming
+                - MySQL 词干提取 / stemming  ·  projection:mysql-term:mysql_glossary_stemming_w8xwzt  ·  mysql_glossary_stemming_w8xwzt
+              - MySQL 分页查询优化 (3孩)  ·  tree_pagination_overview  ·  pagination_overview
+                - LIMIT 一般性分页 (2孩)  ·  tree_pagination_basic  ·  pagination_basic
+                  - 实验一：偏移量固定，返回量变化  ·  tree_pagination_exp_offset  ·  pagination_exp_offset
+                  - 实验二：返回量固定，偏移量变化  ·  tree_pagination_exp_count  ·  pagination_exp_count
+                - 分页优化方案 (2孩)  ·  tree_pagination_opts  ·  pagination_opt_wrapper
+                  - 优化1：通过索引进行分页  ·  tree_pagination_opt_index  ·  pagination_opt_index
+                  - 优化2：利用子查询优化  ·  tree_pagination_opt_subquery  ·  pagination_opt_subquery
+                - LIMIT / FETCH  ·  tree_k_dict_wxe0al75  ·  k_dict_wxe0al75
+          - 数据库事务 (20孩)  ·  chapter_db_07  ·  container:chapter_db_07
+            - MySQL 事务  ·  tree_1785248000649_g7enn7  ·  n_ag24bbkc
+            - 事务原理 (10孩)  ·  theory_domain_transaction_theory  ·  theory_domain_transaction_theory
+              - 事务处理 (1孩)  ·  tree_1784705186638_sbtn31  ·  k_1784705186589_4l6rn5
+                - 补偿事务  ·  tree_1784729656859_s3gsct  ·  k_1784729656805_igbg2h
+              - ACID (3孩)  ·  tree_1784730311947_885z70  ·  demo_acid
+                - 原子性  ·  tree_1784731248478_oy7crb  ·  k_1784731248425_non832
+                - 一致性  ·  tree_1784731654882_ecbsxj  ·  k_1784731654837_ur8uo6
+                - 隔离性  ·  tree_1784733045422_rvjbl8  ·  k_1784733045365_qubtp0
+              - 快照 / snapshot  ·  mysql_term_transaction_theory_snapshot_1e8wnk  ·  k_dict_xbipt5q1
+              - 联机事务处理 / OLTP  ·  mysql_term_transaction_theory_oltp_18eomk  ·  k_dict_zu4iv9d4
+              - 自动提交 / autocommit  ·  mysql_term_transaction_theory_autocommit_8zgv4m  ·  k_dict_el0p7j55
+              - 组提交 / group commit  ·  mysql_term_transaction_theory_group_commit_6qcbnp  ·  k_dict_ggnkee68
+              - 事务处理系统  ·  tree_1784705818188_3q5ekp  ·  k_1784705818131_781hut
+              - 隔离级别 / isolation level (4孩)  ·  mysql_term_transaction_theory_isolation_level_iin46p  ·  demo_isolation
+                - 读未提交 / READ UNCOMMITTED  ·  mysql_term_transaction_theory_read_uncommitted_1ntfd7  ·  k_dict_3dltrcza
+                - 读已提交 / READ COMMITTED  ·  mysql_term_transaction_theory_read_committed_62od40  ·  k_dict_o0jw5g8p
+                - 可重复读 / REPEATABLE READ  ·  mysql_term_transaction_theory_repeatable_read_1yswtz  ·  k_dict_4zr5j9bz
+                - 可串行化 / SERIALIZABLE  ·  mysql_term_transaction_theory_serializable_bj5rus  ·  k_dict_i1g9hhj8
+              - 故障转移 / failover  ·  mysql_functional_ref_k_dict_mfu28h3v  ·  k_dict_mfu28h3v
+              - 原子 / atomic  ·  projection:mysql-term:mysql_glossary_atomic_1jyxbu  ·  mysql_glossary_atomic_1jyxbu
+            - 事务生命周期 / transaction lifecycle (1孩)  ·  tree_concept_transaction_lifecycle  ·  concept_transaction_lifecycle
+              - MySQL 事务生命周期  ·  tree_mysql_tx_lifecycle  ·  mysql_tx_lifecycle
+            - 事务管理 / transaction management (1孩)  ·  tree_concept_transaction_management  ·  concept_transaction_management
+              - MySQL 事务管理  ·  tree_1784456386621_grnp3v  ·  k_1784456386575_b7hxoh
+            - 全局事务 / global transaction (1孩)  ·  tree_concept_global_transaction  ·  concept_global_transaction
+              - MySQL 全局事务 / global transaction  ·  tree_mysql_glossary_global_transaction_4i1f06  ·  mysql_glossary_global_transaction_4i1f06
+            - 事务ID / transaction ID (1孩)  ·  tree_concept_transaction_id  ·  concept_transaction_id
+              - MySQL 事务 ID / transaction ID  ·  tree_mysql_glossary_transaction_id_1aa5a7  ·  mysql_glossary_transaction_id_1aa5a7
+            - 只读事务 / read-only transaction (1孩)  ·  tree_concept_read_only_transaction  ·  concept_read_only_transaction
+              - MySQL 只读事务 / read-only transaction  ·  tree_mysql_glossary_read_only_transaction_2kf2kq  ·  mysql_glossary_read_only_transaction_2kf2kq
+            - TCL / 事务控制语言 (1孩)  ·  tree_concept_tcl  ·  concept_tcl
+              - MySQL TCL / 事务控制语言  ·  tree_mysql:sql:tcl  ·  mysql:sql:tcl
+            - 分布式事务 / XA 协议 / XA  ·  mysql_term_distributed_systems_xa_1dfpej  ·  k_dict_n5wdsgcu
+            - 小型事务 / mini-transaction (1孩)  ·  tree_concept_mini_transaction  ·  concept_mini_transaction
+              - MySQL mini-transaction / 小型事务  ·  projection:mysql-term:mysql_glossary_mini_transaction_ly3edv  ·  mysql_glossary_mini_transaction_ly3edv
+            - 每秒事务数 / TPS (1孩)  ·  tree_concept_throughput_tps  ·  concept_throughput_tps
+              - MySQL TPS  ·  tree_mysql_instance_concept_throughput_tps_0  ·  mysql_glossary_tps_ej1ya6
+            - 读现象 / read phenomena (4孩)  ·  tree_concept_read_phenomena  ·  concept_read_phenomena
+              - MySQL 读现象  ·  governance:canonical:mysql_tx_read_phenomena  ·  mysql_tx_read_phenomena
+              - 幻读 / phantom read (1孩)  ·  tree_concept_phantom_read  ·  concept_phantom_read
+                - MySQL 幻读 / phantom  ·  mysql_term_transaction_theory_phantom_iydhac  ·  k_dict_8o426b5j
+              - 不可重复读 / non-repeatable read (1孩)  ·  tree_concept_non_repeatable_read  ·  concept_non_repeatable_read
+                - MySQL 不可重复读 / non-repeatable read  ·  mysql_term_transaction_theory_non_repeatable_read_12s3xs  ·  k_dict_c9sxzvqt
+              - 脏读 / dirty read (1孩)  ·  tree_concept_dirty_read  ·  concept_dirty_read
+                - MySQL 脏读 / dirty read  ·  mysql_term_transaction_theory_dirty_read_1yn24s  ·  k_dict_t83fdwoc
+            - 多版本并发控制 (1孩)  ·  tree_concept_mvcc  ·  concept_mvcc
+              - MySQL 多版本并发控制 (8孩)  ·  demo_tree_mvcc  ·  demo_mvcc
+                - 版本链  ·  demo_tree_vchain  ·  demo_vchain
+                - Read View  ·  demo_tree_rv  ·  demo_readview
+                - 可见性判断  ·  demo_tree_vis  ·  demo_visibility
+                - MVCC 隐藏系统列 (4孩)  ·  tree_innodb_mvcc_hidden_columns  ·  innodb_mvcc_hidden_columns
+                  - DB_TRX_ID  ·  tree_innodb_mvcc_db_trx_id  ·  innodb_mvcc_db_trx_id
+                  - DB_ROLL_PTR  ·  tree_innodb_mvcc_db_roll_ptr  ·  innodb_mvcc_db_roll_ptr
+                  - DB_ROW_ID  ·  tree_innodb_mvcc_db_row_id  ·  innodb_mvcc_db_row_id
+                  - 删除标记  ·  tree_innodb_mvcc_delete_mark  ·  innodb_mvcc_delete_mark
+                - Purge 清理 (6孩)  ·  tree_innodb_mvcc_purge  ·  innodb_mvcc_purge
+                  - 清理延迟 / purge lag  ·  projection:mysql-term:mysql_glossary_purge_lag_1p6pyp  ·  mysql_glossary_purge_lag_1p6pyp
+                  - 清理线程 / purge thread  ·  projection:mysql-term:mysql_glossary_purge_thread_8xnck4  ·  mysql_glossary_purge_thread_8xnck4
+                  - 高水位线 / high-water mark  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_high_water_mark_1g6jcp  ·  mysql_glossary_high_water_mark_1g6jcp
+                  - 低水位线 / low-water mark  ·  projection:mysql-term:mysql_glossary_low_water_mark_b3ceyk  ·  mysql_glossary_low_water_mark_b3ceyk
+                  - 历史列表 / history list  ·  projection:mysql-term:mysql_glossary_history_list_16r63i  ·  mysql_glossary_history_list_16r63i
+                  - 清理操作 / Purge Operation  ·  tree_1787237097584_lzwa35  ·  k_1787237097249_1ld0tb
+                - 当前读（CurrentRead）  ·  tree_1782024448026_vs0xa9  ·  k_1782024448012_sl16gv
+                - 版本链子系统  ·  governance:canonical:demo_vchain_sys  ·  demo_vchain_sys
+                - 快照读  ·  governance:canonical:demo_snapshot  ·  demo_snapshot
+            - 锁机制 / locking mechanism (13孩)  ·  tree_concept_lock_mechanism  ·  concept_lock_mechanism
+              - MySQL 锁机制 (4孩)  ·  demo_tree_lock  ·  demo_lock
+                - 页面锁  ·  demo_tree_page_lock  ·  demo_page_lock
+                - 读写锁 / rw-lock  ·  projection:mysql-term:mysql_glossary_rw_lock_1c4qu9  ·  mysql_glossary_rw_lock_1c4qu9
+                - 锁定 / locking  ·  projection:mysql-term:mysql_glossary_locking_1ofljy  ·  mysql_glossary_locking_1ofljy
+                - MySQL 锁的分类体系 (3孩)  ·  tree_lock_taxonomy  ·  lock_taxonomy
+                  - 按操作类型分（读锁 / 写锁） (4孩)  ·  tree_lock_by_type  ·  lock_by_type
+                    - MySQL 共享锁 / shared lock  ·  mysql_functional_ref_k_dict_yvuxhe74  ·  k_dict_yvuxhe74
+                    - MySQL 独占锁 / exclusive lock  ·  projection:mysql-term:mysql_glossary_exclusive_lock_ksqz5a  ·  mysql_glossary_exclusive_lock_ksqz5a
+                    - 锁定读 / locking read (1孩)  ·  tree_concept_locking_read  ·  concept_locking_read
+                      - MySQL 锁定读 / locking read  ·  projection:mysql-term:mysql_glossary_locking_read_16dto0  ·  mysql_glossary_locking_read_16dto0
+                    - 意向锁 / intention lock (3孩)  ·  tree_concept_intention_lock  ·  concept_intention_lock
+                      - MySQL 意图共享锁 / intention shared lock  ·  projection:mysql-term:mysql_glossary_intention_shared_lock_4x8ciz  ·  mysql_glossary_intention_shared_lock_4x8ciz
+                      - MySQL 意图独占锁 / intention exclusive lock  ·  projection:mysql-term:mysql_glossary_intention_exclusive_lock_1rd4p1  ·  mysql_glossary_intention_exclusive_lock_1rd4p1
+                      - MySQL 意向锁 / intention lock  ·  projection:mysql-term:mysql_glossary_intention_lock_1ejpzi  ·  mysql_glossary_intention_lock_1ejpzi
+                  - 按粒度分（表 / 行 / 页） (10孩)  ·  tree_lock_by_grain  ·  lock_by_grain
+                    - 页面锁 / page lock  ·  tree_lock_page_size  ·  lock_page_size
+                    - 表级锁 / table-level locking (1孩)  ·  tree_concept_table_level_locking  ·  concept_table_level_locking
+                      - MySQL 表锁 / table lock  ·  projection:mysql-term:mysql_glossary_table_lock_15y9vl  ·  mysql_glossary_table_lock_15y9vl
+                    - 元数据锁 / metadata lock (MDL) (1孩)  ·  tree_concept_metadata_lock  ·  concept_metadata_lock
+                      - MySQL 元数据锁 / metadata lock  ·  projection:mysql-term:mysql_glossary_metadata_lock_qiqw4n  ·  mysql_glossary_metadata_lock_qiqw4n
+                    - 自增锁 / auto-increment lock (2孩)  ·  tree_concept_auto_increment_lock  ·  concept_auto_increment_lock
+                      - MySQL 自增锁 / auto-increment locking  ·  projection:mysql-term:mysql_glossary_auto_increment_locking_lrps8v  ·  mysql_glossary_auto_increment_locking_lrps8v
+                      - MySQL innodb_autoinc_lock_mode  ·  projection:mysql-term:mysql_glossary_innodb_autoinc_lock_mode_a8q16t  ·  mysql_glossary_innodb_autoinc_lock_mode_a8q16t
+                    - 行级锁定 / row-level locking (1孩)  ·  tree_concept_row_level_locking  ·  concept_row_level_locking
+                      - MySQL 行级锁定 / row-level locking (1孩)  ·  mysql_functional_ref_k_dict_fb1f2eh2  ·  k_dict_fb1f2eh2
+                        - MySQL 行锁 / row lock  ·  demo_tree_row_lock  ·  demo_row_lock
+                    - 记录锁 / record lock (1孩)  ·  tree_concept_record_lock  ·  concept_record_lock
+                      - MySQL 记录锁 / record lock  ·  projection:mysql-term:mysql_glossary_record_lock_1pixn1  ·  mysql_glossary_record_lock_1pixn1
+                    - 间隙锁 / gap lock (1孩)  ·  tree_concept_gap_lock  ·  concept_gap_lock
+                      - MySQL 间隙锁 / gap lock  ·  mysql_glossary_gap_lock_1gfoi1  ·  mysql_glossary_gap_lock_1gfoi1
+                    - 临键锁 / next-key lock (1孩)  ·  tree_concept_next_key_lock  ·  concept_next_key_lock
+                      - MySQL 临键锁 / next-key lock  ·  mysql_functional_ref_k_dict_m5qakvks  ·  k_dict_m5qakvks
+                    - 插入意向锁 / insert intention lock (1孩)  ·  tree_concept_insert_intention_lock  ·  concept_insert_intention_lock
+                      - MySQL 插入意向锁 / insert intention lock  ·  projection:mysql-term:mysql_glossary_insert_intention_lock_1pnwh6  ·  mysql_glossary_insert_intention_lock_1pnwh6
+                    - 隐式行锁 / implicit row lock (1孩)  ·  tree_concept_implicit_row_lock  ·  concept_implicit_row_lock
+                      - MySQL 隐式行锁 / implicit row lock  ·  projection:mysql-term:mysql_glossary_implicit_row_lock_ac6u2d  ·  mysql_glossary_implicit_row_lock_ac6u2d
+                  - 按操作性能分（乐观 / 悲观） (4孩)  ·  tree_lock_by_perf  ·  lock_by_perf
+                    - 乐观锁 / optimistic lock  ·  tree_concept_optimistic_lock  ·  concept_optimistic_lock
+                    - 悲观锁 / pessimistic lock  ·  tree_concept_pessimistic_lock  ·  concept_pessimistic_lock
+                    - MySQL 乐观锁 / optimistic lock  ·  tree_1782928703685_fuj7ev  ·  demo_optimistic
+                    - MySQL 悲观锁 / pessimistic lock  ·  tree_1782928843771_cmjyzt  ·  demo_pessimistic
+              - 死锁 / deadlock (1孩)  ·  tree_concept_deadlock  ·  concept_deadlock
+                - MySQL 死锁 / deadlock  ·  mysql_functional_ref_k_dict_mq68vpwg  ·  k_dict_mq68vpwg
+              - 死锁检测 / deadlock detection (1孩)  ·  tree_concept_deadlock_detection  ·  concept_deadlock_detection
+                - MySQL 死锁检测 / deadlock detection  ·  mysql_functional_ref_demo_deadlock  ·  demo_deadlock
+              - 锁升级 / lock escalation (1孩)  ·  tree_concept_lock_escalation  ·  concept_lock_escalation
+                - MySQL 锁升级 / lock escalation  ·  mysql_functional_ref_k_dict_nqeoggvl  ·  k_dict_nqeoggvl
+              - 闩锁 / latch (1孩)  ·  tree_concept_latch  ·  concept_latch
+                - MySQL 闩锁 / latch  ·  mysql_functional_ref_k_dict_kgntvds7  ·  k_dict_kgntvds7
+              - 非锁定读 / non-locking read (1孩)  ·  tree_concept_non_locking_read  ·  concept_non_locking_read
+                - MySQL 非锁定读 / non-locking read  ·  projection:mysql-term:mysql_glossary_non_locking_read_12iidl  ·  mysql_glossary_non_locking_read_12iidl
+              - 锁模式 / lock mode (1孩)  ·  tree_concept_lock_mode  ·  concept_lock_mode
+                - MySQL 锁模式 / lock mode  ·  projection:mysql-term:mysql_glossary_lock_mode_h31or1  ·  mysql_glossary_lock_mode_h31or1
+              - 有序共享锁 / ordered shared locks  ·  tree_wiki_en_outline_of_databases_s4_b16  ·  k_wiki_en_outline_of_databases_s4_b16
+              - 锁等待超时 / lock wait timeout (1孩)  ·  tree_concept_lock_wait_timeout  ·  concept_lock_wait_timeout
+                - MySQL innodb_lock_wait_timeout  ·  projection:mysql-term:mysql_glossary_innodb_lock_wait_timeout_1puppm  ·  mysql_glossary_innodb_lock_wait_timeout_1puppm
+              - 共享锁 / shared lock  ·  tree_concept_shared_lock  ·  concept_shared_lock
+              - 排他锁 / exclusive lock  ·  tree_concept_exclusive_lock  ·  concept_exclusive_lock
+              - 范围锁  ·  asplit_s18_asplit_range_lock  ·  asplit_range_lock
+              - 插入锁  ·  asplit_s18_asplit_insert_lock  ·  asplit_insert_lock
+            - 一致性读取 / consistent read (1孩)  ·  tree_concept_consistent_read  ·  concept_consistent_read
+              - MySQL 一致性读取 / consistent read  ·  projection:mysql-repaired:mysql:theme:transactions-concurrency:mysql_glossary_consistent_read_gsmmdj  ·  mysql_glossary_consistent_read_gsmmdj
+            - 半一致性读取 / semi-consistent read (1孩)  ·  tree_concept_semi_consistent_read  ·  concept_semi_consistent_read
+              - MySQL 半一致性读取 / semi-consistent read  ·  projection:mysql-term:mysql_glossary_semi_consistent_read_luof7q  ·  mysql_glossary_semi_consistent_read_luof7q
+            - 回滚 / rollback (1孩)  ·  tree_concept_rollback  ·  concept_rollback
+              - MySQL 回滚 / rollback  ·  mysql_term_transaction_theory_rollback_1q3o0g  ·  k_dict_rmz7dcm0
+            - 并发 / concurrency (1孩)  ·  tree_concept_concurrency  ·  concept_concurrency
+              - MySQL 并发 / concurrency  ·  projection:mysql-term:mysql_glossary_concurrency_uoyivs  ·  mysql_glossary_concurrency_uoyivs
+            - 受害者 / victim (1孩)  ·  tree_concept_victim  ·  concept_victim
+              - MySQL 受害者 / victim  ·  projection:mysql-repaired:mysql:theme:transactions-concurrency:mysql_glossary_victim_18xqeg  ·  mysql_glossary_victim_18xqeg
+            - 丢失更新 / lost update (2孩)  ·  tree_concept_lost_update  ·  concept_lost_update
+              - MySQL 丢失更新  ·  tree_k_1782928892375_1vgg04  ·  k_1782928892375_1vgg04
+              - 分类 (2孩)  ·  tree_1788094136862_8ntck8  ·  k_1788094136859_u31zj7
+                - 回滚覆盖  ·  tree_1788094152000_j430fz  ·  k_1788094151993_oitdzv
+                - 提交覆盖  ·  tree_1788094196089_zid0p2  ·  k_1788094196082_afg382
+          - 恢复系统 (10孩)  ·  chapter_db_08  ·  container:chapter_db_08
+            - 可用性 / availability  ·  tree_concept_availability  ·  concept_availability
+            - 检查点 / checkpoint (1孩)  ·  tree_concept_checkpoint  ·  concept_checkpoint
+              - MySQL 检查点 / checkpoint  ·  mysql_term_recovery_theory_checkpoint_109dxa  ·  k_dict_t52tzaq2
+            - 脏页 / dirty page (1孩)  ·  tree_concept_dirty_page  ·  concept_dirty_page
+              - MySQL 脏页 / dirty page  ·  mysql_functional_ref_k_dict_rjl6lkaz  ·  k_dict_rjl6lkaz
+            - 备份 / backup (10孩)  ·  tree_concept_backup  ·  concept_backup
+              - MySQL 备份 / backup  ·  tree_mysql_instance_concept_backup_0  ·  k_dict_vg1hm4yv
+              - 热备份 / hot backup (1孩)  ·  tree_concept_hot_backup  ·  concept_hot_backup
+                - MySQL 热备份 / hot backup  ·  tree_mysql_instance_concept_hot_backup_0  ·  k_dict_z9h14mh0
+              - 温备份 / warm backup (1孩)  ·  tree_concept_warm_backup  ·  concept_warm_backup
+                - MySQL 温备份 / warm backup  ·  tree_mysql_instance_concept_warm_backup_0  ·  mysql_glossary_warm_backup_1sjsyn
+              - 冷备份 / cold backup (1孩)  ·  tree_concept_cold_backup  ·  concept_cold_backup
+                - MySQL 冷备份 / cold backup  ·  tree_mysql_instance_concept_cold_backup_0  ·  k_dict_88aa29dg
+              - 逻辑备份 / logical backup (1孩)  ·  tree_concept_logical_backup  ·  concept_logical_backup
+                - MySQL 逻辑备份 / logical backup  ·  tree_mysql_instance_concept_logical_backup_0  ·  k_dict_wv1o918s
+              - 物理备份 / physical backup (1孩)  ·  tree_concept_physical_backup  ·  concept_physical_backup
+                - MySQL 物理备份 / physical backup  ·  tree_mysql_instance_concept_physical_backup_0  ·  mysql_glossary_physical_backup_1o7b7v
+              - 完整备份 / full backup (1孩)  ·  tree_concept_full_backup  ·  concept_full_backup
+                - MySQL 完整备份 / full backup  ·  tree_mysql_instance_concept_full_backup_0  ·  mysql_glossary_full_backup_1pi94c
+              - 增量备份 / incremental backup (1孩)  ·  tree_concept_incremental_backup  ·  concept_incremental_backup
+                - MySQL 增量备份 / incremental backup  ·  tree_mysql_instance_concept_incremental_backup_0  ·  mysql_glossary_incremental_backup_3gko1n
+              - 部分备份 / partial backup (1孩)  ·  tree_concept_partial_backup  ·  concept_partial_backup
+                - MySQL 部分备份 / partial backup  ·  tree_mysql_instance_concept_partial_backup_0  ·  mysql_glossary_partial_backup_bplu20
+              - 压缩备份 / compressed backup (1孩)  ·  tree_concept_compressed_backup  ·  concept_compressed_backup
+                - MySQL 压缩备份 / compressed backup  ·  tree_mysql_instance_concept_compressed_backup_0  ·  mysql_glossary_compressed_backup_12f16e
+            - 恢复 / restore (1孩)  ·  tree_concept_restore  ·  concept_restore
+              - MySQL 恢复 / restore  ·  mysql_term_recovery_theory_restore_1htywc  ·  k_dict_lin6ue94
+            - 时间点恢复 / point-in-time recovery (1孩)  ·  tree_concept_point_in_time_recovery  ·  concept_point_in_time_recovery
+              - MySQL 时间点恢复 / point-in-time recovery  ·  tree_mysql_instance_concept_point_in_time_recovery_0  ·  mysql_glossary_point_in_time_recovery_eadx3e
+            - 崩溃恢复 / crash recovery (1孩)  ·  tree_concept_crash_recovery  ·  concept_crash_recovery
+              - MySQL 崩溃恢复 / crash recovery  ·  tree_mysql_instance_concept_crash_recovery_0  ·  mysql_glossary_crash_recovery_139bco
+            - 崩溃 / crash (1孩)  ·  tree_concept_crash  ·  concept_crash
+              - MySQL 崩溃 / crash  ·  tree_mysql_instance_concept_crash_0  ·  mysql_glossary_crash_7aq2mw
+            - 启动 / startup (1孩)  ·  tree_concept_startup  ·  concept_startup
+              - MySQL 启动 / startup  ·  tree_mysql_instance_concept_startup_0  ·  mysql_glossary_startup_154aqa
+            - 静默 / quiesce (1孩)  ·  tree_concept_quiesce  ·  concept_quiesce
+              - MySQL 静默 / quiesce  ·  tree_mysql_instance_concept_quiesce_0  ·  mysql_glossary_quiesce_1ujs11
+          - 日志系统 (9孩)  ·  chapter_db_09  ·  container:chapter_db_09
+            - 刷新 / flush (1孩)  ·  tree_concept_flush  ·  concept_flush
+              - 刷新 / flush  ·  projection:mysql-term:mysql_glossary_flush_1dnigf  ·  mysql_glossary_flush_1dnigf
+            - 日志传送  ·  tree_wiki_en_outline_of_databases_s4_b20  ·  k_wiki_en_outline_of_databases_s4_b20
+            - ib_logfile0、ib_logfile1 文件组  ·  projection:mysql-concept:mysql-log-files:k_1782031329838_mcap8c  ·  k_1782031329838_mcap8c
+            - ib_logfile 文件 / ib_logfile  ·  projection:mysql-concept:mysql-log-files:mysql_glossary_ib_logfile_1p12fu  ·  mysql_glossary_ib_logfile_1p12fu
+            - ib_logfile0 文件  ·  projection:mysql-concept:mysql-log-files:mysql_file_ib_logfile0  ·  mysql_file_ib_logfile0
+            - ibbackup_logfile  ·  projection:mysql-concept:mysql-log-files:mysql_glossary_ibbackup_logfile_1vewn2  ·  mysql_glossary_ibbackup_logfile_1vewn2
+            - 日志结构 (1孩)  ·  tree_1787584693449_9jpebs  ·  k_1787584691815_dvrytu
+              - 日志组 / log group  ·  projection:mysql-term:mysql_glossary_log_group_1a3bsl  ·  mysql_glossary_log_group_1a3bsl
+            - 日志类型 (5孩)  ·  tree_1787584729923_65b7nk  ·  k_1787584728487_j0johg
+              - 事务日志 (2孩)  ·  tree_wiki_en_outline_of_databases_s10_s12_b7  ·  k_wiki_en_outline_of_databases_s12_b7
+                - 重做日志 / redo log (1孩)  ·  tree_concept_redo_log  ·  concept_redo_log
+                  - MySQL 重做日志 / redo log (2孩)  ·  tree_1781957518607_s9sdgk  ·  k_1781957518600_aibqeg
+                    - redolog buffer  ·  tree_1782039521340_1axhon  ·  k_1782039521326_u1lzlc
+                    - redolog file  ·  tree_1782039569738_n5b5f7  ·  k_1782039569724_10ii46
+                - 撤销日志 / undo log (1孩)  ·  tree_concept_undo_log  ·  concept_undo_log
+                  - MySQL 撤销日志 / undo log (2孩)  ·  demo_tree_undo  ·  demo_undo
+                    - 更新 Undo 日志 / Update Undo Log (1孩)  ·  projection:mysql-term:mysql_glossary_update_undo_log_yphxzo  ·  mysql_glossary_update_undo_log_yphxzo
+                      - 重做日志归档 / redo log archiving  ·  projection:mysql-term:mysql_glossary_redo_log_archiving_1ugqxo  ·  mysql_glossary_redo_log_archiving_1ugqxo
+                    - 插入 Undo 日志 / Insert Undo Log  ·  projection:mysql-term:mysql_glossary_insert_undo_log_1yrj7c  ·  mysql_glossary_insert_undo_log_1yrj7c
+              - 二进制日志  ·  projection:mysql-concept:mysql-log-files:k_1782029566469_60woxz  ·  k_1782029566469_60woxz
+              - 慢查询日志 (1孩)  ·  projection:mysql-concept:mysql-log-files:k_1782029599317_nn6hzg  ·  k_1782029599317_nn6hzg
+                - MySQL 慢查询日志实践 (4孩)  ·  tree_slowlog_mysql  ·  slowlog_mysql
+                  - 慢查询相关参数  ·  tree_slowlog_params  ·  slowlog_params
+                  - 慢查询配置方式  ·  tree_slowlog_config  ·  slowlog_config
+                  - 慢日志记录内容  ·  tree_slowlog_entry  ·  slowlog_entry
+                  - 慢查询  ·  tree_k_dict_fncpbi74  ·  k_dict_fncpbi74
+              - 通用查询日志  ·  projection:mysql-concept:mysql-log-files:k_1782029546712_okgd59  ·  k_1782029546712_okgd59
+              - 错误日志  ·  projection:mysql-concept:mysql-log-files:k_1782029522089_047znr  ·  k_1782029522089_047znr
+            - 日志管理  ·  tree_1787584911431_gg87vl  ·  k_1787584910639_oedpma
+          - 存储系统 (11孩)  ·  chapter_db_10  ·  container:chapter_db_10
+            - 数据压缩 / data compression (5孩)  ·  tree_concept_compression  ·  concept_compression
+              - 稀疏文件 / sparse file (1孩)  ·  tree_concept_sparse_file  ·  concept_sparse_file
+                - 稀疏文件 / sparse file  ·  projection:mysql-term:mysql_glossary_sparse_file_1cutkz  ·  mysql_glossary_sparse_file_1cutkz
+              - 打孔 / hole punching (1孩)  ·  tree_concept_hole_punching  ·  concept_hole_punching
+                - 打孔 / hole punching  ·  projection:mysql-term:mysql_glossary_hole_punching_r6u429  ·  mysql_glossary_hole_punching_r6u429
+              - 透明压缩 / transparent compression (1孩)  ·  tree_concept_transparent_compression  ·  concept_transparent_compression
+                - 透明页压缩 / transparent page compression  ·  projection:mysql-term:mysql_glossary_transparent_page_compression_j4ufzm  ·  mysql_glossary_transparent_page_compression_j4ufzm
+              - 压缩失败 / compression failure (1孩)  ·  tree_concept_compression_failure  ·  concept_compression_failure
+                - 压缩失败 / compression failure  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_compression_failure_8kmcfr  ·  mysql_glossary_compression_failure_8kmcfr
+              - KEY_BLOCK_SIZE  ·  projection:mysql-term:mysql_glossary_key_block_size_u1i5bm  ·  mysql_glossary_key_block_size_u1i5bm
+            - 缓冲池 / buffer pool (10孩)  ·  projection:mysql-term:demo_buffer  ·  demo_buffer
+              - 缓冲池实例 / buffer pool instance  ·  projection:mysql-term:mysql_glossary_buffer_pool_instance_m5jqpe  ·  mysql_glossary_buffer_pool_instance_m5jqpe
+              - Change Buffer 合并（merge）  ·  mysql:projection:change-buffer-merge  ·  k_dict_s1u2tlxt
+              - 字典对象缓存 / dictionary object cache  ·  projection:mysql-term:mysql_glossary_dictionary_object_cache_1jwkoz  ·  mysql_glossary_dictionary_object_cache_1jwkoz
+              - 页面清理器 / page cleaner  ·  projection:mysql-term:mysql_glossary_page_cleaner_20exxg  ·  mysql_glossary_page_cleaner_20exxg
+              - 自适应刷新 / adaptive flushing  ·  projection:mysql-term:mysql_glossary_adaptive_flushing_19588u  ·  mysql_glossary_adaptive_flushing_19588u
+              - 撤销缓冲区 / undo buffer  ·  projection:mysql-term:mysql_glossary_undo_buffer_jg11o3  ·  mysql_glossary_undo_buffer_jg11o3
+              - 双写缓冲区 / doublewrite buffer  ·  projection:mysql-term:mysql_glossary_doublewrite_buffer_flioi3  ·  mysql_glossary_doublewrite_buffer_flioi3
+              - 变更缓冲 / change buffering  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_change_buffering_y1y18j  ·  mysql_glossary_change_buffering_y1y18j
+              - 清理缓冲 / purge buffering  ·  projection:mysql-term:mysql_glossary_purge_buffering_1ckv1x  ·  mysql_glossary_purge_buffering_1ckv1x
+              - 删除缓冲 / delete buffering  ·  projection:mysql-term:mysql_glossary_delete_buffering_15389r  ·  mysql_glossary_delete_buffering_15389r
+            - 变更缓冲 / change buffering (1孩)  ·  tree_concept_change_buffer  ·  concept_change_buffer
+              - MySQL 变更缓冲区 / change buffer  ·  tree_1781901890744_0vz1hw  ·  k_1781901890734_vckmz5
+            - 表空间 / tablespace (7孩)  ·  tree_concept_tablespace  ·  concept_tablespace
+              - MySQL 表空间 / tablespace (1孩)  ·  projection:mysql-term:k_dict_umbo5ime  ·  k_dict_umbo5ime
+                - 种类  ·  tree_1787230800084_ahithg  ·  k_1787230799608_magwbh
+              - 撤销表空间 / undo tablespace (1孩)  ·  tree_concept_undo_tablespace  ·  concept_undo_tablespace
+                - MySQL 撤销表空间 / undo tablespace  ·  projection:mysql-term:mysql_glossary_undo_tablespace_so71lf  ·  mysql_glossary_undo_tablespace_so71lf
+              - 共享表空间 / shared tablespace (2孩)  ·  tree_concept_shared_tablespace  ·  concept_shared_tablespace
+                - MySQL 共享表空间 / shared tablespace  ·  projection:mysql-term:mysql_glossary_shared_tablespace_1q68ln  ·  mysql_glossary_shared_tablespace_1q68ln
+                - MySQL 通用表空间 / general tablespace  ·  projection:mysql-term:mysql_glossary_general_tablespace_300irr  ·  mysql_glossary_general_tablespace_300irr
+              - 系统表空间 / system tablespace (1孩)  ·  tree_concept_system_tablespace  ·  concept_system_tablespace
+                - MySQL 系统表空间  ·  tree_1787234925581_xp80gz  ·  k_1787234925180_aqltgu
+              - 独立表空间 / independent tablespace (1孩)  ·  tree_concept_independent_tablespace  ·  concept_independent_tablespace
+                - MySQL 独立表空间  ·  tree_1787235074782_iv7acv  ·  k_1787235074473_zuqcq4
+              - 表空间标识符 / tablespace ID (1孩)  ·  tree_concept_tablespace_id  ·  concept_tablespace_id
+                - MySQL 空间 ID / space ID  ·  projection:mysql-term:mysql_glossary_space_id_1kjxje  ·  mysql_glossary_space_id_1kjxje
+              - 可传输表空间 / transportable tablespace (1孩)  ·  tree_concept_transportable_tablespace  ·  concept_transportable_tablespace
+                - MySQL 可传输表空间 / transportable tablespace  ·  projection:mysql-term:mysql_glossary_transportable_tablespace_1685qd  ·  mysql_glossary_transportable_tablespace_1685qd
+            - 段 / segment (1孩)  ·  tree_concept_segment  ·  concept_segment
+              - MySQL 段 / segment (1孩)  ·  projection:mysql-term:mysql_glossary_segment_1vmvly  ·  mysql_glossary_segment_1vmvly
+                - 种类  ·  tree_1787233626215_5xpe9q  ·  k_1787233625869_ypnqp8
+            - 区段 / extent (1孩)  ·  tree_concept_extent  ·  concept_extent
+              - MySQL 区段 / extent  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_extent_16v5kw  ·  mysql_glossary_extent_16v5kw
+            - 页 / page (6孩)  ·  tree_concept_page  ·  concept_page
+              - MySQL 干净页 / clean page  ·  mysql_functional_ref_k_1781962829528_eqvypd  ·  k_1781962829528_eqvypd
+              - MySQL 邻页 / neighbor page  ·  projection:mysql-term:mysql_glossary_neighbor_page_1t6aj7  ·  mysql_glossary_neighbor_page_1t6aj7
+              - MySQL 撕裂页 / torn page  ·  projection:mysql-term:mysql_glossary_torn_page_1kprbq  ·  mysql_glossary_torn_page_1kprbq
+              - MySQL 年轻页 / young  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_young_ohocw3  ·  mysql_glossary_young_ohocw3
+              - MySQL 溢出页 / overflow page  ·  projection:mysql-term:mysql_glossary_overflow_page_1x8lkk  ·  mysql_glossary_overflow_page_1x8lkk
+              - MySQL 页 / page (1孩)  ·  tree_1787209372536_w2at2g  ·  k_1787209372193_jgoudp
+                - 种类  ·  tree_1787234313137_gjy2id  ·  k_1787234312795_rop6nc
+            - 页大小 / page size (1孩)  ·  tree_concept_page_size  ·  concept_page_size
+              - MySQL 页大小 / page size  ·  projection:mysql-term:mysql_glossary_page_size_1tjy75  ·  mysql_glossary_page_size_1tjy75
+            - 回滚段 / rollback segment (1孩)  ·  tree_concept_rollback_segment  ·  concept_rollback_segment
+              - MySQL 回滚段 / rollback segment  ·  projection:mysql-term:mysql_glossary_rollback_segment_40xjnc  ·  mysql_glossary_rollback_segment_40xjnc
+            - 撤销日志段 / undo log segment (1孩)  ·  tree_concept_undo_log_segment  ·  concept_undo_log_segment
+              - MySQL 撤销日志段 / undo log segment  ·  projection:mysql-term:mysql_glossary_undo_log_segment_pbdi2c  ·  mysql_glossary_undo_log_segment_pbdi2c
+            - 基于磁盘 / disk-based  ·  projection:mysql-term:mysql_glossary_disk_based_15w8id  ·  mysql_glossary_disk_based_15w8id
+          - 索引 (21孩)  ·  chapter_db_11  ·  container:chapter_db_11
+            - MySQL 索引 (4孩)  ·  tree_1786175188148_3flq6j  ·  n_0xxb9cqy
+              - 索引的弊端  ·  tree_idxf_cost  ·  idxf_cost
+              - 索引失效的七种情况  ·  tree_idx_fail_cases  ·  idx_fail_cases
+              - 索引不适合的场景  ·  tree_idx_fail_unfit  ·  idx_fail_unfit
+              - 索引的潜规则  ·  tree_idx_fail_rules  ·  idx_fail_rules
+            - 唯一索引 / unique index (1孩)  ·  tree_concept_unique_index  ·  concept_unique_index
+              - MySQL 唯一索引 / unique index (1孩)  ·  mysql_functional_ref_demo_unique_index  ·  demo_unique_index
+                - 语法  ·  tree_1788165277114_mm8y3e  ·  k_1788165277106_8doot7
+            - 哈希索引 / hash index (1孩)  ·  tree_concept_hash_index  ·  concept_hash_index
+              - MySQL 哈希索引 / hash index  ·  mysql_functional_ref_demo_hash  ·  demo_hash
+            - 聚簇索引 / clustered index (1孩)  ·  tree_concept_clustered_index  ·  concept_clustered_index
+              - MySQL 聚簇索引 / clustered index  ·  mysql_functional_ref_demo_clustered_index  ·  demo_clustered_index
+            - 覆盖索引 / covering index (1孩)  ·  tree_concept_covering_index  ·  concept_covering_index
+              - MySQL 覆盖索引 / covering index  ·  mysql_functional_ref_demo_covering_index  ·  demo_covering_index
+            - 部分索引 / partial index (1孩)  ·  tree_concept_partial_index  ·  concept_partial_index
+              - MySQL 部分索引 / partial index  ·  mysql_functional_ref_k_dict_722bh2j6  ·  k_dict_722bh2j6
+            - 全文索引 / full-text index (1孩)  ·  tree_concept_fulltext_index  ·  concept_fulltext_index
+              - MySQL 全文索引 / FULLTEXT index (2孩)  ·  mysql_functional_ref_demo_fulltext_index  ·  demo_fulltext_index
+                - 停用词 / stopword  ·  projection:mysql-repaired:mysql:theme:indexes-access:mysql_glossary_stopword_ztgqhp  ·  mysql_glossary_stopword_ztgqhp
+                - 语法  ·  tree_1788189313788_b1male  ·  k_1788189313785_gs40tz
+            - B+树索引 / B-tree index (1孩)  ·  tree_concept_btree_index  ·  concept_btree_index
+              - MySQL B+树索引 (1孩)  ·  governance:canonical:demo_btree  ·  demo_btree
+                - B+树底层结构 (4孩)  ·  tree_btree_structure  ·  btree_structure
+                  - 根节点 / root page  ·  tree_bts_root_page  ·  bts_root_page
+                  - 内部节点 / internal page (2孩)  ·  tree_bts_internal  ·  bts_internal
+                    - 页内槽 / page directory  ·  tree_bts_slot  ·  bts_slot
+                    - 键 + 子页指针  ·  tree_bts_key_ptr  ·  bts_key_ptr
+                  - 叶子节点 / leaf page (2孩)  ·  tree_bts_leaf  ·  bts_leaf
+                    - 索引条目（键 + 行定位）  ·  tree_bts_entry  ·  bts_entry
+                    - 叶子双向链表  ·  tree_bts_double_linked  ·  bts_double_linked
+                  - 层间指针（连线语义）  ·  tree_bts_pointers  ·  bts_pointers
+            - 组合索引 / composite index (1孩)  ·  tree_concept_composite_index  ·  concept_composite_index
+              - MySQL 组合索引 (2孩)  ·  governance:canonical:demo_composite_index  ·  demo_composite_index
+                - 最佳左前缀法则 / leftmost prefix rule (4孩)  ·  tree_leftmost_prefix_rule  ·  leftmost_prefix_rule
+                  - 场景一：按索引列顺序使用（全命中）  ·  tree_lpf_case_in_order  ·  lpf_case_in_order
+                  - 场景二：跳过最左列（索引失效）  ·  tree_lpf_case_skip_left  ·  lpf_case_skip_left
+                  - 场景三：条件乱序（优化器重排，仍命中）  ·  tree_lpf_case_reordered  ·  lpf_case_reordered
+                  - 联合索引排序结构（底层原理） (3孩)  ·  tree_joint_index_sort_structure  ·  joint_index_sort_structure
+                    - 第一列：全局有序  ·  tree_jis_first_column_global  ·  jis_first_column_global
+                    - 第二列及以后：仅局部有序  ·  tree_jis_second_column_local  ·  jis_second_column_local
+                    - 推论：跳过最左列无法定位  ·  tree_jis_skip_leftmost_corollary  ·  jis_skip_leftmost_corollary
+                - 语法  ·  tree_1788189196675_u1ckc0  ·  k_1788189196672_0mqnkt
+            - 二级索引 / secondary index (2孩)  ·  tree_concept_secondary_index  ·  concept_secondary_index
+              - MySQL 二级索引 / secondary index  ·  tree_mvcc_secondary_index_existing  ·  demo_secondary_index
+              - MySQL 普通索引  ·  governance:canonical:k_auto_yb9yyu  ·  k_auto_yb9yyu
+            - 前缀索引 / prefix index (1孩)  ·  tree_concept_prefix_index  ·  concept_prefix_index
+              - MySQL 前缀索引  ·  governance:canonical:k_auto_es1cgt  ·  k_auto_es1cgt
+            - 降序索引 / descending index (1孩)  ·  tree_concept_descending_index  ·  concept_descending_index
+              - MySQL 降序索引 / descending index  ·  projection:mysql-term:mysql_glossary_descending_index_1j7tn3  ·  mysql_glossary_descending_index_1j7tn3
+            - 列索引 / column index (1孩)  ·  tree_concept_column_index  ·  concept_column_index
+              - MySQL 列索引 / column index  ·  projection:mysql-term:mysql_glossary_column_index_q4bbvv  ·  mysql_glossary_column_index_q4bbvv
+            - 虚拟索引 / virtual index (1孩)  ·  tree_concept_virtual_index  ·  concept_virtual_index
+              - MySQL 虚拟索引 / virtual index  ·  projection:mysql-term:mysql_glossary_virtual_index_sm95n4  ·  mysql_glossary_virtual_index_sm95n4
+            - 倒排索引 / inverted index (1孩)  ·  tree_concept_inverted_index  ·  concept_inverted_index
+              - MySQL 倒排索引 / inverted index  ·  tree_mysql_instance_concept_inverted_index  ·  mysql_glossary_inverted_index_spkkuc
+            - 自适应哈希索引 / adaptive hash index (1孩)  ·  tree_concept_adaptive_hash_index  ·  concept_adaptive_hash_index
+              - MySQL 自适应哈希 / adaptive hash index  ·  mysql_functional_ref_k_dict_4yz2io0y  ·  k_dict_4yz2io0y
+            - 索引统计 / index statistics (1孩)  ·  tree_concept_index_statistics  ·  concept_index_statistics
+              - MySQL 索引统计 / index statistics  ·  projection:mysql-term:mysql_glossary_index_statistics_1ge74j  ·  mysql_glossary_index_statistics_1ge74j
+            - 基数 / cardinality (1孩)  ·  tree_concept_cardinality  ·  concept_cardinality
+              - MySQL 基数 / cardinality  ·  mysql_functional_ref_k_dict_n9s627ij  ·  k_dict_n9s627ij
+            - 填充因子 / fill factor (1孩)  ·  tree_concept_fill_factor  ·  concept_fill_factor
+              - MySQL 填充因子 / fill factor  ·  projection:mysql-term:k_dict_jmpy3jq2  ·  k_dict_jmpy3jq2
+            - 哨兵记录 / sentinel record (2孩)  ·  tree_concept_sentinel_record  ·  concept_sentinel_record
+              - MySQL 上确界记录 / supremum record  ·  projection:mysql-term:mysql_glossary_supremum_record_1pbwmi  ·  mysql_glossary_supremum_record_1pbwmi
+              - MySQL 极小记录 / infimum record  ·  projection:mysql-term:mysql_glossary_infimum_record_1jiz41  ·  mysql_glossary_infimum_record_1jiz41
+            - 主键索引 (1孩)  ·  tree_concept_primary_key  ·  concept_primary_key
+              - MySQL主键索引  ·  tree_mysql_instance_concept_primary_key_0  ·  k_dict_xxkp8lkc
+          - 数据表示 (7孩)  ·  chapter_db_12  ·  container:chapter_db_12
+            - 可变长度类型 / variable-length type (1孩)  ·  tree_concept_variable_length_type  ·  concept_variable_length_type
+              - MySQL 可变长度类型 / MySQL variable-length type  ·  tree_mysql_instance_concept_variable_length_type_0  ·  mysql_glossary_variable_length_type_1satcr
+            - BLOB / binary large object (1孩)  ·  tree_concept_blob  ·  concept_blob
+              - MySQL BLOB  ·  tree_mysql_instance_concept_blob_0  ·  mysql_glossary_blob_lhrk4q
+            - CLOB / character large object (1孩)  ·  tree_concept_clob  ·  concept_clob
+              - MySQL CLOB  ·  tree_mysql_instance_concept_clob_0  ·  mysql_glossary_clob_kn7shj
+            - 整数类型 / integer type (1孩)  ·  tree_concept_integer_type  ·  concept_integer_type
+              - MySQL 整数类型  ·  tree_1782749047525_u9banq  ·  k_1782749047493_w36knu
+            - 实数类型 / real type (1孩)  ·  tree_concept_real_type  ·  concept_real_type
+              - MySQL 实数类型  ·  tree_1782749263847_2ggaio  ·  k_1782749263813_199twh
+            - 字符串类型 / string type (1孩)  ·  tree_concept_string_type  ·  concept_string_type
+              - MySQL 字符串类型  ·  mysql_term_character_encoding_standards_1r4jnc4_xb0ayd  ·  k_1782749276682_qsjks8
+            - 枚举类型 / enum type (1孩)  ·  tree_concept_enum_type  ·  concept_enum_type
+              - MySQL 枚举类型  ·  tree_1782749287389_5385em  ·  k_1782749287355_2zl67c
+          - 数据库设计 (6孩)  ·  chapter_db_13  ·  container:chapter_db_13
+            - 数据库理论 (3孩)  ·  database_principles_database_theory  ·  school_database_theory
+              - 关系代数 (2孩)  ·  theory_domain_relational_algebra  ·  theory_domain_relational_algebra
+                - 查询 / query  ·  mysql_term_relational_algebra_query_5cx3md  ·  k_dict_olg8goh1
+                - 连接 / join  ·  mysql_term_relational_algebra_join_ej6jmt  ·  k_dict_duk4xptw
+              - 规范化理论 (1孩)  ·  theory_domain_normalization_theory  ·  theory_domain_normalization_theory
+                - 依赖理论  ·  tree_1784731127850_969dqg  ·  k_1784731127788_0ewxaf
+              - 恢复理论 (2孩)  ·  theory_domain_recovery_theory  ·  theory_domain_recovery_theory
+                - PITR  ·  mysql_term_recovery_theory_pitr_584i5q  ·  k_dict_zjinmyz3
+                - 数据库关闭模式 (4孩)  ·  tree_1787385593086_ua34cq  ·  k_1787385592848_lojpk7
+                  - 关闭 / shutdown  ·  mysql_functional_ref_k_dict_jwcd61u4  ·  k_dict_jwcd61u4
+                  - 快速关闭 / fast shutdown  ·  mysql_functional_ref_k_dict_hcbepdud  ·  k_dict_hcbepdud
+                  - 缓慢关闭 / slow shutdown  ·  projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_slow_shutdown_1tqzdr  ·  mysql_glossary_slow_shutdown_1tqzdr
+                  - 干净关闭 / clean shutdown  ·  projection:mysql-term:mysql_glossary_clean_shutdown_1rucqm  ·  mysql_glossary_clean_shutdown_1rucqm
+            - 模型  ·  tree_wiki_en_database_s27_s28  ·  k_wiki_en_database_s28
+            - 视图 (1孩)  ·  tree_1786782227854_odxtpr  ·  k_1786782227425_rz3dhk
+              - 物化视图  ·  tree_wiki_en_database_s16_s17  ·  k_wiki_en_database_s17
+            - 规范化 / normalized  ·  projection:mysql-term:mysql_glossary_normalized_4n509k  ·  mysql_glossary_normalized_4n509k
+            - 反规范化 / denormalized  ·  projection:mysql-term:mysql_glossary_denormalized_y8sq0n  ·  mysql_glossary_denormalized_y8sq0n
+            - 数据库建模  ·  asplit_s106_db_modeling  ·  asplit_db_modeling
+          - 数据库分布与复制 (3孩)  ·  chapter_db_14  ·  container:chapter_db_14
+            - 连接 / connection (2孩)  ·  tree_concept_connection  ·  concept_connection
+              - MySQL 连接 / connection  ·  projection:mysql-term:mysql_glossary_connection_fqlzvd  ·  mysql_glossary_connection_fqlzvd
+              - MySQL 连接字符串 / connection string  ·  projection:mysql-term:mysql_glossary_connection_string_1hyrot  ·  mysql_glossary_connection_string_1hyrot
+            - 连接池 / connection pool (1孩)  ·  tree_concept_connection_pool  ·  concept_connection_pool
+              - MySQL 连接池 / connection pool  ·  mysql_functional_ref_k_dict_h20fqa9t  ·  k_dict_h20fqa9t
+            - MySQL 分库分表 (3孩)  ·  tree_sharding_overview  ·  sharding_overview
+              - 四种拆分方式 (5孩)  ·  tree_sharding_ways  ·  sharding_ways
+                - 垂直分库  ·  tree_sharding_v_db  ·  sharding_v_db
+                - 垂直分表  ·  tree_sharding_v_table  ·  sharding_v_table
+                - 水平分库  ·  tree_sharding_h_db  ·  sharding_h_db
+                - 水平分表  ·  tree_sharding_h_table  ·  sharding_h_table
+                - 架构演进路线  ·  tree_sharding_evolution  ·  sharding_evolution
+              - 分表  ·  tree_k_dict_zsu3d9zk  ·  k_dict_zsu3d9zk
+              - Sharding  ·  tree_k_dict_wu1sq9s4  ·  k_dict_wu1sq9s4
+          - 数据库安全  ·  chapter_db_16  ·  container:chapter_db_16
+          - 数据库运维 (13孩)  ·  chapter_db_17  ·  container:chapter_db_17
+            - 瓶颈 / bottleneck (1孩)  ·  tree_concept_bottleneck  ·  concept_bottleneck
+              - MySQL 瓶颈 / bottleneck  ·  tree_mysql_instance_concept_bottleneck_0  ·  mysql_glossary_bottleneck_ehdgmu
+            - 工作负载 / workload (1孩)  ·  tree_concept_workload  ·  concept_workload
+              - MySQL 工作负载 / workload  ·  mysql_functional_ref_k_dict_vd39b68k  ·  k_dict_vd39b68k
+            - CPU 密集型 / CPU-bound (1孩)  ·  tree_concept_cpu_bound  ·  concept_cpu_bound
+              - MySQL CPU密集型 / CPU-bound  ·  tree_mysql_instance_concept_cpu_bound_0  ·  mysql_glossary_cpu_bound_1lxhya
+            - I/O 密集型 / I/O-bound (1孩)  ·  tree_concept_io_bound  ·  concept_io_bound
+              - MySQL 磁盘绑定 / disk-bound  ·  tree_mysql_instance_concept_io_bound_0  ·  mysql_glossary_disk_bound_1eazx6
+            - 等待 / wait (1孩)  ·  tree_concept_wait  ·  concept_wait
+              - MySQL 等待 / wait  ·  tree_mysql_instance_concept_wait_0  ·  mysql_glossary_wait_1229eo
+            - 计数器 / counter (1孩)  ·  tree_concept_counter  ·  concept_counter
+              - MySQL 计数器 / counter  ·  tree_mysql_instance_concept_counter_0  ·  mysql_glossary_counter_17gzh9
+            - 统计信息 / optimizer statistics (3孩)  ·  tree_concept_optimizer_statistics  ·  concept_optimizer_statistics
+              - MySQL 统计信息 / statistics  ·  mysql_functional_ref_k_dict_rkijwolw  ·  k_dict_rkijwolw
+              - MySQL 持久统计信息 / persistent statistics  ·  tree_mysql_instance_concept_optimizer_statistics_1  ·  mysql_glossary_persistent_statistics_2n5ydn
+              - MySQL 表统计信息 / table statistics  ·  projection:mysql-term:mysql_glossary_table_statistics_1c30y8  ·  mysql_glossary_table_statistics_1c30y8
+            - 预热 / cache warm-up (1孩)  ·  tree_concept_cache_warmup  ·  concept_cache_warmup
+              - MySQL 预热 / warm up  ·  mysql_functional_ref_k_dict_ee6jgxn1  ·  k_dict_ee6jgxn1
+            - 热 / hot (1孩)  ·  tree_concept_hot  ·  concept_hot
+              - MySQL 热 / hot  ·  tree_mysql_instance_concept_hot_0  ·  mysql_glossary_hot_1yorp3
+            - 物理 / physical（相对逻辑而言） (1孩)  ·  tree_concept_physical_vs_logical  ·  concept_physical_vs_logical
+              - MySQL 物理 / physical  ·  tree_mysql_instance_concept_physical_vs_logical_0  ·  mysql_glossary_physical_117gzf
+            - 性能模式 / performance schema (1孩)  ·  tree_concept_performance_schema  ·  concept_performance_schema
+              - MySQL 性能模式 / Performance Schema  ·  projection:mysql-term:k_dict_pqd2sd20  ·  k_dict_pqd2sd20
+            - 配置选项 / configuration option (1孩)  ·  tree_concept_configuration_option  ·  concept_configuration_option
+              - MySQL 选项 / option  ·  projection:mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_option_1sc73x:9  ·  mysql_glossary_option_1sc73x
+            - 迁移  ·  tree_wiki_en_database_s22  ·  k_wiki_en_database_s22
+          - 数据库编程与接口 (6孩)  ·  chapter_db_18  ·  container:chapter_db_18
+            - 存储引擎 / storage engine (1孩)  ·  tree_concept_storage_engine  ·  concept_storage_engine
+              - MySQL 存储引擎 (2孩)  ·  tree_1787201710792_0856g9  ·  k_1787201710517_se61sz
+                - MySQL InnoDB (10孩)  ·  demo_tree_innodb  ·  demo_innodb
+                  - Buffer Pool (4孩)  ·  tree_1781901655951_f9mavo  ·  k_1781901655940_k6m1w4
+                    - Page (15孩)  ·  tree_1781002610481_dmlbtq  ·  k_1781002610469_nik1ek
+                      - 事务数据页  ·  tree_1781003339620_wu6w8z  ·  k_1781003339612_gly0rm
+                      - File Trailer  ·  tree_1781008515290_fvvfk9  ·  k_1781008515280_bvqrs9
+                      - Page Directory  ·  tree_1781008568823_5cz6ak  ·  k_1781008568811_xsf4qa
+                      - Infimum + Supremum  ·  tree_1781026368984_1a9e2n  ·  k_1781026368980_68t0s0
+                      - 通用部分  ·  tree_1781027323342_4258ya  ·  k_1781027323338_n7l44z
+                      - 数据目录部分  ·  tree_1781027784241_iihef4  ·  k_1781027784235_rqeejq
+                      - 记录部分  ·  tree_1781061621081_0ll6z7  ·  k_1781061621077_9c8e4h
+                      - 空间部分  ·  tree_1781180000000_spcprt  ·  k_1781180000000_spcprt
+                      - 行记录  ·  tree_1781107266795_9y7n00  ·  k_1781107266786_b2goai
+                      - Page Header  ·  tree_1781618579686_coytws  ·  k_1781005790853_943e43
+                      - File Header  ·  tree_1781620321184_2nnslp  ·  k_1781003561186_d5ngg6
+                      - User Records  ·  tree_1781620825986_eutch3  ·  k_1781005866277_bj0eht
+                      - Free Space  ·  tree_1781620864334_m5yquh  ·  k_1781008350988_rhnwyk
+                      - free page  ·  tree_1781974703676_n8p88d  ·  k_1781974703663_4k3grq
+                      - clean page  ·  tree_1781974733355_ni0yvq  ·  k_1781974733348_6b1lb3
+                    - 控制块  ·  tree_1781976251213_tgm4pn  ·  k_1781976251206_ymj3if
+                    - free list (1孩)  ·  tree_1782008098294_hsntsy  ·  k_1782008098285_y7alsw
+                      - 基节点  ·  tree_1782008422987_mtgjsl  ·  k_1782008422980_88k1fb
+                    - flush list  ·  tree_1782008551230_f571n8  ·  k_1782008551222_xs2oyj
+                  - Log Buffer  ·  tree_1781901899069_b0n7cj  ·  k_1781901899060_670apc
+                  - System Tablespace  ·  tree_1781940147491_825s8i  ·  k_1781940147478_6d75y4
+                  - Adaptive Hash Index  ·  tree_1781954386817_5yctdd  ·  k_1781954386810_6g1bo3
+                  - General Tablespaces  ·  tree_1781956849089_su4u2j  ·  k_1781956849081_12h1hp
+                  - Temporary Tablespaces (2孩)  ·  tree_1781957147855_aou9i1  ·  k_1781957147845_69qktj
+                    - 会话临时表空间  ·  tree_1781957944272_bdbbp4  ·  k_1781957944264_lxfajw
+                    - 全局临时表空间  ·  tree_1781957954408_06xkno  ·  k_1781957954400_w4s3ew
+                  - File-Per-Table Tablespaces  ·  tree_1781957276826_sptyfy  ·  k_1781957276819_mp7zfl
+                  - Row Formats (4孩)  ·  tree_1781973454544_joldg6  ·  k_1781973454533_dxlfk0
+                    - REDUNDANT  ·  tree_1781973525859_7n8wgf  ·  k_1781973525852_iln1l6
+                    - COMPACT  ·  tree_1781973534935_dheelk  ·  k_1781973534927_8crdmn
+                    - DYNAMIC  ·  tree_1781973542503_b0uudt  ·  k_1781973542495_r3d6d3
+                    - COMPRESSED  ·  tree_1781973550340_kbxsab  ·  k_1781973550332_eg2f23
+                  - 组提交 / group commit  ·  mysql_functional_ref_k_dict_ggnkee68  ·  k_dict_ggnkee68
+                  - ib-file 集合 / ib-file set  ·  projection:mysql-term:mysql_glossary_ib_file_set_18odgx  ·  mysql_glossary_ib_file_set_18odgx
+                - MySQL MyISAM  ·  demo_tree_myisam  ·  demo_myisam
+            - 应用程序接口  ·  tree_wiki_en_database_s13_s14  ·  k_wiki_en_database_s14
+            - MySQL 连接器 / connector  ·  tree_mysql_instance_concept_data_access_interface_0  ·  mysql_glossary_connector_ijze9c
+            - 客户端连接器 / client connectors (18孩)  ·  tree_1787315799890_4kxe1m  ·  k_1787315799359_ne8gfs
+              - JDBC (1孩)  ·  projection:mysql-term:mysql_glossary_jdbc_14hlls  ·  mysql_glossary_jdbc_14hlls
+                - SQLState  ·  projection:mysql-term:mysql_glossary_sqlstate_16aqrw  ·  mysql_glossary_sqlstate_16aqrw
+              - ODBC  ·  projection:mysql-term:k_dict_fwv3kkzy  ·  k_dict_fwv3kkzy
+              - .NET  ·  projection:mysql-term:mysql_glossary_net_1q25ey  ·  mysql_glossary_net_1q25ey
+              - Perl API  ·  projection:mysql-term:mysql_glossary_perl_api_knrawo  ·  mysql_glossary_perl_api_knrawo
+              - Python API (1孩)  ·  projection:mysql-term:mysql_glossary_python_api_2amn13  ·  mysql_glossary_python_api_2amn13
+                - MySQLdb  ·  projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_mysqldb_1k0vb5  ·  mysql_glossary_mysqldb_1k0vb5
+              - Ruby API  ·  projection:mysql-term:mysql_glossary_ruby_api_1c5kjx  ·  mysql_glossary_ruby_api_1c5kjx
+              - Perl  ·  projection:mysql-term:mysql_glossary_perl_6buxo8  ·  mysql_glossary_perl_6buxo8
+              - ADO.NET  ·  projection:mysql-term:mysql_glossary_ado_net_ieyqc  ·  mysql_glossary_ado_net_ieyqc
+              - Tcl  ·  projection:mysql-term:mysql_glossary_tcl_1yc19t  ·  mysql_glossary_tcl_1yc19t
+              - 程序集 / assembly  ·  projection:mysql-term:mysql_glossary_assembly_9y51lx  ·  mysql_glossary_assembly_9y51lx
+              - GAC  ·  projection:mysql-term:mysql_glossary_gac_1g5bbw  ·  mysql_glossary_gac_1g5bbw
+              - ASP.net  ·  projection:mysql-term:mysql_glossary_asp_net_lyjnke  ·  mysql_glossary_asp_net_lyjnke
+              - 客户端连接器（Client Connectors）  ·  tree_1782032242238_ym9m1l  ·  k_1782032242225_z23eqn
+              - 命令拦截器 / command interceptor  ·  projection:mysql-term:mysql_glossary_command_interceptor_1f58ii  ·  mysql_glossary_command_interceptor_1f58ii
+              - 语句拦截器 / statement interceptor  ·  projection:mysql-term:mysql_glossary_statement_interceptor_1d641l  ·  mysql_glossary_statement_interceptor_1d641l
+              - 异常拦截器 / exception interceptor  ·  projection:mysql-term:mysql_glossary_exception_interceptor_nqrl4t  ·  mysql_glossary_exception_interceptor_nqrl4t
+              - Mono  ·  projection:mysql-repaired:mysql:theme:operations:mysql_glossary_mono_oszvd6  ·  mysql_glossary_mono_oszvd6
+              - MySQL 生态 / memcached  ·  mysql_functional_ref_k_dict_fbl127ld  ·  k_dict_fbl127ld
+            - MySQL API  ·  projection:mysql-term:mysql_glossary_api_y14yjr  ·  mysql_glossary_api_y14yjr
+            - MySQL PHP API  ·  projection:mysql-term:mysql_glossary_php_api_1ldhpf  ·  mysql_glossary_php_api_1ldhpf
+          - 数据库产品 (1孩)  ·  chapter_db_19  ·  container:chapter_db_19
+            - MySQL (7孩)  ·  tree_k_wiki_en_outline_of_databases_s15_b5  ·  k_wiki_en_outline_of_databases_s15_b5
+              - MySQL Server (1孩)  ·  mysql:concept:server  ·  mysql:concept:server
+                - 结构 (3孩)  ·  mysql:concept:server:structure  ·  mysql:concept:server:structure
+                  - 服务层 (10孩)  ·  projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4  ·  k_1782032275682_61auc4
+                    - SQL接⼝（SQL Interface）  ·  governance:canonical:k_1782033172524_cjmm5c  ·  k_1782033172524_cjmm5c
+                    - 横向 (1孩)  ·  tree_1787326277226_e7ivtt  ·  k_1787326276862_dux9j8
+                      - 计划稳定性 / plan stability  ·  projection:mysql-term:mysql_glossary_plan_stability_70vxat  ·  mysql_glossary_plan_stability_70vxat
+                    - NoSQL Interface  ·  tree_1787326306882_9fv6qu  ·  k_1787326306624_78jch2
+                    - Cluster  ·  tree_1787326548799_nuhixr  ·  k_1787326548436_8u5k98
+                    - 管理工具（Instance Manager, Admin, Migration）  ·  tree_1787326562319_8lcb6s  ·  k_1787326561953_xdo0fj
+                    - 备份恢复工具  ·  asplit_s2_asplit_mysql_tool_backup  ·  asplit_mysql_tool_backup
+                    - 安全管理工具  ·  asplit_s2_asplit_mysql_tool_security  ·  asplit_mysql_tool_security
+                    - 集群管理工具  ·  asplit_s2_asplit_mysql_tool_cluster  ·  asplit_mysql_tool_cluster
+                    - MySQL 备份 (15孩)  ·  atomic_atomic_mysql_backup  ·  atomic_mysql_backup
+                      - MySQL 企业备份 / MySQL Enterprise Backup  ·  projection:mysql-term:mysql_glossary_mysql_enterprise_backup_bh86yi  ·  mysql_glossary_mysql_enterprise_backup_bh86yi
+                      - 准备好的备份 / prepared backup  ·  projection:mysql-term:mysql_glossary_prepared_backup_19htae  ·  mysql_glossary_prepared_backup_19htae
+                      - 模糊检查点 / fuzzy checkpointing  ·  projection:mysql-term:mysql_glossary_fuzzy_checkpointing_1cxy9s  ·  mysql_glossary_fuzzy_checkpointing_1cxy9s
+                      - mysqlbackup 命令 / mysqlbackup command  ·  projection:mysql-term:mysql_glossary_mysqlbackup_command_1gjf0a  ·  mysql_glossary_mysqlbackup_command_1gjf0a
+                      - 尖锐检查点 / sharp checkpoint  ·  projection:mysql-term:mysql_glossary_sharp_checkpoint_1tnux9  ·  mysql_glossary_sharp_checkpoint_1tnux9
+                      - 重做 / redo  ·  projection:mysql-term:mysql_glossary_redo_1vo98z  ·  mysql_glossary_redo_1vo98z
+                      - 应用 / apply  ·  projection:mysql-term:mysql_glossary_apply_a6xv7f  ·  mysql_glossary_apply_a6xv7f
+                      - 自增 / auto-increment  ·  projection:mysql-term:k_dict_rszan9vp  ·  k_dict_rszan9vp
+                      - 间隙 / gap  ·  projection:mysql-term:mysql_glossary_gap_k039an  ·  mysql_glossary_gap_k039an
+                      - 严格模式 / strict mode  ·  projection:mysql-term:mysql_glossary_strict_mode_y6y4gv  ·  mysql_glossary_strict_mode_y6y4gv
+                      - 在线 / online  ·  projection:mysql-term:mysql_glossary_online_13svqm  ·  mysql_glossary_online_13svqm
+                      - 仪器仪表 / instrumentation  ·  projection:mysql-term:mysql_glossary_instrumentation_1v9bxz  ·  mysql_glossary_instrumentation_1v9bxz
+                      - mysqldump  ·  projection:mysql-term:mysql_glossary_mysqldump_1p1msf  ·  mysql_glossary_mysqldump_1p1msf
+                      - 校验和 / checksum  ·  projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_checksum_qnrmvm  ·  mysql_glossary_checksum_qnrmvm
+                      - 故障排除 / troubleshooting  ·  projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_troubleshooting_1zw5wx  ·  mysql_glossary_troubleshooting_1zw5wx
+                    - MySQL 恢复  ·  atomic_atomic_mysql_restore  ·  atomic_mysql_restore
+                  - 存储引擎层 (1孩)  ·  mysql:theme:storage-engines  ·  mysql:theme:storage-engines
+                    - ilist  ·  projection:mysql-term:mysql_glossary_ilist_16p50m  ·  mysql_glossary_ilist_16p50m
+                  - 连接层  ·  tree_1787324631235_nrw34y  ·  k_1787324630768_puisn7
+              - MySQL 基础知识  ·  tree_vault_mysql_basics  ·  k_vault_mysql_basics
+              - MySQL 存储引擎  ·  tree_vault_mysql_engines  ·  k_vault_mysql_engines
+              - MySQL 数据类型  ·  tree_vault_mysql_datatypes  ·  k_vault_mysql_datatypes
+              - InnoDB (2孩)  ·  tree_vault_mysql_innodb  ·  k_vault_mysql_innodb
+                - 概念字典-InnoDB  ·  tree_vault_mysql_innodb_dict  ·  k_vault_mysql_innodb_dict
+                - 概念字典-InnoDB-机制  ·  tree_vault_mysql_innodb_dict_mech  ·  k_vault_mysql_innodb_dict_mech
+              - Mysql客户端  ·  projection:mysql-term:mysql_glossary_client_13u3vh  ·  mysql_glossary_client_13u3vh
+              - libmysqlclient (3孩)  ·  projection:mysql-term:mysql_glossary_libmysqlclient_1ofbnd  ·  mysql_glossary_libmysqlclient_1ofbnd
+                - mysqlclient  ·  projection:mysql-term:mysql_glossary_mysqlclient_1fp9hd  ·  mysql_glossary_mysqlclient_1fp9hd
+                - C API  ·  projection:mysql-term:mysql_glossary_c_api_1wuwxq  ·  mysql_glossary_c_api_1wuwxq
+                - libmysqld  ·  projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_libmysqld_rpbwgq  ·  mysql_glossary_libmysqld_rpbwgq
+          - 数据库文件与实现 (3孩)  ·  chapter_db_20  ·  container:chapter_db_20
+            - 组成 (4孩)  ·  mysql:concept:system-files:composition  ·  k_1782029470422_yfa3u9:composition
+              - 配置文件 (2孩)  ·  mysql:concept:system-files:config-files  ·  k_1782029618563_7rrguo
+                - 组成 (6孩)  ·  mysql:concept:system-files:config-files:composition  ·  k_1782029618563_7rrguo:composition
+                  - my.cnf  ·  projection:mysql-concept:mysql-config-files:mysql_glossary_my_cnf_v2use8  ·  mysql_glossary_my_cnf_v2use8
+                  - my.ini  ·  projection:mysql-term:mysql_glossary_my_ini_1giw6m  ·  mysql_glossary_my_ini_1giw6m
+                  - 选项文件 / option file  ·  projection:mysql-concept:mysql-config-files:mysql_glossary_option_file_gsqytm  ·  mysql_glossary_option_file_gsqytm
+                  - .cfg 文件 / .cfg file  ·  projection:mysql-concept:mysql-config-files:mysql_glossary_cfg_file_1wfa77  ·  mysql_glossary_cfg_file_1wfa77
+                  - .OPT 文件 / .OPT file  ·  projection:mysql-concept:mysql-config-files:mysql_glossary_opt_file_1w9809  ·  mysql_glossary_opt_file_1w9809
+                  - db.opt 文件  ·  projection:mysql-concept:mysql-config-files:k_1782029655809_1yi7ql  ·  k_1782029655809_1yi7ql
+                - 结构  ·  mysql:concept:system-files:config-files:structure  ·  k_1782029618563_7rrguo:structure
+              - 数据文件 (2孩)  ·  tree_1782029643149_9klslf  ·  k_1782029643146_aumkky
+                - 组成 (5孩)  ·  tree_1782029643149_9klslf:composition  ·  k_1782029643146_aumkky:composition
+                  - MyISAM 文件 (2孩)  ·  mysql:concept:data-files:myisam  ·  mysql:concept:data-files:myisam:node
+                    - .MYD 文件 / .MYD file  ·  projection:mysql-concept:mysql-concept-data-files-myisam:mysql_file_myd  ·  mysql_file_myd
+                    - .MYI 文件 / .MYI file  ·  projection:mysql-concept:mysql-concept-data-files-myisam:mysql_file_myi  ·  mysql_file_myi
+                  - InnoDB 表空间文件 (7孩)  ·  mysql:concept:data-files:innodb-tablespaces  ·  mysql:concept:data-files:innodb-tablespaces:node
+                    - .ibd 文件 / .ibd file  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_file_ibd  ·  mysql_file_ibd
+                    - ibdata 文件 / ibdata file  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_file_ibdata  ·  mysql_file_ibdata
+                    - ibdata1 文件 / ibdata1 file  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_file_ibdata1  ·  mysql_file_ibdata1
+                    - ibtmp 文件 / ibtmp file  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_glossary_ibtmp_file_18e04h  ·  mysql_glossary_ibtmp_file_18e04h
+                    - .ibz 文件 / .ibz file  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_glossary_ibz_file_tz3hbm  ·  mysql_glossary_ibz_file_tz3hbm
+                    - 每表一个文件 / file-per-table  ·  projection:mysql-concept:mysql-concept-data-files-innodb-tablespaces:mysql_glossary_file_per_table_c2gueo  ·  mysql_glossary_file_per_table_c2gueo
+                    - innodb_file_per_table  ·  projection:mysql-term:mysql_glossary_innodb_file_per_table_1w525y  ·  mysql_glossary_innodb_file_per_table_1w525y
+                  - 其他存储引擎文件 (4孩)  ·  mysql:concept:data-files:other-engines  ·  mysql:concept:data-files:other-engines:node
+                    - .ARM文件 / .ARM file  ·  projection:mysql-concept:mysql-concept-data-files-other-engines:mysql_glossary_arm_file_ufam2l  ·  mysql_glossary_arm_file_ufam2l
+                    - .ARZ文件 / .ARZ file  ·  projection:mysql-concept:mysql-concept-data-files-other-engines:mysql_glossary_arz_file_1iyj60  ·  mysql_glossary_arz_file_1iyj60
+                    - .MRG 文件 / .MRG file  ·  projection:mysql-concept:mysql-concept-data-files-other-engines:mysql_glossary_mrg_file_2synx7  ·  mysql_glossary_mrg_file_2synx7
+                    - .par 文件 / .par file  ·  projection:mysql-concept:mysql-concept-data-files-other-engines:mysql_glossary_par_file_rzlrrm  ·  mysql_glossary_par_file_rzlrrm
+                  - .frm 文件 / .frm file  ·  projection:mysql-concept:mysql-concept-data-files-metadata:k_1782029674610_l6hlzo  ·  k_1782029674610_l6hlzo
+                  - 数据目录 / data directory  ·  projection:mysql-concept:mysql-concept-data-files-metadata:mysql_glossary_data_directory_zrepzq  ·  mysql_glossary_data_directory_zrepzq
+                - 结构  ·  tree_1782029643149_9klslf:structure  ·  k_1782029643146_aumkky:structure
+              - 日志文件 (2孩)  ·  tree_1782029505240_be11k0  ·  k_1782029505237_7y8fh8
+                - 组成  ·  tree_1782029505240_be11k0:composition  ·  k_1782029505237_7y8fh8:composition
+                - 结构  ·  tree_1782029505240_be11k0:structure  ·  k_1782029505237_7y8fh8:structure
+              - 运行时文件 (1孩)  ·  governance:canonical:mysql_runtime_files  ·  mysql_runtime_files
+                - 组成 (2孩)  ·  governance:canonical:mysql_runtime_files:composition  ·  mysql_runtime_files:composition
+                  - PID 文件 / PID file  ·  projection:mysql-concept:mysql-runtime-files:mysql_file_pid  ·  mysql_file_pid
+                  - Socket 文件 / Socket file  ·  projection:mysql-concept:mysql-runtime-files:mysql_file_socket  ·  mysql_file_socket
+            - 文件格式 / file format  ·  projection:mysql-term:mysql_glossary_file_format_199bjh  ·  mysql_glossary_file_format_199bjh
+            - 客户端库 / client libraries  ·  projection:mysql-term:mysql_glossary_client_libraries_1l6z2y  ·  mysql_glossary_client_libraries_1l6z2y
+          - 代理键 / surrogate key (1孩)  ·  tree_concept_surrogate_key  ·  concept_surrogate_key
+            - MySQL 合成键 / MySQL synthetic key  ·  tree_mysql_instance_concept_surrogate_key_0  ·  mysql_glossary_synthetic_key_1drbjs
+          - 自然键 / natural key (1孩)  ·  tree_concept_natural_key  ·  concept_natural_key
+            - MySQL 自然键 / MySQL natural key  ·  tree_mysql_instance_concept_natural_key_0  ·  mysql_glossary_natural_key_tddcrt
+          - 唯一键 / unique key (1孩)  ·  tree_concept_unique_key  ·  concept_unique_key
+            - MySQL 唯一约束 / MySQL unique constraint  ·  tree_mysql_instance_concept_unique_key_1  ·  mysql_glossary_unique_constraint_cvzep
+          - 外键 / foreign key (1孩)  ·  tree_concept_foreign_key  ·  concept_foreign_key
+            - MySQL 外键 / MySQL foreign key  ·  tree_mysql_instance_concept_foreign_key_0  ·  k_dict_lnpi0qrg
+          - NOT NULL 约束 / NOT NULL constraint (1孩)  ·  tree_concept_not_null_constraint  ·  concept_not_null_constraint
+            - MySQL NOT NULL 约束 / MySQL NOT NULL constraint  ·  tree_mysql_instance_concept_not_null_constraint_0  ·  mysql_glossary_not_null_constraint_1op7sq
+          - 全局唯一标识符 / GUID (1孩)  ·  tree_concept_guid  ·  concept_guid
+            - MySQL GUID  ·  projection:mysql-term:mysql_glossary_guid_bmsoy4  ·  mysql_glossary_guid_bmsoy4
+          - NULL  ·  projection:mysql-term:k_dict_fxoirizf  ·  k_dict_fxoirizf
+          - 主键 (1孩)  ·  tree_1788179275561_216qli  ·  k_1788179275554_knwq7e
+            - 主键类型选择：自增 vs UUID (6孩)  ·  tree_pk_choice  ·  pk_choice
+              - 自增主键（auto_increment）  ·  tree_pk_auto  ·  pk_auto
+              - UUID 主键  ·  tree_pk_uuid  ·  pk_uuid
+              - 选择结论  ·  tree_pk_conclusion  ·  pk_conclusion
+              - 自增  ·  tree_k_dict_bki84n9o  ·  k_dict_bki84n9o
+              - 自增 id 的索引结构  ·  tree_pk_struct_auto  ·  pk_struct_auto
+              - UUID 的索引结构  ·  tree_pk_struct_uuid  ·  pk_struct_uuid
+          - 数据库备份  ·  atomic_atomic_database_backup  ·  atomic_database_backup
+          - 数据库恢复  ·  atomic_atomic_database_restore  ·  atomic_database_restore
+          - 贮存 (2孩)  ·  tree_wiki_en_database_s16  ·  k_wiki_en_database_s16
+            - 复制  ·  tree_wiki_en_database_s16_s18  ·  k_wiki_en_database_s18
+            - 虚拟化  ·  tree_wiki_en_database_s16_s19  ·  k_wiki_en_database_s19
+          - 复制 / replication (1孩)  ·  tree_concept_replication  ·  concept_replication
+            - MySQL Replication (1孩)  ·  tree_1787326496505_zi1nw7  ·  k_1787326496104_zbtx44
+              - MySQL 主从复制 (5孩)  ·  tree_msr_overview  ·  msr_overview
+                - 主从复制  ·  tree_k_dict_rukxx2as  ·  k_dict_rukxx2as
+                - 用途  ·  tree_msr_purpose  ·  msr_purpose
+                - 部署必要条件  ·  tree_msr_prereq  ·  msr_prereq
+                - 复制原理  ·  tree_msr_principle  ·  msr_principle
+                - 复制流程（三线程） (11孩)  ·  tree_msr_flow  ·  msr_flow
+                  - 主库 db（Master）  ·  tree_msr_master_db  ·  msr_master_db
+                  - binlog dump 线程（主库）  ·  tree_msr_dump_thread  ·  msr_dump_thread
+                  - I/O 线程（从库）  ·  tree_msr_io_thread  ·  msr_io_thread
+                  - SQL 线程（从库）  ·  tree_msr_sql_thread  ·  msr_sql_thread
+                  - relay log（中继日志）  ·  tree_msr_relay_log  ·  msr_relay_log
+                  - 从库 db（Slave）  ·  tree_msr_slave_db  ·  msr_slave_db
+                  - 事件已写入 binlog  ·  tree_msr_state_written  ·  msr_state_written
+                  - 事件已发送  ·  tree_msr_state_sent  ·  msr_state_sent
+                  - 事件已入 relay log  ·  tree_msr_state_relayed  ·  msr_state_relayed
+                  - 事件已重放  ·  tree_msr_state_replayed  ·  msr_state_replayed
+                  - 主从数据一致  ·  tree_msr_state_consistent  ·  msr_state_consistent
+      - 信息存储  ·  tree_acm2012_information_systems_information_storage  ·  k_acm2012_information_systems_information_storage
+      - 企业信息  ·  tree_acm2012_information_systems_enterprise_information  ·  k_acm2012_information_systems_enterprise_information
+      - 社会信息  ·  tree_acm2012_information_systems_social_information  ·  k_acm2012_information_systems_social_information
+      - 地理信息  ·  tree_acm2012_information_systems_geographic_information  ·  k_acm2012_information_systems_geographic_information
+      - 决策支持  ·  tree_acm2012_information_systems_decision_support  ·  k_acm2012_information_systems_decision_support
+      - 过程控制  ·  tree_acm2012_information_systems_process_control  ·  k_acm2012_information_systems_process_control
+      - 多媒体信息  ·  tree_acm2012_information_systems_multimedia_information  ·  k_acm2012_information_systems_multimedia_information
+      - 数据挖掘  ·  tree_acm2012_information_systems_data_mining  ·  k_acm2012_information_systems_data_mining
+      - 数字图书馆  ·  tree_acm2012_information_systems_digital_libraries  ·  k_acm2012_information_systems_digital_libraries
+      - 计算平台  ·  tree_acm2012_information_systems_computing_platforms  ·  k_acm2012_information_systems_computing_platforms
+      - 数字营销  ·  tree_acm2012_information_systems_digital_marketing  ·  k_acm2012_information_systems_digital_marketing
+      - 全球信息网 (1孩)  ·  tree_acm2012_information_systems_world_wide_web  ·  k_acm2012_information_systems_world_wide_web
+        - Web 开发 (1孩)  ·  demo_web  ·  n_web_dev
+          - React (11孩)  ·  react_root  ·  asplit_module_export
+            - 条件式渲染 (5孩)  ·  react_tree_conditional  ·  react_conditional_rendering
+              - if 语句  ·  react_tree_cond_if  ·  react_conditional_if
+              - 三元操作符 (?:)  ·  react_tree_cond_ternary  ·  react_conditional_ternary
+              - 逻辑与 (&&)  ·  react_tree_cond_and  ·  react_conditional_and
+              - 内联渲染  ·  governance:canonical:k_auto_n9n437  ·  k_auto_n9n437
+              - 隐式零值渲染陷阱  ·  governance:canonical:k_auto_xbksij  ·  k_auto_xbksij
+            - 模块系统 / Import (4孩)  ·  governance:javascript:module-import  ·  container:governance:javascript:module-import
+              - import X, { Y }  ·  governance:canonical:k_auto_1gqanov  ·  k_auto_1gqanov
+              - 常规导入  ·  governance:canonical:k_auto_afmuju  ·  k_auto_afmuju
+              - 重命名导入  ·  governance:canonical:k_auto_l6ipg1  ·  k_auto_l6ipg1
+              - 解构导入  ·  governance:canonical:k_auto_1ayw78b  ·  k_auto_1ayw78b
+            - 模块系统 / Export (5孩)  ·  governance:javascript:module-export  ·  container:governance:javascript:module-export
+              - 混合导出  ·  governance:canonical:k_auto_g7wfdd  ·  k_auto_g7wfdd
+              - 行内导出  ·  governance:canonical:k_auto_figgbw  ·  k_auto_figgbw
+              - 末尾导出  ·  governance:canonical:k_auto_bdlo12  ·  k_auto_bdlo12
+              - 声明导出  ·  governance:canonical:k_auto_14sf5e5  ·  k_auto_14sf5e5
+              - 列表导出  ·  governance:canonical:k_auto_142cy8w  ·  k_auto_142cy8w
+            - 模块导出 (2孩)  ·  asplit_s1_asplit_module_export  ·  asplit_module_export
+              - 默认导出  ·  react_tree_default  ·  react_default_export
+              - 命名导出  ·  react_tree_named  ·  react_named_export
+            - 模块导入 (1孩)  ·  asplit_s1_asplit_module_import  ·  asplit_module_import
+              - 导入重命名  ·  governance:canonical:react_import_aliasing  ·  react_import_aliasing
+            - 控制流 (2孩)  ·  asplit_s1_asplit_js_control_flow  ·  asplit_js_control_flow
+              - 提前返回 (Early Return)  ·  governance:canonical:k_auto_g1oyi4  ·  k_auto_g1oyi4
+              - 多分支 if-else if  ·  governance:canonical:k_auto_140h0oi  ·  k_auto_140h0oi
+            - 函数设计  ·  asplit_s1_asplit_function_design  ·  asplit_function_design
+            - 表达式  ·  asplit_s1_asplit_js_expression  ·  asplit_js_expression
+            - 短路求值  ·  governance:canonical:k_auto_1p7kxpz  ·  k_auto_1p7kxpz
+            - 安全转换（布尔化）  ·  governance:canonical:k_auto_nm6bj0  ·  k_auto_nm6bj0
+            - 嵌套三元（不推荐）  ·  governance:canonical:k_auto_wziud0  ·  k_auto_wziud0
+      - 信息检索 (1孩)  ·  tree_acm2012_information_systems_information_retrieval  ·  school_information_retrieval
+        - 信息检索理论  ·  theory_domain_information_retrieval  ·  theory_domain_information_retrieval
+      - 历法系统（公历/格里历）  ·  theory_domain_calendar_systems  ·  theory_domain_calendar_systems
+      - 时区标准（IANA tzdata）  ·  theory_domain_timezone_standards  ·  theory_domain_timezone_standards
+      - 跨系统标准与约定  ·  governance:canonical:school_real_world_conventions  ·  school_real_world_conventions
+    - 以人为中心的计算 (8孩)  ·  tree_acm2012_human_centered_computing  ·  k_acm2012_human_centered_computing
+      - 可访问性  ·  tree_acm2012_human_centered_computing_accessibility  ·  k_acm2012_human_centered_computing_accessibility
+      - 扩展现实 (2孩)  ·  tree_acm2012_human_centered_computing_extended_reality  ·  k_acm2012_human_centered_computing_extended_reality
+        - 增强的  ·  tree_acm2012_human_centered_computing_augmented  ·  k_acm2012_human_centered_computing_augmented
+        - 虚拟  ·  tree_acm2012_human_centered_computing_virtual  ·  k_acm2012_human_centered_computing_virtual
+      - 人机交互  ·  tree_acm2012_human_centered_computing_human_computer_interaction  ·  k_acm2012_human_centered_computing_human_computer_interaction
+      - 交互设计  ·  tree_acm2012_human_centered_computing_interaction_design  ·  k_acm2012_human_centered_computing_interaction_design
+      - 移动计算  ·  tree_acm2012_human_centered_computing_mobile_computing  ·  k_acm2012_human_centered_computing_mobile_computing
+      - 社交计算  ·  tree_acm2012_human_centered_computing_social_computing  ·  k_acm2012_human_centered_computing_social_computing
+      - 普适计算  ·  tree_acm2012_human_centered_computing_ubiquitous_computing  ·  k_acm2012_human_centered_computing_ubiquitous_computing
+      - 可视化  ·  tree_acm2012_human_centered_computing_visualization  ·  k_acm2012_human_centered_computing_visualization
+    - 并发 (7孩)  ·  tree_acm2012_concurrency  ·  k_acm2012_concurrency
+      - 并发计算 (4孩)  ·  tree_1784346336080_viaf0e  ·  k_1784346336047_teogm0
+        - 模型 (1孩)  ·  tree_1784348023501_meuzf6  ·  k_1784348023461_qz7wyl
+          - 一致性模型  ·  tree_1784348057027_7n3mar  ·  k_1784348056953_d8u70g
+        - 协调对共享资源的访问  ·  tree_1784347930717_pgzvpz  ·  k_1784347930676_uit7ys
+        - 优势  ·  tree_1784347983395_53hxvw  ·  k_1784347983357_lq7e9k
+        - 交互与通信  ·  tree_1784348625758_u7db4f  ·  k_1784348625706_s595yo
+      - 并行计算  ·  tree_acm2012_concurrency_parallel_computing  ·  k_acm2012_concurrency_parallel_computing
+      - 分布式计算  ·  tree_acm2012_concurrency_distributed_computing  ·  k_acm2012_concurrency_distributed_computing
+      - 多线程  ·  tree_acm2012_concurrency_multithreading  ·  k_acm2012_concurrency_multithreading
+      - 多进程  ·  tree_acm2012_concurrency_multiprocessing  ·  k_acm2012_concurrency_multiprocessing
+      - 并发控制 (2孩)  ·  tree_1784543450726_c157f4  ·  k_1784543450678_zk199g
+        - 二阶段锁定（2PL  ·  tree_1784734569298_k0tb8y  ·  k_1784734569259_mvdnc5
+        - 监控（同步） (3孩)  ·  tree_wiki_en_monitor_synchronization  ·  k_wiki_en_monitor_synchronization
+          - 相互排斥  ·  tree_wiki_en_monitor_synchronization_s1  ·  k_wiki_en_monitor_synchronization_s1
+          - 条件变量 (9孩)  ·  tree_wiki_en_monitor_synchronization_s2  ·  k_wiki_en_monitor_synchronization_s7
+            - 问题陈述  ·  tree_wiki_en_monitor_synchronization_s2_s3  ·  k_wiki_en_monitor_synchronization_s3
+            - 监控使用情况  ·  tree_wiki_en_monitor_synchronization_s2_s8  ·  k_wiki_en_monitor_synchronization_s8
+            - 同步原语 (1孩)  ·  tree_wiki_en_monitor_synchronization_s2_s10  ·  k_wiki_en_monitor_synchronization_s10
+              - Mesa 监视器示例  ·  tree_wiki_en_monitor_synchronization_s2_s10_s11  ·  k_wiki_en_monitor_synchronization_s11
+            - 阻塞条件变量  ·  tree_wiki_en_monitor_synchronization_s2_s12  ·  k_wiki_en_monitor_synchronization_s12
+            - 非阻塞条件变量  ·  tree_wiki_en_monitor_synchronization_s2_s13  ·  k_wiki_en_monitor_synchronization_s13
+            - 隐式条件变量监视器  ·  tree_wiki_en_monitor_synchronization_s2_s14  ·  k_wiki_en_monitor_synchronization_s14
+            - 隐式信号  ·  tree_wiki_en_monitor_synchronization_s2_s15  ·  k_wiki_en_monitor_synchronization_s15
+            - 不同步不正确  ·  tree_wiki_en_monitor_synchronization_s2_s4_s5  ·  k_wiki_en_monitor_synchronization_s5
+            - 旋转等待  ·  tree_wiki_en_monitor_synchronization_s2_s4_s6  ·  k_wiki_en_monitor_synchronization_s6
+          - 历史  ·  tree_1786780442616_w5q602  ·  k_1786780442096_fd05mu
+      - 并发理论  ·  theory_domain_concurrency_theory  ·  theory_domain_concurrency_theory
+    - 人工智能 (9孩)  ·  tree_acm2012_artificial_intelligence  ·  k_acm2012_artificial_intelligence
+      - 计算智能  ·  tree_acm2012_artificial_intelligence_computational_intelligence  ·  k_acm2012_artificial_intelligence_computational_intelligence
+      - 自然语言处理  ·  tree_acm2012_artificial_intelligence_natural_language_processing  ·  k_acm2012_artificial_intelligence_natural_language_processing
+      - 知识表示与推理  ·  tree_acm2012_artificial_intelligence_knowledge_representation_reasoning  ·  k_acm2012_artificial_intelligence_knowledge_representation_reasoning
+      - 计算机视觉  ·  tree_acm2012_artificial_intelligence_computer_vision  ·  k_acm2012_artificial_intelligence_computer_vision
+      - 自动化规划与调度  ·  tree_acm2012_artificial_intelligence_automated_planning_scheduling  ·  k_acm2012_artificial_intelligence_automated_planning_scheduling
+      - 搜索方法论  ·  tree_acm2012_artificial_intelligence_search_methodology  ·  k_acm2012_artificial_intelligence_search_methodology
+      - 控制方法  ·  tree_acm2012_artificial_intelligence_control_methods  ·  k_acm2012_artificial_intelligence_control_methods
+      - 哲学  ·  tree_acm2012_artificial_intelligence_philosophy  ·  k_acm2012_artificial_intelligence_philosophy
+      - 分布式  ·  tree_acm2012_artificial_intelligence_distributed_ai  ·  k_acm2012_artificial_intelligence_distributed_ai
+    - 机器学习 (5孩)  ·  tree_acm2012_machine_learning  ·  k_acm2012_machine_learning
+      - 监督式  ·  tree_acm2012_machine_learning_supervised  ·  k_acm2012_machine_learning_supervised
+      - 无监督  ·  tree_acm2012_machine_learning_unsupervised  ·  k_acm2012_machine_learning_unsupervised
+      - 增强学习  ·  tree_acm2012_machine_learning_reinforcement_learning  ·  k_acm2012_machine_learning_reinforcement_learning
+      - 多任务  ·  tree_acm2012_machine_learning_multi_task  ·  k_acm2012_machine_learning_multi_task
+      - 交叉验证  ·  tree_acm2012_machine_learning_cross_validation  ·  k_acm2012_machine_learning_cross_validation
+    - 图形 (6孩)  ·  tree_acm2012_graphics  ·  k_acm2012_graphics
+      - 动画  ·  tree_acm2012_graphics_animation  ·  k_acm2012_graphics_animation
+      - 渲染  ·  tree_acm2012_graphics_rendering  ·  k_acm2012_graphics_rendering
+      - 照片处理  ·  tree_acm2012_graphics_photo_processing  ·  k_acm2012_graphics_photo_processing
+      - 图形处理单元  ·  tree_acm2012_graphics_gpu  ·  k_acm2012_graphics_gpu
+      - 图像压缩  ·  tree_acm2012_graphics_image_compression  ·  k_acm2012_graphics_image_compression
+      - 实体建模  ·  tree_acm2012_graphics_solid_modeling  ·  k_acm2012_graphics_solid_modeling
+    - 应用计算 (20孩)  ·  tree_acm2012_applied_computing  ·  k_acm2012_applied_computing
+      - 量子计算  ·  tree_acm2012_applied_computing_quantum_computing  ·  k_acm2012_applied_computing_quantum_computing
+      - 电子商务  ·  tree_acm2012_applied_computing_electronic_commerce  ·  k_acm2012_applied_computing_electronic_commerce
+      - 企业软件  ·  tree_acm2012_applied_computing_enterprise_software  ·  k_acm2012_applied_computing_enterprise_software
+      - 计算数学  ·  tree_acm2012_applied_computing_computational_mathematics  ·  k_acm2012_mathematics_of_computing
+      - 计算物理  ·  tree_acm2012_applied_computing_computational_physics  ·  k_acm2012_applied_computing_computational_physics
+      - 计算化学  ·  tree_acm2012_applied_computing_computational_chemistry  ·  k_acm2012_applied_computing_computational_chemistry
+      - 计算生物学  ·  tree_acm2012_applied_computing_computational_biology  ·  k_acm2012_applied_computing_computational_biology
+      - 计算社会科学  ·  tree_acm2012_applied_computing_computational_social_science  ·  k_acm2012_applied_computing_computational_social_science
+      - 计算工程  ·  tree_acm2012_applied_computing_computational_engineering  ·  k_acm2012_applied_computing_computational_engineering
+      - 可微计算  ·  tree_acm2012_applied_computing_differentiable_computing  ·  k_acm2012_applied_computing_differentiable_computing
+      - 计算医疗  ·  tree_acm2012_applied_computing_computational_healthcare  ·  k_acm2012_applied_computing_computational_healthcare
+      - 数字艺术  ·  tree_acm2012_applied_computing_digital_art  ·  k_acm2012_applied_computing_digital_art
+      - 电子出版  ·  tree_acm2012_applied_computing_electronic_publishing  ·  k_acm2012_applied_computing_electronic_publishing
+      - 网络战争  ·  tree_acm2012_applied_computing_cyberwarfare  ·  k_acm2012_applied_computing_cyberwarfare
+      - 电子投票  ·  tree_acm2012_applied_computing_electronic_voting  ·  k_acm2012_applied_computing_electronic_voting
+      - 视频游戏  ·  tree_acm2012_applied_computing_video_games  ·  k_acm2012_applied_computing_video_games
+      - 文字处理  ·  tree_acm2012_applied_computing_word_processing  ·  k_acm2012_applied_computing_word_processing
+      - 运筹学  ·  tree_acm2012_applied_computing_operations_research  ·  k_acm2012_applied_computing_operations_research
+      - 教育技术  ·  tree_acm2012_applied_computing_educational_technology  ·  k_acm2012_applied_computing_educational_technology
+      - 文档管理  ·  tree_acm2012_applied_computing_document_management  ·  k_acm2012_applied_computing_document_management
+    - 计算理论 (8孩)  ·  school_computation_theory  ·  school_computation_theory
+      - 计算模型 (1孩)  ·  tree_acm2012_theory_of_computing_models_of_computation  ·  k_acm2012_theory_of_computing_models_of_computation
+        - 随机  ·  tree_acm2012_theory_of_computing_randomized  ·  k_acm2012_theory_of_computing_randomized
+      - 可计算性理论  ·  tree_acm2012_theory_of_computing_computability_theory  ·  k_acm2012_theory_of_computing_computability_theory
+      - 逻辑  ·  tree_acm2012_theory_of_computing_logic  ·  school_logic
+      - 语义  ·  tree_acm2012_theory_of_computing_semantics  ·  k_acm2012_theory_of_computing_semantics
+      - 计算复杂性理论  ·  theory_domain_complexity_theory  ·  theory_domain_complexity_theory
+      - 算法 (14孩)  ·  tree_acm2012_algorithms  ·  theory_domain_algorithms
+        - 算法设计 (1孩)  ·  tree_acm2012_algorithms_algorithm_design  ·  k_acm2012_algorithms_algorithm_design
+          - 算法思想  ·  tree_vault_java07_1t5zsh  ·  k_vault_java07_1t5zsh
+        - 算法分析  ·  tree_acm2012_algorithms_algorithm_analysis  ·  k_acm2012_algorithms_algorithm_analysis
+        - 算法效率  ·  tree_acm2012_algorithms_algorithm_efficiency  ·  k_acm2012_algorithms_algorithm_efficiency
+        - 随机算法  ·  tree_acm2012_algorithms_randomized_algorithms  ·  k_acm2012_algorithms_randomized_algorithms
+        - 计算几何  ·  tree_acm2012_algorithms_computational_geometry  ·  k_acm2012_algorithms_computational_geometry
+        - 并发控制算法 (2孩)  ·  tree_1784554590313_a37dme  ·  k_1784554590257_xa43c1
+          - MVCC  ·  tree_1784554617923_68lv0o  ·  k_1784554617757_8fc5d0
+          - 自旋锁  ·  tree_1784703111876_lxf1b6  ·  k_1784703111824_xv0xzt
+        - 分布式算法 (1孩)  ·  tree_1784735045820_dx1auo  ·  k_1784735045779_j8quy8
+          - 两阶段提交协议  ·  tree_1784735415459_dd5dzg  ·  k_1784735415425_iqdw24
+        - 数据结构 (2孩)  ·  governance:canonical:n_6dgtsmpj  ·  n_6dgtsmpj
+          - B树 / B-tree  ·  mysql_functional_ref_k_dict_cx2nh25x  ·  k_dict_cx2nh25x
+          - 元组 / tuple  ·  projection:mysql-term:k_dict_ek50h609  ·  k_dict_ek50h609
+        - 抽象数据类型（ADT）理论  ·  governance:canonical:k_1782835092322_77nqn7  ·  k_1782835092322_77nqn7
+        - 数据结构 (8孩)  ·  theory_domain_data_structures  ·  theory_domain_data_structures
+          - 双向链表  ·  tree_1785470591124_3kaxj4  ·  k_1785470590965_2hx6cn
+          - B树 / B-tree  ·  mysql_term_data_structures_b_tree_1pns38  ·  k_dict_cx2nh25x
+          - R 树 / R-tree  ·  projection:mysql-term:mysql_glossary_r_tree_1w9375  ·  mysql_glossary_r_tree_1w9375
+          - 列表 / list  ·  projection:mysql-term:mysql_glossary_list_3lo6m9  ·  mysql_glossary_list_3lo6m9
+          - LRU 链表 / LRU list (1孩)  ·  tree_concept_lru_list  ·  concept_lru_list
+            - MySQL lru list (2孩)  ·  tree_1782008637404_0asmig  ·  k_1782008637396_62wc7w
+              - 驱逐 / eviction  ·  projection:mysql-term:mysql_glossary_eviction_1b3reo  ·  mysql_glossary_eviction_1b3reo
+              - 子列表 / sublist  ·  projection:mysql-term:mysql_glossary_sublist_12kt6o  ·  mysql_glossary_sublist_12kt6o
+          - 线性结构  ·  tree_vault_java02_3knqf8  ·  k_vault_java02_3knqf8
+          - 哈希结构  ·  tree_vault_java03_8t6qkp  ·  k_vault_java03_8t6qkp
+          - 图搜索算法  ·  asplit_s1_asplit_graph_search  ·  asplit_graph_search
+        - LRU  ·  projection:mysql-term:mysql_glossary_lru_1mxcfz  ·  mysql_glossary_lru_1mxcfz
+        - 中点插入策略 / midpoint insertion strategy  ·  projection:mysql-term:mysql_glossary_midpoint_insertion_strategy_a74b95  ·  mysql_glossary_midpoint_insertion_strategy_a74b95
+        - 工程中的算法模型  ·  tree_vault_java08_1gtqpv  ·  k_vault_java08_1gtqpv
+        - 查找  ·  asplit_s1_asplit_search  ·  asplit_search
+      - 形式语言理论  ·  final_atomic_formal_language_theory  ·  atomic_formal_language_theory
+      - 自动机理论  ·  final_atomic_automata_theory  ·  atomic_automata_theory
+    - 安全 (22孩)  ·  school_security  ·  school_security
+      - 形式化方法  ·  tree_acm2012_security_formal_methods  ·  k_acm2012_security_formal_methods
+      - 安全黑客  ·  tree_acm2012_security_security_hackers  ·  k_acm2012_security_security_hackers
+      - 安全服务  ·  tree_acm2012_security_security_services  ·  k_acm2012_security_security_services
+      - 入侵检测系统  ·  tree_acm2012_security_intrusion_detection_systems  ·  k_acm2012_security_intrusion_detection_systems
+      - 硬件安全  ·  tree_acm2012_security_hardware_security  ·  k_acm2012_security_hardware_security
+      - 网络安全  ·  tree_acm2012_security_network_security  ·  k_acm2012_security_network_security
+      - 信息安全  ·  tree_acm2012_security_information_security  ·  k_acm2012_security_information_security
+      - 应用程序安全  ·  tree_acm2012_security_application_security  ·  k_acm2012_security_application_security
+      - 密码学 (1孩)  ·  theory_domain_cryptography  ·  theory_domain_cryptography
+        - 安全套接层 / SSL  ·  mysql_term_cryptography_ssl_ykk31j  ·  concept_ssl
+      - 访问控制理论（RBAC）  ·  theory_domain_access_control  ·  theory_domain_access_control
+      - 认证服务器 / authentication server (2孩)  ·  tree_concept_authentication_server  ·  concept_authentication_server
+        - MySQL 认证服务器 / authentication server  ·  projection:mysql-term:mysql_glossary_authentication_server_1njohk  ·  mysql_glossary_authentication_server_1njohk
+        - MySQL AS（认证服务器）  ·  projection:mysql-repaired:mysql:theme:query-processing:mysql_glossary_as_h5mr7x  ·  mysql_glossary_as_h5mr7x
+      - 票证授予服务器 / ticket-granting server (1孩)  ·  tree_concept_ticket_granting_server  ·  concept_ticket_granting_server
+        - MySQL 票证授予服务器 / TGS  ·  projection:mysql-term:mysql_glossary_ticket_granting_server_1cuy2c  ·  mysql_glossary_ticket_granting_server_1cuy2c
+      - 票证授予票证 / ticket-granting ticket (1孩)  ·  tree_concept_ticket_granting_ticket  ·  concept_ticket_granting_ticket
+        - MySQL 票证授予票证 / TGT  ·  projection:mysql-term:mysql_glossary_ticket_granting_ticket_14xqfb  ·  mysql_glossary_ticket_granting_ticket_14xqfb
+      - 密钥分发中心 / key distribution center (1孩)  ·  tree_concept_key_distribution_center  ·  concept_key_distribution_center
+        - MySQL 密钥分发中心 / KDC  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_key_distribution_center_fhraw7  ·  mysql_glossary_key_distribution_center_fhraw7
+      - 主体 / principal (1孩)  ·  tree_concept_principal  ·  concept_principal
+        - MySQL 主体 / principal  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_principal_1llz4f  ·  mysql_glossary_principal_1llz4f
+      - 服务主体名称 / service principal name (2孩)  ·  tree_concept_service_principal_name  ·  concept_service_principal_name
+        - MySQL 服务主体名称 / SPN  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_service_principal_name_4syyjd  ·  mysql_glossary_service_principal_name_4syyjd
+        - MySQL SPN（服务主名称）  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_spn_qxzu3s  ·  mysql_glossary_spn_qxzu3s
+      - 服务票据 / service ticket (1孩)  ·  tree_concept_service_ticket  ·  concept_service_ticket
+        - MySQL 服务票据 / service ticket  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_service_ticket_oqmgfc  ·  mysql_glossary_service_ticket_oqmgfc
+      - 用户主体名称 / user principal name (1孩)  ·  tree_concept_user_principal_name  ·  concept_user_principal_name
+        - MySQL 用户主体名称 / UPN  ·  projection:mysql-term:mysql_glossary_user_principal_name_daz6wj  ·  mysql_glossary_user_principal_name_daz6wj
+      - 部分信任 / partial trust (2孩)  ·  tree_concept_partial_trust  ·  concept_partial_trust
+        - MySQL 部分信任 / partial trust  ·  projection:mysql-repaired:mysql:theme:security-access:mysql_glossary_partial_trust_rcrlto  ·  mysql_glossary_partial_trust_rcrlto
+        - MySQL 中等信任 / medium trust  ·  projection:mysql-term:mysql_glossary_medium_trust_113pv6  ·  mysql_glossary_medium_trust_113pv6
+      - 密钥库 / keystore (1孩)  ·  tree_concept_keystore  ·  concept_keystore
+        - MySQL 密钥库 / keystore  ·  projection:mysql-term:mysql_glossary_keystore_1khbxb  ·  mysql_glossary_keystore_1khbxb
+      - 信任库 / truststore (1孩)  ·  tree_concept_truststore  ·  concept_truststore
+        - MySQL 信任库 / truststore  ·  projection:mysql-term:mysql_glossary_truststore_rgbyfy  ·  mysql_glossary_truststore_rgbyfy
+      - 安全套接层 / SSL (1孩)  ·  tree_concept_ssl  ·  concept_ssl
+        - MySQL 安全套接层 / SSL  ·  mysql_functional_ref_k_dict_dedl7dno  ·  k_dict_dedl7dno
+    - 系统组织 (15孩)  ·  tree_acm2012_systems_organization  ·  k_acm2012_systems_organization
+      - 计算复杂性  ·  tree_acm2012_systems_organization_computational_complexity  ·  k_acm2012_systems_organization_computational_complexity
+      - 可靠性  ·  tree_acm2012_systems_organization_reliability  ·  k_acm2012_systems_organization_reliability
+      - 嵌入式系统  ·  tree_acm2012_systems_organization_embedded_systems  ·  k_acm2012_systems_organization_embedded_systems
+      - 实时计算  ·  tree_acm2012_systems_organization_real_time_computing  ·  k_acm2012_systems_organization_real_time_computing
+      - 网络物理系统  ·  tree_acm2012_systems_organization_cyber_physical_systems  ·  k_acm2012_systems_organization_cyber_physical_systems
+      - 容错能力  ·  tree_acm2012_systems_organization_fault_tolerance  ·  k_acm2012_systems_organization_fault_tolerance
+      - 无线传感器网络  ·  tree_acm2012_systems_organization_wireless_sensor_networks  ·  k_acm2012_systems_organization_wireless_sensor_networks
+      - 操作系统 (32孩)  ·  theory_domain_operating_systems  ·  theory_domain_operating_systems
+        - 磁盘 (1孩)  ·  tree_1781894839025_6d99x8  ·  k_1781894839013_cccyxm
+          - 磁盘页  ·  tree_1781894862919_8174bo  ·  k_1781894862909_gbhvf4
+        - 内存屏障 (4孩)  ·  tree_1783096608825_9mpjo2  ·  k_1783096608797_3rf6xc
+          - LoadLoad屏障  ·  tree_1783155775454_dmuoc3  ·  k_1783155775417_2xvd9n
+          - StoreStore 屏障  ·  tree_1783157221230_hungj5  ·  k_atom_storestore
+          - LoadStore 屏障  ·  tree_1783157247463_q2hnrn  ·  k_atom_loadstore
+          - StoreLoad 屏障  ·  tree_1783157274734_po0bzr  ·  k_atom_storeload
+        - 指令重排序  ·  tree_1783096626404_wejzw5  ·  k_1783096626380_5ujbbs
+        - 内存管理 (12孩)  ·  tree_1783263380057_57s6hh  ·  k_1783263380028_2hhr2a
+          - 垃圾回收 (4孩)  ·  tree_1783171786694_r8028l  ·  k_1783171786650_rheusm
+            - 垃圾回收机制 (2孩)  ·  tree_1783164062011_ijx49l  ·  k_1783164061982_dy3jas
+              - Minor GC  ·  tree_1783171646639_dd9nwd  ·  k_1783171646604_yn33rr
+              - Full GC  ·  tree_1783171669963_tmpwi4  ·  k_1783171669928_46ncd4
+            - 垃圾收集器GC (4孩)  ·  tree_1783164003471_tzhibi  ·  k_1783164003442_wm9ajj
+              - CMS 收集器 (4孩)  ·  tree_jvm_cms  ·  k_jvm_cms
+                - 初始标记  ·  tree_atomic_k_atom_cms_initial_mark  ·  k_atom_cms_initial_mark
+                - 并发标记  ·  tree_atomic_k_atom_cms_concurrent_mark  ·  k_atom_cms_concurrent_mark
+                - 重新标记  ·  tree_atomic_k_atom_cms_remark  ·  k_atom_cms_remark
+                - 并发清除  ·  tree_atomic_k_atom_cms_concurrent_sweep  ·  k_atom_cms_concurrent_sweep
+              - 并行收集器  ·  tree_1783171541470_v3ht5u  ·  k_1783171541433_akjz47
+              - 串行收集器  ·  tree_1783171576620_ez1pk7  ·  k_1783171576583_0k6kre
+              - G1收集器  ·  tree_1783171609427_qdaf8w  ·  k_1783171609391_x3bqux
+            - 回收算法 (5孩)  ·  tree_jvm_gc_algos  ·  k_jvm_gc_algos
+              - 标记-清除算法  ·  tree_atomic_k_atom_mark_sweep  ·  k_atom_mark_sweep
+              - 标记-复制算法  ·  tree_atomic_k_atom_copying  ·  k_atom_copying
+              - 标记-整理算法  ·  tree_atomic_k_atom_mark_compact  ·  k_atom_mark_compact
+              - 分代收集  ·  tree_1783171867587_9kqnbk  ·  k_1783171867549_lp5mbv
+              - 增量回收器  ·  tree_1783263986105_03b3bh  ·  k_1783263986077_nrp20e
+            - 垃圾回收判定 (9孩)  ·  tree_jvm_gc_reachability  ·  k_jvm_gc_reachability
+              - GC Roots  ·  tree_atomic_k_atom_gc_roots  ·  k_atom_gc_roots
+              - 强引用  ·  tree_atomic_k_atom_strong_ref  ·  k_atom_strong_ref
+              - 软引用  ·  tree_atomic_k_atom_soft_ref  ·  k_atom_soft_ref
+              - 弱引用  ·  tree_atomic_k_atom_weak_ref  ·  k_atom_weak_ref
+              - 虚引用  ·  tree_atomic_k_atom_phantom_ref  ·  k_atom_phantom_ref
+              - 引用队列  ·  tree_atomic_k_atom_ref_queue  ·  k_atom_ref_queue
+              - 收集器实现 (2孩)  ·  tree_1783174457097_rymt7n  ·  k_1783174457059_sy9hs8
+                - 引用计数收集器  ·  tree_1783264835105_oxk2pv  ·  k_1783264835076_nc6pkd
+                - 跟踪收集器  ·  tree_1783264865063_0xo127  ·  k_1783264865034_zdpirw
+              - 引用计数法  ·  tree_1783171290335_i1egql  ·  k_1783171290294_ib0kwi
+              - 可达性分析算法  ·  tree_atomic_k_atom_reachability  ·  k_atom_reachability
+          - new 指令触发对象创建  ·  asplit_s2_asplit_obj_trigger_new  ·  asplit_obj_trigger_new
+          - 类型加载校验  ·  asplit_s2_asplit_obj_state_class_loaded  ·  asplit_obj_state_class_loaded
+          - 分配内存  ·  asplit_s2_asplit_obj_state_alloc  ·  asplit_obj_state_alloc
+          - 零值填充  ·  asplit_s2_asplit_obj_state_zerofill  ·  asplit_obj_state_zerofill
+          - 设置对象头  ·  asplit_s2_asplit_obj_state_set_header  ·  asplit_obj_state_set_header
+          - 执行构造方法  ·  asplit_s2_asplit_obj_state_init  ·  asplit_obj_state_init
+          - 引用定位（对象可用）  ·  asplit_s2_asplit_obj_state_reference  ·  asplit_obj_state_reference
+          - TLAB（线程本地分配缓冲）  ·  asplit_s2_asplit_obj_alloc_tlab  ·  asplit_obj_alloc_tlab
+          - 句柄访问  ·  asplit_s2_asplit_obj_access_handle  ·  asplit_obj_access_handle
+          - 直接指针  ·  asplit_s2_asplit_obj_access_direct  ·  asplit_obj_access_direct
+          - 内存溢出（OutOfMemoryError）  ·  asplit_s2_asplit_obj_state_oom  ·  asplit_obj_state_oom
+        - 不可访问内存 (1孩)  ·  tree_1783265159050_8mkdlr  ·  k_1783265159022_nzdh2q
+          - 不可访问对象  ·  tree_1783265195287_mq7wpn  ·  k_1783265195251_6su1dy
+        - 原子操作  ·  tree_1785823716668_ayc4f1  ·  k_1785823716478_pdtezg
+        - 写命中  ·  tree_1785823925651_vt53y0  ·  k_1785823925469_gz41me
+        - 上下文切换  ·  tree_1785831643449_eotpuq  ·  k_1785831643303_tr9cpn
+        - 写缺失  ·  tree_1785834761547_ykg54a  ·  k_1785834761376_mkaw9x
+        - 缓存命中  ·  tree_1785834840248_pkcgxq  ·  k_1785834840102_tlq10x
+        - 缓存行填充  ·  tree_1785835072401_m7uia7  ·  k_1785835072253_ggftqd
+        - 缓存行  ·  tree_1785835083043_mu06sa  ·  k_1785835082890_9nwqja
+        - CPU流水线  ·  tree_1785840922937_zjx91h  ·  k_1785840922748_3iqaft
+        - 内存顺序冲突  ·  tree_1785840942775_jbc7id  ·  k_1785840942575_omb5yu
+        - 关闭 / shutdown  ·  mysql_term_operating_systems_shutdown_qpv53w  ·  k_dict_jwcd61u4
+        - 进程 / process (1孩)  ·  mysql_term_operating_systems_process_f99qun  ·  k_dict_plyim9pi
+          - mysqld  ·  projection:mysql-repaired:mysql:theme:operations:mysql_glossary_mysqld_q7qv17  ·  mysql_glossary_mysqld_q7qv17
+        - 快速关闭 / fast shutdown  ·  mysql_term_operating_systems_fast_shutdown_v2vlzd  ·  k_dict_hcbepdud
+        - 线程 / thread  ·  mysql_term_operating_systems_thread_1ic0m2  ·  k_dict_n7rueozw
+        - RAID  ·  mysql_term_operating_systems_raid_1368e7  ·  k_dict_mb72ps2c
+        - 异步I/O / asynchronous I/O (1孩)  ·  projection:mysql-term:mysql_glossary_asynchronous_i_o_1c6jsd  ·  mysql_glossary_asynchronous_i_o_1c6jsd
+          - mysql  ·  tree_1787397363551_7s66v7  ·  k_1787397363333_tfqywq
+        - 互斥量 / mutex (1孩)  ·  tree_concept_mutex  ·  concept_mutex
+          - MySQL 互斥量 / mutex  ·  tree_mysql_instance_concept_mutex  ·  mysql_glossary_mutex_6ryres
+        - 自旋 / spin (1孩)  ·  tree_concept_spin_wait  ·  concept_spin_wait
+          - MySQL 自旋 / spin  ·  tree_mysql_instance_concept_spin_wait  ·  mysql_glossary_spin_2ipmhl
+        - 原子指令 / atomic instruction (1孩)  ·  tree_concept_atomic_instruction  ·  concept_atomic_instruction
+          - MySQL 原子指令 / atomic instruction  ·  tree_mysql_instance_concept_atomic_instruction  ·  mysql_glossary_atomic_instruction_xxdtb4
+        - Pthreads / POSIX 线程 (1孩)  ·  tree_concept_pthreads  ·  concept_pthreads
+          - MySQL Pthreads  ·  tree_mysql_instance_concept_pthreads_0  ·  mysql_glossary_pthreads_qfb7k4
+        - 缓冲区 / buffer (1孩)  ·  tree_concept_buffer  ·  concept_buffer
+          - MySQL 缓冲区 / buffer  ·  mysql_functional_ref_k_dict_muxlhpv2  ·  k_dict_muxlhpv2
+        - 缓存 / cache (2孩)  ·  tree_concept_cache  ·  concept_cache
+          - MySQL 缓存 / cache  ·  mysql_functional_ref_k_1782027235624_gtvo1k  ·  k_1782027235624_gtvo1k
+          - MySQL 缓存（Cache&Buffer）  ·  tree_1782033743159_jh8j3j  ·  k_1782033743150_vbish8
+        - IO模型分类  ·  tree_io_model_classification  ·  k_io_model_classification
+        - 零拷贝 (1孩)  ·  tree_io_zero_copy  ·  k_io_zero_copy
+          - 传统 IO 执行流程 (1孩)  ·  tree_tio_flow  ·  tio_flow
+            - 应用程序（read/write 调用）  ·  tree_tio_caller  ·  tio_caller
+        - 阻塞非阻塞 I/O (1孩)  ·  asplit_s1_asplit_blocking_io  ·  asplit_blocking_io
+          - 非阻塞 I/O / nonblocking I/O  ·  projection:mysql-term:mysql_glossary_nonblocking_i_o_h65z9a  ·  mysql_glossary_nonblocking_i_o_h65z9a
+        - 同步异步 I/O  ·  asplit_s1_asplit_sync_async_io  ·  asplit_sync_async_io
+        - select  ·  asplit_s1_asplit_select_io  ·  asplit_select_io
+        - epoll  ·  asplit_s1_asplit_epoll  ·  asplit_epoll
+      - 计算机体系结构  ·  theory_domain_computer_architecture  ·  theory_domain_computer_architecture
+      - 存储系统 (5孩)  ·  theory_domain_storage_systems  ·  theory_domain_storage_systems
+        - 干净页 / clean page  ·  mysql_term_storage_systems_clean_page_wib7il  ·  k_1781962829528_eqvypd
+        - 实例 / instance  ·  mysql_term_storage_systems_instance_dfqeuj  ·  k_dict_12jqwwcl
+        - 行格式 / row format  ·  mysql_term_storage_systems_row_format_qvmfmc  ·  k_dict_ihguu98m
+        - 虚拟列 / virtual column  ·  mysql_term_storage_systems_virtual_column_iksksq  ·  k_dict_7okhi5j5
+        - 合并 / merge  ·  mysql_term_storage_systems_merge_1tg3an  ·  k_dict_s1u2tlxt
+      - 分布式系统 (44孩)  ·  theory_domain_distributed_systems  ·  theory_domain_distributed_systems
+        - 从属服务器 / slave  ·  mysql_term_distributed_systems_slave_1ku5ai  ·  k_dict_kpjg49hn
+        - 复制 / replication  ·  mysql_term_distributed_systems_replication_bmwgdy  ·  k_dict_sctomy1z
+        - 故障转移 / failover  ·  mysql_term_distributed_systems_failover_7vm44d  ·  k_dict_mfu28h3v
+        - CAP定理  ·  tree_1784728125587_k8xecl  ·  k_1784728125540_wmcdvv
+        - 副本 / replica  ·  tree_concept_replica  ·  concept_replica
+        - 主节点 / primary source  ·  tree_concept_primary  ·  concept_primary
+        - 基于语句的复制 / statement-based replication  ·  tree_concept_statement_based_replication  ·  concept_statement_based_replication
+        - 基于行的复制 / row-based replication  ·  tree_concept_row_based_replication  ·  concept_row_based_replication
+        - 主线程 / master thread  ·  projection:mysql-term:mysql_glossary_master_thread_11thmi  ·  mysql_glossary_master_thread_11thmi
+        - 负载均衡 / load balancing (1孩)  ·  tree_concept_load_balancing  ·  concept_load_balancing
+          - MySQL 负载均衡 / load balancing  ·  tree_mysql_instance_concept_load_balancing  ·  mysql_glossary_load_balancing_ee4rhm
+        - 心跳 / heartbeat (1孩)  ·  tree_concept_heartbeat  ·  concept_heartbeat
+          - MySQL 心跳 / heartbeat  ·  tree_mysql_instance_concept_heartbeat  ·  mysql_glossary_heartbeat_1aiai3
+        - 向外扩展 / scale out (1孩)  ·  tree_concept_scale_out  ·  concept_scale_out
+          - MySQL 向外扩展 / scale out  ·  tree_mysql_instance_concept_scale_out  ·  mysql_glossary_scale_out_1fhx7h
+        - 向上扩展 / scale up (1孩)  ·  tree_concept_scale_up  ·  concept_scale_up
+          - MySQL 向上扩展 / scale up  ·  tree_mysql_instance_concept_scale_up  ·  mysql_glossary_scale_up_1y6pkm
+        - 可伸缩性 / scalability (1孩)  ·  tree_concept_scalability  ·  concept_scalability
+          - MySQL 可伸缩性 / scalability  ·  tree_mysql_instance_concept_scalability_0  ·  mysql_glossary_scalability_d5afjw
+        - 分布式知识地图  ·  tree_vault_java00_1npfss  ·  k_vault_java00_1npfss
+        - 分布式系统模型  ·  tree_vault_java01_1urtc4  ·  k_vault_java01_1urtc4
+        - 分布式事务 (1孩)  ·  tree_vault_java02_yikc89  ·  k_vault_java02_yikc89
+          - 分布式事务  ·  tree_vault_dist_tx_notes  ·  k_vault_dist_tx_notes
+        - 分布式锁  ·  tree_vault_java03_1esy07  ·  k_vault_java03_1esy07
+        - 分布式任务调度  ·  tree_vault_java_1p2nxk  ·  k_vault_java_1p2nxk
+        - 高并发架构设计  ·  tree_vault_arch_hc_design  ·  k_vault_arch_hc_design
+        - CQRS  ·  tree_vault_arch_cqrs  ·  k_vault_arch_cqrs
+        - LVS  ·  tree_vault_arch_lvs  ·  k_vault_arch_lvs
+        - 其他数据分片形式  ·  tree_vault_arch_other_sharding  ·  k_vault_arch_other_sharding
+        - 写聚合  ·  tree_vault_arch_write_agg  ·  k_vault_arch_write_agg
+        - 垂直拆分  ·  tree_vault_arch_vertical_split  ·  k_vault_arch_vertical_split
+        - 基本的缓存淘汰策略  ·  tree_vault_arch_cache_eviction  ·  k_vault_arch_cache_eviction
+        - 异步写  ·  tree_vault_arch_async_write  ·  k_vault_arch_async_write
+        - 扩容方案  ·  tree_vault_arch_scale_up  ·  k_vault_arch_scale_up
+        - 水平拆分  ·  tree_vault_arch_horizontal_split  ·  k_vault_arch_horizontal_split
+        - 海量数据存储策略  ·  tree_vault_arch_mass_storage  ·  k_vault_arch_mass_storage
+        - 缓存击穿  ·  tree_vault_arch_cache_breakdown  ·  k_vault_arch_cache_breakdown
+        - 缓存更新  ·  tree_vault_arch_cache_update  ·  k_vault_arch_cache_update
+        - 缓存穿透  ·  tree_vault_arch_cache_penetration  ·  k_vault_arch_cache_penetration
+        - 缓存雪崩  ·  tree_vault_arch_cache_avalanche  ·  k_vault_arch_cache_avalanche
+        - 读，写分离架构  ·  tree_vault_arch_rw_split  ·  k_vault_arch_rw_split
+        - 重试  ·  tree_vault_arch_retry  ·  k_vault_arch_retry
+        - Leaf  ·  tree_vault_arch_id_leaf  ·  k_vault_arch_id_leaf
+        - Snowflake  ·  tree_vault_arch_id_snowflake  ·  k_vault_arch_id_snowflake
+        - 分布式 ID  ·  tree_vault_arch_id_distributed  ·  k_vault_arch_id_distributed
+        - 布隆过滤器  ·  tree_vault_arch_id_bloom  ·  k_vault_arch_id_bloom
+        - 主从模式  ·  tree_vault_arch_storage_master  ·  k_vault_arch_storage_master
+        - 高可用架构  ·  tree_vault_arch_storage_ha  ·  k_vault_arch_storage_ha
+        - BASE理论  ·  asplit_s132_base_theory  ·  k_1783170416767_yaym2f
+        - 分库  ·  asplit_s134_db_sharding  ·  asplit_db_sharding
+      - 多核 / multi-core  ·  projection:mysql-repaired:mysql:theme:operations:mysql_glossary_multi_core_1ks4nn  ·  mysql_glossary_multi_core_1ks4nn
+      - 写入合并 / write combining  ·  projection:mysql-term:mysql_glossary_write_combining_154ozi  ·  mysql_glossary_write_combining_154ozi
+      - 预读 / read-ahead  ·  projection:mysql-repaired:mysql:theme:storage-engines:mysql_glossary_read_ahead_1khyqr  ·  mysql_glossary_read_ahead_1khyqr
+      - 合并 / merge  ·  projection:mysql-term:k_dict_s1u2tlxt  ·  k_dict_s1u2tlxt
+  - 数学 (7孩)  ·  school_mathematics  ·  school_mathematics
+    - 集合论 (1孩)  ·  theory_domain_set_theory  ·  theory_domain_set_theory
+      - 元组 / tuple  ·  mysql_term_set_theory_tuple_17wc8b  ·  k_dict_ek50h609
+    - 图论 (1孩)  ·  theory_domain_graph_theory  ·  theory_domain_graph_theory
+      - 物化视图 / Materialized View  ·  mysql_term_graph_theory_materialized_view_f4bpat  ·  k_dict_1sj5w4mj
+    - 统计学  ·  theory_domain_statistics  ·  theory_domain_statistics
+    - 概率论  ·  theory_domain_probability  ·  theory_domain_probability
+    - 数值分析  ·  theory_domain_numerical_analysis  ·  theory_domain_numerical_analysis
+    - 信息论  ·  theory_domain_information_theory  ·  theory_domain_information_theory
+    - 排队论  ·  theory_domain_queueing_theory  ·  theory_domain_queueing_theory
+  - 逻辑 (3孩)  ·  school_logic  ·  school_logic
+    - 一阶谓词逻辑  ·  theory_domain_first_order_logic  ·  theory_domain_first_order_logic
+    - 类型理论 (3孩)  ·  theory_domain_type_theory  ·  theory_domain_type_theory
+      - Abstract type (1孩)  ·  tree_1784044948516_r7b04e  ·  k_1784044948481_t8k166
+        - 创建  ·  tree_1784045110797_m2ls71  ·  k_1784045110759_kqnpgx
+      - 自增 / auto-increment  ·  mysql_term_type_theory_auto_increment_18vyab  ·  k_dict_rszan9vp
+      - 数据类型  ·  mysql_term_type_theory_nu07k9_1tfn3u  ·  k_1782748910899_dtrnpe
+    - 三值逻辑 (1孩)  ·  theory_domain_three_valued_logic  ·  theory_domain_three_valued_logic
+      - NULL  ·  mysql_term_three_valued_logic_null_plui03  ·  k_dict_fxoirizf

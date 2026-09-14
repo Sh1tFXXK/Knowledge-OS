@@ -7963,7 +7963,7 @@
   {
     "id": "treebind:tree_class_programming_classification:tree_class_programming_final_class",
     "source": "k_class_programming_classification",
-    "target": "k_1784045589643_icc5oo",
+    "target": "k_1789371436917_zo0k0j",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -15068,7 +15068,7 @@
   {
     "id": "treebind:tree_1784044092244_76wkqz:tree_1784044171666_9yd2is",
     "source": "k_1784044092211_wkjnz2",
-    "target": "k_1784044171635_8etz45",
+    "target": "k_1789371087163_g0db3p",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -15122,7 +15122,7 @@
   {
     "id": "treebind:tree_1784044457742_waame9:tree_java_syntax_zh_1hqaeyr",
     "source": "k_1784044457709_jt70a4",
-    "target": "k_1784295376153_uiovkk",
+    "target": "k_1789371087163_g81kcs",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -15248,7 +15248,7 @@
   {
     "id": "treebind:tree_java_syntax_zh_scbpwz:tree_1784295376195_3l31hb",
     "source": "k_1783167541244_d3d092",
-    "target": "k_1784295376153_uiovkk",
+    "target": "k_1789371087163_g81kcs",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -28708,17 +28708,6 @@
     ]
   },
   {
-    "id": "treebind:theory_domain_operating_systems:tree_io_zero_copy",
-    "source": "theory_domain_operating_systems",
-    "target": "k_io_zero_copy",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "os"
-    ]
-  },
-  {
     "id": "edge_java_selector_implements_epoll",
     "source": "k_nio_selector_principle",
     "target": "asplit_select_io",
@@ -35354,28 +35343,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:theory_domain_operating_systems:asplit_s1_asplit_select_io",
-    "source": "theory_domain_operating_systems",
-    "target": "asplit_select_io",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:theory_domain_operating_systems:asplit_s1_asplit_epoll",
-    "source": "theory_domain_operating_systems",
-    "target": "asplit_epoll",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
     "id": "asplit:s130",
     "source": "asplit_epoll",
     "target": "asplit_select_io",
@@ -36751,7 +36718,7 @@
   {
     "id": "treebind:tree_1784043760890_bptgal:tree_1786343651438_q205rt",
     "source": "k_1784043760861_gcvn05",
-    "target": "k_1784295376153_uiovkk",
+    "target": "k_1789371087163_g81kcs",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -37395,24 +37362,6 @@
     ]
   },
   {
-    "id": "treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_hypervisor",
-    "source": "k_wiki_en_profiling_computer_programming_s8",
-    "target": "atomic_hypervisor",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_wiki_en_profiling_computer_programming_s8:final_atomic_emulator",
-    "source": "k_wiki_en_profiling_computer_programming_s8",
-    "target": "atomic_emulator",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
     "id": "atomic:s4:hypervisor-emulator",
     "source": "atomic_hypervisor",
     "target": "atomic_emulator",
@@ -37813,6 +37762,119 @@
     "id": "treebind:tree_1785416767656_xllpk1:tree_1786093265279_n5f4vh",
     "source": "k_java_type_ff6db88dc6746818",
     "target": "k_1786093265033_rqvw3n",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_class_programming_classification:tree_class_programming_abstract_class",
+    "source": "k_class_programming_classification",
+    "target": "k_1784295376153_uiovkk",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "impl:abstract_class:k_1789371087163_g81kcs",
+    "source": "k_1789371087163_g81kcs",
+    "target": "k_1784295376153_uiovkk",
+    "type": "implements",
+    "label": "implements",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_class_programming_classification:tree_class_programming_inner_class",
+    "source": "k_class_programming_classification",
+    "target": "k_1789371087163_e9iafm",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "impl:inner_class:k_1784044129424_ffqm4z",
+    "source": "k_1784044129424_ffqm4z",
+    "target": "k_1789371087163_e9iafm",
+    "type": "implements",
+    "label": "implements",
+    "dimensions": []
+  },
+  {
+    "id": "impl:final_class:k_1784045589643_icc5oo",
+    "source": "k_1784045589643_icc5oo",
+    "target": "k_1789371436917_zo0k0j",
+    "type": "implements",
+    "label": "implements",
+    "dimensions": []
+  },
+  {
+    "id": "impl:anonymous_class:k_1789371087163_g0db3p",
+    "source": "k_1789371087163_g0db3p",
+    "target": "k_1784044171635_8etz45",
+    "type": "implements",
+    "label": "implements",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_wiki_en_virtual_machine_s5:final_atomic_hypervisor",
+    "source": "k_wiki_en_virtual_machine_s5",
+    "target": "atomic_hypervisor",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_wiki_en_virtual_machine_s5:final_atomic_emulator",
+    "source": "k_wiki_en_virtual_machine_s5",
+    "target": "atomic_emulator",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:theory_domain_operating_systems:tree_concept_io_multiplexing",
+    "source": "theory_domain_operating_systems",
+    "target": "k_1789371087163_25m6ob",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:theory_domain_operating_systems:tree_concept_syscall_io",
+    "source": "theory_domain_operating_systems",
+    "target": "k_1789371087163_b7qj6l",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_select_io",
+    "source": "k_1789371087163_25m6ob",
+    "target": "asplit_select_io",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_epoll",
+    "source": "k_1789371087163_25m6ob",
+    "target": "asplit_epoll",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:tree_concept_syscall_io:tree_io_zero_copy",
+    "source": "k_1789371087163_b7qj6l",
+    "target": "k_io_zero_copy",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
