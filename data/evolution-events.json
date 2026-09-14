@@ -192,5 +192,38 @@
         "after": "treeId `tree_java_jmm_sequential_consistency`（语义 slug，命名空间 `tree_java_jmm_`）· 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:t3-p0.1:1789393855508",
+    "scopeRootId": "n_55jiel25",
+    "occurredAt": 1789393855508,
+    "title": "T3-P0.1：MySQL 服务层 3 条孤儿挂载的卸树留池（只删 tree mount，池实体保留）",
+    "summary": "服务层（k_1782032275682_61auc4，treeId 为 projection 导入命名空间 id）下的 3 个 asplit 工具节点被解除树挂载：备份恢复工具 / 安全管理工具 / 集群管理工具。删除 3 个 tree mount 与对应的 3 条 treebind 边；**池实体全部保留**，宿主的 viewDimensions「服务层工具」网格 atom 引用不变，故维度展示能力不受影响；题组不动。依据：这 3 项本质是**维度展示原子**，而维度原子走 nodePool 查表、不依赖树挂载；其宿主同层已是未整合的合并区，且该域已有 9,758 字 / 37 节点的规范子树（恢复系统 · 53 条 tree_mysql_instance_*），为其另造 tree_mysql_* 名字会固化投影宿主并与既有体系永久重复。处置语义 = 解除错误的物理归属，保留知识实体及其维度展示能力，不是删除知识。影响：T3 前置范围 133 → 130，BLOCK 3 → 0。",
+    "sourceOnlyNodeIds": [
+      "asplit_mysql_tool_backup",
+      "asplit_mysql_tool_security",
+      "asplit_mysql_tool_cluster"
+    ],
+    "introducedNodes": [],
+    "changes": [
+      {
+        "targetNodeId": "asplit_mysql_tool_backup",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mysql_tool_backup`（挂在宿主「服务层」下，宿主 treeId 为 projection 导入命名空间 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库产品 > MySQL > MySQL Server > 结构 > 服务层 > 备份恢复工具",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mysql_tool_backup` 与其正文 保留；仍作为宿主「服务层」viewDimensions 的 mysql_service_tools 网格 atom 展示"
+      },
+      {
+        "targetNodeId": "asplit_mysql_tool_security",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mysql_tool_security`（挂在宿主「服务层」下，宿主 treeId 为 projection 导入命名空间 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库产品 > MySQL > MySQL Server > 结构 > 服务层 > 安全管理工具",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mysql_tool_security` 与其正文 保留；仍作为宿主「服务层」viewDimensions 的 mysql_service_tools 网格 atom 展示"
+      },
+      {
+        "targetNodeId": "asplit_mysql_tool_cluster",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mysql_tool_cluster`（挂在宿主「服务层」下，宿主 treeId 为 projection 导入命名空间 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库产品 > MySQL > MySQL Server > 结构 > 服务层 > 集群管理工具",
+        "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mysql_tool_cluster` 与其正文 保留；仍作为宿主「服务层」viewDimensions 的 mysql_service_tools 网格 atom 展示"
+      }
+    ]
   }
 ]

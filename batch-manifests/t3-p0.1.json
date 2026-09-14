@@ -1,0 +1,312 @@
+{
+  "batchId": "t3-p0.1",
+  "title": "T3-P0.1 · MySQL 服务层 3 条孤儿挂载的「卸树留池」（只删 tree mount，池实体保留）",
+  "baseRef": "9bcdd30",
+  "baseRefNote": "前序提交链：… → e7a7627（T3-P0 apply）→ 9bcdd30（三批状态登记）。本批从前述干净基线出发。按「一个批次 / 一个 manifest / 一个 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」范式执行。",
+  "preBatchSnapshot": "data/backups/t3-p0.1-2026-09-14T13-50-55-385Z",
+  "preBatchSnapshotNote": "快照含全部 5 个 data 文件，且已逐字节核验 = `HEAD:data/*`（5/5 `Buffer.compare === 0`）⇒ 提交后的数据 diff **恰好等于**本批操作，零夹带。",
+  "commitSubjectHint": "data: T3-P0.1 MySQL 服务层 3 条孤儿挂载卸树留池 — tree 3219→3216 · 边 4166→4163 · T3 BLOCK 3→0（生效范围 133→130）",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/apply-t3-p01-unload-mysql-service-layer-orphans.mjs",
+    "scripts/verify-t3-p01-apply.mjs",
+    "scripts/register-t3-p01-scope-resolution.mjs",
+    "scripts/inspect-t3-p01-mysql-service-layer.mjs",
+    "scripts/dryrun-t3-asplit-semanticization.mjs",
+    "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+    "outputs/tree-violation-scan/t3-p0.1-mysql-service-layer-facts.json",
+    "outputs/tree-violation-scan/t3-p0.1-mysql-service-layer-verdict.md",
+    "outputs/tree-violation-scan/t3-p0.1-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p0.1-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p0.1-apply-preflight.md",
+    "outputs/tree-violation-scan/t3-p0.1-apply-report.md",
+    "outputs/tree-violation-scan/t3-p0.1-apply-verification.json",
+    "outputs/tree-violation-scan/t3-p0.1-independent-verification.json",
+    "outputs/tree-violation-scan/t3-p0.1-independent-verification.md",
+    "outputs/tree-violation-scan/t3-dryrun-plan-after-p01.json",
+    "outputs/tree-violation-scan/t3-dryrun-report-after-p01.md",
+    "outputs/tree-violation-scan/t3-mapping-review-after-p01.md",
+    "outputs/tree-violation-scan/asplit-treeid-mapping.draft-after-p01.json",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/t3-p0.1.json"
+  ],
+  "writeSetNote": "四个路径需要解释：① `scripts/dryrun-t3-asplit-semanticization.mjs` 在前序 t3-dryrun / t3-p0-apply 两批均已提交，本批**再次修改**它 —— 同一文件的三个内容态由三次先后提交承载（与 nodepool 台账情形同源）。改的是两个**判据缺陷**，不是数据：见 `observations[1]`。② `outputs/tree-violation-scan/asplit-treeid-inventory.json` 此前一直是**未跟踪且被 t3-p0-apply 登记为 declaredExternalSet** 的文件；本批把它**收进 writeSet**，理由是 T3-P0.1 往它里面**写入了范围变更登记**（`resolvedBy`/`outOfScope`/`scopeChange`），而且 **dry-run 的范围自校验要读它** —— 期望值住在未提交的文件里，正是「期望值在飞」的隐患（见 `ownershipTransferNote`）。③ `*-after-p01.*` 是本批重算产物，刻意用后缀与前两轮证据并存。④ `governance-ledger.md` 在本批之前已被改成「P0.1 待裁决」态，本批是**裁决 + apply**的那个批次，故由本批把它推到新状态（T11 归档 + T3 主线读数更新），不另造纯登记提交。",
+
+  "ownershipTransferNote": {
+    "file": "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+    "from": "declaredExternalSet（t3-p0-apply 时的判定）",
+    "to": "writeSet（本批）",
+    "trigger": "本批对该文件发生了**实质性写入**（范围变更登记），不再是「别人的在飞文件」",
+    "whyItMustBeCommitted": "dry-run 脚本的范围自校验从该文件推导期望值（`scopeChange` + `tier1[].outOfScope`）。若期望值留在未提交文件里，则「生效范围 = 130」这一判据在干净检出上不可复现 —— 门就变成了本机专有。",
+    "whatIsNotClaimed": "同一会话产出的 `asplit-treeid-ref-matrix.json` / `batch-asplit-treeid-semanticization-plan.md` / `scripts/scan-asplit-treeid-refs.mjs` 本批**一个字节都没碰**，仍留在 declaredExternalSet。"
+  },
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "declaredExternalSetNote": "全部为**他人会话 / 其它批次**的在飞改动，本批不认领、不提交。其中 `t3-registration` 与 `t5-rename-evidence` 两批为 `REGISTERED_NOT_EXECUTED`（按设计不提交）；`src/*` 与 `docs/ARCHITECTURE.md` 等属他人会话的索引图/文档改动。**本批一个字节都不碰它们**。⚠️ 注意 `scripts/tree-utils.test.mjs`（已跟踪、被外部修改）属他人改动：本批的验收测试口径因此只认 **tracked 基线 42 项**，不把该文件的漂移算进来。",
+
+  "excludedSet": [
+    "data/node-pool.json",
+    "data/questions.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "**全部精确路径，不使用任何目录前缀**（前缀是宽刷子，会覆盖自己 writeSet 里的文件）。① `data/node-pool.json` / `data/questions.json`：本批只删 3 个 tree mount + 3 条 treebind 边，**池实体与题库一个字节都不改** —— 已由独立验证逐字节证明（`poolByteIdenticalToPreApply: true` / `questionsByteIdenticalToPreApply: true`），且「池实体保留」正是本批的**核心断言**，故它必须出现在排除集里以示「不是靠漏提交来假装没改」。② 各 `readiness-*.json` 是就绪门产物，按项目惯例以精确路径登记为排除。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/t3-p0.1-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p0.1-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p0.1-apply-preflight.md",
+    "outputs/tree-violation-scan/t3-p0.1-apply-report.md",
+    "outputs/tree-violation-scan/t3-p0.1-apply-verification.json",
+    "outputs/tree-violation-scan/t3-p0.1-independent-verification.json",
+    "outputs/tree-violation-scan/t3-p0.1-independent-verification.md",
+    "outputs/tree-violation-scan/t3-dryrun-plan-after-p01.json",
+    "outputs/tree-violation-scan/t3-dryrun-report-after-p01.md",
+    "outputs/tree-violation-scan/t3-mapping-review-after-p01.md",
+    "outputs/tree-violation-scan/asplit-treeid-mapping.draft-after-p01.json"
+  ],
+
+  "expectedDelta": {
+    "note": "本批**只删 mount、不改内容**：不新增任何节点/边，不改任何非 id 字段，不改池与题库。预期 diff 因此可逐行可数。",
+    "data/tree-data.json": {
+      "nodeCount": "3219 → 3216",
+      "removedNodes": 3,
+      "removedNodeIds": [
+        "asplit_s2_asplit_mysql_tool_backup",
+        "asplit_s2_asplit_mysql_tool_security",
+        "asplit_s2_asplit_mysql_tool_cluster"
+      ],
+      "addedNodes": 0,
+      "nonIdFieldsChanged": 0,
+      "childrenListDriftBeyondRemoval": 0,
+      "hostChildren": "10 → 7",
+      "hostTreeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4"
+    },
+    "data/knowledge-edges.json": {
+      "edgeCount": "4166 → 4163",
+      "removedEdges": 3,
+      "removedEdgeIds": [
+        "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_backup",
+        "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_security",
+        "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_cluster"
+      ],
+      "addedEdges": 0,
+      "modifiedEdges": 0,
+      "endpointsTouched": 0
+    },
+    "data/evolution-events.json": {
+      "before": 4,
+      "after": 5,
+      "addedEvents": 1,
+      "eventId": "event:tree-refactor:t3-p0.1:1789393855508",
+      "introducedNodes": 0,
+      "changes": 3,
+      "fieldRoleNote": "changes[].before / after 属**审计叙述**，按宪法 §3.6 **必须**保留旧 treeId，不计入「残留」。"
+    },
+    "data/node-pool.json": "0 改动（逐字节等于批前快照 · 3855 实体）",
+    "data/questions.json": "0 改动（逐字节等于批前快照）"
+  },
+
+  "unmountMap": [
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_backup",
+      "name": "备份恢复工具",
+      "poolId": "asplit_mysql_tool_backup",
+      "poolEntityKept": true,
+      "dimensionAtom": "mysql_service_tools → mysql_service_tools_grid",
+      "semanticAncestorGap": 6
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_security",
+      "name": "安全管理工具",
+      "poolId": "asplit_mysql_tool_security",
+      "poolEntityKept": true,
+      "dimensionAtom": "mysql_service_tools → mysql_service_tools_grid",
+      "semanticAncestorGap": 6
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+      "name": "集群管理工具",
+      "poolId": "asplit_mysql_tool_cluster",
+      "poolEntityKept": true,
+      "dimensionAtom": "mysql_service_tools → mysql_service_tools_grid",
+      "semanticAncestorGap": 6
+    }
+  ],
+  "unmountMapSource": "由独立验证脚本从**批前快照 vs 当前工作树集合差**反推（removedTreeIds / removedEdgeIds），再与 apply 脚本声明双向核对 —— 完全一致。**不是**先信 apply 自报再去凑证据。",
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "peerAddedFiles": [
+      "scripts/index-graph-layout.test.mjs"
+    ],
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "字段口径 = **测试项数**：已跟踪 6 个文件 → 42 项；未跟踪 1 个文件 → 2 项。本次实跑 `npm test` = **44/44 全绿**（含未跟踪文件）。其中 `scripts/tree-utils.test.mjs` 被**外部会话**修改过（在 declaredExternalSet 里），故本批验收只以 tracked 42 为准做保守断言。"
+  },
+
+  "gates": {
+    "applyScript": [
+      { "id": "G1", "name": "用户裁决已落纸（采用「卸树留池」）", "result": "PASS" },
+      { "id": "G2", "name": "数据文件 md5 与冻结基线一致（无人改过数据）", "result": "PASS" },
+      { "id": "G3", "name": "3 个目标挂载存在且父端 = 指定 projection 宿主", "result": "PASS" },
+      { "id": "G4", "name": "证据：既有 `lib.mjs dropTreebindEdgesForTreeIds` 对这 3 条**报 0 删除**（因 parent treeId 含冒号，`split(':')` 取前两段失配）→ 本批不得复用它", "result": "PASS（取证成功）" },
+      { "id": "G5", "name": "覆盖面恰好 = 3（不多不少）", "result": "PASS" },
+      { "id": "G6", "name": "宿主 `viewDimensions` 原子引用**不被触碰**", "result": "PASS" },
+      { "id": "G7", "name": "3 个池实体存在（删除 mount 不得连带删实体）", "result": "PASS" },
+      { "id": "G8", "name": "3 个目标在活树内、且**没有**未处理的子节点（卸前完整性）", "result": "PASS" },
+      { "id": "G9", "name": "删除后：目标 treeId 在树/边中 0 残留", "result": "PASS" },
+      { "id": "G10", "name": "删除后：`nodeRef` 悬空 = 0", "result": "PASS" },
+      { "id": "G11", "name": "删除后：宿主维度原子可解析 3/3", "result": "PASS" },
+      { "id": "G12", "name": "删除后：不新增悬空 treebind", "result": "PASS" },
+      { "id": "G13", "name": "池与题库逐字节不变", "result": "PASS" },
+      { "id": "G14", "name": "evolution-events 只增不改", "result": "PASS" },
+      { "id": "G15", "name": "dev server 不会静默覆盖本次写入", "result": "PASS" }
+    ],
+    "independentVerification": {
+      "script": "scripts/verify-t3-p01-apply.mjs",
+      "result": "INDEPENDENT_VERIFY_PASS",
+      "passed": "20/20",
+      "independence": "① 不复用也不复制 apply 脚本任何函数（**含刻意不用其 treebind 解析写法**）；② 比对对象是磁盘批前快照 vs 当前工作树（不是内存克隆、不是被验证脚本的自报结果）；③ 删除集与映射从**集合差**反推后再与 apply 声明双向核对。",
+      "selfDefectFound": "首轮跑出 V7 / V12 两项 FAIL，均为**验证脚本自身缺陷**（V7 拿整棵子树 JSON 比对，泄漏了祖先 `children` 的合法变化；V12 原子计数把同一 grid 里的非本批第 4 个原子也算进来了）。修掉自己这两处后 20/20。这正是「独立验证」存在的意义 —— 它抓的是判据缺陷，不是给自己发合格证。"
+    },
+    "uiAcceptance": {
+      "result": "17/17 PASS",
+      "method": "无头 Chromium（`chromium-1187`）+ 原生 WebSocket 走 CDP；`vite preview` 指向**临时数据目录**（真实数据的逐字节副本），屏蔽 `fonts.googleapis.com`；受控 input 用原生 value setter + `input` 事件；点击用 `dispatchEvent(new MouseEvent('click',{bubbles:true}))`；每条断言刷新后复测一次。",
+      "what": "搜索「服务层」→ 点宿主行 → 顶栏切回「视图」→ 断言 `.dc-grid-section` = 1 · `.dc-atom-card:not(--add)` = 4 · 4 个 `.dc-atom-label` 含 3 个**已被卸下树**的原子（`备份恢复工具` / `安全管理工具` / `集群管理工具`）+ 1 个非本批原子 → DOM 中不再出现被卸下的 treeId 前缀 → 刷新后复测仍 4/4。",
+      "whyItIsTheRightAssertion": "它证明的是**渲染无树依赖**：`GridSection.tsx:19` 走 `nodePool[atom.nodeId]`，所以 mount 删掉后维度网格照旧完整。这是「卸树留池」成立的技术前提，也是本批唯一无法由数据断言替代的一条。",
+      "probeSelfDefects": "探针自身踩了两个坑（**均非产品缺陷**，已记入批量约定）：① 点击必须落在**行元素本身**（`onClick` 挂在 `[data-tree-node-id]`）——其内部 `role=\"button\"` 是文件夹展开图标且带 `stopPropagation()`，点它会吞掉选中；② `selectTreeEntry` 会把 `activeView` 切成 `index`（`useGraph.ts:783`），中央区变成统一索引图，**必须再点回顶栏「视图」**才能看到 `FocusStage`/`DimensionCanvas`。一次性探针用后即删。"
+    },
+    "t3Recompute": {
+      "command": "node scripts/dryrun-t3-asplit-semanticization.mjs --out-suffix \"-after-p01\"",
+      "verdict": "DRY_RUN_OK / MAPPING_FREEZE_PENDING_REVIEW",
+      "scopeSelfCheck": "台账 133 · 已登记退出 3 · 生效 130 · 活数据重算 130 · 一致 ✅（声明自洽 ✅ · 退出项已离树 ✅）",
+      "high": 92,
+      "medium": 38,
+      "blocked": 0,
+      "gapDist": { "0": 92, "1": 11, "2": 24, "3": 3 },
+      "note": "`MAPPING_FREEZE_PENDING_REVIEW` 是**诚实读数**：0 条硬阻塞，唯一待办 = 人工裁完 38 条 MEDIUM（T3-P1）。它不是「闸门失败」，也不是「可自动冻结」。"
+    }
+  },
+
+  "applyOutcome": {
+    "treeNodes": "3219 → 3216",
+    "edges": "4166 → 4163",
+    "pool": "3855（不变）",
+    "targetTreeIdsResidual": 0,
+    "treebindDropped": 3,
+    "poolEntitiesKept": 3,
+    "hostChildCount": 7,
+    "dimAtoms": 3,
+    "dimAtomsDangling": 0,
+    "refDangling": 0,
+    "newUnresolvedTreebind": 0,
+    "preExistingDanglingTreebind": 18,
+    "preExistingDanglingTreebindNote": "批前 18 → 批后 18（**新增 0**）。这 18 条**不是本批造成的**，是既有存量：`treebind` 的父 treeId 可含冒号（如 `projection:...`），而 `src/knowledge/treeBinding.ts:149` 与 `scripts/shell-fusion/lib.mjs:142` 两处都做 `split(':')` 后取前两段 → **含冒号的父 id 必然失配**。已按宪法 §3.2 记基数（18 / 2665 ≈ 0.68%）并登记为独立观察项，**不在本批修**（改这两处要动 `src/` 与另一个批次的脚本，超出本批 writeSet）。",
+    "evoGrew": true,
+    "poolByteIdenticalToPreApply": true,
+    "questionsByteIdenticalToPreApply": true,
+    "realApplyVerdict": "REAL_APPLY_VERIFIED"
+  },
+
+  "observations": [
+    {
+      "id": "OBS-1",
+      "title": "`treebind` 边 id 解析在「父 treeId 含冒号」时静默失配（两处实现同源）",
+      "status": "已取证 · **不在本批修** · 登记为独立观察项",
+      "base": "全库 `treebind` 边 **2668 → 2665**（本批删 3）。未解析成功的边：**批前 18 / 批后 18**，新增 **0**。18 / 2665 ≈ **0.68%**。",
+      "counterexample": "含冒号父 id 的实例：`treebind:projection:mysql-mysqld:mysql:mysqld-layer:execute:mysql_sql_query_execution:0` —— `split(':')` 取前两段得 `projection` + `mysql-mysqld`，两个都不是活 treeId ⇒ 判为「无法解析」而被跳过（不是报错，是**静默跳过**）。",
+      "falsePositiveAnalysis": "不能因此说「treebind 机制坏了」：2665 条里 2647 条正常解析（99.32%），本批要删的 3 条**恰好**落在失配的那一类里 —— 按 §3.2，**单看本批 3/3 都失配会得出「该 helper 完全失效」的错误结论**，取到基数 18/2665 才看清它是**边界情形**而非普遍失效。",
+      "evidence": "apply 脚本 G4 就是以「该 helper 对这 3 条报 0 删除」作为**取证**；本批因此改用**精确 id 相等**匹配，不复用该 helper。",
+      "whyNotFixedHere": "两处实现在 `src/knowledge/treeBinding.ts` 与 `scripts/shell-fusion/lib.mjs`，都不在本批 writeSet 内；且修它们会改变**既有 18 条**的解析结果（属另一个批次的范围变更）。",
+      "correctFix": "解析应**枚举切分点**、要求两侧都是活 treeId，而不是 `split(':')` 取前两段。本批的验证脚本已用该写法（故能报出 18 条真·无法解析者）。"
+    },
+    {
+      "id": "OBS-2",
+      "title": "dry-run 脚本的两个判据缺陷（本批已修，并配负对照）",
+      "status": "已处置（本批内）",
+      "detail": "① **范围自校验硬编码 `=== 133`**：T3-P0.1 登记 3 项退出范围后，活数据重算变 130 → 该判据**必然**报错。按宪法 §3.2「不得为了让闸门变绿而重定义期望值」，修法**不是**把 133 改成 130，而是把期望值改为**从台账已登记声明推导**（`scopeChange` + `tier1[].outOfScope` + `counts`），并**追加两条此前缺失的实质断言**：声明内部自洽 + 声明退出的项必须真的不在活树里。② **`blocked=0` 时误报阻塞**：原实现把 `frozenMappingProducible === false` 一律当硬阻塞，于是在 `blocked=0 / needsReview=38` 时输出「冻结闸门 BLOCK：**0 条** 不允许自动生成 mapping」与「仍有 **0 条** asplit_* 无法命名 → 不可能归零」—— 两句都以 0 作主语，是**事实错误**。改为三态区分：真阻塞（`blocked>0`）/ 复核队列（MEDIUM，**不是**闸门失败）/ 覆盖缺口（仅真 >0 时才算阻塞），并新增 `MAPPING_FREEZE_PENDING_REVIEW` 档。",
+      "negativeControl": "**修完判据必须证明它仍能失败**（否则就是改期望值）。两条负对照实测：① 剥掉 `scopeChange` + `outOfScope` 标记（模拟未登记）→ `DRY_RUN_BLOCKED` + 硬阻塞 ✅；② 给一个**仍在树里**的节点打假 `outOfScope` → 新增的「退出项确已离树」断言触发 `❌` ✅。临时产物用后即删，台账已 byte-exact 回滚。",
+      "hardLimit": "范围变更的期望值只能通过**登记流程**改（`scripts/register-t3-p01-scope-resolution.mjs` 已把 `hardLimit` 写进台账 `scopeChange`）。"
+    },
+    {
+      "id": "OBS-3",
+      "title": "测量工具自身也会误报（本批实证，反向印证宪法 §3.2）",
+      "status": "观察（已处置：换用正确写法）",
+      "detail": "本批核验过程中，我自己的一个 `nodeRef` 探针先把 `node-pool.json` 当成**数组**（实际是 `{id: entity}` 映射）、又把 `viewDimensions` 的 atoms 读在 `dimension.atoms` 层（实际在 `dimension.sections[].atoms`），于是报出「悬空 nodeRef 3216 / 维度原子 0」两个**完全虚假**的结论。同一轮里，第一版 dangling-treebind 统计用 `split(':')`（取最后一个冒号）也曾误报 217/227。**教训**：判据写错时，读数会以「惊人的数量」呈现 —— 数量越大越该先怀疑工具，而不是先怀疑数据。",
+      "consequence": "最终所有断言都用**正确 schema** 重算过；`nodeRef` 悬空 0、维度原子 4/4（含 3/3 本批）均由修正后的探针与 UI 实测双重确认。"
+    }
+  ],
+
+  "veto": [
+    "若 `data/node-pool.json` 或 `data/questions.json` 有任何字节变化 → 立即停止并回滚（**池实体保留是本批的核心断言**，池被改动即意味着「卸树留池」的前提被破坏）。",
+    "若宿主 `viewDimensions` 的原子引用集合发生变化 → 立即停止（本批只卸 mount，不碰维度声明）。",
+    "若树/边出现任何**非 id 字段**变化，或新增任何节点/边 → 立即停止（本批只删不增不改内容）。",
+    "若边 `source`/`target` 有任一被触碰 → 立即停止。",
+    "若 `nodeRef` 出现悬空，或悬空 treebind **数量上升** → 立即停止。",
+    "若 T3 读数 ≠ HIGH 92 / MEDIUM 38 / BLOCK 0（生效 130）→ 本批名的前提不成立，须回滚重查。",
+    "若 UI 实测中 3 个被卸下的原子不再渲染 → 「卸树留池」的前提被推翻，须回滚并改走命名路径。",
+    "回滚：`git reset --hard 9bcdd30` + `cp data/backups/t3-p0.1-2026-09-14T13-50-55-385Z/*.json data/`。"
+  ],
+
+  "nextSteps": [
+    "✅ 用户裁决：采用「卸树留池」（2026-09-14）；❌ 不采用命名路径；❌ 4 个零字兄弟不并入本批；✅ T10 独立登记。",
+    "✅ preflight 15/15 闸门 → `--apply` 落盘 → 写后复验 `REAL_APPLY_VERIFIED`；",
+    "✅ 独立验证 20/20 → `INDEPENDENT_VERIFY_PASS`；",
+    "✅ 范围变更登记（`register-t3-p01-scope-resolution.mjs --apply`）→ 台账 `scopeChange{133 → 130}`；",
+    "✅ 重算 → `DRY_RUN_OK / MAPPING_FREEZE_PENDING_REVIEW`（HIGH 92 / MEDIUM 38 / BLOCK 0）；",
+    "✅ UI 无头实测 17/17（维度网格仍渲染 4/4 原子）；",
+    "✅ dry-run 两个判据缺陷已修 + 两条负对照 ✅；",
+    "⏭ 本批提交后：**T3-P1** —— 逐条裁决 38 条 MEDIUM（`t3-mapping-review-after-p01.md`）；",
+    "⏭ 冻结映射（生效 130 ≈ 130，`pending=0 ∧ needs-review=0 ∧ blocked=0`）→ `MAPPING_FREEZE_OK`；",
+    "⏭ T3 apply → 独立验证 → T3 commit；",
+    "⏭ 然后：OOP / CS / DB / 虚拟化 / I/O 结构批次 → Problem Model → 全库 Governance Gate；",
+    "⚠️ 冻结前须复核 **D1 操作化读法**（`t3-p0-naming.proposal.json` → `openDecisions[0].operationalization.ambiguityFlag`）。",
+    "📝 **T10**（`projection:*` 237 / 双前缀 `asplit_s2_asplit_*` 56 / `atomic_atomic_*` 9）已登记，**明令不并入 T3**，T3 冻结后单独立项。"
+  ],
+
+  "rationale": {
+    "whyUnmountNotRename": "「给它们一个 `tree_mysql_*` 名字」看起来是 T3 内最省事的收尾，但它会**同时固化两件错事**：① 把 `服务层` 这个 `projection:` 空壳宿主永久合法化（它自身 0 字，同层 10 子跨 4 种 id 规范、含 4 个零字占位）；② 与该域**已有的 9,758 字 / 37 节点规范子树**（`恢复系统` · 53 条 `tree_mysql_instance_*`）永久重复。而 T3 的题目是「treeId 语义化」，不是「给任意挂载点编名字」——**这 3 项本来就不该以独立 treeId 存在**：它们是维度展示原子，渲染路径 `GridSection.tsx:19` 走 `nodePool[atom.nodeId]` 查表，**零树依赖**。所以正确处置是把它们从「treeId 语义化问题」转化为「引用/挂载治理结果」。",
+    "whyNotScopeInflation": "生效范围 133 → 130 **不是「少做三项」**：原 133 条台账一条未删，另加 `resolvedBy` / `resolution` / `outOfScope` / `resolutionRationale` 说明退出原因与依据。这与「把闸门改绿」的区别在于：**期望值来自已登记声明**，且新增了两条实质断言（声明自洽 + 退出项确已离树）并由两条负对照证明闸门仍有牙。",
+    "whyKeptPoolEntity": "宪法 §3.1：entity identity ≠ tree mount。这 3 个池实体有正文（`card.tabs[0]`），是**实体**；tree mount 只是它的一次挂载。删 mount 不删实体 —— 这既是纪律要求，也正是它们仍能在维度里渲染的原因。",
+    "whyIndependentVerificationMatters": "apply 脚本自报成功不构成证据（它跑的是自己的代码）。本批独立验证刻意换实现、换比对对象（磁盘快照）、并从集合差**反推**删除集，结果它抓到的两个 FAIL 都是**验证脚本自己**的缺陷 —— 这恰好说明「先信自己再找证据」会双向出错。",
+    "whyUIAcceptanceIsMandatoryHere": "本批是全项目第一批**真正删除树节点**的结构批次（此前 T9 只是改名）。数据层面「原子仍可解析」不等于「界面仍渲染」——渲染要过 `FocusStage → DimensionCanvas → SectionRenderer → GridSection` 一整条链。「卸树留池」的全部合法性就押在「渲染无树依赖」上，故必须实测，且必须给出**渲染出来的文本**而不只是 DOM 计数。"
+  }
+}

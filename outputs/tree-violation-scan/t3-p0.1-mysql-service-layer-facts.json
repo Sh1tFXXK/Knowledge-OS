@@ -1,0 +1,1262 @@
+{
+  "generatedAt": "2026-09-14T13:40:35.018Z",
+  "mode": "READ_ONLY_FACT_FINDING",
+  "note": "不写 data/、不产出 operation。仅取证。判据与 dryrun-t3-asplit-semanticization.mjs 同源。",
+  "scope": {
+    "batchId": "t3-p0.1",
+    "title": "MySQL 服务层 3 条 BLOCK 的事实核验"
+  },
+  "counts": {
+    "treeNodes": 3219,
+    "edges": 4166,
+    "poolEntities": 3855,
+    "asplitTreeIds": 133,
+    "projectionTreeIds": 237
+  },
+  "targets": [
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_backup",
+      "found": true,
+      "name": "备份恢复工具",
+      "nodeRef": "asplit_mysql_tool_backup",
+      "depth": 10,
+      "childCount": 0,
+      "pathNames": [
+        "知识宇宙",
+        "计算机科学",
+        "信息系统",
+        "数据库管理",
+        "数据库",
+        "数据库产品",
+        "MySQL",
+        "MySQL Server",
+        "结构",
+        "服务层",
+        "备份恢复工具"
+      ],
+      "ancestorChain": [
+        {
+          "d": 1,
+          "name": "服务层",
+          "treeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+          "nodeRef": "k_1782032275682_61auc4",
+          "idFamily": "projection:*（发现式投影/导入命名空间）",
+          "selfContentLen": 0,
+          "childCount": 10
+        },
+        {
+          "d": 2,
+          "name": "结构",
+          "treeId": "mysql:concept:server:structure",
+          "nodeRef": "mysql:concept:server:structure",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 32,
+          "childCount": 3
+        },
+        {
+          "d": 3,
+          "name": "MySQL Server",
+          "treeId": "mysql:concept:server",
+          "nodeRef": "mysql:concept:server",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 52,
+          "childCount": 1
+        },
+        {
+          "d": 4,
+          "name": "MySQL",
+          "treeId": "tree_k_wiki_en_outline_of_databases_s15_b5",
+          "nodeRef": "k_wiki_en_outline_of_databases_s15_b5",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 6,
+          "childCount": 7
+        },
+        {
+          "d": 5,
+          "name": "数据库产品",
+          "treeId": "chapter_db_19",
+          "nodeRef": "container:chapter_db_19",
+          "idFamily": "OTHER",
+          "selfContentLen": 46,
+          "childCount": 1
+        },
+        {
+          "d": 6,
+          "name": "数据库",
+          "treeId": "demo_db",
+          "nodeRef": "n_u4va719e",
+          "idFamily": "OTHER",
+          "selfContentLen": 15133,
+          "childCount": 30
+        },
+        {
+          "d": 7,
+          "name": "数据库管理",
+          "treeId": "tree_acm2012_information_systems_database_management",
+          "nodeRef": "k_acm2012_information_systems_database_management",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 1
+        },
+        {
+          "d": 8,
+          "name": "信息系统",
+          "treeId": "tree_acm2012_information_systems",
+          "nodeRef": "k_acm2012_information_systems",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 17
+        },
+        {
+          "d": 9,
+          "name": "计算机科学",
+          "treeId": "demo_cs",
+          "nodeRef": "n_55jiel25",
+          "idFamily": "OTHER",
+          "selfContentLen": 74,
+          "childCount": 16
+        },
+        {
+          "d": 10,
+          "name": "知识宇宙",
+          "treeId": "universe",
+          "nodeRef": "n_a03cv4sd",
+          "idFamily": "OTHER",
+          "selfContentLen": 0,
+          "childCount": 3
+        }
+      ],
+      "selfContentLen": 69,
+      "pool": {
+        "label": "备份恢复工具",
+        "kind": "concept",
+        "role": "axiom",
+        "tags": [
+          "备份恢复工具"
+        ],
+        "dimensions": []
+      },
+      "edges": {
+        "inbound": [
+          {
+            "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_backup",
+            "type": "belongs-to",
+            "source": "k_1782032275682_61auc4"
+          }
+        ],
+        "outbound": []
+      }
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_security",
+      "found": true,
+      "name": "安全管理工具",
+      "nodeRef": "asplit_mysql_tool_security",
+      "depth": 10,
+      "childCount": 0,
+      "pathNames": [
+        "知识宇宙",
+        "计算机科学",
+        "信息系统",
+        "数据库管理",
+        "数据库",
+        "数据库产品",
+        "MySQL",
+        "MySQL Server",
+        "结构",
+        "服务层",
+        "安全管理工具"
+      ],
+      "ancestorChain": [
+        {
+          "d": 1,
+          "name": "服务层",
+          "treeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+          "nodeRef": "k_1782032275682_61auc4",
+          "idFamily": "projection:*（发现式投影/导入命名空间）",
+          "selfContentLen": 0,
+          "childCount": 10
+        },
+        {
+          "d": 2,
+          "name": "结构",
+          "treeId": "mysql:concept:server:structure",
+          "nodeRef": "mysql:concept:server:structure",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 32,
+          "childCount": 3
+        },
+        {
+          "d": 3,
+          "name": "MySQL Server",
+          "treeId": "mysql:concept:server",
+          "nodeRef": "mysql:concept:server",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 52,
+          "childCount": 1
+        },
+        {
+          "d": 4,
+          "name": "MySQL",
+          "treeId": "tree_k_wiki_en_outline_of_databases_s15_b5",
+          "nodeRef": "k_wiki_en_outline_of_databases_s15_b5",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 6,
+          "childCount": 7
+        },
+        {
+          "d": 5,
+          "name": "数据库产品",
+          "treeId": "chapter_db_19",
+          "nodeRef": "container:chapter_db_19",
+          "idFamily": "OTHER",
+          "selfContentLen": 46,
+          "childCount": 1
+        },
+        {
+          "d": 6,
+          "name": "数据库",
+          "treeId": "demo_db",
+          "nodeRef": "n_u4va719e",
+          "idFamily": "OTHER",
+          "selfContentLen": 15133,
+          "childCount": 30
+        },
+        {
+          "d": 7,
+          "name": "数据库管理",
+          "treeId": "tree_acm2012_information_systems_database_management",
+          "nodeRef": "k_acm2012_information_systems_database_management",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 1
+        },
+        {
+          "d": 8,
+          "name": "信息系统",
+          "treeId": "tree_acm2012_information_systems",
+          "nodeRef": "k_acm2012_information_systems",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 17
+        },
+        {
+          "d": 9,
+          "name": "计算机科学",
+          "treeId": "demo_cs",
+          "nodeRef": "n_55jiel25",
+          "idFamily": "OTHER",
+          "selfContentLen": 74,
+          "childCount": 16
+        },
+        {
+          "d": 10,
+          "name": "知识宇宙",
+          "treeId": "universe",
+          "nodeRef": "n_a03cv4sd",
+          "idFamily": "OTHER",
+          "selfContentLen": 0,
+          "childCount": 3
+        }
+      ],
+      "selfContentLen": 43,
+      "pool": {
+        "label": "安全管理工具",
+        "kind": "concept",
+        "role": "axiom",
+        "tags": [
+          "安全管理工具"
+        ],
+        "dimensions": []
+      },
+      "edges": {
+        "inbound": [
+          {
+            "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_security",
+            "type": "belongs-to",
+            "source": "k_1782032275682_61auc4"
+          }
+        ],
+        "outbound": []
+      }
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+      "found": true,
+      "name": "集群管理工具",
+      "nodeRef": "asplit_mysql_tool_cluster",
+      "depth": 10,
+      "childCount": 0,
+      "pathNames": [
+        "知识宇宙",
+        "计算机科学",
+        "信息系统",
+        "数据库管理",
+        "数据库",
+        "数据库产品",
+        "MySQL",
+        "MySQL Server",
+        "结构",
+        "服务层",
+        "集群管理工具"
+      ],
+      "ancestorChain": [
+        {
+          "d": 1,
+          "name": "服务层",
+          "treeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+          "nodeRef": "k_1782032275682_61auc4",
+          "idFamily": "projection:*（发现式投影/导入命名空间）",
+          "selfContentLen": 0,
+          "childCount": 10
+        },
+        {
+          "d": 2,
+          "name": "结构",
+          "treeId": "mysql:concept:server:structure",
+          "nodeRef": "mysql:concept:server:structure",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 32,
+          "childCount": 3
+        },
+        {
+          "d": 3,
+          "name": "MySQL Server",
+          "treeId": "mysql:concept:server",
+          "nodeRef": "mysql:concept:server",
+          "idFamily": "mysql:*（colon 族）",
+          "selfContentLen": 52,
+          "childCount": 1
+        },
+        {
+          "d": 4,
+          "name": "MySQL",
+          "treeId": "tree_k_wiki_en_outline_of_databases_s15_b5",
+          "nodeRef": "k_wiki_en_outline_of_databases_s15_b5",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 6,
+          "childCount": 7
+        },
+        {
+          "d": 5,
+          "name": "数据库产品",
+          "treeId": "chapter_db_19",
+          "nodeRef": "container:chapter_db_19",
+          "idFamily": "OTHER",
+          "selfContentLen": 46,
+          "childCount": 1
+        },
+        {
+          "d": 6,
+          "name": "数据库",
+          "treeId": "demo_db",
+          "nodeRef": "n_u4va719e",
+          "idFamily": "OTHER",
+          "selfContentLen": 15133,
+          "childCount": 30
+        },
+        {
+          "d": 7,
+          "name": "数据库管理",
+          "treeId": "tree_acm2012_information_systems_database_management",
+          "nodeRef": "k_acm2012_information_systems_database_management",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 1
+        },
+        {
+          "d": 8,
+          "name": "信息系统",
+          "treeId": "tree_acm2012_information_systems",
+          "nodeRef": "k_acm2012_information_systems",
+          "idFamily": "tree_<semantic>（语义）",
+          "selfContentLen": 0,
+          "childCount": 17
+        },
+        {
+          "d": 9,
+          "name": "计算机科学",
+          "treeId": "demo_cs",
+          "nodeRef": "n_55jiel25",
+          "idFamily": "OTHER",
+          "selfContentLen": 74,
+          "childCount": 16
+        },
+        {
+          "d": 10,
+          "name": "知识宇宙",
+          "treeId": "universe",
+          "nodeRef": "n_a03cv4sd",
+          "idFamily": "OTHER",
+          "selfContentLen": 0,
+          "childCount": 3
+        }
+      ],
+      "selfContentLen": 71,
+      "pool": {
+        "label": "集群管理工具",
+        "kind": "concept",
+        "role": "axiom",
+        "tags": [
+          "集群管理工具"
+        ],
+        "dimensions": []
+      },
+      "edges": {
+        "inbound": [
+          {
+            "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_cluster",
+            "type": "belongs-to",
+            "source": "k_1782032275682_61auc4"
+          }
+        ],
+        "outbound": []
+      }
+    }
+  ],
+  "host": {
+    "treeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+    "name": "服务层",
+    "nodeRef": "k_1782032275682_61auc4",
+    "idFamily": "projection:*（发现式投影/导入命名空间）",
+    "selfContentLen": 0,
+    "selfIsShell": true,
+    "poolKind": null,
+    "poolRole": null,
+    "childCount": 10,
+    "descendantCount": 26,
+    "subtreeContentLen": 8442,
+    "children": [
+      {
+        "name": "SQL接⼝（SQL Interface）",
+        "treeId": "governance:canonical:k_1782033172524_cjmm5c",
+        "nodeRef": "k_1782033172524_cjmm5c",
+        "idFamily": "governance:*（治理锚点）",
+        "contentLen": 110,
+        "childCount": 0,
+        "isShell": false
+      },
+      {
+        "name": "横向",
+        "treeId": "tree_1787326277226_e7ivtt",
+        "nodeRef": "k_1787326276862_dux9j8",
+        "idFamily": "tree_<ts>_<hash>（伪语义）",
+        "contentLen": 0,
+        "childCount": 1,
+        "isShell": true
+      },
+      {
+        "name": "NoSQL  Interface",
+        "treeId": "tree_1787326306882_9fv6qu",
+        "nodeRef": "k_1787326306624_78jch2",
+        "idFamily": "tree_<ts>_<hash>（伪语义）",
+        "contentLen": 0,
+        "childCount": 0,
+        "isShell": true
+      },
+      {
+        "name": "Cluster",
+        "treeId": "tree_1787326548799_nuhixr",
+        "nodeRef": "k_1787326548436_8u5k98",
+        "idFamily": "tree_<ts>_<hash>（伪语义）",
+        "contentLen": 0,
+        "childCount": 0,
+        "isShell": true
+      },
+      {
+        "name": "管理工具（Instance Manager, Admin, Migration）",
+        "treeId": "tree_1787326562319_8lcb6s",
+        "nodeRef": "k_1787326561953_xdo0fj",
+        "idFamily": "tree_<ts>_<hash>（伪语义）",
+        "contentLen": 0,
+        "childCount": 0,
+        "isShell": true
+      },
+      {
+        "name": "备份恢复工具",
+        "treeId": "asplit_s2_asplit_mysql_tool_backup",
+        "nodeRef": "asplit_mysql_tool_backup",
+        "idFamily": "asplit_*（原子拆分）",
+        "contentLen": 69,
+        "childCount": 0,
+        "isShell": false
+      },
+      {
+        "name": "安全管理工具",
+        "treeId": "asplit_s2_asplit_mysql_tool_security",
+        "nodeRef": "asplit_mysql_tool_security",
+        "idFamily": "asplit_*（原子拆分）",
+        "contentLen": 43,
+        "childCount": 0,
+        "isShell": false
+      },
+      {
+        "name": "集群管理工具",
+        "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+        "nodeRef": "asplit_mysql_tool_cluster",
+        "idFamily": "asplit_*（原子拆分）",
+        "contentLen": 71,
+        "childCount": 0,
+        "isShell": false
+      },
+      {
+        "name": "MySQL 备份",
+        "treeId": "atomic_atomic_mysql_backup",
+        "nodeRef": "atomic_mysql_backup",
+        "idFamily": "atomic_*（原子拆分）",
+        "contentLen": 107,
+        "childCount": 15,
+        "isShell": false
+      },
+      {
+        "name": "MySQL 恢复",
+        "treeId": "atomic_atomic_mysql_restore",
+        "nodeRef": "atomic_mysql_restore",
+        "idFamily": "atomic_*（原子拆分）",
+        "contentLen": 84,
+        "childCount": 0,
+        "isShell": false
+      }
+    ]
+  },
+  "projectionFamily": {
+    "total": 237,
+    "shareOfTree": 7.36,
+    "nodesUnderProjectionAncestor": 82,
+    "ownerBuckets": {
+      "mysql-term": 172,
+      "mysql-repaired:mysql:theme:connectivity": 4,
+      "mysql-repaired:mysql:theme:operations": 4,
+      "mysql-mysqld:mysql:mysqld-layer:connection:k_dict_12jqwwcl": 1,
+      "mysql-sql": 2,
+      "mysql-mysqld:mysql:mysqld-layer:optimize:k_1782033508063_xspnmd": 1,
+      "mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4": 1,
+      "mysql-mysqld:mysql:mysqld-layer:parse:k_1782033245872_81floi": 1,
+      "mysql-repaired:mysql:theme:query-processing": 2,
+      "mysql-repaired:mysql:theme:storage-engines": 6,
+      "mysql-repaired:mysql:theme:transactions-concurrency": 2,
+      "mysql-concept:mysql-log-files": 8,
+      "mysql-repaired:mysql:theme:indexes-access": 1,
+      "mysql-repaired:mysql:theme:backup-recovery": 3,
+      "mysql-mysqld:mysql:mysqld-layer:connection:mysql_glossary_option_1sc73x": 1,
+      "mysql-concept:mysql-server-structure": 1,
+      "mysql-concept:mysql-config-files": 5,
+      "mysql-concept:mysql-concept-data-files-myisam": 2,
+      "mysql-concept:mysql-concept-data-files-innodb-tablespaces": 6,
+      "mysql-concept:mysql-concept-data-files-other-engines": 4,
+      "mysql-concept:mysql-concept-data-files-metadata": 2,
+      "mysql-concept:mysql-runtime-files": 2,
+      "mysql-repaired:mysql:theme:security-access": 6
+    },
+    "counterexamples_selfHasContent": {
+      "count": 227,
+      "samples": [
+        {
+          "name": "RAID",
+          "treeId": "projection:mysql-term:k_dict_mb72ps2c",
+          "contentLen": 120,
+          "childCount": 0
+        },
+        {
+          "name": "HDD",
+          "treeId": "projection:mysql-term:mysql_glossary_hdd_eb2rxz",
+          "contentLen": 82,
+          "childCount": 0
+        },
+        {
+          "name": "SSD",
+          "treeId": "projection:mysql-term:mysql_glossary_ssd_gyazmt",
+          "contentLen": 129,
+          "childCount": 0
+        },
+        {
+          "name": "IOPS",
+          "treeId": "projection:mysql-term:mysql_glossary_iops_1go6rk",
+          "contentLen": 237,
+          "childCount": 0
+        },
+        {
+          "name": "Ruby",
+          "treeId": "projection:mysql-term:mysql_glossary_ruby_17cue0",
+          "contentLen": 377,
+          "childCount": 0
+        },
+        {
+          "name": "埃菲尔 / Eiffel",
+          "treeId": "projection:mysql-term:mysql_glossary_eiffel_75vlru",
+          "contentLen": 237,
+          "childCount": 0
+        },
+        {
+          "name": "嵌入式 Mysql",
+          "treeId": "projection:mysql-repaired:mysql:theme:connectivity:mysql_glossary_embedded_yxsdnj",
+          "contentLen": 117,
+          "childCount": 0
+        },
+        {
+          "name": "重启服务 / bounce",
+          "treeId": "projection:mysql-repaired:mysql:theme:operations:mysql_glossary_bounce_e9awxp",
+          "contentLen": 272,
+          "childCount": 0
+        },
+        {
+          "name": "MySQL 创新系列 / MySQL Innovation Series",
+          "treeId": "projection:mysql-term:mysql_glossary_innovation_series_1rj8dd",
+          "contentLen": 98,
+          "childCount": 0
+        },
+        {
+          "name": "LTS系列 / LTS Series",
+          "treeId": "projection:mysql-term:mysql_glossary_lts_series_lpbljr",
+          "contentLen": 127,
+          "childCount": 0
+        }
+      ],
+      "note": "这些 projection id 节点各自有正文与子树 → **「id 以 projection: 开头」本身不足以定罪**（§3.2 反例）。"
+    }
+  },
+  "doublePrefixFamily": {
+    "asplit_s2_asplit_*": 56,
+    "atomic_atomic_*": 9
+  },
+  "asplitParentFamily": {
+    "tree_<semantic>（语义）": 95,
+    "tree_<ts>_<hash>（伪语义）": 24,
+    "OTHER": 11,
+    "projection:*（发现式投影/导入命名空间）": 3
+  },
+  "existingCorrectSubtree": {
+    "rootName": "恢复系统",
+    "rootTreeId": "chapter_db_08",
+    "selfContentLen": 148,
+    "childCount": 10,
+    "descendantCount": 37,
+    "subtreeContentLen": 9758,
+    "namingPattern": "通用概念 tree_concept_* → MySQL 实例 tree_mysql_instance_*（子挂在概念下）",
+    "mysqlInstanceUnderBackup": [
+      {
+        "name": "MySQL 关系型 / MySQL relational",
+        "treeId": "tree_mysql_instance_concept_relational_0",
+        "contentLen": 538,
+        "pathNames": [
+          "数据库",
+          "数据模型",
+          "关系型 / relational",
+          "MySQL 关系型 / MySQL relational"
+        ]
+      },
+      {
+        "name": "MySQL 模式 / MySQL schema",
+        "treeId": "tree_mysql_instance_concept_schema_0",
+        "contentLen": 458,
+        "pathNames": [
+          "数据库",
+          "数据库结构",
+          "模式 / schema",
+          "MySQL 模式 / MySQL schema"
+        ]
+      },
+      {
+        "name": "MySQL 存储对象 / MySQL stored object",
+        "treeId": "tree_mysql_instance_concept_stored_object_0",
+        "contentLen": 204,
+        "pathNames": [
+          "数据库",
+          "数据库结构",
+          "存储对象 / stored object",
+          "MySQL 存储对象 / MySQL stored object"
+        ]
+      },
+      {
+        "name": "MySQL 存储程序 / stored program",
+        "treeId": "tree_mysql_instance_concept_stored_program_0",
+        "contentLen": 215,
+        "pathNames": [
+          "数据库结构",
+          "存储对象 / stored object",
+          "存储程序 / stored program",
+          "MySQL 存储程序 / stored program"
+        ]
+      },
+      {
+        "name": "MySQL INFORMATION_SCHEMA",
+        "treeId": "tree_mysql_instance_concept_data_dictionary_1",
+        "contentLen": 492,
+        "pathNames": [
+          "数据库",
+          "数据库结构",
+          "数据字典 / data dictionary",
+          "MySQL INFORMATION_SCHEMA"
+        ]
+      },
+      {
+        "name": "MySQL 序列化字典信息 (SDI) / serialized dictionary information (SDI)",
+        "treeId": "tree_mysql_instance_concept_data_dictionary_3",
+        "contentLen": 1125,
+        "pathNames": [
+          "数据库",
+          "数据库结构",
+          "数据字典 / data dictionary",
+          "MySQL 序列化字典信息 (SDI) / serialized dictionary information (SDI)"
+        ]
+      },
+      {
+        "name": "MySQL 客户端预处理语句 / MySQL client-side prepared statement",
+        "treeId": "tree_mysql_instance_concept_prepared_statement_0",
+        "contentLen": 507,
+        "pathNames": [
+          "数据库",
+          "数据库操作",
+          "预处理语句 / prepared statement",
+          "MySQL 客户端预处理语句 / MySQL client-side prepared statement"
+        ]
+      },
+      {
+        "name": "MySQL 服务器端预处理语句 / MySQL server-side prepared statement",
+        "treeId": "tree_mysql_instance_concept_prepared_statement_1",
+        "contentLen": 828,
+        "pathNames": [
+          "数据库",
+          "数据库操作",
+          "预处理语句 / prepared statement",
+          "MySQL 服务器端预处理语句 / MySQL server-side prepared statement"
+        ]
+      },
+      {
+        "name": "MySQL 预处理语句 / MySQL prepared statement",
+        "treeId": "tree_mysql_instance_concept_prepared_statement_2",
+        "contentLen": 716,
+        "pathNames": [
+          "数据库",
+          "数据库操作",
+          "预处理语句 / prepared statement",
+          "MySQL 预处理语句 / MySQL prepared statement"
+        ]
+      },
+      {
+        "name": "MySQL TPS",
+        "treeId": "tree_mysql_instance_concept_throughput_tps_0",
+        "contentLen": 383,
+        "pathNames": [
+          "数据库",
+          "数据库事务",
+          "每秒事务数 / TPS",
+          "MySQL TPS"
+        ]
+      },
+      {
+        "name": "MySQL 备份 / backup",
+        "treeId": "tree_mysql_instance_concept_backup_0",
+        "contentLen": 350,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "备份 / backup",
+          "MySQL 备份 / backup"
+        ]
+      },
+      {
+        "name": "MySQL 热备份 / hot backup",
+        "treeId": "tree_mysql_instance_concept_hot_backup_0",
+        "contentLen": 331,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "热备份 / hot backup",
+          "MySQL 热备份 / hot backup"
+        ]
+      },
+      {
+        "name": "MySQL 温备份 / warm backup",
+        "treeId": "tree_mysql_instance_concept_warm_backup_0",
+        "contentLen": 136,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "温备份 / warm backup",
+          "MySQL 温备份 / warm backup"
+        ]
+      },
+      {
+        "name": "MySQL 冷备份 / cold backup",
+        "treeId": "tree_mysql_instance_concept_cold_backup_0",
+        "contentLen": 123,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "冷备份 / cold backup",
+          "MySQL 冷备份 / cold backup"
+        ]
+      },
+      {
+        "name": "MySQL 逻辑备份 / logical backup",
+        "treeId": "tree_mysql_instance_concept_logical_backup_0",
+        "contentLen": 372,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "逻辑备份 / logical backup",
+          "MySQL 逻辑备份 / logical backup"
+        ]
+      },
+      {
+        "name": "MySQL 物理备份 / physical backup",
+        "treeId": "tree_mysql_instance_concept_physical_backup_0",
+        "contentLen": 736,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "物理备份 / physical backup",
+          "MySQL 物理备份 / physical backup"
+        ]
+      },
+      {
+        "name": "MySQL 完整备份 / full backup",
+        "treeId": "tree_mysql_instance_concept_full_backup_0",
+        "contentLen": 282,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "完整备份 / full backup",
+          "MySQL 完整备份 / full backup"
+        ]
+      },
+      {
+        "name": "MySQL 增量备份 / incremental backup",
+        "treeId": "tree_mysql_instance_concept_incremental_backup_0",
+        "contentLen": 473,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "增量备份 / incremental backup",
+          "MySQL 增量备份 / incremental backup"
+        ]
+      },
+      {
+        "name": "MySQL 部分备份 / partial backup",
+        "treeId": "tree_mysql_instance_concept_partial_backup_0",
+        "contentLen": 142,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "部分备份 / partial backup",
+          "MySQL 部分备份 / partial backup"
+        ]
+      },
+      {
+        "name": "MySQL 压缩备份 / compressed backup",
+        "treeId": "tree_mysql_instance_concept_compressed_backup_0",
+        "contentLen": 472,
+        "pathNames": [
+          "恢复系统",
+          "备份 / backup",
+          "压缩备份 / compressed backup",
+          "MySQL 压缩备份 / compressed backup"
+        ]
+      },
+      {
+        "name": "MySQL 时间点恢复 / point-in-time recovery",
+        "treeId": "tree_mysql_instance_concept_point_in_time_recovery_0",
+        "contentLen": 503,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "时间点恢复 / point-in-time recovery",
+          "MySQL 时间点恢复 / point-in-time recovery"
+        ]
+      },
+      {
+        "name": "MySQL 崩溃恢复 / crash recovery",
+        "treeId": "tree_mysql_instance_concept_crash_recovery_0",
+        "contentLen": 501,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "崩溃恢复 / crash recovery",
+          "MySQL 崩溃恢复 / crash recovery"
+        ]
+      },
+      {
+        "name": "MySQL 崩溃 / crash",
+        "treeId": "tree_mysql_instance_concept_crash_0",
+        "contentLen": 251,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "崩溃 / crash",
+          "MySQL 崩溃 / crash"
+        ]
+      },
+      {
+        "name": "MySQL 启动 / startup",
+        "treeId": "tree_mysql_instance_concept_startup_0",
+        "contentLen": 405,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "启动 / startup",
+          "MySQL 启动 / startup"
+        ]
+      },
+      {
+        "name": "MySQL 静默 / quiesce",
+        "treeId": "tree_mysql_instance_concept_quiesce_0",
+        "contentLen": 752,
+        "pathNames": [
+          "数据库",
+          "恢复系统",
+          "静默 / quiesce",
+          "MySQL 静默 / quiesce"
+        ]
+      },
+      {
+        "name": "MySQL 倒排索引 / inverted index",
+        "treeId": "tree_mysql_instance_concept_inverted_index",
+        "contentLen": 365,
+        "pathNames": [
+          "数据库",
+          "索引",
+          "倒排索引 / inverted index",
+          "MySQL 倒排索引 / inverted index"
+        ]
+      },
+      {
+        "name": "MySQL主键索引",
+        "treeId": "tree_mysql_instance_concept_primary_key_0",
+        "contentLen": 229,
+        "pathNames": [
+          "数据库",
+          "索引",
+          "主键索引",
+          "MySQL主键索引"
+        ]
+      },
+      {
+        "name": "MySQL 可变长度类型 / MySQL variable-length type",
+        "treeId": "tree_mysql_instance_concept_variable_length_type_0",
+        "contentLen": 952,
+        "pathNames": [
+          "数据库",
+          "数据表示",
+          "可变长度类型 / variable-length type",
+          "MySQL 可变长度类型 / MySQL variable-length type"
+        ]
+      },
+      {
+        "name": "MySQL BLOB",
+        "treeId": "tree_mysql_instance_concept_blob_0",
+        "contentLen": 1053,
+        "pathNames": [
+          "数据库",
+          "数据表示",
+          "BLOB / binary large object",
+          "MySQL BLOB"
+        ]
+      },
+      {
+        "name": "MySQL CLOB",
+        "treeId": "tree_mysql_instance_concept_clob_0",
+        "contentLen": 355,
+        "pathNames": [
+          "数据库",
+          "数据表示",
+          "CLOB / character large object",
+          "MySQL CLOB"
+        ]
+      },
+      {
+        "name": "MySQL 瓶颈 / bottleneck",
+        "treeId": "tree_mysql_instance_concept_bottleneck_0",
+        "contentLen": 512,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "瓶颈 / bottleneck",
+          "MySQL 瓶颈 / bottleneck"
+        ]
+      },
+      {
+        "name": "MySQL CPU密集型 / CPU-bound",
+        "treeId": "tree_mysql_instance_concept_cpu_bound_0",
+        "contentLen": 257,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "CPU 密集型 / CPU-bound",
+          "MySQL CPU密集型 / CPU-bound"
+        ]
+      },
+      {
+        "name": "MySQL 磁盘绑定 / disk-bound",
+        "treeId": "tree_mysql_instance_concept_io_bound_0",
+        "contentLen": 531,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "I/O 密集型 / I/O-bound",
+          "MySQL 磁盘绑定 / disk-bound"
+        ]
+      },
+      {
+        "name": "MySQL 等待 / wait",
+        "treeId": "tree_mysql_instance_concept_wait_0",
+        "contentLen": 331,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "等待 / wait",
+          "MySQL 等待 / wait"
+        ]
+      },
+      {
+        "name": "MySQL 计数器 / counter",
+        "treeId": "tree_mysql_instance_concept_counter_0",
+        "contentLen": 399,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "计数器 / counter",
+          "MySQL 计数器 / counter"
+        ]
+      },
+      {
+        "name": "MySQL 持久统计信息 / persistent statistics",
+        "treeId": "tree_mysql_instance_concept_optimizer_statistics_1",
+        "contentLen": 872,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "统计信息 / optimizer statistics",
+          "MySQL 持久统计信息 / persistent statistics"
+        ]
+      },
+      {
+        "name": "MySQL 热 / hot",
+        "treeId": "tree_mysql_instance_concept_hot_0",
+        "contentLen": 223,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "热 / hot",
+          "MySQL 热 / hot"
+        ]
+      },
+      {
+        "name": "MySQL 物理 / physical",
+        "treeId": "tree_mysql_instance_concept_physical_vs_logical_0",
+        "contentLen": 144,
+        "pathNames": [
+          "数据库",
+          "数据库运维",
+          "物理 / physical（相对逻辑而言）",
+          "MySQL 物理 / physical"
+        ]
+      },
+      {
+        "name": "MySQL 连接器 / connector",
+        "treeId": "tree_mysql_instance_concept_data_access_interface_0",
+        "contentLen": 313,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "数据库编程与接口",
+          "MySQL 连接器 / connector"
+        ]
+      },
+      {
+        "name": "MySQL 合成键 / MySQL synthetic key",
+        "treeId": "tree_mysql_instance_concept_surrogate_key_0",
+        "contentLen": 826,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "代理键 / surrogate key",
+          "MySQL 合成键 / MySQL synthetic key"
+        ]
+      },
+      {
+        "name": "MySQL 自然键 / MySQL natural key",
+        "treeId": "tree_mysql_instance_concept_natural_key_0",
+        "contentLen": 589,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "自然键 / natural key",
+          "MySQL 自然键 / MySQL natural key"
+        ]
+      },
+      {
+        "name": "MySQL 唯一约束 / MySQL unique constraint",
+        "treeId": "tree_mysql_instance_concept_unique_key_1",
+        "contentLen": 580,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "唯一键 / unique key",
+          "MySQL 唯一约束 / MySQL unique constraint"
+        ]
+      },
+      {
+        "name": "MySQL 外键 / MySQL foreign key",
+        "treeId": "tree_mysql_instance_concept_foreign_key_0",
+        "contentLen": 698,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "外键 / foreign key",
+          "MySQL 外键 / MySQL foreign key"
+        ]
+      },
+      {
+        "name": "MySQL NOT NULL 约束 / MySQL NOT NULL constraint",
+        "treeId": "tree_mysql_instance_concept_not_null_constraint_0",
+        "contentLen": 384,
+        "pathNames": [
+          "数据库管理",
+          "数据库",
+          "NOT NULL 约束 / NOT NULL constraint",
+          "MySQL NOT NULL 约束 / MySQL NOT NULL constraint"
+        ]
+      },
+      {
+        "name": "MySQL 互斥量 / mutex",
+        "treeId": "tree_mysql_instance_concept_mutex",
+        "contentLen": 347,
+        "pathNames": [
+          "系统组织",
+          "操作系统",
+          "互斥量 / mutex",
+          "MySQL 互斥量 / mutex"
+        ]
+      },
+      {
+        "name": "MySQL 自旋 / spin",
+        "treeId": "tree_mysql_instance_concept_spin_wait",
+        "contentLen": 536,
+        "pathNames": [
+          "系统组织",
+          "操作系统",
+          "自旋 / spin",
+          "MySQL 自旋 / spin"
+        ]
+      },
+      {
+        "name": "MySQL 原子指令 / atomic instruction",
+        "treeId": "tree_mysql_instance_concept_atomic_instruction",
+        "contentLen": 230,
+        "pathNames": [
+          "系统组织",
+          "操作系统",
+          "原子指令 / atomic instruction",
+          "MySQL 原子指令 / atomic instruction"
+        ]
+      },
+      {
+        "name": "MySQL Pthreads",
+        "treeId": "tree_mysql_instance_concept_pthreads_0",
+        "contentLen": 143,
+        "pathNames": [
+          "系统组织",
+          "操作系统",
+          "Pthreads / POSIX 线程",
+          "MySQL Pthreads"
+        ]
+      },
+      {
+        "name": "MySQL 负载均衡 / load balancing",
+        "treeId": "tree_mysql_instance_concept_load_balancing",
+        "contentLen": 334,
+        "pathNames": [
+          "系统组织",
+          "分布式系统",
+          "负载均衡 / load balancing",
+          "MySQL 负载均衡 / load balancing"
+        ]
+      },
+      {
+        "name": "MySQL 心跳 / heartbeat",
+        "treeId": "tree_mysql_instance_concept_heartbeat",
+        "contentLen": 285,
+        "pathNames": [
+          "系统组织",
+          "分布式系统",
+          "心跳 / heartbeat",
+          "MySQL 心跳 / heartbeat"
+        ]
+      },
+      {
+        "name": "MySQL 向外扩展 / scale out",
+        "treeId": "tree_mysql_instance_concept_scale_out",
+        "contentLen": 424,
+        "pathNames": [
+          "系统组织",
+          "分布式系统",
+          "向外扩展 / scale out",
+          "MySQL 向外扩展 / scale out"
+        ]
+      },
+      {
+        "name": "MySQL 向上扩展 / scale up",
+        "treeId": "tree_mysql_instance_concept_scale_up",
+        "contentLen": 664,
+        "pathNames": [
+          "系统组织",
+          "分布式系统",
+          "向上扩展 / scale up",
+          "MySQL 向上扩展 / scale up"
+        ]
+      },
+      {
+        "name": "MySQL 可伸缩性 / scalability",
+        "treeId": "tree_mysql_instance_concept_scalability_0",
+        "contentLen": 622,
+        "pathNames": [
+          "系统组织",
+          "分布式系统",
+          "可伸缩性 / scalability",
+          "MySQL 可伸缩性 / scalability"
+        ]
+      }
+    ]
+  },
+  "mysqlNamespaceCensus": {
+    "tree_mysql_instance_*": 53,
+    "tree_mysql_tx_*": 1,
+    "tree_mysql_glossary_*": 3
+  },
+  "rendererEvidence": {
+    "file": "src/core/sections/GridSection.tsx",
+    "lookupLine": "const node = nodePool[atom.nodeId];",
+    "lookupSource": "nodePool（池）",
+    "treeDependency": false,
+    "conclusion": "维度原子（GridSection / ChainSection）从 nodePool 取 label / card.tabs[0].content / role —— 卸树留池后仍可渲染。"
+  },
+  "specEvidence": {
+    "file": "scripts/shell-fusion/a-split/section2-specs.mjs",
+    "section": "[dims-3] #112 系统管理和控制工具 → MySQL 服务层工具网格",
+    "hostPoolId": "k_1782032275682_61auc4",
+    "hostTreeIdUsed": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+    "sourceNodeRemoved": "unloadTreeEntry(src.node.id, '#112') + gateAndDrop(src.node.nodeRef, '#112')",
+    "createdVia": "ensureNode(<nodeRef>, <label>, <content>, hostTree, { kind: 'concept', role: 'axiom', dimensions: dims })",
+    "alsoUsedAsDimensionAtoms": true,
+    "dimensionId": "mysql_service_tools",
+    "originalTextParkedInHostTab": true,
+    "excerpt": [
+      "const hostTree = 'projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4'",
+      "cardTab(host, 'context:asplit:s112', '系统管理和控制工具（原文）', shellContent(pool[src.node.nodeRef]))",
+      "ensureNode('asplit_mysql_tool_backup', '备份恢复工具', '备份恢复：逻辑备份 mysqldump / 物理热备 XtraBackup，配合 binlog 做时间点恢复（PITR）。', hostTree, { kind: 'concept', role: 'axiom', dimensions: dims }),",
+      "ensureNode('asplit_mysql_tool_security', '安全管理工具', '安全管理：账号与权限表、审计日志、SSL/TLS 传输加密与数据脱敏。', hostTree, { kind: 'concept', role: 'axiom', dimensions: dims }),",
+      "ensureNode('asplit_mysql_tool_cluster', '集群管理工具', '集群管理：MySQL Shell / Router / NDB Cluster Manager 等集群生命周期与拓扑管理入口。', hostTree, { kind: 'concept', role: 'axiom', dimensions: dims }),",
+      "atoms: [",
+      "unloadTreeEntry(src.node.id, '#112')",
+      "gateAndDrop(src.node.nodeRef, '#112')",
+      "log('\\n── [merge] #7 启动和终止线程（0 字，孩子并入「线程的状态」）──')",
+      "cardTab(rec.node.nodeRef, 'context:asplit:s7', '启动和终止线程（原文）', shellContent(pool[rec.node.nodeRef]))",
+      "log(`  并入：「${kid.name}」→「${target.node.name}」`)"
+    ]
+  },
+  "hardLimits": [
+    "本脚本不下 A/B/C 判定，判定见裁决报告。",
+    "不提供 action / autoFix（evidence-only，与 T5 检测器契约一致）。"
+  ]
+}

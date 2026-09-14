@@ -26,7 +26,7 @@ const ROOT = process.cwd()
 const OUT = path.join(ROOT, 'outputs', 'tree-violation-scan')
 /**
  * 输出后缀（可选）：`--out-suffix=after-p0` → `t3-dryrun-plan-after-p0.json` 等。
- * 用途：T3-P0 apply **之后**重算 133 项时，不得覆盖 pre-P0 的 dry-run 证据 ——
+ * 用途：T3-P0 / T3-P0.1 落盘 **之后**重算生效范围时，不得覆盖此前的 dry-run 证据 ——
  * `t3-dryrun-report.md` 记录的 HIGH 68 / MEDIUM 38 / BLOCK 27 是 P0 的前置条件本身。
  * 默认空串 = 原文件名，行为与之前完全一致。
  */
@@ -63,8 +63,36 @@ walk(tree, [], [], 1)
 
 const liveTier1 = [...nodes.keys()].filter((id) => /^asplit_/.test(id))
 const invTier1 = inv.tier1.map((x) => x.treeId)
-const scopeOk = liveTier1.length === 133 && invTier1.length === 133 &&
-  liveTier1.every((id) => invTier1.includes(id))
+
+// ── 范围自校验（2026-09-14 修正：判据里不得硬编码 133）────────────────────────
+// ⛔ 原实现把 `=== 133` 写死在判据里。T3-P0.1「卸树留池」登记 3 项退出范围后，
+//    活数据重算变成 130 → 该判据**必然**报「范围自校验失败」。这是**判据缺陷**，不是数据问题。
+// ⛔ 但按宪法 §3.2「不得为了让闸门变绿而重定义期望值」：修法**不是**把 133 改成 130，
+//    而是让期望值**从台账已登记的声明推导**，并补上两条此前缺失的实质断言：
+//      ① 声明自身内部自洽（originalScope / activeScope / counts 三者必须互相吻合）；
+//      ② 声明「已退出范围」的项，必须**真的不在活树里**（这才是 P0.1 的实质结论，不是计数游戏）。
+//    未登记范围变更时（如 P0.1 之前的检出）行为退化为「活数据 == 台账全集」，与修正前等价。
+const invOutOfScope = inv.tier1.filter((x) => x.outOfScope === true).map((x) => x.treeId)
+const declaredScopeChange = inv.scopeChange ?? null
+const expectedActiveIds = invTier1.filter((id) => !invOutOfScope.includes(id))
+const declaredScopeCount = invTier1.length
+const activeScopeCount = expectedActiveIds.length
+
+const scopeDeclarationConsistent = declaredScopeChange === null
+  ? invOutOfScope.length === 0
+  : declaredScopeChange.originalScope === invTier1.length &&
+    declaredScopeChange.activeScope === activeScopeCount &&
+    declaredScopeChange.resolvedOutOfScope.length === invOutOfScope.length &&
+    declaredScopeChange.resolvedOutOfScope.every((id) => invOutOfScope.includes(id)) &&
+    (inv.counts?.tier1Active === undefined || inv.counts.tier1Active === activeScopeCount) &&
+    (inv.counts?.tier1ResolvedOutOfScope === undefined || inv.counts.tier1ResolvedOutOfScope === invOutOfScope.length)
+
+const outOfScopeGoneFromTree = invOutOfScope.every((id) => !liveTier1.includes(id))
+
+const scopeOk = scopeDeclarationConsistent &&
+  outOfScopeGoneFromTree &&
+  liveTier1.length === activeScopeCount &&
+  liveTier1.every((id) => expectedActiveIds.includes(id))
 
 // ── 1. 命名空间候选 ────────────────────────────────────────────────────────
 // ⛔ 2026-09-14 修正（重要）：原判定 `/^tree_[a-z0-9_]+$/ && !/_s\d+_/` 会把
@@ -272,7 +300,7 @@ const uncoveredOldIds = simAll.unmapped
 const endpointTouched = refSites.edgeEndpoint.length
 
 // ── 5. 报告 ────────────────────────────────────────────────────────────────
-// 结构性发现：全树 id 形态分布（说明「133 项」在同类问题中的占比）
+// 结构性发现：全树 id 形态分布（说明「本批范围」在同类问题中的占比）
 const formOf = (id) => {
   if (/^asplit_/.test(id)) return 'asplit_*（本批）'
   if (/^governance:/.test(id)) return 'governance:*（治理锚点）'
@@ -320,7 +348,18 @@ const plan = {
   generatedAt: new Date().toISOString(),
   mode: 'DRY_RUN_READ_ONLY',
   note: '只在内存克隆上执行改写；data/ 未被写入。',
-  scope: { declared: 133, liveRecount: liveTier1.length, matchesInventory: scopeOk },
+  scope: {
+    declaredOriginal: declaredScopeCount,
+    declaredActive: activeScopeCount,
+    resolvedOutOfScope: invOutOfScope,
+    declarationConsistent: scopeDeclarationConsistent,
+    outOfScopeGoneFromTree,
+    liveRecount: liveTier1.length,
+    matchesInventory: scopeOk,
+    note: '期望值**从台账已登记声明推导**（`scopeChange` + `tier1[].outOfScope` + `counts`），不是硬编码常量。' +
+      'T3-P0.1「卸树留池」登记 ' + invOutOfScope.length + ' 项退出范围 ⇒ 生效范围 = ' + activeScopeCount + '。' +
+      '这不是「少做三项」，而是把这 3 项从 **treeId 语义化问题** 转化为正确的 **引用/挂载治理结果**。',
+  },
   naming: {
     rule: 'tree_<命名空间>_<slug>；slug 取自 nodeRef（去 asplit 批次前缀）；命名空间取最近**可靠语义**祖先（允许跳级借用）',
     forbidden: ['sed', '全局 replace', 'regex 全局替换'],
@@ -369,7 +408,7 @@ const plan = {
     totalTreeEntries: allIds.length,
     idFormDistribution: formDist,
     semanticIdCount: semanticCount,
-    note: '「treeId 语义化」的同类问题总量远大于本批 133 项：' +
+    note: '「treeId 语义化」的同类问题总量远大于本批 ' + declaredScopeCount + ' 项：' +
       'asplit_* 仅 ' + (formDist['asplit_*（本批）'] ?? 0) + ' 条，' +
       '而携带 hash / 段位 / 导入前缀痕迹的 id 合计 ' +
       ((formDist['tree_<时间戳>_<hash>'] ?? 0) + (formDist['tree..._s<N>_ 段位编号'] ?? 0) +
@@ -395,7 +434,10 @@ const plan = {
   freezeReadiness: {
     ...freezeReadiness,
     frozenMappingProducible: freezeReadiness.blocked === 0 && freezeReadiness.needsReview === 0,
-    note: 'frozenMappingProducible=false ⇒ **不得进入 apply**：G3（映射表无 pending 残留）不满足。',
+    note: '`frozenMappingProducible=false` 有**两种成因，必须区分**（这是 2026-09-14 修掉的判据缺陷）：' +
+      '① `blocked > 0` → **真阻塞**，不得进入 apply；' +
+      '② `blocked === 0` 但 `needsReview > 0` → **无硬阻塞**，只剩人工复核队列，人裁完即可冻结。' +
+      '把后者一律报成「冻结闸门 BLOCK」，会把「待人工裁决」误报成「闸门失败」。',
   },
   residualScenarios: {
     autoAcceptableOnly: { renamed: simAuto.renamedNodes, residualAsplit: simAuto.residualTree.length, note: '当前**零人工介入**就能冻结的部分（仅 gap=0）' },
@@ -423,20 +465,40 @@ const plan = {
 }
 
 // 阻塞判定（两层：dry-run 本身 / 可否进入 apply）
-if (!scopeOk) plan.hardBlockers.push('范围自校验失败：活数据重算 Tier1 != 133，或与台账不一致')
+if (!scopeOk) plan.hardBlockers.push('范围自校验失败：活数据重算 Tier1(' + liveTier1.length + ') ≠ 台账生效范围(' +
+  activeScopeCount + ')，或声明内部不自洽（声明自洽 ' + scopeDeclarationConsistent +
+  ' · 退出项确已离树 ' + outOfScopeGoneFromTree + '）')
 if (intraBatchDup.length) plan.hardBlockers.push('批内 proposedTreeId 重复：' + intraBatchDup.join(', '))
 if (!plan.closureAssertions.ok) plan.hardBlockers.push('引用闭合断言失败（残留 asplit_* 或 endpoint 被触碰）')
-if (!plan.freezeReadiness.frozenMappingProducible) {
-  plan.applyBlockers.push('冻结闸门 BLOCK：' + freezeReadiness.blocked + ' 条 `semanticAncestorGap > 3` 不允许自动生成 mapping' +
-    (freezeReadiness.needsReview ? '；另有 ' + freezeReadiness.needsReview + ' 条 MEDIUM 须逐条人工确认' : ''))
-  plan.applyBlockers.push('F 残留：即使人工审完全部 MEDIUM，仍有 ' + simAfterReview.residualTree.length +
-    ' 条 asplit_* 无法命名 → apply 后不可能达成「asplit_* = 0」')
+// ⛔ 2026-09-14 修正：原实现把 `frozenMappingProducible=false` 一律当硬阻塞，
+//    于是当 blocked=0 / needsReview=38 时输出「冻结闸门 BLOCK：**0 条** 不允许自动生成 mapping」
+//    与「仍有 **0 条** asplit_* 无法命名 → 不可能归零」—— 两句都以 0 作主语，**事实错误**。
+//    正确口径：硬阻塞只看 `blocked`；MEDIUM 是设计内的**复核队列**；覆盖缺口只在真 >0 时才算阻塞。
+if (freezeReadiness.blocked > 0) {
+  plan.applyBlockers.push('冻结闸门 BLOCK：' + freezeReadiness.blocked +
+    ' 条 `semanticAncestorGap > 3` 不允许自动生成 mapping（须人给名或另裁处置）')
 }
-plan.freezeVerdict = plan.freezeReadiness.frozenMappingProducible ? 'MAPPING_FREEZE_READY' : 'MAPPING_FREEZE_BLOCKED'
+if (simAfterReview.residualTree.length > 0) {
+  plan.applyBlockers.push('覆盖缺口：即使人工审完全部 MEDIUM，仍有 ' + simAfterReview.residualTree.length +
+    ' 条 asplit_* 无任何映射 → apply 后不可能达成「asplit_* = 0」')
+}
+if (freezeReadiness.needsReview > 0) {
+  plan.reviewQueue = {
+    count: freezeReadiness.needsReview,
+    tier: 'MEDIUM',
+    rule: 'gap 1..3 ⇒ 必须逐条人工确认后才可冻结（用户 2026-09-14 冻死）',
+    note: '这是**复核队列**，不是闸门失败。当前硬阻塞（gap > 3）= ' + freezeReadiness.blocked + ' 条；' +
+      'apply 前唯一待办 = 人工裁完这 ' + freezeReadiness.needsReview + ' 条（清单见 `t3-mapping-review.md`）。',
+  }
+}
+plan.freezeVerdict = freezeReadiness.blocked > 0
+  ? 'MAPPING_FREEZE_BLOCKED'
+  : (freezeReadiness.needsReview > 0 ? 'MAPPING_FREEZE_PENDING_REVIEW' : 'MAPPING_FREEZE_READY')
 if (nNoNamespace) plan.warnings.push(nNoNamespace + ' 条**无任何语义形态祖先** → 命名空间无法机器推导')
 const nGapped = mapping.filter((m) => (m.semanticAncestorGap ?? 0) > 0).length
 if (nGapped) plan.warnings.push(nGapped + ' 条属**跳级借用**：MEDIUM ' + freezeReadiness.needsReview +
-  '（gap 1..3，须人工确认）· BLOCKED ' + freezeReadiness.blocked + '（gap > 3，不允许自动生成）' +
+  '（gap 1..3，须人工确认）' +
+  (freezeReadiness.blocked > 0 ? '· BLOCKED ' + freezeReadiness.blocked + '（gap > 3，不允许自动生成）' : '') +
   '（gap 分布：' + JSON.stringify(gapDist) + '）')
 if (nConflict) plan.warnings.push(nConflict + ' 条存在候选碰撞（候选 A/B 中至少一个被占用）')
 if (poolAsplitRefs.length) plan.warnings.push('另有 ' + poolAsplitRefs.length + ' 个**池 id** 也以 asplit_ 开头（属池命名空间，本批不改）→ 见报告 §5')
@@ -464,7 +526,8 @@ for (const [k, v] of Object.entries(formDist).sort((a, b) => b[1] - a[1])) {
   md.push('| ' + k + ' | ' + v + ' | ' + ((v / allIds.length) * 100).toFixed(1) + '% |')
 }
 md.push('')
-md.push('**含义**：`asplit_*`（本批 133）只占 ' + ((133 / allIds.length) * 100).toFixed(1) + '%；' +
+md.push('**含义**：`asplit_*`（本批声明 ' + declaredScopeCount + ' · 生效 ' + activeScopeCount +
+  '）只占 ' + ((declaredScopeCount / allIds.length) * 100).toFixed(1) + '%；' +
   '而携带 **hash / 段位 / 导入前缀**痕迹的 id 合计 ' +
   ((formDist['tree_<时间戳>_<hash>'] ?? 0) + (formDist['tree..._s<N>_ 段位编号'] ?? 0) +
    (formDist['业务/导入前缀 id（demo_/final_atomic_/theory_domain_/wiki_/universe 等）'] ?? 0)) + ' 条。' +
@@ -472,10 +535,22 @@ md.push('**含义**：`asplit_*`（本批 133）只占 ' + ((133 / allIds.length
 md.push('> ⚠️ **决策点**：本批的命名规则（命名空间怎么取）要不要预留后续批次？' +
   '若不预留，后续批次可能二次改名。建议在**冻结映射表前**先确认命名约定的适用范围。', '')
 md.push('## 1. 范围自校验', '')
+md.push('> 期望值**从台账已登记声明推导**（`scopeChange` + `tier1[].outOfScope` + `counts`），不硬编码。' +
+  '任何进一步的范围变更都必须走同样的登记流程 —— 这是宪法 §3.2「不得为了让闸门变绿而重定义期望值」在判据层的执行方式。', '')
 md.push('| 项 | 值 |', '|---|---|')
-md.push('| 台账声明 | 133 |')
+md.push('| 台账原始声明 | ' + declaredScopeCount + ' |')
+md.push('| 已登记退出范围（T3-P0.1 卸树留池） | ' + invOutOfScope.length + ' |')
+md.push('| **生效范围** | **' + activeScopeCount + '** |')
 md.push('| 活数据重算 | ' + liveTier1.length + ' |')
+md.push('| 声明内部自洽 | ' + (scopeDeclarationConsistent ? '✅' : '❌') + ' |')
+md.push('| 退出项确已不在活树 | ' + (outOfScopeGoneFromTree ? '✅' : '❌') + ' |')
 md.push('| 与台账一致 | ' + (scopeOk ? '✅' : '❌') + ' |')
+if (invOutOfScope.length) {
+  md.push('')
+  md.push('已登记退出范围的 ' + invOutOfScope.length + ' 项（原 ' + declaredScopeCount +
+    ' 条一条未删，仅登记处置）—— 它们是**维度展示原子**，由宿主 `viewDimensions` 承载，不需要独立 treeId：', '')
+  for (const id of invOutOfScope) md.push('- `' + id + '`')
+}
 md.push('', '## 2. 映射草案与**冻结闸门**', '')
 md.push('- 总数 **' + mapping.length + '** · 可给建议 id **' + nProposed + '** · 阻塞（不得生成）**' + freezeReadiness.blocked + '**')
 md.push('- 候选碰撞：' + nConflict + ' · 批内重复：' + intraBatchDup.length)
@@ -504,17 +579,31 @@ md.push('')
 md.push('> 依据：父节点可能只是 **hash 型 mount identity**（真正有语义的是更上层祖先）→ 允许跳级借用；' +
   '但跨越过长结构链时代码不能自己猜，否则会把错误语义向下继承。', '')
 md.push('**冻结结论：`' + plan.freezeVerdict + '`** —— `frozenMappingProducible = ' +
-  plan.freezeReadiness.frozenMappingProducible + '`' +
-  (plan.freezeReadiness.frozenMappingProducible ? '' : ' ⇒ **不得进入 apply**（G3「映射表无 pending 残留」不满足）'), '')
+  plan.freezeReadiness.frozenMappingProducible + '`（硬阻塞 `gap > 3` = ' + freezeReadiness.blocked +
+  ' · 人工复核队列 `MEDIUM` = ' + freezeReadiness.needsReview + '）', '')
+md.push('')
+if (freezeReadiness.blocked > 0) {
+  md.push('⛔ **真阻塞**：有 ' + freezeReadiness.blocked + ' 条 `gap > 3`，不允许自动生成 mapping ⇒ 不得进入 apply。', '')
+} else if (freezeReadiness.needsReview > 0) {
+  md.push('▶️ **无硬阻塞**：`gap > 3` = 0 条。唯一待办是人工裁完 ' + freezeReadiness.needsReview +
+    ' 条 MEDIUM（**复核队列，不是闸门失败**，见 `t3-mapping-review.md`）⇒ 裁完即可冻结并进入 apply。', '')
+} else {
+  md.push('✅ **无阻塞且无待办复核** ⇒ 映射表可直接冻结进入 apply。', '')
+}
 md.push('### 残留情景（决定 apply 可行性）', '')
 md.push('| 情景 | 改写条数 | 残留 `asplit_*` |', '|---|---:|---:|')
 md.push('| 仅 gap=0 自动接受 | ' + simAuto.renamedNodes + ' | **' + simAuto.residualTree.length + '** |')
 md.push('| 人工审完全部 MEDIUM | ' + simAfterReview.renamedNodes + ' | **' + simAfterReview.residualTree.length + '**（阻塞项） |')
-md.push('| 全部 133 项都命名（上界） | ' + simAll.renamedNodes + ' | ' + simAll.residualTree.length + ' |')
+md.push('| 全部 ' + activeScopeCount + ' 项（生效范围）都命名（上界） | ' + simAll.renamedNodes + ' | ' + simAll.residualTree.length + ' |')
 md.push('')
-md.push('> 即：**即使人工审完全部 ' + freezeReadiness.needsReview + ' 条 MEDIUM，仍有 ' + simAfterReview.residualTree.length +
-  ' 条无法命名 → apply 后不可能达成「asplit_* = 0」**。这 ' + simAfterReview.residualTree.length +
-  ' 条必须由人给出名字（或另行裁决其处置），机器不代猜。', '')
+if (simAfterReview.residualTree.length > 0) {
+  md.push('> 即：**即使人工审完全部 ' + freezeReadiness.needsReview + ' 条 MEDIUM，仍有 ' + simAfterReview.residualTree.length +
+    ' 条无法命名 → apply 后不可能达成「asplit_* = 0」**。这 ' + simAfterReview.residualTree.length +
+    ' 条必须由人给出名字（或另行裁决其处置），机器不代猜。', '')
+} else {
+  md.push('> 即：**人工审完全部 ' + freezeReadiness.needsReview + ' 条 MEDIUM 后，残留 = 0** —— ' +
+    '不需要第三类处置，冻结 → apply 的路径完整（当前硬阻塞 `gap > 3` = ' + freezeReadiness.blocked + ' 条）。', '')
+}
 md.push('', '## 3. 引用闭合（按 **id 位置**枚举，不做原文扫描）', '')
 md.push('| 落点 | 数量 |', '|---|---|')
 md.push('| `tree-data` 节点 `id` | ' + refSites.treeValue.length + ' |')
@@ -530,8 +619,12 @@ md.push('| `knowledge-edges.json` | ' + beforeEdges + ' | ' + afterEdges + ' | *
 md.push('| `node-pool.json` | ' + beforePool + ' | ' + beforePool + ' | 0 | 0 |')
 md.push('| `asplit_*` treeId | ' + liveTier1.length + ' | **' + residualTreeAsplit.length + '** | **-' + (liveTier1.length - residualTreeAsplit.length) + '** | — |')
 md.push('')
-md.push('> 上表为**机器可给出的最大范围**（含 ' + freezeReadiness.needsReview + ' 条 MEDIUM 建议，不含 ' + freezeReadiness.blocked + ' 条阻塞项）→ 故 `asplit_*` 残留 ' + residualTreeAsplit.length + '。')
-md.push('> 若人工为阻塞项定名，则残留可达 ' + simHypo.residualTree.length + '（见 §2 残留情景）。', '')
+md.push('> 上表为**机器可给出的最大范围**（含 ' + freezeReadiness.needsReview + ' 条 MEDIUM 建议；' +
+  (freezeReadiness.blocked > 0 ? '不含 ' + freezeReadiness.blocked + ' 条阻塞项' : '`gap > 3` 阻塞项 0 条') +
+  '）→ 故 `asplit_*` 残留 ' + residualTreeAsplit.length + '。')
+if (freezeReadiness.blocked > 0) {
+  md.push('> 若人工为阻塞项定名，则残留可达 ' + simHypo.residualTree.length + '（见 §2 残留情景）。', '')
+}
 md.push('', '## 5. 闭合断言', '')
 md.push('| 断言 | 结果 |', '|---|---|')
 md.push('| 已映射旧 id 在克隆后的残留（受控原文扫描） | ' + residualMappedOldIds.length + ' ' + (residualMappedOldIds.length === 0 ? '✅' : '❌') + '（受检 ' + allPairs.length + ' 条） |')
@@ -541,8 +634,15 @@ md.push('| 被触碰的边 endpoint | ' + endpointTouched + ' ' + (endpointTouch
 md.push('', '## 6. 结论', '')
 md.push('**`' + plan.verdict + '`** / 冻结：**`' + plan.freezeVerdict + '`**', '')
 md.push('dry-run 硬阻塞：' + (plan.hardBlockers.length ? plan.hardBlockers.map((b) => '\n- ' + b).join('') : '无 ✅'))
-md.push('', 'apply 阻塞（**当前不得 apply**）：')
-for (const b of plan.applyBlockers) md.push('- ' + b)
+if (plan.applyBlockers.length) {
+  md.push('', 'apply 阻塞（**当前不得 apply**）：')
+  for (const b of plan.applyBlockers) md.push('- ' + b)
+} else {
+  md.push('', 'apply 阻塞：**无 ✅**（0 条硬阻塞）')
+}
+if (plan.reviewQueue) {
+  md.push('', 'apply 前的**人工待办**（复核队列，非阻塞）：' + plan.reviewQueue.count + ' 条 MEDIUM —— ' + plan.reviewQueue.note)
+}
 md.push('', '警告（不阻塞 dry-run，但需人工裁决）：')
 for (const w of plan.warnings) md.push('- ' + w)
 md.push('', '## 7. 复核清单（须人工裁决，见 `t3-mapping-review.md`）', '')
@@ -555,7 +655,7 @@ md.push('## 8. 下一步', '')
 md.push('1. 审 `t3-mapping-review.md`：为 ' + freezeReadiness.blocked + ' 条 BLOCK 项定名/定处置，逐条确认 ' +
   freezeReadiness.needsReview + ' 条 MEDIUM；')
 md.push('2. 冻结映射表（`status` 全部 `approved` / `rejected`，无 `pending` / `needs-review` / `blocked` 残留）→ apply 的 G3 闸门；')
-md.push('3. 决定命名约定的**适用范围**：T3 只治 `asplit_*` 133 项，其余命名族（约 1521 条非语义 id）**另开批次**，不扩范围；')
+md.push('3. 决定命名约定的**适用范围**：T3 只治 `asplit_*` ' + declaredScopeCount + ' 项（生效 ' + activeScopeCount + '），其余命名族（约 1521 条非语义 id）**另开批次**，不扩范围；')
 md.push('4. 等 Phase 1 形成干净 HEAD 后执行 apply（备份 → 8 闸门 → 落盘 → 独立复验 → 单独提交 `t3-semanticization`）。')
 md.push('')
 fs.writeFileSync(outFile('t3-dryrun-report', '.md'), md.join('\n'), 'utf8')
@@ -564,7 +664,9 @@ fs.writeFileSync(outFile('t3-dryrun-report', '.md'), md.join('\n'), 'utf8')
 const rv = []
 rv.push('# T3 · 映射复核清单（人工裁决）', '')
 rv.push('> **只读批次产物** —— 本清单不产生任何数据变化。' +
-  'T3 范围严格冻结为 `asplit_*` **133 项**；其余命名族（约 1521 条非语义 id）**另开批次，不在此扩范围**。', '')
+  'T3 范围严格冻结为 `asplit_*` **' + declaredScopeCount + ' 项**（生效 ' + activeScopeCount +
+  '；原 ' + declaredScopeCount + ' 条一条未删，其中 ' + invOutOfScope.length +
+  ' 项已登记退出范围）；其余命名族（约 1521 条非语义 id）**另开批次，不在此扩范围**。', '')
 rv.push('生成时间：' + plan.generatedAt, '')
 rv.push('## 裁决规则（`semanticAncestorGap` 即冻结闸门）', '')
 rv.push('| gap | 层级 | 处置 |', '|---|---|---|')
@@ -598,7 +700,7 @@ rv.push('> **含义**：这 ' + withAnc.reduce((a, g) => a + g.items.length, 0) 
   '根因是**它们的命名空间祖先自己还没被语义化**（祖先 id 形如 `tree_<时间戳>_<hash>`）。' +
   '命名空间本身是清晰可读的（见上表 name 列）。', '')
 rv.push('')
-rv.push('**这不是「扩大 T3 范围」**：T3 仍然只管 `asplit_*` 133 项，' +
+rv.push('**这不是「扩大 T3 范围」**：T3 仍然只管 `asplit_*` ' + declaredScopeCount + ' 项（生效 ' + activeScopeCount + '），' +
   '只是识别出一个**有界前置依赖** —— 先给这 ' + withAnc.length + ' 个祖先定名（它们属「1521 非语义 id」族，但只需这一小簇），' +
   '随后这些子项自动降为 `gap=0`、可批量处理。', '')
 rv.push('')
@@ -648,7 +750,8 @@ rv.push('> 共性：父节点是**无语义容器**（hash 型 mount identity）
   '但借用是否恰当需人判 —— 这 ' + freezeReadiness.needsReview + ' 条不接受自动冻结。', '')
 rv.push('## 三、冻结的前置条件', '')
 rv.push('```text')
-rv.push('上述 ' + freezeReadiness.blocked + ' 条 BLOCK 全部给出处置')
+if (freezeReadiness.blocked > 0) rv.push('上述 ' + freezeReadiness.blocked + ' 条 BLOCK 全部给出处置')
+else rv.push('BLOCK（gap > 3）= 0 条 —— 无硬阻塞，本行无需处置')
 rv.push('+ 上述 ' + freezeReadiness.needsReview + ' 条 MEDIUM 全部 approved')
 rv.push('+ status 无 pending / needs-review / blocked 残留')
 rv.push('→ frozenMappingProducible = true（当前 ' + plan.freezeReadiness.frozenMappingProducible + '）')
@@ -659,14 +762,22 @@ fs.writeFileSync(outFile('t3-mapping-review', '.md'), rv.join('\n'), 'utf8')
 
 console.log('════ T3 · asplit_* 语义化 只读 dry-run ════')
 console.log('  模式：DRY_RUN_READ_ONLY（data/ 未写入）')
-console.log('\n【范围自校验】台账 133 · 活数据重算 ' + liveTier1.length + ' · 一致 ' + (scopeOk ? '✅' : '❌'))
+console.log('\n【范围自校验】台账 ' + declaredScopeCount + ' · 已登记退出 ' + invOutOfScope.length +
+  ' · 生效 ' + activeScopeCount + ' · 活数据重算 ' + liveTier1.length +
+  ' · 一致 ' + (scopeOk ? '✅' : '❌') + '（声明自洽 ' + (scopeDeclarationConsistent ? '✅' : '❌') +
+  ' · 退出项已离树 ' + (outOfScopeGoneFromTree ? '✅' : '❌') + '）')
 console.log('\n【映射草案】共 ' + mapping.length + ' 条')
 console.log('  可给建议 id：' + nProposed + ' · 阻塞（不得生成）' + freezeReadiness.blocked)
 console.log('  冻结闸门读数：HIGH 可自动接受 ' + freezeReadiness.autoAcceptable +
   ' · MEDIUM 须人工确认 ' + freezeReadiness.needsReview + ' · BLOCK ' + freezeReadiness.blocked)
 console.log('  语义祖先跨度分布：' + JSON.stringify(gapDist))
 console.log('  候选碰撞：' + nConflict + ' · 批内重复：' + intraBatchDup.length)
-console.log('  冻结结论：' + plan.freezeVerdict + (plan.freezeReadiness.frozenMappingProducible ? '' : '（映射表不得冻结 → 不得进入 apply）'))
+console.log('  冻结结论：' + plan.freezeVerdict +
+  (freezeReadiness.blocked > 0
+    ? '（硬阻塞 gap>3 = ' + freezeReadiness.blocked + ' 条 → 映射表不得冻结）'
+    : (freezeReadiness.needsReview > 0
+      ? '（无硬阻塞；待人工裁完 ' + freezeReadiness.needsReview + ' 条 MEDIUM 即可冻结）'
+      : '（无阻塞且无待办复核 → 可直接冻结）')))
 console.log('\n【引用闭合】tree id ' + refSites.treeValue.length + ' · treebind 父端 ' + refSites.edgeIdParent.length +
   ' · 子端 ' + refSites.edgeIdChild.length + ' · 边 endpoint **' + endpointTouched + '**（须 0）')
 console.log('  池 ref 以 asplit_ 开头：' + poolAsplitRefs.length + ' 个（属池命名空间，本批不改）')
@@ -674,17 +785,23 @@ console.log('\n【内存克隆预期 diff】')
 console.log('  tree  ' + beforeTree + ' → ' + afterTree + ' (Δ' + (afterTree - beforeTree) + ') 改写 ' + renamedNodes + ' 个 id')
 console.log('  edges ' + beforeEdges + ' → ' + afterEdges + ' (Δ' + (afterEdges - beforeEdges) + ') 改写 ' + renamedEdgeIds + ' 个边 id')
 console.log('  pool  ' + beforePool + ' → ' + beforePool + ' (Δ0)')
-console.log('  asplit_* ' + liveTier1.length + ' → ' + residualTreeAsplit.length + '（机器最大范围；残余 ' + simHypo.residualTree.length + ' 需人工为阻塞项定名才能归零）')
+console.log('  asplit_* ' + liveTier1.length + ' → ' + residualTreeAsplit.length + '（机器最大范围；' +
+  (simHypo.residualTree.length > 0
+    ? '残余 ' + simHypo.residualTree.length + ' 需人工为阻塞项定名才能归零'
+    : '已可归零') + '）')
 console.log('\n【残留情景（决定能否 apply）】')
 console.log('  仅 gap=0 自动接受      → 改写 ' + simAuto.renamedNodes + ' 条 · 残留 asplit_* ' + simAuto.residualTree.length)
-console.log('  人工审完所有 MEDIUM（' + freezeReadiness.needsReview + ' 条）→ 改写 ' + simAfterReview.renamedNodes + ' 条 · 残留 asplit_* ' + simAfterReview.residualTree.length + '  ← 阻塞项')
-console.log('  全部 133 项都命名      → 改写 ' + simAll.renamedNodes + ' 条 · 残留 asplit_* ' + simAll.residualTree.length + '（上界，需人工为阻塞项定名）')
+console.log('  人工审完所有 MEDIUM（' + freezeReadiness.needsReview + ' 条）→ 改写 ' + simAfterReview.renamedNodes +
+  ' 条 · 残留 asplit_* ' + simAfterReview.residualTree.length +
+  (simAfterReview.residualTree.length > 0 ? '  ← 阻塞项（须人给名）' : '  ← 闭环，无残余'))
+console.log('  全部 ' + activeScopeCount + ' 项（生效范围）都命名 → 改写 ' + simAll.renamedNodes + ' 条 · 残留 asplit_* ' + simAll.residualTree.length + '（上界）')
 console.log('\n【闭合断言（机制证明：只对已映射旧 id）】受检 ' + allPairs.length + ' 条 · 残留 ' +
   residualMappedOldIds.length + ' · endpoint 触碰 ' + endpointTouched + '  → ' + (plan.closureAssertions.ok ? '✅ 闭包机制完备' : '❌'))
 console.log('  覆盖缺口（无映射）' + uncoveredOldIds.length + ' 条 ← 属人工决策，不是机制失败')
 console.log('\n【结论】' + plan.verdict + ' / ' + plan.freezeVerdict)
 for (const b of plan.hardBlockers) console.log('  ⛔ ' + b)
 for (const b of plan.applyBlockers) console.log('  ⛔ apply 阻塞：' + b)
+if (plan.reviewQueue) console.log('  ▶️ apply 前人工待办（复核队列，非阻塞）：' + plan.reviewQueue.count + ' 条 MEDIUM')
 for (const w of plan.warnings) console.log('  ⚠️ ' + w)
 console.log('\n产物' + (OUT_SUFFIX ? '（后缀 ' + OUT_SUFFIX + '）' : '') + '：asplit-treeid-mapping.draft · t3-dryrun-plan · t3-dryrun-report · t3-mapping-review（人工复核清单）')
 process.exit(plan.hardBlockers.length === 0 ? 0 : 1)

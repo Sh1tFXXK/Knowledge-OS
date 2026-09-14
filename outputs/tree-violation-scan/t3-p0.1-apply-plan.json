@@ -1,0 +1,233 @@
+{
+  "batchId": "t3-p0.1",
+  "title": "T3-P0.1 · MySQL 服务层 3 条孤儿挂载的卸树留池（只删 tree mount + treebind，池不动）",
+  "mode": "apply",
+  "generatedAt": "2026-09-14T13:50:55.383Z",
+  "host": {
+    "treeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+    "poolRef": "k_1782032275682_61auc4",
+    "name": "服务层"
+  },
+  "targets": [
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_backup",
+      "ref": "asplit_mysql_tool_backup",
+      "name": "备份恢复工具"
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_security",
+      "ref": "asplit_mysql_tool_security",
+      "name": "安全管理工具"
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+      "ref": "asplit_mysql_tool_cluster",
+      "name": "集群管理工具"
+    }
+  ],
+  "operation": {
+    "treeData": "detachChild ×3（保留其余 7 个子的原顺序）",
+    "knowledgeEdges": "按精确 id 删除 3 条 treebind 边（**不用** split(':') helper）",
+    "nodePool": "零改动",
+    "questions": "零改动",
+    "evolutionEvents": "+1 事件"
+  },
+  "baselines": {
+    "before": {
+      "treeNodes": 3219,
+      "edges": 4166,
+      "pool": 3855,
+      "tbTotal": 2668,
+      "tbUnresolved": 18,
+      "atomTotal": 248,
+      "atomDangling": 0,
+      "refDangling": 0
+    },
+    "after": {
+      "treeNodes": 3216,
+      "edges": 4163,
+      "pool": 3855,
+      "tbTotal": 2665,
+      "tbUnresolved": 18,
+      "atomTotal": 248,
+      "atomDangling": 0,
+      "refDangling": 0
+    }
+  },
+  "simulated": {
+    "hostChildrenBefore": [
+      "governance:canonical:k_1782033172524_cjmm5c",
+      "tree_1787326277226_e7ivtt",
+      "tree_1787326306882_9fv6qu",
+      "tree_1787326548799_nuhixr",
+      "tree_1787326562319_8lcb6s",
+      "asplit_s2_asplit_mysql_tool_backup",
+      "asplit_s2_asplit_mysql_tool_security",
+      "asplit_s2_asplit_mysql_tool_cluster",
+      "atomic_atomic_mysql_backup",
+      "atomic_atomic_mysql_restore"
+    ],
+    "hostChildrenAfter": [
+      "governance:canonical:k_1782033172524_cjmm5c",
+      "tree_1787326277226_e7ivtt",
+      "tree_1787326306882_9fv6qu",
+      "tree_1787326548799_nuhixr",
+      "tree_1787326562319_8lcb6s",
+      "atomic_atomic_mysql_backup",
+      "atomic_atomic_mysql_restore"
+    ],
+    "droppedEdgeIds": [
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_backup",
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_security",
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_cluster"
+    ],
+    "droppedEdgeRecords": [
+      {
+        "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_backup",
+        "source": "k_1782032275682_61auc4",
+        "target": "asplit_mysql_tool_backup",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": []
+      },
+      {
+        "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_security",
+        "source": "k_1782032275682_61auc4",
+        "target": "asplit_mysql_tool_security",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": []
+      },
+      {
+        "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_cluster",
+        "source": "k_1782032275682_61auc4",
+        "target": "asplit_mysql_tool_cluster",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": []
+      }
+    ]
+  },
+  "dimensionCheck": {
+    "dimId": "mysql_service_tools",
+    "atoms": [
+      "asplit_mysql_tool_backup",
+      "asplit_mysql_tool_security",
+      "asplit_mysql_tool_cluster",
+      "k_1787326561953_xdo0fj"
+    ],
+    "resolvable": [
+      "asplit_mysql_tool_backup",
+      "asplit_mysql_tool_security",
+      "asplit_mysql_tool_cluster",
+      "k_1787326561953_xdo0fj"
+    ],
+    "keptNonBatchAtom": "k_1787326561953_xdo0fj"
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "name": "3 个目标存在 ∧ 均为宿主直接子 ∧ 均为叶子（childCount=0）",
+      "result": "PASS",
+      "detail": "直接子=true · 均叶子=true"
+    },
+    {
+      "id": "G2",
+      "name": "宿主子数恰为 10",
+      "result": "PASS",
+      "detail": "实测 10 个：governance:canonical:k_1782033172524_cjmm5c, tree_1787326277226_e7ivtt, tree_1787326306882_9fv6qu, tree_1787326548799_nuhixr, tree_1787326562319_8lcb6s, asplit_s2_asplit_mysql_tool_backup, asplit_s2_asplit_mysql_tool_security, asplit_s2_asplit_mysql_tool_cluster, atomic_atomic_mysql_backup, atomic_atomic_mysql_restore"
+    },
+    {
+      "id": "G3",
+      "name": "3 条 treebind 边按精确 id 各命中 1 条 ∧ 端点均在池",
+      "result": "PASS",
+      "detail": "命中 3/3 · 端点均在池=true"
+    },
+    {
+      "id": "G4",
+      "name": "⚠️ 取证：lib.mjs:136 helper 对本批删除 0 条（应为 3）→ 本脚本已改用精确 id 匹配",
+      "result": "PASS",
+      "detail": "helper 报告删除 0 条 · 本脚本精确匹配删除 3 条 · 全库 id 分段>2 的 treebind 边 2668 条对 helper 一律失效"
+    },
+    {
+      "id": "G5",
+      "name": "3 个池实体保留 ∧ 宿主 mysql_service_tools 网格 atom 3/3 可解析 ∧ 第 4 个 atom 仍在",
+      "result": "PASS",
+      "detail": "实体保留=true · atom 可解析 4/4 · 第 4 个 atom(k_1787326561953_xdo0fj)=true"
+    },
+    {
+      "id": "G6",
+      "name": "引用闭合：3 个 treeId 在池/题库/审计中 0 残留 ∧ 边侧命中项恰为本批将删的 3 条",
+      "result": "PASS",
+      "detail": "其它文件残留=0 · 边侧命中 3 条且均在删除清单=true"
+    },
+    {
+      "id": "G7",
+      "name": "宿主剩余 7 个子顺序保持 ∧ 其余边逐字节不变 ∧ count 全树不变",
+      "result": "PASS",
+      "detail": "顺序=true · 其余边逐字节=true · count=true"
+    },
+    {
+      "id": "G8",
+      "name": "node-pool 与 questions **零改动**（池实体保留 = 本批不改池）",
+      "result": "PASS",
+      "detail": "pool 克隆后完全相等=true"
+    },
+    {
+      "id": "G9",
+      "name": "预期 diff：树 3219→3216 · 边 4166→4163 · 池不变 3855",
+      "result": "PASS",
+      "detail": "实测 树 3216 · 边 4163 · 池 3855"
+    },
+    {
+      "id": "G10",
+      "name": "3 个 treeId 在树中 0 残留",
+      "result": "PASS",
+      "detail": "实测残留 0 个"
+    },
+    {
+      "id": "G11",
+      "name": "tree 节点 nodeRef 悬空 = 0（本批前 0 → 后 0）",
+      "result": "PASS",
+      "detail": "实测 0"
+    },
+    {
+      "id": "G12",
+      "name": "本批引入的新未解析 treebind 边 = 0（既有债 18 条不归本批）",
+      "result": "PASS",
+      "detail": "前 18 → 后 18 · 新增 0"
+    },
+    {
+      "id": "G13",
+      "name": "全库 viewDimensions atom 悬空 = 0（248 个 atom）",
+      "result": "PASS",
+      "detail": "前 0 → 后 0 · atom 总数 248"
+    },
+    {
+      "id": "G14",
+      "name": "三个待写文件的末尾换行状态延续（均应为「无换行」）",
+      "result": "PASS",
+      "detail": "{\"tree\":false,\"edges\":false,\"evo\":false}"
+    },
+    {
+      "id": "G15",
+      "name": "dev server / preview 未在写数据端口监听（防内存态回写覆盖）",
+      "result": "PASS",
+      "detail": "已探测，未发现 5173/4192 监听"
+    }
+  ],
+  "allGatesPass": true,
+  "writeSetHint": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json"
+  ],
+  "excludedFromWriteSet": [
+    "data/node-pool.json",
+    "data/questions.json"
+  ],
+  "note": "node-pool / questions 明确排除在写集外 —— 本批的语义前提就是「池实体保留」。"
+}
