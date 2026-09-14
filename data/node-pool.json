@@ -2408,9 +2408,6 @@
             "atoms": [
               {
                 "nodeId": "n_u4va719e"
-              },
-              {
-                "nodeId": "n_9hr0nvvv"
               }
             ]
           }
@@ -2595,11 +2592,7 @@
             "id": "web_frameworks_main",
             "title": "前端框架",
             "layout": "grid",
-            "atoms": [
-              {
-                "nodeId": "react_export_import"
-              }
-            ]
+            "atoms": []
           }
         ],
         "groups": []
@@ -25126,6 +25119,7 @@
       "information-systems"
     ],
     "tags": [
+      "跨系统标准与约定",
       "标准与约定",
       "standards",
       "interoperability",
@@ -25133,8 +25127,7 @@
       "time",
       "character-encoding",
       "information-systems",
-      "taxonomy",
-      "跨系统标准与约定"
+      "taxonomy"
     ],
     "card": {
       "nodeId": "school_real_world_conventions",
@@ -27999,6 +27992,7 @@
       ]
     },
     "tags": [
+      "可达性分析算法",
       "可达性分析算法/引用链法/跟踪垃圾收集",
       "jvm",
       "interview",
@@ -33069,9 +33063,9 @@
       ]
     },
     "tags": [
+      "Java 语法要素",
       "基础",
-      "Java",
-      "Java 语法要素"
+      "Java"
     ]
   },
   "k_java_syntax_zh_1o83fje": {
@@ -53418,6 +53412,7 @@
       "rootContent": "部分\n\n// 线程系统的基本部分：\n// 假设“ThreadQueue”支持随机访问。\n公共易失性线程队列就绪队列； // 线程不安全的就绪线程队列。  元素是（线程*）。\n公共易失性全局线程* currentThread; // 假设该变量是针对每个核心的。  （其他的都是共享的。）\n\n// 仅在线程系统本身的同步状态上实现自旋锁。\n// 这与测试和设置一起用作同步原语。\n公共易失性全局布尔线程SystemBusy = false;\n\n// 上下文切换中断服务程序 (ISR):\n// 在当前CPU核心上，抢占式切换到另一个线程。\n公共方法 contextSwitchISR() {\n    if (testAndSet(threadingSystemBusy)) {\n        返回； // 现在无法切换上下文。\n    }\n\n// 确保此中断不会再次发生，这会扰乱上下文切换：\n    systemCall_disableInterrupts();\n\n// 获取当前运行进程的所有寄存器。\n    // 对于程序计数器（PC），我们需要指令位置\n    // 下面的“恢复”标签。  获取寄存器值取决于平台，并且可能涉及\n    // 读取当前栈帧、JMP/CALL指令等（详细内容不在此讨论范围）\n    currentThread->registers = getAllRegisters(); // 将寄存器存储在内存中的“currentThread”对象中。\n当前线程->registers.PC = 恢复； // 在此方法中将下一个PC设置为下面的“resume”标签。\n\nReadyQueue.enqueue(currentThread); // 将此线程放回就绪队列以供稍后执行。\n\n线程* otherThread = ReadyQueue.dequeue(); // 从就绪队列中移除并获取下一个要运行的线程。\n\n当前线程 = 其他线程； // 替换全局当前线程指针值，以便为下一个线程做好准备。\n\n// 从currentThread/otherThread恢复寄存器，包括跳转到另一个线程存储的PC\n    //（在下面的“恢复”中）。  同样，如何完成此操作的细节超出了本范围。\n    恢复寄存器(otherThread.registers);\n\n//***现在运行“otherThread”（现在是“currentThread”）！  原来的线程现在处于“睡眠”状态。***\n\nresume: // 这是另一个 contextSwitch() 调用在将上下文切换回此处时需要将 PC 设置为的位置。\n\n// 返回到 otherThread 停止的地方。\n\n线程系统忙=假； // 必须是原子赋值。\n    systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n}\n\n// 线程休眠方法：\n// 在当前CPU核心上，同步上下文切换到另一个线程而不放置\n// 就绪队列中的当前线程。\n// 必须保持“threadingSystemBusy”并禁用中断，以便此方法\n// 不会被调用 contextSwitchISR() 的线程切换计时器中断。\n// 从该方法返回后，必须清除“threadingSystemBusy”。\n公共方法 threadSleep() {\n// 获取当前运行进程的所有寄存器。\n    // 对于程序计数器（PC），我们需要指令位置\n    // 下面的“恢复”标签。  获取寄存器值取决于平台，并且可能涉及\n    // 读取当前栈帧、JMP/CALL指令等（详细内容不在此讨论范围）\n    currentThread->registers = getAllRegisters(); // 将寄存器存储在内存中的“currentThread”对象中。\n当前线程->registers.PC = 恢复； // 在此方法中将下一个PC设置为下面的“resume”标签。\n\n// 与 contextSwitchISR() 不同，我们不会将 currentThread 放回到readyQueue 中。\n    // 相反，它已经被放入互斥体或条件变量的队列中。\n\n线程* otherThread = ReadyQueue.dequeue(); // 从就绪队列中移除并获取下一个要运行的线程。\n\n当前线程 = 其他线程； // 替换全局当前线程指针值，以便为下一个线程做好准备。\n\n// 从currentThread/otherThread恢复寄存器，包括跳转到另一个线程存储的PC\n    //（在下面的“恢复”中）。  同样，如何完成此操作的细节超出了本范围。\n    恢复寄存器(otherThread.registers);\n\n//***现在运行“otherThread”（现在是“currentThread”）！  原来的线程现在处于“睡眠”状态。***\n\nresume: // 这是另一个 contextSwitch() 调用在将上下文切换回此处时需要将 PC 设置为的位置。\n\n// 返回到 otherThread 停止的地方。\n}\n\n公共方法 wait(Mutex m, ConditionVariable c) {\n    // 当任何核心上的其他线程正在访问该对象时，内部自旋锁\n    //“hold”和“threadQueue”，或“readyQueue”。\n    while (testAndSet(threadingSystemBusy)) {}\n    // 注意：“threadingSystemBusy”现在为 true。\n\n// 系统调用禁用该核心上的中断，以便 threadSleep() 不会被中断\n    // 该核心上的线程切换计时器将调用 contextSwitchISR()。\n    // 在 threadSleep() 之外完成以提高效率，以便该线程将被休眠\n    // 在进入条件变量队列之后。\n    systemCall_disableInterrupts();\n\n断言 m.hold； // （具体来说，该线程必须是持有它的线程。）\n\nm.release();\n    c.waitingThreads.enqueue(currentThread);\n\n线程睡眠（）；\n\n// 线程休眠...线程从信号/广播中唤醒。\n\n线程系统忙=假； // 必须是原子赋值。\n    systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n\n// 台面风格：\n    // 上下文切换现在可能发生在这里，使客户端调用者的谓词为假。\n\nm.acquire();\n}\n\n公共方法信号（ConditionVariable c）{\n    // 当任何核心上的其他线程正在访问该对象时，内部自旋锁\n    //“hold”和“threadQueue”，或“readyQueue”。\n    while (testAndSet(threadingSystemBusy)) {}\n    // 注意：“threadingSystemBusy”现在为 true。\n\n// 系统调用禁用该核心上的中断，以便 threadSleep() 不会被中断\n    // 该核心上的线程切换计时器将调用 contextSwitchISR()。\n    // 在 threadSleep() 之外完成以提高效率，以便该线程将被休眠\n    // 在进入条件变量队列之后。\n    systemCall_disableInterrupts();\n\nif (!c.waitingThreads.isEmpty()) {\n        wakenThread = c.waitingThreads.dequeue();\n        ReadyQueue.enqueue(wokenThread);\n    }\n\n线程系统忙=假； // 必须是原子赋值。\n    systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n\n// 台面风格：\n    // 唤醒的线程没有任何优先级。\n}\n\n公共方法广播（ConditionVariable c）{\n    // 当任何核心上的其他线程正在访问该对象时，内部自旋锁\n    //“hold”和“threadQueue”，或“readyQueue”。\n    while (testAndSet(threadingSystemBusy)) {}\n    // 注意：“threadingSystemBusy”现在为 true。\n\n// 系统调用禁用该核心上的中断，以便 threadSleep() 不会被中断\n    // 该核心上的线程切换计时器将调用 contextSwitchISR()。\n    // 在 threadSleep() 之外完成以提高效率，以便该线程将被休眠\n    // 在进入条件变量队列之后。\n    systemCall_disableInterrupts();\n\nwhile (!c.waitingThreads.isEmpty()) {\n        wakenThread = c.waitingThreads.dequeue();\n        ReadyQueue.enqueue(wokenThread);\n    }\n\n线程系统忙=假； // 必须是原子赋值。\n    systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n\n// 台面风格：\n    // 唤醒的线程没有任何优先级。\n}\n\n互斥体类 {\n    受保护的易失性布尔持有=假;\n    私有易失性线程队列阻塞线程； // 阻塞线程的线程不安全队列。  元素是（线程*）。\n\n公共方法 acquire() {\n        // 当任何核心上的其他线程正在访问该对象时，内部自旋锁\n        //“hold”和“threadQueue”，或“readyQueue”。\n        while (testAndSet(threadingSystemBusy)) {}\n        // 注意：“threadingSystemBusy”现在为 true。\n\n// 系统调用禁用该核心上的中断，以便 threadSleep() 不会被中断\n        // 该核心上的线程切换计时器将调用 contextSwitchISR()。\n        // 在 threadSleep() 之外完成以提高效率，以便该线程将被休眠\n        // 进入锁队列之后。\n        systemCall_disableInterrupts();\n\n断言！blockingThreads.contains(currentThread);\n\n如果（举行）{\n            // 将“currentThread”放入此锁的队列中，以便它\n            // 认为该锁“休眠”。\n            // 请注意，“currentThread”仍然需要由 threadSleep() 处理。\n            readyQueue.remove(currentThread);\n            阻塞线程.enqueue(currentThread);\n            线程睡眠（）；\n\n// 现在我们被唤醒了，这一定是因为“held”变成了 false。\n            断言！持有；\n            断言！blockingThreads.contains(currentThread);\n        }\n\n持有=真；\n\n线程系统忙=假； // 必须是原子赋值。\n        systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n    }\n\n公共方法release() {\n        // 当任何核心上的其他线程正在访问该对象时，内部自旋锁\n        //“hold”和“threadQueue”，或“readyQueue”。\n        while (testAndSet(threadingSystemBusy)) {}\n        // 注意：“threadingSystemBusy”现在为 true。\n\n// 系统调用以禁用该内核上的中断以提高效率。\n        systemCall_disableInterrupts();\n\n主张持有； //（释放只能在持有锁的情况下执行。）\n\n持有=假；\n\nif (!blockingThreads.isEmpty()) {\n            线程* unblockedThread =blockingThreads.dequeue();\n            ReadyQueue.enqueue(unblockedThread);\n        }\n\n线程系统忙=假； // 必须是原子赋值。\n        systemCall_enableInterrupts(); // 在此核心上重新打开抢占式切换。\n    }\n}\n\n结构条件变量 {\n    易失性线程队列等待线程；\n}"
     },
     "tags": [
+      "Mesa 监视器示例",
       "通过测试和设置实现 Mesa 监视器示例"
     ]
   },
@@ -73171,8 +73166,8 @@
       "rootContent": "FixedThreadPool被称为可重用固定线程数的线程池。下面是FixedThreadPool的源代码实\n现。\npublicstaticExecutorService newFixedThreadPool(intnThreads){\nreturnnewThreadPoolExecutor(nThreads,nThreads,\n0L,TimeUnit.MILLISECONDS,\nnewLinkedBlockingQueue<Runnable>());\n}\nFixedThreadPool的corePoolSize和maximumPoolSize都被设置为创建FixedThreadPool时指\n定的参数nThreads。\n当线程池中的线程数大于corePoolSize时，keepAliveTime为多余的空闲线程等待新任务的\n最长时间，超过这个时间后多余的线程将被终止。这里把keepAliveTime设置为0L，意味着多余\n的空闲线程会被立即终止。\n1）如果当前运行的线程数少于corePoolSize，则创建新线程来执行任务。\n2）在线程池完成预热之后（当前运行的线程数等于corePoolSize），将任务加入\nLinkedBlockingQueue。\n3）线程执行完1中的任务后，会在循环中反复从LinkedBlockingQueue获取任务来执行。\nFixedThreadPool使用无界队列LinkedBlockingQueue作为线程池的工作队列（队列的容量为\nInteger.MAX_VALUE）。使用无界队列作为工作队列会对线程池带来如下影响。1）当线程池中的线程数达到corePoolSize后，新任务将在无界队列中等待，因此线程池中\n的线程数不会超过corePoolSize。\n2）由于1，使用无界队列时maximumPoolSize将是一个无效参数。\n3）由于1和2，使用无界队列时keepAliveTime将是一个无效参数。\n4）由于使用无界队列，运行中的FixedThreadPool（未执行方法shutdown()或\nshutdownNow()）不会拒绝任务（不会调用RejectedExecutionHandler.rejectedExecution方法）。"
     },
     "tags": [
-      "FixedThreadPool详解",
-      "FixedThreadPool"
+      "FixedThreadPool",
+      "FixedThreadPool详解"
     ]
   },
   "k_1786093231291_1p3kk2": {
@@ -73185,8 +73180,8 @@
       "rootContent": "SingleThreadExecutor是使用单个worker线程的Executor。下面是SingleThreadExecutor的源\n代码实现。\npublicstaticExecutorService newSingleThreadExecutor(){\nreturnnewFinalizableDelegatedExecutorService\n(new ThreadPoolExecutor(1,1,\n0L, TimeUnit.MILLISECONDS,\nnew LinkedBlockingQueue<Runnable>()));\n}\nSingleThreadExecutor的corePoolSize和maximumPoolSize被设置为1。其他参数与\nFixedThreadPool相同。SingleThreadExecutor使用无界队列LinkedBlockingQueue作为线程池的工\n作队列（队列的容量为Integer.MAX_VALUE）。SingleThreadExecutor使用无界队列作为工作队列\n对线程池带来的影响与FixedThreadPool相同，这里就不赘述了。1）如果当前运行的线程数少于corePoolSize（即线程池中无运行的线程），则创建一个新线\n程来执行任务。\n2）在线程池完成预热之后（当前线程池中有一个运行的线程），将任务加入Linked-\nBlockingQueue。\n3）线程执行完1中的任务后，会在一个无限循环中反复从LinkedBlockingQueue获取任务来\n执行。"
     },
     "tags": [
-      "SingleThreadExecutor详解",
-      "SingleThreadExecutor"
+      "SingleThreadExecutor",
+      "SingleThreadExecutor详解"
     ]
   },
   "k_1786093265033_rqvw3n": {
@@ -73199,8 +73194,8 @@
       "rootContent": "CachedThreadPool是一个会根据需要创建新线程的线程池。下面是创建CachedThread-\nPool的源代码。\npublicstaticExecutorService newCachedThreadPool() {\nreturnnewThreadPoolExecutor(0,Integer.MAX_VALUE,\n60L, TimeUnit.SECONDS,\nnewSynchronousQueue<Runnable>());\n}\nCachedThreadPool的corePoolSize被设置为0，即corePool为空；maximumPoolSize被设置为\nInteger.MAX_VALUE，即maximumPool是无界的。这里把keepAliveTime设置为60L，意味着\nCachedThreadPool中的空闲线程等待新任务的最长时间为60秒，空闲线程超过60秒后将会被\n终止。\nFixedThreadPool和SingleThreadExecutor使用无界队列LinkedBlockingQueue作为线程池的\n工作队列。CachedThreadPool使用没有容量的SynchronousQueue作为线程池的工作队列，但\nCachedThreadPool的maximumPool是无界的。这意味着，如果主线程提交任务的速度高于\nmaximumPool中线程处理任务的速度时，CachedThreadPool会不断创建新线程。极端情况下，\nCachedThreadPool会因为创建过多线程而耗尽CPU和内存资源。1）首先执行SynchronousQueue.offer（Runnable task）。如果当前maximumPool中有空闲线程\n正在执行SynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS），那么主线程执行\noffer操作与空闲线程执行的poll操作配对成功，主线程把任务交给空闲线程执行，execute()方\n法执行完成；否则执行下面的步骤2）。\n2）当初始maximumPool为空，或者maximumPool中当前没有空闲线程时，将没有线程执行\nSynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS）。这种情况下，步骤1）将失\n败。此时CachedThreadPool会创建一个新线程执行任务，execute()方法执行完成。\n3）在步骤2）中新创建的线程将任务执行完后，会执行\nSynchronousQueue.poll（keepAliveTime，TimeUnit.NANOSECONDS）。这个poll操作会让空闲线程最多在SynchronousQueue中等待60秒钟。如果60秒钟内主线程提交了一个新任务（主线程执\n行步骤1）），那么这个空闲线程将执行主线程提交的新任务；否则，这个空闲线程将终止。由于\n空闲60秒的空闲线程会被终止，因此长时间保持空闲的CachedThreadPool不会使用任何资源。\n前面提到过，SynchronousQueue是一个没有容量的阻塞队列。每个插入操作必须等待另一\n个线程的对应移除操作，反之亦然。CachedThreadPool使用SynchronousQueue，把主线程提交的\n任务传递给空闲线程执行"
     },
     "tags": [
-      "CachedThreadPool详解",
-      "CachedThreadPool"
+      "CachedThreadPool",
+      "CachedThreadPool详解"
     ]
   },
   "k_1786093346748_5mapqp": {
@@ -73309,6 +73304,7 @@
       "rootContent": "在并发编程中使用生产者和消费者模式能够解决绝大多数并发问题。该模式通过平衡生产线程和消费线程的工作能力来提高程序整体处理数据的速度。\n在线程世界里，生产者就是生产数据的线程，消费者就是消费数据的线程。在多线程开发中，如果生产者处理速度很快，而消费者处理速度很慢，那么生产者就必须等待消费者处理完，才能继续生产数据。同样的道理，如果消费者的处理能力大于生产者，那么消费者就必须等待生产者。为了解决这种生产消费能力不均衡的问题，便有了生产者和消费者模式。\n什么是生产者和消费者模式\n生产者和消费者模式是通过一个容器来解决生产者和消费者的强耦合问题。生产者和消费者彼此之间不直接通信，而是通过阻塞队列来进行通信，所以生产者生产完数据之后不用等待消费者处理，直接扔给阻塞队列，消费者不找生产者要数据，而是直接从阻塞队列里取，\n阻塞队列就相当于一个缓冲区，平衡了生产者和消费者的处理能力。\n这个阻塞队列就是用来给生产者和消费者解耦的。纵观大多数设计模式，都会找一个第三者出来进行解耦，如工厂模式的第三者是工厂类，模板模式的第三者是模板类。在学习一些设计模式的过程中，先找到这个模式的第三者，能帮助我们快速熟悉一个设计模式。"
     },
     "tags": [
+      "生产者消费者模式",
       "生产者和消费者模式"
     ]
   },
@@ -73751,6 +73747,7 @@
     "id": "k_1786241151946_frfy1k",
     "label": "发布订阅模式 / pub-sub",
     "tags": [
+      "发布订阅模式 / pub-sub",
       "发布与订阅"
     ],
     "card": {
@@ -144831,10 +144828,10 @@
       "java"
     ],
     "tags": [
+      "JVM 核心概念",
       "JVM 基础",
       "java",
-      "JVM",
-      "JVM 核心概念"
+      "JVM"
     ],
     "card": {
       "nodeId": "k_vault_javajvm01jvm_1h8bru",
@@ -144961,11 +144958,11 @@
       "java"
     ],
     "tags": [
+      "Java 多线程编程",
       "Java 多线程编程入门",
       "java",
       "并发",
-      "多线程",
-      "Java 多线程编程"
+      "多线程"
     ],
     "card": {
       "nodeId": "k_vault_javajava_vzjv8p",
@@ -145315,11 +145312,11 @@
       "java"
     ],
     "tags": [
+      "Java 集合框架",
       "Java 集合框架总览",
       "java",
       "集合框架",
-      "java.util",
-      "Java 集合框架"
+      "java.util"
     ],
     "card": {
       "nodeId": "k_vault_javajava_15bnft",
@@ -145342,11 +145339,11 @@
       "java"
     ],
     "tags": [
+      "Java 数据结构",
       "Java 数据结构基础",
       "java",
       "集合框架",
-      "java.util",
-      "Java 数据结构"
+      "java.util"
     ],
     "card": {
       "nodeId": "k_vault_javajava_ii523d",
@@ -146526,10 +146523,9 @@
       "java"
     ],
     "tags": [
+      "MyBatis",
       "MyBatis 定位总览",
-      "java",
-      "Mybatis",
-      "MyBatis"
+      "java"
     ],
     "card": {
       "nodeId": "k_vault_javamybatismybatis_14eqlq",
@@ -146552,6 +146548,7 @@
       "java"
     ],
     "tags": [
+      "SqlSession 生命周期",
       "SqlSession 与生命周期",
       "java",
       "Mybatis"
@@ -149318,8 +149315,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "一、数据库系统",
-      "数据库系统"
+      "数据库系统",
+      "一、数据库系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_01",
@@ -149340,8 +149337,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "二、数据模型",
-      "数据模型"
+      "数据模型",
+      "二、数据模型"
     ],
     "card": {
       "nodeId": "container:chapter_db_02",
@@ -149362,8 +149359,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "三、数据库结构",
-      "数据库结构"
+      "数据库结构",
+      "三、数据库结构"
     ],
     "card": {
       "nodeId": "container:chapter_db_03",
@@ -149384,8 +149381,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "五、数据库操作",
-      "数据库操作"
+      "数据库操作",
+      "五、数据库操作"
     ],
     "card": {
       "nodeId": "container:chapter_db_05",
@@ -149450,8 +149447,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "八、恢复系统",
-      "恢复系统"
+      "恢复系统",
+      "八、恢复系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_08",
@@ -149472,8 +149469,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "九、日志系统",
-      "日志系统"
+      "日志系统",
+      "九、日志系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_09",
@@ -149494,8 +149491,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十、存储系统",
-      "存储系统"
+      "存储系统",
+      "十、存储系统"
     ],
     "card": {
       "nodeId": "container:chapter_db_10",
@@ -149537,8 +149534,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十二、数据表示",
-      "数据表示"
+      "数据表示",
+      "十二、数据表示"
     ],
     "card": {
       "nodeId": "container:chapter_db_12",
@@ -149559,8 +149556,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十三、数据库设计",
-      "数据库设计"
+      "数据库设计",
+      "十三、数据库设计"
     ],
     "card": {
       "nodeId": "container:chapter_db_13",
@@ -149581,8 +149578,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十四、数据库分布与复制",
-      "数据库分布与复制"
+      "数据库分布与复制",
+      "十四、数据库分布与复制"
     ],
     "card": {
       "nodeId": "container:chapter_db_14",
@@ -149603,8 +149600,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十六、数据库安全",
-      "数据库安全"
+      "数据库安全",
+      "十六、数据库安全"
     ],
     "card": {
       "nodeId": "container:chapter_db_16",
@@ -149625,8 +149622,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十七、数据库运维",
-      "数据库运维"
+      "数据库运维",
+      "十七、数据库运维"
     ],
     "card": {
       "nodeId": "container:chapter_db_17",
@@ -149647,8 +149644,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十八、数据库编程与接口",
-      "数据库编程与接口"
+      "数据库编程与接口",
+      "十八、数据库编程与接口"
     ],
     "card": {
       "nodeId": "container:chapter_db_18",
@@ -149669,8 +149666,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "十九、数据库产品",
-      "数据库产品"
+      "数据库产品",
+      "十九、数据库产品"
     ],
     "card": {
       "nodeId": "container:chapter_db_19",
@@ -149691,8 +149688,8 @@
     "role": "subsystem",
     "dimensions": [],
     "tags": [
-      "二十、数据库文件与实现",
-      "数据库文件与实现"
+      "数据库文件与实现",
+      "二十、数据库文件与实现"
     ],
     "card": {
       "nodeId": "container:chapter_db_20",
@@ -150621,6 +150618,7 @@
       "可靠性"
     ],
     "tags": [
+      "I/O 线程(从库)",
       "I/O 线程与 relay log(从库)"
     ],
     "card": {
@@ -154138,6 +154136,7 @@
       "软件框架"
     ],
     "tags": [
+      "getBean 请求",
       "getBean 与切面匹配"
     ],
     "card": {
@@ -154164,6 +154163,7 @@
       "软件框架"
     ],
     "tags": [
+      "ProxyFactory",
       "ProxyFactory 与代理策略"
     ],
     "card": {
@@ -154394,8 +154394,8 @@
       "软件框架"
     ],
     "tags": [
-      "Spring AOP 执行机制(四阶段)",
-      "AOP 执行流程"
+      "AOP 执行流程",
+      "Spring AOP 执行机制(四阶段)"
     ],
     "card": {
       "nodeId": "aop_flow",
@@ -154963,8 +154963,8 @@
       "架构"
     ],
     "tags": [
-      "进阶思路:监控驱动动态扩容",
-      "监控驱动动态扩容"
+      "监控驱动动态扩容",
+      "进阶思路:监控驱动动态扩容"
     ],
     "card": {
       "nodeId": "surge_auto_scale",
@@ -156686,6 +156686,7 @@
       "java"
     ],
     "tags": [
+      "EJB(企业 JavaBeans)",
       "EJB",
       "企业JavaBeans",
       "Jakarta EE",
@@ -156701,7 +156702,8 @@
           "label": "定义",
           "content": "EJB（Enterprise JavaBeans，现随 Jakarta EE 演进）是 Java 企业级应用的服务器端组件规范，定义了会话 Bean、实体 Bean、消息驱动 Bean 等组件模型及其生命周期、事务、安全等容器服务。EJB 3.0 显著简化了开发模型（注解驱动、POJI/POJO）。\n\n【与 Spring 的关系】两者是竞争性编程模型：Spring 框架与容器不追求 EJB 3 合规（SpringSource 明确表示非主要目标），转而提供更强的编程模型；容器可通过 Pitchfork 项目转变为部分兼容 EJB 3.0 的容器。与 Spring 的详细对比整理为问题卡（问题库搜索「Spring 与 EJB」）。"
         }
-      ]
+      ],
+      "rootContent": "EJB（Enterprise JavaBeans，现随 Jakarta EE 演进）是 Java 企业级应用的服务器端组件规范，定义了会话 Bean、实体 Bean、消息驱动 Bean 等组件模型及其生命周期、事务、安全等容器服务。EJB 3.0 显著简化了开发模型（注解驱动、POJI/POJO）。\n\n"
     }
   },
   "k_1789213558020_84f3pr4": {
@@ -156771,6 +156773,7 @@
       ]
     },
     "tags": [
+      "JUC 工具",
       "JUC",
       "并发"
     ]
@@ -156791,6 +156794,7 @@
       ]
     },
     "tags": [
+      "数据库建模",
       "数据库",
       "建模"
     ]
@@ -156811,6 +156815,7 @@
       ]
     },
     "tags": [
+      "分库",
       "MySQL",
       "分库分表"
     ]
@@ -156819,7 +156824,9 @@
     "id": "asplit_concrete_class",
     "label": "具体类",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "具体类"
+    ],
     "card": {
       "nodeId": "asplit_concrete_class",
       "title": "具体类",
@@ -156836,7 +156843,9 @@
     "id": "asplit_local_class",
     "label": "局部类",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "局部类"
+    ],
     "card": {
       "nodeId": "asplit_local_class",
       "title": "局部类",
@@ -156853,7 +156862,9 @@
     "id": "asplit_suspend_resume_methods",
     "label": "suspend/resume 方法组",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "suspend/resume 方法组"
+    ],
     "card": {
       "nodeId": "asplit_suspend_resume_methods",
       "title": "suspend/resume 方法组",
@@ -156870,7 +156881,9 @@
     "id": "asplit_stop_method",
     "label": "stop 方法",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "stop 方法"
+    ],
     "card": {
       "nodeId": "asplit_stop_method",
       "title": "stop 方法",
@@ -156887,7 +156900,9 @@
     "id": "asplit_mutex_lock",
     "label": "互斥锁",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "互斥锁"
+    ],
     "card": {
       "nodeId": "asplit_mutex_lock",
       "title": "互斥锁",
@@ -156904,7 +156919,9 @@
     "id": "asplit_sync_block",
     "label": "同步代码块",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "同步代码块"
+    ],
     "card": {
       "nodeId": "asplit_sync_block",
       "title": "同步代码块",
@@ -156921,7 +156938,9 @@
     "id": "asplit_data_race",
     "label": "数据竞争",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "数据竞争"
+    ],
     "card": {
       "nodeId": "asplit_data_race",
       "title": "数据竞争",
@@ -156938,7 +156957,9 @@
     "id": "asplit_lazy_init",
     "label": "延迟初始化",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "延迟初始化"
+    ],
     "card": {
       "nodeId": "asplit_lazy_init",
       "title": "延迟初始化",
@@ -156955,7 +156976,9 @@
     "id": "asplit_concurrency_container",
     "label": "并发容器",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "并发容器"
+    ],
     "card": {
       "nodeId": "asplit_concurrency_container",
       "title": "并发容器",
@@ -156972,7 +156995,9 @@
     "id": "asplit_generic_method",
     "label": "泛型方法",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "泛型方法"
+    ],
     "card": {
       "nodeId": "asplit_generic_method",
       "title": "泛型方法",
@@ -156989,7 +157014,9 @@
     "id": "asplit_generic_constructor",
     "label": "泛型构造函数",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "泛型构造函数"
+    ],
     "card": {
       "nodeId": "asplit_generic_constructor",
       "title": "泛型构造函数",
@@ -157006,7 +157033,9 @@
     "id": "asplit_java_class",
     "label": "Java 类",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Java 类"
+    ],
     "card": {
       "nodeId": "asplit_java_class",
       "title": "Java 类",
@@ -157023,7 +157052,9 @@
     "id": "asplit_file_input_stream",
     "label": "FileInputStream",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "FileInputStream"
+    ],
     "card": {
       "nodeId": "asplit_file_input_stream",
       "title": "FileInputStream",
@@ -157040,7 +157071,9 @@
     "id": "asplit_buffered_input_stream",
     "label": "BufferedInputStream",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "BufferedInputStream"
+    ],
     "card": {
       "nodeId": "asplit_buffered_input_stream",
       "title": "BufferedInputStream",
@@ -157057,7 +157090,9 @@
     "id": "asplit_data_input_stream",
     "label": "DataInputStream",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "DataInputStream"
+    ],
     "card": {
       "nodeId": "asplit_data_input_stream",
       "title": "DataInputStream",
@@ -157074,7 +157109,9 @@
     "id": "asplit_object_input_stream",
     "label": "ObjectInputStream",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "ObjectInputStream"
+    ],
     "card": {
       "nodeId": "asplit_object_input_stream",
       "title": "ObjectInputStream",
@@ -157091,7 +157128,9 @@
     "id": "asplit_file_reader",
     "label": "FileReader",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "FileReader"
+    ],
     "card": {
       "nodeId": "asplit_file_reader",
       "title": "FileReader",
@@ -157108,7 +157147,9 @@
     "id": "asplit_buffered_reader",
     "label": "BufferedReader",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "BufferedReader"
+    ],
     "card": {
       "nodeId": "asplit_buffered_reader",
       "title": "BufferedReader",
@@ -157125,7 +157166,9 @@
     "id": "asplit_java_io_file",
     "label": "File 类",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "File 类"
+    ],
     "card": {
       "nodeId": "asplit_java_io_file",
       "title": "File 类",
@@ -157142,7 +157185,9 @@
     "id": "asplit_console_io",
     "label": "控制台 I/O",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "控制台 I/O"
+    ],
     "card": {
       "nodeId": "asplit_console_io",
       "title": "控制台 I/O",
@@ -157159,7 +157204,9 @@
     "id": "asplit_java_nio_path",
     "label": "Path",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Path"
+    ],
     "card": {
       "nodeId": "asplit_java_nio_path",
       "title": "Path",
@@ -157176,7 +157223,9 @@
     "id": "asplit_java_nio_filesystem",
     "label": "FileSystem",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "FileSystem"
+    ],
     "card": {
       "nodeId": "asplit_java_nio_filesystem",
       "title": "FileSystem",
@@ -157194,6 +157243,7 @@
     "label": "java.io",
     "role": "group",
     "tags": [
+      "java.io",
       "java",
       "io"
     ],
@@ -157226,14 +157276,6 @@
               {
                 "nodeId": "k_char_stream_group",
                 "desc": "字符流：Reader/Writer 体系"
-              },
-              {
-                "nodeId": "k_file_console_group",
-                "desc": "文件操作类与控制台 I/O"
-              },
-              {
-                "nodeId": "k_java_io_nio",
-                "desc": "IO 与 NIO 三代体系总览"
               }
             ]
           }
@@ -157245,7 +157287,9 @@
     "id": "asplit_blocking_io_model",
     "label": "阻塞 I/O（BIO 模型）",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "阻塞 I/O(BIO 模型)"
+    ],
     "card": {
       "nodeId": "asplit_blocking_io_model",
       "title": "阻塞 I/O（BIO 模型）",
@@ -157262,7 +157306,9 @@
     "id": "asplit_nonblocking_io_model",
     "label": "非阻塞 I/O（NIO 模型）",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "非阻塞 I/O(NIO 模型)"
+    ],
     "card": {
       "nodeId": "asplit_nonblocking_io_model",
       "title": "非阻塞 I/O（NIO 模型）",
@@ -157279,7 +157325,9 @@
     "id": "asplit_lexical_analysis",
     "label": "词法分析",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "词法分析"
+    ],
     "card": {
       "nodeId": "asplit_lexical_analysis",
       "title": "词法分析",
@@ -157296,7 +157344,9 @@
     "id": "asplit_syntax_analysis",
     "label": "语法分析",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "语法分析"
+    ],
     "card": {
       "nodeId": "asplit_syntax_analysis",
       "title": "语法分析",
@@ -157313,7 +157363,9 @@
     "id": "asplit_single_pass_compiler",
     "label": "单遍编译器",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "单遍编译器"
+    ],
     "card": {
       "nodeId": "asplit_single_pass_compiler",
       "title": "单遍编译器",
@@ -157330,7 +157382,9 @@
     "id": "asplit_multi_pass_compiler",
     "label": "多遍编译器",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "多遍编译器"
+    ],
     "card": {
       "nodeId": "asplit_multi_pass_compiler",
       "title": "多遍编译器",
@@ -157347,7 +157401,9 @@
     "id": "asplit_http_request",
     "label": "HTTP 请求",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "HTTP 请求"
+    ],
     "card": {
       "nodeId": "asplit_http_request",
       "title": "HTTP 请求",
@@ -157364,7 +157420,9 @@
     "id": "asplit_servlet_lifecycle",
     "label": "Servlet 生命周期",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Servlet 生命周期"
+    ],
     "card": {
       "nodeId": "asplit_servlet_lifecycle",
       "title": "Servlet 生命周期",
@@ -157381,7 +157439,9 @@
     "id": "asplit_servlet_container",
     "label": "Servlet 容器",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Servlet 容器"
+    ],
     "card": {
       "nodeId": "asplit_servlet_container",
       "title": "Servlet 容器",
@@ -157398,7 +157458,9 @@
     "id": "asplit_view_rendering",
     "label": "视图渲染",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "视图渲染"
+    ],
     "card": {
       "nodeId": "asplit_view_rendering",
       "title": "视图渲染",
@@ -157468,7 +157530,9 @@
     "id": "asplit_mybatis_mapper",
     "label": "MyBatis Mapper",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "MyBatis Mapper"
+    ],
     "card": {
       "nodeId": "asplit_mybatis_mapper",
       "title": "MyBatis Mapper",
@@ -157485,7 +157549,9 @@
     "id": "asplit_dynamic_sql",
     "label": "动态 SQL",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "动态 SQL"
+    ],
     "card": {
       "nodeId": "asplit_dynamic_sql",
       "title": "动态 SQL",
@@ -157502,7 +157568,9 @@
     "id": "asplit_netty_thread_model",
     "label": "Netty 线程模型",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Netty 线程模型"
+    ],
     "card": {
       "nodeId": "asplit_netty_thread_model",
       "title": "Netty 线程模型",
@@ -157519,7 +157587,9 @@
     "id": "asplit_netty_channel",
     "label": "Channel",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "Channel"
+    ],
     "card": {
       "nodeId": "asplit_netty_channel",
       "title": "Channel",
@@ -157536,7 +157606,9 @@
     "id": "asplit_channel_pipeline",
     "label": "ChannelPipeline",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "ChannelPipeline"
+    ],
     "card": {
       "nodeId": "asplit_channel_pipeline",
       "title": "ChannelPipeline",
@@ -157553,7 +157625,9 @@
     "id": "asplit_rabbitmq_exchange",
     "label": "RabbitMQ 交换机",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "RabbitMQ 交换机"
+    ],
     "card": {
       "nodeId": "asplit_rabbitmq_exchange",
       "title": "RabbitMQ 交换机",
@@ -157570,7 +157644,9 @@
     "id": "asplit_routing_key",
     "label": "路由键",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "路由键"
+    ],
     "card": {
       "nodeId": "asplit_routing_key",
       "title": "路由键",
@@ -157587,7 +157663,9 @@
     "id": "asplit_svc_registry_discovery",
     "label": "服务注册与发现",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "服务注册与发现"
+    ],
     "card": {
       "nodeId": "asplit_svc_registry_discovery",
       "title": "服务注册与发现",
@@ -157604,7 +157682,9 @@
     "id": "asplit_load_balancing",
     "label": "负载均衡",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "负载均衡"
+    ],
     "card": {
       "nodeId": "asplit_load_balancing",
       "title": "负载均衡",
@@ -157621,7 +157701,9 @@
     "id": "asplit_svc_invocation",
     "label": "服务调用",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "服务调用"
+    ],
     "card": {
       "nodeId": "asplit_svc_invocation",
       "title": "服务调用",
@@ -157638,7 +157720,9 @@
     "id": "asplit_svc_fault_tolerance",
     "label": "服务容错",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "服务容错"
+    ],
     "card": {
       "nodeId": "asplit_svc_fault_tolerance",
       "title": "服务容错",
@@ -157655,7 +157739,9 @@
     "id": "asplit_config_center",
     "label": "配置中心",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "配置中心"
+    ],
     "card": {
       "nodeId": "asplit_config_center",
       "title": "配置中心",
@@ -157672,7 +157758,9 @@
     "id": "asplit_message_bus",
     "label": "消息总线",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "消息总线"
+    ],
     "card": {
       "nodeId": "asplit_message_bus",
       "title": "消息总线",
@@ -157689,7 +157777,9 @@
     "id": "asplit_service_governance",
     "label": "服务治理",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "服务治理"
+    ],
     "card": {
       "nodeId": "asplit_service_governance",
       "title": "服务治理",
@@ -157706,7 +157796,9 @@
     "id": "asplit_newsql",
     "label": "NewSQL",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "NewSQL"
+    ],
     "card": {
       "nodeId": "asplit_newsql",
       "title": "NewSQL",
@@ -157723,7 +157815,9 @@
     "id": "asplit_zrank",
     "label": "ZRANK",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "ZRANK"
+    ],
     "card": {
       "nodeId": "asplit_zrank",
       "title": "ZRANK",
@@ -157740,7 +157834,9 @@
     "id": "asplit_zrange",
     "label": "ZRANGE",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "ZRANGE"
+    ],
     "card": {
       "nodeId": "asplit_zrange",
       "title": "ZRANGE",
@@ -157757,7 +157853,9 @@
     "id": "asplit_hot_data",
     "label": "热点数据",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "热点数据"
+    ],
     "card": {
       "nodeId": "asplit_hot_data",
       "title": "热点数据",
@@ -157774,7 +157872,9 @@
     "id": "asplit_cold_data",
     "label": "冷数据",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "冷数据"
+    ],
     "card": {
       "nodeId": "asplit_cold_data",
       "title": "冷数据",
@@ -157791,7 +157891,9 @@
     "id": "asplit_module_export",
     "label": "模块导出",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "模块导出"
+    ],
     "card": {
       "nodeId": "asplit_module_export",
       "title": "模块导出",
@@ -157808,7 +157910,9 @@
     "id": "asplit_module_import",
     "label": "模块导入",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "模块导入"
+    ],
     "card": {
       "nodeId": "asplit_module_import",
       "title": "模块导入",
@@ -157825,7 +157929,9 @@
     "id": "asplit_js_control_flow",
     "label": "控制流",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "控制流"
+    ],
     "card": {
       "nodeId": "asplit_js_control_flow",
       "title": "控制流",
@@ -157842,7 +157948,9 @@
     "id": "asplit_function_design",
     "label": "函数设计",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "函数设计"
+    ],
     "card": {
       "nodeId": "asplit_function_design",
       "title": "函数设计",
@@ -157859,7 +157967,9 @@
     "id": "asplit_js_expression",
     "label": "表达式",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "表达式"
+    ],
     "card": {
       "nodeId": "asplit_js_expression",
       "title": "表达式",
@@ -157876,7 +157986,9 @@
     "id": "asplit_graph_search",
     "label": "图搜索算法",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "图搜索算法"
+    ],
     "card": {
       "nodeId": "asplit_graph_search",
       "title": "图搜索算法",
@@ -157893,7 +158005,9 @@
     "id": "asplit_search",
     "label": "查找",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "查找"
+    ],
     "card": {
       "nodeId": "asplit_search",
       "title": "查找",
@@ -157910,7 +158024,9 @@
     "id": "asplit_blocking_io",
     "label": "阻塞非阻塞 I/O",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "阻塞非阻塞 I/O"
+    ],
     "card": {
       "nodeId": "asplit_blocking_io",
       "title": "阻塞非阻塞 I/O",
@@ -157927,7 +158043,9 @@
     "id": "asplit_sync_async_io",
     "label": "同步异步 I/O",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "同步异步 I/O"
+    ],
     "card": {
       "nodeId": "asplit_sync_async_io",
       "title": "同步异步 I/O",
@@ -157944,7 +158062,9 @@
     "id": "asplit_select_io",
     "label": "select",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "select"
+    ],
     "card": {
       "nodeId": "asplit_select_io",
       "title": "select",
@@ -157961,7 +158081,9 @@
     "id": "asplit_epoll",
     "label": "epoll",
     "role": "plain",
-    "tags": [],
+    "tags": [
+      "epoll"
+    ],
     "card": {
       "nodeId": "asplit_epoll",
       "title": "epoll",
@@ -158024,7 +158146,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "已偏向态（记录线程 ID）"
+      "已偏向态(记录线程 ID)"
     ],
     "kind": "state",
     "card": {
@@ -158046,7 +158168,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "撤销中（到达安全点）"
+      "撤销中(到达安全点)"
     ],
     "kind": "state",
     "card": {
@@ -158068,7 +158190,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "已撤销（升级轻量级锁）"
+      "已撤销(升级轻量级锁)"
     ],
     "kind": "state",
     "card": {
@@ -158090,7 +158212,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "批量重偏向（epoch 递增）"
+      "批量重偏向(epoch 递增)"
     ],
     "kind": "state",
     "card": {
@@ -158112,7 +158234,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "批量撤销（整类禁用偏向）"
+      "批量撤销(整类禁用偏向)"
     ],
     "kind": "state",
     "card": {
@@ -158214,7 +158336,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "写锁申请（tryAcquire）"
+      "写锁申请(tryAcquire)"
     ],
     "kind": "state",
     "card": {
@@ -158236,7 +158358,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "写锁持有（独占可重入）"
+      "写锁持有(独占可重入)"
     ],
     "kind": "state",
     "card": {
@@ -158280,7 +158402,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "写锁释放（tryRelease）"
+      "写锁释放(tryRelease)"
     ],
     "kind": "state",
     "card": {
@@ -158302,7 +158424,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "读锁申请（tryAcquireShared）"
+      "读锁申请(tryAcquireShared)"
     ],
     "kind": "state",
     "card": {
@@ -158324,7 +158446,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "读锁持有（共享可重入）"
+      "读锁持有(共享可重入)"
     ],
     "kind": "state",
     "card": {
@@ -158368,7 +158490,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "读锁释放（tryReleaseShared）"
+      "读锁释放(tryReleaseShared)"
     ],
     "kind": "state",
     "card": {
@@ -158522,7 +158644,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "引用定位（对象可用）"
+      "引用定位(对象可用)"
     ],
     "kind": "state",
     "card": {
@@ -158544,7 +158666,7 @@
     "role": "axiom",
     "dimensions": [],
     "tags": [
-      "TLAB（线程本地分配缓冲）"
+      "TLAB(线程本地分配缓冲)"
     ],
     "kind": "concept",
     "card": {
@@ -158610,7 +158732,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "内存溢出（OutOfMemoryError）"
+      "内存溢出(OutOfMemoryError)"
     ],
     "kind": "state",
     "card": {
@@ -158706,7 +158828,7 @@
       "java"
     ],
     "tags": [
-      "待提交（一级缓存有变更）"
+      "待提交(一级缓存有变更)"
     ],
     "kind": "state",
     "card": {
@@ -158802,7 +158924,7 @@
       "java"
     ],
     "tags": [
-      "SqlSessionFactory（单例）"
+      "SqlSessionFactory(单例)"
     ],
     "kind": "concept",
     "card": {
@@ -158846,7 +158968,7 @@
     "role": "conclusion",
     "dimensions": [],
     "tags": [
-      "fork 子进程（写时复制）"
+      "fork 子进程(写时复制)"
     ],
     "kind": "state",
     "card": {
@@ -158986,6 +159108,7 @@
       "查询处理"
     ],
     "tags": [
+      "客户端鉴权",
       "认证与权限校验"
     ],
     "kind": "state",
@@ -159116,7 +159239,7 @@
       "查询处理"
     ],
     "tags": [
-      "Connection Pool（连接池）"
+      "Connection Pool(连接池)"
     ],
     "kind": "concept",
     "card": {
@@ -159140,7 +159263,7 @@
       "java"
     ],
     "tags": [
-      "Executor（插件点）"
+      "Executor(插件点)"
     ],
     "kind": "concept",
     "card": {
@@ -159164,7 +159287,7 @@
       "java"
     ],
     "tags": [
-      "StatementHandler（插件点）"
+      "StatementHandler(插件点)"
     ],
     "kind": "concept",
     "card": {
@@ -159188,7 +159311,7 @@
       "java"
     ],
     "tags": [
-      "ParameterHandler（插件点）"
+      "ParameterHandler(插件点)"
     ],
     "kind": "concept",
     "card": {
@@ -159212,7 +159335,7 @@
       "java"
     ],
     "tags": [
-      "ResultSetHandler（插件点）"
+      "ResultSetHandler(插件点)"
     ],
     "kind": "concept",
     "card": {

@@ -1,0 +1,175 @@
+{
+  "batchId": "nodepool-tag-normalization",
+  "title": "外部打标归一化批次 —— tags[0] 规范名归一 127 键 + 悬空视图原子清理 + 1 条题库答案完善（外部会话写入，经逐键定性后独立提交）",
+  "baseRef": "5a605e3",
+  "baseRefNote": "**修复性批次**，不是本任务的产出批次。它的唯一作用是：把已在工作树里稳定存在的外部改动推进 HEAD，从而解开 phase1 的 Ancestor Gate。顺序：**nodepool-tag-normalization → phase1**。",
+  "preBatchSnapshot": "data/backups/phase1-oop-os-2026-09-14T07-37-26-424Z",
+  "preBatchSnapshotNote": "本批的祖先基线**就是这个备份目录**：`HEAD + 本批改动 ≡ 该目录`。因为外部改动发生在 HEAD 之后、本次 apply 之前，落盘前备份恰好捕获了「HEAD + 外部改动」这一中间态。",
+  "commitSubjectHint": "data: 外部打标归一化落盘 — tags[0] 规范名归一 127 键 + 悬空视图原子清理 3 处（外部会话 13:00 写入，经逐键定性后独立提交）",
+  "status": "REGISTERED_NOT_EXECUTED",
+  "requiresGovernanceApproval": true,
+  "requiresGovernanceApprovalNote": "本批内容是**外部会话**写入的改动。项目既有纪律（T7 登记的 `nodepool-external-drift.json` 注记）为「由其他会话负责提交；本台账仅登记事实，不代管」。本次改为由本任务独立提交，属对该纪律的**正式解除**，须用户明确授权后方可执行。",
+
+  "writeSet": [
+    "data/node-pool.json",
+    "data/questions.json",
+    "scripts/classify-nodepool-external-drift.mjs",
+    "outputs/tree-violation-scan/nodepool-drift-classification.json",
+    "outputs/tree-violation-scan/nodepool-drift-classification.md",
+    "batch-manifests/nodepool-tag-normalization.json"
+  ],
+  "writeSetNote": "`data/node-pool.json` 同时对 phase1 的 writeSet 可见 —— 这不是冲突：两个批次提交的是**同一个文件的两个不同内容态**（本批提交「HEAD + 外部改动」，phase1 随后提交「+ 本批 6 新增 1 修改」）。git 是先后两次提交，manifest 只声明路径集合，内容由提交时的 index 决定。",
+
+  "governanceSet": [],
+  "declaredExternalSet": [],
+  "excludedSet": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "data/",
+    "src/",
+    "docs/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t3-dryrun.json",
+    "batch-manifests/t3-p0.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "`data/tree-data.json` / `knowledge-edges.json` / `evolution-events.json` 的差异**全部**属 phase1（实测外部差异为 0），故精确排除，不得进本批。其余为其它批次的 manifest，精确列出。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/nodepool-drift-classification.json",
+    "outputs/tree-violation-scan/nodepool-drift-classification.md"
+  ],
+
+  "expectedDelta": {
+    "note": "本批**不改任何工作树文件** —— 用 `git update-index --cacheinfo` 把落盘前备份的 blob 直接写进 index，工作树一个字节都不动。phase1 的 6 新增 + 1 修改原地保留在 `git status` 的 ` M` 里。",
+    "data/node-pool.json": {
+      "headBlob": "cbc7a1712cbc1f7a0d74d1cc9fd00226970e482a",
+      "indexBlob": "fa533a3aa1dba0ce6c0bb4c436a7ac3345d9a496",
+      "bytes": 12649591,
+      "keys": 3849,
+      "contentDiffKeysVsHead": 127,
+      "addedKeys": 0,
+      "removedKeys": 0,
+      "carriesPhase1Artifacts": 0
+    },
+    "data/questions.json": {
+      "touchedByPhase1": false,
+      "contentDiffKeysVsHead": 1,
+      "keys": ["q_cmp_spring_ejb（字段 updatedAt / answer）"]
+    }
+  },
+
+  "externalChangeProfile": {
+    "writtenAt": "2026-09-14T05:00:11.127Z",
+    "writtenAtEvidence": "被改实体的自报 `updatedAt` = 1789362011127，与 `data/questions.json` 的 mtime 差 <5s 吻合（本任务从未触碰该文件）",
+    "silentHoursAtRegistration": 7.42,
+    "convergenceVerdict": "CONVERGED —— 一次性写入后 7.42 小时零变化；且落盘前备份 md5 ≡ apply-baseline md5，证明 127 键早于本次 apply",
+    "tags": {
+      "total": 125,
+      "PREPEND_ONE_AT_HEAD": 76,
+      "PURE_REORDER": 26,
+      "SET_CHANGE": 23,
+      "setChangeComposition": "22 条为「全角括号 → 半角」的等价值替换，1 条为删除重复标签"
+    },
+    "tagsFirstElementAudit": {
+      "exactEqualOwnerLabel": 101,
+      "bracketVariantOfOwnerLabel": 26,
+      "onlyInTreeName": 0,
+      "suspiciousStaleOrForeign": 0,
+      "note": "关键判据：`tags[0]` 是 alias-bearing 位（宪法 §3.6）。若这批把 tags[0] 设成了某个实体的**旧名**，即为 T4 型 stale value，不可提交。实测 127/127 均可解释为「实体自身规范名」，0 例可疑。"
+    },
+    "viewDimensions": {
+      "nodes": 3,
+      "removedAtoms": 4,
+      "allDangling": true,
+      "removedList": [
+        { "node": "n_55jiel25", "label": "计算机科学", "atom": "n_9hr0nvvv", "existsInPool": false },
+        { "node": "n_web_dev", "label": "Web 开发", "atom": "react_export_import", "existsInPool": false },
+        { "node": "asplit_java_io_group", "label": "java.io", "atom": "k_file_console_group", "existsInPool": false },
+        { "node": "asplit_java_io_group", "label": "java.io", "atom": "k_java_io_nio", "existsInPool": false }
+      ],
+      "note": "移除的都是**池中不存在的悬空 nodeId** → 属清理修复，非破坏。"
+    },
+    "card": {
+      "keys": 1,
+      "detail": [
+        { "id": "k_1789213558020_6rswrz3", "label": "EJB（企业 JavaBeans）", "fieldAdded": "rootContent", "tabsUnchanged": true }
+      ],
+      "note": "与 HEAD 提交 `5a605e3` 的「唯一缺失 content 的 tab 补齐」同源工作 —— 补齐的是 `card.rootContent`。"
+    },
+    "label": { "keys": 0 }
+  },
+
+  "invariants": {
+    "cardNodeIdEqPoolKey": { "violated": 0, "note": "真正的不变量" },
+    "noKeyAddOrRemove": { "violated": 0, "note": "HEAD 3849 键 = 备份 3849 键" },
+    "externalIntersectPhase1": { "count": 0 },
+    "decomposesHeadToCurrent": { "ok": true, "note": "6 新增 + 128 内容差异 = 外部 0+127 + 本批 6+1" },
+    "tagsFirstElementExplainable": { "suspicious": 0 },
+    "viewDimensionsRemovalsAllDangling": { "ok": true },
+    "backupEqualsApplyBaselineMd5": { "ok": true },
+    "externalPrecedesApply": { "ok": true }
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "本批不改代码、不改工作树，验收 = tracked 42/42 保持全绿（提交动作本身不改变测试基线）。"
+  },
+
+  "verification": {
+    "tool": "scripts/classify-nodepool-external-drift.mjs",
+    "whyNotVerifyPhase1Script": "`verify-phase1-commit-readiness.mjs` 的 Ancestor Gate 判据是「HEAD 必须已含所有非本批改动」——那是 **phase1 批次**的要求。对本批而言，「HEAD ≠ 落盘前备份（127 键）」正是**本批要消除的对象**，用同一判据会必然报 BLOCK，属于判据误用而非缺陷。故本批使用专属核验。",
+    "criteria": [
+      "index blob ≡ 落盘前备份 blob（byte-exact）",
+      "落盘前备份 md5 ≡ apply-baseline.dataMd5['node-pool.json']",
+      "待提交内容**不含** phase1 的 6 新增 / 1 修改（carriesPhase1Artifacts = 0）",
+      "外部改动不含键增删、tags[0] 无旧值残留、viewDimensions 移除项全为悬空引用",
+      "外部改动早于本次 apply（非本任务产物）"
+    ],
+    "verdict": "DRIFT_DECOMPOSABLE"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "**提交后** HEAD:data/node-pool.json 的 blob 必须 ≡ data/backups/phase1-oop-os-2026-09-14T07-37-26-424Z/node-pool.json 的 blob",
+      "expectedBlob": "fa533a3aa1dba0ce6c0bb4c436a7ac3345d9a496",
+      "preCommitState": "HEAD blob = cbc7a171…（≠ 目标）—— 这是本批存在的理由，不是缺陷",
+      "mustBeEmpty": []
+    },
+    "timeline": {
+      "definition": "本批提交后，`git status` 中 `data/node-pool.json` 必须仍为 ` M`，且 `git diff HEAD -- data/node-pool.json` 必须**只剩** phase1 的 6 新增 + 1 修改",
+      "isolationAssertion": "提交不得带走任何 phase1 产物"
+    },
+    "delta": {
+      "definition": "本批 diff 的 keys 变化必须恰为「0 新增 + 0 删除 + 127 内容差异」"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    }
+  },
+
+  "rollback": {
+    "how": "`git reset --hard 5a605e3c63d5d3f0e607452951cfe1907898759f`（提交后立即）或 `git revert <本批 sha>`（已推送后）",
+    "safety": "工作树从未被本批修改，故 reset 后工作树内容不变，仅 HEAD 回退；备份态 blob 已写入对象库，可反复重建。",
+    "precondition": "执行前后各做一次 `md5sum data/node-pool.json`（必须恒为 `ff614d82ab6f0fa71ddfeaf4dad35384`，即 apply 后态）"
+  },
+
+  "nextSteps": [
+    "用户授权（`requiresGovernanceApproval`）→ 执行 §6.1 的 blob 级提交；",
+    "提交后复验：HEAD blob ≡ fa533a3a… ∧ 工作树 ` M` 只剩 6 新增 + 1 修改；",
+    "重跑 `node scripts/verify-phase1-commit-readiness.mjs --batch phase1` → ancestorGate 应转 ✅；",
+    "phase1 按既有候选集提交（`node scripts/verify-phase1-commit-readiness.mjs --batch phase1` 生成的 pathspec，勿手写）。"
+  ],
+
+  "rationale": {
+    "whyThisIsNotScopeExpansion": "本批不改任何本任务文件、不改工作树、不引入新语义 —— 只是把**已经存在且已收敛**的外部改动推进 HEAD，使 phase1 的 Ancestor Gate 恢复其本来语义（「提交 diff ≡ 本批操作」）。",
+    "whyBlobLevel": "git 暂存是文件级，无法只暂存「外部部分」。blob 级 `--cacheinfo` 是唯一能在**不触碰工作树**的前提下把 index 指向中间态的机制，因此最安全且可精确回滚。",
+    "whyNotMergeIntoPhase1": "并入 phase1 会让该提交同时含两个归属方的内容，必须放宽 Ancestor Gate 判据才能变绿 —— 触碰「不要靠重定义期望值让闸门变绿」的纪律。"
+  }
+}
