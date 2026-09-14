@@ -6,7 +6,7 @@
 > 维护约定：每条线程必须有 `状态` / `依据` / `下一步触发条件` 三项；状态词只用
 > `✅ 完成` · `⏸️ 阻塞` · `📝 已登记` · `🔍 待裁决`（不得混用「不同」与「异常」）。
 
-最后更新：2026-09-14（T2 / T7 / T9 关闭；T3-P0 apply `e7a7627`；**T3-P0.1 已裁决并 apply** —— 采用「卸树留池」→ `BLOCK 3 → 0`、生效范围 `133 → 130`）
+最后更新：2026-09-14（T2 / T7 / T9 关闭；T3-P0 apply `e7a7627`；T3-P0.1 apply `120b9ee`；**T3-P1 已批量裁决并 apply** —— 130/130 APPROVED、`MAPPING_FREEZE_OK`、树内 `asplit_*` 身份引用 `130 → 0`，**主线 T3 收口**）
 
 ---
 
@@ -18,8 +18,8 @@ Phase 1 APPLY        ✅   已提交 16288ff（树 3219 · 池 3855 · 边 4166�
 T2 · 阶段一提交      ✅   已关闭 —— 真阻塞项是「单文件双批次」，不是「等外部会话」
 T7 · 外部打标 127    ✅   已提交 0ccecae（blob 级提交，工作树零触碰）
 T9 · T3-P0 前置      ✅   已提交 e7a7627（treeId 7 改 + treebind 边 id 46 改 · 零结构变更）
-T3 · asplit_* 语义化 🔷   主线**唯一**开放线程（生效 130 · HIGH 92 / MEDIUM 38 / BLOCK 0）
-T5 · 检测器独立化    🔧   引擎已建成，待 T3 apply 时同步出证
+T3 · asplit_* 语义化 ✅   **本批收口** —— 130/130 APPROVED · `MAPPING_FREEZE_OK` · 树内 asplit_* 130→0
+T5 · 检测器独立化    🔧   引擎已建成 · ① 已执行（T3-P1 apply 时同步出证：130 案例命中 0）
 ```
 
 **主线（T3）后续路径**：
@@ -29,17 +29,21 @@ T3-P0 7 个祖先语义化                     ✅ 已提交 e7a7627（8 门就�
   ↓
 133 项重新计算                            ✅ HIGH 92 / MEDIUM 38 / BLOCK 3
   ↓
-3 条 MySQL 服务层 BLOCK                   ✅ 用户裁决「卸树留池」→ 已 apply（见 T3-P0.1）
+3 条 MySQL 服务层 BLOCK                   ✅ 用户裁决「卸树留池」→ 已 apply（T3-P0.1 / 120b9ee）
                                           删 3 个 tree mount · 池实体 3 个全留 · 维度原子 3/3 可解析
                                           → BLOCK 3 → 0 · 生效范围 133 → 130
   ↓
 T10 · 导入命名空间 id 充当持久 id          📝 已登记，**明令不并入 T3**，T3 冻结后另立
   ↓
-38 条 MEDIUM review                       ⏭ T3-P1
+38 条 MEDIUM review                       ✅ **T3-P1：批量证据裁决（不再逐条开会）**
+                                          10 条件统一执行 → 130/130 APPROVED · blocked 0
+                                          判据修复：dry-run 谓词过度排除 `^tree_`（23 条受影响，crossHash=0）
+                                          命名空间从 ACM 分类路径拉回**域命名空间**（D2 namespacePolicy）
   ↓
-映射冻结（130 ≈ 130）                      ⏭ MAPPING_FREEZE_OK
+映射冻结（130 ≈ 130）                      ✅ `MAPPING_FREEZE_OK`（8/8 冻结前置条件）
   ↓
-T3 apply → 独立验证 → T3 commit
+T3 apply → 独立验证 → T3 commit            ✅ apply 9/9 门 · 独立验证 20/20 · UI 实测 11/11
+                                          tree 3216 / 边 4163 / 池 3855 全不变；只改 130 个 treeId + 145 条 treebind id
   ↓
 OOP / CS / DB / 虚拟化 / I/O 结构批次
   ↓
@@ -58,9 +62,10 @@ Problem Model
 
 | # | 线程 | 状态 | 依据 / 详情 | 下一步触发条件 |
 |---|---|---|---|---|
-| T3 | **`asplit_*` treeId 语义化** | 🔷 进行中（前置 T9 / T3-P0.1 均已解除 → **生效范围 130**，读数 HIGH 92 / MEDIUM 38 / **BLOCK 0**） | 登记：`batch-asplit-treeid-semanticization-plan.md` · `asplit-treeid-inventory.json` · `asplit-treeid-ref-matrix.json` · `scripts/scan-asplit-treeid-refs.mjs`。<br>pre-P0 dry-run：`t3-dryrun-report.md`（HIGH 68 / MEDIUM 38 / BLOCK 27）· `t3-mapping-review.md`。<br>**post-P0 重算**：`t3-dryrun-report-after-p0.md` · `t3-mapping-review-after-p0.md` · `asplit-treeid-mapping.draft-after-p0.json`。<br>**post-P0.1 重算**：`t3-dryrun-report-after-p01.md` · `t3-mapping-review-after-p01.md` · `asplit-treeid-mapping.draft-after-p01.json`（`DRY_RUN_OK` / `MAPPING_FREEZE_PENDING_REVIEW`） | **①** ✅ 前置已解除（T9 apply 完成 → **HIGH 92 / MEDIUM 38 / BLOCK 3**）；<br>**②** ✅ **3 条 MySQL 服务层 BLOCK 已按「卸树留池」处置并 apply**（T3-P0.1）：只删 3 个 tree mount、池实体 3 个全留、宿主 `viewDimensions` 原子引用不变 → `BLOCK 3 → 0`、生效范围 `133 → 130`。**未造任何 `tree_mysql_*` 名字**（该域已有 9,758 字 / 37 节点规范子树）⇒ 这 3 项已从「treeId 语义化问题」转化为正确的**引用/挂载治理结果**；<br>**③** ⏭ **T3-P1**：逐条裁决 38 条 MEDIUM（`MAPPING_FREEZE_PENDING_REVIEW` 的唯一待办，非闸门失败）；<br>**④** 冻结映射（`pending=0 ∧ needs-review=0 ∧ blocked=0 ∧ gap≤3 ∧ 语义来源校验通过`）→ `MAPPING_FREEZE_OK` → 才可 apply；<br>**⑤** ⚠️ 冻结前须复核 **D1 操作化读法**（见 `t3-p0-naming.proposal.json` → `openDecisions[0].operationalization.ambiguityFlag`）。**1521 条不扩范围** |
+| T3 | **`asplit_*` treeId 语义化** | ✅ **已收口**（T3-P1 批量裁决 + apply）| 登记：`batch-asplit-treeid-semanticization-plan.md` · `asplit-treeid-inventory.json` · `asplit-treeid-ref-matrix.json` · `scripts/scan-asplit-treeid-refs.mjs`。<br>pre-P0：`t3-dryrun-report.md`（HIGH 68 / MEDIUM 38 / BLOCK 27）。<br>post-P0：`t3-dryrun-report-after-p0.md` · `asplit-treeid-mapping.draft-after-p0.json`。<br>post-P0.1：`t3-dryrun-report-after-p01.md` · `t3-mapping-review-after-p01.md` · `asplit-treeid-mapping.draft-after-p01.json`（`DRY_RUN_OK` / `MAPPING_FREEZE_PENDING_REVIEW`）。<br>**本批（T3-P1）**：`t3-p1-adjudication.md` · `asplit-treeid-mapping.FINAL.json`（`MAPPING_FREEZE_OK`）· `t3-p1-apply-{baseline,plan,preflight,report}.{json,md}` · `t3-p1-apply-verification.md` · `t3-p1-ui-probe.md` · `scripts/{adjudicate-t3-p1-mapping,apply-t3-p1-asplit-semanticization,verify-t3-p1-apply}.mjs` | **①** ✅ 前置 T9 / T3-P0.1 均已解除；<br>**②** ✅ T3-P0.1：3 条 MySQL 服务层 BLOCK 按「卸树留池」处置 → `BLOCK 3 → 0`、生效范围 `133 → 130`；<br>**③** ✅ **T3-P1：38 条 MEDIUM 批量证据裁决**（用户 2026-09-14 定性「不要再当成 38 次人工会议」→ 从「逐项审批」切换到「批量证据裁决」）：<br>　· **判据修复（根因）**：`dryrun-t3-asplit-semanticization.mjs:104` 的 `TREE_SHAPE=/^tree_[a-z0-9_]+$/` **附加了 `^tree_` 前缀要求**，把本树既有的人工语义 id 族（`theory_domain_*` / `react_root` / `demo_*` / `chapter_*`）误判为「非语义」→ 命名空间被抬到 **ACM CCS 分类层**，产出 `tree_acm2012_software_notations_tools_programming_*` 这类 6 段路径 id。实测 **23/38** 条命中更近语义祖先，**crossHash = 0**（未放宽到时间戳）；<br>　· 该缺陷同时造成一条**硬规则违反**：`asplit_s132_base_theory` 在冻结谓词下产出含 13 位时间戳的 `tree_acm2012_systems_k_1783170416767_yaym2f` → 修正后为 `tree_distributed_systems_base_theory`，违反自动消失；<br>　· **命名空间回到 D2 规范**：`namingRule.namespacePolicy` 明文禁止「祖先长 id 的机械拼接」→ 39 项重推导为域命名空间（`java_concurrency` / `java_thread` / `java_syntax` / `pl_theory` / `compiler` / `db` / `javascript` / `jvm` / `operating_systems` / `distributed_systems` / `algorithms` …），91 项沿用既定值且**零漂移**（不变性证明）；<br>　· **D1 操作化读法复核**（⑤ 与 `openDecisions[0].ambiguityFlag` 的强制门）：用 130 条真实 id 复核后，以 D2 `namespaceRegistry` 的**子树覆盖**语义裁定为 **R2**（一律剥离父末段）—— 因为 registry 把命名空间定义为「子树域」而非「父节点全名」，R1 与 registry 自相矛盾；R1 备选及其逐条 delta 已留在报告与 FINAL.json 里，**一句话即可翻转**；<br>**④** ✅ 冻结：`MAPPING_FREEZE_OK`，8/8 前置条件（`approved 130 / pending 0 / needs-review 0 / blocked 0`，档位迁移 HIGH→HIGH 92 · MEDIUM→MEDIUM 27 · MEDIUM→HIGH 11）；<br>**⑤** ✅ apply：9/9 门 · 独立验证 **20/20** `INDEPENDENT_VERIFY_PASS` · 写后复验 `REAL_APPLY_VERIFIED` · UI 无头实测 **11/11**。树 3216 / 边 4163 / 池 3855 **全不变**；只改 **130 个 treeId + 145 条 treebind 边 id**；非 id 字段变化 **0**；endpoint **零触碰**；池与题库**逐字节零改动**；**树内 `asplit_*` 身份引用 130 → 0**；悬空 nodeRef `0 → 0`；悬空 treebind `18 → 18`（批前既有）。<br>**⑥** ⚠️ 本批另修一个**漏改陷阱**：145 条 treebind 中有 **4 条**另一端是 `projection:*`（自身含 `:`），P0 用的非贪婪 `/^treebind:(.+?):(.+)$/` 在这 4 条上会**错切并漏改** → 改用「在已知 treeId 全集里找合法切分点」的冒号安全解析器，独立验证第 11 条点名了这 4 条。**1521 条不扩范围**（另批）|
+| T12 | **T3-P1 · 130 项 asplit_* treeId 语义化（批量证据裁决）** | ✅ 完成（见 `batch-manifests/t3-p1.json`） | **裁决形态**：10 条件统一执行 + 8/8 冻结前置 + 130/130 APPROVED，**不再逐条人工确认**。裁决脚本只读真源，产出 FINAL 映射与证据报告；落盘与独立验证各自独立成脚本（apply 9 门 / verify 20 断言）。<br>**判据纪律（宪法 §3.2）**：修正的是**谓词的过度排除**（附加 `^tree_` 前缀要求，与文件自身 98–103 行注释声明的意图不符），**不是**为了闸门变绿而改期望值 —— 证据 = 23 条受影响 + `crossHash=0` 反例分析 + 91 条不变性零漂移。<br>**T5 检测器已按登记同步出证**：130 案例喂入 `scripts/rename-evidence.mjs` → **有命中 0 · 命中点 0 · 严重度全 🟢**（"改名后全库无旧值残留"），且契约自检通过（无 `action`/`autoFix`）—— 与 `verify-t3-p1-apply.mjs` 属**不同引擎的互相确认**（T5 查字段级 stale signature，verify 查树/边全序列化旧 id 串）。 |
 | T10 | **导入命名空间 id 充当持久实体 id**（P0.1 核验顺带发现，**未排期**） | 📝 已登记 · 等 T3 冻结后再裁决 | 详见 `t3-p0.1-mysql-service-layer-verdict.md` §六。三项均为**独立于 T3** 的 id 形态债：<br>① **`projection:*` 树 id 237 个（占全树 7.4%）**，其中 **227 个自身有正文**（`MySQL 查询执行计划` 273 字 / 24 后代 · `慢查询日志` 571 字 / 5 后代 · `projection:mysql-term:*` 172 个挂正常语义父下）⇒ **「以 `projection:` 开头」本身不足以定罪**，需单独裁决其合法性；<br>② `asplit_s2_asplit_*` 双前缀 **56 / 133**；<br>③ `atomic_atomic_*` 双前缀 **9** | **明令不得并入 T3**，也不得在 P0.1 顺带处置。T3 冻结完成后单独立项裁决 |
-| T5 | **字段一致性检测器独立化** | 🔧 引擎已建成 | `scripts/rename-evidence.mjs`（**evidence-only**，含 `baseCount`/`counterexamples`/`falsePositiveAnalysis`，内建 action/autoFix 自检）· 范例 `outputs/rename-evidence/case-rc01.json` · `batch-manifests/t5-rename-evidence.json` · **宪法 3.6** · ADR-0002 | ① T3 apply 时同步用它出证；<br>② ⏭ phase1 已提交（`16288ff`）→ **可以把 `verify-phase1-commit-readiness.mjs` 内联的 `residuals` 改为 import 本引擎**（此前 import 会让 phase1 依赖未入库文件）；<br>③ 后续 rename 批次统一复用 |
+| T5 | **字段一致性检测器独立化** | 🔧 引擎已建成 · **① 已执行** | `scripts/rename-evidence.mjs`（**evidence-only**，含 `baseCount`/`counterexamples`/`falsePositiveAnalysis`，内建 action/autoFix 自检）· 范例 `outputs/rename-evidence/case-rc01.json` · `batch-manifests/t5-rename-evidence.json` · **宪法 3.6** · ADR-0002 | ① ✅ **T3-P1 apply 时已同步出证**：`outputs/rename-evidence/t3-p1-evidence.json`（130 案例 · **命中 0** · 全 🟢 · 契约自检通过）；基数读数：字段值=某实体 label 10458/3855 · `card.nodeId ≠ 池键` **0**；<br>② ⏭ phase1 已提交（`16288ff`）→ **可以把 `verify-phase1-commit-readiness.mjs` 内联的 `residuals` 改为 import 本引擎**（此前 import 会让 phase1 依赖未入库文件）；<br>③ 后续 rename 批次统一复用 |
 
 ---
 

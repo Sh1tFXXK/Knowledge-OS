@@ -1,0 +1,199 @@
+{
+  "batchId": "t3-p1",
+  "title": "T3-P1 · asplit_* treeId 语义化（130 项批量证据裁决 + 落盘）",
+  "baseRef": "2518431",
+  "baseRefNote": "前序提交链：… → e7a7627（T3-P0 apply）→ 9bcdd30 → 120b9ee / c5f3247（T3-P0.1 apply + 登记）→ 2518431（t3-p0.1 excludedSet 补登）。本批从前述干净基线出发。按「一个批次 / 一个 manifest / 一个 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」范式执行。",
+  "preBatchSnapshot": "data/backups/t3-p1-2026-09-14T14-34-44-737Z",
+  "preBatchSnapshotNote": "快照含全部 5 个 data 文件，且已逐字节核验 = `HEAD:data/*`（5/5 `Buffer.compare === 0`，见 `gates.ancestorGate`）⇒ 提交后的数据 diff **恰好等于**本批操作，零夹带。",
+  "commitSubjectHint": "data: T3-P1 asplit_* treeId 语义化 130 项 — tree 3216/边 4163/池 3855 全不变 · 树内 asplit_* 身份引用 130→0（T3 冻结映射 130/130 APPROVED）",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/adjudicate-t3-p1-mapping.mjs",
+    "scripts/apply-t3-p1-asplit-semanticization.mjs",
+    "scripts/verify-t3-p1-apply.mjs",
+    "outputs/tree-violation-scan/asplit-treeid-mapping.FINAL.json",
+    "outputs/tree-violation-scan/t3-p1-adjudication.md",
+    "outputs/tree-violation-scan/t3-p1-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p1-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p1-apply-preflight.md",
+    "outputs/tree-violation-scan/t3-p1-apply-report.md",
+    "outputs/tree-violation-scan/t3-p1-apply-verification.md",
+    "outputs/tree-violation-scan/t3-p1-ui-probe.md",
+    "outputs/tree-violation-scan/t3-p1-rename-cases.json",
+    "outputs/rename-evidence/t3-p1-evidence.json",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/t3-p1.json"
+  ],
+  "writeSetNote": "三类需要解释：① 三个 data 文件是本批**唯一的数据写入**（tree 改 130 个 id、edges 改 145 条 treebind id、evolution 追加 1 条审计事件）。② 三个脚本：`adjudicate-*`（只读裁决，产出 FINAL 映射）/ `apply-*`（落盘，9 闸门）/ `verify-*`（独立验证，20 断言）。③ `governance-ledger.md` 在本批之前处于「T3-P1 待裁决」态，本批是**裁决 + apply**的那个批次，故由本批把它推到新状态（T3 主线关闭），不另造纯登记提交。④ 一次性浏览器探针 `scripts/shell-fusion/probe-t3-p1.mjs` **不进 writeSet** —— 按 AGENTS.md「临时产物用后即删」，已删除；其断言与结论留在 `t3-p1-ui-probe.md`（与 T3-P0 / P0.1 的探针处理一致）。",
+
+  "governanceSet": [],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "declaredExternalSetNote": "与 T3-P0.1 的登记**逐项一致**（本批未新增任何外部声明）：全部为他人会话 / 其它批次（T5、索引图、文档）的在飞改动，本批不认领、不提交、一个字节都不碰。⚠️ `scripts/tree-utils.test.mjs` 已被外部会话修改 → 本批验收测试口径只认 **tracked 基线 42 项**，不把该文件漂移算进来。",
+
+  "excludedSet": [
+    "data/node-pool.json",
+    "data/questions.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "**全部精确路径，不使用任何目录前缀**（前缀是宽刷子，会盖住自己 writeSet 里的文件）。① `data/node-pool.json` / `data/questions.json`：本批只改树 treeId 与 treebind 边 id，**池实体与题库一个字节都不改** —— 已由独立验证逐字节证明（20/20 里的两条），故它们必须出现在排除集里以示「不是靠漏提交来假装没改」。⚠️ 注意：`node-pool.json` 里**仍有** `asplit_*` 形态的**池 id 命名空间**（248 条边的 source/target 指向它）—— 那是 T10 登记的独立 id 形态债，**明令不得并入 T3**，本批未碰。② 各 `readiness-*.json` 是就绪门产物，按项目惯例以精确路径登记为排除。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/asplit-treeid-mapping.FINAL.json",
+    "outputs/tree-violation-scan/t3-p1-adjudication.md",
+    "outputs/tree-violation-scan/t3-p1-apply-baseline.json",
+    "outputs/tree-violation-scan/t3-p1-apply-plan.json",
+    "outputs/tree-violation-scan/t3-p1-apply-preflight.md",
+    "outputs/tree-violation-scan/t3-p1-apply-report.md",
+    "outputs/tree-violation-scan/t3-p1-apply-verification.md",
+    "outputs/tree-violation-scan/t3-p1-ui-probe.md",
+    "outputs/tree-violation-scan/t3-p1-rename-cases.json",
+    "outputs/rename-evidence/t3-p1-evidence.json"
+  ],
+  "generatedArtifactsNote": "`t3-p1-rename-cases.json` / `outputs/rename-evidence/t3-p1-evidence.json` 来自 **T5 检测器**（`scripts/rename-evidence.mjs`，evidence-only，供后续 rename 批次共用）。本批按 T5 登记的「**① T3 apply 时同步用它出证**」执行：130 个案例喂入 → **有命中 0 · 命中点 0 · 严重度全 🟢**，即「改名后全库无旧值残留」。这是与 `verify-t3-p1-apply.mjs` **不同引擎的第三方确认**（T5 查的是字段级 stale signature；verify 查的是树/边全序列化里的旧 id 字符串）。⚠️ 复现性说明：`scripts/rename-evidence.mjs` 与 `outputs/rename-evidence/case-rc01.json` 属 T5 的在飞未跟踪件（在 declaredExternalSet），故本批的这两份产物在**干净检出**上不可直接复跑 —— 与各 `readiness-*.json` 的处境同类。",
+
+  "expectedDelta": {
+    "note": "本批**只改 id**：不新增/删除任何节点或边，不改任何非 id 字段，不改池与题库。预期 diff 可逐行可数。",
+    "data/tree-data.json": {
+      "nodeCount": "3216 → 3216（不变）",
+      "renamedNodeIds": 130,
+      "addedNodes": 0,
+      "removedNodes": 0,
+      "nonIdFieldsChanged": 0,
+      "asplitTreeIds": "130 → 0"
+    },
+    "data/knowledge-edges.json": {
+      "edgeCount": "4163 → 4163（不变）",
+      "renamedEdgeIds": 145,
+      "addedEdges": 0,
+      "removedEdges": 0,
+      "endpointsTouched": 0,
+      "colonSafeNote": "145 条中有 **4 条** treebind 的另一端是 `projection:*`（自身含 `:`）。P0 用的非贪婪 `/^treebind:(.+?):(.+)$/` 在这 4 条上会**错切并漏改**；本批改用「在已知 treeId 全集里找合法切分点」的解析器，独立验证第 11 条专门点名了这 4 条。"
+    },
+    "data/evolution-events.json": {
+      "before": 5,
+      "after": 6,
+      "addedEvents": 1,
+      "changes": 130,
+      "introducedNodes": 0,
+      "fieldRoleNote": "changes[].before / after 属**审计叙述**，按宪法 §3.6 **必须**保留旧 treeId，不计入「残留」。"
+    },
+    "data/node-pool.json": "0 改动（逐字节等于批前快照）",
+    "data/questions.json": "0 改动（逐字节等于批前快照）"
+  },
+
+  "adjudicationSummary": {
+    "scope": 130,
+    "approved": 130,
+    "pending": 0,
+    "needsReview": 0,
+    "blocked": 0,
+    "redriven": 39,
+    "preservedVerbatim": 91,
+    "tierMovement": { "HIGH→HIGH": 92, "MEDIUM→MEDIUM": 27, "MEDIUM→HIGH": 11 },
+    "freezeChecks": "8/8 —— approvedAll / noPendingReviewBlocked / gapWithin3 / noCollision / noTsHash / noAcmNamespace / invarianceHolds / scopeMatchesLive",
+    "namespaceGroups": ["java_concurrency", "java_thread", "java_syntax", "java", "pl_theory", "compiler", "java_fw", "db", "javascript", "data_structures", "jvm", "operating_systems", "distributed_systems", "algorithms"]
+  },
+  "adjudicationBasisNote": "两条**已裁定规则**被本批第一次真正执行，而不是本批自创：① `t3-p0-naming.proposal.json` 的 `namingRule.namespacePolicy` —— 命名空间取「挂载路径上最近的**域** slug」，**而不是祖先长 id 的机械拼接**；草案给 38 条 MEDIUM 的 `tree_acm2012_*`（6 段 ACM 分类路径）正是被该 policy 点名禁止的形态。② 同文件 `openDecisions[0].operationalization.ambiguityFlag` + `governance-ledger §T3 ⑤` 明文要求「T3 冻结映射表前必须以**实际形态**复核一次 D1 操作化读法」—— 本批用 130 条真实 id 做了该复核，并以 D2 `namespaceRegistry` 的**子树覆盖**语义裁定为 R2（见 `t3-p1-adjudication.md §二`）。",
+  "dryRunDefectFixNote": "本批同时修掉 dry-run 语义祖先谓词的一个**过度排除**缺陷（`scripts/dryrun-t3-asplit-semanticization.mjs:104` 的 `TREE_SHAPE` 附加了 `^tree_` 前缀要求），它把本树既有的人工语义 id 族（`theory_domain_*` / `react_root` / `demo_*` / `chapter_*`）误判成「非语义」→ 命名空间被抬到 ACM CCS 分类层。**不改冻结脚本**（它是已提交证据），改由本批的新裁决脚本承担修正谓词，并在报告里给出：23 条受影响、`crossHash=0`（未放宽到时间戳）、91 条不变性零漂移的证明。按宪法 §3.2，**没有**为了让闸门变绿而改期望值。",
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "口径 = **测试项数**：已跟踪 6 个测试文件 → 42 项；未跟踪 1 个文件 → 2 项。本次实跑 `npm test` = **44/44 全绿**。其中 `scripts/tree-utils.test.mjs` 被**外部会话**修改过（在 declaredExternalSet 里），故本批验收只以 tracked 42 为准做保守断言。"
+  },
+
+  "gates": {
+    "ancestorGate": {
+      "definition": "HEAD ↔ preBatchSnapshot 逐字节（单进程 Buffer.compare，禁 git show 管道）",
+      "result": "PASS 5/5",
+      "mustBeEmpty": [
+        "data/tree-data.json",
+        "data/node-pool.json",
+        "data/knowledge-edges.json",
+        "data/questions.json",
+        "data/evolution-events.json"
+      ]
+    },
+    "applyScript": [
+      { "id": "G1", "name": "FINAL 映射表 MAPPING_FREEZE_OK ∧ 130 条全 APPROVED", "result": "PASS" },
+      { "id": "G2", "name": "数据文件 md5 与冻结基线一致（无人改过数据）", "result": "PASS" },
+      { "id": "G3", "name": "130 个 old treeId 全部存在 ∧ 覆盖面恰好 = 现存 asplit_* 树 id 全集", "result": "PASS" },
+      { "id": "G4", "name": "130 个 new treeId 形态合法 ∧ 无 ts/hash/段位 ∧ 批内唯一 ∧ 无碰撞 ∧ 无 ACM 命名空间", "result": "PASS" },
+      { "id": "G5", "name": "结构不变性：树逐节点 / 边逐条，除 id 外逐字节相同 ∧ endpoint 零触碰 ∧ 改名数恰为 130", "result": "PASS" },
+      { "id": "G6", "name": "引用闭合：改名后 tree-data + knowledge-edges 无任一旧 id 残留", "result": "PASS" },
+      { "id": "G7", "name": "挂载健康度不劣化：nodeRef 悬空 ∧ treebind 悬空 批前 == 批后", "result": "PASS" },
+      { "id": "G8", "name": "成果达成：树内 asplit_* 身份引用 = 0 ∧ 39 个重推导 id 全部就位", "result": "PASS" },
+      { "id": "G9", "name": "dev server 不会静默覆盖本次写入", "result": "PASS（5173 未监听）" }
+    ],
+    "independentVerification": {
+      "verdict": "INDEPENDENT_VERIFY_PASS 20/20",
+      "artifact": "outputs/tree-violation-scan/t3-p1-apply-verification.md",
+      "method": "不 import apply 脚本 · 比对 data/backups/t3-p1-*（批前快照）↔ 当前工作树 · 映射从数据按位置对撞**反推**后与 FINAL 双向核对",
+      "highlights": [
+        "树 3216 节点：除 id 外逐字节不变 · 改名 130 处 · 旧 id 全为 asplit_ 形态 · 新 id 无一含 asplit_",
+        "边 4163 条：除 id 外逐字节不变（含顺序）· source/target 零触碰 · 145 条 treebind id 改写**可逐字预测**",
+        "含冒号端点的 treebind 4/4 正确改写（点名 P0 正则的漏改风险）",
+        "池 / 题库：逐字节零改动",
+        "悬空 nodeRef 0→0 · 悬空 treebind 18→18（批前既有，未新增）"
+      ]
+    },
+    "uiAcceptance": {
+      "verdict": "UI_VERIFY_PASS 11/11",
+      "artifact": "outputs/tree-violation-scan/t3-p1-ui-probe.md",
+      "method": "`npm run build` → `vite preview`（真数据只读）→ 无头 Chromium 140 CDP",
+      "keyInsight": "`UniverseTree` 的 children **始终渲染**，折叠只靠 CSS `display:none`（`src/styles/layout.css:450`）⇒ `[data-tree-node-id]` 覆盖全树，**全部 130 个改名可在 DOM 中一次性断言**，无需逐级展开点击",
+      "highlights": [
+        "DOM 中 [data-tree-node-id] = 3216（全树）· asplit_* = 0",
+        "全部 130 个新 treeId 均在 DOM 中 · 39 个重推导项逐条在",
+        "点选改名节点 → 右侧详情面板渲染出该节点名",
+        "切到索引视图 → 271 个 canvas/svg 渲染",
+        "刷新后复测仍全绿 · 全过程 0 未捕获异常",
+        "数据面 /api/data：全树 asplit_* = 0、130 个新 id 全在、treebind 内 asplit_* = 0"
+      ]
+    },
+    "regression": "`npx tsc --noEmit` 0 错误 · `npm run build` 5.50s · `npm test` 44/44（验收基准 = tracked 42/42）",
+    "probeDiscipline": "一条一次性浏览器探针 `scripts/shell-fusion/probe-t3-p1.mjs` + **14 个** `.tmp-*.mjs` 侦察脚本**用后即删**（删除后 `git status` 中 `.tmp-*` 计数 = 0，探针路径已不存在）；批前快照 `data/backups/t3-p1-*` 由 `.gitignore:33` 覆盖，不进提交。"
+  }
+}

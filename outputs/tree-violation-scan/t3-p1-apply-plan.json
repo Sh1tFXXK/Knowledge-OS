@@ -1,0 +1,1195 @@
+{
+  "generatedAt": "2026-09-14T14:34:45.092Z",
+  "mode": "apply",
+  "wroteData": true,
+  "batch": "t3-p1-apply",
+  "gates": [
+    {
+      "id": "G1",
+      "name": "FINAL 映射表 MAPPING_FREEZE_OK ∧ 130 条全 APPROVED",
+      "ok": true,
+      "detail": "status=MAPPING_FREEZE_OK · 条数 130 · 非 APPROVED 0"
+    },
+    {
+      "id": "G2",
+      "name": "数据文件 md5 与冻结基线一致（无人改过数据）",
+      "ok": true,
+      "detail": "5 个文件全部一致"
+    },
+    {
+      "id": "G3",
+      "name": "130 个 old treeId 全部存在 ∧ 覆盖面**恰好** = 现存 asplit_* 树 id 全集",
+      "ok": true,
+      "detail": "全部命中 · 映射 130 vs 现存 130 · 缺失 [] · 多余 []"
+    },
+    {
+      "id": "G4",
+      "name": "130 个 new treeId 形态合法 ∧ 无 ts/hash/段位 ∧ 批内唯一 ∧ 无碰撞 ∧ 无 ACM 命名空间",
+      "ok": true,
+      "detail": "全部通过（命名空间 14 组）"
+    },
+    {
+      "id": "G5",
+      "name": "结构不变性：树逐节点 / 边逐条，除 id 外逐字节相同 ∧ endpoint 零触碰 ∧ 改名数恰为 130",
+      "ok": true,
+      "detail": "树 3216 节点、边 4163 条全部通过（仅 id 变动） · 改名节点 130/130 · treebind id 改写 145 · 未解析 treebind 0"
+    },
+    {
+      "id": "G6",
+      "name": "引用闭合：改名后 tree-data + knowledge-edges 无任一旧 id 残留",
+      "ok": true,
+      "detail": "残留 0 · 节点数 3216 不变 · 边数 4163 不变"
+    },
+    {
+      "id": "G7",
+      "name": "挂载健康度不劣化：nodeRef 悬空 ∧ treebind 悬空 批前 == 批后",
+      "ok": true,
+      "detail": "nodeRef 悬空 0 → 0 · treebind 悬空 18 → 18"
+    },
+    {
+      "id": "G8",
+      "name": "成果达成：树内 asplit_* 身份引用 = 0 ∧ 39 个重推导 id 全部就位",
+      "ok": true,
+      "detail": "树内 asplit_* 残留 0 · 重推导缺失 0"
+    },
+    {
+      "id": "G9",
+      "name": "dev server 不会静默覆盖本次写入",
+      "ok": true,
+      "detail": "5173 未监听"
+    }
+  ],
+  "pairs": [
+    {
+      "oldTreeId": "asplit_s1_asplit_concrete_class",
+      "proposedTreeId": "tree_class_programming_concrete_class"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_local_class",
+      "proposedTreeId": "tree_class_programming_local_class"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_mutex_lock",
+      "proposedTreeId": "tree_java_jmm_mutex_lock"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_sync_block",
+      "proposedTreeId": "tree_java_jmm_sync_block"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_data_race",
+      "proposedTreeId": "tree_java_jmm_sequential_data_race"
+    },
+    {
+      "oldTreeId": "asplit_s19_juc_tools",
+      "proposedTreeId": "tree_java_concurrency_juc_tools"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_lazy_init",
+      "proposedTreeId": "tree_java_concurrency_lazy_init"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_concurrency_container",
+      "proposedTreeId": "tree_java_concurrency_container"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_memory_atomicity",
+      "proposedTreeId": "tree_java_concurrency_memory_atomicity"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_concurrency_mutex_lock",
+      "proposedTreeId": "tree_java_concurrency_mutex_lock"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_suspend_resume_methods",
+      "proposedTreeId": "tree_java_thread_suspend_resume_methods"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_stop_method",
+      "proposedTreeId": "tree_java_thread_stop_method"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_acquire",
+      "proposedTreeId": "tree_web_bias_acquire"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_anonymous",
+      "proposedTreeId": "tree_web_bias_state_anonymous"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_biased",
+      "proposedTreeId": "tree_web_bias_state_biased"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_revoke_pending",
+      "proposedTreeId": "tree_web_bias_state_revoke_pending"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_revoked",
+      "proposedTreeId": "tree_web_bias_state_revoked"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_bulk_rebiased",
+      "proposedTreeId": "tree_web_bias_state_bulk_rebiased"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_bulk_revoked",
+      "proposedTreeId": "tree_web_bias_state_bulk_revoked"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_markword",
+      "proposedTreeId": "tree_web_bias_markword"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rwlock_mechanism",
+      "proposedTreeId": "tree_java_lock_rwlock_rwlock_mechanism"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_acquire",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_write_acquire"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_held",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_write_held"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_waiting",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_write_waiting"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_released",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_write_released"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_acquire",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_read_acquire"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_held",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_read_held"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_waiting",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_read_waiting"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_released",
+      "proposedTreeId": "tree_java_lock_rwlock_rw_state_read_released"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_method",
+      "proposedTreeId": "tree_java_syntax_generic_method"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_constructor",
+      "proposedTreeId": "tree_java_syntax_generic_constructor"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_class",
+      "proposedTreeId": "tree_java_syntax_java_class"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_file_input_stream",
+      "proposedTreeId": "tree_byte_stream_file_input_stream"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_buffered_input_stream",
+      "proposedTreeId": "tree_byte_stream_buffered_input_stream"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_data_input_stream",
+      "proposedTreeId": "tree_byte_stream_data_input_stream"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_object_input_stream",
+      "proposedTreeId": "tree_byte_stream_object_input_stream"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_io_group",
+      "proposedTreeId": "tree_byte_stream_java_io_group"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_file_reader",
+      "proposedTreeId": "tree_char_stream_file_reader"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_buffered_reader",
+      "proposedTreeId": "tree_char_stream_buffered_reader"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_io_file",
+      "proposedTreeId": "tree_java_common_java_io_file"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_console_io",
+      "proposedTreeId": "tree_java_common_console_io"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_nio_path",
+      "proposedTreeId": "tree_java_common_java_nio_path"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_nio_filesystem",
+      "proposedTreeId": "tree_java_common_java_nio_filesystem"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_blocking_io_model",
+      "proposedTreeId": "tree_java_blocking_io_model"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_nonblocking_io_model",
+      "proposedTreeId": "tree_java_nonblocking_io_model"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_lexical_analysis",
+      "proposedTreeId": "tree_pl_theory_lexical_analysis"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_syntax_analysis",
+      "proposedTreeId": "tree_pl_theory_syntax_analysis"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_single_pass_compiler",
+      "proposedTreeId": "tree_compiler_single_pass"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_multi_pass_compiler",
+      "proposedTreeId": "tree_compiler_multi_pass"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_http_request",
+      "proposedTreeId": "tree_java_fw_http_request"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_servlet_lifecycle",
+      "proposedTreeId": "tree_java_fw_servlet_lifecycle"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_servlet_container",
+      "proposedTreeId": "tree_java_fw_servlet_container"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_view_rendering",
+      "proposedTreeId": "tree_java_fw_view_rendering"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_http_request_response",
+      "proposedTreeId": "tree_java_fw_http_request_response"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_web_attribute_scope",
+      "proposedTreeId": "tree_java_fw_web_attribute_scope"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_web_state_management",
+      "proposedTreeId": "tree_java_fw_web_state_management"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_bean_lifecycle",
+      "proposedTreeId": "tree_java_fw_bean_lifecycle"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_trigger_open",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_trigger_open"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_opened",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_opened"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_executing",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_executing"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_dirty",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_dirty"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_committed",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_committed"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_rolled_back",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_rolled_back"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_closed",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_state_closed"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_factory",
+      "proposedTreeId": "tree_vault_javamybatis02sqlsession_ss_factory"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_mybatis_mapper",
+      "proposedTreeId": "tree_java_fw_mybatis_mapper"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_dynamic_sql",
+      "proposedTreeId": "tree_java_fw_dynamic_sql"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_executor",
+      "proposedTreeId": "tree_java_fw_mybatis_executor"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_statement_handler",
+      "proposedTreeId": "tree_java_fw_mybatis_statement_handler"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_parameter_handler",
+      "proposedTreeId": "tree_java_fw_mybatis_parameter_handler"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_resultset_handler",
+      "proposedTreeId": "tree_java_fw_mybatis_resultset_handler"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_netty_thread_model",
+      "proposedTreeId": "tree_java_fw_netty_thread_model"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_netty_channel",
+      "proposedTreeId": "tree_java_fw_netty_channel"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_channel_pipeline",
+      "proposedTreeId": "tree_java_fw_channel_pipeline"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_kafka_consumer_group",
+      "proposedTreeId": "tree_java_fw_kafka_consumer_group"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_kafka_broker",
+      "proposedTreeId": "tree_java_fw_kafka_broker"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_rabbitmq_exchange",
+      "proposedTreeId": "tree_java_fw_rabbitmq_exchange"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_routing_key",
+      "proposedTreeId": "tree_java_fw_routing_key"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_registry_discovery",
+      "proposedTreeId": "tree_java_fw_svc_registry_discovery"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_load_balancing",
+      "proposedTreeId": "tree_java_fw_load_balancing"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_invocation",
+      "proposedTreeId": "tree_java_fw_svc_invocation"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_fault_tolerance",
+      "proposedTreeId": "tree_java_fw_svc_fault_tolerance"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_config_center",
+      "proposedTreeId": "tree_java_fw_config_center"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_message_bus",
+      "proposedTreeId": "tree_java_fw_message_bus"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_service_governance",
+      "proposedTreeId": "tree_java_fw_service_governance"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_newsql",
+      "proposedTreeId": "tree_db_newsql"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrank",
+      "proposedTreeId": "tree_redis_zrank"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrange",
+      "proposedTreeId": "tree_redis_zrange"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_hot_data",
+      "proposedTreeId": "tree_redis_cache_hot_data"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_cold_data",
+      "proposedTreeId": "tree_redis_cache_cold_data"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_save_cmd",
+      "proposedTreeId": "tree_redis_rdb_rdb_save_cmd"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_fork",
+      "proposedTreeId": "tree_redis_rdb_rdb_state_fork"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_child_write",
+      "proposedTreeId": "tree_redis_rdb_rdb_state_child_write"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_parent_serve",
+      "proposedTreeId": "tree_redis_rdb_rdb_state_parent_serve"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_replaced",
+      "proposedTreeId": "tree_redis_rdb_rdb_state_replaced"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_loaded",
+      "proposedTreeId": "tree_redis_rdb_rdb_state_loaded"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_handshake",
+      "proposedTreeId": "tree_qproc_thread_conn_state_handshake"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_auth",
+      "proposedTreeId": "tree_qproc_thread_conn_state_auth"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_alloc_thread",
+      "proposedTreeId": "tree_qproc_thread_conn_state_alloc_thread"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_user_thread",
+      "proposedTreeId": "tree_qproc_thread_conn_state_user_thread"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_sleep",
+      "proposedTreeId": "tree_qproc_thread_conn_state_sleep"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_closing",
+      "proposedTreeId": "tree_qproc_thread_conn_state_closing"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_pool",
+      "proposedTreeId": "tree_qproc_thread_conn_pool"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_range_lock",
+      "proposedTreeId": "tree_concept_lock_range_lock"
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_insert_lock",
+      "proposedTreeId": "tree_concept_lock_insert_lock"
+    },
+    {
+      "oldTreeId": "asplit_s106_db_modeling",
+      "proposedTreeId": "tree_db_modeling"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_module_export",
+      "proposedTreeId": "tree_javascript_module_export"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_module_import",
+      "proposedTreeId": "tree_javascript_module_import"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_js_control_flow",
+      "proposedTreeId": "tree_javascript_control_flow"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_function_design",
+      "proposedTreeId": "tree_javascript_function_design"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_js_expression",
+      "proposedTreeId": "tree_javascript_expression"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_graph_search",
+      "proposedTreeId": "tree_data_structures_graph_search"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_search",
+      "proposedTreeId": "tree_algorithms_search"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_trigger_new",
+      "proposedTreeId": "tree_jvm_obj_trigger_new"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_class_loaded",
+      "proposedTreeId": "tree_jvm_obj_state_class_loaded"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_alloc",
+      "proposedTreeId": "tree_jvm_obj_state_alloc"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_zerofill",
+      "proposedTreeId": "tree_jvm_obj_state_zerofill"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_set_header",
+      "proposedTreeId": "tree_jvm_obj_state_set_header"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_init",
+      "proposedTreeId": "tree_jvm_obj_state_init"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_reference",
+      "proposedTreeId": "tree_jvm_obj_state_reference"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_alloc_tlab",
+      "proposedTreeId": "tree_jvm_obj_alloc_tlab"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_access_handle",
+      "proposedTreeId": "tree_jvm_obj_access_handle"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_access_direct",
+      "proposedTreeId": "tree_jvm_obj_access_direct"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_oom",
+      "proposedTreeId": "tree_jvm_obj_state_oom"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_blocking_io",
+      "proposedTreeId": "tree_operating_systems_blocking_io"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_sync_async_io",
+      "proposedTreeId": "tree_operating_systems_sync_async_io"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_select_io",
+      "proposedTreeId": "tree_concept_io_select_io"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_epoll",
+      "proposedTreeId": "tree_concept_io_epoll"
+    },
+    {
+      "oldTreeId": "asplit_s132_base_theory",
+      "proposedTreeId": "tree_distributed_systems_base_theory"
+    },
+    {
+      "oldTreeId": "asplit_s134_db_sharding",
+      "proposedTreeId": "tree_distributed_systems_db_sharding"
+    }
+  ],
+  "renamedNodes": 130,
+  "renamedEdgeIds": 145,
+  "unresolvedTreebind": 0,
+  "edgeIdChanges": [
+    {
+      "from": "treebind:tree_1782846767208_uw6zxc:asplit_s19_juc_tools",
+      "to": "treebind:tree_1782846767208_uw6zxc:tree_java_concurrency_juc_tools"
+    },
+    {
+      "from": "treebind:chapter_db_13:asplit_s106_db_modeling",
+      "to": "treebind:chapter_db_13:tree_db_modeling"
+    },
+    {
+      "from": "treebind:theory_domain_distributed_systems:asplit_s132_base_theory",
+      "to": "treebind:theory_domain_distributed_systems:tree_distributed_systems_base_theory"
+    },
+    {
+      "from": "treebind:theory_domain_distributed_systems:asplit_s134_db_sharding",
+      "to": "treebind:theory_domain_distributed_systems:tree_distributed_systems_db_sharding"
+    },
+    {
+      "from": "treebind:tree_class_programming_classification:asplit_s1_asplit_concrete_class",
+      "to": "treebind:tree_class_programming_classification:tree_class_programming_concrete_class"
+    },
+    {
+      "from": "treebind:tree_class_programming_classification:asplit_s1_asplit_local_class",
+      "to": "treebind:tree_class_programming_classification:tree_class_programming_local_class"
+    },
+    {
+      "from": "treebind:tree_java_jmm_synchronization:asplit_s1_asplit_mutex_lock",
+      "to": "treebind:tree_java_jmm_synchronization:tree_java_jmm_mutex_lock"
+    },
+    {
+      "from": "treebind:tree_java_jmm_synchronization:asplit_s1_asplit_sync_block",
+      "to": "treebind:tree_java_jmm_synchronization:tree_java_jmm_sync_block"
+    },
+    {
+      "from": "treebind:tree_java_jmm_sequential_consistency:asplit_s1_asplit_data_race",
+      "to": "treebind:tree_java_jmm_sequential_consistency:tree_java_jmm_sequential_data_race"
+    },
+    {
+      "from": "treebind:tree_1782846767208_uw6zxc:asplit_s1_asplit_lazy_init",
+      "to": "treebind:tree_1782846767208_uw6zxc:tree_java_concurrency_lazy_init"
+    },
+    {
+      "from": "treebind:tree_1782846767208_uw6zxc:asplit_s1_asplit_concurrency_container",
+      "to": "treebind:tree_1782846767208_uw6zxc:tree_java_concurrency_container"
+    },
+    {
+      "from": "treebind:tree_java_syntax_generics:asplit_s1_asplit_generic_method",
+      "to": "treebind:tree_java_syntax_generics:tree_java_syntax_generic_method"
+    },
+    {
+      "from": "treebind:tree_java_syntax_generics:asplit_s1_asplit_generic_constructor",
+      "to": "treebind:tree_java_syntax_generics:tree_java_syntax_generic_constructor"
+    },
+    {
+      "from": "treebind:tree_byte_stream_group:asplit_s1_asplit_file_input_stream",
+      "to": "treebind:tree_byte_stream_group:tree_byte_stream_file_input_stream"
+    },
+    {
+      "from": "treebind:tree_byte_stream_group:asplit_s1_asplit_buffered_input_stream",
+      "to": "treebind:tree_byte_stream_group:tree_byte_stream_buffered_input_stream"
+    },
+    {
+      "from": "treebind:tree_byte_stream_group:asplit_s1_asplit_data_input_stream",
+      "to": "treebind:tree_byte_stream_group:tree_byte_stream_data_input_stream"
+    },
+    {
+      "from": "treebind:tree_byte_stream_group:asplit_s1_asplit_object_input_stream",
+      "to": "treebind:tree_byte_stream_group:tree_byte_stream_object_input_stream"
+    },
+    {
+      "from": "treebind:tree_char_stream_group:asplit_s1_asplit_file_reader",
+      "to": "treebind:tree_char_stream_group:tree_char_stream_file_reader"
+    },
+    {
+      "from": "treebind:tree_char_stream_group:asplit_s1_asplit_buffered_reader",
+      "to": "treebind:tree_char_stream_group:tree_char_stream_buffered_reader"
+    },
+    {
+      "from": "treebind:tree_java_common_libraries:asplit_s1_asplit_java_io_file",
+      "to": "treebind:tree_java_common_libraries:tree_java_common_java_io_file"
+    },
+    {
+      "from": "treebind:tree_java_common_libraries:asplit_s1_asplit_console_io",
+      "to": "treebind:tree_java_common_libraries:tree_java_common_console_io"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_java_io_file:tree_file_class",
+      "to": "treebind:tree_java_common_java_io_file:tree_file_class"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_java_io_file:tree_random_access_file",
+      "to": "treebind:tree_java_common_java_io_file:tree_random_access_file"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_java_io_file:tree_dir_operation",
+      "to": "treebind:tree_java_common_java_io_file:tree_dir_operation"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_console_io:tree_console_io",
+      "to": "treebind:tree_java_common_console_io:tree_console_io"
+    },
+    {
+      "from": "treebind:tree_java_common_libraries:asplit_s1_asplit_java_nio_path",
+      "to": "treebind:tree_java_common_libraries:tree_java_common_java_nio_path"
+    },
+    {
+      "from": "treebind:tree_java_common_libraries:asplit_s1_asplit_java_nio_filesystem",
+      "to": "treebind:tree_java_common_libraries:tree_java_common_java_nio_filesystem"
+    },
+    {
+      "from": "treebind:tree_byte_stream_group:asplit_s1_asplit_java_io_group",
+      "to": "treebind:tree_byte_stream_group:tree_byte_stream_java_io_group"
+    },
+    {
+      "from": "treebind:tree_1782746457614_osttpr:asplit_s1_asplit_blocking_io_model",
+      "to": "treebind:tree_1782746457614_osttpr:tree_java_blocking_io_model"
+    },
+    {
+      "from": "treebind:tree_1782746457614_osttpr:asplit_s1_asplit_nonblocking_io_model",
+      "to": "treebind:tree_1782746457614_osttpr:tree_java_nonblocking_io_model"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_blocking_io_model:tree_io_bio_model",
+      "to": "treebind:tree_java_blocking_io_model:tree_io_bio_model"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_nonblocking_io_model:tree_io_nio_principle",
+      "to": "treebind:tree_java_nonblocking_io_model:tree_io_nio_principle"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_nonblocking_io_model:tree_nio_core_group",
+      "to": "treebind:tree_java_nonblocking_io_model:tree_nio_core_group"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_nonblocking_io_model:tree_io_aio_model",
+      "to": "treebind:tree_java_nonblocking_io_model:tree_io_aio_model"
+    },
+    {
+      "from": "treebind:tree_1784820871692_uel7rq:asplit_s1_asplit_lexical_analysis",
+      "to": "treebind:tree_1784820871692_uel7rq:tree_pl_theory_lexical_analysis"
+    },
+    {
+      "from": "treebind:tree_1784820871692_uel7rq:asplit_s1_asplit_syntax_analysis",
+      "to": "treebind:tree_1784820871692_uel7rq:tree_pl_theory_syntax_analysis"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_lexical_analysis:tree_1783186425166_crond2",
+      "to": "treebind:tree_pl_theory_lexical_analysis:tree_1783186425166_crond2"
+    },
+    {
+      "from": "treebind:tree_wiki_en_compiler_s3:asplit_s1_asplit_single_pass_compiler",
+      "to": "treebind:tree_wiki_en_compiler_s3:tree_compiler_single_pass"
+    },
+    {
+      "from": "treebind:tree_wiki_en_compiler_s3:asplit_s1_asplit_multi_pass_compiler",
+      "to": "treebind:tree_wiki_en_compiler_s3:tree_compiler_multi_pass"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s1_asplit_http_request",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_http_request"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s1_asplit_servlet_lifecycle",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_lifecycle"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s1_asplit_servlet_container",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_container"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s1_asplit_view_rendering",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_view_rendering"
+    },
+    {
+      "from": "treebind:tree_1785225243163_ypgo3y:asplit_s1_asplit_bean_lifecycle",
+      "to": "treebind:tree_1785225243163_ypgo3y:tree_java_fw_bean_lifecycle"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s1_asplit_mybatis_mapper",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_mapper"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s1_asplit_dynamic_sql",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_dynamic_sql"
+    },
+    {
+      "from": "treebind:tree_java_fw_netty:asplit_s1_asplit_netty_thread_model",
+      "to": "treebind:tree_java_fw_netty:tree_java_fw_netty_thread_model"
+    },
+    {
+      "from": "treebind:tree_java_fw_netty:asplit_s1_asplit_netty_channel",
+      "to": "treebind:tree_java_fw_netty:tree_java_fw_netty_channel"
+    },
+    {
+      "from": "treebind:tree_java_fw_netty:asplit_s1_asplit_channel_pipeline",
+      "to": "treebind:tree_java_fw_netty:tree_java_fw_channel_pipeline"
+    },
+    {
+      "from": "treebind:tree_java_fw_rabbitmq:asplit_s1_asplit_rabbitmq_exchange",
+      "to": "treebind:tree_java_fw_rabbitmq:tree_java_fw_rabbitmq_exchange"
+    },
+    {
+      "from": "treebind:tree_java_fw_rabbitmq:asplit_s1_asplit_routing_key",
+      "to": "treebind:tree_java_fw_rabbitmq:tree_java_fw_routing_key"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_svc_registry_discovery",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_svc_registry_discovery"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_load_balancing",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_load_balancing"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_svc_invocation",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_svc_invocation"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_svc_fault_tolerance",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_svc_fault_tolerance"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_config_center",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_config_center"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_message_bus",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_message_bus"
+    },
+    {
+      "from": "treebind:tree_java_fw_springcloud:asplit_s1_asplit_service_governance",
+      "to": "treebind:tree_java_fw_springcloud:tree_java_fw_service_governance"
+    },
+    {
+      "from": "treebind:tree_wiki_en_database_s2:asplit_s1_asplit_newsql",
+      "to": "treebind:tree_wiki_en_database_s2:tree_db_newsql"
+    },
+    {
+      "from": "treebind:tree_redis_zset:asplit_s1_asplit_zrank",
+      "to": "treebind:tree_redis_zset:tree_redis_zrank"
+    },
+    {
+      "from": "treebind:tree_redis_zset:asplit_s1_asplit_zrange",
+      "to": "treebind:tree_redis_zset:tree_redis_zrange"
+    },
+    {
+      "from": "treebind:tree_redis_cache_anomaly:asplit_s1_asplit_hot_data",
+      "to": "treebind:tree_redis_cache_anomaly:tree_redis_cache_hot_data"
+    },
+    {
+      "from": "treebind:tree_redis_cache_anomaly:asplit_s1_asplit_cold_data",
+      "to": "treebind:tree_redis_cache_anomaly:tree_redis_cache_cold_data"
+    },
+    {
+      "from": "treebind:react_root:asplit_s1_asplit_module_export",
+      "to": "treebind:react_root:tree_javascript_module_export"
+    },
+    {
+      "from": "treebind:react_root:asplit_s1_asplit_module_import",
+      "to": "treebind:react_root:tree_javascript_module_import"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_module_export:react_tree_default",
+      "to": "treebind:tree_javascript_module_export:react_tree_default"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_module_export:react_tree_named",
+      "to": "treebind:tree_javascript_module_export:react_tree_named"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_module_import:governance:canonical:react_import_aliasing",
+      "to": "treebind:tree_javascript_module_import:governance:canonical:react_import_aliasing"
+    },
+    {
+      "from": "treebind:react_root:asplit_s1_asplit_js_control_flow",
+      "to": "treebind:react_root:tree_javascript_control_flow"
+    },
+    {
+      "from": "treebind:react_root:asplit_s1_asplit_function_design",
+      "to": "treebind:react_root:tree_javascript_function_design"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_js_control_flow:governance:canonical:k_auto_g1oyi4",
+      "to": "treebind:tree_javascript_control_flow:governance:canonical:k_auto_g1oyi4"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_js_control_flow:governance:canonical:k_auto_140h0oi",
+      "to": "treebind:tree_javascript_control_flow:governance:canonical:k_auto_140h0oi"
+    },
+    {
+      "from": "treebind:react_root:asplit_s1_asplit_js_expression",
+      "to": "treebind:react_root:tree_javascript_expression"
+    },
+    {
+      "from": "treebind:theory_domain_data_structures:asplit_s1_asplit_graph_search",
+      "to": "treebind:theory_domain_data_structures:tree_data_structures_graph_search"
+    },
+    {
+      "from": "treebind:tree_acm2012_algorithms:asplit_s1_asplit_search",
+      "to": "treebind:tree_acm2012_algorithms:tree_algorithms_search"
+    },
+    {
+      "from": "treebind:theory_domain_operating_systems:asplit_s1_asplit_blocking_io",
+      "to": "treebind:theory_domain_operating_systems:tree_operating_systems_blocking_io"
+    },
+    {
+      "from": "treebind:theory_domain_operating_systems:asplit_s1_asplit_sync_async_io",
+      "to": "treebind:theory_domain_operating_systems:tree_operating_systems_sync_async_io"
+    },
+    {
+      "from": "treebind:asplit_s1_asplit_blocking_io:projection:mysql-term:mysql_glossary_nonblocking_i_o_h65z9a",
+      "to": "treebind:tree_operating_systems_blocking_io:projection:mysql-term:mysql_glossary_nonblocking_i_o_h65z9a"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_acquire",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_acquire"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_anonymous",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_anonymous"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_biased",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_biased"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_revoke_pending",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_revoke_pending"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_revoked",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_revoked"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_bulk_rebiased",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_bulk_rebiased"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_state_bulk_revoked",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_state_bulk_revoked"
+    },
+    {
+      "from": "treebind:tree_web_78137b704e08:asplit_s2_asplit_bias_markword",
+      "to": "treebind:tree_web_78137b704e08:tree_web_bias_markword"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rwlock_mechanism",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rwlock_mechanism"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_acquire",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_write_acquire"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_held",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_write_held"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_waiting",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_write_waiting"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_released",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_write_released"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_acquire",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_read_acquire"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_held",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_read_held"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_waiting",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_read_waiting"
+    },
+    {
+      "from": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_released",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_java_lock_rwlock_rw_state_read_released"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_trigger_new",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_trigger_new"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_class_loaded",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_class_loaded"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_alloc",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_alloc"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_zerofill",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_zerofill"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_set_header",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_set_header"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_init",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_init"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_reference",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_reference"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_alloc_tlab",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_alloc_tlab"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_access_handle",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_access_handle"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_access_direct",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_access_direct"
+    },
+    {
+      "from": "treebind:tree_1783263380057_57s6hh:asplit_s2_asplit_obj_state_oom",
+      "to": "treebind:tree_1783263380057_57s6hh:tree_jvm_obj_state_oom"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_trigger_open",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_trigger_open"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_opened",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_opened"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_executing",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_executing"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_dirty",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_dirty"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_committed",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_committed"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_rolled_back",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_rolled_back"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_state_closed",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_state_closed"
+    },
+    {
+      "from": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:asplit_s2_asplit_ss_factory",
+      "to": "treebind:tree_vault_javamybatis02sqlsession_5c5wcf:tree_vault_javamybatis02sqlsession_ss_factory"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_save_cmd",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_save_cmd"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_fork",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_state_fork"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_child_write",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_state_child_write"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_parent_serve",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_state_parent_serve"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_replaced",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_state_replaced"
+    },
+    {
+      "from": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_loaded",
+      "to": "treebind:tree_redis_rdb_persistence:tree_redis_rdb_rdb_state_loaded"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_handshake",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_handshake"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_auth",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_auth"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_alloc_thread",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_alloc_thread"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_user_thread",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_user_thread"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_sleep",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_sleep"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_state_closing",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_state_closing"
+    },
+    {
+      "from": "treebind:tree_qproc_thread_state:asplit_s2_asplit_conn_pool",
+      "to": "treebind:tree_qproc_thread_state:tree_qproc_thread_conn_pool"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s2_asplit_mybatis_executor",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_executor"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s2_asplit_mybatis_statement_handler",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_statement_handler"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s2_asplit_mybatis_parameter_handler",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_parameter_handler"
+    },
+    {
+      "from": "treebind:tree_java_fw_mybatis:asplit_s2_asplit_mybatis_resultset_handler",
+      "to": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_resultset_handler"
+    },
+    {
+      "from": "treebind:tree_1785934396723_afsojh:asplit_s1_asplit_suspend_resume_methods",
+      "to": "treebind:tree_1785934396723_afsojh:tree_java_thread_suspend_resume_methods"
+    },
+    {
+      "from": "treebind:tree_1785934396723_afsojh:asplit_s1_asplit_stop_method",
+      "to": "treebind:tree_1785934396723_afsojh:tree_java_thread_stop_method"
+    },
+    {
+      "from": "treebind:tree_concept_lock_mechanism:asplit_s18_asplit_range_lock",
+      "to": "treebind:tree_concept_lock_mechanism:tree_concept_lock_range_lock"
+    },
+    {
+      "from": "treebind:tree_concept_lock_mechanism:asplit_s18_asplit_insert_lock",
+      "to": "treebind:tree_concept_lock_mechanism:tree_concept_lock_insert_lock"
+    },
+    {
+      "from": "treebind:tree_1782846767208_uw6zxc:asplit_s18_asplit_memory_atomicity",
+      "to": "treebind:tree_1782846767208_uw6zxc:tree_java_concurrency_memory_atomicity"
+    },
+    {
+      "from": "treebind:tree_1782846767208_uw6zxc:asplit_s18_asplit_concurrency_mutex_lock",
+      "to": "treebind:tree_1782846767208_uw6zxc:tree_java_concurrency_mutex_lock"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s18_asplit_http_request_response",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_http_request_response"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s18_asplit_web_attribute_scope",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_web_attribute_scope"
+    },
+    {
+      "from": "treebind:tree_java_fw_javaweb:asplit_s18_asplit_web_state_management",
+      "to": "treebind:tree_java_fw_javaweb:tree_java_fw_web_state_management"
+    },
+    {
+      "from": "treebind:tree_java_fw_kafka:asplit_s18_asplit_kafka_consumer_group",
+      "to": "treebind:tree_java_fw_kafka:tree_java_fw_kafka_consumer_group"
+    },
+    {
+      "from": "treebind:tree_java_fw_kafka:asplit_s18_asplit_kafka_broker",
+      "to": "treebind:tree_java_fw_kafka:tree_java_fw_kafka_broker"
+    },
+    {
+      "from": "treebind:tree_1783867183132_g5tf12:asplit_s1_asplit_java_class",
+      "to": "treebind:tree_1783867183132_g5tf12:tree_java_syntax_java_class"
+    },
+    {
+      "from": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_select_io",
+      "to": "treebind:tree_concept_io_multiplexing:tree_concept_io_select_io"
+    },
+    {
+      "from": "treebind:tree_concept_io_multiplexing:asplit_s1_asplit_epoll",
+      "to": "treebind:tree_concept_io_multiplexing:tree_concept_io_epoll"
+    }
+  ],
+  "treeErrors": [],
+  "edgeErrors": [],
+  "endpointTouched": 0,
+  "residualOldIds": [],
+  "dangling": {
+    "nodeRefBefore": 0,
+    "nodeRefAfter": 0,
+    "treebindBefore": 18,
+    "treebindAfter": 18
+  },
+  "backupDir": "E:\\project\\Knowledge-OS\\data\\backups\\t3-p1-2026-09-14T14-34-44-737Z",
+  "realVerification": {
+    "renamedNodes": 130,
+    "renamedEdgeIds": 145,
+    "treeErrors": [],
+    "edgeErrors": [],
+    "residualOldIds": [],
+    "residualAsplitTreeIds": [],
+    "nodeCountUnchanged": true,
+    "edgeCountUnchanged": true,
+    "nodeRefDanglingBefore": 0,
+    "nodeRefDanglingAfter": 0,
+    "treebindDanglingBefore": 18,
+    "treebindDanglingAfter": 18,
+    "verdict": "REAL_APPLY_VERIFIED"
+  }
+}

@@ -225,5 +225,796 @@
         "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mysql_tool_cluster` 与其正文 保留；仍作为宿主「服务层」viewDimensions 的 mysql_service_tools 网格 atom 展示"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:t3-p1:1789396485052",
+    "scopeRootId": null,
+    "occurredAt": 1789396485054,
+    "title": "T3-P1：asplit_* treeId 语义化（130 项改名，零结构变更）",
+    "summary": "把 130 个 asplit_* 临时挂载 id 改为 tree_<domain>_<semantic-slug>。其中 39 项按 D2 命名空间规范重新推导域记号（java_concurrency / java_thread / java_syntax / java / pl_theory / compiler / java_fw / db / javascript / data_structures / algorithms / jvm / operating_systems / distributed_systems），91 项沿用既有草案值。仅改 treeId 与被其牵连的 145 条 treebind 边 id；池实体、边内容、节点/边数量全部不变。本批同时修正 dry-run 语义祖先谓词的过度排除（附加的 ^tree_ 前缀要求），并把 38 条 MEDIUM 的命名空间从 ACM 分类路径（tree_acm2012_*）拉回域命名空间。命名规范 tree_<domain>_<semantic-slug>；domain 只是 ID 命名空间，不是 ontology 判定。",
+    "sourceOnlyNodeIds": [],
+    "introducedNodes": [],
+    "changes": [
+      {
+        "targetNodeId": "asplit_concrete_class",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_concrete_class`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 具体类",
+        "after": "treeId `tree_class_programming_concrete_class`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 具体类"
+      },
+      {
+        "targetNodeId": "asplit_local_class",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_local_class`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 局部类",
+        "after": "treeId `tree_class_programming_local_class`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 局部类"
+      },
+      {
+        "targetNodeId": "asplit_mutex_lock",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_mutex_lock`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步 > 互斥锁",
+        "after": "treeId `tree_java_jmm_mutex_lock`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步 > 互斥锁"
+      },
+      {
+        "targetNodeId": "asplit_sync_block",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_sync_block`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步 > 同步代码块",
+        "after": "treeId `tree_java_jmm_sync_block`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步 > 同步代码块"
+      },
+      {
+        "targetNodeId": "asplit_data_race",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_data_race`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性 > 数据竞争",
+        "after": "treeId `tree_java_jmm_sequential_data_race`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性 > 数据竞争"
+      },
+      {
+        "targetNodeId": "asplit_juc_tools",
+        "facet": "structure",
+        "before": "treeId `asplit_s19_juc_tools`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > JUC 工具",
+        "after": "treeId `tree_java_concurrency_juc_tools`（域命名空间 `java_concurrency`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > JUC 工具"
+      },
+      {
+        "targetNodeId": "asplit_lazy_init",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_lazy_init`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 延迟初始化",
+        "after": "treeId `tree_java_concurrency_lazy_init`（域命名空间 `java_concurrency`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 延迟初始化"
+      },
+      {
+        "targetNodeId": "asplit_concurrency_container",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_concurrency_container`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发容器",
+        "after": "treeId `tree_java_concurrency_container`（域命名空间 `java_concurrency`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发容器"
+      },
+      {
+        "targetNodeId": "asplit_memory_atomicity",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_memory_atomicity`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存原子性",
+        "after": "treeId `tree_java_concurrency_memory_atomicity`（域命名空间 `java_concurrency`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存原子性"
+      },
+      {
+        "targetNodeId": "asplit_concurrency_mutex_lock",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_concurrency_mutex_lock`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发互斥锁",
+        "after": "treeId `tree_java_concurrency_mutex_lock`（域命名空间 `java_concurrency`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 并发互斥锁"
+      },
+      {
+        "targetNodeId": "asplit_suspend_resume_methods",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_suspend_resume_methods`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > suspend/resume 方法组",
+        "after": "treeId `tree_java_thread_suspend_resume_methods`（域命名空间 `java_thread`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > suspend/resume 方法组"
+      },
+      {
+        "targetNodeId": "asplit_stop_method",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_stop_method`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > stop 方法",
+        "after": "treeId `tree_java_thread_stop_method`（域命名空间 `java_thread`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 线程的状态 > stop 方法"
+      },
+      {
+        "targetNodeId": "asplit_bias_acquire",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_acquire`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 线程进入同步代码块",
+        "after": "treeId `tree_web_bias_acquire`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 线程进入同步代码块"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_anonymous",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_anonymous`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 匿名偏向态",
+        "after": "treeId `tree_web_bias_state_anonymous`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 匿名偏向态"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_biased",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_biased`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 已偏向态（记录线程 ID）",
+        "after": "treeId `tree_web_bias_state_biased`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 已偏向态（记录线程 ID）"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_revoke_pending",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_revoke_pending`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 撤销中（到达安全点）",
+        "after": "treeId `tree_web_bias_state_revoke_pending`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 撤销中（到达安全点）"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_revoked",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_revoked`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 已撤销（升级轻量级锁）",
+        "after": "treeId `tree_web_bias_state_revoked`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 已撤销（升级轻量级锁）"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_bulk_rebiased",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_bulk_rebiased`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 批量重偏向（epoch 递增）",
+        "after": "treeId `tree_web_bias_state_bulk_rebiased`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 批量重偏向（epoch 递增）"
+      },
+      {
+        "targetNodeId": "asplit_bias_state_bulk_revoked",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_state_bulk_revoked`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 批量撤销（整类禁用偏向）",
+        "after": "treeId `tree_web_bias_state_bulk_revoked`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 批量撤销（整类禁用偏向）"
+      },
+      {
+        "targetNodeId": "asplit_bias_markword",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_bias_markword`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 对象头 Mark Word",
+        "after": "treeId `tree_web_bias_markword`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 偏向锁 > 对象头 Mark Word"
+      },
+      {
+        "targetNodeId": "asplit_rwlock_mechanism",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rwlock_mechanism`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读写锁实现机制",
+        "after": "treeId `tree_java_lock_rwlock_rwlock_mechanism`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读写锁实现机制"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_write_acquire",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_write_acquire`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁申请（tryAcquire）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_write_acquire`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁申请（tryAcquire）"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_write_held",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_write_held`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁持有（独占可重入）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_write_held`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁持有（独占可重入）"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_write_waiting",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_write_waiting`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁等待",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_write_waiting`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁等待"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_write_released",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_write_released`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁释放（tryRelease）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_write_released`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 写锁释放（tryRelease）"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_read_acquire",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_read_acquire`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁申请（tryAcquireShared）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_read_acquire`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁申请（tryAcquireShared）"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_read_held",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_read_held`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁持有（共享可重入）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_read_held`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁持有（共享可重入）"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_read_waiting",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_read_waiting`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁等待",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_read_waiting`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁等待"
+      },
+      {
+        "targetNodeId": "asplit_rw_state_read_released",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rw_state_read_released`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁释放（tryReleaseShared）",
+        "after": "treeId `tree_java_lock_rwlock_rw_state_read_released`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析 > 读锁释放（tryReleaseShared）"
+      },
+      {
+        "targetNodeId": "asplit_generic_method",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_generic_method`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型 > 泛型方法",
+        "after": "treeId `tree_java_syntax_generic_method`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型 > 泛型方法"
+      },
+      {
+        "targetNodeId": "asplit_generic_constructor",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_generic_constructor`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型 > 泛型构造函数",
+        "after": "treeId `tree_java_syntax_generic_constructor`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型 > 泛型构造函数"
+      },
+      {
+        "targetNodeId": "asplit_java_class",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_java_class`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > Java 类",
+        "after": "treeId `tree_java_syntax_java_class`（域命名空间 `java_syntax`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > Java 类"
+      },
+      {
+        "targetNodeId": "asplit_file_input_stream",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_file_input_stream`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > FileInputStream",
+        "after": "treeId `tree_byte_stream_file_input_stream`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > FileInputStream"
+      },
+      {
+        "targetNodeId": "asplit_buffered_input_stream",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_buffered_input_stream`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > BufferedInputStream",
+        "after": "treeId `tree_byte_stream_buffered_input_stream`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > BufferedInputStream"
+      },
+      {
+        "targetNodeId": "asplit_data_input_stream",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_data_input_stream`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > DataInputStream",
+        "after": "treeId `tree_byte_stream_data_input_stream`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > DataInputStream"
+      },
+      {
+        "targetNodeId": "asplit_object_input_stream",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_object_input_stream`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > ObjectInputStream",
+        "after": "treeId `tree_byte_stream_object_input_stream`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > ObjectInputStream"
+      },
+      {
+        "targetNodeId": "asplit_java_io_group",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_java_io_group`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > java.io",
+        "after": "treeId `tree_byte_stream_java_io_group`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字节流 > java.io"
+      },
+      {
+        "targetNodeId": "asplit_file_reader",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_file_reader`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字符流 > FileReader",
+        "after": "treeId `tree_char_stream_file_reader`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字符流 > FileReader"
+      },
+      {
+        "targetNodeId": "asplit_buffered_reader",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_buffered_reader`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字符流 > BufferedReader",
+        "after": "treeId `tree_char_stream_buffered_reader`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > java.io 字符流 > BufferedReader"
+      },
+      {
+        "targetNodeId": "asplit_java_io_file",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_java_io_file`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > File 类",
+        "after": "treeId `tree_java_common_java_io_file`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > File 类"
+      },
+      {
+        "targetNodeId": "asplit_console_io",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_console_io`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > 控制台 I/O",
+        "after": "treeId `tree_java_common_console_io`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > 控制台 I/O"
+      },
+      {
+        "targetNodeId": "asplit_java_nio_path",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_java_nio_path`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > Path",
+        "after": "treeId `tree_java_common_java_nio_path`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > Path"
+      },
+      {
+        "targetNodeId": "asplit_java_nio_filesystem",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_java_nio_filesystem`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > FileSystem",
+        "after": "treeId `tree_java_common_java_nio_filesystem`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 常用类库 > FileSystem"
+      },
+      {
+        "targetNodeId": "asplit_blocking_io_model",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_blocking_io_model`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 阻塞 I/O（BIO 模型）",
+        "after": "treeId `tree_java_blocking_io_model`（域命名空间 `java`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 阻塞 I/O（BIO 模型）"
+      },
+      {
+        "targetNodeId": "asplit_nonblocking_io_model",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_nonblocking_io_model`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 非阻塞 I/O（NIO 模型）",
+        "after": "treeId `tree_java_nonblocking_io_model`（域命名空间 `java`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 非阻塞 I/O（NIO 模型）"
+      },
+      {
+        "targetNodeId": "asplit_lexical_analysis",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_lexical_analysis`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 词法分析",
+        "after": "treeId `tree_pl_theory_lexical_analysis`（域命名空间 `pl_theory`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 词法分析"
+      },
+      {
+        "targetNodeId": "asplit_syntax_analysis",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_syntax_analysis`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 语法分析",
+        "after": "treeId `tree_pl_theory_syntax_analysis`（域命名空间 `pl_theory`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 语法分析"
+      },
+      {
+        "targetNodeId": "asplit_single_pass_compiler",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_single_pass_compiler`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 单遍编译器",
+        "after": "treeId `tree_compiler_single_pass`（域命名空间 `compiler`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 单遍编译器"
+      },
+      {
+        "targetNodeId": "asplit_multi_pass_compiler",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_multi_pass_compiler`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 多遍编译器",
+        "after": "treeId `tree_compiler_multi_pass`（域命名空间 `compiler`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编译原理 > 执行 > 编译器 > 编译器构建 > 多遍编译器"
+      },
+      {
+        "targetNodeId": "asplit_http_request",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_http_request`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > HTTP 请求",
+        "after": "treeId `tree_java_fw_http_request`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > HTTP 请求"
+      },
+      {
+        "targetNodeId": "asplit_servlet_lifecycle",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_servlet_lifecycle`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Servlet 生命周期",
+        "after": "treeId `tree_java_fw_servlet_lifecycle`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Servlet 生命周期"
+      },
+      {
+        "targetNodeId": "asplit_servlet_container",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_servlet_container`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Servlet 容器",
+        "after": "treeId `tree_java_fw_servlet_container`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Servlet 容器"
+      },
+      {
+        "targetNodeId": "asplit_view_rendering",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_view_rendering`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > 视图渲染",
+        "after": "treeId `tree_java_fw_view_rendering`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > 视图渲染"
+      },
+      {
+        "targetNodeId": "asplit_http_request_response",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_http_request_response`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > HTTP Request/Response",
+        "after": "treeId `tree_java_fw_http_request_response`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > HTTP Request/Response"
+      },
+      {
+        "targetNodeId": "asplit_web_attribute_scope",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_web_attribute_scope`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Web 属性作用域",
+        "after": "treeId `tree_java_fw_web_attribute_scope`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Web 属性作用域"
+      },
+      {
+        "targetNodeId": "asplit_web_state_management",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_web_state_management`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Web 状态管理",
+        "after": "treeId `tree_java_fw_web_state_management`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > JavaWeb > Web 状态管理"
+      },
+      {
+        "targetNodeId": "asplit_bean_lifecycle",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_bean_lifecycle`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring > Spring Beans > 生命周期 > Bean 生命周期",
+        "after": "treeId `tree_java_fw_bean_lifecycle`（域命名空间 `java_fw`） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring > Spring Beans > 生命周期 > Bean 生命周期"
+      },
+      {
+        "targetNodeId": "asplit_ss_trigger_open",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_trigger_open`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > openSession() 请求",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_trigger_open`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > openSession() 请求"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_opened",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_opened`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 会话已打开",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_opened`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 会话已打开"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_executing",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_executing`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 执行 SQL",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_executing`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 执行 SQL"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_dirty",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_dirty`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 待提交（一级缓存有变更）",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_dirty`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 待提交（一级缓存有变更）"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_committed",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_committed`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已提交",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_committed`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已提交"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_rolled_back",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_rolled_back`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已回滚",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_rolled_back`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已回滚"
+      },
+      {
+        "targetNodeId": "asplit_ss_state_closed",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_state_closed`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已关闭",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_state_closed`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > 已关闭"
+      },
+      {
+        "targetNodeId": "asplit_ss_factory",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_ss_factory`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > SqlSessionFactory（单例）",
+        "after": "treeId `tree_vault_javamybatis02sqlsession_ss_factory`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > SqlSession 生命周期 > SqlSessionFactory（单例）"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_mapper",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_mybatis_mapper`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > MyBatis Mapper",
+        "after": "treeId `tree_java_fw_mybatis_mapper`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > MyBatis Mapper"
+      },
+      {
+        "targetNodeId": "asplit_dynamic_sql",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_dynamic_sql`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > 动态 SQL",
+        "after": "treeId `tree_java_fw_dynamic_sql`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > 动态 SQL"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_executor",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mybatis_executor`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > Executor（插件点）",
+        "after": "treeId `tree_java_fw_mybatis_executor`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > Executor（插件点）"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_statement_handler",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mybatis_statement_handler`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > StatementHandler（插件点）",
+        "after": "treeId `tree_java_fw_mybatis_statement_handler`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > StatementHandler（插件点）"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_parameter_handler",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mybatis_parameter_handler`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ParameterHandler（插件点）",
+        "after": "treeId `tree_java_fw_mybatis_parameter_handler`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ParameterHandler（插件点）"
+      },
+      {
+        "targetNodeId": "asplit_mybatis_resultset_handler",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_mybatis_resultset_handler`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ResultSetHandler（插件点）",
+        "after": "treeId `tree_java_fw_mybatis_resultset_handler`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Mybatis > ResultSetHandler（插件点）"
+      },
+      {
+        "targetNodeId": "asplit_netty_thread_model",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_netty_thread_model`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > Netty 线程模型",
+        "after": "treeId `tree_java_fw_netty_thread_model`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > Netty 线程模型"
+      },
+      {
+        "targetNodeId": "asplit_netty_channel",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_netty_channel`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > Channel",
+        "after": "treeId `tree_java_fw_netty_channel`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > Channel"
+      },
+      {
+        "targetNodeId": "asplit_channel_pipeline",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_channel_pipeline`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > ChannelPipeline",
+        "after": "treeId `tree_java_fw_channel_pipeline`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Netty > ChannelPipeline"
+      },
+      {
+        "targetNodeId": "asplit_kafka_consumer_group",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_kafka_consumer_group`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Kafka > Kafka 消费组",
+        "after": "treeId `tree_java_fw_kafka_consumer_group`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Kafka > Kafka 消费组"
+      },
+      {
+        "targetNodeId": "asplit_kafka_broker",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_kafka_broker`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Kafka > Kafka Broker",
+        "after": "treeId `tree_java_fw_kafka_broker`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Kafka > Kafka Broker"
+      },
+      {
+        "targetNodeId": "asplit_rabbitmq_exchange",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_rabbitmq_exchange`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > RabbitMQ > RabbitMQ 交换机",
+        "after": "treeId `tree_java_fw_rabbitmq_exchange`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > RabbitMQ > RabbitMQ 交换机"
+      },
+      {
+        "targetNodeId": "asplit_routing_key",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_routing_key`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > RabbitMQ > 路由键",
+        "after": "treeId `tree_java_fw_routing_key`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > RabbitMQ > 路由键"
+      },
+      {
+        "targetNodeId": "asplit_svc_registry_discovery",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_svc_registry_discovery`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务注册与发现",
+        "after": "treeId `tree_java_fw_svc_registry_discovery`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务注册与发现"
+      },
+      {
+        "targetNodeId": "asplit_load_balancing",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_load_balancing`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 负载均衡",
+        "after": "treeId `tree_java_fw_load_balancing`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 负载均衡"
+      },
+      {
+        "targetNodeId": "asplit_svc_invocation",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_svc_invocation`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务调用",
+        "after": "treeId `tree_java_fw_svc_invocation`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务调用"
+      },
+      {
+        "targetNodeId": "asplit_svc_fault_tolerance",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_svc_fault_tolerance`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务容错",
+        "after": "treeId `tree_java_fw_svc_fault_tolerance`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务容错"
+      },
+      {
+        "targetNodeId": "asplit_config_center",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_config_center`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 配置中心",
+        "after": "treeId `tree_java_fw_config_center`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 配置中心"
+      },
+      {
+        "targetNodeId": "asplit_message_bus",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_message_bus`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 消息总线",
+        "after": "treeId `tree_java_fw_message_bus`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 消息总线"
+      },
+      {
+        "targetNodeId": "asplit_service_governance",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_service_governance`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务治理",
+        "after": "treeId `tree_java_fw_service_governance`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 软件框架 > Spring Cloud > 服务治理"
+      },
+      {
+        "targetNodeId": "asplit_newsql",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_newsql`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库系统 > 历史 > NewSQL",
+        "after": "treeId `tree_db_newsql`（域命名空间 `db`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库系统 > 历史 > NewSQL"
+      },
+      {
+        "targetNodeId": "asplit_zrank",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_zrank`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset > ZRANK",
+        "after": "treeId `tree_redis_zrank`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset > ZRANK"
+      },
+      {
+        "targetNodeId": "asplit_zrange",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_zrange`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset > ZRANGE",
+        "after": "treeId `tree_redis_zrange`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset > ZRANGE"
+      },
+      {
+        "targetNodeId": "asplit_hot_data",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_hot_data`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常 > 热点数据",
+        "after": "treeId `tree_redis_cache_hot_data`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常 > 热点数据"
+      },
+      {
+        "targetNodeId": "asplit_cold_data",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_cold_data`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常 > 冷数据",
+        "after": "treeId `tree_redis_cache_cold_data`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常 > 冷数据"
+      },
+      {
+        "targetNodeId": "asplit_rdb_save_cmd",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_save_cmd`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > SAVE / BGSAVE 命令到达",
+        "after": "treeId `tree_redis_rdb_rdb_save_cmd`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > SAVE / BGSAVE 命令到达"
+      },
+      {
+        "targetNodeId": "asplit_rdb_state_fork",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_state_fork`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > fork 子进程（写时复制）",
+        "after": "treeId `tree_redis_rdb_rdb_state_fork`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > fork 子进程（写时复制）"
+      },
+      {
+        "targetNodeId": "asplit_rdb_state_child_write",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_state_child_write`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 子进程写临时 RDB 文件",
+        "after": "treeId `tree_redis_rdb_rdb_state_child_write`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 子进程写临时 RDB 文件"
+      },
+      {
+        "targetNodeId": "asplit_rdb_state_parent_serve",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_state_parent_serve`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 父进程继续处理命令",
+        "after": "treeId `tree_redis_rdb_rdb_state_parent_serve`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 父进程继续处理命令"
+      },
+      {
+        "targetNodeId": "asplit_rdb_state_replaced",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_state_replaced`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 临时文件原子替换 dump.rdb",
+        "after": "treeId `tree_redis_rdb_rdb_state_replaced`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 临时文件原子替换 dump.rdb"
+      },
+      {
+        "targetNodeId": "asplit_rdb_state_loaded",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_rdb_state_loaded`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 启动时载入 RDB 恢复数据",
+        "after": "treeId `tree_redis_rdb_rdb_state_loaded`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化 > 启动时载入 RDB 恢复数据"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_handshake",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_handshake`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > TCP 连接建立",
+        "after": "treeId `tree_qproc_thread_conn_state_handshake`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > TCP 连接建立"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_auth",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_auth`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 客户端鉴权",
+        "after": "treeId `tree_qproc_thread_conn_state_auth`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 客户端鉴权"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_alloc_thread",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_alloc_thread`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 分配线程",
+        "after": "treeId `tree_qproc_thread_conn_state_alloc_thread`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 分配线程"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_user_thread",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_user_thread`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 用户线程执行命令",
+        "after": "treeId `tree_qproc_thread_conn_state_user_thread`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 用户线程执行命令"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_sleep",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_sleep`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > Sleep 空闲等待",
+        "after": "treeId `tree_qproc_thread_conn_state_sleep`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > Sleep 空闲等待"
+      },
+      {
+        "targetNodeId": "asplit_conn_state_closing",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_state_closing`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 连接关闭",
+        "after": "treeId `tree_qproc_thread_conn_state_closing`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > 连接关闭"
+      },
+      {
+        "targetNodeId": "asplit_conn_pool",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_conn_pool`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > Connection Pool（连接池）",
+        "after": "treeId `tree_qproc_thread_conn_pool`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 查询系统 > MySQL 查询执行过程 > 内部执行流程（六步） > 客户端（Client） > 连接与线程状态 > Connection Pool（连接池）"
+      },
+      {
+        "targetNodeId": "asplit_range_lock",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_range_lock`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库事务 > 锁机制 / locking mechanism > 范围锁",
+        "after": "treeId `tree_concept_lock_range_lock`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库事务 > 锁机制 / locking mechanism > 范围锁"
+      },
+      {
+        "targetNodeId": "asplit_insert_lock",
+        "facet": "structure",
+        "before": "treeId `asplit_s18_asplit_insert_lock`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库事务 > 锁机制 / locking mechanism > 插入锁",
+        "after": "treeId `tree_concept_lock_insert_lock`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库事务 > 锁机制 / locking mechanism > 插入锁"
+      },
+      {
+        "targetNodeId": "asplit_db_modeling",
+        "facet": "structure",
+        "before": "treeId `asplit_s106_db_modeling`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库设计 > 数据库建模",
+        "after": "treeId `tree_db_modeling`（域命名空间 `db`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库设计 > 数据库建模"
+      },
+      {
+        "targetNodeId": "asplit_module_export",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_module_export`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导出",
+        "after": "treeId `tree_javascript_module_export`（域命名空间 `javascript`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导出"
+      },
+      {
+        "targetNodeId": "asplit_module_import",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_module_import`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导入",
+        "after": "treeId `tree_javascript_module_import`（域命名空间 `javascript`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 模块导入"
+      },
+      {
+        "targetNodeId": "asplit_js_control_flow",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_js_control_flow`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 控制流",
+        "after": "treeId `tree_javascript_control_flow`（域命名空间 `javascript`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 控制流"
+      },
+      {
+        "targetNodeId": "asplit_function_design",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_function_design`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 函数设计",
+        "after": "treeId `tree_javascript_function_design`（域命名空间 `javascript`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 函数设计"
+      },
+      {
+        "targetNodeId": "asplit_js_expression",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_js_expression`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 表达式",
+        "after": "treeId `tree_javascript_expression`（域命名空间 `javascript`） · 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 全球信息网 > Web 开发 > React > 表达式"
+      },
+      {
+        "targetNodeId": "asplit_graph_search",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_graph_search`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 计算理论 > 算法 > 数据结构 > 图搜索算法",
+        "after": "treeId `tree_data_structures_graph_search`（域命名空间 `data_structures`） · 路径不变：知识宇宙 > 计算机科学 > 计算理论 > 算法 > 数据结构 > 图搜索算法"
+      },
+      {
+        "targetNodeId": "asplit_search",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_search`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 计算理论 > 算法 > 查找",
+        "after": "treeId `tree_algorithms_search`（域命名空间 `algorithms`） · 路径不变：知识宇宙 > 计算机科学 > 计算理论 > 算法 > 查找"
+      },
+      {
+        "targetNodeId": "asplit_obj_trigger_new",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_trigger_new`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > new 指令触发对象创建",
+        "after": "treeId `tree_jvm_obj_trigger_new`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > new 指令触发对象创建"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_class_loaded",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_class_loaded`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 类型加载校验",
+        "after": "treeId `tree_jvm_obj_state_class_loaded`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 类型加载校验"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_alloc",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_alloc`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 分配内存",
+        "after": "treeId `tree_jvm_obj_state_alloc`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 分配内存"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_zerofill",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_zerofill`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 零值填充",
+        "after": "treeId `tree_jvm_obj_state_zerofill`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 零值填充"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_set_header",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_set_header`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 设置对象头",
+        "after": "treeId `tree_jvm_obj_state_set_header`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 设置对象头"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_init",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_init`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 执行构造方法",
+        "after": "treeId `tree_jvm_obj_state_init`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 执行构造方法"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_reference",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_reference`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 引用定位（对象可用）",
+        "after": "treeId `tree_jvm_obj_state_reference`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 引用定位（对象可用）"
+      },
+      {
+        "targetNodeId": "asplit_obj_alloc_tlab",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_alloc_tlab`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > TLAB（线程本地分配缓冲）",
+        "after": "treeId `tree_jvm_obj_alloc_tlab`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > TLAB（线程本地分配缓冲）"
+      },
+      {
+        "targetNodeId": "asplit_obj_access_handle",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_access_handle`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 句柄访问",
+        "after": "treeId `tree_jvm_obj_access_handle`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 句柄访问"
+      },
+      {
+        "targetNodeId": "asplit_obj_access_direct",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_access_direct`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 直接指针",
+        "after": "treeId `tree_jvm_obj_access_direct`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 直接指针"
+      },
+      {
+        "targetNodeId": "asplit_obj_state_oom",
+        "facet": "structure",
+        "before": "treeId `asplit_s2_asplit_obj_state_oom`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 内存溢出（OutOfMemoryError）",
+        "after": "treeId `tree_jvm_obj_state_oom`（域命名空间 `jvm`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 内存管理 > 内存溢出（OutOfMemoryError）"
+      },
+      {
+        "targetNodeId": "asplit_blocking_io",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_blocking_io`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 阻塞非阻塞 I/O",
+        "after": "treeId `tree_operating_systems_blocking_io`（域命名空间 `operating_systems`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 阻塞非阻塞 I/O"
+      },
+      {
+        "targetNodeId": "asplit_sync_async_io",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_sync_async_io`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 同步异步 I/O",
+        "after": "treeId `tree_operating_systems_sync_async_io`（域命名空间 `operating_systems`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > 同步异步 I/O"
+      },
+      {
+        "targetNodeId": "asplit_select_io",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_select_io`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > I/O 多路复用 > select",
+        "after": "treeId `tree_concept_io_select_io`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > I/O 多路复用 > select"
+      },
+      {
+        "targetNodeId": "asplit_epoll",
+        "facet": "structure",
+        "before": "treeId `asplit_s1_asplit_epoll`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > I/O 多路复用 > epoll",
+        "after": "treeId `tree_concept_io_epoll`（沿用既有命名空间） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 操作系统 > I/O 多路复用 > epoll"
+      },
+      {
+        "targetNodeId": "k_1783170416767_yaym2f",
+        "facet": "structure",
+        "before": "treeId `asplit_s132_base_theory`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > BASE理论",
+        "after": "treeId `tree_distributed_systems_base_theory`（域命名空间 `distributed_systems`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > BASE理论"
+      },
+      {
+        "targetNodeId": "asplit_db_sharding",
+        "facet": "structure",
+        "before": "treeId `asplit_s134_db_sharding`（asplit 临时挂载 id）· 路径：知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > 分库",
+        "after": "treeId `tree_distributed_systems_db_sharding`（域命名空间 `distributed_systems`） · 路径不变：知识宇宙 > 计算机科学 > 系统组织 > 分布式系统 > 分库"
+      }
+    ]
   }
 ]
