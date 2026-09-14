@@ -1,0 +1,161 @@
+{
+  "batchId": "t3-dryrun",
+  "title": "T3 · asplit_* 语义化 —— 只读 dry-run（映射草案 + 引用闭合 + 预期 diff）",
+  "baseRef": "5a605e3",
+  "baseRefNote": "前置只读批。建议排在 t3-registration 之后、t3-semanticization（实际迁移）之前。",
+  "preBatchSnapshot": null,
+  "commitSubjectHint": "chore(t3): asplit_* 语义化只读 dry-run — 133 项映射草案 + 引用闭合 + 预期 diff（零数据变化）",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "scripts/dryrun-t3-asplit-semanticization.mjs",
+    "outputs/tree-violation-scan/asplit-treeid-mapping.draft.json",
+    "outputs/tree-violation-scan/t3-dryrun-plan.json",
+    "outputs/tree-violation-scan/t3-dryrun-report.md",
+    "outputs/tree-violation-scan/t3-mapping-review.md",
+    "batch-manifests/t3-dryrun.json"
+  ],
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    "AGENTS.md",
+    "data/questions.json",
+    "src/",
+    "docs/CONSTITUTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/tree-utils.test.mjs"
+  ],
+  "excludedSet": [
+    "data/",
+    "src/",
+    "docs/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "batch-manifests/t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json"
+  ],
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/asplit-treeid-mapping.draft.json",
+    "outputs/tree-violation-scan/t3-dryrun-plan.json",
+    "outputs/tree-violation-scan/t3-dryrun-report.md",
+    "outputs/tree-violation-scan/t3-mapping-review.md"
+  ],
+
+  "expectedDelta": {
+    "note": "**零数据变化** —— 全部改写只在内存克隆上执行（`mode: DRY_RUN_READ_ONLY`），`data/` 未被写入。若本批提交的 diff 出现 `data/` 任何路径，即为越界。",
+    "dryRunProjection": {
+      "data/tree-data.json": { "entriesBefore": 3219, "entriesAfter": 3219, "delta": 0, "idsRenamed": 106 },
+      "data/knowledge-edges.json": { "edgesBefore": 4166, "edgesAfter": 4166, "delta": 0, "edgeIdsRewritten": 121, "endpointsTouched": 0 },
+      "data/node-pool.json": { "delta": 0 },
+      "asplit_* treeId": {
+        "before": 133,
+        "after": 27,
+        "afterIfBlockedNamed": 0,
+        "note": "机器可给名上限 = 106（不含 27 条 BLOCK）。after=27 是「只做机器可做部分」的残留；BLOCK 项定名后可达 0。"
+      }
+    }
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "本批不改代码逻辑，验收 = tracked 42/42 保持全绿。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "不适用（本批不改任何既有文件）",
+      "mustBeEmpty": [],
+      "orthogonalTo": "timeline"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "须为「零数据差异」"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    },
+    "closure": {
+      "definition": "dry-run 自检分两部分：**机制证明**（只对已映射旧 id 做受控原文扫描，残留必须为 0）+ **覆盖缺口**（无映射条数，属人工决策，不是机制失败）",
+      "mechanismProof": { "checked": 106, "residual": 0, "edgeEndpointsTouched": 0, "verdict": "闭包机制完备" },
+      "coverageGap": { "unmapped": 27, "reason": "27 条 BLOCK 机器拒绝给名 → 属人工决策（其中 24 条有**有界前置依赖**，见 §predicateCorrection 与 t3-mapping-review.md §〇）" }
+    }
+  },
+
+  "dryRunOutcome": {
+    "verdict": "DRY_RUN_OK",
+    "scope": { "declared": 133, "liveRecount": 133, "matchesInventory": true },
+    "mapping": {
+      "total": 133,
+      "withProposal": 106,
+      "byConfidence": { "high": 68, "medium": 38, "low": 27 },
+      "byStatus": { "pending": 68, "needs-review": 38, "blocked": 27 },
+      "bySemanticAncestorGap": { "0": 68, "1": 11, "2": 24, "3": 3, "4": 12, "5": 4, "6": 11 },
+      "collisions": 0,
+      "intraBatchDuplicate": 0,
+      "needsAdjudication": 65
+    },
+    "predicateCorrection": {
+      "when": "2026-09-14（本批 dry-run 自查时发现）",
+      "defect": "「语义形态」判定为 `^tree_[a-z0-9_]+$` 且不含 `_s<N>_` —— 会把 `tree_1784367544335_zorevp`（时间戳+hash）误判成语义 id，于是拿它当命名空间来源。",
+      "consequence": "gap 被低估 → HIGH 被高估（宽松 116 vs 严格 68）；产出的 id 里仍带时间戳 = 伪语义化。",
+      "whyItMustBeFixed": "与用户对 `asplit_s132_base_theory` 的裁决同源：**结果 id 里不得带时间戳/hash**。",
+      "nowExcluded": ["时间戳前缀 tree_<10+位数字>_*", "含 10+ 位数字段的 id（如内嵌 k_<ts>_）", "_s<N>_ 段位编号"],
+      "affectedItems": 48,
+      "pseudoAncestorsExcluded": 27,
+      "gapDistBefore": { "0": 116, "1": 7, "2": 6, "3": 1, "6": 3 },
+      "gapDistAfter": { "0": 68, "1": 11, "2": 24, "3": 3, "4": 12, "5": 4, "6": 11 }
+    },
+    "freezeGate": {
+      "rule": "gap=0 → HIGH 可自动接受 · gap 1..3 → MEDIUM 须逐条人工确认 · gap > 3 → LOW/BLOCK 不允许自动生成最终 mapping",
+      "highAutoAccept": 68,
+      "mediumNeedsReview": 38,
+      "blocked": 27,
+      "frozenMappingProducible": false,
+      "reason": "27 条 gap>3 不允许机器给名；另有 38 条 MEDIUM 未确认 → 无 frozen mapping ⇒ **不得进入 apply**"
+    },
+    "boundedPrerequisite": {
+      "finding": "27 条 BLOCK 中 24 条并非命名困难，而是**命名空间祖先自己尚未语义化**（祖先 id 形如 tree_<时间戳>_<hash>）。",
+      "ancestorsToName": 7,
+      "groups": [
+        { "ancestor": "tree_1786026688588_0mtvxh", "name": "读写锁的实现分析", "blocks": 9 },
+        { "ancestor": "tree_1786245817114_ds2keo", "name": "RDB持久化", "blocks": 6 },
+        { "ancestor": "tree_1784367544335_zorevp", "name": "同步", "blocks": 2 },
+        { "ancestor": "tree_1783873515748_edsjp0", "name": "Java泛型", "blocks": 2 },
+        { "ancestor": "tree_1786235757428_osu8oj", "name": "zset", "blocks": 2 },
+        { "ancestor": "tree_1786340438649_tbr6gs", "name": "缓存异常", "blocks": 2 },
+        { "ancestor": "tree_1785862113590_a5v1ya", "name": "顺序一致性", "blocks": 1 }
+      ],
+      "remainingWithoutPseudoAncestor": {
+        "count": 3,
+        "items": ["备份恢复工具", "安全管理工具", "集群管理工具"],
+        "note": "父节点是 projection:* / 冒号命名族（MySQL 服务层），需另行裁决命名空间来源。"
+      },
+      "notScopeExpansion": "T3 仍只管 asplit_* 133 项；这只是识别出一个**有界前置依赖**（7 个祖先节点），给它们定名后相关子项自动降为 gap=0。"
+    },
+    "referenceClosure": {
+      "treeValueSites": 106,
+      "edgeIdParentSites": 15,
+      "edgeIdChildSites": 106,
+      "edgeEndpointSites": 0
+    },
+    "structuralFindings": {
+      "totalTreeEntries": 3219,
+      "note": "形态分布已按修正后的谓词重算（时间戳+hash 的判定收紧了，故该类计数上升）。「treeId 语义化」同类问题总量仍约为本批 10 倍；命名规则的适用范围需在冻结映射表前确认，否则可能二次改名。详见 t3-dryrun-report.md §0。"
+    }
+  },
+
+  "nextSteps": [
+    "**先裁决前置依赖**（`t3-mapping-review.md` §〇）：27 条 BLOCK 中 24 条的命名空间祖先自己还没语义化（7 个 hash 型节点）→ 决定是「先给这 7 个祖先定名」还是「BLOCK 挂起」；",
+    "为其余 3 条无伪祖先的 BLOCK（MySQL 服务层工具）裁决命名空间来源；",
+    "逐条确认 38 条 MEDIUM（gap 1..3，命名空间跳级借用是否恰当 + slug 拼写）；",
+    "冻结映射表（status 全部 approved / rejected，无 pending / needs-review / blocked 残留）→ apply 的 G3 闸门；",
+    "T3 apply 时用 `scripts/rename-evidence.mjs`（T5）统一出改名证据；",
+    "等 Phase 1 形成干净 HEAD 后执行 apply（备份 → 8 闸门 → 落盘 → 独立复验 → 单独提交 t3-semanticization）。"
+  ]
+}
