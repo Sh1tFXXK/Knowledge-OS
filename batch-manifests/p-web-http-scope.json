@@ -1,0 +1,320 @@
+{
+  "batchId": "p-web-http-scope",
+  "title": "P-WEB-HTTP-SCOPE · a-split 源残留节点拆解 ＋ HTTP / Servlet 本体归位（本体纠正 + 视图修复）",
+  "baseRef": "3a36b8b",
+  "baseRefNote": "前序提交链：… → 12d49a4（T3-P2 apply）→ 3a36b8b（t3-p2 登记为 COMMITTED）。本批从 T3-P2 收口后的干净基线出发。按「一个批次 / 一个 manifest / 一个 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」范式执行。本批**不再沿用 t3-* 前缀** —— batchId 改用 `p-web-*`，因为它的立项不来自 T3 的 A/B/C 分类，而来自用户对 `HTTP Request/Response` 的提问与随后的本体裁决。",
+  "preBatchSnapshot": "data/backups/p-web-http-scope-2026-09-14T16-26-47-000Z",
+  "preBatchSnapshotNote": "快照含 4 个 data 文件（tree / edges / pool / evolution-events）。**本批独立验证不 import apply 脚本**，而是由该快照 ↔ 工作树逐结构比对**反推**改动 ⇒ 快照是本批唯一的祖先证据。已用单进程 `Buffer.compare` 逐字节复核：HEAD(`3a36b8b`) ↔ 快照 4/4 相等（1939539 / 12651326 / 1139897 / 94553 字节）。",
+  "commitSubjectHint": "data: P-WEB-HTTP-SCOPE a-split 源残留节点拆解 + HTTP/Servlet 本体归位 — 树 3212→3215 · 池 3855→3858 · 边 4159→4161（独立验证 20/20 · UI 11/11）",
+  "status": "READY_TO_COMMIT",
+  "commit": null,
+  "committedAt": null,
+
+  "provenance": {
+    "trigger": "用户提问：「HTTP Request/Response 这个为什么没拆，位置也不对」",
+    "finding": "该节点是 **a-split 源残留节点**（`supplement.tabs[0].id = asplit:s18:s13:orig`，label「Request、Response 与作用域（原文）」，长度 796），**不是拆分产物**。它与其兄弟 `asplit_web_attribute_scope` 之间还有一条**非 treebind 结构边** `asplit:s18:req-scope` 声明二者为父子 —— 而树上二者是 JavaWeb 下的**同级兄弟** ⇒ **树与边自相矛盾**。根因：a-split 批次按**源碎片编号 `sN`** 切分，而非按语义 —— 同一话题（Browser → Request → Servlet → Response）同时出现在 s1（HTTP 请求）与 s18（HTTP Request/Response）两处。",
+    "userAdjudication": "2026-09-15 用户给出六条裁决（原文摘要）：① 删源残留节点（复合名 / 原始片段，不是稳定实体）；② `HTTP Request` / `HTTP Response` **回归 HTTP 本体**（计算机网络 > 网络协议 > HTTP）；③ `HttpServletRequest` / `HttpServletResponse` **留在 JavaWeb 作引用类型** —— 它们是 Java API 类型，不是 HTTP 协议本体；④ `Web 属性作用域` **归 Servlet 生命周期**，不与 HTTP Request/Response 绑定；⑤「请求报文 / 响应报文」是 HTTP Request/Response 的**传输表示**，应归其下（Request 是语义对象，报文是编码形式）；⑥「**先做本体拆分，再修 JavaWeb 视图引用；不要在树上搬来搬去**」。",
+    "userCorrectionRecorded": "用户同时纠正了本批方案草稿里的一个**真实矛盾**：草稿写「Web 属性作用域移动 0」，但目标是「Web 生命周期 > Web 属性作用域」而该父节点**并不存在** ⇒ 「保持原位置」与「移动 0」都不成立。用户指出：**必须先确认/创建目标本体锚点，才能谈移动** —— 「不能说『保持节点位置』，如果目标 ontology anchor 本身不存在」。落地时据此先做锚点检索：`Web 生命周期` 0 命中、`Web Runtime` / `Web Context` 0 命中、`Servlet 生命周期` 命中（即 `asplit_servlet_lifecycle`）、`Web 状态管理` 命中 —— 最终以 `Servlet 生命周期` 作锚点（复用而非新建）。",
+    "priorMistakeCorrected": "勘察初期曾把 `atomic_k_dict_ef30sdky` / `atomic_atomic_cookie` 判为「垃圾节点」，因为它们**没有 `label` 字段**且 id 形态可疑。**该判断错误**：它们是 Session / Cookie 的既有节点，缺 `label` 是历史导入的形态差异，不构成缺陷证据（宪法 §3.6 字段角色）。本批未据此做任何删除。"
+  },
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/plan-p-web-http-scope.mjs",
+    "scripts/apply-p-web-http-scope.mjs",
+    "scripts/verify-p-web-http-scope.mjs",
+    "outputs/tree-violation-scan/p-web-http-scope-plan.json",
+    "outputs/tree-violation-scan/p-web-http-scope-preflight.md",
+    "outputs/tree-violation-scan/p-web-http-scope-apply-report.md",
+    "outputs/tree-violation-scan/p-web-http-scope-verification.md",
+    "outputs/tree-violation-scan/p-web-http-scope-ui-probe.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/p-web-http-scope.json"
+  ],
+  "writeSetNote": "四类需要解释：① **四个 data 文件是本批唯一的数据写入**（tree 增 5 / 删 2 / 移 4 / 改名 1；edges 删 7 / 加 9；pool 增 4 / 删 1 / 改 3；evolution 追加 1 条审计事件）。⚠️ 与 T3-P2 不同，**本批 `node-pool.json` 确实有写入**（新建 4 个 concept 本体 + 删 1 个残留实体 + 改 3 个既有实体的 `card`/`label`）—— 这是「本体归位」而非「卸树留池」，所以池必须进写集，也必须进 Ancestor Gate。② 三个脚本：`plan-*`（只读预检 13 门）· `apply-*`（默认 dry-run，`--apply` 才写盘，原子写 + EPERM 退化）· `verify-*`（**独立**，不 import apply）。③ 五份产物报告（plan / preflight / apply-report / verification / ui-probe）。④ `governance-ledger.md` 本批有两处写入：**T14 新行**（记录本批）+ 「当前状态总览」新增一行 + 「最后更新」行。⑤ 一次性浏览器探针 `scripts/shell-fusion/probe-p-web-http-scope.mjs` **不进 writeSet** —— 按 AGENTS.md「临时产物用后即删」，**已删除**（删后已跑命令复查：探针路径不存在 · `.tmp-*` 计数 0）；11 条断言与结论留在 `p-web-http-scope-ui-probe.md`。",
+  "writeSetPathspecNote": "`git add` 用**本数组本身**，由就绪门原样输出，**不手写、不加通配**。硬不变量 `commitPathspec ≡ writeSet`（就绪门 `pathspecGate`）。",
+
+  "governanceSet": [],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "declaredExternalSetNote": "与 T3-P2 的登记**逐项一致**（本批未新增任何外部声明）：全部为他人会话 / 其它批次（T5、索引图/类图、文档）的在飞改动，本批**不认领、不提交、一个字节都不碰**。⚠️ `scripts/tree-utils.test.mjs` 已被外部会话修改 → 本批验收测试口径只认 **tracked 基线**。⚠️ `scripts/index-graph-layout.test.mjs` + `scripts/rename-evidence.mjs` + `scripts/scan-asplit-treeid-refs.mjs` 是 T5 批次的在飞件，同理不碰。",
+
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "**全部精确路径，不使用任何目录前缀也不使用通配**（前缀/通配是宽刷子，会盖住自己 writeSet 里的文件，并被就绪门的 `exclusionGate` 与 manifest 体检抓到）。本批只需一项真实排除：`readiness-p-web-http-scope.json` 是就绪门自身的产物，按项目惯例以精确路径登记为排除；其余为前序批次的同类产物，沿用登记以免变成「无人认领」。⚠️ 注意本批 **`data/questions.json` 没有被列入 excludedSet** —— 它根本不需要：题库本批**没有任何写入**（`git status` 无 `M data/questions.json`），故它既不进写集也不构成「靠排除来假装没改」。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/p-web-http-scope-plan.json",
+    "outputs/tree-violation-scan/p-web-http-scope-preflight.md",
+    "outputs/tree-violation-scan/p-web-http-scope-apply-report.md",
+    "outputs/tree-violation-scan/p-web-http-scope-verification.md",
+    "outputs/tree-violation-scan/p-web-http-scope-ui-probe.md"
+  ],
+  "generatedArtifactsNote": "`p-web-http-scope-plan.json` 由只读规划脚本产出（含裁决依据与预期 Δ）。⚠️ 复现性：`p-web-http-scope-apply-report.md` / `-verification.md` 需要 `data/backups/p-web-http-scope-*` 快照，而该快照被 `.gitignore` 覆盖 ⇒ 在干净检出上不可直接复跑（与各 `readiness-*.json` 处境同类）。`ui-probe.md` 是一次性探针的**断言留档**，探针本体已按纪律删除。",
+
+  "expectedDelta": {
+    "note": "本批**同时动树、动边、动池**（与 T3-P2 只动树+边不同）：既有结构移动/改名，也有池实体新建与删除。所有读数由 `plan-p-web-http-scope.mjs` 预检后、并由 `verify-p-web-http-scope.mjs` 从快照**反推**复核。",
+    "data/tree-data.json": {
+      "nodeCount": "3212 → 3215（+3）",
+      "addedNodes": 5,
+      "removedNodes": 2,
+      "movedNodes": 4,
+      "renamedNodes": 1,
+      "addedIds": [
+        "tree_concept_http_request",
+        "tree_concept_http_response",
+        "tree_java_fw_servlet",
+        "tree_java_fw_http_servlet_request",
+        "tree_java_fw_http_servlet_response"
+      ],
+      "removedIds": [
+        "tree_1786898830078_iopwk0",
+        "tree_java_fw_http_request_response"
+      ],
+      "removedNote": "`tree_1786898830078_iopwk0`（「报文格式」）是**空壳父层**：自身 `rootContent=undefined`、两个 tab 长度均为 0 ⇒ 卸树留池**零内容损失**（预检 G6 断言）。`tree_java_fw_http_request_response` 是源残留节点，其正文已迁移后删除。",
+      "movedList": [
+        { "id": "tree_1786898852112_uph5k3", "name": "请求报文", "from": "tree_1786898830078_iopwk0", "to": "tree_concept_http_request" },
+        { "id": "tree_1786898862413_xhmyno", "name": "响应报文", "from": "tree_1786898830078_iopwk0", "to": "tree_concept_http_response" },
+        { "id": "tree_java_fw_servlet_lifecycle", "name": "Servlet 生命周期 → 生命周期", "from": "tree_java_fw_javaweb", "to": "tree_java_fw_servlet" },
+        { "id": "tree_java_fw_web_attribute_scope", "name": "Web 属性作用域", "from": "tree_java_fw_javaweb", "to": "tree_java_fw_servlet_lifecycle" }
+      ],
+      "renameList": [
+        { "id": "tree_java_fw_servlet_lifecycle", "name": "Servlet 生命周期 → 生命周期", "rationale": "迁到 Servlet 之下后，「Servlet」前缀与父节点重复 ⇒ 去掉前缀。⚠️ 池实体 `asplit_servlet_lifecycle` 的 `label` **同位同步**改名（否则重演「树 name ≠ 池 label」）。" }
+      ],
+      "javaWebChildren": "JavaWeb 原直接子项含「Servlet 生命周期」「Web 属性作用域」「HTTP Request/Response」→ 本批后**首位为「Servlet」**，其余三项分别下沉到 Servlet / 生命周期 之下",
+      "unloadNote": "「报文格式」是**卸树留池**（池实体 `k_1786898829740_rz93sq` 保留，其子项以 `treebind` 改挂到新的 HTTP Request/Response）—— 与 T3-P0.1 / T3-P2 同构。"
+    },
+    "data/knowledge-edges.json": {
+      "edgeCount": "4159 → 4161（+2）",
+      "removedEdges": 7,
+      "addedEdges": 9,
+      "endpointsTouched": 0,
+      "removedEdgeIds": [
+        "treebind:tree_1786898710541_l4hgm2:tree_1786898830078_iopwk0",
+        "treebind:tree_1786898830078_iopwk0:tree_1786898852112_uph5k3",
+        "treebind:tree_1786898830078_iopwk0:tree_1786898862413_xhmyno",
+        "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_lifecycle",
+        "treebind:tree_java_fw_javaweb:tree_java_fw_http_request_response",
+        "treebind:tree_java_fw_javaweb:tree_java_fw_web_attribute_scope",
+        "asplit:s18:req-scope"
+      ],
+      "removedNote": "⚠️ 其中 `asplit:s18:req-scope` **不是 treebind**，而是 a-split 遗留的**结构声明边**（声明 `asplit_http_request_response` 拥有 `asplit_web_attribute_scope`），与树结构矛盾 —— 本批删除的第一类对象。另 6 条 treebind 是 5 处卸除/移动/删除的**上游边**，其中 `treebind:<HTTP>:<报文格式>` 是**独立验证 V14 逼出来的漏项**（详见 gates.independentVerification.measurementDefectFixed）。",
+      "addedEdgeIds": [
+        "treebind:tree_1786898710541_l4hgm2:tree_concept_http_request",
+        "treebind:tree_1786898710541_l4hgm2:tree_concept_http_response",
+        "treebind:tree_concept_http_request:tree_1786898852112_uph5k3",
+        "treebind:tree_concept_http_response:tree_1786898862413_xhmyno",
+        "treebind:tree_java_fw_javaweb:tree_java_fw_servlet",
+        "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_request",
+        "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_response",
+        "treebind:tree_java_fw_servlet:tree_java_fw_servlet_lifecycle",
+        "treebind:tree_java_fw_servlet_lifecycle:tree_java_fw_web_attribute_scope"
+      ],
+      "tbUnresolved": "18 → 18（既有债不增不减；本批新增 9 条全部可解析 —— V15 断言）",
+      "instructionNote": "**本批添加的 9 条全部是 `treebind:` 派生的父子指令边**，没有新增任何语义关系边。"
+    },
+    "data/node-pool.json": {
+      "before": 3855,
+      "after": 3858,
+      "added": [
+        "concept_http_request",
+        "concept_http_response",
+        "concept_http_servlet_request",
+        "concept_http_servlet_response"
+      ],
+      "removed": [
+        "asplit_http_request_response"
+      ],
+      "modified": [
+        "k_1784340526295_skm8iw",
+        "asplit_servlet_lifecycle",
+        "asplit_web_attribute_scope"
+      ],
+      "addedNote": "4 个新建本体全部 `role:'plain'` + `kind:'Concept'` + 非空 `card.rootContent`（305 / 304 / 168 / 159 字 —— V18 断言 ≥60）。命名走既有 `concept_*` 命名空间（全库 213 例同构）。",
+      "removedNote": "`asplit_http_request_response` 是**源残留池实体**（a-split 命名空间），其正文（796 字）已迁移后删除 —— 这是本批**唯一的内容级删除**，由 V16 证明无损（9 个关键片段全部落在迁移 tab 中）。",
+      "modifiedNote": "三个既有实体的改动性质各不相同：① `asplit_servlet_lifecycle` —— `label`「Servlet 生命周期」→「生命周期」（**改名**，与树 name 同位同步）；② `k_1784340526295_skm8iw`（Servlet）—— `card` 变更（**内容迁移**：挂原文 tab `migrated:asplit_http_request_response`）；③ `asplit_web_attribute_scope` —— `card` 变更（内容迁移同上）。三者均**未改 id**、未改 `kind`。"
+    },
+    "data/evolution-events.json": {
+      "before": 7,
+      "after": 8,
+      "addedEvents": 1,
+      "changes": 11,
+      "introducedNodes": 0,
+      "fieldRoleNote": "`changes[].before` / `after` 属**审计叙述**，按宪法 §3.6 **必须**保留旧 treeId，不计入「残留」。"
+    },
+    "data/questions.json": "0 改动（`git status` 无 `M`，且不进写集、不进排除集）",
+    "viewDimensionAtoms": "本批新增 **2** 个展示原子（`HttpServletRequest → concept_http_request` · `HttpServletResponse → concept_http_response`），形状沿用既有 `viewDimensions[].sections[].atoms[].nodeId`（样例 = `k_java_fw_mybatis` 的 `mybatis_plugin_grid`，预检 G7）。**这是「引用而非拥有」的唯一机制** —— 原子走池查表，与树挂载无关。"
+  },
+
+  "scopeRegistration": {
+    "inScope": "P-WEB = ① 一个 a-split **源残留节点**的拆解与删除；② `HTTP Request` / `HTTP Response` 回归 HTTP 本体；③ JavaWeb 侧改为**引用**协议本体（`HttpServletRequest` / `HttpServletResponse` 作为 Java API 类型留在 JavaWeb）；④ `Web 属性作用域` 归 `Servlet 生命周期` 锚点；⑤ 删除与树矛盾的遗留结构边",
+    "outOfScope_explicitly": [
+      "T3 家族（T3-P0 / P0.1 / P1 / P2）—— 已闭环，**不回头处理**（用户 2026-09-14 / 09-15 明确）",
+      "T10 ④ `react_root` nodeRef 串线 —— **登记进 T10 观察项，本批不修**（它是 identity integrity 问题，不是 mount 问题）",
+      "池实体 id 的 `asplit_` 命名空间残留（`asplit_servlet_lifecycle` / `asplit_web_attribute_scope` 等）—— 本批**只改 label/card，不改 id**，归 T10 ② 同类债",
+      "JavaWeb 下 `Filter` / `Controller` / `HTTP 通信模型` 等用户草稿提到的其它子项 —— 用户最终裁决未要求建立，**本批不造**（避免扩大范围）"
+    ],
+    "scopeBoundaryNote": "用户明确要求「先做本体拆分，再修 JavaWeb 视图引用；**不要在树上搬来搬去**」。因此本批的移动**只服务于本体归位**（4 处，每处都有明确的目标锚点），没有做任何「为好看而挪」。用户的另一条硬约束：「如果目标 ontology anchor 本身不存在，就不能说『保持节点位置』」—— 落地时先做锚点检索再移动。"
+  },
+
+  "adjudicationBasisNote": "本批立项**不依据自动分类**（与 T3-P2 依赖 A/B/C 分类不同），依据用户 2026-09-15 的**六条显式裁决**（记录于 `provenance.userAdjudication`）。判据侧的重点是**字段角色**：删除的依据是「它是 a-split 的**源碎片容器**（复合名 + 原始片段 + 被其它节点以结构边声明拥有）」而不是「它的 id 长得奇怪」—— 宪法 §3.1 明确「挂载位置不是身份证据」，§3.6 明确「旧值/形态差异只提供证据，不直接推出 defect」。",
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "口径 = **测试项数**：已跟踪 6 个测试文件 → 42 项；未跟踪 1 个文件（T5 批次的 `index-graph-layout.test.mjs`）→ 2 项。本次实跑 `npm test` = **44/44 全绿**。`scripts/tree-utils.test.mjs` 被**外部会话**修改过（在 declaredExternalSet 里），故本批验收只以 tracked 为准做保守断言。本批**未新增/未修改任何测试文件**（UI 改动不写单测 —— AGENTS.md）。"
+  },
+
+  "gates": {
+    "ancestorGate": {
+      "definition": "HEAD ↔ preBatchSnapshot 逐字节（单进程 Buffer.compare，禁 git show 管道）",
+      "result": "PASS 4/4",
+      "mustBeEmpty": [
+        "data/tree-data.json",
+        "data/node-pool.json",
+        "data/knowledge-edges.json",
+        "data/evolution-events.json"
+      ],
+      "readings": "tree 1939539 · pool 12651326 · edges 1139897 · events 94553，HEAD 与快照**字节数与内容全等**"
+    },
+    "planScript": {
+      "artifact": "outputs/tree-violation-scan/p-web-http-scope-preflight.md",
+      "verdict": "PREFLIGHT_OK 13/13",
+      "gates": [
+        { "id": "G1-parents", "name": "目标挂载父节点全部存在（HTTP / 网络协议 / JavaWeb / Servlet 复用位）", "result": "PASS" },
+        { "id": "G2-id-free", "name": "新建池 id / 树 id 全部无冲突", "result": "PASS" },
+        { "id": "G3-reuse-servlet", "name": "复用的 Servlet 池实体存在且 kind=concept（**二次挂载**，非新建）", "result": "PASS" },
+        { "id": "G4-move-src", "name": "四处移动源在位且当前父节点符合预期", "result": "PASS" },
+        { "id": "G5-delete-src", "name": "删除目标全部在位（残留树节点 / 残留池实体 / 错误边 / 其 treebind）", "result": "PASS" },
+        { "id": "G6-shell-lossless", "name": "「报文格式」卸树后内容损失为 0", "result": "PASS" },
+        { "id": "G7-ref-mechanism", "name": "引用机制形状可用（样例 k_java_fw_mybatis）", "result": "PASS" },
+        { "id": "G8-colon-safe", "name": "本批涉及父 treeId 均不含冒号（split(':') 陷阱不适用）", "result": "PASS" },
+        { "id": "G9-backup", "name": "备份存在且与当前真源逐字节一致", "result": "PASS" },
+        { "id": "G10-dangling-baseline", "name": "悬空基线记录（nodeRef 0 · treebind 不可解析 18）", "result": "PASS" },
+        { "id": "G11-migrate-src", "name": "待迁移源残留原文 tab 存在且非空（796 字）", "result": "PASS" },
+        { "id": "G12-baseline", "name": "计数基线 = 树 3212 / 池 3855 / 边 4159", "result": "PASS" },
+        { "id": "G13-evo-free", "name": "演化事件 id 无同名批次冲突", "result": "PASS" }
+      ],
+      "gateDefectFixedDuringPreflight": "首跑 G12 报 FAIL（树=3211）—— **仪器缺陷**：计数函数把 `tree-data.json` 的**顶层对象当成容器**、只从 `children` 起算，漏掉了顶层对象**自身就是一个节点**（「知识宇宙」/universe；项目基线 3212 本就含它）。改的是**取数方式**（顶层对象计入自身），不是把期望值从 3212 改成 3211（宪法 §3.2）。修后 13/13。"
+    },
+    "applyGate": {
+      "artifact": "outputs/tree-violation-scan/p-web-http-scope-apply-report.md",
+      "verdict": "10/10（dry-run 与 --apply 各跑一次；`--apply` 前二次预检重跑并通过）",
+      "gates": [
+        { "id": "P1", "name": "HTTP Request/Response 已在 HTTP 下且是独立概念", "result": "PASS" },
+        { "id": "P2", "name": "请求报文挂在 HTTP Request 下、响应报文挂在 HTTP Response 下", "result": "PASS" },
+        { "id": "P3", "name": "JavaWeb 下 Servlet 存在且为第 1 个子项", "result": "PASS" },
+        { "id": "P4", "name": "Servlet 下为 HttpServletRequest / HttpServletResponse / 生命周期", "result": "PASS" },
+        { "id": "P5", "name": "Web 属性作用域已归「生命周期」，不再是 JavaWeb 直接子项", "result": "PASS" },
+        { "id": "P6", "name": "源残留节点与「报文格式」已不在树", "result": "PASS" },
+        { "id": "P7", "name": "错误边 `asplit:s18:req-scope` 已删除", "result": "PASS" },
+        { "id": "P8", "name": "池实体：4 个新建到位、残留池实体已删、报文格式池实体保留", "result": "PASS" },
+        { "id": "P9", "name": "引用原子指向的两个本体存在于池", "result": "PASS" },
+        { "id": "P10", "name": "内容迁移无损：原文关键片段全部落在迁移 tab 里", "result": "PASS" }
+      ],
+      "applyDefectFixedDuringDryRun": "dry-run 首跑 P8 报 FAIL（`residuePool` 仍在）—— **脚本缺陷**：删池实体那一步漏写 `delete pool[K.residuePool]`，同时导致边增减算术写成 +3（实为 +2）。两处一并修正后 10/10。**没有**靠放宽 P8 的期望来过关。",
+      "safetyNote": "`apply-*.mjs` 默认 **dry-run**，只有显式 `--apply` 才写盘；写盘走 `writeJsonAtomic`（Windows rename 被占用时 EPERM 退化原地写）。落盘前先杀 dev server（项目铁律 #1：dev server 内存持有数据会回写覆盖外部写入）—— 本批实测时 5173 确有 dev server 监听（PID 30160），已先 kill 并复查端口释放。"
+    },
+    "independentVerification": {
+      "verdict": "INDEPENDENT_VERIFY_PASS 20/20",
+      "artifact": "outputs/tree-violation-scan/p-web-http-scope-verification.md",
+      "method": "**不 import apply 脚本** · 由 `data/backups/p-web-http-scope-*`（批前快照）↔ 当前工作树逐结构比对**反推**本批改了什么，再与宣称比对",
+      "highlights": [
+        "V1–V4：反推四文件计数 —— 树 3212→3215（+5 新建 −1 残留 −1 报文格式）· 池 3855→3858（+4 本体 −1 残留实体）· 边 4159→4161（删 7 加 9，净 +2）",
+        "V5：四个移动挂载的**父节点迁移**逐条相符（反推，非断言计数）",
+        "V6：树节点增删集合恰为本批声明，**无夹带**",
+        "V7：不存在名为「HTTP Request/Response」的复合概念节点（命中 0）",
+        "V8：HTTP Request / HTTP Response 是两个独立 concept，挂载在 网络 > 网络协议 > HTTP 下",
+        "V9：请求报文 / 响应报文 已从「报文格式」翻转归入 HTTP Request / HTTP Response",
+        "V10：JavaWeb 下 Servlet 居首，其子项为 HttpServletRequest / HttpServletResponse / 生命周期",
+        "V11：Web 属性作用域不再与 HTTP Request/Response 绑定，已归「生命周期」；错误父子边为 0",
+        "V12/V13：源残留节点与池实体均已删除 ∧「报文格式」已卸树但池实体保留（0 内容损失）",
+        "V14：悬空**不劣化** —— nodeRef 悬空 0→0 · treebind 不可解析 18→18（同口径对比）",
+        "V15：本批新增的 9 条 treebind **全部可解析**（无新增悬空）",
+        "V16：内容无损迁移 —— 原文 9 个关键片段（原文 796 字）全部保留在迁移 tab（580 字）",
+        "V17：Java 侧类型的引用原子全部可解析到协议本体（**不走树，走池查表**）",
+        "V18：四个新本体 rootContent 均非空（305 / 304 / 168 / 159 字）",
+        "V19：演化事件 +1 且为本批唯一一条、changes 非空（11 项）",
+        "V20：与批无关的池实体未被动（抽样：Servlet 本体 label 未改、mybatis 宿主维度 4 原子完好）"
+      ],
+      "真缺陷_foundByVerification": "⚠️ V14 首跑报 `treebind 不可解析 = 228`（基线 18）→ 换用**冒号安全的解析器**后读数为 **19**（= 18 + 1 新增）⇒ 暴露出**本批的一个真缺陷**：卸「报文格式」时**漏删其上游边** `treebind:tree_1786898710541_l4hgm2:tree_1786898830078_iopwk0`。**处置**：从快照回滚 → 修 apply 脚本（把该边 id 加入 `removeIds`）→ 重跑 `--apply` → 重跑独立验证 **20/20**。⚠️ 注意这里有两层：**仪器缺陷**（`lastIndexOf(':')` 在父 treeId 含冒号时错切 —— 项目历史 18→217/227 债的同一根因）与**产品缺陷**（真漏删）。前者修好之后才**看得见**后者。",
+      "measurementDefectFixed": "同上：`tb()` 用 `lastIndexOf(':')` 拆 treebind id 会错切。改为「枚举切分点 + 两半都必须命中已知 treeId 全集」的冒号安全解析器（与 T3-P1 独立验证第 11 条的修法一致）。**改的是解析器，不是期望值**。"
+    },
+    "uiAcceptance": {
+      "verdict": "UI_VERIFY_PASS 11/11",
+      "artifact": "outputs/tree-violation-scan/p-web-http-scope-ui-probe.md",
+      "method": "`npm run build` → `vite preview --port 4192`（`KNOWLEDGE_OS_DATA_DIR=.tmp-pweb-ui`，只读）→ 无头 Chromium（CDP 9337）",
+      "dataIntegrity": "`.tmp-pweb-ui/` 是落盘后真源的**逐字节副本**（tree / edges / pool / events / questions 五文件 `Buffer.compare === 0`）⇒ 实测打在**本批真正写进 `data/` 的那份数据**上，不是另造的样本。",
+      "highlights": [
+        "U1：DOM 中 `[data-tree-node-id]` = **3215**",
+        "U2：树里出现「HTTP Request」「HTTP Response」**且复合名「HTTP Request/Response」不存在**",
+        "U3：「请求报文」「响应报文」仍在树，空壳父层「报文格式」已不在树",
+        "U4：JavaWeb 下出现「Servlet」；旧名「Servlet 生命周期」已被「生命周期」取代",
+        "U5：「Web 属性作用域」仍在树（已迁到「生命周期」下）",
+        "U6：**祖先链** `知识宇宙 > … > HTTP > HTTP Request`（`universe > … > tree_1786898710541_l4hgm2 > tree_concept_http_request`）",
+        "U7：**祖先链**「请求报文」落在 HTTP Request 之下（`… > tree_concept_http_request > tree_1786898852112_uph5k3`）—— 层级**真的翻转**了",
+        "U8：**祖先链**「Servlet」是 JavaWeb 直接子项、「HttpServletRequest」落其下",
+        "U9：**祖先链**「Web 属性作用域」落在「生命周期」之下（不再与 HTTP Request/Response 绑定）",
+        "U10：点「HttpServletRequest」→「视图」渲染出对**协议本体**「HTTP Request」的**引用**",
+        "U11：刷新后复测：挂载 3215 → 3215 · HTTP Request=true · Servlet=true · 复合名=false"
+      ],
+      "keyInsight": "**只有渲染层能证明的两条**：① U10 —— JavaWeb 里的「HttpServletRequest」其「视图」渲染出协议本体「HTTP Request」，该引用走 `viewDimensions` **池查表**，与树挂载无关 ⇒ 这是「JavaWeb 放的是引用、本体不在 JavaWeb」在 UI 上真正成立的唯一证据；② U7 / U9 —— 断言的是**祖先链**而非「节点存在」，若「请求报文」仍挂「报文格式」下、或「Web 属性作用域」仍挂 JavaWeb 直接下，这两条必然失败。",
+      "probeDefectsFixed": "两处**仪器缺陷**（报告已留案）：① 首跑 0/11 —— CDP 连到了 **browser 级**端点 `/json/version`（`Runtime.evaluate` 无 `result`），改用 `/json/list` 取 `type==='page'` 的 target；② 7/11，U6–U9 FAIL —— 探针假设 `data-tree-node-id` 出现在**祖先**元素上，实际它只在 `.tree-node-row` 上、祖先层是 `.tree-node > .tree-node-children` 包装器，改为沿 `.tree-node-children` 上溯后 11/11。**改的是判据的取数方式，不是放宽期望值**（宪法 §3.2）。",
+      "waitCondition": "折叠只靠 CSS（`display:none`），挂载数恒定 ⇒ 等待条件用「等 `=== 3215`」而非「等 `> 0`」（T3-P2 的 U7 首跑缺陷即源于过弱的等待条件）。"
+    },
+    "regression": "`npx tsc --noEmit` 0 错误 · `npm run build` ~30s · `npm test` 44/44（验收基准 = tracked 42/42）",
+    "probeDiscipline": "一条一次性浏览器探针 `scripts/shell-fusion/probe-p-web-http-scope.mjs` **用后即删**（删除后已跑命令复查：探针路径不存在 · `.tmp-*` 计数 0）。`data/backups/p-web-http-scope-*` 由 `.gitignore` 覆盖，不进提交。"
+  },
+
+  "acceptanceDecision": {
+    "preflight": "13/13 PREFLIGHT_OK",
+    "apply": "10/10",
+    "independentVerify": "20/20 INDEPENDENT_VERIFY_PASS",
+    "ui": "11/11 UI_VERIFY_PASS",
+    "regression": "tsc 0 · test 44/44 · build 30s",
+    "verdict": "全部验收门通过，数据已落盘，待提交。"
+  }
+}

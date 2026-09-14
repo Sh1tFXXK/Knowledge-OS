@@ -154,10 +154,10 @@
                   "nodeRef": "k_1786898710067_dpzp8r",
                   "children": [
                     {
-                      "id": "tree_1786898830078_iopwk0",
-                      "name": "报文格式",
+                      "id": "tree_concept_http_request",
+                      "name": "HTTP Request",
                       "count": 0,
-                      "nodeRef": "k_1786898829740_rz93sq",
+                      "nodeRef": "concept_http_request",
                       "children": [
                         {
                           "id": "tree_1786898852112_uph5k3",
@@ -165,7 +165,15 @@
                           "count": 0,
                           "nodeRef": "k_1786898851657_b3uj1z",
                           "children": []
-                        },
+                        }
+                      ]
+                    },
+                    {
+                      "id": "tree_concept_http_response",
+                      "name": "HTTP Response",
+                      "count": 0,
+                      "nodeRef": "concept_http_response",
+                      "children": [
                         {
                           "id": "tree_1786898862413_xhmyno",
                           "name": "响应报文",
@@ -11312,6 +11320,42 @@
                   "nodeRef": "k_java_fw_javaweb",
                   "children": [
                     {
+                      "id": "tree_java_fw_servlet",
+                      "name": "Servlet",
+                      "count": 0,
+                      "nodeRef": "k_1784340526295_skm8iw",
+                      "children": [
+                        {
+                          "id": "tree_java_fw_http_servlet_request",
+                          "name": "HttpServletRequest",
+                          "count": 0,
+                          "nodeRef": "concept_http_servlet_request",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_java_fw_http_servlet_response",
+                          "name": "HttpServletResponse",
+                          "count": 0,
+                          "nodeRef": "concept_http_servlet_response",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_java_fw_servlet_lifecycle",
+                          "name": "生命周期",
+                          "nodeRef": "asplit_servlet_lifecycle",
+                          "children": [
+                            {
+                              "id": "tree_java_fw_web_attribute_scope",
+                              "name": "Web 属性作用域",
+                              "count": 0,
+                              "nodeRef": "asplit_web_attribute_scope",
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
                       "id": "tree_vault_javajavawebjsp_elp41h",
                       "name": "JSP",
                       "count": 0,
@@ -11340,12 +11384,6 @@
                       "children": []
                     },
                     {
-                      "id": "tree_java_fw_servlet_lifecycle",
-                      "name": "Servlet 生命周期",
-                      "nodeRef": "asplit_servlet_lifecycle",
-                      "children": []
-                    },
-                    {
                       "id": "tree_java_fw_servlet_container",
                       "name": "Servlet 容器",
                       "nodeRef": "asplit_servlet_container",
@@ -11355,35 +11393,6 @@
                       "id": "tree_java_fw_view_rendering",
                       "name": "视图渲染",
                       "nodeRef": "asplit_view_rendering",
-                      "children": []
-                    },
-                    {
-                      "id": "tree_java_fw_http_request_response",
-                      "name": "HTTP Request/Response",
-                      "count": 0,
-                      "nodeRef": "asplit_http_request_response",
-                      "children": [],
-                      "supplement": {
-                        "tabs": [
-                          {
-                            "id": "asplit:s18:s13:orig",
-                            "label": "Request、Response 与作用域（原文）",
-                            "content": "Request/Response 与作用域 ## 两个核心对象\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n## 请求处理的本质\n\n```mermaid\nflowchart LR\n    A[Request] --> B[Servlet]\n    B --> C[读取参数]\n    C --> D[执行业务]\n    D --> E[写入 Response]\n```\n\n## 常见能力\n\n- 读取表单和 URL 参数\n- 请求转发\n- 响应输出\n- 设置状态码和内容类型\n\n## 作用域理解\n\n- Request：一次请求内有效\n- ServletContext：整个应用共享\n\n这些作用域是后续 Web 框架状态管理的基础层。\n\n## 两个核心对象\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n## 请求处理的本质\n\n```mermaid\nflowchart LR\n    A[Request] --> B[Servlet]\n    B --> C[读取参数]\n    C --> D[执行业务]\n    D --> E[写入 Response]\n```\n\n## 常见能力\n\n- 读取表单和 URL 参数\n- 请求转发\n- 响应输出\n- 设置状态码和内容类型\n\n## 作用域理解\n\n- Request：一次请求内有效\n- ServletContext：整个应用共享\n\n这些作用域是后续 Web 框架状态管理的基础层。",
-                            "tags": [
-                              "Request/Response 与作用域",
-                              "java",
-                              "框架",
-                              "中间件"
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    {
-                      "id": "tree_java_fw_web_attribute_scope",
-                      "name": "Web 属性作用域",
-                      "count": 0,
-                      "nodeRef": "asplit_web_attribute_scope",
                       "children": []
                     },
                     {

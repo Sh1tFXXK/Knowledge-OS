@@ -34708,6 +34708,11 @@
           "id": "legacy-mysql-glossary-mysql_glossary_servlet_12jp4v",
           "label": "MySQL 术语来源",
           "content": "**servlet**\n\n另见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_j)。\n\n来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet"
+        },
+        {
+          "id": "migrated:asplit_http_request_response",
+          "label": "迁移自 HTTP Request/Response（原文）",
+          "content": "Request/Response 与作用域 ## 两个核心对象\n\n## 请求处理的本质\n\n```mermaid\nflowchart LR\n    A[Request] --> B[Servlet]\n    B --> C[读取参数]\n    C --> D[执行业务]\n    D --> E[写入 Response]\n```\n\n## 常见能力\n\n- 读取表单和 URL 参数\n- 请求转发\n- 响应输出\n- 设置状态码和内容类型"
         }
       ],
       "rootContent": "Servlet Java servlet 技术为Web开发者提供了一种简单、一致的机制，用于扩展Web服务器的功能和访问现有的业务系统。Servlet 是 服务器端 Java EE 组件，它们生成对 客户端 请求的响应。大多数情况下，这意味着生成对 HTTP 请求的 HTML 页面，尽管还有许多其他标准的 servlet 类可用，例如用于 WebSocket 通信。 Java servlet API 在一定程度上被两种标准 Java 技术取代（但仍在幕后使用）用于web服务： Java API for RESTful Web Services (JAX-RS 2.0) 对于 AJAX、JSON 和 REST 服务非常有用，以及Java API for XML Web Services (JAX-WS) 对 SOAP Web Services 很有用。 在应用服务器或 servlet 容器上，这些 API 的典型实现使用标准 servlet 处理所有与 HTTP 请求和响应的交互，并委托给具体的业务逻辑的web服务方法。 **servlet** 另见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_j)。 来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet **servlet** 另见 [Connector/J](https://dev.mysql.com/doc/refman/8.4/en/glossary.html#glos_connector_j)。 来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet"
@@ -157419,7 +157424,7 @@
   },
   "asplit_servlet_lifecycle": {
     "id": "asplit_servlet_lifecycle",
-    "label": "Servlet 生命周期",
+    "label": "生命周期",
     "role": "plain",
     "tags": [
       "Servlet 生命周期"
@@ -159506,28 +159511,6 @@
       "rootContent": "并发互斥锁\n\n并发互斥锁：用互斥手段串行化临界区，保证同一时刻只有一个线程进入。synchronized 与 ReentrantLock 是 Java 两大实现，锁提供原子性、可见性与有序性保障。"
     }
   },
-  "asplit_http_request_response": {
-    "id": "asplit_http_request_response",
-    "label": "HTTP Request/Response",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "HTTP Request/Response"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "asplit_http_request_response",
-      "title": "HTTP Request/Response",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "HTTP Request/Response：HttpServletRequest 封装请求参数、请求头、路径与会话；HttpServletResponse 封装响应头、状态码与输出体。Servlet 读取参数、执行业务、写入响应，构成一次请求处理闭环。"
-        }
-      ],
-      "rootContent": "HTTP Request/Response\n\nHTTP Request/Response：HttpServletRequest 封装请求参数、请求头、路径与会话；HttpServletResponse 封装响应头、状态码与输出体。Servlet 读取参数、执行业务、写入响应，构成一次请求处理闭环。"
-    }
-  },
   "asplit_web_attribute_scope": {
     "id": "asplit_web_attribute_scope",
     "label": "Web 属性作用域",
@@ -159545,6 +159528,11 @@
           "id": "def",
           "label": "定义",
           "content": "Web 属性作用域：request 作用域一次请求内有效；session 作用域跨请求；application 与 ServletContext 作用域整个应用共享，是后续 Web 框架状态管理的基础层。"
+        },
+        {
+          "id": "migrated:asplit_http_request_response",
+          "label": "迁移自 HTTP Request/Response（原文）",
+          "content": "## 作用域理解\n\n- Request：一次请求内有效\n- ServletContext：整个应用共享\n\n这些作用域是后续 Web 框架状态管理的基础层。"
         }
       ],
       "rootContent": "Web 属性作用域\n\nWeb 属性作用域：request 作用域一次请求内有效；session 作用域跨请求；application 与 ServletContext 作用域整个应用共享，是后续 Web 框架状态管理的基础层。"
@@ -160158,5 +160146,167 @@
       "title": "系统调用与 I/O",
       "tabs": []
     }
+  },
+  "concept_http_request": {
+    "id": "concept_http_request",
+    "label": "HTTP Request",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "HTTP",
+      "网络协议"
+    ],
+    "tags": [
+      "HTTP Request",
+      "HTTP",
+      "网络协议"
+    ],
+    "card": {
+      "nodeId": "concept_http_request",
+      "title": "HTTP Request",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "HTTP Request（HTTP 请求）：客户端发给服务器的请求报文，以「我要做什么」为核心语义。\n\n- 请求行：方法 + 请求目标（URL / 路径）+ 协议版本\n- 方法：GET / POST / PUT / DELETE / PATCH，决定语义与幂等性\n- URL：请求目标，含路径与查询串\n- 请求头：Host、Content-Type、Content-Length、Cookie、Accept 等\n- 请求体：POST / PUT 等携带的数据（表单、JSON、二进制）\n\nHTTP Request 是协议层概念；Java 侧的 `HttpServletRequest` 是它在容器里的封装表示。"
+        }
+      ],
+      "rootContent": "HTTP Request（HTTP 请求）：客户端发给服务器的请求报文，以「我要做什么」为核心语义。\n\n- 请求行：方法 + 请求目标（URL / 路径）+ 协议版本\n- 方法：GET / POST / PUT / DELETE / PATCH，决定语义与幂等性\n- URL：请求目标，含路径与查询串\n- 请求头：Host、Content-Type、Content-Length、Cookie、Accept 等\n- 请求体：POST / PUT 等携带的数据（表单、JSON、二进制）\n\nHTTP Request 是协议层概念；Java 侧的 `HttpServletRequest` 是它在容器里的封装表示。"
+    }
+  },
+  "concept_http_response": {
+    "id": "concept_http_response",
+    "label": "HTTP Response",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "HTTP",
+      "网络协议"
+    ],
+    "tags": [
+      "HTTP Response",
+      "HTTP",
+      "网络协议"
+    ],
+    "card": {
+      "nodeId": "concept_http_response",
+      "title": "HTTP Response",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "HTTP Response（HTTP 响应）：服务器回给客户端的结果报文，以「结果是什么」为核心语义。\n\n- 状态行：协议版本 + 状态码 + 原因短语\n- 状态码：1xx 信息 / 2xx 成功 / 3xx 重定向 / 4xx 客户端错误 / 5xx 服务端错误\n- 响应头：Content-Type、Content-Length、Cache-Control、Set-Cookie 等\n- 响应体：返回数据\n- MIME / Content-Type：决定客户端如何解析响应体\n\nHTTP Response 是协议层概念；Java 侧的 `HttpServletResponse` 是它在容器里的封装表示。"
+        }
+      ],
+      "rootContent": "HTTP Response（HTTP 响应）：服务器回给客户端的结果报文，以「结果是什么」为核心语义。\n\n- 状态行：协议版本 + 状态码 + 原因短语\n- 状态码：1xx 信息 / 2xx 成功 / 3xx 重定向 / 4xx 客户端错误 / 5xx 服务端错误\n- 响应头：Content-Type、Content-Length、Cache-Control、Set-Cookie 等\n- 响应体：返回数据\n- MIME / Content-Type：决定客户端如何解析响应体\n\nHTTP Response 是协议层概念；Java 侧的 `HttpServletResponse` 是它在容器里的封装表示。"
+    }
+  },
+  "concept_http_servlet_request": {
+    "id": "concept_http_servlet_request",
+    "label": "HttpServletRequest",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "tags": [
+      "HttpServletRequest",
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "card": {
+      "nodeId": "concept_http_servlet_request",
+      "title": "HttpServletRequest",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "HttpServletRequest：Java Servlet API 对 HTTP 请求的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 从容器拿到请求行 / 请求头 / 请求体\n- 读取请求参数、路径、会话\n- 与协议本体的关系：它是 HTTP Request 在 Java 容器里的封装表示（引用，不是拥有）"
+        },
+        {
+          "id": "migrated:asplit_http_request_response",
+          "label": "迁移自 HTTP Request/Response（原文）",
+          "content": "## 两个核心对象\n\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n（原节点已删除，此表为无损迁移留存）"
+        }
+      ],
+      "rootContent": "HttpServletRequest：Java Servlet API 对 HTTP 请求的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 从容器拿到请求行 / 请求头 / 请求体\n- 读取请求参数、路径、会话\n- 与协议本体的关系：它是 HTTP Request 在 Java 容器里的封装表示（引用，不是拥有）"
+    },
+    "viewDimensions": [
+      {
+        "id": "http_binding",
+        "name": "绑定的协议本体",
+        "color": "#2F80ED",
+        "hint": "Java 侧类型只是 HTTP 协议本体的容器封装；点开看协议层定义。",
+        "sections": [
+          {
+            "id": "http_binding_grid",
+            "title": "绑定的协议本体",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "concept_http_request",
+                "desc": "HTTP 请求：方法 / URL / 请求头 / 请求体"
+              }
+            ]
+          }
+        ],
+        "groups": []
+      }
+    ]
+  },
+  "concept_http_servlet_response": {
+    "id": "concept_http_servlet_response",
+    "label": "HttpServletResponse",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "tags": [
+      "HttpServletResponse",
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "card": {
+      "nodeId": "concept_http_servlet_response",
+      "title": "HttpServletResponse",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "HttpServletResponse：Java Servlet API 对 HTTP 响应的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 设置响应头与状态码\n- 写回输出体 / 返回数据\n- 与协议本体的关系：它是 HTTP Response 在 Java 容器里的封装表示（引用，不是拥有）"
+        },
+        {
+          "id": "migrated:asplit_http_request_response",
+          "label": "迁移自 HTTP Request/Response（原文）",
+          "content": "## 两个核心对象\n\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n（原节点已删除，此表为无损迁移留存）"
+        }
+      ],
+      "rootContent": "HttpServletResponse：Java Servlet API 对 HTTP 响应的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 设置响应头与状态码\n- 写回输出体 / 返回数据\n- 与协议本体的关系：它是 HTTP Response 在 Java 容器里的封装表示（引用，不是拥有）"
+    },
+    "viewDimensions": [
+      {
+        "id": "http_binding",
+        "name": "绑定的协议本体",
+        "color": "#2F80ED",
+        "hint": "Java 侧类型只是 HTTP 协议本体的容器封装；点开看协议层定义。",
+        "sections": [
+          {
+            "id": "http_binding_grid",
+            "title": "绑定的协议本体",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "concept_http_response",
+                "desc": "HTTP 响应：状态码 / 响应头 / 响应体"
+              }
+            ]
+          }
+        ],
+        "groups": []
+      }
+    ]
   }
 }

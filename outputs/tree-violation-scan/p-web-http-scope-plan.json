@@ -1,0 +1,322 @@
+{
+ "batchId": "p-web-http-scope",
+ "generatedAt": "2026-09-14T16:33:43.652Z",
+ "dataDir": "E:\\project\\Knowledge-OS\\data",
+ "basis": "用户 2026-09-15 裁决：源残留节点删除；HTTP Request/Response 回归 HTTP 本体；HttpServletRequest/Response 留 JavaWeb 作引用类型；Web 属性作用域归 Servlet 生命周期，不与 HTTP Request/Response 绑定。",
+ "decisions": {
+  "anchorForScope": "Servlet > 生命周期（复用已有 tree_java_fw_servlet_lifecycle，改名「生命周期」）",
+  "referenceMechanism": "viewDimensions[].sections[].atoms[].nodeId（原生展示原子，非新增边）",
+  "servletReuse": "复用既有池实体 k_1784340526295_skm8iw，在 JavaWeb 下二次挂载（同 ref 多挂载是既有机制）",
+  "shellHandling": "「报文格式」tree_1786898830078_iopwk0 卸树留池（0 内容损失），池实体保留"
+ },
+ "operations": {
+  "createPool": [
+   {
+    "id": "concept_http_request",
+    "label": "HTTP Request",
+    "kind": "concept",
+    "at": "tree_1786898710541_l4hgm2 > tree_concept_http_request"
+   },
+   {
+    "id": "concept_http_response",
+    "label": "HTTP Response",
+    "kind": "concept",
+    "at": "tree_1786898710541_l4hgm2 > tree_concept_http_response"
+   },
+   {
+    "id": "concept_http_servlet_request",
+    "label": "HttpServletRequest",
+    "kind": "concept",
+    "at": "tree_java_fw_javaweb > tree_java_fw_servlet > tree_java_fw_http_servlet_request"
+   },
+   {
+    "id": "concept_http_servlet_response",
+    "label": "HttpServletResponse",
+    "kind": "concept",
+    "at": "tree_java_fw_javaweb > tree_java_fw_servlet > tree_java_fw_http_servlet_response"
+   }
+  ],
+  "createTreeMount": [
+   {
+    "id": "tree_concept_http_request",
+    "name": "HTTP Request",
+    "ref": "concept_http_request",
+    "parent": "tree_1786898710541_l4hgm2"
+   },
+   {
+    "id": "tree_concept_http_response",
+    "name": "HTTP Response",
+    "ref": "concept_http_response",
+    "parent": "tree_1786898710541_l4hgm2"
+   },
+   {
+    "id": "tree_java_fw_servlet",
+    "name": "Servlet",
+    "ref": "k_1784340526295_skm8iw",
+    "parent": "tree_java_fw_javaweb"
+   },
+   {
+    "id": "tree_java_fw_http_servlet_request",
+    "name": "HttpServletRequest",
+    "ref": "concept_http_servlet_request",
+    "parent": "tree_java_fw_servlet"
+   },
+   {
+    "id": "tree_java_fw_http_servlet_response",
+    "name": "HttpServletResponse",
+    "ref": "concept_http_servlet_response",
+    "parent": "tree_java_fw_servlet"
+   }
+  ],
+  "moveMount": [
+   {
+    "id": "tree_1786898852112_uph5k3",
+    "name": "请求报文",
+    "from": "tree_1786898830078_iopwk0",
+    "to": "tree_concept_http_request"
+   },
+   {
+    "id": "tree_1786898862413_xhmyno",
+    "name": "响应报文",
+    "from": "tree_1786898830078_iopwk0",
+    "to": "tree_concept_http_response"
+   },
+   {
+    "id": "tree_java_fw_servlet_lifecycle",
+    "name": "Servlet 生命周期 → 生命周期",
+    "from": "tree_java_fw_javaweb",
+    "to": "tree_java_fw_servlet",
+    "renameTo": "生命周期"
+   },
+   {
+    "id": "tree_java_fw_web_attribute_scope",
+    "name": "Web 属性作用域",
+    "from": "tree_java_fw_javaweb",
+    "to": "tree_java_fw_servlet_lifecycle"
+   }
+  ],
+  "detachKeepPool": [
+   {
+    "id": "tree_1786898830078_iopwk0",
+    "name": "报文格式",
+    "ref": "k_1786898829740_rz93sq",
+    "reason": "空壳中间层，子项已分别归入 HTTP Request / HTTP Response；池实体保留"
+   }
+  ],
+  "deleteNode": [
+   {
+    "id": "tree_java_fw_http_request_response",
+    "name": "HTTP Request/Response",
+    "ref": "asplit_http_request_response",
+    "deletePoolEntity": true,
+    "reason": "a-split 源残留容器，复合名 + 原文分片，非稳定知识实体；内容先迁移后删"
+   }
+  ],
+  "edgeRemove": [
+   "asplit:s18:req-scope",
+   "treebind:tree_java_fw_javaweb:tree_java_fw_http_request_response",
+   "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_lifecycle",
+   "treebind:tree_java_fw_javaweb:tree_java_fw_web_attribute_scope",
+   "treebind:tree_1786898830078_iopwk0:tree_1786898852112_uph5k3",
+   "treebind:tree_1786898830078_iopwk0:tree_1786898862413_xhmyno"
+  ],
+  "edgeAdd": [
+   {
+    "id": "treebind:tree_1786898710541_l4hgm2:tree_concept_http_request",
+    "source": "k_1786898710067_dpzp8r",
+    "target": "concept_http_request",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_1786898710541_l4hgm2:tree_concept_http_response",
+    "source": "k_1786898710067_dpzp8r",
+    "target": "concept_http_response",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_concept_http_request:tree_1786898852112_uph5k3",
+    "source": "concept_http_request",
+    "target": "k_1786898851657_b3uj1z",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_concept_http_response:tree_1786898862413_xhmyno",
+    "source": "concept_http_response",
+    "target": "k_1786898862091_zxw3qo",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet",
+    "source": "k_java_fw_javaweb",
+    "target": "k_1784340526295_skm8iw",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_request",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_request",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_response",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_response",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_servlet_lifecycle",
+    "source": "k_1784340526295_skm8iw",
+    "target": "asplit_servlet_lifecycle",
+    "relationKind": "structure"
+   },
+   {
+    "id": "treebind:tree_java_fw_servlet_lifecycle:tree_java_fw_web_attribute_scope",
+    "source": "asplit_servlet_lifecycle",
+    "target": "asplit_web_attribute_scope",
+    "relationKind": "structure"
+   }
+  ],
+  "referenceAtoms": [
+   {
+    "host": "concept_http_servlet_request",
+    "dimId": "http_binding",
+    "dimName": "绑定的协议本体",
+    "atom": {
+     "nodeId": "concept_http_request",
+     "desc": "HTTP 请求：方法 / URL / 请求头 / 请求体"
+    }
+   },
+   {
+    "host": "concept_http_servlet_response",
+    "dimId": "http_binding",
+    "dimName": "绑定的协议本体",
+    "atom": {
+     "nodeId": "concept_http_response",
+     "desc": "HTTP 响应：状态码 / 响应头 / 响应体"
+    }
+   }
+  ],
+  "contentMigration": [
+   {
+    "from": "tree_java_fw_http_request_response.supplement.tabs[asplit:s18:s13:orig]",
+    "to": "concept_http_servlet_request.card.tabs[]",
+    "part": "两个核心对象 · HttpServletRequest 行",
+    "lossless": true
+   },
+   {
+    "from": "tree_java_fw_http_request_response.supplement.tabs[asplit:s18:s13:orig]",
+    "to": "concept_http_servlet_response.card.tabs[]",
+    "part": "两个核心对象 · HttpServletResponse 行",
+    "lossless": true
+   },
+   {
+    "from": "tree_java_fw_http_request_response.supplement.tabs[asplit:s18:s13:orig]",
+    "to": "k_1784340526295_skm8iw.card.tabs[]",
+    "part": "请求处理的本质 + 常见能力",
+    "lossless": true
+   },
+   {
+    "from": "tree_java_fw_http_request_response.supplement.tabs[asplit:s18:s13:orig]",
+    "to": "asplit_web_attribute_scope.card.tabs[]",
+    "part": "作用域理解",
+    "lossless": true
+   }
+  ],
+  "evolutionEvent": {
+   "id": "event:tree-refactor:p-web-http-scope",
+   "title": "P-WEB：HTTP Request/Response 回归 HTTP 本体 + JavaWeb 改为类型引用 + 作用域归 Servlet 生命周期"
+  }
+ },
+ "expectedDelta": {
+  "tree": "+5 −1 −1 = +3（3212 → 3215）",
+  "pool": "+4 −1 = +3（3855 → 3858）",
+  "edges": "删 6 条（含错误声明 asplit:s18:req-scope 与 5 条旧 treebind）· 加 9 条 treebind = +3（4159 → 4162）",
+  "evolution": "+1（7 → 8）"
+ },
+ "gates": [
+  {
+   "id": "G1-parents",
+   "desc": "目标挂载父节点全部存在（HTTP / JavaWeb / Servlet-javaweb 复用位）",
+   "pass": true,
+   "detail": "HTTP=true 网络协议=true JavaWeb=true"
+  },
+  {
+   "id": "G2-id-free",
+   "desc": "新建池 id / 树 id 全部无冲突",
+   "pass": true,
+   "detail": "池冲突=无 树冲突=无"
+  },
+  {
+   "id": "G3-reuse-servlet",
+   "desc": "复用的 Servlet 池实体存在且 kind=concept",
+   "pass": true,
+   "detail": "label=Servlet kind=concept rootLen=858"
+  },
+  {
+   "id": "G4-move-src",
+   "desc": "四个移动源在位且当前父节点符合预期",
+   "pass": true,
+   "detail": "请求报文:OK | 响应报文:OK | Web 属性作用域:OK | Servlet 生命周期:OK"
+  },
+  {
+   "id": "G5-delete-src",
+   "desc": "删除目标全部在位（残留树节点 / 残留池实体 / 错误边 / 其 treebind）",
+   "pass": true,
+   "detail": "树节点=true 池实体=true 错误边=true treebind=true"
+  },
+  {
+   "id": "G6-shell-lossless",
+   "desc": "「报文格式」卸树后内容损失为 0（子项只含待移动两条，自身无正文/无非空 tab）",
+   "pass": true,
+   "detail": "子项=[tree_1786898852112_uph5k3,tree_1786898862413_xhmyno] rc=undefined tab长度=[0,0]"
+  },
+  {
+   "id": "G7-ref-mechanism",
+   "desc": "引用机制 = viewDimensions[].sections[].atoms[].nodeId 形状可用（样例 k_java_fw_mybatis）",
+   "pass": true,
+   "detail": "样例原子=4 个，首个 nodeId=asplit_mybatis_executor"
+  },
+  {
+   "id": "G8-colon-safe",
+   "desc": "本批涉及的父 treeId 均不含冒号（split(':') 陷阱不适用）",
+   "pass": true,
+   "detail": "已核 5 个 id，全不含冒号"
+  },
+  {
+   "id": "G9-backup",
+   "desc": "备份存在且与当前真源逐字节一致",
+   "pass": true,
+   "detail": "tree-data.json:逐字节相同 | knowledge-edges.json:逐字节相同 | node-pool.json:逐字节相同 | evolution-events.json:逐字节相同"
+  },
+  {
+   "id": "G10-dangling-baseline",
+   "desc": "悬空基线记录（nodeRef 悬空 0 · treebind 不可解析 18，既有债不得劣化）",
+   "pass": true,
+   "detail": "nodeRef 悬空=0 | treebind 总数=2661 不可解析=18"
+  },
+  {
+   "id": "G11-migrate-src",
+   "desc": "待迁移的源残留原文 tab 存在且非空",
+   "pass": true,
+   "detail": "tab=asplit:s18:s13:orig label=Request、Response 与作用域（原文） len=796"
+  },
+  {
+   "id": "G12-baseline",
+   "desc": "计数基线 = 树 3212（含顶层宇宙节点）/ 池 3855 / 边 4159",
+   "pass": true,
+   "detail": "树=3212 池=3855 边=4159"
+  },
+  {
+   "id": "G13-evo-free",
+   "desc": "演化事件 id 无同名批次冲突",
+   "pass": true,
+   "detail": "现有事件=7，p-web-http-scope 冲突=false"
+  }
+ ],
+ "gateSummary": {
+  "total": 13,
+  "passed": 13,
+  "failed": []
+ },
+ "verdict": "PREFLIGHT_OK"
+}

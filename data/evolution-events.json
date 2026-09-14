@@ -1056,5 +1056,70 @@
         "after": "**仅退出树挂载**（tree mount 与 treebind 边删除），池实体 `asplit_mybatis_resultset_handler` 与其正文 保留；仍作为宿主「Mybatis」viewDimensions 的 mybatis_plugin_grid 网格 atom 展示"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:p-web-http-scope:1789403714212",
+    "title": "P-WEB：HTTP Request/Response 回归 HTTP 本体 + JavaWeb 改为类型引用 + 作用域归 Servlet 生命周期",
+    "changes": [
+      {
+        "kind": "create",
+        "target": "concept_http_request",
+        "note": "HTTP Request 本体（协议层）"
+      },
+      {
+        "kind": "create",
+        "target": "concept_http_response",
+        "note": "HTTP Response 本体（协议层）"
+      },
+      {
+        "kind": "create",
+        "target": "concept_http_servlet_request",
+        "note": "Java 侧类型，引用 HTTP Request"
+      },
+      {
+        "kind": "create",
+        "target": "concept_http_servlet_response",
+        "note": "Java 侧类型，引用 HTTP Response"
+      },
+      {
+        "kind": "move",
+        "target": "tree_1786898852112_uph5k3",
+        "before": "tree_1786898830078_iopwk0",
+        "after": "tree_concept_http_request"
+      },
+      {
+        "kind": "move",
+        "target": "tree_1786898862413_xhmyno",
+        "before": "tree_1786898830078_iopwk0",
+        "after": "tree_concept_http_response"
+      },
+      {
+        "kind": "move",
+        "target": "tree_java_fw_servlet_lifecycle",
+        "before": "tree_java_fw_javaweb",
+        "after": "tree_java_fw_servlet"
+      },
+      {
+        "kind": "move",
+        "target": "tree_java_fw_web_attribute_scope",
+        "before": "tree_java_fw_javaweb",
+        "after": "tree_java_fw_servlet_lifecycle"
+      },
+      {
+        "kind": "detach",
+        "target": "tree_1786898830078_iopwk0",
+        "note": "卸树留池，0 内容损失"
+      },
+      {
+        "kind": "delete",
+        "target": "tree_java_fw_http_request_response",
+        "note": "删除源残留节点与池实体 asplit_http_request_response，内容已迁移至 concept_http_servlet_request / concept_http_servlet_response / k_1784340526295_skm8iw / asplit_web_attribute_scope"
+      },
+      {
+        "kind": "delete-edge",
+        "target": "asplit:s18:req-scope",
+        "note": "删除「HTTP Request/Response → Web 属性作用域」的错误父子声明"
+      }
+    ]
   }
 ]

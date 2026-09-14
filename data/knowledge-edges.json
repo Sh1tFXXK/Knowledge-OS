@@ -7583,33 +7583,6 @@
     ]
   },
   {
-    "id": "treebind:tree_1786898710541_l4hgm2:tree_1786898830078_iopwk0",
-    "source": "k_1786898710067_dpzp8r",
-    "target": "k_1786898829740_rz93sq",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_1786898830078_iopwk0:tree_1786898852112_uph5k3",
-    "source": "k_1786898829740_rz93sq",
-    "target": "k_1786898851657_b3uj1z",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:tree_1786898830078_iopwk0:tree_1786898862413_xhmyno",
-    "source": "k_1786898829740_rz93sq",
-    "target": "k_1786898862091_zxw3qo",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
     "id": "treebind:tree_acm2012_networks:tree_acm2012_networks_network_components",
     "source": "k_acm2012_networks",
     "target": "k_acm2012_networks_network_components",
@@ -34725,17 +34698,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_lifecycle",
-    "source": "k_java_fw_javaweb",
-    "target": "asplit_servlet_lifecycle",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
     "id": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet_container",
     "source": "k_java_fw_javaweb",
     "target": "asplit_servlet_container",
@@ -36554,37 +36516,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_http_request_response",
-    "source": "k_java_fw_javaweb",
-    "target": "asplit_http_request_response",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_web_attribute_scope",
-    "source": "k_java_fw_javaweb",
-    "target": "asplit_web_attribute_scope",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "asplit:s18:req-scope",
-    "source": "asplit_http_request_response",
-    "target": "asplit_web_attribute_scope",
-    "type": "属性",
-    "label": "Request / Response 承载 Web 属性作用域",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
     "id": "treebind:tree_java_fw_javaweb:tree_java_fw_web_state_management",
     "source": "k_java_fw_javaweb",
     "target": "asplit_web_state_management",
@@ -37808,5 +37739,77 @@
     "label": "contains",
     "relationKind": "structure",
     "dimensions": []
+  },
+  {
+    "id": "treebind:tree_1786898710541_l4hgm2:tree_concept_http_request",
+    "source": "k_1786898710067_dpzp8r",
+    "target": "concept_http_request",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1786898710541_l4hgm2:tree_concept_http_response",
+    "source": "k_1786898710067_dpzp8r",
+    "target": "concept_http_response",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_concept_http_request:tree_1786898852112_uph5k3",
+    "source": "concept_http_request",
+    "target": "k_1786898851657_b3uj1z",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_concept_http_response:tree_1786898862413_xhmyno",
+    "source": "concept_http_response",
+    "target": "k_1786898862091_zxw3qo",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_servlet",
+    "source": "k_java_fw_javaweb",
+    "target": "k_1784340526295_skm8iw",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_request",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_request",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_response",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_response",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_servlet_lifecycle",
+    "source": "k_1784340526295_skm8iw",
+    "target": "asplit_servlet_lifecycle",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet_lifecycle:tree_java_fw_web_attribute_scope",
+    "source": "asplit_servlet_lifecycle",
+    "target": "asplit_web_attribute_scope",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
   }
 ]
