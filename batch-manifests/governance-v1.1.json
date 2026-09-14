@@ -1,0 +1,91 @@
+{
+  "batchId": "governance-v1.1",
+  "title": "治理基线 v1.1 — 宪法 3.1/3.2 补强 + 新增 3.6 + ADR-0002 + 治理台账 + 批次边界规范",
+  "baseRef": "5a605e3",
+  "baseRefNote": "同一祖先。建议排在 phase1 提交之后，届时 baseRef 应改回填为 phase1 的 commit sha。",
+  "preBatchSnapshot": null,
+  "commitSubjectHint": "docs: 治理基线 v1.1 — 宪法 3.1/3.2/3.6 + ADR-0002 + 治理台账 + 批次边界声明规范",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "docs/CONSTITUTION.md",
+    "docs/adr/0002-identity-and-observation-discipline.md",
+    "docs/BATCH_MANIFEST.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/_template.json",
+    "batch-manifests/governance-v1.1.json"
+  ],
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "AGENTS.md",
+    "data/questions.json",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css"
+  ],
+
+  "excludedSet": [
+    "data/",
+    "src/",
+    "AGENTS.md",
+    "batch-manifests/phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json"
+  ],
+
+  "excludedSetNote": "⛔ 原为「outputs/tree-violation-scan/」宽目录前缀（2026-09-14 修正）：它同时(a)与 own writeSet 的 governance-ledger.md 自相矛盾，(b)会把该目录下**其实无人认领**的新文件静默吞掉（实证：t3-mapping-review.md 漏出写集）。excludedSet 是负向声明，**不构成认领**；宽前缀尤其危险。",
+
+  "generatedArtifacts": [
+    "docs/BATCH_MANIFEST.md",
+    "outputs/tree-violation-scan/governance-ledger.md"
+  ],
+
+  "expectedDelta": {
+    "note": "本批不涉及 data/。唯一被修改的既有文件是 docs/CONSTITUTION.md（v1.0 → v1.1）；ADR-0002 / 台账 / 规范均为新文件，无祖先版本。"
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "文档批次不改代码，验收 = tracked 42/42 保持全绿。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "HEAD ↔ 本批前的 CONSTITUTION.md 版本",
+      "mustBeEmpty": [
+        "docs/CONSTITUTION.md"
+      ],
+      "orthogonalTo": "timeline",
+      "note": "本处理：CONSTITUTION.md 是「被治理批次同时改动」的既有文件，其祖先差异在 phase1 的 governanceSet 中被豁免阻塞；本批提交时其 diff 应恰好等于 v1.0 → v1.1 的修正内容。"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "不适用（无 data/ 写）"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    }
+  },
+
+  "rationale": {
+    "whySeparateFromPhase1": "数据重构 ≠ 治理规则演进。回滚 Phase 1 时不应被迫回滚已成立的治理原则；两者生命周期不同，故拆成独立提交。"
+  }
+}
