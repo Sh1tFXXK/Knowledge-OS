@@ -43,7 +43,8 @@
     "batch-manifests/t3-registration.json",
     "batch-manifests/t3-dryrun.json",
     "batch-manifests/t3-p0.json",
-    "batch-manifests/t5-rename-evidence.json"
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json"
   ],
   "excludedSetNote": "`data/tree-data.json` / `knowledge-edges.json` / `evolution-events.json` 的差异**全部**属 phase1（实测外部差异为 0），故精确排除，不得进本批。其余为其它批次的 manifest，精确列出。⚠️ 订正（2026-09-14）：原排除集含裸前缀 `data/`，与本批 writeSet 的 `data/node-pool.json` / `data/questions.json` 构成 `writeSet ∩ excludedSet` 自相矛盾（核验脚本 manifestGate 报出）。该前缀属宽刷子（不构成认领），且其下 5 个在飞文件已全部精确列出（2 认领 + 3 排除），故整条删除 —— 本批**不使用任何目录前缀排除**。",
 
