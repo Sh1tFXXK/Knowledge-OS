@@ -6,7 +6,7 @@
 > 维护约定：每条线程必须有 `状态` / `依据` / `下一步触发条件` 三项；状态词只用
 > `✅ 完成` · `⏸️ 阻塞` · `📝 已登记` · `🔍 待裁决`（不得混用「不同」与「异常」）。
 
-最后更新：2026-09-14（T2 / T7 / T9 关闭，主线收敛到 T3）
+最后更新：2026-09-14（T2 / T7 / T9 关闭；T9 的 apply 已提交 e7a7627，主线收敛到 T3）
 
 ---
 
@@ -17,7 +17,7 @@ Phase 1 APPLY        ✅   已提交 16288ff（树 3219 · 池 3855 · 边 4166�
 治理基线             ✅   已提交 e93dda5（CONSTITUTION v1.1 3.1/3.2/3.6 + ADR-0002 + BATCH_MANIFEST）
 T2 · 阶段一提交      ✅   已关闭 —— 真阻塞项是「单文件双批次」，不是「等外部会话」
 T7 · 外部打标 127    ✅   已提交 0ccecae（blob 级提交，工作树零触碰）
-T9 · T3-P0 前置      ✅   已 apply（treeId 7 改 + treebind 边 id 46 改 · 零结构变更）
+T9 · T3-P0 前置      ✅   已提交 e7a7627（treeId 7 改 + treebind 边 id 46 改 · 零结构变更）
 T3 · asplit_* 语义化 🔷   主线**唯一**开放线程（HIGH 92 / MEDIUM 38 / BLOCK 3）
 T5 · 检测器独立化    🔧   引擎已建成，待 T3 apply 时同步出证
 ```
@@ -25,7 +25,7 @@ T5 · 检测器独立化    🔧   引擎已建成，待 T3 apply 时同步出�
 **主线（T3）后续路径**：
 
 ```text
-T3-P0 7 个祖先语义化                     ✅ 已 apply（commit 见 T9 行）
+T3-P0 7 个祖先语义化                     ✅ 已提交 e7a7627（8 门就绪 + 独立验证 21/21 + UI 实测 13/13）
   ↓
 133 项重新计算                            ✅ HIGH 92 / MEDIUM 38 / BLOCK 3
   ↓
@@ -72,7 +72,7 @@ Problem Model
 | T6 | 宪法修订（3.1 / 3.2 / 新增 3.6） | ✅ 完成 | commit `e93dda5` · `docs/CONSTITUTION.md` v1.1（序章 v1.1 修正条款 + 元纪律）· ADR-0002 |
 | T7 | **node-pool 127 条外部打标改动** | ✅ 完成 · **已从主线移出** | commit `0ccecae`（经用户授权「路线 A」）。原纪律「由**其他会话**负责提交；本台账仅登记事实，不代管」**已正式解除**（授权事实与时点记于 `batch-manifests/nodepool-tag-normalization.json` 的 `requiresGovernanceApprovalNote`）。四方基线定性 `DRIFT_DECOMPOSABLE`（10 条不变量全绿：外部 127+1 / 本批 6+1 恰好铺满 HEAD→当前）→ blob 级提交（index 指向备份态 blob `fa533a3a`，工作树零触碰）。台账订正 `3a47ba6` / `f5fcf68` |
 | T8 | 批次边界机制加固 | ✅ 完成 | `docs/BATCH_MANIFEST.md` §3.1/§3.2 · `verify-phase1-commit-readiness.mjs`（`exclusionGate` + 检查 D 归属强度三分 + 未跟踪目录展开 + `readiness-<batchId>.json`） |
-| T9 | **T3-P0 · 7 个伪语义祖先的前置语义化** | ✅ 完成（提案 `897e289` · apply 见 `batch-manifests/t3-p0-apply.json`） | 7 个名字**全部批准**（用户 2026-09-14 21:10，按提案原名不改）· **D1** 选 B（带限定条件）· **D2** 采纳 `tree_<domain>_<semantic-slug>` 并附硬限制「domain 只是 ID namespace，不是 ontology 判定」。<br>apply：只改 7 个 treeId + 46 条 treebind 边 id；**树 3219 节点、边 4166 条、池 3855 节点全部不变**；非 id 字段零变化；边 endpoint 零触碰；池与题库逐字节零改动。<br>9/9 闸门 ✅ · 独立验证 21/21 `INDEPENDENT_VERIFY_PASS` · 写后复验 `REAL_APPLY_VERIFIED`。<br>产物：`t3-p0-apply-report.md` · `t3-p0-apply-verification.md` · `t3-p0-apply-plan.json` · `t3-p0-apply-baseline.json` · `scripts/apply-t3-p0-ancestor-semanticization.mjs` · `scripts/verify-t3-p0-apply.mjs` |
+| T9 | **T3-P0 · 7 个伪语义祖先的前置语义化** | ✅ 完成（提案 `897e289` · apply 见 `batch-manifests/t3-p0-apply.json`） | 7 个名字**全部批准**（用户 2026-09-14 21:10，按提案原名不改）· **D1** 选 B（带限定条件）· **D2** 采纳 `tree_<domain>_<semantic-slug>` 并附硬限制「domain 只是 ID namespace，不是 ontology 判定」。<br>apply：只改 7 个 treeId + 46 条 treebind 边 id；**树 3219 节点、边 4166 条、池 3855 节点全部不变**；非 id 字段零变化；边 endpoint 零触碰；池与题库逐字节零改动。<br>9/9 闸门 ✅ · 独立验证 21/21 `INDEPENDENT_VERIFY_PASS` · 写后复验 `REAL_APPLY_VERIFIED` · 就绪门 8/8 `READY` · UI 无头实测 13/13 · **已提交 `e7a7627`**（22 项写集，pathspec 由就绪门生成）。<br>产物：`t3-p0-apply-report.md` · `t3-p0-apply-verification.md` · `t3-p0-apply-plan.json` · `t3-p0-apply-baseline.json` · `scripts/apply-t3-p0-ancestor-semanticization.mjs` · `scripts/verify-t3-p0-apply.mjs` |
 
 ---
 

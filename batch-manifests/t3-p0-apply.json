@@ -6,7 +6,17 @@
   "preBatchSnapshot": "data/backups/t3-p0-2026-09-14T13-14-43-612Z",
   "preBatchSnapshotNote": "本批的祖先基线**就是这个备份目录**：apply 后 `HEAD:data/tree-data.json` 与 `HEAD:data/knowledge-edges.json` 必须与该目录逐字节相等。同一时刻的 md5 也写进了 `outputs/tree-violation-scan/t3-p0-apply-baseline.json`（G2 用它挡住「冻结之后数据被人改过」）。备份含全部 5 个 data 文件。",
   "commitSubjectHint": "data: T3-P0 七祖先语义化落盘 — treeId 7 改 + treebind 边 id 46 改（零结构变更 · T3 BLOCK 27→3）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
+  "commit": "e7a7627",
+  "committedAt": "2026-09-14T21:26:25+08:00",
+  "commitAcceptance": {
+    "readinessGates": "8/8 PASS（verify-phase1-commit-readiness.mjs --batch t3-p0-apply）→ READY",
+    "appliedPathspec": "22 项，= writeSet，由就绪门生成，未手写",
+    "uiAcceptance": "13/13 PASS —— 无头 Chromium + CDP 实测：7 个新 treeId 经树搜索命中并渲染（data-tree-node-id 为新 id）· 点击「读写锁的实现分析」选中态 active=tree_java_lock_rwlock_implementation 且主区文案可见 · 旧 id 在全量 documentElement 中 0 残留 · 刷新后复测持久化",
+    "regression": "tsc --noEmit 0 错误 · npm run build 5.07s · npm test 44/44（本批验收基准 = tracked 42/42）",
+    "uiProbeNote": "一次性探针（用后即删）。首次跑出 12/13，唯一失败项是探针自身缺陷：点击前未清空树搜索框，目标行仍被上一轮过滤排除在外 —— 不是产品缺陷。清空搜索框后 13/13。数据隔离：KNOWLEDGE_OS_DATA_DIR 指向 Windows 绝对路径临时目录（**不能用 /tmp**：Git Bash 映到 %TEMP%，Node 会解析到 C:\\tmp 而 404）",
+    "ancestorGatePostCommitNote": "⚠️ 提交后重跑本清单的就绪门，`ancestorGate` 必然报 BLOCK —— 这是**正确读数，不是回归**。该门比对的是 `HEAD ↔ preBatchSnapshot`，提交落地后 HEAD 已含本批写入，于是差异恰好等于本批 diff（tree-data 1 键 / knowledge-edges 仅 HEAD 46 + 仅基线 46 / evolution-events 仅 HEAD 1）。**它反而独立证明了提交没有夹带任何外部改动**：若差异多出别的东西，就是夹带。要重跑就绪门请先回退到 baseRef，或改用本批已产出的 `readiness-t3-p0-apply.json` 作为提交时点的证据快照。"
+  },
 
   "writeSet": [
     "data/tree-data.json",
