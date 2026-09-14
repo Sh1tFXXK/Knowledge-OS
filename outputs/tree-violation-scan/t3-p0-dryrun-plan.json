@@ -1,0 +1,2001 @@
+{
+  "generatedAt": "2026-09-14T12:09:02.569Z",
+  "mode": "DRY_RUN_READ_ONLY",
+  "batch": "t3-p0",
+  "note": "只在内存克隆上执行 7 个 treeId 的改写；data/ 未被写入。",
+  "scope": {
+    "declared": 7,
+    "proposalCount": 7,
+    "liveRecount": 133,
+    "asplitTier1MatchesInventory": true,
+    "blockedItemsTotal": 27,
+    "blockedItemsCoveredByP0": 24,
+    "blockedItemsOutOfP0": [
+      {
+        "oldTreeId": "asplit_s2_asplit_mysql_tool_backup",
+        "name": "备份恢复工具",
+        "gap": 6,
+        "parentTreeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+        "parentName": "服务层",
+        "reason": "父链为 projection:* + colon 命名族（服务层 -> 结构 -> MySQL Server），无伪语义 tree 祖先 → 属挂载点合法性，另案"
+      },
+      {
+        "oldTreeId": "asplit_s2_asplit_mysql_tool_security",
+        "name": "安全管理工具",
+        "gap": 6,
+        "parentTreeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+        "parentName": "服务层",
+        "reason": "父链为 projection:* + colon 命名族（服务层 -> 结构 -> MySQL Server），无伪语义 tree 祖先 → 属挂载点合法性，另案"
+      },
+      {
+        "oldTreeId": "asplit_s2_asplit_mysql_tool_cluster",
+        "name": "集群管理工具",
+        "gap": 6,
+        "parentTreeId": "projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4",
+        "parentName": "服务层",
+        "reason": "父链为 projection:* + colon 命名族（服务层 -> 结构 -> MySQL Server），无伪语义 tree 祖先 → 属挂载点合法性，另案"
+      }
+    ],
+    "expectedPseudoAncestors": [
+      "tree_1783873515748_edsjp0",
+      "tree_1784367544335_zorevp",
+      "tree_1785862113590_a5v1ya",
+      "tree_1786026688588_0mtvxh",
+      "tree_1786235757428_osu8oj",
+      "tree_1786245817114_ds2keo",
+      "tree_1786340438649_tbr6gs"
+    ],
+    "coverageExact": true
+  },
+  "validation": {
+    "errors": [],
+    "warnings": [],
+    "rows": [
+      {
+        "oldTreeId": "tree_1786026688588_0mtvxh",
+        "proposedTreeId": "tree_java_lock_rwlock_implementation",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 9
+      },
+      {
+        "oldTreeId": "tree_1786245817114_ds2keo",
+        "proposedTreeId": "tree_redis_rdb_persistence",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 6
+      },
+      {
+        "oldTreeId": "tree_1784367544335_zorevp",
+        "proposedTreeId": "tree_java_jmm_synchronization",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 2
+      },
+      {
+        "oldTreeId": "tree_1783873515748_edsjp0",
+        "proposedTreeId": "tree_java_syntax_generics",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 2
+      },
+      {
+        "oldTreeId": "tree_1786235757428_osu8oj",
+        "proposedTreeId": "tree_redis_zset",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 2
+      },
+      {
+        "oldTreeId": "tree_1786340438649_tbr6gs",
+        "proposedTreeId": "tree_redis_cache_anomaly",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 2
+      },
+      {
+        "oldTreeId": "tree_1785862113590_a5v1ya",
+        "proposedTreeId": "tree_java_jmm_sequential_consistency",
+        "ok": true,
+        "checks": {
+          "oldExists": true,
+          "oldIsHashShape": true,
+          "newShapeOk": true,
+          "newNoTimestamp": true,
+          "newNoSegment": true,
+          "newNotOccupied": true,
+          "isBlocking": true
+        },
+        "blockedChildCount": 1
+      }
+    ],
+    "verdict": "P0_PROPOSAL_VALID"
+  },
+  "namingRule": {
+    "form": "tree_<semantic-namespace>_<semantic-slug>",
+    "hardConstraints": [
+      "结果 id 里**不得带时间戳 / hash**（用户对 asplit_s132_base_theory 的裁决同源）",
+      "不得含 _s<N>_ 段位编号",
+      "必须与小写 a-z0-9_ 的 tree_ 形态一致",
+      "不得与既有 treeId / 池 id / 边 id 碰撞",
+      "批内不得重复"
+    ],
+    "nameSourcePriority": "宪法 v1.1：正文语义 > 既有关系（edges） > 名称 / tags > 挂载位置",
+    "namespacePolicy": "命名空间取「挂载路径上最近的**域**slug」，而不是祖先长 id 的机械拼接 —— 目的是预留后续「1521 非语义 id」批次，避免二次改名。"
+  },
+  "namespaceRegistry": [
+    {
+      "ns": "tree_java_lock_",
+      "covers": "java > 锁 子树",
+      "precedent": [
+        "tree_java_thread_lock「synchronized 锁」",
+        "tree_java_thread_monitor",
+        "tree_java_thread_state_*"
+      ],
+      "mustNotConfuse": "tree_lock_*（tree_lock_taxonomy / tree_lock_by_grain …）是 **MySQL 锁分类**域，与 java 锁无关，不得复用"
+    },
+    {
+      "ns": "tree_java_jmm_",
+      "covers": "java > java并发编程 > 内存模型 子树",
+      "precedent": [
+        "无 —— 新开 namespace"
+      ],
+      "rationale": "该子树讲的是 Java 内存模型（JMM）：主内存/本地内存/happens-before/同步/顺序一致性。用 tree_java_jmm_ 预留整支，而不是每个子节点各自拼一个长前缀。"
+    },
+    {
+      "ns": "tree_java_syntax_",
+      "covers": "java > Java syntax 子树",
+      "precedent": [
+        "tree_java_syntax_zh_*（既有 28 条）",
+        "tree_java_syntax_*（既有 40 条）"
+      ],
+      "note": "该容器节点本身（id = tree_1783867183132_g5tf12「Java syntax」）仍是 hash，但**其下已有大量 tree_java_syntax_* 语义命名**，说明这个 domain 已经事实存在，只是容器 id 没跟上。本批沿用既有 domain。"
+    },
+    {
+      "ns": "tree_redis_",
+      "covers": "NoSQL > Redis 子树",
+      "precedent": [
+        "无 —— 新开 namespace（tree_concept_* 是 MySQL 域，不得复用）"
+      ],
+      "rationale": "Redis 子树下 zset / 缓存异常 / 持久化选项 等全是 hash 容器；用 tree_redis_ 预留整支。"
+    }
+  ],
+  "rename": {
+    "pairs": [
+      {
+        "old": "tree_1786026688588_0mtvxh",
+        "new": "tree_java_lock_rwlock_implementation",
+        "oldName": "读写锁的实现分析"
+      },
+      {
+        "old": "tree_1786245817114_ds2keo",
+        "new": "tree_redis_rdb_persistence",
+        "oldName": "RDB持久化"
+      },
+      {
+        "old": "tree_1784367544335_zorevp",
+        "new": "tree_java_jmm_synchronization",
+        "oldName": "同步"
+      },
+      {
+        "old": "tree_1783873515748_edsjp0",
+        "new": "tree_java_syntax_generics",
+        "oldName": "Java泛型"
+      },
+      {
+        "old": "tree_1786235757428_osu8oj",
+        "new": "tree_redis_zset",
+        "oldName": "zset"
+      },
+      {
+        "old": "tree_1786340438649_tbr6gs",
+        "new": "tree_redis_cache_anomaly",
+        "oldName": "缓存异常"
+      },
+      {
+        "old": "tree_1785862113590_a5v1ya",
+        "new": "tree_java_jmm_sequential_consistency",
+        "oldName": "顺序一致性"
+      }
+    ],
+    "renamedNodes": 7,
+    "renamedEdgeIds": 46,
+    "treeCountBefore": 3219,
+    "treeCountAfter": 3219,
+    "deltaTreeCount": 0,
+    "edgeCountBefore": 4166,
+    "edgeCountAfter": 4166,
+    "endpointTouched": 0
+  },
+  "t3Recompute": {
+    "basis": "对 T3 的 133 项 asplit_* 用**同源谓词**重算 semanticAncestorGap",
+    "gapDistBefore": {
+      "0": 68,
+      "1": 11,
+      "2": 24,
+      "3": 3,
+      "4": 12,
+      "5": 4,
+      "6": 11
+    },
+    "gapDistAfter": {
+      "0": 92,
+      "1": 11,
+      "2": 24,
+      "3": 3,
+      "6": 3
+    },
+    "tierBefore": {
+      "high": 68,
+      "medium": 38,
+      "low": 27,
+      "blocked": 27
+    },
+    "tierAfter": {
+      "high": 92,
+      "medium": 38,
+      "low": 3,
+      "blocked": 3
+    },
+    "newlyUnblocked": 24,
+    "stillBlocked": 3,
+    "frozenMappingProducibleAfterP0": false,
+    "note": "P0 只解除「父节点未语义化」这一类 BLOCK；剩余 3 条是 projection/colon 族（另案），38 条是 MEDIUM（须人工逐条确认，属 T3-P1）。"
+  },
+  "delta": [
+    {
+      "oldTreeId": "asplit_s1_asplit_concrete_class",
+      "name": "具体类",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_class_programming_classification",
+      "semAncAfter": "tree_class_programming_classification",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_local_class",
+      "name": "局部类",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_class_programming_classification",
+      "semAncAfter": "tree_class_programming_classification",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_mutex_lock",
+      "name": "互斥锁",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_jmm_synchronization",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_sync_block",
+      "name": "同步代码块",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_jmm_synchronization",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_data_race",
+      "name": "数据竞争",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_jmm_sequential_consistency",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s19_juc_tools",
+      "name": "JUC 工具",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_lazy_init",
+      "name": "延迟初始化",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_concurrency_container",
+      "name": "并发容器",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_memory_atomicity",
+      "name": "内存原子性",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_concurrency_mutex_lock",
+      "name": "并发互斥锁",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_suspend_resume_methods",
+      "name": "suspend/resume 方法组",
+      "gapBefore": 3,
+      "gapAfter": 3,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_stop_method",
+      "name": "stop 方法",
+      "gapBefore": 3,
+      "gapAfter": 3,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_acquire",
+      "name": "线程进入同步代码块",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_anonymous",
+      "name": "匿名偏向态",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_biased",
+      "name": "已偏向态（记录线程 ID）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_revoke_pending",
+      "name": "撤销中（到达安全点）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_revoked",
+      "name": "已撤销（升级轻量级锁）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_bulk_rebiased",
+      "name": "批量重偏向（epoch 递增）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_state_bulk_revoked",
+      "name": "批量撤销（整类禁用偏向）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_bias_markword",
+      "name": "对象头 Mark Word",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_web_78137b704e08",
+      "semAncAfter": "tree_web_78137b704e08",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rwlock_mechanism",
+      "name": "读写锁实现机制",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_acquire",
+      "name": "写锁申请（tryAcquire）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_held",
+      "name": "写锁持有（独占可重入）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_waiting",
+      "name": "写锁等待",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_released",
+      "name": "写锁释放（tryRelease）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_acquire",
+      "name": "读锁申请（tryAcquireShared）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_held",
+      "name": "读锁持有（共享可重入）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_waiting",
+      "name": "读锁等待",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_released",
+      "name": "读锁释放（tryReleaseShared）",
+      "gapBefore": 4,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_lock_rwlock_implementation",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_method",
+      "name": "泛型方法",
+      "gapBefore": 5,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_syntax_generics",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_constructor",
+      "name": "泛型构造函数",
+      "gapBefore": 5,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_java_syntax_generics",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_class",
+      "name": "Java 类",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_file_input_stream",
+      "name": "FileInputStream",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_byte_stream_group",
+      "semAncAfter": "tree_byte_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_buffered_input_stream",
+      "name": "BufferedInputStream",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_byte_stream_group",
+      "semAncAfter": "tree_byte_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_data_input_stream",
+      "name": "DataInputStream",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_byte_stream_group",
+      "semAncAfter": "tree_byte_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_object_input_stream",
+      "name": "ObjectInputStream",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_byte_stream_group",
+      "semAncAfter": "tree_byte_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_io_group",
+      "name": "java.io",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_byte_stream_group",
+      "semAncAfter": "tree_byte_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_file_reader",
+      "name": "FileReader",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_char_stream_group",
+      "semAncAfter": "tree_char_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_buffered_reader",
+      "name": "BufferedReader",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_char_stream_group",
+      "semAncAfter": "tree_char_stream_group",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_io_file",
+      "name": "File 类",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_common_libraries",
+      "semAncAfter": "tree_java_common_libraries",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_console_io",
+      "name": "控制台 I/O",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_common_libraries",
+      "semAncAfter": "tree_java_common_libraries",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_nio_path",
+      "name": "Path",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_common_libraries",
+      "semAncAfter": "tree_java_common_libraries",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_java_nio_filesystem",
+      "name": "FileSystem",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_common_libraries",
+      "semAncAfter": "tree_java_common_libraries",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_blocking_io_model",
+      "name": "阻塞 I/O（BIO 模型）",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_nonblocking_io_model",
+      "name": "非阻塞 I/O（NIO 模型）",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_lexical_analysis",
+      "name": "词法分析",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_syntax_analysis",
+      "name": "语法分析",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_software_notations_tools_programming_languages",
+      "semAncAfter": "tree_acm2012_software_notations_tools_programming_languages",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_single_pass_compiler",
+      "name": "单遍编译器",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_wiki_en_compiler",
+      "semAncAfter": "tree_wiki_en_compiler",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_multi_pass_compiler",
+      "name": "多遍编译器",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_wiki_en_compiler",
+      "semAncAfter": "tree_wiki_en_compiler",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_http_request",
+      "name": "HTTP 请求",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_servlet_lifecycle",
+      "name": "Servlet 生命周期",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_servlet_container",
+      "name": "Servlet 容器",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_view_rendering",
+      "name": "视图渲染",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_http_request_response",
+      "name": "HTTP Request/Response",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_web_attribute_scope",
+      "name": "Web 属性作用域",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_web_state_management",
+      "name": "Web 状态管理",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_javaweb",
+      "semAncAfter": "tree_java_fw_javaweb",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_bean_lifecycle",
+      "name": "Bean 生命周期",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_java_fw_spring",
+      "semAncAfter": "tree_java_fw_spring",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_trigger_open",
+      "name": "openSession() 请求",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_opened",
+      "name": "会话已打开",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_executing",
+      "name": "执行 SQL",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_dirty",
+      "name": "待提交（一级缓存有变更）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_committed",
+      "name": "已提交",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_rolled_back",
+      "name": "已回滚",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_state_closed",
+      "name": "已关闭",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_ss_factory",
+      "name": "SqlSessionFactory（单例）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "semAncAfter": "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_mybatis_mapper",
+      "name": "MyBatis Mapper",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_dynamic_sql",
+      "name": "动态 SQL",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_executor",
+      "name": "Executor（插件点）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_statement_handler",
+      "name": "StatementHandler（插件点）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_parameter_handler",
+      "name": "ParameterHandler（插件点）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mybatis_resultset_handler",
+      "name": "ResultSetHandler（插件点）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_mybatis",
+      "semAncAfter": "tree_java_fw_mybatis",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_netty_thread_model",
+      "name": "Netty 线程模型",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_netty",
+      "semAncAfter": "tree_java_fw_netty",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_netty_channel",
+      "name": "Channel",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_netty",
+      "semAncAfter": "tree_java_fw_netty",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_channel_pipeline",
+      "name": "ChannelPipeline",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_netty",
+      "semAncAfter": "tree_java_fw_netty",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_kafka_consumer_group",
+      "name": "Kafka 消费组",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_kafka",
+      "semAncAfter": "tree_java_fw_kafka",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_kafka_broker",
+      "name": "Kafka Broker",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_kafka",
+      "semAncAfter": "tree_java_fw_kafka",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_rabbitmq_exchange",
+      "name": "RabbitMQ 交换机",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_rabbitmq",
+      "semAncAfter": "tree_java_fw_rabbitmq",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_routing_key",
+      "name": "路由键",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_rabbitmq",
+      "semAncAfter": "tree_java_fw_rabbitmq",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_registry_discovery",
+      "name": "服务注册与发现",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_load_balancing",
+      "name": "负载均衡",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_invocation",
+      "name": "服务调用",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_svc_fault_tolerance",
+      "name": "服务容错",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_config_center",
+      "name": "配置中心",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_message_bus",
+      "name": "消息总线",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_service_governance",
+      "name": "服务治理",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_java_fw_springcloud",
+      "semAncAfter": "tree_java_fw_springcloud",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_newsql",
+      "name": "NewSQL",
+      "gapBefore": 3,
+      "gapAfter": 3,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_acm2012_information_systems_database_management",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrank",
+      "name": "ZRANK",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_zset",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrange",
+      "name": "ZRANGE",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_zset",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_hot_data",
+      "name": "热点数据",
+      "gapBefore": 5,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_cache_anomaly",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_cold_data",
+      "name": "冷数据",
+      "gapBefore": 5,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_cache_anomaly",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_save_cmd",
+      "name": "SAVE / BGSAVE 命令到达",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_fork",
+      "name": "fork 子进程（写时复制）",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_child_write",
+      "name": "子进程写临时 RDB 文件",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_parent_serve",
+      "name": "父进程继续处理命令",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_replaced",
+      "name": "临时文件原子替换 dump.rdb",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_loaded",
+      "name": "启动时载入 RDB 恢复数据",
+      "gapBefore": 6,
+      "gapAfter": 0,
+      "statusBefore": "blocked",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_redis_rdb_persistence",
+      "unblocked": true
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_handshake",
+      "name": "TCP 连接建立",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_auth",
+      "name": "客户端鉴权",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_alloc_thread",
+      "name": "分配线程",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_user_thread",
+      "name": "用户线程执行命令",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_sleep",
+      "name": "Sleep 空闲等待",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_state_closing",
+      "name": "连接关闭",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_conn_pool",
+      "name": "Connection Pool（连接池）",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_qproc_thread_state",
+      "semAncAfter": "tree_qproc_thread_state",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_range_lock",
+      "name": "范围锁",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_concept_lock_mechanism",
+      "semAncAfter": "tree_concept_lock_mechanism",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s18_asplit_insert_lock",
+      "name": "插入锁",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_concept_lock_mechanism",
+      "semAncAfter": "tree_concept_lock_mechanism",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s106_db_modeling",
+      "name": "数据库建模",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_acm2012_information_systems_database_management",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mysql_tool_backup",
+      "name": "备份恢复工具",
+      "gapBefore": 6,
+      "gapAfter": 6,
+      "statusBefore": "blocked",
+      "statusAfter": "blocked",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_acm2012_information_systems_database_management",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mysql_tool_security",
+      "name": "安全管理工具",
+      "gapBefore": 6,
+      "gapAfter": 6,
+      "statusBefore": "blocked",
+      "statusAfter": "blocked",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_acm2012_information_systems_database_management",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_mysql_tool_cluster",
+      "name": "集群管理工具",
+      "gapBefore": 6,
+      "gapAfter": 6,
+      "statusBefore": "blocked",
+      "statusAfter": "blocked",
+      "semAncBefore": "tree_acm2012_information_systems_database_management",
+      "semAncAfter": "tree_acm2012_information_systems_database_management",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_module_export",
+      "name": "模块导出",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_world_wide_web",
+      "semAncAfter": "tree_acm2012_information_systems_world_wide_web",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_module_import",
+      "name": "模块导入",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_world_wide_web",
+      "semAncAfter": "tree_acm2012_information_systems_world_wide_web",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_js_control_flow",
+      "name": "控制流",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_world_wide_web",
+      "semAncAfter": "tree_acm2012_information_systems_world_wide_web",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_function_design",
+      "name": "函数设计",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_world_wide_web",
+      "semAncAfter": "tree_acm2012_information_systems_world_wide_web",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_js_expression",
+      "name": "表达式",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_information_systems_world_wide_web",
+      "semAncAfter": "tree_acm2012_information_systems_world_wide_web",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_graph_search",
+      "name": "图搜索算法",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_algorithms",
+      "semAncAfter": "tree_acm2012_algorithms",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_search",
+      "name": "查找",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_acm2012_algorithms",
+      "semAncAfter": "tree_acm2012_algorithms",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_trigger_new",
+      "name": "new 指令触发对象创建",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_class_loaded",
+      "name": "类型加载校验",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_alloc",
+      "name": "分配内存",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_zerofill",
+      "name": "零值填充",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_set_header",
+      "name": "设置对象头",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_init",
+      "name": "执行构造方法",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_reference",
+      "name": "引用定位（对象可用）",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_alloc_tlab",
+      "name": "TLAB（线程本地分配缓冲）",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_access_handle",
+      "name": "句柄访问",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_access_direct",
+      "name": "直接指针",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_obj_state_oom",
+      "name": "内存溢出（OutOfMemoryError）",
+      "gapBefore": 2,
+      "gapAfter": 2,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_blocking_io",
+      "name": "阻塞非阻塞 I/O",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_sync_async_io",
+      "name": "同步异步 I/O",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_select_io",
+      "name": "select",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_concept_io_multiplexing",
+      "semAncAfter": "tree_concept_io_multiplexing",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_epoll",
+      "name": "epoll",
+      "gapBefore": 0,
+      "gapAfter": 0,
+      "statusBefore": "pending",
+      "statusAfter": "pending",
+      "semAncBefore": "tree_concept_io_multiplexing",
+      "semAncAfter": "tree_concept_io_multiplexing",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s132_base_theory",
+      "name": "BASE理论",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    },
+    {
+      "oldTreeId": "asplit_s134_db_sharding",
+      "name": "分库",
+      "gapBefore": 1,
+      "gapAfter": 1,
+      "statusBefore": "needs-review",
+      "statusAfter": "needs-review",
+      "semAncBefore": "tree_acm2012_systems_organization",
+      "semAncAfter": "tree_acm2012_systems_organization",
+      "unblocked": false
+    }
+  ],
+  "childShapePreview": [
+    {
+      "oldTreeId": "asplit_s1_asplit_mutex_lock",
+      "name": "互斥锁",
+      "parentTreeId": "tree_java_jmm_synchronization",
+      "parentName": "同步",
+      "slug": "mutex_lock",
+      "optionA": "tree_java_jmm_synchronization_mutex_lock",
+      "optionB": "tree_java_jmm_mutex_lock"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_sync_block",
+      "name": "同步代码块",
+      "parentTreeId": "tree_java_jmm_synchronization",
+      "parentName": "同步",
+      "slug": "sync_block",
+      "optionA": "tree_java_jmm_synchronization_sync_block",
+      "optionB": "tree_java_jmm_sync_block"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_data_race",
+      "name": "数据竞争",
+      "parentTreeId": "tree_java_jmm_sequential_consistency",
+      "parentName": "顺序一致性",
+      "slug": "data_race",
+      "optionA": "tree_java_jmm_sequential_consistency_data_race",
+      "optionB": "tree_java_jmm_sequential_data_race"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rwlock_mechanism",
+      "name": "读写锁实现机制",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rwlock_mechanism",
+      "optionA": "tree_java_lock_rwlock_implementation_rwlock_mechanism",
+      "optionB": "tree_java_lock_rwlock_rwlock_mechanism"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_acquire",
+      "name": "写锁申请（tryAcquire）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_write_acquire",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_write_acquire",
+      "optionB": "tree_java_lock_rwlock_rw_state_write_acquire"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_held",
+      "name": "写锁持有（独占可重入）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_write_held",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_write_held",
+      "optionB": "tree_java_lock_rwlock_rw_state_write_held"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_waiting",
+      "name": "写锁等待",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_write_waiting",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_write_waiting",
+      "optionB": "tree_java_lock_rwlock_rw_state_write_waiting"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_write_released",
+      "name": "写锁释放（tryRelease）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_write_released",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_write_released",
+      "optionB": "tree_java_lock_rwlock_rw_state_write_released"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_acquire",
+      "name": "读锁申请（tryAcquireShared）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_read_acquire",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_read_acquire",
+      "optionB": "tree_java_lock_rwlock_rw_state_read_acquire"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_held",
+      "name": "读锁持有（共享可重入）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_read_held",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_read_held",
+      "optionB": "tree_java_lock_rwlock_rw_state_read_held"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_waiting",
+      "name": "读锁等待",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_read_waiting",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_read_waiting",
+      "optionB": "tree_java_lock_rwlock_rw_state_read_waiting"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rw_state_read_released",
+      "name": "读锁释放（tryReleaseShared）",
+      "parentTreeId": "tree_java_lock_rwlock_implementation",
+      "parentName": "读写锁的实现分析",
+      "slug": "rw_state_read_released",
+      "optionA": "tree_java_lock_rwlock_implementation_rw_state_read_released",
+      "optionB": "tree_java_lock_rwlock_rw_state_read_released"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_method",
+      "name": "泛型方法",
+      "parentTreeId": "tree_java_syntax_generics",
+      "parentName": "Java泛型",
+      "slug": "generic_method",
+      "optionA": "tree_java_syntax_generics_generic_method",
+      "optionB": "tree_java_syntax_generic_method"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_generic_constructor",
+      "name": "泛型构造函数",
+      "parentTreeId": "tree_java_syntax_generics",
+      "parentName": "Java泛型",
+      "slug": "generic_constructor",
+      "optionA": "tree_java_syntax_generics_generic_constructor",
+      "optionB": "tree_java_syntax_generic_constructor"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrank",
+      "name": "ZRANK",
+      "parentTreeId": "tree_redis_zset",
+      "parentName": "zset",
+      "slug": "zrank",
+      "optionA": "tree_redis_zset_zrank",
+      "optionB": "tree_redis_zrank"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_zrange",
+      "name": "ZRANGE",
+      "parentTreeId": "tree_redis_zset",
+      "parentName": "zset",
+      "slug": "zrange",
+      "optionA": "tree_redis_zset_zrange",
+      "optionB": "tree_redis_zrange"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_hot_data",
+      "name": "热点数据",
+      "parentTreeId": "tree_redis_cache_anomaly",
+      "parentName": "缓存异常",
+      "slug": "hot_data",
+      "optionA": "tree_redis_cache_anomaly_hot_data",
+      "optionB": "tree_redis_cache_hot_data"
+    },
+    {
+      "oldTreeId": "asplit_s1_asplit_cold_data",
+      "name": "冷数据",
+      "parentTreeId": "tree_redis_cache_anomaly",
+      "parentName": "缓存异常",
+      "slug": "cold_data",
+      "optionA": "tree_redis_cache_anomaly_cold_data",
+      "optionB": "tree_redis_cache_cold_data"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_save_cmd",
+      "name": "SAVE / BGSAVE 命令到达",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_save_cmd",
+      "optionA": "tree_redis_rdb_persistence_rdb_save_cmd",
+      "optionB": "tree_redis_rdb_rdb_save_cmd"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_fork",
+      "name": "fork 子进程（写时复制）",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_state_fork",
+      "optionA": "tree_redis_rdb_persistence_rdb_state_fork",
+      "optionB": "tree_redis_rdb_rdb_state_fork"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_child_write",
+      "name": "子进程写临时 RDB 文件",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_state_child_write",
+      "optionA": "tree_redis_rdb_persistence_rdb_state_child_write",
+      "optionB": "tree_redis_rdb_rdb_state_child_write"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_parent_serve",
+      "name": "父进程继续处理命令",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_state_parent_serve",
+      "optionA": "tree_redis_rdb_persistence_rdb_state_parent_serve",
+      "optionB": "tree_redis_rdb_rdb_state_parent_serve"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_replaced",
+      "name": "临时文件原子替换 dump.rdb",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_state_replaced",
+      "optionA": "tree_redis_rdb_persistence_rdb_state_replaced",
+      "optionB": "tree_redis_rdb_rdb_state_replaced"
+    },
+    {
+      "oldTreeId": "asplit_s2_asplit_rdb_state_loaded",
+      "name": "启动时载入 RDB 恢复数据",
+      "parentTreeId": "tree_redis_rdb_persistence",
+      "parentName": "RDB持久化",
+      "slug": "rdb_state_loaded",
+      "optionA": "tree_redis_rdb_persistence_rdb_state_loaded",
+      "optionB": "tree_redis_rdb_rdb_state_loaded"
+    }
+  ],
+  "closureAssertions": {
+    "residualRenamedOldIds": [],
+    "endpointsTouched": 0,
+    "treeCountUnchanged": true,
+    "ok": true
+  },
+  "openDecisions": [
+    {
+      "id": "D1",
+      "question": "子项（24 条由 BLOCK 降为 HIGH 的 asplit_*）的 id 形态用哪种？",
+      "optionA": "父 id 全名 + slug（层级拼接）→ 如 tree_java_lock_rwlock_implementation_rw_state_write_acquire",
+      "optionB": "父 id 去掉末段 + slug → 如 tree_java_lock_rwlock_rw_state_write_acquire",
+      "note": "T3 冻结映射表当前算法 `recommended` 偏好 B；但 gap=0（父节点本身就是命名空间）时 A 才是层级正确的形式。此项**必须在 T3 冻结前裁定**，因为它会回溯影响本批 7 个名字的取舍（先看 review 文档 §3 的子项 id 形态预演再定）。"
+    },
+    {
+      "id": "D2",
+      "question": "本批采用的「域 slug」命名空间策略（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_）是否作为后续「1521 非语义 id」批次的统一约定？",
+      "note": "若不统一，1521 批次可能为同一批节点选到不同前缀 → 二次改名。建议在 T3 冻结前确认。"
+    }
+  ],
+  "hardBlockers": [],
+  "applyBlockers": [
+    "本批 dry-run 通过后，仍须人工逐条裁决 7 个名字（proposal.items[].adjudication 全部 approved）才可 apply"
+  ],
+  "verdict": "P0_DRY_RUN_OK"
+}

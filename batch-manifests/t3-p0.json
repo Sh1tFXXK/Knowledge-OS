@@ -1,0 +1,156 @@
+{
+  "batchId": "t3-p0",
+  "title": "T3-P0 · 7 个伪语义祖先的「前置语义化」—— 命名提案 + 只读 dry-run（零数据变化）",
+  "baseRef": "5a605e3",
+  "baseRefNote": "T3 的**有界前置批次**。顺序：t3-dryrun → **t3-p0（本批）** → t3-p1（38 条 MEDIUM 裁决）→ t3-freeze（冻结 133 映射）→ t3-semanticization（apply）→ t3-commit。",
+  "preBatchSnapshot": null,
+  "commitSubjectHint": "chore(t3-p0): 7 个伪语义祖先的前置语义化提案 + dry-run — BLOCK 27→3 / HIGH 68→92（零数据变化）",
+  "status": "READY_TO_COMMIT",
+
+  "writeSet": [
+    "scripts/dryrun-t3-p0-ancestors-semanticization.mjs",
+    "outputs/tree-violation-scan/t3-p0-naming.proposal.json",
+    "outputs/tree-violation-scan/t3-p0-dryrun-plan.json",
+    "outputs/tree-violation-scan/t3-p0-report.md",
+    "outputs/tree-violation-scan/t3-p0-review.md",
+    "batch-manifests/t3-p0.json"
+  ],
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    "AGENTS.md",
+    "data/questions.json",
+    "src/",
+    "docs/CONSTITUTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/tree-utils.test.mjs"
+  ],
+  "excludedSet": [
+    "data/",
+    "src/",
+    "docs/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t3-dryrun.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json"
+  ],
+  "excludedSetNote": "均为**精确路径**（无目录前缀、无通配串）—— excludedSet 是负向声明（「本批不碰它」），不构成认领；用宽前缀会静默吞掉无人认领的文件（D8 §7）。readiness-*.json 是 verify 脚本按批次生成的报告，不进任何 writeSet，故在此精确排除。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/t3-p0-dryrun-plan.json",
+    "outputs/tree-violation-scan/t3-p0-report.md",
+    "outputs/tree-violation-scan/t3-p0-review.md"
+  ],
+
+  "expectedDelta": {
+    "note": "**零数据变化** —— 7 个 treeId 的改写只在内存克隆上执行（`mode: DRY_RUN_READ_ONLY`），`data/` 未被写入。若本批提交的 diff 出现 `data/` 任何路径，即为越界。",
+    "dryRunProjection": {
+      "data/tree-data.json": { "entriesBefore": 3219, "entriesAfter": 3219, "delta": 0, "idsRenamed": 7 },
+      "data/knowledge-edges.json": { "edgesBefore": 4166, "edgesAfter": 4166, "delta": 0, "edgeIdsRewritten": 46, "endpointsTouched": 0 },
+      "data/node-pool.json": { "delta": 0 },
+      "data/questions.json": { "delta": 0 }
+    }
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "本批只加脚本 + 文档，不改 src 逻辑；验收 = tracked 42/42 保持全绿。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "不适用（本批不改任何既有文件）",
+      "mustBeEmpty": [],
+      "orthogonalTo": "timeline"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "须为「零数据差异」"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    },
+    "proposal": {
+      "definition": "命名提案**由人给**，机器只校验：形态（tree_<小写 slug>）· ⛔ 无时间戳/hash/段位编号 · 无碰撞 · 覆盖面恰好 = BLOCK 的最近伪语义祖先集合 · P0 内部无祖先后代链",
+      "verdict": "P0_PROPOSAL_VALID"
+    },
+    "closure": {
+      "definition": "只对**被改名的 7 个旧 id** 做受控原文扫描断言 + 边 endpoint 触碰必须为 0 + tree 节点数不变",
+      "checked": 7,
+      "residual": 0,
+      "edgeEndpointsTouched": 0,
+      "treeCountUnchanged": true
+    }
+  },
+
+  "dryRunOutcome": {
+    "verdict": "P0_DRY_RUN_OK",
+    "scope": {
+      "proposalCount": 7,
+      "asplitTier1MatchesInventory": true,
+      "blockedItemsTotal": 27,
+      "blockedItemsCoveredByP0": 24,
+      "blockedItemsOutOfP0": 3,
+      "coverageExact": true,
+      "innerAncestorChain": 0
+    },
+    "naming": [
+      { "old": "tree_1786026688588_0mtvxh", "oldName": "读写锁的实现分析", "new": "tree_java_lock_rwlock_implementation", "namespace": "tree_java_lock_", "blocks": 9 },
+      { "old": "tree_1786245817114_ds2keo", "oldName": "RDB持久化", "new": "tree_redis_rdb_persistence", "namespace": "tree_redis_", "blocks": 6 },
+      { "old": "tree_1784367544335_zorevp", "oldName": "同步", "new": "tree_java_jmm_synchronization", "namespace": "tree_java_jmm_", "blocks": 2 },
+      { "old": "tree_1783873515748_edsjp0", "oldName": "Java泛型", "new": "tree_java_syntax_generics", "namespace": "tree_java_syntax_", "blocks": 2 },
+      { "old": "tree_1786235757428_osu8oj", "oldName": "zset", "new": "tree_redis_zset", "namespace": "tree_redis_", "blocks": 2 },
+      { "old": "tree_1786340438649_tbr6gs", "oldName": "缓存异常", "new": "tree_redis_cache_anomaly", "namespace": "tree_redis_", "blocks": 2 },
+      { "old": "tree_1785862113590_a5v1ya", "oldName": "顺序一致性", "new": "tree_java_jmm_sequential_consistency", "namespace": "tree_java_jmm_", "blocks": 1 }
+    ],
+    "t3Recompute": {
+      "basis": "对 T3 的 133 项 asplit_* 用**同源严格谓词**重算 semanticAncestorGap",
+      "gapDistBefore": { "0": 68, "1": 11, "2": 24, "3": 3, "4": 12, "5": 4, "6": 11 },
+      "gapDistAfter": { "0": 92, "1": 11, "2": 24, "3": 3, "6": 3 },
+      "tierBefore": { "high": 68, "medium": 38, "blocked": 27 },
+      "tierAfter": { "high": 92, "medium": 38, "blocked": 3 },
+      "newlyUnblocked": 24,
+      "stillBlocked": 3,
+      "frozenMappingProducibleAfterP0": false
+    },
+    "outOfScope": {
+      "count": 3,
+      "items": ["asplit_s2_asplit_mysql_tool_backup", "asplit_s2_asplit_mysql_tool_security", "asplit_s2_asplit_mysql_tool_cluster"],
+      "reason": "父链是 projection:* （服务层）+ colon 命名族（结构 / MySQL Server）+ 段位（MySQL _s15_）—— 中间**没有一个是伪语义 tree 祖先**。给它们定名解决不了问题；真问题是「是否该挂在 projection 投影节点下」= 挂载点合法性，属结构批次。"
+    },
+    "openDecisions": [
+      {
+        "id": "D1",
+        "question": "P0 后降为 gap=0 的 24 条子项，id 形态用「父全名 + slug」还是「父去末段 + slug」？",
+        "whyItBlocks": "会暴露 slug 冗余（如 rdb 前缀重复）或把子项语义提宽（zset 单段父名）；必须在 T3 冻结映射表前裁定。"
+      },
+      {
+        "id": "D2",
+        "question": "「域 slug」命名空间策略（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_）是否作为后续「1521 非语义 id」批次的统一约定？",
+        "whyItBlocks": "不统一则 1521 批次会为同一批节点选到不同前缀 → 二次改名。"
+      }
+    ]
+  },
+
+  "nextSteps": [
+    "人审 `t3-p0-review.md`：逐条裁决 7 个名字；裁定 D1 / D2；",
+    "全部 approved → t3-p0 apply（备份 → 8 闸门 → 落盘 → 独立复验 → 单独提交）；",
+    "apply 后重跑 T3 dry-run，读数应为 HIGH 92 / MEDIUM 38 / BLOCK 3；",
+    "T3-P1：按用户固定判据机械化裁决 38 条 MEDIUM；",
+    "T3 冻结 133 映射（133/133 ∧ pending=0 ∧ needs-review=0 ∧ blocked=0 ∧ gap≤3 ∧ 语义来源校验通过）→ MAPPING_FREEZE_OK；",
+    "3 条 projection 族 BLOCK 转入结构批次（挂载点合法性），不在 T3 内解决。"
+  ],
+
+  "rationale": {
+    "whyIndependentBatch": "用户 2026-09-14 裁决（选 A）：这 7 个祖先必须先作为独立的『前置语义化』小批次完成 dry-run / review / apply，**不能由 T3 的子节点算法隐式把它们当成已经完成**。理由：父节点改名会改变子项 gap 的**判定依据**（语义祖先从远祖变成父节点本身），若隐式假定，T3 的冻结读数就建立在未落盘的假设之上。",
+    "whyNotScopeExpansion": "本批只改 7 个 id，且这 7 个由**覆盖面断言**锁定为「27 条 BLOCK 的最近伪语义祖先集合」——多一个即报错（会扩到 1521 批次），少一个即报错（前置残缺）。",
+    "whyNamesMustBeHumanGiven": "宪法 v1.1：命名来源有优先序（正文语义 > 既有关系 > 名称/tags > 挂载位置），且 `缓存异常` 一类节点的子项归属本身存疑 → 机器不代拟，只做形态/碰撞/覆盖面校验 + 给出逐条证据与备选。"
+  }
+}
