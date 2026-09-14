@@ -6,7 +6,18 @@
   "preBatchSnapshot": "data/backups/t3-p0.1-2026-09-14T13-50-55-385Z",
   "preBatchSnapshotNote": "快照含全部 5 个 data 文件，且已逐字节核验 = `HEAD:data/*`（5/5 `Buffer.compare === 0`）⇒ 提交后的数据 diff **恰好等于**本批操作，零夹带。",
   "commitSubjectHint": "data: T3-P0.1 MySQL 服务层 3 条孤儿挂载卸树留池 — tree 3219→3216 · 边 4166→4163 · T3 BLOCK 3→0（生效范围 133→130）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
+  "commit": "120b9ee",
+  "committedAt": "2026-09-14T22:06:28+08:00",
+  "commitAcceptance": {
+    "readinessGates": "8/8 PASS（`verify-phase1-commit-readiness.mjs --batch t3-p0.1`）→ READY。含 ancestorGate：HEAD ↔ preBatchSnapshot 逐字节相等（5/5 `Buffer.compare === 0`）。",
+    "appliedPathspec": "24 项，= writeSet，由就绪门生成，**未手写**。提交实际落地 24 files changed（与 pathspec 逐项一致，未夹带任何外部改动）。",
+    "uiAcceptance": "17/17 PASS —— 见 `gates.uiAcceptance`。",
+    "regression": "`npx tsc --noEmit` 0 错误 · `npm run build` 5.48s · `npm test` 44/44（验收基准 = tracked 42/42）",
+    "probeDiscipline": "两条一次性探针（维度渲染探针 + 布局诊断）+ 1 个临时数据目录（真实数据的逐字节副本）+ 2 个临时输出文件，**用后即删**；`git status` 中 tmp 计数 0。维度探针从 4/11 FAIL 迭代到 17/17 —— 首轮两个失败项均为**探针自身缺陷**（点到了带 `stopPropagation()` 的文件夹展开图标；未切回「视图」tab），非产品缺陷。",
+    "ancestorGatePostCommitNote": "⚠️ 提交后重跑本清单的就绪门，`ancestorGate` 必然报 BLOCK —— 这是**正确读数，不是回归**。该门比对 `HEAD ↔ preBatchSnapshot`，提交落地后 HEAD 已含本批写入，差异恰好等于本批 diff。**它反而独立证明了提交没有夹带外部改动**。要重跑就绪门请先回退到 baseRef `9bcdd30`，或改用本批已产出的 `readiness-t3-p0.1.json` 作为提交时点的证据快照。",
+    "scopeRegistrationNote": "范围变更登记（`scopeChange` 133→130）在 `--apply` 落盘阶段就写入了 `asplit-treeid-inventory.json`，与本批数据修改**同一批次、同一提交**，不存在「数据已落盘但期望值还没登记」的中间态。"
+  },
 
   "writeSet": [
     "data/tree-data.json",
