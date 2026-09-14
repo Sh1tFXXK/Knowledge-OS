@@ -2,7 +2,10 @@ import type { KnowledgeNode, Question, QuestionAnswerStep, ViewDimension, ViewSe
 import { resolveSectionAtoms } from './projection';
 
 function firstTabContent(node: KnowledgeNode): string {
-  return node.card.tabs.find((tab) => tab.content.trim())?.content.trim() ?? '';
+  // `String(tab.content ?? '')` 而不是直接 `tab.content.trim()`：历史数据里存在缺 `content` 键的 tab，
+  // 只要它排在第一个有正文的 tab 之前，`find` 就会对它求值并抛 TypeError。
+  // 同一防御式写法已是仓库既有约定，见 indexGraphLayout.ts 的 definitionForKnowledge()。
+  return String(node.card.tabs.find((tab) => String(tab.content ?? '').trim())?.content ?? '').trim();
 }
 
 function sectionTitle(section: ViewSection): string {
