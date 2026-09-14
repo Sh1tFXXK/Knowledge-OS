@@ -5,7 +5,9 @@
   "baseRefNote": "T3 的**有界前置批次**。顺序：t3-dryrun → **t3-p0（本批）** → t3-p1（38 条 MEDIUM 裁决）→ t3-freeze（冻结 133 映射）→ t3-semanticization（apply）→ t3-commit。",
   "preBatchSnapshot": null,
   "commitSubjectHint": "chore(t3-p0): 7 个伪语义祖先的前置语义化提案 + dry-run — BLOCK 27→3 / HIGH 68→92（零数据变化）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
+  "commit": "897e289fde89fad35f0f1a5d2e33d8027242b99e",
+  "committedAt": "2026-09-14T21:07:00+08:00",
 
   "writeSet": [
     "scripts/dryrun-t3-p0-ancestors-semanticization.mjs",
