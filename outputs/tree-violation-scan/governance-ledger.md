@@ -6,39 +6,77 @@
 > 维护约定：每条线程必须有 `状态` / `依据` / `下一步触发条件` 三项；状态词只用
 > `✅ 完成` · `⏸️ 阻塞` · `📝 已登记` · `🔍 待裁决`（不得混用「不同」与「异常」）。
 
-最后更新：2026-09-14
+最后更新：2026-09-14（T2 / T7 / T9 关闭，主线收敛到 T3）
 
 ---
 
 ## 一、当前状态总览
 
 ```text
-Phase 1 APPLY        ✅   树 3215→3219 · 池 3849→3855 · 边 4158→4166
-独立验证             ✅   存量债 Δ≤0（重复挂载 89→87 改善）· npm test 44/44
-审计闭合             ✅   evolution-event introducedNodes 2→6 + 挂载数基线口径修正
-提交                 ⏸️   等 node-pool 外部批次收敛（路径 A；路径 B 已明确否决）
-asplit_*             🔍   登记 ✅ · dry-run ✅ · **谓词已修正**（HIGH 68 / MEDIUM 38 / BLOCK 27）· 待人工裁决 · apply ⏸️
-T4 · RC-01           ✅   已裁决：intentional-alias（方案 A，数据零改动；检测器保留、只出证据）
-T6 · 宪法修订        ✅   已完成：CONSTITUTION v1.0 → v1.1（3.1 补充 / 3.2 补充 / 新增 3.6 + 元纪律）
-字段一致性规则       ✅   已升级为可执行检测规范（ADR-0002），检测器契约 = evidence-only
-批次边界机制         ✅   加固：exclusionGate + 归属强度三分 + 生成物按批次分文件
+Phase 1 APPLY        ✅   已提交 16288ff（树 3219 · 池 3855 · 边 4166）
+治理基线             ✅   已提交 e93dda5（CONSTITUTION v1.1 3.1/3.2/3.6 + ADR-0002 + BATCH_MANIFEST）
+T2 · 阶段一提交      ✅   已关闭 —— 真阻塞项是「单文件双批次」，不是「等外部会话」
+T7 · 外部打标 127    ✅   已提交 0ccecae（blob 级提交，工作树零触碰）
+T9 · T3-P0 前置      ✅   已 apply（treeId 7 改 + treebind 边 id 46 改 · 零结构变更）
+T3 · asplit_* 语义化 🔷   主线**唯一**开放线程（HIGH 92 / MEDIUM 38 / BLOCK 3）
+T5 · 检测器独立化    🔧   引擎已建成，待 T3 apply 时同步出证
 ```
 
-## 二、线程登记表
+**主线（T3）后续路径**：
+
+```text
+T3-P0 7 个祖先语义化                     ✅ 已 apply（commit 见 T9 行）
+  ↓
+133 项重新计算                            ✅ HIGH 92 / MEDIUM 38 / BLOCK 3
+  ↓
+3 条 MySQL 服务层 BLOCK                   ⏭ 挂载点合法性 → 独立结构批次
+  ↓
+38 条 MEDIUM review                       ⏭ T3-P1
+  ↓
+133/133 freeze                           ⏭ MAPPING_FREEZE_OK
+  ↓
+T3 apply → 独立验证 → T3 commit
+  ↓
+OOP / CS / DB / 虚拟化 / I/O 结构批次
+  ↓
+Problem Model
+  ↓
+全库 Governance Gate
+```
+
+> 与之前最大的不同：**已经有一个干净的 Phase 1 Git 基线**。从此每个批次都真正做到
+> 「一个批次 / 一个 manifest / 一个明确 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」，
+> 不会再出现 T2 那种「状态上像在等别人，实际是两个批次共用一个文件」的混乱。
+
+---
+
+## 二、主线（开放线程）
 
 | # | 线程 | 状态 | 依据 / 详情 | 下一步触发条件 |
 |---|---|---|---|---|
-| T1 | **阶段一数据 + 审计闭合** | ✅ 完成 | `phase1-apply-report.md`（含附录 A 审计修正、附录 B 观察项） | — |
-| T2 | **阶段一提交** | ✅ **已完成**（commit `16288ff` · 2026-09-14 20:43） | `phase1-commit-candidateset.md` · `readiness-phase1.json` · `nodepool-drift-classification.{json,md}` | 原状态「⏸️ 等外部会话收敛」**是错的** —— 重新核验后确认外部早已收敛（静默 7.47h），真阻塞项是「**`node-pool.json` 单文件承载两批次**，git 暂存为文件级 ⇒ 任何提交都整文件夹带对方」。处置：由 T7 经 blob 级提交先行推进 HEAD → 祖先闸门转 ✅ → 8 闸门全 PASS → 按脚本生成 pathspec 提交。树 3215→3219 · 池 3849→3855 · 边 4158→4166 |
-| T3 | **`asplit_*` treeId 语义化** | 🔍 待裁决（等 **T9** 先执行） | 登记：`batch-asplit-treeid-semanticization-plan.md` · `asplit-treeid-inventory.json` · `asplit-treeid-ref-matrix.json` · `scripts/scan-asplit-treeid-refs.mjs`。<br>dry-run：`t3-dryrun-report.md`（含 §2.0 谓词修正）· `asplit-treeid-mapping.draft.json` · **`t3-mapping-review.md`** | **①** ⏳ 先做完 **T9**（7 个伪语义祖先的前置语义化）；<br>**②** T9 apply 后重跑 dry-run，读数应为 **HIGH 92 / MEDIUM 38 / BLOCK 3**；<br>**③** T3-P1：逐条裁决 38 条 MEDIUM；<br>**④** 冻结 133 映射（`133/133 ∧ pending=0 ∧ needs-review=0 ∧ blocked=0 ∧ gap≤3 ∧ 语义来源校验通过`）→ `MAPPING_FREEZE_OK` → 才可 apply；<br>**⑤** 剩余 3 条 projection 族 BLOCK 转结构批次。**1521 条不扩范围** |
-| T4 | **RC-01 同位字段一致性** | ✅ 已裁决 | `case-rename-field-coherence.md` §5（结论：`ACCEPTED / INTENTIONAL`）· `readiness-<batchId>.json` → `residuals` | — （检测器随 T5 独立化；契约已固化为 evidence-only） |
-| T5 | **字段一致性检测器独立化** | 🔧 引擎已建成 | `scripts/rename-evidence.mjs`（**evidence-only**，含 `baseCount`/`counterexamples`/`falsePositiveAnalysis`，内建 action/autoFix 自检）· 范例 `outputs/rename-evidence/case-rc01.json` · `batch-manifests/t5-rename-evidence.json` · **宪法 3.6** · ADR-0002 | ① T3 apply 时同步用它出证；<br>② **等 phase1 提交后**再把 `verify-phase1-commit-readiness.mjs` 内联的 `residuals` 改为 import 本引擎（现在 import 会让 phase1 依赖未入库文件）；<br>③ 后续 rename 批次统一复用 |
-| T6 | **宪法修订（3.1 / 3.2 / 新增 3.6）** | ✅ 完成 | `docs/CONSTITUTION.md` v1.1（序章 v1.1 修正条款 + 元纪律）· ADR-0002 → 已上升为宪法执行原则 | — （后续 `asplit_*` / T5 直接引用 v1.1 3.1 / 3.2 / 3.6） |
-| T7 | **node-pool 127 条外部打标改动** | ✅ **已完成**（commit `0ccecae`，经用户授权「路线 A」） | `nodepool-external-drift.json` · `nodepool-drift-classification.{json,md}` · `scripts/classify-nodepool-external-drift.mjs` · `batch-manifests/nodepool-tag-normalization.json` | 原纪律「由**其他会话**负责提交；本台账仅登记事实，不代管」**已正式解除**（用户 2026-09-14 显式授权，授权事实与时点记于台账 `requiresGovernanceApprovalNote`）。四方基线定性 `DRIFT_DECOMPOSABLE`（10 条不变量全绿，外部 127+1 / 本批 6+1 恰好铺满）→ blob 级提交（index 指向备份态 blob `fa533a3a`，工作树零触碰）。定性与处方见 `nodepool-drift-classification.md` §6 |
-| T8 | **批次边界机制加固** | ✅ 完成 | `docs/BATCH_MANIFEST.md` §3.1/§3.2 · `verify-phase1-commit-readiness.mjs`（`exclusionGate` + 检查 D 归属强度三分 + **未跟踪目录展开** + `readiness-<batchId>.json`） | — （触发源：同日四次「声明写了但没生效」：`t3-mapping-review.md` 漏出写集 / 通配串永不命中 / 报告文件名共用 / 未跟踪目录折叠） |
-| T9 | **T3-P0 · 7 个伪语义祖先的前置语义化** | 🔍 **待人工裁决**（提案已出，零数据变化） | `batch-manifests/t3-p0.json`（`READY_TO_COMMIT`）· `t3-p0-naming.proposal.json`（7 条命名提案 + 逐条 4 级证据）· `t3-p0-dryrun-plan.json` · `t3-p0-report.md` · **`t3-p0-review.md`** · `scripts/dryrun-t3-p0-ancestors-semanticization.mjs` | **① 逐条裁决 7 个名字**（通过 / 改名 / 另裁）；<br>**② 裁定 openDecision D1**（P0 后 gap=0 子项用「父全名+slug」还是「父去末段+slug」）与 **D2**（域 slug 命名空间是否作为 1521 批次统一约定）；<br>**③** 全部 approved + D1/D2 已定 → `t3-p0` apply（备份 → 8 闸门 → 落盘 → 独立复验 → 单独提交） |
+| T3 | **`asplit_*` treeId 语义化** | 🔷 进行中（前置 T9 已解除） | 登记：`batch-asplit-treeid-semanticization-plan.md` · `asplit-treeid-inventory.json` · `asplit-treeid-ref-matrix.json` · `scripts/scan-asplit-treeid-refs.mjs`。<br>pre-P0 dry-run：`t3-dryrun-report.md`（HIGH 68 / MEDIUM 38 / BLOCK 27）· `t3-mapping-review.md`。<br>**post-P0 重算**：`t3-dryrun-report-after-p0.md` · `t3-mapping-review-after-p0.md` · `asplit-treeid-mapping.draft-after-p0.json` | **①** ✅ 前置已解除（T9 apply 完成，读数 = **HIGH 92 / MEDIUM 38 / BLOCK 3**）；<br>**②** ⏭ **3 条 MySQL 服务层 BLOCK**（`备份恢复工具` / `安全管理工具` / `集群管理工具`，gap 均 6）→ 挂载点合法性，**独立结构批次**；<br>**③** ⏭ **T3-P1**：逐条裁决 38 条 MEDIUM；<br>**④** 冻结 133 映射（`133/133 ∧ pending=0 ∧ needs-review=0 ∧ blocked=0 ∧ gap≤3 ∧ 语义来源校验通过`）→ `MAPPING_FREEZE_OK` → 才可 apply；<br>**⑤** ⚠️ 冻结前须复核 **D1 操作化读法**（见 `t3-p0-naming.proposal.json` → `openDecisions[0].operationalization.ambiguityFlag`）。**1521 条不扩范围** |
+| T5 | **字段一致性检测器独立化** | 🔧 引擎已建成 | `scripts/rename-evidence.mjs`（**evidence-only**，含 `baseCount`/`counterexamples`/`falsePositiveAnalysis`，内建 action/autoFix 自检）· 范例 `outputs/rename-evidence/case-rc01.json` · `batch-manifests/t5-rename-evidence.json` · **宪法 3.6** · ADR-0002 | ① T3 apply 时同步用它出证；<br>② ⏭ phase1 已提交（`16288ff`）→ **可以把 `verify-phase1-commit-readiness.mjs` 内联的 `residuals` 改为 import 本引擎**（此前 import 会让 phase1 依赖未入库文件）；<br>③ 后续 rename 批次统一复用 |
 
-## 三、长期纪律速查（已入宪 · CONSTITUTION v1.1）
+---
+
+## 三、已完成（归档，不再维护）
+
+> 保留这些行的唯一目的是**留指针**：新会话读到它们时知道「这件事已经做完了、证据在哪」，
+> 不需要重新核验，也不该把它们当成开放线程。
+
+| # | 线程 | 结论 | 证据 / commit |
+|---|---|---|---|
+| T1 | 阶段一数据 + 审计闭合 | ✅ 完成 | `phase1-apply-report.md`（附录 A 审计修正 · 附录 B 观察项） |
+| T2 | **阶段一提交** | ✅ 完成 · **已从主线移出** | commit `16288ff`。**旧状态「⏸️ 等外部会话收敛」是错的** —— 核验证实外部早已收敛（写入 `2026-09-14T05:00:11.127Z`，静默 7.47h，且**早于** HEAD `5a605e3`）。真阻塞项 = **`data/node-pool.json` 单文件承载两批次**（外部 127 键 + 本批 6 新增 1 修改），git 暂存为**文件级** ⇒ 任何提交都整文件夹带对方。元凶是 `reconcile-external-changes.mjs` 只有三方基线、缺第四方「本任务自己的写入」，apply 后重跑会把自己写的文件判成「外部仍在写入」→ 输出假的「未收敛」。处置：T7 经 blob 级提交先行推进 HEAD → 祖先闸门转 ✅ → 8 闸门全 PASS → 按脚本生成 pathspec 提交。详情：`nodepool-drift-classification.{json,md}` §6 |
+| T4 | RC-01 同位字段一致性 | ✅ 已裁决：`ACCEPTED / INTENTIONAL`（方案 A，数据零改动；检测器保留、只出证据） | `case-rename-field-coherence.md` §5 |
+| T6 | 宪法修订（3.1 / 3.2 / 新增 3.6） | ✅ 完成 | commit `e93dda5` · `docs/CONSTITUTION.md` v1.1（序章 v1.1 修正条款 + 元纪律）· ADR-0002 |
+| T7 | **node-pool 127 条外部打标改动** | ✅ 完成 · **已从主线移出** | commit `0ccecae`（经用户授权「路线 A」）。原纪律「由**其他会话**负责提交；本台账仅登记事实，不代管」**已正式解除**（授权事实与时点记于 `batch-manifests/nodepool-tag-normalization.json` 的 `requiresGovernanceApprovalNote`）。四方基线定性 `DRIFT_DECOMPOSABLE`（10 条不变量全绿：外部 127+1 / 本批 6+1 恰好铺满 HEAD→当前）→ blob 级提交（index 指向备份态 blob `fa533a3a`，工作树零触碰）。台账订正 `3a47ba6` / `f5fcf68` |
+| T8 | 批次边界机制加固 | ✅ 完成 | `docs/BATCH_MANIFEST.md` §3.1/§3.2 · `verify-phase1-commit-readiness.mjs`（`exclusionGate` + 检查 D 归属强度三分 + 未跟踪目录展开 + `readiness-<batchId>.json`） |
+| T9 | **T3-P0 · 7 个伪语义祖先的前置语义化** | ✅ 完成（提案 `897e289` · apply 见 `batch-manifests/t3-p0-apply.json`） | 7 个名字**全部批准**（用户 2026-09-14 21:10，按提案原名不改）· **D1** 选 B（带限定条件）· **D2** 采纳 `tree_<domain>_<semantic-slug>` 并附硬限制「domain 只是 ID namespace，不是 ontology 判定」。<br>apply：只改 7 个 treeId + 46 条 treebind 边 id；**树 3219 节点、边 4166 条、池 3855 节点全部不变**；非 id 字段零变化；边 endpoint 零触碰；池与题库逐字节零改动。<br>9/9 闸门 ✅ · 独立验证 21/21 `INDEPENDENT_VERIFY_PASS` · 写后复验 `REAL_APPLY_VERIFIED`。<br>产物：`t3-p0-apply-report.md` · `t3-p0-apply-verification.md` · `t3-p0-apply-plan.json` · `t3-p0-apply-baseline.json` · `scripts/apply-t3-p0-ancestor-semanticization.mjs` · `scripts/verify-t3-p0-apply.mjs` |
+
+---
+
+## 四、长期纪律速查（已入宪 · CONSTITUTION v1.1）
 
 ```text
 ① entity identity ≠ tree mount                          【宪法 3.1】
@@ -69,8 +107,20 @@ T6 · 宪法修订        ✅   已完成：CONSTITUTION v1.0 → v1.1（3.1 补
               「检测器找证据；治理规则判证据」，检测器不得内联处置（无 action/autoFix）
 ```
 
-## 四、台账自身
+**字段角色判据同样适用于「残留」类断言**（T9 apply 的独立验证实证）：
 
-- 本文件属**治理文档**（与批次产出不同类）。它是否随 T2 一并提交，由用户裁决；
-  建议与 T6 的宪法修订一起走一个「治理文档」提交，保持 commit 语义单一。
+```text
+身份承载数据（tree-data / knowledge-edges / node-pool / questions）里的 treeId 是**身份** → 改名后必须 0 残留。
+evolution-events 的 changes[].before / after 是**审计叙述** → **必须**保留旧 id，否则审计失去意义。
+⇒ 「旧 id 残留 0」不得全局一刀切，必须按字段角色拆成两条断言。
+```
+
+---
+
+## 五、台账自身
+
+- 本文件属**治理文档**（与批次产出不同类）。现行做法：随**引起它的那个批次**一起提交并列入该 manifest 的 `writeSet`
+  （T9 的台账更新即随 `t3-p0-apply` 提交），避免为纯登记单独制造一次无内容的提交。
 - 新增开放线程时**只在本表加行**，不要把正文写进来。
+- **主线只放真正开放着的线程**；关闭的线程移入 §三 归档区，并在结论里写清「为什么曾经看似阻塞、实际阻塞在哪」——
+  这条信息比「已完成」三个字值钱得多（T2 就是反例：一个错误的状态词把整条主线锁了几小时）。

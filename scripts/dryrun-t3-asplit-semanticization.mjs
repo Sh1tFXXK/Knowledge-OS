@@ -24,6 +24,20 @@ import path from 'node:path'
 
 const ROOT = process.cwd()
 const OUT = path.join(ROOT, 'outputs', 'tree-violation-scan')
+/**
+ * 输出后缀（可选）：`--out-suffix=after-p0` → `t3-dryrun-plan-after-p0.json` 等。
+ * 用途：T3-P0 apply **之后**重算 133 项时，不得覆盖 pre-P0 的 dry-run 证据 ——
+ * `t3-dryrun-report.md` 记录的 HIGH 68 / MEDIUM 38 / BLOCK 27 是 P0 的前置条件本身。
+ * 默认空串 = 原文件名，行为与之前完全一致。
+ */
+const OUT_SUFFIX = (() => {
+  const a = process.argv.slice(2)
+  const eq = a.find((x) => x.startsWith('--out-suffix='))
+  const raw = eq ? eq.slice('--out-suffix='.length) : (a.indexOf('--out-suffix') >= 0 && a[a.indexOf('--out-suffix') + 1] ? a[a.indexOf('--out-suffix') + 1] : '')
+  if (!raw) return ''
+  return raw.startsWith('-') ? raw : '-' + raw
+})()
+const outFile = (base, ext) => path.join(OUT, base + OUT_SUFFIX + ext)
 const rd = (rel) => JSON.parse(fs.readFileSync(path.join(ROOT, rel), 'utf8'))
 
 const tree = rd('data/tree-data.json')
@@ -55,6 +69,7 @@ const scopeOk = liveTier1.length === 133 && invTier1.length === 133 &&
 // ── 1. 命名空间候选 ────────────────────────────────────────────────────────
 // ⛔ 2026-09-14 修正（重要）：原判定 `/^tree_[a-z0-9_]+$/ && !/_s\d+_/` 会把
 //    `tree_1784367544335_zorevp`（= **时间戳 + hash**）误判成「语义 id」，
+//    （该 id 已于 T9 改名为 `tree_java_jmm_synchronization`；此处保留旧名，因为它正是**修正当时**的实证样本）
 //    于是拿它当命名空间来源 → `gap` 被低估 → HIGH 被判多（116 vs 实际 68）。
 //    后果与用户对 `asplit_s132_base_theory` 的裁决**同源**：产出的 id 里仍带时间戳 = 伪语义化。
 //    故「语义形态」必须排除：时间戳+hash（`tree_<10+位数字>_…` / 内嵌 `k_<ts>_`）、段位 `_s<N>_`。
@@ -428,7 +443,7 @@ if (poolAsplitRefs.length) plan.warnings.push('另有 ' + poolAsplitRefs.length 
 plan.verdict = plan.hardBlockers.length === 0 ? 'DRY_RUN_OK' : 'DRY_RUN_BLOCKED'
 
 fs.mkdirSync(OUT, { recursive: true })
-fs.writeFileSync(path.join(OUT, 'asplit-treeid-mapping.draft.json'), JSON.stringify({
+fs.writeFileSync(outFile('asplit-treeid-mapping.draft', '.json'), JSON.stringify({
   generatedAt: plan.generatedAt,
   status: 'DRAFT_PENDING_HUMAN_REVIEW',
   note: '机器只给候选与冲突检测；status 初始 pending / needs-adjudication，须人工逐行裁决后冻结。',
@@ -436,7 +451,7 @@ fs.writeFileSync(path.join(OUT, 'asplit-treeid-mapping.draft.json'), JSON.string
   summary: plan.mappingSummary,
   items: mapping,
 }, null, 2) + '\n', 'utf8')
-fs.writeFileSync(path.join(OUT, 't3-dryrun-plan.json'), JSON.stringify(plan, null, 2) + '\n', 'utf8')
+fs.writeFileSync(outFile('t3-dryrun-plan', '.json'), JSON.stringify(plan, null, 2) + '\n', 'utf8')
 
 const md = []
 md.push('# T3 · `asplit_*` treeId 语义化 —— 只读 dry-run 报告', '')
@@ -467,7 +482,8 @@ md.push('- 候选碰撞：' + nConflict + ' · 批内重复：' + intraBatchDup.
 md.push('- 语义祖先跨度分布：`' + JSON.stringify(gapDist) + '`', '')
 md.push('### ⛔ 2.0 谓词修正（2026-09-14）：时间戳/hash id 不得作为命名空间来源', '')
 md.push('原「语义形态」判定为 `^tree_[a-z0-9_]+$` 且不含 `_s<N>_` —— 它会把' +
-  '`tree_1784367544335_zorevp`（**时间戳 + hash**）误判成语义 id，于是拿它当命名空间来源。', '')
+  '`tree_1784367544335_zorevp`（**时间戳 + hash**）误判成语义 id，于是拿它当命名空间来源。' +
+  '（该 id 已于 T9 改名为 `tree_java_jmm_synchronization`；此处保留旧名，它是修正当时的实证样本。）', '')
 md.push('| 影响 | 宽松判定（错误） | 严格判定（现行） |', '|---|---|---|')
 md.push('| gap 分布 | `' + JSON.stringify(predicateShift.looseGapDist) + '` | `' + JSON.stringify(gapDist) + '` |')
 md.push('| HIGH（可自动接受） | ' + predicateShift.looseHighCount + ' | ' + (gapDist['0'] ?? 0) + ' |')
@@ -542,7 +558,7 @@ md.push('2. 冻结映射表（`status` 全部 `approved` / `rejected`，无 `pen
 md.push('3. 决定命名约定的**适用范围**：T3 只治 `asplit_*` 133 项，其余命名族（约 1521 条非语义 id）**另开批次**，不扩范围；')
 md.push('4. 等 Phase 1 形成干净 HEAD 后执行 apply（备份 → 8 闸门 → 落盘 → 独立复验 → 单独提交 `t3-semanticization`）。')
 md.push('')
-fs.writeFileSync(path.join(OUT, 't3-dryrun-report.md'), md.join('\n'), 'utf8')
+fs.writeFileSync(outFile('t3-dryrun-report', '.md'), md.join('\n'), 'utf8')
 
 // ── 复核清单（人工裁决用，含裁决栏）────────────────────────────────────────
 const rv = []
@@ -639,7 +655,7 @@ rv.push('→ frozenMappingProducible = true（当前 ' + plan.freezeReadiness.fr
 rv.push('→ 才可进入 apply')
 rv.push('```')
 rv.push('')
-fs.writeFileSync(path.join(OUT, 't3-mapping-review.md'), rv.join('\n'), 'utf8')
+fs.writeFileSync(outFile('t3-mapping-review', '.md'), rv.join('\n'), 'utf8')
 
 console.log('════ T3 · asplit_* 语义化 只读 dry-run ════')
 console.log('  模式：DRY_RUN_READ_ONLY（data/ 未写入）')
@@ -670,5 +686,5 @@ console.log('\n【结论】' + plan.verdict + ' / ' + plan.freezeVerdict)
 for (const b of plan.hardBlockers) console.log('  ⛔ ' + b)
 for (const b of plan.applyBlockers) console.log('  ⛔ apply 阻塞：' + b)
 for (const w of plan.warnings) console.log('  ⚠️ ' + w)
-console.log('\n产物：asplit-treeid-mapping.draft.json · t3-dryrun-plan.json · t3-dryrun-report.md · t3-mapping-review.md（人工复核清单）')
+console.log('\n产物' + (OUT_SUFFIX ? '（后缀 ' + OUT_SUFFIX + '）' : '') + '：asplit-treeid-mapping.draft · t3-dryrun-plan · t3-dryrun-report · t3-mapping-review（人工复核清单）')
 process.exit(plan.hardBlockers.length === 0 ? 0 : 1)

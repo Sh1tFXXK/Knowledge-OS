@@ -139,5 +139,58 @@
         "after": "按「实体语义优先于挂载路径」判为 ontology：正文留在「本体」侧并保持原 identity k_1784044171635_8etz45；本体挂载于 tree_class_programming_anonymous_class（原有挂载点，随「分类」→「类的分类」重命名保留） → 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类 > 匿名类；另一侧新建 k_1789371087163_g0db3p（reference）承接对应语义。"
       }
     ]
+  },
+  {
+    "id": "event:tree-refactor:t3-p0:1789391683976",
+    "scopeRootId": "n_55jiel25",
+    "occurredAt": 1789391683976,
+    "title": "T3-P0：7 个伪语义祖先的前置语义化（treeId 改名，零结构变更）",
+    "summary": "把 7 个形如 tree_<时间戳>_<hash> 的树节点 id 改为语义 slug（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_ 四组命名空间）。仅改 treeId 与被其牵连的 46 条 treebind 边 id；池实体、边内容、节点/边数量全部不变。目的是解除 T3 那 24 条 BLOCK 的根因（它们的直接父节点未语义化 → semanticAncestorGap > 3），改后 T3 133 项读数由 HIGH 68 / MEDIUM 38 / BLOCK 27 变为 HIGH 92 / MEDIUM 38 / BLOCK 3。命名规范 tree_<domain>_<semantic-slug>；domain 只是 ID 命名空间，不是 ontology 判定。",
+    "sourceOnlyNodeIds": [],
+    "introducedNodes": [],
+    "changes": [
+      {
+        "targetNodeId": "k_1786026688332_564okt",
+        "facet": "structure",
+        "before": "treeId `tree_1786026688588_0mtvxh`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析",
+        "after": "treeId `tree_java_lock_rwlock_implementation`（语义 slug，命名空间 `tree_java_lock_`）· 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析"
+      },
+      {
+        "targetNodeId": "k_1786245816863_ntvyz2",
+        "facet": "structure",
+        "before": "treeId `tree_1786245817114_ds2keo`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化",
+        "after": "treeId `tree_redis_rdb_persistence`（语义 slug，命名空间 `tree_redis_`）· 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化"
+      },
+      {
+        "targetNodeId": "k_1784367544296_w5eotg",
+        "facet": "structure",
+        "before": "treeId `tree_1784367544335_zorevp`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步",
+        "after": "treeId `tree_java_jmm_synchronization`（语义 slug，命名空间 `tree_java_jmm_`）· 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步"
+      },
+      {
+        "targetNodeId": "k_1783873515654_g6ka8f",
+        "facet": "structure",
+        "before": "treeId `tree_1783873515748_edsjp0`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型",
+        "after": "treeId `tree_java_syntax_generics`（语义 slug，命名空间 `tree_java_syntax_`）· 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型"
+      },
+      {
+        "targetNodeId": "k_1786235757225_82in77",
+        "facet": "structure",
+        "before": "treeId `tree_1786235757428_osu8oj`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset",
+        "after": "treeId `tree_redis_zset`（语义 slug，命名空间 `tree_redis_`）· 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset"
+      },
+      {
+        "targetNodeId": "k_1786340438417_wmmxde",
+        "facet": "structure",
+        "before": "treeId `tree_1786340438649_tbr6gs`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常",
+        "after": "treeId `tree_redis_cache_anomaly`（语义 slug，命名空间 `tree_redis_`）· 路径不变：知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常"
+      },
+      {
+        "targetNodeId": "k_1785862113423_05qu2c",
+        "facet": "structure",
+        "before": "treeId `tree_1785862113590_a5v1ya`（形如 tree_<时间戳>_<hash>，伪语义）· 路径：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性",
+        "after": "treeId `tree_java_jmm_sequential_consistency`（语义 slug，命名空间 `tree_java_jmm_`）· 路径不变：知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性"
+      }
+    ]
   }
 ]

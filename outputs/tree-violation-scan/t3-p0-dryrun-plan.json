@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-14T12:09:02.569Z",
+  "generatedAt": "2026-09-14T13:12:19.182Z",
   "mode": "DRY_RUN_READ_ONLY",
   "batch": "t3-p0",
   "note": "只在内存克隆上执行 7 个 treeId 的改写；data/ 未被写入。",
@@ -1982,15 +1982,34 @@
   "openDecisions": [
     {
       "id": "D1",
-      "question": "子项（24 条由 BLOCK 降为 HIGH 的 asplit_*）的 id 形态用哪种？",
+      "status": "DECIDED",
+      "decidedAt": "2026-09-14T21:10:00+08:00",
+      "verdict": "选 B",
+      "userWording": "选 B：semantic namespace + child slug，但只有结构容器末段属于纯容器语义时才去掉。",
+      "operationalization": {
+        "formula": "childTreeId = namespace(parent) + '_' + childSlug",
+        "namespaceRule": "namespace(parent) = parent.treeId 去掉末段，**当且仅当**该末段属「纯结构容器」词；否则保留父 id 全名。",
+        "pureContainerSegments": "(待确认词表) data_type / datatype / options / classification / taxonomy / category / subtypes / overview / summary / misc",
+        "appliedToThisBatch": "本批 7 个父节点的末段 —— implementation / persistence / synchronization / generics / zset / cache_anomaly / sequential_consistency —— **均属内容语义，不属纯容器** → 不剥离 → 24 个 gap=0 子项的形态落在 review §3 表的「选项 A」列（父全名 + slug）。",
+        "ambiguityFlag": "⚠️ 本条操作化是我对裁决原文的读法。若你的原意是「一律剥离父末段」（即 review §3 表的「选项 B」列），结论相反。两种读法**对本批 7 个祖先 id 毫无影响**（P0 只改祖先 id，不改子项 id），但会决定 T3 那 133 条里 gap=0 子项的最终 id。**T3 冻结映射表前必须以实际形态复核一次。**"
+      },
       "optionA": "父 id 全名 + slug（层级拼接）→ 如 tree_java_lock_rwlock_implementation_rw_state_write_acquire",
       "optionB": "父 id 去掉末段 + slug → 如 tree_java_lock_rwlock_rw_state_write_acquire",
-      "note": "T3 冻结映射表当前算法 `recommended` 偏好 B；但 gap=0（父节点本身就是命名空间）时 A 才是层级正确的形式。此项**必须在 T3 冻结前裁定**，因为它会回溯影响本批 7 个名字的取舍（先看 review 文档 §3 的子项 id 形态预演再定）。"
+      "downstream": "T3 冻结映射表的拼接策略按上式实现；review §3 的子项 id 形态预演表即其逐条结果。"
     },
     {
       "id": "D2",
-      "question": "本批采用的「域 slug」命名空间策略（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_）是否作为后续「1521 非语义 id」批次的统一约定？",
-      "note": "若不统一，1521 批次可能为同一批节点选到不同前缀 → 二次改名。建议在 T3 冻结前确认。"
+      "status": "DECIDED",
+      "decidedAt": "2026-09-14T21:10:00+08:00",
+      "verdict": "采纳",
+      "userWording": "采用 tree_<domain>_<semantic-slug> 作为统一 treeId 命名规范。",
+      "hardLimit": "**domain 只是 ID namespace，不是 ontology 判定。**",
+      "implications": [
+        "本批 4 组命名空间（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_）即为后续「1521 非语义 id」批次的统一规范 → 同一域内不再二次改名。",
+        "⛔ 禁止以 id 前缀推断本体归属：不得因为 id 形如 tree_redis_zset 就断言该节点 ontology 上属于 Redis 域。id 是命名空间，不是语义证明。",
+        "与宪法 §3.1「挂载位置不是身份证据」同源，并与 ADR-0002 身份与观察纪律一致 —— 前缀是**观察**，不是**身份**。",
+        "推论：跨域同名概念（如 java 锁 vs MySQL 锁）必须靠 domain 段区分，**不得**靠「谁更像本体」来判 —— 这正是 namespaceRegistry 里 `tree_java_lock_` 必须与 `tree_lock_*`(MySQL) 分开的原因。"
+      ]
     }
   ],
   "hardBlockers": [],
