@@ -142948,12 +142948,15 @@
       "java.nio.file.Files",
       "java",
       "jdk",
-      "常用类库"
+      "常用类库",
+      "java.nio.file",
+      "NIO",
+      "文件操作"
     ],
     "card": {
       "nodeId": "k_java_nio_file_files",
       "title": "java.nio.file.Files",
-      "rootContent": "java.nio.file 包下的静态文件工具类，所有方法均为静态方法，配合 Path 使用，统一抛 IOException。",
+      "rootContent": "java.nio.file 包下的静态文件工具类，所有方法均为静态方法，配合 Path 使用，统一抛 IOException。\n\njava.nio.file.Files 是 NIO.2 提供的文件操作工具类，包含大量静态方法，是 java.io.File 的增强替代。",
       "tabs": [
         {
           "id": "def",
@@ -142968,7 +142971,7 @@
         {
           "id": "copy",
           "label": "copy()",
-          "content": "将文件从源路径复制到目标路径。\n\n`static Path copy(Path source, Path target, CopyOption... options)`"
+          "content": "将文件从源路径复制到目标路径。\n\n`static Path copy(Path source, Path target, CopyOption... options)` ／ `copy(InputStream in, Path target, CopyOption... options)` ／ `copy(Path source, OutputStream out)`"
         },
         {
           "id": "move",
@@ -142978,12 +142981,12 @@
         {
           "id": "delete",
           "label": "delete()",
-          "content": "删除文件。\n\n`static void delete(Path path)`"
+          "content": "删除文件或空目录（不存在抛异常）\n\n`static void delete(Path path)`"
         },
         {
           "id": "deleteIfExists",
           "label": "deleteIfExists()",
-          "content": "如果文件存在则删除。\n\n`static boolean deleteIfExists(Path path)`"
+          "content": "删除（不存在返回 false，不抛异常）\n\n`static boolean deleteIfExists(Path path)`"
         },
         {
           "id": "exists",
@@ -143048,12 +143051,12 @@
         {
           "id": "list",
           "label": "list()",
-          "content": "列出目录中的条目。\n\n`static Stream<Path> list(Path dir)`"
+          "content": "返回目录下直接条目的 Stream<Path>（不递归）\n\n`static Stream<Path> list(Path dir)`"
         },
         {
           "id": "newDirectoryStream",
           "label": "newDirectoryStream()",
-          "content": "打开目录流。\n\n`static DirectoryStream<Path> newDirectoryStream(Path dir)`"
+          "content": "打开目录流。\n\n`static DirectoryStream<Path> newDirectoryStream(Path dir)` ／ `newDirectoryStream(Path dir, String glob)` ／ `newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter)`"
         },
         {
           "id": "createDirectory",
@@ -143068,12 +143071,12 @@
         {
           "id": "createTempFile",
           "label": "createTempFile()",
-          "content": "创建临时文件。\n\n`static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)`"
+          "content": "创建临时文件。\n\n`static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)` ／ `createTempFile(String prefix, String suffix, FileAttribute<?>... attrs)`"
         },
         {
           "id": "createTempDirectory",
           "label": "createTempDirectory()",
-          "content": "创建临时目录。\n\n`static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)`"
+          "content": "创建临时目录。\n\n`static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)` ／ `createTempDirectory(String prefix, FileAttribute<?>... attrs)`"
         },
         {
           "id": "newByteChannel",
@@ -143093,12 +143096,12 @@
         {
           "id": "newBufferedReader",
           "label": "newBufferedReader()",
-          "content": "打开缓冲读取器。\n\n`static BufferedReader newBufferedReader(Path path)`"
+          "content": "打开 BufferedReader（默认 UTF-8）\n\n`static BufferedReader newBufferedReader(Path path)` ／ `newBufferedReader(Path path, Charset cs)`"
         },
         {
           "id": "newBufferedWriter",
           "label": "newBufferedWriter()",
-          "content": "打开缓冲写入器。\n\n`static BufferedWriter newBufferedWriter(Path path, OpenOption... options)`"
+          "content": "打开缓冲写入器。\n\n`static BufferedWriter newBufferedWriter(Path path, OpenOption... options)` ／ `newBufferedWriter(Path path, Charset cs, OpenOption... options)`"
         },
         {
           "id": "createFile",
@@ -143109,6 +143112,111 @@
           "id": "probeContentType",
           "label": "probeContentType()",
           "content": "探测文件内容类型。\n\n`static String probeContentType(Path path)`"
+        },
+        {
+          "id": "notExists",
+          "label": "notExists()",
+          "content": "文件是否不存在\n\n`notExists(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "isSymbolicLink",
+          "label": "isSymbolicLink()",
+          "content": "是否为符号链接\n\n`isSymbolicLink(Path path)`"
+        },
+        {
+          "id": "isHidden",
+          "label": "isHidden()",
+          "content": "是否为隐藏文件\n\n`isHidden(Path path)`"
+        },
+        {
+          "id": "createSymbolicLink",
+          "label": "createSymbolicLink()",
+          "content": "创建符号链接\n\n`createSymbolicLink(Path link, Path target, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "createLink",
+          "label": "createLink()",
+          "content": "创建硬链接\n\n`createLink(Path link, Path existing)`"
+        },
+        {
+          "id": "readString",
+          "label": "readString()",
+          "content": "读取文件为字符串（Java 11+）\n\n`readString(Path path)`\n\n指定编码读取字符串\n\n`readString(Path path, Charset cs)`"
+        },
+        {
+          "id": "writeString",
+          "label": "writeString()",
+          "content": "写入字符串（Java 11+）\n\n`writeString(Path path, CharSequence csq, OpenOption... options)`"
+        },
+        {
+          "id": "walk",
+          "label": "walk()",
+          "content": "递归遍历目录树（Stream<Path>）\n\n`walk(Path start, FileVisitOption... options)`\n\n指定深度递归遍历\n\n`walk(Path start, int maxDepth, FileVisitOption... options)`"
+        },
+        {
+          "id": "walkFileTree",
+          "label": "walkFileTree()",
+          "content": "使用访问者模式遍历\n\n`walkFileTree(Path start, FileVisitor<? super Path> visitor)`\n\n`walkFileTree(Path start, Set<FileVisitOption> options, int maxDepth, FileVisitor visitor)`"
+        },
+        {
+          "id": "setLastModifiedTime",
+          "label": "setLastModifiedTime()",
+          "content": "设置最后修改时间\n\n`setLastModifiedTime(Path path, FileTime time)`"
+        },
+        {
+          "id": "getOwner",
+          "label": "getOwner()",
+          "content": "获取文件所有者\n\n`getOwner(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "setOwner",
+          "label": "setOwner()",
+          "content": "设置文件所有者\n\n`setOwner(Path path, UserPrincipal owner)`"
+        },
+        {
+          "id": "getAttribute",
+          "label": "getAttribute()",
+          "content": "获取指定属性\n\n`getAttribute(Path path, String attribute, LinkOption... options)`"
+        },
+        {
+          "id": "setAttribute",
+          "label": "setAttribute()",
+          "content": "设置属性\n\n`setAttribute(Path path, String attribute, Object value, LinkOption... options)`"
+        },
+        {
+          "id": "readAttributes",
+          "label": "readAttributes()",
+          "content": "读取属性视图\n\n`readAttributes(Path path, Class<A> type, LinkOption... options)`\n\n读取多个属性\n\n`readAttributes(Path path, String attributes, LinkOption... options)`"
+        },
+        {
+          "id": "isSameFile",
+          "label": "isSameFile()",
+          "content": "判断两个路径是否指向同一文件\n\n`isSameFile(Path path, Path path2)`"
+        },
+        {
+          "id": "getFileStore",
+          "label": "getFileStore()",
+          "content": "获取文件所在的 FileStore（磁盘分区）\n\n`getFileStore(Path path)`"
+        },
+        {
+          "id": "getPosixFilePermissions",
+          "label": "getPosixFilePermissions()",
+          "content": "获取 POSIX 权限（Unix）\n\n`getPosixFilePermissions(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "setPosixFilePermissions",
+          "label": "setPosixFilePermissions()",
+          "content": "设置 POSIX 权限\n\n`setPosixFilePermissions(Path path, Set<PosixFilePermission> perms)`"
+        },
+        {
+          "id": "options",
+          "label": "选项常量",
+          "content": "CopyOption：\n- StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标\n- StandardCopyOption.COPY_ATTRIBUTES：复制文件属性\n- StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）\n- LinkOption.NOFOLLOW_LINKS：不跟随符号链接\n\nOpenOption：\n- StandardOpenOption.READ：读模式\n- StandardOpenOption.WRITE：写模式\n- StandardOpenOption.APPEND：追加模式\n- StandardOpenOption.TRUNCATE_EXISTING：截断已有文件\n- StandardOpenOption.CREATE：不存在则创建\n- StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常\n- StandardOpenOption.DELETE_ON_CLOSE：关闭时删除"
+        },
+        {
+          "id": "watch-service",
+          "label": "WatchService 文件监听流程",
+          "content": "- FileSystem.newWatchService()：创建监听服务\n- Path.register(WatchService watcher, WatchEvent.Kind<?>... events)：注册监听\n- 监听事件：ENTRY_CREATE、ENTRY_DELETE、ENTRY_MODIFY、OVERFLOW\n- 通过 watchService.take()/poll() 获取变更事件\n- 可用于热部署、文件同步、配置变更监听等场景"
         },
         {
           "id": "bestPractices",
@@ -143877,19 +143985,6 @@
       "title": "最佳实践",
       "tabs": [],
       "rootContent": "\n### 1、异常处理\n\n## 实例\n\ntry {  \n    Files.copy(sourcePath, targetPath, StandardCopyOption.REPLACE_EXISTING);  \n} catch (IOException e) {  \n    System.err.println(\"文件操作失败: \" + e.getMessage());  \n}  \n\n### 2、资源清理\n\n## 实例\n\ntry (Stream< String> lines = Files.lines(path)) {  \n    lines.forEach(System.out::println);  \n} // 自动关闭流  \n\n### 3、性能考虑\n\n- 对于大文件，使用缓冲流 (`Files.newBufferedReader`/`Files.newBufferedWriter`)\n- 批量操作时考虑使用 `Files.walk` 而非递归调用\n- 频繁访问的属性可以缓存\n\n---\n\n## 与传统 I/O 的比较\n\n|特性|Files 类 (NIO)|传统 I/O (java.io)|\n|---|---|---|\n|方法类型|静态方法|实例方法|\n|路径表示|使用 Path 接口|使用 File 类|\n|异常处理|统一使用 IOException|多种异常类型|\n|功能丰富度|更丰富的功能|基础功能|\n|符号链接处理|原生支持|有限支持|\n|文件属性操作|更全面|有限|\n\n通过 `Files` 类，Java 提供了更现代、更强大的文件操作 API，推荐在新项目中使用它替代传统的 `java.io.File` 类。"
-    }
-  },
-  "k_1787916226907_9aq9u6": {
-    "id": "k_1787916226907_9aq9u6",
-    "label": "常见用法",
-    "tags": [
-      "常见用法"
-    ],
-    "card": {
-      "nodeId": "k_1787916226907_9aq9u6",
-      "title": "常见用法",
-      "tabs": [],
-      "rootContent": "Files 常用方法分类：\n\n【文件操作】\n-static Path copy(Path source, Path target, CopyOption... options)：复制文件\n- static Path move(Path source, Path target, CopyOption... options)：移动或重命名文件\n- static void delete(Path path)：删除文件\n- static boolean deleteIfExists(Path path)：如果文件存在则删除\n\n【文件属性】\n- static boolean exists(Path path, LinkOption... options)：检查文件是否存在\n- static boolean isDirectory(Path path, LinkOption... options)：检查是否为目录\n- static boolean isRegularFile(Path path, LinkOption... options)：检查是否为常规文件\n- static boolean isReadable(Path path)：检查文件是否可读\n- static boolean isWritable(Path path)：检查文件是否可写\n- static boolean isExecutable(Path path)：检查文件是否可执行\n- static long size(Path path)：返回文件大小（字节）\n- static FileTime getLastModifiedTime(Path path, LinkOption... options)：获取最后修改时间\n\n【文件内容操作】\n- static byte[] readAllBytes(Path path)：读取文件所有字节\n- static List<String> readAllLines(Path path[, Charset cs])：读取文件所有行\n- static Stream<String> lines(Path path[, Charset cs])：返回文件中行的流\n- static Path write(Path path, byte[] bytes, OpenOption... options)：将字节写入文件\n- static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)：将文本行写入文件\n\n【目录操作】\n- static Stream<Path> list(Path dir)：列出目录中的条目\n- static DirectoryStream<Path> newDirectoryStream(Path dir)：打开目录流\n- static Path createDirectory(Path dir, FileAttribute<?>... attrs)：创建单级目录\n- static Path createDirectories(Path dir, FileAttribute<?>... attrs)：创建多级目录（含父目录）\n\n【临时文件与目录】\n- static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)：创建临时文件\n- static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)：创建临时目录\n\n【流与通道】\n- static SeekableByteChannel newByteChannel(Path path, OpenOption... options)：打开可查找的字节通道\n- static InputStream newInputStream(Path path, OpenOption... options)：打开文件输入流\n- static OutputStream newOutputStream(Path path, OpenOption... options)：打开文件输出流\n- static BufferedReader newBufferedReader(Path path)：打开缓冲读取器\n- static BufferedWriter newBufferedWriter(Path path, OpenOption... options)：打开缓冲写入器\n\n【其他】\n- static Path createFile(Path path, FileAttribute<?>... attrs)：创建新文件\n- static String probeContentType(Path path)：探测文件内容类型"
     }
   },
   "k_io_model_classification": {
@@ -144857,35 +144952,6 @@
           "id": "def",
           "label": "Selector使用流程",
           "content": "Selector 的完整使用流程与典型代码模式。\n\n【使用步骤】\n\n1. 创建 Selector\nSelector selector = Selector.open();\n\n2. 将 Channel 设置为非阻塞并注册\nServerSocketChannel serverChannel = ServerSocketChannel.open();\nserverChannel.configureBlocking(false); // 必须非阻塞\nserverChannel.socket().bind(new InetSocketAddress(8080));\n// 注册到 Selector，关注 ACCEPT 事件\nserverChannel.register(selector, SelectionKey.OP_ACCEPT);\n\n3. 事件循环\nwhile (true) {\n    // 阻塞等待就绪事件\n    int readyCount = selector.select();\n    if (readyCount == 0) continue;\n\n    // 获取就绪的 SelectionKey 集合\n    Set<SelectionKey> selectedKeys = selector.selectedKeys();\n    Iterator<SelectionKey> iterator = selectedKeys.iterator();\n\n    while (iterator.hasNext()) {\n        SelectionKey key = iterator.next();\n\n        if (key.isAcceptable()) {\n            // 处理新连接\n            ServerSocketChannel server = (ServerSocketChannel) key.channel();\n            SocketChannel client = server.accept();\n            client.configureBlocking(false);\n            client.register(selector, SelectionKey.OP_READ);\n        } else if (key.isReadable()) {\n            // 处理读事件\n            SocketChannel client = (SocketChannel) key.channel();\n            ByteBuffer buffer = ByteBuffer.allocate(1024);\n            int bytesRead = client.read(buffer);\n            if (bytesRead == -1) {\n                client.close();\n            } else {\n                buffer.flip();\n                // 处理数据...\n                // 如需写回，注册 OP_WRITE 或直接写\n            }\n        } else if (key.isWritable()) {\n            // 处理写事件\n            SocketChannel client = (SocketChannel) key.channel();\n            ByteBuffer buffer = (ByteBuffer) key.attachment();\n            client.write(buffer);\n            if (!buffer.hasRemaining()) {\n                key.interestOps(SelectionKey.OP_READ); // 写完后取消写关注\n            }\n        }\n\n        // 必须手动移除已处理的 key\n        iterator.remove();\n    }\n}\n\n【关键注意事项】\n\n1. selectedKeys 必须手动移除\n- Selector 不会自动移除已处理的 key\n- 不移除会导致下次 select() 时该 key 仍在集合中，重复处理\n- 使用 iterator.remove() 移除\n\n2. Channel 必须非阻塞\n- 注册到 Selector 的 Channel 必须调用 configureBlocking(false)\n- FileChannel 不支持非阻塞，不能注册到 Selector\n\n3. 写事件的处理\n- 一般不需要持续关注 OP_WRITE（通道几乎总是可写）\n- 只有当有数据要写但写不完时才注册 OP_WRITE\n- 写完后应取消 OP_WRITE 关注，改回 OP_READ\n\n4. 断开连接的处理\n- read() 返回 -1 表示对端关闭连接\n- 应关闭 Channel 并取消注册（key.cancel() 或 channel.close()）\n\n5. 附件（attachment）的使用\n- 注册时可传入附件：channel.register(selector, ops, attachment)\n- 附件可用于存储会话状态、缓冲区等\n- 通过 key.attachment() 获取\n\n6. select() 的唤醒\n- select() 阻塞时可通过其他线程调用 selector.wakeup() 唤醒\n- wakeup() 后下一次 select() 会立即返回\n- close() 也会唤醒阻塞的 select()\n\n7. 多线程安全\n- Selector 本身不是线程安全的\n- select() 阻塞时，其他线程修改 interestOps 可能导致问题\n- 建议在 select() 返回后统一处理\n\n【Selector 的选择方法】\n- select()：无限阻塞，直到有通道就绪\n- select(long timeout)：阻塞最多 timeout 毫秒\n- selectNow()：非阻塞，立即返回（可能为 0）\n- wakeup()：唤醒阻塞的 select()\n\n【与 Reactor 模式的关系】\n- Selector 是 Reactor 模式的核心组件\n- 单 Reactor 单线程：一个 Selector + 一个线程处理所有事件\n- 单 Reactor 多线程：一个 Selector + 业务线程池\n- 主从 Reactor：主 Selector 处理 ACCEPT，从 Selector 处理 READ/WRITE"
-        }
-      ]
-    }
-  },
-  "k_nio_files_util": {
-    "id": "k_nio_files_util",
-    "label": "Files工具类",
-    "role": "concept",
-    "dimensions": [
-      "java",
-      "jdk-api"
-    ],
-    "tags": [
-      "Files工具类",
-      "java",
-      "NIO",
-      "Files",
-      "工具类",
-      "文件操作",
-      "java.nio.file"
-    ],
-    "card": {
-      "nodeId": "k_nio_files_util",
-      "title": "Files工具类",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "Files工具类",
-          "content": "java.nio.file.Files 是 NIO.2 提供的文件操作工具类，包含大量静态方法，是 java.io.File 的增强替代。\n\n【文件存在与类型判断】\n- boolean exists(Path path, LinkOption... options)：文件是否存在\n- boolean notExists(Path path, LinkOption... options)：文件是否不存在\n- boolean isDirectory(Path path, LinkOption... options)：是否为目录\n- boolean isRegularFile(Path path, LinkOption... options)：是否为普通文件\n- boolean isSymbolicLink(Path path)：是否为符号链接\n- boolean isHidden(Path path)：是否为隐藏文件\n\n【创建与删除】\n- createFile(Path path, FileAttribute<?>... attrs)：创建文件\n- createDirectory(Path dir, FileAttribute<?>... attrs)：创建单级目录\n- createDirectories(Path dir, FileAttribute<?>... attrs)：创建多级目录（含父目录）\n- createTempFile(String prefix, String suffix, FileAttribute<?>... attrs)：创建临时文件\n- createTempDirectory(String prefix, FileAttribute<?>... attrs)：创建临时目录\n- createSymbolicLink(Path link, Path target, FileAttribute<?>... attrs)：创建符号链接\n- createLink(Path link, Path existing)：创建硬链接\n- delete(Path path)：删除文件或空目录（不存在抛异常）\n- deleteIfExists(Path path)：删除（不存在返回 false，不抛异常）\n\n【复制与移动】\n- copy(Path source, Path target, CopyOption... options)：复制文件\n- copy(InputStream in, Path target, CopyOption... options)：从输入流复制到文件\n- copy(Path source, OutputStream out)：从文件复制到输出流\n- move(Path source, Path target, CopyOption... options)：移动/重命名文件\n\nCopyOption：\n- StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标\n- StandardCopyOption.COPY_ATTRIBUTES：复制文件属性\n- StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）\n- LinkOption.NOFOLLOW_LINKS：不跟随符号链接\n\n【文件读写】\n- readAllBytes(Path path)：读取文件全部字节（byte[]）\n- readAllLines(Path path)：读取文件所有行（List<String>），默认 UTF-8\n- readAllLines(Path path, Charset cs)：指定编码读取所有行\n- readString(Path path)：读取文件为字符串（Java 11+）\n- readString(Path path, Charset cs)：指定编码读取字符串\n- write(Path path, byte[] bytes, OpenOption... options)：写入字节数组\n- write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)：写入行集合\n- writeString(Path path, CharSequence csq, OpenOption... options)：写入字符串（Java 11+）\n- newInputStream(Path path, OpenOption... options)：打开输入流\n- newOutputStream(Path path, OpenOption... options)：打开输出流\n- newBufferedReader(Path path)：打开 BufferedReader（默认 UTF-8）\n- newBufferedReader(Path path, Charset cs)：指定编码打开 BufferedReader\n- newBufferedWriter(Path path, OpenOption... options)：打开 BufferedWriter\n- newBufferedWriter(Path path, Charset cs, OpenOption... options)：指定编码打开 BufferedWriter\n\nOpenOption：\n- StandardOpenOption.READ：读模式\n- StandardOpenOption.WRITE：写模式\n- StandardOpenOption.APPEND：追加模式\n- StandardOpenOption.TRUNCATE_EXISTING：截断已有文件\n- StandardOpenOption.CREATE：不存在则创建\n- StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常\n- StandardOpenOption.DELETE_ON_CLOSE：关闭时删除\n\n【目录遍历】\n- list(Path dir)：返回目录下直接条目的 Stream<Path>（不递归）\n- walk(Path start, FileVisitOption... options)：递归遍历目录树（Stream<Path>）\n- walk(Path start, int maxDepth, FileVisitOption... options)：指定深度递归遍历\n- walkFileTree(Path start, FileVisitor<? super Path> visitor)：使用访问者模式遍历\n- walkFileTree(Path start, Set<FileVisitOption> options, int maxDepth, FileVisitor visitor)\n- newDirectoryStream(Path dir)：打开目录流（DirectoryStream<Path>）\n- newDirectoryStream(Path dir, String glob)：按 glob 模式过滤\n- newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter)：自定义过滤\n\n【文件属性】\n- size(Path path)：返回文件大小（字节）\n- getLastModifiedTime(Path path, LinkOption... options)：获取最后修改时间\n- setLastModifiedTime(Path path, FileTime time)：设置最后修改时间\n- getOwner(Path path, LinkOption... options)：获取文件所有者\n- setOwner(Path path, UserPrincipal owner)：设置文件所有者\n- isExecutable(Path path)：是否可执行\n- isReadable(Path path)：是否可读\n- isWritable(Path path)：是否可写\n- getAttribute(Path path, String attribute, LinkOption... options)：获取指定属性\n- setAttribute(Path path, String attribute, Object value, LinkOption... options)：设置属性\n- readAttributes(Path path, Class<A> type, LinkOption... options)：读取属性视图\n- readAttributes(Path path, String attributes, LinkOption... options)：读取多个属性\n\n属性视图：\n- BasicFileAttributeView：基本属性（所有平台）\n- DosFileAttributeView：DOS 属性（Windows）\n- PosixFileAttributeView：POSIX 属性（Unix/Linux，含权限）\n- AclFileAttributeView：ACL 权限\n- FileOwnerAttributeView：所有者\n\n【其他实用方法】\n- probeContentType(Path path)：探测文件 MIME 类型\n- isSameFile(Path path, Path path2)：判断两个路径是否指向同一文件\n- getFileStore(Path path)：获取文件所在的 FileStore（磁盘分区）\n- getPosixFilePermissions(Path path, LinkOption... options)：获取 POSIX 权限（Unix）\n- setPosixFilePermissions(Path path, Set<PosixFilePermission> perms)：设置 POSIX 权限\n\n【WatchService（文件变更监听）】\n- FileSystem.newWatchService()：创建监听服务\n- Path.register(WatchService watcher, WatchEvent.Kind<?>... events)：注册监听\n- 监听事件：ENTRY_CREATE、ENTRY_DELETE、ENTRY_MODIFY、OVERFLOW\n- 通过 watchService.take()/poll() 获取变更事件\n- 可用于热部署、文件同步、配置变更监听等场景"
         }
       ]
     }

@@ -1,0 +1,330 @@
+{
+  "batchId": "nio-files-fusion",
+  "title": "NIO-FILES-FUSION · Files工具类 与 java.nio.file.Files 内容融合：DONOR 全量迁入 SURVIVOR（tabs 32→53）· GUIDE「常见用法」随批删除 · BEST「最佳实践」不动（树 3205→3203 · 池 3852→3850 · 边 4157→4155）",
+  "baseRef": "adf752b",
+  "baseRefNote": "前序提交链：… → ce7e6a5+**adf752b**（java-library-parallel / C 批）。本批从 adf752b 出发；动手前实测 `git status --porcelain data/` 恰为 C 批的 3 个数据文件，且**备份快照三文件逐字节等于 HEAD adf752b**（tree 1935214B / pool 12640674B / edges 1139018B，已用 `git show HEAD:<f> | wc -c` 逐一比对）⇒ 写集三文件批前态 == HEAD，Ancestor Gate 天然成立。",
+  "preBatchSnapshot": "data/backups/nio-files-fusion-2026-09-15T20-21-14-300Z",
+  "preBatchSnapshotNote": "三文件**逐字节等于 HEAD adf752b** ⇒ 该快照可作回滚点，且「提交 diff 恰为本批操作」由此成立。journal.txt 记录 role=SURVIVOR:k_java_nio_file_files / DONOR:k_nio_files_util / GUIDE:k_1787916226907_9aq9u6、tabs 32→53、sigAppend 六方法、proseReplace 四方法、rootContent 63→134、tags +3、以及 Δ 树/池/边 各 −2。",
+  "commitSubjectHint": "data: NIO-FILES-FUSION 融合 — Files工具类 全量并入 java.nio.file.Files（tabs 32→53）· 导览「常见用法」随批删除 · 最佳实践不动（树 3205→3203 · 池 3852→3850 · 边 4157→4155）（独立验证 28/28 · UI 22/22 · 回归 62/62）",
+  "status": "READY_TO_COMMIT",
+
+  "provenance": {
+    "trigger": "C 批（java-library-parallel）收口时明确留下的下一批：C 已把 java 子树的结构面理顺，5 层重叠只剩 L5（索引级）与 D（内容级）。D 批 = `Files工具类` 与 `java.nio.file.Files` 的**内容融合**（近似超集：SURVIVOR 29 方法 / DONOR 50 方法名、重叠 27）。",
+    "userAdjudication": "2026-09-16 用户就 D 批给出两轮裁决。**第一轮（角色与主干）**：D1 = 保留 `java.nio.file.Files`（B）为 SURVIVOR、`Files工具类`（A）为 DONOR；D2 = ① **全原子**（DONOR 的 Files 静态方法逐方法建 tab）；D4 = 「常见用法」为**纯冗余**，随批一并删除（= GUIDE 纯删）。**第二轮（残余四项）★**：**D7** = 11 个枚举常量 → 新建 1 个 tab `options`；5 个视图类引用 + 2 个说明 + 8 个分节 + 3 个裸标题 → 丢弃；**D8** = DONOR tags 并入 3 个（`java.nio.file` / `NIO` / `文件操作`）、丢弃 3 个（`Files工具类` / `Files` / `工具类`；另一 tag `java` 与 SURVIVOR 已有者重合）；**D9** = 4 个非 Files 方法（FileSystem.newWatchService / Path.register / watchService.take / poll）**收 1 个 tab `watch-service`**（不为其各建 tab —— 那会造出指向错误宿主的 tab）；**口径 ①-b 严格口径 + 资产 tab + WatchService 流程 tab ⇒ tab 数 53**；**Δ = 树 3205→3203 / 池 3852→3850 / 边 4157→4155**。",
+    "roleNamingDiscipline": {
+      "title": "★ 本批起**禁用 A/B 字母**，一律用 SURVIVOR / DONOR / GUIDE / BEST",
+      "reason": "首版 plan 报告的 A/B 与用户裁决书里的 A/B **正好相反**（用户把 A 给了 `Files工具类`，报告把 A 给了 `java.nio.file.Files`）。字母角色在「删谁、留谁」这类不可逆操作上会直接导致删错节点。",
+      "fix": "全部报告中改用具名角色，并在报告头注里与裁决书对齐映射：`SURVIVOR = k_java_nio_file_files / tree_java_nio_file_files`（留存）· `DONOR = k_nio_files_util / tree_nio_files_util`（捐赠方，迁完即删）· `GUIDE = k_1787916226907_9aq9u6 / tree_1787916227408_nkaljw`（= 「常见用法」导览，纯删）· `BEST = k_1787916124192_mow0sq / tree_1787916125075_qsrbco`（= 「最佳实践」，本批**不动**）。",
+      "lesson": "凡涉及「删/留」的批次，角色一律**具名绑定到 id**，禁止用 A/B/C 这类序数字母 —— 字母在不同文档间的映射是不可靠的。"
+    },
+    "blueprintVsReality": {
+      "title": "★ plan 阶段抓出 3 处「凭记忆写的裁决输入」与 DONOR 原文不符（全部当场纠正，未污染数据）",
+      "case1": "**枚举常量数**：用户 D7 把 `SPARSE` / `SYNC` / `DSYNC` 列为枚举常量，但 `DONOR 原文.includes()` 对这三者**全部为 false**（DONOR 里只有 StandardCopyOption×3 + LinkOption×1 + StandardOpenOption×7 = **11** 条，无这三者）。⇒ 提给用户裁决，用户裁定「**按 DONOR 原文，不补**：融合批的内容来源只能是 DONOR 实际文本，不能凭外部知识补充」。options tab 严格 11 条。",
+      "case2": "**tab 数 51 vs 53**：用户口径算式为 `29+19+1+1+1=51`，漏掉了 SURVIVOR 的 `def` 与 `comparison` 两个非方法 tab。SURVIVOR 的 32 = 29 方法 + def + comparison + bestPractices。正确 = 32 + 19 新方法 + 1 options + 1 watch-service = **53**。⇒ 用户确认「按 53 执行」。",
+      "case3": "**createDirectories 被误判为需改写**：apply 首版把它归进 `proseReplace`，但它是**同义变体**（DONOR「（含父目录）」vs SURVIVOR「（包括所有不存在的父目录）」），不是增量。⇒ 判据改为「仅当 SURVIVOR 侧**无括注**时才用 DONOR 正文替换；否则记入 `noteVariant` 保留原文」。",
+      "lesson": "裁决书是**意图**，DONOR 正文是**事实**。凡「裁决里点名要并入的具体串」，落盘前必须用 `includes()` 在 DONOR 原文里逐条证真；不存在的**不补**，报回用户裁决。"
+    },
+    "scopeBoundary": "本批**只做 D**。一律不碰：① C 批已收口的结构面（类库平行库树）；② 全库约 651 条无 treebind 边挂载（C 批登记的只读调查债）；③ treeId 语义化同类非语义 id（约 1521 条）；④ T10 结构一致性存量债（`projection:*` / `asplit_s2_*` / `atomic_atomic_*`）；⑤ BEST「最佳实践」（用户明示不动）；⑥ `Files工具类` / 「常见用法」的**内容**——前者 100% 迁入 SURVIVOR（见 contentMigration），后者经审计判为纯冗余后**有意删除**（见 guideAudit）。",
+    "contentMigration": {
+      "note": "本批是**内容零损失**的融合（GUIDE 除外，见 guideAudit）。DONOR 的 91 行非空正文逐行有落点：",
+      "donorLedger": [
+        { "bucket": "① 逐字迁入 SURVIVOR", "lines": 55, "detail": "19 个 Files 静态方法的说明 + 签名、6 个重叠方法缺的签名（8 行）、4 个重叠方法更详细的说明（4 行）、11 条枚举常量、DONOR 前言行（并入 rootContent）、以及并集行的 DONOR 侧分片" },
+        { "bucket": "② 判等丢弃（27 个重叠方法行）", "lines": 22, "detail": "SURVIVOR 已有等价表述（如 `move`/`exists`/`readAllBytes` 等 17 个判据全清方法）⇒ 逐行断言「都有同义落点」，非无声丢失" },
+        { "bucket": "③ 骨架丢弃（分节标题 / 视图类引用 / 裸小标题）", "lines": 14, "detail": "纯结构骨架：DONOR 的 8 个分节标题、5 个视图类引用、3 个裸小标题（`CopyOption：` / `OpenOption：` / `属性视图：`）——用户 D7 明示丢弃（tab 结构本身已承载分组语义）" },
+        { "bucket": "④ ⚠️ 未归类", "lines": 0, "detail": "零未知 —— 这是 verify E 的核心断言" }
+      ],
+      "methodDiff": {
+        "overlap": 27,
+        "signatureUnion": 6,
+        "signatureUnionDetail": "`copy`(+2 签名) · `newDirectoryStream`(+2) · `createTempFile`(+1，且 SURVIVOR 独有 1 条**不可丢**) · `createTempDirectory`(+1，同样保留 SURVIVOR 独有 1 条) · `newBufferedReader`(+1) · `newBufferedWriter`(+1)",
+        "proseReplace": 4,
+        "proseReplaceDetail": "`delete`（不存在抛异常）· `deleteIfExists`（不存在返回 false，不抛异常）· `list`（不递归）· `newBufferedReader`（默认 UTF-8）——SURVIVOR 侧原文只有「删除文件。」这类一句，DONOR 的括注是**真增量**",
+        "noteVariant": 1,
+        "noteVariantDetail": "`createDirectories`：双侧都有括注且同义（「含父目录」vs「包括所有不存在的父目录」）⇒ **保留 SURVIVOR 原文**，不改写",
+        "equivalentKept": 17,
+        "signatureUnionRule": "★ 并集行写法 `sigA ／ sigB`；verify 强制断言「并集行的每个分片须属 DONOR ∪ SURVIVOR-before，且**至少一个分片来自 DONOR**」——否则等于没做并集（防「写了个并集但两个分片都来自 SURVIVOR」的假过）"
+      },
+      "donorNonMethodAssets": "枚举常量 11（→ options tab，逐条 `- Xxx：释义`）· 非 Files 归属方法 4（→ watch-service tab，含被同行掩盖补回的 `poll`）· 前言行 1（→ rootContent 追加）· 视图类引用 5 + 说明 2 + 分节 8 + 裸标题 3（→ 丢弃，用户 D7）"
+    },
+    "guideAudit": {
+      "title": "GUIDE「常见用法」可删性的**机械审计 + 人工定性**（裁决书给的前置条件）",
+      "volume": "正文 2131 字 / 38 行 · 分节标题 7 · 引言行 1 · 方法条目 30 行（去重 29 个方法名）",
+      "gate1": "**用法片段门**（卸载前须先抽出）→ ✅ 通过 / 计数 **0**：正文里未发现 `Xxx.method(实参)` 调用、try/catch、语句分号 ⇒ 全部是声明式「签名：一句话」条目，**不含可执行代码片段** ⇒ 无「抽出后无处安放」的风险。",
+      "gate2": "**落点门**（是否含独有信息）→ ⛔ 需人工 / 计数 **5**：5 条说明（「检查是否为目录」「检查是否为常规文件」「将字节写入文件」「将文本行写入文件」「打开可查找的字节通道」）两侧语料**均无逐字落点** ⇒ 机械判据无法替人定性「是否同义改写」。",
+      "resolution": "该 5 条按「同义改写 ≠ 信息增量」判定为纯冗余（其对应方法 `isDirectory` / `isRegularFile` / `write` / `newByteChannel` 在 SURVIVOR 侧均已有 tab 与说明）⇒ 与用户 D4 的「纯冗余，随批删除」裁决一致，GUIDE **纯删**。verify 反向取证：新增行里**零 GUIDE 泄漏**（GUIDE 的正文串不得出现在 SURVIVOR 的任何新增行中）。",
+      "formatAnomaly": "GUIDE 有 1 行格式异常（`-static Path copy(...)`，`-` 后缺空格）—— 一并随删，不修。"
+    },
+    "tabProjection": {
+      "before": 32,
+      "after": 53,
+      "composition": "29 方法 + def + comparison + bestPractices（原 32）⇒ 追加 19 个 Files 静态方法 tab + options + watch-service = 53",
+      "insertPosition": "19 个方法 tab 插在**最后一个方法 tab 之后**、`bestPractices` 之前；`options` 与 `watch-service` 紧随新方法 tab，最终顺序尾部为 `… → options/选项常量 → watch-service/WatchService 文件监听流程 → bestPractices/最佳实践`",
+      "rejectedOptions": "①-a 全原子（非 Files 方法也各建 tab）= 55 tab，会造出 `newWatchService()` / `register()` 这种**指向错误宿主**的 tab（它们是 FileSystem / Path 的方法，不是 Files 的）；①-a + 资产 tab = 56。两案均被用户否决。",
+      "libraryMaxTab": "全库现最大 36 tab、次大 32（= 本批 SURVIVOR 改前值）、改前 >32 tab 的实体仅 1 个 ⇒ 本批 53 是**全库新最大**，属有意的内容集中（用户明确要求全原子）。"
+    },
+    "nameOverlapAudit": {
+      "title": "方法口径 22 vs 23 的差异必须显式报出（不许悄悄取一个）",
+      "method": "DONOR 去重方法名（**每行只取首个方法名**的机械口径）= 49；同一行有第二个调用的「被掩盖」方法名 = 1（`poll`，出自 `通过 watchService.take()/poll() 获取变更事件`）⇒ 计入口径 50。与 SURVIVOR 重叠 27 · 独有 = 22（机械）/ **23**（计入掩盖）。",
+      "consequence": "方案①「全原子」若按机械口径 22 走，会**丢掉 `poll`**。本批按 23 走，把 `poll` 归入 `watch-service` tab（与 `take` 同属「通过 take()/poll() 获取事件」这一条），既补回又不造错误宿主的 tab。",
+      "lesson": "「每行取首个匹配」的机械抽取会静默掩盖同行第二个调用。凡是「A 是否包含 B」的方法级判据，都要输出**被掩盖名单**并显式裁决，而不是取一个数就往下走。"
+    }
+  },
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "scripts/plan-nio-files-fusion.mjs",
+    "scripts/plan-nio-files-fusion-detail.mjs",
+    "scripts/apply-nio-files-fusion.mjs",
+    "scripts/verify-nio-files-fusion.mjs",
+    "scripts/shell-fusion/probe-nio-files-fusion.mjs",
+    "outputs/nio-files-fusion/report.md",
+    "outputs/nio-files-fusion/plan.json",
+    "outputs/nio-files-fusion/detail.md",
+    "outputs/nio-files-fusion/detail.json",
+    "batch-manifests/nio-files-fusion.json"
+  ],
+  "writeSetNote": "① **3 个数据文件**（树 + 池 + 边）—— 与 C/A 批同形：本批动树（删 2 子节点）、动池（删 2 实体 + 改写 1 实体）、动边（删 2 条 treebind 父边），**无新增**。② 脚本 5 个：plan（只读预检）· plan-detail（只读，逐方法 diff / 导览审计 / Δ 重算）· apply（默认 dry-run，`--apply` 才写）· verify（**不 import apply**，由批前快照 ↔ 工作树反推）· 探针（无头浏览器实测，按既有惯例 `scripts/shell-fusion/probe-<batchId>.mjs` 保留入库，与 probe-java-library-parallel / probe-core-library-* 同待遇）。③ **2 个 plan 阶段报告**（`outputs/nio-files-fusion/{report.md,plan.json}`）+ **2 个 detail 阶段报告**（`detail.md` / `detail.json`）= generatedArtifacts，随批入库，使「未认领文件 = 0」。④ 本批**零 src 改动、零样式改动、零 vite.config.js 改动**（未新增 data 文件，无需登记 /api/data 白名单——versions-v1 的教训，本批已核对不适用）。",
+  "writeSetPathspecNote": "git add 用本数组本身，由就绪门原样输出，不手写、不加通配。",
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md"
+  ],
+  "declaredExternalSetNote": "与 java-library-parallel / java-lib-overlap-b / java-lib-overlap-a / core-library-methods 登记的同一份清单**逐项一致**（前 19 项 = 外部会话在飞 src/docs 与 peer 测试；后 11 项 = 已登记未执行的两个批次产物 + 更早的方框分层截图 / 项目地图）。⚠️ 本批**读**了其中 `src/core/explanation-index/UnifiedIndexGraph.tsx`（读 `collectIndexMembers` 与 `explanation-index-class-members` 的渲染条件，确认容器宿主不渲染成员）与 `src/core/explanation-index/indexGraphLayout.ts`（读 `MAX_VISIBLE_MEMBERS = 12`），**零改动**。地图 HTML 里硬编码的基数已因本批再次过期，继续刻意不随本批提交。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-nio-files-fusion.json",
+    "outputs/tree-violation-scan/readiness-java-library-parallel.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "全部为**精确路径**（无目录前缀、无通配串）。第 1 项是本批自己跑就绪门产生的报告，生成物路径带 batchId；其余 18 项是历史批次的同类报告，沿既有口径继续排除。⇒ §3.1 要求的「仅目录前缀排除 = 0 / 完全无人认领 = 0」由就绪门检查 D 断言。",
+  "generatedArtifacts": [
+    "outputs/nio-files-fusion/report.md",
+    "outputs/nio-files-fusion/plan.json",
+    "outputs/nio-files-fusion/detail.md",
+    "outputs/nio-files-fusion/detail.json"
+  ],
+
+  "expectedDelta": {
+    "note": "基准 = 本批 preBatchSnapshot（= HEAD adf752b）↔ 工作树。三文件全在 writeSet ⇒ 就绪门检查 C 的 in-scope 数据表包含池与边，本批的池/边 Δ **同时**受门与独立 verify 双重覆盖。★ **池的字段名严格用门的口径 `added` / `removed` / `modified`（三个数组）**；树的字段名不在门内（检查 C 只查 pool），沿用 `addedNodes` / `removedNodes` / `modifiedNodes` 以便人读。",
+    "data/tree-data.json": {
+      "before": 3205,
+      "after": 3203,
+      "addedNodes": 0,
+      "removedNodes": 2,
+      "removedNodeIds": [
+        "tree_nio_files_util",
+        "tree_1787916227408_nkaljw"
+      ],
+      "removedNodeNote": "2 个恰为 DONOR（`Files工具类` 挂载）与 GUIDE（`常见用法` 导览），两者均为**叶子**（DONOR 无后代；GUIDE 是 SURVIVOR 的子且无后代）⇒ 摘除不可能孤儿化任何后代。",
+      "addedNodeIds": [],
+      "modifiedNodes": [
+        "tree_java_common_libraries（= 类库，children 23→22，摘掉 DONOR）",
+        "tree_java_nio_file_files（= java.nio.file.Files，children 2→1，摘掉 GUIDE）"
+      ],
+      "modifiedNodeNote": "★ 全树**只有这 2 个节点的 children 发生变化**，且**除 children 外零字段漂移**（verify 对全部 3203 个节点逐字段断言；本批独立核算亦复核一次，见下）。",
+      "countFieldNote": "本批删的是**叶子**，被删节点及其父链上均无 `count>0` 徽标；SURVIVOR 与容器的 `count` 前后不变 ⇒ 不留过期徽标、不引入新徽标。（C 批 V11 的判据修正：容器 `类库` 的 count=13 是**手工标注值**，本批未动它。）",
+      "byteBefore": 1935214,
+      "byteAfter": 1934584
+    },
+    "data/node-pool.json": {
+      "before": 3852,
+      "after": 3850,
+      "added": [],
+      "addedNote": "**零新增实体** —— 本批是「合并删」，不是「新增」。",
+      "removed": [
+        "k_nio_files_util",
+        "k_1787916226907_9aq9u6"
+      ],
+      "removedNote": "2 个恰为 DONOR（`Files工具类`）与 GUIDE（`常见用法`），与 2 个被删 treeId 一一对应。★ 门自身打印的「删除 N（须 0）」是**遗留文案**；实际判据是 `(decl.removed ?? []).length === 0 && removedIds.length` ⇒ **只要显式声明了 removed 就放行**（见 `scripts/verify-phase1-commit-readiness.mjs:319`，A/C 批已记载）。",
+      "modified": [
+        "k_java_nio_file_files"
+      ],
+      "modifiedEntityNote": "SURVIVOR `k_java_nio_file_files`：① `card.rootContent` 63→134 字（**原 63 字首段逐字保留**，其后追加 DONOR 的 1 行前言原文），② `tags` 由 `['java.nio.file.Files','java','jdk','常用类库']` → **追加 3 个**（`java.nio.file` / `NIO` / `文件操作`）共 7 个，③ `card.tabs` 32→53（新增 19 方法 tab + options + watch-service，插在末位方法 tab 之后、bestPractices 之前）。`label` / `card.title` / `nodeId` 均不变。实体 JSON 字节 6730 → 11585。",
+      "unchangedNote": "**3848 个实体逐字节零漂移**（verify 逐字段比对）。",
+      "byteBefore": 12640674,
+      "byteAfter": 12636981
+    },
+    "data/knowledge-edges.json": {
+      "before": 4157,
+      "after": 4155,
+      "removedEdges": 2,
+      "removedEdgeIds": [
+        "treebind:tree_java_common_libraries:tree_nio_files_util",
+        "treebind:tree_java_nio_file_files:tree_1787916227408_nkaljw"
+      ],
+      "removedEdgeNote": "2 条恰为 DONOR 与 GUIDE 的**父边**（各挂载点 1 条），与 2 个被删 treeId 一一对应。★ 删挂载点前已用**结构化逐字段比对**（`source`/`target`/`nodeRef`）扫过悬空引用：DONOR 与 GUIDE 的「池内他处引用 0 / 树内他处引用 0 / 边表引用 1（即各自父边）」⇒ 删除安全。",
+      "removedEdgeCaveat": "★ 悬空引用扫描**不得**用「在 JSON 字符串里数 id 出现次数」实现——那会把「实体 id 作为池的键」也算成一次引用，使「被他处引用」恒为 1（假阳性）。本批判据已改为结构化比对。",
+      "addedEdges": 0,
+      "addedEdgeIds": [],
+      "addedEdgeNote": "**零新增边**。⚠️ 与 C 批的差异点：C 批因「新增挂载点」必须补 1 条父边（Δ边 −5+1=−4）；本批**只有删、没有新增挂载点** ⇒ Δ边 = −2，纯粹。",
+      "keptEdges": "其余 4155 条边**逐条保留**（含顺序）；本批不碰任何非 treebind 边。",
+      "byteBefore": 1139018,
+      "byteAfter": 1138424
+    },
+    "data/questions.json": "0 改动",
+    "data/evolution-events.json": "0 改动（事件表 append-only；★ 依 evolution-v2 治理规则，批次脚本**不得**写操作日志事件进该文件 ⇒ 本批写 0 条。本批属「内容融合 + 结构收敛」，非「实体演化」六类之任一类。）",
+    "data/version-chains.json": "0 改动",
+    "vite.config.js": "0 改动（未新增 data 文件，无需登记 /api/data 白名单）",
+    "src/**": "0 改动（本批纯数据批次）",
+    "styles/**": "0 改动"
+  },
+
+  "contentReachability": {
+    "title": "★ 内容可达性核查（SURVIVOR 的 53 个 tab 在读态的 UI 可达路径）",
+    "finding": "SURVIVOR 是**容器宿主**（`tree_java_nio_file_files` 有 1 个子节点 = BEST「最佳实践」），`UnifiedIndexGraph` 仅在 `!containerHost` 时渲染 `.explanation-index-class-members` ⇒ **53 个 tab 不以索引图成员形式出现**；读态右栏只渲染 `rootContent` + tag 条，tab 正文需进**编辑态**才可见。",
+    "isThisANewProblem": "不是。这是**全库既有形态**，本批以负对照实测证明：① 叶子实体 `java.lang.String`（`tree_java_lang_string`，36 tab）索引图正常渲染 **12 个可见成员 + 折叠 23**（`MAX_VISIBLE_MEMBERS = 12`）⇒ 成员列表机制在跑；② SURVIVOR 的 class node 带 `is-container-header` 且**不渲染** `.explanation-index-class-members`。⇒ SURVIVOR 无成员列表是**容器态规则**，不是内容缺失。",
+    "siblingComparison": "同批对照的 BEST「最佳实践」是 SURVIVOR 的子节点（叶子，0 tab）——本批不动，探针显式断言其仍在 DOM 且父链为 `… > java.nio.file.Files > 最佳实践`。",
+    "registeredAsObservation": "「容器宿主的 tab 数在 UI 上不可见」这一 UX 现象**登记为观察项**（见 openDebts.container-tabs-invisible），本批**不动手**（改 UI 属本批写集外）。"
+  },
+
+  "testBaseline": {
+    "tracked": 60,
+    "peerAdded": 2,
+    "workingTreeTotal": 62,
+    "acceptanceUses": "workingTree（pass 62 / fail 0 / cancelled 0 / skipped 0）",
+    "trackedFiles": 8,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "note": "已跟踪测试文件 8 个 → 60 项；未跟踪 peer 文件 1 个 → 2 项；工作树合计 **62/62 全绿**（与 A/B/C 批读数一致）。本批未新增测试文件（AGENTS.md：UI 不写单测）。"
+  },
+
+  "gates": {
+    "planStage": {
+      "script": "node scripts/plan-nio-files-fusion.mjs → outputs/nio-files-fusion/{report.md,plan.json}；node scripts/plan-nio-files-fusion-detail.mjs → outputs/nio-files-fusion/{detail.md,detail.json}（两者均**只读**，不写 data/）",
+      "result": "✅ 前置断言通过；**产出即抓出 3 处裁决输入与 DONOR 原文不符**（见 provenance.blueprintVsReality）",
+      "stage2Sections": "detail.md 读数：①方法口径复核（22 vs 23，含被掩盖名单 `poll`）②27 个重叠方法逐方法 diff ③独有方法归属分类（Files 静态 19 / 非 Files 4）④GUIDE「常见用法」形态审计（用法片段门 ✅0 / 落点门 ⛔5）⑤悬空引用扫描 ⑥DONOR 非方法资产（枚常量 11 / 视图类引用 5 / 说明 2 / 分节 8 / 裸标题 3）⑦tab 投影 5 种口径 ⑧Δ ⑨tags 合并 ⑩残余决策点 D7/D8/D9。",
+      "reportBugsFoundAndFixed": "★ plan 报告自身修了 3 处量具缺陷：① `notesOf()` 直接扫整段正文抽「括注」，把 ``` `static void delete(Path path)` ``` 的**形参表**当成括注 ⇒ 几乎每个方法都「双侧有括注」，`delete`「（不存在抛异常）」这类**真增量**被误判为同义变体、`addNote` 被人为压到 0 ⇒ 改为**先剥掉反引号代码跨度再抽括注**。② 独有方法数按**行**统计导致**重载被重复计数** ⇒ 改为按**方法名**去重。③ 悬空引用扫描首版用 JSON 串 id 计数 ⇒ 假阳性 1（实体 id 作为池的键被算成引用）⇒ 改为结构化逐字段比对。"
+    },
+    "applyGate": {
+      "precondition": "写 data/*.json 前先确认无 dev server 占用（铁律①）：实测 5173 已空，无需杀。",
+      "result": "✅ dry-run → --apply 各一次；apply 自检 **30/30 全过**。",
+      "selfChecks": "30 条含：三基数 3203/3850/4155 · DONOR/GUIDE 池与树均已移除 · 池无新增 · SURVIVOR tabs = 53 · 新 tab 顺序（options 在 watch-service 之前、两者紧邻 bestPractices 之前）· options tab 恰 11 条常量 · watch-service tab 含 4 个非 Files 方法 · 6 个方法签名并集就位且**各自保留 SURVIVOR 独有签名** · 4 个方法说明已替换为 DONOR 正文 · `createDirectories` 括注**未被改写**（noteVariant 保留）· rootContent 以原首段开头且含 DONOR 首句 · tags = 原 4 + 3 · **零造数据强校验：78 个新增分片全部可回溯到 DONOR 原文** · 保留末尾换行。",
+      "zeroFabricationSelfCheck": "★ apply 内置「零造数据」自检：把并入 SURVIVOR 的每一行/每一分片与 DONOR 原文做 `includes()` —— 任何一条落不下来即 FAIL。这是**防止凭外部 Java 知识补内容**的硬闸门（对应用户「按 DONOR 原文，不补」的裁决）。",
+      "backup": "data/backups/nio-files-fusion-2026-09-15T20-21-14-300Z/（tree-data + node-pool + knowledge-edges + journal.txt；三文件实测与 HEAD adf752b **逐字节相等** ⇒ 可作回滚点）",
+      "atomicWrite": "三文件均走 `writeJsonAtomic`（tmp + rename 原子写）；**保留末尾换行**。",
+      "postApplyRollbackPath": "备份目录保留，可逐字节回滚（`cp data/backups/nio-files-fusion-2026-09-15T20-21-14-300Z/<f> data/<f>`）。⚠️ **禁用 `git checkout -- data/`**（`core.autocrlf=true` 会把 LF 检出成 CRLF 污染文件）—— A 批已记载的坑，本批再次遵守。"
+    },
+    "independentVerification": {
+      "script": "scripts/verify-nio-files-fusion.mjs（**不 import apply**；由批前快照 ↔ 当前真源反推）",
+      "result": "✅ PASS **28/28**（0 失败；未归类 = 0）",
+      "coverage": "A 快照/基数可读 · B **变动面扩散检测**（实际变化集合 vs 声明集合：池删=2、池改=1、池增=0、树删=2、树增=0、树 children 变化恰好 2 个、树除 children 外零字段漂移、边删=2 且均为 treebind 父边、边增=0、边改=0）· C **零造数据**（新增 74 行、82 个分片全部可回溯：DONOR 76 + SURVIVOR 原内容 6；**含负对照** 3 个「DONOR 中不存在」的串确实命中不了 ⇒ 判据非恒真；另断言**新增行零 GUIDE 泄漏**）· D **零丢失**（SURVIVOR 原有 32 个 tab 一个不少；27 个重叠方法的原有签名 27 个 tab 全部保留；所有 tab 正文行或原样保留、或逐字取自 DONOR；rootContent 前缀未变；原 tags 4 个全留）· E **DONOR 覆盖度**（91 行逐行分桶：迁入 55 / 判等丢弃 22 / 骨架丢弃 14 / **未归类 0**）· F 结论。",
+      "negativeControls": "① 零造数据判据有 3 串负对照（`static boolean notExists(...)` / `SPARSE` / `Files工具类` 断言均不在 DONOR 中）⇒ 证明 `includes()` 判据**能证伪**；② 判等丢弃的 22 行逐行断言「都有同义落点」⇒ 证明是**真判等**而非丢失；③ 新增行零 GUIDE 泄漏 ⇒ 独立证明 GUIDE 是**纯删**。"
+    },
+    "uiAcceptance": {
+      "script": "scripts/shell-fusion/probe-nio-files-fusion.mjs（一次性探针，**按既有惯例保留入库**）",
+      "result": "✅ **22/22 ALL PASS**（含刷新后复测 4 项 + 负对照 3 项）",
+      "environment": "npm run build 产物 + `vite preview --port 4192 --host=127.0.0.1`（`CODEBUDDY_SAFE_DELETE_ENABLED=0`），**KNOWLEDGE_OS_DATA_DIR 指向项目内临时数据目录 `.tmp-nio-data/`**（三文件 md5 与真源逐一相等）⇒ 不打真数据（铁律③）。探针结束已停服务、删临时目录。",
+      "keyAssertions": "① 树渲染 id 集合 === tree-data.json 的 id 集合（**3203 项零增零减**）· ② 负断言：DONOR / GUIDE 的 treeId 均不在 DOM · ③ 全树再无名为「Files工具类」「常见用法」的行 · ④ SURVIVOR「java.nio.file.Files」在 DOM 且祖先链 = 知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > java.nio.file.Files · ⑤ **BEST 不动**：最佳实践仍在 DOM 且父链为 `… > java.nio.file.Files > 最佳实践` · ⑥ 点选 SURVIVOR → 选中态 + 右栏 rootContent **同时含原首段与 DONOR 首句**（融合生效）+ tag 条 = 7 个（原 4 + 并入 3）· ⑦ **负对照**：叶子 `java.lang.String` 索引图渲染 12 个可见成员 + 折叠含 23；SURVIVOR 的 class node 带 `is-container-header` 且不渲染成员列表 · ⑧ /api/data 计数 = 3203/3850/4155；DONOR/GUIDE 不在池、BEST 在池；SURVIVOR tabs = 53；5 个新 tab 就位 · ⑨ 刷新后复测 ①②③④。",
+      "probeDefectsFoundAndFixed": "★★ 首跑 20/22 失败 2 条，**全部是探针缺陷（量具），数据侧无问题**：⑥b/⑥c 读不到 rootContent。根因：探针的「中性节点」被写成**目标节点自身** ⇒ 第二次点击 = 「重复点已选中的树行」= **取消选中** ⇒ 卡片显示「无内容」（该交互是既有的，C 批已用跨实体对照实验证明与数据无关）。修复：`selectRow(treeId, neutral)` 强制 **neutral ≠ target**，并加「等选中态 + 卡片非『无内容』」双条件轮询。复跑 22/22。",
+      "environmentDefectsFoundAndFixed": "★ 环境中两个坑：① 我起的 preview 报「Port 4192 is in use」而落到 4194，而 4192 上先前会话遗留的**陈旧 preview**（其临时数据目录已被删除）返回 404「File tree-data.json not found」—— 排查时极易误判为数据缺失。处置：核实 5173/4192/4193/4194 三个端口均属本批自己的遗留进程后，全部终止并以相对数据目录重启。② `KNOWLEDGE_OS_DATA_DIR` 传 **Windows 绝对路径**（`C:/Users/...`）会被 MSYS/Git-Bash 改写成 POSIX 形式，Node 侧 `path.resolve` 之后指向不存在的目录 ⇒ 改为项目内**相对路径** `.tmp-nio-data`（已被 `.gitignore` 的 `.tmp-*/` 覆盖）。",
+      "memberListBehavior": "★ 探针把「SURVIVOR 无成员列表」与「叶子实体有成员列表」**并列断言**，作为互相证伪的对照 —— 单看前者会误判为「53 个 tab 丢了」。"
+    },
+    "regression": {
+      "tsc": "npx tsc --noEmit → exit 0",
+      "build": "npm run build → ✓（仅 chunk 体积提示，非错误）",
+      "test": "npm test → tests 62 / pass 62 / fail 0 / cancelled 0 / skipped 0（与批前读数一致）"
+    },
+    "readinessGate": {
+      "command": "node scripts/verify-phase1-commit-readiness.mjs --batch nio-files-fusion",
+      "result": "✅ **READY —— 首次即 8 闸门全 PASS**（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate），blockers = []。★ 与 C 批首跑 deltaGate=BLOCK + 检查 D 有 4 个无人认领不同，本批**零返工**：池 Δ 的字段名从一开始就按门的口径写 `added`/`removed`/`modified`，plan 阶段产物也预先登记进 writeSet/generatedArtifacts。",
+      "hardInvariants": "`commitPathspec ≡ writeSet` ✅ 无越界（declaredExternalSet / governanceSet 均未混入 pathspec）· `writeSet ∩ excludedSet` ✅ 无自相矛盾。写集 13 项 · 治理 0 项 · 外部声明 30 项。",
+      "checkA": "三文件**逐字节 rawEqual**（tree 1935214 / pool 12640674 / edges 1139018，双向比对）⇒ 「提交该文件 = 提交本批操作」成立。data/questions.json 因备份中不存在（本批未新建、HEAD 亦无）被豁免。",
+      "checkB": "unexpectedDrift = **0**（新增 0 · 消失 3 · 再变 3 → 去重 6；其中本批写集内 3 个 = tree/pool/edges，另 3 个属自有其他批次：`data/evolution-events.json` / `data/questions.json` / `docs/CONSTITUTION.md`）。⚠️ 本检查只能证明「快照之后没新增」，快照之前的改动靠检查 A 兜底。",
+      "checkC": "新增 **0**（声明 0）· 修改 **1**（= 声明的 SURVIVOR `k_java_nio_file_files`，超出即夹带 = 0）· 删除 **2**（`k_1787916226907_9aq9u6` / `k_nio_files_util`，恰为声明的 DONOR + GUIDE）→ ✅ **Δ 恰好 = 声明**。⚠️ 门自身打印的「删除 N（须 0）」是**遗留文案**；实际判据是 `(decl.removed ?? []).length === 0 && removedIds.length` ⇒ 只要显式声明了 removed 就放行（A/C 批已记载，本批再次实证）。",
+      "checkD": "正向认领 40 件 · 精确排除 **19** 件（含本批自己生成的 `readiness-nio-files-fusion.json`，第 1 次运行时它尚未生成故为 18，第 2 次运行为 19）· 仅目录前缀排除 **0** 件 · 完全无人认领 **0** 件。⇒ 无 §3.1 的静默归属漏洞。",
+      "checkE": "候选件齐备 ✅（13 个写集文件全部存在）",
+      "checkF": "已跟踪 8 文件 → 60/60 ✅；未跟踪 1 文件（他人批次）→ 2/2；工作树合计 62。本批验收基准 = tracked 60/60。",
+      "residualObservation": "1 项（**非阻塞，且为判据假阳性**）：`k_java_nio_file_files` 报 `staleSignature=true · label → defect-candidate`。但本批 **SURVIVOR 的 label 前后完全未变**（都是 `java.nio.file.Files`）—— 它没有「旧名」可言，检测器把「实体被修改过」与「字段有旧值残留」混为一谈。门自附的背景数据支持此判定：全库 `label ≠ card.title` 有 81 例、`树 name ≠ 池 label` 有 62 例 ⇒「三者必须相等」从来不是本库的不变量；真正的不变量 `card.nodeId == 池键` 为 **0 例外**。检测器不产出 action（ADR-0002），故本批**不修正**、也不为它改动数据。",
+      "reportArtifact": "outputs/tree-violation-scan/readiness-nio-files-fusion.json（登记进本批 excludedSet，不入库）"
+    }
+  },
+
+  "openDebts": [
+    {
+      "id": "container-tabs-invisible",
+      "title": "★ 容器宿主实体的 tab 数在 UI 读态**完全不可见**（本批 SURVIVOR 53 tab 即为其极端例）",
+      "foundBy": "本批 UI 探针（为解释「SURVIVOR 为何没有成员列表」而做的负对照实验）",
+      "detail": "`UnifiedIndexGraph` 仅在 `!containerHost` 时渲染 `.explanation-index-class-members`。本库中凡有子节点的树节点都是容器宿主（`is-container-header`）。⇒ 这类实体无论有多少 tab，索引图都不列出成员；读态右栏又只渲染 rootContent + tag 条。结果：**53 个 tab 的正文在 UI 上只有「进编辑态」一条路径**。",
+      "significance": "本批 SURVIVOR 是**全库 tab 最多的实体（53，此前最大 36）**，把一个既有的 UX 盲区放大到显著。这不影响数据正确性（verify 28/28 已证内容完整），但影响**可读性**。",
+      "proposedDisposition": "用户未要求处理。建议后续独立立项：或给容器宿主的索引图节点加「成员数徽标 + 展开」，或让读态右栏支持 tab 浏览。**本批不动手**（改 UI 属写集外）。"
+    },
+    {
+      "id": "donor-skeleton-dropped-by-design",
+      "title": "DONOR 的 14 行结构性骨架（8 分节标题 / 5 视图类引用 / 3 裸小标题）随批丢弃 —— 有意的信息降级",
+      "detail": "这 14 行承载的是**分组语义**（`CopyOption：` / `OpenOption：` / `属性视图：` 等）。丢弃后，DONOR 原有的「按选项类别分组」的阅读结构不复存在，转由 tab 结构承载。",
+      "rationale": "用户 D7 明确裁决丢弃（`tab 结构本身已表达分组`）。",
+      "residualRisk": "「5 个视图类引用」（BasicFileAttributeView / DosFileAttributeView / PosixFileAttributeView / AclFileAttributeView / FileOwnerAttributeView）**是有名字的类**，不是纯骨架。用户 D7 已把它们与说明一起列入丢弃，但**其中没有任何一个在树/池里有独立实体** ⇒ 信息**彻底消失**（不似枚举常量那样仍在 options tab 里）。",
+      "proposedDisposition": "登记为观察项。若后续认为「属性视图」需要保内容，最小动作是在 options tab 旁补一个 `attr-views` tab（内容仅需 DONOR 的 5 行原文，零造数据）。**本批按用户裁决不动。**"
+    },
+    {
+      "id": "guide-unlanded-5-lines",
+      "title": "GUIDE 的 5 条「无逐字落点」说明被判定为同义改写后随批删除",
+      "detail": "「检查是否为目录」/「检查是否为常规文件」/「将字节写入文件」/「将文本行写入文件」/「打开可查找的字节通道」两（DONOR/GUIDE）侧均无逐字落点，机械判据**无法定性**，本批按「同义改写 ≠ 信息增量」判为纯冗余删除。",
+      "auditTrail": "用法片段门 ✅0（无代码片段）已排除「抽出后无处安放」的风险；落点门 ⛔5 已**显式报给用户**并按用户 D4「纯冗余，随批删」裁决执行。",
+      "proposedDisposition": "无需动作。若日后认为该 5 条含独有措辞，可从备份 `data/backups/nio-files-fusion-2026-09-15T20-21-14-300Z/` 逐字取回。"
+    },
+    {
+      "id": "edgeless-mounts",
+      "title": "全库约 651 条树挂载无对应 treebind 边 —— 「树节点 ↔ 边 1:1」从来不是全库不变量",
+      "foundBy": "java-lib-overlap-b 的只读预检；C 批以实例印证；本批继续以实例印证",
+      "quantified": "C 批时点：3209 个非根树挂载中 651 个（20.3%）无对应 `treebind:<父>:<子>` 边，集中在导入型子树（`wiki_*` / `chapter_*` / `school_*`）。",
+      "notInThisBatch": "用户已裁决**本批只记录不动手**；后续开独立只读调查批次（先分类：导入残留 / 手工挂载 / 有意无边）。",
+      "noteOnThisBatch": "本批删除的 DONOR / GUIDE **都有父边**（正是那 2 条被删的边）⇒ 本批不改变该债的结构。"
+    },
+    {
+      "id": "future-java-batches",
+      "title": "后续另立项的 java 域批次",
+      "detail": "D 收口后，java 子树的 5 层重叠中 **L5（索引级）** 与 **D（内容级）** 均已处理。",
+      "next": "① 「类库家族 rootContent 补齐」（C 批登记的 sibling 空 rootContent 债：`k_java_lang_stringbuilder` / `k_java_lang_stringbuffer` 读态显示「无内容」；建议同时做全库量化「rootContent 为空但 tabs 有内容」的实体数）；② 上述 `container-tabs-invisible` 的 UX 立项。"
+    }
+  ],
+
+  "registeredAt": "2026-09-16",
+  "commitSha": null,
+  "commitShaNote": "内容提交与登记提交的 sha 由本次双提交产生（对齐 A/B/C 批的 c3a314f+4bb3b84 / d3a5878+7b35217 / ce7e6a5+adf752b 模式）。新基线：树 3203 / 池 3850 / 边 4155（evolution-events 2 / version-chains 2 链 6 节点不变）。"
+}

@@ -1,0 +1,744 @@
+{
+  "batchId": "nio-files-fusion",
+  "generatedAt": "2026-09-15T19:50:47.884Z",
+  "problems": [],
+  "scope": {
+    "primary": {
+      "tree": "tree_java_nio_file_files",
+      "ref": "k_java_nio_file_files",
+      "label": "java.nio.file.Files",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > java.nio.file.Files",
+      "mounts": 1,
+      "tabs": 32,
+      "methodTabs": 29,
+      "otherTabs": [
+        "def/定义(278)",
+        "comparison/与传统IO对比(287)",
+        "bestPractices/最佳实践(291)"
+      ],
+      "rootContentLen": 63,
+      "tags": [
+        "java.nio.file.Files",
+        "java",
+        "jdk",
+        "常用类库"
+      ],
+      "children": [
+        "最佳实践[tree_1787916125075_qsrbco]",
+        "常见用法[tree_1787916227408_nkaljw]"
+      ]
+    },
+    "tool": {
+      "tree": "tree_nio_files_util",
+      "ref": "k_nio_files_util",
+      "label": "Files工具类",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > Files工具类",
+      "mounts": 1,
+      "tabs": 1,
+      "defLen": 4539,
+      "rootContentLen": 0,
+      "tags": [
+        "Files工具类",
+        "java",
+        "NIO",
+        "Files",
+        "工具类",
+        "文件操作",
+        "java.nio.file"
+      ],
+      "children": 0
+    },
+    "guide": {
+      "tree": "tree_1787916227408_nkaljw",
+      "ref": "k_1787916226907_9aq9u6",
+      "label": "常见用法",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > java.nio.file.Files > 常见用法",
+      "mounts": 1,
+      "rootContentLen": 2131,
+      "tabs": 0,
+      "children": 0
+    },
+    "best": {
+      "tree": "tree_1787916125075_qsrbco",
+      "ref": "k_1787916124192_mow0sq",
+      "label": "最佳实践",
+      "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > java.nio.file.Files > 最佳实践",
+      "mounts": 1,
+      "rootContentLen": 723,
+      "tabs": 0,
+      "children": 0
+    }
+  },
+  "alignment": {
+    "aCount": 29,
+    "bCount": 49,
+    "cCount": 29,
+    "aAndB": [
+      "copy",
+      "move",
+      "delete",
+      "deleteIfExists",
+      "exists",
+      "isDirectory",
+      "isRegularFile",
+      "isReadable",
+      "isWritable",
+      "isExecutable",
+      "size",
+      "getLastModifiedTime",
+      "readAllBytes",
+      "readAllLines",
+      "write",
+      "list",
+      "newDirectoryStream",
+      "createDirectory",
+      "createDirectories",
+      "createTempFile",
+      "createTempDirectory",
+      "newInputStream",
+      "newOutputStream",
+      "newBufferedReader",
+      "newBufferedWriter",
+      "createFile",
+      "probeContentType"
+    ],
+    "aAndC": [
+      "copy",
+      "move",
+      "delete",
+      "deleteIfExists",
+      "exists",
+      "isDirectory",
+      "isRegularFile",
+      "isReadable",
+      "isWritable",
+      "isExecutable",
+      "size",
+      "getLastModifiedTime",
+      "readAllBytes",
+      "readAllLines",
+      "lines",
+      "write",
+      "list",
+      "newDirectoryStream",
+      "createDirectory",
+      "createDirectories",
+      "createTempFile",
+      "createTempDirectory",
+      "newByteChannel",
+      "newInputStream",
+      "newOutputStream",
+      "newBufferedReader",
+      "newBufferedWriter",
+      "createFile",
+      "probeContentType"
+    ],
+    "bAndC": [
+      "exists",
+      "isDirectory",
+      "isRegularFile",
+      "createFile",
+      "createDirectory",
+      "createDirectories",
+      "createTempFile",
+      "createTempDirectory",
+      "delete",
+      "deleteIfExists",
+      "copy",
+      "move",
+      "readAllBytes",
+      "readAllLines",
+      "write",
+      "newInputStream",
+      "newOutputStream",
+      "newBufferedReader",
+      "newBufferedWriter",
+      "list",
+      "newDirectoryStream",
+      "size",
+      "getLastModifiedTime",
+      "isExecutable",
+      "isReadable",
+      "isWritable",
+      "probeContentType"
+    ],
+    "aNotInB": [
+      "lines",
+      "newByteChannel"
+    ],
+    "aNotInC": [],
+    "onlyB": [
+      "notExists",
+      "isSymbolicLink",
+      "isHidden",
+      "createSymbolicLink",
+      "createLink",
+      "readString",
+      "writeString",
+      "walk",
+      "walkFileTree",
+      "setLastModifiedTime",
+      "getOwner",
+      "setOwner",
+      "getAttribute",
+      "setAttribute",
+      "readAttributes",
+      "isSameFile",
+      "getFileStore",
+      "getPosixFilePermissions",
+      "setPosixFilePermissions",
+      "newWatchService",
+      "register",
+      "take"
+    ],
+    "onlyC": [],
+    "netNewForA": [
+      "notExists",
+      "isSymbolicLink",
+      "isHidden",
+      "createSymbolicLink",
+      "createLink",
+      "readString",
+      "writeString",
+      "walk",
+      "walkFileTree",
+      "setLastModifiedTime",
+      "getOwner",
+      "setOwner",
+      "getAttribute",
+      "setAttribute",
+      "readAttributes",
+      "isSameFile",
+      "getFileStore",
+      "getPosixFilePermissions",
+      "setPosixFilePermissions",
+      "newWatchService",
+      "register",
+      "take"
+    ],
+    "aOnlyNotCovered": [],
+    "cIsSubsetOfA": true,
+    "aEqualsC": true,
+    "aSubsetOfB": false,
+    "aSubsetOfBOrC": true
+  },
+  "richness": [
+    {
+      "name": "copy",
+      "aTabLabel": "copy()",
+      "aLen": 84,
+      "bLen": 60,
+      "bHasReturn": false,
+      "cLen": 71,
+      "cHasReturn": true
+    },
+    {
+      "name": "move",
+      "aTabLabel": "move()",
+      "aLen": 78,
+      "bLen": 64,
+      "bHasReturn": false,
+      "cLen": 76,
+      "cHasReturn": true
+    },
+    {
+      "name": "delete",
+      "aTabLabel": "delete()",
+      "aLen": 38,
+      "bLen": 36,
+      "bHasReturn": false,
+      "cLen": 36,
+      "cHasReturn": true
+    },
+    {
+      "name": "deleteIfExists",
+      "aTabLabel": "deleteIfExists()",
+      "aLen": 54,
+      "bLen": 48,
+      "bHasReturn": false,
+      "cLen": 52,
+      "cHasReturn": true
+    },
+    {
+      "name": "exists",
+      "aTabLabel": "exists()",
+      "aLen": 68,
+      "bLen": 57,
+      "bHasReturn": true,
+      "cLen": 66,
+      "cHasReturn": true
+    },
+    {
+      "name": "isDirectory",
+      "aTabLabel": "isDirectory()",
+      "aLen": 74,
+      "bLen": 61,
+      "bHasReturn": true,
+      "cLen": 70,
+      "cHasReturn": true
+    },
+    {
+      "name": "isRegularFile",
+      "aTabLabel": "isRegularFile()",
+      "aLen": 78,
+      "bLen": 65,
+      "bHasReturn": true,
+      "cLen": 74,
+      "cHasReturn": true
+    },
+    {
+      "name": "isReadable",
+      "aTabLabel": "isReadable()",
+      "aLen": 49,
+      "bLen": 28,
+      "bHasReturn": false,
+      "cLen": 47,
+      "cHasReturn": true
+    },
+    {
+      "name": "isWritable",
+      "aTabLabel": "isWritable()",
+      "aLen": 49,
+      "bLen": 28,
+      "bHasReturn": false,
+      "cLen": 47,
+      "cHasReturn": true
+    },
+    {
+      "name": "isExecutable",
+      "aTabLabel": "isExecutable()",
+      "aLen": 52,
+      "bLen": 31,
+      "bHasReturn": false,
+      "cLen": 50,
+      "cHasReturn": true
+    },
+    {
+      "name": "size",
+      "aTabLabel": "size()",
+      "aLen": 42,
+      "bLen": 28,
+      "bHasReturn": false,
+      "cLen": 40,
+      "cHasReturn": true
+    },
+    {
+      "name": "getLastModifiedTime",
+      "aTabLabel": "getLastModifiedTime()",
+      "aLen": 84,
+      "bLen": 64,
+      "bHasReturn": false,
+      "cLen": 80,
+      "cHasReturn": true
+    }
+  ],
+  "toolAssets": {
+    "allSignatureLines": 61,
+    "uniqueMethods": 49,
+    "overloadLines": 12,
+    "withReturnType": 9,
+    "withoutReturnType": 40,
+    "sections": {
+      "(前言/无分节)": {
+        "total": 1,
+        "bullets": 0,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": []
+      },
+      "文件存在与类型判断": {
+        "total": 6,
+        "bullets": 6,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": []
+      },
+      "创建与删除": {
+        "total": 9,
+        "bullets": 9,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": []
+      },
+      "复制与移动": {
+        "total": 9,
+        "bullets": 8,
+        "enumConstants": [
+          "- StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标",
+          "- StandardCopyOption.COPY_ATTRIBUTES：复制文件属性",
+          "- StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）",
+          "- LinkOption.NOFOLLOW_LINKS：不跟随符号链接"
+        ],
+        "viewRefs": [],
+        "prose": []
+      },
+      "文件读写": {
+        "total": 22,
+        "bullets": 21,
+        "enumConstants": [
+          "- StandardOpenOption.READ：读模式",
+          "- StandardOpenOption.WRITE：写模式",
+          "- StandardOpenOption.APPEND：追加模式",
+          "- StandardOpenOption.TRUNCATE_EXISTING：截断已有文件",
+          "- StandardOpenOption.CREATE：不存在则创建",
+          "- StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常",
+          "- StandardOpenOption.DELETE_ON_CLOSE：关闭时删除"
+        ],
+        "viewRefs": [],
+        "prose": []
+      },
+      "目录遍历": {
+        "total": 8,
+        "bullets": 8,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": []
+      },
+      "文件属性": {
+        "total": 18,
+        "bullets": 17,
+        "enumConstants": [],
+        "viewRefs": [
+          "- BasicFileAttributeView：基本属性（所有平台）",
+          "- DosFileAttributeView：DOS 属性（Windows）",
+          "- PosixFileAttributeView：POSIX 属性（Unix/Linux，含权限）",
+          "- AclFileAttributeView：ACL 权限",
+          "- FileOwnerAttributeView：所有者"
+        ],
+        "prose": []
+      },
+      "其他实用方法": {
+        "total": 5,
+        "bullets": 5,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": []
+      },
+      "WatchService（文件变更监听）": {
+        "total": 5,
+        "bullets": 5,
+        "enumConstants": [],
+        "viewRefs": [],
+        "prose": [
+          "- 监听事件：ENTRY_CREATE、ENTRY_DELETE、ENTRY_MODIFY、OVERFLOW",
+          "- 可用于热部署、文件同步、配置变更监听等场景"
+        ]
+      }
+    },
+    "sectionCount": 8,
+    "nonSignatureBullets": 18,
+    "enumConstants": 11,
+    "viewRefs": 5,
+    "proseBullets": 2,
+    "enumConstantList": [
+      "- StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标",
+      "- StandardCopyOption.COPY_ATTRIBUTES：复制文件属性",
+      "- StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）",
+      "- LinkOption.NOFOLLOW_LINKS：不跟随符号链接",
+      "- StandardOpenOption.READ：读模式",
+      "- StandardOpenOption.WRITE：写模式",
+      "- StandardOpenOption.APPEND：追加模式",
+      "- StandardOpenOption.TRUNCATE_EXISTING：截断已有文件",
+      "- StandardOpenOption.CREATE：不存在则创建",
+      "- StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常",
+      "- StandardOpenOption.DELETE_ON_CLOSE：关闭时删除"
+    ],
+    "viewRefList": [
+      "- BasicFileAttributeView：基本属性（所有平台）",
+      "- DosFileAttributeView：DOS 属性（Windows）",
+      "- PosixFileAttributeView：POSIX 属性（Unix/Linux，含权限）",
+      "- AclFileAttributeView：ACL 权限",
+      "- FileOwnerAttributeView：所有者"
+    ],
+    "proseList": [
+      "- 监听事件：ENTRY_CREATE、ENTRY_DELETE、ENTRY_MODIFY、OVERFLOW",
+      "- 可用于热部署、文件同步、配置变更监听等场景"
+    ],
+    "multiMethodLines": [
+      "- 通过 watchService.take()/poll() 获取变更事件"
+    ]
+  },
+  "tabStats": {
+    "entities": 3852,
+    "totalTabs": 4061,
+    "max": 36,
+    "secondMax": 32,
+    "overA": 1,
+    "over40": 0,
+    "atLeast10": 5,
+    "zeroOrOne": 3479
+  },
+  "topEntities": [
+    {
+      "id": "k_java_lang_string",
+      "label": "java.lang.String",
+      "tabs": 36
+    },
+    {
+      "id": "k_java_nio_file_files",
+      "label": "java.nio.file.Files",
+      "tabs": 32
+    },
+    {
+      "id": "k_java_util_scanner",
+      "label": "java.util.Scanner",
+      "tabs": 26
+    },
+    {
+      "id": "n_u4va719e",
+      "label": "数据库",
+      "tabs": 25
+    },
+    {
+      "id": "k_wiki_en_outline_of_databases",
+      "label": "数据库概览（维基来源全文）",
+      "tabs": 12
+    },
+    {
+      "id": "k_acm2012_software_organization_virtual_machines",
+      "label": "虚拟机",
+      "tabs": 9
+    }
+  ],
+  "commonSubtree": {
+    "entities": 45,
+    "tabsOver32": 1,
+    "tabsOver20": 3
+  },
+  "edges": {
+    "touchingCount": 6,
+    "parentEdgePrimary": {
+      "id": "treebind:tree_java_common_libraries:tree_java_nio_file_files",
+      "source": "k_java_common_libraries",
+      "target": "k_java_nio_file_files",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "java"
+      ]
+    },
+    "parentEdgeTool": {
+      "id": "treebind:tree_java_common_libraries:tree_nio_files_util",
+      "source": "k_java_common_libraries",
+      "target": "k_nio_files_util",
+      "type": "belongs-to",
+      "label": "contains",
+      "relationKind": "structure",
+      "dimensions": [
+        "java",
+        "jdk-api"
+      ]
+    },
+    "list": [
+      {
+        "id": "treebind:tree_java_common_libraries:tree_java_nio_file_files",
+        "type": "belongs-to",
+        "relationKind": "structure",
+        "source": "k_java_common_libraries",
+        "target": "k_java_nio_file_files",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_nio_file_files:tree_1787916125075_qsrbco",
+        "type": "belongs-to",
+        "relationKind": "structure",
+        "source": "k_java_nio_file_files",
+        "target": "k_1787916124192_mow0sq",
+        "dimensions": [
+          "java",
+          "jdk-api"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_nio_file_files:tree_1787916227408_nkaljw",
+        "type": "belongs-to",
+        "relationKind": "structure",
+        "source": "k_java_nio_file_files",
+        "target": "k_1787916226907_9aq9u6",
+        "dimensions": [
+          "java",
+          "jdk-api"
+        ]
+      },
+      {
+        "id": "edge_io_nio_vs_files",
+        "type": "related-to",
+        "relationKind": "dependency",
+        "source": "asplit_blocking_io_model",
+        "target": "k_java_nio_file_files",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "edge_java_io_vs_nio_files",
+        "type": "contrasts-with",
+        "relationKind": "comparison",
+        "source": "asplit_blocking_io_model",
+        "target": "k_java_nio_file_files",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_common_libraries:tree_nio_files_util",
+        "type": "belongs-to",
+        "relationKind": "structure",
+        "source": "k_java_common_libraries",
+        "target": "k_nio_files_util",
+        "dimensions": [
+          "java",
+          "jdk-api"
+        ]
+      }
+    ]
+  },
+  "plans": [
+    {
+      "id": "Ⅰ",
+      "name": "全量吸收制（连 B 的重叠行也并入，不丢任何字）",
+      "action": "把 B 的 22 个独有方法各建 1 个方法 tab；B 的 18 条非签名 bullet 收 1 个 tab；B 的 27 条**重叠行追加进 A 的对应既有 tab**；删 B",
+      "aTabsAfter": 55,
+      "delta": {
+        "tree": -1,
+        "pool": -1,
+        "edges": -1
+      },
+      "pros": [
+        "零判读风险：B 的每一个字都有落点",
+        "与 A 既有方法 tab 同构（家族惯例：方法一 tab）",
+        "新方法可独立索引/编辑/被 tag 库收录"
+      ],
+      "cons": [
+        "**改动面最大**：A 的 27 个既有 tab 全被改写（内容变长、双源混写）",
+        "tab 数冲到全库第一（见 tabStats）",
+        "richness 表显示 A 侧原本更全 ⇒ 追加 B 的重叠行多为**信息增益为零的填充**"
+      ]
+    },
+    {
+      "id": "Ⅱ",
+      "name": "整段并入制",
+      "action": "B 的 def 全文（4539 字）作为 1 个 tab 并入 A；删 B",
+      "aTabsAfter": 33,
+      "delta": {
+        "tree": -1,
+        "pool": -1,
+        "edges": -1
+      },
+      "pros": [
+        "改动最小、零信息损失、与 A 批 bestPractices 搬运同形",
+        "tab 数不变 ⇒ 不越界"
+      ],
+      "cons": [
+        "B 的 27 个与 A 重叠的方法**在一/两个实体内部重复描述**（真正意义的「重叠」没消除）",
+        "22 个新方法仍是一坨清单里的文本，不可独立索引"
+      ]
+    },
+    {
+      "id": "Ⅲ",
+      "name": "融合去重制（方法补 tab + 非签名资产收 tab + 重叠不重复收录）",
+      "action": "A 侧保留既有 29 个方法 tab（其内容为既有事实源）；B 的 22 个独有方法补成 22 个方法 tab；B 的 18 条非签名 bullet（枚常量 11 + 视图类 5 + 说明 2）连同 8 个分节框架收成 1 个 tab；B 的 27 条重叠行不收录；删 B",
+      "aTabsAfter": 55,
+      "delta": {
+        "tree": -1,
+        "pool": -1,
+        "edges": -1
+      },
+      "pros": [
+        "消除「27 条重叠」与「22 条丢失」两个问题",
+        "新方法可独立索引",
+        "非签名资产首次有归属（A 的 bestPractices 只引用了 StandardCopyOption/StandardOpenOption 却没解释）"
+      ],
+      "cons": [
+        "tab 数冲到全库第一",
+        "需要逐条判定「A tab 内容是否够用」（richness 表即此判据）"
+      ]
+    },
+    {
+      "id": "Ⅳ",
+      "name": "导览重构制（A 的 tab 数不变，融合成果落在子节点导览上）",
+      "action": "A 的 29 个方法 tab **原样不动**；把 B∪C 的 51 个方法合并成一份规范导览写进 A 的子节点「常见用法」（现 29 方法 / 2131 字 → 合并后 51 方法）；B 的 18 条非签名 bullet 一并并入该导览；删 B",
+      "aTabsAfter": 32,
+      "delta": {
+        "tree": -1,
+        "pool": -1,
+        "edges": -1
+      },
+      "pros": [
+        "**tab 数完全不越界**（A 保持 32）",
+        "方法覆盖从 29 升到 51（补齐 22 个），且**一处导览即全**",
+        "顺带修复导览的陈旧（现只有 29 个方法 = A 的 tab 全集，缺 B 的 22 个）",
+        "与家族分工一致：A 的 tab = 精选方法，子节点导览 = 全量清单"
+      ],
+      "cons": [
+        "新增的 22 个方法**不作为独立 tab** ⇒ 不可被 tag 库/索引图单独索引",
+        "导览是 rootContent 长文，不如 tab 那样可逐条编辑"
+      ]
+    }
+  ],
+  "decisionPoints": [
+    {
+      "id": "D1",
+      "q": "融合方向与主体",
+      "options": [
+        "B(工具类) → A(java.nio.file.Files)，A 为唯一事实源 ★",
+        "A → B（反向）",
+        "双方都留（不融合）"
+      ],
+      "recommend": "B → A：A 是树上的规范节点（直接挂 类库、有 2 个子节点、有 4 条边），B 是孤立叶子"
+    },
+    {
+      "id": "D2",
+      "q": "融合方案（Ⅰ 全量吸收 / Ⅱ 整段并入 / Ⅲ 融合去重 / Ⅳ 导览重构）",
+      "options": [
+        "Ⅰ 全量吸收制（55 tab，A 的 27 个既有 tab 被改写）",
+        "Ⅱ 整段并入制（33 tab，零损失但冗余留存）",
+        "Ⅲ 融合去重制（55 tab，重叠丢弃；richness 表支持 A 侧更全）",
+        "Ⅳ 导览重构制（32 tab 不变，融合成果落在子节点导览）"
+      ],
+      "recommend": "Ⅲ 与 Ⅳ 是最有竞争力的两个：Ⅲ 结构最规范（方法一 tab，家族惯例）但 tab 数到 55；Ⅳ 不越界且顺带修复 C 的陈旧，代价是 22 个新方法不作独立 tab"
+    },
+    {
+      "id": "D3",
+      "q": "tab 数越界的取舍（仅方案Ⅰ/Ⅲ 需要）",
+      "options": [
+        "接受 55 tab（全库第一，现最大 36）",
+        "只补「高价值」子集（需另定判据）",
+        "改用方案Ⅱ 或 Ⅳ（tab 数不变）"
+      ],
+      "recommend": "待用户裁决 —— 全库 >32 tab 的实体只有 1 个，扩到 55 是显著越界；但类库家族本身就是方法一 tab 的形状（≥20 tab 的 3 个都在本子树）"
+    },
+    {
+      "id": "D4",
+      "q": "索引导览「常见用法」(29 方法 / 2131 字) 的去留",
+      "options": [
+        "留（作为人类可读导览，与 A 的 tab 并存）★",
+        "删（其方法集已被 A 的 tab 全覆盖）",
+        "用融合后的完整导览覆盖它"
+      ],
+      "recommend": "★ 本条是本批**新发现**：C 的方法集与 A 的 29 个方法 tab **逐个全等** ⇒ C 是 A 的 tab 的来源导览。它不是「重叠缺陷」而是「同一实体的两种视图」，删它属结构清理而非内容融合，建议另裁或留"
+    },
+    {
+      "id": "D5",
+      "q": "A − B：承接方有而工具类缺的 2 个方法（`lines` / `newByteChannel`）",
+      "options": [
+        "无需动作（A 已有，B 只是导览不全）★",
+        "补进融合后的导览"
+      ],
+      "recommend": "★ A 已有 ⇒ 无缺口；仅作记录。注意与「真缺口 A − (B∪C) = 0 个」区分开"
+    },
+    {
+      "id": "D6",
+      "q": "结果实体/节点的命名与 treeId",
+      "options": [
+        "沿用 A 的现有 id（不改名）★",
+        "改名并语义化"
+      ],
+      "recommend": "★ 沿用 —— 本批是内容融合，改名属另一类批次且会扩大写集"
+    }
+  ],
+  "expectedDeltaNote": "本批只动池（+0 实体 / −1 实体 / 1 实体被改）+ 树（−1 节点）+ 边（−1 条）⇒ 树 3205→3204 · 池 3852→3851 · 边 4157→4156（若同时删 C 则再 −1/−1/−1）。"
+}
