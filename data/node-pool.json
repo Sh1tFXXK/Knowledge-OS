@@ -56107,51 +56107,6 @@
       "rootNodeId": "k_demo_java_array_list"
     }
   },
-  "k_1785378637961_iecl2a": {
-    "id": "k_1785378637961_iecl2a",
-    "label": "Files",
-    "card": {
-      "nodeId": "k_1785378637961_iecl2a",
-      "title": "Files",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "java.nio.file.Files 是 Java NIO（New I/O）包中的实用工具类，位于 java.nio.file 包中。\n\nFiles 类提供一系列静态方法来操作文件系统中的文件和目录，大大简化了文件 I/O 操作。\n\n主要特点：\n- 所有方法都是静态的，无需创建实例\n- 功能丰富：文件读写、属性操作、目录遍历等\n- 统一使用 IOException 处理文件操作异常\n- 主要与 java.nio.file.Path 接口配合使用\n- 原生支持符号链接处理\n\n推荐在新项目中使用 Files 类替代传统的 java.io.File 类。"
-        },
-        {
-          "id": "comparison",
-          "label": "与传统IO对比",
-          "content": "Files 类（NIO）与传统 I/O（java.io）对比：\n\n| 特性 | Files 类（NIO） | 传统 I/O（java.io） |\n|------|------------------|----------------------|\n| 方法类型 | 静态方法 | 实例方法 |\n| 路径表示 | 使用 Path 接口 | 使用 File 类 |\n| 异常处理 | 统一使用 IOException | 多种异常类型 |\n| 功能丰富度 | 更丰富 | 基础功能 |\n| 符号链接处理 | 原生支持 | 有限支持 |\n| 文件属性操作 | 更全面 | 有限 |"
-        },
-        {
-          "id": "methods",
-          "label": "常用方法",
-          "content": "Files 常用方法分类：\n\n【文件操作】\n- static Path copy(Path source, Path target, CopyOption... options)：复制文件\n- static Path move(Path source, Path target, CopyOption... options)：移动或重命名文件\n- static void delete(Path path)：删除文件\n- static boolean deleteIfExists(Path path)：如果文件存在则删除\n\n【文件属性】\n- static boolean exists(Path path, LinkOption... options)：检查文件是否存在\n- static boolean isDirectory(Path path, LinkOption... options)：检查是否为目录\n- static boolean isRegularFile(Path path, LinkOption... options)：检查是否为常规文件\n- static boolean isReadable(Path path)：检查文件是否可读\n- static boolean isWritable(Path path)：检查文件是否可写\n- static boolean isExecutable(Path path)：检查文件是否可执行\n- static long size(Path path)：返回文件大小（字节）\n- static FileTime getLastModifiedTime(Path path, LinkOption... options)：获取最后修改时间\n\n【文件内容操作】\n- static byte[] readAllBytes(Path path)：读取文件所有字节\n- static List<String> readAllLines(Path path[, Charset cs])：读取文件所有行\n- static Stream<String> lines(Path path[, Charset cs])：返回文件中行的流\n- static Path write(Path path, byte[] bytes, OpenOption... options)：将字节写入文件\n- static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)：将文本行写入文件\n\n【目录操作】\n- static Stream<Path> list(Path dir)：列出目录中的条目\n- static DirectoryStream<Path> newDirectoryStream(Path dir)：打开目录流\n- static Path createDirectory(Path dir, FileAttribute<?>... attrs)：创建单级目录\n- static Path createDirectories(Path dir, FileAttribute<?>... attrs)：创建多级目录（含父目录）\n\n【临时文件与目录】\n- static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)：创建临时文件\n- static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)：创建临时目录\n\n【流与通道】\n- static SeekableByteChannel newByteChannel(Path path, OpenOption... options)：打开可查找的字节通道\n- static InputStream newInputStream(Path path, OpenOption... options)：打开文件输入流\n- static OutputStream newOutputStream(Path path, OpenOption... options)：打开文件输出流\n- static BufferedReader newBufferedReader(Path path)：打开缓冲读取器\n- static BufferedWriter newBufferedWriter(Path path, OpenOption... options)：打开缓冲写入器\n\n【其他】\n- static Path createFile(Path path, FileAttribute<?>... attrs)：创建新文件\n- static String probeContentType(Path path)：探测文件内容类型"
-        },
-        {
-          "id": "bestPractices",
-          "label": "最佳实践",
-          "content": "最佳实践：\n\n1. 异常处理：许多方法会抛出 IOException，使用时必须进行异常处理\n2. 资源清理：流操作使用 try-with-resources 自动关闭资源\n3. 大文件处理：使用缓冲流（newBufferedReader / newBufferedWriter）\n4. 批量目录遍历：优先使用 Files.walk 而非递归调用\n5. 性能优化：频繁访问的文件属性可缓存\n6. 复制选项：使用 StandardCopyOption.REPLACE_EXISTING 覆盖已存在文件\n7. 写入选项：使用 StandardOpenOption.APPEND 追加写入"
-        }
-      ],
-      "rootContent": "`java.nio.file.Files` 是 Java NIO (New I/O) 包中的一个实用工具类，位于 `java.nio.file` 包中。\n\n`java.nio.file.Files` 提供了一系列静态方法来操作文件系统中的文件和目录，大大简化了文件 I/O 操作。"
-    },
-    "tags": [
-      "Files",
-      "java",
-      "jdk",
-      "常用类库",
-      "java.nio.file",
-      "nio"
-    ],
-    "role": "concept",
-    "dimensions": [
-      "java",
-      "java-syntax",
-      "jdk-api"
-    ]
-  },
   "k_1785415843679_72mpjo": {
     "id": "k_1785415843679_72mpjo",
     "label": "newFixedThreadPool",
@@ -143178,6 +143133,11 @@
           "id": "probeContentType",
           "label": "probeContentType()",
           "content": "探测文件内容类型。\n\n`static String probeContentType(Path path)`"
+        },
+        {
+          "id": "bestPractices",
+          "label": "最佳实践",
+          "content": "最佳实践：\n\n1. 异常处理：许多方法会抛出 IOException，使用时必须进行异常处理\n2. 资源清理：流操作使用 try-with-resources 自动关闭资源\n3. 大文件处理：使用缓冲流（newBufferedReader / newBufferedWriter）\n4. 批量目录遍历：优先使用 Files.walk 而非递归调用\n5. 性能优化：频繁访问的文件属性可缓存\n6. 复制选项：使用 StandardCopyOption.REPLACE_EXISTING 覆盖已存在文件\n7. 写入选项：使用 StandardOpenOption.APPEND 追加写入"
         }
       ]
     }
