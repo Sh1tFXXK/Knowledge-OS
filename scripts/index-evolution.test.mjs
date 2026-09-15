@@ -115,8 +115,10 @@ test('resolveTemporalContext follows selection, persists scope event, drops stal
 });
 
 test('normalizeEvolutionEvents drops malformed entries and keeps valid ones', () => {
+  // （evolution-v2 起 type 必填：无 type / 非法 type 的条目一律丢弃 —— fixture 同步补 type。）
   const valid = {
     id: 'event:ok',
+    type: 'release',
     scopeRootId: 'root',
     occurredAt: 5,
     title: 'OK',
@@ -140,7 +142,7 @@ test('normalizeEvolutionEvents drops malformed entries and keeps valid ones', ()
 
   // 非法 facet 的 change 被逐条丢弃，但事件本身保留（防御坏数据不崩工作台）
   const partial = normalizeEvolutionEvents([
-    { id: 'bad-facet', title: 'x', changes: [{ targetNodeId: 't', facet: 'nonsense' }] },
+    { id: 'bad-facet', type: 'merge', title: 'x', changes: [{ targetNodeId: 't', facet: 'nonsense' }] },
   ]);
   assert.equal(partial.length, 1);
   assert.deepEqual(partial[0].changes, []);

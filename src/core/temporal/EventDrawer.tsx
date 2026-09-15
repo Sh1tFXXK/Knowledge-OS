@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { ArrowRight, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
-import { facetLabel } from '../../knowledge/timelineEvolution';
+import { facetLabel, evolutionEventTypeLabel } from '../../knowledge/timelineEvolution';
 import type { KnowledgeEvolutionEvent } from '../../knowledge/timelineEvolution';
 import type { KnowledgeNode } from '../../types';
 
@@ -104,6 +104,9 @@ export function EventDrawer({
         >
           {isExpanded ? <ChevronDown size={14} /> : <ChevronUp size={14} />}
           <strong>{event.title}</strong>
+          <em className="timeline-event-type-badge" title="演化类型">
+            {evolutionEventTypeLabel(event.type)}
+          </em>
           <small>{formatEventDate(event.occurredAt)}</small>
         </button>
       </div>

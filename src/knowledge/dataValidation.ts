@@ -270,5 +270,12 @@ export function inspectEvolutionEvents(value: unknown): SliceDiagnostic {
   if (noScope) warnings.push(noScope);
   const noTime = inspectRequiredTimestamps(value, 'occurredAt', '事件');
   if (noTime) warnings.push(noTime);
+  const validTypes = new Set(['release', 'introduce', 'deprecate', 'replace', 'split', 'merge']);
+  const badType = value.filter((item) => !validTypes.has(item.type as string)).length;
+  if (badType > 0) {
+    // type 缺失或非法的事件会被 normalizeEvolutionEvents 丢弃（不进演化图），
+    // 操作日志类事件（tree-refactor 等）不应再写入本文件 —— 见 timelineEvolution.ts 头注。
+    warnings.push(`${badType} 条事件的 type 不是合法演化类型（release/introduce/deprecate/replace/split/merge），加载时将被丢弃`);
+  }
   return { fatal: null, warnings };
 }

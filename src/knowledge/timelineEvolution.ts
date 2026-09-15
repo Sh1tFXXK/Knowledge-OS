@@ -1,3 +1,38 @@
+/**
+ * 知识演化事件的类型（2026-09-15 用户裁决：Timeline = 实体演化图）。
+ *
+ * evolution-events.json 是**唯一事实源**（append-only）：只收「知识实体自身的演化」，
+ * 不收仓库操作历史（moveNode / renameNode / import / 批次重构留痕等）—— 那些由
+ * git 提交 + batch-manifests 承载。批次脚本不得向本文件写入操作日志类事件。
+ */
+export const EvolutionEventType = {
+  Release: 'release',
+  Introduce: 'introduce',
+  Deprecate: 'deprecate',
+  Replace: 'replace',
+  Split: 'split',
+  Merge: 'merge',
+} as const;
+
+export type EvolutionEventType = typeof EvolutionEventType[keyof typeof EvolutionEventType];
+
+const EVENT_TYPE_LABELS: Record<EvolutionEventType, string> = {
+  [EvolutionEventType.Release]: '发布',
+  [EvolutionEventType.Introduce]: '引入',
+  [EvolutionEventType.Deprecate]: '废弃',
+  [EvolutionEventType.Replace]: '替代',
+  [EvolutionEventType.Split]: '拆分',
+  [EvolutionEventType.Merge]: '合并',
+};
+
+export function evolutionEventTypeLabel(type: EvolutionEventType): string {
+  return EVENT_TYPE_LABELS[type];
+}
+
+function isEvolutionEventType(value: unknown): value is EvolutionEventType {
+  return typeof value === 'string' && value in EVENT_TYPE_LABELS;
+}
+
 /** 时间线只在这些语义面发生变化时产生一个事件，避免字段级噪声。 */
 export const TimelineFacet = {
   Content: 'content',
@@ -23,6 +58,7 @@ export interface KnowledgeEvolutionIntroducedNode {
 /** 持久化的知识演化事件：一次有意义的语义变化（而非逐字段噪声）。 */
 export interface KnowledgeEvolutionEvent {
   id: string;
+  type: EvolutionEventType;
   scopeRootId: string;
   occurredAt: number;
   title: string;
@@ -82,15 +118,22 @@ function asChanges(value: unknown): KnowledgeEvolutionChange[] {
   });
 }
 
-/** 加载时校验演化事件数组，丢弃无法识别的条目。 */
+/**
+ * 加载时校验演化事件数组，丢弃无法识别的条目。
+ *
+ * `type` 是**必填**的演化类型：缺失或非法（含历史批次写入的操作日志事件）一律丢弃，
+ * 不做默认值兜底 —— 防止仓库操作日志以「无类型」形态复活进实体演化图。
+ */
 export function normalizeEvolutionEvents(value: unknown): KnowledgeEvolutionEvent[] {
   if (!Array.isArray(value)) return [];
   return value.flatMap((entry): KnowledgeEvolutionEvent[] => {
     if (!entry || typeof entry !== 'object') return [];
     const event = entry as Record<string, unknown>;
     if (typeof event.id !== 'string' || typeof event.title !== 'string') return [];
+    if (!isEvolutionEventType(event.type)) return [];
     return [{
       id: event.id,
+      type: event.type,
       scopeRootId: typeof event.scopeRootId === 'string' ? event.scopeRootId : '',
       occurredAt: typeof event.occurredAt === 'number' ? event.occurredAt : 0,
       title: event.title,

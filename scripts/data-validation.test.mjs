@@ -99,21 +99,34 @@ test('数组类切片：非数组 fatal，元素缺必填字段只上报', () =>
 test('事件：occurredAt 是 epoch 毫秒数（number）时不得被误报为缺字段', () => {
   // 数据模型里 occurredAt: number（timelineEvolution.ts），全库两条真实事件都是数字。
   // 早期版本照搬"必填字符串"校验，会把每一条事件都误报成"缺少 occurredAt 字段"。
+  // （evolution-v2 起事件必须带合法 type，fixture 同步补 type:"release"。）
   const ok = inspectEvolutionEvents([
-    { id: 'event:spring:4', scopeRootId: 'k_java_fw_spring', occurredAt: 1386806400000 },
+    { id: 'event:spring:4', type: 'release', scopeRootId: 'k_java_fw_spring', occurredAt: 1386806400000 },
   ]);
   assert.equal(ok.fatal, null);
   assert.deepEqual(ok.warnings, []);
 
   // 兼容历史数据写成日期字符串的情况
-  const iso = inspectEvolutionEvents([{ id: 'e', scopeRootId: 'r', occurredAt: '2013-12-12' }]);
+  const iso = inspectEvolutionEvents([{ id: 'e', type: 'release', scopeRootId: 'r', occurredAt: '2013-12-12' }]);
   assert.deepEqual(iso.warnings, []);
 
   // 真正的坏值仍然要报出来
   const bad = inspectEvolutionEvents([
-    { id: 'e1', scopeRootId: 'r' },
-    { id: 'e2', scopeRootId: 'r', occurredAt: null },
-    { id: 'e3', scopeRootId: 'r', occurredAt: '不是日期' },
+    { id: 'e1', type: 'release', scopeRootId: 'r' },
+    { id: 'e2', type: 'release', scopeRootId: 'r', occurredAt: null },
+    { id: 'e3', type: 'release', scopeRootId: 'r', occurredAt: '不是日期' },
   ]);
   assert.match(bad.warnings.join('\n'), /3 条事件的 occurredAt 不是有效时间戳/);
+});
+
+test('事件：type 缺失或非法 → 上报警告（加载时将被丢弃，操作日志不得复活）', () => {
+  // evolution-v2 起只收 release/introduce/deprecate/replace/split/merge；
+  // moveNode/renameNode/import/tree-refactor 等仓库操作日志不允许进演化图。
+  const badType = inspectEvolutionEvents([
+    { id: 'a', type: 'moveNode', scopeRootId: 'r', occurredAt: 1 },
+    { id: 'b', scopeRootId: 'r', occurredAt: 2 },
+    { id: 'c', type: 'release', scopeRootId: 'r', occurredAt: 3 },
+  ]);
+  assert.equal(badType.fatal, null);
+  assert.match(badType.warnings.join('\n'), /2 条事件的 type 不是合法演化类型/);
 });

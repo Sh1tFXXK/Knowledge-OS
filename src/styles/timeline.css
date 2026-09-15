@@ -792,6 +792,33 @@
   font-size: 8px;
 }
 
+/* 演化事件类型徽标（evolution-v2）：TemporalRail 轨道按钮 / 状态头 + EventDrawer 标题行 */
+.timeline-event-type-badge {
+  flex: 0 0 auto;
+  padding: 1px 4px;
+  border: 1px solid rgba(6, 182, 212, 0.32);
+  border-radius: 3px;
+  color: #67e8f9;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+
+.explanation-index-timeline-stages button .timeline-event-type-badge {
+  margin-right: 5px;
+  padding: 0 3px;
+}
+
+.explanation-index-timeline-stages button.is-active .timeline-event-type-badge {
+  border-color: rgba(103, 232, 249, 0.55);
+  color: #a5f3fc;
+}
+
+.event-drawer-toggle .timeline-event-type-badge {
+  margin-left: 2px;
+}
+
 .knowledge-open-source {
   display: inline-flex;
   align-items: center;

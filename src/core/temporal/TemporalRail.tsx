@@ -1,4 +1,5 @@
 import { Play } from 'lucide-react';
+import { evolutionEventTypeLabel } from '../../knowledge/timelineEvolution';
 import type { KnowledgeEvolutionEvent } from '../../knowledge/timelineEvolution';
 
 function formatEventDate(occurredAt: number): string {
@@ -33,6 +34,11 @@ export function TemporalRail({
       <div className="explanation-index-timeline-state">
         <span>时间维度</span>
         <strong>{activeEvent?.title ?? '稳定知识'}</strong>
+        {activeEvent && (
+          <em className="timeline-event-type-badge" title="演化类型">
+            {evolutionEventTypeLabel(activeEvent.type)}
+          </em>
+        )}
       </div>
       <div className="explanation-index-timeline-stages" role="tablist" aria-label="知识演化阶段">
         <button
@@ -54,6 +60,7 @@ export function TemporalRail({
             title={formatEventDate(event.occurredAt)}
             onClick={() => onSelect(event.id)}
           >
+            <span className="timeline-event-type-badge">{evolutionEventTypeLabel(event.type)}</span>
             {event.title}
           </button>
         ))}
