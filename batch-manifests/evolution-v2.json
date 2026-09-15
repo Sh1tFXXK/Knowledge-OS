@@ -6,7 +6,15 @@
   "preBatchSnapshot": "data/backups/evolution-v2-2026-09-15T04-27-05-000Z",
   "preBatchSnapshotNote": "快照含 5 个 data 文件（tree / pool / edges / evolution-events / questions），与 HEAD(9b45cf7) 逐字节相等（cmp 5/5，建快照时当场复核）。独立验证脚本不 import apply，由该快照 ↔ 工作树逐结构比对反推 ⇒ 快照是本批唯一的祖先证据。",
   "commitSubjectHint": "data: EVOLUTION-V2 Timeline 从操作日志改为实体演化图 — 事件 8→2（清退 6 条 tree-refactor 操作日志）· schema 增 type 六类演化 · UI 类型徽标（独立验证 10/10 · UI 10/10）",
-  "status": "DRAFT",
+  "status": "COMMITTED",
+  "commit": "f5ebe9c",
+  "committedAt": "2026-09-15T12:54:26+08:00",
+  "commitAcceptance": {
+    "readinessGates": "8/8 PASS（node scripts/verify-phase1-commit-readiness.mjs --batch evolution-v2）→ READY。证据快照 outputs/tree-violation-scan/readiness-evolution-v2.json（刻意不入库，已在 excludedSet 精确登记）。",
+    "appliedPathspec": "14 项 = writeSet，由就绪门原样输出未手写；提交实际 14 files changed, 734 insertions(+), 1050 deletions(-)（-1050 主要是 6 条操作日志事件的内容删除）。",
+    "stagedDeltaAudit": "data/evolution-events.json 事件 8→2，除 Spring 4/5 各加一行 type 外其余逐字不动；src 5 文件均为小幅增量；树/池/边/题库不在暂存区。",
+    "testBaselineAfterCommit": "tracked 基线 42→50（timeline-evolution.test.mjs 7 项 + data-validation 新 1 项入库），peer 回落 2（index-graph-layout）。下一次批次验收以 50 为准。"
+  },
 
   "provenance": {
     "trigger": "用户给出 Timeline 改造设计定稿：去掉用户操作历史/知识库变更历史，只保留「知识实体自身的演化」（release/introduce/deprecate/replace/split/merge 六类知识事件）。",
