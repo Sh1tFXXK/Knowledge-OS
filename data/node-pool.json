@@ -34800,19 +34800,6 @@
       "泛型"
     ]
   },
-  "k_1784343188560_x1gylq": {
-    "id": "k_1784343188560_x1gylq",
-    "label": "类库",
-    "card": {
-      "nodeId": "k_1784343188560_x1gylq",
-      "title": "类库",
-      "tabs": [],
-      "rootContent": "Java类库是支持Java应用开发的标准库。由Oracle与其他方通过Java社区过程项目共同控制。参与此过程的公司或个人可以影响API的设计和开发。该过程在2010年代曾引发争议。类库包含以下特性：\n\n核心库，包括：\n输入/输出（I/O 或 IO）和 非阻塞I/O（NIO），或 IO/NIO\n网络[83]（自Java 11以来的新 用户代理（HTTP客户端））\n反射编程（反射）\n并发计算（并发）\n泛型\n脚本，编译器\n函数式编程（Lambda，流）\n集合库实现如数据结构比如列表、字典、树、集合、队列和双端队列，或栈[85]\nXML 处理（解析、转换、验证）库\n安全\n国际化和本地化库\n集成库，使应用程序编写者能够与外部系统进行通信。这些库包括：\nJava数据库连接 (JDBC) API 用于数据库访问\nJava命名和目录接口 (JNDI) 用于查找和发现\nJava远程方法调用 (RMI) 和 通用对象请求代理架构 (CORBA) 用于分布式应用程序开发\nJava管理扩展 (JMX) 用于管理和监控应用程序\n用户界面库，包括：\n（重型或本地）抽象窗口工具包 (AWT)，提供图形用户界面组件、布局这些组件的方法以及处理这些组件事件的方法\n（轻型）Swing库，基于AWT构建，但提供（非本地）AWT组件的实现\n用于音频捕获、处理和播放的API\nJavaFX\n一个与平台相关的Java虚拟机实现，用于执行Java库和第三方应用程序的字节码\n\"插件，使得 小程序 能够在网页浏览器中运行\nJava Web Start，允许 Java 应用程序高效地分发给 最终用户 通过互联网\nLicensing and documentation"
-    },
-    "tags": [
-      "类库"
-    ]
-  },
   "k_1784343357387_qbdat0": {
     "id": "k_1784343357387_qbdat0",
     "label": "Documentation",
@@ -142351,19 +142338,6 @@
       "rootContent": "1、把功能相似或相关的类或接口组织在同一个包中，方便类的查找和使用。\n​\n2、如同文件夹一样，包也采用了树形目录的存储方式。同一个包中的类名字是不同的，不同的包中的类的名字是可以相同的，当同时调用两个不同包中相同类名的类时，应该加上包名加以区别。因此，包可以避免名字冲突。\n​​3、包也限定了访问权限，拥有包访问权限的类才能访问某个包中的类。"
     }
   },
-  "k_1787744960960_nuqg5v": {
-    "id": "k_1787744960960_nuqg5v",
-    "label": "常用",
-    "tags": [
-      "常用"
-    ],
-    "card": {
-      "nodeId": "k_1787744960960_nuqg5v",
-      "title": "常用",
-      "tabs": [],
-      "rootContent": "Java 常用类库大全（全限定名称）\n一、JDK 内置核心类库\n1. java.lang 包（核心基础，默认自动导入）\n表格\n全限定类名\t简要说明\njava.lang.String\t不可变字符串类\njava.lang.StringBuilder\t可变字符串构建器，线程不安全\njava.lang.StringBuffer\t可变字符串构建器，线程安全\njava.lang.Integer\tint 基本类型的包装类\njava.lang.Long\tlong 基本类型的包装类\njava.lang.Double\tdouble 基本类型的包装类\njava.lang.Boolean\tboolean 基本类型的包装类\njava.lang.Byte\tbyte 基本类型的包装类\njava.lang.Short\tshort 基本类型的包装类\njava.lang.Float\tfloat 基本类型的包装类\njava.lang.Character\tchar 基本类型的包装类\njava.lang.Math\t数学运算静态工具类\njava.lang.System\t系统级属性与操作工具类\njava.lang.Runtime\tJVM 运行时环境类\njava.lang.Thread\t线程操作基础类\n2. java.util 包（集合与通用工具）\n集合框架\n表格\n全限定类名\t简要说明\njava.util.ArrayList\t基于动态数组实现的 List 集合\njava.util.LinkedList\t基于双向链表实现的 List 集合\njava.util.Vector\t线程安全的动态数组实现\njava.util.HashMap\t哈希表实现的 Map 集合\njava.util.LinkedHashMap\t可保持插入顺序的哈希 Map 集合\njava.util.TreeMap\t红黑树实现的可排序 Map 集合\njava.util.HashSet\t哈希表实现的 Set 集合\njava.util.LinkedHashSet\t可保持插入顺序的哈希 Set 集合\njava.util.TreeSet\t红黑树实现的可排序 Set 集合\n通用工具\n表格\n全限定类名\t简要说明\njava.util.Collections\t集合操作静态工具类\njava.util.Arrays\t数组操作静态工具类\njava.util.Date\t传统日期时间类\njava.util.Calendar\t传统日历抽象类\njava.util.GregorianCalendar\t公历日历实现类\njava.util.Random\t伪随机数生成器\njava.util.Scanner\t用户输入获取工具类\njava.util.concurrent.ExecutorService\t线程池管理接口\n正则表达式\n表格\n全限定类名\t简要说明\njava.util.regex.Pattern\t正则表达式编译类\njava.util.regex.Matcher\t正则表达式匹配操作类\n3. IO 与 NIO 包\n表格\n全限定类名\t简要说明\njava.io.File\t文件与目录操作类\njava.io.InputStream\t字节输入流基础类\njava.io.OutputStream\t字节输出流基础类\njava.nio.file.Files\tNIO 文件操作工具类\n4. 日期时间 API\nJava 8 新时间 API（java.time 体系）\n表格\n全限定类名\t简要说明\njava.time.LocalDate\t本地日期（仅年月日）\njava.time.LocalTime\t本地时间（仅时分秒）\njava.time.LocalDateTime\t本地日期时间\njava.time.ZonedDateTime\t带时区的日期时间\njava.time.Instant\t时间戳（机器时间点）\njava.time.Period\t年月日粒度的日期间隔\njava.time.Duration\t时分秒 / 纳秒粒度的时间间隔\njava.time.temporal.ChronoUnit\t时间测量标准单位\njava.time.format.DateTimeFormatter\t线程安全的日期时间格式化与解析类\n传统日期时间\n表格\n全限定类名\t简要说明\njava.util.Date\t传统时间戳类\njava.util.Calendar\t传统日历抽象类\njava.text.SimpleDateFormat\t传统日期时间格式化类\n5. 网络编程\n表格\n全限定类名\t简要说明\njava.net.URL\tURL 资源定位处理类\njava.net.Socket\tTCP 套接字编程类\n二、主流第三方类库\n1. 单元测试\n表格\n库名称 / 核心类\t简要说明\nJUnit 5（org.junit.jupiter.api）\tJava 主流单元测试框架，提供注解、断言、参数化测试等能力\nJUnit 4（org.junit）\tJUnit 旧版本单元测试框架\nMockito（org.mockito.Mockito）\tMock 测试框架，用于模拟外部依赖、验证方法交互\n2. 日志框架\n表格\n库名称 / 核心类\t简要说明\nSLF4J（org.slf4j.Logger）\t日志门面框架，提供统一日志 API，可灵活绑定底层实现\nLog4j 1.x（org.apache.log4j.Logger）\tApache 开源日志实现框架\nLog4j 2.x（org.apache.logging.log4j）\tLog4j 升级版本，性能更强、配置更灵活\n3. Web 与企业开发框架\n表格\n库名称\t简要说明\nSpring Framework\t企业级应用开发框架，核心为控制反转（IoC）与面向切面编程（AOP）\nSpring Boot\tSpring 框架扩展，约定优于配置，可快速搭建独立生产级应用\n4. ORM 数据持久层框架\n表格\n库名称\t简要说明\nHibernate\t对象关系映射（ORM）框架，以面向对象方式操作数据库\nMyBatis\tSQL 映射框架，支持 SQL 与代码分离、动态 SQL 与结果映射\n5. JSON 处理\n表格\n库名称 / 核心类\t简要说明\nJackson（com.fasterxml.jackson.databind.ObjectMapper）\t高性能 JSON 序列化与反序列化工具库\nGson（com.google.gson.Gson）\tGoogle 出品的 JSON 处理库\n6. 项目构建工具\n表格\n工具名称\t简要说明\nApache Maven\t基于项目对象模型（POM）的构建与依赖管理工具\nGradle\t基于 Groovy/Kotlin DSL 的现代化构建工具，支持增量构建与缓存"
-    }
-  },
   "k_1787756263750_uhfc6q": {
     "id": "k_1787756263750_uhfc6q",
     "label": "创建",
@@ -142510,21 +142484,23 @@
   },
   "k_java_common_libraries": {
     "id": "k_java_common_libraries",
-    "label": "Java 常用类库",
+    "label": "类库",
     "role": "group",
     "dimensions": [
       "java",
       "jdk-api"
     ],
     "tags": [
-      "Java 常用类库",
+      "类库",
       "java",
       "jdk",
-      "常用类库"
+      "常用类库",
+      "Java 常用类库"
     ],
     "card": {
       "nodeId": "k_java_common_libraries",
-      "title": "Java 常用类库",
+      "title": "Java 类库",
+      "rootContent": "Java类库是支持Java应用开发的标准库。由Oracle与其他方通过Java社区过程项目共同控制。参与此过程的公司或个人可以影响API的设计和开发。该过程在2010年代曾引发争议。类库包含以下特性：\n\n以下类目在库中尚无独立条目，此处作为索引保留：\n\nJDK 核心类：\n- java.lang.Runtime — JVM 运行时环境类\n- java.util.Arrays — 数组操作静态工具类\n- java.util.regex.Pattern — 正则表达式编译类\n- java.util.regex.Matcher — 正则表达式匹配操作类\n- java.time.LocalDate — 本地日期（仅年月日）\n- java.time.LocalTime — 本地时间（仅时分秒）\n- java.time.LocalDateTime — 本地日期时间\n- java.time.ZonedDateTime — 带时区的日期时间\n- java.time.Instant — 时间戳（机器时间点）\n- java.time.Period — 年月日粒度的日期间隔\n- java.time.Duration — 时分秒 / 纳秒粒度的时间间隔\n- java.time.temporal.ChronoUnit — 时间测量标准单位\n- java.time.format.DateTimeFormatter — 线程安全的日期时间格式化与解析类\n- java.text.SimpleDateFormat — 传统日期时间格式化类\n- java.net.URL — URL 资源定位处理类\n\n第三方库：\n- JUnit 5（org.junit.jupiter.api） — Java 主流单元测试框架，提供注解、断言、参数化测试等能力\n- JUnit 4（org.junit） — JUnit 旧版本单元测试框架\n- Mockito（org.mockito.Mockito） — Mock 测试框架，用于模拟外部依赖、验证方法交互\n- SLF4J（org.slf4j.Logger） — 日志门面框架，提供统一日志 API，可灵活绑定底层实现\n- Log4j 1.x（org.apache.log4j.Logger） — Apache 开源日志实现框架\n- Log4j 2.x（org.apache.logging.log4j） — Log4j 升级版本，性能更强、配置更灵活\n- Jackson（com.fasterxml.jackson.databind.ObjectMapper） — 高性能 JSON 序列化与反序列化工具库\n- Gson（com.google.gson.Gson） — Google 出品的 JSON 处理库\n- Apache Maven — 基于项目对象模型（POM）的构建与依赖管理工具\n- Gradle — 基于 Groovy/Kotlin DSL 的现代化构建工具，支持增量构建与缓存",
       "tabs": [
         {
           "id": "def",
@@ -143784,45 +143760,6 @@
       "title": "特定对象的方法引用",
       "tabs": [],
       "rootContent": "instance::method\n引用某个具体对象的实例方法"
-    }
-  },
-  "k_1787852488347_zqzfjo": {
-    "id": "k_1787852488347_zqzfjo",
-    "label": "Base64",
-    "tags": [
-      "Base64"
-    ],
-    "card": {
-      "nodeId": "k_1787852488347_zqzfjo",
-      "title": "Base64",
-      "tabs": [],
-      "rootContent": "在Java 8中，Base64编码已经成为Java类库的标准。\n\nJava 8 内置了 Base64 编码的编码器和解码器。\n\nBase64工具类提供了一套静态方法获取下面三种BASE64编解码器：\n\n- **基本：** 输出被映射到一组字符A-Za-z0-9+/，编码不添加任何行标，输出的解码仅支持A-Za-z0-9+/。\n- **URL：** 输出映射到一组字符A-Za-z0-9+_，输出是URL和文件。\n- **MIME：** 输出隐射到MIME友好格式。输出每行不超过76字符，并且使用'\\r'并跟随'\\n'作为分割。编码输出最后没有行分割。"
-    }
-  },
-  "k_1787852533507_uv8rwh": {
-    "id": "k_1787852533507_uv8rwh",
-    "label": "内嵌类",
-    "tags": [
-      "内嵌类"
-    ],
-    "card": {
-      "nodeId": "k_1787852533507_uv8rwh",
-      "title": "内嵌类",
-      "tabs": [],
-      "rootContent": "| 序号  | 内嵌类 & 描述                                                                |\n| --- | ----------------------------------------------------------------------- |\n| 1   | **static class Base64.Decoder**该类实现一个解码器用于，使用 Base64 编码来解码字节数据。 |\n| 2   | **static class Base64.Encoder**该类实现一个编码器，使用 Base64 编码来编码字节数据。   |"
-    }
-  },
-  "k_1787852618831_l95bj1": {
-    "id": "k_1787852618831_l95bj1",
-    "label": "方法",
-    "tags": [
-      "方法"
-    ],
-    "card": {
-      "nodeId": "k_1787852618831_l95bj1",
-      "title": "方法",
-      "tabs": [],
-      "rootContent": "\n|序号|方法名 & 描述|\n|---|---|\n|1|**static Base64.Decoder getDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用基本型 base64 编码方案。|\n|2|**static Base64.Encoder getEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用基本型 base64 编码方案。|\n|3|**static Base64.Decoder getMimeDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用 MIME 型 base64 编码方案。|\n|4|**static Base64.Encoder getMimeEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用 MIME 型 base64 编码方案。|\n|5|**static Base64.Encoder getMimeEncoder(int lineLength, byte[] lineSeparator)**<br><br>返回一个 Base64.Encoder ，编码使用 MIME 型 base64 编码方案，可以通过参数指定每行的长度及行的分隔符。|\n|6|**static Base64.Decoder getUrlDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用 URL 和文件名安全型 base64 编码方案。|\n|7|**static Base64.Encoder getUrlEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用 URL 和文件名安全型 base64 编码方案。|\n\n**注意：**Base64 类的很多方法从 **java.lang.Object** 类继承。"
     }
   },
   "k_1787889496705_wo1lig": {
@@ -160700,6 +160637,38 @@
         ],
         "groups": []
       }
+    ]
+  },
+  "k_java_util_base64": {
+    "id": "k_java_util_base64",
+    "label": "java.util.Base64",
+    "card": {
+      "nodeId": "k_java_util_base64",
+      "title": "java.util.Base64",
+      "rootContent": "在Java 8中，Base64编码已经成为Java类库的标准。",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "在Java 8中，Base64编码已经成为Java类库的标准。\n\nJava 8 内置了 Base64 编码的编码器和解码器。\n\nBase64工具类提供了一套静态方法获取下面三种BASE64编解码器：\n\n- **基本：** 输出被映射到一组字符A-Za-z0-9+/，编码不添加任何行标，输出的解码仅支持A-Za-z0-9+/。\n- **URL：** 输出映射到一组字符A-Za-z0-9+_，输出是URL和文件。\n- **MIME：** 输出隐射到MIME友好格式。输出每行不超过76字符，并且使用'\\r'并跟随'\\n'作为分割。编码输出最后没有行分割。"
+        },
+        {
+          "id": "nested",
+          "label": "内嵌类",
+          "content": "| 序号  | 内嵌类 & 描述                                                                |\n| --- | ----------------------------------------------------------------------- |\n| 1   | **static class Base64.Decoder**该类实现一个解码器用于，使用 Base64 编码来解码字节数据。 |\n| 2   | **static class Base64.Encoder**该类实现一个编码器，使用 Base64 编码来编码字节数据。   |"
+        },
+        {
+          "id": "methods",
+          "label": "常用方法",
+          "content": "\n|序号|方法名 & 描述|\n|---|---|\n|1|**static Base64.Decoder getDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用基本型 base64 编码方案。|\n|2|**static Base64.Encoder getEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用基本型 base64 编码方案。|\n|3|**static Base64.Decoder getMimeDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用 MIME 型 base64 编码方案。|\n|4|**static Base64.Encoder getMimeEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用 MIME 型 base64 编码方案。|\n|5|**static Base64.Encoder getMimeEncoder(int lineLength, byte[] lineSeparator)**<br><br>返回一个 Base64.Encoder ，编码使用 MIME 型 base64 编码方案，可以通过参数指定每行的长度及行的分隔符。|\n|6|**static Base64.Decoder getUrlDecoder()**<br><br>返回一个 Base64.Decoder ，解码使用 URL 和文件名安全型 base64 编码方案。|\n|7|**static Base64.Encoder getUrlEncoder()**<br><br>返回一个 Base64.Encoder ，编码使用 URL 和文件名安全型 base64 编码方案。|\n\n**注意：**Base64 类的很多方法从 **java.lang.Object** 类继承。"
+        }
+      ]
+    },
+    "tags": [
+      "java.util.Base64",
+      "java",
+      "jdk",
+      "常用类库"
     ]
   }
 }

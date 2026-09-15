@@ -1,0 +1,433 @@
+{
+  "batchId": "java-library-parallel",
+  "stage": "PLAN_ONLY",
+  "writesData": false,
+  "baseRef": null,
+  "scope": {
+    "treeIds": [
+      "tree_1784343188605_zvliz7",
+      "tree_1787744961246_qrx71j",
+      "tree_1787852489274_38y4mx",
+      "tree_1787852534087_ihkz40",
+      "tree_1787852619447_kifsd4"
+    ],
+    "rootTreeId": "tree_1784343188605_zvliz7",
+    "parentTreeId": "tree_1782746457614_osttpr",
+    "siblingTreeId": "tree_java_common_libraries",
+    "nodeCount": 5,
+    "subtreeCount": 5
+  },
+  "facts": {
+    "treeNodes": 3209,
+    "poolKeys": 3856,
+    "edges": 4161,
+    "scopeContent": [
+      {
+        "name": "类库",
+        "treeId": "tree_1784343188605_zvliz7",
+        "ref": "k_1784343188560_x1gylq",
+        "chars": 719,
+        "tabs": 0,
+        "mounts": 1,
+        "edgesTouching": 3,
+        "idTimestamped": true
+      },
+      {
+        "name": "常用",
+        "treeId": "tree_1787744961246_qrx71j",
+        "ref": "k_1787744960960_nuqg5v",
+        "chars": 2801,
+        "tabs": 0,
+        "mounts": 1,
+        "edgesTouching": 1,
+        "idTimestamped": true
+      },
+      {
+        "name": "Base64",
+        "treeId": "tree_1787852489274_38y4mx",
+        "ref": "k_1787852488347_zqzfjo",
+        "chars": 277,
+        "tabs": 0,
+        "mounts": 1,
+        "edgesTouching": 3,
+        "idTimestamped": true
+      },
+      {
+        "name": "内嵌类",
+        "treeId": "tree_1787852534087_ihkz40",
+        "ref": "k_1787852533507_uv8rwh",
+        "chars": 311,
+        "tabs": 0,
+        "mounts": 1,
+        "edgesTouching": 1,
+        "idTimestamped": true
+      },
+      {
+        "name": "方法",
+        "treeId": "tree_1787852619447_kifsd4",
+        "ref": "k_1787852618831_l95bj1",
+        "chars": 821,
+        "tabs": 0,
+        "mounts": 1,
+        "edgesTouching": 1,
+        "idTimestamped": true
+      }
+    ],
+    "scopeEdges": [
+      "treebind:tree_1782746457614_osttpr:tree_1784343188605_zvliz7",
+      "treebind:tree_1784343188605_zvliz7:tree_1787744961246_qrx71j",
+      "treebind:tree_1784343188605_zvliz7:tree_1787852489274_38y4mx",
+      "treebind:tree_1787852489274_38y4mx:tree_1787852534087_ihkz40",
+      "treebind:tree_1787852489274_38y4mx:tree_1787852619447_kifsd4"
+    ],
+    "nonTreebindEdgesOfScope": 0,
+    "badgePathOnScopeChain": [],
+    "commonLibraryChildren": 22
+  },
+  "overlap": {
+    "routineFqcnRaw": 63,
+    "routineSimpleNames": 54,
+    "hitCommonLibraryChildren": [
+      "String",
+      "StringBuilder",
+      "StringBuffer",
+      "Character",
+      "Date",
+      "Calendar",
+      "GregorianCalendar",
+      "Scanner",
+      "File",
+      "Files",
+      "Socket"
+    ],
+    "hitAnyTree": 35,
+    "absentFromTree": [
+      "Runtime",
+      "Arrays",
+      "Pattern",
+      "Matcher",
+      "LocalDate",
+      "LocalTime",
+      "LocalDateTime",
+      "ZonedDateTime",
+      "Instant",
+      "Period",
+      "Duration",
+      "ChronoUnit",
+      "DateTimeFormatter",
+      "SimpleDateFormat",
+      "URL",
+      "Mockito",
+      "Logger",
+      "ObjectMapper",
+      "Gson"
+    ],
+    "thirdParty": [
+      {
+        "name": "JUnit",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Mockito",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "SLF4J",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Log4j",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Spring",
+        "treeHits": 25,
+        "where": [
+          "软件框架>Spring",
+          "Spring>Spring 事务管理",
+          "Spring>Spring 配置"
+        ]
+      },
+      {
+        "name": "Hibernate",
+        "treeHits": 1,
+        "where": [
+          "软件框架>Hibernate"
+        ]
+      },
+      {
+        "name": "MyBatis",
+        "treeHits": 10,
+        "where": [
+          "软件框架>Mybatis",
+          "Mybatis>MyBatis",
+          "Mybatis>MyBatis 配置体系"
+        ]
+      },
+      {
+        "name": "Jackson",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Gson",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Maven",
+        "treeHits": 0,
+        "where": []
+      },
+      {
+        "name": "Gradle",
+        "treeHits": 0,
+        "where": []
+      }
+    ],
+    "thirdPartyAbsent": [
+      "JUnit",
+      "Mockito",
+      "SLF4J",
+      "Log4j",
+      "Jackson",
+      "Gson",
+      "Maven",
+      "Gradle"
+    ]
+  },
+  "operations": [
+    {
+      "id": "OP-1",
+      "intent": "Base64 整枝（概述 277 + 内嵌类 311 + 方法 821 = 1409 字）保内容迁入「常用类库」",
+      "action": "move | reshape",
+      "targetIds": [
+        "tree_1787852489274_38y4mx",
+        "tree_1787852534087_ihkz40",
+        "tree_1787852619447_kifsd4"
+      ],
+      "from": "知识宇宙 > … > java > 类库 > Base64",
+      "to": "知识宇宙 > … > java > 常用类库 > <新语义节点>",
+      "variants": [
+        {
+          "v": "1a",
+          "desc": "原样搬迁（仍为 3 个树节点，父子形态不变）",
+          "delta": "树 0（净移动），边 −1（父端改写）+0"
+        },
+        {
+          "v": "1b",
+          "desc": "结构搬迁 + 形态变换：收成 1 个类节点 + 3 tabs（概述 / 内嵌类 / 方法），与 String·Scanner·Files 的 tabs 体系一致",
+          "delta": "树 −2，池 0（同一实体补 tabs 后 2 个子实体可退役）"
+        }
+      ],
+      "status": "NEEDS_DECISION",
+      "recommended": "1b",
+      "rationale": "全库已 tab 化 4 个类（String 33 / Scanner 23 / Files 29 / enum 6）；Base64 以「树子节点」承载方法表是**形态不一致**的孤例。1b 与既有惯例对齐。",
+      "risk": "中（形态变换，但内容逐字搬运、可逆）"
+    },
+    {
+      "id": "OP-2",
+      "intent": "「类库」总述（719 字，Java 类库维基体正文）归位",
+      "action": "move | set-field | delete",
+      "targetIds": [
+        "tree_1784343188605_zvliz7"
+      ],
+      "from": "知识宇宙 > … > java > 类库",
+      "variants": [
+        {
+          "v": "2a",
+          "desc": "保留为概念节点，作「常用类库」的父（类库 ⊃ 常用类库）",
+          "delta": "树 0（改挂 1 条边）"
+        },
+        {
+          "v": "2b",
+          "desc": "保留为 java 的兄弟节点，改名明确其「总述」身份",
+          "delta": "树 0（只改名 + 语义 id）"
+        },
+        {
+          "v": "2c",
+          "desc": "并入「常用类库」的 rootContent 作概述段（该实体当前**无 rootContent**）",
+          "delta": "树 −1，池 0"
+        },
+        {
+          "v": "2d",
+          "desc": "删（内容丢失 719 字）",
+          "delta": "树 −1，池 −1"
+        }
+      ],
+      "status": "NEEDS_DECISION",
+      "recommended": "2b",
+      "rationale": "719 字是**独有正文**（全库无第二个「Java 类库总述」），须保留。2a 会把「常用类库」降级为子节点，改动面大且与原树顺序语义冲突；2c 会让「常用类库」这个 group 容器背上上位概念正文。2b 改动最小且语义正确。",
+      "risk": "低（只改名 + id 语义化）"
+    },
+    {
+      "id": "OP-3",
+      "intent": "「类库 > 常用」（2801 字 FQCN 大全清单）留改删",
+      "action": "keep | set-field | delete",
+      "targetIds": [
+        "tree_1787744961246_qrx71j"
+      ],
+      "from": "知识宇宙 > … > java > 类库 > 常用",
+      "variants": [
+        {
+          "v": "3a-留",
+          "desc": "保留，改名明确其「索引」身份（如「常用类库索引（全限定名）」）",
+          "delta": "树 0（改名）"
+        },
+        {
+          "v": "3b-改",
+          "desc": "压缩为「常用类库」的 rootContent 索引段，或转为一个 tab",
+          "delta": "树 −1"
+        },
+        {
+          "v": "3c-删",
+          "desc": "删除",
+          "delta": "树 −1，池 −1"
+        }
+      ],
+      "status": "NEEDS_DECISION",
+      "recommended": "3a-留（改名）或 3b-改；不建议 3c",
+      "rationale": "清单去噪后 54 个类名：11 个已是「常用类库」直接子，35 个全树有节点，**19 个全树无节点**；另含第三方库，其中 **8 个全树无任何节点**（JUnit / Mockito / SLF4J / Log4j / Jackson / Gson / Maven / Gradle）。⇒ 3c 会**不可逆丢失**这 8 项索引信息。",
+      "risk": "3c = 高（信息有损）；3a/3b = 低"
+    },
+    {
+      "id": "OP-4",
+      "intent": "存活节点的 treeId 语义化（现 5 个全部为 tree_<时间戳>_<hash> 形态）",
+      "action": "rename",
+      "targetIds": [
+        "tree_1784343188605_zvliz7",
+        "tree_1787744961246_qrx71j",
+        "tree_1787852489274_38y4mx",
+        "tree_1787852534087_ihkz40",
+        "tree_1787852619447_kifsd4"
+      ],
+      "variants": [
+        {
+          "v": "4a",
+          "desc": "只给「本批后仍存活」的节点改名（含 treebind 边 id 两端同步）",
+          "delta": "每节点改 1 处 id + 1~2 条边 id"
+        },
+        {
+          "v": "4b",
+          "desc": "不动，留给「1521 条非语义 id」独立批次统一处理",
+          "delta": "0"
+        }
+      ],
+      "status": "NEEDS_DECISION",
+      "recommended": "4a（仅限存活者）",
+      "rationale": "项目硬规则：**结果 id 不得带时间戳/hash**（T3-P0 裁决）。本批若保留任何节点却留旧 id，等于把新增的语义节点钉回历史形态。范围有界（≤3 个存活者）。",
+      "risk": "低（映射表驱动，逐条同步边 id）"
+    },
+    {
+      "id": "OP-5",
+      "intent": "结构同步收尾：树节点 + treebind 边 + 池实体三者同增同减",
+      "action": "rewire | delete",
+      "targetIds": [
+        "tree_1784343188605_zvliz7",
+        "tree_1787744961246_qrx71j",
+        "tree_1787852489274_38y4mx",
+        "tree_1787852534087_ihkz40",
+        "tree_1787852619447_kifsd4"
+      ],
+      "status": "BLOCKED_UNTIL_CREATE",
+      "rationale": "具体增删取决于 OP-1~OP-3 的裁决结果。树 children 与成对 treebind 边必须**同增同减**（K 型批次判据）。",
+      "risk": "由上游裁决决定"
+    }
+  ],
+  "plans": [
+    {
+      "id": "Ⅰ",
+      "name": "留（不动）",
+      "delta": {
+        "tree": 0,
+        "pool": 0,
+        "edges": 0
+      },
+      "keeps": "全部内容与形态不变",
+      "loses": "—",
+      "cost": "平行树继续存在；Base64 形态孤立；5 个时间戳 id 保留",
+      "verdict": "可行但问题原样保留"
+    },
+    {
+      "id": "Ⅱ",
+      "name": "改（保内容 · 搬 + 转 + 归位）★ 推荐",
+      "delta": {
+        "tree": "−3 ~ −5（取决于 OP-1 变体与 OP-3 裁决）",
+        "pool": "−1 ~ 0",
+        "edges": "−3 ~ −4"
+      },
+      "keeps": "Base64 1409 字 / 类库总述 719 字 / 清单 2801 字（含 8 项第三方库索引）全部保留",
+      "loses": "仅「平行树」这一结构形态",
+      "cost": "Base64 形态变换（可逆）；清单需定性为索引",
+      "verdict": "唯一不丢内容的收敛方案"
+    },
+    {
+      "id": "Ⅲ",
+      "name": "删（整棵摘除）",
+      "delta": {
+        "tree": "−5",
+        "pool": "−5",
+        "edges": "−5"
+      },
+      "keeps": "—",
+      "loses": "Base64 1409 字 + 类库总述 719 字 + 清单 8 项第三方库索引（全树无替代节点）",
+      "cost": "不可逆信息损失",
+      "verdict": "⛔ 不成立 —— 除非先按方案Ⅱ 转移资产再摘容器"
+    }
+  ],
+  "decisionPoints": [
+    {
+      "id": "D1",
+      "q": "「类库/常用」留改删三选一（方案Ⅰ/Ⅱ/Ⅲ）",
+      "options": [
+        "Ⅰ 留",
+        "Ⅱ 改（推荐）",
+        "Ⅲ 删"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "D2",
+      "q": "Base64 迁入形态：1a 原样搬迁 / 1b 收成 tabs（推荐）",
+      "options": [
+        "1a",
+        "1b"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "D3",
+      "q": "「类库」总述归位：2a 作 常用类库 之父 / 2b 兄弟+改名（推荐）/ 2c 并入 rootContent / 2d 删",
+      "options": [
+        "2a",
+        "2b",
+        "2c",
+        "2d"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "D4",
+      "q": "「类库/常用」清单：3a 留+改名 / 3b 压缩为索引段 / 3c 删（信息有损）",
+      "options": [
+        "3a",
+        "3b",
+        "3c"
+      ],
+      "status": "OPEN"
+    },
+    {
+      "id": "D5",
+      "q": "存活节点 treeId 语义化：4a 本批做 / 4b 留给 1521 批次",
+      "options": [
+        "4a",
+        "4b"
+      ],
+      "status": "OPEN"
+    }
+  ]
+}
