@@ -6,7 +6,9 @@
   "preBatchSnapshot": "data/backups/versions-v1-2026-09-15T07-14-24-000Z",
   "preBatchSnapshotNote": "快照含 5 个既有 data 文件，与 HEAD(1509bc0) 逐字节相等（cmp 5/5 当场复核）。version-chains.json 是本批新建文件，批前不存在。独立验证不 import apply，由快照 ↔ 工作树反推。",
   "commitSubjectHint": "data: VERSIONS-V1 版本链模型第一批 — 新真源 version-chains.json（Java 3 + Spring 3 线性链）· requires 边 ×2（4161→4163）· 版本链 UI 双轨（独立验证 30/30 · UI 18/18）",
-  "status": "DRAFT",
+  "status": "COMMITTED",
+  "commitSha": "09d71f2",
+  "commitNote": "内容提交 09d71f2（写集 13 项，pathspec 由就绪门生成）；前置治理微提交 42c9cc3（就绪门 ancestorGate 对新建 data 文件的假性 BLOCK 豁免，独立提交避免数据批次夹带治理演进）。",
 
   "provenance": {
     "trigger": "用户提出版本链模型设计：EVOLUTION-V2 解决了「发生了什么变化」（动词），没解决「变成了什么」（名词）——版本是状态不是事件，需要可引用的版本实体。",
