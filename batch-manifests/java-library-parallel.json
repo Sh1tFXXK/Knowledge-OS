@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/java-library-parallel-2026-09-15T19-18-29-093Z",
   "preBatchSnapshotNote": "三文件**逐字节等于 HEAD 7b35217**（tree-data 1936497B / node-pool 12645761B / knowledge-edges 1139990B，已用 `git show HEAD:<f>` 逐一比对）⇒ 该快照可作回滚点，且「提交 diff 恰为本批操作」由此成立。journal.txt 记录 mode=designB / 5 删树 id / 5 删池 id / 5 删边 id / 1 加树 / 1 加边 / 改名 / 容器 rootContent 构成 / 边 4161→4157。本次运行落了两份**逐字节相同**的快照（19-18-29 与 19-19-03，各文件字节数与 md5 一致）—— 第二次是回滚后重跑，用于证明本批**确定性**（两次 apply 产出同一份字节）。",
   "commitSubjectHint": "data: JAVA-LIBRARY-PARALLEL 类库平行库树收口 — 旧「类库」整棵卸树留池 · 常用类库改名「类库」· Base64 收成三 tab 迁入 · 容器收 25 条缺失类目索引（树 3209→3205 · 池 3856→3852 · 边 4161→4157）（独立验证 57/57 · UI 21/21 · 回归 62/62）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
 
   "provenance": {
     "trigger": "A 批（合并删除 类/Files）与 B 批（卸掉 类/java.lang/Object 下 4 个重复挂载）收口后，用户给出下一批排序：先 C（结构清理：类库平行库树）后 D（内容融合：Files工具类 与 java.nio.file.Files 合并）。C 先做的理由：a. 无前置依赖；b. C 做完后 java 子树的 5 层重叠只剩 L5（索引级）与 D（内容级），局面更清晰；c. D 涉及内容融合、风险更高，等结构稳定后再做更稳。",
@@ -289,6 +289,6 @@
   ],
 
   "registeredAt": "2026-09-16",
-  "commitSha": null,
-  "commitShaNote": "内容提交 sha 与「status → COMMITTED」由紧随其后的登记提交承载（对齐 A/B 批的 c3a314f+4bb3b84 / d3a5878+7b35217 模式）。新基线：树 3205 / 池 3852 / 边 4157（evolution-events 2 / version-chains 2 链 6 节点不变）。"
+  "commitSha": "ce7e6a5",
+  "commitShaNote": "内容提交 ce7e6a5（父提交 = 7b35217 java-lib-overlap-b 登记；分支 optimize/performance；恰 10 文件 = writeSet，`git show --name-only` 已核）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载（对齐 A/B 批的 c3a314f+4bb3b84 / d3a5878+7b35217 模式）。新基线：树 3205 / 池 3852 / 边 4157（evolution-events 2 / version-chains 2 链 6 节点不变）。"
 }
