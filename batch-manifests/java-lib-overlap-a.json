@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/java-overlap-a-2026-09-15T16-29-40-980Z",
   "preBatchSnapshotNote": "三文件**逐字节等于 HEAD 010796a**（md5：node-pool 2e35cc66… / tree-data 571c7dde… / knowledge-edges 20783982…，已用 `git show HEAD:<f>` 逐一比对）。journal.txt 记录 baseline HEAD / 三文件计数 / 搬运 tab md5。⚠️ 本次落盘因**量具缺陷**（见 gates.applyGate.verifierBug）回滚重跑过一次，故 data/backups/ 下另存有一份同内容的 java-overlap-a-2026-09-15T16-28-33-921Z（首次中断运行的产物，两目录内容与 HEAD 全等）；本 manifest 只声明 16-29-40 为批前快照。",
   "commitSubjectHint": "data: JAVA-LIB-OVERLAP-A 合并删除「类/Files」— bestPractices 逐字节并入 java.nio.file.Files（树 3214→3213 · 池 3857→3856 · 边 4162→4161）（独立验证 19/19 · UI 36/36 · 回归 62/62）",
-  "status": "DRAFT",
+  "status": "COMMITTED",
 
   "provenance": {
     "trigger": "用户先要「java 子树 类/类库/常用类库 是否重叠」的只读侦察报告（本批的前置工作，产出 outputs/java-overlap-recon/），据报告给出**按风险分批**的执行计划，并指定当前执行批 = JAVA-LIB-OVERLAP-A。",
@@ -216,5 +216,7 @@
     }
   },
 
-  "registeredAt": "2026-09-16"
+  "registeredAt": "2026-09-16",
+  "commitSha": "c3a314f",
+  "commitShaNote": "内容提交 c3a314f（父提交 = 010796a core-library-methods 登记；分支 optimize/performance）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载。新基线：树 3213 / 池 3856 / 边 4161（evolution-events 2 / version-chains 2 链 6 节点不变）。"
 }
