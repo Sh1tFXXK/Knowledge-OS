@@ -14,6 +14,7 @@ const DATA_FILES = Object.freeze({
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
   evolutionEvents: 'evolution-events.json',
+  versionChains: 'version-chains.json',
 });
 const DATA_FILE_NAMES = new Set(Object.values(DATA_FILES));
 const RETRYABLE_FS_ERROR_CODES = new Set(['EBUSY', 'EPERM', 'EACCES', 'UNKNOWN']);
@@ -29,6 +30,7 @@ const DATA_PAYLOAD_VALIDATORS = new Map([
   [DATA_FILES.knowledgeEdges, Array.isArray],
   [DATA_FILES.questions, Array.isArray],
   [DATA_FILES.evolutionEvents, Array.isArray],
+  [DATA_FILES.versionChains, Array.isArray],
 ]);
 
 function isDataPayload(filename, body) {

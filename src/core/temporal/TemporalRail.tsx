@@ -1,6 +1,7 @@
 import { Play } from 'lucide-react';
 import { evolutionEventTypeLabel } from '../../knowledge/timelineEvolution';
 import type { KnowledgeEvolutionEvent } from '../../knowledge/timelineEvolution';
+import { VersionChainRail } from './VersionChainRail';
 
 function formatEventDate(occurredAt: number): string {
   if (!occurredAt) return '';
@@ -12,6 +13,11 @@ function formatEventDate(occurredAt: number): string {
   }).format(occurredAt);
 }
 
+/**
+ * 时间维度双轨（versions-v1）：事件轨（发生了什么）+ 版本链轨（变成了什么）。
+ * 事件段条件渲染（无事件时整段不出现），版本链轨由 VersionChainRail 自行决定
+ * 是否渲染（其内部为空时返回 null，整体退回旧行为：轨道完全不可见）。
+ */
 export function TemporalRail({
   events,
   activeEvent,
@@ -27,7 +33,7 @@ export function TemporalRail({
   onToggleFollow: (follow: boolean) => void;
   onPlay: () => void;
 }) {
-  if (events.length === 0) return null;
+  if (events.length === 0) return <VersionChainRail />;
 
   return (
     <section className="explanation-index-timeline-lens" aria-label="索引时间维度">
@@ -88,6 +94,7 @@ export function TemporalRail({
         {activeEvent?.summary
           ?? '版本说明不进入稳定索引，真正新增的知识会在对应时间点出现。'}
       </p>
+      <VersionChainRail embedded />
     </section>
   );
 }
