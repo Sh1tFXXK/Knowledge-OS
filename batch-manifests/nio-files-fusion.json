@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/nio-files-fusion-2026-09-15T20-21-14-300Z",
   "preBatchSnapshotNote": "三文件**逐字节等于 HEAD adf752b** ⇒ 该快照可作回滚点，且「提交 diff 恰为本批操作」由此成立。journal.txt 记录 role=SURVIVOR:k_java_nio_file_files / DONOR:k_nio_files_util / GUIDE:k_1787916226907_9aq9u6、tabs 32→53、sigAppend 六方法、proseReplace 四方法、rootContent 63→134、tags +3、以及 Δ 树/池/边 各 −2。",
   "commitSubjectHint": "data: NIO-FILES-FUSION 融合 — Files工具类 全量并入 java.nio.file.Files（tabs 32→53）· 导览「常见用法」随批删除 · 最佳实践不动（树 3205→3203 · 池 3852→3850 · 边 4157→4155）（独立验证 28/28 · UI 22/22 · 回归 62/62）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
 
   "provenance": {
     "trigger": "C 批（java-library-parallel）收口时明确留下的下一批：C 已把 java 子树的结构面理顺，5 层重叠只剩 L5（索引级）与 D（内容级）。D 批 = `Files工具类` 与 `java.nio.file.Files` 的**内容融合**（近似超集：SURVIVOR 29 方法 / DONOR 50 方法名、重叠 27）。",
@@ -325,6 +325,6 @@
   ],
 
   "registeredAt": "2026-09-16",
-  "commitSha": null,
-  "commitShaNote": "内容提交与登记提交的 sha 由本次双提交产生（对齐 A/B/C 批的 c3a314f+4bb3b84 / d3a5878+7b35217 / ce7e6a5+adf752b 模式）。新基线：树 3203 / 池 3850 / 边 4155（evolution-events 2 / version-chains 2 链 6 节点不变）。"
+  "commitSha": "5378b41",
+  "commitShaNote": "内容提交 **5378b41**（父提交 = adf752b java-library-parallel 登记；分支 optimize/performance；恰 **13 文件** = writeSet，`git show --name-only` 已核；`13 files changed, 5183 insertions(+), 91 deletions(-)`）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载（对齐 A/B/C 批的 c3a314f+4bb3b84 / d3a5878+7b35217 / ce7e6a5+adf752b 模式）。新基线：**树 3203 / 池 3850 / 边 4155**（evolution-events 2 / version-chains 2 链 6 节点不变）。"
 }
