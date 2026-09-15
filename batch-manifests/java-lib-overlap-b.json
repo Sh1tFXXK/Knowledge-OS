@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/java-lib-overlap-b-2026-09-15T17-12-12-656Z",
   "preBatchSnapshotNote": "三文件**逐字节等于 HEAD 4bb3b84**（tree-data b73ab965… / node-pool 8db49b12… / knowledge-edges 7bef3f60…，已用 `git show HEAD:<f>` 逐一比对）。⚠️ 快照最初只含本批写集文件（tree-data + knowledge-edges）；**事后补入 node-pool.json** 的理由：本批不写池，但 verify 需要「批前 ↔ 当前」的池零漂移断言来源，而该副本已实测与 HEAD 逐字节相等（`git status` 亦证明池未被修改）。journal.txt 记录 baseline / 计数 / 待卸 treeId / 原蓝图预期边（已证实不存在）。",
   "commitSubjectHint": "data: JAVA-LIB-OVERLAP-B 卸树留池 — 摘掉「类/Object」下 4 个重复挂载（String/StringBuilder/StringBuffer/Scanner）（树 3213→3209 · 池 3856 不变 · 边 4161 不变）（独立验证 17/17 · UI 26/26 · 回归 62/62）",
-  "status": "DRAFT",
+  "status": "COMMITTED",
 
   "provenance": {
     "trigger": "A 批收口后用户给出下一步：JAVA-LIB-OVERLAP-B —— 卸掉 `类/java.lang/Object` 下 4 个重复挂载，保留池实体与 `常用类库` 下的挂载。",
@@ -219,5 +219,7 @@
     }
   ],
 
-  "registeredAt": "2026-09-16"
+  "registeredAt": "2026-09-16",
+  "commitSha": "d3a5878",
+  "commitShaNote": "内容提交 d3a5878（父提交 = 4bb3b84 java-lib-overlap-a 登记；分支 optimize/performance）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载。新基线：树 3209 / 池 3856 / 边 4161（evolution-events 2 / version-chains 2 链 6 节点不变）。"
 }
