@@ -142596,6 +142596,7 @@
     "card": {
       "nodeId": "k_java_lang_string",
       "title": "java.lang.String",
+      "rootContent": "不可变字符序列。直接赋值存常量池可复用，`new` 创建在堆上。",
       "tabs": [
         {
           "id": "def",
@@ -142611,6 +142612,171 @@
           "id": "methods",
           "label": "常用方法",
           "content": "String 常用方法分类：\n\n【字符与长度】\n- int length()：返回字符串长度\n- char charAt(int index)：返回指定索引处的字符\n- char[] toCharArray()：转换为字符数组\n- byte[] getBytes()：使用默认字符集编码为字节数组\n- byte[] getBytes(String charsetName)：使用指定字符集编码\n\n【比较】\n- boolean equals(Object anObject)：比较字符串内容\n- boolean equalsIgnoreCase(String anotherString)：忽略大小写比较\n- int compareTo(String anotherString)：按字典顺序比较\n- int compareToIgnoreCase(String str)：忽略大小写字典比较\n- boolean contentEquals(StringBuffer sb)：与 StringBuffer 字符序列比较\n- boolean regionMatches(...)：测试两个字符串区域是否相等\n\n【查找】\n- int indexOf(int ch / String str)：返回首次出现的索引\n- int indexOf(int ch / String str, int fromIndex)：从指定索引开始查找\n- int lastIndexOf(...)：返回最后一次出现的索引\n- boolean contains(CharSequence chars)：判断是否包含指定字符序列\n- boolean startsWith(String prefix)：测试是否以指定前缀开始\n- boolean endsWith(String suffix)：测试是否以指定后缀结束\n\n【截取与修改】\n- String substring(int beginIndex[, int endIndex])：返回子字符串\n- String concat(String str)：连接字符串\n- String replace(char oldChar, char newChar)：替换所有指定字符\n- String replaceAll(String regex, String replacement)：正则替换所有匹配\n- String replaceFirst(String regex, String replacement)：替换第一个匹配\n- String[] split(String regex[, int limit])：按正则拆分字符串\n- String trim()：去除前导和尾部空白\n- String toLowerCase() / toUpperCase()：大小写转换\n\n【转换与格式化】\n- static String valueOf(...)：基本类型转字符串\n- static String copyValueOf(char[] data)：字符数组转字符串\n- static String format(String format, Object... args)：创建格式化字符串\n- String intern()：返回字符串的规范化表示形式\n- boolean matches(String regex)：判断是否匹配正则表达式\n- boolean isEmpty()：判断字符串是否为空"
+        },
+        {
+          "id": "length",
+          "label": "length()",
+          "content": "返回字符串长度。\n\n`int length()`"
+        },
+        {
+          "id": "charAt",
+          "label": "charAt()",
+          "content": "返回指定索引处的字符。\n\n`char charAt(int index)`"
+        },
+        {
+          "id": "getChars",
+          "label": "getChars()",
+          "content": "将字符复制到目标字符数组。\n\n`void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)`"
+        },
+        {
+          "id": "toCharArray",
+          "label": "toCharArray()",
+          "content": "转换为字符数组。\n\n`char[] toCharArray()`"
+        },
+        {
+          "id": "getBytes",
+          "label": "getBytes()",
+          "content": "使用默认或指定字符集编码为字节数组。\n\n`byte[] getBytes()` ／ `byte[] getBytes(String charsetName)`"
+        },
+        {
+          "id": "equals",
+          "label": "equals()",
+          "content": "比较字符串内容。\n\n`boolean equals(Object anObject)`"
+        },
+        {
+          "id": "equalsIgnoreCase",
+          "label": "equalsIgnoreCase()",
+          "content": "忽略大小写比较字符串内容。\n\n`boolean equalsIgnoreCase(String anotherString)`"
+        },
+        {
+          "id": "compareTo",
+          "label": "compareTo()",
+          "content": "按字典顺序比较。\n\n`int compareTo(String anotherString)`"
+        },
+        {
+          "id": "compareToIgnoreCase",
+          "label": "compareToIgnoreCase()",
+          "content": "忽略大小写按字典顺序比较。\n\n`int compareToIgnoreCase(String str)`"
+        },
+        {
+          "id": "contentEquals",
+          "label": "contentEquals()",
+          "content": "与指定字符序列比较内容。\n\n`boolean contentEquals(StringBuffer sb)`"
+        },
+        {
+          "id": "regionMatches",
+          "label": "regionMatches()",
+          "content": "测试两个字符串的区域是否相等。\n\n`boolean regionMatches(int toffset, String other, int ooffset, int len)` ／ `boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)`"
+        },
+        {
+          "id": "indexOf",
+          "label": "indexOf()",
+          "content": "返回指定字符或子字符串首次出现的索引，未找到返回 -1。\n\n`int indexOf(int ch)` ／ `int indexOf(int ch, int fromIndex)` ／ `int indexOf(String str)` ／ `int indexOf(String str, int fromIndex)`"
+        },
+        {
+          "id": "lastIndexOf",
+          "label": "lastIndexOf()",
+          "content": "返回指定字符或子字符串最后一次出现的索引，未找到返回 -1。\n\n`int lastIndexOf(int ch)` ／ `int lastIndexOf(int ch, int fromIndex)` ／ `int lastIndexOf(String str)` ／ `int lastIndexOf(String str, int fromIndex)`"
+        },
+        {
+          "id": "contains",
+          "label": "contains()",
+          "content": "判断是否包含指定字符序列。\n\n`boolean contains(CharSequence chars)`"
+        },
+        {
+          "id": "startsWith",
+          "label": "startsWith()",
+          "content": "测试是否以指定前缀开始。\n\n`boolean startsWith(String prefix)` ／ `boolean startsWith(String prefix, int toffset)`"
+        },
+        {
+          "id": "endsWith",
+          "label": "endsWith()",
+          "content": "测试是否以指定后缀结束。\n\n`boolean endsWith(String suffix)`"
+        },
+        {
+          "id": "substring",
+          "label": "substring()",
+          "content": "返回自指定索引开始、或指定区间的子字符串。\n\n`String substring(int beginIndex)` ／ `String substring(int beginIndex, int endIndex)`"
+        },
+        {
+          "id": "subSequence",
+          "label": "subSequence()",
+          "content": "返回指定区间的字符序列。\n\n`CharSequence subSequence(int beginIndex, int endIndex)`"
+        },
+        {
+          "id": "concat",
+          "label": "concat()",
+          "content": "将指定字符串连接到当前字符串结尾。\n\n`String concat(String str)`"
+        },
+        {
+          "id": "replace",
+          "label": "replace()",
+          "content": "替换所有出现的指定字符。\n\n`String replace(char oldChar, char newChar)`"
+        },
+        {
+          "id": "replaceAll",
+          "label": "replaceAll()",
+          "content": "用给定替换内容替换所有匹配正则的子字符串。\n\n`String replaceAll(String regex, String replacement)`"
+        },
+        {
+          "id": "replaceFirst",
+          "label": "replaceFirst()",
+          "content": "替换匹配正则的第一个子字符串。\n\n`String replaceFirst(String regex, String replacement)`"
+        },
+        {
+          "id": "split",
+          "label": "split()",
+          "content": "根据正则表达式拆分字符串，可用 limit 限制拆分次数。\n\n`String[] split(String regex)` ／ `String[] split(String regex, int limit)`"
+        },
+        {
+          "id": "trim",
+          "label": "trim()",
+          "content": "去除前导和尾部空白。\n\n`String trim()`"
+        },
+        {
+          "id": "toLowerCase",
+          "label": "toLowerCase()",
+          "content": "转换为小写，可指定区域设置。\n\n`String toLowerCase()` ／ `String toLowerCase(Locale locale)`"
+        },
+        {
+          "id": "toUpperCase",
+          "label": "toUpperCase()",
+          "content": "转换为大写，可指定区域设置。\n\n`String toUpperCase()` ／ `String toUpperCase(Locale locale)`"
+        },
+        {
+          "id": "valueOf",
+          "label": "valueOf()",
+          "content": "返回基本类型参数的字符串表示。\n\n`static String valueOf(primitive data type x)`"
+        },
+        {
+          "id": "copyValueOf",
+          "label": "copyValueOf()",
+          "content": "返回字符数组（或其指定区间）表示的字符串。\n\n`static String copyValueOf(char[] data)` ／ `static String copyValueOf(char[] data, int offset, int count)`"
+        },
+        {
+          "id": "format",
+          "label": "format()",
+          "content": "创建格式化字符串。\n\n`static String format(String format, Object... args)`"
+        },
+        {
+          "id": "intern",
+          "label": "intern()",
+          "content": "返回字符串对象的规范化表示形式。\n\n`String intern()`"
+        },
+        {
+          "id": "matches",
+          "label": "matches()",
+          "content": "判断是否匹配给定正则表达式。\n\n`boolean matches(String regex)`"
+        },
+        {
+          "id": "hashCode",
+          "label": "hashCode()",
+          "content": "返回字符串的哈希码。\n\n`int hashCode()`"
+        },
+        {
+          "id": "isEmpty",
+          "label": "isEmpty()",
+          "content": "判断字符串是否为空。\n\n`boolean isEmpty()`"
         }
       ]
     }
@@ -142704,6 +142870,7 @@
     "card": {
       "nodeId": "k_java_util_scanner",
       "title": "java.util.Scanner",
+      "rootContent": "Java 5 引入的文本扫描器，从 InputStream / File / String 读取输入，按分隔符模式解析为标记。",
       "tabs": [
         {
           "id": "def",
@@ -142719,6 +142886,121 @@
           "id": "methods",
           "label": "常用方法",
           "content": "Scanner 常用方法分类：\n\n【构造方法】\n- Scanner(File source)：从文件创建\n- Scanner(InputStream source)：从输入流创建\n- Scanner(String source)：从字符串创建\n\n【基本输入】\n- boolean hasNext()：检查是否有下一个标记\n- String next()：读取下一个标记（字符串）\n- boolean hasNextLine()：检查是否有下一行\n- String nextLine()：读取下一行内容\n\n【类型检查】\n- boolean hasNextInt()：检查下一个标记是否为整数\n- boolean hasNextDouble()：检查是否为双精度浮点数\n- boolean hasNextBoolean()：检查是否为布尔值\n\n【类型读取】\n- int nextInt()：读取整数\n- double nextDouble()：读取双精度浮点数\n- boolean nextBoolean()：读取布尔值\n- long nextLong()：读取长整数\n- float nextFloat()：读取单精度浮点数\n- short nextShort()：读取短整数\n- byte nextByte()：读取字节\n\n【分隔符控制】\n- Scanner useDelimiter(String pattern)：设置分隔符模式\n- Scanner useDelimiter(Pattern pattern)：使用正则设置分隔符\n- String delimiter()：返回当前使用的分隔符模式\n\n【其他】\n- void close()：关闭扫描器\n- Scanner skip(Pattern / String pattern)：跳过匹配指定模式的输入\n- String findInLine(Pattern / String pattern)：在当前行中查找指定模式\n- Scanner reset()：重置扫描器\n- Locale locale()：返回当前区域设置\n- Scanner useLocale(Locale locale)：设置区域设置"
+        },
+        {
+          "id": "scanner",
+          "label": "Scanner()",
+          "content": "从文件、输入流或字符串创建扫描器。\n\n`Scanner(File source)` ／ `Scanner(InputStream source)` ／ `Scanner(String source)`"
+        },
+        {
+          "id": "hasNext",
+          "label": "hasNext()",
+          "content": "检查是否有下一个标记（以空白分隔）。\n\n`boolean hasNext()`"
+        },
+        {
+          "id": "next",
+          "label": "next()",
+          "content": "读取下一个标记（字符串），不能得到带空格的字符串。\n\n`String next()`"
+        },
+        {
+          "id": "hasNextLine",
+          "label": "hasNextLine()",
+          "content": "检查是否有下一行。\n\n`boolean hasNextLine()`"
+        },
+        {
+          "id": "nextLine",
+          "label": "nextLine()",
+          "content": "读取下一行内容，以 Enter 为结束符并保留前导空白。\n\n`String nextLine()`"
+        },
+        {
+          "id": "hasNextInt",
+          "label": "hasNextInt()",
+          "content": "检查下一个标记是否为整数。\n\n`boolean hasNextInt()`"
+        },
+        {
+          "id": "hasNextDouble",
+          "label": "hasNextDouble()",
+          "content": "检查下一个标记是否为双精度浮点数。\n\n`boolean hasNextDouble()`"
+        },
+        {
+          "id": "hasNextBoolean",
+          "label": "hasNextBoolean()",
+          "content": "检查下一个标记是否为布尔值。\n\n`boolean hasNextBoolean()`"
+        },
+        {
+          "id": "nextInt",
+          "label": "nextInt()",
+          "content": "读取下一个整数。\n\n`int nextInt()`"
+        },
+        {
+          "id": "nextDouble",
+          "label": "nextDouble()",
+          "content": "读取下一个双精度浮点数。\n\n`double nextDouble()`"
+        },
+        {
+          "id": "nextBoolean",
+          "label": "nextBoolean()",
+          "content": "读取下一个布尔值。\n\n`boolean nextBoolean()`"
+        },
+        {
+          "id": "nextLong",
+          "label": "nextLong()",
+          "content": "读取下一个长整数。\n\n`long nextLong()`"
+        },
+        {
+          "id": "nextFloat",
+          "label": "nextFloat()",
+          "content": "读取下一个单精度浮点数。\n\n`float nextFloat()`"
+        },
+        {
+          "id": "nextShort",
+          "label": "nextShort()",
+          "content": "读取下一个短整数。\n\n`short nextShort()`"
+        },
+        {
+          "id": "nextByte",
+          "label": "nextByte()",
+          "content": "读取下一个字节。\n\n`byte nextByte()`"
+        },
+        {
+          "id": "useDelimiter",
+          "label": "useDelimiter()",
+          "content": "设置分隔符模式，可传字符串或正则 Pattern。\n\n`Scanner useDelimiter(String pattern)` ／ `Scanner useDelimiter(Pattern pattern)`"
+        },
+        {
+          "id": "delimiter",
+          "label": "delimiter()",
+          "content": "返回当前使用的分隔符模式。\n\n`String delimiter()`"
+        },
+        {
+          "id": "close",
+          "label": "close()",
+          "content": "关闭扫描器。\n\n`void close()`"
+        },
+        {
+          "id": "skip",
+          "label": "skip()",
+          "content": "跳过匹配指定模式的输入。\n\n`Scanner skip(Pattern pattern)` ／ `Scanner skip(String pattern)`"
+        },
+        {
+          "id": "findInLine",
+          "label": "findInLine()",
+          "content": "在当前行中查找指定模式。\n\n`String findInLine(Pattern pattern)` ／ `String findInLine(String pattern)`"
+        },
+        {
+          "id": "reset",
+          "label": "reset()",
+          "content": "重置扫描器。\n\n`Scanner reset()`"
+        },
+        {
+          "id": "locale",
+          "label": "locale()",
+          "content": "返回扫描器当前使用的区域设置。\n\n`Locale locale()`"
+        },
+        {
+          "id": "useLocale",
+          "label": "useLocale()",
+          "content": "设置扫描器的区域设置。\n\n`Scanner useLocale(Locale locale)`"
         }
       ]
     }
@@ -142740,6 +143022,7 @@
     "card": {
       "nodeId": "k_java_nio_file_files",
       "title": "java.nio.file.Files",
+      "rootContent": "java.nio.file 包下的静态文件工具类，所有方法均为静态方法，配合 Path 使用，统一抛 IOException。",
       "tabs": [
         {
           "id": "def",
@@ -142750,6 +143033,151 @@
           "id": "comparison",
           "label": "与传统IO对比",
           "content": "Files 类（NIO）与传统 I/O（java.io）对比：\n\n| 特性 | Files 类（NIO） | 传统 I/O（java.io） |\n|------|------------------|----------------------|\n| 方法类型 | 静态方法 | 实例方法 |\n| 路径表示 | 使用 Path 接口 | 使用 File 类 |\n| 异常处理 | 统一使用 IOException | 多种异常类型 |\n| 功能丰富度 | 更丰富 | 基础功能 |\n| 符号链接处理 | 原生支持 | 有限支持 |\n| 文件属性操作 | 更全面 | 有限 |"
+        },
+        {
+          "id": "copy",
+          "label": "copy()",
+          "content": "将文件从源路径复制到目标路径。\n\n`static Path copy(Path source, Path target, CopyOption... options)`"
+        },
+        {
+          "id": "move",
+          "label": "move()",
+          "content": "移动或重命名文件。\n\n`static Path move(Path source, Path target, CopyOption... options)`"
+        },
+        {
+          "id": "delete",
+          "label": "delete()",
+          "content": "删除文件。\n\n`static void delete(Path path)`"
+        },
+        {
+          "id": "deleteIfExists",
+          "label": "deleteIfExists()",
+          "content": "如果文件存在则删除。\n\n`static boolean deleteIfExists(Path path)`"
+        },
+        {
+          "id": "exists",
+          "label": "exists()",
+          "content": "检查文件是否存在。\n\n`static boolean exists(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "isDirectory",
+          "label": "isDirectory()",
+          "content": "检查路径是否为目录。\n\n`static boolean isDirectory(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "isRegularFile",
+          "label": "isRegularFile()",
+          "content": "检查路径是否为常规文件。\n\n`static boolean isRegularFile(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "isReadable",
+          "label": "isReadable()",
+          "content": "检查文件是否可读。\n\n`static boolean isReadable(Path path)`"
+        },
+        {
+          "id": "isWritable",
+          "label": "isWritable()",
+          "content": "检查文件是否可写。\n\n`static boolean isWritable(Path path)`"
+        },
+        {
+          "id": "isExecutable",
+          "label": "isExecutable()",
+          "content": "检查文件是否可执行。\n\n`static boolean isExecutable(Path path)`"
+        },
+        {
+          "id": "size",
+          "label": "size()",
+          "content": "返回文件大小（字节）。\n\n`static long size(Path path)`"
+        },
+        {
+          "id": "getLastModifiedTime",
+          "label": "getLastModifiedTime()",
+          "content": "获取文件最后修改时间。\n\n`static FileTime getLastModifiedTime(Path path, LinkOption... options)`"
+        },
+        {
+          "id": "readAllBytes",
+          "label": "readAllBytes()",
+          "content": "读取文件所有字节。\n\n`static byte[] readAllBytes(Path path)`"
+        },
+        {
+          "id": "readAllLines",
+          "label": "readAllLines()",
+          "content": "读取文件所有行，可指定字符集。\n\n`static List<String> readAllLines(Path path)` ／ `static List<String> readAllLines(Path path, Charset cs)`"
+        },
+        {
+          "id": "lines",
+          "label": "lines()",
+          "content": "返回文件中行的流，可指定字符集。\n\n`static Stream<String> lines(Path path)` ／ `static Stream<String> lines(Path path, Charset cs)`"
+        },
+        {
+          "id": "write",
+          "label": "write()",
+          "content": "将字节或文本行写入文件。\n\n`static Path write(Path path, byte[] bytes, OpenOption... options)` ／ `static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)`"
+        },
+        {
+          "id": "list",
+          "label": "list()",
+          "content": "列出目录中的条目。\n\n`static Stream<Path> list(Path dir)`"
+        },
+        {
+          "id": "newDirectoryStream",
+          "label": "newDirectoryStream()",
+          "content": "打开目录流。\n\n`static DirectoryStream<Path> newDirectoryStream(Path dir)`"
+        },
+        {
+          "id": "createDirectory",
+          "label": "createDirectory()",
+          "content": "创建单级目录。\n\n`static Path createDirectory(Path dir, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "createDirectories",
+          "label": "createDirectories()",
+          "content": "创建多级目录（包括所有不存在的父目录）。\n\n`static Path createDirectories(Path dir, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "createTempFile",
+          "label": "createTempFile()",
+          "content": "创建临时文件。\n\n`static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "createTempDirectory",
+          "label": "createTempDirectory()",
+          "content": "创建临时目录。\n\n`static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "newByteChannel",
+          "label": "newByteChannel()",
+          "content": "打开或创建文件，返回可查找的字节通道。\n\n`static SeekableByteChannel newByteChannel(Path path, OpenOption... options)`"
+        },
+        {
+          "id": "newInputStream",
+          "label": "newInputStream()",
+          "content": "打开文件输入流。\n\n`static InputStream newInputStream(Path path, OpenOption... options)`"
+        },
+        {
+          "id": "newOutputStream",
+          "label": "newOutputStream()",
+          "content": "打开文件输出流。\n\n`static OutputStream newOutputStream(Path path, OpenOption... options)`"
+        },
+        {
+          "id": "newBufferedReader",
+          "label": "newBufferedReader()",
+          "content": "打开缓冲读取器。\n\n`static BufferedReader newBufferedReader(Path path)`"
+        },
+        {
+          "id": "newBufferedWriter",
+          "label": "newBufferedWriter()",
+          "content": "打开缓冲写入器。\n\n`static BufferedWriter newBufferedWriter(Path path, OpenOption... options)`"
+        },
+        {
+          "id": "createFile",
+          "label": "createFile()",
+          "content": "创建新文件。\n\n`static Path createFile(Path path, FileAttribute<?>... attrs)`"
+        },
+        {
+          "id": "probeContentType",
+          "label": "probeContentType()",
+          "content": "探测文件内容类型。\n\n`static String probeContentType(Path path)`"
         }
       ]
     }
@@ -142787,6 +143215,36 @@
           "id": "methods",
           "label": "常用方法",
           "content": "枚举常用方法（继承自 java.lang.Enum）：\n\n- static T[] values()：返回枚举类中所有常量的数组，可用于迭代枚举元素\n- int ordinal()：返回枚举常量的索引位置（从 0 开始，按声明顺序）\n- static T valueOf(String name)：返回指定字符串名称对应的枚举常量；不存在时抛出 IllegalArgumentException\n- String name()：返回枚举常量的名称（与声明时的名称一致）\n- int compareTo(E o)：比较枚举常量的定义顺序\n- Class<E> getDeclaringClass()：返回枚举常量所属的枚举类 Class 对象\n- boolean equals(Object other)：比较两个枚举常量是否相同\n- int hashCode()：返回枚举常量的哈希码\n- String toString()：返回枚举常量的名称（可重写）\n\n枚举类成员：\n- 可以定义成员变量（实例字段）\n- 可以定义构造函数（必须 private）\n- 可以定义具体方法和抽象方法\n- 可以实现接口"
+        },
+        {
+          "id": "values",
+          "label": "values()",
+          "content": "返回枚举类中所有常量的数组。\n\n`static T[] values()`"
+        },
+        {
+          "id": "ordinal",
+          "label": "ordinal()",
+          "content": "返回枚举常量的索引位置（从 0 开始）。\n\n`int ordinal()`"
+        },
+        {
+          "id": "valueOf",
+          "label": "valueOf()",
+          "content": "返回指定字符串名称对应的枚举常量；不存在时抛出 `IllegalArgumentException`。\n\n`static T valueOf(String name)`"
+        },
+        {
+          "id": "name",
+          "label": "name()",
+          "content": "返回枚举常量的名称。\n\n`String name()`"
+        },
+        {
+          "id": "compareTo",
+          "label": "compareTo()",
+          "content": "比较枚举常量的定义顺序。\n\n`int compareTo(E o)`"
+        },
+        {
+          "id": "getDeclaringClass",
+          "label": "getDeclaringClass()",
+          "content": "返回枚举常量所属的枚举类 `Class` 对象。\n\n`Class<E> getDeclaringClass()`"
         }
       ],
       "rootContent": "核心特性\n\n​-特殊的类，用于表示一组固定常量，使用 enum 关键字定义\n​-每个枚举常量在内部都是 public static final 的枚举类实例\n​- 枚举类默认继承 java.lang.Enum，并实现 Serializable 和 Comparable 接口\n​-枚举常量之间使用逗号分隔\n​-可声明在顶层类或内部类中\n​-可应用于 switch 语句\n​-可以使用 for 语句来迭代枚举元素\n​枚举类成员\n-\n可以定义自己的成员变量、方法和构造函数\n​-\n构造函数只能使用 private 访问修饰符，外部无法调用\n​-\n￼ \n可以包含具体方法和抽象方法；若包含抽象方法，则每个枚举常量必须实现该抽象方法\n​\n​\n￼\n常用方法（继承自 java.lang.Enum）\n￼\n方法\n￼\n￼\n说明\n￼\nstatic T[] values()\n￼\n返回枚举类中所有常量的数组\nint ordinal()\n\n返回枚举常量的索引位置（从 0 开始）\nstatic T valueOf(String name)\n\n返回指定字符串名称对应的枚举常量；不存在时抛出 IllegalArgumentException\nString name()\n\n返回枚举常量的名称\nint compareTo(E o)\n\n比较枚举常量的定义顺序\nClass<E> getDeclaringClass()\n\n返回枚举常量所属的枚举类 Class 对象\n\n￼Java 枚举（enum）是一个特殊的类，一般表示一组固定常量，例如一年的 4 个季节、12 个月份、一周的 7 天、方向的东南西北等。\n\n枚举类使用 enum 关键字定义，各个常量使用逗号分隔。\n\n每个枚举在内部通过 Class 实现，所有枚举值都是 public static final 的。枚举类默认继承 java.lang.Enum，并实现 java.lang.Serializable 和 java.lang.Comparable 两个接口。\n\n枚举类可以声明在顶层，也可以声明在内部类中。"
@@ -145506,32 +145964,6 @@
         }
       ],
       "rootContent": "Java 8 Stream java 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。 Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。 Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。 这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。 元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。 +--------------------+ +------+ +------+ +---+ +-------+ | stream of elements +-----> |filter+-> |sorted+-> |map+-> |collect| +--------------------+ +------+ +------+ +---+ +-------+ 以上的流程转换为 Java 代码为： List< Integer> transactionsIds = widgets.stream() .filter(b -> b.getColor() == RED) .sorted((x,y) -> x.getWeight() - y.getWeight()) .mapToInt(Widget::getWeight) .sum(); --- ## 什么是 Stream？ Stream（流）是一个来自数据源的元素队列并支持聚合操作 - 元素是特定类型的对象，形成一个队列。 Java中的Stream并不会存储元素，而是按需计算。 - **数据源** 流的来源。 可以是集合，数组，I/O channel， 产生器generator 等。 - **聚合操作** 类似SQL语句一样的操作， 比如filter, map, reduce, find, match, sorted等。 和以前的Collection操作不同， Stream操作还有两个基础的特征： - **Pipelining**: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化， 比如延迟执行(laziness)和短路( short-circuiting)。 - **内部迭代**： 以前对集合遍历都是通过Iterator或者For-Each的方式, 显式的在集合外部进行迭代， 这叫做外部迭代。 Stream提供了内部迭代的方式， 通过访问者模式(Visitor)实现。 --- ## 生成流 在 Java 8 中, 集合接口有两个方法来生成流： - **stream()** − 为集合创建串行流。 - **parallelStream()** − 为集合创建并行流。 List< String> strings = Arrays.asList(\"abc\", \"\", \"bc\", \"efg\", \"abcd\",\"\", \"jkl\"); List< String> filtered = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList()); --- ## forEach Stream 提供了新的方法 'forEach' 来迭代流中的每个数据。以下代码片段使用 forEach 输出了10个随机数： Random random = new Random(); random.ints().limit(10).forEach(System.out::println); --- ## map map 方法用于映射每个元素到对应的结果，以下代码片段使用 map 输出了元素对应的平方数： List< Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5); // 获取对应的平方数 List< Integer> squaresList = numbers.stream().map( i -> i * i).distinct().collect(Collectors.toList()); --- ## filter filter 方法用于通过设置的条件过滤出元素。以下代码片段使用 filter 方法过滤出空字符串： List< String>strings = Arrays.asList(\"abc\", \"\", \"bc\", \"efg\", \"abcd\",\"\", \"jkl\"); // 获取空字符串的数量 long count = strings.stream().filter(string -> string.isEmpty()).count(); --- ## limit limit 方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出 10 条数据： Random random = new Random(); random.ints().limit(10).forEach(System.out::println); --- ## sorted sorted 方法用于对流进行排序。以下代码片段使用 sorted 方法对输出的 10 个随机数进行排序： Random random = new Random(); random.ints().limit(10).sorted().forEach(System.out::println); --- ## 并行（parallel）程序 parallelStream 是流并行处理程序的代替方法。以下实例我们使用 parallelStream 来输出空字符串的数量： List< String> strings = Arrays.asList(\"abc\", \"\", \"bc\", \"efg\", \"abcd\",\"\", \"jkl\"); // 获取空字符串的数量 long count = strings.parallelStream().filter(string -> string.isEmpty()).count(); 我们可以很容易的在顺序运行和并行之间切换。 --- ## Collectors Collectors 类实现了很多归约操作，例如将流转换成集合和聚合元素。Collectors 可用于返回列表或字符串： List< String>strings = Arrays.asList(\"abc\", \"\", \"bc\", \"efg\", \"abcd\",\"\", \"jkl\"); List< String> filtered = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList()); System.out.println(\"筛选列表: \" + filtered); String mergedString = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.joining(\", \")); System.out.println(\"合并字符串: \" + mergedString); --- ## 统计 另外，一些产生统计结果的收集器也非常有用。它们主要用于int、double、long等基本类型上，它们可以用来产生类似如下的统计结果。 List< Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5); IntSummaryStatistics stats = numbers.stream().mapToInt((x) -> x).summaryStatistics(); System.out.println(\"列表中最大的数 : \" + stats.getMax()); System.out.println(\"列表中最小的数 : \" + stats.getMin()); System.out.println(\"所有数之和 : \" + stats.getSum()); System.out.println(\"平均数 : \" + stats.getAverage()); --- ## Stream 完整实例 将以下代码放入 Java8Tester.java 文件中： ## Java8Tester.java 文件 import java.util.ArrayList; import java.util.Arrays; import java.util.IntSummaryStatistics; import java.util.List; import java.util.Random; import java.util.stream.Collectors; import java.util.Map; public class Java8Tester { public static void main(String args[]){ System.out.println(\"使用 Java 7: \"); // 计算空字符串 List< String> strings = Arrays.asList(\"abc\", \"\", \"bc\", \"efg\", \"abcd\",\"\", \"jkl\"); System.out.println(\"列表: \" +strings); long count = getCountEmptyStringUsingJava7(strings); System.out.println(\"空字符数量为: \" + count); count = getCountLength3UsingJava7(strings); System.out.println(\"字符串长度为 3 的数量为: \" + count); // 删除空字符串 List< String> filtered = deleteEmptyStringsUsingJava7(strings); System.out.println(\"筛选后的列表: \" + filtered); // 删除空字符串，并使用逗号把它们合并起来 String mergedString = getMergedStringUsingJava7(strings,\", \"); System.out.println(\"合并字符串: \" + mergedString); List< Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5); // 获取列表元素平方数 List< Integer> squaresList = getSquares(numbers); System.out.println(\"平方数列表: \" + squaresList); List< Integer> integers = Arrays.asList(1,2,13,4,15,6,17,8,19); System.out.println(\"列表: \" +integers); System.out.println(\"列表中最大的数 : \" + getMax(integers)); System.out.println(\"列表中最小的数 : \" + getMin(integers)); System.out.println(\"所有数之和 : \" + getSum(integers)); System.out.println(\"平均数 : \" + getAverage(integers)); System.out.println(\"随机数: \"); // 输出10个随机数 Random random = new Random(); for(int i=0; i < 10; i++){ System.out.println(random.nextInt()); } System.out.println(\"使用 Java 8: \"); System.out.println(\"列表: \" +strings); count = strings.stream().filter(string->string.isEmpty()).count(); System.out.println(\"空字符串数量为: \" + count); count = strings.stream().filter(string -> string.length() == 3).count(); System.out.println(\"字符串长度为 3 的数量为: \" + count); filtered = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.toList()); System.out.println(\"筛选后的列表: \" + filtered); mergedString = strings.stream().filter(string ->!string.isEmpty()).collect(Collectors.joining(\", \")); System.out.println(\"合并字符串: \" + mergedString); squaresList = numbers.stream().map( i ->i * i).distinct().collect(Collectors.toList()); System.out.println(\"Squares List: \" + squaresList); System.out.println(\"列表: \" +integers); IntSummaryStatistics stats = integers.stream().mapToInt((x) ->x).summaryStatistics(); System.out.println(\"列表中最大的数 : \" + stats.getMax()); System.out.println(\"列表中最小的数 : \" + stats.getMin()); System.out.println(\"所有数之和 : \" + stats.getSum()); System.out.println(\"平均数 : \" + stats.getAverage()); System.out.println(\"随机数: \"); random.ints().limit(10).sorted().forEach(System.out::println); // 并行处理 count = strings.parallelStream().filter(string -> string.isEmpty()).count(); System.out.println(\"空字符串的数量为: \" + count); } private static int getCountEmptyStringUsingJava7(List< String> strings){ int count = 0; for(String string: strings){ if(string.isEmpty()){ count++; } } return count; } private static int getCountLength3UsingJava7(List< String> strings){ int count = 0; for(String string: strings){ if(string.length() == 3){ count++; } } return count; } private static List< String> deleteEmptyStringsUsingJava7(List< String> strings){ List< String> filteredList = new ArrayList< String>(); for(String string: strings){ if(!string.isEmpty()){ filteredList.add(string); } } return filteredList; } private static String getMergedStringUsingJava7(List< String> strings, String separator){ StringBuilder stringBuilder = new StringBuilder(); for(String string: strings){ if(!string.isEmpty()){ stringBuilder.append(string); stringBuilder.append(separator); } } String mergedString = stringBuilder.toString(); return mergedString.substring(0, mergedString.length()-2); } private static List< Integer> getSquares(List< Integer> numbers){ List< Integer> squaresList = new ArrayList< Integer>(); for(Integer number: numbers){ Integer square = new Integer(number.intValue() * number.intValue()); if(!squaresList.contains(square)){ squaresList.add(square); } } return squaresList; } private static int getMax(List< Integer> numbers){ int max = numbers.get(0); for(int i=1;i < numbers.size();i++){ Integer number = numbers.get(i); if(number.intValue() > max){ max = number.intValue(); } } return max; } private static int getMin(List< Integer> numbers){ int min = numbers.get(0); for(int i=1;i < numbers.size();i++){ Integer number = numbers.get(i); if(number.intValue() < min){ min = number.intValue(); } } return min; } private static int getSum(List numbers){ int sum = (int)(numbers.get(0)); for(int i=1;i < numbers.size();i++){ sum += (int)numbers.get(i); } return sum; } private static int getAverage(List< Integer> numbers){ return getSum(numbers) / numbers.size(); } } 执行以上脚本，输出结果为： $ javac Java8Tester.java $ java Java8Tester 使用 Java 7: 列表: [abc, , bc, efg, abcd, , jkl] 空字符数量为: 2 字符串长度为 3 的数量为: 3 筛选后的列表: [abc, bc, efg, abcd, jkl] 合并字符串: abc, bc, efg, abcd, jkl 平方数列表: [9, 4, 49, 25] 列表: [1, 2, 13, 4, 15, 6, 17, 8, 19] 列表中最大的数 : 19 列表中最小的数 : 1 所有数之和 : 85 平均数 : 9 随机数: -393170844 -963842252 447036679 -1043163142 -881079698 221586850 -1101570113 576190039 -1045184578 1647841045 使用 Java 8: 列表: [abc, , bc, efg, abcd, , jkl] 空字符串数量为: 2 字符串长度为 3 的数量为: 3 筛选后的列表: [abc, bc, efg, abcd, jkl] 合并字符串: abc, bc, efg, abcd, jkl Squares List: [9, 4, 49, 25] 列表: [1, 2, 13, 4, 15, 6, 17, 8, 19] 列表中最大的数 : 19 列表中最小的数 : 1 所有数之和 : 85 平均数 : 9.444444444444445 随机数: -1743813696 -1301974944 -1299484995 -779981186 136544902 555792023 1243315896 1264920849 1472077135 1706423674 空字符串的数量为: 2 # Java Stream API > **创建时间**: 2025-12-01 > **说明**: Java 8 引入的函数式流操作API，用于在元素流上执行函数式风格操作 --- ## 概述 Java Stream API 是 Java 8 引入的一个重要特性，它提供了一种声明式的方式来处理数据集合。Stream 不是数据结构，不存储数据，而是对数据源进行运算操作。Stream 可以让我们以函数式的方式处理集合数据，使代码更加简洁、可读性更高。 ### 核心特点 - **声明式**: 更简洁、更易读，通过描述想要什么而非如何获取 - **函数式**: 支持 Lambda 表达式和函数式接口 - **管道式**: 多个操作可以链接起来形成管道 - **惰性执行**: 中间操作是惰性的，只有终端操作触发执行 - **内部迭代**: 由 Stream 内部管理迭代，无需手动遍历 ### 包路径 `java.util.stream` 包提供了在元素流上执行函数式风格操作的类和接口。 --- ## Stream 的创建 ### 从集合创建 ```java // 从 Collection 创建 List<String> list = Arrays.asList(\"a\", \"b\", \"c\"); Stream<String> stream = list.stream(); // 并行流 Stream<String> parallelStream = list.parallelStream(); ``` ### 从数组创建 ```java // 从数组创建 Integer[] array = {1, 2, 3, 4, 5}; Stream<Integer> stream = Arrays.stream(array); // 使用 Stream.of() Stream<Integer> stream2 = Stream.of(1, 2, 3, 4, 5); Stream<String> stream3 = Stream.of(\"a\", \"b\", \"c\"); ``` ### 创建无限流 ```java // 迭代生成 Stream<Integer> stream = Stream.iterate(0, n -> n + 2).limit(5); // 输出: 0, 2, 4, 6, 8 // 生成随机数 Stream<Double> stream = Stream.generate(Math::random).limit(5); ``` ### 其他创建方式 ```java // 空流 Stream<String> empty = Stream.empty(); // 字符串流 IntStream chars = \"hello\".chars(); // 文件行流 try (Stream<String> lines = Files.lines(Paths.get(\"file.txt\"))) { // 处理行 } ``` --- ## 中间操作（Intermediate Operations） 中间操作会返回一个新的 Stream，可以链式调用。它们是惰性的，在终端操作之前不会执行。 ### 筛选操作 ```java List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10); // filter - 根据条件过滤 List<Integer> evens = numbers.stream() .filter(n -> n % 2 == 0) .collect(Collectors.toList()); // distinct - 去重 List<Integer> distinct = numbers.stream() .distinct() .collect(Collectors.toList()); // limit - 限制数量 List<Integer> limited = numbers.stream() .limit(5) .collect(Collectors.toList()); // skip - 跳过前n个 List<Integer> skipped = numbers.stream() .skip(3) .collect(Collectors.toList()); ``` ### 映射操作 ```java List<String> words = Arrays.asList(\"hello\", \"world\", \"java\", \"stream\"); // map - 映射转换 List<Integer> lengths = words.stream() .map(String::length) .collect(Collectors.toList()); // flatMap - 扁平化映射 List<String> sentences = Arrays.asList( \"hello world\", \"java stream\", \"flat map example\" ); List<String> allWords = sentences.stream() .flatMap(s -> Arrays.stream(s.split(\" \"))) .collect(Collectors.toList()); // mapToInt, mapToLong, mapToDouble IntStream intStream = words.stream().mapToInt(String::length); ``` ### 排序操作 ```java List<Integer> numbers = Arrays.asList(5, 2, 8, 1, 9, 3); // 自然排序 List<Integer> sorted = numbers.stream() .sorted() .collect(Collectors.toList()); // 自定义排序 List<Integer> sortedDesc = numbers.stream() .sorted(Comparator.reverseOrder()) .collect(Collectors.toList()); // 根据对象属性排序 List<String> words = Arrays.asList(\"apple\", \"banana\", \"cherry\"); List<String> sortedByLength = words.stream() .sorted(Comparator.comparingInt(String::length)) .collect(Collectors.toList()); ``` ### peek 操作 ```java // peek 用于调试，查看流经的元素 List<Integer> result = numbers.stream() .filter(n -> n % 2 == 0) .peek(n -> System.out.println(\"Filtered: \" + n)) .map(n -> n * 2) .peek(n -> System.out.println(\"Mapped: \" + n)) .collect(Collectors.toList()); ``` --- ## 终端操作（Terminal Operations） 终端操作会触发流的处理，并返回结果或副作用。每个 Stream 只能有一个终端操作。 ### 聚合操作 ```java List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10); // collect - 收集结果 List<Integer> list = numbers.stream() .filter(n -> n > 5) .collect(Collectors.toList()); Set<Integer> set = numbers.stream() .filter(n -> n > 5) .collect(Collectors.toSet()); // toMap Map<String, Integer> map = words.stream() .collect(Collectors.toMap( String::toUpperCase, String::length )); // groupingBy - 分组 Map<Integer, List<String>> grouped = words.stream() .collect(Collectors.groupingBy(String::length)); // joining - 连接字符串 String joined = words.stream() .collect(Collectors.joining(\", \", \"[\", \"]\")); ``` ### 匹配操作 ```java List<Integer> numbers = Arrays.asList(1, 3, 5, 7, 9); // allMatch - 所有元素都匹配 boolean allOdd = numbers.stream() .allMatch(n -> n % 2 == 1); // anyMatch - 任意元素匹配 boolean hasEven = numbers.stream() .anyMatch(n -> n % 2 == 0); // noneMatch - 没有元素匹配 boolean noneNegative = numbers.stream() .noneMatch(n -> n < 0); ``` ### 查找操作 ```java = Arrays.asList(1, 2, 3List<Integer> numbers, 4, 5); // findAny - 查找任意元素 Optional<Integer> any = numbers.stream() .filter(n -> n > 3) .findAny(); // findFirst - 查找第一个元素 Optional<Integer> first = numbers.stream() .filter(n -> n > 3) .findFirst(); ``` ### 归约操作 ```java List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5); // reduce - 归约 Optional<Integer> sum = numbers.stream() .reduce(Integer::sum); Integer sumWithIdentity = numbers.stream() .reduce(0, Integer::sum); Integer product = numbers.stream() .reduce(1, (a, b) -> a * b); // max 和 min Optional<Integer> max = numbers.stream().max(Integer::compareTo); Optional<Integer> min = numbers.stream().min(Integer::compareTo); ``` ### 统计操作 ```java List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10); // count long count = numbers.stream().count(); // forEach 和 forEachOrdered numbers.stream().forEach(System.out::println); numbers.parallelStream().forEachOrdered(System.out::println); ``` ### 基本类型流特有操作 ```java IntStream intStream = IntStream.rangeClosed(1, 100); // sum, average, max, min int sum = intStream.sum(); OptionalDouble avg = intStream.average(); OptionalInt max = intStream.max(); OptionalInt min = intStream.min(); IntStream.of(1, 2, 3, 4, 5) .summaryStatistics() .getSum(); ``` --- ## 常用操作组合示例 ### 数据过滤和转换 ```java List<String> names = Arrays.asList(\"Alice\", \"Bob\", \"Charlie\", \"David\"); // 找出长度大于4的名字，转大写，收集到列表 List<String> result = names.stream() .filter(name -> name.length() > 4) .map(String::toUpperCase) .collect(Collectors.toList()); // 输出: [CHARLIE, DAVID] ``` ### 分组统计 ```java List<String> words = Arrays.asList(\"apple\", \"banana\", \"cherry\", \"date\", \"elderberry\"); // 按长度分组 Map<Integer, List<String>> byLength = words.stream() .collect(Collectors.groupingBy(String::length)); // 按长度分组并统计数量 Map<Integer, Long> countByLength = words.stream() .collect(Collectors.groupingBy( String::length, Collectors.counting() )); // 分组后对每组求和（使用Map的value） Map<String, Integer> fruitCount = Map.of( \"apple\", 5, \"banana\", 3, \"cherry\", 8 ); Map<Integer, List<String>> grouped = fruitCount.entrySet().stream() .collect(Collectors.groupingBy( Map.Entry::getValue, Collectors.mapping(Map.Entry::getKey, Collectors.toList()) )); ``` ### 去重和排序 ```java List<Integer> numbers = Arrays.asList(5, 2, 8, 1, 9, 3, 5, 2, 8); // 去重后排序 List<Integer> sorted = numbers.stream() .distinct() .sorted() .collect(Collectors.toList()); // 输出: [1, 2, 3, 5, 8, 9] ``` ### 查找最大最小值 ```java List<Dish> menu = Arrays.asList( new Dish(\"pork\", false, 800, Dish.Type.MEAT), new Dish(\"beef\", false, 700, Dish.Type.MEAT), new Dish(\"chicken\", false, 400, Dish.Type.MEAT), new Dish(\"french fries\", true, 530, Dish.Type.OTHER), new Dish(\"rice\", true, 350, Dish.Type.OTHER), new Dish(\"seasonal fruit\", true, 120, Dish.Type.OTHER), new Dish(\"pizza\", true, 550, Dish.Type.OTHER) ); // 查找热量最高的菜品 Optional<Dish> mostCaloricDish = menu.stream() .reduce((d1, d2) -> d1.getCalories() > d2.getCalories() ? d1 : d2); // 使用 maxBy Dish maxDish = menu.stream() .collect(Collectors.maxBy(Comparator.comparing(Dish::getCalories))) .orElseThrow(); // 按类型分组找出热量最高的 Map<Dish.Type, Optional<Dish>> mostCaloricByType = menu.stream() .collect(Collectors.groupingBy( Dish::getType, Collectors.maxBy(Comparator.comparing(Dish::getCalories)) )); ``` ### 扁平化处理 ```java List<List<Integer>> nestedList = Arrays.asList( Arrays.asList(1, 2, 3), Arrays.asList(4, 5, 6), Arrays.asList(7, 8, 9) ); // 扁平化为一维列表 List<Integer> flat = nestedList.stream() .flatMap(List::stream) .collect(Collectors.toList()); // 输出: [1, 2, 3, 4, 5, 6, 7, 8, 9] // 单词分割 List<String> sentences = Arrays.asList( \"hello world\", \"java stream\", \"flat map\" ); List<String> allWords = sentences.stream() .flatMap(s -> Arrays.stream(s.split(\" \"))) .distinct() .collect(Collectors.toList()); ``` --- ## 性能优化技巧 ### 1. 使用正确的数据结构 ```java // 避免在中间操作中使用 boxed()，尽量使用基本类型流 // 错误写法 Stream<Integer> boxedStream = IntStream.range(0, 100).boxed(); // 正确写法 IntStream intStream = IntStream.range(0, 100); ``` ### 2. 使用 findAny() 替代 findFirst() 在并行流中 ```java // 在并行流中，findAny() 可能更快 Optional<String> result = list.parallelStream() .filter(s -> s.startsWith(\"A\")) .findAny(); // 比 findFirst() 更高效 ``` ### 3. 使用 limit() 限制数据量 ```java // 在处理大数据集时，使用 limit 避免处理全部数据 list.stream() .filter(this::isExpensive) .limit(100) .collect(Collectors.toList()); ``` ### 4. 避免在管道中执行副作用 ```java // 错误写法 List<String> list = new ArrayList<>(); stream.filter(...).forEach(list::add); // 有副作用 // 正确写法 List<String> result = stream.filter(...).collect(Collectors.toList()); ``` ### 5. 使用短路操作 ```java // 使用 anyMatch、allMatch、noneMatch、findFirst、findAny 等短路操作 // 可以避免处理整个流 ``` --- ## 最佳实践 ### 1. 链式调用保持可读性 ```java // 推荐：每个操作在独立行，缩进清晰 List<String> dishNames = menu.stream() .filter(Dish::isVegetarian) .map(Dish::getName) .limit(3) .collect(Collectors.toList()); ``` ### 2. 使用方法引用增强可读性 ```java // 推荐：使用方法引用 List<String> names = menu.stream() .map(Dish::getName) .collect(Collectors.toList()); // 避免过度使用 Lambda List<String> names = menu.stream() .map(d -> d.getName()) // 可读性稍差 .collect(Collectors.toList()); ``` ### 3. 合理使用并行流 ```java // 数据量大、计算密集时考虑并行流 // 简单的并行计算 int sum = IntStream.rangeClosed(1, 1000000) .parallel() .sum(); // 不适合使用并行流的情况 // 1. 数据量小 // 2. 计算简单 // 3. 有顺序依赖 // 4. 使用有状态操作 ``` ### 4. 避免在终端操作中修改流源 ```java // 错误 List<String> list = new ArrayList<>(); stream.forEach(list::add); // 可能 ConcurrentModificationException // 正确 List<String> result = stream.collect(Collectors.toList()); ``` --- ## 常见问题 ### 1. Stream 只能消费一次 ```java Stream<String> stream = list.stream(); stream.forEach(System.out::println); // 第一次消费 stream.forEach(System.out::println); // 报错：Stream has already been operated upon ``` ### 2. 延迟执行特性 ```java Stream<Integer> stream = list.stream() .filter(n -> { System.out.println(\"filter: \" + n); return n > 3; }) .map(n -> { System.out.println(\"map: \" + n); return n * 2; }); // 此时没有任何输出，因为终端操作还未执行 stream.collect(Collectors.toList()); // 触发实际执行 ``` ### 3. 正确处理 Optional ```java // 使用 Optional 的正确方式 Optional<String> result = stream.findFirst(); // 不要这样用 String name = result.get(); // 可能抛出 NoSuchElementException // 正确做法 String name = result.orElse(\"default\"); String name = result.orElseGet(() -> getDefault()); String name = result.orElseThrow(() -> new RuntimeException(\"Not found\")); ``` --- > **提示**: Stream API 的强大之处在于其组合性，熟练掌握各种操作的组合使用可以写出简洁高效的代码。"
-    }
-  },
-  "k_vault_javajava_1b1w4s": {
-    "id": "k_vault_javajava_1b1w4s",
-    "label": "常用类库整理",
-    "role": "concept",
-    "dimensions": [
-      "java"
-    ],
-    "tags": [
-      "常用类库整理",
-      "java",
-      "常用类库",
-      "JDK API"
-    ],
-    "card": {
-      "nodeId": "k_vault_javajava_1b1w4s",
-      "title": "常用类库整理",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "## 一、java.lang.String\n\n### 核心特性\n- 不可变字符序列，对象创建后值无法修改\n- 直接赋值的字符串存放在字符串常量池中，可复用；`new` 创建的字符串对象在堆上\n- 需大量修改字符串时应使用 `StringBuilder` 或 `StringBuffer`\n\n### 常用方法\n\n#### 字符与长度\n| 方法 | 说明 |\n|------|------|\n| `int length()` | 返回字符串长度 |\n| `char charAt(int index)` | 返回指定索引处的字符 |\n| `void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)` | 将字符复制到目标字符数组 |\n| `char[] toCharArray()` | 转换为字符数组 |\n| `byte[] getBytes()` | 使用默认字符集编码为字节数组 |\n| `byte[] getBytes(String charsetName)` | 使用指定字符集编码为字节数组 |\n\n#### 比较\n| 方法 | 说明 |\n|------|------|\n| `boolean equals(Object anObject)` | 比较字符串内容 |\n| `boolean equalsIgnoreCase(String anotherString)` | 忽略大小写比较内容 |\n| `int compareTo(String anotherString)` | 按字典顺序比较 |\n| `int compareToIgnoreCase(String str)` | 忽略大小写按字典顺序比较 |\n| `boolean contentEquals(StringBuffer sb)` | 与指定 StringBuffer 字符序列比较 |\n| `boolean regionMatches(int toffset, String other, int ooffset, int len)` | 测试两个字符串区域是否相等 |\n| `boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)` | 可忽略大小写的区域比较 |\n\n#### 查找\n| 方法 | 说明 |\n|------|------|\n| `int indexOf(int ch)` | 返回指定字符首次出现的索引 |\n| `int indexOf(int ch, int fromIndex)` | 从指定索引开始查找字符首次出现位置 |\n| `int indexOf(String str)` | 返回指定子字符串首次出现的索引 |\n| `int indexOf(String str, int fromIndex)` | 从指定索引开始查找子字符串首次出现位置 |\n| `int lastIndexOf(int ch)` | 返回指定字符最后一次出现的索引 |\n| `int lastIndexOf(int ch, int fromIndex)` | 从指定索引反向查找字符最后出现位置 |\n| `int lastIndexOf(String str)` | 返回子字符串最右边出现的索引 |\n| `int lastIndexOf(String str, int fromIndex)` | 从指定索引反向查找子字符串最后出现位置 |\n| `boolean contains(CharSequence chars)` | 判断是否包含指定字符序列 |\n| `boolean startsWith(String prefix)` | 测试是否以指定前缀开始 |\n| `boolean startsWith(String prefix, int toffset)` | 测试从指定索引开始的子字符串是否以指定前缀开始 |\n| `boolean endsWith(String suffix)` | 测试是否以指定后缀结束 |\n\n#### 截取与修改\n| 方法 | 说明 |\n|------|------|\n| `String substring(int beginIndex)` | 返回从指定索引开始的子字符串 |\n| `String substring(int beginIndex, int endIndex)` | 返回指定区间的子字符串 |\n| `CharSequence subSequence(int beginIndex, int endIndex)` | 返回指定区间的字符序列 |\n| `String concat(String str)` | 将指定字符串连接到此字符串结尾 |\n| `String replace(char oldChar, char newChar)` | 替换所有出现的指定字符 |\n| `String replaceAll(String regex, String replacement)` | 使用给定替换内容替换所有匹配正则的子字符串 |\n| `String replaceFirst(String regex, String replacement)` | 替换匹配正则的第一个子字符串 |\n| `String[] split(String regex)` | 根据正则表达式拆分字符串 |\n| `String[] split(String regex, int limit)` | 根据正则表达式拆分字符串，限制拆分次数 |\n| `String trim()` | 去除前导和尾部空白 |\n| `String toLowerCase()` | 转换为小写 |\n| `String toLowerCase(Locale locale)` | 使用指定区域设置转换为小写 |\n| `String toUpperCase()` | 转换为大写 |\n| `String toUpperCase(Locale locale)` | 使用指定区域设置转换为大写 |\n\n#### 转换与格式化\n| 方法 | 说明 |\n|------|------|\n| `static String valueOf(primitive data type x)` | 返回基本类型参数的字符串表示 |\n| `static String copyValueOf(char[] data)` | 返回字符数组表示的字符串 |\n| `static String copyValueOf(char[] data, int offset, int count)` | 返回字符数组指定区间表示的字符串 |\n| `static String format(String format, Object... args)` | 创建格式化字符串 |\n| `String intern()` | 返回字符串对象的规范化表示形式 |\n| `boolean matches(String regex)` | 判断是否匹配给定正则表达式 |\n| `int hashCode()` | 返回字符串的哈希码 |\n| `boolean isEmpty()` | 判断字符串是否为空 |\n\n---\n\n## 二、java.util.Scanner\n\n### 核心特性\n- Java 5 引入，用于获取用户输入\n- 可从 `InputStream`、`File`、`String` 等多种源创建\n- 以空白为默认分隔符，可自定义分隔符模式\n\n### next() 与 nextLine() 区别\n| 方法 | 结束标志 | 前导空白 | 能否包含空格 |\n|------|----------|----------|--------------|\n| `next()` | 读取到有效字符后，以其后空白为分隔符结束 | 自动去除 | 不能 |\n| `nextLine()` | 以 Enter 为结束符，返回回车前所有字符 | 保留 | 能 |\n\n### 常用方法\n\n#### 构造方法\n| 方法 | 说明 |\n|------|------|\n| `Scanner(File source)` | 从文件创建 Scanner |\n| `Scanner(InputStream source)` | 从输入流创建 Scanner |\n| `Scanner(String source)` | 从字符串创建 Scanner |\n\n#### 基本输入\n| 方法 | 说明 |\n|------|------|\n| `boolean hasNext()` | 检查是否有下一个标记（以空格分隔） |\n| `String next()` | 读取下一个标记（字符串） |\n| `boolean hasNextLine()` | 检查是否有下一行 |\n| `String nextLine()` | 读取下一行内容 |\n\n#### 类型检查\n| 方法 | 说明 |\n|------|------|\n| `boolean hasNextInt()` | 检查下一个标记是否为整数 |\n| `boolean hasNextDouble()` | 检查下一个标记是否为双精度浮点数 |\n| `boolean hasNextBoolean()` | 检查下一个标记是否为布尔值 |\n\n#### 类型读取\n| 方法 | 说明 |\n|------|------|\n| `int nextInt()` | 读取下一个整数 |\n| `double nextDouble()` | 读取下一个双精度浮点数 |\n| `boolean nextBoolean()` | 读取下一个布尔值 |\n| `long nextLong()` | 读取下一个长整数 |\n| `float nextFloat()` | 读取下一个单精度浮点数 |\n| `short nextShort()` | 读取下一个短整数 |\n| `byte nextByte()` | 读取下一个字节 |\n\n#### 分隔符控制\n| 方法 | 说明 |\n|------|------|\n| `Scanner useDelimiter(String pattern)` | 设置分隔符模式 |\n| `Scanner useDelimiter(Pattern pattern)` | 使用正则表达式设置分隔符 |\n| `String delimiter()` | 返回当前使用的分隔符模式 |\n\n#### 其他\n| 方法 | 说明 |\n|------|------|\n| `void close()` | 关闭扫描器 |\n| `Scanner skip(Pattern pattern)` | 跳过匹配指定模式的输入 |\n| `Scanner skip(String pattern)` | 跳过匹配指定字符串的输入 |\n| `String findInLine(Pattern pattern)` | 在当前行中查找指定模式 |\n| `String findInLine(String pattern)` | 在当前行中查找指定字符串 |\n| `Scanner reset()` | 重置扫描器 |\n| `Locale locale()` | 返回扫描器当前使用的区域设置 |\n| `Scanner useLocale(Locale locale)` | 设置扫描器的区域设置 |\n\n---\n\n## 三、java.nio.file.Files\n\n### 核心特性\n- Java NIO 包中的文件操作工具类，所有方法均为静态方法，无需创建实例\n- 主要与 `java.nio.file.Path` 接口配合使用\n- 统一使用 `IOException` 处理文件操作异常\n- 提供文件读写、属性操作、目录遍历、临时文件等丰富功能\n- 原生支持符号链接处理，推荐在新项目中替代传统 `java.io.File`\n\n### 与传统 I/O 对比\n| 特性 | Files 类（NIO） | 传统 I/O（java.io） |\n|------|------------------|----------------------|\n| 方法类型 | 静态方法 | 实例方法 |\n| 路径表示 | 使用 Path 接口 | 使用 File 类 |\n| 异常处理 | 统一使用 IOException | 多种异常类型 |\n| 功能丰富度 | 更丰富 | 基础功能 |\n| 符号链接处理 | 原生支持 | 有限支持 |\n| 文件属性操作 | 更全面 | 有限 |\n\n### 常用方法\n\n#### 文件操作\n| 方法 | 说明 |\n|------|------|\n| `static Path copy(Path source, Path target, CopyOption... options)` | 将文件从源路径复制到目标路径 |\n| `static Path move(Path source, Path target, CopyOption... options)` | 移动或重命名文件 |\n| `static void delete(Path path)` | 删除文件 |\n| `static boolean deleteIfExists(Path path)` | 如果文件存在则删除 |\n\n#### 文件属性\n| 方法 | 说明 |\n|------|------|\n| `static boolean exists(Path path, LinkOption... options)` | 检查文件是否存在 |\n| `static boolean isDirectory(Path path, LinkOption... options)` | 检查路径是否为目录 |\n| `static boolean isRegularFile(Path path, LinkOption... options)` | 检查路径是否为常规文件 |\n| `static boolean isReadable(Path path)` | 检查文件是否可读 |\n| `static boolean isWritable(Path path)` | 检查文件是否可写 |\n| `static boolean isExecutable(Path path)` | 检查文件是否可执行 |\n| `static long size(Path path)` | 返回文件大小（字节） |\n| `static FileTime getLastModifiedTime(Path path, LinkOption... options)` | 获取文件最后修改时间 |\n\n#### 文件内容操作\n| 方法 | 说明 |\n|------|------|\n| `static byte[] readAllBytes(Path path)` | 读取文件所有字节 |\n| `static List<String> readAllLines(Path path)` | 读取文件所有行 |\n| `static List<String> readAllLines(Path path, Charset cs)` | 用指定字符集读取文件所有行 |\n| `static Stream<String> lines(Path path)` | 返回文件中行的流 |\n| `static Stream<String> lines(Path path, Charset cs)` | 用指定字符集返回文件中行的流 |\n| `static Path write(Path path, byte[] bytes, OpenOption... options)` | 将字节写入文件 |\n| `static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)` | 将文本行写入文件 |\n\n#### 目录操作\n| 方法 | 说明 |\n|------|------|\n| `static Stream<Path> list(Path dir)` | 列出目录中的条目 |\n| `static DirectoryStream<Path> newDirectoryStream(Path dir)` | 打开目录流 |\n| `static Path createDirectory(Path dir, FileAttribute<?>... attrs)` | 创建单级目录 |\n| `static Path createDirectories(Path dir, FileAttribute<?>... attrs)` | 创建多级目录（包括所有不存在的父目录） |\n\n#### 临时文件与目录\n| 方法 | 说明 |\n|------|------|\n| `static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)` | 创建临时文件 |\n| `static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)` | 创建临时目录 |\n\n#### 流与通道\n| 方法 | 说明 |\n|------|------|\n| `static SeekableByteChannel newByteChannel(Path path, OpenOption... options)` | 打开或创建文件，返回可查找的字节通道 |\n| `static InputStream newInputStream(Path path, OpenOption... options)` | 打开文件输入流 |\n| `static OutputStream newOutputStream(Path path, OpenOption... options)` | 打开文件输出流 |\n| `static BufferedReader newBufferedReader(Path path)` | 打开缓冲读取器 |\n| `static BufferedWriter newBufferedWriter(Path path, OpenOption... options)` | 打开缓冲写入器 |\n\n#### 其他\n| 方法 | 说明 |\n|------|------|\n| `static Path createFile(Path path, FileAttribute<?>... attrs)` | 创建新文件 |\n| `static String probeContentType(Path path)` | 探测文件内容类型 |\n\n### 最佳实践\n- 大文件操作使用缓冲流（`newBufferedReader` / `newBufferedWriter`）\n- 批量目录遍历优先使用 `Files.walk` 而非递归调用\n- 流操作使用 try-with-resources 自动关闭资源\n- 频繁访问的文件属性可缓存\n\n---\n\n## 四、枚举（enum）\n\n### 核心特性\n- 特殊的类，用于表示一组固定常量，使用 `enum` 关键字定义\n- 每个枚举常量在内部都是 `public static final` 的枚举类实例\n- 枚举类默认继承 `java.lang.Enum`，并实现 `Serializable` 和 `Comparable` 接口\n- 枚举常量之间使用逗号分隔\n- 可声明在顶层类或内部类中\n- 可应用于 `switch` 语句\n- 可以使用 for 语句来迭代枚举元素\n\n### 枚举类成员\n- 可以定义自己的成员变量、方法和构造函数\n- 构造函数只能使用 `private` 访问修饰符，外部无法调用\n- 可以包含具体方法和抽象方法；若包含抽象方法，则每个枚举常量必须实现该抽象方法\n\n### 常用方法（继承自 java.lang.Enum）\n| 方法                              | 说明                                                 |\n| ------------------------------- | -------------------------------------------------- |\n| `static T[] values()`           | 返回枚举类中所有常量的数组                                      |\n| `int ordinal()`                 | 返回枚举常量的索引位置（从 0 开始）                                |\n| `static T valueOf(String name)` | 返回指定字符串名称对应的枚举常量；不存在时抛出 `IllegalArgumentException` |\n| `String name()`                 | 返回枚举常量的名称                                          |\n| `int compareTo(E o)`            | 比较枚举常量的定义顺序                                        |\n| `Class<E> getDeclaringClass()`  | 返回枚举常量所属的枚举类 Class 对象                              |\n|                                 |                                                    |"
-        }
-      ],
-      "rootContent": "常用类库整理 \n## 一、java.lang.String\n ### 核心特性 \n- 不可变字符序列，对象创建后值无法修改 \n- 直接赋值的字符串存放在字符串常量池中，可复用；`new` 创建的字符串对象在堆上 \n- 需大量修改字符串时应使用 `StringBuilder` 或 `StringBuffer` \n### 常用方法 \n#### 字符与长度\n | 方法 | 说明 |\n |------|------| \n| `int length()` | 返回字符串长度 |\n | `char charAt(int index)` | 返回指定索引处的字符 |\n | `void getChars(int srcBegin, int srcEnd, char[] dst, int dstBegin)` | 将字符复制到目标字符数组 | \n| `char[] toCharArray()` | 转换为字符数组 | | `byte[] getBytes()` | 使用默认字符集编码为字节数组 | | `byte[] getBytes(String charsetName)` | 使用指定字符集编码为字节数组 | \n#### 比较 \n| 方法 | 说明 | \n|------|------| \n| `boolean equals(Object anObject)` | 比较字符串内容 |\n | `boolean equalsIgnoreCase(String anotherString)` | 忽略大小写比较内容 |\n | `int compareTo(String anotherString)` | 按字典顺序比较 | \n| `int compareToIgnoreCase(String str)` | 忽略大小写按字典顺序比较 | \n| `boolean contentEquals(StringBuffer sb)` | 与指定 StringBuffer 字符序列比较 | \n| `boolean regionMatches(int toffset, String other, int ooffset, int len)` | 测试两个字符串区域是否相等 | \n| `boolean regionMatches(boolean ignoreCase, int toffset, String other, int ooffset, int len)` | 可忽略大小写的区域比较 | \n#### 查找 \n| 方法 | 说明 | \n|------|------| \n| `int indexOf(int ch)` | 返回指定字符首次出现的索引 |\n | `int indexOf(int ch, int fromIndex)` | 从指定索引开始查找字符首次出现位置 | \n| `int indexOf(String str)` | 返回指定子字符串首次出现的索引 | \n| `int indexOf(String str, int fromIndex)` | 从指定索引开始查找子字符串首次出现位置 | | `int lastIndexOf(int ch)` | 返回指定字符最后一次出现的索引 |\n | `int lastIndexOf(int ch, int fromIndex)` | 从指定索引反向查找字符最后出现位置 |\n | `int lastIndexOf(String str)` | 返回子字符串最右边出现的索引 | \n| `int lastIndexOf(String str, int fromIndex)` | 从指定索引反向查找子字符串最后出现位置 | \n| `boolean contains(CharSequence chars)` | 判断是否包含指定字符序列 | \n| `boolean startsWith(String prefix)` | 测试是否以指定前缀开始 | \n| `boolean startsWith(String prefix, int toffset)` | 测试从指定索引开始的子字符串是否以指定前缀开始 | \n| `boolean endsWith(String suffix)` | 测试是否以指定后缀结束 | \n#### 截取与修改\n | 方法 | 说明 |\n |------|------| \n| `String substring(int beginIndex)` | 返回从指定索引开始的子字符串 | \n| `String substring(int beginIndex, int endIndex)` | 返回指定区间的子字符串 | | `CharSequence subSequence(int beginIndex, int endIndex)` | 返回指定区间的字符序列 |\n | `String concat(String str)` | 将指定字符串连接到此字符串结尾 | | `String replace(char oldChar, char newChar)` | 替换所有出现的指定字符 | | `String replaceAll(String regex, String replacement)` | 使用给定替换内容替换所有匹配正则的子字符串 | | `String replaceFirst(String regex, String replacement)` | 替换匹配正则的第一个子字符串 | | `String[] split(String regex)` | 根据正则表达式拆分字符串 | | `String[] split(String regex, int limit)` | 根据正则表达式拆分字符串，限制拆分次数 | | `String trim()` | 去除前导和尾部空白 | | `String toLowerCase()` | 转换为小写 | | `String toLowerCase(Locale locale)` | 使用指定区域设置转换为小写 | | `String toUpperCase()` | 转换为大写 | | `String toUpperCase(Locale locale)` | 使用指定区域设置转换为大写 | #### 转换与格式化 | 方法 | 说明 | |------|------| | `static String valueOf(primitive data type x)` | 返回基本类型参数的字符串表示 | | `static String copyValueOf(char[] data)` | 返回字符数组表示的字符串 | | `static String copyValueOf(char[] data, int offset, int count)` | 返回字符数组指定区间表示的字符串 | | `static String format(String format, Object... args)` | 创建格式化字符串 | | `String intern()` | 返回字符串对象的规范化表示形式 | | `boolean matches(String regex)` | 判断是否匹配给定正则表达式 | | `int hashCode()` | 返回字符串的哈希码 | | `boolean isEmpty()` | 判断字符串是否为空 | --- ## 二、java.util.Scanner ### 核心特性 - Java 5 引入，用于获取用户输入 - 可从 `InputStream`、`File`、`String` 等多种源创建 - 以空白为默认分隔符，可自定义分隔符模式 ### next() 与 nextLine() 区别 | 方法 | 结束标志 | 前导空白 | 能否包含空格 | |------|----------|----------|--------------| | `next()` | 读取到有效字符后，以其后空白为分隔符结束 | 自动去除 | 不能 | | `nextLine()` | 以 Enter 为结束符，返回回车前所有字符 | 保留 | 能 | ### 常用方法 #### 构造方法 | 方法 | 说明 | |------|------| | `Scanner(File source)` | 从文件创建 Scanner | | `Scanner(InputStream source)` | 从输入流创建 Scanner | | `Scanner(String source)` | 从字符串创建 Scanner | #### 基本输入 | 方法 | 说明 | |------|------| | `boolean hasNext()` | 检查是否有下一个标记（以空格分隔） | | `String next()` | 读取下一个标记（字符串） | | `boolean hasNextLine()` | 检查是否有下一行 | | `String nextLine()` | 读取下一行内容 | #### 类型检查 | 方法 | 说明 | |------|------| | `boolean hasNextInt()` | 检查下一个标记是否为整数 | | `boolean hasNextDouble()` | 检查下一个标记是否为双精度浮点数 | | `boolean hasNextBoolean()` | 检查下一个标记是否为布尔值 | #### 类型读取 | 方法 | 说明 | |------|------| | `int nextInt()` | 读取下一个整数 | | `double nextDouble()` | 读取下一个双精度浮点数 | | `boolean nextBoolean()` | 读取下一个布尔值 | | `long nextLong()` | 读取下一个长整数 | | `float nextFloat()` | 读取下一个单精度浮点数 | | `short nextShort()` | 读取下一个短整数 | | `byte nextByte()` | 读取下一个字节 | #### 分隔符控制 | 方法 | 说明 | |------|------| | `Scanner useDelimiter(String pattern)` | 设置分隔符模式 | | `Scanner useDelimiter(Pattern pattern)` | 使用正则表达式设置分隔符 | | `String delimiter()` | 返回当前使用的分隔符模式 | #### 其他 | 方法 | 说明 | |------|------| | `void close()` | 关闭扫描器 | | `Scanner skip(Pattern pattern)` | 跳过匹配指定模式的输入 | | `Scanner skip(String pattern)` | 跳过匹配指定字符串的输入 | | `String findInLine(Pattern pattern)` | 在当前行中查找指定模式 | | `String findInLine(String pattern)` | 在当前行中查找指定字符串 | | `Scanner reset()` | 重置扫描器 | | `Locale locale()` | 返回扫描器当前使用的区域设置 | | `Scanner useLocale(Locale locale)` | 设置扫描器的区域设置 | --- ## 三、java.nio.file.Files ### 核心特性 - Java NIO 包中的文件操作工具类，所有方法均为静态方法，无需创建实例 - 主要与 `java.nio.file.Path` 接口配合使用 - 统一使用 `IOException` 处理文件操作异常 - 提供文件读写、属性操作、目录遍历、临时文件等丰富功能 - 原生支持符号链接处理，推荐在新项目中替代传统 `java.io.File` ### 与传统 I/O 对比 | 特性 | Files 类（NIO） | 传统 I/O（java.io） | |------|------------------|----------------------| | 方法类型 | 静态方法 | 实例方法 | | 路径表示 | 使用 Path 接口 | 使用 File 类 | | 异常处理 | 统一使用 IOException | 多种异常类型 | | 功能丰富度 | 更丰富 | 基础功能 | | 符号链接处理 | 原生支持 | 有限支持 | | 文件属性操作 | 更全面 | 有限 | ### 常用方法 #### 文件操作 | 方法 | 说明 | |------|------| | `static Path copy(Path source, Path target, CopyOption... options)` | 将文件从源路径复制到目标路径 | | `static Path move(Path source, Path target, CopyOption... options)` | 移动或重命名文件 | | `static void delete(Path path)` | 删除文件 | | `static boolean deleteIfExists(Path path)` | 如果文件存在则删除 | #### 文件属性 | 方法 | 说明 | |------|------| | `static boolean exists(Path path, LinkOption... options)` | 检查文件是否存在 | | `static boolean isDirectory(Path path, LinkOption... options)` | 检查路径是否为目录 | | `static boolean isRegularFile(Path path, LinkOption... options)` | 检查路径是否为常规文件 | | `static boolean isReadable(Path path)` | 检查文件是否可读 | | `static boolean isWritable(Path path)` | 检查文件是否可写 | | `static boolean isExecutable(Path path)` | 检查文件是否可执行 | | `static long size(Path path)` | 返回文件大小（字节） | | `static FileTime getLastModifiedTime(Path path, LinkOption... options)` | 获取文件最后修改时间 | #### 文件内容操作 | 方法 | 说明 | |------|------| | `static byte[] readAllBytes(Path path)` | 读取文件所有字节 | | `static List<String> readAllLines(Path path)` | 读取文件所有行 | | `static List<String> readAllLines(Path path, Charset cs)` | 用指定字符集读取文件所有行 | | `static Stream<String> lines(Path path)` | 返回文件中行的流 | | `static Stream<String> lines(Path path, Charset cs)` | 用指定字符集返回文件中行的流 | | `static Path write(Path path, byte[] bytes, OpenOption... options)` | 将字节写入文件 | | `static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)` | 将文本行写入文件 | #### 目录操作 | 方法 | 说明 | |------|------| | `static Stream<Path> list(Path dir)` | 列出目录中的条目 | | `static DirectoryStream<Path> newDirectoryStream(Path dir)` | 打开目录流 | | `static Path createDirectory(Path dir, FileAttribute<?>... attrs)` | 创建单级目录 | | `static Path createDirectories(Path dir, FileAttribute<?>... attrs)` | 创建多级目录（包括所有不存在的父目录） | #### 临时文件与目录 | 方法 | 说明 | |------|------| | `static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)` | 创建临时文件 | | `static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)` | 创建临时目录 | #### 流与通道 | 方法 | 说明 | |------|------| | `static SeekableByteChannel newByteChannel(Path path, OpenOption... options)` | 打开或创建文件，返回可查找的字节通道 | | `static InputStream newInputStream(Path path, OpenOption... options)` | 打开文件输入流 | | `static OutputStream newOutputStream(Path path, OpenOption... options)` | 打开文件输出流 | | `static BufferedReader newBufferedReader(Path path)` | 打开缓冲读取器 | | `static BufferedWriter newBufferedWriter(Path path, OpenOption... options)` | 打开缓冲写入器 | #### 其他 | 方法 | 说明 | |------|------| | `static Path createFile(Path path, FileAttribute<?>... attrs)` | 创建新文件 | | `static String probeContentType(Path path)` | 探测文件内容类型 | ### 最佳实践 - 大文件操作使用缓冲流（`newBufferedReader` / `newBufferedWriter`） - 批量目录遍历优先使用 `Files.walk` 而非递归调用 - 流操作使用 try-with-resources 自动关闭资源 - 频繁访问的文件属性可缓存 --- ## 四、枚举（enum） ### 核心特性 - 特殊的类，用于表示一组固定常量，使用 `enum` 关键字定义 - 每个枚举常量在内部都是 `public static final` 的枚举类实例 - 枚举类默认继承 `java.lang.Enum`，并实现 `Serializable` 和 `Comparable` 接口 - 枚举常量之间使用逗号分隔 - 可声明在顶层类或内部类中 - 可应用于 `switch` 语句 - 可以使用 for 语句来迭代枚举元素 ### 枚举类成员 - 可以定义自己的成员变量、方法和构造函数 - 构造函数只能使用 `private` 访问修饰符，外部无法调用 - 可以包含具体方法和抽象方法；若包含抽象方法，则每个枚举常量必须实现该抽象方法 ### 常用方法（继承自 java.lang.Enum） | 方法 | 说明 | | ------------------------------- | -------------------------------------------------- | | `static T[] values()` | 返回枚举类中所有常量的数组 | | `int ordinal()` | 返回枚举常量的索引位置（从 0 开始） | | `static T valueOf(String name)` | 返回指定字符串名称对应的枚举常量；不存在时抛出 `IllegalArgumentException` | | `String name()` | 返回枚举常量的名称 | | `int compareTo(E o)` | 比较枚举常量的定义顺序 | | `Class<E> getDeclaringClass()` | 返回枚举常量所属的枚举类 Class 对象 | | | |"
     }
   },
   "k_vault_javajava_1xf3hv": {
