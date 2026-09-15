@@ -209,7 +209,7 @@ const ancestral = {}
 for (const rel of ALL_DATA_PROBED) {
   const f = rel.replace(/^data\//, '')
   const bp = path.join(bkDir, f)
-  if (!fs.existsSync(bp)) { L('  ⏭ ' + rel + '  备份中不存在，跳过'); continue }
+  if (!fs.existsSync(bp)) { L('  ⏭ ' + rel + '  备份中不存在（本批新建文件，HEAD 亦无 → 无祖先可夹带），豁免'); continue }
   const head = gitShowBuf(rel)
   const back = fs.readFileSync(bp)
   const rawEq = Buffer.compare(head, back) === 0
@@ -523,7 +523,15 @@ if (!SKIP_TESTS) {
 report.checks.testBaseline = testBaseline
 
 // ══ 结论 ════════════════════════════════════════════════════════════════
-const ancestorClean = IN_SCOPE_DATA.every((rel) => ancestral[rel]?.rawEqual)
+// ancestorClean：in-scope data 文件逐个比对 HEAD ↔ 备份。
+// 备份中不存在的条目 = 本批新建文件（快照与 HEAD 均无此文件，不存在"祖先被外部改动"问题），
+// 按新建豁免为干净 —— 修复前版本这里取 ancestral[rel]?.rawEqual === undefined 导致假性 BLOCK
+// （且 blockers 列表只收 ancestral[rel] 存在的项，会出现"门 BLOCK 却给不出具体 blocker"的自相矛盾）。
+// 缺陷实证：outputs/tree-violation-scan/readiness-versions-v1.json 首跑（versions-v1 新建 version-chains.json）。
+const ancestorClean = IN_SCOPE_DATA.every((rel) => {
+  const a = ancestral[rel]
+  return a ? a.rawEqual : true
+})
 const timelineClean = temporal.available && (temporal.unexpectedDrift ?? []).length === 0
 const testsOk = !testBaseline.available || testBaseline.ok
 const ready = ancestorClean && timelineClean && deltaOk && missing.length === 0 && testsOk && manifestBroken.length === 0 && PATHSPEC_LEAK.length === 0 && EXCLUSION_CONFLICT.length === 0
