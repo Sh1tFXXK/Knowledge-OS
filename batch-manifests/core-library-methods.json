@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/core-library-methods-prebatch-2026-09-15",
   "preBatchSnapshotNote": "**合并批前快照**（本批分三段执行，起始态分散在两份备份，而就绪门只接受单一目录）。tree-data.json / knowledge-edges.json = 与 HEAD 字节相等（md5 017b61fb… / 4f7f47f2…）；node-pool.json = 第一段写入之前的真实工作树态（md5 8d48d4ab…，含当时已存在的外部 tags 漂移 2 处）。逐文件来源与四方基线见该目录 journal.txt。",
   "commitSubjectHint": "data: 常用类库方法 tab 化 + 删除「常用类库整理」汇总结点 — 四类 +74 tab（树 3215→3214 · 边 4163→4162 · 池 3858→3857）（独立验证 23/23 · UI 36/36 · 回归 62/62）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "用户给出「常用类库整理」拆分蓝图（4 步：建骨架 → 建 4 个类节点 → 每类按方法名建 tab → 删原节点），并附源材料全文；明确指示「先做 String 一个类试手感，觉得合适再铺其余三个」。",
     "userAdjudication": "2026-09-15 三轮裁决：① String 试做**过关**，铺满其余三个；② 成员区里 features/methods 两个非方法 tab **保留**（不改）；③ 治理等四类做完**一起提交**；④ Files/enum 成员区不可达 —— 选 **路 A（接受现状）**，路 B「改 role」已由代码证伪；⑤ 「常用类库整理」池实体 **连池一起删**（非惯例的「卸树留池」，用户明确担责）；⑥ 融合范围 = 连 5 个导入型总集一起规划，但**融合另起一批**，先把当前批提交掉。",
@@ -198,5 +198,8 @@
       "evidence": "三重证据：① 代码链（上）；② DOM dump：Files 方框 className=is-matrix-host is-container-header、成员区缺席、子方框 2 个；③ 入口穷举：Files 选中后浏览态 860 / 编辑态 856 个可点元素中，形如 xxx() 的 **0** 个、tab 类元素 **0** 个，全页文本含 readAllBytes **false**。",
       "disposition": "用户裁决**路 A（接受现状）**，路 C（改 UI 让容器宿主也列成员）挂起。⚠️ 注意：路 A 的代价不是「少了快捷入口」，而是 **29+6 个方法 tab 在 UI 上彻底无入口** —— 此点已在回复中明确纠正过两次。"
     }
-  }
+  },
+  "commitSha": "96a7925",
+  "commitShaNote": "内容提交 96a7925（父提交 = c51d6b6 external-tag-sync 微提交）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载。",
+  "registeredAt": "2026-09-15"
 }
