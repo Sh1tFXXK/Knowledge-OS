@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/external-drift-adoption-2026-09-16T12-09-45-332Z",
   "preBatchSnapshotNote": "**基线快照 = HEAD 的 blob 自身**（md5 7be8cad5350dd77171618f414d122744，字节 12636981）。采纳批次没有「动手前状态」以外的历史，故快照即祖先。就绪门 Ancestor Gate 将比对 `git show HEAD:` 与该文件 —— 相等即证「采纳 = HEAD → 工作树」，无夹带。",
   "commitSubjectHint": "data: EXTERNAL-DRIFT-ADOPTION 落盘工作树既有外部漂移（10 实体 · 池 3850 不变 · 纯基线推进）",
-  "status": "PENDING_COMMIT",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "上一批（strip-injected-artifacts）提交前，就绪门 Ancestor Gate 报 BLOCK：`data/node-pool.json` 的 HEAD ≠ 落盘前基线（内容差异 10 键）。",
     "finding": "漂移 = 工作树里 10 个实体的既有改动，**非本会话产生**。实测：data/node-pool.json 与 HEAD 差 10 键；该状态完整保存于 refs/cline/checkpoints/1789554733602_wss1s/{1,2}（blob md5 77c3876022bb7445c5fdcabfead69439，与批前快照逐字节相同）。并发会话最后活动 19:17:22（其 /3 检查点捕获的恰是本会话首版 apply 的输出），此后 node-pool.json 字节未动。",
@@ -139,7 +139,14 @@
     },
     "independentVerification": "⛔ 不适用（无变换定义可复算）。替代手段：① git blob 可追溯（baseRef 取出前一状态）；② 检查 C 的 10 键精确声明；③ provenance.nature 的三类归属台账。",
     "regression": {
-      "note": "纯数据采纳，不改代码 —— 仍跑一次 tsc/build/test 作为护栏。"
+      "tsc": "exit 0",
+      "test": "62/62 pass（tracked 60 + 他人未跟踪 2）",
+      "buildNote": "纯数据采纳，未改 src ⇒ 不重跑 build（上一批已 ✓ built）"
+    },
+    "readinessGate": {
+      "command": "node scripts/verify-phase1-commit-readiness.mjs --batch external-drift-adoption",
+      "result": "READY —— 8/8 闸门 PASS（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate）；检查 A 逐字节相等 12636981/12636981；检查 C Δ 恰为声明的 10 个修改键；检查 D 正向认领 70 · 精确排除 1 · 无人认领 0",
+      "report": "outputs/tree-violation-scan/readiness-external-drift-adoption.json"
     }
   },
   "openDebts": [
@@ -148,5 +155,5 @@
     "mysql-tab-face-injection-301：tab 面 301 处同类尾注 —— 由 strip-injected-artifacts 批次声明排除，另案。"
   ],
   "registeredAt": "2026-09-16T12:10:31.583Z",
-  "commitSha": null
+  "commitSha": "29d66db959d33d75ccced96fe6d979b2f9c6f46e"
 }
