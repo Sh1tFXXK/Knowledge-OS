@@ -1,0 +1,5296 @@
+{
+  "batchId": "strip-injected-artifacts",
+  "mode": "apply",
+  "at": "2026-09-16T11:20:40.404Z",
+  "scope": "card.rootContent only",
+  "poolBefore": {
+    "bytes": 12636729,
+    "md5": "77c3876022bb7445c5fdcabfead69439",
+    "entities": 3850
+  },
+  "poolAfter": {
+    "bytes": 12589450,
+    "md5": "3a0a2b453dc336b729c1433cd97b3002",
+    "entities": 3850
+  },
+  "counts": {
+    "entitiesChanged": 422,
+    "footersRemoved": 287,
+    "entitiesTitleDeduped": 418,
+    "collapsedSpaceChars": 288,
+    "entitiesTitleOnlyAfter": 13
+  },
+  "gates": [
+    {
+      "name": "G1 格式复现",
+      "ok": true,
+      "detail": "字节级一致（12636729 B）"
+    },
+    {
+      "name": "G2 幂等",
+      "ok": true,
+      "detail": "422 个改动实体，再跑一次产生变化的 0（须 0）"
+    },
+    {
+      "name": "G3 内容零丢失",
+      "ok": true,
+      "detail": "422 个改动实体，非空白字符对账面非「仅少声明串」的 0（须 0）"
+    },
+    {
+      "name": "G4 未命中实体不变",
+      "ok": true,
+      "detail": "3428 个未命中实体，字节漂移 0（须 0）"
+    },
+    {
+      "name": "G5 清理后不为空",
+      "ok": true,
+      "detail": "变空的 0（须 0）"
+    },
+    {
+      "name": "G6 移除串合规",
+      "ok": true,
+      "detail": "287 处移除串，不符合声明正则的 0（须 0）"
+    },
+    {
+      "name": "G7 仅写一个文件",
+      "ok": true,
+      "detail": "writeSet = ['data/node-pool.json']"
+    },
+    {
+      "name": "G8 实体数不变",
+      "ok": true,
+      "detail": "3850 → 3850"
+    },
+    {
+      "name": "G9 顶层键序不变",
+      "ok": true,
+      "detail": "3850 键"
+    },
+    {
+      "name": "G10 写后回读 md5 一致",
+      "ok": true,
+      "detail": "3a0a2b453dc336b729c1433cd97b3002 == 3a0a2b453dc336b729c1433cd97b3002"
+    },
+    {
+      "name": "G11 写后**正文面**无残留尾注",
+      "ok": true,
+      "detail": "正文面残留 0（须 0）"
+    }
+  ],
+  "backupDir": "data/backups/strip-injected-artifacts-2026-09-16T11-20-38-956Z",
+  "changes": [
+    {
+      "id": "demo_undo",
+      "title": "MySQL 撤销日志 / undo log",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 390,
+      "afterLen": 368,
+      "md5Before": "c824965bfb9dca5e4b6785f506b9d731",
+      "md5After": "04962491af48ef0aa19857ee09209a9e"
+    },
+    {
+      "id": "demo_snapshot",
+      "title": "快照读",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 205,
+      "afterLen": 201,
+      "md5Before": "931dee7d4b78c8baa9b6907d1c9a0cae",
+      "md5After": "9513a33773ac67935e50ba82a006f751"
+    },
+    {
+      "id": "demo_lock",
+      "title": "MySQL 锁机制",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 214,
+      "afterLen": 204,
+      "md5Before": "2c090137eafdd93df7d185257ad7bfdf",
+      "md5After": "2c1496a72df4ebab1149257926235877"
+    },
+    {
+      "id": "demo_deadlock",
+      "title": "MySQL 死锁检测 / deadlock detection",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 119,
+      "afterLen": 87,
+      "md5Before": "fc7dc3ec9724146c5b341aad73c2360d",
+      "md5After": "b7f566680bdaa87acc9de1425bffac90"
+    },
+    {
+      "id": "demo_table_lock",
+      "title": "MySQL 表级锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 41,
+      "afterLen": 31,
+      "md5Before": "7e018fab74e67fd68f9bae6582788af2",
+      "md5After": "7d035c67fc41fdfa21cdb7702b962d31"
+    },
+    {
+      "id": "demo_row_lock",
+      "title": "MySQL 行锁 / row lock",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 523,
+      "afterLen": 503,
+      "md5Before": "da2a4a389af225f278f0e369de826a71",
+      "md5After": "b16d9f3a1b4f827051fe3ef28dbe6e22"
+    },
+    {
+      "id": "demo_shared_lock",
+      "title": "MySQL 共享锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 55,
+      "afterLen": 45,
+      "md5Before": "4d68f9dddf631b6f4c362df9c8b80c22",
+      "md5After": "00aa7ec483b0fdd57b9eb5a1ba74dbb6"
+    },
+    {
+      "id": "demo_exclusive_lock",
+      "title": "MySQL 排他锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 51,
+      "afterLen": 41,
+      "md5Before": "db45954b9c5552b2a7310b31f9df5069",
+      "md5After": "f7d39eeafb8f2a8847db94d4427aa0de"
+    },
+    {
+      "id": "demo_btree",
+      "title": "MySQL B+树索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 173,
+      "afterLen": 161,
+      "md5Before": "b4340286278c0c957581df5750ec30af",
+      "md5After": "a0f731f8a898acc288deae450d5263b6"
+    },
+    {
+      "id": "demo_hash",
+      "title": "MySQL 哈希索引 / hash index",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 244,
+      "afterLen": 220,
+      "md5Before": "22383004daed7d782b309c4b7156f8b2",
+      "md5After": "5a5c8711de177aa3b2d4af32a1b3f154"
+    },
+    {
+      "id": "demo_clustered_index",
+      "title": "MySQL 聚簇索引 / clustered index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：435；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_clustered_index"
+      ],
+      "beforeLen": 709,
+      "afterLen": 579,
+      "md5Before": "d731741f2e24ab306c76bc67a8418ab0",
+      "md5After": "d16600c46629b242e4b4bc193fa93538"
+    },
+    {
+      "id": "demo_composite_index",
+      "title": "MySQL 组合索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 200,
+      "afterLen": 189,
+      "md5Before": "2ea43eba969df7f581c8f3d3d69f1629",
+      "md5After": "5339c3959f97a2b78d3d8e92d79d1875"
+    },
+    {
+      "id": "demo_innodb",
+      "title": "MySQL InnoDB",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1385；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_innodb"
+      ],
+      "beforeLen": 1287,
+      "afterLen": 1181,
+      "md5Before": "623a7c1747ea2cfcefa219629badefd6",
+      "md5After": "359248d77c4ca96fa6267380f5c6da17"
+    },
+    {
+      "id": "demo_myisam",
+      "title": "MySQL MyISAM",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 616,
+      "afterLen": 603,
+      "md5Before": "70f0ca26c3d07f8321dda04ff7d2fe32",
+      "md5After": "de5c31f2fc90c516cae88b2cc216d847"
+    },
+    {
+      "id": "demo_buffer",
+      "title": "缓冲池 / buffer pool",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：276；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_buffer_pool"
+      ],
+      "beforeLen": 1079,
+      "afterLen": 964,
+      "md5Before": "15f6e8664e8a652f41a4fcf521907403",
+      "md5After": "a5f23e0f0642b45d923ae1b81ae07a06"
+    },
+    {
+      "id": "demo_join",
+      "title": "MySQL JOIN 连接",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 184,
+      "afterLen": 170,
+      "md5Before": "6f16b8f743500dba29a89606b0cda941",
+      "md5After": "454c7eb773994ac602a3821716e3b524"
+    },
+    {
+      "id": "demo_subquery",
+      "title": "MySQL 子查询",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 48,
+      "afterLen": 38,
+      "md5Before": "e0240aaf158e9eebb4c2f3cf61489f11",
+      "md5After": "4116da33412bbd55766beb0746c5d689"
+    },
+    {
+      "id": "demo_redis",
+      "title": "Redis",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 1236,
+      "afterLen": 1230,
+      "md5Before": "8ad2b4852ec9674e2975500fe7241e31",
+      "md5After": "2a2e526fa1b287ccee8a8e4949eb2714"
+    },
+    {
+      "id": "n_0xxb9cqy",
+      "title": "MySQL 索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 398,
+      "afterLen": 389,
+      "md5Before": "3602178eb128fc84e5f9ecf0a44a3ef1",
+      "md5After": "654ec1348fd28e7c235bbf02d4970265"
+    },
+    {
+      "id": "n_ag24bbkc",
+      "title": "MySQL 事务",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 2073,
+      "afterLen": 2064,
+      "md5Before": "1e90f79e5341ddd6b5d3e23ebdb9be4c",
+      "md5After": "505de0ce9a49663ac5f068117fb37556"
+    },
+    {
+      "id": "k_1781002610469_nik1ek",
+      "title": "页 / page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2121；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_page"
+      ],
+      "beforeLen": 1140,
+      "afterLen": 1040,
+      "md5Before": "7b904acf378ddf46ac874c213c9876a6",
+      "md5After": "d8d8fa3a97d872912181bb42ac67f68b"
+    },
+    {
+      "id": "k_auto_va5371",
+      "title": "MySQL 主键索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 56,
+      "afterLen": 45,
+      "md5Before": "f6046974f7a50c1163ef42d82f9ee9fb",
+      "md5After": "c086ac55868d07f483e8642361a82b00"
+    },
+    {
+      "id": "k_auto_yb9yyu",
+      "title": "MySQL 普通索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 270,
+      "afterLen": 259,
+      "md5Before": "ae24e1ecb0397415fa7fed912c6357cb",
+      "md5After": "80bfbba80342db0d9e92c75f7b085da6"
+    },
+    {
+      "id": "k_auto_es1cgt",
+      "title": "MySQL 前缀索引",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 216,
+      "afterLen": 205,
+      "md5Before": "14c65fb76dd12891dc6ef96fa3f84271",
+      "md5After": "deaa559c84d045c9eaf4e996b5597a4d"
+    },
+    {
+      "id": "k_dict_4yz2io0y",
+      "title": "MySQL 自适应哈希 / adaptive hash index",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 471,
+      "afterLen": 437,
+      "md5Before": "bc0d1590ef0e291406cc1abb726efac3",
+      "md5After": "22899067db04a019587f532a47756199"
+    },
+    {
+      "id": "k_dict_ij1x57s1",
+      "title": "ANSI",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：58；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ansi"
+      ],
+      "beforeLen": 471,
+      "afterLen": 377,
+      "md5Before": "b67047cd078169be1ea542a92d9d5d8c",
+      "md5After": "690d4c862951a1a8b84e6fe5c399cfb4"
+    },
+    {
+      "id": "k_dict_vg1hm4yv",
+      "title": "MySQL 备份 / backup",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 350,
+      "afterLen": 332,
+      "md5Before": "cbd5bcd25023bac72f6ef9a7f3dedd26",
+      "md5After": "f59b77404c648f28945be078c47c34b1"
+    },
+    {
+      "id": "k_dict_n9s627ij",
+      "title": "MySQL 基数 / cardinality",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 467,
+      "afterLen": 444,
+      "md5Before": "b59431cd81c85f65a83faad40ca87db9",
+      "md5After": "571aafa313a5067f39b0bfde5390f45e"
+    },
+    {
+      "id": "k_dict_t52tzaq2",
+      "title": "MySQL 检查点 / checkpoint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：384；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_checkpoint"
+      ],
+      "beforeLen": 294,
+      "afterLen": 175,
+      "md5Before": "8b1218886adcb68ae453493fd2ec9efd",
+      "md5After": "5abf47ad3b5b45f4817696e351e91815"
+    },
+    {
+      "id": "k_dict_h20fqa9t",
+      "title": "MySQL 连接池 / connection pool",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 226,
+      "afterLen": 198,
+      "md5Before": "723a9efdfa69a6c6f55e0eb2663ee0d3",
+      "md5After": "97f7ea994dd5aaa462155c8952663232"
+    },
+    {
+      "id": "k_dict_1a3p1hdq",
+      "title": "MySQL 参照完整性 / referential integrity",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 258,
+      "afterLen": 222,
+      "md5Before": "96295ce896674f111494e0aa178b2014",
+      "md5After": "ecc468d6d5609031897c41f8dd9344ec"
+    },
+    {
+      "id": "k_dict_nsqweksd",
+      "title": "MySQL 数据字典 / data dictionary",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 361,
+      "afterLen": 332,
+      "md5Before": "26a86c71b54b6fef15aebb2607285ecd",
+      "md5After": "d517f4238122d89371e201042ab1a81f"
+    },
+    {
+      "id": "k_dict_o5254svl",
+      "title": "数据仓库 / data warehouse",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 126,
+      "afterLen": 104,
+      "md5Before": "01b48c2efebcc4a506f52c7989e75e4a",
+      "md5After": "28155ecd4fe5b6ae81b5d45384c48dec"
+    },
+    {
+      "id": "k_dict_lc7qrne8",
+      "title": "MySQL 数据库 / database",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 193,
+      "afterLen": 172,
+      "md5Before": "ebfe48c592d04d4569e4148e1f7b5d28",
+      "md5After": "bcf57ec22c908621f429f065b5050cd8"
+    },
+    {
+      "id": "k_dict_mq68vpwg",
+      "title": "MySQL 死锁 / deadlock",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 83,
+      "afterLen": 63,
+      "md5Before": "4602d4be582ee13f87c7e801d5a8ac59",
+      "md5After": "fec6261a0368250fd35dfd6c7799015f"
+    },
+    {
+      "id": "k_dict_qvf5c9q7",
+      "title": "MySQL 删除 / delete",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 169,
+      "afterLen": 151,
+      "md5Before": "26c0eea93903e4c3e9416febacbb845a",
+      "md5After": "a7588105ee33818b753ae7752301a816"
+    },
+    {
+      "id": "k_dict_rjl6lkaz",
+      "title": "MySQL 脏页 / dirty page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：811；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dirty_page"
+      ],
+      "beforeLen": 646,
+      "afterLen": 528,
+      "md5Before": "58801b5c6b09ec4e117fd1847122da93",
+      "md5After": "0f19194c7dc2bce0c3e8ab62024fbfd2"
+    },
+    {
+      "id": "k_dict_t83fdwoc",
+      "title": "MySQL 脏读 / dirty read",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 301,
+      "afterLen": 279,
+      "md5Before": "900035380edd9d7f08f3084a5d45ce96",
+      "md5After": "22b526119b9d45fa26fe54ff1ca57bb7"
+    },
+    {
+      "id": "k_dict_t6m62us4",
+      "title": "MySQL 落下 / drop",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 286,
+      "afterLen": 270,
+      "md5Before": "d54bfab22cc1882091e4822954672deb",
+      "md5After": "eef94d0aa8da8b00c6ca48263f5739c2"
+    },
+    {
+      "id": "k_dict_p7los2aq",
+      "title": "MySQL 动态 SQL / dynamic SQL",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 57,
+      "afterLen": 30,
+      "md5Before": "7c42a53bfef24485a369cd598ee1514d",
+      "md5After": "4ae12e208219d9e6d3aa0176f683eb9e"
+    },
+    {
+      "id": "k_dict_mfu28h3v",
+      "title": "故障转移 / failover",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：972；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_failover"
+      ],
+      "beforeLen": 223,
+      "afterLen": 113,
+      "md5Before": "4fd7b10ad6e7f08cf0432fb9cf5e972e",
+      "md5After": "8502a5f94d9462cb2b66ab2fd9d79cd3"
+    },
+    {
+      "id": "k_dict_hcbepdud",
+      "title": "快速关闭 / fast shutdown",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：989；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fast_shutdown"
+      ],
+      "beforeLen": 381,
+      "afterLen": 261,
+      "md5Before": "09341d2b77f6c538169292936625ed10",
+      "md5After": "33fe53d94accd039455bb0006ac2c1a5"
+    },
+    {
+      "id": "k_dict_lnpi0qrg",
+      "title": "MySQL 外键 / MySQL foreign key",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1044；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_foreign_key"
+      ],
+      "beforeLen": 698,
+      "afterLen": 571,
+      "md5Before": "6ece823ae8add7b02392fc153e3c6328",
+      "md5After": "286a274236de189e8ca950cf5cda70a5"
+    },
+    {
+      "id": "k_dict_zsu3d9zk",
+      "title": "分表",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 135,
+      "afterLen": 132,
+      "md5Before": "654bfc5c4d5d8ce8accf4f9e826c1f0c",
+      "md5After": "169c81b4ebf212435e00222164b3d63f"
+    },
+    {
+      "id": "k_dict_reul960o",
+      "title": "MySQL 生成列 / generated column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1143；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_generated_column"
+      ],
+      "beforeLen": 516,
+      "afterLen": 384,
+      "md5Before": "8bd459dc280637e9e471c326e734ab1f",
+      "md5After": "199ca2528baa5b34c5607ec667a13488"
+    },
+    {
+      "id": "k_dict_ggnkee68",
+      "title": "组提交 / group commit",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1173；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_group_commit"
+      ],
+      "beforeLen": 360,
+      "afterLen": 242,
+      "md5Before": "fb697ffe853ea07783ee3262ef56f6d6",
+      "md5After": "c51570806c3fed86da2de33fab48dae3"
+    },
+    {
+      "id": "k_dict_z9h14mh0",
+      "title": "MySQL 热备份 / hot backup",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 331,
+      "afterLen": 308,
+      "md5Before": "6342919687fc771c8664554959b6ed6a",
+      "md5After": "97fdeda9c6e6f1872c319ca03aabcf00"
+    },
+    {
+      "id": "k_dict_muxlhpv2",
+      "title": "MySQL 缓冲区 / buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：270；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_buffer"
+      ],
+      "beforeLen": 668,
+      "afterLen": 557,
+      "md5Before": "ef377a0206304abf2833708763c0d175",
+      "md5After": "6f08657acb243ea11a9e5617cc84f94b"
+    },
+    {
+      "id": "k_dict_qus727rl",
+      "title": "MySQL INFORMATION_SCHEMA",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1373；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_information_schema"
+      ],
+      "beforeLen": 492,
+      "afterLen": 362,
+      "md5Before": "32ebf6f0adc523d0ef2c7f1b7e31f5d4",
+      "md5After": "ba1d946f99014992a631efb2964feef7"
+    },
+    {
+      "id": "k_dict_pzcms560",
+      "title": "MySQL 插入 / insert",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 232,
+      "afterLen": 214,
+      "md5Before": "32810a410836a768677d03a6c5c27bba",
+      "md5After": "471043cead9e36097b8874c5607f1bf1"
+    },
+    {
+      "id": "k_dict_12jqwwcl",
+      "title": "MySQL 实例 / instance",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 43,
+      "afterLen": 23,
+      "md5Before": "b256100fdd8721330031887875677d65",
+      "md5After": "a108bd212993c5f13c1e11bdae34b2e5"
+    },
+    {
+      "id": "k_dict_kgntvds7",
+      "title": "MySQL 闩锁 / latch",
+      "titleDeduped": false,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1567；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_latch"
+      ],
+      "beforeLen": 304,
+      "afterLen": 212,
+      "md5Before": "93d591b675272301cf3264038d017bc8",
+      "md5After": "58d48ca5702e251304a88601c7493292"
+    },
+    {
+      "id": "k_dict_wxe0al75",
+      "title": "LIMIT / FETCH",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 171,
+      "afterLen": 157,
+      "md5Before": "57b92808e7a530e3bf55a694a080e217",
+      "md5After": "4a863e8de1b99c05367fc43039058c8b"
+    },
+    {
+      "id": "k_dict_wv1o918s",
+      "title": "MySQL 逻辑备份 / logical backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1682；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_logical_backup"
+      ],
+      "beforeLen": 372,
+      "afterLen": 243,
+      "md5Before": "5ee04a5b36b02c296a2ec6b788a197ca",
+      "md5After": "1b5998d78bf2bc09cdd612aa3cd8f3d5"
+    },
+    {
+      "id": "k_dict_88aa29dg",
+      "title": "MySQL 冷备份 / cold backup",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 123,
+      "afterLen": 99,
+      "md5Before": "946ba2e7a691da0cad97122fda7373f9",
+      "md5After": "de02ff9a15430e54be29e364b91e33db"
+    },
+    {
+      "id": "k_dict_lepgecnd",
+      "title": "MySQL 列 / column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：447；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_column"
+      ],
+      "beforeLen": 412,
+      "afterLen": 303,
+      "md5Before": "e2c2629eeb9ab82ed67ec5dc212bf9ee",
+      "md5After": "0030e249d657764132d0368b1d78c85a"
+    },
+    {
+      "id": "k_dict_fncpbi74",
+      "title": "慢查询",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 131,
+      "afterLen": 127,
+      "md5Before": "2f541625aa24d6ea0d04ac6cac49b281",
+      "md5After": "75a1c9421f41e82ba4ad92d09a272e55"
+    },
+    {
+      "id": "k_dict_m5qakvks",
+      "title": "MySQL 临键锁 / next-key lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1940；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_next_key_lock"
+      ],
+      "beforeLen": 240,
+      "afterLen": 114,
+      "md5Before": "72d0ee6cd2dda2f2a4a928810907b224",
+      "md5After": "756815652424c7ce3521a079abc20e2b"
+    },
+    {
+      "id": "k_dict_fwv3kkzy",
+      "title": "ODBC",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2009；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_odbc"
+      ],
+      "beforeLen": 327,
+      "afterLen": 231,
+      "md5Before": "e52f14871eadae64b577a04d83ed2751",
+      "md5After": "2ab29333f7e525f1c77a31c98b817d47"
+    },
+    {
+      "id": "k_dict_zu4iv9d4",
+      "title": "联机事务处理 / OLTP",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2027；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_oltp"
+      ],
+      "beforeLen": 894,
+      "afterLen": 789,
+      "md5Before": "26fc7b40ecbfb068f95db0e9d3f36afc",
+      "md5After": "0701a64724a8fd5bf297c74a209a530c"
+    },
+    {
+      "id": "k_dict_4m05mgz6",
+      "title": "MySQL 在线 DDL / online DDL",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 314,
+      "afterLen": 288,
+      "md5Before": "5c997fa1177448f03a62b2501a69afce",
+      "md5After": "f0b3e6d029f5aa1654c0b0e32b6cc843"
+    },
+    {
+      "id": "k_dict_722bh2j6",
+      "title": "MySQL 部分索引 / partial index",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 120,
+      "afterLen": 93,
+      "md5Before": "0e5192ca689373451844c7454339a314",
+      "md5After": "fdc026e4f0349ba3264c5cd2e1e55fea"
+    },
+    {
+      "id": "k_dict_pqd2sd20",
+      "title": "MySQL 性能模式 / Performance Schema",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2192；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_performance_schema"
+      ],
+      "beforeLen": 772,
+      "afterLen": 635,
+      "md5Before": "1c9af9098f373707f986c21500c35e0d",
+      "md5After": "31fad75618c7033c10721efb223a4bd7"
+    },
+    {
+      "id": "k_dict_zjinmyz3",
+      "title": "PITR",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2267；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_pitr"
+      ],
+      "beforeLen": 239,
+      "afterLen": 143,
+      "md5Before": "90ba361a4b795df5b80fdc54d8fa92cf",
+      "md5After": "788a727f37cc60cdcc9b04ad2194ca88"
+    },
+    {
+      "id": "k_dict_yaz6f56l",
+      "title": "Query Cache",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 104,
+      "afterLen": 92,
+      "md5Before": "7b169cd38c6c6fbf4084776de3bbcc4b",
+      "md5After": "3058e5d25d883f1833b6cd7268726c4f"
+    },
+    {
+      "id": "k_dict_jan17ieo",
+      "title": "MySQL 全表扫描 / full table scan",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 190,
+      "afterLen": 161,
+      "md5Before": "56a93ba98627405beaeeef92e207a0fc",
+      "md5After": "27a5e0824230cf18d746ff7f27db003d"
+    },
+    {
+      "id": "k_dict_4zr5j9bz",
+      "title": "可重复读 / REPEATABLE READ",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2587；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_repeatable_read"
+      ],
+      "beforeLen": 1023,
+      "afterLen": 898,
+      "md5Before": "49293391494978e5cbaed8cfc5d0724e",
+      "md5After": "eb3d8b88826bf8265fe3878cf906ef5d"
+    },
+    {
+      "id": "k_dict_sctomy1z",
+      "title": "复制 / replication",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2609；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_replication"
+      ],
+      "beforeLen": 609,
+      "afterLen": 494,
+      "md5Before": "92c5c8a14758d524f16615348ea9bea5",
+      "md5After": "255fa5e40f9655b68d8d5eb958bbf4bf"
+    },
+    {
+      "id": "k_dict_lin6ue94",
+      "title": "MySQL 恢复 / restore",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2615；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_restore"
+      ],
+      "beforeLen": 840,
+      "afterLen": 727,
+      "md5Before": "8a638dc5ffee9a9f1cd155c737184048",
+      "md5After": "d4fce77a1af93f331953ec52ed4d4eb1"
+    },
+    {
+      "id": "k_dict_rmz7dcm0",
+      "title": "MySQL 回滚 / rollback",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 198,
+      "afterLen": 178,
+      "md5Before": "dfd072f5b831abb5232a8c3ea1759d8c",
+      "md5After": "23df533020cc8ed95b84ac57a8a82144"
+    },
+    {
+      "id": "k_dict_2uq4y41u",
+      "title": "MySQL 行 / row",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 188,
+      "afterLen": 174,
+      "md5Before": "be9778383d250c984df4415b481c937e",
+      "md5After": "dbeb54737cb96aa452b5f3fc151163a0"
+    },
+    {
+      "id": "k_dict_fb1f2eh2",
+      "title": "MySQL 行级锁定 / row-level locking",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2693；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_row_level_locking"
+      ],
+      "beforeLen": 365,
+      "afterLen": 230,
+      "md5Before": "07972c7a90e0a9ad3a80f9d50ba67ddf",
+      "md5After": "f2a980bec0a86a48b913e9dd2ee6887b"
+    },
+    {
+      "id": "k_dict_tr918oc6",
+      "title": "保存点 / savepoint",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 177,
+      "afterLen": 161,
+      "md5Before": "41f76ae88cf965c656701494a6c7bbad",
+      "md5After": "248fe1bbf738af3155dae18dc27b81eb"
+    },
+    {
+      "id": "k_dict_8yoqxtuu",
+      "title": "MySQL 模式 / MySQL schema",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 458,
+      "afterLen": 434,
+      "md5Before": "a57e548c660b5d8628e780b346dd8ada",
+      "md5After": "b8c2615826cbf5fecc119e804f736eed"
+    },
+    {
+      "id": "k_dict_i1g9hhj8",
+      "title": "可串行化 / SERIALIZABLE",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2822；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_serializable"
+      ],
+      "beforeLen": 851,
+      "afterLen": 732,
+      "md5Before": "dbd2569bd61ba8ffce8789e62770a7c2",
+      "md5After": "4068dd11d591ab7e55ea9a3529d88349"
+    },
+    {
+      "id": "k_dict_xhmtog57",
+      "title": "服务器 / server",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2844；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_server"
+      ],
+      "beforeLen": 403,
+      "afterLen": 297,
+      "md5Before": "6f30ca95aea7a75ab0550cd54d99e71b",
+      "md5After": "4a82219cb74f204b8a0d1d1e7bb46f35"
+    },
+    {
+      "id": "k_dict_jwcd61u4",
+      "title": "关闭 / shutdown",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2898；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_shutdown"
+      ],
+      "beforeLen": 699,
+      "afterLen": 590,
+      "md5Before": "f2c51366aee9d1a042f81d1a0c805afc",
+      "md5After": "1402c1c71c802921421e68af99e8089a"
+    },
+    {
+      "id": "k_dict_xbipt5q1",
+      "title": "快照 / snapshot",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2923；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_snapshot"
+      ],
+      "beforeLen": 559,
+      "afterLen": 450,
+      "md5Before": "ae22afc4521d88289daf3e17358a7907",
+      "md5After": "cd1b8ca912087c1f146eb89b8b1b4279"
+    },
+    {
+      "id": "k_dict_dedl7dno",
+      "title": "MySQL 安全套接层 / SSL",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 97,
+      "afterLen": 79,
+      "md5Before": "5135f54fb2b44c76c19af5eee1d8242e",
+      "md5After": "5239b24b8442ff88bf06e5e6dc156934"
+    },
+    {
+      "id": "k_dict_rkijwolw",
+      "title": "MySQL 统计信息 / statistics",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 522,
+      "afterLen": 498,
+      "md5Before": "c0bd1b6c76957dff056aa1a1dd51ecf7",
+      "md5After": "247177a538436e8d540221aa370eaed3"
+    },
+    {
+      "id": "k_dict_xb5t6pmm",
+      "title": "MySQL 代理键 / MySQL surrogate key",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 93,
+      "afterLen": 61,
+      "md5Before": "51df3702401fb24f73d0f58a526933e3",
+      "md5After": "1c12adf4a6aec6533460f347628e3a3f"
+    },
+    {
+      "id": "k_dict_nqeoggvl",
+      "title": "MySQL 锁升级 / lock escalation",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1616；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_lock_escalation"
+      ],
+      "beforeLen": 310,
+      "afterLen": 180,
+      "md5Before": "530f0ed870ef6f5c30d4f69d5cb4531b",
+      "md5After": "9e001e1ddae5d92bd09e5ae4e51cc0d5"
+    },
+    {
+      "id": "k_dict_7dvcv51p",
+      "title": "MySQL 表 / table",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 867,
+      "afterLen": 851,
+      "md5Before": "d5f8732ee19306a6c1c3c7734a3bc5aa",
+      "md5After": "945969669fe7216e10eb23888eccbf65"
+    },
+    {
+      "id": "k_dict_umbo5ime",
+      "title": "MySQL 表空间 / tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3240；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tablespace"
+      ],
+      "beforeLen": 1849,
+      "afterLen": 1729,
+      "md5Before": "c4b29e39d8c99d22a926e8afac684c04",
+      "md5After": "e6424175a39e84bee599680fb18a191b"
+    },
+    {
+      "id": "k_dict_6rxmba95",
+      "title": "MySQL 临时表 / temporary table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3268；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_temporary_table"
+      ],
+      "beforeLen": 453,
+      "afterLen": 323,
+      "md5Before": "19f810e0b3fd25549c11f0ad87425a27",
+      "md5After": "1834643c661f3e1e1d00765dadc062fa"
+    },
+    {
+      "id": "k_dict_n7rueozw",
+      "title": "线程 / thread",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 76,
+      "afterLen": 64,
+      "md5Before": "ce52114daadc3e6cb235ac9a332cb530",
+      "md5After": "eb2a66fc163ee976d47a0bdb746fcb25"
+    },
+    {
+      "id": "k_dict_ntqiff2s",
+      "title": "MySQL 截断 / truncate",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 374,
+      "afterLen": 354,
+      "md5Before": "df790c9d376dd13ced7e1b89f26d8a55",
+      "md5After": "0de25e68aa383959260427957a1810e9"
+    },
+    {
+      "id": "k_dict_qbyc557y",
+      "title": "两阶段提交 / two-phase commit",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3417；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_two_phase_commit"
+      ],
+      "beforeLen": 581,
+      "afterLen": 453,
+      "md5Before": "e41ed857c2ff01adbd462123390baa4f",
+      "md5After": "ed42f5873caaf2ca3144f9350f51c4df"
+    },
+    {
+      "id": "k_dict_jmpy3jq2",
+      "title": "MySQL 填充因子 / fill factor",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1022；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fill_factor"
+      ],
+      "beforeLen": 406,
+      "afterLen": 283,
+      "md5Before": "446340017e32c64f0e8fee004afea117",
+      "md5After": "1bc314564a5886807c157ba1ad01c47c"
+    },
+    {
+      "id": "k_dict_rdm2280v",
+      "title": "MySQL 唯一键 / MySQL unique key",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 153,
+      "afterLen": 124,
+      "md5Before": "1fddf5ec754baf358bf2a232663fd11e",
+      "md5After": "c6aa3d74608c4297f901d2e9f4a2a9ef"
+    },
+    {
+      "id": "k_dict_lm90vzok",
+      "title": "MySQL 视图",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 248,
+      "afterLen": 239,
+      "md5Before": "4244eed4552813ff5c982b816ca7bf03",
+      "md5After": "4a67e74888a9733424fa03619afd6f1c"
+    },
+    {
+      "id": "k_dict_7okhi5j5",
+      "title": "虚拟列 / virtual column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3551；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_virtual_column"
+      ],
+      "beforeLen": 241,
+      "afterLen": 119,
+      "md5Before": "1344c32967cdfc28caf9ce12f33a6dae",
+      "md5After": "cd42c4305df3f66194c4d511a291c26d"
+    },
+    {
+      "id": "k_dict_ee6jgxn1",
+      "title": "MySQL 预热 / warm up",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 420,
+      "afterLen": 401,
+      "md5Before": "58b55f518aa32b722d264c81f1350a65",
+      "md5After": "de1ca0741d79fd2fb82fd55b7391dee6"
+    },
+    {
+      "id": "k_dict_vd39b68k",
+      "title": "MySQL 工作负载 / workload",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 145,
+      "afterLen": 123,
+      "md5Before": "31aae92a7a36dda762291d59a5f29dc1",
+      "md5After": "1aa26d0bf0d0a231f01c4ae6199fe9a4"
+    },
+    {
+      "id": "k_dict_el0p7j55",
+      "title": "自动提交 / autocommit",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 267,
+      "afterLen": 249,
+      "md5Before": "0cdf75df67e65d861d43705390fb4d7a",
+      "md5After": "c51afe64ff2f4a4579871352717dac64"
+    },
+    {
+      "id": "k_dict_rukxx2as",
+      "title": "主从复制",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 105,
+      "afterLen": 100,
+      "md5Before": "84d2fd66488b6d31f8c41f8a11d16051",
+      "md5After": "9ec59cc58c5a40f735b6854b978ebaa8"
+    },
+    {
+      "id": "k_1781901890734_vckmz5",
+      "title": "MySQL 变更缓冲区 / change buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：364；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_change_buffer"
+      ],
+      "beforeLen": 946,
+      "afterLen": 819,
+      "md5Before": "bcad232f7988356bd36cf5ced4ad77c2",
+      "md5After": "cc8b485ba447fbb5d04289e5d20973fc"
+    },
+    {
+      "id": "k_1781901899060_670apc",
+      "title": "日志缓冲区 / log buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1660；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_log_buffer"
+      ],
+      "beforeLen": 220,
+      "afterLen": 104,
+      "md5Before": "dc3d9c96fc71088549e48b9c6dd76546",
+      "md5After": "3f26a6e48f01eb140d24a388e0ce1d89"
+    },
+    {
+      "id": "k_1781940147478_6d75y4",
+      "title": "系统表空间 / system tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3146；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_system_tablespace"
+      ],
+      "beforeLen": 2386,
+      "afterLen": 2256,
+      "md5Before": "37f28de98a41879e1bfa8b23a06840e0",
+      "md5After": "b6a31d3dbedabb9682742fedb8669fd0"
+    },
+    {
+      "id": "k_1781957518600_aibqeg",
+      "title": "MySQL 重做日志 / redo log",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2502；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_redo_log"
+      ],
+      "beforeLen": 1156,
+      "afterLen": 1039,
+      "md5Before": "d0755b06a1a6219c422877590248fe9f",
+      "md5After": "7ecc7d2a61497de68a2b113a1d0492e4"
+    },
+    {
+      "id": "k_1781957944264_lxfajw",
+      "title": "会话临时表空间 / session temporary tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2872；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_session_temporary_tablespace"
+      ],
+      "beforeLen": 557,
+      "afterLen": 403,
+      "md5Before": "7d875a0bc06e9553af341a1f3f3b5d05",
+      "md5After": "c69454366f03ace27c9d34c7c068c587"
+    },
+    {
+      "id": "k_1781957954400_w4s3ew",
+      "title": "全局临时表空间 / global temporary tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1161；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_global_temporary_tablespace"
+      ],
+      "beforeLen": 355,
+      "afterLen": 203,
+      "md5Before": "b91215ab86eaa1fb49a5549e1773a4c6",
+      "md5After": "7d9c9f7ca0b7892cdf44be2dcbd65465"
+    },
+    {
+      "id": "k_1781962829528_eqvypd",
+      "title": "MySQL 干净页 / clean page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：404；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_clean_page"
+      ],
+      "beforeLen": 265,
+      "afterLen": 146,
+      "md5Before": "baada5c9a155ab96f0d834098d47e26a",
+      "md5After": "6b56164dffe8319501bb3e62f0495fb6"
+    },
+    {
+      "id": "k_1782008551222_xs2oyj",
+      "title": "刷新列表 / flush list",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1039；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_flush_list"
+      ],
+      "beforeLen": 352,
+      "afterLen": 237,
+      "md5Before": "702900864536eb0e158cd03ee8ceb8a8",
+      "md5After": "6de5ce5a165e3c3a3b19d73f489a68ed"
+    },
+    {
+      "id": "k_1782008637396_62wc7w",
+      "title": "MySQL lru list",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 140,
+      "afterLen": 125,
+      "md5Before": "3d02f04e23666fb48f32a1b20b88466c",
+      "md5After": "b9f47a8384a1499f545a96efb528f151"
+    },
+    {
+      "id": "innodb_mvcc_purge",
+      "title": "清理 / purge",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2354；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_purge"
+      ],
+      "beforeLen": 882,
+      "afterLen": 779,
+      "md5Before": "1579c3b7eddc4984c5c30197f1204914",
+      "md5After": "2dbb35df855bf0621812c8d758a62d5d"
+    },
+    {
+      "id": "innodb_mvcc_db_trx_id",
+      "title": "DB_TRX_ID",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 107,
+      "afterLen": 97,
+      "md5Before": "e6a5c8b67005eb86aa8b5049ecd95d44",
+      "md5After": "f61dbb558e5a057199188356ea0a028b"
+    },
+    {
+      "id": "innodb_mvcc_db_roll_ptr",
+      "title": "DB_ROLL_PTR",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 237,
+      "afterLen": 225,
+      "md5Before": "3da67051dde9b5f54dc3bb9011cc2744",
+      "md5After": "2f36cfd1b82c59a4a9e09b01b2ac9c34"
+    },
+    {
+      "id": "innodb_mvcc_db_row_id",
+      "title": "DB_ROW_ID",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 123,
+      "afterLen": 113,
+      "md5Before": "5d3857ad8e3c6fb65cfdcd60b01c225e",
+      "md5After": "e7a9bcaec415c5a2cb0590eca785efe4"
+    },
+    {
+      "id": "k_1782027235624_gtvo1k",
+      "title": "MySQL 缓存 / cache",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：347；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cache"
+      ],
+      "beforeLen": 222,
+      "afterLen": 114,
+      "md5Before": "4e70b0f2f716cfb528bfbd12ff6d218f",
+      "md5After": "6fc6ff24965e510a73817b3a5435f891"
+    },
+    {
+      "id": "k_1782029505237_7y8fh8",
+      "title": "日志文件 / log file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1666；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_log_file"
+      ],
+      "beforeLen": 208,
+      "afterLen": 97,
+      "md5Before": "44605b24a8445d8c0ea627ad82eac7ac",
+      "md5After": "08f1d72c732e9440f7fd1351a36a98a7"
+    },
+    {
+      "id": "k_1782029546712_okgd59",
+      "title": "通用查询日志 / general query log",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1123；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_general_query_log"
+      ],
+      "beforeLen": 1004,
+      "afterLen": 873,
+      "md5Before": "453f20edcb2ddc42d9a94e2d65534bde",
+      "md5After": "057736db0cb7e1dc93fa9ec8082ad2fe"
+    },
+    {
+      "id": "k_1782029599317_nn6hzg",
+      "title": "慢查询日志 / slow query log",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2910；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_slow_query_log"
+      ],
+      "beforeLen": 571,
+      "afterLen": 447,
+      "md5Before": "91e0623aa58b61d0bccc9c8bee810924",
+      "md5After": "16aba852144bcaf4a0e17eca3f5d66b7"
+    },
+    {
+      "id": "k_1782029618563_7rrguo",
+      "title": "配置文件 / configuration file",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 400,
+      "afterLen": 374,
+      "md5Before": "c5b8033b0074b56596b7e29dd13730b4",
+      "md5After": "d1c103217108e16eae1de338df15ef29"
+    },
+    {
+      "id": "k_1782029643146_aumkky",
+      "title": "数据文件 / data files",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：694；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_data_files"
+      ],
+      "beforeLen": 1114,
+      "afterLen": 1000,
+      "md5Before": "994225642da5c07ce79db43bd95cf98a",
+      "md5After": "0ea24c46cc78cb4d7c6521e4d1f7eca6"
+    },
+    {
+      "id": "k_1782029674610_l6hlzo",
+      "title": ".frm 文件 / .frm file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：967；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_frm_file"
+      ],
+      "beforeLen": 287,
+      "afterLen": 173,
+      "md5Before": "207598c82a798b4b95a8c166f94df56b",
+      "md5After": "61aea3001e86c17efe18d065bff5983c"
+    },
+    {
+      "id": "mysql_file_myd",
+      "title": ".MYD 文件 / .MYD file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1748；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_myd_file"
+      ],
+      "beforeLen": 282,
+      "afterLen": 167,
+      "md5Before": "5551ec2a8c912ede0e907ca25cb28386",
+      "md5After": "c0343019122a1835b8b3613ea0ba86c6"
+    },
+    {
+      "id": "mysql_file_myi",
+      "title": ".MYI 文件 / .MYI file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1753；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_myi_file"
+      ],
+      "beforeLen": 285,
+      "afterLen": 170,
+      "md5Before": "ecf29d955b27fc3778e2fd7ab8365eae",
+      "md5After": "3b379270d81e3218b561bfc9482d77cc"
+    },
+    {
+      "id": "mysql_file_ibd",
+      "title": ".ibd 文件 / .ibd file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1242；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibd_file"
+      ],
+      "beforeLen": 613,
+      "afterLen": 498,
+      "md5Before": "45ec233467af3584c77f67c37b012090",
+      "md5After": "27113ac8af56199fe2d04bce5abb33c0"
+    },
+    {
+      "id": "mysql_file_ibdata",
+      "title": "ibdata 文件 / ibdata file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1280；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibdata_file"
+      ],
+      "beforeLen": 483,
+      "afterLen": 361,
+      "md5Before": "1f60bab1734275e07d7883a2407245df",
+      "md5After": "f97ec6f0c9b675fa060cb9ad0852e94a"
+    },
+    {
+      "id": "mysql_file_ibdata1",
+      "title": "ibdata1 文件 / ibdata1 file",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 141,
+      "afterLen": 115,
+      "md5Before": "4d57db3b98d3a2312e38e52053c11075",
+      "md5After": "2ddabf36ea7fe4557b90116d4a2b0722"
+    },
+    {
+      "id": "mysql_file_pid",
+      "title": "PID 文件 / PID file",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 124,
+      "afterLen": 106,
+      "md5Before": "1bf0dac8d0798ce11bb13be8174056b8",
+      "md5After": "f4d3e6a971b7fecbfe54ad57fea7dd6a"
+    },
+    {
+      "id": "mysql_file_socket",
+      "title": "Socket 文件 / Socket file",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 162,
+      "afterLen": 138,
+      "md5Before": "a102fcc5ce64d6249985e5fddb655cfc",
+      "md5After": "84e04955d37cb05e1e8c6743a97b65f8"
+    },
+    {
+      "id": "k_1782033245872_81floi",
+      "title": "MySQL 解析器（Parser）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 167,
+      "afterLen": 149,
+      "md5Before": "438e2489c1d718d33f7099c6ae9511b4",
+      "md5After": "02e9630794cab91f0bced93a7981945f"
+    },
+    {
+      "id": "k_1782033508063_xspnmd",
+      "title": "MySQL 查询优化器（Optimizer）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 221,
+      "afterLen": 198,
+      "md5Before": "a27c7df78daaa7f61817fef591fcfede",
+      "md5After": "5cf2a93feda557cd17a8f5ead17f0981"
+    },
+    {
+      "id": "k_1782033743150_vbish8",
+      "title": "MySQL 缓存（Cache&Buffer）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 122,
+      "afterLen": 99,
+      "md5Before": "dd543b4bfd4d4fdc18aa958f75682812",
+      "md5After": "b44aab1792976eefecb5adcc150ce9c4"
+    },
+    {
+      "id": "mysql_glossary_arm_file_ufam2l",
+      "title": ".ARM文件 / .ARM file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_arm_file"
+      ],
+      "beforeLen": 526,
+      "afterLen": 415,
+      "md5Before": "73111b5cfe861369f6ca370b638434c3",
+      "md5After": "b78abbec27dfeb1fc56c5840111b92c7"
+    },
+    {
+      "id": "mysql_glossary_arz_file_1iyj60",
+      "title": ".ARZ文件 / .ARZ file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：9；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_arz_file"
+      ],
+      "beforeLen": 519,
+      "afterLen": 408,
+      "md5Before": "00cea8b2f2218137cca87b9e61f67016",
+      "md5After": "8a24a868c992037cefe2aea12eb21f06"
+    },
+    {
+      "id": "mysql_glossary_adaptive_flushing_19588u",
+      "title": "自适应刷新 / adaptive flushing",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：31；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_adaptive_flushing"
+      ],
+      "beforeLen": 870,
+      "afterLen": 742,
+      "md5Before": "029d3f037b304f90397e4986e3178fd9",
+      "md5After": "4179b7a26cff075143b342badc5040f8"
+    },
+    {
+      "id": "mysql_glossary_ado_net_ieyqc",
+      "title": "ADO.NET",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：45；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ado_net"
+      ],
+      "beforeLen": 613,
+      "afterLen": 513,
+      "md5Before": "f29983d5d4043e0ff3324eb18460cdbd",
+      "md5After": "8f68ceb8829a6e0c7ba565feea747dd6"
+    },
+    {
+      "id": "mysql_glossary_api_y14yjr",
+      "title": "MySQL API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：65；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_api"
+      ],
+      "beforeLen": 893,
+      "afterLen": 795,
+      "md5Before": "d01c14909ce44682e74bcb669c7b6fbd",
+      "md5After": "d62721aa14715fa45ad8bb92aef5b50a"
+    },
+    {
+      "id": "mysql_glossary_application_programming_interface_api_73cc6c",
+      "title": "MySQL 应用程序编程接口（API）",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：72；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_application_programming_interface"
+      ],
+      "beforeLen": 263,
+      "afterLen": 125,
+      "md5Before": "583751e3737d97c77a88a3d47aa01bf0",
+      "md5After": "c8af9cf78203bae8e9113c410982c3bd"
+    },
+    {
+      "id": "mysql_glossary_apply_a6xv7f",
+      "title": "应用 / apply",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：76；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_apply"
+      ],
+      "beforeLen": 801,
+      "afterLen": 700,
+      "md5Before": "7f85060494ddb8ac4e753ce9729311cf",
+      "md5After": "b97e8f66b78933f40b562b41928b27a7"
+    },
+    {
+      "id": "mysql_glossary_as_h5mr7x",
+      "title": "MySQL AS（认证服务器）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 82,
+      "afterLen": 66,
+      "md5Before": "a8df311e04f4c3573bf488129b72d660",
+      "md5After": "d3b1b3866061eb1b081e794577161d4d"
+    },
+    {
+      "id": "mysql_glossary_asp_net_lyjnke",
+      "title": "ASP.net",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：93；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_asp_net"
+      ],
+      "beforeLen": 698,
+      "afterLen": 598,
+      "md5Before": "922007227a09664c3d67a99c06a093a6",
+      "md5After": "e55b885e03ec98e897c432e306893d0f"
+    },
+    {
+      "id": "mysql_glossary_assembly_9y51lx",
+      "title": "程序集 / assembly",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：103；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_assembly"
+      ],
+      "beforeLen": 345,
+      "afterLen": 236,
+      "md5Before": "9cb1e08b0b903104196aae831a39710b",
+      "md5After": "aaaac5d2eab0745b6456c2e62a86471b"
+    },
+    {
+      "id": "mysql_glossary_asynchronous_i_o_1c6jsd",
+      "title": "异步I/O / asynchronous I/O",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：109；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_asynchronous_io"
+      ],
+      "beforeLen": 744,
+      "afterLen": 618,
+      "md5Before": "28949e5ab89ff1b50c2967abb6a1f077",
+      "md5After": "64a9129fa1ec7c1af4fb5c8756b3b23e"
+    },
+    {
+      "id": "mysql_glossary_atomic_ddl_l48qcc",
+      "title": "MySQL 原子DDL / atomic DDL",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：123；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_atomic_ddl"
+      ],
+      "beforeLen": 773,
+      "afterLen": 652,
+      "md5Before": "002560fcac1256c813ce9a11c62bde5a",
+      "md5After": "65875f2a2921edff6e92e711135d6e00"
+    },
+    {
+      "id": "mysql_glossary_atomic_instruction_xxdtb4",
+      "title": "MySQL 原子指令 / atomic instruction",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：129；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_atomic_instruction"
+      ],
+      "beforeLen": 230,
+      "afterLen": 94,
+      "md5Before": "09c3189da9d2a636309ed5db34cf9bea",
+      "md5After": "78610bc1f4f926eb7749b919b8eba922"
+    },
+    {
+      "id": "mysql_glossary_authentication_server_1njohk",
+      "title": "MySQL 认证服务器 / authentication server",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：133；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_authentication_server"
+      ],
+      "beforeLen": 506,
+      "afterLen": 363,
+      "md5Before": "7c0bfbc4819622cc4f0744521a9cbff9",
+      "md5After": "d080abf4ea8868086f5d99fe9f31599b"
+    },
+    {
+      "id": "mysql_glossary_auto_increment_locking_lrps8v",
+      "title": "MySQL 自增锁 / auto-increment locking",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：153；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_auto_increment_locking"
+      ],
+      "beforeLen": 877,
+      "afterLen": 734,
+      "md5Before": "1bb61fa581ea3897fb759cd02535b793",
+      "md5After": "7aa27ab358b0c4ef2b78da22274d50e9"
+    },
+    {
+      "id": "mysql_glossary_backticks_5z2ws",
+      "title": "MySQL 反引号 / backticks",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：191；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_backticks"
+      ],
+      "beforeLen": 519,
+      "afterLen": 402,
+      "md5Before": "70b4599ab32662d06da80bfff13bde5a",
+      "md5After": "f7a0ac9f945ef4b2a00c3aaea2cdd1da"
+    },
+    {
+      "id": "mysql_glossary_base_column_jjprw2",
+      "title": "基础列 / base column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：209；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_base_column"
+      ],
+      "beforeLen": 467,
+      "afterLen": 352,
+      "md5Before": "064dc1d87dafde78e1559c3b069af6f9",
+      "md5After": "45c3b24f879c82eabe59c9ac0e9265c1"
+    },
+    {
+      "id": "mysql_glossary_blind_query_expansion_17xip3",
+      "title": "MySQL 盲查询扩展 / blind query expansion",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：239；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_blind_query_expansion"
+      ],
+      "beforeLen": 462,
+      "afterLen": 319,
+      "md5Before": "b7de4b98bc98b77d1870133de8a2c757",
+      "md5After": "c0a5d7fc60f881d7d8fa2a279a4de2d1"
+    },
+    {
+      "id": "mysql_glossary_blob_lhrk4q",
+      "title": "MySQL BLOB",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：246；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_blob"
+      ],
+      "beforeLen": 1053,
+      "afterLen": 952,
+      "md5Before": "29b54694610ce0b1301d82c4dc011c29",
+      "md5After": "c64a44e8898bb7a10a775c4faec85197"
+    },
+    {
+      "id": "mysql_glossary_bottleneck_ehdgmu",
+      "title": "MySQL 瓶颈 / bottleneck",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：252；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_bottleneck"
+      ],
+      "beforeLen": 512,
+      "afterLen": 394,
+      "md5Before": "a535a0a421c68533ee9f3c3df287b50c",
+      "md5After": "5e89288bdcc96240c5339079001f24b8"
+    },
+    {
+      "id": "mysql_glossary_bounce_e9awxp",
+      "title": "重启服务 / bounce",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：258；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_bounce"
+      ],
+      "beforeLen": 272,
+      "afterLen": 166,
+      "md5Before": "84a947307a0faeb8571be98183cfb60e",
+      "md5After": "dfd41a9fc4fba039d18d23edd66e717e"
+    },
+    {
+      "id": "mysql_glossary_buffer_pool_instance_m5jqpe",
+      "title": "缓冲池实例 / buffer pool instance",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：286；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_buffer_pool_instance"
+      ],
+      "beforeLen": 685,
+      "afterLen": 550,
+      "md5Before": "b1f09eb6ce99f7e7c52d6419f6b5689e",
+      "md5After": "f79cf957c15032dc04caca79e0e4f7ac"
+    },
+    {
+      "id": "mysql_glossary_cfg_file_1wfa77",
+      "title": ".cfg 文件 / .cfg file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：314；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cfg_file"
+      ],
+      "beforeLen": 370,
+      "afterLen": 256,
+      "md5Before": "2b10f661c266b2386601d943acbba9bc",
+      "md5After": "2a0449b822ae9b0087d956024af6ebbe"
+    },
+    {
+      "id": "mysql_glossary_c_api_1wuwxq",
+      "title": "C API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：328；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_c_api"
+      ],
+      "beforeLen": 197,
+      "afterLen": 100,
+      "md5Before": "b9d2a5fb30f16d27f4e7fcd3af48bb44",
+      "md5After": "301ef29d1c6b0b6f9d4b5d8bd009ea3c"
+    },
+    {
+      "id": "mysql_glossary_change_buffering_y1y18j",
+      "title": "变更缓冲 / change buffering",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：379；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_change_buffering"
+      ],
+      "beforeLen": 403,
+      "afterLen": 277,
+      "md5Before": "280915e076bae6e6d55a54a0fb8e6142",
+      "md5After": "75e933c789ca9dc02ac9fc5195bb8b9a"
+    },
+    {
+      "id": "mysql_glossary_checksum_qnrmvm",
+      "title": "校验和 / checksum",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：389；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_checksum"
+      ],
+      "beforeLen": 523,
+      "afterLen": 414,
+      "md5Before": "00fedf5605d0c2b243e56f2193428ba6",
+      "md5After": "91c1800e7d6d2b10c8ea13c272c9646f"
+    },
+    {
+      "id": "mysql_glossary_child_table_1l6dvq",
+      "title": "MySQL 子表 / child table",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 252,
+      "afterLen": 229,
+      "md5Before": "cd2e3313abba4df71028b5ae207f6fe2",
+      "md5After": "539f8b41bde0209eb7cdbd72aaf9b7e6"
+    },
+    {
+      "id": "mysql_glossary_client_side_prepared_statement_1czk27",
+      "title": "MySQL 客户端预处理语句 / MySQL client-side prepared statement",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：424；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_client_side_prepared_statement"
+      ],
+      "beforeLen": 507,
+      "afterLen": 337,
+      "md5Before": "30ef407c18efa9c8a5b677f78a89b4b6",
+      "md5After": "a532880b6d78238c85528e5abe5dab3e"
+    },
+    {
+      "id": "mysql_glossary_clob_kn7shj",
+      "title": "MySQL CLOB",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：430；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_clob"
+      ],
+      "beforeLen": 355,
+      "afterLen": 254,
+      "md5Before": "c510fcef8afa7f1099b6b0901ef956c5",
+      "md5After": "23c350e9f1349ad5c876e81ba60e3b65"
+    },
+    {
+      "id": "mysql_glossary_column_index_q4bbvv",
+      "title": "MySQL 列索引 / column index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：459；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_column_index"
+      ],
+      "beforeLen": 202,
+      "afterLen": 79,
+      "md5Before": "a309164f0e645728e6ac315f49f7dfad",
+      "md5After": "216687c3a2532e9fa75a095ff2f1037e"
+    },
+    {
+      "id": "mysql_glossary_column_prefix_15o687",
+      "title": "MySQL 列前缀 / column prefix",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：464；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_column_prefix"
+      ],
+      "beforeLen": 426,
+      "afterLen": 301,
+      "md5Before": "3d4d6665c831c4b455fcf22984711faf",
+      "md5After": "7e067fdb7cc271301b993b5a55d2c384"
+    },
+    {
+      "id": "mysql_glossary_command_interceptor_1f58ii",
+      "title": "命令拦截器 / command interceptor",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：471；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_command_interceptor"
+      ],
+      "beforeLen": 452,
+      "afterLen": 319,
+      "md5Before": "25a0cc822f572caf77ccfef2373a0ec7",
+      "md5After": "149eb730069874ed7933744025373f8f"
+    },
+    {
+      "id": "mysql_glossary_compact_row_format_16fa2a",
+      "title": "紧凑行格式 / compact row format",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：485；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_compact_row_format"
+      ],
+      "beforeLen": 475,
+      "afterLen": 344,
+      "md5Before": "8c915c61eadb05a8bef7d4230ab2002e",
+      "md5After": "849d7dad28ba2797234e327ad7ca7d9e"
+    },
+    {
+      "id": "mysql_glossary_composite_index_duhrko",
+      "title": "MySQL 复合索引 / composite index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：492；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_composite_index"
+      ],
+      "beforeLen": 214,
+      "afterLen": 84,
+      "md5Before": "f61c8b5dbb6ec592148fccf51f67a84e",
+      "md5After": "3982896bd0adbc79c1525f7a8c16c43d"
+    },
+    {
+      "id": "mysql_glossary_compressed_backup_12f16e",
+      "title": "MySQL 压缩备份 / compressed backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：497；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_compressed_backup"
+      ],
+      "beforeLen": 472,
+      "afterLen": 338,
+      "md5Before": "5e870e961204857133a287a4f595afd1",
+      "md5After": "8a22ec351f9a0d5b91cd99a9ede4b636"
+    },
+    {
+      "id": "mysql_glossary_compressed_row_format_11axki",
+      "title": "compressed row format",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：506；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_compressed_row_format"
+      ],
+      "beforeLen": 771,
+      "afterLen": 642,
+      "md5Before": "f3427c639650ffe99e7ce78c0a84d712",
+      "md5After": "d40d36c2833c9f2942fa74eebd0089e1"
+    },
+    {
+      "id": "mysql_glossary_compressed_table_zx6vsg",
+      "title": "compressed table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：513；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_compressed_table"
+      ],
+      "beforeLen": 349,
+      "afterLen": 230,
+      "md5Before": "33ddf614f8341c0940e763a45d51cd8e",
+      "md5After": "4029d59bf5af8d89b2cbd3a92d1dcd9a"
+    },
+    {
+      "id": "mysql_glossary_concatenated_index_zs31t2",
+      "title": "MySQL 连接索引 / concatenated index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：532；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_concatenated_index"
+      ],
+      "beforeLen": 211,
+      "afterLen": 75,
+      "md5Before": "c8505b542c35d3383565646dab1a9c89",
+      "md5After": "8047df2fa6cd3972b67918b9495f168c"
+    },
+    {
+      "id": "mysql_glossary_concurrency_uoyivs",
+      "title": "MySQL 并发 / concurrency",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 148,
+      "afterLen": 125,
+      "md5Before": "27b9c8d5d46be939c66c8e678a5fe8b1",
+      "md5After": "da2285f967dd875eaa50df233eea53d4"
+    },
+    {
+      "id": "mysql_glossary_connection_fqlzvd",
+      "title": "MySQL 连接 / connection",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：549；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connection"
+      ],
+      "beforeLen": 425,
+      "afterLen": 307,
+      "md5Before": "42169db9e2073ca0daba3d0ed4c513e9",
+      "md5After": "3500b90330142768d78170740ed867fe"
+    },
+    {
+      "id": "mysql_glossary_connection_string_1hyrot",
+      "title": "MySQL 连接字符串 / connection string",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：560；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connection_string"
+      ],
+      "beforeLen": 397,
+      "afterLen": 262,
+      "md5Before": "a8806c6136e1dcc915373e67922e78c3",
+      "md5After": "8c70621dd010a0ad0fa4d2d5ba5a72f6"
+    },
+    {
+      "id": "mysql_glossary_connector_ijze9c",
+      "title": "MySQL 连接器 / connector",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：568；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector"
+      ],
+      "beforeLen": 313,
+      "afterLen": 196,
+      "md5Before": "9ad232f96635c9ae5ef2c6a7f5a7215b",
+      "md5After": "580a078383d628b8a0d94d110878de7e"
+    },
+    {
+      "id": "mysql_glossary_connector_c_rs92y0",
+      "title": "Connector/C++",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：573；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector_c__"
+      ],
+      "beforeLen": 364,
+      "afterLen": 251,
+      "md5Before": "ffceb466ebe5b793ca47a442adde7053",
+      "md5After": "4ffa3ad10476911f930b4378df3250f6"
+    },
+    {
+      "id": "mysql_glossary_connector_j_avxtph",
+      "title": "Connector/J",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：579；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector_j"
+      ],
+      "beforeLen": 334,
+      "afterLen": 225,
+      "md5Before": "f25e73aba49af02c51d5c42668250e7e",
+      "md5After": "71e493f4b8a584777912bc3e31b67535"
+    },
+    {
+      "id": "mysql_glossary_connector_net_1h05w3",
+      "title": "Connector/NET",
+      "titleDeduped": true,
+      "footerCount": 2,
+      "footers": [
+        "来源：原始行：586；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector_net",
+        "来源：原始行：1912；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos__net"
+      ],
+      "beforeLen": 431,
+      "afterLen": 227,
+      "md5Before": "afeeb74ddd3364d4fa4a1e610bc47497",
+      "md5After": "647e80fdd8d67183053d75267a04b399"
+    },
+    {
+      "id": "mysql_glossary_connector_odbc_1qan6g",
+      "title": "Connector/ODBC",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：592；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector_odbc"
+      ],
+      "beforeLen": 262,
+      "afterLen": 147,
+      "md5Before": "38a396dcb3fc2e8409cec1280fe0095d",
+      "md5After": "d0021dce06ee053cc0b1fbd0e0c83cd8"
+    },
+    {
+      "id": "mysql_glossary_connector_php_1rej45",
+      "title": "Connector/PHP",
+      "titleDeduped": true,
+      "footerCount": 2,
+      "footers": [
+        "来源：原始行：598；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_connector_php",
+        "来源：原始行：2237；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_php"
+      ],
+      "beforeLen": 777,
+      "afterLen": 574,
+      "md5Before": "028cccbb59fba94135970a8d7a0011c9",
+      "md5After": "290cf8d8fff963d5f23b24ecbe4bb47a"
+    },
+    {
+      "id": "mysql_glossary_consistent_read_gsmmdj",
+      "title": "MySQL 一致性读取 / consistent read",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：603；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_consistent_read"
+      ],
+      "beforeLen": 675,
+      "afterLen": 544,
+      "md5Before": "08397ce6fbb12926c375ccd81cdf1255",
+      "md5After": "59e6ad18867d65ceae41655df45b381e"
+    },
+    {
+      "id": "mysql_glossary_counter_17gzh9",
+      "title": "MySQL 计数器 / counter",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：627；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_counter"
+      ],
+      "beforeLen": 399,
+      "afterLen": 286,
+      "md5Before": "6579b88e8064ff82e7238527a713ac32",
+      "md5After": "0aebfd194846396d2fe7c2530746f631"
+    },
+    {
+      "id": "mysql_glossary_cpu_bound_1lxhya",
+      "title": "MySQL CPU密集型 / CPU-bound",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：641；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_cpu_bound"
+      ],
+      "beforeLen": 257,
+      "afterLen": 137,
+      "md5Before": "b35db1955daf8526241bc956c08728cd",
+      "md5After": "48571d199e767e8768fe5dbca4a49f1c"
+    },
+    {
+      "id": "mysql_glossary_crash_7aq2mw",
+      "title": "MySQL 崩溃 / crash",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 251,
+      "afterLen": 234,
+      "md5Before": "187646f05d991f41c98ad24b0eebbdf7",
+      "md5After": "20fc006bde4f69abbc17a37ede1e4463"
+    },
+    {
+      "id": "mysql_glossary_crash_recovery_139bco",
+      "title": "MySQL 崩溃恢复 / crash recovery",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：651；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_crash_recovery"
+      ],
+      "beforeLen": 501,
+      "afterLen": 373,
+      "md5Before": "502cf69e9accb78a4b209ce898983630",
+      "md5After": "3b400125f1b32c8b315b272e24a59c17"
+    },
+    {
+      "id": "mysql_glossary_data_directory_zrepzq",
+      "title": "数据目录 / data directory",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：688；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_data_directory"
+      ],
+      "beforeLen": 463,
+      "afterLen": 341,
+      "md5Before": "0824a8d214917286aef52728da36996e",
+      "md5After": "02a7ab4b7e02d14d42808f7f2ad2588e"
+    },
+    {
+      "id": "mysql_glossary_delete_buffering_15389r",
+      "title": "删除缓冲 / delete buffering",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：783；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_delete_buffering"
+      ],
+      "beforeLen": 766,
+      "afterLen": 640,
+      "md5Before": "758eeaf47ec71b011fa5a20dd8f87955",
+      "md5After": "8cfce5b3f9d5bae21101a2325ccbb8a1"
+    },
+    {
+      "id": "mysql_glossary_denormalized_y8sq0n",
+      "title": "反规范化 / denormalized",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：789；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_denormalized"
+      ],
+      "beforeLen": 620,
+      "afterLen": 502,
+      "md5Before": "a34ab8a77a47d61a31f894fe039b361d",
+      "md5After": "68c993569cf34db6cd91fd1171967736"
+    },
+    {
+      "id": "mysql_glossary_descending_index_1j7tn3",
+      "title": "MySQL 降序索引 / descending index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：795；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_descending_index"
+      ],
+      "beforeLen": 307,
+      "afterLen": 175,
+      "md5Before": "0475fa69ba0a24da398ce25439f1e5b8",
+      "md5After": "181c2d2817d7d5aa42ba0a4cf111b1cf"
+    },
+    {
+      "id": "mysql_glossary_dictionary_object_cache_1jwkoz",
+      "title": "字典对象缓存 / dictionary object cache",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：801；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dictionary_object_cache"
+      ],
+      "beforeLen": 595,
+      "afterLen": 453,
+      "md5Before": "3d0a4aacca57adf14f2c7a0e55620484",
+      "md5After": "64e5e692af655a52f11924eed7847a9c"
+    },
+    {
+      "id": "mysql_glossary_disk_based_15w8id",
+      "title": "基于磁盘 / disk-based",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：831；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_disk_based"
+      ],
+      "beforeLen": 574,
+      "afterLen": 460,
+      "md5Before": "7239fab788b3ef2ed3ccfc68f384928e",
+      "md5After": "4336e663d9d1abcb4124db8e914ff64e"
+    },
+    {
+      "id": "mysql_glossary_disk_bound_1eazx6",
+      "title": "MySQL 磁盘绑定 / disk-bound",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：838；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_disk_bound"
+      ],
+      "beforeLen": 531,
+      "afterLen": 411,
+      "md5Before": "b03a03ba87542c4250dbe2f35d6c695a",
+      "md5After": "ea2decd8b0828b8b89639fd08430832c"
+    },
+    {
+      "id": "mysql_glossary_doublewrite_buffer_flioi3",
+      "title": "双写缓冲区 / doublewrite buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：864；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_doublewrite_buffer"
+      ],
+      "beforeLen": 861,
+      "afterLen": 730,
+      "md5Before": "f67a4ef9de7fd36e015f20386f45108c",
+      "md5After": "c08adcea0d262a13218215ff2fe379f9"
+    },
+    {
+      "id": "mysql_glossary_dynamic_cursor_u1pzzs",
+      "title": "动态游标 / dynamic cursor",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：884；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_cursor"
+      ],
+      "beforeLen": 408,
+      "afterLen": 286,
+      "md5Before": "01fcb516716dc57113e72504e5213032",
+      "md5After": "97fdcf92f640cbd754c2317632ba7c39"
+    },
+    {
+      "id": "mysql_glossary_dynamic_row_format_1pdso5",
+      "title": "动态行格式 / dynamic row format",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：890；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_row_format"
+      ],
+      "beforeLen": 866,
+      "afterLen": 735,
+      "md5Before": "270e03c6e4138608de0e74996b637440",
+      "md5After": "8c98bd4a81da5022068bfc1521ddb81e"
+    },
+    {
+      "id": "mysql_glossary_dynamic_statement_1evhmv",
+      "title": "MySQL 动态语句 / dynamic statement",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：910；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_dynamic_statement"
+      ],
+      "beforeLen": 417,
+      "afterLen": 283,
+      "md5Before": "1a09fe18c1268838264e18a31363fccc",
+      "md5After": "caeb0a8bdb518c77fc34489860584b59"
+    },
+    {
+      "id": "mysql_glossary_early_adopter_518cax",
+      "title": "早期采用者 / early adopter",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：916；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_early_adopter"
+      ],
+      "beforeLen": 202,
+      "afterLen": 81,
+      "md5Before": "fcf66eaca776ba3c9a1103d60338147f",
+      "md5After": "38afcfca3d1b30d241d617278573ea04"
+    },
+    {
+      "id": "mysql_glossary_eiffel_75vlru",
+      "title": "埃菲尔 / Eiffel",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：921；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_eiffel"
+      ],
+      "beforeLen": 237,
+      "afterLen": 132,
+      "md5Before": "b09552dc9bb11211289483f8905d5a7c",
+      "md5After": "df4fd676dea0dda24c92396e8944fb87"
+    },
+    {
+      "id": "mysql_glossary_eviction_1b3reo",
+      "title": "驱逐 / eviction",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：936；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_eviction"
+      ],
+      "beforeLen": 291,
+      "afterLen": 183,
+      "md5Before": "bea9f4728b7cad8bb9d564fa717212b1",
+      "md5After": "7c29e854677a5ef3554a1133e1fb2065"
+    },
+    {
+      "id": "mysql_glossary_exception_interceptor_nqrl4t",
+      "title": "异常拦截器 / exception interceptor",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：941；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_exception_interceptor"
+      ],
+      "beforeLen": 625,
+      "afterLen": 488,
+      "md5Before": "1cc7e6a58e3667844cf21ca3064aeb7a",
+      "md5After": "296633a9a59ae5651754fe0320262d41"
+    },
+    {
+      "id": "mysql_glossary_exclusive_lock_ksqz5a",
+      "title": "MySQL 独占锁 / exclusive lock",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 442,
+      "afterLen": 415,
+      "md5Before": "f66ec78c9ff03d1e128282a37fe5df50",
+      "md5After": "a84ce8ba8fe4221bc70d39bc5753d942"
+    },
+    {
+      "id": "mysql_glossary_extent_16v5kw",
+      "title": "MySQL 区段 / extent",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：956；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_extent"
+      ],
+      "beforeLen": 516,
+      "afterLen": 406,
+      "md5Before": "df1ee79350e6426282a9b14d900e9758",
+      "md5After": "8efc9b6c25b7a6e2625c930432479db1"
+    },
+    {
+      "id": "mysql_glossary_file_per_table_c2gueo",
+      "title": "每表一个文件 / file-per-table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1010；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_file_per_table"
+      ],
+      "beforeLen": 700,
+      "afterLen": 575,
+      "md5Before": "061503e767e9d988e60601a237b9bb91",
+      "md5After": "aca119000157362d317e5dbaba8e229b"
+    },
+    {
+      "id": "mysql_glossary_fixed_row_format_ti21b0",
+      "title": "固定行格式 / fixed row format",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1027；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fixed_row_format"
+      ],
+      "beforeLen": 405,
+      "afterLen": 277,
+      "md5Before": "b06faa1f0a116eabaf69e6222959eb8a",
+      "md5After": "8fcfd3afddd988c928530ab98eb84da7"
+    },
+    {
+      "id": "mysql_glossary_foreign_key_constraint_p6gdbr",
+      "title": "MySQL 外键约束 / MySQL FOREIGN KEY constraint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1054；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_foreign_key_constraint"
+      ],
+      "beforeLen": 439,
+      "afterLen": 288,
+      "md5Before": "cec95c854e383e70b6ea93eacf379ac2",
+      "md5After": "8f2fa72eeca670b1ea8621671ce1c89c"
+    },
+    {
+      "id": "mysql_glossary_fts_1x0dll",
+      "title": "MySQL 全文本搜索 / FTS",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1059；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fts"
+      ],
+      "beforeLen": 221,
+      "afterLen": 113,
+      "md5Before": "fb75b4403d7ac344e9bbb48ce76be0fe",
+      "md5After": "a261264933051cec2913bbb2e7a7fe1b"
+    },
+    {
+      "id": "mysql_glossary_full_backup_1pi94c",
+      "title": "MySQL 完整备份 / full backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1064；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_full_backup"
+      ],
+      "beforeLen": 282,
+      "afterLen": 159,
+      "md5Before": "90838d4ed1e4b9f0bacaa4b54f085b16",
+      "md5After": "2fdd9171c32f85716ca34fba7110f1ad"
+    },
+    {
+      "id": "mysql_glossary_full_text_search_16dcha",
+      "title": "MySQL 全文搜索 / full-text search",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 172,
+      "afterLen": 142,
+      "md5Before": "ccda269610ad1e8616deac31edc39dec",
+      "md5After": "929e8f1a506c253f4bd6264bc83bd304"
+    },
+    {
+      "id": "mysql_glossary_fuzzy_checkpointing_1cxy9s",
+      "title": "模糊检查点 / fuzzy checkpointing",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1086；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_fuzzy_checkpointing"
+      ],
+      "beforeLen": 251,
+      "afterLen": 117,
+      "md5Before": "29693a9692cae741250547f5a5e5132f",
+      "md5After": "ebf2dbadab19a58999b0f58c42e3a091"
+    },
+    {
+      "id": "mysql_glossary_gac_1g5bbw",
+      "title": "GAC",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1099；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_gac"
+      ],
+      "beforeLen": 343,
+      "afterLen": 249,
+      "md5Before": "81b33c9f4a3053cafffb832e3f850ab8",
+      "md5After": "367b795cc0942a9db31dbd9812ea89e8"
+    },
+    {
+      "id": "mysql_glossary_gap_k039an",
+      "title": "间隙 / gap",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1105；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_gap"
+      ],
+      "beforeLen": 805,
+      "afterLen": 706,
+      "md5Before": "4473fe240854e936c36acfb7e6f80108",
+      "md5After": "143f94ba619aa84076011fc71a342b06"
+    },
+    {
+      "id": "mysql_glossary_gap_lock_1gfoi1",
+      "title": "MySQL 间隙锁 / gap lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1111；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_gap_lock"
+      ],
+      "beforeLen": 912,
+      "afterLen": 796,
+      "md5Before": "cdcbd6dd0ff6257677f739ebf058cc1c",
+      "md5After": "dc9ceef5d79a6c496a4e12a5934a3943"
+    },
+    {
+      "id": "mysql_glossary_general_tablespace_300irr",
+      "title": "MySQL 通用表空间 / general tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1131；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_general_tablespace"
+      ],
+      "beforeLen": 1281,
+      "afterLen": 1143,
+      "md5Before": "0e1903d4ec2d06fa2e795ae6bdf9b4fd",
+      "md5After": "e8e3b12ddd34ca7409d79f2dd5b7127f"
+    },
+    {
+      "id": "mysql_glossary_generated_stored_column_1nr7fq",
+      "title": "生成的存储列 / generated stored column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1149；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_generated_stored_column"
+      ],
+      "beforeLen": 274,
+      "afterLen": 131,
+      "md5Before": "ea347f3db07776bd6276db305d525a2c",
+      "md5After": "c920b0558a3a59aae4e29fe4d7ee0a62"
+    },
+    {
+      "id": "mysql_glossary_global_transaction_4i1f06",
+      "title": "MySQL 全局事务 / global transaction",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 209,
+      "afterLen": 177,
+      "md5Before": "c3035ba9603b6cae7a140993295b5e9b",
+      "md5After": "08b33d652e26612d25789fcb04bddc22"
+    },
+    {
+      "id": "mysql_glossary_guid_bmsoy4",
+      "title": "MySQL GUID",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1179；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_guid"
+      ],
+      "beforeLen": 412,
+      "afterLen": 310,
+      "md5Before": "dd4d53a67f9374393f3920469c4055ee",
+      "md5After": "01382e8b12cd6e7c39127ceff83c8f46"
+    },
+    {
+      "id": "mysql_glossary_hdd_eb2rxz",
+      "title": "HDD",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 82,
+      "afterLen": 78,
+      "md5Before": "99fc8ed133e5c1e5be3a9c394ed05608",
+      "md5After": "fd9d8b67b35d2ba81c674ebb47ee2853"
+    },
+    {
+      "id": "mysql_glossary_heartbeat_1aiai3",
+      "title": "MySQL 心跳 / heartbeat",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1197；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_heartbeat"
+      ],
+      "beforeLen": 285,
+      "afterLen": 168,
+      "md5Before": "255b51b76e95c67cf5d9f7fdd20fe753",
+      "md5After": "eafa7d0215b2666279bdbd3ecdb246b3"
+    },
+    {
+      "id": "mysql_glossary_high_water_mark_1g6jcp",
+      "title": "高水位线 / high-water mark",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1202；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_high_water_mark"
+      ],
+      "beforeLen": 222,
+      "afterLen": 97,
+      "md5Before": "96b1317e75c7de87a582cfd233198223",
+      "md5After": "3ec26f1d9048b420034b55bdf95f0633"
+    },
+    {
+      "id": "mysql_glossary_history_list_16r63i",
+      "title": "历史列表 / history list",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1207；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_history_list"
+      ],
+      "beforeLen": 369,
+      "afterLen": 250,
+      "md5Before": "a2cdbf5fb8a95963b5aa6392310b5ef8",
+      "md5After": "153d2bc249ec2346b8768e90680fd92b"
+    },
+    {
+      "id": "mysql_glossary_host_1ctymw",
+      "title": "MySQL 主机 / host",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 164,
+      "afterLen": 148,
+      "md5Before": "d4e7eebdd1c72a5ef7d5b10af80cbf43",
+      "md5After": "f529ab6f40eabb2dce1d6ee70358b282"
+    },
+    {
+      "id": "mysql_glossary_hot_1yorp3",
+      "title": "MySQL 热 / hot",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1226；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_hot"
+      ],
+      "beforeLen": 223,
+      "afterLen": 119,
+      "md5Before": "2af022f18aaf64f59a9d784538ee175b",
+      "md5After": "ca75d1d709ee2425c96963a48d4c7865"
+    },
+    {
+      "id": "mysql_glossary_ibz_file_tz3hbm",
+      "title": ".ibz 文件 / .ibz file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1255；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibz_file"
+      ],
+      "beforeLen": 393,
+      "afterLen": 278,
+      "md5Before": "9a7d3da53ea3562115241a2fc044228b",
+      "md5After": "a9082a9e264f5621ae08cdee02f5cab8"
+    },
+    {
+      "id": "mysql_glossary_i_o_bound_9k72or",
+      "title": "MySQL I/O 绑定 / I/O-bound",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1262；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_io_bound"
+      ],
+      "beforeLen": 179,
+      "afterLen": 59,
+      "md5Before": "1d4ea78116ee3c0095ca80b06a1a5c1b",
+      "md5After": "54c4bfa6fa800419e632d6f2a0085bff"
+    },
+    {
+      "id": "mysql_glossary_ib_file_set_18odgx",
+      "title": "ib-file 集合 / ib-file set",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1265；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ib_file_set"
+      ],
+      "beforeLen": 412,
+      "afterLen": 289,
+      "md5Before": "d722da15232977fa13a222f8aa5d05a3",
+      "md5After": "7c01a4a3e4b213c3808c9cae8bc30051"
+    },
+    {
+      "id": "mysql_glossary_ibbackup_logfile_1vewn2",
+      "title": "ibbackup_logfile",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1274；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibbackup_logfile"
+      ],
+      "beforeLen": 424,
+      "afterLen": 304,
+      "md5Before": "1baa9326f523c7b37b87b64ac1bd6c63",
+      "md5After": "c2a4f3fbd2a8cf37a868c368fa9e1a8a"
+    },
+    {
+      "id": "mysql_glossary_ibtmp_file_18e04h",
+      "title": "ibtmp 文件 / ibtmp file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1288；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ibtmp_file"
+      ],
+      "beforeLen": 390,
+      "afterLen": 271,
+      "md5Before": "8dbd935eacd7425e30fa722c70ed1578",
+      "md5After": "3a048116ac06ef98070a52237f8a4ceb"
+    },
+    {
+      "id": "mysql_glossary_ib_logfile_1p12fu",
+      "title": "ib_logfile 文件 / ib_logfile",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1293；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ib_logfile"
+      ],
+      "beforeLen": 443,
+      "afterLen": 319,
+      "md5Before": "ba321760589edf44c4e36aeb5961233d",
+      "md5After": "6cf4cc8e34afe30c8b5f1e14f7ab51f4"
+    },
+    {
+      "id": "mysql_glossary_implicit_row_lock_ac6u2d",
+      "title": "MySQL 隐式行锁 / implicit row lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1307；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_implicit_row_lock"
+      ],
+      "beforeLen": 237,
+      "afterLen": 102,
+      "md5Before": "c348f9114b191ad27f97d25f64e6920d",
+      "md5After": "7a1e6934e2895db6a868f989c49fe090"
+    },
+    {
+      "id": "mysql_glossary_incremental_backup_3gko1n",
+      "title": "MySQL 增量备份 / incremental backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1319；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_incremental_backup"
+      ],
+      "beforeLen": 473,
+      "afterLen": 336,
+      "md5Before": "1cf82301e1cc047efddf676202bffb5a",
+      "md5After": "72cb3fda5dcc10408b412772fcbdf9b8"
+    },
+    {
+      "id": "mysql_glossary_index_condition_pushdown_tudely",
+      "title": "MySQL 索引条件下推 / ICP",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1347；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_index_condition_pushdown"
+      ],
+      "beforeLen": 351,
+      "afterLen": 221,
+      "md5Before": "89e9295f678c4c59c15d5a03bc8cfe45",
+      "md5After": "cd71321e22952411f326e2e681e3f67f"
+    },
+    {
+      "id": "mysql_glossary_index_hint_1nr0pl",
+      "title": "MySQL 索引提示 / index hint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1353；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_index_hint"
+      ],
+      "beforeLen": 293,
+      "afterLen": 172,
+      "md5Before": "96709ed35e33ce0675102ef51a95f9f7",
+      "md5After": "63854a2690d52f52839a2cbc7ef3a2d5"
+    },
+    {
+      "id": "mysql_glossary_index_statistics_1ge74j",
+      "title": "MySQL 索引统计 / index statistics",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1363；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_index_statistics"
+      ],
+      "beforeLen": 202,
+      "afterLen": 69,
+      "md5Before": "265f0a080ebf7bc686bc4a48b194af52",
+      "md5After": "40399d96e36560322e0eb527f30d575f"
+    },
+    {
+      "id": "mysql_glossary_infimum_record_1jiz41",
+      "title": "MySQL 极小记录 / infimum record",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1366；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_infimum_record"
+      ],
+      "beforeLen": 372,
+      "afterLen": 243,
+      "md5Before": "5d94d3cfebeaec129f07590b0d6856f5",
+      "md5After": "590134c4bb55e5bb5d4d18862b6bb0b6"
+    },
+    {
+      "id": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+      "title": "MySQL innodb_autoinc_lock_mode",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 410,
+      "afterLen": 379,
+      "md5Before": "7bb282022e9c2cb25dd1dca327879f1f",
+      "md5After": "e9b556eac49a128b05512fe54fce7ab3"
+    },
+    {
+      "id": "mysql_glossary_innodb_file_per_table_1w525y",
+      "title": "innodb_file_per_table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1406；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_innodb_file_per_table"
+      ],
+      "beforeLen": 559,
+      "afterLen": 429,
+      "md5Before": "4e73fe68beff13bd12f40b0d8f456770",
+      "md5After": "7c5221c92df99027681ba426fc41613a"
+    },
+    {
+      "id": "mysql_glossary_innodb_lock_wait_timeout_1puppm",
+      "title": "MySQL innodb_lock_wait_timeout",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1419；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_innodb_lock_wait_timeout"
+      ],
+      "beforeLen": 366,
+      "afterLen": 224,
+      "md5Before": "34e2b85a623ebf62c8e4a45635a08e24",
+      "md5After": "033809d8ecc96c143e42ac2e02a7d42e"
+    },
+    {
+      "id": "mysql_glossary_insert_buffer_1xx0p8",
+      "title": "MySQL 插入缓冲区 / MySQL insert buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1440；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_buffer"
+      ],
+      "beforeLen": 339,
+      "afterLen": 205,
+      "md5Before": "ee7eb7ad2d114c9801fe605e200103cf",
+      "md5After": "b6a37ab7de21f0edec04cdcbe0579173"
+    },
+    {
+      "id": "mysql_glossary_insert_buffering_m9lmge",
+      "title": "MySQL 插入缓冲 / MySQL insert buffering",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1445；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_buffering"
+      ],
+      "beforeLen": 458,
+      "afterLen": 319,
+      "md5Before": "476ca5ebe5a37a2b9c77a5b0d77acaf9",
+      "md5After": "e50ad01e6bfceb39bd439a3b314d7200"
+    },
+    {
+      "id": "mysql_glossary_insert_intention_lock_1pnwh6",
+      "title": "MySQL 插入意向锁 / insert intention lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1453；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_insert_intention_lock"
+      ],
+      "beforeLen": 340,
+      "afterLen": 196,
+      "md5Before": "4325fbd038f27eed902fc75af74bd9b8",
+      "md5After": "0671f873c1ca5e29862c2ab46c8aed5b"
+    },
+    {
+      "id": "mysql_glossary_instrumentation_1v9bxz",
+      "title": "仪器仪表 / instrumentation",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1463；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_instrumentation"
+      ],
+      "beforeLen": 293,
+      "afterLen": 168,
+      "md5Before": "e4b353eb14c045d1912f0543883d783a",
+      "md5After": "202cccbc606234f3be16d180d487a09c"
+    },
+    {
+      "id": "mysql_glossary_intention_exclusive_lock_1rd4p1",
+      "title": "MySQL 意图独占锁 / intention exclusive lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1468；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_intention_exclusive_lock"
+      ],
+      "beforeLen": 238,
+      "afterLen": 88,
+      "md5Before": "0e4a400ba8e0ec9c8d966ab09f10d94a",
+      "md5After": "247eee559f79eeaedf33d2bf6acb8ee4"
+    },
+    {
+      "id": "mysql_glossary_intention_lock_1ejpzi",
+      "title": "MySQL 意向锁 / intention lock",
+      "titleDeduped": false,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1471；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_intention_lock"
+      ],
+      "beforeLen": 431,
+      "afterLen": 330,
+      "md5Before": "5066b5d4cb26b7f3b412888c16f31db2",
+      "md5After": "404def19a03c3ba820fb63cf2aefcdaf"
+    },
+    {
+      "id": "mysql_glossary_intention_shared_lock_4x8ciz",
+      "title": "MySQL 意图共享锁 / intention shared lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1476；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_intention_shared_lock"
+      ],
+      "beforeLen": 226,
+      "afterLen": 82,
+      "md5Before": "9028f39af67063142ca5c59690a5dacc",
+      "md5After": "a6a16f0e3e8298ef3497f5ce1840603a"
+    },
+    {
+      "id": "mysql_glossary_intrinsic_temporary_table_1sl3hr",
+      "title": "内在临时表 / intrinsic temporary table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1484；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_intrinsic_temporary_table"
+      ],
+      "beforeLen": 231,
+      "afterLen": 85,
+      "md5Before": "dbeb67c8ed5a3f28ca294f3777d7848e",
+      "md5After": "33cb072bc7017bb0129f0980cbf774d7"
+    },
+    {
+      "id": "mysql_glossary_inverted_index_spkkuc",
+      "title": "MySQL 倒排索引 / inverted index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1489；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_inverted_index"
+      ],
+      "beforeLen": 365,
+      "afterLen": 236,
+      "md5Before": "9f34aa575347a4bfa16ce91b9f721594",
+      "md5After": "91b8f4239a077d151a00df32e7e1fc10"
+    },
+    {
+      "id": "mysql_glossary_iops_1go6rk",
+      "title": "IOPS",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1495；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_iops"
+      ],
+      "beforeLen": 237,
+      "afterLen": 141,
+      "md5Before": "b281ba8102c00e84b849ce2a8b2a634f",
+      "md5After": "68a00c5eb282a308ebd0e539b93560be"
+    },
+    {
+      "id": "mysql_glossary_jdbc_14hlls",
+      "title": "JDBC",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1531；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_jdbc"
+      ],
+      "beforeLen": 253,
+      "afterLen": 157,
+      "md5Before": "51b035f868c9108e00ef07f2fc895a76",
+      "md5After": "49a2b31ae0910150ad90a0d9de254670"
+    },
+    {
+      "id": "mysql_glossary_key_distribution_center_fhraw7",
+      "title": "MySQL 密钥分发中心 / KDC",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1549；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_key_distribution_center"
+      ],
+      "beforeLen": 261,
+      "afterLen": 132,
+      "md5Before": "91ea6d91903214f82873709acd1456d1",
+      "md5After": "0acd7ac489174a582a2974df97ad3f8f"
+    },
+    {
+      "id": "mysql_glossary_keystore_1khbxb",
+      "title": "MySQL 密钥库 / keystore",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 45,
+      "afterLen": 24,
+      "md5Before": "1cf4d9529be8a866127dcf4d924cbcf2",
+      "md5After": "830f36730e6bcceb954649cb408da7d8"
+    },
+    {
+      "id": "mysql_glossary_key_block_size_u1i5bm",
+      "title": "KEY_BLOCK_SIZE",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1558；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_key_block_size"
+      ],
+      "beforeLen": 349,
+      "afterLen": 233,
+      "md5Before": "530fadb01e4f8dd3b176f8e16b9ce85a",
+      "md5After": "a3f530a9c55e5add4c8d0986587fd9ad"
+    },
+    {
+      "id": "mysql_glossary_libmysqlclient_1ofbnd",
+      "title": "libmysqlclient",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1579；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_libmysqlclient"
+      ],
+      "beforeLen": 274,
+      "afterLen": 158,
+      "md5Before": "7b1bb780ddcc8e6354973257d1069031",
+      "md5After": "f260aad89bf1c751cf0cae3a6b5dad8e"
+    },
+    {
+      "id": "mysql_glossary_list_3lo6m9",
+      "title": "列表 / list",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 164,
+      "afterLen": 154,
+      "md5Before": "0d2cc68e4a318018ae312e5dcb9f8177",
+      "md5After": "d4f486110c482c63f882c7328c67031c"
+    },
+    {
+      "id": "mysql_glossary_load_balancing_ee4rhm",
+      "title": "MySQL 负载均衡 / load balancing",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1600；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_load_balancing"
+      ],
+      "beforeLen": 334,
+      "afterLen": 205,
+      "md5Before": "1e7627ce29c4606e5ae981159ffe138b",
+      "md5After": "83e04a799f130e2cbc07240ed52f511d"
+    },
+    {
+      "id": "mysql_glossary_lock_mode_h31or1",
+      "title": "MySQL 锁模式 / lock mode",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1621；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_lock_mode"
+      ],
+      "beforeLen": 481,
+      "afterLen": 363,
+      "md5Before": "21d96e0421860156e5ab6a42e13016d1",
+      "md5After": "c94930b30b076f0f2ab241fed3550085"
+    },
+    {
+      "id": "mysql_glossary_locking_read_16dto0",
+      "title": "MySQL 锁定读 / locking read",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1636；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_locking_read"
+      ],
+      "beforeLen": 527,
+      "afterLen": 403,
+      "md5Before": "12e7fb1a8cb41e0613af9caeb0b2bdfc",
+      "md5After": "18aa7ad3a05add55ab5e1514f7af05a1"
+    },
+    {
+      "id": "mysql_glossary_log_group_1a3bsl",
+      "title": "日志组 / log group",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1671；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_log_group"
+      ],
+      "beforeLen": 217,
+      "afterLen": 105,
+      "md5Before": "fba4f59f902edccadda455c916d914a2",
+      "md5After": "fe6e60bb9189e9a18c990d6433212d4d"
+    },
+    {
+      "id": "mysql_glossary_low_water_mark_b3ceyk",
+      "title": "低水位线 / low-water mark",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1693；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_low_water_mark"
+      ],
+      "beforeLen": 204,
+      "afterLen": 81,
+      "md5Before": "582e715b9357a988b5273f5817516b7f",
+      "md5After": "8853c48d038d6720a841d44d5192584e"
+    },
+    {
+      "id": "mysql_glossary_lru_1mxcfz",
+      "title": "LRU",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1699；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_lru"
+      ],
+      "beforeLen": 343,
+      "afterLen": 249,
+      "md5Before": "a7005d3b646db1006cf7115a959d1b5c",
+      "md5After": "0cf70ed56fdbd84d70466bbc2d3f281b"
+    },
+    {
+      "id": "mysql_glossary_mrg_file_2synx7",
+      "title": ".MRG 文件 / .MRG file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1740；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mrg_file"
+      ],
+      "beforeLen": 260,
+      "afterLen": 145,
+      "md5Before": "3794c4621a0312c8a935604ca5543710",
+      "md5After": "e9ad93d1831006b2b356e0c09e7b2163"
+    },
+    {
+      "id": "mysql_glossary_master_thread_11thmi",
+      "title": "主线程 / master thread",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1761；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_master_thread"
+      ],
+      "beforeLen": 369,
+      "afterLen": 249,
+      "md5Before": "ca4698e0a54d1017594f5b5f3dc89636",
+      "md5After": "e1b2d5fbadfdfcff72797fde622419af"
+    },
+    {
+      "id": "mysql_glossary_mdl_braceg",
+      "title": "MySQL MDL",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 72,
+      "afterLen": 62,
+      "md5Before": "aa134557d36d5d7858cfa14894e1bd29",
+      "md5After": "3512638b03190b42f420ff478cda91d0"
+    },
+    {
+      "id": "mysql_glossary_medium_trust_113pv6",
+      "title": "MySQL 中等信任 / medium trust",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 123,
+      "afterLen": 97,
+      "md5Before": "29b8e1ebdd5f00541805dc816545c7d5",
+      "md5After": "a57d74016da1333cfc9aa3a7a6333873"
+    },
+    {
+      "id": "mysql_glossary_metadata_lock_qiqw4n",
+      "title": "MySQL 元数据锁 / metadata lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1789；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_metadata_lock"
+      ],
+      "beforeLen": 432,
+      "afterLen": 305,
+      "md5Before": "12af8c9d8b91dab25217e27f0195e5b8",
+      "md5After": "a42b801c157a5dee83a89706d10f1ab5"
+    },
+    {
+      "id": "mysql_glossary_metrics_counter_1tynuw",
+      "title": "MySQL 指标计数器 / metrics counter",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1797；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_metrics_counter"
+      ],
+      "beforeLen": 337,
+      "afterLen": 205,
+      "md5Before": "5a5e73bdd429f1ba84a6a973db4d457e",
+      "md5After": "55d09dfc59b96dff06d336276629eecb"
+    },
+    {
+      "id": "mysql_glossary_midpoint_insertion_strategy_a74b95",
+      "title": "中点插入策略 / midpoint insertion strategy",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1802；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_midpoint_insertion_strategy"
+      ],
+      "beforeLen": 397,
+      "afterLen": 246,
+      "md5Before": "60bfb5a94544a63202836648c1dafe68",
+      "md5After": "9203e2f4e5743a9c63d897078790925b"
+    },
+    {
+      "id": "mysql_glossary_mini_transaction_ly3edv",
+      "title": "MySQL mini-transaction / 小型事务",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1807；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mini_transaction"
+      ],
+      "beforeLen": 380,
+      "afterLen": 247,
+      "md5Before": "d0334a7ae05ac1d396ffc5ad84fed498",
+      "md5After": "2b042aa3b2ef580b5847ac4a5c8b904d"
+    },
+    {
+      "id": "mysql_glossary_mixed_mode_insert_1pvj4c",
+      "title": "MySQL 混合模式插入 / mixed-mode insert",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1813；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mixed_mode_insert"
+      ],
+      "beforeLen": 539,
+      "afterLen": 402,
+      "md5Before": "d0dfd91a7d0b1264f2ffe27152b857e8",
+      "md5After": "6ab2eef7702ff8b3c69185ab78119a86"
+    },
+    {
+      "id": "mysql_glossary_mm_mysql_45ec9v",
+      "title": "MM.MySQL",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1825；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mm_mysql"
+      ],
+      "beforeLen": 186,
+      "afterLen": 82,
+      "md5Before": "6822a72082ef92709b7cfca360c648f7",
+      "md5After": "64cd8fff331ce8e778ee949c949459e3"
+    },
+    {
+      "id": "mysql_glossary_mono_oszvd6",
+      "title": "Mono",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1830；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mono"
+      ],
+      "beforeLen": 185,
+      "afterLen": 89,
+      "md5Before": "3313e586a619075f2b1f6123d45f0ca0",
+      "md5After": "ab35ee18725391c42ee14313da2c859a"
+    },
+    {
+      "id": "mysql_glossary_multi_core_1ks4nn",
+      "title": "多核 / multi-core",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1838；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_multi_core"
+      ],
+      "beforeLen": 160,
+      "afterLen": 47,
+      "md5Before": "d9e61cca1967174d7aeb05664b252b90",
+      "md5After": "414988bfb090bacce290f6ed849308de"
+    },
+    {
+      "id": "mysql_glossary_mutex_6ryres",
+      "title": "MySQL 互斥量 / mutex",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1844；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mutex"
+      ],
+      "beforeLen": 347,
+      "afterLen": 237,
+      "md5Before": "9e50c3cfd99bf899ccd6f40f52631e64",
+      "md5After": "1cf4bc1963198af8fb007853f744856e"
+    },
+    {
+      "id": "mysql_glossary_my_cnf_v2use8",
+      "title": "my.cnf",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 58,
+      "afterLen": 51,
+      "md5Before": "fc2e150eea74d22678c27d4b6e79ed6a",
+      "md5After": "fdf3cba48ee32811a78ba7e77ddd4870"
+    },
+    {
+      "id": "mysql_glossary_my_ini_1giw6m",
+      "title": "my.ini",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1861；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_my_ini"
+      ],
+      "beforeLen": 164,
+      "afterLen": 64,
+      "md5Before": "dfbb8e6aa829c3984c14c78587e05b89",
+      "md5After": "3486335cfa139afc43cc6f0f0d3136f9"
+    },
+    {
+      "id": "mysql_glossary_myodbc_drivers_g6kz24",
+      "title": "MyODBC 驱动程序 / MyODBC drivers",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1867；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_myodbc_drivers"
+      ],
+      "beforeLen": 205,
+      "afterLen": 75,
+      "md5Before": "815e2e939eba6b50dddac263b5f50f17",
+      "md5After": "742c5a93d190e294333f9b37393873f9"
+    },
+    {
+      "id": "mysql_glossary_mysqlbackup_command_1gjf0a",
+      "title": "mysqlbackup 命令 / mysqlbackup command",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1879；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mysqlbackup_command"
+      ],
+      "beforeLen": 337,
+      "afterLen": 194,
+      "md5Before": "9b6f0f39c1ad7937e4b40ebfad15788d",
+      "md5After": "acb6a805280cbd3f4f151a206f794c8d"
+    },
+    {
+      "id": "mysql_glossary_mysqlclient_1fp9hd",
+      "title": "mysqlclient",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1887；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mysqlclient"
+      ],
+      "beforeLen": 190,
+      "afterLen": 80,
+      "md5Before": "aa6189e41d941652033e340d3fc80a46",
+      "md5After": "d5a8406b3ea6685772afc30fa39c0ad7"
+    },
+    {
+      "id": "mysql_glossary_mysqld_q7qv17",
+      "title": "mysqld",
+      "titleDeduped": false,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1893；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mysqld"
+      ],
+      "beforeLen": 391,
+      "afterLen": 298,
+      "md5Before": "67d115ca5bf6174e9936e60a4600544c",
+      "md5After": "ce238d73be0f196947d33d5d8c1c5bf7"
+    },
+    {
+      "id": "mysql_glossary_mysqldb_1k0vb5",
+      "title": "MySQLdb",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1901；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mysqldb"
+      ],
+      "beforeLen": 175,
+      "afterLen": 73,
+      "md5Before": "30d4a3224bf03f97b49fd4de3290cb4b",
+      "md5After": "a36de9f7519c6e892e55166c78a0341f"
+    },
+    {
+      "id": "mysql_glossary_mysqldump_1p1msf",
+      "title": "mysqldump",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1906；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_mysqldump"
+      ],
+      "beforeLen": 288,
+      "afterLen": 182,
+      "md5Before": "3c0646a34460ca2ae1e459d556ceea59",
+      "md5After": "99e862c990bf11fd1dcfd8d6bd8aafce"
+    },
+    {
+      "id": "mysql_glossary_net_1q25ey",
+      "title": ".NET",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1912；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos__net"
+      ],
+      "beforeLen": 158,
+      "afterLen": 62,
+      "md5Before": "a465eeb8f2c5cb48811a305e2a5facdf",
+      "md5After": "a0a12f4ce6eafb8c0aba3206e8cb4624"
+    },
+    {
+      "id": "mysql_glossary_natural_key_tddcrt",
+      "title": "MySQL 自然键 / MySQL natural key",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1921；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_natural_key"
+      ],
+      "beforeLen": 589,
+      "afterLen": 461,
+      "md5Before": "e077144478bff06c7aaa323dec12c02b",
+      "md5After": "642426510429caec33adfec1c8f794a6"
+    },
+    {
+      "id": "mysql_glossary_neighbor_page_1t6aj7",
+      "title": "MySQL 邻页 / neighbor page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1935；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_neighbor_page"
+      ],
+      "beforeLen": 385,
+      "afterLen": 260,
+      "md5Before": "7b374d2c1462f480390eae1d2cc2d816",
+      "md5After": "ed59d217b946501f0ec23f7dff2c67a6"
+    },
+    {
+      "id": "mysql_glossary_non_locking_read_12iidl",
+      "title": "MySQL 非锁定读 / non-locking read",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 347,
+      "afterLen": 317,
+      "md5Before": "7d1f6537ca3d850ff3e212282e1c6654",
+      "md5After": "59daea0a48ea94a31b7a884db98f9dee"
+    },
+    {
+      "id": "mysql_glossary_nonblocking_i_o_h65z9a",
+      "title": "非阻塞 I/O / nonblocking I/O",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1963；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_non_blocking_io"
+      ],
+      "beforeLen": 203,
+      "afterLen": 75,
+      "md5Before": "f19d9b3f50c952bbc619da32dd4e813b",
+      "md5After": "bd1597a5434cefc89f092eba21f1df15"
+    },
+    {
+      "id": "mysql_glossary_normalized_4n509k",
+      "title": "规范化 / normalized",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1969；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_normalized"
+      ],
+      "beforeLen": 565,
+      "afterLen": 451,
+      "md5Before": "1a6283c33412319cd43f73483a7f0f68",
+      "md5After": "6deb8a7cf91a2be165762e541fe08d9d"
+    },
+    {
+      "id": "mysql_glossary_not_null_constraint_1op7sq",
+      "title": "MySQL NOT NULL 约束 / MySQL NOT NULL constraint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1985；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_not_null_constraint"
+      ],
+      "beforeLen": 384,
+      "afterLen": 232,
+      "md5Before": "29464be245848b728092a00c1eca85c3",
+      "md5After": "71edaf8aeb6833568db16b6d9c9005b3"
+    },
+    {
+      "id": "mysql_glossary_opt_file_1w9809",
+      "title": ".OPT 文件 / .OPT file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2003；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_opt_file"
+      ],
+      "beforeLen": 419,
+      "afterLen": 304,
+      "md5Before": "7e06bca4ea63d1e17d78b93a4504ad5a",
+      "md5After": "a476e2629c12cecaa53b18d3e7c7fc41"
+    },
+    {
+      "id": "mysql_glossary_off_page_column_i7tqi8",
+      "title": "离页列 / off-page column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2015；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_off_page_column"
+      ],
+      "beforeLen": 792,
+      "afterLen": 668,
+      "md5Before": "58b24d8f58776534cb073fc1fbf413a4",
+      "md5After": "49e7e7dd3d3a440aeee2eaeab2ae5180"
+    },
+    {
+      "id": "mysql_glossary_online_13svqm",
+      "title": "在线 / online",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 205,
+      "afterLen": 193,
+      "md5Before": "ae4776aa6a97365061e99fc10c6a3f29",
+      "md5After": "2044f33bb74e2b663c2d56482ea5bc14"
+    },
+    {
+      "id": "mysql_glossary_optimistic_1gdvw6",
+      "title": "MySQL 乐观 / optimistic",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 478,
+      "afterLen": 456,
+      "md5Before": "426c5027c4746b0dd46872068b9ac393",
+      "md5After": "5bc22088d4385200e7f71cd6b2faca3a"
+    },
+    {
+      "id": "mysql_glossary_option_1sc73x",
+      "title": "MySQL 选项 / option",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 152,
+      "afterLen": 134,
+      "md5Before": "d2bd2616586e77c7878ffc1026fcdb17",
+      "md5After": "4d359aa30af1ca597f950a3a013386ce"
+    },
+    {
+      "id": "mysql_glossary_option_file_gsqytm",
+      "title": "选项文件 / option file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2089；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_option_file"
+      ],
+      "beforeLen": 543,
+      "afterLen": 426,
+      "md5Before": "29a729e1f31ee7c45ced00763d1b1835",
+      "md5After": "2316066b7f35800a2de66633ce3a8da2"
+    },
+    {
+      "id": "mysql_glossary_overflow_page_1x8lkk",
+      "title": "MySQL 溢出页 / overflow page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2098；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_overflow_page"
+      ],
+      "beforeLen": 519,
+      "afterLen": 393,
+      "md5Before": "77de4e1293d1e19a49bc4705643d796f",
+      "md5After": "b42ebd81b107d644bbdba616d074d803"
+    },
+    {
+      "id": "mysql_glossary_par_file_rzlrrm",
+      "title": ".par 文件 / .par file",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2111；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_par_file"
+      ],
+      "beforeLen": 593,
+      "afterLen": 478,
+      "md5Before": "5bc9fbd62830a90e09e2801cc94115f7",
+      "md5After": "9008e8d556282a4e7171b8a9d9269497"
+    },
+    {
+      "id": "mysql_glossary_page_cleaner_20exxg",
+      "title": "页面清理器 / page cleaner",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2140；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_page_cleaner"
+      ],
+      "beforeLen": 799,
+      "afterLen": 679,
+      "md5Before": "41308ef09f8b6e56d08e952d13b26ef4",
+      "md5After": "a871c3b55777a73a8859cd0869023dbe"
+    },
+    {
+      "id": "mysql_glossary_page_size_1tjy75",
+      "title": "MySQL 页大小 / page size",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2154；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_page_size"
+      ],
+      "beforeLen": 1520,
+      "afterLen": 1402,
+      "md5Before": "a01ad6ba04944767302d82ef946d5cb1",
+      "md5After": "708f26b28f96a4058ef566cb88e67d95"
+    },
+    {
+      "id": "mysql_glossary_parent_table_yqeba1",
+      "title": "MySQL 父级表 / parent table",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2166；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_parent_table"
+      ],
+      "beforeLen": 492,
+      "afterLen": 368,
+      "md5Before": "a53415915ff65af3fcdcf7911c643a4d",
+      "md5After": "54fe8b548c8f788d593191cb08a48627"
+    },
+    {
+      "id": "mysql_glossary_partial_backup_bplu20",
+      "title": "MySQL 部分备份 / partial backup",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 142,
+      "afterLen": 114,
+      "md5Before": "8bbcfb32837555f76737a1ecdf8f1c15",
+      "md5After": "484eafdf587b72ca1512fb4aacd22557"
+    },
+    {
+      "id": "mysql_glossary_partial_trust_rcrlto",
+      "title": "MySQL 部分信任 / partial trust",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2186；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_partial_trust"
+      ],
+      "beforeLen": 365,
+      "afterLen": 238,
+      "md5Before": "42462aa6e4d490329a6ec55e7172c1b1",
+      "md5After": "0f12081b69e5491ec64adfe5ddddb979"
+    },
+    {
+      "id": "mysql_glossary_perl_6buxo8",
+      "title": "Perl",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2198；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_perl"
+      ],
+      "beforeLen": 258,
+      "afterLen": 162,
+      "md5Before": "dbe4aaf3525e6e1cdec7dd7506ebd8ee",
+      "md5After": "16dd61984392b7f58dd4080c5edf2446"
+    },
+    {
+      "id": "mysql_glossary_perl_api_knrawo",
+      "title": "Perl API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2204；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_perl_api"
+      ],
+      "beforeLen": 449,
+      "afterLen": 345,
+      "md5Before": "0719ae13a452a6e161ee666d09798477",
+      "md5After": "01ab619cedaffe534eb6b4c70e073d1a"
+    },
+    {
+      "id": "mysql_glossary_persistent_statistics_2n5ydn",
+      "title": "MySQL 持久统计信息 / persistent statistics",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2210；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_persistent_statistics"
+      ],
+      "beforeLen": 872,
+      "afterLen": 727,
+      "md5Before": "352ae9257df9056672670ce9c38d579f",
+      "md5After": "598e9e9dac21caba2fe91531d1ebf156"
+    },
+    {
+      "id": "mysql_glossary_pessimistic_l0bpvy",
+      "title": "MySQL 悲观 / pessimistic",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2216；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_pessimistic"
+      ],
+      "beforeLen": 582,
+      "afterLen": 461,
+      "md5Before": "11122e15d2afdf6b2a5fc047fd05d111",
+      "md5After": "da710e615e0c6cd3dbdf6cf5fb77dc79"
+    },
+    {
+      "id": "mysql_glossary_php_api_1ldhpf",
+      "title": "MySQL PHP API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2249；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_php_api"
+      ],
+      "beforeLen": 497,
+      "afterLen": 389,
+      "md5Before": "3ccaea94c10cf74cddf6625e7426b87c",
+      "md5After": "a0860ecccf64bfd659e710f3e665e9ab"
+    },
+    {
+      "id": "mysql_glossary_physical_117gzf",
+      "title": "MySQL 物理 / physical",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 144,
+      "afterLen": 124,
+      "md5Before": "8b655d6e7511cb86e93424ca29b78311",
+      "md5After": "0122870279db2b50eb3fd9e527b78a31"
+    },
+    {
+      "id": "mysql_glossary_physical_backup_1o7b7v",
+      "title": "MySQL 物理备份 / physical backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2261；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_physical_backup"
+      ],
+      "beforeLen": 736,
+      "afterLen": 605,
+      "md5Before": "5aecaceb076ebf53699b45024780441d",
+      "md5After": "130a3c11ce62e5d2633e2d3046240008"
+    },
+    {
+      "id": "mysql_glossary_plan_stability_70vxat",
+      "title": "计划稳定性 / plan stability",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2274；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_plan_stability"
+      ],
+      "beforeLen": 393,
+      "afterLen": 269,
+      "md5Before": "8144de302cefeb4e6a96e69db4a8533e",
+      "md5After": "7735508c411dfb97fe973d273511acdc"
+    },
+    {
+      "id": "mysql_glossary_prepared_statement_1tfqdw",
+      "title": "MySQL 预处理语句 / MySQL prepared statement",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2310；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_prepared_statement"
+      ],
+      "beforeLen": 716,
+      "afterLen": 572,
+      "md5Before": "f181bc4a4d2254bed8fcf0430e2083b9",
+      "md5After": "a6739b1b58a74a9e2ebb0d6a4c76a1b1"
+    },
+    {
+      "id": "mysql_glossary_principal_1llz4f",
+      "title": "MySQL 主体 / principal",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 72,
+      "afterLen": 51,
+      "md5Before": "68df58789e1d00a4d8bcaa73971cb4b8",
+      "md5After": "894f253bb3cf9b6c34bb6218d4d27d6e"
+    },
+    {
+      "id": "mysql_glossary_pthreads_qfb7k4",
+      "title": "MySQL Pthreads",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 143,
+      "afterLen": 128,
+      "md5Before": "77fa1c0b96c337ab8c6c63d044d8be3e",
+      "md5After": "c0805fc572d0f62f2f6e59d0c2ac53bf"
+    },
+    {
+      "id": "mysql_glossary_purge_buffering_1ckv1x",
+      "title": "清理缓冲 / purge buffering",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2360；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_purge_buffering"
+      ],
+      "beforeLen": 768,
+      "afterLen": 643,
+      "md5Before": "72a69a29c53c80499875629d25ca6da1",
+      "md5After": "3f368325ad27549eba351013b7adee65"
+    },
+    {
+      "id": "mysql_glossary_purge_lag_1p6pyp",
+      "title": "清理延迟 / purge lag",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2366；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_purge_lag"
+      ],
+      "beforeLen": 448,
+      "afterLen": 335,
+      "md5Before": "f6cfaf523f4f6453c501831e39cb2fbb",
+      "md5After": "287b3adcd826688bbaca700443dbfa7d"
+    },
+    {
+      "id": "mysql_glossary_purge_thread_8xnck4",
+      "title": "清理线程 / purge thread",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2372；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_purge_thread"
+      ],
+      "beforeLen": 492,
+      "afterLen": 373,
+      "md5Before": "9b3979b0ccb542e439f1c19464965ac4",
+      "md5After": "0b936a6ff5e9ec28f93aa61ffa287b24"
+    },
+    {
+      "id": "mysql_glossary_python_api_2amn13",
+      "title": "Python API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2384；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_python_api"
+      ],
+      "beforeLen": 271,
+      "afterLen": 163,
+      "md5Before": "c16860e8e62e909dc34d8576dffce713",
+      "md5After": "ab116fbe4c8b62fdaf3352a64f2f0f61"
+    },
+    {
+      "id": "mysql_glossary_quiesce_1ujs11",
+      "title": "MySQL 静默 / quiesce",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2408；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_quiesce"
+      ],
+      "beforeLen": 752,
+      "afterLen": 639,
+      "md5Before": "f395e6c9d912fd95f1f4b003e377dbd8",
+      "md5After": "d518b888de34f3c0608f338510f916f0"
+    },
+    {
+      "id": "mysql_glossary_r_tree_1w9375",
+      "title": "R 树 / R-tree",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2420；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_r_tree"
+      ],
+      "beforeLen": 173,
+      "afterLen": 67,
+      "md5Before": "ff9686c7e75bf360e0dc7efc0e306729",
+      "md5After": "6b6ccf116e31425f8179e8635d2bbcc2"
+    },
+    {
+      "id": "mysql_glossary_random_dive_1sbv22",
+      "title": "MySQL 随机探查 / random dive",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2432；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_random_dive"
+      ],
+      "beforeLen": 267,
+      "afterLen": 144,
+      "md5Before": "9c9b23b99ffd4b89a4b0c2eb8444df12",
+      "md5After": "147a70adcc610d0e0ed949820014529a"
+    },
+    {
+      "id": "mysql_glossary_raw_backup_1s82jm",
+      "title": "MySQL 原始备份 / raw backup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2438；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_raw_backup"
+      ],
+      "beforeLen": 934,
+      "afterLen": 813,
+      "md5Before": "f78ac3f5b59da4a0eac1b4735a099de3",
+      "md5After": "73829b004bfd5ceab40abe43a49a59b5"
+    },
+    {
+      "id": "mysql_glossary_read_phenomena_n0vs4m",
+      "title": "MySQL 读现象 / read phenomena",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 164,
+      "afterLen": 137,
+      "md5Before": "d7b69b7ba3ca5ceffd9949bafc73d7b5",
+      "md5After": "7f69edec07698ff21f7d33a31d5aa210"
+    },
+    {
+      "id": "mysql_glossary_read_ahead_1khyqr",
+      "title": "预读 / read-ahead",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2477；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_read_ahead"
+      ],
+      "beforeLen": 410,
+      "afterLen": 297,
+      "md5Before": "2ef0fcaf75ed974fd4047050419e2e2f",
+      "md5After": "a646829f5e9f36036f276fdbabcdf9d7"
+    },
+    {
+      "id": "mysql_glossary_read_only_transaction_2kf2kq",
+      "title": "MySQL 只读事务 / read-only transaction",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 293,
+      "afterLen": 258,
+      "md5Before": "777074ebaff65b52eff2302767fb4038",
+      "md5After": "d91faf97fed63295b45b5db61e1b1ac6"
+    },
+    {
+      "id": "mysql_glossary_record_lock_1pixn1",
+      "title": "MySQL 记录锁 / record lock",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2490；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_record_lock"
+      ],
+      "beforeLen": 329,
+      "afterLen": 207,
+      "md5Before": "a8a27ddb9c215ec55d91e24d67778425",
+      "md5After": "cd6ce1fc9b2ea63e3ef19d518a389008"
+    },
+    {
+      "id": "mysql_glossary_redo_1vo98z",
+      "title": "重做 / redo",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2496；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_redo"
+      ],
+      "beforeLen": 723,
+      "afterLen": 622,
+      "md5Before": "7098262142f5227a069193f31542dd79",
+      "md5After": "ac0e1b86f31de60349dd68f280cd3855"
+    },
+    {
+      "id": "mysql_glossary_redo_log_archiving_1ugqxo",
+      "title": "重做日志归档 / redo log archiving",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2519；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_redo_log_archiving"
+      ],
+      "beforeLen": 447,
+      "afterLen": 314,
+      "md5Before": "4e0c96b0c54a7b2e03e12a4143ac40e5",
+      "md5After": "0cdb40b48ede8b5c5a538c55a271c9ed"
+    },
+    {
+      "id": "mysql_glossary_redundant_row_format_kd9bbp",
+      "title": "冗余行格式 / redundant row format",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2529；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_redundant_row_format"
+      ],
+      "beforeLen": 863,
+      "afterLen": 727,
+      "md5Before": "c9dc0b2e085c9c0645edc1557d2ef0c9",
+      "md5After": "9538121d43e999a6075907d09d0e73c4"
+    },
+    {
+      "id": "mysql_glossary_relational_1yoaip",
+      "title": "MySQL 关系型 / MySQL relational",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 538,
+      "afterLen": 509,
+      "md5Before": "78785b17b1a9a16c167f03f278a5bad9",
+      "md5After": "30d51ea102432bfb84bdbcb8d7875822"
+    },
+    {
+      "id": "mysql_glossary_relevance_1schdd",
+      "title": "MySQL 相关性 / relevance",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2567；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_relevance"
+      ],
+      "beforeLen": 450,
+      "afterLen": 332,
+      "md5Before": "6b9c89fbbf03cbb759d596bc9915ff4c",
+      "md5After": "7d92ba5a4790d306e7239796ca3d3f5d"
+    },
+    {
+      "id": "mysql_glossary_repertoire_jo0oic",
+      "title": "字符集集合 / repertoire",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2594；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_repertoire"
+      ],
+      "beforeLen": 296,
+      "afterLen": 180,
+      "md5Before": "b7bb730faa2ea1d29794a848ed7c07b3",
+      "md5After": "0354d6ee5052026e67062cf6c678a341"
+    },
+    {
+      "id": "mysql_glossary_rollback_segment_40xjnc",
+      "title": "MySQL 回滚段 / rollback segment",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2632；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_rollback_segment"
+      ],
+      "beforeLen": 682,
+      "afterLen": 550,
+      "md5Before": "f54a335e90300e491697fa7230bcc3d2",
+      "md5After": "20c97fea6e68b6502aea5a1a1c0f11c9"
+    },
+    {
+      "id": "mysql_glossary_ruby_17cue0",
+      "title": "Ruby",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2699；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ruby"
+      ],
+      "beforeLen": 377,
+      "afterLen": 281,
+      "md5Before": "1f0a896962880566b7b000668405da9d",
+      "md5After": "5e8757a29da741a0b7de05265a940987"
+    },
+    {
+      "id": "mysql_glossary_ruby_api_1c5kjx",
+      "title": "Ruby API",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2705；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ruby_api"
+      ],
+      "beforeLen": 467,
+      "afterLen": 363,
+      "md5Before": "3a63e7411f76f00f87abccfbf3f25280",
+      "md5After": "63187642f34fa269bf1d8ef56351f4f5"
+    },
+    {
+      "id": "mysql_glossary_rw_lock_1c4qu9",
+      "title": "读写锁 / rw-lock",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 219,
+      "afterLen": 204,
+      "md5Before": "ca23c426303ef7de42360d95e4c56f78",
+      "md5After": "d358310ebe481e8271e6bc0dda4efc9b"
+    },
+    {
+      "id": "mysql_glossary_scalability_d5afjw",
+      "title": "MySQL 可伸缩性 / scalability",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2747；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_scalability"
+      ],
+      "beforeLen": 622,
+      "afterLen": 499,
+      "md5Before": "944592a857405510102a8d7d979ffad4",
+      "md5After": "2095d1e317937039e26f1e9b07ea0fea"
+    },
+    {
+      "id": "mysql_glossary_scale_out_1fhx7h",
+      "title": "MySQL 向外扩展 / scale out",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2753；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_scale_out"
+      ],
+      "beforeLen": 424,
+      "afterLen": 305,
+      "md5Before": "e3e329ebcb267165212612006ddc3f2b",
+      "md5After": "77564fa0e3e4f0ab71d52762f91d646b"
+    },
+    {
+      "id": "mysql_glossary_scale_up_1y6pkm",
+      "title": "MySQL 向上扩展 / scale up",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2759；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_scale_up"
+      ],
+      "beforeLen": 664,
+      "afterLen": 547,
+      "md5Before": "3f9ca69ce649a9909f6b1227591e80e6",
+      "md5After": "c11244707a20bb341c60ad11d181ae5f"
+    },
+    {
+      "id": "mysql_glossary_sdi_8vlmf5",
+      "title": "MySQL SDI",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2775；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_sdi"
+      ],
+      "beforeLen": 250,
+      "afterLen": 150,
+      "md5Before": "c22f8c15df00ba1ed4c1e38a0dbff1f2",
+      "md5After": "74b4deaf8aa6d16236a394578558bea6"
+    },
+    {
+      "id": "mysql_glossary_search_index_18jlmz",
+      "title": "MySQL 搜索索引 / search index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2781；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_search_index"
+      ],
+      "beforeLen": 494,
+      "afterLen": 369,
+      "md5Before": "85da0870f4cb5f1bb423990f84633a6d",
+      "md5After": "45eab19b43537266bc2d512b0feb925e"
+    },
+    {
+      "id": "mysql_glossary_segment_1vmvly",
+      "title": "MySQL 段 / segment",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2798；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_segment"
+      ],
+      "beforeLen": 456,
+      "afterLen": 344,
+      "md5Before": "34f0001f673c012e600f1ef3af8e1b13",
+      "md5After": "48974473e3786d5f59a9ebdc1e825dd3"
+    },
+    {
+      "id": "mysql_glossary_selectivity_4k9ksu",
+      "title": "MySQL 选择性 / selectivity",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2808；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_selectivity"
+      ],
+      "beforeLen": 351,
+      "afterLen": 229,
+      "md5Before": "1c5dc3d5340c691ebfeaca29071ad0b3",
+      "md5After": "a187578c0e005820602b1f512aa6b665"
+    },
+    {
+      "id": "mysql_glossary_semi_consistent_read_luof7q",
+      "title": "MySQL 半一致性读取 / semi-consistent read",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2814；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_semi_consistent_read"
+      ],
+      "beforeLen": 733,
+      "afterLen": 590,
+      "md5Before": "ca40f0d9d3f83bfb8c2b74094ea6acf5",
+      "md5After": "fc3456a1c51b556d02efe0f4661d446b"
+    },
+    {
+      "id": "mysql_glossary_serialized_dictionary_information_sdi_1ee69u",
+      "title": "MySQL 序列化字典信息 (SDI) / serialized dictionary information (SDI)",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2830；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_serialized_dictionary_information"
+      ],
+      "beforeLen": 1125,
+      "afterLen": 943,
+      "md5Before": "b16954971ad4cd53f55df48203bb9cad",
+      "md5After": "5fa56104131a24d6349b2121b4df3089"
+    },
+    {
+      "id": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+      "title": "MySQL 服务器端预处理语句 / MySQL server-side prepared statement",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2850；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_server_side_prepared_statement"
+      ],
+      "beforeLen": 828,
+      "afterLen": 656,
+      "md5Before": "7925802accffa6c659be7fb23ac2ba66",
+      "md5After": "c8d122d67818ad21532ead96325c4f3c"
+    },
+    {
+      "id": "mysql_glossary_service_principal_name_4syyjd",
+      "title": "MySQL 服务主体名称 / SPN",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2858；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_service_principal_name"
+      ],
+      "beforeLen": 298,
+      "afterLen": 170,
+      "md5Before": "aba3cb1610b84aaad5edd7f92716ea62",
+      "md5After": "a96c606d9a027d26eb1cfa9a6a0e886f"
+    },
+    {
+      "id": "mysql_glossary_service_ticket_oqmgfc",
+      "title": "MySQL 服务票据 / service ticket",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2864；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_service_ticket"
+      ],
+      "beforeLen": 232,
+      "afterLen": 103,
+      "md5Before": "cf96715bc5b702d468d09eb0065274df",
+      "md5After": "5828ebe7ebe1d67616e2cec1bf1ff208"
+    },
+    {
+      "id": "mysql_glossary_shared_tablespace_1q68ln",
+      "title": "MySQL 共享表空间 / shared tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2884；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_shared_tablespace"
+      ],
+      "beforeLen": 506,
+      "afterLen": 370,
+      "md5Before": "fac61860f6850ff87a74855631f7f853",
+      "md5After": "7afce42fd4a364924ebdb6cc7bc2e4e5"
+    },
+    {
+      "id": "mysql_glossary_sharp_checkpoint_1tnux9",
+      "title": "尖锐检查点 / sharp checkpoint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2892；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_sharp_checkpoint"
+      ],
+      "beforeLen": 590,
+      "afterLen": 462,
+      "md5Before": "30678aaddd459d2929d9b3f7580a6c72",
+      "md5After": "530d455c2157610590ea9337711b36fe"
+    },
+    {
+      "id": "mysql_glossary_slow_shutdown_1tqzdr",
+      "title": "缓慢关闭 / slow shutdown",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2916；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_slow_shutdown"
+      ],
+      "beforeLen": 652,
+      "afterLen": 531,
+      "md5Before": "beecbb6b1b6d59bc03b48770fdd957d1",
+      "md5After": "41222a7881a2ac79c3f212000440822c"
+    },
+    {
+      "id": "mysql_glossary_sort_buffer_1x3j60",
+      "title": "MySQL 排序缓冲区 / sort buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2929；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_sort_buffer"
+      ],
+      "beforeLen": 348,
+      "afterLen": 224,
+      "md5Before": "34f8b5ac40aef0efe3878c4018a78a1a",
+      "md5After": "739f6acd9c9ab9cb76fcac9262df72c4"
+    },
+    {
+      "id": "mysql_glossary_space_id_1kjxje",
+      "title": "MySQL 空间 ID / space ID",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2939；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_space_id"
+      ],
+      "beforeLen": 1300,
+      "afterLen": 1182,
+      "md5Before": "98d9d2d449791c85ed61836fae6b8e77",
+      "md5After": "2fa569ff89d11a923067b6e7f92f3be1"
+    },
+    {
+      "id": "mysql_glossary_spin_2ipmhl",
+      "title": "MySQL 自旋 / spin",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2967；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_spin"
+      ],
+      "beforeLen": 536,
+      "afterLen": 429,
+      "md5Before": "810969d8d96a947e22a825847dc283fc",
+      "md5After": "c6364e6c28c15e89f19defde342f6954"
+    },
+    {
+      "id": "mysql_glossary_spn_qxzu3s",
+      "title": "MySQL SPN（服务主名称）",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2973；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_spn"
+      ],
+      "beforeLen": 238,
+      "afterLen": 131,
+      "md5Before": "2b1e6549a5eaf29b4a9cf5e45589881c",
+      "md5After": "c52bfd22a508c1bdbbf0c9a33d564ac3"
+    },
+    {
+      "id": "mysql_glossary_ssd_gyazmt",
+      "title": "SSD",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 129,
+      "afterLen": 125,
+      "md5Before": "3168b262844ec1cfbd51223e125eb46d",
+      "md5After": "e038f2ad7f9bf2e05beb1342a066b326"
+    },
+    {
+      "id": "mysql_glossary_startup_154aqa",
+      "title": "MySQL 启动 / startup",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3020；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_startup"
+      ],
+      "beforeLen": 405,
+      "afterLen": 292,
+      "md5Before": "168ef9a56adc8e64a72a1917d0bc473b",
+      "md5After": "1803c648be7279177618a5aeaaafb9a6"
+    },
+    {
+      "id": "mysql_glossary_statement_interceptor_1d641l",
+      "title": "语句拦截器 / statement interceptor",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3026；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_statement_interceptor"
+      ],
+      "beforeLen": 1108,
+      "afterLen": 970,
+      "md5Before": "c0faab3388ab4af36c1b3ea9db26ef7d",
+      "md5After": "591847f2e0086dd720e5009ecb9b7562"
+    },
+    {
+      "id": "mysql_glossary_stemming_w8xwzt",
+      "title": "MySQL 词干提取 / stemming",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3067；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stemming"
+      ],
+      "beforeLen": 468,
+      "afterLen": 351,
+      "md5Before": "94db2455c8c1f0fce0de845865314fb0",
+      "md5After": "c68b468bcd8452ad7dcf473cb6cadde5"
+    },
+    {
+      "id": "mysql_glossary_stopword_ztgqhp",
+      "title": "停用词 / stopword",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3073；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stopword"
+      ],
+      "beforeLen": 537,
+      "afterLen": 427,
+      "md5Before": "ed481498ef7325bcd157a2b2cca6974e",
+      "md5After": "9a06e6009950a6dac7626963b68860d8"
+    },
+    {
+      "id": "mysql_glossary_stored_generated_column_j7jiqj",
+      "title": "存储生成列 / stored generated column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3087；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored_generated_column"
+      ],
+      "beforeLen": 543,
+      "afterLen": 401,
+      "md5Before": "643ee754b1f92ce70da719d3940b8d6c",
+      "md5After": "650500376b626c37a1bfc1860ca706b7"
+    },
+    {
+      "id": "mysql_glossary_stored_object_od8fkh",
+      "title": "MySQL 存储对象 / MySQL stored object",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3096；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-object"
+      ],
+      "beforeLen": 204,
+      "afterLen": 71,
+      "md5Before": "3bf2c59786d0ac5838eb58a03339ef0c",
+      "md5After": "6a7bbbc1267f7e5546fb5e93bdcc0ab7"
+    },
+    {
+      "id": "mysql_glossary_stored_program_mzfpca",
+      "title": "MySQL 存储程序 / stored program",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3100；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-program"
+      ],
+      "beforeLen": 215,
+      "afterLen": 86,
+      "md5Before": "f941ae352d511b458c39d90d102d1fd4",
+      "md5After": "59c83df8b50f12d4c9ff81cdb301efeb"
+    },
+    {
+      "id": "mysql_glossary_stored_routine_kiddr6",
+      "title": "存储例程 / stored routine",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3104；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_stored-routine"
+      ],
+      "beforeLen": 161,
+      "afterLen": 38,
+      "md5Before": "a17bdf02cab41a1d5903119252fd2981",
+      "md5After": "17518b681fce13edd3834d4da4d9a6b5"
+    },
+    {
+      "id": "mysql_glossary_strict_mode_y6y4gv",
+      "title": "严格模式 / strict mode",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3108；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_strict_mode"
+      ],
+      "beforeLen": 908,
+      "afterLen": 791,
+      "md5Before": "d22b5af3bba9c684135272837739c9db",
+      "md5After": "695153b541b65a881c20f74fec5496bf"
+    },
+    {
+      "id": "mysql_glossary_sublist_12kt6o",
+      "title": "子列表 / sublist",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3119；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_sublist"
+      ],
+      "beforeLen": 504,
+      "afterLen": 396,
+      "md5Before": "dcbb6607c4b3f5ef7e5a0ed140e7b207",
+      "md5After": "b07ba969e0df73109cfe61904d6b92b3"
+    },
+    {
+      "id": "mysql_glossary_supremum_record_1pbwmi",
+      "title": "MySQL 上确界记录 / supremum record",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3125；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_supremum_record"
+      ],
+      "beforeLen": 607,
+      "afterLen": 475,
+      "md5Before": "ed59573c9389aecc0a7cc5fa940e1017",
+      "md5After": "bccc20962fa0a97c999514b4bde04d71"
+    },
+    {
+      "id": "mysql_glossary_synthetic_key_1drbjs",
+      "title": "MySQL 合成键 / MySQL synthetic key",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3137；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_synthetic_key"
+      ],
+      "beforeLen": 826,
+      "afterLen": 694,
+      "md5Before": "a7af504bf355fa2d517ba06d35d6a725",
+      "md5After": "edd60882324ab89ebf2afa8fe1c3898a"
+    },
+    {
+      "id": "mysql_glossary_table_lock_15y9vl",
+      "title": "MySQL 表锁 / table lock",
+      "titleDeduped": false,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3219；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_table_lock"
+      ],
+      "beforeLen": 1042,
+      "afterLen": 945,
+      "md5Before": "c9d14b6ac5be2e313c4131ac666ecdab",
+      "md5After": "d3a6e62c40174b55463b9e9f8d87d1f6"
+    },
+    {
+      "id": "mysql_glossary_table_statistics_1c30y8",
+      "title": "MySQL 表统计信息 / table statistics",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3229；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_table_statistics"
+      ],
+      "beforeLen": 278,
+      "afterLen": 144,
+      "md5Before": "4254f85e2dd35611df0933dc3d4ce926",
+      "md5After": "84672082e6f3991056a7ca906374ace5"
+    },
+    {
+      "id": "mysql_glossary_tcl_1yc19t",
+      "title": "Tcl",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3257；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tcl"
+      ],
+      "beforeLen": 369,
+      "afterLen": 275,
+      "md5Before": "8c9cf5779a8bc5c3068b4783118b6eaf",
+      "md5After": "0ddf4a57313334062ce84f27f51c84b2"
+    },
+    {
+      "id": "mysql_glossary_ticket_granting_server_1cuy2c",
+      "title": "MySQL 票证授予服务器 / TGS",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3307；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ticket_granting_server"
+      ],
+      "beforeLen": 468,
+      "afterLen": 339,
+      "md5Before": "c8e6ef6b61f7db343db5c1abc3dafe90",
+      "md5After": "74dc042cfebe0d077f025ad8837ef493"
+    },
+    {
+      "id": "mysql_glossary_ticket_granting_ticket_14xqfb",
+      "title": "MySQL 票证授予票证 / TGT",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3315；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_ticket_granting_ticket"
+      ],
+      "beforeLen": 334,
+      "afterLen": 206,
+      "md5Before": "996821a0ed55b83c033e25f09f888a29",
+      "md5After": "f0ed7f2a6014bc9bde172b348ab344af"
+    },
+    {
+      "id": "mysql_glossary_torn_page_1kprbq",
+      "title": "MySQL 撕裂页 / torn page",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3327；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_torn_page"
+      ],
+      "beforeLen": 404,
+      "afterLen": 286,
+      "md5Before": "a3e31dd97ead9d5bc65d7685852948e1",
+      "md5After": "7c79ea6f1a393594834549a7447f5b88"
+    },
+    {
+      "id": "mysql_glossary_tps_ej1ya6",
+      "title": "MySQL TPS",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3333；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tps"
+      ],
+      "beforeLen": 383,
+      "afterLen": 283,
+      "md5Before": "2968ede7364d206e43eb9313e603ba93",
+      "md5After": "b4eb5d91a5c62f177addb99587c16079"
+    },
+    {
+      "id": "mysql_glossary_transaction_id_1aa5a7",
+      "title": "MySQL 事务 ID / transaction ID",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 157,
+      "afterLen": 128,
+      "md5Before": "8daed4739ff7bede0ffa3e1f93c24719",
+      "md5After": "358efc293e0640fa0926309b89d41b74"
+    },
+    {
+      "id": "mysql_glossary_transportable_tablespace_1685qd",
+      "title": "MySQL 可传输表空间 / transportable tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3364；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_transportable_tablespace"
+      ],
+      "beforeLen": 1387,
+      "afterLen": 1236,
+      "md5Before": "5678956ef24b634e2e63277717a4bd1f",
+      "md5After": "0e5f3f7f7190f464af4de265f5aff933"
+    },
+    {
+      "id": "mysql_glossary_troubleshooting_1zw5wx",
+      "title": "故障排除 / troubleshooting",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3372；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_troubleshooting"
+      ],
+      "beforeLen": 911,
+      "afterLen": 786,
+      "md5Before": "3b15f8089ae07f87b53f1da3c9d155ca",
+      "md5After": "ed4943d6d9f827ff06d1f0ed63b4c763"
+    },
+    {
+      "id": "mysql_glossary_truststore_rgbyfy",
+      "title": "MySQL 信任库 / truststore",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3406；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_truststore"
+      ],
+      "beforeLen": 241,
+      "afterLen": 121,
+      "md5Before": "66164ab9ba5ae82077cb3d07ae52fbca",
+      "md5After": "3d38e3953acf0bf96feb16dda7240760"
+    },
+    {
+      "id": "mysql_glossary_undo_buffer_jg11o3",
+      "title": "撤销缓冲区 / undo buffer",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3435；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_undo_buffer"
+      ],
+      "beforeLen": 220,
+      "afterLen": 102,
+      "md5Before": "02e67c765876f1f81f25cbdc1e68c8db",
+      "md5After": "5967907250b9e766c6abdafd34b88459"
+    },
+    {
+      "id": "mysql_glossary_undo_log_segment_pbdi2c",
+      "title": "MySQL 撤销日志段 / undo log segment",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3456；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_undo_log_segment"
+      ],
+      "beforeLen": 649,
+      "afterLen": 515,
+      "md5Before": "1412c65142fc138aa2ee563aa1c4ce4d",
+      "md5After": "825f04051f9936df4eb344f79b06d59a"
+    },
+    {
+      "id": "mysql_glossary_undo_tablespace_so71lf",
+      "title": "MySQL 撤销表空间 / undo tablespace",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3463；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_undo_tablespace"
+      ],
+      "beforeLen": 1151,
+      "afterLen": 1019,
+      "md5Before": "d73266d3a081887d42ec98d579bdc918",
+      "md5After": "d5b8b7d71f04068fd97cf8278fc5e7bf"
+    },
+    {
+      "id": "mysql_glossary_unique_constraint_cvzep",
+      "title": "MySQL 唯一约束 / MySQL unique constraint",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3483；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_unique_constraint"
+      ],
+      "beforeLen": 580,
+      "afterLen": 439,
+      "md5Before": "3b204eab1c024b9b3a23d8f684735214",
+      "md5After": "dc2f77a1bbd8f159b32bbdafc942da3d"
+    },
+    {
+      "id": "mysql_glossary_user_principal_name_daz6wj",
+      "title": "MySQL 用户主体名称 / UPN",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3516；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_user_principal_name"
+      ],
+      "beforeLen": 290,
+      "afterLen": 165,
+      "md5Before": "0121cfd07eecf81a8e37ad23d5e107ec",
+      "md5After": "1521c4fce051d3e1cad88ec01278b337"
+    },
+    {
+      "id": "mysql_glossary_variable_length_type_1satcr",
+      "title": "MySQL 可变长度类型 / MySQL variable-length type",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3524；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_variable_length_type"
+      ],
+      "beforeLen": 952,
+      "afterLen": 803,
+      "md5Before": "95e695a05ac48a6fd24f77e14427791a",
+      "md5After": "e798fde6ad1690a632ba6c7925644a5b"
+    },
+    {
+      "id": "mysql_glossary_victim_18xqeg",
+      "title": "MySQL 受害者 / victim",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 180,
+      "afterLen": 161,
+      "md5Before": "9bf1b92b4232b17c82159d44c358be7e",
+      "md5After": "4b17281568790f94e80a5814c87b5941"
+    },
+    {
+      "id": "mysql_glossary_virtual_generated_column_1smsm1",
+      "title": "虚拟生成列 / virtual generated column",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3555；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_virtual_generated_column"
+      ],
+      "beforeLen": 549,
+      "afterLen": 405,
+      "md5Before": "e35e9b8a345167886c68979265cba9dc",
+      "md5After": "4958719e51416d1f6facfae333621f3e"
+    },
+    {
+      "id": "mysql_glossary_virtual_index_sm95n4",
+      "title": "MySQL 虚拟索引 / virtual index",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3564；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_virtual_index"
+      ],
+      "beforeLen": 709,
+      "afterLen": 582,
+      "md5Before": "03e02a1dd0dd22e6ec30a672f02bc49a",
+      "md5After": "aecb1d65a93d7d985ee3cf81c0180648"
+    },
+    {
+      "id": "mysql_glossary_wait_1229eo",
+      "title": "MySQL 等待 / wait",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 331,
+      "afterLen": 315,
+      "md5Before": "32d9b17d11952b5757d4323c1b0bcbfe",
+      "md5After": "88f5f07bb2915d5576e07cd1ec734c21"
+    },
+    {
+      "id": "mysql_glossary_warm_backup_1sjsyn",
+      "title": "MySQL 温备份 / warm backup",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 136,
+      "afterLen": 112,
+      "md5Before": "9eff89b2d077e811324b057aa3dee6a6",
+      "md5After": "02260c0b9b78d3a575312faf3b723e40"
+    },
+    {
+      "id": "mysql_glossary_write_combining_154ozi",
+      "title": "写入合并 / write combining",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3634；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_write_combining"
+      ],
+      "beforeLen": 496,
+      "afterLen": 371,
+      "md5Before": "4c007bfcb1b1fb4744363889ac96215a",
+      "md5After": "9c7343efee3b70aa84a65c4ce5115a5f"
+    },
+    {
+      "id": "mysql_glossary_young_ohocw3",
+      "title": "MySQL 年轻页 / young",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3655；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_young"
+      ],
+      "beforeLen": 670,
+      "afterLen": 560,
+      "md5Before": "850e6cf72d6badeadb37ab68b013e403",
+      "md5After": "f73d36c53fab714623753ccd0defd72d"
+    },
+    {
+      "id": "mysql_glossary_insert_undo_log_1yrj7c",
+      "title": "插入 Undo 日志 / Insert Undo Log",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 113,
+      "afterLen": 84,
+      "md5Before": "a4e0a7604b7bcab191a93b91e753d6a3",
+      "md5After": "1c0112381d6077c3f920343775376399"
+    },
+    {
+      "id": "mysql_glossary_update_undo_log_yphxzo",
+      "title": "更新 Undo 日志 / Update Undo Log",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 143,
+      "afterLen": 114,
+      "md5Before": "3107998a809ffeaa4654f3771bc7d64a",
+      "md5After": "8e1ece981f9808c5bac8cbdb3165d68d"
+    },
+    {
+      "id": "mysql_glossary_point_in_time_recovery_eadx3e",
+      "title": "MySQL 时间点恢复 / point-in-time recovery",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2281；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_point_in_time_recovery"
+      ],
+      "beforeLen": 503,
+      "afterLen": 357,
+      "md5Before": "66ea66dfc3249d1f743c2aae749046ce",
+      "md5After": "b443fa9ab611e9353d1f6b22fd043e23"
+    },
+    {
+      "id": "mysql_tx_lifecycle",
+      "title": "MySQL 事务生命周期",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 60,
+      "afterLen": 47,
+      "md5Before": "a819957976c5af49a6e7d10978e3fc8a",
+      "md5After": "afe1d40cacad23ba1b379fc617034e3e"
+    },
+    {
+      "id": "mysql_tx_read_phenomena",
+      "title": "MySQL 读现象",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 294,
+      "afterLen": 284,
+      "md5Before": "391013c8406b263318cf320055b47195",
+      "md5After": "424572a01ec89068dab8f414b05413e7"
+    },
+    {
+      "id": "mysql_lock_intention",
+      "title": "MySQL 意向锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 42,
+      "afterLen": 32,
+      "md5Before": "a8a838876137e3d04c777b82f2a470ac",
+      "md5After": "71f08db320d32850800361be122e0cb8"
+    },
+    {
+      "id": "mysql_lock_auto_increment",
+      "title": "MySQL 自增锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 42,
+      "afterLen": 32,
+      "md5Before": "19633f2d306b2c58374b41d30588b4be",
+      "md5After": "28942da53373d490d62707294909fa12"
+    },
+    {
+      "id": "mysql_lock_metadata",
+      "title": "MySQL 元数据锁",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 36,
+      "afterLen": 25,
+      "md5Before": "9dd9978d89bff6721c13693edf6ff18c",
+      "md5After": "3a02d98a4b3e964a215bd074b177ca3a"
+    },
+    {
+      "id": "mysql_lock_latches",
+      "title": "MySQL 闩锁与内存同步",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 60,
+      "afterLen": 46,
+      "md5Before": "8fad6b345133c1c873dd991071c34f4a",
+      "md5After": "7fabd3863e2ef74f164b5db815efabed"
+    },
+    {
+      "id": "mysql_lock_modes",
+      "title": "MySQL 锁模式与锁操作",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 53,
+      "afterLen": 39,
+      "md5Before": "3ec08e6a5882f3a1caf4a478ec516363",
+      "md5After": "b75480470e65d844d44207173be0fd43"
+    },
+    {
+      "id": "k_1782749047493_w36knu",
+      "title": "MySQL 整数类型",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 25,
+      "afterLen": 14,
+      "md5Before": "0b29130092e9222f84af366c82ee3cdc",
+      "md5After": "3a6b4e0bf033d3a0f0840d97cff5ca58"
+    },
+    {
+      "id": "k_1782749263813_199twh",
+      "title": "MySQL 实数类型",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 25,
+      "afterLen": 14,
+      "md5Before": "2019f35ab6b85d4d92815302888a7712",
+      "md5After": "c7635e66a6da73a19081ab3e54491a2a"
+    },
+    {
+      "id": "k_1782749276682_qsjks8",
+      "title": "MySQL 字符串类型",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 27,
+      "afterLen": 15,
+      "md5Before": "2815fe30e8fc9bc0278c7e71741e98e4",
+      "md5After": "df8c7a058437d469eb473d329a179ac1"
+    },
+    {
+      "id": "k_1782749287355_2zl67c",
+      "title": "MySQL 枚举类型",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 25,
+      "afterLen": 14,
+      "md5Before": "4cdd2f45beda158fd53a7d886d8963b6",
+      "md5After": "b575fe3e28cdc6ff6b6d838c04df39d0"
+    },
+    {
+      "id": "k_1782928892375_1vgg04",
+      "title": "MySQL 丢失更新",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 56,
+      "afterLen": 45,
+      "md5Before": "10ca518d25f72fb99976f970ddedd8e6",
+      "md5After": "e844be993ad81f84cef62fdef42cce39"
+    },
+    {
+      "id": "k_1782930904543_kxi0uk",
+      "title": "MySQL 触发器",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 101,
+      "afterLen": 91,
+      "md5Before": "188bad6a26a7964250c6bbb57e278576",
+      "md5After": "378de79f0f1b30a93e258cfe27d68b4d"
+    },
+    {
+      "id": "k_1782930954484_nwtfg7",
+      "title": "MySQL 存储过程",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 138,
+      "afterLen": 127,
+      "md5Before": "67bbadc32d6ff36e831732cd5e78aa70",
+      "md5After": "73f08bf6404157d868d666819cae5562"
+    },
+    {
+      "id": "k_1784456386575_b7hxoh",
+      "title": "MySQL 事务管理",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 25,
+      "afterLen": 14,
+      "md5Before": "bd2c0a213000627022c4b3077a9121d2",
+      "md5After": "91ca44dc87810dc3023f5fe83cca4dca"
+    },
+    {
+      "id": "k_wiki_en_outline_of_databases_s4_b16",
+      "title": "有序共享锁 / ordered shared locks",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 151,
+      "afterLen": 122,
+      "md5Before": "ed49a28ce67259d587d8b711a4e0be16",
+      "md5After": "64bbd955288a84872c49d53183763f43"
+    },
+    {
+      "id": "k_1785231764171_fxrfdh",
+      "title": "切入点（Pointcut）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 331,
+      "afterLen": 317,
+      "md5Before": "e591e50429942815ada2a1ac88a01c6b",
+      "md5After": "0804bb8a42d2c1daa3c0af94cf546da0"
+    },
+    {
+      "id": "k_1786353277269_msn0ma9ap",
+      "title": "Tomcat",
+      "titleDeduped": true,
+      "footerCount": 2,
+      "footers": [
+        "来源：原始行：3321；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tomcat",
+        "来源：原始行：3321；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tomcat"
+      ],
+      "beforeLen": 9556,
+      "afterLen": 9363,
+      "md5Before": "2a37e4f9d6025b80ba89211483b413a8",
+      "md5After": "281fff94868bb5175d0db1824ea78047"
+    },
+    {
+      "id": "mysql:sql:dql",
+      "title": "MySQL DQL / 数据查询语言",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 59,
+      "afterLen": 40,
+      "md5Before": "c33078c0039b3239d54e3e61dac76cc9",
+      "md5After": "81372a0083147dedcb5e7a5a01ddad35"
+    },
+    {
+      "id": "mysql:sql:dml",
+      "title": "MySQL DML / 数据操作语言",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 78,
+      "afterLen": 59,
+      "md5Before": "a87e76df714c7c5080bbd629b245271b",
+      "md5After": "d929b6eeeb7c11f253f03a9fc4881a17"
+    },
+    {
+      "id": "mysql:sql:ddl",
+      "title": "MySQL DDL / 数据定义语言",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 214,
+      "afterLen": 195,
+      "md5Before": "2b15af667700f2af01ade1b90fa31bc8",
+      "md5After": "3807313fa8302dbec9f0c6c26068e1a2"
+    },
+    {
+      "id": "mysql:sql:dcl",
+      "title": "MySQL DCL / 数据控制语言",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 63,
+      "afterLen": 44,
+      "md5Before": "13f8d571e6438138c1710b8fb213f104",
+      "md5After": "3f27db5fa073608cbd50f0dd5eba21f3"
+    },
+    {
+      "id": "mysql:sql:tcl",
+      "title": "MySQL TCL / 事务控制语言",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 91,
+      "afterLen": 72,
+      "md5Before": "7cec5ac0428ec4200fadfcef3bd6a130",
+      "md5After": "bc5d81713b91bc1276358a57fab7b91e"
+    },
+    {
+      "id": "mysql_glossary_java_uspy11",
+      "title": "Java",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：1522；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_java"
+      ],
+      "beforeLen": 291,
+      "afterLen": 195,
+      "md5Before": "d0ed29341af9457481fb66070634c2a2",
+      "md5After": "875580754998762f7c0252305e395877"
+    },
+    {
+      "id": "mysql_glossary_servlet_12jp4v",
+      "title": "servlet",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：2868；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_servlet"
+      ],
+      "beforeLen": 203,
+      "afterLen": 101,
+      "md5Before": "9997828e97ae37b35dde6b4cdcee256d",
+      "md5After": "1989ead6ceb41ff1da200d8209246fea"
+    },
+    {
+      "id": "mysql_glossary_tomcat_10qwey",
+      "title": "Tomcat",
+      "titleDeduped": true,
+      "footerCount": 1,
+      "footers": [
+        "来源：原始行：3321；官方锚点：https://docs.oracle.com/cd/E17952_01/mysql-8.4-en/glossary.html#glos_tomcat"
+      ],
+      "beforeLen": 306,
+      "afterLen": 206,
+      "md5Before": "9861774d25da5e97d1cb19d4b645fe89",
+      "md5After": "c80d45e3d68946b56bd6294f46ea5a55"
+    },
+    {
+      "id": "k_1787201710517_se61sz",
+      "title": "MySQL 存储引擎",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 25,
+      "afterLen": 14,
+      "md5Before": "a1b7882f8bb1eb9ec7a89139e9136eef",
+      "md5After": "46dbcdfd4c5762c91b0626f734b9379b"
+    },
+    {
+      "id": "k_1787234925180_aqltgu",
+      "title": "MySQL 系统表空间",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 27,
+      "afterLen": 15,
+      "md5Before": "43243fb6eff939ed5b84c82deb22cd72",
+      "md5After": "3a9c40e30253a4a04fe0c0b21ad52094"
+    },
+    {
+      "id": "k_1787235074473_zuqcq4",
+      "title": "MySQL 独立表空间",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 27,
+      "afterLen": 15,
+      "md5Before": "c3717d371a32cfa48a12023d720ecaf5",
+      "md5After": "21e255489fd8b009d021e6b1b3c31a38"
+    },
+    {
+      "id": "k_1787237097249_1ld0tb",
+      "title": "清理操作 / Purge Operation",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 194,
+      "afterLen": 171,
+      "md5Before": "3c71680298fa04f7707464c05b6f132e",
+      "md5After": "0538be282304af17d72583e995964aa2"
+    },
+    {
+      "id": "k_1787326496104_zbtx44",
+      "title": "MySQL Replication",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 39,
+      "afterLen": 21,
+      "md5Before": "82ca2eaa6a4dedc02561497097402571",
+      "md5After": "da94c415b436f518f07bb8c69c604452"
+    },
+    {
+      "id": "k_1787326536038_77rvww",
+      "title": "MySQL 分区管理（Partitioning）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 53,
+      "afterLen": 28,
+      "md5Before": "8ed526fd036c37528910dc790fba36a7",
+      "md5After": "8f374525ece01270385d90c354c1f781"
+    },
+    {
+      "id": "concept_clustered_index",
+      "title": "聚簇索引 / clustered index",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 265,
+      "afterLen": 242,
+      "md5Before": "06588324c0f40b008594dbd031c72453",
+      "md5After": "5f80e7398d5a4e7c2f38c4a578cad74a"
+    },
+    {
+      "id": "concept_query_processing",
+      "title": "查询处理 / query processing",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 282,
+      "afterLen": 258,
+      "md5Before": "d20dd549cdcdc16a7d87a8743d00d715",
+      "md5After": "47f5dbd98859a8421ab5c77142bfb13f"
+    },
+    {
+      "id": "concept_phantom_read",
+      "title": "幻读 / phantom read",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 295,
+      "afterLen": 277,
+      "md5Before": "c3115cf8f25c9b7811c392b39642a91b",
+      "md5After": "10e2bf887f9e9c96a824eb5b932221cb"
+    },
+    {
+      "id": "aop_term_proxy",
+      "title": "代理对象（Proxy）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 157,
+      "afterLen": 145,
+      "md5Before": "31be1f2f4c32dc0660abd7de0344a71c",
+      "md5After": "0ba1af77f96e4835eaaf6b89a1e8f8f3"
+    },
+    {
+      "id": "aop_term_woven",
+      "title": "织入代码（Woven Code）",
+      "titleDeduped": true,
+      "footerCount": 0,
+      "footers": [],
+      "beforeLen": 156,
+      "afterLen": 139,
+      "md5Before": "6a0368603170ade4ff196d253eb5f2e7",
+      "md5After": "bf3a8cd0fca4116c1e975bdd91960eb3"
+    }
+  ]
+}
