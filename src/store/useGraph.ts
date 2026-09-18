@@ -46,6 +46,7 @@ import {
   cloneTree,
   cloneTreeWithNewIds,
   collectTreeNodes,
+  detachKnowledgeBinding,
   findTreeParent,
   findTreeNodeById,
   moveTreeNodes as moveTreeNodesInTree,
@@ -64,16 +65,24 @@ import {
   questionsForNode,
 } from '../knowledge/questionLink';
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
+import { READ_ONLY_DEPLOYMENT } from '../knowledge/deploymentMode';
 import {
   loadCompleteStateFromFiles,
   dirtyPersistedSlices,
   pickPersistedSlices,
   savePersistedSlices,
+  sliceFile,
+  sliceLabel,
   type LoadedAppState,
   type PersistedSliceKey,
   type PersistedSlices,
   type SliceFailure,
 } from '../knowledge/filePersistence';
+import {
+  sliceKeyOfFile,
+  reloadSlicesFromFiles,
+  subscribeDataFileChanges,
+} from '../knowledge/dataFileSync';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 import {
   hasDirectTypeRelation,
@@ -248,6 +257,14 @@ export interface DataLoadReport {
   missing: SliceFailure[];
 }
 
+/** 外部修改与本地未保存编辑冲突的切片条目 */
+export interface ExternalConflictItem {
+  key: PersistedSliceKey;
+  file: string;
+  label: string;
+  detectedAt: number;
+}
+
 interface GraphState {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
@@ -285,9 +302,16 @@ interface GraphState {
    */
   dataLoadReport: DataLoadReport | null;
 
+  /** 外部修改与本地未保存编辑冲突、等待用户裁决的切片 */
+  externalConflicts: ExternalConflictItem[];
+
   initialize: () => Promise<void>;
   /** 重新从正式文件装载（加载失败后使用）；成功后解除禁止回写 */
   reloadFromFiles: () => Promise<void>;
+  /** 冲突裁决：保留本地未保存编辑并立即落盘（有意覆盖外部改动） */
+  keepLocalChange: (key: PersistedSliceKey) => void;
+  /** 冲突裁决：丢弃本地未保存编辑，装载磁盘上的外部内容 */
+  loadExternalChange: (key: PersistedSliceKey) => void;
   save: () => void;
   /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
@@ -492,6 +516,8 @@ export const useGraphStore = create<GraphState>((set, get) => {
   let saveTimer: ReturnType<typeof setTimeout> | null = null;
   let lastSavedSlices: Partial<PersistedSlices> | null = null;
   let writeChain: Promise<void> = Promise.resolve();
+  // 已排队/在途的切片写入数：外部变更同步用它判断"本地还有未落盘的编辑"
+  let inflightWrites = 0;
 
   // 加载没过校验的切片：禁止回写。
   // 这是"加载失败 → 内存里是空状态 → 回写把正式文件清空"这条破坏性链路的唯一闸门。
@@ -502,6 +528,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
       clearTimeout(saveTimer);
       saveTimer = null;
     }
+    // 只读部署（静态托管）：没有 PUT 处理器，排 PUT 只会拿到 404/405 并弹
+    // 「保存失败，请检查磁盘」。这里直接不排写——内存编辑照常，落盘一律不试。
+    if (READ_ONLY_DEPLOYMENT) return;
     const slices = pickPersistedSlices(snapshotState(get()));
     const dirty = dirtyPersistedSlices(slices, lastSavedSlices)
       .filter((key) => !blockedSlices.has(key));
@@ -510,15 +539,18 @@ export const useGraphStore = create<GraphState>((set, get) => {
     const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
     for (const key of dirty) baseline[key] = slices[key];
     const scheduled = dirty;
+    inflightWrites += scheduled.length;
     writeChain = writeChain
       .then(() => savePersistedSlices(slices, scheduled))
       .then((failedKeys) => {
+        inflightWrites = Math.max(0, inflightWrites - scheduled.length);
         if (failedKeys.length === 0) return;
         // 失败的切片回滚基线，下一次 persist 会自动重试
         for (const key of failedKeys) delete lastSavedSlices![key];
         get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
       })
       .catch((error) => {
+        inflightWrites = Math.max(0, inflightWrites - scheduled.length);
         console.error('Failed to persist application data files', error);
         get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
       });
@@ -554,6 +586,90 @@ export const useGraphStore = create<GraphState>((set, get) => {
     }
   };
 
+  // ===== 外部修改实时同步（data/*.json 被编辑器/脚本改动 → 自动装载）=====
+  // 本地无未落盘编辑：自动并入外部内容（只替换目标切片，保留选中状态）。
+  // 本地还有未落盘编辑：不抢写，登记冲突交由用户裁决，任何一边都不静默丢。
+  let externalSyncStarted = false;
+
+  const hasPendingLocalEdit = (): boolean => {
+    if (saveTimer !== null || inflightWrites > 0) return true;
+    if (!lastSavedSlices) return false;
+    return dirtyPersistedSlices(pickPersistedSlices(snapshotState(get())), lastSavedSlices).length > 0;
+  };
+
+  /** 把外部修改的切片并入 store：只替换目标切片，不重置用户当前选中状态。 */
+  const applyExternalPatches = (
+    patches: Partial<PersistedAppState>,
+    loadedKeys: readonly PersistedSliceKey[],
+  ) => {
+    set(() => {
+      const next: Record<string, unknown> = {};
+      for (const key of loadedKeys) next[key] = patches[key];
+      return next as Partial<GraphState>;
+    });
+    // 装载基线以外部内容为准，本端后续保存才不会把旧内容又盖回去；外部内容过校验即解除禁写
+    if (!lastSavedSlices) lastSavedSlices = {};
+    const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
+    const current = get() as unknown as Record<string, unknown>;
+    for (const key of loadedKeys) {
+      baseline[key] = current[key];
+      blockedSlices.delete(key);
+    }
+  };
+
+  // 编辑器一次保存常触发多次 watch 事件 → SSE 连发：按切片 150ms 合并，避免重复 GET 与重复通知
+  const externalReloadTimers = new Map<PersistedSliceKey, ReturnType<typeof setTimeout>>();
+
+  const handleExternalFileChange = (filename: string) => {
+    const key = sliceKeyOfFile(filename);
+    if (!key) return; // version-chains.json 等只读文件不参与
+    if (blockedSlices.has(key)) return; // 已禁写切片维持现状，避免来回横跳
+    if (get().externalConflicts.some((item) => item.key === key)) return; // 冲突待裁决，等用户
+
+    const existing = externalReloadTimers.get(key);
+    if (existing) clearTimeout(existing);
+    externalReloadTimers.set(key, setTimeout(() => {
+      externalReloadTimers.delete(key);
+      if (hasPendingLocalEdit()) {
+        if (!get().externalConflicts.some((item) => item.key === key)) {
+          const item: ExternalConflictItem = {
+            key,
+            file: filename,
+            label: sliceLabel(key),
+            detectedAt: Date.now(),
+          };
+          set((state) => ({ externalConflicts: [...state.externalConflicts, item] }));
+          get().addNotification(
+            `${sliceLabel(key)} 在外部被修改，且本地有未保存的编辑，请在横幅中选择保留哪一边`,
+            'warning',
+          );
+        }
+        return;
+      }
+      void (async () => {
+        const reloaded = await reloadSlicesFromFiles([key]);
+        for (const failure of reloaded.failures) {
+          blockedSlices.add(failure.key);
+          get().addNotification(
+            `外部修改的 ${sliceLabel(failure.key)} 校验失败，已保留原状态并禁止回写：${failure.reason}`,
+            'error',
+          );
+        }
+        if (reloaded.loadedKeys.length > 0) {
+          applyExternalPatches(reloaded.patches, reloaded.loadedKeys);
+          get().addNotification(`${sliceLabel(key)} 已从磁盘重新装载（外部修改）`, 'info');
+        }
+        for (const warning of reloaded.warnings) get().addNotification(warning, 'warning');
+      })();
+    }, 150));
+  };
+
+  const startExternalFileSync = () => {
+    if (externalSyncStarted) return;
+    externalSyncStarted = true;
+    subscribeDataFileChanges((message) => handleExternalFileChange(message.file));
+  };
+
   // StrictMode 双调用 App 的挂载 effect 会让 initialize() 跑两次；
   // 第二次 applyPersisted 会把用户刚选中的节点重置掉。这里做幂等：
   // 进行中或已完成的初始化直接复用，失败则允许重试。
@@ -586,6 +702,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     followSelection: true,
     history: [],
     dataLoadReport: null,
+    externalConflicts: [],
 
     initialize: async () => {
       if (initializePromise) return initializePromise;
@@ -601,6 +718,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
         if (loaded.failures.length === 0) {
           get().addNotification('Knowledge loaded from local files', 'info');
         }
+        startExternalFileSync();
       })();
       try {
         return await initializePromise;
@@ -620,9 +738,43 @@ export const useGraphStore = create<GraphState>((set, get) => {
       if (loaded.failures.length === 0) {
         get().addNotification('已重新从本地文件装载数据', 'success');
       }
+      startExternalFileSync();
+    },
+
+    keepLocalChange: (key) => {
+      void (async () => {
+        // 先 GET 一次刷新服务端的 mtime 冲突基线，否则紧随其后的 PUT 会被 409 拦下。
+        // 这是用户明确选择"用本地覆盖外部"的裁决动作，不是旧内存态的盲目回写。
+        // 只读部署下 save() 不会排写，这次 GET 只作为读数基线（也不会有 409 冲突：
+        // 外部变更订阅在只读部署里是关闭的）。
+        await fetch(`/api/data?file=${sliceFile(key)}`, { cache: 'no-store' }).catch(() => {});
+        get().save();
+      })();
+      set((state) => ({ externalConflicts: state.externalConflicts.filter((item) => item.key !== key) }));
+    },
+
+    loadExternalChange: (key) => {
+      void (async () => {
+        const reloaded = await reloadSlicesFromFiles([key]);
+        for (const failure of reloaded.failures) {
+          blockedSlices.add(failure.key);
+          get().addNotification(
+            `外部修改的 ${sliceLabel(failure.key)} 校验失败，已保留原状态并禁止回写：${failure.reason}`,
+            'error',
+          );
+        }
+        if (reloaded.loadedKeys.length > 0) applyExternalPatches(reloaded.patches, reloaded.loadedKeys);
+        set((state) => ({ externalConflicts: state.externalConflicts.filter((item) => item.key !== key) }));
+        for (const warning of reloaded.warnings) get().addNotification(warning, 'warning');
+      })();
     },
 
     save: () => {
+      // 只读部署：PUT 没有落点，不能弹「已保存」这种谎报
+      if (READ_ONLY_DEPLOYMENT) {
+        get().addNotification('只读部署：编辑不会落盘。改数据请提交到仓库，由部署自动更新。', 'warning');
+        return;
+      }
       persist();
       get().addNotification('已保存到本地文件', 'success');
     },
@@ -1468,24 +1620,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       );
 
       // 同一个知识点的所有视图共享删除逻辑：对应目录项一并移除，子目录上移保留。
-      const replaceNodeWithChildren = (node: TreeNode, targetId: string): TreeNode => {
-        if (node.id === targetId) {
-          return {
-            ...node,
-            nodeRef: undefined,
-            children: node.children ?? undefined,
-          };
-        }
-        const children = (node.children ?? []).flatMap((child) => {
-          if (child.id === targetId) return child.children ?? [];
-          return [replaceNodeWithChildren(child, targetId)];
-        });
-        return {
-          ...node,
-          children: children.length > 0 ? children : undefined,
-        };
-      };
-      const treeData = replaceNodeWithChildren(cloneTree(state.treeData), knowledgeId);
+      const treeData = detachKnowledgeBinding(cloneTree(state.treeData), knowledgeId);
 
       const questions = state.questions.map((q) => {
         const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);

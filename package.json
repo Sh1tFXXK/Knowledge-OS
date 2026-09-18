@@ -10,13 +10,16 @@
     "typecheck": "tsc --noEmit",
     "import:jdk-collections": "node scripts/import/lib/import-jdk-collections.mjs",
     "test": "node --experimental-transform-types --test",
-    "smoke:data-api": "node scripts/smoke-data-api.mjs"
+    "smoke:data-api": "node scripts/smoke-data-api.mjs",
+    "vercel-build": "node scripts/deploy/vercel-build.mjs",
+    "deploy:data": "node scripts/copy-deploy-data.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@mozilla/readability": "^0.6.0",
+    "ai": "^7.0.105",
     "ipaddr.js": "^2.2.0",
     "jsdom": "^29.1.1",
     "lucide-react": "^0.468.0",

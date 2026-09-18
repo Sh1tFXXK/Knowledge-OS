@@ -1,0 +1,44 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "tree-data.json" }],
+      "destination": "/api-data/tree-data.json"
+    },
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "node-pool.json" }],
+      "destination": "/api-data/node-pool.json"
+    },
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "knowledge-edges.json" }],
+      "destination": "/api-data/knowledge-edges.json"
+    },
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "questions.json" }],
+      "destination": "/api-data/questions.json"
+    },
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "evolution-events.json" }],
+      "destination": "/api-data/evolution-events.json"
+    },
+    {
+      "source": "/api/data",
+      "has": [{ "type": "query", "key": "file", "value": "version-chains.json" }],
+      "destination": "/api-data/version-chains.json"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api-data/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }]
+    }
+  ]
+}

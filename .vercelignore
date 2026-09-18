@@ -1,0 +1,43 @@
+# ── 部署上传忽略清单 ──────────────────────────────────────────────
+# 目的：只上传构建所需文件。本机 data/backups（3.6 GB）与 .venv-mineru（1.26 GB）
+# 合计超过 4.8 GB，若不忽略会让 CLI 上传不可用。
+
+# 本机 OCR/Python 环境与导出
+.venv-mineru/
+ocr-output/
+
+# 数据备份（构建不读取；6 个真源仍在 data/*.json，必须上传）
+data/backups/
+data/*.backup-*
+data/*.tmp-*
+
+# 阶段产物层与治理清单（运行时零引用）
+outputs/
+batch-manifests/
+
+# 文档与原始资料（构建不读取）
+docs/
+
+# 依赖与本地构建产物（Vercel 侧重新安装并构建）
+node_modules/
+dist/
+
+# 代理/IDE/工具工作目录
+.agents/
+.claude/
+.cline/
+.codex/
+.idea/
+.kimchi/
+.playwright-cli/
+.reasonix/
+.superpowers/
+.understand-anything/
+.workbuddy/
+.tmp-*/
+.tmp_redis_pages/
+gui-test-screenshots/
+
+# 日志与临时文件
+*.log
+*.bak

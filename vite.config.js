@@ -1,7 +1,9 @@
 import { defineConfig, loadEnv } from 'vite';
 import fs from 'node:fs/promises';
+import fsSync from 'node:fs';
 import path from 'node:path';
 import { linkImportApi } from './scripts/import/link-import-api.mjs';
+import { resolveReadOnlyDeployment } from './scripts/deploy/read-only-flag.mjs';
 
 const DATA_DIR = path.resolve(
   process.env.KNOWLEDGE_OS_DATA_DIR
@@ -143,8 +145,80 @@ function dataFileApi() {
   // PUT 时对比：如果 mtime 已变（被外部脚本/编辑器修改），拒绝覆盖并返回 409，
   // 防止前端旧内存态静默覆盖外部改动。用户刷新浏览器即可加载最新文件。
   const servedMtimes = new Map();
+  // 自己写盘记录的 mtime：fs.watch 看到相同 mtime 时不推送，避免「自己写的盘当成外部修改」
+  const selfWrittenMtimes = new Map();
+  // SSE 客户端：外部修改 data/*.json 时实时推给浏览器，UI 自动装载，不必刷新/重启
+  const sseClients = new Set();
+
+  const broadcast = payload => {
+    const frame = `data: ${JSON.stringify(payload)}\n\n`;
+    for (const client of sseClients) {
+      try {
+        client.write(frame);
+      } catch {
+        sseClients.delete(client);
+      }
+    }
+  };
+
+  const startDataWatcher = () => {
+    let watcher = null;
+    try {
+      watcher = fsSync.watch(DATA_DIR, { persistent: false }, (_eventType, rawName) => {
+        const filename = typeof rawName === 'string' ? rawName : null;
+        if (!filename || !DATA_FILE_NAMES.has(filename)) return;
+        // 编辑器一次保存常触发多次事件：防抖后核对 mtime 再推送
+        setTimeout(() => {
+          const filePath = resolveDataFile(filename);
+          if (!filePath) return;
+          fs.stat(filePath).then(stat => {
+            const selfWritten = selfWrittenMtimes.get(filename);
+            if (selfWritten !== undefined && Math.abs(stat.mtimeMs - selfWritten) < 5) {
+              // 自己写的盘不算外部修改。注意不删除记录：Windows 上一次 rename 会连发
+              // 多个 watch 事件，删了会让后续事件被误判为外部修改（实测出现过）。
+              // 记录只在下一次 PUT 时被新 mtime 覆盖，不会误伤真正的外部修改。
+              return;
+            }
+            broadcast({ type: 'changed', file: filename, mtimeMs: stat.mtimeMs });
+          }).catch(() => {}); // 文件刚好被删：忽略
+        }, 80);
+      });
+      watcher.on('error', error => {
+        console.warn('[data-file-api] fs.watch error:', error.message);
+        try { watcher.close(); } catch {}
+        watcher = null;
+      });
+    } catch (error) {
+      // 数据目录不存在等场景：只降级为「无推送」，不影响读写 API
+      console.warn('[data-file-api] fs.watch unavailable:', error.message);
+    }
+    return watcher;
+  };
 
   const attach = server => {
+    // 注意：必须先于 /api/data 注册——connect 是前缀匹配，/api/data-events 也以 /api/data 开头
+    server.middlewares.use('/api/data-events', (req, res) => {
+      res.statusCode = 200;
+      res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-cache');
+      res.setHeader('Connection', 'keep-alive');
+      res.write('retry: 2000\n\n');
+      sseClients.add(res);
+      const heartbeat = setInterval(() => {
+        try {
+          res.write(':hb\n\n');
+        } catch {
+          /* 断开时由 close 清理 */
+        }
+      }, 20000);
+      req.on('close', () => {
+        clearInterval(heartbeat);
+        sseClients.delete(res);
+      });
+    });
+
+    startDataWatcher();
+
     server.middlewares.use('/api/data', async (req, res, next) => {
       const method = req.method?.toUpperCase();
       const url = new URL(req.url, `http://${req.headers.host}`);
@@ -203,10 +277,11 @@ function dataFileApi() {
           }
 
           await enqueueFileWrite(filePath, body);
-          // 写入后更新追踪的 mtime
+          // 写入后更新追踪的 mtime（同时登记为自写盘，供 fs.watch 抑制误报）
           try {
             const stat = await fs.stat(filePath);
             servedMtimes.set(filename, stat.mtimeMs);
+            selfWrittenMtimes.set(filename, stat.mtimeMs);
           } catch {}
           sendJson(res, 200, { ok: true, file: filename });
           return;
@@ -234,12 +309,21 @@ function dataFileApi() {
   };
 }
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, command }) => {
   const importEnv = {
     ...process.env,
     ...loadEnv(mode, process.cwd(), 'KNOWLEDGE_OS_'),
   };
+  // 只读部署标记：判定规则见 scripts/deploy/read-only-flag.mjs，
+  // 消费点见 src/knowledge/deploymentMode.ts。构建期注入字面量，不做运行时探测。
+  const readOnlyDeployment = resolveReadOnlyDeployment(importEnv);
+  if (command === 'build') {
+    console.log(`[config] 只读部署标记 __KNOWLEDGE_OS_READ_ONLY__ = ${readOnlyDeployment}`);
+  }
   return {
+    define: {
+      __KNOWLEDGE_OS_READ_ONLY__: JSON.stringify(readOnlyDeployment),
+    },
     plugins: [dataFileApi(), linkImportApi(process.cwd(), importEnv)],
     server: {
       watch: {
