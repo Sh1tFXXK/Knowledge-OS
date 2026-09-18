@@ -1,0 +1,564 @@
+{
+  "generatedAt": "2026-09-16T07:33:54.004Z",
+  "script": "scripts/recon-java-class-vs-lib.mjs",
+  "targets": [
+    {
+      "key": "CLASS",
+      "label": "类",
+      "treeId": "tree_1785339432677_doac9n"
+    },
+    {
+      "key": "LIB",
+      "label": "类库",
+      "treeId": "tree_java_common_libraries"
+    }
+  ],
+  "base": {
+    "CLASS": {
+      "treeId": "tree_1785339432677_doac9n",
+      "label": "类",
+      "nodeCount": 11,
+      "directChildren": 1,
+      "maxDepth": 4,
+      "mounts": 11,
+      "uniqueRefs": 11,
+      "tabsTotal": 2,
+      "charsTotal": 8011,
+      "emptyShellCount": 1,
+      "missingEntities": [],
+      "emptyShellRefs": [
+        "k_1785339432462_ff5zs4"
+      ]
+    },
+    "LIB": {
+      "treeId": "tree_java_common_libraries",
+      "label": "类库",
+      "nodeCount": 43,
+      "directChildren": 22,
+      "maxDepth": 2,
+      "mounts": 43,
+      "uniqueRefs": 43,
+      "tabsTotal": 164,
+      "charsTotal": 138701,
+      "emptyShellCount": 0,
+      "missingEntities": [],
+      "emptyShellRefs": []
+    }
+  },
+  "overlap": {
+    "sharedRefs": [],
+    "fqcnIntersection": [],
+    "simpleNameIntersection": [],
+    "identicalContentMd5Groups": 0,
+    "crossZone": [
+      {
+        "zone": "类",
+        "ref": "k_java_syntax_java_lang_object_yk8ls4",
+        "label": "java.lang.Object",
+        "mine": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类 > java.lang > Object"
+        ],
+        "others": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > Java 语法要素 > 通用类型 > java.lang.Object"
+        ]
+      },
+      {
+        "zone": "类库",
+        "ref": "k_java_lang_enum",
+        "label": "java.lang.Enum",
+        "mine": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类库 > java.lang.Enum"
+        ],
+        "others": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 类型系统 > 数据类型 > 引用类型 > enum"
+        ]
+      }
+    ]
+  },
+  "identity": {
+    "entitiesWithCanonicalKey": 637,
+    "distinctKeys": 637,
+    "duplicateKeyGroups": 0,
+    "classKey": "java:class",
+    "libKey": null,
+    "classFamily": [
+      {
+        "id": "k_1784044457709_jt70a4",
+        "label": "修饰符",
+        "canonicalKey": "java:class-modifier",
+        "mounts": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 修饰符",
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > 编程语言理论 > 类型系统 > 数据类型 > 引用类型 > class > 修饰符"
+        ]
+      },
+      {
+        "id": "k_1785339432462_ff5zs4",
+        "label": "类",
+        "canonicalKey": "java:class",
+        "mounts": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 类"
+        ]
+      },
+      {
+        "id": "k_1786344034905_lslnka",
+        "label": "变量",
+        "canonicalKey": "java:class:variable",
+        "mounts": [
+          "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java类 > 变量"
+        ]
+      }
+    ]
+  },
+  "classNodeRoles": [
+    {
+      "path": "类",
+      "nodeRef": "k_1785339432462_ff5zs4",
+      "role": "有身份键",
+      "note": "java:class"
+    },
+    {
+      "path": "类 > java.lang",
+      "nodeRef": "k_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b",
+      "role": "包占位节点",
+      "note": "末段小写 ⇒ 是包不是类"
+    },
+    {
+      "path": "类 > java.lang > Object",
+      "nodeRef": "k_java_syntax_java_lang_object_yk8ls4",
+      "role": "有身份键",
+      "note": "java:type:java.lang.Object"
+    },
+    {
+      "path": "类 > java.lang > Object > Number",
+      "nodeRef": "k_1787757263499_nd13h9",
+      "role": "实体（仅正文）",
+      "note": "422 字"
+    },
+    {
+      "path": "类 > java.lang > Object > Math",
+      "nodeRef": "k_1787759011267_pvd61e",
+      "role": "实体（仅正文）",
+      "note": "151 字"
+    },
+    {
+      "path": "类 > java.lang > Object > Math > 作用",
+      "nodeRef": "k_1787759076020_wjo8xg",
+      "role": "实体（仅正文）",
+      "note": "427 字"
+    },
+    {
+      "path": "类 > java.lang > Object > Math > 常见方法",
+      "nodeRef": "k_1787759112336_m73bs3",
+      "role": "表格型分节",
+      "note": "正文以「序号」表头开头"
+    },
+    {
+      "path": "类 > java.lang > Object > 类的构造函数",
+      "nodeRef": "k_1787759645451_qajqen",
+      "role": "短片段",
+      "note": "20 字"
+    },
+    {
+      "path": "类 > java.lang > Object > 方法",
+      "nodeRef": "k_1787759684586_mxh1vn",
+      "role": "表格型分节",
+      "note": "正文以「序号」表头开头"
+    },
+    {
+      "path": "类 > java.lang > Object > Optional",
+      "nodeRef": "k_1787760075739_onhtjj",
+      "role": "实体（仅正文）",
+      "note": "165 字"
+    },
+    {
+      "path": "类 > java.lang > Object > Optional > 方法",
+      "nodeRef": "k_1787760282386_9k58j4",
+      "role": "表格型分节",
+      "note": "正文以「序号」表头开头"
+    }
+  ],
+  "tree": {
+    "CLASS": [
+      {
+        "id": "tree_1785339432677_doac9n",
+        "name": "类",
+        "nodeRef": "k_1785339432462_ff5zs4",
+        "depth": 0,
+        "path": "类"
+      },
+      {
+        "id": "tree_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b",
+        "name": "java.lang",
+        "nodeRef": "k_java_source_020f0cac60da5755_s_package_4be54257fe3bcb8b",
+        "depth": 1,
+        "path": "类 > java.lang"
+      },
+      {
+        "id": "tree_java_source_020f0cac60da5755_s_type_a6b9e05051861242",
+        "name": "Object",
+        "nodeRef": "k_java_syntax_java_lang_object_yk8ls4",
+        "depth": 2,
+        "path": "类 > java.lang > Object"
+      },
+      {
+        "id": "tree_1787757263969_gzvuuf",
+        "name": "Number",
+        "nodeRef": "k_1787757263499_nd13h9",
+        "depth": 3,
+        "path": "类 > java.lang > Object > Number"
+      },
+      {
+        "id": "tree_1787759011635_peybdc",
+        "name": "Math",
+        "nodeRef": "k_1787759011267_pvd61e",
+        "depth": 3,
+        "path": "类 > java.lang > Object > Math"
+      },
+      {
+        "id": "tree_1787759076399_z5epf1",
+        "name": "作用",
+        "nodeRef": "k_1787759076020_wjo8xg",
+        "depth": 4,
+        "path": "类 > java.lang > Object > Math > 作用"
+      },
+      {
+        "id": "tree_1787759112680_t98pe7",
+        "name": "常见方法",
+        "nodeRef": "k_1787759112336_m73bs3",
+        "depth": 4,
+        "path": "类 > java.lang > Object > Math > 常见方法"
+      },
+      {
+        "id": "tree_1787759645795_xo83rg",
+        "name": "类的构造函数",
+        "nodeRef": "k_1787759645451_qajqen",
+        "depth": 3,
+        "path": "类 > java.lang > Object > 类的构造函数"
+      },
+      {
+        "id": "tree_1787759684891_970onz",
+        "name": "方法",
+        "nodeRef": "k_1787759684586_mxh1vn",
+        "depth": 3,
+        "path": "类 > java.lang > Object > 方法"
+      },
+      {
+        "id": "tree_1787760076140_p42ecl",
+        "name": "Optional",
+        "nodeRef": "k_1787760075739_onhtjj",
+        "depth": 3,
+        "path": "类 > java.lang > Object > Optional"
+      },
+      {
+        "id": "tree_1787760282694_ok0ern",
+        "name": "方法",
+        "nodeRef": "k_1787760282386_9k58j4",
+        "depth": 4,
+        "path": "类 > java.lang > Object > Optional > 方法"
+      }
+    ],
+    "LIB": [
+      {
+        "id": "tree_java_common_libraries",
+        "name": "类库",
+        "nodeRef": "k_java_common_libraries",
+        "depth": 0,
+        "path": "类库"
+      },
+      {
+        "id": "tree_java_lang_string",
+        "name": "java.lang.String",
+        "nodeRef": "k_java_lang_string",
+        "depth": 1,
+        "path": "类库 > java.lang.String"
+      },
+      {
+        "id": "tree_java_lang_stringbuilder",
+        "name": "java.lang.StringBuilder",
+        "nodeRef": "k_java_lang_stringbuilder",
+        "depth": 1,
+        "path": "类库 > java.lang.StringBuilder"
+      },
+      {
+        "id": "tree_java_lang_stringbuffer",
+        "name": "java.lang.StringBuffer",
+        "nodeRef": "k_java_lang_stringbuffer",
+        "depth": 1,
+        "path": "类库 > java.lang.StringBuffer"
+      },
+      {
+        "id": "tree_java_util_scanner",
+        "name": "java.util.Scanner",
+        "nodeRef": "k_java_util_scanner",
+        "depth": 1,
+        "path": "类库 > java.util.Scanner"
+      },
+      {
+        "id": "tree_java_nio_file_files",
+        "name": "java.nio.file.Files",
+        "nodeRef": "k_java_nio_file_files",
+        "depth": 1,
+        "path": "类库 > java.nio.file.Files"
+      },
+      {
+        "id": "tree_1787916125075_qsrbco",
+        "name": "最佳实践",
+        "nodeRef": "k_1787916124192_mow0sq",
+        "depth": 2,
+        "path": "类库 > java.nio.file.Files > 最佳实践"
+      },
+      {
+        "id": "tree_java_lang_enum",
+        "name": "java.lang.Enum",
+        "nodeRef": "k_java_lang_enum",
+        "depth": 1,
+        "path": "类库 > java.lang.Enum"
+      },
+      {
+        "id": "tree_1787809664230_ydwv5e",
+        "name": "用法",
+        "nodeRef": "k_1787809663840_4i0olr",
+        "depth": 2,
+        "path": "类库 > java.lang.Enum > 用法"
+      },
+      {
+        "id": "tree_1787889497333_msc4lv",
+        "name": "java.util.Date",
+        "nodeRef": "k_1787889496705_wo1lig",
+        "depth": 1,
+        "path": "类库 > java.util.Date"
+      },
+      {
+        "id": "tree_1787895069014_cg5rdn",
+        "name": "Calendar",
+        "nodeRef": "k_1787895068080_fnyw97",
+        "depth": 1,
+        "path": "类库 > Calendar"
+      },
+      {
+        "id": "tree_1787900242948_1val7c",
+        "name": "GregorianCalendar",
+        "nodeRef": "k_1787900242683_5xf3ph",
+        "depth": 1,
+        "path": "类库 > GregorianCalendar"
+      },
+      {
+        "id": "tree_byte_stream_group",
+        "name": "java.io 字节流",
+        "nodeRef": "k_byte_stream_group",
+        "depth": 1,
+        "path": "类库 > java.io 字节流"
+      },
+      {
+        "id": "tree_input_stream",
+        "name": "InputStream",
+        "nodeRef": "k_input_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > InputStream"
+      },
+      {
+        "id": "tree_output_stream",
+        "name": "OutputStream",
+        "nodeRef": "k_output_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > OutputStream"
+      },
+      {
+        "id": "tree_other_byte_stream",
+        "name": "其他字节流",
+        "nodeRef": "k_other_byte_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > 其他字节流"
+      },
+      {
+        "id": "tree_byte_stream_file_input_stream",
+        "name": "FileInputStream",
+        "nodeRef": "asplit_file_input_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > FileInputStream"
+      },
+      {
+        "id": "tree_byte_stream_buffered_input_stream",
+        "name": "BufferedInputStream",
+        "nodeRef": "asplit_buffered_input_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > BufferedInputStream"
+      },
+      {
+        "id": "tree_byte_stream_data_input_stream",
+        "name": "DataInputStream",
+        "nodeRef": "asplit_data_input_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > DataInputStream"
+      },
+      {
+        "id": "tree_byte_stream_object_input_stream",
+        "name": "ObjectInputStream",
+        "nodeRef": "asplit_object_input_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > ObjectInputStream"
+      },
+      {
+        "id": "tree_byte_stream_java_io_group",
+        "name": "java.io",
+        "nodeRef": "asplit_java_io_group",
+        "depth": 2,
+        "path": "类库 > java.io 字节流 > java.io"
+      },
+      {
+        "id": "tree_char_stream_group",
+        "name": "java.io 字符流",
+        "nodeRef": "k_char_stream_group",
+        "depth": 1,
+        "path": "类库 > java.io 字符流"
+      },
+      {
+        "id": "tree_reader",
+        "name": "Reader",
+        "nodeRef": "k_reader",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > Reader"
+      },
+      {
+        "id": "tree_writer",
+        "name": "Writer",
+        "nodeRef": "k_writer",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > Writer"
+      },
+      {
+        "id": "tree_bridge_stream",
+        "name": "桥接流",
+        "nodeRef": "k_bridge_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > 桥接流"
+      },
+      {
+        "id": "tree_other_char_stream",
+        "name": "其他字符流",
+        "nodeRef": "k_other_char_stream",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > 其他字符流"
+      },
+      {
+        "id": "tree_char_stream_file_reader",
+        "name": "FileReader",
+        "nodeRef": "asplit_file_reader",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > FileReader"
+      },
+      {
+        "id": "tree_char_stream_buffered_reader",
+        "name": "BufferedReader",
+        "nodeRef": "asplit_buffered_reader",
+        "depth": 2,
+        "path": "类库 > java.io 字符流 > BufferedReader"
+      },
+      {
+        "id": "tree_vault_javajava8stream_rcy19a",
+        "name": "Java 8 Stream",
+        "nodeRef": "k_vault_javajava8stream_rcy19a",
+        "depth": 1,
+        "path": "类库 > Java 8 Stream"
+      },
+      {
+        "id": "tree_vault_javajava_1xf3hv",
+        "name": "Java 网络编程（Socket）",
+        "nodeRef": "k_vault_javajava_1xf3hv",
+        "depth": 1,
+        "path": "类库 > Java 网络编程（Socket）"
+      },
+      {
+        "id": "tree_vault_javajavamysql_66tav5",
+        "name": "JDBC 连接 MySQL",
+        "nodeRef": "k_vault_javajavamysql_66tav5",
+        "depth": 1,
+        "path": "类库 > JDBC 连接 MySQL"
+      },
+      {
+        "id": "tree_vault_javajava_9w1am",
+        "name": "Java 发送邮件（JavaMail）",
+        "nodeRef": "k_vault_javajava_9w1am",
+        "depth": 1,
+        "path": "类库 > Java 发送邮件（JavaMail）"
+      },
+      {
+        "id": "tree_vault_javajavacharacter_1wdwf5",
+        "name": "Character 类",
+        "nodeRef": "k_vault_javajavacharacter_1wdwf5",
+        "depth": 1,
+        "path": "类库 > Character 类"
+      },
+      {
+        "id": "tree_java_common_java_io_file",
+        "name": "File 类",
+        "nodeRef": "asplit_java_io_file",
+        "depth": 1,
+        "path": "类库 > File 类"
+      },
+      {
+        "id": "tree_file_class",
+        "name": "File类",
+        "nodeRef": "k_file_class",
+        "depth": 2,
+        "path": "类库 > File 类 > File类"
+      },
+      {
+        "id": "tree_random_access_file",
+        "name": "RandomAccessFile",
+        "nodeRef": "k_random_access_file",
+        "depth": 2,
+        "path": "类库 > File 类 > RandomAccessFile"
+      },
+      {
+        "id": "tree_dir_operation",
+        "name": "目录操作",
+        "nodeRef": "k_dir_operation",
+        "depth": 2,
+        "path": "类库 > File 类 > 目录操作"
+      },
+      {
+        "id": "tree_java_common_console_io",
+        "name": "控制台 I/O",
+        "nodeRef": "asplit_console_io",
+        "depth": 1,
+        "path": "类库 > 控制台 I/O"
+      },
+      {
+        "id": "tree_console_io",
+        "name": "控制台IO",
+        "nodeRef": "k_console_io",
+        "depth": 2,
+        "path": "类库 > 控制台 I/O > 控制台IO"
+      },
+      {
+        "id": "tree_nio_selector_usage",
+        "name": "Selector使用",
+        "nodeRef": "k_nio_selector_usage",
+        "depth": 1,
+        "path": "类库 > Selector使用"
+      },
+      {
+        "id": "tree_java_common_java_nio_path",
+        "name": "Path",
+        "nodeRef": "asplit_java_nio_path",
+        "depth": 1,
+        "path": "类库 > Path"
+      },
+      {
+        "id": "tree_java_common_java_nio_filesystem",
+        "name": "FileSystem",
+        "nodeRef": "asplit_java_nio_filesystem",
+        "depth": 1,
+        "path": "类库 > FileSystem"
+      },
+      {
+        "id": "tree_java_util_base64",
+        "name": "java.util.Base64",
+        "nodeRef": "k_java_util_base64",
+        "depth": 1,
+        "path": "类库 > java.util.Base64"
+      }
+    ]
+  }
+}

@@ -1,10 +1,10 @@
-import { explicitPagesForTab, type ExplanationIndexNode } from '../../knowledge/explanationIndex';
-import { findPage, findTab } from '../../knowledge/explanationTree';
+import { explicitPagesForTab, type ExplanationIndexNode } from '../../knowledge/explanationIndex.ts';
+import { findPage, findTab } from '../../knowledge/explanationTree.ts';
 import {
   collectDirectContainmentRelations,
   CONTAINMENT_EDGE_TYPE,
-} from '../../knowledge/containment';
-import type { TypeRelationGraph } from '../../knowledge/typeRelations';
+} from '../../knowledge/containment.ts';
+import type { TypeRelationGraph } from '../../knowledge/typeRelations.ts';
 import {
   TypeRelationKind,
   type ExplanationSelectionKind,
@@ -12,7 +12,7 @@ import {
   type KnowledgeEdge,
   type KnowledgeNode,
   type NodeExplanation,
-} from '../../types';
+} from '../../types.ts';
 
 const ROOT_SELECTION_KIND = 'root' as ExplanationSelectionKind.Root;
 
@@ -997,6 +997,12 @@ export function buildUnifiedIndexGraph({
     }
   }
 
+  // 幽灵方框防线：绑定还在、本体已不在节点池里的引用（目录解绑残留、事件声明悬空）
+  // 不再画框。宿主框例外——它由卡片自身撑起整张画布。
+  for (const [draftId, draft] of drafts) {
+    if (!draft.owner && !nodePool[draft.knowledgeNodeId]) drafts.delete(draftId);
+  }
+
   const knowledgeNodeIds = new Set(
     [...drafts.values()].map((draft) => draft.knowledgeNodeId),
   );
@@ -1117,9 +1123,10 @@ export function buildUnifiedIndexGraph({
     }];
   });
 
+  const liveGraphIds = new Set(sizedDrafts.map((draft) => draft.id));
   return {
     nodes,
-    edges,
+    edges: edges.filter((edge) => liveGraphIds.has(edge.sourceId) && liveGraphIds.has(edge.targetId)),
     containmentFrames,
     width,
     height,

@@ -1,6 +1,6 @@
 # Knowledge-OS 项目介绍
 
-> 版本：4.0.0 · 更新：2026-09-05
+> 版本：4.0.0 · 更新：2026-09-11
 
 ## 一、项目概述
 
@@ -18,6 +18,8 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 - **文档导入**：Markdown / PDF / HTML / DOCX / TXT；扫描型 PDF 走本地 MinerU OCR。
 - **网页导入**：普通网页、GitHub Markdown、Wikipedia，自动清理正文、规范 Markdown、提取标签。
 - **Java 源码导入**：通过 JDK Compiler Tree API 提取包、类型、成员、Javadoc 与直接类型关系。
+- **数据加载防护**：切片形状校验、失败切片隔离（不进 store 也不回写）、错误边界与告警横幅，坏数据不再白屏或污染持久化。
+- **问题卡答案骨架**：`answerSteps` 可引用整节点或定位到维度的具体 section；答案草稿按定位取成员原子生成，结构增删不会让步骤指错地方。
 - **本地持久化**：Vite 中间件读写 `data/*.json`，浏览器状态由 Zustand 单向管理。
 
 ## 三、技术栈
@@ -57,7 +59,7 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 知识领域最密集的代码：状态（`state.ts`）、目录树绑定（`treeBinding.ts`、`treeUtils.ts`）、类型关系（`typeRelations.ts`）、解释索引（`explanationIndex.ts`、`explanationTree.ts`、`explanationTable.ts`）、投影（`projection.ts`、`physicalProjection.ts`）、超标签（`supertags.ts`）、导入（`documentImport.ts`、`linkImport.ts`）、持久化（`filePersistence.ts`、`persist.ts`）。
 
 ### `src/store/useGraph.ts` — 全局状态
-单一 Zustand store，集中管理节点、边、树、时间线、题库与持久化，是运行时数据流的唯一出口。
+单一 Zustand store，集中管理节点、边、树、时间线、题库与持久化，是运行时数据流的唯一出口；含数据加载防护（`blockedSlices` / `dataLoadReport`，失败切片禁止回写）与 `reloadFromFiles`。
 
 ### `src/core/` — 可视化引擎
 `DimensionCanvas.tsx`（多维知识画布枢纽）、`ExplanationIndexView.tsx`（解释索引视图），以及六种布局渲染器（stack/grid/tree/chain/matrix/btree，位于 `sections/`）。
@@ -65,8 +67,7 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 ### `src/mechanism/` — 机制视图
 把知识图谱投影为「机制」流程图/序列图：`core.ts`（领域类型）、`diagram.ts`（帧投影）、`lens.ts`（图/时间线/场景三种镜头）、`knowledgeProjection.ts`（图谱→机制模型）、`validation.ts`（结构校验），外加 InnoDB、Java 线程生命周期、MySQL UPDATE 等示例数据。
 
-### 知识演化时间线
-记录知识节点随时间在语义面上的演化：`knowledge/timelineEvolution.ts`（核心引擎，定义 `TimelineFacet` 语义面与 `KnowledgeTimelineEvent`，`buildKnowledgeTimeline` 聚合快照与标注）、`knowledge/timelineAnnotations.ts`（精选标注数据，如 Spring 4/5 演化）、`knowledge/indexEvolution.ts`（索引视图投影，累积揭示新增节点）、`components/KnowledgeEvolutionTimeline.tsx`（演化时间线组件）、`TimelineView.tsx`（「知识演化」/「知识点快照」双模式）。
+### 知识演化时间线（时态索引）记录知识节点随时间在语义面上的演化：`knowledge/timelineEvolution.ts`（核心引擎，定义 `TimelineFacet` 语义面与 `KnowledgeTimelineEvent`，`buildKnowledgeTimeline` 聚合快照与标注）、`knowledge/timelineAnnotations.ts`（精选标注数据，如 Spring 4/5 演化）、`knowledge/indexEvolution.ts`（索引视图投影，累积揭示新增节点）、`core/TemporalIndexWorkspace.tsx`（时态索引工作区：同一张统一索引图叠加时间轴、事件抽屉与节点态切片，读历史时进入只读门禁）。
 
 ### `src/panels/` 与 `src/layout/`
 `panels/` 承载各功能面板（解释卡片、题库、关系网络、系统连接图）；`layout/` 承载 `TopBar`、`UniverseTree`（约 1103 行的知识宇宙树）、`RightSidePanel`。
@@ -89,8 +90,9 @@ Knowledge-OS 是一个**本地优先的多维知识图谱工作台**。它的核
 - `java-source-importer.mjs` + `JavaSourceIntrospector.java` — JDK Compiler Tree API 源码解析
 - `web-link-importer.mjs` + `link-import-api.mjs` — 网页 / GitHub / Wikipedia 导入
 - `mineru-ocr.mjs` — 扫描 PDF 的本地 OCR 导入
-- `semantic-draft.mjs` / `semantic-projector.mjs` / `semantic-persistence.mjs` — 语义草稿 → 投影 → 持久化链路
 - `lib/import-jdk-collections.mjs` / `lib/import-wikipedia.mjs` — JDK 集合与 Wikipedia 专用导入
+
+> 曾有一条 `semantic-draft / semantic-projector / semantic-persistence` 语义导入链，2026-09-10 判定从未成功沉积并整链移除；领域约束仍记录在 `docs/DOCUMENT_IMPORT_STANDARD.md` 与 `CONTEXT.md`。
 
 ## 八、快速开始
 

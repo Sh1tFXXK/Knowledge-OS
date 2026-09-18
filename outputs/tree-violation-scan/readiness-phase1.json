@@ -1,0 +1,569 @@
+{
+  "generatedAt": "2026-09-14T13:08:03.202Z",
+  "batchId": "phase1",
+  "baseRef": "5a605e3",
+  "manifestPath": "batch-manifests/phase1.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\phase1-oop-os-2026-09-14T07-37-26-424Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/plan-phase1-relocation.mjs",
+    "scripts/normalize-phase1-blueprint.mjs",
+    "scripts/dryrun-phase1.mjs",
+    "scripts/apply-phase1.mjs",
+    "scripts/patch-phase1-evolution-event.mjs",
+    "scripts/metrics-phase1.mjs",
+    "scripts/reconcile-external-changes.mjs",
+    "scripts/export-tree-listing.mjs",
+    "scripts/verify-phase1-commit-readiness.mjs",
+    "outputs/tree-violation-scan/apply-baseline.json",
+    "outputs/tree-violation-scan/phase1-relocation-preflight.md",
+    "outputs/tree-violation-scan/phase1-normalized-blueprint.md",
+    "outputs/tree-violation-scan/phase1-operations.json",
+    "outputs/tree-violation-scan/phase1-dryrun-report.md",
+    "outputs/tree-violation-scan/phase1-dryrun-plan.json",
+    "outputs/tree-violation-scan/phase1-apply-preflight.md",
+    "outputs/tree-violation-scan/phase1-apply-report.md",
+    "outputs/tree-violation-scan/phase1-apply-plan.json",
+    "outputs/tree-violation-scan/phase1-metrics.json",
+    "outputs/tree-violation-scan/phase1-commit-candidateset.md",
+    "outputs/tree-violation-scan/evolution-event-prepatch.json",
+    "outputs/tree-violation-scan/nodepool-external-drift.json",
+    "outputs/tree-violation-scan/case-rename-field-coherence.md",
+    "outputs/tree-violation-scan/external-change-baseline.json",
+    "outputs/tree-violation-scan/external-change-baseline.md",
+    "outputs/tree-violation-scan/worktree-fingerprint.json",
+    "outputs/universe-tree-listing/",
+    "batch-manifests/phase1.json"
+  ],
+  "governanceSet": [
+    "docs/CONSTITUTION.md",
+    "docs/adr/0002-identity-and-observation-discipline.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "docs/BATCH_MANIFEST.md"
+  ],
+  "declaredExternalSet": [
+    ".gitignore",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "AGENTS.md",
+    "data/questions.json",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css"
+  ],
+  "excludedSet": [
+    "src/",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "README.md",
+    "CONTEXT.md",
+    "STATE.md",
+    "AGENTS.md",
+    ".gitignore",
+    "data/questions.json",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "outputs/tree-violation-scan/readiness-phase1.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/tree-data.json": {
+        "headBytes": 1942196,
+        "baselineBytes": 1940683,
+        "rawEqual": false,
+        "normalizedEqual": false,
+        "contentDiffKeys": 1,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "89444e9d28ccbc865809561c5473acc7",
+        "md5Baseline": "362226dd44c538c1d06a0f02e0a7a305"
+      },
+      "data/node-pool.json": {
+        "headBytes": 12651326,
+        "baselineBytes": 12649591,
+        "rawEqual": false,
+        "normalizedEqual": false,
+        "contentDiffKeys": 7,
+        "onlyHeadKeys": 6,
+        "onlyBaselineKeys": 0,
+        "md5Head": "ff614d82ab6f0fa71ddfeaf4dad35384",
+        "md5Baseline": "8ab8701dea416f2a41200fe6edefecfb"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1142028,
+        "baselineBytes": 1140144,
+        "rawEqual": false,
+        "normalizedEqual": false,
+        "contentDiffKeys": 5,
+        "onlyHeadKeys": 13,
+        "onlyBaselineKeys": 5,
+        "md5Head": "c59a0a85d96782a11db3f5df45b464da",
+        "md5Baseline": "158231499bca2a2b400f2d1cc8ae45c1"
+      },
+      "data/evolution-events.json": {
+        "headBytes": 9107,
+        "baselineBytes": 3726,
+        "rawEqual": false,
+        "normalizedEqual": false,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 1,
+        "onlyBaselineKeys": 0,
+        "md5Head": "168a8c5c76b88919a34a7615670d15d0",
+        "md5Baseline": "957ba7549630124f2f3e1ec9449097ba"
+      },
+      "data/questions.json": {
+        "headBytes": 1384385,
+        "baselineBytes": 1384385,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "91c39b6e9738f7290023265ac680aa5b",
+        "md5Baseline": "91c39b6e9738f7290023265ac680aa5b"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/evolution-events.json",
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/questions.json",
+        "data/tree-data.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/evolution-events.json",
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ],
+        "governanceSet": [
+          "docs/CONSTITUTION.md"
+        ],
+        "declaredExternalSet": [
+          "data/questions.json"
+        ],
+        "otherOwnBatch": []
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_1789371087163_g81kcs",
+        "k_1789371087163_e9iafm",
+        "k_1789371436917_zo0k0j",
+        "k_1789371087163_g0db3p",
+        "k_1789371087163_25m6ob",
+        "k_1789371087163_b7qj6l"
+      ],
+      "expectedNew": [
+        "k_1789371087163_g81kcs",
+        "k_1789371087163_e9iafm",
+        "k_1789371436917_zo0k0j",
+        "k_1789371087163_g0db3p",
+        "k_1789371087163_25m6ob",
+        "k_1789371087163_b7qj6l"
+      ],
+      "modified": [
+        "k_class_programming_classification"
+      ],
+      "expectedModified": [
+        "k_class_programming_classification"
+      ],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "phase1",
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "phase1",
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "phase1",
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "phase1",
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "phase1",
+            "governance-v1.1",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "t3-registration"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "nodepool-tag-normalization"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "phase1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "t3-dryrun"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "t3-p0"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 6,
+        "tests": 42,
+        "pass": 42,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 44,
+      "declared": {
+        "tracked": 42,
+        "peerAdded": 2,
+        "peerAddedFiles": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "workingTreeTotal": 44,
+        "acceptanceUses": "tracked",
+        "note": "本批干净提交验收 = 42/42。peer 的 2 项随其自己的批次（含 indexGraphLayout.ts 源码）提交后，才形成新的全库基线 44/44。"
+      },
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 67,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_class_programming_classification",
+      "oldLabel": "分类",
+      "newLabel": "类的分类",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "card.title",
+          "oldValue": "分类",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "分类",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "NOT_READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "BLOCK",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": [
+    "Ancestor Gate：data/tree-data.json 的 HEAD ≠ 落盘前基线（提交会夹带外部改动；内容差异 1 键）",
+    "Ancestor Gate：data/node-pool.json 的 HEAD ≠ 落盘前基线（提交会夹带外部改动；内容差异 7 键）",
+    "Ancestor Gate：data/knowledge-edges.json 的 HEAD ≠ 落盘前基线（提交会夹带外部改动；内容差异 5 键）",
+    "Ancestor Gate：data/evolution-events.json 的 HEAD ≠ 落盘前基线（提交会夹带外部改动；内容差异 0 键）"
+  ]
+}

@@ -4466,6 +4466,20 @@
   font-size: 12px;
 }
 
+/* 工具栏常驻删除入口：历史切片只读态下唯一可用的删除动作，用红色语义与编辑区分 */
+.explanation-index-header-delete {
+  min-height: 30px;
+  gap: 5px;
+  font-size: 12px;
+  border-color: rgba(239, 68, 68, 0.5);
+  color: #dc2626;
+}
+
+.explanation-index-header-delete:hover {
+  border-color: rgba(239, 68, 68, 0.8);
+  background: rgba(239, 68, 68, 0.08);
+}
+
 .explanation-index-focus-toggle {
   width: 30px;
   min-width: 30px;
@@ -5629,6 +5643,27 @@
   background: rgba(0, 0, 0, 0.25);
   padding: 0 4px;
   border-radius: 3px;
+}
+
+/* ── 外部修改冲突裁决区 ───────────────────────────────────────── */
+.data-load-banner-conflicts {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.data-load-banner-conflict {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.data-load-banner-conflict-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 /* ── 区域级错误边界 ───────────────────────────────────────────── */

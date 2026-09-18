@@ -1,6 +1,6 @@
 # Knowledge-OS 架构说明
 
-> 最新状态：2026-08-05
+> 最新状态：2026-09-11
 
 ## 架构目标
 
@@ -29,6 +29,15 @@ flowchart LR
 ```
 
 写入采用临时文件加重命名，并按目标文件串行排队。这样可以避免并发保存互相覆盖，也不会让后台任务直接修改界面状态。
+
+## 数据加载防护
+
+`data/*.json` 从中间件进入 store 的链路上有四层防护（2026-09-11 落地）：
+
+1. `src/knowledge/dataValidation.ts` 对每个切片做形状校验：错误信封 `{error:...}`、节点池缺 `label`/`card` 判 fatal；空 `tabs`、tab 缺 `content` 只聚合上报为 warning。
+2. `src/knowledge/filePersistence.ts` 的 `fetchSlice` 返回 `loaded | missing | failed`，失败切片不进入 state。
+3. `src/store/useGraph.ts` 维护 `blockedSlices` 与 `dataLoadReport`，失败切片禁止回写（进不了持久化 baseline）；提供 `reloadFromFiles` 重新拉取。
+4. 渲染层由 `src/components/ErrorBoundary.tsx`（中间视图与右栏各一）和常驻的 `DataLoadBanner.tsx` 兜底，单点异常不再白屏整页。
 
 ## 模块边界
 
@@ -71,11 +80,11 @@ flowchart LR
 
 ## 导入边界
 
-普通文档、网页和 Java 源码使用独立来源适配器，但最终先进入同一份语义草稿，再投影到数据真源。解析、规范化、语义编译、校验和落盘彼此分离；任何校验失败都必须发生在正式文件修改之前。
+普通文档、网页和 Java 源码使用独立来源适配器（`scripts/import/`），经确定性解析与校验后直接原子写入数据真源。任何校验失败都必须发生在正式文件修改之前。
 
-Markdown 是无损传输格式，不是知识模型。标题、段落、列表、表格和代码块只是语义编译器的证据。语义节点必须可独立寻址，关系必须带方向、类型和原文行号。普通语义导入允许产生多个根；目录树只是从结构/分类关系得到的导航投影，不能反向定义知识关系。
+Markdown 是无损传输格式，不是知识模型。标题、段落、列表、表格和代码块只是解析证据。知识节点必须可独立寻址；`structure` 与 `classification` 关系可用于生成目录导航，因果、依赖、状态转换等关系不得被伪装成目录父子；目录树只是导航投影，不能反向定义知识关系。
 
-语义导入的中间表示位于 `scripts/import/semantic-draft.mjs`，图投影位于 `scripts/import/semantic-projector.mjs`，多根目录写入位于 `scripts/import/semantic-persistence.mjs`。无模型时保留的标题树导入显式标记为 `outline`，不得冒充语义拆分。
+> 历史：曾存在一条「语义草稿 → 图投影 → 多根写入」的导入链（`semantic-draft.mjs` / `semantic-projector.mjs` / `semantic-persistence.mjs` / `ai-organizer.mjs`），2026-09-10 判定从未成功沉积并整链移除。该方向的领域约束仍记录在 [文档导入标准](DOCUMENT_IMPORT_STANDARD.md) 与 `CONTEXT.md`，未来若重做需按约束重新设计。
 
 详细约束见 [文档导入标准](DOCUMENT_IMPORT_STANDARD.md)。
 
@@ -88,8 +97,11 @@ Markdown 是无损传输格式，不是知识模型。标题、段落、列表�
 - 文档、网页与 Java 源码导入。
 - 图布局、边路由、切割手势和系统连接图。
 - 文件持久化边界与生产包数据隔离。
+- 数据切片形状校验（`dataValidation`，含错误信封与时间戳类型）。
 
 不再保留只匹配 CSS 类名、旧组件名称或大段源码字符串的历史快照测试。界面重构应通过行为测试或浏览器回归验证，而不是绑定具体实现文本。
+
+浏览器级验收脚本（P0 防护、锁矩阵、answerSteps 等）已在使用后移除，验收结论沉淀在 `outputs/` 与工作日志；同范式脚本可按 `git log -- scripts/verify-*.mjs` 找回。
 
 ## 机制视图投影
 

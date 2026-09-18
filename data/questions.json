@@ -10192,5 +10192,23 @@
     ],
     "createdAt": 1789316056755,
     "updatedAt": 1789316056755
+  },
+  {
+    "id": "q_1789552494087_u6zdkb",
+    "text": "【Path vs File】",
+    "answered": true,
+    "relatedNodeId": "asplit_java_nio_filesystem",
+    "createdAt": 1789552494087,
+    "updatedAt": 1789552507635,
+    "answer": "- Path 是接口，File 是类\n- Path 支持符号链接、文件属性、权限等高级操作\n- Path 配合 Files 工具类使用，功能更强大\n- File 可通过 toPath() 转换为 Path，Path 可通过 toFile() 转换为 File\n- 新项目推荐使用 Path + Files"
+  },
+  {
+    "id": "q_1789552577911_wka2wz",
+    "text": "next() 与 nextLine() 的区别：",
+    "answered": true,
+    "relatedNodeId": "k_java_util_scanner",
+    "createdAt": 1789552577911,
+    "updatedAt": 1789552593729,
+    "answer": "next()：\n- 必须读取到有效字符后才能结束输入\n- 有效字符之前的空白会自动去除\n- 输入有效字符后，其后的空白作为分隔符或结束符\n- 不能得到带有空格的字符串\n\nnextLine()：\n- 以 Enter 为结束符，返回输入回车之前的所有字符\n- 可以获得包含空白的字符串\n\n读取基本类型数据时，建议先用 hasNextXxx() 验证输入类型，再用 nextXxx() 读取。"
   }
 ]

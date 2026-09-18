@@ -1,0 +1,130 @@
+{
+  "batchId": "t5-rename-evidence",
+  "title": "T5 · 通用 rename evidence engine（evidence-only 检测器独立化）",
+  "baseRef": "5a605e3",
+  "baseRefNote": "引擎已建成；建议排在 phase1（Commit A）之后，作为 T3 apply 的**共享前置能力**（T3 的 133 项改名与后续所有 rename 批次复用同一证据机制）。",
+  "preBatchSnapshot": null,
+  "commitSubjectHint": "chore(t5): 通用 rename-evidence engine — 改名旧值残留取证（evidence-only，附基数/反例/误报分析）",
+  "status": "REGISTERED_NOT_EXECUTED",
+
+  "writeSet": [
+    "scripts/rename-evidence.mjs",
+    "outputs/rename-evidence/case-rc01.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    "AGENTS.md",
+    "data/questions.json",
+    "src/",
+    "docs/CONSTITUTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/tree-utils.test.mjs"
+  ],
+  "excludedSet": [
+    "data/",
+    "src/",
+    "docs/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+
+  "generatedArtifacts": [
+    "outputs/rename-evidence/case-rc01.json"
+  ],
+
+  "expectedDelta": {
+    "note": "**零数据变化** —— 本批只新增检测能力与证据产出，不写 `data/`。若本批提交的 diff 出现 `data/` 任何路径，即为越界。"
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "本批新增的是**脚本**（非 src 纯逻辑模块），未动 tracked 基线；验收 = tracked 42/42 保持全绿。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "不适用（本批不改任何既有文件）",
+      "mustBeEmpty": [],
+      "orthogonalTo": "timeline"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "须为「零数据差异」"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    },
+    "contract": {
+      "definition": "⛔ evidence-only 契约：输出**不得**出现 action / autoFix —— 由脚本内自检强制（发现即退出码 2）。",
+      "current": "自检通过（RC-01 案例）"
+    }
+  },
+
+  "capability": {
+    "cli": [
+      "node scripts/rename-evidence.mjs --old <旧值> --new <新值> --id <池键> [--before <备份目录>]",
+      "node scripts/rename-evidence.mjs --case <cases.json> [--out <path>]",
+      "node scripts/rename-evidence.mjs --batch <batchId> [--out <path>]"
+    ],
+    "outputs": [
+      "fieldPath",
+      "oldValue",
+      "newValue",
+      "staleSignature",
+      "severity",
+      "disposition",
+      "evidence",
+      "baseCount",
+      "counterexamples",
+      "falsePositiveAnalysis"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+
+  "validatedOn": {
+    "case": "RC-01 · k_class_programming_classification（旧名「分类」→ 新名「类的分类」）",
+    "result": "命中 2 点：card.title（display）🟡 · tags[0]（alias-bearing）🟡 → 案例处置 intentional-alias",
+    "matchesT4Adjudication": true,
+    "newEvidenceNotInInlineDetector": [
+      "before 反查：确认「分类」确实是改名前的 label（宪法 3.6 要求「只能在改名当时检出」）",
+      "ambiguousWithReference=true：另有 2 个实体当前 label 就是「分类」（k_1783250367496_zv2crw / k_1788094136859_u31zj7）→ 命中也可能是**引用他实体**，属误报类",
+      "counterexamples 6 条（字段值 = 另一实体 label 的常态样本）",
+      "falsePositiveAnalysis 4 类（含估计基数）"
+    ],
+    "baselineReproduced": {
+      "labelNeCardTitle": "79/3855",
+      "treeNameNePoolLabel": 67,
+      "cardNodeIdMismatch": 0
+    }
+  },
+
+  "nextSteps": [
+    "T3 apply 时用本引擎统一出证（替代各批次自写检测逻辑）；",
+    "T5「独立化」收口：把 verify-phase1-commit-readiness.mjs 内联的 residuals 检测改为 import 本引擎 —— ⚠️ 必须等 phase1 提交之后再做，否则 phase1 的提交会依赖一个未入库文件；",
+    "后续 OOP / CS / DB / 虚拟化等 rename 批次直接复用，不再各写一份。"
+  ],
+
+  "rationale": {
+    "whyBeforeT3": "T3 是 133 项改名 —— 正是「改名后旧值残留」的规模化场景。先把证据机制做成通用能力，避免 T3 临时造轮子、后续批次再各自造一遍。",
+    "whyEvidenceOnly": "宪法 3.6 + ADR-0002：检测器找证据、治理规则判证据。T4 已实证「不修某案例 ≠ 取消检测器」。"
+  }
+}

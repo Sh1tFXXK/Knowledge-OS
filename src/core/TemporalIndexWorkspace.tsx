@@ -1,4 +1,4 @@
-﻿import { Maximize2, Minimize2, Plus, X } from 'lucide-react';
+﻿import { Maximize2, Minimize2, Plus, Trash2, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   buildExplanationIndex,
@@ -196,8 +196,11 @@ export default function TemporalIndexWorkspace({
       setDiagramOwnerId(treeDiagramOwnerId);
       return;
     }
-    if (!diagramOwnerId && selectedNodeId) setDiagramOwnerId(selectedNodeId);
-  }, [diagramOwnerId, selectedNodeId, treeDiagramOwnerId]);
+    // 宿主框被删掉后本体会离开节点池：跟着选中节点走，否则画布停在已删作用域上。
+    if ((!diagramOwnerId || !nodePool[diagramOwnerId]) && selectedNodeId) {
+      setDiagramOwnerId(selectedNodeId);
+    }
+  }, [diagramOwnerId, nodePool, selectedNodeId, treeDiagramOwnerId]);
 
   const contextReferences = useMemo(
     () => (selectedNodeId ? collectTreeReferencesByNodeRef(treeData, selectedNodeId) : []),
@@ -518,8 +521,9 @@ export default function TemporalIndexWorkspace({
   const isLeaf = selectedIndexNode.children.length === 0;
   const canSplit = !locked && isLeaf;
   const canMerge = !locked && !isLeaf;
-  const canRemove =
-    !locked && canRemoveExplanationIndexSelection(node.card, currentSelection);
+  // 根框（宿主知识点）没有「上一层」可摘，删除走本体删除；其余框删的是卡片里的这一项。
+  const canRemove = !locked && (isRoot
+    || canRemoveExplanationIndexSelection(node.card, currentSelection));
   const canAdjustWeight = !locked && !isRoot;
   const splitDirection = splitDirectionForDepth(selectedDepth ?? 0);
   const splitLabel =
@@ -620,7 +624,16 @@ export default function TemporalIndexWorkspace({
   };
 
   const handleRemove = () => {
-    if (!canRemove || !window.confirm(`删除“${selectedIndexNode.label || '未命名'}”及其子项？`)) {
+    if (!canRemove) return;
+    if (isRoot) {
+      if (!window.confirm(`删除宿主知识点“${node.label}”本体？内部子方框会一起消失，目录子项上移保留。`)) {
+        return;
+      }
+      handleDeleteGraphNodes([selectedNodeId]);
+      setIsEditing(false);
+      return;
+    }
+    if (!window.confirm(`删除“${selectedIndexNode.label || '未命名'}”及其子项？`)) {
       return;
     }
     runOperation({ kind: ExplanationIndexOperationKind.Remove });
@@ -1139,6 +1152,27 @@ export default function TemporalIndexWorkspace({
               编辑
             </button>
           )}
+          {/* 删除入口常驻工具栏：历史切片（timelineReadOnly）下画布内的浮层按钮受缩放档位压制，
+              这里给出不受 hover / 档位 / CSS 影响的固定入口。删的是选中节点本体，目录保留。 */}
+          {selectedNodeId
+            && nodePool[selectedNodeId]
+            && !nodePool[selectedNodeId]?.locked && (
+            <button
+              type="button"
+              className="btn btn-sm explanation-index-header-delete"
+              title={`删除节点 ${nodePool[selectedNodeId]?.label ?? ''}（目录保留）`}
+              aria-label={`删除节点 ${nodePool[selectedNodeId]?.label ?? ''}`}
+              onClick={() => {
+                const targetId = selectedNodeId;
+                const targetLabel = nodePool[targetId]?.label ?? targetId;
+                if (!window.confirm(`删除节点“${targetLabel}”本体？所在目录会保留。`)) return;
+                handleDeleteGraphNodes([targetId]);
+              }}
+            >
+              <Trash2 size={14} aria-hidden="true" />
+              删除
+            </button>
+          )}
           <span className="explanation-index-count">
             {diagramNodeCount} 节点 · {diagramRelationCount} 类型关系
           </span>
@@ -1179,6 +1213,9 @@ export default function TemporalIndexWorkspace({
       )}
 
       <div className="explanation-index-stage">
+        {/* 删除能力只受节点自身锁约束（UnifiedIndexGraph 内部逐节点校验 !nodePool[id]?.locked，
+            handleDeleteGraphNodes 也会再拦一道），与时间轴只读态无关——历史切片下同样可删；
+            其余编辑能力仍由 editable 把守，在 timelineReadOnly 时保持只读。 */}
         <UnifiedIndexGraph
           ownerId={diagramOwnerNode.id}
           ownerLabel={diagramOwnerNode.label}
@@ -1194,6 +1231,7 @@ export default function TemporalIndexWorkspace({
             activeSelection?.kind === ExplanationSelectionKind.Path ? null : currentSelection
           }
           editable={!timelineReadOnly}
+          deletable={true}
           isEditing={isEditing}
           timelineAppearingNodeIds={indexEvolution.currentIntroducedNodeIds}
           timelineChangedNodeIds={indexEvolution.currentChangedNodeIds}

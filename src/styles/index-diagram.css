@@ -1108,6 +1108,14 @@
   pointer-events: none;
 }
 
+/* 历史切片只读态下，删除是唯一还渲染的动作（其余编辑按钮都在 editable 之后）。
+   若沿用上面的规则，缩到 compact 档位时唯一入口也被一并抹掉，用户就彻底找不到删除了；
+   所以此处给出常驻入口。overview 档位图标确实小于可点击尺寸，仍按原设计隐藏。 */
+.index-canvas:not(.is-overview) .explanation-index-unified-graph.is-deletable:not(.is-editable) .explanation-index-class-header-actions {
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
 .explanation-index-class-header-actions button,
 .explanation-index-class-member-child-add,
 .explanation-index-class-member-edit,

@@ -1,0 +1,204 @@
+{
+  "generatedAt": "2026-09-14T11:19:22.884Z",
+  "mode": "EVIDENCE_ONLY",
+  "tool": "scripts/rename-evidence.mjs (T5)",
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "fieldPath",
+      "oldValue",
+      "newValue",
+      "staleSignature",
+      "severity",
+      "disposition",
+      "evidence",
+      "baseCount",
+      "counterexamples",
+      "falsePositiveAnalysis"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ],
+    "authority": "判定权在治理规则阶段 / 人工裁决（ADR-0002）"
+  },
+  "database": {
+    "poolEntities": 3855,
+    "treeEntries": 3219,
+    "distinctLabels": 3654,
+    "baseline": {
+      "crossRefFields": 10458,
+      "crossRefEntities": 1830,
+      "crossRefFieldRatio": "10458/3855",
+      "labelNeCardTitle": 79,
+      "labelNeCardTitleRatio": "79/3855",
+      "treeNameNePoolLabel": 67,
+      "cardNodeIdMismatch": 0,
+      "invariantNote": "card.nodeId ≡ 池键 是**唯一**真正成立的不变量（当前违例 0）；label ≠ card.title（79 例）与 树 name ≠ 池 label（67 例）都是**常态**，不是缺陷。"
+    }
+  },
+  "cases": [
+    {
+      "caseId": "分类 → 类的分类",
+      "oldValue": "分类",
+      "newValue": "类的分类",
+      "targetIds": [
+        "k_class_programming_classification"
+      ],
+      "resolved": [
+        {
+          "nodeId": "k_class_programming_classification",
+          "exists": true,
+          "label": "类的分类",
+          "cardTitle": "分类",
+          "tags": [
+            "分类",
+            "类",
+            "面向对象",
+            "编程",
+            "类的分类"
+          ],
+          "treeMounts": [
+            {
+              "treeId": "tree_class_programming_classification",
+              "treeName": "类的分类",
+              "path": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程范式 > 面向对象 > 类（编程） > 类的分类"
+            }
+          ]
+        }
+      ],
+      "beforeSnapshot": "data/backups/phase1-oop-os-2026-09-14T07-37-26-424Z",
+      "before": [
+        {
+          "nodeId": "k_class_programming_classification",
+          "label": "分类",
+          "present": true
+        }
+      ],
+      "staleSignature": true,
+      "severity": "🟡",
+      "disposition": "intentional-alias",
+      "hits": [
+        {
+          "nodeId": "k_class_programming_classification",
+          "fieldPath": "card.title",
+          "fieldRole": "display",
+          "oldValue": "分类",
+          "newValue": "类的分类",
+          "staleSignature": true,
+          "severity": "🟡",
+          "disposition": "intentional-alias",
+          "evidence": {
+            "why": "字段值 === 该实体**改名前的旧值**（不是「当前值 ≠ 新值」——后者会把正常富化全捞进来）",
+            "isIdentityCoupled": false,
+            "aliasRetainedElsewhere": true
+          }
+        },
+        {
+          "nodeId": "k_class_programming_classification",
+          "fieldPath": "tags[0]",
+          "fieldRole": "alias-bearing",
+          "oldValue": "分类",
+          "newValue": "类的分类",
+          "staleSignature": true,
+          "severity": "🟡",
+          "disposition": "intentional-alias",
+          "evidence": {
+            "why": "字段值 === 该实体**改名前的旧值**（不是「当前值 ≠ 新值」——后者会把正常富化全捞进来）",
+            "isIdentityCoupled": false,
+            "aliasRetainedElsewhere": true
+          }
+        }
+      ],
+      "baseCount": {
+        "hitsInTargets": 2,
+        "entitiesCarryingOldValueAnywhere": 3,
+        "denominator": 3855,
+        "ratio": "3/3855",
+        "otherEntitiesLabelledOldValue": [
+          "k_1783250367496_zv2crw",
+          "k_1788094136859_u31zj7"
+        ],
+        "ambiguousWithReference": true
+      },
+      "counterexamples": [
+        {
+          "nodeId": "demo_isolation",
+          "fieldPath": "tags[1]",
+          "value": "mysql",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        },
+        {
+          "nodeId": "demo_mvcc",
+          "fieldPath": "dimensions[3]",
+          "value": "mysql",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        },
+        {
+          "nodeId": "demo_undo",
+          "fieldPath": "dimensions[3]",
+          "value": "mysql",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        },
+        {
+          "nodeId": "demo_readview",
+          "fieldPath": "tags[1]",
+          "value": "mysql",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        },
+        {
+          "nodeId": "demo_acid",
+          "fieldPath": "card.tabs[1].pages[0].label",
+          "value": "原子性",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        },
+        {
+          "nodeId": "demo_lock",
+          "fieldPath": "dimensions[2]",
+          "value": "mysql",
+          "why": "字段值等于**另一个实体**的 label —— 与「旧值残留」签名同形，但语义是交叉引用，属正常"
+        }
+      ],
+      "falsePositiveAnalysis": [
+        {
+          "class": "旧值同时是常用词 / 通用术语",
+          "why": "判据比较的是**字符串相等**，无法区分「改名残留」与「恰好写成同一个词」。旧值越通用，误报率越高。",
+          "estimate": "3 个实体含该字符串（全库 3855）"
+        },
+        {
+          "class": "旧值恰是另一个实体的当前 label",
+          "why": "此时该字段可能是在**引用那个实体**，而不是指向自身的旧名。需要人看正文才能区分。",
+          "estimate": "k_1783250367496_zv2crw, k_1788094136859_u31zj7"
+        },
+        {
+          "class": "展示层字段的富化",
+          "why": "card.title / tabs[].label 允许与规范短名不同（全库 79 例）；「不等于新值」的规则若被采用，会把这批全部误伤。",
+          "estimate": "79/3855"
+        },
+        {
+          "class": "旧值被有意保留为别名",
+          "why": "tags / aliases 里保留旧名是**有意设计**（历史检索价值）→ 命中 tags 属 intentional-alias，不是缺陷。",
+          "estimate": "见 hits[].fieldRole === alias-bearing"
+        }
+      ],
+      "note": "⛔ 本对象**不含 action / autoFix**。是否修改由治理规则或人工裁决（宪法 3.6）。"
+    }
+  ],
+  "summary": {
+    "cases": 1,
+    "casesWithHits": 1,
+    "hits": 2,
+    "bySeverity": {
+      "🟡": 1
+    },
+    "byDisposition": {
+      "intentional-alias": 1
+    }
+  }
+}

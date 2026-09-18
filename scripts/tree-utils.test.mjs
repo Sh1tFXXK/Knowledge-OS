@@ -15,6 +15,7 @@ import {
   updateTreeNode,
   getTreePathNames,
   countTreeNodes,
+  detachKnowledgeBinding,
 } from '../src/knowledge/treeUtils.ts';
 function buildTree() {
   return {
@@ -140,4 +141,34 @@ test('getTreePathNames 返回根到目标的名称路径', () => {
   assert.deepEqual(getTreePathNames(tree, 'a2'), ['根', 'A', 'A2']);
   assert.deepEqual(getTreePathNames(tree, 'root'), ['根']);
   assert.deepEqual(getTreePathNames(tree, 'nope'), []);
+});
+
+test('detachKnowledgeBinding 命中条目移除、子条目上移', () => {
+  const tree = buildTree();
+  const next = detachKnowledgeBinding(tree, 'node-b');
+  assert.equal(findTreeNodeById(next, 'b'), null);
+  assert.equal(findTreeNodeById(next, 'a')?.name, 'A');
+});
+
+test('detachKnowledgeBinding 按 nodeRef 命中，多处引用一次清干净，子条目保级', () => {
+  const tree = buildTree();
+  // node-a 同时绑在 a 与 a1 两个目录条目上；删本体后两处绑定都要没，a2 上移到根。
+  const next = detachKnowledgeBinding(tree, 'node-a');
+  assert.deepEqual(
+    collectTreeNodes(next).map((n) => n.id),
+    ['root', 'a2', 'b'],
+  );
+  assert.equal(findTreeNodeById(next, 'a2')?.nodeRef, undefined);
+  assert.equal(collectTreeNodes(next).some((n) => n.nodeRef === 'node-a'), false);
+});
+
+test('detachKnowledgeBinding 兼容按 id 绑定的历史条目；根条目只清绑定', () => {
+  const tree = buildTree();
+  assert.equal(findTreeNodeById(detachKnowledgeBinding(tree, 'a2'), 'a2'), null);
+
+  const rooted = { id: 'root', name: '根', nodeRef: 'node-root', children: [{ id: 'c', name: 'C' }] };
+  const next = detachKnowledgeBinding(rooted, 'node-root');
+  assert.equal(next.id, 'root');
+  assert.equal(next.nodeRef, undefined);
+  assert.equal(findTreeNodeById(next, 'c')?.name, 'C');
 });

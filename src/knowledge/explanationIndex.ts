@@ -6,8 +6,8 @@ import {
   type ExplanationSelection,
   type ExplanationTab,
   type NodeExplanation,
-} from '../types';
-import { findPage, findTab } from './explanationTree';
+} from '../types.ts';
+import { findPage, findTab } from './explanationTree.ts';
 
 const DEFINITION_TAB_ID = 'def';
 const HIDDEN_LEGACY_TAB_IDS = new Set(['mech', 'bound', 'source']);

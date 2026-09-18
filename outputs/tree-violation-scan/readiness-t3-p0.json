@@ -1,0 +1,429 @@
+{
+  "generatedAt": "2026-09-14T13:07:58.950Z",
+  "batchId": "t3-p0",
+  "baseRef": "5a605e3",
+  "manifestPath": "batch-manifests/t3-p0.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\phase1-oop-os-2026-09-14T07-37-26-424Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "scripts/dryrun-t3-p0-ancestors-semanticization.mjs",
+    "outputs/tree-violation-scan/t3-p0-naming.proposal.json",
+    "outputs/tree-violation-scan/t3-p0-dryrun-plan.json",
+    "outputs/tree-violation-scan/t3-p0-report.md",
+    "outputs/tree-violation-scan/t3-p0-review.md",
+    "batch-manifests/t3-p0.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    "AGENTS.md",
+    "data/questions.json",
+    "src/",
+    "docs/CONSTITUTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/tree-utils.test.mjs"
+  ],
+  "excludedSet": [
+    "data/",
+    "src/",
+    "docs/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t3-dryrun.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/questions.json": {
+        "headBytes": 1384385,
+        "baselineBytes": 1384385,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "91c39b6e9738f7290023265ac680aa5b",
+        "md5Baseline": "91c39b6e9738f7290023265ac680aa5b"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/evolution-events.json",
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/questions.json",
+        "data/tree-data.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [],
+        "governanceSet": [],
+        "declaredExternalSet": [
+          "data/questions.json",
+          "docs/CONSTITUTION.md"
+        ],
+        "otherOwnBatch": [
+          "data/evolution-events.json",
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [],
+      "expectedNew": [],
+      "modified": [],
+      "expectedModified": [],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "governance-v1.1",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "governance-v1.1",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "governance-v1.1",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "governance-v1.1",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "governance-v1.1",
+            "phase1",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "governance-v1.1",
+            "phase1",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "t3-p0",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "t3-registration"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "governance-v1.1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "nodepool-tag-normalization"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "phase1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "t3-dryrun"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "t3-p0"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 6,
+        "tests": 42,
+        "pass": 42,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 44,
+      "declared": {
+        "tracked": 42,
+        "peerAdded": 2,
+        "workingTreeTotal": 44,
+        "acceptanceUses": "tracked",
+        "note": "本批只加脚本 + 文档，不改 src 逻辑；验收 = tracked 42/42 保持全绿。"
+      },
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 67,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

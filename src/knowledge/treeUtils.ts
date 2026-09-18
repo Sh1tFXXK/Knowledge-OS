@@ -216,3 +216,35 @@ export function getTreePathNames(root: TreeNode, targetId: string): string[] {
   };
   return walk(root, []) ?? [];
 }
+
+/** 目录条目是否绑定到这个知识点：历史数据里 id 与 nodeRef 都可能出现。 */
+function isBoundToKnowledge(node: TreeNode, knowledgeId: string): boolean {
+  return node.id === knowledgeId || node.nodeRef === knowledgeId;
+}
+
+/**
+ * 解绑某个知识点的目录条目：命中条目移除、其子条目上移，根条目命中则只清绑定。
+ * 本体删除后若绑定还留着，投影会按 nodeRef 继续造包含边，图上就多出一个裸 id 的幽灵方框。
+ */
+export function detachKnowledgeBinding(root: TreeNode, knowledgeId: string): TreeNode {
+  const detachList = (nodes: readonly TreeNode[]): TreeNode[] => {
+    const result: TreeNode[] = [];
+    for (const node of nodes) {
+      const children = detachList(node.children ?? []);
+      if (isBoundToKnowledge(node, knowledgeId)) {
+        // 命中：条目出局，已解绑过的子条目上移（子条目自身可能也绑同一个本体）。
+        result.push(...children);
+        continue;
+      }
+      result.push({ ...node, children: children.length > 0 ? children : undefined });
+    }
+    return result;
+  };
+  const children = detachList(root.children ?? []);
+  const detached: TreeNode = {
+    ...root,
+    children: children.length > 0 ? children : undefined,
+  };
+  // 根条目命中时不能删根，只清掉本体绑定。
+  return isBoundToKnowledge(root, knowledgeId) ? { ...detached, nodeRef: undefined } : detached;
+}

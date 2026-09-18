@@ -59,6 +59,12 @@ interface Props {
   nodePool: Record<string, KnowledgeNode>;
   activeSelection: ExplanationSelection | null;
   editable: boolean;
+  /**
+   * 删除能力独立开关（默认 true）：只把守"删除"相关能力（单节点删除按钮、成员删除、
+   * 切割手势的删节点部分）。时间轴历史切片下 editable=false 时仍保持 deletable=true，
+   * 删除只受各节点自身锁约束；其余编辑能力继续由 editable 把守。
+   */
+  deletable?: boolean;
   isEditing: boolean;
   onOpenNode: (nodeId: string) => void;
   onSelectTitle: (selection: ExplanationIndexSelection) => void;
@@ -245,6 +251,7 @@ export function UnifiedIndexGraph({
   nodePool,
   activeSelection,
   editable,
+  deletable = true,
   isEditing,
   onOpenNode,
   onSelectTitle,
@@ -761,15 +768,23 @@ export function UnifiedIndexGraph({
   ): CuttingHits => {
     const mode = routingModeForSurface(surface);
     const hits = collectCuttingHits(line, cuttingNodeTargets, cuttingEdgeTargets[mode]);
-    setCuttingHits(hits);
-    return hits;
+    // 命中反馈与实际提交共用同一把守：非 deletable 不反馈删节点，非 editable 不反馈删边，
+    // 避免出现"高亮待删却什么都没删"的误导。
+    const allowed: CuttingHits = {
+      nodeIds: deletable ? hits.nodeIds : [],
+      edgeIds: editable ? hits.edgeIds : [],
+    };
+    setCuttingHits(allowed);
+    return allowed;
   };
 
   // 窗口级原生监听器清理函数：组件卸载或 owner 切换时移除
   const cuttingCleanupRef = useRef<(() => void) | null>(null);
 
   const handleCuttingPointerDown = (event: ReactPointerEvent<HTMLDivElement>) => {
-    if (!editable) return;
+    // 切割手势一个函数同时承载删节点（deletable）与删边（editable）两个提交面，
+    // 任一能力可用即可起手；具体提交在 onUp 里分别按各自开关把守。
+    if (!editable && !deletable) return;
     // 右键拖拽 或 Shift+左键拖拽 = 切割删除
     if (!(event.button === 2 || (event.button === 0 && event.shiftKey))) return;
     if (
@@ -853,8 +868,9 @@ export function UnifiedIndexGraph({
       });
 
       clearCuttingGesture();
-      if (knowledgeNodeIds.length > 0) onDeleteNodes(knowledgeNodeIds);
-      if (knowledgeEdgeIds.length > 0) onRemoveEdges(knowledgeEdgeIds);
+      // 删节点受 deletable 把守（时间轴只读态下也可删），删边仍受 editable 把守
+      if (deletable && knowledgeNodeIds.length > 0) onDeleteNodes(knowledgeNodeIds);
+      if (editable && knowledgeEdgeIds.length > 0) onRemoveEdges(knowledgeEdgeIds);
 
       // 移除窗口级监听器
       window.removeEventListener('pointermove', onMove, true);
@@ -1253,7 +1269,7 @@ export function UnifiedIndexGraph({
   );
 
   return (
-    <div className={`explanation-index-unified-graph${editable ? ' is-editable' : ''}`}>
+    <div className={`explanation-index-unified-graph${editable ? ' is-editable' : ''}${deletable ? ' is-deletable' : ''}`}>
       <IndexCanvas
         ariaLabel={`${ownerLabel} IDEA 类型关系图`}
         contentSize={{ width: layout.width, height: layout.height }}
@@ -1497,7 +1513,13 @@ export function UnifiedIndexGraph({
                       )}
                     </button>
                   )}
-                  <div className="explanation-index-class-header-actions">
+                  {/* 只读切片里只剩删除按钮：用内联样式常驻，压过任何档位/源码顺序的 CSS 隐藏规则 */}
+                  <div
+                    className="explanation-index-class-header-actions"
+                    style={deletable && !editable
+                      ? { opacity: 1, pointerEvents: 'auto', visibility: 'visible' }
+                      : undefined}
+                  >
                     {editable && !nodePool[graphNode.knowledgeNodeId]?.locked && (
                       <button
                         type="button"
@@ -1561,17 +1583,34 @@ export function UnifiedIndexGraph({
                         <Pencil size={13} aria-hidden="true" />
                       </button>
                     )}
-                    {editable
-                      && !graphNode.owner
-                      && !nodePool[graphNode.knowledgeNodeId]?.locked && (
+                    {deletable && !nodePool[graphNode.knowledgeNodeId]?.locked && (
                       <button
                         type="button"
                         className="explanation-index-class-node-delete"
-                        aria-label={`删除节点 ${graphNode.label}（目录保留）`}
-                        title={`删除节点 ${graphNode.label}（目录保留）`}
+                        style={deletable && !editable
+                          ? {
+                              opacity: 1,
+                              pointerEvents: 'auto',
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              border: '1px solid rgba(239, 68, 68, 0.75)',
+                              background: 'rgba(239, 68, 68, 0.18)',
+                              color: '#fca5a5',
+                            }
+                          : undefined}
+                        aria-label={graphNode.owner
+                          ? `删除宿主知识点 ${graphNode.label}`
+                          : `删除节点 ${graphNode.label}（目录保留）`}
+                        title={graphNode.owner
+                          ? `删除宿主知识点 ${graphNode.label}（内部子方框随之消失）`
+                          : `删除节点 ${graphNode.label}（目录保留）`}
                         onClick={(event) => {
                           event.stopPropagation();
-                          if (!window.confirm(`删除节点“${graphNode.label}”本体？所在目录会保留。`)) return;
+                          const confirmText = graphNode.owner
+                            ? `删除宿主知识点“${graphNode.label}”本体？它的内部子方框会一起消失，目录子项上移保留。`
+                            : `删除节点“${graphNode.label}”本体？所在目录会保留。`;
+                          if (!window.confirm(confirmText)) return;
                           onDeleteNodes([graphNode.knowledgeNodeId]);
                           setSelectedNodeIds((current) => {
                             const next = new Set(current);
@@ -1628,7 +1667,10 @@ export function UnifiedIndexGraph({
                         const isEditingMemberTags = inlineTagDraft?.targetId === memberTagEditTargetId;
                         const isAddingMemberChild = inlineChildDraft?.targetId === memberChildEditTargetId;
                         const canEditMember = editable && !nodePool[member.selection.nodeId]?.locked;
-                        const canDeleteMember = canEditMember && canRemoveSelection(member.selection);
+                        // 删除成员只受 deletable + 该成员自身锁约束，不再搭 editable 的车
+                        const canDeleteMember = deletable
+                          && !nodePool[member.selection.nodeId]?.locked
+                          && canRemoveSelection(member.selection);
                         return (
                           <div
                             key={member.id}

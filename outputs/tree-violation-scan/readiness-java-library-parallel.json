@@ -1,0 +1,1091 @@
+{
+  "generatedAt": "2026-09-15T19:36:31.712Z",
+  "batchId": "java-library-parallel",
+  "baseRef": "7b35217",
+  "manifestPath": "batch-manifests/java-library-parallel.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\java-library-parallel-2026-09-15T19-18-29-093Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "scripts/plan-java-library-parallel.mjs",
+    "scripts/apply-java-library-parallel.mjs",
+    "scripts/verify-java-library-parallel.mjs",
+    "scripts/shell-fusion/probe-java-library-parallel.mjs",
+    "outputs/java-library-parallel/report.md",
+    "outputs/java-library-parallel/plan.json",
+    "batch-manifests/java-library-parallel.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-java-library-parallel.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/tree-data.json": {
+        "headBytes": 1936497,
+        "baselineBytes": 1936497,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "e53bbc71fdfd5f2d29ac4299b1f71872",
+        "md5Baseline": "e53bbc71fdfd5f2d29ac4299b1f71872"
+      },
+      "data/node-pool.json": {
+        "headBytes": 12645761,
+        "baselineBytes": 12645761,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "8db49b127f3a98cd71350f0d815fbb31",
+        "md5Baseline": "8db49b127f3a98cd71350f0d815fbb31"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1139990,
+        "baselineBytes": 1139990,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "7bef3f60cfcc6b7afc8d25a97cee0cd5",
+        "md5Baseline": "7bef3f60cfcc6b7afc8d25a97cee0cd5"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/evolution-events.json",
+        "data/questions.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/tree-data.json"
+      ],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [],
+        "otherOwnBatch": [
+          "data/evolution-events.json",
+          "data/questions.json",
+          "docs/CONSTITUTION.md"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_java_util_base64"
+      ],
+      "expectedNew": [
+        "k_java_util_base64"
+      ],
+      "modified": [
+        "k_java_common_libraries"
+      ],
+      "expectedModified": [
+        "k_java_common_libraries"
+      ],
+      "unexpectedModified": [],
+      "removed": [
+        "k_1784343188560_x1gylq",
+        "k_1787744960960_nuqg5v",
+        "k_1787852488347_zqzfjo",
+        "k_1787852533507_uv8rwh",
+        "k_1787852618831_l95bj1"
+      ],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "external-tag-sync",
+            "java-lib-overlap-a",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/时态索引-整页.png",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/java-library-parallel/plan.json",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "outputs/java-library-parallel/report.md",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.html",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/evolution-v2-verification.md",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/apply-java-library-parallel.mjs",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/plan-java-library-parallel.mjs",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/shell-fusion/probe-java-library-parallel.mjs",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "scripts/verify-java-library-parallel.mjs",
+          "by": [
+            "java-library-parallel"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-core-library-methods.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-evolution-v2.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+          "by": [
+            "java-library-parallel",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+          "by": [
+            "java-library-parallel",
+            "java-lib-overlap-b"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-library-parallel.json",
+          "by": [
+            "java-library-parallel"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p1.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p2.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-versions-v1.json",
+          "by": [
+            "java-library-parallel",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "versions-v1"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 8,
+        "tests": 60,
+        "pass": 60,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 62,
+      "declared": {
+        "tracked": 60,
+        "peerAdded": 2,
+        "workingTreeTotal": 62,
+        "acceptanceUses": "workingTree（pass 62 / fail 0 / cancelled 0 / skipped 0）",
+        "trackedFiles": 8,
+        "peerAddedFiles": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "note": "已跟踪测试文件 8 个 → 60 项；未跟踪 peer 文件 1 个 → 2 项；工作树合计 62/62 全绿（与 A/B 批读数一致）。本批未新增测试文件（AGENTS.md：UI 不写单测）。"
+      },
+      "acceptanceUses": "workingTree（pass 62 / fail 0 / cancelled 0 / skipped 0）",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 81,
+    "labelNeCardTitle_subset": 70,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_java_common_libraries",
+      "oldLabel": "Java 常用类库",
+      "newLabel": "类库",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "tags[4]",
+          "oldValue": "Java 常用类库",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}
