@@ -136175,7 +136175,7 @@
   },
   "concept_primary_key": {
     "id": "concept_primary_key",
-    "label": "主键索引",
+    "label": "主键",
     "kind": "Concept",
     "role": "plain",
     "dimensions": [
@@ -136184,15 +136184,16 @@
       "约束"
     ],
     "tags": [
-      "主键索引",
       "主键 / primary key",
       "数据库建模",
       "键",
-      "约束"
+      "约束",
+      "主键",
+      "primary key"
     ],
     "card": {
       "nodeId": "concept_primary_key",
-      "title": "主键索引",
+      "title": "主键",
       "tabs": [
         {
           "id": "def",
@@ -136205,7 +136206,7 @@
           "content": "**同构实例（唯一行标识）**：\n- **MySQL / InnoDB**：每表必须有主键（否则 InnoDB 隐式生成），按主键聚簇组织存储。\n- **PostgreSQL**：主键默认以 unique B-tree 索引 + NOT NULL 约束实现。\n- **SQL 标准**：`PRIMARY KEY` = UNIQUE + NOT NULL。\n\n这些都属于「主键」通用概念的不同实现。"
         }
       ],
-      "rootContent": "主键 / primary key 一组列（隐含基于该列集的索引），能够唯一标识表中的每一行，因此必须是不含 NULL 值的唯一索引。"
+      "rootContent": "主键（Primary Key）：表中唯一标识每一行的列（或列组合），非空 + 唯一，等价于不含 NULL 值的唯一索引。\nInnoDB 中主键即聚簇索引的键——主键类型选择（自增 / UUID / 雪花）直接影响聚簇索引写入性能，见子节点「主键类型选择：自增 vs UUID」。"
     }
   },
   "concept_unique_key": {
@@ -150571,26 +150572,6 @@
       "tabs": [],
       "rootContent": "CREATE INDEX <索引的名字>ON table name(字段名);\nALTER TABLE tablename ADD INDEX [索引的名字](字段名);\nCREATE TABLE tablename([...],INDEX[索引的名字](字段名));"
     }
-  },
-  "k_1788179275554_knwq7e": {
-    "id": "k_1788179275554_knwq7e",
-    "label": "主键",
-    "tags": [
-      "主键"
-    ],
-    "card": {
-      "nodeId": "k_1788179275554_knwq7e",
-      "title": "主键",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**主键（Primary Key）**\n表中唯一标识每一行的列（或列组合）：非空 + 唯一。InnoDB 中主键即聚簇索引的键——主键类型的选择（自增 / UUID / 雪花）直接影响聚簇索引的写入性能，见子节点「主键类型选择：自增 vs UUID」。"
-        }
-      ],
-      "rootContent": "主键 **主键（Primary Key）** 表中唯一标识每一行的列（或列组合）：非空 + 唯一。InnoDB 中主键即聚簇索引的键——主键类型的选择（自增 / UUID / 雪花）直接影响聚簇索引的写入性能，见子节点「主键类型选择：自增 vs UUID」。"
-    },
-    "role": "plain"
   },
   "k_1788189196672_0mqnkt": {
     "id": "k_1788189196672_0mqnkt",

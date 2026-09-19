@@ -30367,8 +30367,8 @@
     ]
   },
   {
-    "id": "treebind:chapter_db_11:tree_concept_primary_key",
-    "source": "container:chapter_db_11",
+    "id": "treebind:key_constraint:tree_concept_primary_key",
+    "source": "container:key_constraint",
     "target": "concept_primary_key",
     "type": "belongs-to",
     "label": "contains",
@@ -33593,15 +33593,6 @@
       "标识",
       "客户端"
     ]
-  },
-  {
-    "id": "treebind:demo_db:tree_1788179275561_216qli",
-    "source": "n_u4va719e",
-    "target": "k_1788179275554_knwq7e",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
   },
   {
     "id": "treebind:chapter_db_18:tree_mysql_instance_concept_data_access_interface_0",
@@ -37713,5 +37704,23 @@
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure"
+  },
+  {
+    "id": "treebind:key_constraint:tree_mnt_candidate_key",
+    "source": "container:key_constraint",
+    "target": "k_wiki_en_outline_of_databases_s11_b5",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
+  },
+  {
+    "id": "treebind:key_constraint:tree_mnt_sql_keys",
+    "source": "container:key_constraint",
+    "target": "k_sql_keys",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": []
   }
 ]

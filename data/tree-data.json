@@ -16294,6 +16294,85 @@
                                   "children": []
                                 }
                               ]
+                            },
+                            {
+                              "id": "tree_concept_primary_key",
+                              "name": "主键",
+                              "count": 0,
+                              "nodeRef": "concept_primary_key",
+                              "children": [
+                                {
+                                  "id": "tree_mysql_instance_concept_primary_key_0",
+                                  "name": "MySQL主键索引",
+                                  "count": 0,
+                                  "nodeRef": "k_dict_xxkp8lkc",
+                                  "children": []
+                                },
+                                {
+                                  "id": "tree_pk_choice",
+                                  "name": "主键类型选择：自增 vs UUID",
+                                  "count": 0,
+                                  "nodeRef": "pk_choice",
+                                  "children": [
+                                    {
+                                      "id": "tree_pk_auto",
+                                      "name": "自增主键（auto_increment）",
+                                      "count": 0,
+                                      "nodeRef": "pk_auto",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_pk_uuid",
+                                      "name": "UUID 主键",
+                                      "count": 0,
+                                      "nodeRef": "pk_uuid",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_pk_conclusion",
+                                      "name": "选择结论",
+                                      "count": 0,
+                                      "nodeRef": "pk_conclusion",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_k_dict_bki84n9o",
+                                      "name": "自增",
+                                      "count": 0,
+                                      "nodeRef": "k_dict_bki84n9o",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_pk_struct_auto",
+                                      "name": "自增 id 的索引结构",
+                                      "count": 0,
+                                      "nodeRef": "pk_struct_auto",
+                                      "children": []
+                                    },
+                                    {
+                                      "id": "tree_pk_struct_uuid",
+                                      "name": "UUID 的索引结构",
+                                      "count": 0,
+                                      "nodeRef": "pk_struct_uuid",
+                                      "children": []
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "id": "tree_mnt_candidate_key",
+                              "name": "候选键",
+                              "count": 0,
+                              "nodeRef": "k_wiki_en_outline_of_databases_s11_b5",
+                              "children": []
+                            },
+                            {
+                              "id": "tree_mnt_sql_keys",
+                              "name": "SQL 键辨析：超键、候选键、主键、外键",
+                              "count": 0,
+                              "nodeRef": "k_sql_keys",
+                              "children": []
                             }
                           ]
                         }
@@ -20252,21 +20331,6 @@
                               "children": []
                             }
                           ]
-                        },
-                        {
-                          "id": "tree_concept_primary_key",
-                          "name": "主键索引",
-                          "count": 0,
-                          "nodeRef": "concept_primary_key",
-                          "children": [
-                            {
-                              "id": "tree_mysql_instance_concept_primary_key_0",
-                              "name": "MySQL主键索引",
-                              "count": 0,
-                              "nodeRef": "k_dict_xxkp8lkc",
-                              "children": []
-                            }
-                          ]
                         }
                       ]
                     },
@@ -22383,64 +22447,6 @@
                           "projectionKind": "canonical-topic",
                           "sourceNodeId": "mysql_glossary_client_libraries_1l6z2y",
                           "children": []
-                        }
-                      ]
-                    },
-                    {
-                      "id": "tree_1788179275561_216qli",
-                      "name": "主键",
-                      "count": 0,
-                      "nodeRef": "k_1788179275554_knwq7e",
-                      "children": [
-                        {
-                          "id": "tree_pk_choice",
-                          "name": "主键类型选择：自增 vs UUID",
-                          "count": 0,
-                          "nodeRef": "pk_choice",
-                          "children": [
-                            {
-                              "id": "tree_pk_auto",
-                              "name": "自增主键（auto_increment）",
-                              "count": 0,
-                              "nodeRef": "pk_auto",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_pk_uuid",
-                              "name": "UUID 主键",
-                              "count": 0,
-                              "nodeRef": "pk_uuid",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_pk_conclusion",
-                              "name": "选择结论",
-                              "count": 0,
-                              "nodeRef": "pk_conclusion",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_k_dict_bki84n9o",
-                              "name": "自增",
-                              "count": 0,
-                              "nodeRef": "k_dict_bki84n9o",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_pk_struct_auto",
-                              "name": "自增 id 的索引结构",
-                              "count": 0,
-                              "nodeRef": "pk_struct_auto",
-                              "children": []
-                            },
-                            {
-                              "id": "tree_pk_struct_uuid",
-                              "name": "UUID 的索引结构",
-                              "count": 0,
-                              "nodeRef": "pk_struct_uuid",
-                              "children": []
-                            }
-                          ]
                         }
                       ]
                     },
