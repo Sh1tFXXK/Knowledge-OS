@@ -160028,50 +160028,6 @@
       "rootContent": "Kafka Partition\n\nKafka Partition：Topic 的物理分片，是并行与顺序的基本单元。单 Partition 内有序，跨 Partition 不保证全局有序。"
     }
   },
-  "atomic_database_backup": {
-    "id": "atomic_database_backup",
-    "label": "数据库备份",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "数据库备份"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "atomic_database_backup",
-      "title": "数据库备份",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "数据库备份：把数据库在某一时刻的一致状态复制到独立介质（逻辑导出或物理拷贝），用于故障恢复与数据迁移。"
-        }
-      ],
-      "rootContent": "数据库备份\n\n数据库备份：把数据库在某一时刻的一致状态复制到独立介质（逻辑导出或物理拷贝），用于故障恢复与数据迁移。"
-    }
-  },
-  "atomic_database_restore": {
-    "id": "atomic_database_restore",
-    "label": "数据库恢复",
-    "role": "plain",
-    "dimensions": [],
-    "tags": [
-      "数据库恢复"
-    ],
-    "kind": "concept",
-    "card": {
-      "nodeId": "atomic_database_restore",
-      "title": "数据库恢复",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "数据库恢复：由备份副本（配合日志重放）把数据库重建到指定时间点，分为全量恢复与时间点恢复（PITR）。"
-        }
-      ],
-      "rootContent": "数据库恢复\n\n数据库恢复：由备份副本（配合日志重放）把数据库重建到指定时间点，分为全量恢复与时间点恢复（PITR）。"
-    }
-  },
   "atomic_mysql_backup": {
     "id": "atomic_mysql_backup",
     "label": "MySQL 备份",

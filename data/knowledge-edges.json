@@ -19212,8 +19212,8 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_db:tree_wiki_en_database_s16",
-    "source": "n_u4va719e",
+    "id": "treebind:chapter_db_10:tree_wiki_en_database_s16",
+    "source": "container:chapter_db_10",
     "target": "k_wiki_en_database_s16",
     "type": "belongs-to",
     "label": "contains",
@@ -36621,26 +36621,8 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_db:atomic_atomic_database_backup",
-    "source": "n_u4va719e",
-    "target": "atomic_database_backup",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:demo_db:atomic_atomic_database_restore",
-    "source": "n_u4va719e",
-    "target": "atomic_database_restore",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:demo_db:tree_concept_replication",
-    "source": "n_u4va719e",
+    "id": "treebind:chapter_db_14:tree_concept_replication",
+    "source": "container:chapter_db_14",
     "target": "concept_replication",
     "type": "belongs-to",
     "label": "contains",
@@ -36648,9 +36630,9 @@
     "dimensions": []
   },
   {
-    "id": "atomic:s4:restore-backup",
-    "source": "atomic_database_restore",
-    "target": "atomic_database_backup",
+    "id": "rel:concept_restore:depends:concept_backup",
+    "source": "concept_restore",
+    "target": "concept_backup",
     "type": "依赖",
     "label": "恢复依赖备份产物",
     "relationKind": "dependency",
