@@ -58,8 +58,17 @@ function isRetryableFsError(error) {
   return error && RETRYABLE_FS_ERROR_CODES.has(error.code);
 }
 
-async function withFsRetry(action) {
-  const maxAttempts = 5;
+// 终端日志时间戳：分辨「刚刚发生」和「滚动缓冲区里的旧行」，EPERM 出现时能与操作时间对账
+function ts() {
+  const d = new Date();
+  return `${d.toLocaleTimeString('zh-CN', { hour12: false })}.${String(d.getMilliseconds()).padStart(3, '0')}`;
+}
+
+// Windows 上 rename 目标被杀毒/索引器短暂占用时抛 EPERM/EBUSY。
+// 实测占用可长达数秒：指数退避把总重试窗口从 ~250ms 拉到 ~7.75s（1+2+4+8+16），
+// 仍失败才把错误抛给调用方（前端还有一层 15s 自动重试兜底）。
+async function withFsRetry(action, label = 'unknown', onRetry) {
+  const maxAttempts = 6;
   for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
     try {
       return await action();
@@ -67,7 +76,11 @@ async function withFsRetry(action) {
       if (!isRetryableFsError(error) || attempt === maxAttempts - 1) {
         throw error;
       }
-      await delay(25 * (attempt + 1));
+      // 重试本身就是诊断信号：持续出现说明有进程在长占用（杀毒/同步盘/索引器），
+      // label 标明是哪个文件哪一步，便于溯源
+      if (onRetry) onRetry();
+      console.warn(`[data-file-api][${ts()}] fs ${error.code} on ${label}, retry #${attempt + 1}`);
+      await delay(250 * 2 ** attempt);
     }
   }
 }
@@ -84,17 +97,22 @@ function createTempPath(filePath) {
 }
 
 async function writeJsonFile(filePath, body) {
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
+  await withFsRetry(() => fs.mkdir(path.dirname(filePath), { recursive: true }), `${path.basename(filePath)}:mkdir`);
   const tempPath = createTempPath(filePath);
   const serialized = `${JSON.stringify(body, null, 2)}\n`;
 
+  // 被退避吸收的 EPERM/EBUSY 次数：>0 说明杀毒/索引器在和写入赛跑，上报给 PUT 处理器打健康提示
+  let retried = 0;
+  const bumpRetried = () => { retried += 1; };
+
   try {
-    await withFsRetry(() => fs.writeFile(tempPath, serialized, 'utf8'));
-    await withFsRetry(() => fs.rename(tempPath, filePath));
+    await withFsRetry(() => fs.writeFile(tempPath, serialized, 'utf8'), `${path.basename(filePath)}:write-temp`, bumpRetried);
+    await withFsRetry(() => fs.rename(tempPath, filePath), `${path.basename(filePath)}:rename`, bumpRetried);
   } catch (error) {
     await fs.rm(tempPath, { force: true }).catch(() => {});
     throw error;
   }
+  return retried;
 }
 
 function enqueueFileWrite(filePath, body) {
@@ -184,13 +202,13 @@ function dataFileApi() {
         }, 80);
       });
       watcher.on('error', error => {
-        console.warn('[data-file-api] fs.watch error:', error.message);
+        console.warn(`[data-file-api][${ts()}] fs.watch error:`, error.message);
         try { watcher.close(); } catch {}
         watcher = null;
       });
     } catch (error) {
       // 数据目录不存在等场景：只降级为「无推送」，不影响读写 API
-      console.warn('[data-file-api] fs.watch unavailable:', error.message);
+      console.warn(`[data-file-api][${ts()}] fs.watch unavailable:`, error.message);
     }
     return watcher;
   };
@@ -217,7 +235,17 @@ function dataFileApi() {
       });
     });
 
-    startDataWatcher();
+    const watcher = startDataWatcher();
+    // vite 检测到 config 变更会热重启（旧 httpServer close → 新实例）。若不主动清理，
+    // fs.watch 句柄与 SSE 长连接会悬挂：连接不断、close 事件不触发，反复热重启后
+    // 事件循环被拖死（实测：请求永久挂起、端口 LISTENING 但不再响应）。必须显式收割。
+    server.httpServer?.once('close', () => {
+      try { watcher?.close(); } catch {}
+      for (const client of sseClients) {
+        try { client.end(); } catch {}
+      }
+      sseClients.clear();
+    });
 
     server.middlewares.use('/api/data', async (req, res, next) => {
       const method = req.method?.toUpperCase();
@@ -238,8 +266,9 @@ function dataFileApi() {
       try {
         if (method === 'GET') {
           try {
-            const file = await fs.readFile(filePath, 'utf8');
-            const stat = await fs.stat(filePath);
+            // 读路径同样可能撞上杀毒/索引器的短暂锁：不加固的话 GET 500 会打 Request failed 报错
+            const file = await withFsRetry(() => fs.readFile(filePath, 'utf8'), `${filename}:read`);
+            const stat = await withFsRetry(() => fs.stat(filePath), `${filename}:stat`);
             servedMtimes.set(filename, stat.mtimeMs);
             res.statusCode = 200;
             res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -276,7 +305,10 @@ function dataFileApi() {
             return;
           }
 
-          await enqueueFileWrite(filePath, body);
+          const fsRetries = await enqueueFileWrite(filePath, body);
+          if (fsRetries > 0) {
+            console.warn(`[data-file-api][${ts()}] PUT ${filename} succeeded after ${fsRetries} fs-retries (file was briefly locked)`);
+          }
           // 写入后更新追踪的 mtime（同时登记为自写盘，供 fs.watch 抑制误报）
           try {
             const stat = await fs.stat(filePath);
@@ -296,7 +328,7 @@ function dataFileApi() {
 
         sendJson(res, 405, { error: 'Method not allowed.' });
       } catch (error) {
-        console.error('[data-file-api] Request failed', error);
+        console.error(`[data-file-api][${ts()}] Request failed (file=${filename})`, error);
         sendJson(res, 500, { error: 'Data file API request failed.' });
       }
     });

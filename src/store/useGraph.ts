@@ -513,7 +513,13 @@ export const useGraphStore = create<GraphState>((set, get) => {
   // 通过切片引用对比只回写真正变化的数据文件；突发编辑（如打字）合并为一次写入；
   // 写入经串行队列排队，避免两次保存乱序覆盖数据文件。
   const PERSIST_DEBOUNCE_MS = 500;
+  // 保存失败后的自动重试：服务端已扛过短占用（EPERM/EBUSY），这里扛长占用（同步盘/导入脚本），
+  // 15s 间隔、最多 5 次，成功或用户下次编辑时重置。避免"保存失败"后必须再改一下才能落盘。
+  const PERSIST_RETRY_DELAY_MS = 15_000;
+  const PERSIST_RETRY_MAX = 5;
   let saveTimer: ReturnType<typeof setTimeout> | null = null;
+  let saveRetryTimer: ReturnType<typeof setTimeout> | null = null;
+  let saveRetryCount = 0;
   let lastSavedSlices: Partial<PersistedSlices> | null = null;
   let writeChain: Promise<void> = Promise.resolve();
   // 已排队/在途的切片写入数：外部变更同步用它判断"本地还有未落盘的编辑"
@@ -523,10 +529,22 @@ export const useGraphStore = create<GraphState>((set, get) => {
   // 这是"加载失败 → 内存里是空状态 → 回写把正式文件清空"这条破坏性链路的唯一闸门。
   const blockedSlices = new Set<PersistedSliceKey>();
 
+  /** 保存失败后排定一次延迟重试；重试耗尽则静默放弃（下次编辑仍会触发 persist）。 */
+  const schedulePersistRetry = () => {
+    if (saveRetryTimer !== null) clearTimeout(saveRetryTimer);
+    if (saveRetryCount >= PERSIST_RETRY_MAX) return;
+    saveRetryCount += 1;
+    saveRetryTimer = setTimeout(flushPersist, PERSIST_RETRY_DELAY_MS);
+  };
+
   const flushPersist = () => {
     if (saveTimer !== null) {
       clearTimeout(saveTimer);
       saveTimer = null;
+    }
+    if (saveRetryTimer !== null) {
+      clearTimeout(saveRetryTimer);
+      saveRetryTimer = null;
     }
     // 只读部署（静态托管）：没有 PUT 处理器，排 PUT 只会拿到 404/405 并弹
     // 「保存失败，请检查磁盘」。这里直接不排写——内存编辑照常，落盘一律不试。
@@ -544,20 +562,31 @@ export const useGraphStore = create<GraphState>((set, get) => {
       .then(() => savePersistedSlices(slices, scheduled))
       .then((failedKeys) => {
         inflightWrites = Math.max(0, inflightWrites - scheduled.length);
-        if (failedKeys.length === 0) return;
+        if (failedKeys.length === 0) {
+          saveRetryCount = 0;
+          return;
+        }
         // 失败的切片回滚基线，下一次 persist 会自动重试
         for (const key of failedKeys) delete lastSavedSlices![key];
         get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+        schedulePersistRetry();
       })
       .catch((error) => {
         inflightWrites = Math.max(0, inflightWrites - scheduled.length);
         console.error('Failed to persist application data files', error);
         get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+        schedulePersistRetry();
       });
   };
 
   const persist = () => {
     if (saveTimer !== null) clearTimeout(saveTimer);
+    // 用户主动编辑了：放弃退避节奏，按正常防抖走，重试计数归零
+    if (saveRetryTimer !== null) {
+      clearTimeout(saveRetryTimer);
+      saveRetryTimer = null;
+    }
+    saveRetryCount = 0;
     saveTimer = setTimeout(flushPersist, PERSIST_DEBOUNCE_MS);
   };
 
