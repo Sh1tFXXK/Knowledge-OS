@@ -41,6 +41,7 @@ import {
   type PersistedAppState,
 } from '../knowledge/state';
 import type { KnowledgeEvolutionEvent } from '../knowledge/timelineEvolution';
+import type { VersionChain } from '../knowledge/versionChains';
 import {
   appendTreeChild,
   cloneTree,
@@ -286,6 +287,7 @@ interface GraphState {
   rules: Rule[];
   perspectives: Perspective[];
   evolutionEvents: KnowledgeEvolutionEvent[];
+  versionChains: VersionChain[];
 
   notifications: NotificationItem[];
   theme: ThemeType;
@@ -453,6 +455,7 @@ function snapshotState(state: GraphState): PersistedAppState {
     rules: state.rules,
     perspectives: state.perspectives,
     evolutionEvents: state.evolutionEvents,
+    versionChains: state.versionChains,
   };
 }
 
@@ -475,6 +478,7 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     rules: data.rules,
     perspectives: data.perspectives,
     evolutionEvents: data.evolutionEvents,
+    versionChains: data.versionChains,
     selectedNodeId: null,
     selectedTreeNodeId: null,
     selectedQuestionId: null,
@@ -651,7 +655,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
   const handleExternalFileChange = (filename: string) => {
     const key = sliceKeyOfFile(filename);
-    if (!key) return; // version-chains.json 等只读文件不参与
+    if (!key) return; // 未登记的文件不参与（versions-v1.2 起 version-chains.json 已入切片）
     if (blockedSlices.has(key)) return; // 已禁写切片维持现状，避免来回横跳
     if (get().externalConflicts.some((item) => item.key === key)) return; // 冲突待裁决，等用户
 
@@ -722,6 +726,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
     evolutionEvents: initialApp.evolutionEvents,
+    versionChains: initialApp.versionChains,
     notifications: [],
     theme: 'dark',
     currentPerspective: null,

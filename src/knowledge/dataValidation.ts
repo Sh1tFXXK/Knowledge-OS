@@ -279,3 +279,29 @@ export function inspectEvolutionEvents(value: unknown): SliceDiagnostic {
   }
   return { fatal: null, warnings };
 }
+
+// ── version-chains.json ───────────────────────────────────────────
+
+/**
+ * 版本链切片（versions-v1.2 接线）：切片级只做形状门（数组 + 链对象 + entityId/versions），
+ * 逐版本严格校验（id 冒号/previous 悬空/环/日期）由消费方 normalizeVersionChains 丢弃并记诊断。
+ */
+export function inspectVersionChains(value: unknown): SliceDiagnostic {
+  const envelope = inspectEnvelope(value);
+  if (envelope) return envelope;
+  if (!Array.isArray(value)) {
+    return { fatal: `顶层应为数组，实际收到 ${describeType(value)}`, warnings: [] };
+  }
+  if (!isRecordArray(value)) {
+    const bad = value.filter((item) => !isPlainRecord(item)).length;
+    return { fatal: `${bad} 条版本链不是对象`, warnings: [] };
+  }
+  const warnings: string[] = [];
+  const noEntity = inspectRequiredStrings(value, 'entityId', '版本链');
+  if (noEntity) warnings.push(noEntity);
+  const badVersions = value.filter((item) => !Array.isArray(item.versions)).length;
+  if (badVersions > 0) {
+    warnings.push(`${badVersions} 条版本链的 versions 不是数组，加载时将被 normalize 丢弃`);
+  }
+  return { fatal: null, warnings };
+}

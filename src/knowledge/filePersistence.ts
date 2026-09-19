@@ -1,6 +1,7 @@
 import type { PersistedAppState } from './state';
 import { APP_STATE_VERSION, createEmptyAppState } from './state';
 import type { TreeNode, KnowledgeNode, KnowledgeEdge, Question } from '../types';
+import type { VersionChain } from './versionChains';
 import { migrateNodePool } from './migrateViewDimensions';
 import { normalizeTreeNode } from './treeUtils';
 import { normalizeEvolutionEvents } from './timelineEvolution';
@@ -11,6 +12,7 @@ import {
   inspectNodePool,
   inspectQuestions,
   inspectTreeData,
+  inspectVersionChains,
   isPlainRecord,
   type SliceDiagnostic,
 } from './dataValidation';
@@ -21,6 +23,7 @@ const FILES = {
   knowledgeEdges: 'knowledge-edges.json',
   questions: 'questions.json',
   evolutionEvents: 'evolution-events.json',
+  versionChains: 'version-chains.json',
 };
 
 function errorMessage(error: unknown): string {
@@ -95,7 +98,8 @@ export type PersistedSliceKey =
   | 'nodePool'
   | 'knowledgeEdges'
   | 'questions'
-  | 'evolutionEvents';
+  | 'evolutionEvents'
+  | 'versionChains';
 
 export type PersistedSlices = Pick<PersistedAppState, PersistedSliceKey>;
 
@@ -105,6 +109,7 @@ const PERSISTED_SLICE_KEYS: readonly PersistedSliceKey[] = [
   'knowledgeEdges',
   'questions',
   'evolutionEvents',
+  'versionChains',
 ] as const;
 
 const SLICE_FILES: Record<PersistedSliceKey, string> = {
@@ -113,6 +118,7 @@ const SLICE_FILES: Record<PersistedSliceKey, string> = {
   knowledgeEdges: FILES.knowledgeEdges,
   questions: FILES.questions,
   evolutionEvents: FILES.evolutionEvents,
+  versionChains: FILES.versionChains,
 };
 
 const SLICE_LABELS: Record<PersistedSliceKey, string> = {
@@ -121,6 +127,7 @@ const SLICE_LABELS: Record<PersistedSliceKey, string> = {
   knowledgeEdges: '知识边',
   questions: '问题库',
   evolutionEvents: '演化事件',
+  versionChains: '版本链',
 };
 
 export function sliceFile(key: PersistedSliceKey): string {
@@ -138,6 +145,7 @@ export function pickPersistedSlices(state: PersistedAppState): PersistedSlices {
     knowledgeEdges: state.knowledgeEdges,
     questions: state.questions,
     evolutionEvents: state.evolutionEvents,
+    versionChains: state.versionChains,
   };
 }
 
@@ -189,12 +197,13 @@ function failureOf(key: PersistedSliceKey, reason: string): SliceFailure {
 }
 
 async function loadStateFromFiles(): Promise<LoadedAppState> {
-  const [treeData, nodePool, knowledgeEdges, questions, evolutionEvents] = await Promise.all([
+  const [treeData, nodePool, knowledgeEdges, questions, evolutionEvents, versionChains] = await Promise.all([
     fetchSlice<TreeNode>(FILES.treeData, inspectTreeData),
     fetchSlice<Record<string, KnowledgeNode>>(FILES.nodePool, inspectNodePool),
     fetchSlice<KnowledgeEdge[]>(FILES.knowledgeEdges, inspectKnowledgeEdges),
     fetchSlice<Question[]>(FILES.questions, inspectQuestions),
     fetchSlice<unknown[]>(FILES.evolutionEvents, inspectEvolutionEvents),
+    fetchSlice<VersionChain[]>(FILES.versionChains, inspectVersionChains),
   ]);
 
   const loads: Array<[PersistedSliceKey, SliceLoad<unknown>]> = [
@@ -203,6 +212,7 @@ async function loadStateFromFiles(): Promise<LoadedAppState> {
     ['knowledgeEdges', knowledgeEdges],
     ['questions', questions],
     ['evolutionEvents', evolutionEvents],
+    ['versionChains', versionChains],
   ];
 
   const failures: SliceFailure[] = [];
@@ -234,6 +244,9 @@ async function loadStateFromFiles(): Promise<LoadedAppState> {
   if (evolutionEvents.status === 'loaded') {
     state.evolutionEvents = normalizeEvolutionEvents(evolutionEvents.value);
   }
+  if (versionChains.status === 'loaded') {
+    state.versionChains = versionChains.value;
+  }
 
   const empty = createEmptyAppState();
 
@@ -247,6 +260,7 @@ async function loadStateFromFiles(): Promise<LoadedAppState> {
       knowledgeEdges: state.knowledgeEdges ?? empty.knowledgeEdges,
       questions: state.questions ?? empty.questions,
       evolutionEvents: state.evolutionEvents ?? empty.evolutionEvents,
+      versionChains: state.versionChains ?? empty.versionChains,
     },
     failures,
     warnings,

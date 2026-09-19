@@ -20,7 +20,10 @@ import type {
   Rule,
   TreeNode,
 } from '../types';
-import type { KnowledgeEvolutionEvent } from './timelineEvolution';export const APP_STATE_VERSION = 7 as const;
+import type { KnowledgeEvolutionEvent } from './timelineEvolution';
+import type { VersionChain } from './versionChains';
+
+export const APP_STATE_VERSION = 7 as const;
 
 interface GraphSlice {
   axioms: GraphNode[];
@@ -39,6 +42,8 @@ export interface PersistedAppState {
   rules: Rule[];
   perspectives: Perspective[];
   evolutionEvents: KnowledgeEvolutionEvent[];
+  /** 版本链（versions-v1.2 接线）：raw 数组，消费方经 normalizeVersionChains 严格校验 */
+  versionChains: VersionChain[];
 }
 
 /** 应用初始知识库（数据库知识体系 + 锁机制细粒度节点） */
@@ -64,5 +69,6 @@ export function createEmptyAppState(): PersistedAppState {
     rules: [],
     perspectives: [],
     evolutionEvents: [],
+    versionChains: [],
   };
 }

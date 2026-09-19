@@ -13,18 +13,21 @@ import {
   inspectNodePool,
   inspectQuestions,
   inspectTreeData,
+  inspectVersionChains,
   type SliceDiagnostic,
 } from './dataValidation';
 import type { PersistedSliceKey } from './filePersistence';
+import type { VersionChain } from './versionChains';
 import { READ_ONLY_DEPLOYMENT } from './deploymentMode';
 
-/** 数据文件名 → store 持久化切片 key（versionChains 是只读文件，不在切片内）。 */
+/** 数据文件名 → store 持久化切片 key（versions-v1.2 起 version-chains.json 入切片，仍为只读语义）。 */
 const FILE_TO_SLICE: Record<string, PersistedSliceKey> = {
   'tree-data.json': 'treeData',
   'node-pool.json': 'nodePool',
   'knowledge-edges.json': 'knowledgeEdges',
   'questions.json': 'questions',
   'evolution-events.json': 'evolutionEvents',
+  'version-chains.json': 'versionChains',
 };
 
 export function sliceKeyOfFile(filename: string): PersistedSliceKey | null {
@@ -127,6 +130,12 @@ export async function reloadSlicesFromFiles(keys: readonly PersistedSliceKey[]):
           await apply(
             fetchSlice<unknown[]>(filename, inspectEvolutionEvents),
             (v) => { patches.evolutionEvents = normalizeEvolutionEvents(v); },
+          );
+          break;
+        case 'versionChains':
+          await apply(
+            fetchSlice<VersionChain[]>(filename, inspectVersionChains),
+            (v) => { patches.versionChains = v; }, // raw 存切片，消费方 normalize
           );
           break;
       }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { useGraphStore } from '../../store/useGraph';
 import {
   normalizeVersionChainsWithDiagnostics,
@@ -8,12 +8,11 @@ import {
 } from '../../knowledge/versionChains';
 
 /**
- * 版本链轨（versions-v1）：TemporalRail 双轨的第二轨。
+ * 版本链轨（versions-v1 → v1.2 接 store 第 6 切片）。
  *
  * 版本是状态不是事件：事件轨回答「发生了什么」，本轨回答「变成了什么」。
- * V1 运行时只读：版本链不经 store（useGraph.ts 为外部在飞件），由本组件
- * 自行 fetch /api/data + normalizeVersionChains 装载（preview/dev 的 /api/data
- * 中间件直读 data/version-chains.json，改数据无需 rebuild）。
+ * v1.2 起链数据经 store 的 versionChains 切片（filePersistence 装载 +
+ * dataFileSync 外部变更重载），本组件只做 normalize + 派生渲染；
  * requires 标注从 store 既有的 knowledgeEdges 切片 filter type==='requires' 派生
  * （关系表 = 关系唯一事实源，VersionNode 不存 requires 字段）。
  *
@@ -34,30 +33,18 @@ function versionTitleFor(node: VersionNode): string {
 }
 
 export function VersionChainRail({ embedded = false }: { embedded?: boolean }) {
-  const [chains, setChains] = useState<VersionChain[] | null>(null);
+  const rawChains = useGraphStore((state) => state.versionChains);
   const knowledgeEdges = useGraphStore((state) => state.knowledgeEdges);
   const focusNodeId = useGraphStore((state) => state.focusNodeId);
   const selectedNodeId = useGraphStore((state) => state.selectedNodeId);
 
-  useEffect(() => {
-    let cancelled = false;
-    fetch('/api/data?file=version-chains.json', { cache: 'no-store' })
-      .then((res) => (res.ok ? res.json() : null))
-      .then((raw: unknown) => {
-        if (cancelled) return;
-        const { chains: next, dropped } = normalizeVersionChainsWithDiagnostics(raw);
-        for (const reason of dropped) {
-          console.warn(`[version-chains] 丢弃：${reason}`);
-        }
-        setChains(next);
-      })
-      .catch(() => {
-        if (!cancelled) setChains([]);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const chains = useMemo<VersionChain[]>(() => {
+    const { chains: next, dropped } = normalizeVersionChainsWithDiagnostics(rawChains);
+    for (const reason of dropped) {
+      console.warn(`[version-chains] 丢弃：${reason}`);
+    }
+    return next;
+  }, [rawChains]);
 
   const orderedChains = useMemo(
     () => (chains ?? []).map((chain) => ({
