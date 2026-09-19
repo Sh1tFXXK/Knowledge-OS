@@ -46,3 +46,19 @@ school_security       12
 ## 追溯
 
 - 探针：`$TEMP\edgeless*.cjs`（已删，结论可由 tree-data.json + knowledge-edges.json 复现）
+
+---
+
+## 附：treebind 悬挂普查（2026-09-19 同日完成）
+
+健壮解析（端点→树节点，绕开 id 拆分）对 2653 条 treebind 分四类：
+
+| 类 | 量 | 处置 |
+|---|---:|---|
+| 格式遗留但边有效（投影前缀 id，健壮解析通过） | 2547 | 不动 |
+| **真悬挂**（目标/源端点实体+树节点均已不存在） | **22** | **已删**（`scripts/treebind-dangling-purge`，边 4151→4129，测试 68/68） |
+| 端点存活但树中无此父子对（过期挂载记录，与 edgeless 427 同族对偶） | 84 | 登记不删，并入 edgeless 修复批次决策 |
+
+- 在案债务「treebind 18 条无法解析」实锤为上述 22 条真悬挂（react_root×3、mysql:theme:backup-recovery×3、spring/springboot 旧实体×9 等），已清零。
+- 84 条过期父子记录修复需逐条判定节点现挂载点，与 427 补边同批处理。
+

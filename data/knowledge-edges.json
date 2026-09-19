@@ -20602,31 +20602,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:demo_web:react_root",
-    "source": "n_web_dev",
-    "target": "react_export_import",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "react",
-      "architecture"
-    ]
-  },
-  {
-    "id": "treebind:react_root:react_tree_conditional",
-    "source": "react_export_import",
-    "target": "react_conditional_rendering",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "react",
-      "architecture",
-      "frontend"
-    ]
-  },
-  {
     "id": "treebind:react_tree_conditional:react_tree_cond_if",
     "source": "react_conditional_rendering",
     "target": "react_conditional_if",
@@ -21634,17 +21609,6 @@
     "id": "treebind:tree_acm2012_algorithms:governance:canonical:n_6dgtsmpj",
     "source": "theory_domain_algorithms",
     "target": "n_6dgtsmpj",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:tree_acm2012_algorithms:governance:canonical:n_9hr0nvvv",
-    "source": "theory_domain_algorithms",
-    "target": "n_9hr0nvvv",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -23821,17 +23785,6 @@
     "id": "treebind:tree_1787326277226_e7ivtt:projection:mysql-mysqld:mysql:mysqld-layer:optimize:mysql_glossary_query_execution_plan_17fdf4:2",
     "source": "k_1787326276862_dux9j8",
     "target": "mysql_glossary_query_execution_plan_17fdf4",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:tree_1787326277226_e7ivtt:projection:mysql-mysqld:mysql:mysqld-layer:execute:mysql_sql_query_execution:0",
-    "source": "k_1787326276862_dux9j8",
-    "target": "mysql_sql_query_execution",
     "type": "belongs-to",
     "label": "contains",
     "relationKind": "structure",
@@ -32926,94 +32879,6 @@
     ]
   },
   {
-    "id": "treebind:tree_java_fw_spring_mvc:tree_java_spring_request_mapping",
-    "source": "k_java_fw_spring_mvc",
-    "target": "k_java_spring_request_mapping",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring_mvc:tree_java_springmvc_param_binding",
-    "source": "k_java_fw_spring_mvc",
-    "target": "k_java_springmvc_param_binding",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_theory_domain_network_protocols:tree_java_restful_style",
-    "source": "theory_domain_network_protocols",
-    "target": "k_java_restful_style",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring_boot:tree_java_spring_boot_config_files",
-    "source": "k_java_fw_spring_boot",
-    "target": "k_java_spring_boot_config_files",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring_boot:tree_java_spring_profiles",
-    "source": "k_java_fw_spring_boot",
-    "target": "k_java_spring_profiles",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_n_web_dev:tree_java_swagger",
-    "source": "n_web_dev",
-    "target": "k_java_swagger",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring_ioc:tree_1788766579004_pi3ku5",
-    "source": "k_java_fw_spring_ioc",
-    "target": "k_1788766578986_6bk08o",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_spring_ioc:tree_1788766661086_a8npe8",
-    "source": "k_java_fw_spring_ioc",
-    "target": "k_1788766661078_6xzv3d",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
     "id": "edge_1788769949968_00000",
     "source": "k_1788766661078_6xzv3d",
     "target": "k_1788766578986_6bk08o",
@@ -33054,50 +32919,6 @@
     "target": "k_vault_javaspringiocioc_klf11o",
     "type": "related-to",
     "label": "IoC 的核心功能"
-  },
-  {
-    "id": "treebind:tree_vault_javaspringspringboot_1qq545:tree_java_springboot_actuator_features",
-    "source": "k_vault_javaspringspringboot_1qq545",
-    "target": "k_java_springboot_actuator_features",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_vault_javaspringspringboot_1qq545:tree_java_springboot_actuator_endpoints",
-    "source": "k_vault_javaspringspringboot_1qq545",
-    "target": "k_java_springboot_actuator_endpoints",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_vault_javaspringspringboot_1qq545:tree_java_springboot_actuator_security",
-    "source": "k_vault_javaspringspringboot_1qq545",
-    "target": "k_java_springboot_actuator_security",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_vault_javaspringspringboot_1qq545:tree_java_springboot_actuator_multi",
-    "source": "k_vault_javaspringspringboot_1qq545",
-    "target": "k_java_springboot_actuator_multi",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
   },
   {
     "id": "treebind:tree_java_fw_spring_aop:tree_vault_javaspringaopspringaop_1fz8q2",
@@ -33635,47 +33456,6 @@
     "dimensions": [
       "mysql"
     ]
-  },
-  {
-    "id": "treebind:mysql:theme:backup-recovery:tree_1782032936994_e5wpwn",
-    "source": "mysql:theme:backup-recovery",
-    "target": "k_1782032936985_6uwpnx",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
-  },
-  {
-    "id": "treebind:mysql:theme:backup-recovery:projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_checksum_qnrmvm",
-    "source": "mysql:theme:backup-recovery",
-    "target": "mysql_glossary_checksum_qnrmvm",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage"
-    ]
-  },
-  {
-    "id": "treebind:mysql:theme:backup-recovery:projection:mysql-repaired:mysql:theme:backup-recovery:mysql_glossary_troubleshooting_1zw5wx",
-    "source": "mysql:theme:backup-recovery",
-    "target": "mysql_glossary_troubleshooting_1zw5wx",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "storage",
-      "security"
-    ]
-  },
-  {
-    "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:mysql:theme:backup-recovery",
-    "source": "k_1782032275682_61auc4",
-    "target": "mysql:theme:backup-recovery",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": []
   },
   {
     "id": "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:tree_1787326548799_nuhixr",
@@ -34934,30 +34714,6 @@
     "label": "热点数据与冷数据对比",
     "relationKind": "reference",
     "dimensions": []
-  },
-  {
-    "id": "treebind:react_root:tree_javascript_module_export",
-    "source": "react_export_import",
-    "target": "asplit_module_export",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "react",
-      "architecture"
-    ]
-  },
-  {
-    "id": "treebind:react_root:tree_javascript_module_import",
-    "source": "react_export_import",
-    "target": "asplit_module_import",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "react",
-      "architecture"
-    ]
   },
   {
     "id": "treebind:tree_javascript_module_export:react_tree_default",
