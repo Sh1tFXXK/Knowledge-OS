@@ -69619,19 +69619,7 @@
     "card": {
       "nodeId": "k_1785686871250_7gi8cc",
       "title": "Cloneable",
-      "tabs": [
-        {
-          "id": "jdk_collection_api_type_270122f484f011bf",
-          "label": "JDK 26 API",
-          "content": "`java.lang.Cloneable` 是 接口。\n\n本页列出本机 OpenJDK 26.0.1+8-34 中该类型直接声明的 0 个构造器和 0 个方法。继承成员通过类型关系图追踪。\n\n来源：`C:\\Users\\Administrator\\.jdks\\openjdk-26.0.1!\\java.base\\java\\util`",
-          "pages": [],
-          "tags": [
-            "Java",
-            "JDK 26",
-            "集合框架"
-          ]
-        }
-      ],
+      "tabs": [],
       "rootContent": "`java.lang.Cloneable` 是本机 OpenJDK 26.0.1+8-34 中的接口。完整声明成员位于 JDK API 页签，直接继承和实现关系位于类型关系图。"
     },
     "tags": [
@@ -69659,19 +69647,7 @@
     "card": {
       "nodeId": "k_1785686881765_p1i0hq",
       "title": "Serializable",
-      "tabs": [
-        {
-          "id": "jdk_collection_api_type_210d9b760f82d8ae",
-          "label": "JDK 26 API",
-          "content": "`java.io.Serializable` 是 接口。\n\n本页列出本机 OpenJDK 26.0.1+8-34 中该类型直接声明的 0 个构造器和 0 个方法。继承成员通过类型关系图追踪。\n\n来源：`C:\\Users\\Administrator\\.jdks\\openjdk-26.0.1!\\java.base\\java\\util`",
-          "pages": [],
-          "tags": [
-            "Java",
-            "JDK 26",
-            "集合框架"
-          ]
-        }
-      ],
+      "tabs": [],
       "rootContent": "`java.io.Serializable` 是本机 OpenJDK 26.0.1+8-34 中的接口。完整声明成员位于 JDK API 页签，直接继承和实现关系位于类型关系图。"
     },
     "tags": [
@@ -130229,7 +130205,7 @@
                 {
                   "id": "java_937c739517d0031f_member_637ca4525efd03f7",
                   "label": "InvocationTargetException()",
-                  "content": "<!-- jdk-doc-v2-sha256:a09224e2ea404cb0d8cd58798847636919e37ece623c969cd3e1784a7bebf884 -->\n\n```java\nprotected InvocationTargetException()\n```\n\n### 源码注释（中文）\n\n构造一个 `InvocationTargetException`\n`null` 作为目标异常。\n\n### 声明信息\n\n- 声明类型：`java.lang.reflect.InvocationTargetException`\n- 可见性：`protected`\n- 特征：实例",
+                  "content": "```java\nprotected InvocationTargetException()\n```\n\n\n构造一个 `InvocationTargetException`\n`null` 作为目标异常。\n\n### 声明信息\n\n- 声明类型：`java.lang.reflect.InvocationTargetException`\n- 可见性：`protected`\n- 特征：实例",
                   "tags": [
                     "Java 源码",
                     "constructor",
@@ -130332,7 +130308,7 @@
                 {
                   "id": "java_937c739517d0031f_member_5ac938037b6de1b2",
                   "label": "MalformedParameterizedTypeException()",
-                  "content": "<!-- jdk-doc-v2-sha256:d731d96488ee5356c9a6228113aade9200ad3d8c91b1373e3edad6587934b8d3 -->\n\n```java\npublic MalformedParameterizedTypeException()\n```\n\n### 源码注释（中文）\n\n构造一个 `MalformedParameterizedTypeException`\n没有详细消息。\n\n### 声明信息\n\n- 声明类型：`java.lang.reflect.MalformedParameterizedTypeException`\n- 可见性：`public`\n- 特征：实例",
+                  "content": "```java\npublic MalformedParameterizedTypeException()\n```\n\n构造一个 `MalformedParameterizedTypeException`\n没有详细消息。\n\n### 声明信息\n\n- 声明类型：`java.lang.reflect.MalformedParameterizedTypeException`\n- 可见性：`public`\n- 特征：实例",
                   "tags": [
                     "Java 源码",
                     "constructor",
@@ -130545,7 +130521,7 @@
     "card": {
       "nodeId": "k_java_type_f85a855cf92392f4",
       "title": "Method",
-      "rootContent": "<!-- jdk-doc-v2-sha256:8f6a16ce1283f925b96dc8ba2c9c48cdd587c309a6f81332293449e646b64ce3 -->\n\n### 源码注释（中文）\n\n一个 `Method`提供有关单个方法的信息和对单个方法的访问\n在类或接口上。反射的方法可能是类方法\n或实例方法（包括抽象方法）。\n\n一个 `Method`允许在匹配时发生扩大转换\n使用底层方法的形式调用的实际参数\n参数，但它抛出一个 `IllegalArgumentException`如果一个\n将会发生缩小转换。\n\n#### 自版本\n1.1\n\n#### 参见\nMember\njava.lang.Class\njava.lang.Class#getMethods()\njava.lang.Class#getMethod(String, Class[])\njava.lang.Class#getDeclaredMethods()\njava.lang.Class#getDeclaredMethod(String, Class[])\n\n### 类型信息\n\n- 完整名称：`java.lang.reflect.Method`\n- 类型：类\n- 包：`java.lang.reflect`\n- 源文件：`/Method.java`\n- final：是",
+      "rootContent": "### 源码注释（中文）\n\n一个 `Method`提供有关单个方法的信息和对单个方法的访问\n在类或接口上。反射的方法可能是类方法或实例方法（包括抽象方法）。\n\n一个 `Method`允许在匹配时发生扩大转换\n使用底层方法的形式调用的实际参数\n参数，但它抛出一个 `IllegalArgumentException`如果一个\n将会发生缩小转换。\n\n#### 自版本\n1.1\n\n#### 参见\nMember\njava.lang.Class\njava.lang.Class#getMethods()\njava.lang.Class#getMethod(String, Class[])\njava.lang.Class#getDeclaredMethods()\njava.lang.Class#getDeclaredMethod(String, Class[])\n\n### 类型信息\n\n- 完整名称：`java.lang.reflect.Method`\n- 类型：类\n- 包：`java.lang.reflect`\n- 源文件：`/Method.java`\n- final：是",
       "tabs": [
         {
           "id": "java_source_api_type_04792e1c501fa41a",
@@ -136184,11 +136160,11 @@
       "约束"
     ],
     "tags": [
+      "主键",
       "主键 / primary key",
       "数据库建模",
       "键",
       "约束",
-      "主键",
       "primary key"
     ],
     "card": {
@@ -142428,13 +142404,13 @@
   },
   "k_1787759645451_qajqen": {
     "id": "k_1787759645451_qajqen",
-    "label": "类的构造函数",
+    "label": "构造函数",
     "tags": [
-      "类的构造函数"
+      "构造函数"
     ],
     "card": {
       "nodeId": "k_1787759645451_qajqen",
-      "title": "类的构造函数",
+      "title": "构造函数",
       "tabs": [],
       "rootContent": "**Object()**\n构造一个新对象"
     }
