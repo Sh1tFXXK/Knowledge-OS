@@ -1,0 +1,41 @@
+{
+  "batch": "aop-split-fusion",
+  "date": "2026-09-23",
+  "trigger": "用户指令「拆解融合这个正文」（AOP 原理卡）。前置会话已修渲染器（行内图片 token），本批修数据形态。",
+  "target": {
+    "entity": "k_vault_javaspringaopaop_1gf9np",
+    "treeId": "tree_vault_javaspringaopaop_1gf9np",
+    "path": "知识宇宙>计算机科学>软件符号与工具>软件框架>Spring>AOP>AOP 原理"
+  },
+  "preflightFindings": {
+    "dualCopy": "rootContent（1073 字塌行版）≈ def tab（1230 字干净版）——同一内容存两份，正文换行全塌（标题与列表同行）",
+    "conventionViolated": "壳约定（兄弟范式：容器壳 rootContent=200 字总述、代理方式子节点=83 字总述）：rootContent=短总述，tabs 载细节。读态右栏只渲染 rootContent（无 tab 条），塌行全文塞 rootContent 是双重违反",
+    "danglingRefs": "正文引用「Spring AOP 执行机制（四阶段）」/「执行阶段」均非真实节点名；真实子节点 = aop_flow「AOP 执行流程」（已挂树，非悬挂）",
+    "verbatimDupe": "「### Spring AOP vs AspectJ」两条目与「### 静态代理/动态代理」段逐字重复",
+    "aopFlowNote": "aop_flow 自身 rootContent 也是其 def tab 的塌行版（同病、轻微）；mechanismSpec 为空壳（0 states）——本批不处置，另案候选"
+  },
+  "actions": {
+    "split": "塌行正文 → 4 个语义 tab：def 定义（存在价值+一句话总结）/ impl 实现原理（静态 vs 动态）/ proxy 代理方式与选择 / flow 执行四阶段",
+    "fuse": [
+      "rootContent 与 def tab 双份 → rootContent 收为 332 字总述 + 两张总结图（读态可见）",
+      "vs AspectJ 重复段去重并入 impl（主动丢弃，逐字重复非信息丢失）",
+      "悬挂引用 ×3 统一修正为真实子节点名「AOP 执行流程」（root/def/flow 各一处）"
+    ],
+    "untouched": "树/边/问题三文件零写；「代理方式」子节点与 aop_flow 内容不动（健康/另案）；card 其他字段（nodeId/title）原样"
+  },
+  "gates": {
+    "pre": "6/6（塌行形态、单 def tab、干净源含一句话总结、2 图、悬挂引用在位——防重复 apply）",
+    "post": "21 关键词守恒 + 图各恰好 1 次且仅在 rootContent + 无塌行残留 + 无悬挂引用 + 池键数不变 3870",
+    "writeback": "回读逐字节复验 rootContent 与 tabs"
+  },
+  "uiProbe": {
+    "method": "临时数据目录副本（不打真数据）+ vite preview 4192 + 无头 Chromium CDP，探针一次性用后即删",
+    "result": "8/8 ALL PASS",
+    "assertions": "① 数据级 tabs=[def/impl/proxy/flow] 且 rootContent 短总述无塌行无悬挂；② 读态卡片渲染新总述含「AOP 执行流程」引用；③ 两张总结图 naturalWidth>0 真实加载；④ 刷新复测 ②③",
+    "tabSurfaceNote": "读态右栏无 tab 条（既有 UI 契约）⇒ tab 面经数据级断言验收，与 strip-injected-artifacts 批同口径"
+  },
+  "threeGreens": "tsc --noEmit 0 错；npm test 68/68；npm run build 本批无源码改动（渲染器修复提交 10b29d8 时 build 已绿，探针跑的正是该 dist）",
+  "artifacts": {
+    "apply": "scripts/apply-aop-split-fusion.mjs（dry-run 默认 + --apply，前后断言门，原子写）"
+  }
+}
