@@ -751,9 +751,9 @@
     "id": "q_1785058687326_4unaod",
     "text": "SpringBoot中的核心注解",
     "answered": true,
-    "relatedNodeId": "k_1785058836571_znfh93",
+    "relatedNodeId": "k_java_fw_spring_boot",
     "createdAt": 1785058687327,
-    "updatedAt": 1785058702979,
+    "updatedAt": 1790017761478,
     "answer": "@SpringBootApplication注解，这个注解是一个组合注解\n4个元注解\n@ComponentScan:默认情况下会扫描当前包及其子包下面所有被@Component注解修饰的java类\n@SpringBootConfiguration：组合了@Configuration这个注解，也就是说明被SpringBootApplication\n所标识的Java类就是一个Java配置类\n@EnableAutoConfiguration：打开自动装配的功能---》META-INF/spring.factories文件中加载需要自\n动注入的Java类",
     "kind": "recall",
     "difficulty": "basic"
@@ -820,8 +820,8 @@
     "answered": true,
     "relatedNodeId": "k_vault_javaspringiocioc_klf11o",
     "createdAt": 1785165619545,
-    "updatedAt": 1785165654842,
-    "answer": "管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如\n果依赖关系需要程序猿来维护的话，那是相当头疼的\n解耦，由容器去维护具体的对象\n托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果\n有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的",
+    "updatedAt": 1790072806144,
+    "answer": "管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如\n果依赖关系需要程序猿来维护的话，那是相当头疼的\n解耦，由容器去维护具体的对象\n托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果\n有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的\n 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度",
     "kind": "recall",
     "difficulty": "basic"
   },
@@ -983,9 +983,9 @@
     "id": "q_1785223805792_8svupg",
     "text": "ApplicationContext通常的实现是什么？",
     "answered": true,
-    "relatedNodeId": "k_java_fw_spring_ioc",
+    "relatedNodeId": "spring_appcontext",
     "createdAt": 1785223805792,
-    "updatedAt": 1785223828834,
+    "updatedAt": 1790084705791,
     "answer": "FileSystemXmlApplicationContext：此容器从一个XML文件中加载beans的定义，XML Bean配置文件的全路径名必须提供给它的构造函数。\nClassPathXmlApplicationContext：此容器也从一个XML文件中加载beans的定义，这里，你需要正确设置classpath因为这个容器将在classpath里找bean配置。\nWebXmlApplicationContext：此容器加载一个XML文件，此文件定义了一个WEB应用的所有bean。",
     "answerSteps": [],
     "kind": "application",
@@ -1679,16 +1679,6 @@
     "updatedAt": 1785295886736,
     "answer": "可以",
     "answerSteps": [],
-    "kind": "recall",
-    "difficulty": "basic"
-  },
-  {
-    "id": "q_1785295903250_ce45uo",
-    "text": "三级缓存分别什么作用",
-    "answered": false,
-    "relatedNodeId": "k_1785251031271_kd84f6",
-    "createdAt": 1785295903250,
-    "updatedAt": 1785295903250,
     "kind": "recall",
     "difficulty": "basic"
   },
@@ -9536,8 +9526,8 @@
     "answered": true,
     "relatedNodeId": "k_1785247674069_capddv",
     "createdAt": 1788794152968,
-    "updatedAt": 1788794270979,
-    "answer": "- **面向对象的配置：配置类就是普通 Java 类，可继承、复用、类型检查 \n- 减少或消除 XML：用 @Configuration 与 @Bean 声明组件\n - 类型安全和重构友好：编译期即可发现配置错误，重命名重构可靠 Spring Boot 默认采用 JavaConfig + 自动配置的方式组织配置。"
+    "updatedAt": 1790067743778,
+    "answer": "- **面向对象的配置：配置类就是普通 Java 类，可继承、复用、类型检查 由于配置被定义为JavaConﬁg中的类，因此用户可以充分利用Java中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean方法等。\n- 减少或消除 XML：用 @Configuration 与 @Bean 声明组件基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在XML和Java之间来回切换。JavaConﬁg为开发人员提供了一种纯Java方法来配置与XML配置概念相似的Spring容器。从技术角度来讲，只使用JavaConﬁg配置类来配置容器是可行的，但实际上很多人认为将JavaConﬁg与XML混合匹配是理想的。\n - 类型安全和重构友好：编译期即可发现配置错误，重命名重构可靠 Spring Boot 默认采用 JavaConfig + 自动配置的方式组织配置。JavaConﬁg提供了一种类型安全的方法来配置Spring容器。由于Java5.0对泛型的支持，现在可以按类型而不是按名称检索bean，不需要任何强制转换或基于字符串的查找。"
   },
   {
     "id": "q_1788842124292_copcm8",
@@ -10329,5 +10319,158 @@
       "sourceTitle": "Java 集合框架 · 菜鸟教程",
       "sectionTitle": "集合实现类"
     }
+  },
+  {
+    "id": "q_1790012607371_05a318",
+    "text": "为什么会有 Servlet",
+    "answered": true,
+    "relatedNodeId": "k_1784340526295_skm8iw",
+    "createdAt": 1790012607371,
+    "updatedAt": 1790012623568,
+    "answer": "HTTP 只是协议，不会替你写业务代码。 \nServlet 把“接收请求并生成响应”这件事抽象成了 Java 对象模型。"
+  },
+  {
+    "id": "q_1790012655262_duy7ca",
+    "text": "历史意义",
+    "answered": true,
+    "relatedNodeId": "k_vault_javajavawebjsp_elp41h",
+    "createdAt": 1790012655262,
+    "updatedAt": 1790012672294,
+    "answer": "- 在早期 JavaWeb 中承担视图层职责\n- 推动了 MVC 分层实践\n- 但随着模板引擎和前后端分离发展，职责逐步被更现代方案替代"
+  },
+  {
+    "id": "q_1790015847781_5x1e2w",
+    "text": "主要特点",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspringspringboot_lhipgq",
+    "createdAt": 1790015847781,
+    "updatedAt": 1790015870497,
+    "answer": "1. **创建独立的 Spring 应用程序** \n- 可以独立运行 \n2. **嵌入的 Tomcat** \n- 无需部署 WAR 文件，直接运行 \n3. **简化 Maven 配置** \n- 自动管理依赖版本\n4. **自动配置 Spring** \n- 智能配置，减少手动配置 \n5. **提供生产就绪型功能** \n- 如指标，健康检查和外部配置 \n6. **没有代码生成** \n- 对 XML 没有要求配置"
+  },
+  {
+    "id": "q_1790016019364_nng1kv",
+    "text": "主要功能",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspringspringboot_1qq545",
+    "createdAt": 1790016019364,
+    "updatedAt": 1790016035859,
+    "answer": "- 监控应用程序运行状态 \n- 检查组件（如数据库等）是否正常运行 \n- 提供 REST 端点供外部访问"
+  },
+  {
+    "id": "q_1790069201571_1l66lw",
+    "text": "在做什么",
+    "answered": true,
+    "relatedNodeId": "k_java_fw_spring_mvc",
+    "createdAt": 1790069201571,
+    "updatedAt": 1790069208949,
+    "answer": "它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。"
+  },
+  {
+    "id": "q_1790072777252_p8fjee",
+    "text": "Spring IOC是什么？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspringiocioc_klf11o",
+    "createdAt": 1790072777252,
+    "updatedAt": 1790072792854,
+    "answer": "IoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处："
+  },
+  {
+    "id": "q_1790085438942_a8tza0",
+    "text": "IoC / DI 的优点",
+    "answered": true,
+    "relatedNodeId": "k_java_fw_spring_ioc",
+    "createdAt": 1790085438942,
+    "updatedAt": 1790088310518,
+    "answer": "- 把应用的代码量降到最低\n- 使应用容易测试：单元测试不再需要单例和 JNDI 查找机制\n- 以最小的代价和最小的侵入性实现松散耦合\n- 容器支持加载服务时的饿汉式初始化和懒加载"
+  },
+  {
+    "id": "q_1790085972531_qdi10t",
+    "text": "控制反转（IoC）的作用",
+    "answered": true,
+    "relatedNodeId": "k_java_fw_spring_ioc",
+    "createdAt": 1790085972531,
+    "updatedAt": 1790088362001,
+    "answer": "- 管理对象的创建和依赖关系的维护——对象关系复杂时，依赖关系由程序手写维护成本极高\n- 解耦：由容器去维护具体的对象\n- 托管类的产生过程：需要在类产生过程中做的处理（最直接的例子是代理）交给容器，应用无需关心类如何完成代理"
+  },
+  {
+    "id": "q_1790088549566_1ergr4",
+    "text": "JavaConfig 的优点",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088549567,
+    "updatedAt": 1790088572879,
+    "answer": "（1） 面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分发挥 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。 \n（2） 减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。 \n（3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。"
+  },
+  {
+    "id": "q_1790088599860_jh2yk4",
+    "text": "YAML 配置的优势在哪里 ?",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088599860,
+    "updatedAt": 1790088764580,
+    "answer": "YAML 现在可以算是非常流行的一种配置文件格式了，无论是前端还是后端，都可以见到 YAML 配置。那么 YAML 配置和传统的 properties 配置相比到底有哪些优势呢？ 1. 配置有序，在一些特殊的场景下，配置有序很关键 2. 支持数组，数组中的元素可以是基本数据类型也可以是对象 3. 简洁 相比 properties 配置文件，YAML 还有一个缺点，就是不支持 @PropertySource 注解导入自定义的 YAML 配置。"
+  },
+  {
+    "id": "q_1790088777573_utqkzj",
+    "text": "如何在自定义端口上运行 Spring Boot 应用程序？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088777573,
+    "updatedAt": 1790088786902,
+    "answer": "为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090"
+  },
+  {
+    "id": "q_1790088795219_upim0j",
+    "text": "什么是 Spring Profiles？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088795219,
+    "updatedAt": 1790088804198,
+    "answer": "Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。"
+  },
+  {
+    "id": "q_1790088814824_l9zdla",
+    "text": "Spring Boot 是否可以使用 XML 配置 ?",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088814825,
+    "updatedAt": 1790088826025,
+    "answer": "Spring Boot 推荐使用 Java 配置而非 XML 配置，但是 Spring Boot 中也可以使用 XML 配置，通过 @ImportResource 注解可以引入一个 XML 配置。"
+  },
+  {
+    "id": "q_1790088834455_it2gdi",
+    "text": "什么是 YAML？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088834456,
+    "updatedAt": 1790088849208,
+    "answer": "YAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。"
+  },
+  {
+    "id": "q_1790088860796_413osk",
+    "text": "Spring Boot 自动配置原理是什么？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088860796,
+    "updatedAt": 1790088874219,
+    "answer": "注解 @EnableAutoConfiguration, @Configuration, @ConditionalOnClass 就是自动配置的核心，@EnableAutoConfiguration 给容器导入META-INF/spring.factories 里定义的自动配置类。筛选有效的自动配置类。每一个自动配置类结合对应的 xxxProperties.java 读取配置文件进行自动配置功能。"
+  },
+  {
+    "id": "q_1790088886701_g7li2a",
+    "text": "你如何理解 Spring Boot 配置加载顺序？",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088886701,
+    "updatedAt": 1790088898416,
+    "answer": "在 Spring Boot 里面，可以使用以下几种方式来加载配置： \n1） properties文件； 2） YAML文件； 3） 系统环境变量；等等…… 4）命令行参数；"
+  },
+  {
+    "id": "q_1790088912112_bf1fq2",
+    "text": "spring boot 核心配置文件是什么？bootstrap.properties 和 application.properties 有何区别 ?",
+    "answered": true,
+    "relatedNodeId": "k_vault_javaspring_1antjp",
+    "createdAt": 1790088912112,
+    "updatedAt": 1790088992892,
+    "answer": "单纯做 Spring Boot 开发，可能不太容易遇到 bootstrap.properties 配置文件，但是在结合 Spring Cloud 时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。\n spring boot 核心的两个配置文件： bootstrap (. yml 或者 . properties)：boostrap 由父 ApplicationContext 加载的，比 applicaton 优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在 Spring Cloud Config 或者 Nacos 中会用到它。且 boostrap 里面的属性不能被覆盖； application (. yml 或者 . properties)： 由ApplicatonContext 加载，用于 spring boot 项目的自动化配置。"
   }
 ]

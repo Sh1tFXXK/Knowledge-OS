@@ -182,6 +182,13 @@
                           "children": []
                         }
                       ]
+                    },
+                    {
+                      "id": "atomic_atomic_cookie",
+                      "name": "Cookie",
+                      "count": 0,
+                      "nodeRef": "atomic_cookie",
+                      "children": []
                     }
                   ]
                 }
@@ -232,7 +239,37 @@
               "name": "应用层",
               "count": 0,
               "nodeRef": "k_1786874260568_6d4ruq",
-              "children": []
+              "children": [
+                {
+                  "id": "tree_java_fw_web_state_management",
+                  "name": "Web 状态管理",
+                  "count": 0,
+                  "nodeRef": "asplit_web_state_management",
+                  "children": [
+                    {
+                      "id": "atomic_k_dict_ef30sdky",
+                      "name": "Session",
+                      "count": 0,
+                      "nodeRef": "k_dict_ef30sdky",
+                      "children": []
+                    },
+                    {
+                      "id": "tree_concept_url_rewrite",
+                      "name": "URL 重写",
+                      "count": 0,
+                      "nodeRef": "concept_url_rewrite",
+                      "children": []
+                    },
+                    {
+                      "id": "tree_concept_token",
+                      "name": "Token",
+                      "count": 0,
+                      "nodeRef": "concept_token",
+                      "children": []
+                    }
+                  ]
+                }
+              ]
             },
             {
               "id": "tree_network_programming_models",
@@ -11252,6 +11289,27 @@
                               "children": []
                             }
                           ]
+                        },
+                        {
+                          "id": "tree_java_fw_http_servlet_cookie",
+                          "name": "javax.servlet.http.Cookie",
+                          "count": 0,
+                          "nodeRef": "concept_http_servlet_cookie",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_java_fw_http_servlet_session",
+                          "name": "HttpSession",
+                          "count": 0,
+                          "nodeRef": "concept_http_servlet_session",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_java_fw_session_lifecycle",
+                          "name": "Session 生命周期与配置",
+                          "count": 0,
+                          "nodeRef": "concept_session_lifecycle",
+                          "children": []
                         }
                       ]
                     },
@@ -11275,7 +11333,57 @@
                           }
                         ]
                       },
-                      "children": []
+                      "children": [
+                        {
+                          "id": "tree_jsp_trigger_request",
+                          "name": "浏览器请求 JSP",
+                          "count": 0,
+                          "nodeRef": "jsp_trigger_request",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_check",
+                          "name": "容器检查是否已编译",
+                          "count": 0,
+                          "nodeRef": "jsp_state_check",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_translate",
+                          "name": "JSP 转 Servlet 源码",
+                          "count": 0,
+                          "nodeRef": "jsp_state_translate",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_compile",
+                          "name": "编译为 Class",
+                          "count": 0,
+                          "nodeRef": "jsp_state_compile",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_load",
+                          "name": "加载并初始化",
+                          "count": 0,
+                          "nodeRef": "jsp_state_load",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_service",
+                          "name": "service 处理请求",
+                          "count": 0,
+                          "nodeRef": "jsp_state_service",
+                          "children": []
+                        },
+                        {
+                          "id": "tree_jsp_state_output",
+                          "name": "输出 HTML",
+                          "count": 0,
+                          "nodeRef": "jsp_state_output",
+                          "children": []
+                        }
+                      ]
                     },
                     {
                       "id": "tree_java_fw_http_request",
@@ -11294,27 +11402,6 @@
                       "name": "视图渲染",
                       "nodeRef": "asplit_view_rendering",
                       "children": []
-                    },
-                    {
-                      "id": "tree_java_fw_web_state_management",
-                      "name": "Web 状态管理",
-                      "count": 0,
-                      "nodeRef": "asplit_web_state_management",
-                      "children": []
-                    },
-                    {
-                      "id": "atomic_k_dict_ef30sdky",
-                      "name": "Session",
-                      "count": 0,
-                      "nodeRef": "k_dict_ef30sdky",
-                      "children": []
-                    },
-                    {
-                      "id": "atomic_atomic_cookie",
-                      "name": "Cookie",
-                      "count": 0,
-                      "nodeRef": "atomic_cookie",
-                      "children": []
                     }
                   ]
                 },
@@ -11329,7 +11416,66 @@
                       "name": "Spring 事务管理",
                       "count": 0,
                       "nodeRef": "k_vault_javaspringspring_1nbiew",
-                      "children": []
+                      "children": [
+                        {
+                          "id": "tree_1789990347335_mwcd4s",
+                          "name": "实现方式",
+                          "count": 0,
+                          "nodeRef": "k_1789990347328_gpyacq",
+                          "children": [
+                            {
+                              "id": "tree_1789990286610_2j5w89",
+                              "name": "声明式事务管理",
+                              "count": 0,
+                              "nodeRef": "k_1789990286600_4u91aw"
+                            },
+                            {
+                              "id": "tree_1789990268090_jpu5e8",
+                              "name": "编程式事务管理",
+                              "count": 0,
+                              "nodeRef": "k_1789990268084_6ihlq6"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1789990688009_p6e9n1",
+                          "name": "事务管理器类型",
+                          "count": 0,
+                          "nodeRef": "k_1789990688000_67h3y4",
+                          "children": [
+                            {
+                              "id": "tree_1789991600184_ceevwn",
+                              "name": "DataSourceTransactionManager",
+                              "count": 0,
+                              "nodeRef": "k_1789991600184_tdvnkv"
+                            },
+                            {
+                              "id": "tree_1789991600184_mub0bn",
+                              "name": "HibernateTransactionManager",
+                              "count": 0,
+                              "nodeRef": "k_1789991600184_cbaaxs"
+                            },
+                            {
+                              "id": "tree_1789991600184_wmjj0r",
+                              "name": "JtaTransactionManager",
+                              "count": 0,
+                              "nodeRef": "k_1789991600184_iwsx8m"
+                            },
+                            {
+                              "id": "tree_1789991600184_51367d",
+                              "name": "JpaTransactionManager",
+                              "count": 0,
+                              "nodeRef": "k_1789991600184_b5icxa"
+                            }
+                          ]
+                        },
+                        {
+                          "id": "tree_1790095296031_vdf7cg",
+                          "name": "核心接口",
+                          "count": 0,
+                          "nodeRef": "k_1790095296024_kmn8uj"
+                        }
+                      ]
                     },
                     {
                       "id": "tree_vault_javaspring_1antjp",
@@ -11342,7 +11488,26 @@
                           "name": "常见的配置方式",
                           "count": 0,
                           "nodeRef": "k_1788683294815_qvh7np",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_1790088488872_raz4yl",
+                              "name": "基于XML的配置",
+                              "count": 0,
+                              "nodeRef": "k_1790088488861_ladx65"
+                            },
+                            {
+                              "id": "tree_1790088499262_tyjmud",
+                              "name": "基于注解的配置",
+                              "count": 0,
+                              "nodeRef": "k_1790088499250_m9wpgt"
+                            },
+                            {
+                              "id": "tree_1790088508180_2fjqzs",
+                              "name": "基于Java的配置",
+                              "count": 0,
+                              "nodeRef": "k_1790088508167_fc7dvq"
+                            }
+                          ]
                         }
                       ]
                     },
@@ -11767,7 +11932,14 @@
                           "name": "JavaConﬁg",
                           "count": 0,
                           "nodeRef": "k_1785247674069_capddv",
-                          "children": []
+                          "children": [
+                            {
+                              "id": "tree_1790017845557_yvk8xn",
+                              "name": "常用的Java conﬁg",
+                              "count": 0,
+                              "nodeRef": "k_1790017845551_esmxat"
+                            }
+                          ]
                         },
                         {
                           "id": "tree_boot_starter",

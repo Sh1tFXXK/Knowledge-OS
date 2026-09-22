@@ -39364,7 +39364,8 @@
           "label": "@Autowired 过程与局限",
           "content": "使用@Autowired注解自动装配的过程是怎样的？ \n使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进 行配置，。 在启动spring IoC时，容器自动装载了一个 AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource或 @Inject时，就会在IoC容器自动查找需要的 bean，并装配给该对象的属性。在使用@Autowired时，首 先在容器中查询对应类型的bean： 如果查询结果刚好为一个，就将该bean装配给@Autowired指定的数据； 如果查询的结果不止一个，那么@Autowired会根据名称来查找； 如果上述查找的结果为空，那么会抛出异常。解决方法时，使用required=false。\n\n自动装配有哪些局限性？\n自动装配的局限性是：重写：你仍需用和配置来定义依赖，意味着总要重写自动装配。 基本数据类型：你不能自动装配简单的属性，如基本数据类型，String字符串，和类。 模糊特性：自动装配不如显式装配精确，如果有可能，建议使用显式装配。"
         }
-      ]
+      ],
+      "rootContent": "自动装配：Spring 容器无需为每个依赖显式配置 ref，自动处理相互协作的 Bean 之间的装配关系。XML 中通过 <bean> 的 autowire 属性指定模式；注解方式以 @Autowired 为主（辅以 @Qualifier / @Primary，及标准注解 @Resource、@Inject）。\n\n**五种 autowire 模式**：no（默认，手工 ref）/ byName / byType / constructor（参数按 byType）/ autodetect（有构造方法走 constructor，否则 byType）。\n\n**@Autowired 装配过程**：容器启动时自动装载 AutowiredAnnotationBeanPostProcessor，扫描到 @Autowired / @Resource / @Inject 时按类型查找——唯一则注入；多个则按名称再查；为空抛异常（required=false 放行）。\n\n**局限**：仍需 constructor-arg / property 显式定义依赖；不能自动装配基本类型、String、Class 等简单属性；不如显式装配精确，能显式则显式。"
     },
     "tags": [
       "自动装配"
@@ -54190,7 +54191,7 @@
         {
           "id": "stages",
           "label": "详细阶段",
-          "content": "解释Spring框架中 bean的生命周期 在传统的Java应用中，bean的生命周期很简单。使用Java关键字new进行bean 实例化，然后该bean就 可以使用了。一旦该bean不再被使用，则由Java自动进行垃圾回收。相比之下，Spring容器中的bean的 生命周期就显得相对复杂多了。正确理解Spring bean的生命周期非常重要，因为你或许要利用Spring提 供的扩展点来自定义bean的创建过程。下图展示了bean装载到Spring应用上下文中的一个典型的生命 周期过程 \nbean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都可以针对 Spring如何管理bean进行个 性化定制。 正如你所见，在bean准备就绪之前，bean工厂执行了若干启动步骤。 我们对上图进行详细描述： Spring对bean进行实例化； Spring将值和bean的引用注入到bean对应的属性中； 如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBeanName()方法； 如果bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()方 法，将BeanFactory容器实例传入； 如果bean实现了ApplicationContextAware接口，Spring将调用 setApplicationContext()方法，将bean 所在的应用上下文的引用传入进来； 如果bean实现了BeanPostProcessor接口，Spring将调用它们的post ProcessBeforeInitialization()方法； 如果bean实现了InitializingBean接口，Spring将调用它们的afterPropertiesSet()方法。类似地，如果 bean使用initmethod声明了初始化方法， 该方法也会被调用； 如果bean实现了BeanPostProcessor接口，Spring将调用它们的post ProcessAfterInitialization()方法；此时，bean已经准备就绪，可以被应用程序使用了，它们将一直驻留 在应用上下文中，直到该应用上下文被销毁； 如果bean实现了DisposableBean接口，Spring将调用它的destroy()接口方 法。同样，如果bean使用destroy-method声明了销毁方法，该方法也会被调用。 现在你已经了解了如何创建和加载一个Spring容器。但是一个空的容器并没有太大的价值，在你把东西 放进去之前，它里面什么都没有。为了从Spring的 DI(依赖注入)中受益，我们必须将应用对象装配进Spring容器中。"
+          "content": "传统 Java 应用中 Bean 的生命周期很简单：new 实例化 → 使用 → 垃圾回收。Spring 容器中的 Bean 生命周期复杂得多，每个阶段都可借助 Spring 的扩展点定制。\n\nBean 从创建到销毁的典型过程：\n1. Spring 对 Bean 进行实例化\n2. Spring 将值和 Bean 的引用注入到对应的属性中\n3. 若实现 BeanNameAware 接口，调用 setBeanName() 传入 Bean 的 ID\n4. 若实现 BeanFactoryAware 接口，调用 setBeanFactory() 传入 BeanFactory 容器实例\n5. 若实现 ApplicationContextAware 接口，调用 setApplicationContext() 传入应用上下文引用\n6. 容器注册的 BeanPostProcessor 调用 postProcessBeforeInitialization()\n7. 初始化：若实现 InitializingBean 接口，调用 afterPropertiesSet()；声明了 init-method 的方法也在此时调用\n8. BeanPostProcessor 调用 postProcessAfterInitialization()——此后 Bean 就绪，驻留容器直到应用上下文销毁\n9. 销毁：若实现 DisposableBean 接口，调用 destroy()；声明了 destroy-method 的方法也在此时调用"
         },
         {
           "id": "methods",
@@ -54404,7 +54405,7 @@
       "nodeId": "k_1785247674069_capddv",
       "title": "JavaConﬁg",
       "tabs": [],
-      "rootContent": "Spring JavaConﬁg是Spring社区的产品，Spring 3.0引入了他，它提供了配置Spring IOC容器的\n纯Java方法。因此它有助于避免使用XML配置。使用JavaConﬁg的优点在于：\n面向对象的配置。由于配置被定义为JavaConﬁg中的类，因此用户可以充分利用Java中的\n面向对象功能。一个配置类可以继承另一个，重写它的@Bean方法等。\n减少或消除XML配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员\n不希望在XML和Java之间来回切换。JavaConﬁg为开发人员提供了一种纯Java方法来配置\n与XML配置概念相似的Spring容器。从技术角度来讲，只使用JavaConﬁg配置类来配置容\n器是可行的，但实际上很多人认为将JavaConﬁg与XML混合匹配是理想的。\n类型安全和重构友好。JavaConﬁg提供了一种类型安全的方法来配置Spring容器。由于Java\n5.0对泛型的支持，现在可以按类型而不是按名称检索bean，不需要任何强制转换或基于字\n符串的查找。\n常用的Java conﬁg：\n@Conﬁguration：在类上打上写下此注解，表示这个类是配置类\n@ComponentScan：在配置类上添加@ComponentScan注解。该注解默认会扫描该类所\n在的包下所有的配置类，相当于之前的<context:component-scan >。\n@Bean：bean的注入：相当于以前的< bean id=\"objectMapper\"\nclass=\"org.codehaus.jackson.map.ObjectMapper\" />\n@EnableWebMvc：相当于xml的<mvc:annotation-driven >\n@ImportResource：相当于xml的< import resource=\"applicationContext-\ncache.xml\">"
+      "rootContent": "Spring JavaConﬁg是Spring社区的产品，Spring 3.0引入了他，它提供了配置Spring IOC容器的纯Java方法。因此它有助于避免使用XML配置。"
     },
     "tags": [
       "JavaConfig"
@@ -54417,7 +54418,7 @@
       "nodeId": "k_1785248932503_c7c9d2",
       "title": "自动装配原理",
       "tabs": [],
-      "rootContent": "在启动SpringBoot项目的main方法的头部有一个@SpringBootApplication注解，在这个注解中组合了\n一个EnableAutoConfiguration注解，这个注解的作用就是打开自动装配，而在这个注解中又包含了一\n个@Import注解，在这个注解中引入了一个实现了 ImportSelector接口的类型，在对应的\nselectImports方法中会读取META/INF目录下的spring.factories文件中需要被自动装配的所有的配置类，然后通过META-INF下面的spring-autoconfigure-metadata.properties文件做条件过滤。最后返回的就是需要自动装配的相关的对象。Spring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现： \n- 扫描 classpath 下的配置文件 \n- 根据条件注解决定配置是否生效 \n- 自动配置 Bean"
+      "rootContent": "在启动SpringBoot项目的main方法的头部有一个@SpringBootApplication注解，在这个注解中组合了一个EnableAutoConfiguration注解，这个注解的作用就是打开自动装配，而在这个注解中又包含了一个@Import注解，在这个注解中引入了一个实现了 ImportSelector接口的类型，在对应的selectImports方法中会读取META/INF目录下的spring.factories文件中需要被自动装配的所有的配置类，然后通过META-INF下面的spring-autoconfigure-metadata.properties文件做条件过滤。最后返回的就是需要自动装配的相关的对象。\n"
     },
     "tags": [
       "自动装配原理"
@@ -145975,11 +145976,44 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "> JSP 是 JavaWeb 时代把“模板页面”封装进 Servlet 体系的一种方式。它的本质不是独立运行，而是被容器转换成 Servlet 后参与请求处理。\n\n## 执行主线\n\n```mermaid\nflowchart TD\n    A[浏览器请求 JSP] --> B[容器检查是否已编译]\n    B -->|首次或变更| C[JSP 转 Servlet 源码]\n    C --> D[编译为 Class]\n    D --> E[加载并初始化]\n    E --> F[service 处理请求]\n    B -->|已编译| F\n    F --> G[输出 HTML]\n```\n\n## 关联阅读\n\n- 05-JSP与视图渲染\n- Servlet"
+          "content": "> JSP 是 JavaWeb 时代把“模板页面”封装进 Servlet 体系的一种方式。它的本质不是独立运行，而是被容器转换成 Servlet 后参与请求处理。\n\n## 关联阅读\n\n- 05-JSP与视图渲染\n- Servlet"
         }
       ],
-      "rootContent": "JSP > JSP 是 JavaWeb 时代把“模板页面”封装进 Servlet 体系的一种方式。它的本质不是独立运行，而是被容器转换成 Servlet 后参与请求处理。\n\n## 执行主线\n\n```mermaid\nflowchart TD\n    A[浏览器请求 JSP] --> B[容器检查是否已编译]\n    B -->|首次或变更| C[JSP 转 Servlet 源码]\n    C --> D[编译为 Class]\n    D --> E[加载并初始化]\n    E --> F[service 处理请求]\n    B -->|已编译| F\n    F --> G[输出 HTML]\n```\n\n"
-    }
+      "rootContent": "JSP 是 JavaWeb 时代把“模板页面”封装进 Servlet 体系的一种方式。它的本质不是独立运行，而是被容器转换成 Servlet 后参与请求处理。"
+    },
+    "mechanismSpec": {
+      "phenomenonNodeId": "k_vault_javajavawebjsp_elp41h",
+      "triggerNodeIds": [
+        "jsp_trigger_request"
+      ],
+      "participantNodeIds": [
+        "k_vault_javajavawebjsp_elp41h",
+        "asplit_servlet_container"
+      ],
+      "stateNodeIds": [
+        "jsp_state_check",
+        "jsp_state_translate",
+        "jsp_state_compile",
+        "jsp_state_load",
+        "jsp_state_service",
+        "jsp_state_output"
+      ],
+      "transitionEdgeIds": [
+        "jsp:t1",
+        "jsp:t2",
+        "jsp:t3",
+        "jsp:t4",
+        "jsp:t5",
+        "jsp:t6",
+        "jsp:t7"
+      ],
+      "constraintEdgeIds": [],
+      "outcomeNodeIds": [
+        "jsp_state_output"
+      ],
+      "failureNodeIds": []
+    },
+    "kind": "mechanism"
   },
   "k_java_fw_spring": {
     "id": "k_java_fw_spring",
@@ -146004,7 +146038,7 @@
           "content": "> Spring 关注的是把对象系统继续封装成一个可管理、可扩展、可织入、可声明的应用框架。\n\n## 结构图\n\n```mermaid\nmindmap\n  root((Spring))\n    容器\n      IoC\n      BeanFactory\n      ApplicationContext\n    对象管理\n      DI\n      生命周期\n      作用域\n    横切增强\n      AOP\n      代理\n      切面\n    Web\n      DispatcherServlet\n      Controller\n      参数绑定\n    事务\n      声明式事务\n      传播行为\n      回滚\n    配置\n      注解\n      Java Config\n      XML\n```\n\n## 主线导航\n\n- spring\n- 01-IoC与容器模型\n- 02-依赖注入与Bean生命周期\n- 03-AOP与代理机制\n- 04-SpringMVC请求链路\n- 05-事务与传播机制\n- 06-配置驱动与注解编程\n\n## 补充资料\n\n### IoC\n\n- 控制反转\n- ioc原理\n- ioc理解，初始化\n- spring beanfactory和applicationcontext的区别\n\n### AOP\n\n- 面向切面编程\n- aop的原理\n- Spring aop 的两种代理方式\n\n### Spring MVC\n\n- spring mvc 概述\n- spring mvc 的原理\n- mvc 面试题\n- spring如何保证并发controller的安全\n\n### 事务、配置、验证\n\n- spring 的事务管理\n- 配置\n- spring注解\n- spring注入的几种方式\n- spring数据访问\n- 集成Bean Validation 1.1到SpringMVC\n- 自定义验证规则\n- 分组验证与级联验证\n- 类级别验证器\n- 返回值验证\n\n### 版本特性\n\n- Spring4新特性\n- Spring5新特性\n- JSR310日期API支持\n- Web开发增强\n\n## 学习顺序\n\n1. 先看 IoC 与容器模型\n2. 再看依赖注入和生命周期\n3. 再看 AOP 和代理\n4. 然后进入 Spring MVC\n5. 最后看事务、配置和扩展能力"
         }
       ],
-      "rootContent": "Spring > Spring 关注的是把对象系统继续封装成一个可管理、可扩展、可织入、可声明的应用框架。\n\n## 结构图\n\n```mermaid\nmindmap\n  root((Spring))\n    容器\n      IoC\n      BeanFactory\n      ApplicationContext\n    对象管理\n      DI\n      生命周期\n      作用域\n    横切增强\n      AOP\n      代理\n      切面\n    Web\n      DispatcherServlet\n      Controller\n      参数绑定\n    事务\n      声明式事务\n      传播行为\n      回滚\n    配置\n      注解\n      Java Config\n      XML\n```\n\n## 主线导航\n\n- spring\n- 01-IoC与容器模型\n- 02-依赖注入与Bean生命周期\n- 03-AOP与代理机制\n- 04-SpringMVC请求链路\n- 05-事务与传播机制\n- 06-配置驱动与注解编程\n\n## 补充资料\n\n### IoC\n\n- 控制反转\n- ioc原理\n- ioc理解，初始化\n- spring beanfactory和applicationcontext的区别\n\n### AOP\n\n- 面向切面编程\n- aop的原理\n- Spring aop 的两种代理方式\n\n### Spring MVC\n\n- spring mvc 概述\n- spring mvc 的原理\n- mvc 面试题\n- spring如何保证并发controller的安全\n\n### 事务、配置、验证\n\n- spring 的事务管理\n- 配置\n- spring注解\n- spring注入的几种方式\n- spring数据访问\n- 集成Bean Validation 1.1到SpringMVC\n- 自定义验证规则\n- 分组验证与级联验证\n- 类级别验证器\n- 返回值验证\n\n### 版本特性\n\n- Spring4新特性\n- Spring5新特性\n- JSR310日期API支持\n- Web开发增强\n\n## 学习顺序\n\n1. 先看 IoC 与容器模型\n2. 再看依赖注入和生命周期\n3. 再看 AOP 和代理\n4. 然后进入 Spring MVC\n5. 最后看事务、配置和扩展能力"
+      "rootContent": "Spring \n\n"
     }
   },
   "k_vault_javaspring04springmvc_133lis": {
@@ -146029,7 +146063,7 @@
           "content": "## Spring MVC 在做什么\n\n它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。\n\n## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```\n\n## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。\n\n## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。  \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
         }
       ],
-      "rootContent": "SpringMVC 请求链路 ## Spring MVC 在做什么\n\n它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。\n\n## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```\n\n## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。\n\n## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。 \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
+      "rootContent": "SpringMVC 请求链路\n ## Spring MVC 在做什么\n\n## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```\n\n## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。\n\n## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。 \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
     }
   },
   "k_java_fw_spring_aop": {
@@ -146132,10 +146166,10 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "什么是Spring IOC 容器？\n控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是对组件对象控制权的转移，从程序代码本身转移到了外部容器。 Spring IOC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。\n\nSpring 的IoC支持哪些功能 \nSpring 的IoC设计支持以下功能：依赖注入 依赖检查 自动装配 支持集合指定初始化方法和销毁方法 支持回调某些方法（但是需要实现 Spring 接口略有侵入） 其中，最重要的就是依赖注入，从 XML 的配置上说，即 ref 标签。对应Spring RuntimeBeanReference 对象。 对IoC 来说，最重要的就是容器。容器管理着 Bean 的生命周期，控制着 Bean 的依赖注入。\n\n---\n以下主题已拆分到对应子节点：IoC 原理、IoC 理解与初始化、BeanFactory 与 ApplicationContext 的区别、本质、依赖注入方式（构造函数/Setter/字段/循环依赖）。"
+          "content": "IoC 容器：Spring 的核心容器，负责 Bean 的创建、装配、配置与整个生命周期的管理。\n\n**控制反转（IoC）**：把对象组件的调用权从程序代码本身转移给外部容器——组件不自己创建依赖，由容器装配注入。IoC 是设计原则（通用概念见「设计模式 > 架构模式 > 控制反转 / 依赖注入」），依赖注入（DI）是其最主要的实现手段。\n\n**容器职责**：创建对象、通过 DI 装配对象、配置对象、管理对象的整个生命周期。"
         }
       ],
-      "rootContent": "IoC容器 什么是Spring IOC 容器？ 控制反转即IoC (Inversion of Control)，它把传统上由程序代码直接操控的对象的调用权交给容器，通过容器来实现对象组件的装配和管理。所谓的“控制反转”概念就是对组件对象控制权的转移，从程序代码本身转移到了外部容器。 Spring IOC 负责创建对象，管理对象（通过依赖注入（DI），装配对象，配置对象，并且管理这些对象的整个生命周期。 控制反转(IoC)有什么作用 管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如 果依赖关系需要程序猿来维护的话，那是相当头疼的 解耦，由容器去维护具体的对象 托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果 有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的 IOC的优点是什么？ IOC 或 依赖注入把应用的代码量降到最低。它使应用容易测试，单元测试不再需要单例和JNDI查找机制。 最小的代价和最小的侵入性使松散耦合得以实现。 IOC容器支持加载服务时的饿汉式初始化和懒加载。 Spring IoC 的实现机制 Spring 中的 IoC 的实现原理就是工厂模式加反射机制。 Spring 的IoC支持哪些功能 Spring 的IoC设计支持以下功能：依赖注入 依赖检查 自动装配 支持集合指定初始化方法和销毁方法 支持回调某些方法（但是需要实现 Spring 接口略有侵入） 其中，最重要的就是依赖注入，从 XML 的配置上说，即 ref 标签。对应Spring RuntimeBeanReference 对象。 对IoC 来说，最重要的就是容器。容器管理着 Bean 的生命周期，控制着 Bean 的依赖注入。 BeanFactory 和 ApplicationContext有什么区别？ BeanFactory和ApplicationContext是Spring的两大核心接口，都可以当做 Spring的容器。其中 ApplicationContext是BeanFactory的子接口。 依赖关系 BeanFactory：是Spring里面最底层的接口，包含了各种Bean的定义，读取 bean配置文档，管理bean 的加载、实例化，控制bean的生命周期，维护bean 之间的依赖关系。 ApplicationContext接口作为BeanFactory的派生，除了提供BeanFactory所具有的功能外，还提供了更完整的框架功能： 继承MessageSource，因此支持国际化。统一的资源文件访问方式。 提供在监听器中注册bean的事件。 同时加载多个配置文件。 载入多个（有继承关系）上下文 ，使得每一个上下文都专注于一个特定的层次，比如应用的web 层。 加载方式 BeanFactroy采用的是延迟加载形式来注入Bean的，即只有在使用到某个Bean 时(调用getBean())，才 对该Bean进行加载实例化。这样，我们就不能发现一些存在的Spring的配置问题。如果Bean的某一个 属性没有注入，BeanFacotry加载后，直至第一次使用调用getBean方法才会抛出异常。 ApplicationContext，它是在容器启动时，一次性创建了所有的Bean。这样，在容器启动时，我们就可 以发现Spring中存在的配置错误，这样有利于检查所 依赖属性是否注入。 ApplicationContext启动后预载入所有的单实例Bean，通过预载入单实例bean ,确保当你需要的时候，你就不用等待，因为它们已经创建好了。 相对于基本的BeanFactory，ApplicationContext 唯一的不足是占用内存空间。当应用程序配置Bean较 多时，程序启动较慢。 创建方式 BeanFactory通常以编程的方式被创建，ApplicationContext还能以声明的方式创建，如使用 ContextLoader。 注册方式 BeanFactory和ApplicationContext都支持BeanPostProcessor、 BeanFactoryPostProcessor的使用，但两者之间的区别是：BeanFactory需要手动注册，而 ApplicationContext则是自动注册。 Spring 如何设计容器的，BeanFactory和 ApplicationContext的 关系详解 Spring 作者 Rod Johnson 设计了两个接口用以表示容器。 BeanFactory ApplicationContext BeanFactory 简单粗暴，可以理解为就是个 HashMap，Key 是 BeanName， Value 是 Bean 实例。通常只提供注册（put），获取（get）这两个功能。我们可以称之为 “低级容 器”。 ApplicationContext 可以称之为 “高级容器”。因为他比 BeanFactory 多了更多的功能。他继承了多个接 口。因此具备了更多的功能。例如资源的获取，支持多种消息（例如 JSP tag 的支持），对 BeanFactory 多了工具级别的支持等待。所以你看他的名字，已经不是 BeanFactory 之类的工厂了，而 是 “应用上下文”， 代表着整个大容器的所有功能。该接口定义了一个 refresh 方法，此方法是所有阅读 Spring 源码的人的最熟悉的方法，用于刷新整个容器，即重新加载/刷新所有的 bean。 当然，除了这两个大接口，还有其他的辅助接口，这里就不介绍他们了。 BeanFactory和ApplicationContext的关系 为了更直观的展示 “低级容器” 和 “高级容器” 的关系，这里通过常用的 ClassPathXmlApplicationContext 类来展示整个容器的层级 UML 关系。 有点复杂？ 先不要慌，我来解释一下。 最上面的是 BeanFactory，下面的 3 个绿色的，都是功能扩展接口，这里就不展开讲。 看下面的隶属 ApplicationContext 粉红色的 “高级容器”，依赖着 “低级容器”，这里说的是依赖，不是继承哦。他依赖着 “低级容器” 的 getBean 功 能。而高级容器有更多的功能：支持不同的信息源头，可以访问文件资源，支持应用事件（Observer 模 式）。 通常用户看到的就是 “高级容器”。 但 BeanFactory 也非常够用啦！左边灰色区域的是 “低级容器”， 只 负载加载 Bean，获取 Bean。容器其他的高级功能是没有的。例如上图画的 refresh 刷新 Bean 工厂所 有配置，生命周期事件回调等。 小结 说了这么多，不知道你有没有理解Spring IoC？ 这里小结一下：IoC 在 Spring 里，只需要低级容器就可 以实现，2 个步骤： 1. 加载配置文件，解析成 BeanDefinition 放在 Map 里。 2. 调用 getBean 的时候，从 BeanDefinition 所属的 Map 里，拿出 Class 对象进行实例化，同时，如果有依赖关系，将递归调用 getBean 方法 —— 完成依赖注入。 上面就是 Spring 低级容器（BeanFactory）的 IoC。 至于高级容器 ApplicationContext，他包含了低级容器的功能，当他执行 refresh 模板方法的时候，将 刷新整个容器的 Bean。同时其作为高级容器，包含了太多的功能。一句话，他不仅仅是 IoC。他支持不同信息源头，支持 BeanFactory 工具类，支持层级容器，支持访问文件资源，支持事件发布通知，支持接口回调等等。 ApplicationContext通常的实现是什么？ FileSystemXmlApplicationContext ：此容器从一个XML文件中加载beans 的定义，XML Bean 配置文 件的全路径名必须提供给它的构造函数。 ClassPathXmlApplicationContext：此容器也从一个XML文件中加载beans 的定义，这里，你需要正确 设置classpath因为这个容器将在classpath里找 bean配置。 WebXmlApplicationContext：此容器加载一个XML文件，此文件定义了一个WEB应用的所有bean。 什么是Spring的依赖注入？ 控制反转IoC是一个很大的概念，可以用不同的方式来实现。其主要实现方式有两种：依赖注入和依赖查 找依赖注入：相对于IoC而言，依赖注入(DI)更加准确地描述了IoC的设计理念。所谓依赖注入 （Dependency Injection），即组件之间的依赖关系由容器在应用系统运行期来决定，也就是由容器动 态地将某种依赖关系的目标对象实例注入到应用系统中的各个关联的组件之中。组件不做定位查询，只 提供普通的Java方法让容器去决定依赖关系。 依赖注入的基本原则 依赖注入的基本原则是：应用组件不应该负责查找资源或者其他依赖的协作对象。配置对象的工作应该 由IoC容器负责，“查找资源”的逻辑应该从应用组件的代码中抽取出来，交给IoC容器负责。容器全权负 责组件的装配，它会把符合依赖关系的对象通过属性（JavaBean中的setter）或者是构造器传递给需要 的对象。 依赖注入有什么优势 依赖注入之所以更流行是因为它是一种更可取的方式：让容器全权负责依赖查询，受管组件只需要暴露 JavaBean的setter方法或者带参数的构造器或者接 口，使容器可以在初始化时组装对象的依赖关系。其与依赖查找方式相比，主要优势为： 查找定位操作与应用代码完全无关。 不依赖于容器的API，可以很容易地在任何容器以外使用应用对象。 不需要特殊的接口，绝大多数对象可以做到完全不必依赖容器。 有哪些不同类型的依赖注入实现方式？ 依赖注入是时下最流行的IoC实现方式，依赖注入分为接口注入（Interface Injection），Setter方法注 入（Setter Injection）和构造器注入（Constructor Injection）三种方式。其中接口注入由于在灵活性和易用性比较差，现在从Spring4开始已被废弃。 构造器依赖注入：构造器依赖注入通过容器触发一个类的构造器来实现的，该类有一系列参数，每个参数代表一个对其他类的依赖。 Setter方法注入：Setter方法注入是容器通过调用无参构造器或无参static工厂 方法实例化bean之后， 调用该bean的setter方法，即实现了基于setter的依赖注入。 构造器依赖注入和 Setter方法注入的区别 两种依赖方式都可以使用，构造器注入和Setter方法注入。最好的解决方案是用构造器参数实现强制依 赖，setter方法实现可选依赖。 什么是Spring beans？ Spring beans 是那些形成Spring应用的主干的java对象。它们被Spring IOC容器初始化装配和管理。这些beans通过容器中配置的元数据创建。比如，以XML文件中 的形式定义。 一个 Spring Bean 定义 包含什么？ 一个Spring Bean 的定义包含容器必知的所有配置元数据，包括bean，它的生命周期详情及它的依赖。 如何创建一个如何给Spring 容器提供配置元数据？Spring有几种配置方式 这里有三种重要的方法给Spring 容器提供配置元数据。 XML配置文件。 基于注解的配置。 基于java的配置。 Spring配置文件包含了哪些信息 Spring配置文件是个XML 文件，这个文件包含了类信息，描述了如何配置它们，以及如何相互调用。 Spring基于xml注入bean的几种方式 1. Set方法注入； 2. 构造器注入：①通过index设置参数的位置；②通过type设置参数类型； 3. 静态工厂注入； 4. 实例工厂； 你怎样定义类的作用域？ 当定义一个 在Spring里，我们还能给这个bean声明一个作用域。它可以通过 bean 定义中的scope属性 来定义。如，当Spring要在需要的时候每次生产一个新的bean实例，bean的scope属性被指定为 prototype。另一方面，一个bean 每次使用的时候必须返回同一个实例，这个bean的scope 属性 必须 设为 singleton。 解释Spring支持的几种bean的作用域 Spring框架支持以下五种bean的作用域： singleton : bean在每个Spring ioc 容器中只有一个实例。 prototype：一个bean的定义可以有多个实例。 request：每次http请求都会创建一个bean，该作用域仅在基于web的SpringApplicationContext 情形下有效。 session：在一个HTTP Session中，一个bean定义对应一个实例。该作用域仅在基于web的Spring ApplicationContext情形下有效。 global-session：在一个全局的HTTP Session中，一个bean定义对应一个 实例。该作用域仅在基于web的Spring ApplicationContext情形下有效。 注意： 缺省的Spring bean 的作用域是Singleton。使用 prototype 作用域需要慎重的思考，因为频繁创 建和销毁 bean 会带来很大的性能开销。 Spring框架中的单例bean是线程安全的吗？ 不是，Spring框架中的单例bean不是线程安全的。 spring 中的 bean 默认是单例模式，spring 框架并没有对单例 bean 进行多线程的封装处理。 实际上大部分时候 spring bean 无状态的（比如 dao 类），所有某种程度上来说 bean 也是安全的，但 如果 bean 有状态的话（比如 view model 对象），那就要开发者自己去保证线程安全了，最简单的就 是改变 bean 的作用域， 把“singleton”变更为“prototype”，这样请求 bean 相当于 new Bean() 了，所以就可以保证线程安全了。 有状态就是有数据存储功能。 无状态就是不会保存数据。 Spring如何处理线程并发问题？ 在一般情况下，只有无状态的Bean才可以在多线程环境下共享，在Spring中，绝大部分Bean都可以声 明为singleton作用域，因为Spring对一些Bean中非线程安全状态采用ThreadLocal进行处理，解决线程 安全问题。 ThreadLocal和线程同步机制都是为了解决多线程中相同变量的访问冲突问题。同步机制采用了“时间换 空间”的方式，仅提供一份变量，不同的线程在访问前 需要获取锁，没获得锁的线程则需要排队。而ThreadLocal采用了“空间换时间”的方式。 ThreadLocal会为每一个线程提供一个独立的变量副本，从而隔离了多个线程对数据的访问冲突。因为 每一个线程都拥有自己的变量副本，从而也就没有必要对该变量进行同步了。ThreadLocal提供了线程 安全的共享对象，在编写多线程代码时，可以把不安全的变量封装进ThreadLocal。 解释Spring框架中 bean的生命周期 在传统的Java应用中，bean的生命周期很简单。使用Java关键字new进行bean 实例化，然后该bean就 可以使用了。一旦该bean不再被使用，则由Java自动进行垃圾回收。相比之下，Spring容器中的bean的 生命周期就显得相对复杂多了。正确理解Spring bean的生命周期非常重要，因为你或许要利用Spring提 供的扩展点来自定义bean的创建过程。下图展示了bean装载到Spring应用上下文中的一个典型的生命 周期过程 bean在Spring容器中从创建到销毁经历了若干阶段，每一阶段都可以针对 Spring如何管理bean进行个 性化定制。 正如你所见，在bean准备就绪之前，bean工厂执行了若干启动步骤。 我们对上图进行详细描述： Spring对bean进行实例化； Spring将值和bean的引用注入到bean对应的属性中； 如果bean实现了BeanNameAware接口，Spring将bean的ID传递给setBeanName()方法； 如果bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()方 法，将BeanFactory容器实例传入； 如果bean实现了ApplicationContextAware接口，Spring将调用 setApplicationContext()方法，将bean 所在的应用上下文的引用传入进来； 如果bean实现了BeanPostProcessor接口，Spring将调用它们的post ProcessBeforeInitialization()方法； 如果bean实现了InitializingBean接口，Spring将调用它们的afterPropertiesSet()方法。类似地，如果 bean使用initmethod声明了初始化方法， 该方法也会被调用； 如果bean实现了BeanPostProcessor接口，Spring将调用它们的post ProcessAfterInitialization()方法；此时，bean已经准备就绪，可以被应用程序使用了，它们将一直驻留 在应用上下文中，直到该应用上下文被销毁； 如果bean实现了DisposableBean接口，Spring将调用它的destroy()接口方 法。同样，如果bean使用destroy-method声明了销毁方法，该方法也会被调用。 现在你已经了解了如何创建和加载一个Spring容器。但是一个空的容器并没有太大的价值，在你把东西 放进去之前，它里面什么都没有。为了从Spring的 DI(依赖注入)中受益，我们必须将应用对象装配进Spring容器中。 哪些是重要的bean生命周期方法？ 你能重载它们吗？ 有两个重要的bean 生命周期方法，第一个是setup ， 它是在容器加载bean的 时候被调用。第二个方法是 teardown 它是在容器卸载类的时候被调用。 bean 标签有两个重要的属性（init-method和destroy-method）。用它们你可以自己定制初始化和注销 方法。它们也有相应的注解（@PostConstruct和@PreDestroy）。 什么是Spring的内部bean？什么是Spring inner beans？ 在Spring框架中，当一个bean仅被用作另一个bean的属性时，它能被声明为一个内部bean。内部bean 可以用setter注入“属性”和构造方法注入“构造参数”的方式来实现，内部bean通常是匿名的，它们的 Scope一般是prototype。 在 Spring中如何注入一个java集合？ Spring提供以下几种集合的配置元素：类型用于注入一列值，允许有相同的值。 类型用于注入一组值，不允许有相同的值。 类型用于注入一组键值对，键和值都只能为String类型。 什么是bean装配？ 装配，或bean 装配是指在Spring 容器中把bean组装到一起，前提是容器需要知道bean的依赖关系，如 何通过依赖注入来把它们装配到一起。 什么是bean的自动装配？ 在Spring框架中，在配置文件中设定bean的依赖关系是一个很好的机制， Spring 容器能够自动装配相互合作的bean，这意味着容器不需要和配置，能通 过Bean工厂自动处理bean之间的协作。这意味着 Spring可以通过向Bean Factory中注入的方式自动搞定bean之间的依赖关系。自动装配可以设置在每个bean上，也可以设定在 特定的bean上。 解释不同方式的自动装配，spring 自动装配 bean 有哪些方式？ 在spring中，对象无需自己查找或创建与其关联的其他对象，由容器负责把需要相互协作的对象引用赋 予各个对象，使用autowire来配置自动装载模式。 在Spring框架xml配置中共有5种自动装配： no：默认的方式是不进行自动装配的，通过手工设置ref属性来进行装配bean。 byName：通过bean的名称进行自动装配，如果一个bean的 property 与另一bean 的name 相 同，就进行自动装配。 byType：通过参数的数据类型进行自动装配。 constructor：利用构造函数进行装配，并且构造函数的参数通过 byType进行装配。 autodetect：自动探测，如果有构造方法，通过 construct的方式自动装配，否则使用 byType的方 式自动装配。 使用@Autowired注解自动装配的过程是怎样的？ 使用@Autowired注解来自动装配指定的bean。在使用@Autowired注解之前需要在Spring配置文件进 行配置，。 在启动spring IoC时，容器自动装载了一个 AutowiredAnnotationBeanPostProcessor后置处理器，当容器扫描到@Autowied、@Resource或 @Inject时，就会在IoC容器自动查找需要的 bean，并装配给该对象的属性。在使用@Autowired时，首 先在容器中查询对应类型的bean： 如果查询结果刚好为一个，就将该bean装配给@Autowired指定的数据； 如果查询的结果不止一个，那么@Autowired会根据名称来查找； 如果上述查找的结果为空，那么会抛出异常。解决方法时，使用required=false。 自动装配有哪些局限性？ 自动装配的局限性是：重写：你仍需用和配置来定义依赖，意味着总要重写自动装配。 基本数据类型：你不能自动装配简单的属性，如基本数据类型，String字符串，和类。 模糊特性：自动装配不如显式装配精确，如果有可能，建议使用显式装配。 你可以在Spring中注入一个null 和一个空字符串吗？ 可以"
+      "rootContent": "IoC 容器：Spring 的核心容器，负责 Bean 的创建、装配、配置与整个生命周期的管理。\n\n**控制反转（IoC）**：把对象组件的调用权从程序代码本身转移给外部容器——组件不自己创建依赖，由容器装配注入。IoC 是设计原则（通用概念见「设计模式 > 架构模式 > 控制反转 / 依赖注入」），依赖注入（DI）是其最主要的实现手段。\n\n**容器职责**：创建对象、通过 DI 装配对象、配置对象、管理对象的整个生命周期。\n\n"
     }
   },
   "k_vault_javaspringiocioc_klf11o": {
@@ -146166,7 +146200,7 @@
           "content": "Spring IoC 的实现机制 \nSpring 中的 IoC 的实现原理就是工厂模式加反射机制。"
         }
       ],
-      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n # ApplicationContext 面向开发应用 \n# WebApplication 体系架构 \n# Spring Bean 作用域 \n# Spring Bean 生命周期 \n# Spring 依赖注入四种方式\n Spring IOC是什么？优点是什么？ \nIoC文英全称Inversion of Control，即控制反转，我么可以这么理解IoC容器：\"把某些业务对 象的控制权交给一个平台或者框架来同一管理，这个同一管理的平台可以称为IoC容器。\" ioc的思想最核心的地方在于，资源不由使用资源的双方管理，而由不使用资源的第三方管理， 这可以带来很多好处： 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度"
+      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n\n\n\n"
     }
   },
   "k_java_fw_spring_mvc": {
@@ -146192,7 +146226,7 @@
           "content": "## 什么是Spring MVC\n\nSpring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。\n\n## 核心组件\n\n1. **DispatcherServlet**：前端控制器，负责请求分发\n2. **HandlerMapping**：处理器映射器，找到具体的Controller\n3. **Controller**：控制器，处理业务逻辑\n4. **ViewResolver**：视图解析器，解析视图\n\n## 工作流程\n\n1. 用户发送请求到DispatcherServlet\n2. DispatcherServlet调用HandlerMapping\n3. HandlerMapping返回具体的Controller\n4. Controller调用业务处理方法\n5. 返回ModelAndView\n6. ViewResolver解析视图\n7. 返回最终视图给用户\n\n## 常用注解\n\n- @Controller：标记控制器类\n- @RequestMapping：请求映射\n- @GetMapping：GET请求映射\n- @PostMapping：POST请求映射\n- @RequestParam：请求参数绑定\n- @PathVariable：路径变量\n- @RequestBody：请求体绑定\n- @ResponseBody：响应体"
         }
       ],
-      "rootContent": "SpringMVC ## 什么是Spring MVC Spring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。 ## 核心组件 1. **DispatcherServlet**：前端控制器，负责请求分发 2. **HandlerMapping**：处理器映射器，找到具体的Controller 3. **Controller**：控制器，处理业务逻辑 4. **ViewResolver**：视图解析器，解析视图 ## 工作流程 1. 用户发送请求到DispatcherServlet 2. DispatcherServlet调用HandlerMapping 3. HandlerMapping返回具体的Controller 4. Controller调用业务处理方法 5. 返回ModelAndView 6. ViewResolver解析视图 7. 返回最终视图给用户 ## 常用注解 - @Controller：标记控制器类 - @RequestMapping：请求映射 - @GetMapping：GET请求映射 - @PostMapping：POST请求映射 - @RequestParam：请求参数绑定 - @PathVariable：路径变量 - @RequestBody：请求体绑定 - @ResponseBody：响应体"
+      "rootContent": "SpringMVC ## \n什么是Spring MVC Spring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。\n ## 核心组件 \n1. **DispatcherServlet**：前端控制器，负责请求分发\n 2. **HandlerMapping**：处理器映射器，找到具体的Controller \n3. **Controller**：控制器，处理业务逻辑 \n4. **ViewResolver**：视图解析器，解析视图 \n## 工作流程\n 1. 用户发送请求到DispatcherServlet \n2. DispatcherServlet调用HandlerMapping \n3. HandlerMapping返回具体的Controller\n 4. Controller调用业务处理方法 \n5. 返回ModelAndView \n6. ViewResolver解析视图 \n7. 返回最终视图给用户\n ## 常用注解 \n- @Controller：标记控制器类\n - @RequestMapping：请求映射 \n- @GetMapping：GET请求映射 \n- @PostMapping：POST请求映射 \n- @RequestParam：请求参数绑定 \n- @PathVariable：路径变量 \n- @RequestBody：请求体绑定\n - @ResponseBody：响应体"
     }
   },
   "k_vault_javaspringspringmvcspringmvc_1932hl": {
@@ -146218,7 +146252,7 @@
           "content": "## 工作流程\n\n1. **请求到达**：客户端发送请求到DispatcherServlet\n\n2. **处理器映射**：DispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller）\n\n3. **处理器适配**：DispatcherServlet根据Handler找到对应的HandlerAdapter\n\n4. **执行处理器**：HandlerAdapter调用Handler执行业务逻辑，返回ModelAndView\n\n5. **视图解析**：DispatcherServlet调用ViewResolver解析视图\n\n6. **渲染视图**：View根据Model数据进行渲染\n\n7. **返回响应**：将渲染后的视图返回给客户端\n\n## 核心组件\n\n| 组件 | 说明 |\n|------|------|\n| DispatcherServlet | 前端控制器，整个流程的中心 |\n| HandlerMapping | 根据URL找到Handler |\n| Controller | 处理业务逻辑 |\n| ViewResolver | 解析视图名称 |\n| View | 负责渲染视图 |\n\n## 常见配置\n\n### XML配置\n```xml\n<servlet>\n    <servlet-name>springmvc</servlet-name>\n    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n</servlet>\n<servlet-mapping>\n    <servlet-name>springmvc</servlet-name>\n    <url-pattern>/</url-pattern>\n</servlet-mapping>\n```\n\n### 注解配置\nSpring Boot中无需手动配置，@EnableWebMvc自动启用"
         }
       ],
-      "rootContent": "Spring MVC 原理 ## 工作流程 1. **请求到达**：客户端发送请求到DispatcherServlet 2. **处理器映射**：DispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller） 3. **处理器适配**：DispatcherServlet根据Handler找到对应的HandlerAdapter 4. **执行处理器**：HandlerAdapter调用Handler执行业务逻辑，返回ModelAndView 5. **视图解析**：DispatcherServlet调用ViewResolver解析视图 6. **渲染视图**：View根据Model数据进行渲染 7. **返回响应**：将渲染后的视图返回给客户端 ## 核心组件 | 组件 | 说明 | |------|------| | DispatcherServlet | 前端控制器，整个流程的中心 | | HandlerMapping | 根据URL找到Handler | | Controller | 处理业务逻辑 | | ViewResolver | 解析视图名称 | | View | 负责渲染视图 | ## 常见配置 ### XML配置 ```xml <servlet> <servlet-name>springmvc</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> </servlet> <servlet-mapping> <servlet-name>springmvc</servlet-name> <url-pattern>/</url-pattern> </servlet-mapping> ``` ### 注解配置 Spring Boot中无需手动配置，@EnableWebMvc自动启用"
+      "rootContent": "Spring MVC 原理 \n## 工作流程 \n1. **请求到达**：\n客户端发送请求到DispatcherServlet \n2. **处理器映射**：\nDispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller） \n3. **处理器适配**：\nDispatcherServlet根据Handler找到对应的HandlerAdapter \n4. **执行处理器**：\nHandlerAdapter调用Handler执行业务逻辑，返回ModelAndView \n5. **视图解析**：\nDispatcherServlet调用ViewResolver解析视图 \n6. **渲染视图**：\nView根据Model数据进行渲染\n 7. **返回响应**：\n将渲染后的视图返回给客户端 \n## 核心组件 \n| 组件 | 说明 | \n|------|------|\n | DispatcherServlet | 前端控制器，整个流程的中心 | \n| HandlerMapping | 根据URL找到Handler | \n| Controller | 处理业务逻辑 | \n| ViewResolver | 解析视图名称 | \n| View | 负责渲染视图 | \n## 常见配置 \n### XML配置 \n```xml \n<servlet> <servlet-name>springmvc</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> </servlet> <servlet-mapping> <servlet-name>springmvc</servlet-name> <url-pattern>/</url-pattern> </servlet-mapping> \n``` \n### 注解配置 \nSpring Boot中无需手动配置，@EnableWebMvc自动启用"
     }
   },
   "k_java_fw_spring_boot": {
@@ -146244,7 +146278,7 @@
           "content": "## 什么是 Spring Boot？\n\nSpring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。\n\n## Spring Boot 有哪些优点？\n\n1. 容易上手，提升开发效率，为 Spring 开发提供一个更快、更广泛的入门体验。\n2. 开箱即用，远离繁琐的配置。\n3. 提供了一系列大型项目通用的非业务性功能，例如：内嵌服务器，安全管理、运行数据监控、运行状况检查和外部化配置等。\n4. 没有代码生成，也不需要XML配置。\n5. 避免大量的 Maven 导入和各种版本冲突。\n\n## 核心注解\n\n启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：\n\n- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。\n- @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。\n- @ComponentScan：Spring组件扫描。\n\n---\n\n## 相关链接\n\n- 原理 - Spring Boot 原理详解\n- 与Spring对比 - Spring Boot 与 Spring 的区别\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。 \nSpring Boot：约定优于配置的 Spring 快速开发方案，独立运行、内嵌服务器、自动配置、starter 依赖管理、生产就绪特性。\n\n## 核心注解 \n启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解： - @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。 - @ComponentScan：Spring组件扫描。"
+      "rootContent": "Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。 \nSpring Boot：约定优于配置的 Spring 快速开发方案，独立运行、内嵌服务器、自动配置、starter 依赖管理、生产就绪特性。\n\n"
     }
   },
   "k_vault_javaspringspringboot_lhipgq": {
@@ -146270,7 +146304,7 @@
           "content": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n\n## 核心设计思想\n\n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。\n\n## 主要特点\n\n1. **创建独立的 Spring 应用程序** - 可以独立运行\n2. **嵌入的 Tomcat** - 无需部署 WAR 文件，直接运行\n3. **简化 Maven 配置** - 自动管理依赖版本\n4. **自动配置 Spring** - 智能配置，减少手动配置\n5. **提供生产就绪型功能** - 如指标，健康检查和外部配置\n6. **没有代码生成** - 对 XML 没有要求配置\n\n## 自动配置原理\n\nSpring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现：\n- 扫描 classpath 下的配置文件\n- 根据条件注解决定配置是否生效\n- 自动配置 Bean\n"
         }
       ],
-      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n ## 核心设计思想 \n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。 \n## 主要特点 \n1. **创建独立的 Spring 应用程序** \n- 可以独立运行 \n2. **嵌入的 Tomcat** \n- 无需部署 WAR 文件，直接运行 \n3. **简化 Maven 配置** \n- 自动管理依赖版本\n4. **自动配置 Spring** \n- 智能配置，减少手动配置 \n5. **提供生产就绪型功能** \n- 如指标，健康检查和外部配置 \n6. **没有代码生成** \n- 对 XML 没有要求配置 \n"
+      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n ## 核心设计思想 \n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。 \n"
     }
   },
   "k_vault_javaspringspringboot_yjdx1u": {
@@ -146374,7 +146408,7 @@
           "content": "## 什么是 Actuator\n\nSpring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。\n\n## 主要功能\n\n- 监控应用程序运行状态\n- 检查组件（如数据库等）是否正常运行\n- 提供 REST 端点供外部访问\n\n## 常用端点\n\n- `/actuator/health` - 健康检查\n- `/actuator/info` - 应用信息\n- `/actuator/metrics` - 指标数据\n\n## 禁用端点安全性\n\n默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。\n\n禁用安全性：\n```properties\nmanagement.security.enabled = false\n```\n\n**注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。\n\n## 监视多个微服务\n\nSpring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。\n\n---\n\n## 相关链接\n\n- 安全 - Spring Boot 安全配置\n- 缓存 - 缓存配置\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 监视器\n ## 什么是 Actuator \nSpring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。 \n## 主要功能 - 监控应用程序运行状态 - 检查组件（如数据库等）是否正常运行 - 提供 REST 端点供外部访问 ## 常用端点 - `/actuator/health` - 健康检查 - `/actuator/info` - 应用信息 - `/actuator/metrics` - 指标数据 ## 禁用端点安全性 默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。 禁用安全性： ```properties management.security.enabled = false ``` **注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。 ## 监视多个微服务 Spring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。"
+      "rootContent": "Spring Boot 监视器\n ## 什么是 Actuator \nSpring Boot Actuator 是 spring 启动框架中的重要功能之一。Spring Boot 监视器可帮助您访问生产环境中正在运行的应用程序的当前状态。 \n\n## 常用端点 \n- `/actuator/health` \n- 健康检查 \n- `/actuator/info` \n- 应用信息 \n- `/actuator/metrics` \n- 指标数据 \n## 禁用端点安全性 默认情况下，所有敏感的 HTTP 端点都是安全的，只有具有 ACTUATOR 角色的用户才能访问。 禁用安全性： \n```properties \nmanagement.security.enabled = false \n``` \n**注意**：只有在执行机构端点在防火墙后访问时，才建议禁用安全性。\n ## 监视多个微服务\n Spring Boot 提供监视器端点以监控各个微服务的度量。可以使用 Spring Boot Admin 实现统一监控可视化。"
     }
   },
   "k_vault_javaspringspringboot_g9wkoh": {
@@ -146430,7 +146464,7 @@
           "content": "## 为什么事务属于框架层\n\n事务本质上是跨多条数据库操作的一致性边界。  \n如果让每个业务方法手工处理提交和回滚，复杂度会快速失控。\n\n## Spring 的做法\n\nSpring 通过 AOP 把事务边界织入 Service 调用链。\n\n```mermaid\nflowchart LR\n    A[Service 方法调用] --> B[事务代理]\n    B --> C[开启事务]\n    C --> D[执行业务逻辑]\n    D --> E[提交或回滚]\n```\n\n## 传播行为\n\n传播行为回答的是：  \n一个事务方法调用另一个事务方法时，事务边界如何继承或新建。\n\n常见理解：\n\n- `REQUIRED`：加入当前事务，没有就创建\n- `REQUIRES_NEW`：挂起当前事务，开启新事务\n- `SUPPORTS`：有就加入，没有就非事务运行\n\n## 常见陷阱\n\n- 自调用事务不生效\n- 事务边界放错层级\n- 异常被吞掉导致回滚不符合预期\n\n## 原因\n\n事务通常依赖代理对象触发。  \n类内部直接调用自己的方法，绕过了代理链，所以增强不生效。"
         }
       ],
-      "rootContent": "## Spring事务实现方式 \n1. **编程式事务管理** \n- 通过代码直接管理事务 \n2. **声明式事务管理** \n- 基于TransactionProxyFactoryBean \n- 基于AspectJ的XML配置 \n- 基于注解（@Transactional） \n## 核心接口 \n### PlatformTransactionManager Spring事务管理器的接口，为各个平台提供事务管理：\n ```java \nPublic interface PlatformTransactionManager() { \n// 由TransactionDefinition得到TransactionStatus对象 \nTransactionStatus getTransaction(TransactionDefinition definition); \n// 提交 \nVoid commit(TransactionStatus status); \n// 回滚 \nVoid rollback(TransactionStatus status); } \n``` \n## 事务管理器类型 \n| 类型 | 说明 | \n|------|------|\n | DataSourceTransactionManager | JDBC事务 | \n| HibernateTransactionManager | Hibernate事务 | \n| JtaTransactionManager | JTA事务 | \n| JpaTransactionManager | JPA事务 |"
+      "rootContent": ""
     }
   },
   "k_vault_javaspringspring4_bn9s51": {
@@ -146560,7 +146594,7 @@
           "content": "## Spring 为什么重视配置\n\nSpring 的很多能力并不是写死在业务类中，而是通过配置把对象关系和框架行为声明出来。\n\n## 配置方式演进\n\n| 阶段 | 特点 |\n| --- | --- |\n| XML | 显式、集中、冗长 |\n| 注解 | 靠近代码、侵入更低 |\n| Java Config | 类型安全、组合能力更强 |\n\n## 常见注解角色\n\n- `@Component` / `@Service` / `@Repository` / `@Controller`\n- `@Autowired`\n- `@Configuration`\n- `@Bean`\n- `@Value`\n\n## 真正的价值\n\n配置驱动让框架从“调用库”升级为“声明系统结构”：\n\n- 哪些类归容器管理\n- 依赖如何注入\n- 哪些方法需要事务或切面\n- Web 层如何暴露能力\n\n```mermaid\nflowchart TD\n    A[注解 / 配置类 / XML] --> B[容器解析]\n    B --> C[BeanDefinition]\n    C --> D[实例化与注入]\n    D --> E[代理与扩展]\n```\n\n## 使用原则\n\n- 注解适合局部声明\n- 配置类适合模块装配\n- 复杂基础设施配置仍要保持集中和可读"
         }
       ],
-      "rootContent": "Spring 配置 Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。\n使用 JavaConfig 的优点在于： \n（1） 面向对象的配置。由于配置被定义为 JavaConfig 中的类，因此用户可以充分发挥 Java 中的面向对象功能。一个配置类可以继承另一个，重写它的@Bean 方法等。 \n（2） 减少或消除 XML 配置。基于依赖注入原则的外化配置的好处已被证明。但是，许多开发人员不希望在 XML 和 Java 之间来回切换。JavaConfig 为开发人员提供了一种纯 Java 方法来配置与 XML 配置概念相似的 Spring 容器。从技术角度来讲，只使用 JavaConfig 配置类来配置容器是可行的，但实际上很多人认为将JavaConfig 与 XML 混合匹配是理想的。 \n（3）类型安全和重构友好。JavaConfig 提供了一种类型安全的方法来配置 Spring容器。由于 Java 5.0 对泛型的支持，现在可以按类型而不是按名称检索 bean，不需要任何强制转换或基于字符串的查找。\n # Spring Boot 自动配置原理是什么？ \n注解 @EnableAutoConfiguration, @Configuration, @ConditionalOnClass 就是自动配置的核心，@EnableAutoConfiguration 给容器导入META-INF/spring.factories 里定义的自动配置类。筛选有效的自动配置类。每一个自动配置类结合对应的 xxxProperties.java 读取配置文件进行自动配置功能。 \n# 你如何理解 Spring Boot 配置加载顺序？\n 在 Spring Boot 里面，可以使用以下几种方式来加载配置： \n1） properties文件； 2） YAML文件； 3） 系统环境变量；等等…… 4）命令行参数； \n# 什么是 YAML？\n YAML 是一种人类可读的数据序列化语言。它通常用于配置文件。与属性文件相比，如果我们想要在配置文件中添加复杂的属性，YAML 文件就更加结构化，而且更少混淆。可以看出 YAML 具有分层配置数据。 \n# YAML 配置的优势在哪里 ? \nYAML 现在可以算是非常流行的一种配置文件格式了，无论是前端还是后端，都可以见到 YAML 配置。那么 YAML 配置和传统的 properties 配置相比到底有哪些优势呢？ 1. 配置有序，在一些特殊的场景下，配置有序很关键 2. 支持数组，数组中的元素可以是基本数据类型也可以是对象 3. 简洁 相比 properties 配置文件，YAML 还有一个缺点，就是不支持 @PropertySource 注解导入自定义的 YAML 配置。 \n# Spring Boot 是否可以使用 XML 配置 ?\n Spring Boot 推荐使用 Java 配置而非 XML 配置，但是 Spring Boot 中也可以使用 XML 配置，通过 @ImportResource 注解可以引入一个 XML 配置。 \n# spring boot 核心配置文件是什么？bootstrap.properties 和 application.properties 有何区别 ? 单纯做 Spring Boot 开发，可能不太容易遇到 bootstrap.properties 配置文件，但是在结合 Spring Cloud 时，这个配置就会经常遇到了，特别是在需要加载一些远程配置文件的时侯。 spring boot 核心的两个配置文件： bootstrap (. yml 或者 . properties)：boostrap 由父 ApplicationContext 加载的，比 applicaton 优先加载，配置在应用程序上下文的引导阶段生效。一般来说我们在 Spring Cloud Config 或者 Nacos 中会用到它。且 boostrap 里面的属性不能被覆盖； application (. yml 或者 . properties)： 由ApplicatonContext 加载，用于 spring boot 项目的自动化配置。 \n# 什么是 Spring Profiles？ \nSpring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。\n # 如何在自定义端口上运行 Spring Boot 应用程序？ \n为了在自定义端口上运行 Spring Boot 应用程序，您可以在application.properties 中指定端口。server.port = 8090"
+      "rootContent": "Spring 配置 Spring JavaConfig 是 Spring 社区的产品，它提供了配置 Spring IoC 容器的纯Java 方法。因此它有助于避免使用 XML 配置。\n\n"
     }
   },
   "k_vault_javaspringspring_7b4q3y": {
@@ -156111,10 +156145,10 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "IoC 的本质：把对象的控制权从程序代码本身转移到外部容器。\n\n控制反转(IoC)有什么作用 \n管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如 果依赖关系需要程序猿来维护的话，那是相当头疼的 解耦，由容器去维护具体的对象 托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果 有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的\n\nIOC的优点是什么？ \nIOC 或 依赖注入把应用的代码量降到最低。它使应用容易测试，单元测试不再需要单例和JNDI查找机制。 最小的代价和最小的侵入性使松散耦合得以实现。 IOC容器支持加载服务时的饿汉式初始化和懒加载。"
+          "content": "**控制反转（IoC）的作用**\n- 管理对象的创建和依赖关系的维护——对象关系复杂时，依赖关系由程序手写维护成本极高\n- 解耦：由容器去维护具体的对象\n- 托管类的产生过程：需要在类产生过程中做的处理（最直接的例子是代理）交给容器，应用无需关心类如何完成代理\n\n**IoC / DI 的优点**\n- 把应用的代码量降到最低\n- 使应用容易测试：单元测试不再需要单例和 JNDI 查找机制\n- 以最小的代价和最小的侵入性实现松散耦合\n- 容器支持加载服务时的饿汉式初始化和懒加载"
         }
       ],
-      "rootContent": "IoC 的本质：把对象的控制权从程序代码本身转移到外部容器。\n\n"
+      "rootContent": "IoC 的本质：把对象的控制权从程序代码本身转移到外部容器。\n"
     }
   },
   "k_1788683294815_qvh7np": {
@@ -156127,7 +156161,7 @@
       "nodeId": "k_1788683294815_qvh7np",
       "title": "常见的配置方式",
       "tabs": [],
-      "rootContent": "基于XML的配置、\n基于注解的配置、\n基于Java的配置"
+      "rootContent": ""
     }
   },
   "k_1788687205852_lhoemy": {
@@ -156146,7 +156180,7 @@
         {
           "id": "overview",
           "label": "概述",
-          "content": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。主要包括：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖\n2. **Setter注入** - 通过setter方法注入依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（较少使用）\n\n不同的注入方式适用于不同的场景，需要根据实际需求选择合适的方式。"
+          "content": "Spring框架提供了多种依赖注入（DI）的方式，用于将依赖对象注入到目标Bean中。主要包括：\n\n1. **构造函数注入** - 通过构造函数参数注入依赖\n2. **Setter注入** - 通过setter方法注入依赖\n3. **字段注入** - 直接在字段上使用@Autowired或@Resource注解\n4. **接口注入** - 通过实现特定接口来注入依赖（因灵活性与易用性差，自 Spring 4 起已废弃）\n\n不同的注入方式适用于不同的场景，需要根据实际需求选择合适的方式。"
         },
         {
           "id": "ctor-vs-setter",
@@ -156459,6 +156493,11 @@
           "id": "def",
           "label": "定义",
           "content": "**ApplicationContext**：由 BeanFactory 派生的\"高级容器\"——如果说 BeanFactory 是 Spring 的心脏，ApplicationContext 就是完整的躯体。提供 BeanFactory 的所有功能，并扩展：\n\n1. **MessageSource**：国际化消息访问\n2. **资源访问**：URL 与文件的统一访问方式\n3. **事件传播**：在监听器中注册 Bean 事件（Observer 模式）\n4. **载入多个（有继承关系）上下文**：每个上下文专注一个层次（如 web 层）\n5. **同时加载多个配置文件**\n\n采用**容器启动时一次性创建所有单例 Bean** 的方式（预载入），启动即可发现配置错误，使用时无需等待；代价是占用内存、Bean 多时启动较慢。定义了 `refresh()` 方法用于刷新整个容器（重新加载/刷新所有 Bean）。\n\n### 常用实现\n- `FileSystemXmlApplicationContext`：从 XML 文件加载 Bean 定义（需提供全路径名）\n- `ClassPathXmlApplicationContext`：从 classpath 中查找 XML 配置\n- `WebXmlApplicationContext`：加载定义 WEB 应用所有 Bean 的 XML"
+        },
+        {
+          "id": "vs-beanfactory",
+          "label": "与 BeanFactory 的对比补充",
+          "content": "**与 BeanFactory 的对比补充**：\n- **创建方式**：BeanFactory 通常以编程的方式被创建；ApplicationContext 还能以声明的方式创建（如使用 ContextLoader）\n- **后处理器注册**：两者都支持 BeanPostProcessor、BeanFactoryPostProcessor 的使用，区别在注册方式——BeanFactory 需要手动注册，ApplicationContext 自动注册"
         }
       ],
       "rootContent": "ApplicationContext：BeanFactory 的派生高级容器，除 IoC 外还提供国际化、资源访问、事件发布、层级上下文等功能，启动时预载入所有单例 Bean。"
@@ -156944,7 +156983,8 @@
           "label": "定义",
           "content": "Hibernate 是当前最流行的 O/R Mapping（对象关系映射）框架，出身于 sf.NET，现已成为 JBoss 的一部分。它对数据库结构提供较为完整的封装：通过 POJO 与数据库表之间的映射，自动生成并执行 SQL，程序员只需定义好映射关系即可完成持久层操作，甚至不需要熟练掌握 SQL。相对于 iBatis 的 \"SQL Mapping\" 路线，Hibernate 走的是完整对象映射路线——映射得到的 PO 可表达立体的对象继承、聚合等关系。文档丰富、产品完善，是当前主流 O/R Mapping 框架。\n\n【与其他框架的对比】与 MyBatis (iBatis) 的区别整理为问题卡（问题库搜索「Hibernate 和 iBatis」），要点：Hibernate 自动生成 SQL、上手门槛较高、数据库结构可控时更省力；iBatis 手写 SQL、细粒度优化空间大、二次开发或性能苛刻场景更灵活。"
         }
-      ]
+      ],
+      "rootContent": "Hibernate 是当前最流行的 O/R Mapping（对象关系映射）框架，出身于 sf.NET，现已成为 JBoss 的一部分。它对数据库结构提供较为完整的封装：通过 POJO 与数据库表之间的映射，自动生成并执行 SQL，程序员只需定义好映射关系即可完成持久层操作，甚至不需要熟练掌握 SQL。相对于 iBatis 的 \"SQL Mapping\" 路线，Hibernate 走的是完整对象映射路线——映射得到的 PO 可表达立体的对象继承、聚合等关系。文档丰富、产品完善，是当前主流 O/R Mapping 框架。\n\n"
     }
   },
   "k_1789213558020_6rswrz3": {
@@ -157683,7 +157723,8 @@
           "label": "定义",
           "content": "HTTP 请求与 Servlet 模型 ## 为什么会有 Servlet\n\nHTTP 只是协议，不会替你写业务代码。 \nServlet 把“接收请求并生成响应”这件事抽象成了 Java 对象模型。\n\n## Servlet 的角色\n\n- 接收 HTTP 请求\n- 读取请求参数和请求头\n- 执行业务逻辑\n- 写回 HTTP 响应\n\n## 核心抽象\n\n```mermaid\nflowchart LR\n    A[Browser] --> B[HTTP Request]\n    B --> C[Servlet Container]\n    C --> D[Servlet]\n    D --> E[HTTP Response]\n    E --> F[Browser]\n```\n\n## 理解重点\n\nServlet 是 JavaWeb 的最小控制器模型。 \n后面的 MVC 框架，本质上都是在替代你手写 Servlet 细节。\n\n## 为什么会有 Servlet\n\nHTTP 只是协议，不会替你写业务代码。  \nServlet 把“接收请求并生成响应”这件事抽象成了 Java 对象模型。\n\n## Servlet 的角色\n\n- 接收 HTTP 请求\n- 读取请求参数和请求头\n- 执行业务逻辑\n- 写回 HTTP 响应\n\n## 核心抽象\n\n```mermaid\nflowchart LR\n    A[Browser] --> B[HTTP Request]\n    B --> C[Servlet Container]\n    C --> D[Servlet]\n    D --> E[HTTP Response]\n    E --> F[Browser]\n```\n\n## 理解重点\n\nServlet 是 JavaWeb 的最小控制器模型。  \n后面的 MVC 框架，本质上都是在替代你手写 Servlet 细节。"
         }
-      ]
+      ],
+      "rootContent": "HTTP 请求与 Servlet 模型\n\n## Servlet 的角色\n\n- 接收 HTTP 请求\n- 读取请求参数和请求头\n- 执行业务逻辑\n- 写回 HTTP 响应\n\n## 核心抽象\n\n```mermaid\nflowchart LR\n    A[Browser] --> B[HTTP Request]\n    B --> C[Servlet Container]\n    C --> D[Servlet]\n    D --> E[HTTP Response]\n    E --> F[Browser]\n```\n\n## 理解重点\n\nServlet 是 JavaWeb 的最小控制器模型。 \n后面的 MVC 框架，本质上都是在替代你手写 Servlet 细节。\n\n"
     }
   },
   "asplit_servlet_lifecycle": {
@@ -157741,7 +157782,8 @@
           "label": "定义",
           "content": "## 历史意义\n\n- 在早期 JavaWeb 中承担视图层职责\n- 推动了 MVC 分层实践\n- 但随着模板引擎和前后端分离发展，职责逐步被更现代方案替代\n\n## JSP 的定位\n\nJSP 不是另一个控制器，而是视图层模板技术。  \n它把静态 HTML 和少量动态输出混合在一起，最终仍然要转换成 Servlet 执行。\n\n## 渲染链路\n\n```mermaid\nflowchart LR\n    A[控制器设置数据] --> B[请求转发到 JSP]\n    B --> C[JSP 转 Servlet]\n    C --> D[输出 HTML]\n    D --> E[浏览器渲染]\n```\n\n## 历史意义\n\n- 在早期 JavaWeb 中承担视图层职责\n- 推动了 MVC 分层实践\n- 但随着模板引擎和前后端分离发展，职责逐步被更现代方案替代"
         }
-      ]
+      ],
+      "rootContent": "## JSP 的定位\n\nJSP 不是另一个控制器，而是视图层模板技术。  \n它把静态 HTML 和少量动态输出混合在一起，最终仍然要转换成 Servlet 执行。\n\n## 渲染链路\n\n```mermaid\nflowchart LR\n    A[控制器设置数据] --> B[请求转发到 JSP]\n    B --> C[JSP 转 Servlet]\n    C --> D[输出 HTML]\n    D --> E[浏览器渲染]\n```\n\n"
     }
   },
   "asplit_bean_lifecycle": {
@@ -160451,7 +160493,7 @@
           "content": "## 两个核心对象\n\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n（原节点已删除，此表为无损迁移留存）"
         }
       ],
-      "rootContent": "HttpServletRequest：Java Servlet API 对 HTTP 请求的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 从容器拿到请求行 / 请求头 / 请求体\n- 读取请求参数、路径、会话\n- 与协议本体的关系：它是 HTTP Request 在 Java 容器里的封装表示（引用，不是拥有）"
+      "rootContent": "HttpServletRequest：\nJava Servlet API 对 HTTP 请求的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 从容器拿到请求行 / 请求头 / 请求体\n- 读取请求参数、路径、会话\n- 与协议本体的关系：它是 HTTP Request 在 Java 容器里的封装表示（引用，不是拥有）"
     },
     "viewDimensions": [
       {
@@ -160505,7 +160547,7 @@
           "content": "## 两个核心对象\n\n\n| 对象 | 作用 |\n| --- | --- |\n| `HttpServletRequest` | 封装请求参数、请求头、路径、会话等 |\n| `HttpServletResponse` | 封装响应头、状态码、输出体 |\n\n（原节点已删除，此表为无损迁移留存）"
         }
       ],
-      "rootContent": "HttpServletResponse：Java Servlet API 对 HTTP 响应的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 设置响应头与状态码\n- 写回输出体 / 返回数据\n- 与协议本体的关系：它是 HTTP Response 在 Java 容器里的封装表示（引用，不是拥有）"
+      "rootContent": "HttpServletResponse：\nJava Servlet API 对 HTTP 响应的编程抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 设置响应头与状态码\n- 写回输出体 / 返回数据\n- 与协议本体的关系：它是 HTTP Response 在 Java 容器里的封装表示（引用，不是拥有）"
     },
     "viewDimensions": [
       {
@@ -160572,6 +160614,503 @@
       "nodeId": "k_1789734706823_3d7qb3",
       "title": "范畴论",
       "tabs": []
+    }
+  },
+  "k_1789990268084_6ihlq6": {
+    "id": "k_1789990268084_6ihlq6",
+    "label": "编程式事务管理",
+    "tags": [
+      "编程式事务管理",
+      "编程式事务"
+    ],
+    "card": {
+      "nodeId": "k_1789990268084_6ihlq6",
+      "title": "编程式事务管理",
+      "tabs": [],
+      "rootContent": "- 通过代码直接管理事务 "
+    }
+  },
+  "k_1789990286600_4u91aw": {
+    "id": "k_1789990286600_4u91aw",
+    "label": "声明式事务管理",
+    "tags": [
+      "声明式事务管理"
+    ],
+    "card": {
+      "nodeId": "k_1789990286600_4u91aw",
+      "title": "声明式事务管理",
+      "tabs": [],
+      "rootContent": "- 基于TransactionProxyFactoryBean \n- 基于AspectJ的XML配置 \n- 基于注解（@Transactional） "
+    }
+  },
+  "k_1789990347328_gpyacq": {
+    "id": "k_1789990347328_gpyacq",
+    "label": "实现方式",
+    "tags": [
+      "实现方式"
+    ],
+    "card": {
+      "nodeId": "k_1789990347328_gpyacq",
+      "title": "实现方式",
+      "tabs": []
+    }
+  },
+  "k_1789990688000_67h3y4": {
+    "id": "k_1789990688000_67h3y4",
+    "label": "事务管理器类型",
+    "tags": [
+      "事务管理器类型"
+    ],
+    "card": {
+      "nodeId": "k_1789990688000_67h3y4",
+      "title": "事务管理器类型",
+      "tabs": []
+    }
+  },
+  "k_1789991600184_tdvnkv": {
+    "id": "k_1789991600184_tdvnkv",
+    "label": "DataSourceTransactionManager",
+    "tags": [
+      "DataSourceTransactionManager"
+    ],
+    "card": {
+      "nodeId": "k_1789991600184_tdvnkv",
+      "title": "DataSourceTransactionManager",
+      "tabs": [],
+      "rootContent": "JDBC事务"
+    }
+  },
+  "k_1789991600184_cbaaxs": {
+    "id": "k_1789991600184_cbaaxs",
+    "label": "HibernateTransactionManager",
+    "tags": [
+      "HibernateTransactionManager"
+    ],
+    "card": {
+      "nodeId": "k_1789991600184_cbaaxs",
+      "title": "HibernateTransactionManager",
+      "tabs": [],
+      "rootContent": "Hibernate事务"
+    }
+  },
+  "k_1789991600184_iwsx8m": {
+    "id": "k_1789991600184_iwsx8m",
+    "label": "JtaTransactionManager",
+    "tags": [
+      "JtaTransactionManager"
+    ],
+    "card": {
+      "nodeId": "k_1789991600184_iwsx8m",
+      "title": "JtaTransactionManager",
+      "tabs": [],
+      "rootContent": "JTA事务"
+    }
+  },
+  "k_1789991600184_b5icxa": {
+    "id": "k_1789991600184_b5icxa",
+    "label": "JpaTransactionManager",
+    "tags": [
+      "JpaTransactionManager"
+    ],
+    "card": {
+      "nodeId": "k_1789991600184_b5icxa",
+      "title": "JpaTransactionManager",
+      "tabs": [],
+      "rootContent": "JPA事务"
+    }
+  },
+  "jsp_trigger_request": {
+    "id": "jsp_trigger_request",
+    "label": "浏览器请求 JSP",
+    "role": "axiom",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "浏览器请求 JSP"
+    ],
+    "kind": "event",
+    "card": {
+      "nodeId": "jsp_trigger_request",
+      "title": "浏览器请求 JSP",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "浏览器对 .jsp 地址发起 HTTP 请求，请求进入 Servlet 容器的 JSP 处理链路。"
+        }
+      ],
+      "rootContent": "浏览器请求 JSP\n\n浏览器对 .jsp 地址发起 HTTP 请求，请求进入 Servlet 容器的 JSP 处理链路。"
+    }
+  },
+  "jsp_state_check": {
+    "id": "jsp_state_check",
+    "label": "容器检查是否已编译",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "容器检查是否已编译"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_check",
+      "title": "容器检查是否已编译",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "容器按页面对应的 Servlet 类是否已存在判断走向：首次访问或 JSP 源文件变更时走翻译编译，已编译则直接复用。"
+        }
+      ],
+      "rootContent": "容器检查是否已编译\n\n容器按页面对应的 Servlet 类是否已存在判断走向：首次访问或 JSP 源文件变更时走翻译编译，已编译则直接复用。"
+    }
+  },
+  "jsp_state_translate": {
+    "id": "jsp_state_translate",
+    "label": "JSP 转 Servlet 源码",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "JSP 转 Servlet 源码"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_translate",
+      "title": "JSP 转 Servlet 源码",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "容器把 JSP 页面翻译成等价的 Servlet Java 源码，页面模板代码被组织进 _jspService 方法。"
+        }
+      ],
+      "rootContent": "JSP 转 Servlet 源码\n\n容器把 JSP 页面翻译成等价的 Servlet Java 源码，页面模板代码被组织进 _jspService 方法。"
+    }
+  },
+  "jsp_state_compile": {
+    "id": "jsp_state_compile",
+    "label": "编译为 Class",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "编译为 Class"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_compile",
+      "title": "编译为 Class",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "翻译出的 Java 源码交给编译器编译成 Class 字节码，产物由容器管理。"
+        }
+      ],
+      "rootContent": "编译为 Class\n\n翻译出的 Java 源码交给编译器编译成 Class 字节码，产物由容器管理。"
+    }
+  },
+  "jsp_state_load": {
+    "id": "jsp_state_load",
+    "label": "加载并初始化",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "加载并初始化"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_load",
+      "title": "加载并初始化",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "容器类加载器加载编译产物并完成 Servlet 初始化，得到可处理请求的实例。"
+        }
+      ],
+      "rootContent": "加载并初始化\n\n容器类加载器加载编译产物并完成 Servlet 初始化，得到可处理请求的实例。"
+    }
+  },
+  "jsp_state_service": {
+    "id": "jsp_state_service",
+    "label": "service 处理请求",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "service 处理请求"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_service",
+      "title": "service 处理请求",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "容器调用实例的 service 方法，页面代码按 Servlet 逻辑处理本次请求。"
+        }
+      ],
+      "rootContent": "service 处理请求\n\n容器调用实例的 service 方法，页面代码按 Servlet 逻辑处理本次请求。"
+    }
+  },
+  "jsp_state_output": {
+    "id": "jsp_state_output",
+    "label": "输出 HTML",
+    "role": "conclusion",
+    "dimensions": [
+      "java"
+    ],
+    "tags": [
+      "输出 HTML"
+    ],
+    "kind": "state",
+    "card": {
+      "nodeId": "jsp_state_output",
+      "title": "输出 HTML",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "处理结果写出为 HTML 响应，浏览器渲染页面。"
+        }
+      ],
+      "rootContent": "输出 HTML\n\n处理结果写出为 HTML 响应，浏览器渲染页面。"
+    }
+  },
+  "concept_url_rewrite": {
+    "id": "concept_url_rewrite",
+    "label": "URL 重写",
+    "role": "plain",
+    "kind": "concept",
+    "dimensions": [],
+    "tags": [
+      "URL 重写"
+    ],
+    "card": {
+      "nodeId": "concept_url_rewrite",
+      "title": "URL 重写",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "URL 重写：把会话标识编码进 URL 的会话跟踪方案，不依赖 Cookie（如 ;jsessionid=xxx）。\n\n- 每次响应都要重写页面中的链接与表单 action\n- 会话标识暴露在地址栏与日志中，安全性与可用性受限\n- Cookie 被禁用时的经典回退方案"
+        }
+      ],
+      "rootContent": "URL 重写\n\nURL 重写：把会话标识编码进 URL 的会话跟踪方案，不依赖 Cookie（如 ;jsessionid=xxx）。\n\n- 每次响应都要重写页面中的链接与表单 action\n- 会话标识暴露在地址栏与日志中，安全性与可用性受限\n- Cookie 被禁用时的经典回退方案"
+    }
+  },
+  "concept_token": {
+    "id": "concept_token",
+    "label": "Token",
+    "role": "plain",
+    "kind": "concept",
+    "dimensions": [],
+    "tags": [
+      "Token"
+    ],
+    "card": {
+      "nodeId": "concept_token",
+      "title": "Token",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Token：把状态编码进令牌（如 JWT）由客户端携带、服务端校验的状态管理方案。\n\n- 常见于 Authorization 请求头（Bearer 令牌）\n- 无状态：服务端不存会话数据，便于水平扩展与跨域\n- 与 Session 的取舍：可撤销性 vs 可扩展性"
+        }
+      ],
+      "rootContent": "Token\n\nToken：把状态编码进令牌（如 JWT）由客户端携带、服务端校验的状态管理方案。\n\n- 常见于 Authorization 请求头（Bearer 令牌）\n- 无状态：服务端不存会话数据，便于水平扩展与跨域\n- 与 Session 的取舍：可撤销性 vs 可扩展性"
+    }
+  },
+  "concept_http_servlet_cookie": {
+    "id": "concept_http_servlet_cookie",
+    "label": "javax.servlet.http.Cookie",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "tags": [
+      "javax.servlet.http.Cookie",
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "card": {
+      "nodeId": "concept_http_servlet_cookie",
+      "title": "javax.servlet.http.Cookie",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "javax.servlet.http.Cookie：Servlet 规范对 HTTP Cookie 的 Java 类型抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 写入：new Cookie(name, value) + response.addCookie(...)\n- 读取：request.getCookies()\n- 常用属性：maxAge / path / domain / httpOnly / secure\n- 与协议本体的关系：它是 HTTP Cookie（Set-Cookie / Cookie 头）在 Java 容器里的封装表示（引用，不是拥有）"
+        }
+      ],
+      "rootContent": "javax.servlet.http.Cookie：Servlet 规范对 HTTP Cookie 的 Java 类型抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 写入：new Cookie(name, value) + response.addCookie(...)\n- 读取：request.getCookies()\n- 常用属性：maxAge / path / domain / httpOnly / secure\n- 与协议本体的关系：它是 HTTP Cookie（Set-Cookie / Cookie 头）在 Java 容器里的封装表示（引用，不是拥有）"
+    },
+    "viewDimensions": [
+      {
+        "id": "concept_binding",
+        "name": "绑定的协议本体",
+        "color": "#2F80ED",
+        "hint": "Java 侧类型只是 HTTP 协议机制的容器封装；点开看协议层定义。",
+        "sections": [
+          {
+            "id": "concept_binding_grid",
+            "title": "绑定的协议本体",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "atomic_cookie",
+                "desc": "HTTP Cookie：Set-Cookie / Cookie 头机制（RFC 6265）"
+              }
+            ]
+          }
+        ],
+        "groups": []
+      }
+    ]
+  },
+  "concept_http_servlet_session": {
+    "id": "concept_http_servlet_session",
+    "label": "HttpSession",
+    "role": "plain",
+    "kind": "Concept",
+    "dimensions": [
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "tags": [
+      "HttpSession",
+      "JavaWeb",
+      "Servlet API"
+    ],
+    "card": {
+      "nodeId": "concept_http_servlet_session",
+      "title": "HttpSession",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "HttpSession：Servlet 规范对服务端会话的 Java 类型抽象（Java 侧的**类型**，不是 Session 概念本身）。\n\n- 获取：request.getSession() / getSession(false)\n- 存取：setAttribute / getAttribute / removeAttribute\n- 会话标识：JSESSIONID（Cookie 或 URL 重写承载）关联到服务端会话对象\n- 与概念本体的关系：它是「跨请求认住同一个客户端」的 Java 容器实现（引用，不是拥有）"
+        }
+      ],
+      "rootContent": "HttpSession：Servlet 规范对服务端会话的 Java 类型抽象（Java 侧的**类型**，不是 Session 概念本身）。\n\n- 获取：request.getSession() / getSession(false)\n- 存取：setAttribute / getAttribute / removeAttribute\n- 会话标识：JSESSIONID（Cookie 或 URL 重写承载）关联到服务端会话对象\n- 与概念本体的关系：它是「跨请求认住同一个客户端」的 Java 容器实现（引用，不是拥有）"
+    },
+    "viewDimensions": [
+      {
+        "id": "concept_binding",
+        "name": "绑定的概念本体",
+        "color": "#2F80ED",
+        "hint": "Java 侧类型只是通用概念的容器封装；点开看概念层定义。",
+        "sections": [
+          {
+            "id": "concept_binding_grid",
+            "title": "绑定的概念本体",
+            "layout": "grid",
+            "atoms": [
+              {
+                "nodeId": "k_dict_ef30sdky",
+                "desc": "Session：跨请求认住同一个客户端的通用服务端方案"
+              }
+            ]
+          }
+        ],
+        "groups": []
+      }
+    ]
+  },
+  "concept_session_lifecycle": {
+    "id": "concept_session_lifecycle",
+    "label": "Session 生命周期与配置",
+    "role": "plain",
+    "kind": "concept",
+    "dimensions": [],
+    "tags": [
+      "Session 生命周期与配置"
+    ],
+    "card": {
+      "nodeId": "concept_session_lifecycle",
+      "title": "Session 生命周期与配置",
+      "tabs": [
+        {
+          "id": "def",
+          "label": "定义",
+          "content": "Session 生命周期与配置：Servlet 规范里会话的创建、超时与持久化机制。\n\n- web.xml `<session-config>`：`<session-timeout>` 配置超时分钟数\n- 超时：Tomcat 默认 30 分钟；HttpSession.setMaxInactiveInterval() 可调\n- 钝化 / 活化：闲置时序列化到磁盘，再次访问时恢复\n- 失效：invalidate()；监听器 HttpSessionListener / HttpSessionAttributeListener"
+        }
+      ],
+      "rootContent": "Session 生命周期与配置\n\nSession 生命周期与配置：Servlet 规范里会话的创建、超时与持久化机制。\n\n- web.xml `<session-config>`：`<session-timeout>` 配置超时分钟数\n- 超时：Tomcat 默认 30 分钟；HttpSession.setMaxInactiveInterval() 可调\n- 钝化 / 活化：闲置时序列化到磁盘，再次访问时恢复\n- 失效：invalidate()；监听器 HttpSessionListener / HttpSessionAttributeListener"
+    }
+  },
+  "k_1790017845551_esmxat": {
+    "id": "k_1790017845551_esmxat",
+    "label": "常用的Java conﬁg",
+    "tags": [
+      "常用的Java config"
+    ],
+    "card": {
+      "nodeId": "k_1790017845551_esmxat",
+      "title": "常用的Java conﬁg",
+      "tabs": [],
+      "rootContent": "常用的Java conﬁg：\n@Conﬁguration：在类上打上写下此注解，表示这个类是配置类\n@ComponentScan：在配置类上添加@ComponentScan注解。该注解默认会扫描该类所在的包下所有的配置类，相当于之前的<context:component-scan >。\n@Bean：bean的注入：相当于以前的< bean id=\"objectMapper\"\nclass=\"org.codehaus.jackson.map.ObjectMapper\" />\n@EnableWebMvc：相当于xml的<mvc:annotation-driven >\n@ImportResource：相当于xml的< import resource=\"applicationContext-\ncache.xml\">"
+    }
+  },
+  "k_1790088488861_ladx65": {
+    "id": "k_1790088488861_ladx65",
+    "label": "基于XML的配置",
+    "tags": [
+      "基于XML的配置"
+    ],
+    "card": {
+      "nodeId": "k_1790088488861_ladx65",
+      "title": "基于XML的配置",
+      "tabs": []
+    }
+  },
+  "k_1790088499250_m9wpgt": {
+    "id": "k_1790088499250_m9wpgt",
+    "label": "基于注解的配置",
+    "tags": [
+      "基于注解的配置"
+    ],
+    "card": {
+      "nodeId": "k_1790088499250_m9wpgt",
+      "title": "基于注解的配置",
+      "tabs": []
+    }
+  },
+  "k_1790088508167_fc7dvq": {
+    "id": "k_1790088508167_fc7dvq",
+    "label": "基于Java的配置",
+    "tags": [
+      "基于Java的配置"
+    ],
+    "card": {
+      "nodeId": "k_1790088508167_fc7dvq",
+      "title": "基于Java的配置",
+      "tabs": []
+    }
+  },
+  "k_1790095296024_kmn8uj": {
+    "id": "k_1790095296024_kmn8uj",
+    "label": "核心接口",
+    "tags": [
+      "核心接口"
+    ],
+    "card": {
+      "nodeId": "k_1790095296024_kmn8uj",
+      "title": "核心接口",
+      "tabs": [],
+      "rootContent": "### PlatformTransactionManager \nSpring事务管理器的接口，为各个平台提供事务管理：\n ```java \nPublic interface PlatformTransactionManager() { \n// 由TransactionDefinition得到TransactionStatus对象 \nTransactionStatus getTransaction(TransactionDefinition definition); \n// 提交 \nVoid commit(TransactionStatus status); \n// 回滚 \nVoid rollback(TransactionStatus status); } \n```"
     }
   }
 }

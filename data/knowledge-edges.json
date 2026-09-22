@@ -36141,26 +36141,6 @@
     "dimensions": []
   },
   {
-    "id": "treebind:tree_java_fw_javaweb:tree_java_fw_web_state_management",
-    "source": "k_java_fw_javaweb",
-    "target": "asplit_web_state_management",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "asplit:s18:session-state",
-    "source": "k_dict_ef30sdky",
-    "target": "asplit_web_state_management",
-    "type": "实现",
-    "label": "Session 与 Cookie 实现 Web 状态管理",
-    "relationKind": "dependency",
-    "dimensions": []
-  },
-  {
     "id": "treebind:tree_java_fw_kafka:tree_java_fw_kafka_consumer_group",
     "source": "k_java_fw_kafka",
     "target": "asplit_kafka_consumer_group",
@@ -36282,28 +36262,6 @@
     "label": "contains",
     "relationKind": "structure",
     "dimensions": []
-  },
-  {
-    "id": "treebind:tree_java_fw_javaweb:atomic_k_dict_ef30sdky",
-    "source": "k_java_fw_javaweb",
-    "target": "k_dict_ef30sdky",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
-  },
-  {
-    "id": "treebind:tree_java_fw_javaweb:atomic_atomic_cookie",
-    "source": "k_java_fw_javaweb",
-    "target": "atomic_cookie",
-    "type": "belongs-to",
-    "label": "contains",
-    "relationKind": "structure",
-    "dimensions": [
-      "java"
-    ]
   },
   {
     "id": "atomic:s1:session-cookie",
@@ -37460,5 +37418,336 @@
     "label": "contains",
     "relationKind": "structure",
     "dimensions": []
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_1nbiew:tree_1789990347335_mwcd4s",
+    "source": "k_vault_javaspringspring_1nbiew",
+    "target": "k_1789990347328_gpyacq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_1789990347335_mwcd4s:tree_1789990286610_2j5w89",
+    "source": "k_1789990347328_gpyacq",
+    "target": "k_1789990286600_4u91aw",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1789990347335_mwcd4s:tree_1789990268090_jpu5e8",
+    "source": "k_1789990347328_gpyacq",
+    "target": "k_1789990268084_6ihlq6",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_1nbiew:tree_1789990688009_p6e9n1",
+    "source": "k_vault_javaspringspring_1nbiew",
+    "target": "k_1789990688000_67h3y4",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_1789990688009_p6e9n1:tree_1789991600184_ceevwn",
+    "source": "k_1789990688000_67h3y4",
+    "target": "k_1789991600184_tdvnkv",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1789990688009_p6e9n1:tree_1789991600184_mub0bn",
+    "source": "k_1789990688000_67h3y4",
+    "target": "k_1789991600184_cbaaxs",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1789990688009_p6e9n1:tree_1789991600184_wmjj0r",
+    "source": "k_1789990688000_67h3y4",
+    "target": "k_1789991600184_iwsx8m",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1789990688009_p6e9n1:tree_1789991600184_51367d",
+    "source": "k_1789990688000_67h3y4",
+    "target": "k_1789991600184_b5icxa",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_trigger_request",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_trigger_request",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_check",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_check",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_translate",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_translate",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_compile",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_compile",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_load",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_load",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_service",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_service",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_vault_javajavawebjsp_elp41h:tree_jsp_state_output",
+    "source": "k_vault_javajavawebjsp_elp41h",
+    "target": "jsp_state_output",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t1",
+    "source": "jsp_trigger_request",
+    "target": "jsp_state_check",
+    "type": "transitions-to",
+    "label": "请求进入容器",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t2",
+    "source": "jsp_state_check",
+    "target": "jsp_state_translate",
+    "type": "transitions-to",
+    "label": "首次访问或页面变更",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t3",
+    "source": "jsp_state_translate",
+    "target": "jsp_state_compile",
+    "type": "transitions-to",
+    "label": "翻译出源码",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t4",
+    "source": "jsp_state_compile",
+    "target": "jsp_state_load",
+    "type": "transitions-to",
+    "label": "编译产出 Class",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t5",
+    "source": "jsp_state_load",
+    "target": "jsp_state_service",
+    "type": "transitions-to",
+    "label": "初始化完成",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t6",
+    "source": "jsp_state_check",
+    "target": "jsp_state_service",
+    "type": "transitions-to",
+    "label": "已编译直接复用",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "jsp:t7",
+    "source": "jsp_state_service",
+    "target": "jsp_state_output",
+    "type": "transitions-to",
+    "label": "写出 HTML 响应",
+    "relationKind": "state-transition",
+    "dimensions": [
+      "java"
+    ]
+  },
+  {
+    "id": "treebind:tree_1786874260927_9y92b2:tree_java_fw_web_state_management",
+    "source": "k_1786874260568_6d4ruq",
+    "target": "asplit_web_state_management",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_web_state_management:atomic_k_dict_ef30sdky",
+    "source": "asplit_web_state_management",
+    "target": "k_dict_ef30sdky",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_web_state_management:tree_concept_url_rewrite",
+    "source": "asplit_web_state_management",
+    "target": "concept_url_rewrite",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_web_state_management:tree_concept_token",
+    "source": "asplit_web_state_management",
+    "target": "concept_token",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1786898710541_l4hgm2:atomic_atomic_cookie",
+    "source": "k_1786898710067_dpzp8r",
+    "target": "atomic_cookie",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_cookie",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_cookie",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_http_servlet_session",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_http_servlet_session",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_java_fw_servlet:tree_java_fw_session_lifecycle",
+    "source": "k_1784340526295_skm8iw",
+    "target": "concept_session_lifecycle",
+    "type": "structure",
+    "label": "结构包含",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1785247674167_f8h8ti:tree_1790017845557_yvk8xn",
+    "source": "k_1785247674069_capddv",
+    "target": "k_1790017845551_esmxat",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1788683294830_y80ep0:tree_1790088488872_raz4yl",
+    "source": "k_1788683294815_qvh7np",
+    "target": "k_1790088488861_ladx65",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1788683294830_y80ep0:tree_1790088499262_tyjmud",
+    "source": "k_1788683294815_qvh7np",
+    "target": "k_1790088499250_m9wpgt",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_1788683294830_y80ep0:tree_1790088508180_2fjqzs",
+    "source": "k_1788683294815_qvh7np",
+    "target": "k_1790088508167_fc7dvq",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure"
+  },
+  {
+    "id": "treebind:tree_vault_javaspringspring_1nbiew:tree_1790095296031_vdf7cg",
+    "source": "k_vault_javaspringspring_1nbiew",
+    "target": "k_1790095296024_kmn8uj",
+    "type": "belongs-to",
+    "label": "contains",
+    "relationKind": "structure",
+    "dimensions": [
+      "java"
+    ]
   }
 ]
