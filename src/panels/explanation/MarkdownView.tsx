@@ -22,8 +22,9 @@ function renderReferenceText(
   );
 }
 
-// 行内 token：**粗体**、`行内代码`、[链接](url)、$^{上标脚注}$
-const INLINE_TOKEN_REGEX = /(\*\*[^*]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)|\$\^\{[^}\n]*\}\$)/g;
+// 行内 token：![图片](url)、**粗体**、`行内代码`、[链接](url)、$^{上标脚注}$
+// 图片 alternative 必须在链接之前：![alt](src) 的 [alt](src) 部分会被链接规则抢先匹配
+const INLINE_TOKEN_REGEX = /(!\[[^\]\n]*\]\([^)\n]+\)|\*\*[^*]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)|\$\^\{[^}\n]*\}\$)/g;
 
 function renderInlineFormatting(
   text: string,
@@ -48,7 +49,17 @@ function renderInlineFormatting(
 
     const token = match[0];
 
-    if (token.startsWith('**')) {
+    if (token.startsWith('![')) {
+      const imgMatch = token.match(/^!\[([^\]\n]*)\]\(([^)\s]+)[^)]*\)$/);
+      const imgAlt = imgMatch?.[1] ?? '';
+      const imgSrc = imgMatch?.[2] ?? '';
+      // 仅放行 http(s) 与站内绝对路径；其余按原文本渲染（与链接分支同策略）
+      if (imgSrc && (/^https?:\/\//.test(imgSrc) || imgSrc.startsWith('/'))) {
+        parts.push(<SmartImage key={match.index} src={imgSrc} alt={imgAlt} />);
+      } else {
+        parts.push(renderReferenceText(token, references, onOpenReference, `img-${match.index}`));
+      }
+    } else if (token.startsWith('**')) {
       const innerText = token.slice(2, -2);
       parts.push(
         <strong key={match.index} style={{ color: 'var(--text-primary)', fontWeight: '600' }}>
