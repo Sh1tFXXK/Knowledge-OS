@@ -448,11 +448,11 @@ for (const raw of statusRaw.split('\0').filter(Boolean)) {
   const rels = rel0.endsWith('/') ? expandUntrackedDir(rel0) : [rel0]
   for (const rel of rels) {
     const owners = OWNERS_ONLY(rel)
-    if (owners.length) { owned_.push({ rel, xy, by: owners.map((m) => m.batchId) }); continue }
+    if (owners.length) { owned_.push({ rel, xy, by: owners.map((m) => m.batchId ?? m.batch) }); continue }
     const ex = EXCLUDERS(rel)
     if (!ex.length) { others_.push({ rel, xy }); continue }
     const prefixOnly = ex.every((m) => excludedByPrefix(rel, m) && !excludedByExact(rel, m))
-    const rec2 = { rel, xy, by: ex.map((m) => m.batchId) }
+    const rec2 = { rel, xy, by: ex.map((m) => m.batchId ?? m.batch) }
     ;(prefixOnly ? exclPrefix_ : exclExact_).push(rec2)
   }
 }
@@ -573,7 +573,7 @@ L('\n【本次提交 pathspec（= manifest.writeSet，勿手写）】')
 L('git add \\\n  ' + WRITE_SET.join(' \\\n  '))
 L('\n【提交结构（全部 manifest）】')
 for (const m of [manifest, ...others].filter(Boolean)) {
-  L('  · ' + m.batchId.padEnd(18) + (m.status ?? '').padEnd(24) + '写集 ' + (m.writeSet ?? []).length + ' 项  baseRef=' + (m.baseRef ?? '?'))
+  L('  · ' + (m.batchId ?? m.batch ?? '(?)').padEnd(18) + (m.status ?? '').padEnd(24) + '写集 ' + (m.writeSet ?? []).length + ' 项  baseRef=' + (m.baseRef ?? '?'))
 }
 
 fs.mkdirSync(OUT_DIR, { recursive: true })
