@@ -1,0 +1,40 @@
+{
+  "batch": "springmvc-flow-split",
+  "date": "2026-09-23",
+  "trigger": "用户贴出「SpringMVC 请求链路」卡正文并立新规：拆解时【不得注入「详见/见子节点」类跨节点指针】——知识保持独立性，内部逻辑写在知识点里，外部逻辑（导航/关联）是系统（树）的职责。",
+  "principleEstablished": "知识独立性：卡内容零跨节点指针。本批后置门以正则 /详见|见子节点|见「|参见|另见/ 全卡硬校验。注：前两批（aop-split-fusion / springmvc-split-fusion）含此类指针，与本规冲突，待用户裁决是否回填修正。",
+  "target": {
+    "entity": "k_vault_javaspring04springmvc_133lis",
+    "treeId": "tree_vault_javaspring04springmvc_133lis",
+    "path": "知识宇宙>…>Spring>SpringMVC>SpringMVC 请求链路",
+    "role": "叶节点"
+  },
+  "preflightFindings": {
+    "dualCopy": "rootContent（547 字塌行版）≈ def tab（607 字干净版）复制",
+    "lostSection": "塌行比 AOP/MVC 壳更严重：「## Spring MVC 在做什么」整节（标题+正文句）在 rootContent 里被吃掉，def tab 是唯一完整源",
+    "collapsedTail": "并发理解节尾在 rootContent 里带前导空格塌行"
+  },
+  "actions": {
+    "split": "正文 → 4 个语义 tab：def 定义(156字,=在做什么+封装意义) / flow 请求主线(229字,mermaid) / objects 核心对象(140字) / concurrency 并发理解(76字)，逐字源自干净 def tab",
+    "fuse": [
+      "rootContent 收为 262 字自含总述（主线一句话 + 封装本质 + 单例告诫），零指针",
+      "「在做什么」丢失段回补进 def tab",
+      "mermaid 请求主线图迁 flow tab（全卡恰好 1 份）"
+    ],
+    "untouched": "树/边/问题零写；兄弟「Spring MVC 原理」等全部不动；card 其他字段原样"
+  },
+  "gates": {
+    "pre": "6/6（塌行形态、丢段证据、单 def tab、干净源含丢失句）",
+    "post": "16 关键词守恒 + mermaid 唯一性 + 零指针正则 + 短总述 + 塌行 marker 清除",
+    "writeback": "回读逐字节复验 rootContent 与 tabs；池键数 3870 不变"
+  },
+  "uiProbe": {
+    "method": "临时数据目录副本 + vite preview 4192 + 无头 Chromium CDP（shell-fusion 已验证选择器原语）",
+    "result": "11/11 ALL PASS",
+    "assertions": "① 数据级 tabs 结构 + 自含总述 + 零指针 + mermaid 唯一；② 读态新总述无 mermaid 源码/细节残留；③ 兄弟「Spring MVC 原理」防误伤（HandlerAdapter 链原样）；④ 刷新复测"
+  },
+  "threeGreens": "tsc 0 错 / npm test 68/68（本批零源码改动，沿用上轮）",
+  "artifacts": {
+    "apply": "scripts/apply-springmvc-flow-split.mjs（dry-run 默认 + --apply，前后断言门，原子写）"
+  }
+}

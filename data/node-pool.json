@@ -146060,10 +146060,25 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "## Spring MVC 在做什么\n\n它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。\n\n## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```\n\n## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。\n\n## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。  \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
+          "content": "## Spring MVC 在做什么\n\n它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。"
+        },
+        {
+          "id": "flow",
+          "label": "请求主线",
+          "content": "## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```"
+        },
+        {
+          "id": "objects",
+          "label": "核心对象",
+          "content": "## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图"
+        },
+        {
+          "id": "concurrency",
+          "label": "并发理解",
+          "content": "## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。  \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
         }
       ],
-      "rootContent": "SpringMVC 请求链路\n ## Spring MVC 在做什么\n\n## 请求主线\n\n```mermaid\nflowchart LR\n    A[HTTP Request] --> B[DispatcherServlet]\n    B --> C[HandlerMapping]\n    C --> D[Controller]\n    D --> E[HandlerAdapter]\n    E --> F[ViewResolver / ResponseBody]\n    F --> G[HTTP Response]\n```\n\n## 核心对象\n\n- `DispatcherServlet`：前端控制器\n- `HandlerMapping`：请求到处理器的映射\n- `HandlerAdapter`：适配不同处理器执行方式\n- `Controller`：承载业务入口\n- `ViewResolver`：解析视图\n\n## 封装意义\n\nSpring MVC 把原本混杂在 Servlet 里的：\n\n- 路由分发\n- 参数绑定\n- 返回值处理\n- 视图解析\n\n拆成了稳定的职责链。\n\n## 并发理解\n\nController 默认常是单例，因此不要在成员变量里保存请求态数据。 \n请求相关状态应留在方法参数、局部变量或请求作用域对象中。"
+      "rootContent": "**Spring MVC 请求链路**：一次 HTTP 请求在框架内的标准旅程——**DispatcherServlet** 统一接收请求，HandlerMapping 定位 Controller，HandlerAdapter 适配执行，最终经 ViewResolver / ResponseBody 产出响应。本质是把路由分发、参数绑定、返回值处理、视图解析从原始 Servlet 编程中拆成稳定的职责链。注意：Controller 默认常是单例，请求相关状态应留在方法参数、局部变量或请求作用域对象中，不要存入成员变量。"
     }
   },
   "k_java_fw_spring_aop": {
