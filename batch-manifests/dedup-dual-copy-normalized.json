@@ -6,7 +6,7 @@
   "preBatchSnapshot": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/",
   "preBatchSnapshotNote": "apply 前六文件快照（apply 脚本落盘前自动拍摄，时间 2026-09-24 00:36）：node-pool.json 12375696 字节 · sha256 c782ef3442cde23ddd9bda0a2b7475d325a184c1b3a166bec7f98b732e063765 = HEAD blob；verify 以此为 before 独立反推（不 import apply）。该目录**不入库**（性质等同 data/backups/，见 excludedSet）。",
   "commitSubjectHint": "data: DEDUP-DUAL-COPY-NORMALIZED — 802 张双副本卡按「更干净一侧」归并（tab 461 / root 127 / tie 214 · 池 3870 不变 · 外壳标签 5 值全量留档）（独立验证 839 PASS/0 FAIL · UI 12/12 · 回归 68/68）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "上一批 dedup-dual-copy-strict（44 例逐字节相等档）登记时留下的 tier2 待办：②approx（仅差空白）396 + ③label-prefix（root = 标签+tab）406 需另行裁决「root ← 更干净一侧 + 删 tab」。",
     "method": "plan（只读多门，scripts/plan-dedup-dual-copy-normalized.mjs，空行口径 = 含只带空格的空行）→ apply（默认 dry-run）→ verify（不 import apply，从快照独立反推）→ 无头 Chromium CDP UI 探针 → manifest 登记。",
@@ -909,5 +909,7 @@
     "③档 root/tie 分支 rootContent 的 label 前缀残留（剥前缀另立批次）。",
     "tab 面 301 处尾注（strip 批声明排除，既有债）。"
   ],
-  "registeredAt": "2026-09-24T02:55+08:00"
+  "registeredAt": "2026-09-24T02:55+08:00",
+  "commitSha": "d309470",
+  "committedAt": "2026-09-24T03:2x+08:00"
 }
