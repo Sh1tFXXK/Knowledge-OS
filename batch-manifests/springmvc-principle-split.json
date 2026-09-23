@@ -1,0 +1,34 @@
+{
+  "batch": "springmvc-principle-split",
+  "date": "2026-09-23",
+  "trigger": "用户贴出「Spring MVC 原理」卡全文指出「这个没拆」——SpringMVC 壳下第二张漏网叶卡，同款塌行双份。",
+  "principle": "知识独立性：卡内容零跨节点指针（/详见|见子节点|见「|参见|另见/ 硬校验）。本批 rootContent 为自含总述。",
+  "target": {
+    "entity": "k_vault_javaspringspringmvcspringmvc_1932hl",
+    "treeId": "tree_vault_javaspringspringmvcspringmvc_1932hl",
+    "path": "知识宇宙>…>Spring>SpringMVC>Spring MVC 原理",
+    "role": "叶节点"
+  },
+  "preflightFindings": {
+    "dualCopy": "rootContent（886 字塌行版，带库 vault 标题行「Spring MVC 原理 」前缀）≈ def tab（870 字干净完整版）",
+    "collapseForm": "步骤行被拆行（**渲染视图**：\\nView…）、表格行前导空格、XML 配置压成单行；def tab 格式规整（步骤单行/表格干净/XML 缩进正常）",
+    "noLostSection": "与请求链路卡不同，本卡 rootContent 未丢节（锚点守恒检查 6/6），仅塌行",
+    "misnamedDef": "单 def tab 标「定义」但内容实为流程+组件+配置全文，名不副实，撤除"
+  },
+  "actions": {
+    "split": "干净 def tab 按 '## ' 程序化切 3 节（split/(?=^## )/m + join 逐字节还原校验，零手抄）：flow 工作流程(350字,7步) / components 核心组件(178字,5行表) / config 常见配置(338字,XML+@EnableWebMvc)",
+    "fuse": "rootContent 收为 249 字自含总述（DispatcherServlet 中心调度主线 + 五组件 + 双配置路径），零指针；库标题行前缀与塌行残留清除",
+    "untouched": "树/边/问题零写；兄弟「SpringMVC 请求链路」（0076d78 已拆）防误伤断言原样；card 其他字段原样"
+  },
+  "gates": {
+    "pre": "17（形态+标题行前缀+双份+塌行特征正则纠偏一次+干净源三节+root 锚点守恒×6+切节无损）",
+    "post": "21（零指针+七步×7+表格×5+配置×4+xml 唯一+总述形态×3）",
+    "writeback": "回读逐字节复验 rootContent 与 tabs；池键数不变"
+  },
+  "uiProbe": {
+    "method": "临时数据目录 + vite preview 4192 + 无头 Chromium CDP（复用 shell-fusion 原语）",
+    "result": "11/11 ALL PASS",
+    "assertions": "① 数据级 tabs 结构+自含总述+零指针+xml 唯一；② 兄弟「请求链路」4 tab 防误伤；③ 读态新总述无 XML/步骤残留；④ 刷新复测"
+  },
+  "artifacts": { "apply": "scripts/apply-springmvc-principle-split.mjs（dry-run 默认 + --apply，断言门，原子写）" }
+}

@@ -146230,7 +146230,7 @@
           "content": "Spring IoC 的实现机制 \nSpring 中的 IoC 的实现原理就是工厂模式加反射机制。"
         }
       ],
-      "rootContent": "概念 \nSpring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。\n\n\n\n"
+      "rootContent": "Spring 通过一个配置文件描述 Bean 及 Bean 之间的依赖关系，利用 Java 语言的反射功能实例化 Bean并建立 Bean 之间的依赖关系。 Spring 的 IoC 容器在完成这些底层工作的基础上，还提供了 Bean 实例缓存、生命周期管理、 Bean 实例代理、事件发布、资源装载等高级服务。 Spring容器高层视图 Spring 启动时读取应用程序提供的 Bean 配置信息，并在 Spring 容器中生成一份相应的 Bean 配置注册表，然后根据这张注册表实例化 Bean，装配好 Bean 之间的依赖关系，为上层应用提供准备就绪的运行环境。其中 Bean 缓存池为 HashMap 实现 IOC 容器实现 BeanFactory-框架基础设施 BeanFactory 是 Spring 框架的基础设施，面向 Spring 本身；ApplicationContext 面向使用 Spring 框 架的开发者，几乎所有的应用场合我们都直接使用 ApplicationContext 而非底层的 BeanFactory。"
     }
   },
   "k_java_fw_spring_mvc": {
@@ -146292,12 +146292,22 @@
       "title": "Spring MVC 原理",
       "tabs": [
         {
-          "id": "def",
-          "label": "定义",
-          "content": "## 工作流程\n\n1. **请求到达**：客户端发送请求到DispatcherServlet\n\n2. **处理器映射**：DispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller）\n\n3. **处理器适配**：DispatcherServlet根据Handler找到对应的HandlerAdapter\n\n4. **执行处理器**：HandlerAdapter调用Handler执行业务逻辑，返回ModelAndView\n\n5. **视图解析**：DispatcherServlet调用ViewResolver解析视图\n\n6. **渲染视图**：View根据Model数据进行渲染\n\n7. **返回响应**：将渲染后的视图返回给客户端\n\n## 核心组件\n\n| 组件 | 说明 |\n|------|------|\n| DispatcherServlet | 前端控制器，整个流程的中心 |\n| HandlerMapping | 根据URL找到Handler |\n| Controller | 处理业务逻辑 |\n| ViewResolver | 解析视图名称 |\n| View | 负责渲染视图 |\n\n## 常见配置\n\n### XML配置\n```xml\n<servlet>\n    <servlet-name>springmvc</servlet-name>\n    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n</servlet>\n<servlet-mapping>\n    <servlet-name>springmvc</servlet-name>\n    <url-pattern>/</url-pattern>\n</servlet-mapping>\n```\n\n### 注解配置\nSpring Boot中无需手动配置，@EnableWebMvc自动启用"
+          "id": "flow",
+          "label": "工作流程",
+          "content": "## 工作流程\n\n1. **请求到达**：客户端发送请求到DispatcherServlet\n\n2. **处理器映射**：DispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller）\n\n3. **处理器适配**：DispatcherServlet根据Handler找到对应的HandlerAdapter\n\n4. **执行处理器**：HandlerAdapter调用Handler执行业务逻辑，返回ModelAndView\n\n5. **视图解析**：DispatcherServlet调用ViewResolver解析视图\n\n6. **渲染视图**：View根据Model数据进行渲染\n\n7. **返回响应**：将渲染后的视图返回给客户端"
+        },
+        {
+          "id": "components",
+          "label": "核心组件",
+          "content": "## 核心组件\n\n| 组件 | 说明 |\n|------|------|\n| DispatcherServlet | 前端控制器，整个流程的中心 |\n| HandlerMapping | 根据URL找到Handler |\n| Controller | 处理业务逻辑 |\n| ViewResolver | 解析视图名称 |\n| View | 负责渲染视图 |"
+        },
+        {
+          "id": "config",
+          "label": "常见配置",
+          "content": "## 常见配置\n\n### XML配置\n```xml\n<servlet>\n    <servlet-name>springmvc</servlet-name>\n    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>\n</servlet>\n<servlet-mapping>\n    <servlet-name>springmvc</servlet-name>\n    <url-pattern>/</url-pattern>\n</servlet-mapping>\n```\n\n### 注解配置\nSpring Boot中无需手动配置，@EnableWebMvc自动启用"
         }
       ],
-      "rootContent": "Spring MVC 原理 \n## 工作流程 \n1. **请求到达**：\n客户端发送请求到DispatcherServlet \n2. **处理器映射**：\nDispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller） \n3. **处理器适配**：\nDispatcherServlet根据Handler找到对应的HandlerAdapter \n4. **执行处理器**：\nHandlerAdapter调用Handler执行业务逻辑，返回ModelAndView \n5. **视图解析**：\nDispatcherServlet调用ViewResolver解析视图 \n6. **渲染视图**：\nView根据Model数据进行渲染\n 7. **返回响应**：\n将渲染后的视图返回给客户端 \n## 核心组件 \n| 组件 | 说明 | \n|------|------|\n | DispatcherServlet | 前端控制器，整个流程的中心 | \n| HandlerMapping | 根据URL找到Handler | \n| Controller | 处理业务逻辑 | \n| ViewResolver | 解析视图名称 | \n| View | 负责渲染视图 | \n## 常见配置 \n### XML配置 \n```xml \n<servlet> <servlet-name>springmvc</servlet-name> <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> </servlet> <servlet-mapping> <servlet-name>springmvc</servlet-name> <url-pattern>/</url-pattern> </servlet-mapping> \n``` \n### 注解配置 \nSpring Boot中无需手动配置，@EnableWebMvc自动启用"
+      "rootContent": "**Spring MVC** 的请求处理以 **DispatcherServlet** 为中心调度：请求到达后由 HandlerMapping 按 URL 定位 Handler（Controller），HandlerAdapter 适配调用并返回 ModelAndView，再经 ViewResolver 解析视图名、View 依 Model 渲染，最终返回响应。五大核心组件各司其职；配置上有 web.xml 声明式注册与 Spring Boot 自动装配（@EnableWebMvc）两条路径。"
     }
   },
   "k_java_fw_spring_boot": {
