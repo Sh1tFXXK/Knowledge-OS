@@ -1,0 +1,28 @@
+{
+  "batch": "aop-flow-split",
+  "date": "2026-09-23",
+  "trigger": "用户批准收掉台账最后一例「AOP 执行流程」+ 全库扫描（脚本 scripts/scan-vault-collapse.mjs，报告 outputs/vault-collapse-scan/）。",
+  "principle": "知识独立性：卡内容零跨节点指针。本卡额外发现源文自带 vault 原生指针（维基跨库引用），按「剥导航话术、保知识性内容」处理：九术语清单保留为概念本体 tab，指针从句剥除。",
+  "target": {
+    "entity": "aop_flow",
+    "treeId": "tree_aop_flow",
+    "path": "知识宇宙>…>Spring>AOP>AOP 原理>AOP 执行流程",
+    "role": "叶节点"
+  },
+  "preflightFindings": {
+    "dualCopy": "rootContent（470 字单行塌行版，含标题前缀「Spring AOP 执行机制（四阶段） 」）= def tab（451 字干净三段版）",
+    "nativePointer": "def tab 段2 含 vault 原生跨库指针「见「Spring Framework 模块（维基）→ 面向切面编程框架」」（非本团队批次注入）"
+  },
+  "actions": {
+    "split": "干净 def tab 按 \\n\\n 程序化切 3 段（join 逐字节还原校验）：flow 执行主线(227字,执行流链+机制视图播放句) / ring 调用环(139字,flowchart 闭环) / concepts 概念本体(65字,九术语知识化重写)",
+    "fuse": "rootContent 收为 250 字自含总述（主线+闭环），零指针；标题前缀清除",
+    "untouched": "树/边/问题零写；父卡「AOP 原理」（8ae191f 形态）防误伤断言原样"
+  },
+  "gates": "前置 11 → 后置 22（零指针+主线×7+闭环×3+九术语×9+总述形态）→ 回读逐字节 3",
+  "uiProbe": {
+    "result": "11/11 ALL PASS",
+    "assertions": "① 数据级 tabs 结构+自含总述+零指针（含维基指针）+守恒；② 父卡防误伤；③ 读态新总述无残留；④ 刷新复测"
+  },
+  "scanCrossCheck": "全库扫描修复前基线 aop_flow 命中 [dual-copy, ptr:维基]；修复后复核 = 无命中（1260→1259）",
+  "artifacts": { "apply": "scripts/apply-aop-flow-split.mjs（dry-run 默认 + --apply，断言门，原子写）" }
+}
