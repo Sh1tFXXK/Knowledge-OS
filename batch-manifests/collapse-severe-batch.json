@@ -1,0 +1,68 @@
+{
+  "batch": "collapse-severe-batch",
+  "date": "2026-09-23",
+  "trigger": "扫描基线（8d8ce43，outputs/vault-collapse-scan/report-baseline.json）中「塌行重症」桶 12 个信号 / 11 卡；用户裁决三档分级，先做第 1 批逐卡精修。",
+  "scopeNote": "12 信号 ≠ 12 卡。逐卡 dump 审计后：6 卡（surge_bottleneck、skd_static_dynamic、skd_hotspot、skd_shaving、skd_inventory、ThreadLocal的使用）为 broken-bold 正则假阳性——「粗体标签 + 换行 + 列表/缩进块」是合法 Markdown，渲染无损，属 dual-copy/title-prefix 病，并入第 2 批；5 卡真重症本批修复。",
+  "principle": "知识独立性：改后卡内容零跨节点指针（/详见|见子节点|见「|参见|另见/ 硬校验）；只做渲染级修复，不改写知识语义（机翻语义缺陷另案）。",
+  "targets": [
+    {
+      "entity": "k_1785224904396_r27gmm",
+      "treeId": "tree_1785224904489_a6h5d2",
+      "label": "作用域",
+      "symptom": "mermaid 收尾栅栏与后续 4 段正文粘连（``` 定义一个 Bean 为…），代码块不闭合吞掉全文；title-prefix（root 以「作用域」开头）",
+      "surgery": "rootContent 1550→207 字（自含总述：5 个内建值 + 各作用域范围），tabs 7 个原样不动",
+      "conservation": "粘连 4 段归一化后各自守恒于既有 tab_1pp2jh/ucbur1/rwia4d/etewsx"
+    },
+    {
+      "entity": "k_1785415843679_72mpjo",
+      "treeId": "tree_1785415843815_xupjep",
+      "label": "newFixedThreadPool",
+      "symptom": "首段 OCR 散字（「F i x e d T h r e a d P o o l是 固 定 大 小…」）+ 代码栅栏与内容同行（```public static…}``` 未闭合）；另 3 处同源 OCR 错字",
+      "surgery": "rootContent 773→658 字：散字段落重排为正常文句；代码重排为 ```java 围栏块；OCR 错字登记修复「人任务→任务 / 池中国→池中 / 待着→带着」",
+      "conservation": "剥围栏、剥空白、套用 3 处 OCR 修复后与原文逐字相等（594=594）"
+    },
+    {
+      "entity": "k_vault_javajava_1xf3hv",
+      "treeId": "tree_vault_javajava_1xf3hv",
+      "label": "Java 网络编程（Socket）",
+      "symptom": "root 6757 字全塌行双份（无空行、表格行前导空格粘连、两段 Java 代码被压成单行）；title-prefix",
+      "surgery": "rootContent 6757→177 字（自含总述：TCP/UDP + ServerSocket/Socket/InetAddress 主线）；def tab 程序化切 6 节 → tabs intro/socket-prog/server-socket/socket-methods/inet-address/demo",
+      "conservation": "各节按 '## ' 原样搬运；GreetingClient/GreetingServer 单行代码重排为围栏块，剥空白与分号括号后逐 token 相等；编译运行段原样保留"
+    },
+    {
+      "entity": "k_java_source_937c739517d0031f_s_package_c55daee2899f783b",
+      "treeId": "tree_java_source_937c739517d0031f_s_package_c55daee2899f783b",
+      "label": "java.lang.reflect",
+      "symptom": "首字符与反引号被吃（「ava.lang.reflect` 是…」），行内代码起手破损",
+      "surgery": "单点修复为「`java.lang.reflect` 是 Java 反射机制的核心包」，仅增 2 字符（` + j）"
+    },
+    {
+      "entity": "k_wiki_en_monitor_synchronization_s12",
+      "treeId": "tree_wiki_en_monitor_synchronization_s2_s12",
+      "label": "阻塞条件变量",
+      "symptom": "机翻伪代码粗体边界胶着：**信号****并返回**、**如果**大小 = 容量**则****等待**…、**向StackIsNotEmpty发出信号**并返回**（星号失衡）、`/***关联于**`（星号配对吞行）",
+      "surgery": "15 类显式对位解胶（并粗体 / 边界补空格 / 失衡星号收束）；rootContent 2986→3029 字",
+      "conservation": "剥星剥空白后逐字守恒；每行 ** 计数全偶；机翻语义（如 PC→「电脑」）不动，另案",
+      "delta": "apply-collapse-severe-e2.mjs：`/** **关联于**` 星号仍与后继配对吞行 → 改为注释符单星 `/* **关联于**`（源码本义 /* *associated with* …）"
+    }
+  ],
+  "gates": "前置 6（实体存在）+ 逐卡病灶在位/守恒/零指针门 → 统一后置门（新 root 非空 + node-pool 键数守恒 3870）→ 原子写 + 回读逐字节一致 5/5",
+  "uiProbe": {
+    "method": "临时数据目录（%TEMP%/ko-collapse-data，984 文件）+ vite preview 4192 + 无头 Chromium CDP 9347（复用 shell-fusion 探针原语）",
+    "result": "40/40 ALL PASS（首轮 39/40 → 定位 E 卡星号配对残余 → e2 delta → 复测 40/40）",
+    "assertions": "① 数据级 5 卡零指针 + C 卡 6 tab/demo 双围栏/root 自含 + B 卡围栏成对 + E 卡无 **** + A 卡 root 无栅栏且 7 tab 保留 + D 卡首行还原；② 读态逐卡 must/forbid（A 含「5 个内建值」不含栅栏与粘连段；B 含固定线程池文句与代码，不含散字/3 处 OCR 错字；C 含 java.net/ServerSocket/InetAddress，不含 GreetingClient（已入 tab）；D 含 java.lang.reflect；E 含「信号并返回」不含 **）；③ 刷新后复测 B 持久"
+  },
+  "scanAfter": {
+    "baseline": "report-baseline.json（8d8ce43）：3870 节点 / 1260 卡命中；dual-copy 750、title-prefix 770、ptr 367、broken-bold 9、glued-code 2、glued-table 1",
+    "now": "report.json：1254 卡命中；dual-copy 749、title-prefix 768、ptr 367、broken-bold 0、glued-code 0、glued-table 0",
+    "delta": "本批转绿：作用域（broken-bold+glued-code+title-prefix）、newFixedThreadPool（glued-code）、Socket（glued-table+dual-copy+title-prefix）；aop_flow 的 dual-copy 亦随基线漂移转绿",
+    "ruleTightened": "scripts/scan-vault-collapse.mjs broken-bold 口径收紧为「标签后紧跟普通段落行」（排除空行/列表/缩进/围栏/引用/标题）——宽松版 9 命中经逐卡核验 100% 为「标签+块」合法排版假阳性；收紧后 HEAD 与当前库均 0 命中"
+  },
+  "artifacts": {
+    "apply": "scripts/apply-collapse-severe-batch.mjs（dry-run 默认 + --apply，逐卡前置门/守恒门/零指针门，原子写 + 回读）",
+    "applyDelta": "scripts/apply-collapse-severe-e2.mjs（E 卡星号配对 delta 修补）",
+    "scan": "scripts/scan-vault-collapse.mjs（broken-bold 口径收紧）",
+    "reports": "outputs/vault-collapse-scan/report.{json,md}（report-baseline.* 保持入库不动）"
+  },
+  "next": "第 2 批：dual-copy 去重（先 Spring/Java 子树，脚本批量 + 抽检），第 3 批全库 dual-copy，第 4 批 ptr 话术（人工+脚本，远期）"
+}

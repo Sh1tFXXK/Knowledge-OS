@@ -4,7 +4,7 @@
  * 病灶特征（来自已修 4 例的形态归纳）：
  *   dual-copy    rootContent 与唯一 tab 内容互为塌行/干净双份（归一化包含）
  *   title-prefix rootContent 以节点 label 开头（库 vault 标题行混入正文）
- *   broken-bold  **加粗步骤**：\n 被拆行（塌行典型）
+ *   broken-bold  **加粗步骤**：\n 被拆行（严格口径：标签后紧跟普通段落行；「标签+列表/缩进块」为合法排版不报）
  *   glued-table  表格行带前导空格（\n +|）或表头粘连
  *   glued-code   代码栅栏与内容同行（```lang <内容>…，塌行吃掉换行）
  *   ptr          跨节点指针话术（详见/见子节点/见「X→Y」/参见/另见）——知识独立性口径
@@ -39,7 +39,10 @@ for (const [id, e] of Object.entries(pool)) {
     if (a.length > 50 && b.length > 50 && (a.includes(b) || b.includes(a))) signals.push('dual-copy')
   }
   if (e.label && root.startsWith(e.label)) signals.push('title-prefix')
-  if (/\*\*[^*\n]{1,15}\*\*：\n/.test(root)) signals.push('broken-bold')
+  // broken-bold：粗体标签后**紧跟普通段落行**（非空行/列表/缩进/围栏/引用/标题）——
+  // 即塌行把段落首行并入标签行的形态。「标签 + 块」（列表/缩进伪代码/空行后围栏）是合法
+  // Markdown 排版，渲染正常，不判命中（塌行重症批实测：宽松版 9 命中全为假阳性，严格版 0）。
+  if (/\*\*[^*\n]{1,15}\*\*：\n(?![ \t\n\-*\d|>#`])/.test(root)) signals.push('broken-bold')
   if (/\n +\|/.test(root)) signals.push('glued-table')
   if (/^```\w* \S/m.test(root)) signals.push('glued-code')
   const ptrHit = allText.match(PTR_RE)

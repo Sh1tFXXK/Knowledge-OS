@@ -1,9 +1,9 @@
-# 全库塌行双份 / 指针残留扫描（修复后复核）
+# 全库塌行双份 / 指针残留扫描（塌行重症批（5 卡）修复后 + broken-bold 口径收紧）
 
-- 扫描时间：2026-09-23T11:09:04.834Z
+- 扫描时间：2026-09-23T14:04:46.856Z
 - 池规模：3870 节点
-- 命中卡数：1259
-- 分信号计数：dual-copy=750 / title-prefix=770 / ptr=367 / broken-bold=9 / glued-code=2 / glued-table=1
+- 命中卡数：1254
+- 分信号计数：dual-copy=749 / title-prefix=768 / ptr=367
 
 | 实体 | 标签 | root 字数 | tabs | 信号 |
 |---|---|---|---|---|
@@ -494,12 +494,10 @@
 | k_wiki_en_virtual_machine_s3 | 处理虚拟机 | 0 | def | ptr:参见 |
 | k_wiki_en_linker_computing | 链接器（计算） | 0 | def,sec_1,sec_2,sec_3,sec_4,sec_5,sec_6,sec_7,links | ptr:参见 |
 | k_wiki_en_linker_computing_s2 | 动态链接 | 0 | def | ptr:参见 |
-| k_wiki_en_monitor_synchronization_s12 | 阻塞条件变量 | 2986 | — | broken-bold |
 | k_1784913686973_93yvqh | 锁消除 | 69 | — | title-prefix |
 | k_web_8c66406b75e1_s3 | 可见性 | 370 | — | title-prefix |
 | k_web_4a06c6e69a03_s2 | static方法 | 658 | — | title-prefix |
 | k_web_4a06c6e69a03_s3 | static变量 | 152 | — | title-prefix |
-| k_1785224904396_r27gmm | 作用域 | 1550 | tab_1785224926740_rnnus4,tab_1785224926740_1pp2jh,tab_1785224926740_ucbur1,tab_1785224926740_rwia4d,tab_1785224926740_etewsx,scope-list,thread-safety | title-prefix broken-bold glued-code |
 | k_1785225243066_ds8pn6 | 生命周期 | 232 | def,stages,methods | title-prefix ptr:见子节点 |
 | k_1785228834518_r08hca | @Autowired | 156 | — | title-prefix |
 | k_1785228955207_9nqbli | @RequestMapping | 100 | — | title-prefix |
@@ -509,7 +507,6 @@
 | k_1785296821866_imouaf | @Import | 252 | — | title-prefix |
 | k_demo_java_abstract_list | AbstractList | 53 | jdk_collection_api_type_15ddd5a5ff0c096f | title-prefix |
 | k_demo_java_array_list | ArrayList | 88 | array_list_structure,array_list_operations,array_list_behavior,jdk_collection_api_type_5098f415c102d794,curated_array_list_common_methods | title-prefix |
-| k_1785415843679_72mpjo | newFixedThreadPool | 773 | — | glued-code |
 | k_1785470590965_2hx6cn | 双向链表 | 88 | — | title-prefix |
 | k_demo_java_cloneable | Cloneable | 36 | — | title-prefix |
 | k_demo_java_serializable | Serializable | 37 | — | title-prefix |
@@ -522,7 +519,7 @@
 | k_1785923744359_zsjik4 | 写final域的重排序规则 | 161 | — | title-prefix |
 | k_1785923784597_gvjm4s | 读final域的重排序规则 | 265 | — | title-prefix |
 | k_1785943693747_clmf9f | Daemon线程 | 265 | jimi-71 | title-prefix |
-| k_1786007130617_bg40je | ThreadLocal的使用 | 979 | def | dual-copy title-prefix broken-bold |
+| k_1786007130617_bg40je | ThreadLocal的使用 | 979 | def | dual-copy title-prefix |
 | k_1786016077742_lg5b5a | 队列同步器 | 693 | — | title-prefix |
 | k_1786017169554_blpxjf | 重入锁 | 718 | — | title-prefix |
 | k_1786027605877_jnqzdw | 锁降级 | 217 | — | title-prefix |
@@ -544,7 +541,6 @@
 | k_1786159351256_5vvl02 | Netﬂix | 233 | — | title-prefix |
 | k_1786159519098_i14t11 | Consul | 249 | — | title-prefix |
 | k_1786246985753_w4fbw9 | AOF持久化的实现 | 58 | — | title-prefix |
-| k_java_source_937c739517d0031f_s_package_c55daee2899f783b | java.lang.reflect | 1303 | — | broken-bold |
 | k_1786340565182_pcw4pc | 缓存预热 | 153 | — | title-prefix |
 | k_1786336003059_o4habx | super | 260 | — | title-prefix |
 | k_1786344805936_k7mhs2 | 匿名内部类 | 514 | — | title-prefix |
@@ -861,7 +857,6 @@
 | k_vault_javajavahashmap_14a6f2 | HashMap 详解 | 6659 | def | dual-copy title-prefix |
 | k_vault_javajavahashset_176pvr | HashSet 详解 | 4565 | def | dual-copy title-prefix |
 | k_vault_javajava8stream_rcy19a | Java 8 Stream | 19637 | def | dual-copy title-prefix |
-| k_vault_javajava_1xf3hv | Java 网络编程（Socket） | 6757 | def | dual-copy title-prefix glued-table |
 | k_vault_javajavamysql_66tav5 | JDBC 连接 MySQL | 3342 | def | dual-copy title-prefix |
 | k_vault_javajava_9w1am | Java 发送邮件（JavaMail） | 8891 | def | dual-copy title-prefix |
 | k_vault_javajavacharacter_1wdwf5 | Character 类 | 1844 | def | dual-copy title-prefix |
@@ -1105,7 +1100,7 @@
 | surge_overview | 流量激增应对方法 | 124 | def | dual-copy title-prefix ptr:见子节点 |
 | surge_estimate | 1. 预估流量 | 78 | def | dual-copy title-prefix |
 | surge_stress | 2. 全链路压测 | 84 | def | dual-copy title-prefix |
-| surge_bottleneck | 3. 定位并解决链路瓶颈 | 143 | def | dual-copy title-prefix broken-bold |
+| surge_bottleneck | 3. 定位并解决链路瓶颈 | 143 | def | dual-copy title-prefix |
 | surge_scale | 4. 加机器扩容 | 90 | def | dual-copy title-prefix |
 | surge_degrade | 5. 降级 | 103 | def | dual-copy title-prefix |
 | surge_ha | 6. 常态高可用：限流 + 监控报警 | 103 | def | dual-copy title-prefix |
@@ -1113,10 +1108,10 @@
 | skd_overview | 秒杀系统设计 | 235 | def | dual-copy title-prefix |
 | skd_principles | 五大架构原则 | 562 | def | dual-copy title-prefix |
 | skd_evolution | 架构演进（淘宝三阶段） | 446 | def | dual-copy title-prefix |
-| skd_static_dynamic | 动静分离 | 1198 | def | dual-copy title-prefix broken-bold |
-| skd_hotspot | 热点数据处理 | 729 | def | dual-copy title-prefix broken-bold |
-| skd_shaving | 流量削峰 | 1012 | def | dual-copy title-prefix broken-bold |
-| skd_inventory | 减库存设计 | 1036 | def | dual-copy title-prefix broken-bold |
+| skd_static_dynamic | 动静分离 | 1198 | def | dual-copy title-prefix |
+| skd_hotspot | 热点数据处理 | 729 | def | dual-copy title-prefix |
+| skd_shaving | 流量削峰 | 1012 | def | dual-copy title-prefix |
+| skd_inventory | 减库存设计 | 1036 | def | dual-copy title-prefix |
 | tio_caller | 应用程序（read/write 调用） | 65 | def | title-prefix |
 | tio_state_read_syscall | ① read 发起（用户态→内核态） | 70 | def | title-prefix |
 | tio_state_disk_to_kernel | ② DMA：磁盘 → 内核缓冲区 | 50 | def | title-prefix |
