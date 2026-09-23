@@ -1,0 +1,41 @@
+{
+  "batch": "dedup-dual-copy-strict",
+  "date": "2026-09-23",
+  "trigger": "用户裁决第 2 批 dual-copy 去重口径：rootContent 与唯一 tab **逐字节相同** 时保留 rootContent、删该 tab；root≈tab（仅差空白）、root=标签+tab、多 tab、root 空 + tab 有内容 一律不删。",
+  "scopeCorrection": {
+    "userEstimate": "2a（Spring + Java 核心）预计 ~200 例",
+    "measured": "全库严格档（root === tabs[0].content && tabs.length === 1）仅 44 例；其中 2a 口径（Spring/Java 系）5 例",
+    "reason": "扫描器 dual-copy 749 例是「归一化包含」口径的混合集合，严格逐字节相等只占一小部分；且扫描器有 norm 长度 >50 门槛，短词条卡漏检（44 − 扫描器报的 14 = 30 例短卡）",
+    "familyBreakdown": {
+      "strict（root 逐字节 == 唯一 tab）": 44,
+      "approx（仅差空白/换行，norm 相等）": 396,
+      "labelPrefix（root = 标签 + tab）": 406,
+      "other（内容有实质差异）": 555,
+      "rootEmpty（root 空 + tab 有内容，属正常形态）": 1577,
+      "multiOrNone（多 tab / 空 tabs）": 892,
+      "total": 3870
+    },
+    "cleanerSideStats": "全库 749 例扫描命中中：tab 更干净 477 / root 更干净 78 / 平手 194 ⇒ 「root ← 干净一侧」的批量方案需按卡判方向，不能一律以 tab 为准"
+  },
+  "executed": "严格档全库 44 例（含 2a 子集 5 例：aop_term_proxy、aop_term_woven、k_java_thread_state_timed_waiting、concept_http_servlet_cookie、concept_http_servlet_session）。同一口径同一操作，未越口径扩到 ②③④档。",
+  "surgery": "每卡：card.tabs → []（rootContent 逐字节不动；title / label 不动）。tabs 空数组是库内既有合法态（512 例先例；dataValidation 报「合法：仅入池、尚未填正文」非致命）。",
+  "gates": "前置：全库归类计数门（44/396/406/555/1577/892）+ 规则自检 6 条（构造样例覆盖 5 个边界）+ 逐卡门 44×5（逐字节相等 / tab 无附加元数据 / tab id 未被 tree-data 引用 / 无 supplement.tabs 需同步 / 内容零指针）→ 后置：rootContent 保持 + 节点总数 3870 → 变更范围门（变更集合恰为 44 且无外溢）→ 原子写 + 回读逐字节 44/44",
+  "uiProbe": {
+    "method": "临时数据目录（%TEMP%/ko-dedup-data，984 文件，node-pool.json 与工作树哈希相同）+ vite preview 4192 + 无头 Chromium CDP 9349",
+    "result": "23/23 ALL PASS",
+    "assertions": "① 数据级 44/44：tabs 已清空 + rootContent 长度逐条等于基线（内容零丢失）；② 边界样本（②③④档各 1：demo_undo / demo_isolation / k_dict_xxkp8lkc）原样未动；③ 读态 6 样本（aop_term_proxy、HttpServlet Cookie、SynchronousQueue、线程状态 TIMED_WAITING、mysql:concept:server:structure、以及无 tab 卡回归对照 newFixedThreadPool）均正常显示且非「无内容」；④ 刷新后读态正常 + tabs 清空持久"
+  },
+  "sideEffectAndFix": {
+    "finding": "节点库（NodeDatabase 卡片视图）预览列取 tabs[0].content ⇒ 删 tab 后预览变空。该 gap 实为既有缺陷：全库 512 张 tabs 空数组卡 + 本批 44 张，预览列本来就空。",
+    "fix": "previewOf() 增加回退：无 tab（或首个 tab 无正文）时取 rootContent —— 独立提交，见 commit 2（UI 改动按约定不写单测，走无头实测）"
+  },
+  "pending": {
+    "tier2Proposal": "②③档（396 + 406 = 802，去重后 691 例在扫描 dual-copy 集合内）需另行裁决：root ← 「更干净一侧」+ 删 tab。前提 norm(root) 与 norm(tab)（或 norm(标签+tab)）相等 ⇒ 零知识损失；方向按段落空行数判定（tab 更干净 477 / root 更干净 78 / 平手 194，78 例须保留 root 只删 tab）。",
+    "tier3": "④档 555 例（内容有实质差异，如 root 是摘要、tab 是全文）需逐卡语义判断，不脚本化。",
+    "rootEmpty": "1577 例 root 空 + tab 有内容属合法形态，不在清理范围（若要「内容上提到 root」是另一议题）。"
+  },
+  "artifacts": {
+    "apply": "scripts/apply-dedup-dual-copy-strict.mjs（dry-run 默认 + --apply；classifyCard() 纯函数导出，含 5 边界自检）",
+    "probe": "一次性探针已按惯例销毁（结果见本 manifest uiProbe）"
+  }
+}

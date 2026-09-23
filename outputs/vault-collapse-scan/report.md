@@ -1,9 +1,9 @@
-# 全库塌行双份 / 指针残留扫描（塌行重症批（5 卡）修复后 + broken-bold 口径收紧）
+# 全库塌行双份 / 指针残留扫描（dual-copy 严格档去重（44 例）后）
 
-- 扫描时间：2026-09-23T14:04:46.856Z
+- 扫描时间：2026-09-23T14:34:02.973Z
 - 池规模：3870 节点
-- 命中卡数：1254
-- 分信号计数：dual-copy=749 / title-prefix=768 / ptr=367
+- 命中卡数：1244
+- 分信号计数：dual-copy=735 / title-prefix=768 / ptr=367
 
 | 实体 | 标签 | root 字数 | tabs | 信号 |
 |---|---|---|---|---|
@@ -142,7 +142,7 @@
 | innodb_mvcc_db_row_id | DB_ROW_ID | 113 | def | dual-copy |
 | k_1782024448012_sl16gv | 当前读（CurrentRead） | 199 | def | dual-copy title-prefix |
 | k_1782027235624_gtvo1k | MySQL 缓存 / cache | 114 | def | dual-copy ptr:参见 |
-| k_1782029470422_yfa3u9 | 系统文件层 | 42 | def | title-prefix |
+| k_1782029470422_yfa3u9 | 系统文件层 | 42 | — | title-prefix |
 | k_1782029505237_7y8fh8 | 日志文件 | 97 | def | dual-copy ptr:另见 |
 | k_1782029546712_okgd59 | 通用查询日志 / general query log | 873 | def | dual-copy ptr:参见 |
 | k_1782029599317_nn6hzg | 慢查询日志 / slow query log | 447 | def | dual-copy ptr:参见 |
@@ -154,7 +154,7 @@
 | mysql_file_ibd | .ibd 文件 / .ibd file | 498 | def | dual-copy ptr:另见 |
 | mysql_file_ibdata | ibdata 文件 / ibdata file | 361 | def | dual-copy ptr:参见 |
 | mysql_file_ibdata1 | ibdata1 文件 / ibdata1 file | 115 | def | dual-copy |
-| mysql_runtime_files | 运行时文件 | 40 | def | title-prefix |
+| mysql_runtime_files | 运行时文件 | 40 | — | title-prefix |
 | mysql_file_pid | PID 文件 / PID file | 106 | def | dual-copy |
 | mysql_file_socket | Socket 文件 / Socket file | 138 | def | dual-copy |
 | k_1782033172524_cjmm5c | SQL接⼝（SQL Interface） | 110 | def | dual-copy |
@@ -455,7 +455,6 @@
 | k_1784039594063_ddeiyo | 原始类型 | 1037 | def | dual-copy |
 | k_1784042843935_picv84 | 引用类型 | 137 | def | dual-copy title-prefix |
 | k_1784043356780_7iyl1s | 数组 | 647 | — | title-prefix |
-| k_1784044129424_ffqm4z | 内部类 | 1900 | jimi-12 | dual-copy |
 | k_1784044457709_jt70a4 | 修饰符 | 196 | — | title-prefix |
 | k_1784045643688_0g5s3i | 访问修饰符 | 287 | — | title-prefix |
 | k_class_programming_relationships | 类间关系 | 25 | — | title-prefix |
@@ -544,14 +543,7 @@
 | k_1786340565182_pcw4pc | 缓存预热 | 153 | — | title-prefix |
 | k_1786336003059_o4habx | super | 260 | — | title-prefix |
 | k_1786344805936_k7mhs2 | 匿名内部类 | 514 | — | title-prefix |
-| k_1786353277269_msn0ma8wb | SynchronousQueue | 4830 | jimi-4 | dual-copy |
-| k_1786353277269_msn0ma8yd | 注解 | 2707 | jimi-11 | dual-copy |
-| k_1786353277269_msn0ma98n | Java 9 新特性 | 6802 | jimi-16 | dual-copy |
 | k_1786353277269_msn0ma9ap | Tomcat | 9363 | def,jimi-22,legacy-mysql-glossary-mysql_glossary_tomcat_10qwey | ptr:另见 |
-| k_1786353277269_msn0ma9et | 内存溢出 | 4763 | jimi-36 | dual-copy |
-| k_1786353277269_msn0ma9gv | 高并发架构 | 7031 | jimi-58 | dual-copy |
-| k_1786353277269_msn0ma9ix | 进程间通信 | 2164 | jimi-60 | dual-copy |
-| k_1786353277269_msn0ma9m11 | 死锁 | 1466 | jimi-78 | dual-copy |
 | k_1786353277269_msn0ma9o13 | CAS | 4235 | def,jimi-82 | title-prefix |
 | k_java_type_f138c6a30b6bcbd0 | BrokenBarrierException | 329 | java_source_api_type_91c8e1da12c0c8ed | ptr:参见 |
 | k_java_type_59e430b99b4f9efe | Callable | 483 | java_source_api_type_93ae53d4fae2cb02 | ptr:参见 |
@@ -599,20 +591,20 @@
 | mysql_glossary_java_uspy11 | Java | 195 | def | dual-copy ptr:另见 |
 | mysql_glossary_servlet_12jp4v | servlet | 101 | def | dual-copy ptr:另见 |
 | mysql_glossary_tomcat_10qwey | Tomcat | 206 | def | dual-copy ptr:另见 |
-| mysql:concept:server | MySQL Server | 52 | def | title-prefix |
-| k_1782029618563_7rrguo:composition | 组成 | 24 | def | title-prefix |
-| k_1782029618563_7rrguo:structure | 结构 | 24 | def | title-prefix |
-| mysql:concept:data-files:myisam:node | MyISAM 文件 | 28 | def | title-prefix |
-| mysql:concept:data-files:innodb-tablespaces:node | InnoDB 表空间文件 | 31 | def | title-prefix |
-| mysql:concept:data-files:other-engines:node | 其他存储引擎文件 | 27 | def | title-prefix |
-| k_1782029643146_aumkky:composition | 组成 | 24 | def | title-prefix |
-| k_1782029643146_aumkky:structure | 结构 | 24 | def | title-prefix |
-| k_1782029505237_7y8fh8:composition | 组成 | 24 | def | title-prefix |
-| k_1782029505237_7y8fh8:structure | 结构 | 24 | def | title-prefix |
-| mysql_runtime_files:composition | 组成 | 25 | def | title-prefix |
-| k_1782029470422_yfa3u9:composition | 组成 | 25 | def | title-prefix |
-| mysql:concept:server:structure | 结构 | 32 | def | title-prefix |
-| mysql_topic_indexes_access | 索引与访问路径 | 48 | def | title-prefix |
+| mysql:concept:server | MySQL Server | 52 | — | title-prefix |
+| k_1782029618563_7rrguo:composition | 组成 | 24 | — | title-prefix |
+| k_1782029618563_7rrguo:structure | 结构 | 24 | — | title-prefix |
+| mysql:concept:data-files:myisam:node | MyISAM 文件 | 28 | — | title-prefix |
+| mysql:concept:data-files:innodb-tablespaces:node | InnoDB 表空间文件 | 31 | — | title-prefix |
+| mysql:concept:data-files:other-engines:node | 其他存储引擎文件 | 27 | — | title-prefix |
+| k_1782029643146_aumkky:composition | 组成 | 24 | — | title-prefix |
+| k_1782029643146_aumkky:structure | 结构 | 24 | — | title-prefix |
+| k_1782029505237_7y8fh8:composition | 组成 | 24 | — | title-prefix |
+| k_1782029505237_7y8fh8:structure | 结构 | 24 | — | title-prefix |
+| mysql_runtime_files:composition | 组成 | 25 | — | title-prefix |
+| k_1782029470422_yfa3u9:composition | 组成 | 25 | — | title-prefix |
+| mysql:concept:server:structure | 结构 | 32 | — | title-prefix |
+| mysql_topic_indexes_access | 索引与访问路径 | 48 | — | title-prefix |
 | k_1787209372193_jgoudp | MySQL 页 / page | 122 | def | dual-copy title-prefix |
 | k_1787237097249_1ld0tb | 清理操作 / Purge Operation | 171 | def | dual-copy |
 | k_1787315799359_ne8gfs | 客户端连接器 / client connectors | 119 | def | dual-copy title-prefix |
@@ -1087,8 +1079,6 @@
 | aop_state_advice_done | ④ 织入代码已执行 | 49 | def | title-prefix |
 | aop_state_target_invoked | ⑤ 目标方法已调用（返回） | 66 | def | dual-copy title-prefix |
 | aop_term_glossary | 六术语速查（不迷路总结） | 141 | def | dual-copy title-prefix |
-| aop_term_proxy | 代理对象（Proxy） | 145 | def | dual-copy |
-| aop_term_woven | 织入代码（Woven Code） | 139 | def | dual-copy |
 | tpl_trigger_shutdown | shutdown() / shutdownNow() 调用 | 162 | def | dual-copy title-prefix |
 | tpl_state_running | RUNNING（运行中） | 188 | def | dual-copy title-prefix |
 | tpl_state_shutdown | SHUTDOWN（关闭中） | 165 | def | dual-copy title-prefix |
@@ -1244,8 +1234,8 @@
 | atomic_piped_input_stream | PipedInputStream | 98 | def,orig | title-prefix |
 | atomic_piped_output_stream | PipedOutputStream | 91 | def,orig | title-prefix |
 | atomic_privilege_check | 权限校验 | 57 | def | dual-copy title-prefix |
-| concept_http_request | HTTP Request | 305 | def | dual-copy title-prefix |
-| concept_http_response | HTTP Response | 304 | def | dual-copy title-prefix |
+| concept_http_request | HTTP Request | 305 | — | title-prefix |
+| concept_http_response | HTTP Response | 304 | — | title-prefix |
 | concept_http_servlet_request | HttpServletRequest | 169 | def,migrated:asplit_http_request_response | title-prefix |
 | concept_http_servlet_response | HttpServletResponse | 160 | def,migrated:asplit_http_request_response | title-prefix |
 | jsp_trigger_request | 浏览器请求 JSP | 60 | def | title-prefix |
@@ -1257,7 +1247,7 @@
 | jsp_state_output | 输出 HTML | 33 | def | title-prefix |
 | concept_url_rewrite | URL 重写 | 142 | def | dual-copy title-prefix |
 | concept_token | Token | 139 | def | dual-copy title-prefix |
-| concept_http_servlet_cookie | javax.servlet.http.Cookie | 293 | def | dual-copy title-prefix |
-| concept_http_servlet_session | HttpSession | 263 | def | dual-copy title-prefix |
+| concept_http_servlet_cookie | javax.servlet.http.Cookie | 293 | — | title-prefix |
+| concept_http_servlet_session | HttpSession | 263 | — | title-prefix |
 | concept_session_lifecycle | Session 生命周期与配置 | 279 | def | dual-copy title-prefix |
 | k_1790017845551_esmxat | 常用的Java conﬁg | 357 | — | title-prefix |

@@ -5356,13 +5356,7 @@
     "card": {
       "nodeId": "k_dict_p7los2aq",
       "title": "MySQL 动态 SQL / dynamic SQL",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 动态 SQL / dynamic SQL**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 动态 SQL / dynamic SQL**"
     },
     "role": "plain",
@@ -7020,13 +7014,7 @@
     "card": {
       "nodeId": "k_dict_12jqwwcl",
       "title": "MySQL 实例 / instance",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 实例 / instance**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 实例 / instance**"
     },
     "role": "plain",
@@ -15162,13 +15150,7 @@
     "card": {
       "nodeId": "k_1782029470422_yfa3u9",
       "title": "系统文件层",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "系统文件层描述 MySQL 在操作系统文件系统中落下的配置、日志、数据和运行时文件。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "系统文件层描述 MySQL 在操作系统文件系统中落下的配置、日志、数据和运行时文件。"
     },
     "tags": [
@@ -15563,13 +15545,7 @@
     "card": {
       "nodeId": "mysql_runtime_files",
       "title": "运行时文件",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "运行时文件是 mysqld 进程运行期间用于进程识别、本地通信或服务管理的文件。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "运行时文件是 mysqld 进程运行期间用于进程识别、本地通信或服务管理的文件。"
     },
     "tags": [
@@ -19264,13 +19240,7 @@
     "card": {
       "nodeId": "mysql_glossary_keystore_1khbxb",
       "title": "MySQL 密钥库 / keystore",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 密钥库 / keystore**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 密钥库 / keystore**"
     }
   },
@@ -25301,13 +25271,7 @@
     "card": {
       "nodeId": "k_1782749047493_w36knu",
       "title": "MySQL 整数类型",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 整数类型**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 整数类型**"
     },
     "tags": [
@@ -25325,13 +25289,7 @@
     "card": {
       "nodeId": "k_1782749263813_199twh",
       "title": "MySQL 实数类型",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 实数类型**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 实数类型**"
     },
     "tags": [
@@ -25349,13 +25307,7 @@
     "card": {
       "nodeId": "k_1782749276682_qsjks8",
       "title": "MySQL 字符串类型",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 字符串类型**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 字符串类型**"
     },
     "tags": [
@@ -25373,13 +25325,7 @@
     "card": {
       "nodeId": "k_1782749287355_2zl67c",
       "title": "MySQL 枚举类型",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 枚举类型**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 枚举类型**"
     },
     "tags": [
@@ -31260,13 +31206,7 @@
       "nodeId": "k_1784044129424_ffqm4z",
       "title": "内部类",
       "rootContent": "Java 类中不仅可以定义变量和方法，还可以定义类，这样定义在类内部的类就被称为内部类。根据定义的方式不同，内部类分为静态内部类，成员内部类，局部内部类，匿名内部类四种。\n\n## 静态内部类\n\n定义在类内部的静态类，就是静态内部类。\n\n```java\npublic class Out {\nprivate static int a;\nprivate int b;\npublic static class Inner {\npublic void print() {\n    System.out.println(a);\n    }\n} \n```\n\n1. 静态内部类可以访问外部类所有的静态变量和方法，即使是 private 的也一样。\n\n2. 静态内部类和一般类一致，可以定义静态变量、方法，构造方法等。\n\n3. 其它类使用静态内部类需要使用“外部类.静态内部类”方式，如下所示：Out.Inner inner = newOut.Inner();inner.print();\n\n4. Java集合类HashMap内部就有一个静态内部类Entry。Entry是HashMap存放元素的抽象，\n\nHashMap 内部维护 Entry 数组用了存放元素，但是 Entry 对使用者是透明的。像这种和外部类关系密切的，且不依赖外部类实例的，都可以使用静态内部类。\n\n## 成员内部类\n\n定义在类内部的非静态类，就是成员内部类。成员内部类不能定义静态方法和变量（final 修饰的除外）。这是因为成员内部类是非静态的，类初始化的时候先初始化静态成员，如果允许成员内部类定义静态变量，那么成员内部类的静态变量初始化顺序是有歧义的。\n\n```java\npublic class Out {\n    private static int a;\n    private int b;\n    public class Inner {\n    public void print() {\n    System.out.println(a);\n    System.out.println(b);\n    }\n    }\n} \n```\n\n## 局部内部类（定义在方法中的类）\n\n定义在方法中的类，就是局部类。如果一个类只在某个方法中使用，则可以考虑使用局部类。\n\n```java\npublic class Out {\n    private static int a;\n    private int b;\n    public void test(final int c) {\n    final int d = 1;\n    class Inner {\n    public void print() {\n    System.out.println(c);\n    }\n    }\n    }\n} \n```\n\n匿名内部类（要继承一个父类或者实现一个接口、直接使用 new 来生成一个对象的引用）\n\n匿名内部类我们必须要继承一个父类或者实现一个接口，当然也仅能只继承一个父类或者实现一个接口。同时它也是没有class关键字，这是因为匿名内部类是直接使用new来生成一个对象的引用。\n\n```java\npublic abstract class Bird {\n    private String name;\n    public String getName() {\n    return name;\n    }\n    public void setName(String name) {\n    this.name = name; \n```\n\n```java\n}\npublic abstract int fly();\n}\n\npublic class Test {\n    public void test(Bird bird){\n    System.out.println(bird.getName() + \"能够飞\" + bird.fly() + \"米\");\n    }\n\n    public static void main(String[] args) {\n    Test test = new Test();\n    test.test(new Bird() {\n    public int fly() {\n    return 10000;\n    }\n    public String getName() {\n    return \"大雁\";\n    }\n    });\n    }\n}\n```",
-      "tabs": [
-        {
-          "id": "jimi-12",
-          "label": "JAVA 内部类",
-          "content": "Java 类中不仅可以定义变量和方法，还可以定义类，这样定义在类内部的类就被称为内部类。根据定义的方式不同，内部类分为静态内部类，成员内部类，局部内部类，匿名内部类四种。\n\n## 静态内部类\n\n定义在类内部的静态类，就是静态内部类。\n\n```java\npublic class Out {\nprivate static int a;\nprivate int b;\npublic static class Inner {\npublic void print() {\n    System.out.println(a);\n    }\n} \n```\n\n1. 静态内部类可以访问外部类所有的静态变量和方法，即使是 private 的也一样。\n\n2. 静态内部类和一般类一致，可以定义静态变量、方法，构造方法等。\n\n3. 其它类使用静态内部类需要使用“外部类.静态内部类”方式，如下所示：Out.Inner inner = newOut.Inner();inner.print();\n\n4. Java集合类HashMap内部就有一个静态内部类Entry。Entry是HashMap存放元素的抽象，\n\nHashMap 内部维护 Entry 数组用了存放元素，但是 Entry 对使用者是透明的。像这种和外部类关系密切的，且不依赖外部类实例的，都可以使用静态内部类。\n\n## 成员内部类\n\n定义在类内部的非静态类，就是成员内部类。成员内部类不能定义静态方法和变量（final 修饰的除外）。这是因为成员内部类是非静态的，类初始化的时候先初始化静态成员，如果允许成员内部类定义静态变量，那么成员内部类的静态变量初始化顺序是有歧义的。\n\n```java\npublic class Out {\n    private static int a;\n    private int b;\n    public class Inner {\n    public void print() {\n    System.out.println(a);\n    System.out.println(b);\n    }\n    }\n} \n```\n\n## 局部内部类（定义在方法中的类）\n\n定义在方法中的类，就是局部类。如果一个类只在某个方法中使用，则可以考虑使用局部类。\n\n```java\npublic class Out {\n    private static int a;\n    private int b;\n    public void test(final int c) {\n    final int d = 1;\n    class Inner {\n    public void print() {\n    System.out.println(c);\n    }\n    }\n    }\n} \n```\n\n匿名内部类（要继承一个父类或者实现一个接口、直接使用 new 来生成一个对象的引用）\n\n匿名内部类我们必须要继承一个父类或者实现一个接口，当然也仅能只继承一个父类或者实现一个接口。同时它也是没有class关键字，这是因为匿名内部类是直接使用new来生成一个对象的引用。\n\n```java\npublic abstract class Bird {\n    private String name;\n    public String getName() {\n    return name;\n    }\n    public void setName(String name) {\n    this.name = name; \n```\n\n```java\n}\npublic abstract int fly();\n}\n\npublic class Test {\n    public void test(Bird bird){\n    System.out.println(bird.getName() + \"能够飞\" + bird.fly() + \"米\");\n    }\n\n    public static void main(String[] args) {\n    Test test = new Test();\n    test.test(new Bird() {\n    public int fly() {\n    return 10000;\n    }\n    public String getName() {\n    return \"大雁\";\n    }\n    });\n    }\n}\n```"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "内部类",
@@ -39412,13 +39352,7 @@
     "card": {
       "nodeId": "k_1784456386575_b7hxoh",
       "title": "MySQL 事务管理",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 事务管理**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 事务管理**"
     },
     "tags": [
@@ -71207,13 +71141,7 @@
     "card": {
       "nodeId": "k_java_thread_state_timed_waiting",
       "title": "TIMED_WAITING（超时等待）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "线程在限定时间内等待，超时或被唤醒后恢复。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "线程在限定时间内等待，超时或被唤醒后恢复。"
     },
     "kind": "state"
@@ -74324,13 +74252,7 @@
       "nodeId": "k_1786353277269_msn0ma8wb",
       "title": "SynchronousQueue",
       "rootContent": "## 前言\n\nSynchronousQueue是一个比较特别的队列，由于在线程池方面有所应用，为了更好的理解线程池的实现原理，笔者花了些时间学习了一下该队列源码(JDK1.8)，此队列源码中充斥着大量的CAS语句，理解起来是有些难度的，为了方便日后回顾，本篇文章会以简洁的图形化方式展示该队列底层的实现原理。\n\n## SynchronousQueue简单使用\n\n经典的生产者-消费者模式，操作流程是这样的：\n\n有多个生产者，可以并发生产产品，把产品置入队列中，如果队列满了，生产者就会阻塞；\n\n有多个消费者，并发从队列中获取产品，如果队列空了，消费者就会阻塞；\n\n如下面的示意图所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/72a63d9d2d58aaa7f4712cbe03cde169b35a1af03483b8adb045210952e44662.jpg)\n\nSynchronousQueue \n\n也是一个队列来的，但它的特别之处在于它内部没有容器，一个生产线程，当它生产产品（即put的时候），如果当前没有人想要消费产品(即当前没有线程执行take)，此生产线程必须阻塞，等待一个消费线程调用take操作，take操作将会唤醒该生产线程，同时消费线程会获取生产线程的产品（即数据传递），这样的一个过程称为一次配对过程(当然也可以先take后put,原理是一样的)。\n\n我们用一个简单的代码来验证一下，如下所示：\n\n```java\nimport java.util.concurrent.SynchronousQueue;\n\npublic class SynchronousQueueDemo {\n    public static void main(String[] args) throws InterruptedException {\n    final SynchronousQueue<Integer> queue = new SynchronousQueue<Integer>();\n\n    Thread putThread = new Thread(new Runnable() {\n    @Override\n    public void run() {\n    System.out.println(\"put thread start\");\n    try {\n    queue.put(1);\n    } catch (InterruptedException e) {\n    }\n    System.out.println(\"put thread end\");\n    }\n});\n\nThread takeThread = new Thread(new Runnable() {\n    @Override\n    public void run() {\n    System.out.println(\"take thread start\");\n    try {\n    System.out.println(\"take from putThread: \" + queue.take());\n    } catch (InterruptedException e) {\n    }\n    System.out.println(\"take thread end\");\n    }\n});\n\nputThread.start();\nThread.sleep(1000);\ntakeThread.start();\n} \n```\n\n## 一种输出结果如下:\n\n```rust\nput thread start\ntake thread start\ntake from putThread: 1\nput thread end\ntake thread end \n```\n\n从结果可以看出，put线程执行queue.put(1) 后就被阻塞了，只有take线程进行了消费，put线程才可以返回。可以认为这是一种线程与线程间一对一传递消息的模型。\n\n## SynchronousQueue实现原理\n\n不像ArrayBlockingQueue、LinkedBlockingDeque之类的阻塞队列依赖AQS实现并发操作，SynchronousQueue直接使用CAS实现线程的安全访问。由于源码中充斥着大量的CAS代码，不易于理解，所以按照笔者的风格，接下来会使用简单的示例来描述背后的实现模型。\n\n队列的实现策略通常分为公平模式和非公平模式，接下来将分别进行说明。\n\n## 公平模式下的模型：\n\n公平模式下，底层实现使用的是TransferQueue这个内部队列，它有一个head和tail指针，用于指向当前正在等待匹配的线程节点。\n\n初始化时，TransferQueue的状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/88b20c396ec6983598982ca9f199d0381fe2c4550c0c3056e77a1a6dcf399ca3.jpg)\n\n接着我们进行一些操作：\n\n1、线程put1执行 put(1)操作，由于当前没有配对的消费线程，所以put1线程入队列，自旋一小会后睡眠等待，这时队列状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bb3abb1f08bc6b615f4a523db28792ea27072595b73c3ab936fdcddf0c6e5649.jpg)\n\n2、接着，线程put2执行了put(2)操作，跟前面一样，put2线程入队列，自旋一小会后睡眠等待，这时队列状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/07040a0922b0ee1f19314da4a4e0f7c6bd765e5e46ec752ca057b47a0d013383.jpg)\n\n3、这时候，来了一个线程take1，执行了\n\ntake操作，由于tail指向put2线程，put2线程跟take1线程配对了(一put一take)，这时take1线程不需要入队，但是请注意了，这时候，要唤醒的线程并不是put2，而是put1。为何？\n\n大家应该知道我们现在讲的是公平策略，所谓公平就是谁先入队了，谁就优先被唤醒，我们的例子明显是put1应该优先被唤醒。至于读者可能会有一个疑问，明明是take1线程跟put2线程匹配上了，结果是put1线程被唤醒消费，怎么确保take1线程一定可以和次首节点(head.next)也是匹配的呢？其实大家可以拿个纸画一画，就会发现真的就是这样的。\n\n公平策略总结下来就是：队尾匹配队头出队。\n\n执行后put1线程被唤醒，take1线程的 take()方法返回了1(put1线程的数据)，这样就实现了线程间的一对一通信，这时候内部状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/ff3cc2846722e3e54e0872a8021f5c14355c0e65c3da4fc8c9f8b3eeb01dfacd.jpg)\n\n4、最后，再来一个线程take2，执行take操作，这时候只有put2线程在等候，而且两个线程匹配上了，线程put2被唤醒，\n\ntake2线程take操作返回了2(线程put2的数据)，这时候队列又回到了起点，如下所示：\n\n以上便是公平模式下，SynchronousQueue的实现模型。总结下来就是：队尾匹配队头出队，先进先出，体现公平原则。\n\n## 非公平模式下的模型：\n\n我们还是使用跟公平模式下一样的操作流程，对比两种策略下有何不同。非公平模式底层的实现使用的是TransferStack，\n\n一个栈，实现中用head指针指向栈顶，接着我们看看它的实现模型:\n\n1、线程put1执行 put(1)操作，由于当前没有配对的消费线程，所以put1线程入栈，自旋一小会后睡眠等待，这时栈状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/5a6ca9833ef1b9933a60fa3aa90f211db933b9341b6426e53be6b1aaa7f0bfef.jpg)\n\n2、接着，线程put2再次执行了put(2)操作，跟前面一样，put2线程入栈，自旋一小会后睡眠等待，这时栈状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/ce15137bf1294d011195b6ada2f556ef6da682e58b78011f94e7813de67be2bb.jpg)\n\n3、这时候，来了一个线程take1，执行了take操作，这时候发现栈顶为put2线程，匹配成功，但是实现会先把take1线程入栈，然后take1线程循环执行匹配put2线程逻辑，一旦发现没有并发冲突，就会把栈顶指针直接指向 put1线程\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bda5ba87403c8792d1a57bdd79ec0a637d9ba60662447967aa955886370dd5a1.jpg)\n\n4、最后，再来一个线程take2，执行take操作，这跟步骤3的逻辑基本是一致的，take2线程入栈，然后在循环中匹配put1线程，最终全部匹配完毕，栈变为空，恢复初始状态，如下图所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/8aec95e52dbc27a714d8c69b08aff4dbaf744d4b4dd3c561c7e71e20718561aa.jpg)\n\n可以从上面流程看出，虽然put1线程先入栈了，但是却是后匹配，这就是非公平的由来。\n\n## 总结\n\nSynchronousQueue由于其独有的线程一一配对通信机制，在大部分平常开发中，可能都不太会用到，但线程池技术中会有所使用，由于内部没有使用AQS，而是直接使用CAS，所以代码理解起来会比较困难，但这并不妨碍我们理解底层的实现模型，在理解了模型的基础上，有兴趣的话再查阅源码，就会有方向感，看起来也会比较容易，希望本文有所借鉴意义。",
-      "tabs": [
-        {
-          "id": "jimi-4",
-          "label": "实现原理",
-          "content": "## 前言\n\nSynchronousQueue是一个比较特别的队列，由于在线程池方面有所应用，为了更好的理解线程池的实现原理，笔者花了些时间学习了一下该队列源码(JDK1.8)，此队列源码中充斥着大量的CAS语句，理解起来是有些难度的，为了方便日后回顾，本篇文章会以简洁的图形化方式展示该队列底层的实现原理。\n\n## SynchronousQueue简单使用\n\n经典的生产者-消费者模式，操作流程是这样的：\n\n有多个生产者，可以并发生产产品，把产品置入队列中，如果队列满了，生产者就会阻塞；\n\n有多个消费者，并发从队列中获取产品，如果队列空了，消费者就会阻塞；\n\n如下面的示意图所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/72a63d9d2d58aaa7f4712cbe03cde169b35a1af03483b8adb045210952e44662.jpg)\n\nSynchronousQueue \n\n也是一个队列来的，但它的特别之处在于它内部没有容器，一个生产线程，当它生产产品（即put的时候），如果当前没有人想要消费产品(即当前没有线程执行take)，此生产线程必须阻塞，等待一个消费线程调用take操作，take操作将会唤醒该生产线程，同时消费线程会获取生产线程的产品（即数据传递），这样的一个过程称为一次配对过程(当然也可以先take后put,原理是一样的)。\n\n我们用一个简单的代码来验证一下，如下所示：\n\n```java\nimport java.util.concurrent.SynchronousQueue;\n\npublic class SynchronousQueueDemo {\n    public static void main(String[] args) throws InterruptedException {\n    final SynchronousQueue<Integer> queue = new SynchronousQueue<Integer>();\n\n    Thread putThread = new Thread(new Runnable() {\n    @Override\n    public void run() {\n    System.out.println(\"put thread start\");\n    try {\n    queue.put(1);\n    } catch (InterruptedException e) {\n    }\n    System.out.println(\"put thread end\");\n    }\n});\n\nThread takeThread = new Thread(new Runnable() {\n    @Override\n    public void run() {\n    System.out.println(\"take thread start\");\n    try {\n    System.out.println(\"take from putThread: \" + queue.take());\n    } catch (InterruptedException e) {\n    }\n    System.out.println(\"take thread end\");\n    }\n});\n\nputThread.start();\nThread.sleep(1000);\ntakeThread.start();\n} \n```\n\n## 一种输出结果如下:\n\n```rust\nput thread start\ntake thread start\ntake from putThread: 1\nput thread end\ntake thread end \n```\n\n从结果可以看出，put线程执行queue.put(1) 后就被阻塞了，只有take线程进行了消费，put线程才可以返回。可以认为这是一种线程与线程间一对一传递消息的模型。\n\n## SynchronousQueue实现原理\n\n不像ArrayBlockingQueue、LinkedBlockingDeque之类的阻塞队列依赖AQS实现并发操作，SynchronousQueue直接使用CAS实现线程的安全访问。由于源码中充斥着大量的CAS代码，不易于理解，所以按照笔者的风格，接下来会使用简单的示例来描述背后的实现模型。\n\n队列的实现策略通常分为公平模式和非公平模式，接下来将分别进行说明。\n\n## 公平模式下的模型：\n\n公平模式下，底层实现使用的是TransferQueue这个内部队列，它有一个head和tail指针，用于指向当前正在等待匹配的线程节点。\n\n初始化时，TransferQueue的状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/88b20c396ec6983598982ca9f199d0381fe2c4550c0c3056e77a1a6dcf399ca3.jpg)\n\n接着我们进行一些操作：\n\n1、线程put1执行 put(1)操作，由于当前没有配对的消费线程，所以put1线程入队列，自旋一小会后睡眠等待，这时队列状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bb3abb1f08bc6b615f4a523db28792ea27072595b73c3ab936fdcddf0c6e5649.jpg)\n\n2、接着，线程put2执行了put(2)操作，跟前面一样，put2线程入队列，自旋一小会后睡眠等待，这时队列状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/07040a0922b0ee1f19314da4a4e0f7c6bd765e5e46ec752ca057b47a0d013383.jpg)\n\n3、这时候，来了一个线程take1，执行了\n\ntake操作，由于tail指向put2线程，put2线程跟take1线程配对了(一put一take)，这时take1线程不需要入队，但是请注意了，这时候，要唤醒的线程并不是put2，而是put1。为何？\n\n大家应该知道我们现在讲的是公平策略，所谓公平就是谁先入队了，谁就优先被唤醒，我们的例子明显是put1应该优先被唤醒。至于读者可能会有一个疑问，明明是take1线程跟put2线程匹配上了，结果是put1线程被唤醒消费，怎么确保take1线程一定可以和次首节点(head.next)也是匹配的呢？其实大家可以拿个纸画一画，就会发现真的就是这样的。\n\n公平策略总结下来就是：队尾匹配队头出队。\n\n执行后put1线程被唤醒，take1线程的 take()方法返回了1(put1线程的数据)，这样就实现了线程间的一对一通信，这时候内部状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/ff3cc2846722e3e54e0872a8021f5c14355c0e65c3da4fc8c9f8b3eeb01dfacd.jpg)\n\n4、最后，再来一个线程take2，执行take操作，这时候只有put2线程在等候，而且两个线程匹配上了，线程put2被唤醒，\n\ntake2线程take操作返回了2(线程put2的数据)，这时候队列又回到了起点，如下所示：\n\n以上便是公平模式下，SynchronousQueue的实现模型。总结下来就是：队尾匹配队头出队，先进先出，体现公平原则。\n\n## 非公平模式下的模型：\n\n我们还是使用跟公平模式下一样的操作流程，对比两种策略下有何不同。非公平模式底层的实现使用的是TransferStack，\n\n一个栈，实现中用head指针指向栈顶，接着我们看看它的实现模型:\n\n1、线程put1执行 put(1)操作，由于当前没有配对的消费线程，所以put1线程入栈，自旋一小会后睡眠等待，这时栈状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/5a6ca9833ef1b9933a60fa3aa90f211db933b9341b6426e53be6b1aaa7f0bfef.jpg)\n\n2、接着，线程put2再次执行了put(2)操作，跟前面一样，put2线程入栈，自旋一小会后睡眠等待，这时栈状态如下：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/ce15137bf1294d011195b6ada2f556ef6da682e58b78011f94e7813de67be2bb.jpg)\n\n3、这时候，来了一个线程take1，执行了take操作，这时候发现栈顶为put2线程，匹配成功，但是实现会先把take1线程入栈，然后take1线程循环执行匹配put2线程逻辑，一旦发现没有并发冲突，就会把栈顶指针直接指向 put1线程\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bda5ba87403c8792d1a57bdd79ec0a637d9ba60662447967aa955886370dd5a1.jpg)\n\n4、最后，再来一个线程take2，执行take操作，这跟步骤3的逻辑基本是一致的，take2线程入栈，然后在循环中匹配put1线程，最终全部匹配完毕，栈变为空，恢复初始状态，如下图所示：\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/8aec95e52dbc27a714d8c69b08aff4dbaf744d4b4dd3c561c7e71e20718561aa.jpg)\n\n可以从上面流程看出，虽然put1线程先入栈了，但是却是后匹配，这就是非公平的由来。\n\n## 总结\n\nSynchronousQueue由于其独有的线程一一配对通信机制，在大部分平常开发中，可能都不太会用到，但线程池技术中会有所使用，由于内部没有使用AQS，而是直接使用CAS，所以代码理解起来会比较困难，但这并不妨碍我们理解底层的实现模型，在理解了模型的基础上，有兴趣的话再查阅源码，就会有方向感，看起来也会比较容易，希望本文有所借鉴意义。"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "SynchronousQueue",
@@ -74344,13 +74266,7 @@
       "nodeId": "k_1786353277269_msn0ma8yd",
       "title": "注解",
       "rootContent": "## 概念\n\nAnnotation（注解）是 Java 提供的一种对元程序中元素关联信息和元数据（metadata）的途径和方法。Annatation(注解)是一个接口，程序可以通过反射来获取指定程序中元素的 Annotation 对象，然后通过该 Annotation 对象来获取注解中的元数据信息。\n\n## 4 种标准元注解\n\n元注解的作用是负责注解其他注解。 Java5.0 定义了 4 个标准的 meta-annotation 类型，它们被用来提供对其它 annotation 类型作说明。\n\n## @Target 修饰的对象范围\n\n@Target说明了Annotation所修饰的对象范围： Annotation可被用于 packages、types（类、接口、枚举、Annotation 类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch 参数）。在 Annotation 类型的声明中使用了 target 可更加明晰其修饰的目标\n\n## @Retention 定义 被保留的时间长短\n\nRetention 定义了该 Annotation 被保留的时间长短：表示需要在什么级别保存注解信息，用于描述注解的生命周期（即：被描述的注解在什么范围内有效），取值（RetentionPoicy）由：\n\nn SOURCE:在源文件中有效（即源文件保留）\n\nn CLASS:在 class 文件中有效（即 class 保留）\n\nn RUNTIME:在运行时有效（即运行时保留）\n\n## @Documented 描述-javadoc\n\n@ Documented 用于描述其它类型的 annotation 应该被作为被标注的程序成员的公共 API，因此可以被例如 javadoc 此类的工具文档化。\n\n## @Inherited 阐述了某个被标注的类型是被继承的\n\n@Inherited 元注解是一个标记注解，@Inherited 阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited 修饰的 annotation 类型被用于一个 class，则这个 annotation 将被用于该 class 的子类。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/3894797d14358c0d9c7f1d5b0d4095290b99587fb9c7f2217bf844c573796990.jpg)\n\n## 注解处理器\n\n如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。使用注解的过程中，很重要的一部分就是创建于使用注解处理器。Java SE5扩展了反射机制的API，以帮助程序员快速的构造自定义注解处理器。下面实现一个注解处理器。\n\n```java\n/1: ** 定义注解*/\n@Target(ElementType.FIELD)\n@Retention(RetentionPolicy.RUNTIME)\n@Documented\npublic @interface FruitProvider {\n    /**供应商编号*/\n    public int id() default -1;\n    /** 供应商名称*/\n    public String name() default \"\"\n```\n\n```java\n/**\n * 供应商地址*/\n    public String address() default \"\";\n}\n\n//2: 注解使用\npublic class Apple {\n    @FruitProvider(id = 1, name = \"陕西红富士集团\", address = \"陕西省西安市延安路\")\n    private String appleProvider;    public void setAppleProvider(String appleProvider) {    this.appleProvider = appleProvider;\n    }\n    public String getAppleProvider() {    return appleProvider;\n    }\n}\n\n/3: ************************ 注解处理器 ************************ */\npublic class FruitInfoUtil {    public static void getFruitInfo(Class<?> clazz) {\n    String strFruitProvicer = \"供应商信息：\";\n    Field[] fields = clazz.getDeclaredFields(); //通过反射获取处理注解\n    for (Field field : fields) {    if \n    (field.isAnnotationPresent(FruitProvider.class)) {\n    FruitProvider fruitProvider = (FruitProvider)\n    field.getAnnotation(FruitProvider.class);\n    //注解信息的处理地方\n    strFruitProvicer = \"供应商编号：\" + fruitProvider.id() + \"供应商名称：\" + fruitProvider.name() + \"供应商地址：\" +\n    fruitProvider.address();    System.out.println(strFruitProvicer);\n    }\n    }\n    }\n}\n\npublic class FruitRun {    public static void main(String[] args) {\n    FruitInfoUtil.getFruitInfo(Apple.class);\n    /************************输出结果*************************/\n    //供应商编号：1供应商名称：陕西红富士集团供应商地址：陕西省西安市延\n    }\n}\n```",
-      "tabs": [
-        {
-          "id": "jimi-11",
-          "label": "JAVA 注解",
-          "content": "## 概念\n\nAnnotation（注解）是 Java 提供的一种对元程序中元素关联信息和元数据（metadata）的途径和方法。Annatation(注解)是一个接口，程序可以通过反射来获取指定程序中元素的 Annotation 对象，然后通过该 Annotation 对象来获取注解中的元数据信息。\n\n## 4 种标准元注解\n\n元注解的作用是负责注解其他注解。 Java5.0 定义了 4 个标准的 meta-annotation 类型，它们被用来提供对其它 annotation 类型作说明。\n\n## @Target 修饰的对象范围\n\n@Target说明了Annotation所修饰的对象范围： Annotation可被用于 packages、types（类、接口、枚举、Annotation 类型）、类型成员（方法、构造方法、成员变量、枚举值）、方法参数和本地变量（如循环变量、catch 参数）。在 Annotation 类型的声明中使用了 target 可更加明晰其修饰的目标\n\n## @Retention 定义 被保留的时间长短\n\nRetention 定义了该 Annotation 被保留的时间长短：表示需要在什么级别保存注解信息，用于描述注解的生命周期（即：被描述的注解在什么范围内有效），取值（RetentionPoicy）由：\n\nn SOURCE:在源文件中有效（即源文件保留）\n\nn CLASS:在 class 文件中有效（即 class 保留）\n\nn RUNTIME:在运行时有效（即运行时保留）\n\n## @Documented 描述-javadoc\n\n@ Documented 用于描述其它类型的 annotation 应该被作为被标注的程序成员的公共 API，因此可以被例如 javadoc 此类的工具文档化。\n\n## @Inherited 阐述了某个被标注的类型是被继承的\n\n@Inherited 元注解是一个标记注解，@Inherited 阐述了某个被标注的类型是被继承的。如果一个使用了@Inherited 修饰的 annotation 类型被用于一个 class，则这个 annotation 将被用于该 class 的子类。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/3894797d14358c0d9c7f1d5b0d4095290b99587fb9c7f2217bf844c573796990.jpg)\n\n## 注解处理器\n\n如果没有用来读取注解的方法和工作，那么注解也就不会比注释更有用处了。使用注解的过程中，很重要的一部分就是创建于使用注解处理器。Java SE5扩展了反射机制的API，以帮助程序员快速的构造自定义注解处理器。下面实现一个注解处理器。\n\n```java\n/1: ** 定义注解*/\n@Target(ElementType.FIELD)\n@Retention(RetentionPolicy.RUNTIME)\n@Documented\npublic @interface FruitProvider {\n    /**供应商编号*/\n    public int id() default -1;\n    /** 供应商名称*/\n    public String name() default \"\"\n```\n\n```java\n/**\n * 供应商地址*/\n    public String address() default \"\";\n}\n\n//2: 注解使用\npublic class Apple {\n    @FruitProvider(id = 1, name = \"陕西红富士集团\", address = \"陕西省西安市延安路\")\n    private String appleProvider;    public void setAppleProvider(String appleProvider) {    this.appleProvider = appleProvider;\n    }\n    public String getAppleProvider() {    return appleProvider;\n    }\n}\n\n/3: ************************ 注解处理器 ************************ */\npublic class FruitInfoUtil {    public static void getFruitInfo(Class<?> clazz) {\n    String strFruitProvicer = \"供应商信息：\";\n    Field[] fields = clazz.getDeclaredFields(); //通过反射获取处理注解\n    for (Field field : fields) {    if \n    (field.isAnnotationPresent(FruitProvider.class)) {\n    FruitProvider fruitProvider = (FruitProvider)\n    field.getAnnotation(FruitProvider.class);\n    //注解信息的处理地方\n    strFruitProvicer = \"供应商编号：\" + fruitProvider.id() + \"供应商名称：\" + fruitProvider.name() + \"供应商地址：\" +\n    fruitProvider.address();    System.out.println(strFruitProvicer);\n    }\n    }\n    }\n}\n\npublic class FruitRun {    public static void main(String[] args) {\n    FruitInfoUtil.getFruitInfo(Apple.class);\n    /************************输出结果*************************/\n    //供应商编号：1供应商名称：陕西红富士集团供应商地址：陕西省西安市延\n    }\n}\n```"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "注解",
@@ -74425,13 +74341,7 @@
       "nodeId": "k_1786353277269_msn0ma98n",
       "title": "Java 9 新特性",
       "rootContent": "**modularity System 模块系统\n\nJava 9中主要的变化是已经实现的模块化系统。\n\nModularity提供了类似于OSGI框架的功能，模块之间存在相互的依赖关系，可以导出一个公共的API，并且隐藏实现的细节，Java提供该功能的主要的动机在于，减少内存的开销，在JVM启动的时候，至少会有30～60MB的内存加载，主要原因是JVM需要加载rt.jar，不管其中的类是否被classloader加载，第一步整个jar都会被JVM加载到内存当中去，模块化可以根据模块的需要加载程序运行需要的class。\n\n在引入了模块系统之后，JDK 被重新组织成 94 个模块。Java 应用可以通过新增的 jlink 工具，创建出只包含所依赖的 JDK 模块的自定义运行时镜像。这样可以极大的减少 Java 运行时环境的大小。使得JDK可以在更小的设备中使用。采用模块化系统的应用程序只需要这些应用程序所需的那部分JDK模块，而非是整个JDK框架了。\n\n## HTTP/2\n\nJDK9之前提供HttpURLConnection API来实现Http访问功能，但是这个类基本很少使用，一般都会选择Apache的Http Client，此次在Java 9的版本中引入了一个新的package:java.net.http，里面提供了对Http访问很好的支持，不仅支持Http1.1而且还支持HTTP2，以及WebSocket，据说性能特别好。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/dab5f13d693d0728b46c60c5b9336b1259cd528a9a182a0f1f482c8b480b26ad.jpg)\n\n注意：新的 HttpClient API 在 Java 9 中以所谓的孵化器模块交付。也就是说，这套 API 不能保证 100%完成。\n\n## JShell\n\n用过Python的童鞋都知道，Python 中的读取-求值-打印循环（ Read-Evaluation-Print Loop ）很方便。它的目的在于以即时结果和反馈的形式。\n\njava9引入了jshell这个交互性工具，让Java也可以像脚本语言一样来运行，可以从控制台启动 jshell ，在 jshell 中直接输入表达式并查看其执行结果。当需要测试一个方法的运行效果，或是快速的对表达式进行求值时，jshell 都非常实用。\n\n除了表达式之外，还可以创建 Java 类和方法。jshell 也有基本的代码完成功能。我们在教人们如何编写Java 的过程中，不再需要解释 “public static void main（String [] args）” 这句废话。\n\n不可变集合工厂方法\n\nJava 9增加了List.of()、Set.of()、Map.of()和Map.ofEntries()等工厂方法来创建不可变集合。\n\n```txt\nList strs = List.of(\"Hello\", \"World\"); \n```\n\nList strs List.of(1, 2, 3); \n\nSet strs = Set.of(\"Hello\", \"World\"); \n\nSet ints = Set.of(1, 2, 3); \n\nMap maps = Map.of(\"Hello\", 1, \"World\", 2); \n\n除了更短和更好阅读之外，这些方法也可以避免您选择特定的集合实现。在创建后，继续添加元素到这些集合会导致 “UnsupportedOperationException” 。\n\n## 私有接口方法\n\nJava 8 为我们提供了接口的默认方法和静态方法，接口也可以包含行为，而不仅仅是方法定义。\n\n默认方法和静态方法可以共享接口中的私有方法，因此避免了代码冗余，这也使代码更加清晰。如果私有方法是静态的，那这个方法就属于这个接口的。并且没有静态的私有方法只能被在接口中的实例调用。\n\n```typescript\ninterface InterfaceWithPrivateMethods { \n```\n\nprivate static String staticPrivate() { \n\nreturn \"static private\"; \n\nprivate String instancePrivate() { \n\n```txt\nreturn \"instance private\"; \n```\n\ndefault void check() { \n\n```txt\nString result = staticPrivate();\nInterfaceWithPrivateMethods pvt = new InterfaceWithPrivateMethods() {\n    // anonymous class 匿名类\n};\nresult = pvt.instancePrivate();\n```\n\n## HTML5风格的Java帮助文档\n\nJava 8之前的版本生成的Java帮助文档是在HTML 4中。在Java 9中，Javadoc 的输出现在符合兼容HTML5 标准。现在HTML 4是默认的输出标记语言，但是在之后发布的JDK中，HTML 5将会是默认的输出标记语言。\n\nJava帮助文档还是由三个框架组成的结构构成，这是不会变的，并且以HTML 5输出的Java帮助文档也保持相同的结构。每个 Javadoc 页面都包含有关 JDK 模块类或接口来源的信息。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bc9d3b92de173fa6870b9aff7ca0da9e5e08a6add1d0b8bcc2b555726e5cca96.jpg)\n\n## 多版本兼容 JAR\n\n当一个新版本的 Java 出现的时候，你的库用户要花费很长时间才会切换到这个新的版本。这就意味着库要去向后兼容你想要支持的最老的 Java 版本 (许多情况下就是 Java 6 或者 7)。这实际上意味着未来的很长一段时间，你都不能在库中运用 Java 9 所提供的新特性。幸运的是，多版本兼容 JAR 功能能让你创建仅在特定版本的 Java 环境中运行库程序时选择使用的 class 版本：\n\nmultirelease.jar \n\n├── META-INF \n\n└── versions \n\n│ └── 9 \n\n│ └── multirelease \n\n└── Helper.class \n\n├── multirelease \n\n├── Helper.class \n\n└── Main.class \n\n在上述场景中， multirelease.jar 可以在 Java 9 中使用, 不过 Helper 这个类使用的不是顶层的multirelease.Helper 这个 class, 而是处在“META-INF/versions/9”下面的这个。这是特别为 Java 9 准备的 class 版本，可以运用 Java 9 所提供的特性和库。同时，在早期的 Java 诸版本中使用这个 JAR 也是能运行的，因为较老版本的 Java 只会看到顶层的这个 Helper 类。\n\n## 统一 JVM 日志\n\nJava 9 中 ，JVM 有了统一的日志记录系统，可以使用新的命令行选项-Xlog 来控制 JVM 上 所有组件的日志记录。该日志记录系统可以设置输出的日志消息的标签、级别、修饰符和输出目标等。\n\n## java9的垃圾收集机制\n\nJava 9 移除了在 Java 8 中 被废弃的垃圾回收器配置组合，同时把G1设为默认的垃圾回收器实现。替代了之前默认使用的Parallel GC，对于这个改变，evens的评论是酱紫的：这项变更是很重要的，因为相对于Parallel来说，G1会在应用线程上做更多的事情，而Parallel几乎没有在应用线程上做任何事情，它基本上完全依赖GC线程完成所有的内存管理。这意味着切换到G1将会为应用线程带来额外的工作，从而直接影响到应用的性能\n\n## I/O 流新特性\n\njava.io.InputStream 中增加了新的方法来读取和复制 InputStream 中包含的数据。\n\nreadAllBytes：读取 InputStream 中的所有剩余字节。\n\nreadNBytes： 从 InputStream 中读取指定数量的字节到数组中。\n\ntransferTo：读取 InputStream 中的全部字节并写入到指定的 OutputStream 中 。\n\n除了上面这些以外，还有以下这么多的新特性，不再一一介绍。\n\n102: Process API Updates\n110: HTTP 2 Client\n143: Improve Contended Locking\n158: Unified JVM Logging\n165: Compiler Control\n193: Variable Handles\n197: Segmented Code Cache\n199: Smart Java Compilation, Phase Two\n200: The Modular JDK\n201: Modular Source Code\n211: Elide Deprecation Warnings on Import Statements\n212: Resolve Lint and Doclint Warnings\n213: Milling Project Coin\n214: Remove GC Combinations Deprecated in JDK 8\n215: Tiered Attribution for javac\n216: Process Import Statements Correctly\n217: Annotations Pipeline 2.0\n219: Datagram Transport Layer Security (DTLS)\n220: Modular Run-Time Images\n221: Simplified Doclet API\n222: jshell: The Java Shell (Read-Eval-Print Loop)\n223: New Version-String Scheme\n224: HTML5 Javadoc\n225: Javadoc Search\n226: UTF-8 Property Files\n227: Unicode 7.0\n228: Add More Diagnostic Commands\n229: Create PKCS12 Keystores by Default\n231: Remove Launch-Time JRE Version Selection\n232: Improve Secure Application Performance\n233: Generate Run-Time Compiler Tests Automatically\n235: Test Class-File Attributes Generated by javac \n\n236: Parser API for Nashorn \n\n237: Linux/AArch64 Port \n\n238: Multi-Release JAR Files \n\n240: Remove the JVM TI hprof Agent \n\n241: Remove the jhat Tool \n\n243: Java-Level JVM Compiler Interface \n\n244: TLS Application-Layer Protocol Negotiation Extension \n\n245: Validate JVM Command-Line Flag Arguments \n\n246: Leverage CPU Instructions for GHASH and RSA \n\n247: Compile for Older Platform Versions \n\n248: Make G1 the Default Garbage Collector \n\n249: OCSP Stapling for TLS \n\n250: Store Interned Strings in CDS Archives \n\n251: Multi-Resolution Images \n\n252: Use CLDR Locale Data by Default \n\n253: Prepare JavaFX UI Controls & CSS APIs for Modularization \n\n254: Compact Strings \n\n255: Merge Selected Xerces 2.11.0 Updates into JAXP \n\n256: BeanInfo Annotations \n\n257: Update JavaFX/Media to Newer Version of GStreamer \n\n258: HarfBuzz Font-Layout Engine \n\n259: Stack-Walking API \n\n260: Encapsulate Most Internal APIs \n\n261: Module System \n\n262: TIFF Image I/O \n\n263: HiDPI Graphics on Windows and Linux \n\n264: Platform Logging API and Service \n\n265: Marlin Graphics Renderer \n\n266: More Concurrency Updates \n\n267: Unicode 8.0 \n\n268: XML Catalogs \n\n269: Convenience Factory Methods for Collections \n\n270: Reserved Stack Areas for Critical Sections \n\n271: Unified GC Logging \n\n272: Platform-Specific Desktop Features \n\n273: DRBG-Based SecureRandom Implementations 274: Enhanced Method Handles 275: Modular Java Application Packaging 276: Dynamic Linking of Language-Defined Object Models 277: Enhanced Deprecation 278: Additional Tests for Humongous Objects in G1 279: Improve Test-Failure Troubleshooting 280: Indify String Concatenation 281: HotSpot C++ Unit-Test Framework 282: jlink: The Java Linker 283: Enable GTK 3 on Linux 284: New HotSpot Build System 285: Spin-Wait Hints 287: SHA-3 Hash Algorithms 288: Disable SHA-1 Certificates 289: Deprecate the Applet API 290: Filter Incoming Serialization Data 292: Implement Selected ECMAScript 6 Features in Nashorn 294: Linux/s390x Port 295: Ahead-of-Time Compilation",
-      "tabs": [
-        {
-          "id": "jimi-16",
-          "label": "Java 9 新特性",
-          "content": "**modularity System 模块系统\n\nJava 9中主要的变化是已经实现的模块化系统。\n\nModularity提供了类似于OSGI框架的功能，模块之间存在相互的依赖关系，可以导出一个公共的API，并且隐藏实现的细节，Java提供该功能的主要的动机在于，减少内存的开销，在JVM启动的时候，至少会有30～60MB的内存加载，主要原因是JVM需要加载rt.jar，不管其中的类是否被classloader加载，第一步整个jar都会被JVM加载到内存当中去，模块化可以根据模块的需要加载程序运行需要的class。\n\n在引入了模块系统之后，JDK 被重新组织成 94 个模块。Java 应用可以通过新增的 jlink 工具，创建出只包含所依赖的 JDK 模块的自定义运行时镜像。这样可以极大的减少 Java 运行时环境的大小。使得JDK可以在更小的设备中使用。采用模块化系统的应用程序只需要这些应用程序所需的那部分JDK模块，而非是整个JDK框架了。\n\n## HTTP/2\n\nJDK9之前提供HttpURLConnection API来实现Http访问功能，但是这个类基本很少使用，一般都会选择Apache的Http Client，此次在Java 9的版本中引入了一个新的package:java.net.http，里面提供了对Http访问很好的支持，不仅支持Http1.1而且还支持HTTP2，以及WebSocket，据说性能特别好。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/dab5f13d693d0728b46c60c5b9336b1259cd528a9a182a0f1f482c8b480b26ad.jpg)\n\n注意：新的 HttpClient API 在 Java 9 中以所谓的孵化器模块交付。也就是说，这套 API 不能保证 100%完成。\n\n## JShell\n\n用过Python的童鞋都知道，Python 中的读取-求值-打印循环（ Read-Evaluation-Print Loop ）很方便。它的目的在于以即时结果和反馈的形式。\n\njava9引入了jshell这个交互性工具，让Java也可以像脚本语言一样来运行，可以从控制台启动 jshell ，在 jshell 中直接输入表达式并查看其执行结果。当需要测试一个方法的运行效果，或是快速的对表达式进行求值时，jshell 都非常实用。\n\n除了表达式之外，还可以创建 Java 类和方法。jshell 也有基本的代码完成功能。我们在教人们如何编写Java 的过程中，不再需要解释 “public static void main（String [] args）” 这句废话。\n\n不可变集合工厂方法\n\nJava 9增加了List.of()、Set.of()、Map.of()和Map.ofEntries()等工厂方法来创建不可变集合。\n\n```txt\nList strs = List.of(\"Hello\", \"World\"); \n```\n\nList strs List.of(1, 2, 3); \n\nSet strs = Set.of(\"Hello\", \"World\"); \n\nSet ints = Set.of(1, 2, 3); \n\nMap maps = Map.of(\"Hello\", 1, \"World\", 2); \n\n除了更短和更好阅读之外，这些方法也可以避免您选择特定的集合实现。在创建后，继续添加元素到这些集合会导致 “UnsupportedOperationException” 。\n\n## 私有接口方法\n\nJava 8 为我们提供了接口的默认方法和静态方法，接口也可以包含行为，而不仅仅是方法定义。\n\n默认方法和静态方法可以共享接口中的私有方法，因此避免了代码冗余，这也使代码更加清晰。如果私有方法是静态的，那这个方法就属于这个接口的。并且没有静态的私有方法只能被在接口中的实例调用。\n\n```typescript\ninterface InterfaceWithPrivateMethods { \n```\n\nprivate static String staticPrivate() { \n\nreturn \"static private\"; \n\nprivate String instancePrivate() { \n\n```txt\nreturn \"instance private\"; \n```\n\ndefault void check() { \n\n```txt\nString result = staticPrivate();\nInterfaceWithPrivateMethods pvt = new InterfaceWithPrivateMethods() {\n    // anonymous class 匿名类\n};\nresult = pvt.instancePrivate();\n```\n\n## HTML5风格的Java帮助文档\n\nJava 8之前的版本生成的Java帮助文档是在HTML 4中。在Java 9中，Javadoc 的输出现在符合兼容HTML5 标准。现在HTML 4是默认的输出标记语言，但是在之后发布的JDK中，HTML 5将会是默认的输出标记语言。\n\nJava帮助文档还是由三个框架组成的结构构成，这是不会变的，并且以HTML 5输出的Java帮助文档也保持相同的结构。每个 Javadoc 页面都包含有关 JDK 模块类或接口来源的信息。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-10/57b86128-15b1-42c6-ba87-433dfe8245f7/bc9d3b92de173fa6870b9aff7ca0da9e5e08a6add1d0b8bcc2b555726e5cca96.jpg)\n\n## 多版本兼容 JAR\n\n当一个新版本的 Java 出现的时候，你的库用户要花费很长时间才会切换到这个新的版本。这就意味着库要去向后兼容你想要支持的最老的 Java 版本 (许多情况下就是 Java 6 或者 7)。这实际上意味着未来的很长一段时间，你都不能在库中运用 Java 9 所提供的新特性。幸运的是，多版本兼容 JAR 功能能让你创建仅在特定版本的 Java 环境中运行库程序时选择使用的 class 版本：\n\nmultirelease.jar \n\n├── META-INF \n\n└── versions \n\n│ └── 9 \n\n│ └── multirelease \n\n└── Helper.class \n\n├── multirelease \n\n├── Helper.class \n\n└── Main.class \n\n在上述场景中， multirelease.jar 可以在 Java 9 中使用, 不过 Helper 这个类使用的不是顶层的multirelease.Helper 这个 class, 而是处在“META-INF/versions/9”下面的这个。这是特别为 Java 9 准备的 class 版本，可以运用 Java 9 所提供的特性和库。同时，在早期的 Java 诸版本中使用这个 JAR 也是能运行的，因为较老版本的 Java 只会看到顶层的这个 Helper 类。\n\n## 统一 JVM 日志\n\nJava 9 中 ，JVM 有了统一的日志记录系统，可以使用新的命令行选项-Xlog 来控制 JVM 上 所有组件的日志记录。该日志记录系统可以设置输出的日志消息的标签、级别、修饰符和输出目标等。\n\n## java9的垃圾收集机制\n\nJava 9 移除了在 Java 8 中 被废弃的垃圾回收器配置组合，同时把G1设为默认的垃圾回收器实现。替代了之前默认使用的Parallel GC，对于这个改变，evens的评论是酱紫的：这项变更是很重要的，因为相对于Parallel来说，G1会在应用线程上做更多的事情，而Parallel几乎没有在应用线程上做任何事情，它基本上完全依赖GC线程完成所有的内存管理。这意味着切换到G1将会为应用线程带来额外的工作，从而直接影响到应用的性能\n\n## I/O 流新特性\n\njava.io.InputStream 中增加了新的方法来读取和复制 InputStream 中包含的数据。\n\nreadAllBytes：读取 InputStream 中的所有剩余字节。\n\nreadNBytes： 从 InputStream 中读取指定数量的字节到数组中。\n\ntransferTo：读取 InputStream 中的全部字节并写入到指定的 OutputStream 中 。\n\n除了上面这些以外，还有以下这么多的新特性，不再一一介绍。\n\n102: Process API Updates\n110: HTTP 2 Client\n143: Improve Contended Locking\n158: Unified JVM Logging\n165: Compiler Control\n193: Variable Handles\n197: Segmented Code Cache\n199: Smart Java Compilation, Phase Two\n200: The Modular JDK\n201: Modular Source Code\n211: Elide Deprecation Warnings on Import Statements\n212: Resolve Lint and Doclint Warnings\n213: Milling Project Coin\n214: Remove GC Combinations Deprecated in JDK 8\n215: Tiered Attribution for javac\n216: Process Import Statements Correctly\n217: Annotations Pipeline 2.0\n219: Datagram Transport Layer Security (DTLS)\n220: Modular Run-Time Images\n221: Simplified Doclet API\n222: jshell: The Java Shell (Read-Eval-Print Loop)\n223: New Version-String Scheme\n224: HTML5 Javadoc\n225: Javadoc Search\n226: UTF-8 Property Files\n227: Unicode 7.0\n228: Add More Diagnostic Commands\n229: Create PKCS12 Keystores by Default\n231: Remove Launch-Time JRE Version Selection\n232: Improve Secure Application Performance\n233: Generate Run-Time Compiler Tests Automatically\n235: Test Class-File Attributes Generated by javac \n\n236: Parser API for Nashorn \n\n237: Linux/AArch64 Port \n\n238: Multi-Release JAR Files \n\n240: Remove the JVM TI hprof Agent \n\n241: Remove the jhat Tool \n\n243: Java-Level JVM Compiler Interface \n\n244: TLS Application-Layer Protocol Negotiation Extension \n\n245: Validate JVM Command-Line Flag Arguments \n\n246: Leverage CPU Instructions for GHASH and RSA \n\n247: Compile for Older Platform Versions \n\n248: Make G1 the Default Garbage Collector \n\n249: OCSP Stapling for TLS \n\n250: Store Interned Strings in CDS Archives \n\n251: Multi-Resolution Images \n\n252: Use CLDR Locale Data by Default \n\n253: Prepare JavaFX UI Controls & CSS APIs for Modularization \n\n254: Compact Strings \n\n255: Merge Selected Xerces 2.11.0 Updates into JAXP \n\n256: BeanInfo Annotations \n\n257: Update JavaFX/Media to Newer Version of GStreamer \n\n258: HarfBuzz Font-Layout Engine \n\n259: Stack-Walking API \n\n260: Encapsulate Most Internal APIs \n\n261: Module System \n\n262: TIFF Image I/O \n\n263: HiDPI Graphics on Windows and Linux \n\n264: Platform Logging API and Service \n\n265: Marlin Graphics Renderer \n\n266: More Concurrency Updates \n\n267: Unicode 8.0 \n\n268: XML Catalogs \n\n269: Convenience Factory Methods for Collections \n\n270: Reserved Stack Areas for Critical Sections \n\n271: Unified GC Logging \n\n272: Platform-Specific Desktop Features \n\n273: DRBG-Based SecureRandom Implementations 274: Enhanced Method Handles 275: Modular Java Application Packaging 276: Dynamic Linking of Language-Defined Object Models 277: Enhanced Deprecation 278: Additional Tests for Humongous Objects in G1 279: Improve Test-Failure Troubleshooting 280: Indify String Concatenation 281: HotSpot C++ Unit-Test Framework 282: jlink: The Java Linker 283: Enable GTK 3 on Linux 284: New HotSpot Build System 285: Spin-Wait Hints 287: SHA-3 Hash Algorithms 288: Disable SHA-1 Certificates 289: Deprecate the Applet API 290: Filter Incoming Serialization Data 292: Implement Selected ECMAScript 6 Features in Nashorn 294: Linux/s390x Port 295: Ahead-of-Time Compilation"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "Java 9 新特性",
@@ -74485,13 +74395,7 @@
       "nodeId": "k_1786353277269_msn0ma9et",
       "title": "内存溢出",
       "rootContent": "## 写在前面\n\n内存溢出和内存泄漏的区别：\n\n内存溢出 out of memory，是指程序在申请内存时，没有足够的内存空间供其使用，出现out ofmemory；比如申请了一个integer,但给它存了long才能存下的数，那就是内存溢出。\n\n内存泄露 memory leak，是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。\n\nmemory leak会最终会导致out of memory\n\n内存溢出就是你要求分配的内存超出了系统能给你的，系统不能满足需求，于是产生溢出。\n\n内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出！比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就\n\n是分配的内存不足以放下数据项序列,称为内存溢出.\n\n全文简短总结，具体内容可以看下文。\n\n栈内存溢出(StackOverflowError)：\n\n程序所要求的栈深度过大导致，可以写一个死递归程序触发。\n\n## 堆内存溢出(OutOfMemoryError:java heap space)\n\n分清内存溢出还是内存泄漏\n\n泄露则看对象如何被 GC Root 引用。\n\n溢出则通过 调大 -Xms，-Xmx参数。\n\n## 持久带内存溢出(OutOfMemoryError: PermGen space)\n\n持久带中包含方法区，方法区包含常量池\n\n因此持久带溢出有可能是运行时常量池溢出，也有可能是方法区中保存的class对象没有被及时回收掉或者class信息占用的内存超过了我们配置\n\n用String.intern()触发常量池溢出\n\nClass对象未被释放，Class对象占用信息过多，有过多的Class对象。可以导致持久带内存溢出\n\n## 无法创建本地线程\n\n总容量不变，堆内存，非堆内存设置过大，会导致能给线程的内存不足。\n\n## 以下是详细内容\n\n## 栈溢出(StackOverflowError)\n\n栈溢出抛出StackOverflowError错误，出现此种情况是因为方法运行的时候栈的深度超过了虚拟机容许的最大深度所致。出现这种情况，一般情况下是程序错误所致的，比如写了一个死递归，就有可能造成此种情况。 下面我们通过一段代码来模拟一下此种情况的内存溢出。\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public void stackOverFlowMethod(){\n    stackOverFlowMethod();\n    }\n    public static void main(String... args){\n    OOMTest oom = new OOMTest();\n    oom.stackOverFlowMethod();\n    }\n} \n```\n\n运行上面的代码，会抛出如下的异常：\n\n```java\nException in thread \"main\" java.lang.StackOverflowError at OOMTest.stackOverFlowMethod(OOMTest.java:6) \n```\n\n## 对于栈内存溢出，根据《Java 虚拟机规范》中文版：\n\n如果线程请求的栈容量超过栈允许的最大容量的话，Java 虚拟机将抛出一个StackOverflow异常；如果Java虚拟机栈可以动态扩展，并且扩展的动作已经尝试过，但是无法申请到足够的内存去完成扩展，或者在新建立线程的时候没有足够的内存去创建对应的虚拟机栈，那么Java虚拟机将抛出一个OutOfMemory 异常。\n\n## 堆溢出(OutOfMemoryError:java heap space)\n\n堆内存溢出的时候，虚拟机会抛出java.lang.OutOfMemoryError:java heap space,出现此种情况的时候，我们需要根据内存溢出的时候产生的dump文件来具体分析（需要增加\n\nXX:+HeapDumpOnOutOfMemoryErrorjvm启动参数）。出现此种问题的时候有可能是内存泄露，也有可能是内存溢出了。\n\n如果内存泄露，我们要找出泄露的对象是怎么被GC ROOT引用起来，然后通过引用链来具体分析泄露的原因。\n\n如果出现了内存溢出问题，这往往是程序本生需要的内存大于了我们给虚拟机配置的内存，这种情况下，我们可以采用调大-Xmx来解决这种问题。下面我们通过如下的代码来演示一下此种情况的溢出：\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public static void main(String... args){\n    List<byte[]> buffer = new ArrayList<byte[]>();\n    buffer.add(new byte[10*1024*1024]);\n    }\n} \n```\n\n我们通过如下的命令运行上面的代码：\n\n```batch\njava -verbose:gc -Xmn10M -Xms20M -Xmx20M -XX:+PrintGC OOMTest \n```\n\n## 程序输出如下的信息：\n\n```txt\n[GC 1180K->366K(19456K), 0.0037311 secs]\n[Full GC 366K->330K(19456K), 0.0098740 secs]\n[Full GC 330K->292K(19456K), 0.0090244 secs]\nException in thread \"main\" java.lang簡OutOfMemoryError: Java heap space at OOMTest.main(OOMTest.java:7)\n```\n\n从运行结果可以看出，JVM进行了一次Minor gc和两次的Major gc，从Major gc的输出可以看出，gc以后old区使用率为134K，而字节数组为10M，加起来大于了old generation的空间，所以抛出了异常，如果调整-Xms21M,-Xmx21M,那么就不会触发gc操作也不会出现异常了。\n\n通过上面的实验其实也从侧面验证了一个结论：对象大于新生代剩余内存的时候，将直接放入老年代，当老年代剩余内存还是无法放下的时候，触发垃圾收集，收集后还是不能放下就会抛出内存溢出异常了。\n\n## 持久带溢出(OutOfMemoryError: PermGen space)\n\n我们知道Hotspot jvm通过持久带实现了Java虚拟机规范中的方法区，而运行时的常量池就是保存在方法区中的，因此持久带溢出有可能是运行时常量池溢出，也有可能是方法区中保存的class对象没有被及时回收掉或者class信息占用的内存超过了我们配置。\n\n当持久带溢出的时候抛出java.lang.OutOfMemoryError: PermGen space。可能在如下几种场景下出现：\n\n1. 使用一些应用服务器的热部署的时候，我们就会遇到热部署几次以后发现内存溢出了，这种情况就是因为每次热部署的后，原来的class没有被卸载掉。\n\n2. 如果应用程序本身比较大，涉及的类库比较多，但是我们分配给持久带的内存（通过-XX:PermSize和-XX:MaxPermSize来设置）比较小的时候也可能出现此种问题。\n\n3. 一些第三方框架，比如spring,hibernate都通过字节码生成技术（比如CGLib）来实现一些增强的功能，这种情况可能需要更大的方法区来存储动态生成的Class文件。\n\n我们知道Java中字符串常量是放在常量池中的，String.intern()这个方法运行的时候，会检查常量池中是否存和本字符串相等的对象，如果存在直接返回对常量池中对象的引用，不存在的话，先把此字符串加入常量池，然后再返回字符串的引用。那么我们就可以通过String.intern方法来模拟一下运行时常量区的溢出.下面我们通过如下的代码来模拟此种情况：\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public static void main(String... args){\n    List<String> list = new ArrayList<String>();\n    while(true){\n    list.add(UUID.randomUUID().toString().intern());\n    }\n    }\n} \n```\n\n我们通过如下的命令运行上面代码：\n\n```batch\njava -verbose:gc -Xmn5M -Xms10M -Xmx10M -XX:MaxPermSize=1M -XX:+PrintGC OOMTest \n```\n\n运行后的输入如下图所示:\n\n```java\nException in thread \"main\" java.lang.OutOfMemoryError: PermGen space at java.lang.String.intern(Native Method) at OOMTest.main(OOMTest.java:8) \n```\n\n通过上面的代码，我们成功模拟了运行时常量池溢出的情况，从输出中的PermGen space可以看出确实是持久带发生了溢出，这也验证了，我们前面说的Hotspot jvm通过持久带来实现方法区的说法。\n\n## OutOfMemoryError:unable to create native thread\n\n最后我们在来看看java.lang.OutOfMemoryError:unable to create natvie thread这种错误。 出现这种情况的时候，一般是下面两种情况导致的：\n\n1. 程序创建的线程数超过了操作系统的限制。对于Linux系统，我们可以通过ulimit -u来查看此限制。\n\n2. 给虚拟机分配的内存过大，导致创建线程的时候需要的native内存太少。\n\n我们都知道操作系统对每个进程的内存是有限制的，我们启动Jvm,相当于启动了一个进程，假如我们一个进程占用了4G的内存，那么通过下面的公式计算出来的剩余内存就是建立线程栈的时候可以用的内存。线程栈总可用内存=4G-（-Xmx的值）- （-XX:MaxPermSize的值）- 程序计数器占用的内存通过上面的公式我们可以看出，-Xmx 和 MaxPermSize的值越大，那么留给线程栈可用的空间就越小，在-Xss参数配置的栈容量不变的情况下，可以创建的线程数也就越小。因此如果是因为这种情况导致的unable to create native thread,那么要么我们增大进程所占用的总内存，或者减少-Xmx或者-Xss来达到创建更多线程的目的。",
-      "tabs": [
-        {
-          "id": "jimi-36",
-          "label": "JVM 内存溢出详解",
-          "content": "## 写在前面\n\n内存溢出和内存泄漏的区别：\n\n内存溢出 out of memory，是指程序在申请内存时，没有足够的内存空间供其使用，出现out ofmemory；比如申请了一个integer,但给它存了long才能存下的数，那就是内存溢出。\n\n内存泄露 memory leak，是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。\n\nmemory leak会最终会导致out of memory\n\n内存溢出就是你要求分配的内存超出了系统能给你的，系统不能满足需求，于是产生溢出。\n\n内存泄漏是指你向系统申请分配内存进行使用(new)，可是使用完了以后却不归还(delete)，结果你申请到的那块内存你自己也不能再访问（也许你把它的地址给弄丢了），而系统也不能再次将它分配给需要的程序。一个盘子用尽各种方法只能装4个果子，你装了5个，结果掉倒地上不能吃了。这就是溢出！比方说栈，栈满时再做进栈必定产生空间溢出，叫上溢，栈空时再做退栈也产生空间溢出，称为下溢。就\n\n是分配的内存不足以放下数据项序列,称为内存溢出.\n\n全文简短总结，具体内容可以看下文。\n\n栈内存溢出(StackOverflowError)：\n\n程序所要求的栈深度过大导致，可以写一个死递归程序触发。\n\n## 堆内存溢出(OutOfMemoryError:java heap space)\n\n分清内存溢出还是内存泄漏\n\n泄露则看对象如何被 GC Root 引用。\n\n溢出则通过 调大 -Xms，-Xmx参数。\n\n## 持久带内存溢出(OutOfMemoryError: PermGen space)\n\n持久带中包含方法区，方法区包含常量池\n\n因此持久带溢出有可能是运行时常量池溢出，也有可能是方法区中保存的class对象没有被及时回收掉或者class信息占用的内存超过了我们配置\n\n用String.intern()触发常量池溢出\n\nClass对象未被释放，Class对象占用信息过多，有过多的Class对象。可以导致持久带内存溢出\n\n## 无法创建本地线程\n\n总容量不变，堆内存，非堆内存设置过大，会导致能给线程的内存不足。\n\n## 以下是详细内容\n\n## 栈溢出(StackOverflowError)\n\n栈溢出抛出StackOverflowError错误，出现此种情况是因为方法运行的时候栈的深度超过了虚拟机容许的最大深度所致。出现这种情况，一般情况下是程序错误所致的，比如写了一个死递归，就有可能造成此种情况。 下面我们通过一段代码来模拟一下此种情况的内存溢出。\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public void stackOverFlowMethod(){\n    stackOverFlowMethod();\n    }\n    public static void main(String... args){\n    OOMTest oom = new OOMTest();\n    oom.stackOverFlowMethod();\n    }\n} \n```\n\n运行上面的代码，会抛出如下的异常：\n\n```java\nException in thread \"main\" java.lang.StackOverflowError at OOMTest.stackOverFlowMethod(OOMTest.java:6) \n```\n\n## 对于栈内存溢出，根据《Java 虚拟机规范》中文版：\n\n如果线程请求的栈容量超过栈允许的最大容量的话，Java 虚拟机将抛出一个StackOverflow异常；如果Java虚拟机栈可以动态扩展，并且扩展的动作已经尝试过，但是无法申请到足够的内存去完成扩展，或者在新建立线程的时候没有足够的内存去创建对应的虚拟机栈，那么Java虚拟机将抛出一个OutOfMemory 异常。\n\n## 堆溢出(OutOfMemoryError:java heap space)\n\n堆内存溢出的时候，虚拟机会抛出java.lang.OutOfMemoryError:java heap space,出现此种情况的时候，我们需要根据内存溢出的时候产生的dump文件来具体分析（需要增加\n\nXX:+HeapDumpOnOutOfMemoryErrorjvm启动参数）。出现此种问题的时候有可能是内存泄露，也有可能是内存溢出了。\n\n如果内存泄露，我们要找出泄露的对象是怎么被GC ROOT引用起来，然后通过引用链来具体分析泄露的原因。\n\n如果出现了内存溢出问题，这往往是程序本生需要的内存大于了我们给虚拟机配置的内存，这种情况下，我们可以采用调大-Xmx来解决这种问题。下面我们通过如下的代码来演示一下此种情况的溢出：\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public static void main(String... args){\n    List<byte[]> buffer = new ArrayList<byte[]>();\n    buffer.add(new byte[10*1024*1024]);\n    }\n} \n```\n\n我们通过如下的命令运行上面的代码：\n\n```batch\njava -verbose:gc -Xmn10M -Xms20M -Xmx20M -XX:+PrintGC OOMTest \n```\n\n## 程序输出如下的信息：\n\n```txt\n[GC 1180K->366K(19456K), 0.0037311 secs]\n[Full GC 366K->330K(19456K), 0.0098740 secs]\n[Full GC 330K->292K(19456K), 0.0090244 secs]\nException in thread \"main\" java.lang簡OutOfMemoryError: Java heap space at OOMTest.main(OOMTest.java:7)\n```\n\n从运行结果可以看出，JVM进行了一次Minor gc和两次的Major gc，从Major gc的输出可以看出，gc以后old区使用率为134K，而字节数组为10M，加起来大于了old generation的空间，所以抛出了异常，如果调整-Xms21M,-Xmx21M,那么就不会触发gc操作也不会出现异常了。\n\n通过上面的实验其实也从侧面验证了一个结论：对象大于新生代剩余内存的时候，将直接放入老年代，当老年代剩余内存还是无法放下的时候，触发垃圾收集，收集后还是不能放下就会抛出内存溢出异常了。\n\n## 持久带溢出(OutOfMemoryError: PermGen space)\n\n我们知道Hotspot jvm通过持久带实现了Java虚拟机规范中的方法区，而运行时的常量池就是保存在方法区中的，因此持久带溢出有可能是运行时常量池溢出，也有可能是方法区中保存的class对象没有被及时回收掉或者class信息占用的内存超过了我们配置。\n\n当持久带溢出的时候抛出java.lang.OutOfMemoryError: PermGen space。可能在如下几种场景下出现：\n\n1. 使用一些应用服务器的热部署的时候，我们就会遇到热部署几次以后发现内存溢出了，这种情况就是因为每次热部署的后，原来的class没有被卸载掉。\n\n2. 如果应用程序本身比较大，涉及的类库比较多，但是我们分配给持久带的内存（通过-XX:PermSize和-XX:MaxPermSize来设置）比较小的时候也可能出现此种问题。\n\n3. 一些第三方框架，比如spring,hibernate都通过字节码生成技术（比如CGLib）来实现一些增强的功能，这种情况可能需要更大的方法区来存储动态生成的Class文件。\n\n我们知道Java中字符串常量是放在常量池中的，String.intern()这个方法运行的时候，会检查常量池中是否存和本字符串相等的对象，如果存在直接返回对常量池中对象的引用，不存在的话，先把此字符串加入常量池，然后再返回字符串的引用。那么我们就可以通过String.intern方法来模拟一下运行时常量区的溢出.下面我们通过如下的代码来模拟此种情况：\n\n```java\nimport java.util.*;\nimport java.lang.*;\npublic class OOMTest{\n    public static void main(String... args){\n    List<String> list = new ArrayList<String>();\n    while(true){\n    list.add(UUID.randomUUID().toString().intern());\n    }\n    }\n} \n```\n\n我们通过如下的命令运行上面代码：\n\n```batch\njava -verbose:gc -Xmn5M -Xms10M -Xmx10M -XX:MaxPermSize=1M -XX:+PrintGC OOMTest \n```\n\n运行后的输入如下图所示:\n\n```java\nException in thread \"main\" java.lang.OutOfMemoryError: PermGen space at java.lang.String.intern(Native Method) at OOMTest.main(OOMTest.java:8) \n```\n\n通过上面的代码，我们成功模拟了运行时常量池溢出的情况，从输出中的PermGen space可以看出确实是持久带发生了溢出，这也验证了，我们前面说的Hotspot jvm通过持久带来实现方法区的说法。\n\n## OutOfMemoryError:unable to create native thread\n\n最后我们在来看看java.lang.OutOfMemoryError:unable to create natvie thread这种错误。 出现这种情况的时候，一般是下面两种情况导致的：\n\n1. 程序创建的线程数超过了操作系统的限制。对于Linux系统，我们可以通过ulimit -u来查看此限制。\n\n2. 给虚拟机分配的内存过大，导致创建线程的时候需要的native内存太少。\n\n我们都知道操作系统对每个进程的内存是有限制的，我们启动Jvm,相当于启动了一个进程，假如我们一个进程占用了4G的内存，那么通过下面的公式计算出来的剩余内存就是建立线程栈的时候可以用的内存。线程栈总可用内存=4G-（-Xmx的值）- （-XX:MaxPermSize的值）- 程序计数器占用的内存通过上面的公式我们可以看出，-Xmx 和 MaxPermSize的值越大，那么留给线程栈可用的空间就越小，在-Xss参数配置的栈容量不变的情况下，可以创建的线程数也就越小。因此如果是因为这种情况导致的unable to create native thread,那么要么我们增大进程所占用的总内存，或者减少-Xmx或者-Xss来达到创建更多线程的目的。"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "内存溢出",
@@ -74505,13 +74409,7 @@
       "nodeId": "k_1786353277269_msn0ma9gv",
       "title": "高并发架构",
       "rootContent": "一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来简单的html静态网站所能比拟的。\n\n大型网站，比如门户网站，在面对大量用户访问、高并发请求方面，基本的解决方案集中在这样几个环节：使用高性能的服务器、高性能的数据库、高效率的编程语言、还有高性能的Web容器。这几个解决思路在一定程度上意味着更大的投入。\n\n## 1、HTML静态化\n\n其实大家都知道，效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。但是对于大量内容并且频繁更新的网站，我们无法全部手动去挨个实现，于是出现了我们常见的信息发布系统CMS，像我们常访问的各个门户站点的新闻频道，甚至他们的其他频道，都是通过信息发布系统来管理和实现的，信息发布系统可以实现最简单的信息录入自动生成静态页面，还能具备频道管理、权限管理、自动抓取等功能，对于一个大型网站来说，拥有一套高效、可管理的CMS是必不可少的。\n\n除了门户和信息发布类型的网站，对于交互性要求很高的社区类型网站来说，尽可能的静态化也是提高性能的必要手段，将社区内的帖子、文章进行实时的静态化、有更新的时候再重新静态化也是大量使用的策略，像Mop的大杂烩就是使用了这样的策略，网易社区等也是如此。\n\n同时，html静态化也是某些缓存策略使用的手段，对于系统中频繁使用数据库查询但是内容更新很小的应用，可以考虑使用html静态化来实现。比如论坛中论坛的公用设置信息，这些信息目前的主流论坛都可以进行后台管理并且存储在数据库中，这些信息其实大量被前台程序调用，但是更新频率很小，可以考虑将这部分内容进行后台更新的时候进行静态化，这样避免了大量的数据库访问请求。\n\n## 2、图片服务器分离\n\n大家知道，对于Web服务器来说，不管是Apache、IIS还是其他容器，图片是最消耗资源的，于是我们有必要将图片与页面进行分离，这是基本上大型网站都会采用的策略，他们都有独立的、甚至很多台的图片服务器。这样的架构可以降低提供页面访问请求的服务器系统压力，并且可以保证系统不会因为图片问题而崩溃。\n\n在应用服务器和图片服务器上，可以进行不同的配置优化，比如apache在配置ContentType的时候可以尽量少支持、尽可能少的LoadModule，保证更高的系统消耗和执行效率。\n\n## 3、数据库集群、库表散列\n\n大型网站都有复杂的应用，这些应用必须使用数据库，那么在面对大量访问的时候，数据库的瓶颈很快就能显现出来，这时一台数据库将很快无法满足应用，于是我们需要使用数据库集群或者库表散列。\n\n在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。\n\n上面提到的数据库集群由于在架构、成本、扩张性方面都会受到所采用DB类型的限制，于是我们需要从应用程序的角度来考虑改善系统架构，库表散列是常用并且最有效的解决方案。\n\n我们在应用程序中安装业务和应用或者功能模块将数据库进行分离，不同的模块对应不同的数据库或者表，再按照一定的策略对某个页面或者功能进行更小的数据库散列，比如用户表，按照用户ID进行表散列，这样就能够低成本的提升系统的性能并且有很好的扩展性。\n\nsohu的论坛就是采用了这样的架构，将论坛的用户、设置、帖子等信息进行数据库分离，然后对帖子、用户按照板块和ID进行散列数据库和表，最终可以在配置文件中进行简单的配置便能让系统随时增加一台低成本的数据库进来补充系统性能。\n\n## 4、缓存\n\n缓存一词搞技术的都接触过，很多地方用到缓存。网站架构和网站开发中的缓存也是非常重要。这里先讲述最基本的两种缓存。高级和分布式的缓存在后面讲述。\n\n架构方面的缓存，对Apache比较熟悉的人都能知道Apache提供了自己的缓存模块，也可以使用外加的Squid模块进行缓存，这两种方式均可以有效的提高Apache的访问响应能力。\n\n网站程序开发方面的缓存，Linux上提供的Memory Cache是常用的缓存接口，可以在web开发中使用，比如用Java开发的时候就可以调用MemoryCache对一些数据进行缓存和通讯共享，一些大型社区使用了这样的架构。另外，在使用web语言开发的时候，各种语言基本都有自己的缓存模块和方法，PHP有Pear的Cache模块，Java就更多了，.net不是很熟悉，相信也肯定有。\n\n## 5、镜像\n\n镜像是大型网站常采用的提高性能和数据安全性的方式，镜像的技术可以解决不同网络接入商和地域带来的用户访问速度差异，比如ChinaNet和EduNet之间的差异就促使了很多网站在教育网内搭建镜像站点，数据进行定时更新或者实时更新。在镜像的细节技术方面，这里不阐述太深，有很多专业的现成的解决架构和产品可选。也有廉价的通过软件实现的思路，比如Linux上的rsync等工具。\n\n## 6、负载均衡\n\n负载均衡将是大型网站解决高负荷访问和大量并发请求采用的高端解决办法。\n\n负载均衡技术发展了多年，有很多专业的服务提供商和产品可以选择，我个人接触过一些解决方法，其中有两个架构可以给大家做参考。\n\n## （1）、硬件四层交换\n\n第四层交换使用第三层和第四层信息包的报头信息，根据应用区间识别业务流，将整个区间段的业务流分配到合适的应用服务器进行处理。\n\n第四层交换功能就像是虚IP，指向物理服务器。它传输的业务服从的协议多种多样，有HTTP、FTP、NFS、Telnet或其他协议。这些业务在物理服务器基础上，需要复杂的载量平衡算法。在IP世界，业务类型由终端TCP或UDP端口地址来决定，在第四层交换中的应用区间则由源端和终端IP地址、TCP和UDP端口共同决定。\n\n在硬件四层交换产品领域，有一些知名的产品可以选择，比如Alteon、F5等，这些产品很昂贵，但是物有所值，能够提供非常优秀的性能和很灵活的管理能力。“Yahoo中国”当初接近2000台服务器，只使用了三、四台Alteon就搞定了。\n\n## (2)、软件四层交换\n\n大家知道了硬件四层交换机的原理后，基于OSI模型来实现的软件四层交换也就应运而生，这样的解决方案实现的原理一致，不过性能稍差。但是满足一定量的压力还是游刃有余的，有人说软件实现方式其实更灵活，处理能力完全看你配置的熟悉能力。\n\n软件四层交换我们可以使用Linux上常用的LVS来解决，LVS就是Linux Virtual Server，他提供了基于心跳线heartbeat的实时灾难应对解决方案，提高系统的强壮性，同时可供了灵活的虚拟VIP配置和管理功能，可以同时满足多种应用需求，这对于分布式的系统来说必不可少。\n\n一个典型的使用负载均衡的策略就是，在软件或者硬件四层交换的基础上搭建squid集群，这种思路在很多大型网站包括搜索引擎上被采用，这样的架构低成本、高性能还有很强的扩张性，随时往架构里面增减节点都非常容易。\n\n对于大型网站来说，前面提到的每个方法可能都会被同时使用到，这里介绍得比较浅显，具体实现过程中很多细节还需要大家慢慢熟悉和体会。有时一个很小的squid参数或者apache参数设置，对于系统性能的影响就会很大。\n\n## 7、最新：CDN加速技术\n\n## 什么是CDN？\n\nCDN的全称是内容分发网络。其目的是通过在现有的Internet中增加一层新的网络架构，将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提高用户访问网站的响应速度。\n\nCDN有别于镜像，因为它比镜像更智能，或者可以做这样一个比喻：CDN=更智能的镜像+缓存+流量导流。因而，CDN可以明显提高Internet网络中信息流动的效率。从技术上全面解决由于网络带宽小、用户访问量大、网点分布不均等问题，提高用户访问网站的响应速度。\n\n## CDN的类型特点\n\nCDN的实现分为三类：镜像、高速缓存、专线。\n\n镜像站点（Mirror Site），是最常见的，它让内容直接发布，适用于静态和准动态的数据同步。但是购买和维护新服务器的费用较高，还必须在各个地区设置镜像服务器，配备专业技术人员进行管理与维护。对于大型网站来说，更新所用的带宽成本也大大提高了。\n\n高速缓存，成本较低，适用于静态内容。Internet的统计表明，超过80%的用户经常访问的是20%的网站的内容，在这个规律下，缓存服务器可以处理大部分客户的静态请求，而原始的服务器只需处理约20%左右的非缓存请求和动态请求，于是大大加快了客户请求的响应时间，并降低了原始服务器的负载。\n\nCDN服务一般会在全国范围内的关键节点上放置缓存服务器。\n\n专线，让用户直接访问数据源，可以实现数据的动态同步。\n\n## CDN的实例\n\n举个例子来说，当某用户访问网站时，网站会利用全球负载均衡技术，将用户的访问指向到距离用户最近的正常工作的缓存服务器上，直接响应用户的请求。\n\n当用户访问已经使用了CDN服务的网站时，其解析过程与传统解析方式的最大区别就在于网站的授权域名服务器不是以传统的轮询方式来响应本地DNS的解析请求，而是充分考虑用户发起请求的地点和当时网络的情况，来决定把用户的请求定向到离用户最近同时负载相对较轻的节点缓存服务器上。\n\n通过用户定位算法和服务器健康检测算法综合后的数据，可以将用户的请求就近定向到分布在网络“边缘”的缓存服务器上，保证用户的访问能得到更及时可靠的响应。\n\n由于大量的用户访问都由分布在网络边缘的CDN节点缓存服务器直接响应了，这就不仅提高了用户的访问质量，同时有效地降低了源服务器的负载压力。\n\n附：某CDN服务商的服务说明\n\n## 采用GCDN加速方式\n\n采用了GCDN加速方式以后，系统会在浏览用户和您的服务器之间增加一台GCDN服务器。浏览用户访问您的服务器时，一般静态数据，如图片、多媒体资料等数据将直接从GCDN服务器读取，使得从主服务器上读取静态数据的交换量大大减少。\n\n为VIP型虚拟主机而特加的VPN高速压缩通道，使用高速压缩的电信<==>网通、电信<==>国际（HK）、网通<==>国际（HK）等跨网专线通道，智能多线，自动获取最快路径，极速的动态实时并发响应速度，实现了网站的动态脚本实时同步，对动态网站有一个更加明显的加速效果。\n\n每个网络运营商（电信、网通、铁通、教育网）均有您服务器的GCDN服务器，无论浏览用户是来自何处，GCDN都能让您的服务器展现最快的速度！另外，我们将对您的数据进行实时备份，让您的数据更安全！\n\n## 系统的用户量有多少？多用户并发访问时如何解决？\n\n## 大型网站是怎样解决多用户高并发访问的\n\n分布式是以缩短单个任务的执行时间来提升效率的，而集群则是通过提高单位时间内执行的任务数来提升效率。\n\n集群主要分为：高可用集群(High Availability Cluster)，负载均衡集群(Load Balance Cluster，nginx即可实现)，科学计算集群(High Performance Computing Cluster)。\n\n分布式是指将不同的业务分布在不同的地方；而集群指的是将几台服务器集中在一起，实现同一业务。分布式中的每一个节点，都可以做集群。 而集群并不一定就是分布式的。\n\n为了解决大型网站的访问量大、并发量高、海量数据的问题，我们一般会考虑业务拆分和分布式部署。我们可以把那些关联不太大的业务独立出来，部署到不同的机器上，从而实现大规模的分布式系统。但这之中也有一个问题，那就是用户如何选择相应的机器的问题，这也被称为访问统一入口问题，而解决的方法是我们可以在集群机器的前面增加负载均衡设备，实现流量分发（总图如下）。\n\n这里得先解释一下何为“负载均衡”，负载均衡就是将负载（工作任务、访问请求等）进行平衡、分摊到多个操作单元（服务器、组件等）上进行执行，是解决高性能，单点故障（高可用，如果你是单机版网络，一旦服务器挂掉了，那么用户就无法请求了，但对于集群来说，一台服务器挂掉了，负载均衡器会把用户的请求发送给其他的服务器进行处理），扩展性（这里主要是指水平伸缩）的终极解决方案。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/b929b91d0d036e48ec011ae4fbc21fa51727282dc0050d291883629b685de29b.jpg)\n\n在这里，本人主要讨论负载均衡设备为Nginx(至于为啥不讲讲F5，因为人家太贵了，不过人家比较稳定)，这是一款轻量级的Web服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，具有占用内存少、并发能力强等，中国大陆使用nginx网站用户有：百度、网易、新浪、腾讯等（该介绍来自百科）。\n\nnginx大家可以上其 官网 去下载最新版，解压后复制到部署目录，对于Nginx的配置网上的资料很多，这里就不再赘述了，只总结一下Nginx使用的注意事项：\n\n1.nginx的负载均衡配置中默认是采用轮询的方式，这种方式中，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除，但存在各个服务器的session共享问题。\n\n2.另外一种方式是ip_hash:每个请求按访问的ip的hash结果分配，如果访问的IP是固定的，那么在正常情况下，该用户的请求都会分配到后台的同一台服务器去处理，但是如果用户每次请求的IP都不同呢？所以这种方式也同1的方式一样都存在这么一个问题：session在各个服务器上的共享问题。\n\n3.，如果集群中的服务器的性能不一，可以通过配置各个服务器的权值来实现资源利用率的最大化，即性能好的优先选择\n\n也许你会问，既然IP可能变化，那么用户用页面请求时的cookie的ID应该是确定的吧！那么我们可以用cookie_id来进行hash，然后在通过负载均衡器分发到对应的服务器上，这样就可以解决session问题了，其实当初本人也有想到这个方案，但最后本人也放弃这个方案了，因为是根据cookid_id确实可以把该用户的请求唯一的分发到那台独一无二的服务器上，那如果这台服务器挂掉了，那么根据这种分发策略，岂不是在这服务器上请求资源的用户都不能访问了，你说是不是呢？\n\n解决服务器共享session问题：使用redis来共享各个服务器的session，并同时通过redis来缓存一些常用的资源，加快用户获得请求资源的速度（个人比较喜欢redis，当然你们也可以使用memcache来实现，不过，memcache不能做到持久化，这样这台服务器一挂掉，那么所有的资源也都没有了......）。\n\n不过，本人觉得这样进行集群部署，最好配上数据库的主从部署，因为如果在集群中只分配一个数据库服务器，那么这个系统的瓶颈将会出现在数据库的操作上，虽然redis能减轻这种负担，但对于数据量大的还是有一定影响的，而且数据库的主从部署也可以防止因某个数据库服务器的挂掉而丢失用户的信息。\n\n说说阻塞队列的实现：可以参考ArrayBlockingQueue的底层实现（锁和同步都行）\n\n## Java阻塞队列ArrayBlockingQueue和LinkedBlockingQueue实现原理分析\n\nJava中的阻塞队列接口BlockingQueue继承自Queue接口。\n\nBlockingQueue接口提供了3个添加元素方法。\n\nadd：添加元素到队列里，添加成功返回true，由于容量满了添加失败会抛出IllegalStateException异常\n\noffer：添加元素到队列里，添加成功返回true，添加失败返回false\n\nput：添加元素到队列里，如果容量满了会阻塞直到容量不满\n\n3个删除方法。\n\npoll：删除队列头部元素，如果队列为空，返回null。否则返回元素。\n\nremove：基于对象找到对应的元素，并删除。删除成功返回true，否则返回false\n\ntake：删除队列头部元素，如果队列为空，一直阻塞到队列有元素并删除\n\n常用的阻塞队列具体类有ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue、\n\nLinkedBlockingDeque等。\n\n本文以ArrayBlockingQueue和LinkedBlockingQueue为例，分析它们的实现原理。",
-      "tabs": [
-        {
-          "id": "jimi-58",
-          "label": "高并发解决方案",
-          "content": "一个小型的网站，可以使用最简单的html静态页面就实现了，配合一些图片达到美化效果，所有的页面均存放在一个目录下，这样的网站对系统架构、性能的要求都很简单。随着互联网业务的不断丰富，网站相关的技术经过这些年的发展，已经细分到很细的方方面面，尤其对于大型网站来说，所采用的技术更是涉及面非常广，从硬件到软件、编程语言、数据库、WebServer、防火墙等各个领域都有了很高的要求，已经不是原来简单的html静态网站所能比拟的。\n\n大型网站，比如门户网站，在面对大量用户访问、高并发请求方面，基本的解决方案集中在这样几个环节：使用高性能的服务器、高性能的数据库、高效率的编程语言、还有高性能的Web容器。这几个解决思路在一定程度上意味着更大的投入。\n\n## 1、HTML静态化\n\n其实大家都知道，效率最高、消耗最小的就是纯静态化的html页面，所以我们尽可能使我们的网站上的页面采用静态页面来实现，这个最简单的方法其实也是最有效的方法。但是对于大量内容并且频繁更新的网站，我们无法全部手动去挨个实现，于是出现了我们常见的信息发布系统CMS，像我们常访问的各个门户站点的新闻频道，甚至他们的其他频道，都是通过信息发布系统来管理和实现的，信息发布系统可以实现最简单的信息录入自动生成静态页面，还能具备频道管理、权限管理、自动抓取等功能，对于一个大型网站来说，拥有一套高效、可管理的CMS是必不可少的。\n\n除了门户和信息发布类型的网站，对于交互性要求很高的社区类型网站来说，尽可能的静态化也是提高性能的必要手段，将社区内的帖子、文章进行实时的静态化、有更新的时候再重新静态化也是大量使用的策略，像Mop的大杂烩就是使用了这样的策略，网易社区等也是如此。\n\n同时，html静态化也是某些缓存策略使用的手段，对于系统中频繁使用数据库查询但是内容更新很小的应用，可以考虑使用html静态化来实现。比如论坛中论坛的公用设置信息，这些信息目前的主流论坛都可以进行后台管理并且存储在数据库中，这些信息其实大量被前台程序调用，但是更新频率很小，可以考虑将这部分内容进行后台更新的时候进行静态化，这样避免了大量的数据库访问请求。\n\n## 2、图片服务器分离\n\n大家知道，对于Web服务器来说，不管是Apache、IIS还是其他容器，图片是最消耗资源的，于是我们有必要将图片与页面进行分离，这是基本上大型网站都会采用的策略，他们都有独立的、甚至很多台的图片服务器。这样的架构可以降低提供页面访问请求的服务器系统压力，并且可以保证系统不会因为图片问题而崩溃。\n\n在应用服务器和图片服务器上，可以进行不同的配置优化，比如apache在配置ContentType的时候可以尽量少支持、尽可能少的LoadModule，保证更高的系统消耗和执行效率。\n\n## 3、数据库集群、库表散列\n\n大型网站都有复杂的应用，这些应用必须使用数据库，那么在面对大量访问的时候，数据库的瓶颈很快就能显现出来，这时一台数据库将很快无法满足应用，于是我们需要使用数据库集群或者库表散列。\n\n在数据库集群方面，很多数据库都有自己的解决方案，Oracle、Sybase等都有很好的方案，常用的MySQL提供的Master/Slave也是类似的方案，您使用了什么样的DB，就参考相应的解决方案来实施即可。\n\n上面提到的数据库集群由于在架构、成本、扩张性方面都会受到所采用DB类型的限制，于是我们需要从应用程序的角度来考虑改善系统架构，库表散列是常用并且最有效的解决方案。\n\n我们在应用程序中安装业务和应用或者功能模块将数据库进行分离，不同的模块对应不同的数据库或者表，再按照一定的策略对某个页面或者功能进行更小的数据库散列，比如用户表，按照用户ID进行表散列，这样就能够低成本的提升系统的性能并且有很好的扩展性。\n\nsohu的论坛就是采用了这样的架构，将论坛的用户、设置、帖子等信息进行数据库分离，然后对帖子、用户按照板块和ID进行散列数据库和表，最终可以在配置文件中进行简单的配置便能让系统随时增加一台低成本的数据库进来补充系统性能。\n\n## 4、缓存\n\n缓存一词搞技术的都接触过，很多地方用到缓存。网站架构和网站开发中的缓存也是非常重要。这里先讲述最基本的两种缓存。高级和分布式的缓存在后面讲述。\n\n架构方面的缓存，对Apache比较熟悉的人都能知道Apache提供了自己的缓存模块，也可以使用外加的Squid模块进行缓存，这两种方式均可以有效的提高Apache的访问响应能力。\n\n网站程序开发方面的缓存，Linux上提供的Memory Cache是常用的缓存接口，可以在web开发中使用，比如用Java开发的时候就可以调用MemoryCache对一些数据进行缓存和通讯共享，一些大型社区使用了这样的架构。另外，在使用web语言开发的时候，各种语言基本都有自己的缓存模块和方法，PHP有Pear的Cache模块，Java就更多了，.net不是很熟悉，相信也肯定有。\n\n## 5、镜像\n\n镜像是大型网站常采用的提高性能和数据安全性的方式，镜像的技术可以解决不同网络接入商和地域带来的用户访问速度差异，比如ChinaNet和EduNet之间的差异就促使了很多网站在教育网内搭建镜像站点，数据进行定时更新或者实时更新。在镜像的细节技术方面，这里不阐述太深，有很多专业的现成的解决架构和产品可选。也有廉价的通过软件实现的思路，比如Linux上的rsync等工具。\n\n## 6、负载均衡\n\n负载均衡将是大型网站解决高负荷访问和大量并发请求采用的高端解决办法。\n\n负载均衡技术发展了多年，有很多专业的服务提供商和产品可以选择，我个人接触过一些解决方法，其中有两个架构可以给大家做参考。\n\n## （1）、硬件四层交换\n\n第四层交换使用第三层和第四层信息包的报头信息，根据应用区间识别业务流，将整个区间段的业务流分配到合适的应用服务器进行处理。\n\n第四层交换功能就像是虚IP，指向物理服务器。它传输的业务服从的协议多种多样，有HTTP、FTP、NFS、Telnet或其他协议。这些业务在物理服务器基础上，需要复杂的载量平衡算法。在IP世界，业务类型由终端TCP或UDP端口地址来决定，在第四层交换中的应用区间则由源端和终端IP地址、TCP和UDP端口共同决定。\n\n在硬件四层交换产品领域，有一些知名的产品可以选择，比如Alteon、F5等，这些产品很昂贵，但是物有所值，能够提供非常优秀的性能和很灵活的管理能力。“Yahoo中国”当初接近2000台服务器，只使用了三、四台Alteon就搞定了。\n\n## (2)、软件四层交换\n\n大家知道了硬件四层交换机的原理后，基于OSI模型来实现的软件四层交换也就应运而生，这样的解决方案实现的原理一致，不过性能稍差。但是满足一定量的压力还是游刃有余的，有人说软件实现方式其实更灵活，处理能力完全看你配置的熟悉能力。\n\n软件四层交换我们可以使用Linux上常用的LVS来解决，LVS就是Linux Virtual Server，他提供了基于心跳线heartbeat的实时灾难应对解决方案，提高系统的强壮性，同时可供了灵活的虚拟VIP配置和管理功能，可以同时满足多种应用需求，这对于分布式的系统来说必不可少。\n\n一个典型的使用负载均衡的策略就是，在软件或者硬件四层交换的基础上搭建squid集群，这种思路在很多大型网站包括搜索引擎上被采用，这样的架构低成本、高性能还有很强的扩张性，随时往架构里面增减节点都非常容易。\n\n对于大型网站来说，前面提到的每个方法可能都会被同时使用到，这里介绍得比较浅显，具体实现过程中很多细节还需要大家慢慢熟悉和体会。有时一个很小的squid参数或者apache参数设置，对于系统性能的影响就会很大。\n\n## 7、最新：CDN加速技术\n\n## 什么是CDN？\n\nCDN的全称是内容分发网络。其目的是通过在现有的Internet中增加一层新的网络架构，将网站的内容发布到最接近用户的网络“边缘”，使用户可以就近取得所需的内容，提高用户访问网站的响应速度。\n\nCDN有别于镜像，因为它比镜像更智能，或者可以做这样一个比喻：CDN=更智能的镜像+缓存+流量导流。因而，CDN可以明显提高Internet网络中信息流动的效率。从技术上全面解决由于网络带宽小、用户访问量大、网点分布不均等问题，提高用户访问网站的响应速度。\n\n## CDN的类型特点\n\nCDN的实现分为三类：镜像、高速缓存、专线。\n\n镜像站点（Mirror Site），是最常见的，它让内容直接发布，适用于静态和准动态的数据同步。但是购买和维护新服务器的费用较高，还必须在各个地区设置镜像服务器，配备专业技术人员进行管理与维护。对于大型网站来说，更新所用的带宽成本也大大提高了。\n\n高速缓存，成本较低，适用于静态内容。Internet的统计表明，超过80%的用户经常访问的是20%的网站的内容，在这个规律下，缓存服务器可以处理大部分客户的静态请求，而原始的服务器只需处理约20%左右的非缓存请求和动态请求，于是大大加快了客户请求的响应时间，并降低了原始服务器的负载。\n\nCDN服务一般会在全国范围内的关键节点上放置缓存服务器。\n\n专线，让用户直接访问数据源，可以实现数据的动态同步。\n\n## CDN的实例\n\n举个例子来说，当某用户访问网站时，网站会利用全球负载均衡技术，将用户的访问指向到距离用户最近的正常工作的缓存服务器上，直接响应用户的请求。\n\n当用户访问已经使用了CDN服务的网站时，其解析过程与传统解析方式的最大区别就在于网站的授权域名服务器不是以传统的轮询方式来响应本地DNS的解析请求，而是充分考虑用户发起请求的地点和当时网络的情况，来决定把用户的请求定向到离用户最近同时负载相对较轻的节点缓存服务器上。\n\n通过用户定位算法和服务器健康检测算法综合后的数据，可以将用户的请求就近定向到分布在网络“边缘”的缓存服务器上，保证用户的访问能得到更及时可靠的响应。\n\n由于大量的用户访问都由分布在网络边缘的CDN节点缓存服务器直接响应了，这就不仅提高了用户的访问质量，同时有效地降低了源服务器的负载压力。\n\n附：某CDN服务商的服务说明\n\n## 采用GCDN加速方式\n\n采用了GCDN加速方式以后，系统会在浏览用户和您的服务器之间增加一台GCDN服务器。浏览用户访问您的服务器时，一般静态数据，如图片、多媒体资料等数据将直接从GCDN服务器读取，使得从主服务器上读取静态数据的交换量大大减少。\n\n为VIP型虚拟主机而特加的VPN高速压缩通道，使用高速压缩的电信<==>网通、电信<==>国际（HK）、网通<==>国际（HK）等跨网专线通道，智能多线，自动获取最快路径，极速的动态实时并发响应速度，实现了网站的动态脚本实时同步，对动态网站有一个更加明显的加速效果。\n\n每个网络运营商（电信、网通、铁通、教育网）均有您服务器的GCDN服务器，无论浏览用户是来自何处，GCDN都能让您的服务器展现最快的速度！另外，我们将对您的数据进行实时备份，让您的数据更安全！\n\n## 系统的用户量有多少？多用户并发访问时如何解决？\n\n## 大型网站是怎样解决多用户高并发访问的\n\n分布式是以缩短单个任务的执行时间来提升效率的，而集群则是通过提高单位时间内执行的任务数来提升效率。\n\n集群主要分为：高可用集群(High Availability Cluster)，负载均衡集群(Load Balance Cluster，nginx即可实现)，科学计算集群(High Performance Computing Cluster)。\n\n分布式是指将不同的业务分布在不同的地方；而集群指的是将几台服务器集中在一起，实现同一业务。分布式中的每一个节点，都可以做集群。 而集群并不一定就是分布式的。\n\n为了解决大型网站的访问量大、并发量高、海量数据的问题，我们一般会考虑业务拆分和分布式部署。我们可以把那些关联不太大的业务独立出来，部署到不同的机器上，从而实现大规模的分布式系统。但这之中也有一个问题，那就是用户如何选择相应的机器的问题，这也被称为访问统一入口问题，而解决的方法是我们可以在集群机器的前面增加负载均衡设备，实现流量分发（总图如下）。\n\n这里得先解释一下何为“负载均衡”，负载均衡就是将负载（工作任务、访问请求等）进行平衡、分摊到多个操作单元（服务器、组件等）上进行执行，是解决高性能，单点故障（高可用，如果你是单机版网络，一旦服务器挂掉了，那么用户就无法请求了，但对于集群来说，一台服务器挂掉了，负载均衡器会把用户的请求发送给其他的服务器进行处理），扩展性（这里主要是指水平伸缩）的终极解决方案。\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/9b491102-f57c-4f4d-aafa-4d9f47b4ce64/b929b91d0d036e48ec011ae4fbc21fa51727282dc0050d291883629b685de29b.jpg)\n\n在这里，本人主要讨论负载均衡设备为Nginx(至于为啥不讲讲F5，因为人家太贵了，不过人家比较稳定)，这是一款轻量级的Web服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，具有占用内存少、并发能力强等，中国大陆使用nginx网站用户有：百度、网易、新浪、腾讯等（该介绍来自百科）。\n\nnginx大家可以上其 官网 去下载最新版，解压后复制到部署目录，对于Nginx的配置网上的资料很多，这里就不再赘述了，只总结一下Nginx使用的注意事项：\n\n1.nginx的负载均衡配置中默认是采用轮询的方式，这种方式中，每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器down掉，能自动剔除，但存在各个服务器的session共享问题。\n\n2.另外一种方式是ip_hash:每个请求按访问的ip的hash结果分配，如果访问的IP是固定的，那么在正常情况下，该用户的请求都会分配到后台的同一台服务器去处理，但是如果用户每次请求的IP都不同呢？所以这种方式也同1的方式一样都存在这么一个问题：session在各个服务器上的共享问题。\n\n3.，如果集群中的服务器的性能不一，可以通过配置各个服务器的权值来实现资源利用率的最大化，即性能好的优先选择\n\n也许你会问，既然IP可能变化，那么用户用页面请求时的cookie的ID应该是确定的吧！那么我们可以用cookie_id来进行hash，然后在通过负载均衡器分发到对应的服务器上，这样就可以解决session问题了，其实当初本人也有想到这个方案，但最后本人也放弃这个方案了，因为是根据cookid_id确实可以把该用户的请求唯一的分发到那台独一无二的服务器上，那如果这台服务器挂掉了，那么根据这种分发策略，岂不是在这服务器上请求资源的用户都不能访问了，你说是不是呢？\n\n解决服务器共享session问题：使用redis来共享各个服务器的session，并同时通过redis来缓存一些常用的资源，加快用户获得请求资源的速度（个人比较喜欢redis，当然你们也可以使用memcache来实现，不过，memcache不能做到持久化，这样这台服务器一挂掉，那么所有的资源也都没有了......）。\n\n不过，本人觉得这样进行集群部署，最好配上数据库的主从部署，因为如果在集群中只分配一个数据库服务器，那么这个系统的瓶颈将会出现在数据库的操作上，虽然redis能减轻这种负担，但对于数据量大的还是有一定影响的，而且数据库的主从部署也可以防止因某个数据库服务器的挂掉而丢失用户的信息。\n\n说说阻塞队列的实现：可以参考ArrayBlockingQueue的底层实现（锁和同步都行）\n\n## Java阻塞队列ArrayBlockingQueue和LinkedBlockingQueue实现原理分析\n\nJava中的阻塞队列接口BlockingQueue继承自Queue接口。\n\nBlockingQueue接口提供了3个添加元素方法。\n\nadd：添加元素到队列里，添加成功返回true，由于容量满了添加失败会抛出IllegalStateException异常\n\noffer：添加元素到队列里，添加成功返回true，添加失败返回false\n\nput：添加元素到队列里，如果容量满了会阻塞直到容量不满\n\n3个删除方法。\n\npoll：删除队列头部元素，如果队列为空，返回null。否则返回元素。\n\nremove：基于对象找到对应的元素，并删除。删除成功返回true，否则返回false\n\ntake：删除队列头部元素，如果队列为空，一直阻塞到队列有元素并删除\n\n常用的阻塞队列具体类有ArrayBlockingQueue、LinkedBlockingQueue、PriorityBlockingQueue、\n\nLinkedBlockingDeque等。\n\n本文以ArrayBlockingQueue和LinkedBlockingQueue为例，分析它们的实现原理。"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "高并发架构",
@@ -74525,13 +74423,7 @@
       "nodeId": "k_1786353277269_msn0ma9ix",
       "title": "进程间通信",
       "rootContent": "Linux进程间通信方式--信号，管道，消息队列，信号量，共享内存\n\n## 1、概述\n\n<table><tr><td>通信方法</td><td>无法介于内核态与用户态的原因</td></tr><tr><td>管道(不包括命名管道)</td><td>局限于父子进程间的通信。</td></tr><tr><td>消息队列</td><td>在硬、软中断中无法无阻塞地接收数据。</td></tr><tr><td>信号量</td><td>无法介于内核态和用户态使用。</td></tr><tr><td>内存共享</td><td>需要信号量辅助,而信号量又无法使用。</td></tr><tr><td>套接字</td><td>在硬、软中断中无法无阻塞地接收数据。</td></tr></table>\n\n## 2、信号\n\n信号又称软终端，通知程序发生异步事件，程序执行中随时被各种信号中断，进程可以忽略该信号，也可以中断当前程序转而去处理信号，引起信号原因：\n\n1).程序中执行错误码；\n\n2).其他进程发送来的；\n\n3).用户通过控制终端发送来；\n\n4).子进程结束时向父进程发送SIGCLD；\n\n5).定时器生产的SIGALRM；\n\n## 3、管道\n\n管道的优点是不需要加锁，缺点是默认缓冲区太小，只有4K，同时只适合父子进程间通信，而且一个管道只适合单向通信，如果要双向通信需要建立两个。而且不适合多个子进程，因为消息会乱，它的发送接收机制是用read/write这种适用流的，缺点是数据本身没有边界，需要应用程序自己解释，而一般消息大多是一个固定长的消息头，和一个变长的消息体，一个子进程从管道read到消息头后，消息体可能被别的子进程接收到\n\n单向，一段输入，另一端输出，先进先出FIFO。管道也是文件。管道大小4096字节。\n\n特点：管道满时，写阻塞；空时，读阻塞。\n\n分类：普通管道（仅父子进程间通信）位于内存；命名管道位于文件系统，没有亲缘关系管道只要知道管道名也可以通讯。\n\n管道是由内核管理的一个缓冲区(buffer)，相当于我们放入内存中的一个纸条。管道的一端连接一个进程的输出。这个进程会向管道中放入信息。管道的另一端连接一个进程的输入，这个进程取出被放入管道的信息。一个缓冲区不需要很大，它被设计成为环形的数据结构，以便管道可以被循环利用。当管道中没有信息的话，从管道中读取的进程会等待，直到另一端的进程放入信息。当管道被放满信息的时候，尝试放入信息的进程会等待，直到另一端的进程取出信息。当两个进程都终结的时候，管道也自动消失。\n\n## 4、消息队列\n\n消息队列也不要加锁，默认缓冲区和单消息上限都要大一些，在我的suse10上是64K，它并不局限于父子进程间通信，只要一个相同的key，就可以让不同的进程定位到同一个消息队列上，它也可以用来给双向通信，不过稍微加个标识，可以通过消息中的type进行区分，比如一个任务分派进程，创建了若干个执行子进程，不管是父进程发送分派任务的消息，还是子进程发送任务执行的消息，都将type设置为目标进程的pid，因为msgrcv可以指定只接收消息类型为type的消息，这样就实现了子进程只接收自己的任务，父进程只接收任务结果\n\n消息队列是先进先出FIFO原则\n\n消息结构模板\n\nstrut msgbuf{long int mtype;//消息类型char mtext[1];//消息内容}\n\n## 5、共享内存\n\n共享内存的几乎可以认为没有上限，它也是不局限与父子进程，采用跟消息队列类似的定位方式，因为内存是共享的，不存在任何单向的限制，最大的问题就是需要应用程序自己做互斥，有如下几种方案\n\n1 只适用两个进程共享，在内存中放一个标志位，一定要声明为volatile，大家基于标志位来互斥，例如为0时第一个可以写，第二个就等待，为1时第一个等待，第二个可以写/读\n\n2 也只适用两个进程，是用信号，大家等待不同的信号，第一个写完了发送信号2，等待信号1，第二个等待信号2，收到后读取/写入完，发送信号1，它不是用更多进程是因为虽然父进程可以向不同子进程分别发送信号，但是子进程收到信号会同时访问共享内存，产生不同子进程间的竞态条件，如果用多块共享内存，又存在子进程发送结果通知信号时，父进程收到信号后，不知道是谁发送，也意味着不知道该访问哪块共享内存，即使子进程发送不同的结果通知信号，因为等待信号的一定是阻塞的，如果某个子进程意外终止，父进程将永远阻塞下去，而不能超时处理\n\n3 采用信号量或者msgctl自己的加锁、解锁功能，不过后者只适用于linux\n\n## 6、信号量\n\n信号量是一种用于提供不同进程间或一个进程间的不同线程间线程同步手段的原语，systemV信号量在内核中维护\n\n二值信号量 ： 其值只有0、1 两种选择，0表示资源被锁，1表示资源可用；\n\n计数信号量：其值在0 和某个限定值之间，不限定资源数只在0 1 之间；\n\n计数信号量集 ；多个信号量的集合组成信号量集\n\n------总结\n\n管道是最弱的，只适合有限场景；\n\n消息队列能适合大部分场景，缺点是默认缓冲也比较小，不过这个可以调整，前提是你有管理员权限；\n\n共享内存是最强大的，只是要做互斥",
-      "tabs": [
-        {
-          "id": "jimi-60",
-          "label": "Linux 进程间通信方式",
-          "content": "Linux进程间通信方式--信号，管道，消息队列，信号量，共享内存\n\n## 1、概述\n\n<table><tr><td>通信方法</td><td>无法介于内核态与用户态的原因</td></tr><tr><td>管道(不包括命名管道)</td><td>局限于父子进程间的通信。</td></tr><tr><td>消息队列</td><td>在硬、软中断中无法无阻塞地接收数据。</td></tr><tr><td>信号量</td><td>无法介于内核态和用户态使用。</td></tr><tr><td>内存共享</td><td>需要信号量辅助,而信号量又无法使用。</td></tr><tr><td>套接字</td><td>在硬、软中断中无法无阻塞地接收数据。</td></tr></table>\n\n## 2、信号\n\n信号又称软终端，通知程序发生异步事件，程序执行中随时被各种信号中断，进程可以忽略该信号，也可以中断当前程序转而去处理信号，引起信号原因：\n\n1).程序中执行错误码；\n\n2).其他进程发送来的；\n\n3).用户通过控制终端发送来；\n\n4).子进程结束时向父进程发送SIGCLD；\n\n5).定时器生产的SIGALRM；\n\n## 3、管道\n\n管道的优点是不需要加锁，缺点是默认缓冲区太小，只有4K，同时只适合父子进程间通信，而且一个管道只适合单向通信，如果要双向通信需要建立两个。而且不适合多个子进程，因为消息会乱，它的发送接收机制是用read/write这种适用流的，缺点是数据本身没有边界，需要应用程序自己解释，而一般消息大多是一个固定长的消息头，和一个变长的消息体，一个子进程从管道read到消息头后，消息体可能被别的子进程接收到\n\n单向，一段输入，另一端输出，先进先出FIFO。管道也是文件。管道大小4096字节。\n\n特点：管道满时，写阻塞；空时，读阻塞。\n\n分类：普通管道（仅父子进程间通信）位于内存；命名管道位于文件系统，没有亲缘关系管道只要知道管道名也可以通讯。\n\n管道是由内核管理的一个缓冲区(buffer)，相当于我们放入内存中的一个纸条。管道的一端连接一个进程的输出。这个进程会向管道中放入信息。管道的另一端连接一个进程的输入，这个进程取出被放入管道的信息。一个缓冲区不需要很大，它被设计成为环形的数据结构，以便管道可以被循环利用。当管道中没有信息的话，从管道中读取的进程会等待，直到另一端的进程放入信息。当管道被放满信息的时候，尝试放入信息的进程会等待，直到另一端的进程取出信息。当两个进程都终结的时候，管道也自动消失。\n\n## 4、消息队列\n\n消息队列也不要加锁，默认缓冲区和单消息上限都要大一些，在我的suse10上是64K，它并不局限于父子进程间通信，只要一个相同的key，就可以让不同的进程定位到同一个消息队列上，它也可以用来给双向通信，不过稍微加个标识，可以通过消息中的type进行区分，比如一个任务分派进程，创建了若干个执行子进程，不管是父进程发送分派任务的消息，还是子进程发送任务执行的消息，都将type设置为目标进程的pid，因为msgrcv可以指定只接收消息类型为type的消息，这样就实现了子进程只接收自己的任务，父进程只接收任务结果\n\n消息队列是先进先出FIFO原则\n\n消息结构模板\n\nstrut msgbuf{long int mtype;//消息类型char mtext[1];//消息内容}\n\n## 5、共享内存\n\n共享内存的几乎可以认为没有上限，它也是不局限与父子进程，采用跟消息队列类似的定位方式，因为内存是共享的，不存在任何单向的限制，最大的问题就是需要应用程序自己做互斥，有如下几种方案\n\n1 只适用两个进程共享，在内存中放一个标志位，一定要声明为volatile，大家基于标志位来互斥，例如为0时第一个可以写，第二个就等待，为1时第一个等待，第二个可以写/读\n\n2 也只适用两个进程，是用信号，大家等待不同的信号，第一个写完了发送信号2，等待信号1，第二个等待信号2，收到后读取/写入完，发送信号1，它不是用更多进程是因为虽然父进程可以向不同子进程分别发送信号，但是子进程收到信号会同时访问共享内存，产生不同子进程间的竞态条件，如果用多块共享内存，又存在子进程发送结果通知信号时，父进程收到信号后，不知道是谁发送，也意味着不知道该访问哪块共享内存，即使子进程发送不同的结果通知信号，因为等待信号的一定是阻塞的，如果某个子进程意外终止，父进程将永远阻塞下去，而不能超时处理\n\n3 采用信号量或者msgctl自己的加锁、解锁功能，不过后者只适用于linux\n\n## 6、信号量\n\n信号量是一种用于提供不同进程间或一个进程间的不同线程间线程同步手段的原语，systemV信号量在内核中维护\n\n二值信号量 ： 其值只有0、1 两种选择，0表示资源被锁，1表示资源可用；\n\n计数信号量：其值在0 和某个限定值之间，不限定资源数只在0 1 之间；\n\n计数信号量集 ；多个信号量的集合组成信号量集\n\n------总结\n\n管道是最弱的，只适合有限场景；\n\n消息队列能适合大部分场景，缺点是默认缓冲也比较小，不过这个可以调整，前提是你有管理员权限；\n\n共享内存是最强大的，只是要做互斥"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "进程间通信",
@@ -74570,13 +74462,7 @@
       "nodeId": "k_1786353277269_msn0ma9m11",
       "title": "死锁",
       "rootContent": "## 同步锁\n\n当多个线程同时访问同一个数据时，很容易出现问题。为了避免这种情况出现，我们要保证线程同步互斥，就是指并发执行的多个线程，在同一时间内只允许一个线程访问共享数据。 Java 中可以使用synchronized 关键字来取得一个对象的同步锁。\n\n## 死锁\n\n何为死锁，就是多个线程同时被阻塞，它们中的一个或者全部都在等待某个资源被释放。\n\n## 线程池原理\n\n线程池做的工作主要是控制运行的线程的数量，处理过程中将任务放入队列，然后在线程创建后启动这些任务，如果线程数量超过了最大数量超出数量的线程排队等候，等其它线程执行完毕，再从队列中取出任务来执行。他的主要特点为：线程复用；控制最大并发数；管理线程。\n\n## ** 线程复用\n\n每一个 Thread 的类都有一个 start 方法。 当调用 start 启动线程时 Java 虚拟机会调用该类的 run 方法。 那么该类的 run() 方法中就是调用了 Runnable 对象的 run() 方法。 我们可以继承重写 Thread类，在其 start 方法中添加不断循环调用传递过来的 Runnable 对象。 这就是线程池的实现原理。循环方法中不断获取 Runnable 是用 Queue 实现的，在获取下一个 Runnable 之前可以是阻塞的。\n\n线程池的组成一般的线程池主要分为以下 4 个组成部分：\n\n1. 线程池管理器：用于创建并管理线程池\n\n2. 工作线程：线程池中的线程\n\n3. 任务接口：每个任务必须实现的接口，用于工作线程调度其运行\n\n4. 任务队列：用于存放待处理的任务，提供一种缓冲机制\n\nJava 中的线程池是通过 Executor 框架实现的，该框架中用到了 Executor，Executors，\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/899036e4-5c6c-4e85-b1c9-ae185ddec326/b4930debbe56a7e1887a5e34a0298d9135392277bb08665b6f70fd8c1aab4d7c.jpg)\n\nThreadPoolExecutor 的构造方法如下：\n\npublic ThreadPoolExecutor(int corePoolSize,int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue workQueue) { this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, Executors.defaultThreadFactory(), defaultHandler); \n\n1. corePoolSize：指定了线程池中的线程数量。\n\n2. maximumPoolSize：指定了线程池中的最大线程数量。\n\n3. keepAliveTime：当前线程池数量超过 corePoolSize 时，多余的空闲线程的存活时间，即多次时间内会被销毁。\n\n4. unit：keepAliveTime 的单位。\n\n5. workQueue：任务队列，被提交但尚未被执行的任务。\n\n6. threadFactory：线程工厂，用于创建线程，一般用默认的即可。\n\n7. handler：拒绝策略，当任务太多来不及处理，如何拒绝任务。",
-      "tabs": [
-        {
-          "id": "jimi-78",
-          "label": "同步锁与死锁",
-          "content": "## 同步锁\n\n当多个线程同时访问同一个数据时，很容易出现问题。为了避免这种情况出现，我们要保证线程同步互斥，就是指并发执行的多个线程，在同一时间内只允许一个线程访问共享数据。 Java 中可以使用synchronized 关键字来取得一个对象的同步锁。\n\n## 死锁\n\n何为死锁，就是多个线程同时被阻塞，它们中的一个或者全部都在等待某个资源被释放。\n\n## 线程池原理\n\n线程池做的工作主要是控制运行的线程的数量，处理过程中将任务放入队列，然后在线程创建后启动这些任务，如果线程数量超过了最大数量超出数量的线程排队等候，等其它线程执行完毕，再从队列中取出任务来执行。他的主要特点为：线程复用；控制最大并发数；管理线程。\n\n## ** 线程复用\n\n每一个 Thread 的类都有一个 start 方法。 当调用 start 启动线程时 Java 虚拟机会调用该类的 run 方法。 那么该类的 run() 方法中就是调用了 Runnable 对象的 run() 方法。 我们可以继承重写 Thread类，在其 start 方法中添加不断循环调用传递过来的 Runnable 对象。 这就是线程池的实现原理。循环方法中不断获取 Runnable 是用 Queue 实现的，在获取下一个 Runnable 之前可以是阻塞的。\n\n线程池的组成一般的线程池主要分为以下 4 个组成部分：\n\n1. 线程池管理器：用于创建并管理线程池\n\n2. 工作线程：线程池中的线程\n\n3. 任务接口：每个任务必须实现的接口，用于工作线程调度其运行\n\n4. 任务队列：用于存放待处理的任务，提供一种缓冲机制\n\nJava 中的线程池是通过 Executor 框架实现的，该框架中用到了 Executor，Executors，\n\n![image](https://cdn-mineru.openxlab.org.cn/result/2026-08-11/899036e4-5c6c-4e85-b1c9-ae185ddec326/b4930debbe56a7e1887a5e34a0298d9135392277bb08665b6f70fd8c1aab4d7c.jpg)\n\nThreadPoolExecutor 的构造方法如下：\n\npublic ThreadPoolExecutor(int corePoolSize,int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue workQueue) { this(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, Executors.defaultThreadFactory(), defaultHandler); \n\n1. corePoolSize：指定了线程池中的线程数量。\n\n2. maximumPoolSize：指定了线程池中的最大线程数量。\n\n3. keepAliveTime：当前线程池数量超过 corePoolSize 时，多余的空闲线程的存活时间，即多次时间内会被销毁。\n\n4. unit：keepAliveTime 的单位。\n\n5. workQueue：任务队列，被提交但尚未被执行的任务。\n\n6. threadFactory：线程工厂，用于创建线程，一般用默认的即可。\n\n7. handler：拒绝策略，当任务太多来不及处理，如何拒绝任务。"
-        }
-      ]
+      "tabs": []
     },
     "tags": [
       "死锁"
@@ -134534,13 +134420,7 @@
     "card": {
       "nodeId": "mysql:concept:server",
       "title": "MySQL Server",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "MySQL Server 是接收连接、处理 SQL、协调权限、事务、执行计划和存储引擎访问的服务端概念。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "MySQL Server 是接收连接、处理 SQL、协调权限、事务、执行计划和存储引擎访问的服务端概念。"
     }
   },
@@ -134556,13 +134436,7 @@
     "card": {
       "nodeId": "k_1782029618563_7rrguo:composition",
       "title": "组成",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "组成用于承载「配置文件」这个概念内部的组成信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "组成用于承载「配置文件」这个概念内部的组成信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029618563_7rrguo:composition",
@@ -134579,13 +134453,7 @@
     "card": {
       "nodeId": "k_1782029618563_7rrguo:structure",
       "title": "结构",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "结构用于承载「配置文件」这个概念内部的结构信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "结构用于承载「配置文件」这个概念内部的结构信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029618563_7rrguo:structure",
@@ -134603,13 +134471,7 @@
     "card": {
       "nodeId": "mysql:concept:data-files:myisam:node",
       "title": "MyISAM 文件",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "MyISAM 文件是系统文件层数据文件中的一个组成类别。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "MyISAM 文件是系统文件层数据文件中的一个组成类别。"
     }
   },
@@ -134625,13 +134487,7 @@
     "card": {
       "nodeId": "mysql:concept:data-files:innodb-tablespaces:node",
       "title": "InnoDB 表空间文件",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "InnoDB 表空间文件是系统文件层数据文件中的一个组成类别。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "InnoDB 表空间文件是系统文件层数据文件中的一个组成类别。"
     }
   },
@@ -134647,13 +134503,7 @@
     "card": {
       "nodeId": "mysql:concept:data-files:other-engines:node",
       "title": "其他存储引擎文件",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "其他存储引擎文件是系统文件层数据文件中的一个组成类别。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "其他存储引擎文件是系统文件层数据文件中的一个组成类别。"
     }
   },
@@ -134669,13 +134519,7 @@
     "card": {
       "nodeId": "k_1782029643146_aumkky:composition",
       "title": "组成",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "组成用于承载「数据文件」这个概念内部的组成信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "组成用于承载「数据文件」这个概念内部的组成信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029643146_aumkky:composition",
@@ -134693,13 +134537,7 @@
     "card": {
       "nodeId": "k_1782029643146_aumkky:structure",
       "title": "结构",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "结构用于承载「数据文件」这个概念内部的结构信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "结构用于承载「数据文件」这个概念内部的结构信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029643146_aumkky:structure",
@@ -134717,13 +134555,7 @@
     "card": {
       "nodeId": "k_1782029505237_7y8fh8:composition",
       "title": "组成",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "组成用于承载「日志文件」这个概念内部的组成信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "组成用于承载「日志文件」这个概念内部的组成信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029505237_7y8fh8:composition",
@@ -134741,13 +134573,7 @@
     "card": {
       "nodeId": "k_1782029505237_7y8fh8:structure",
       "title": "结构",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "结构用于承载「日志文件」这个概念内部的结构信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "结构用于承载「日志文件」这个概念内部的结构信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029505237_7y8fh8:structure",
@@ -134765,13 +134591,7 @@
     "card": {
       "nodeId": "mysql_runtime_files:composition",
       "title": "组成",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "组成用于承载「运行时文件」这个概念内部的组成信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "组成用于承载「运行时文件」这个概念内部的组成信息。"
     },
     "canonicalKey": "mysql:concept-axis:mysql_runtime_files:composition",
@@ -134789,13 +134609,7 @@
     "card": {
       "nodeId": "k_1782029470422_yfa3u9:composition",
       "title": "组成",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "组成用于承载「系统文件层」这个概念内部的组成信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "组成用于承载「系统文件层」这个概念内部的组成信息。"
     },
     "canonicalKey": "mysql:concept-axis:k_1782029470422_yfa3u9:composition",
@@ -134813,13 +134627,7 @@
     "card": {
       "nodeId": "mysql:concept:server:structure",
       "title": "结构",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "结构用于承载「MySQL Server」这个概念内部的结构信息。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "结构用于承载「MySQL Server」这个概念内部的结构信息。"
     },
     "canonicalKey": "mysql:concept-axis:mysql:concept:server:structure",
@@ -134837,13 +134645,7 @@
     "card": {
       "nodeId": "mysql_topic_indexes_access",
       "title": "索引与访问路径",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "索引与访问路径是 MySQL 中负责组织索引类型、索引访问方式和访问路径相关术语的兼容概念节点。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "索引与访问路径是 MySQL 中负责组织索引类型、索引访问方式和访问路径相关术语的兼容概念节点。"
     }
   },
@@ -134858,13 +134660,7 @@
     "card": {
       "nodeId": "k_1787201710517_se61sz",
       "title": "MySQL 存储引擎",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 存储引擎**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 存储引擎**"
     },
     "dimensions": [
@@ -134979,13 +134775,7 @@
     "card": {
       "nodeId": "k_1787234925180_aqltgu",
       "title": "MySQL 系统表空间",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 系统表空间**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 系统表空间**"
     },
     "dimensions": [
@@ -135003,13 +134793,7 @@
     "card": {
       "nodeId": "k_1787235074473_zuqcq4",
       "title": "MySQL 独立表空间",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 独立表空间**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 独立表空间**"
     },
     "dimensions": [
@@ -135115,13 +134899,7 @@
     "card": {
       "nodeId": "k_1787326496104_zbtx44",
       "title": "MySQL Replication",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL Replication**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL Replication**"
     },
     "dimensions": [
@@ -135139,13 +134917,7 @@
     "card": {
       "nodeId": "k_1787326536038_77rvww",
       "title": "MySQL 分区管理（Partitioning）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义（MySQL 实例）",
-          "content": "**MySQL 分区管理（Partitioning）**"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**MySQL 分区管理（Partitioning）**"
     },
     "dimensions": [
@@ -154875,13 +154647,7 @@
     "card": {
       "nodeId": "aop_term_proxy",
       "title": "代理对象（Proxy）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**代理对象（Proxy）**：就是由 Spring 代理策略生成的对象——目标类满足切面规则时，ProxyFactory 按策略（有接口 JDK Proxy / 无接口 Cglib）创建、缓存到 IoC 容器，用户实际调用的就是它。与 AOP 节点下的「静态代理 / 动态代理」概念相对。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**代理对象（Proxy）**：就是由 Spring 代理策略生成的对象——目标类满足切面规则时，ProxyFactory 按策略（有接口 JDK Proxy / 无接口 Cglib）创建、缓存到 IoC 容器，用户实际调用的就是它。与 AOP 节点下的「静态代理 / 动态代理」概念相对。"
     }
   },
@@ -154900,13 +154666,7 @@
     "card": {
       "nodeId": "aop_term_woven",
       "title": "织入代码（Woven Code）",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "**织入代码（Woven Code）**：就是要在我们自己写的业务代码（目标对象）中增加的代码片段——即切面要织入的逻辑，封装在切面通知（Advice）里、由 MethodInterceptor 执行。织入（Weaving）是把切面应用到目标对象的过程，织入代码是被织入的内容。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "**织入代码（Woven Code）**：就是要在我们自己写的业务代码（目标对象）中增加的代码片段——即切面要织入的逻辑，封装在切面通知（Advice）里、由 MethodInterceptor 执行。织入（Weaving）是把切面应用到目标对象的过程，织入代码是被织入的内容。"
     }
   },
@@ -160517,13 +160277,7 @@
     "card": {
       "nodeId": "concept_http_request",
       "title": "HTTP Request",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "HTTP Request（HTTP 请求）：客户端发给服务器的请求报文，以「我要做什么」为核心语义。\n\n- 请求行：方法 + 请求目标（URL / 路径）+ 协议版本\n- 方法：GET / POST / PUT / DELETE / PATCH，决定语义与幂等性\n- URL：请求目标，含路径与查询串\n- 请求头：Host、Content-Type、Content-Length、Cookie、Accept 等\n- 请求体：POST / PUT 等携带的数据（表单、JSON、二进制）\n\nHTTP Request 是协议层概念；Java 侧的 `HttpServletRequest` 是它在容器里的封装表示。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "HTTP Request（HTTP 请求）：客户端发给服务器的请求报文，以「我要做什么」为核心语义。\n\n- 请求行：方法 + 请求目标（URL / 路径）+ 协议版本\n- 方法：GET / POST / PUT / DELETE / PATCH，决定语义与幂等性\n- URL：请求目标，含路径与查询串\n- 请求头：Host、Content-Type、Content-Length、Cookie、Accept 等\n- 请求体：POST / PUT 等携带的数据（表单、JSON、二进制）\n\nHTTP Request 是协议层概念；Java 侧的 `HttpServletRequest` 是它在容器里的封装表示。"
     }
   },
@@ -160544,13 +160298,7 @@
     "card": {
       "nodeId": "concept_http_response",
       "title": "HTTP Response",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "HTTP Response（HTTP 响应）：服务器回给客户端的结果报文，以「结果是什么」为核心语义。\n\n- 状态行：协议版本 + 状态码 + 原因短语\n- 状态码：1xx 信息 / 2xx 成功 / 3xx 重定向 / 4xx 客户端错误 / 5xx 服务端错误\n- 响应头：Content-Type、Content-Length、Cache-Control、Set-Cookie 等\n- 响应体：返回数据\n- MIME / Content-Type：决定客户端如何解析响应体\n\nHTTP Response 是协议层概念；Java 侧的 `HttpServletResponse` 是它在容器里的封装表示。"
-        }
-      ],
+      "tabs": [],
       "rootContent": "HTTP Response（HTTP 响应）：服务器回给客户端的结果报文，以「结果是什么」为核心语义。\n\n- 状态行：协议版本 + 状态码 + 原因短语\n- 状态码：1xx 信息 / 2xx 成功 / 3xx 重定向 / 4xx 客户端错误 / 5xx 服务端错误\n- 响应头：Content-Type、Content-Length、Cache-Control、Set-Cookie 等\n- 响应体：返回数据\n- MIME / Content-Type：决定客户端如何解析响应体\n\nHTTP Response 是协议层概念；Java 侧的 `HttpServletResponse` 是它在容器里的封装表示。"
     }
   },
@@ -161038,13 +160786,7 @@
     "card": {
       "nodeId": "concept_http_servlet_cookie",
       "title": "javax.servlet.http.Cookie",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "javax.servlet.http.Cookie：Servlet 规范对 HTTP Cookie 的 Java 类型抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 写入：new Cookie(name, value) + response.addCookie(...)\n- 读取：request.getCookies()\n- 常用属性：maxAge / path / domain / httpOnly / secure\n- 与协议本体的关系：它是 HTTP Cookie（Set-Cookie / Cookie 头）在 Java 容器里的封装表示（引用，不是拥有）"
-        }
-      ],
+      "tabs": [],
       "rootContent": "javax.servlet.http.Cookie：Servlet 规范对 HTTP Cookie 的 Java 类型抽象（Java 侧的**类型**，不是 HTTP 本身）。\n\n- 写入：new Cookie(name, value) + response.addCookie(...)\n- 读取：request.getCookies()\n- 常用属性：maxAge / path / domain / httpOnly / secure\n- 与协议本体的关系：它是 HTTP Cookie（Set-Cookie / Cookie 头）在 Java 容器里的封装表示（引用，不是拥有）"
     },
     "viewDimensions": [
@@ -161087,13 +160829,7 @@
     "card": {
       "nodeId": "concept_http_servlet_session",
       "title": "HttpSession",
-      "tabs": [
-        {
-          "id": "def",
-          "label": "定义",
-          "content": "HttpSession：Servlet 规范对服务端会话的 Java 类型抽象（Java 侧的**类型**，不是 Session 概念本身）。\n\n- 获取：request.getSession() / getSession(false)\n- 存取：setAttribute / getAttribute / removeAttribute\n- 会话标识：JSESSIONID（Cookie 或 URL 重写承载）关联到服务端会话对象\n- 与概念本体的关系：它是「跨请求认住同一个客户端」的 Java 容器实现（引用，不是拥有）"
-        }
-      ],
+      "tabs": [],
       "rootContent": "HttpSession：Servlet 规范对服务端会话的 Java 类型抽象（Java 侧的**类型**，不是 Session 概念本身）。\n\n- 获取：request.getSession() / getSession(false)\n- 存取：setAttribute / getAttribute / removeAttribute\n- 会话标识：JSESSIONID（Cookie 或 URL 重写承载）关联到服务端会话对象\n- 与概念本体的关系：它是「跨请求认住同一个客户端」的 Java 容器实现（引用，不是拥有）"
     },
     "viewDimensions": [
