@@ -54101,7 +54101,7 @@
           "content": "什么是Spring的内部bean？什么是Spring inner beans？\n在Spring框架中，当一个bean仅被用作另一个bean的属性时，它能被声明为一个内部bean。内部bean 可以用setter注入“属性”和构造方法注入“构造参数”的方式来实现，内部bean通常是匿名的，它们的 Scope一般是prototype。"
         }
       ],
-      "rootContent": "Spring Beans **Spring Bean 是 Spring 中最基本的组成单元**：构成应用程序主干并由 **Spring IoC 容器**管理的对象称为 Bean——由 IoC 容器**实例化、组装和管理**。 官方定义可提取三点：① Bean 是对象（一个或多个不限定）；② Bean 托管在 Spring 的 IoC 容器中；③ 我们的程序由一个个 Bean 构成。 Spring 通过**声明式配置**定义 Bean：创建 Bean 需要的前置依赖和参数都先在配置中声明，Spring 启动后解析这些配置。定义方式、加载过程与作用域见下方题目与子节点（作用域/生命周期）。"
+      "rootContent": "**Spring Bean 是 Spring 中最基本的组成单元**：构成应用程序主干并由 **Spring IoC 容器**管理的对象称为 Bean——由 IoC 容器**实例化、组装和管理**。 官方定义可提取三点：\n① Bean 是对象（一个或多个不限定）；\n② Bean 托管在 Spring 的 IoC 容器中；\n③ 我们的程序由一个个 Bean 构成。\n Spring 通过**声明式配置**定义 Bean：创建 Bean 需要的前置依赖和参数都先在配置中声明，Spring 启动后解析这些配置。定义方式、加载过程与作用域见下方题目与子节点（作用域/生命周期）。"
     },
     "tags": [
       "Spring Beans"
@@ -146238,10 +146238,25 @@
         {
           "id": "def",
           "label": "定义",
-          "content": "## 什么是Spring MVC\n\nSpring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。\n\n## 核心组件\n\n1. **DispatcherServlet**：前端控制器，负责请求分发\n2. **HandlerMapping**：处理器映射器，找到具体的Controller\n3. **Controller**：控制器，处理业务逻辑\n4. **ViewResolver**：视图解析器，解析视图\n\n## 工作流程\n\n1. 用户发送请求到DispatcherServlet\n2. DispatcherServlet调用HandlerMapping\n3. HandlerMapping返回具体的Controller\n4. Controller调用业务处理方法\n5. 返回ModelAndView\n6. ViewResolver解析视图\n7. 返回最终视图给用户\n\n## 常用注解\n\n- @Controller：标记控制器类\n- @RequestMapping：请求映射\n- @GetMapping：GET请求映射\n- @PostMapping：POST请求映射\n- @RequestParam：请求参数绑定\n- @PathVariable：路径变量\n- @RequestBody：请求体绑定\n- @ResponseBody：响应体"
+          "content": "## 什么是Spring MVC\n\nSpring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。"
+        },
+        {
+          "id": "components",
+          "label": "核心组件",
+          "content": "## 核心组件\n\n1. **DispatcherServlet**：前端控制器，负责请求分发\n2. **HandlerMapping**：处理器映射器，找到具体的Controller\n3. **Controller**：控制器，处理业务逻辑\n4. **ViewResolver**：视图解析器，解析视图\n\n各组件的逐一详解见子节点（DispatcherServlet / HandlerMapping / HandlerAdapter / ViewResolver / View）。"
+        },
+        {
+          "id": "flow",
+          "label": "工作流程",
+          "content": "## 工作流程\n\n1. 用户发送请求到DispatcherServlet\n2. DispatcherServlet调用HandlerMapping\n3. HandlerMapping返回具体的Controller\n4. Controller调用业务处理方法\n5. 返回ModelAndView\n6. ViewResolver解析视图\n7. 返回最终视图给用户\n\n含 HandlerAdapter 的完整调用链见子节点「Spring MVC 原理」；请求链路图解见子节点「SpringMVC 请求链路」。"
+        },
+        {
+          "id": "annotations",
+          "label": "常用注解",
+          "content": "## 常用注解\n\n- @Controller：标记控制器类\n- @RequestMapping：请求映射\n- @GetMapping：GET请求映射\n- @PostMapping：POST请求映射\n- @RequestParam：请求参数绑定\n- @PathVariable：路径变量\n- @RequestBody：请求体绑定\n- @ResponseBody：响应体"
         }
       ],
-      "rootContent": "SpringMVC ## \n什么是Spring MVC Spring MVC是Spring框架的一部分，是一个基于Java实现的MVC设计模式的轻量级Web框架。\n ## 核心组件 \n1. **DispatcherServlet**：前端控制器，负责请求分发\n 2. **HandlerMapping**：处理器映射器，找到具体的Controller \n3. **Controller**：控制器，处理业务逻辑 \n4. **ViewResolver**：视图解析器，解析视图 \n## 工作流程\n 1. 用户发送请求到DispatcherServlet \n2. DispatcherServlet调用HandlerMapping \n3. HandlerMapping返回具体的Controller\n 4. Controller调用业务处理方法 \n5. 返回ModelAndView \n6. ViewResolver解析视图 \n7. 返回最终视图给用户\n ## 常用注解 \n- @Controller：标记控制器类\n - @RequestMapping：请求映射 \n- @GetMapping：GET请求映射 \n- @PostMapping：POST请求映射 \n- @RequestParam：请求参数绑定 \n- @PathVariable：路径变量 \n- @RequestBody：请求体绑定\n - @ResponseBody：响应体"
+      "rootContent": "**Spring MVC** 是 Spring 框架的一部分：基于 Java 实现的 MVC 设计模式轻量级 Web 框架。请求统一由 **DispatcherServlet**（前端控制器）分发——HandlerMapping 定位 Controller 处理业务，返回 ModelAndView 后经 ViewResolver 解析视图呈现给用户。各组件逐一详解见子节点（DispatcherServlet / HandlerMapping / HandlerAdapter / ViewResolver / View）；含 HandlerAdapter 的完整调用链与配置见子节点「Spring MVC 原理」，请求链路图解见子节点「SpringMVC 请求链路」。"
     }
   },
   "k_vault_javaspringspringmvcspringmvc_1932hl": {

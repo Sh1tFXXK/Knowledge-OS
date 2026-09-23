@@ -1,0 +1,39 @@
+{
+  "batch": "springmvc-split-fusion",
+  "date": "2026-09-23",
+  "trigger": "用户贴出「SpringMVC」解释卡正文（塌行形态），沿用 AOP 批口径做拆解融合。",
+  "target": {
+    "entity": "k_java_fw_spring_mvc",
+    "treeId": "tree_java_fw_spring_mvc",
+    "path": "知识宇宙>计算机科学>软件符号与工具>软件框架>Spring>SpringMVC",
+    "role": "容器壳（7 子节点）"
+  },
+  "preflightFindings": {
+    "dualCopy": "rootContent（616 字，「SpringMVC ##」开头塌行版）= def tab（590 字干净版）的塌行复制",
+    "conventionViolated": "容器壳应守壳约定（rootContent=短总述、tabs 载细节），实测读态只渲染 rootContent",
+    "childrenHealthy": "子节点内容健康且更深：「Spring MVC 原理」含 HandlerAdapter 完整 7 步链 + 组件表 + XML/注解配置；「SpringMVC 请求链路」含 mermaid 图 + 并发理解；5 个组件子节点逐一详解",
+    "siblingNote": "子节点「Spring MVC 原理」自身 rootContent 也是其 def tab 塌行版（同病）——另案候选，本批不动"
+  },
+  "actions": {
+    "split": "塌行正文 → 4 个语义 tab：def 定义(71字) / components 核心组件(241字) / flow 工作流程(251字) / annotations 常用注解(183字)，正文逐字源自干净 def tab",
+    "fuse": [
+      "rootContent 收为 336 字壳总述（定义一句话 + 分发主线 + 子节点指针）",
+      "总述与 flow tab 指针统一指向真实子节点名「Spring MVC 原理」「SpringMVC 请求链路」（apply 前置门校验其真实挂树）"
+    ],
+    "untouched": "树/边/问题三文件零写；7 子节点内容不动；card 其他字段（nodeId/title）原样"
+  },
+  "gates": {
+    "pre": "7/7（塌行形态、单 def tab、干净源、2 个引用目标 + 5 个组件子节点真实挂树——防悬挂防重复 apply）",
+    "post": "22 关键词守恒 + 塌行 marker 清除 + 无前导空格塌行列表 + 短总述 + 指针 ×2",
+    "writeback": "回读逐字节复验 rootContent 与 tabs；池键数 3870 不变"
+  },
+  "uiProbe": {
+    "method": "临时数据目录副本 + vite preview 4192 + 无头 Chromium CDP；选择器原语复用 shell-fusion 已验证探针（[data-tree-node-id] / .tree-node-icon / .explanation-card / 中性节点先行）",
+    "result": "9/9 ALL PASS",
+    "assertions": "① 数据级 tabs=[def/components/flow/annotations] 且 rootContent 无塌行无注解残留；② 读态卡片=新总述+真实子节点指针、无流程/注解段残留；③ 7 子节点全渲染；④ 刷新复测 ②"
+  },
+  "threeGreens": "tsc 0 错 / npm test 68/68（本批零源码改动，沿用上轮；build 沿渲染器提交 10b29d8 已绿）",
+  "artifacts": {
+    "apply": "scripts/apply-springmvc-split-fusion.mjs（dry-run 默认 + --apply，前后断言门，原子写）"
+  }
+}
