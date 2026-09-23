@@ -23,12 +23,19 @@ function dimensionsOf(node: KnowledgeNode): string[] {
     : [];
 }
 
-/** 取首个 tab 的正文预览；缺 content / 空 tabs 都返回空串，绝不抛错。 */
+/**
+ * 取正文预览：优先首个 tab 的正文；无 tab（或首个 tab 无正文）时退回 rootContent。
+ * 读态只渲染 rootContent，故 rootContent-only 卡（含去重后 tabs 清空的卡）也必须能出预览。
+ * 缺 content / 空字符串一律安全返回，绝不抛错。
+ */
 function previewOf(node: KnowledgeNode): string {
   const tabs = node?.card?.tabs;
-  if (!Array.isArray(tabs) || tabs.length === 0) return '';
-  const content = tabs[0]?.content;
-  return typeof content === 'string' ? content : '';
+  if (Array.isArray(tabs) && tabs.length > 0) {
+    const content = tabs[0]?.content;
+    if (typeof content === 'string' && content !== '') return content;
+  }
+  const root = node?.card?.rootContent;
+  return typeof root === 'string' ? root : '';
 }
 
 export default function NodeDatabase() {

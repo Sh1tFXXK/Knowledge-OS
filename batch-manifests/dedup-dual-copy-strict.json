@@ -27,7 +27,12 @@
   },
   "sideEffectAndFix": {
     "finding": "节点库（NodeDatabase 卡片视图）预览列取 tabs[0].content ⇒ 删 tab 后预览变空。该 gap 实为既有缺陷：全库 512 张 tabs 空数组卡 + 本批 44 张，预览列本来就空。",
-    "fix": "previewOf() 增加回退：无 tab（或首个 tab 无正文）时取 rootContent —— 独立提交，见 commit 2（UI 改动按约定不写单测，走无头实测）"
+    "fix": "previewOf() 增加回退：无 tab（或首个 tab 无正文）时取 rootContent —— 独立提交（UI 改动按工作约定不写单测，走无头实测）",
+    "fixProbe": {
+      "method": "同前（temp 数据目录 + vite preview 4192 + 无头 CDP 9351）",
+      "result": "13/13 ALL PASS",
+      "assertions": "① 顶部导航「节点库」可点 → .node-database 渲染 → 切卡片视图；② 三个用例：去重卡（tabs 已清空）预览含「就是由 Spring」· 无 tab 卡预览含「FixedThreadPool 是固定大小的线程池」· 多 tab 卡仍优先取首个 tab 正文（预览含「网络编程是指」，证明回退未影响原分支）；③ 刷新后复测无 tab 卡预览仍显示 rootContent"
+    }
   },
   "pending": {
     "tier2Proposal": "②③档（396 + 406 = 802，去重后 691 例在扫描 dual-copy 集合内）需另行裁决：root ← 「更干净一侧」+ 删 tab。前提 norm(root) 与 norm(tab)（或 norm(标签+tab)）相等 ⇒ 零知识损失；方向按段落空行数判定（tab 更干净 477 / root 更干净 78 / 平手 194，78 例须保留 root 只删 tab）。",
