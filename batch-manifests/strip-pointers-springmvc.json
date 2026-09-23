@@ -1,0 +1,26 @@
+{
+  "batch": "strip-pointers-springmvc",
+  "date": "2026-09-23",
+  "trigger": "用户确立「知识独立性」新规后裁决（选项1）：回填剥除前两批注入的跨节点指针话术。本批 = 修正批 2/2（SpringMVC 壳卡）。",
+  "principle": "知识独立性：卡内容零跨节点指针（/详见|见子节点|见「|参见|另见/ 硬校验）。内部逻辑写在知识点里，外部关联是系统（树）的职责。",
+  "target": {
+    "entity": "k_java_fw_spring_mvc",
+    "treeId": "tree_java_fw_spring_mvc",
+    "path": "知识宇宙>…>Spring>SpringMVC",
+    "violationOrigin": "bcf4c4e（springmvc-split-fusion 批注入的导航话术）"
+  },
+  "stripped": {
+    "rootContent": "「各组件逐一详解见子节点（…）；含 HandlerAdapter 的完整调用链与配置见子节点「Spring MVC 原理」，请求链路图解见子节点「SpringMVC 请求链路」。」（336→176 字）",
+    "tab_components": "「各组件的逐一详解见子节点（…）。」（241→151 字）",
+    "tab_flow": "「含 HandlerAdapter 的完整调用链见子节点…；请求链路图解见子节点…。」（251→179 字）",
+    "tab_def_annotations": "零触碰（本就无指针）"
+  },
+  "surgery": "精确整句 replace，每句计数必须恰好=1；剥后收束于知识句（root→解析视图呈现给用户 / components→ViewResolver 组件块 / flow→返回最终视图给用户）。注：壳卡 tab 实为 def/components/flow/annotations（前置门纠偏了脚本里 compare 的错误预期）",
+  "gates": "前置 6（指针句定位+形态）→ 后置 9（零指针+组件块×4+七步链锚点+def/annotations 不动+仅减不增）→ 回读逐字节 3",
+  "uiProbe": {
+    "method": "临时数据目录 + vite preview 4192 + 无头 Chromium CDP（复用 shell-fusion 原语）",
+    "result": "9/9 ALL PASS",
+    "assertions": "① 数据级零指针+知识守恒；② 读态卡片完整无指针残留；③ 刷新复测全绿"
+  },
+  "artifacts": { "apply": "scripts/apply-strip-pointers-springmvc.mjs（dry-run 默认 + --apply，断言门，原子写）" }
+}

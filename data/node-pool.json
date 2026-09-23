@@ -146258,12 +146258,12 @@
         {
           "id": "components",
           "label": "核心组件",
-          "content": "## 核心组件\n\n1. **DispatcherServlet**：前端控制器，负责请求分发\n2. **HandlerMapping**：处理器映射器，找到具体的Controller\n3. **Controller**：控制器，处理业务逻辑\n4. **ViewResolver**：视图解析器，解析视图\n\n各组件的逐一详解见子节点（DispatcherServlet / HandlerMapping / HandlerAdapter / ViewResolver / View）。"
+          "content": "## 核心组件\n\n1. **DispatcherServlet**：前端控制器，负责请求分发\n2. **HandlerMapping**：处理器映射器，找到具体的Controller\n3. **Controller**：控制器，处理业务逻辑\n4. **ViewResolver**：视图解析器，解析视图"
         },
         {
           "id": "flow",
           "label": "工作流程",
-          "content": "## 工作流程\n\n1. 用户发送请求到DispatcherServlet\n2. DispatcherServlet调用HandlerMapping\n3. HandlerMapping返回具体的Controller\n4. Controller调用业务处理方法\n5. 返回ModelAndView\n6. ViewResolver解析视图\n7. 返回最终视图给用户\n\n含 HandlerAdapter 的完整调用链见子节点「Spring MVC 原理」；请求链路图解见子节点「SpringMVC 请求链路」。"
+          "content": "## 工作流程\n\n1. 用户发送请求到DispatcherServlet\n2. DispatcherServlet调用HandlerMapping\n3. HandlerMapping返回具体的Controller\n4. Controller调用业务处理方法\n5. 返回ModelAndView\n6. ViewResolver解析视图\n7. 返回最终视图给用户"
         },
         {
           "id": "annotations",
@@ -146271,7 +146271,7 @@
           "content": "## 常用注解\n\n- @Controller：标记控制器类\n- @RequestMapping：请求映射\n- @GetMapping：GET请求映射\n- @PostMapping：POST请求映射\n- @RequestParam：请求参数绑定\n- @PathVariable：路径变量\n- @RequestBody：请求体绑定\n- @ResponseBody：响应体"
         }
       ],
-      "rootContent": "**Spring MVC** 是 Spring 框架的一部分：基于 Java 实现的 MVC 设计模式轻量级 Web 框架。请求统一由 **DispatcherServlet**（前端控制器）分发——HandlerMapping 定位 Controller 处理业务，返回 ModelAndView 后经 ViewResolver 解析视图呈现给用户。各组件逐一详解见子节点（DispatcherServlet / HandlerMapping / HandlerAdapter / ViewResolver / View）；含 HandlerAdapter 的完整调用链与配置见子节点「Spring MVC 原理」，请求链路图解见子节点「SpringMVC 请求链路」。"
+      "rootContent": "**Spring MVC** 是 Spring 框架的一部分：基于 Java 实现的 MVC 设计模式轻量级 Web 框架。请求统一由 **DispatcherServlet**（前端控制器）分发——HandlerMapping 定位 Controller 处理业务，返回 ModelAndView 后经 ViewResolver 解析视图呈现给用户。"
     }
   },
   "k_vault_javaspringspringmvcspringmvc_1932hl": {
