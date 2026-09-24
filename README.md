@@ -1864,3 +1864,5 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 - 工作树残态：`STATE.md`（本文件，governance）+ `worktree-fingerprint.json` M + 在飞件（p-web-cookie-session / spring-ioc-refactor / jsp / txmgr）+ excludedSet 产物。**本批完成。**
 
 **▲ docs chore（同日稍后）**：`ffdf30d` —— 四份报告（plan/apply-report/verification/ui-probe）收编为统一 `outputs/tree-violation-scan/go-design-split-fusion-README.md`（12 节，内容无损，§12 附收编映射），原四份已删。⚠️ 提交时 staged 里检出并发会话的外部变更（docs/PROJECT_INTRODUCTION.md 删除 + docs→outputs 三个 rename，另有 README.md/ARCHITECTURE.md M、docs/KNOWLEDGE_RULES.md 等新件），已 restore --staged 退回工作树**不夹带**——并发会话的 docs 重组仍在飞。
+
+**▲ docs chore（手册层收编）**：采纳并发会话 docs 重组（`eab5347`）后，手册层 12 份文档全部收编为根 `README.md` 合订本（门面 + 11 篇，`552cc36`）——十二源全文逐字节无损校验通过；原 11 文件（CONTEXT/CONTRIBUTING/STATE + docs 顶层 6 + adr 2）已删，`AGENTS.md` 真身保留（第十篇为镜像）。**自本条目起，治理记录追加到本文件第十一篇，原 STATE.md 不再单独存在。**
