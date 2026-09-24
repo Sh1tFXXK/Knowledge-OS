@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/go-design-split-fusion-2026-09-24T10-40-55-308Z/",
   "preBatchSnapshotNote": "apply 前六文件快照（apply 脚本 G6 落盘前自动拍摄）：node-pool 11735022 B · tree-data 1943794 B · knowledge-edges 1138979 B · questions 1403060 B · evolution-events 3773 B · version-chains 2157 B。该目录**不入库**（.gitignore 覆盖 data/backups/，性质同前批快照）；verify 从此快照反推（不 import apply），本地可复跑。",
   "commitSubjectHint": "data: go-design-split-fusion — Go 设计卡五段拆分融合（SURVIVOR 420 字 · HISTORY+89→363 · GENERICS+330→950 · 新建「版本策略」k_go_versioning 挂树 · 池 3871→3872 · go 子 15→16 · 边 4161→4162）（独立验证 14/14 · UI 7/7 · 回归 tsc 0 / test 68/68）",
-  "status": "DRAFT",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "用户粘贴 Go 维基百科原文（无指令），AskUserQuestion 裁决：「这是go语言设计的解释卡，拆分融合」。前置处置：工作树发现 15 小时外部漂移（含本批涉及的 Go 卡编辑），用户裁决「全部采纳不还原」⇒ 先落采纳批 external-drift-adoption-20260924（bbac1b7/33a5902）推进 HEAD，本批从新 HEAD 干净起步。",
     "roles": "SURVIVOR=k_goexplain_design（语言设计，留 P1 设计目标+P5 Pike 讲座）· HISTORY=k_1787722763547_no5htk（历史，旧 89 字 + P2 发布时间线）· GENERICS=k_go_generic（泛型，旧 620 字 + P3 泛型时间线）· NEW=k_go_versioning（版本策略，P4 Versioning 原文含标题行，全新节点）。",
@@ -114,8 +114,8 @@
     "ancestorPrognosis": "HEAD(33a5902):data/ 六文件 ↔ apply 备份快照逐字节相等（6/6 IDENTICAL，Buffer.compare）⇒ Ancestor Gate 预期 PASS。",
     "readinessGate": {
       "script": "scripts/verify-phase1-commit-readiness.mjs --batch go-design-split-fusion",
-      "result": "待跑（登记时点执行）",
-      "coverage": "git status 展开未跟踪目录后全部文件被四集合覆盖；writeSet ∩ (governance ∪ external ∪ excluded) = ∅ 机检待门复核。"
+      "result": "READY · blockers=[]（2026-09-24 实跑，报告 outputs/tree-violation-scan/readiness-go-design-split-fusion.json），就绪门同时生成本次 pathspec（与本 manifest writeSet 10 项机检一致）。",
+      "coverage": "git status 展开未跟踪目录后全部文件被四集合覆盖；writeSet ∩ (governance ∪ external ∪ excluded) = ∅ 机检 PASS。"
     }
   },
   "openDebts": [
@@ -123,7 +123,7 @@
     "P4 原文含英文原句（Go 1 guarantees compatibility...），未翻译；与库内其他 wiki 卡中英混排惯例一致，未做归一。",
     "读态空白债 1644 张（前批登记的独立 UX 债）与本批无关，不阻塞不顺手修。"
   ],
-  "registeredAt": null,
-  "commitSha": null,
-  "committedAt": null
+  "registeredAt": "2026-09-24T19:0x+08:00",
+  "commitSha": "90d8c55",
+  "committedAt": "2026-09-24T19:0x+08:00"
 }
