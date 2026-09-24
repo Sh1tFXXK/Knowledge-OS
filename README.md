@@ -145,7 +145,7 @@ public/                       # 静态资源
 - 第十篇 · 代理工作约定 — UI 不写单测、无头浏览器自测套路（真身 `AGENTS.md` 保留）
 - 第十一篇 · 治理状态剖面 — 现状数字、沉积历史、批次收口记录（原 `STATE.md`）
 
-> 口径说明：各篇正文中的文件路径引用（如 `docs/CONSTITUTION.md`、`CONTEXT.md`、`STATE.md`、`docs/adr/…`）均为收编前原文，对应篇目见上表；`AGENTS.md` 真身保留在仓库根。
+> 口径说明：**各篇正文中的文件路径引用已就地改为篇目引用**（如「第二篇」「第八篇」「第十一篇」）；仅篇头「本篇收编原 `<文件名>` 全文」与上表括注保留收编前文件名作为来源留证。`AGENTS.md` 真身保留在仓库根。
 
 历史实施方案、修复记录、对话恢复稿、工具运行状态和截图不再进入版本库。一次性迁移与验收脚本用后即删，需要时按 `git log` 找回；历史分支如需恢复，使用 `.git/branch-archives/` 中的本地 Git bundle。阶段性的盘点与审查材料沉淀在 `outputs/`（不入运行时）。
 
@@ -288,7 +288,7 @@ flowchart LR
 
 Markdown 是无损传输格式，不是知识模型。标题、段落、列表、表格和代码块只是解析证据。知识节点必须可独立寻址；`structure` 与 `classification` 关系可用于生成目录导航，因果、依赖、状态转换等关系不得被伪装成目录父子；目录树只是导航投影，不能反向定义知识关系。
 
-> 历史：曾存在一条「语义草稿 → 图投影 → 多根写入」的导入链（`semantic-draft.mjs` / `semantic-projector.mjs` / `semantic-persistence.mjs` / `ai-organizer.mjs`），2026-09-10 判定从未成功沉积并整链移除。该方向的领域约束仍记录在 [文档导入标准](DOCUMENT_IMPORT_STANDARD.md) 与 `CONTEXT.md`，未来若重做需按约束重新设计。
+> 历史：曾存在一条「语义草稿 → 图投影 → 多根写入」的导入链（`semantic-draft.mjs` / `semantic-projector.mjs` / `semantic-persistence.mjs` / `ai-organizer.mjs`），2026-09-10 判定从未成功沉积并整链移除。该方向的领域约束仍记录在第五篇 · 文档导入标准 与第八篇 · 领域上下文，未来若重做需按约束重新设计。
 
 详细约束见 [文档导入标准](DOCUMENT_IMPORT_STANDARD.md)。
 
@@ -332,7 +332,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 
 
 > 版本：1.1 · 颁布：2026-09-12 · 修订：2026-09-14 · 性质：知识整理的最高治理原则
-> 本文约束一切知识整理、导入、融合、删除与问答操作。与本文冲突的旧规则一律以本文为准（被修正条款见序章）。事实依据与现状数字见 `STATE.md`；本文只写规则与判断标准，不记现状。
+> 本文约束一切知识整理、导入、融合、删除与问答操作。与本文冲突的旧规则一律以本文为准（被修正条款见序章）。事实依据与现状数字见第十一篇；本文只写规则与判断标准，不记现状。
 
 ---
 
@@ -344,7 +344,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 |---|---|---|---|
 | 1 | 「节点永不物理删除，占位符与空壳原样保留」（旧 CONTEXT 不变量 #6） | 单向棘轮：库内沉积 628 个既不在树又无边的节点，主体为 `k_dict_*` 尸骸层 | 原则一：新陈代谢与受控删除 |
 | 2 | 「去重 = 融合，退休节点标 archived-redirect 后永久留存」（旧 CONTEXT 不变量 #7） | 融合做完后空壳永无出口，规则 #1 的病灶 | 原则一 §1.3：融合仍是默认路径，空壳经三重门禁后可退出 |
-| 3 | 「88 个重复 nodeRef 是合法用法（一节点多路径）」（STATE.md 2026-09-11 判断） | 目录被跨分支重复挂载污染（如统计学/信息论/数值分析同时挂在 计算机科学>计算数学 与 数学） | 原则二：单一家园，跨语境可见性由投影承载 |
+| 3 | 「88 个重复 nodeRef 是合法用法（一节点多路径）」（第十一篇 2026-09-11 判断） | 目录被跨分支重复挂载污染（如统计学/信息论/数值分析同时挂在 计算机科学>计算数学 与 数学） | 原则二：单一家园，跨语境可见性由投影承载 |
 | 4 | 「节点名也写成 tag / 结构散落在标签与自由文本边里」（多轮导入器的隐含实践） | Tag 库拍平出 5522 个标签、29638 段材料，对比模式只能发现逐字复制 | 原则四：结构化内展 |
 | 5 | 「答案写完即闭环」（问答功能的事实状态） | 758 问题中 answerSteps 仅 1 份，答案正文是一次性快照，本体改动后无再生路径 | 原则五：问答闭环 |
 
@@ -559,11 +559,11 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 ## 文档层级
 
 ```
-宪法（本文）            —— 最高治理原则，判断标准
-  ├─ CONTEXT.md         —— 领域语言与不变量（已对齐本文，冲突时以本文为准）
-  ├─ STATE.md           —— 现状剖面（事实与数字，不记规则）
-  ├─ docs/ARCHITECTURE.md —— 工程架构与模块边界
-  └─ README.md          —— 入口与快速开始
+本合订本 README.md
+  ├─ 第二篇 · 知识库宪法 —— 最高治理原则，判断标准（本文）
+  ├─ 第八篇 · 领域上下文 —— 领域语言与不变量（已对齐本文，冲突时以本文为准）
+  ├─ 第十一篇 · 治理状态剖面 —— 现状剖面（事实与数字，不记规则）
+  └─ 第一篇 · 架构说明 —— 工程架构与模块边界
 ```
 
 修订宪法须显式版本号与修正条款，旧条款废止过程可追溯（本版序章即首例）。
@@ -577,7 +577,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 
 > 版本：1.0 · 汇编：2026-09-24 · 性质：**裁决速查**（Quick Reference）
 > 本文把散落在宪法、ADR、案例裁决、治理台账与代理约定中的**既有裁决**集中为一册，每条附**判据**（怎么判）与**反例**（实测反例 / 不适用面）。
-> 权威正文在 `docs/CONSTITUTION.md`（v1.1）；本文只做索引与操作口径，**冲突时以宪法为准**。现状数字见 `STATE.md`，本文不记现状。
+> 权威正文在第二篇 · 知识库宪法（v1.1）；本文只做索引与操作口径，**冲突时以宪法为准**。现状数字见第十一篇，本文不记现状。
 
 ## 使用与维护约定
 
@@ -706,7 +706,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
   - **门三 · 隔离期与可回滚**：物理移除前完整备份进 `data/backups/<处置原因>-<时间戳>/`；删除批次独立成 git 提交，写明原因与扫描证据位置；隔离期内只标 `archived-redirect`。
 - **判据**：受控删除只处理两类对象——融合后剩下的空壳、从未有过内容的占位符；代谢留痕（删了什么、依据哪条门禁、证据在哪个备份目录），无痕删除视为违规。
 - **反例**：旧规则「节点永不物理删除」造成单向棘轮——库内沉积 628 个既不在树又无边的节点（主体 `k_dict_*` 尸骸层），检索、目录、盘点全部为死数据付税。**只进不出同样是病**。
-- **出处**：CONSTITUTION 原则一（修正序章 #1/#2）· CONTEXT.md 不变量 6/7
+- **出处**：CONSTITUTION 原则一（修正序章 #1/#2）· 第八篇 不变量 6/7
 
 ### R-14 · 禁止批量盲删
 
@@ -742,7 +742,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 - **裁决**：`relatedNodeId` 必须解析到**池内且挂树**的节点；无归处的问题先修指向，再谈其他。
 - **判据**：禁止用「正文文本包含匹配」当长期方案——键序决定命中，不落盘、不稳定；题库导入必须清洗（题干 `#`/`##` 残留、一行并多题、近似重复按 R-05 裁决、错挂的 `relatedNodeId` 纠正）。
 - **反例**：现存空 `relatedNodeId` 是待清债务，不是可接受的默认态。
-- **出处**：CONSTITUTION 5.1/5.4 · CONTEXT.md 不变量 8
+- **出处**：CONSTITUTION 5.1/5.4 · 第八篇 不变量 8
 
 ### R-18 · 骨架优先于正文；丢定位不丢步
 
@@ -760,7 +760,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 - **裁决**：外部来源归一化为 Markdown 后编译成语义草稿（独立可寻址节点 + 有直接出处的类型化边 + source span）再落盘；导航树是从语义关系（主要是结构与分类边）派生的投影，不是规范知识结构；语义导入可以产出森林，断开的根合法。
 - **判据**：source record 只是出处（provenance），永远不强制成为知识节点；Markdown 标题只是证据，对节点身份无权威；无语义分析器时用字面大纲适配器兜底，且必须如实报告为 outline 模式，不得伪装成语义推断；关系只在方向与含义有直接 source span 支撑时才落盘。
 - **反例**：旧导入器把 Markdown 标题提升为单一文章根 + 章节节点层级——把展示结构误当知识结构，无法表达独立根、跨域依赖、因果链与状态转移；**importer 不得仅因 label 相似就合并节点**（跨导入的身份整合是独立接缝）。
-- **出处**：`docs/adr/0001-semantic-import-is-graph-first.md` · CONTEXT.md Import Principle / 不变量 1–5
+- **出处**：第七篇 ADR-0001 · 第八篇 Import Principle / 不变量 1–5
 
 ---
 
@@ -771,7 +771,7 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 - **裁决**：每个可提交批次 = 一个 manifest / 一个明确 `writeSet` / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit。
 - **判据**：`allowedDrift = writeSet ∪ governanceSet ∪ declaredExternalSet`，`unexpectedDrift` 必须为 ∅；**`allowedDrift ≠ pathspec`**——allowedDrift 回答「谁的改动」（只影响是否阻塞），pathspec 回答「提交什么」（只取 `writeSet`），治理文件「允许漂移但不由本批提交」因此自洽；`excludedSet` 是硬排除的负向声明，**不构成认领**。
 - **反例**：T2「单文件双批次」——状态上像在等外部会话，实际是两个批次共用一个文件，一个错误的状态词把整条主线锁了几小时（「为什么曾经看似阻塞、实际阻塞在哪」比「已完成」值钱）。
-- **出处**：`docs/BATCH_MANIFEST.md` §0/§3/§3.1 · governance-ledger.md（T2 归档）
+- **出处**：第四篇 §0/§3/§3.1 · governance-ledger.md（T2 归档）
 
 ### R-21 · 不得改期望值让闸门变绿
 
@@ -801,10 +801,10 @@ Java 类加载使用同一契约表达：请求事件触发状态链，加载器
 ## 文档层级
 
 ```text
-CONSTITUTION.md（判断标准 · 最高权威）
-  └─ KNOWLEDGE_RULES.md（本文 · 裁决速查，冲突时以宪法为准）
-       └─ ADR / 案例裁决 / 治理台账（推导过程与实证证据）
-            └─ STATE.md（事实与数字，不记规则）
+第二篇 · 知识库宪法（判断标准 · 最高权威）
+  └─ 第三篇 · 知识治理裁决集（本文 · 裁决速查，冲突时以宪法为准）
+       └─ 第七篇 · 决策记录（ADR）/ 案例裁决 / 治理台账（推导过程与实证证据）
+            └─ 第十一篇 · 治理状态剖面（事实与数字，不记规则）
 ```
 
 发现本册与宪法冲突即提宪法修订，不静默改口径。
@@ -824,7 +824,7 @@ CONSTITUTION.md（判断标准 · 最高权威）
 
 | 症状 | 根因 |
 |---|---|
-| B 闸把 `docs/CONSTITUTION.md` 的改动报成「本批写集之外的漂移」 | 治理文件没有独立集合，与批次写集共用一个白名单 |
+| B 闸把第二篇（宪法）的改动报成「本批写集之外的漂移」 | 治理文件没有独立集合，与批次写集共用一个白名单 |
 | `npm test 44/44` 在干净克隆上不可复现（只有 42） | 没有声明「哪些测试属于已跟踪基线、哪些属他人在飞」 |
 | `AGENTS.md` 与他人测试文件算谁的，说不清 | 没有「外部声明集」与「硬排除集」 |
 
@@ -1425,7 +1425,7 @@ The compiler has two adapters:
 Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **其宪法修订建议已被采纳**）
 
 > 本 ADR 记录两条长期纪律 + 一条可执行检测规则。它**已于同日（T6）被采纳入宪**：
-> `docs/CONSTITUTION.md` **v1.1** 原则三 3.1 / 3.2 / 新增 3.6 + 序章元纪律。
+> 第二篇 · 知识库宪法 **v1.1** 原则三 3.1 / 3.2 / 新增 3.6 + 序章元纪律。
 > 本文保留完整推导过程与实证数据，作为宪法条款的**证据附件**。
 
 ## Context
@@ -1555,7 +1555,7 @@ governor: adjudication   →  修 / 不修 / 待裁决
   建议在「语义改名的同位字段一致性」批次中实现为改名流程的标准前置步骤（T5）。
 - **T4 已裁决（2026-09-14）**，证据链已完整：`T4 ✅ → ADR-0002 Accepted → 宪法修订 ✅`。
 - **T6 已完成（2026-09-14）**：本 ADR 的三条建议已全部采纳入宪，见
-  `docs/CONSTITUTION.md` **v1.1**：
+  第二篇 · 知识库宪法 **v1.1**：
   - **原则三 · 新增 3.6「字段角色与旧值残留」** ✅ —— 字段角色表 + 「只报旧值残留」+ 检测器 evidence-only 契约。
   - **原则三 3.2 · 补充「推断纪律」** ✅ —— 适用面从身份判定泛化到「任何观察升级为规则/缺陷」，并要求
     断言附 **基数 + 反例 + 误报分析**。
@@ -1566,10 +1566,10 @@ governor: adjudication   →  修 / 不修 / 待裁决
 
 # 第八篇 · 领域上下文
 
-> 本篇收编原 `CONTEXT.md` 全文（2026-09-24 收编，内容未删改）。文中「docs/CONSTITUTION.md」即本合订本第二篇。
+> 本篇收编原 `CONTEXT.md` 全文（2026-09-24 收编，内容未删改）。
 
 
-> Governed by [docs/CONSTITUTION.md](docs/CONSTITUTION.md) — the constitution supersedes any conflicting statement below (invariants 6/7 were rewritten by Constitution Principle 1 in v1.0).
+> Governed by 第二篇 · 知识库宪法 — the constitution supersedes any conflicting statement below (invariants 6/7 were rewritten by Constitution Principle 1 in v1.0).
 
 ## Core Language
 
@@ -1669,7 +1669,7 @@ The working directory and this file alone do not activate AgentGit.
 > **本篇即原 `STATE.md`（2026-09-24 收编，内容未删改）。后续治理记录追加到本篇**，原 STATE.md 文件不再单独存在。
 
 
-> 事实 + 判断。不写愿景。规则与判断标准已上收至 [docs/CONSTITUTION.md](docs/CONSTITUTION.md)（五原则宪法，2026-09-12 颁布）；本文只记现状与数字，执行序列见宪法「执行与验证」节。上一版：2026-09-11。考古摘要：`outputs/archaeology-*.json`；能力盘点：`outputs/capability-audit/`（主交付为自包含 HTML）。
+> 事实 + 判断。不写愿景。规则与判断标准已上收至第二篇 · 知识库宪法（五原则宪法，2026-09-12 颁布）；本文只记现状与数字，执行序列见宪法「执行与验证」节。上一版：2026-09-11。考古摘要：`outputs/archaeology-*.json`；能力盘点：`outputs/capability-audit/`（主交付为自包含 HTML）。
 
 ---
 
@@ -1781,7 +1781,7 @@ The working directory and this file alone do not activate AgentGit.
 
 ## 7. 执行序列（宪法化后重排）
 
-五原则宪法的完整判断标准与验收指标见 [docs/CONSTITUTION.md](docs/CONSTITUTION.md)「执行与验证」节。当前债务按宪法落点排队：
+五原则宪法的完整判断标准与验收指标见第二篇「执行与验证」节。当前债务按宪法落点排队：
 
 **① 原则一 · k_dict 尸骸处置（首个受控删除试点）**：`k_dict_*` 中「不在 tree 且无边」约 430+ 节点。先跑门一零活引用扫描（questions / evolution-events / viewDimensions / tree / edges / 别名六处）→ 零命中者出处置清单（格式沿用 `outputs/merge-trial-batch1-review.md`，融合试验材料已备好 144 组候选与 6 组样例）→ 按三重门禁分批走融合或受控删除，每批独立备份 + 独立提交。
 
@@ -1831,10 +1831,10 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 
 **▲ 2026-09-24 03:1x manifest 登记完成，就绪门 8/8 PASS · READY**：
 
-- `batch-manifests/dedup-dual-copy-normalized.json` 已按 `docs/BATCH_MANIFEST.md` 规范起草（writeSet 8 项 / governanceSet 2 项 / declaredExternalSet 18 项 / excludedSet 9 项 / expectedDelta.modified = 802 id 全量枚举 / status=READY_TO_COMMIT）。计划脚本 `.plan-802.mjs` 收编为 `scripts/plan-dedup-dual-copy-normalized.mjs`（apply 报告 5 处引用同步）。
+- `batch-manifests/dedup-dual-copy-normalized.json` 已按第四篇规范起草（writeSet 8 项 / governanceSet 2 项 / declaredExternalSet 18 项 / excludedSet 9 项 / expectedDelta.modified = 802 id 全量枚举 / status=READY_TO_COMMIT）。计划脚本 `.plan-802.mjs` 收编为 `scripts/plan-dedup-dual-copy-normalized.mjs`（apply 报告 5 处引用同步）。
 - 集合口径要点：`dropped-tab-labels.json` 与快照 7 文件按用户裁决精确排除（不入库）；`data/backups/` 与 `.workbuddy/`（MEMORY.md、批次教训-详情.md）本就被 gitignore ⇒ 无需登记、**也没有**「MEMORY.md 单独 chore 提交」这回事（git 看不见它）。
 - **Ancestor Gate 前景证实**：HEAD(708b475) 六数据文件 ↔ 快照逐字节相等（6/6）。
-- **⚠️ Timeline Gate 首跑假 BLOCK → 量具缺陷已修**：worktree 指纹停留在 09-16（reconcile 时代 64 条目），14 个文件的 EOL 翻转/恢复被判 `gone`；实测全部「去 CRLF 后 == HEAD、git status 判干净」= 零内容漂移。处置 = 登记时点重拍指纹（旧件备份 `.bak-20260916`），非改期望值。**负对照**：向 CONTEXT.md 注入 1 字节 → 门 BLOCK 精确点名；还原 → 8/8 PASS ⇒ 门未修哑。
+- **⚠️ Timeline Gate 首跑假 BLOCK → 量具缺陷已修**：worktree 指纹停留在 09-16（reconcile 时代 64 条目），14 个文件的 EOL 翻转/恢复被判 `gone`；实测全部「去 CRLF 后 == HEAD、git status 判干净」= 零内容漂移。处置 = 登记时点重拍指纹（旧件备份 `.bak-20260916`），非改期望值。**负对照**：向第八篇的源文件注入 1 字节 → 门 BLOCK 精确点名；还原 → 8/8 PASS ⇒ 门未修哑。
 - **⚠️ 门脚本崩溃缺陷已修**：9 份旧式 manifest 用 `batch` 键，`m.batchId.padEnd` 直接 TypeError 且 readiness 报告从未写出；改 `m.batchId ?? m.batch` 兜底。两处治理脚本改动入 governanceSet，**随单独 chore(governance) 提交**，不夹进本批数据提交。
 - 复跑确认 8/8 全 PASS · READY；readiness 报告：`outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json`。
 - 下一步：内容提交（pathspec = writeSet 8 项，由门生成勿手写）→ manifest 改 COMMITTED 再登记提交。用户口径中的「735 → ~0」未见出处，manifest 采用已验证的 802 → 0（V5/V13）。
@@ -1845,7 +1845,7 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 - **`7256d42`** 登记提交：manifest status → COMMITTED + commitSha=d309470。
 - **`c943c66`** 治理提交：门脚本 batchId 兜底修复 + worktree 指纹重拍基线（按用户裁决指纹归治理层，不入数据批写集）。
 - 提交后复跑门：timelineGate 等 7 闸 PASS，**ancestorGate=BLOCK 属预期** —— HEAD 已越过批前快照，其差异恰好 = 本批 802 键；该门的有效窗口是提交前（那次 8/8 PASS · READY 才是判据），提交后 BLOCK 不是问题。
-- 工作树残态：仅 `STATE.md`（governance，待后续 docs 提交）+ 他会话在飞件（p-web-cookie-session / spring-ioc-refactor / jsp / txmgr）+ 本批 excludedSet 产物（dropped-tab-labels / snapshot / readiness 报告 / 指纹备份）。**本批完成。**
+- 工作树残态：仅 `STATE.md`（今为第十一篇；governance，待后续 docs 提交）+ 他会话在飞件（p-web-cookie-session / spring-ioc-refactor / jsp / txmgr）+ 本批 excludedSet 产物（dropped-tab-labels / snapshot / readiness 报告 / 指纹备份）。**本批完成。**
 
 ---
 
@@ -1861,8 +1861,10 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 - 证据：apply G1–G7 两轮全 PASS（备份 `data/backups/go-design-split-fusion-2026-09-24T10-40-55-308Z/`）→ verify 14/14（不 import apply，快照反推；V6b 摘新叶后整树与 before 逐字节等价）→ UI 探针 7/7（首跑 5/7，2 FAIL 均量具缺陷：T1 锚串漏括号、T4b 点树行≠展开须点 `.tree-node-icon--folder`）→ 回归 tsc 0 / test 68/68。
 - 结构 Δ：池 3871→3872 · 树 3227→3228（go 子 15→16，新叶 `tree_go_versioning`）· 边 4161→4162（`treebind:tree_1786618025853_3qn55e:tree_go_versioning`）。
 - 提交链：`90d8c55` 内容提交（writeSet 10 项，staged 机检 ≡ writeSet）→ `be94cd0` 登记 COMMITTED。manifest：`batch-manifests/go-design-split-fusion.json`（readiness READY · blockers=[]）。
-- 工作树残态：`STATE.md`（本文件，governance）+ `worktree-fingerprint.json` M + 在飞件（p-web-cookie-session / spring-ioc-refactor / jsp / txmgr）+ excludedSet 产物。**本批完成。**
+- 工作树残态：`STATE.md`（本文件，今为第十一篇；governance）+ `worktree-fingerprint.json` M + 在飞件（p-web-cookie-session / spring-ioc-refactor / jsp / txmgr）+ excludedSet 产物。**本批完成。**
 
-**▲ docs chore（同日稍后）**：`ffdf30d` —— 四份报告（plan/apply-report/verification/ui-probe）收编为统一 `outputs/tree-violation-scan/go-design-split-fusion-README.md`（12 节，内容无损，§12 附收编映射），原四份已删。⚠️ 提交时 staged 里检出并发会话的外部变更（docs/PROJECT_INTRODUCTION.md 删除 + docs→outputs 三个 rename，另有 README.md/ARCHITECTURE.md M、docs/KNOWLEDGE_RULES.md 等新件），已 restore --staged 退回工作树**不夹带**——并发会话的 docs 重组仍在飞。
+**▲ docs chore（同日稍后）**：`ffdf30d` —— 四份报告（plan/apply-report/verification/ui-probe）收编为统一 `outputs/tree-violation-scan/go-design-split-fusion-README.md`（12 节，内容无损，§12 附收编映射），原四份已删。⚠️ 提交时 staged 里检出并发会话的外部变更（`docs/PROJECT_INTRODUCTION.md` 删除（其内容此前已并入第一篇）+ docs→outputs 三个 rename，另有 README.md M、`docs/ARCHITECTURE.md`（今第一篇）M、`docs/KNOWLEDGE_RULES.md`（今第三篇）等新件），已 restore --staged 退回工作树**不夹带**——并发会话的 docs 重组仍在飞。
 
 **▲ docs chore（手册层收编）**：采纳并发会话 docs 重组（`eab5347`）后，手册层 12 份文档全部收编为根 `README.md` 合订本（门面 + 11 篇，`552cc36`）——十二源全文逐字节无损校验通过；原 11 文件（CONTEXT/CONTRIBUTING/STATE + docs 顶层 6 + adr 2）已删，`AGENTS.md` 真身保留（第十篇为镜像）。**自本条目起，治理记录追加到本文件第十一篇，原 STATE.md 不再单独存在。**
+
+**▲ 引用口径统一（同日）**：改写 23 组、清零 **44 处**指向已删文件的引用（门面口径说明 + 正文交叉引用 + 两处文档层级图），全篇改为篇目引用（如「第二篇」「第十一篇」）；仅篇头「本篇收编原 `<文件名>` 全文」与门面括注保留原名作来源留证。同步修一处**功能缺口**：`scripts/verify-phase1-commit-readiness.mjs` 的内置治理白名单（无 manifest 时的回落集）此前只列已删的 `docs/CONSTITUTION.md` / `docs/adr/0002-*`，现把 `README.md`（治理记录现载体）补入，旧路径标注为历史留证；另两处证据脚本的引用文本加注「今第N篇」（`batch-manifests/*.json` 为冻结历史台账，按治理纪律不改写）。校验：死引用 0（留证 16 行）· tsc 0 错 · test 68/68 · build 通过。

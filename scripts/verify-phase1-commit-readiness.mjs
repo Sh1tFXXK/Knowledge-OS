@@ -22,7 +22,7 @@
  *   └─ Timeline Gate（时间线漂移）
  *       问题：自 reconcile 快照以来，已跟踪文件有没有被**再次**写入？
  *       依据：outputs/.../worktree-fingerprint.json（mtime + md5 快照）
- *       判据（2026-09-14 起，见 docs/BATCH_MANIFEST.md）：
+ *       判据（2026-09-14 起，规范见 README.md 第四篇）：
  *         allowedDrift    = writeSet ∪ governanceSet ∪ declaredExternalSet
  *         unexpectedDrift = trackedDrift − allowedDrift       必须 == ∅
  *       局限：改动**早于**快照就已存在时它检测不到 —— 只能证明「没新增」，故必须靠 Ancestor Gate 兜底。
@@ -125,8 +125,12 @@ const LEGACY = {
     'scripts/verify-phase1-commit-readiness.mjs',
     'outputs/tree-violation-scan/', 'outputs/universe-tree-listing/',
   ],
+  // ⚠️ 2026-09-24 起：手册层 12 份文档（含 docs/CONSTITUTION.md / docs/adr/0002-*）已收编为根 README.md
+  //    （合订本 11 篇），治理记录的载体随之变为 README.md。旧路径保留仅为历史批次可读，**不再指向存在的文件**。
   governanceSet: [
-    'docs/CONSTITUTION.md', 'docs/adr/0002-identity-and-observation-discipline.md',
+    'README.md', // ← 治理记录现载体（第十一篇）
+    'docs/CONSTITUTION.md', // 已并入 README 第二篇（历史留证，非活路径）
+    'docs/adr/0002-identity-and-observation-discipline.md', // 已并入 README 第七篇（历史留证，非活路径）
     'outputs/tree-violation-scan/governance-ledger.md',
   ],
   declaredExternalSet: [],
