@@ -1362,15 +1362,15 @@ Bloom 修订版把知识分为四类：**事实性、概念性、程序性、元
 
 ### ADR-0001：Semantic Import Is Graph-First
 
-### Status
+#### Status
 
 Accepted — 2026-08-10
 
-### Context
+#### Context
 
 The original document importer promoted Markdown headings into a single article root and a hierarchy of chapter nodes. That preserves an outline, but it confuses presentation structure with knowledge structure. It cannot represent independent roots, cross-cutting dependencies, causal chains, or state transitions without inventing parent-child relationships.
 
-### Decision
+#### Decision
 
 External sources are normalized to Markdown, then compiled into a semantic draft before persistence. The semantic draft contains independently addressable nodes, directly grounded typed relations, and source spans. A source record is provenance only and is never required to be a knowledge node. Navigation trees are projections derived primarily from structure and classification relations; a semantic import may produce a forest.
 
@@ -1379,7 +1379,7 @@ The compiler has two adapters:
 - A semantic adapter, currently an OpenAI-compatible analyzer, for arbitrary prose and Markdown.
 - A literal outline adapter retained as a lossless fallback when no semantic analyzer is configured. It must be reported as outline mode, not represented as semantic inference.
 
-### Consequences
+#### Consequences
 
 - Ordinary documents can create multiple roots and cross-root relations.
 - `knowledge-edges.json` becomes part of ordinary document import, not only specialized importers.
@@ -1389,7 +1389,7 @@ The compiler has two adapters:
 
 ### ADR-0002：身份判据与观察纪律
 
-### Status
+#### Status
 
 Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **其宪法修订建议已被采纳**）
 
@@ -1397,7 +1397,7 @@ Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **�
 > 〈知识库宪法〉 **v1.1** 原则三 3.1 / 3.2 / 新增 3.6 + 序章元纪律。
 > 本文保留完整推导过程与实证数据，作为宪法条款的**证据附件**。
 
-### Context
+#### Context
 
 阶段一（簇 1 OOP 类的分类重组 + 簇 4 错位平移与自嵌套解散）在实施过程中暴露了两类**可复现的推理错误**。
 
@@ -1424,9 +1424,9 @@ Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **�
 `label「默认导出」`/`card.title「默认导出 (Default Export)」`。
 按错误规则「全部同步」将产出 **146 个误报** —— 把项目约定内的正常差异系统性地当成缺陷。
 
-### Decision
+#### Decision
 
-#### 纪律 ①：entity identity ≠ tree mount
+##### 纪律 ①：entity identity ≠ tree mount
 
 > **共享池实体拆分时，先判定实体的语义角色，再决定哪个 identity 保留；
 > tree mount 只是引用位置，不决定实体本体属性。**
@@ -1448,7 +1448,7 @@ Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **�
 「正文中的明确限定 > 邻接关系（既有边）> 名称/标签」——**挂载位置属「邻接关系」，其证据强度低于正文**。
 本纪律把这个优先级从「同名碰撞裁决」推广到「实体身份与挂载位置的冲突」。
 
-#### 纪律 ②：observation ≠ defect
+##### 纪律 ②：observation ≠ defect
 
 > **先把单个观察在全库范围内证伪，再提升为治理规则或缺陷。**
 
@@ -1461,7 +1461,7 @@ Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **�
 与宪法的关系：本纪律是**原则三 3.2 后半句「存在差异 ≠ 必须拆开」的泛化** ——
 从「身份判定」泛化到「任何观察升级为规则/缺陷」的全部推理场合。
 
-#### 规则：字段角色与旧值残留
+##### 规则：字段角色与旧值残留
 
 | 字段角色 | 字段 | 要求 |
 |---|---|---|
@@ -1487,7 +1487,7 @@ Accepted — 2026-09-14 · 修订于 2026-09-14（补记 T4 案例裁决 · **�
 就绪核验中的观察项输出：`scripts/verify-phase1-commit-readiness.mjs` 的
 `residuals` / `fieldCoherenceContext`。
 
-#### 案例裁决（T4 · 2026-09-14）
+##### 案例裁决（T4 · 2026-09-14）
 
 RC-01 已裁决为 **方案 A · 有意保留（`ACCEPTED / INTENTIONAL`）**：`card.title = 分类` **不修**，
 因旧名同时留在 `tags` 中（别名 / 历史检索价值），且全库 79 例证明展示层富化是常态。
@@ -1504,7 +1504,7 @@ governor: adjudication   →  修 / 不修 / 待裁决
 
 机器可读落点：`readiness-<batchId>.json` → `detectorContract` 与 `residuals`。
 
-### Consequences
+#### Consequences
 
 **正向**
 
@@ -1824,3 +1824,9 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 
 **▲ 引用彻底清零（同日第二遍）**：上轮扫描只认带目录前缀的路径，**裸文件名写法漏网**（如指向〈文档导入标准〉的那种无前缀链接）——改用「全仓文件名索引 + 裸名回解」重扫后补清 4 处：① 一处裸名死链 → 改指〈文档导入标准〉；② 一份已随 data 提交移除的词表文件仍被当作现存文件引用；③ `ExplanationIndexView.tsx`（模块已重构为 `core/explanation-index/`）；④ `knowledge/timelineAnnotations.ts`（模块已不存在，标注并入真源数据）。同时把 8 条拼装留证样板与门面括注**一律删除**（引用对象已不存在，留名无意义），口径说明改为「全文引用只用节名，不留任何指向已删文件的路径或文件名」。校验：已删文件名 0 命中 · 真不存在引用 0（余下均为字段名/占位符/明确标注为历史的示例）。
 **▲ 合订本 → 单一文档（同日第三遍）**：按用户裁决「改彻底，直接重新变成一篇」，取消「门面 + 11 篇」的拼装形态——**单一 H1 + 连续编号 18 节**（1–7 为原门面：能力/快速开始/模型配置/部署/技术栈/目录结构/数据真源；8–18 为原 11 篇：架构说明/知识库宪法/知识治理裁决集/批次规范/导入标准/固定拆分/决策记录/领域上下文/分支流程/代理工作约定/治理状态剖面），新增锚点目录，篇题行与篇头拼装注释全部取消，原篇内标题整体降一级（H2→H3），跨篇引用改为节名（〈知识库宪法〉〈治理状态剖面〉…），旧简写 `CONSTITUTION` 统一为「宪法」。正文内容零增删：逐行对账 1153 行**丢失 0**，单一 H1 / H2=19 / 节号 1..18 连续 / 已删文件名 0 / 拼装脚手架 0。
+
+**▲ 外部回写事故 + 独立审计（同日第四遍）**：审计时发现磁盘上的 README **被外部进程回写成两次提交前的旧形态**（12 个 H1 的合订本，blob 与 `9cf9486` 逐字节相同；本轮提交 `a1f34f2` 内是正确的单一文档形态）。按 `concurrent-writer-unresolved` 登记手法处置：核对 blob 后 `git restore --source=HEAD` 还原，恢复后工作树 blob == HEAD blob。**教训：提交后要复核工作树 blob，不能假定磁盘 == 提交内容**（同一工作树有并发写入方）。
+
+**▲ 审计脚本入库**：新增 `scripts/readme-audit.mjs`（结构 / 目录锚点 / 引用 / 逐行对账 / 卫生五维，P0 阻断）并内置 `--self-test` 负对照（7 个注入变体必须全被抓到，防「判据修哑」）。首跑结论：**P0/P1/P2 全 0，对账 0 丢失**；同时修掉一处真实结构缺陷——§14 内两个 ADR 的 Status/Context/Decision/Consequences 与 ADR 标题同级（看起来像并列节），已降为 ADR 的下一级（H4；ADR-0002 的纪律/规则/案例裁决随之降为 H5）。
+
+**▲ 判据自身两个坑（已修，记档防复发）**：① 「已删文件名」检查原先按「台账区豁免」实现，被**文件尾追加的注入行**绕过（负对照 M1 抓到）⇒ 改为全篇任意位置生效；② 对账判据原先只认 +1 级降级，而单一文档重建时 ADR 子节实际降了 **+2** 级 ⇒ 误报 11 处丢失，改为同时接受 +1/+2。
