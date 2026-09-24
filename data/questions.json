@@ -820,8 +820,8 @@
     "answered": true,
     "relatedNodeId": "k_vault_javaspringiocioc_klf11o",
     "createdAt": 1785165619545,
-    "updatedAt": 1790072806144,
-    "answer": "管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如\n果依赖关系需要程序猿来维护的话，那是相当头疼的\n解耦，由容器去维护具体的对象\n托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果\n有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的\n 1）资源集中管理，实现资源的可配置和易管理 2）降低了使用资源双方的依赖程度，也就是我们说的耦合度",
+    "updatedAt": 1790219413394,
+    "answer": "管理对象的创建和依赖关系的维护。对象的创建并不是一件简单的事，在对象关系比较复杂时，如果依赖关系需要程序猿来维护的话，那是相当头疼的解耦，由容器去维护具体的对象托管了类的产生过程，比如我们需要在类的产生过程中做一些处理，最直接的例子就是代理，如果有容器程序可以把这部分处理交给容器，应用程序则无需去关心类是如何完成代理的\n 1）资源集中管理，实现资源的可配置和易管理 \n2）降低了使用资源双方的依赖程度，也就是我们说的耦合度",
     "kind": "recall",
     "difficulty": "basic"
   },
@@ -9462,8 +9462,8 @@
     "answered": true,
     "relatedNodeId": "k_java_fw_spring_mvc",
     "createdAt": 1788755986932,
-    "updatedAt": 1788756288101,
-    "answer": "Spring 如何保证并发 Controller 的安全\n ## 单例模式的问题 Spring MVC中Controller默认是单例的，这带来了并发安全问题。\n ## 常见问题\n ### 实例变量线程不安全 \n```java\n @Controller public class UserController { private int count; // 实例变量，线程不安全 @GetMapping(\"/count\") public int getCount() { return count++; // 并发问题 } }\n ``` \n## 解决方案 \n### 方案一：使用局部变量\n ```java \n@Controller public class UserController { @GetMapping(\"/count\") public int getCount() { int count = 0; // 局部变量，线程安全 return count; } } \n``` \n### 方案二：使用ThreadLocal\n ```java \n@Controller public class UserController { private ThreadLocal<Integer> count = new ThreadLocal<>(); } \n``` \n### 方案三：改为多例模式 \n```java \n@Controller @Scope(\"prototype\") public class UserController { private int count; }\n ``` \n## 最佳实践 \n1. 尽量不要在Controller中定义实例变量 \n2. 如果必须使用实例变量，使用ThreadLocal\n 3. 或者将Controller设为多例 \n4. 推荐使用无状态的Controller"
+    "updatedAt": 1790219319332,
+    "answer": "## 单例模式的问题 Spring MVC中Controller默认是单例的，这带来了并发安全问题。\n ## 常见问题\n ### 实例变量线程不安全 \n```java\n @Controller public class UserController { private int count; // 实例变量，线程不安全 @GetMapping(\"/count\") public int getCount() { return count++; // 并发问题 } }\n ``` \n## 解决方案 \n### 方案一：使用局部变量\n ```java \n@Controller public class UserController { @GetMapping(\"/count\") public int getCount() { int count = 0; // 局部变量，线程安全 return count; } } \n``` \n### 方案二：使用ThreadLocal\n ```java \n@Controller public class UserController { private ThreadLocal<Integer> count = new ThreadLocal<>(); } \n``` \n### 方案三：改为多例模式 \n```java \n@Controller @Scope(\"prototype\") public class UserController { private int count; }\n ``` \n## 最佳实践 \n1. 尽量不要在Controller中定义实例变量 \n2. 如果必须使用实例变量，使用ThreadLocal\n 3. 或者将Controller设为多例 \n4. 推荐使用无状态的Controller"
   },
   {
     "id": "q_1788776180618_8iny4x",
@@ -9591,8 +9591,8 @@
     "answered": true,
     "relatedNodeId": "k_java_fw_spring_mvc",
     "createdAt": 1788946847722,
-    "updatedAt": 1788946847722,
-    "answer": "- **基本类型**：`@RequestParam`\n- **对象类型**：直接绑定（POJO 属性名与参数名对应）\n- **路径变量**：`@PathVariable`\n- **请求体**：`@RequestBody`（JSON 反序列化）",
+    "updatedAt": 1790219470621,
+    "answer": "- **基本类型：`@RequestParam`\n- **对象类型：直接绑定（POJO 属性名与参数名对应）\n- **路径变量：`@PathVariable`\n- **请求体**：`@RequestBody`（JSON 反序列化）",
     "kind": "application",
     "difficulty": "intermediate"
   },
@@ -10344,8 +10344,8 @@
     "answered": true,
     "relatedNodeId": "k_vault_javaspringspringboot_lhipgq",
     "createdAt": 1790015847781,
-    "updatedAt": 1790015870497,
-    "answer": "1. **创建独立的 Spring 应用程序** \n- 可以独立运行 \n2. **嵌入的 Tomcat** \n- 无需部署 WAR 文件，直接运行 \n3. **简化 Maven 配置** \n- 自动管理依赖版本\n4. **自动配置 Spring** \n- 智能配置，减少手动配置 \n5. **提供生产就绪型功能** \n- 如指标，健康检查和外部配置 \n6. **没有代码生成** \n- 对 XML 没有要求配置"
+    "updatedAt": 1790219575845,
+    "answer": "1. **创建独立的 Spring 应用程序\n- 可以独立运行 \n2. **嵌入的 Tomcat\n- 无需部署 WAR 文件，直接运行 \n3. **简化 Maven 配置 \n- 自动管理依赖版本\n4. **自动配置 Spring\n- 智能配置，减少手动配置 \n5. **提供生产就绪型功能\n- 如指标，健康检查和外部配置 \n6. **没有代码生成\n- 对 XML 没有要求配置"
   },
   {
     "id": "q_1790016019364_nng1kv",

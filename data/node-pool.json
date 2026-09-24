@@ -139137,7 +139137,7 @@
       "nodeId": "k_1787723404548_tjn9xx",
       "title": "测试",
       "tabs": [],
-      "rootContent": "测试包提供对Go包的自动化测试支持。 目标函数示例：\n\nfunc ExtractUsername(email string) string {\nat:= strings.Index(email, \"@\")\nreturn email[:at]\n}\n测试代码（注意 assert 关键字在 Go 中缺失；测试位于同一包的 _test.go 中）：\n\nimport (\n\"testing\"\n)\n\nfunc TestExtractUsername(t *testing.T) {\nt.Run(\"withoutDot\", func(t *testing.T) {\nusername:= ExtractUsername(\"r@google.com\")\nif username!= \"r\" {\nt.Fatalf(\"Got: %v\\n\", username)\n}\n})\n\nt.Run(\"withDot\", func(t *testing.T) {\nusername:= ExtractUsername(\"jonh.smith@example.com\")\nif username!= \"jonh.smith\" {\nt.Fatalf(\"Got: %v\\n\", username)\n}\n})\n}\n可以并行运行测试。"
+      "rootContent": "测试包提供对Go包的自动化测试支持。 目标函数示例：\n```go\nfunc ExtractUsername(email string) string {\n  at:= strings.Index(email, \"@\")\n  return email[:at]\n}\n```\n测试代码（注意 assert 关键字在 Go 中缺失；测试位于同一包的 _test.go 中）：\n```go\nimport (\n\"testing\"\n)\n\nfunc TestExtractUsername(t *testing.T) {\n  t.Run(\"withoutDot\", func(t *testing.T) {\n  username:= ExtractUsername(\"r@google.com\")\n  if username!= \"r\" {\n    t.Fatalf(\"Got: %v\\n\", username)\n }\n})\n\nt.Run(\"withDot\", func(t *testing.T) {\n  username:= ExtractUsername(\"jonh.smith@example.com\")\n  if username!= \"jonh.smith\" {\n    t.Fatalf(\"Got: %v\\n\", username)\n  }\n })\n}\n```\n可以并行运行测试。"
     }
   },
   "k_1787723651360_r3tqg7": {
@@ -139150,7 +139150,7 @@
       "nodeId": "k_1787723651360_r3tqg7",
       "title": "关键字",
       "tabs": [],
-      "rootContent": "关键字\n\"Go 包含以下 25 个关键词：\"\n\nbreak\ncase\nchan\nconst\ncontinue\ndefault\ndefer\nelse\nfallthrough\nfor\nfunc\ngo\ngoto\nif\nimport\ninterface\nmap\npackage\nrange\nreturn\nselect\nstruct\nswitch\ntype\nvar"
+      "rootContent": "\n\"Go 包含以下 25 个关键词：\"\nbreak\ncase\nchan\nconst\ncontinue\ndefault\ndefer\nelse\nfallthrough\nfor\nfunc\ngo\ngoto\nif\nimport\ninterface\nmap\npackage\nrange\nreturn\nselect\nstruct\nswitch\ntype\nvar"
     }
   },
   "k_1787723924929_cc51xz": {
@@ -139202,7 +139202,7 @@
     "card": {
       "nodeId": "k_goexplain_design",
       "title": "语言设计",
-      "rootContent": "静态类型 和 运行时 效率（如 C）\n可读性 和 可用性（如 Python）\n高性能网络和多处理\n其设计者主要因为共同对C++的不喜欢而受到激励。\n\nGo于2009年11月正式发布， 1.0版本于2012年3月发布。 Go在Google及许多其他组织和开源项目中广泛使用。\n\n回顾过去，Go的作者认为Go之所以成功，归功于围绕该语言的整体工程工作，包括对该语言并发特性的运行时支持。\n\n尽管大多数编程语言的设计集中于语法、语义或类型的创新，但 Go 专注于软件开发过程本身。... 该语言本身的主要不寻常属性——并发——解决了2010年代多核CPU普及带来的问题。但更重要的是早期的工作为软件开发领域的打包、依赖、构建、测试、部署以及其他日常任务奠定了基础，这些方面通常在语言设计中并不是最重要的。\n\n泛型\n初始版本的Go缺乏对通用编程的支持，受到相当大的批评。 设计者对通用编程表示开放，并指出内置函数实际上是类型通用的，但被视为特殊情况；Pike称这是一种弱点，可能会在某个时刻进行改变。 谷歌团队为一个带有泛型的实验性Go方言构建了至少一个编译器，但没有发布它。\n\n在2018年8月，Go的主要贡献者发布了通用编程和错误处理的草案设计，并请求用户提交反馈。然而，错误处理提案最终被放弃。\n\n在2020年6月，发布了一份新的草案设计文档，该文档将为Go添加声明通用函数和类型所需的语法。提供了一种代码翻译工具.mw-parser-output.monospaced{font-family:monospace,monospace}go2go，允许用户尝试新的语法，以及一个启用泛型的在线Go Playground版本。\n\n在2022年3月15日，泛型终于在版本1.18中添加到Go中。\n\nVersioning\nGo 1 guarantees compatibility for the language specification and major parts of the standard library. All versions up through the current Go 1.26 release have maintained this promise.\n\nGo uses a go1.[major].[patch] versioning format, such as go1.26.0 and each major Go release is supported until there are two newer major releases. Unlike most software, Go calls the second number in a version the major, i.e., in go1.26.0 the 26 is the major version. This is because Go plans to never reach 2.0, prioritizing backwards compatibility over potential breaking changes.\n\n设计\n2015年Rob Pike的讲座（Go语言的创始人之一）\n\"Go 的影响来源于 C（尤其是 Plan 9 方言[failed verification – see discussion]），但更强调简单性和安全性。它由以下内容组成：\"\n\n一种采用在动态语言中更常见模式的语法和环境:\n通过类型推断进行可选的简洁变量声明和初始化（x:= 0，而不是var x int = 0;或var x = 0;）\n快速编译\n远程包管理（go get）和在线包文档\n针对特定问题的独特方法：\n内置并发原语：轻量级进程（goroutines），通道和select语句\n一个接口系统替代虚拟继承，并通过类型嵌入替代非虚拟继承\n一个默认生成静态链接本地二进制文件的工具链，无需外部Go依赖\n\"希望将语言规范保持足够简单，以便程序员能够记住， 部分通过 省略在类似语言中常见的特性 来实现。",
+      "rootContent": "静态类型 和 运行时 效率（如 C）\n可读性 和 可用性（如 Python）\n高性能网络和多处理\n其设计者主要因为共同对C++的不喜欢而受到激励。\n\nGo于2009年11月正式发布， 1.0版本于2012年3月发布。 Go在Google及许多其他组织和开源项目中广泛使用。\n回顾过去，Go的作者认为Go之所以成功，归功于围绕该语言的整体工程工作，包括对该语言并发特性的运行时支持。\n尽管大多数编程语言的设计集中于语法、语义或类型的创新，但 Go 专注于软件开发过程本身。... 该语言本身的主要不寻常属性——并发——解决了2010年代多核CPU普及带来的问题。但更重要的是早期的工作为软件开发领域的打包、依赖、构建、测试、部署以及其他日常任务奠定了基础，这些方面通常在语言设计中并不是最重要的。\n\n泛型\n初始版本的Go缺乏对通用编程的支持，受到相当大的批评。 设计者对通用编程表示开放，并指出内置函数实际上是类型通用的，但被视为特殊情况；Pike称这是一种弱点，可能会在某个时刻进行改变。 谷歌团队为一个带有泛型的实验性Go方言构建了至少一个编译器，但没有发布它。\n\n在2018年8月，Go的主要贡献者发布了通用编程和错误处理的草案设计，并请求用户提交反馈。然而，错误处理提案最终被放弃。\n\n在2020年6月，发布了一份新的草案设计文档，该文档将为Go添加声明通用函数和类型所需的语法。提供了一种代码翻译工具.mw-parser-output.monospaced{font-family:monospace,monospace}go2go，允许用户尝试新的语法，以及一个启用泛型的在线Go Playground版本。\n\n在2022年3月15日，泛型终于在版本1.18中添加到Go中。\n\nVersioning\nGo 1 guarantees compatibility for the language specification and major parts of the standard library. All versions up through the current Go 1.26 release have maintained this promise.\n\nGo uses a go1.[major].[patch] versioning format, such as go1.26.0 and each major Go release is supported until there are two newer major releases. Unlike most software, Go calls the second number in a version the major, i.e., in go1.26.0 the 26 is the major version. This is because Go plans to never reach 2.0, prioritizing backwards compatibility over potential breaking changes.\n\n设计\n2015年Rob Pike的讲座（Go语言的创始人之一）\n\"Go 的影响来源于 C（尤其是 Plan 9 方言[failed verification – see discussion]），但更强调简单性和安全性。它由以下内容组成：\"\n\n一种采用在动态语言中更常见模式的语法和环境:\n通过类型推断进行可选的简洁变量声明和初始化（x:= 0，而不是var x int = 0;或var x = 0;）\n快速编译\n远程包管理（go get）和在线包文档\n针对特定问题的独特方法：\n内置并发原语：轻量级进程（goroutines），通道和select语句\n一个接口系统替代虚拟继承，并通过类型嵌入替代非虚拟继承\n一个默认生成静态链接本地二进制文件的工具链，无需外部Go依赖\n\"希望将语言规范保持足够简单，以便程序员能够记住， 部分通过 省略在类似语言中常见的特性 来实现。",
       "tabs": []
     }
   },
@@ -143235,7 +143235,7 @@
           "content": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n\n## 核心设计思想\n\n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。\n\n## 主要特点\n\n1. **创建独立的 Spring 应用程序** - 可以独立运行\n2. **嵌入的 Tomcat** - 无需部署 WAR 文件，直接运行\n3. **简化 Maven 配置** - 自动管理依赖版本\n4. **自动配置 Spring** - 智能配置，减少手动配置\n5. **提供生产就绪型功能** - 如指标，健康检查和外部配置\n6. **没有代码生成** - 对 XML 没有要求配置\n\n## 自动配置原理\n\nSpring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现：\n- 扫描 classpath 下的配置文件\n- 根据条件注解决定配置是否生效\n- 自动配置 Bean\n"
         }
       ],
-      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n ## 核心设计思想 \n该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。 \n"
+      "rootContent": "Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。\n"
     }
   },
   "k_vault_javaspringspringboot_yjdx1u": {
@@ -143313,7 +143313,7 @@
           "content": "## devtools 实现热部署\n\nSpring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。\n\n### 添加依赖\n\n```xml\n<dependency>\n    <groupId>org.springframework.boot</groupId>\n    <artifactId>spring-boot-devtools</artifactId>\n    <optional>true</optional>\n</dependency>\n```\n\n## 触发重启条件\n\n当DevTools监视类路径资源时，修改类文件会触发重新启动。\n\n- Eclipse: 保存修改的文件\n- IntelliJ IDEA: 构建项目 (Build -> Make Project)\n\n## 自定义排除项\n\n配置不触发重启的路径：\n\n```properties\nspring.devtools.restart.exclude=static/,public/\n```\n\n## 禁用热加载\n\n```java\npublic static void main(String[] args) {\n    System.setProperty(\"spring.devtools.restart.enabled\", \"false\");\n    SpringApplication.run(MyApp.class, args);\n}\n```\n\n## 触发文件\n\n使用触发文件控制重启时机，避免频繁重启。\n\n---\n\n## 相关链接\n\n- 缓存 - Spring Boot 缓存\n- Spring - 返回Spring主目录"
         }
       ],
-      "rootContent": "Spring Boot 热加载 \n## devtools 实现热部署 \nSpring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。 \n### 添加依赖 \n```xml \n<dependency> \n<groupId>org.springframework.boot</groupId> \n<artifactId>spring-boot-devtools</artifactId> \n<optional>true</optional> \n</dependency> \n``` \n## 触发重启条件 \n当DevTools监视类路径资源时，修改类文件会触发重新启动。 \n- Eclipse: 保存修改的文件 \n- IntelliJ IDEA: 构建项目 (Build -> Make Project) \n## 自定义排除项 配置不触发重启的路径： \n```properties \nspring.devtools.restart.exclude=static/,public/ \n``` \n## 禁用热加载 \n```java \npublic static void main(String[] args) { System.setProperty(\"spring.devtools.restart.enabled\", \"false\"); SpringApplication.run(MyApp.class, args); } \n``` \n## 触发文件 \n使用触发文件控制重启时机，避免频繁重启。"
+      "rootContent": "Spring Boot 热加载 \n## devtools 实现热部署 \nSpring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。 \n### 添加依赖 \n```xml \n<dependency> \n<groupId>org.springframework.boot</groupId> \n<artifactId>spring-boot-devtools</artifactId> \n<optional>true</optional> \n</dependency> \n``` \n## 触发重启条件 \n当DevTools监视类路径资源时，修改类文件会触发重新启动。 \n- Eclipse: 保存修改的文件 \n- IntelliJ IDEA: 构建项目 (Build -> Make Project) \n## 自定义排除项 配置不触发重启的路径： \n```properties \nspring.devtools.restart.exclude=static/,public/ \n``` \n## 禁用热加载 \n```java \npublic static void main(String[] args) { \nSystem.setProperty(\"spring.devtools.restart.enabled\", \"false\"); \nSpringApplication.run(MyApp.class, args); \n} \n``` \n## 触发文件 \n使用触发文件控制重启时机，避免频繁重启。"
     }
   },
   "k_vault_javaspringspringboot_1qq545": {
@@ -143646,7 +143646,7 @@
       "nodeId": "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
       "title": "集成 Bean Validation 1.1 到 SpringMVC",
       "tabs": [],
-      "rootContent": "Bean Validation 1.1当前实现是Hibernate validator 5，且spring4才支持。接下来我们从以下几个方法讲解Bean Validation 1.1，当然不一定是新特性：\n\n1. 集成Bean Validation 1.1（JSR-349）到SpringMVC\n2. 分组验证、分组顺序及级联验证\n3. 消息中使用EL表达式\n4. 返回值验证\n5. 自定义验证规则\n6. 类级别验证器\n7. 脚本验证器\n8. cross-parameter，跨参数验证\n9. 混合类级别验证器和跨参数验证器\n10. 组合多个验证注解\n11. 本地化\n\n因为大多数时候验证都配合web框架使用，而且很多朋友都咨询过如分组/跨参数验证，所以本文介绍下这些，且是和SpringMVC框架集成的例子，其他使用方式（比如集成到JPA中）可以参考其官方文档：\n\n规范：http://beanvalidation.org/1.1/spec/\nhibernate validator文档：http://hibernate.org/validator"
+      "rootContent": "Bean Validation 1.1当前实现是Hibernate validator 5，且spring4才支持。接下来我们从以下几个方法讲解Bean Validation 1.1，当然不一定是新特性：\n\n1. 集成Bean Validation 1.1（JSR-349）到SpringMVC\n2. 分组验证、分组顺序及级联验证\n3. 消息中使用EL表达式\n4. 返回值验证\n5. 自定义验证规则\n6. 类级别验证器\n7. 脚本验证器\n8. cross-parameter，跨参数验证\n9. 混合类级别验证器和跨参数验证器\n10. 组合多个验证注解\n11. 本地化\n\n因为大多数时候验证都配合web框架使用，而且很多朋友都咨询过如分组/跨参数验证，所以本文介绍下这些，且是和SpringMVC框架集成的例子，其他使用方式（比如集成到JPA中）可以参考其官方文档：\n\n"
     }
   },
   "k_java_fw_mybatis": {
@@ -156064,7 +156064,7 @@
       "nodeId": "k_1790017845551_esmxat",
       "title": "常用的Java conﬁg",
       "tabs": [],
-      "rootContent": "常用的Java conﬁg：\n@Conﬁguration：在类上打上写下此注解，表示这个类是配置类\n@ComponentScan：在配置类上添加@ComponentScan注解。该注解默认会扫描该类所在的包下所有的配置类，相当于之前的<context:component-scan >。\n@Bean：bean的注入：相当于以前的< bean id=\"objectMapper\"\nclass=\"org.codehaus.jackson.map.ObjectMapper\" />\n@EnableWebMvc：相当于xml的<mvc:annotation-driven >\n@ImportResource：相当于xml的< import resource=\"applicationContext-\ncache.xml\">"
+      "rootContent": "常用的Java conﬁg：\n@Conﬁguration：在类上打上写下此注解，表示这个类是配置类\n@ComponentScan：在配置类上添加@ComponentScan注解。该注解默认会扫描该类所在的包下所有的配置类，相当于之前的<context:component-scan >。\n@Bean：bean的注入：相当于以前的< bean id=\"objectMapper\"\nclass=\"org.codehaus.jackson.map.ObjectMapper\" />\n@EnableWebMvc：相当于xml的<mvc:annotation-driven >\n@ImportResource：相当于xml的< import resource=\"applicationContext-cache.xml\">"
     }
   },
   "k_1790088488861_ladx65": {
@@ -156114,6 +156114,19 @@
       "title": "核心接口",
       "tabs": [],
       "rootContent": "### PlatformTransactionManager \nSpring事务管理器的接口，为各个平台提供事务管理：\n ```java \nPublic interface PlatformTransactionManager() { \n// 由TransactionDefinition得到TransactionStatus对象 \nTransactionStatus getTransaction(TransactionDefinition definition); \n// 提交 \nVoid commit(TransactionStatus status); \n// 回滚 \nVoid rollback(TransactionStatus status); } \n```"
+    }
+  },
+  "k_1790219617523_fkb2sw": {
+    "id": "k_1790219617523_fkb2sw",
+    "label": "核心设计思想",
+    "tags": [
+      "核心设计思想"
+    ],
+    "card": {
+      "nodeId": "k_1790219617523_fkb2sw",
+      "title": "核心设计思想",
+      "tabs": [],
+      "rootContent": "该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。"
     }
   }
 }

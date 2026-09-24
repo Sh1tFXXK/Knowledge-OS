@@ -1,0 +1,84 @@
+{
+  "batchId": "external-drift-adoption-20260924",
+  "title": "采纳并发会话外部漂移：Spring Boot「核心设计思想」新节点+挂树+边 · Go 卡编辑×3（测试/关键字/语言设计压平）· vault×3 · questions×4",
+  "baseRef": "c943c66",
+  "baseRefNote": "本批起草时 HEAD。工作树相对 HEAD 漂移 15 小时（他会话执行 Spring Boot 批 + UI 编辑 Go 卡），Ancestor Gate 硬门下无法直接提交 go-design-split-fusion，按 29d66db 采纳批配方先落盘漂移。",
+  "preBatchSnapshot": "data/backups/external-drift-adoption-20260924",
+  "preBatchSnapshotNote": "★ 采纳批配方：快照 = git show HEAD:<f>（快照即祖先 ⇒ Ancestor Gate 必然 PASS）。",
+  "status": "READY_TO_COMMIT",
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/questions.json",
+    "batch-manifests/external-drift-adoption-20260924.json"
+  ],
+  "writeSetNote": "四数据文件整体落盘（blob 级）+ manifest 自身。用户裁决（2026-09-24 18:1x）：全部采纳、不还原——含语言设计卡被压平的回归（已证纯空白差异，后续 go-design-split-fusion 批将拆解该卡）。",
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "governanceSetNote": "STATE.md 本批记录随后续 docs 提交。",
+  "declaredExternalSet": [
+    "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+    "scripts/apply-go-design-split-fusion.mjs"
+  ],
+  "declaredExternalSetNote": "下一批 go-design-split-fusion 的在飞产物（plan + apply 脚本），归属该批，不由本批提交。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+    "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916"
+  ],
+  "excludedSetNote": "就绪门运行快照 + 旧指纹备份（登记时点重拍前的存档），均不入库。",
+  "expectedDelta": {
+    "note": "漂移取证 = HEAD ↔ 工作树结构化逐字段比对（非表层统计）。",
+    "data/node-pool.json": {
+      "before": 3870,
+      "after": 3871,
+      "added": [
+        "k_1790219617523_fkb2sw"
+      ],
+      "removed": [],
+      "modified": [
+        "k_1787723404548_tjn9xx",
+        "k_1787723651360_r3tqg7",
+        "k_goexplain_design",
+        "k_vault_javaspringspringboot_lhipgq",
+        "k_vault_javaspringspringboot_1rp75f",
+        "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
+        "k_1790017845551_esmxat"
+      ]
+    },
+    "data/tree-data.json": {
+      "note": "+1 树节点 tree_1790219617527_m6qc7d（核心设计思想，挂 tree_java_fw_spring_boot 下）",
+      "added": [
+        "tree_1790219617527_m6qc7d"
+      ],
+      "removed": [],
+      "modified": []
+    },
+    "data/knowledge-edges.json": {
+      "note": "+1 treebind",
+      "added": [
+        "treebind:tree_java_fw_spring_boot:tree_1790219617527_m6qc7d"
+      ],
+      "removed": [],
+      "modified": []
+    },
+    "data/questions.json": {
+      "note": "总数 806 不变，4 条编辑",
+      "added": [],
+      "removed": [],
+      "modified": [
+        "q_1785165619545_m1fia9",
+        "q_1788755986932_4q2g8n",
+        "q_mvc_param_binding",
+        "q_1790015847781_5x1e2w"
+      ]
+    }
+  },
+  "gates": {
+    "pipelineWaiver": "⛔ 无 plan/apply/verify 流水线——漂移非本会话产物，不可重放。替代证据：①漂移取证 = HEAD↔工作树结构化逐字段比对（池 added1/modified7 · 树+1 · 边+1 · questions modified4，全量枚举于 expectedDelta）；②归属台账 = Spring Boot 组（fkb2sw + 树节点 + treebind + questions×4）与 Go 卡编辑组（测试+44字/关键字−4字/语言设计部分压平）自洽；③语言设计卡漂移已证「去全部空白后与 HEAD 逐字相等」= 纯空白差异，零内容增删；④用户裁决「全部采纳不还原」。",
+    "knownRegression": "语言设计卡（k_goexplain_design）被部分压平（1711→1709，去空白逐字相等）= rootcontent-backfill-regression 活体。用户裁决不还原；后续 go-design-split-fusion 批将拆解该卡。"
+  },
+  "commitSubjectHint": "data: external-drift-adoption-20260924 — 采纳并发会话漂移（Spring Boot 核心设计思想 +1 · Go 卡编辑×3 · vault×3 · questions×4）",
+  "registeredAt": "2026-09-24T18:2x+08:00"
+}
