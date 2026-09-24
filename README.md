@@ -1,6 +1,6 @@
 # Knowledge-OS
 
-> 最新状态：2026-09-11
+> 最新状态：2026-09-24
 
 Knowledge-OS 是一个本地优先的多维知识图谱工作台。它把目录、知识节点、解释索引、问题、类型关系、时间线和机制视图组织在同一套显式数据模型中，适合维护需要持续拆解、关联和回顾的技术知识。
 
@@ -10,6 +10,7 @@ Knowledge-OS 是一个本地优先的多维知识图谱工作台。它把目录�
 - 解释索引：支持根内容、标题层级、页面、标签和可编辑的统一索引图。
 - 类型与结构关系：支持 `extends`、`implements`、`belongs-to`、依赖、关联和投影。
 - 多视图工作区：知识宇宙、解释索引、时间线、节点库、问题库、SuperTag、机制视图和系统连接图。
+- 知识演化时间线：在内容 / 结构 / 元数据 / 投影四个语义面上记录知识节点的演化事件，通过标注驱动索引视图中的累积揭示。
 - 文档导入：支持 Markdown、PDF、HTML、DOCX、TXT 和其他可解析文本文件；扫描 PDF 可通过本地 MinerU OCR 导入。
 - 网页导入：支持普通网页、GitHub Markdown 与 Wikipedia，能够清理正文、规范 Markdown 并提取标签。
 - Java 源码导入：通过 JDK Compiler Tree API 提取包、类型、成员、Javadoc 和直接类型关系。
@@ -84,6 +85,40 @@ KNOWLEDGE_OS_READ_ONLY=1 npm run build   # 反过来：本地跑只读产物
 `vercel.json` 给 `/api-data/*` 设了 `Cache-Control: public, max-age=300, must-revalidate`，
 CDN 侧最多可能滞后 5 分钟；提交后若发现线上数据陈旧，等过缓存窗口再刷新。
 
+## 技术栈
+
+| 类别 | 技术 |
+| --- | --- |
+| 前端框架 | React 19 |
+| 语言 | TypeScript |
+| 状态管理 | Zustand 5（单一 store，单向数据流） |
+| 构建工具 | Vite 8 |
+| 图形 | mermaid（机制图、关系图渲染） |
+| 文档解析 | mammoth、pdf-parse、turndown、jsdom、@mozilla/readability |
+| 图标 | lucide-react |
+
+## 目录结构
+
+```text
+src/
+  main.tsx / App.tsx          # 应用入口与根布局
+  types.ts / env.d.ts         # 全局类型契约
+  components/                 # 界面组件
+  core/                       # 可视化引擎（多维画布、解释索引、布局渲染器）
+  knowledge/                  # 领域逻辑
+  layout/                     # 布局（TopBar / UniverseTree / RightSidePanel）
+  mechanism/                  # 机制视图
+  panels/                     # 功能面板
+  store/useGraph.ts           # Zustand 全局状态
+  styles/                     # 样式（设计令牌 + 各视图样式）
+scripts/import/               # 各类导入流水线
+data/                         # 数据真源（*.json）
+docs/                         # 工程文档；notes/ 与 sources/ 为导入溯源材料
+batch-manifests/              # 批次边界声明
+outputs/                      # 盘点、裁决与批次验收材料（不入运行时）
+public/                       # 静态资源
+```
+
 ## 数据真源
 
 | 文件 | 所有权 |
@@ -99,9 +134,13 @@ CDN 侧最多可能滞后 5 分钟；提交后若发现线上数据陈旧，等�
 ## 工程文档
 
 - [知识库宪法](docs/CONSTITUTION.md) — 五原则最高治理原则：新陈代谢与受控删除、目录净化、本体与具象、结构化内展、问答闭环
+- [治理裁决集](docs/KNOWLEDGE_RULES.md) — 22 条既有裁决速查，每条附判据与反例
 - [架构说明](docs/ARCHITECTURE.md)
 - [领域上下文](CONTEXT.md)
 - [文档导入标准](docs/DOCUMENT_IMPORT_STANDARD.md)
+- [批次边界声明规范](docs/BATCH_MANIFEST.md)
+- 决策记录：[ADR-0001 语义导入图优先](docs/adr/0001-semantic-import-is-graph-first.md) · [ADR-0002 身份判据与观察纪律](docs/adr/0002-identity-and-observation-discipline.md)
+- 研究提案：[知识点固定拆分](docs/KNOWLEDGE_DECOMPOSITION.md)
 - [开发与分支流程](CONTRIBUTING.md)
 
 历史实施方案、修复记录、对话恢复稿、工具运行状态和截图不再进入版本库。一次性迁移与验收脚本用后即删，需要时按 `git log` 找回；历史分支如需恢复，使用 `.git/branch-archives/` 中的本地 Git bundle。阶段性的盘点与审查材料沉淀在 `outputs/`（不入运行时），现状判断见 [STATE.md](STATE.md)。

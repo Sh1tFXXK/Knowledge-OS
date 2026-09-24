@@ -1,6 +1,6 @@
 # Knowledge-OS 架构说明
 
-> 最新状态：2026-09-11
+> 最新状态：2026-09-24（已吸收原 `docs/PROJECT_INTRODUCTION.md` 的逻辑分层与核心模块盘点；分层文件数的统计时点为 2026-09-11，仅作量级参考）
 
 ## 架构目标
 
@@ -13,6 +13,24 @@ Knowledge-OS 使用一套类型化状态描述目录、知识节点、关系、�
 - 后台解析器只返回结构化结果，不直接修改 React 状态。
 - 目录树与知识节点分离，正文不得复制到目录节点。
 - 只持久化直接关系，传递关系在读取时推导。
+
+## 逻辑分层
+
+按依赖方向从外到内的 9 个逻辑层（文件数为 2026-09-11 统计，仅作量级参考）：
+
+| 层 | 文件数 | 职责 |
+| --- | --- | --- |
+| 应用入口层 | 3 | `main.tsx` / `App.tsx` 启动与根布局装配 |
+| 界面组件层 | 28 | `components/` 各类对话框、面板、选择器、视图 |
+| 可视化引擎层 | 37 | `core/` + `mechanism/` 多维画布、解释索引、机制视图与布局渲染器 |
+| 领域逻辑与状态层 | 33 | `knowledge/` + `store/` 核心业务 |
+| 类型与样式基础层 | 12 | `types.ts`、`env.d.ts`、`styles/` 设计令牌 |
+| 数据导入脚本层 | 20 | `scripts/import/` 各类导入流水线 |
+| 数据层 | 8 | `data/*.json` 数据真源 |
+| 配置与支撑层 | 8 | `package.json`、`tsconfig`、`vite.config` 等 |
+| 文档层 | 3+ | 根目录与 `docs/` 的治理、架构与规范文档 |
+
+**依赖枢纽**：`src/knowledge/` 是被引用最多的模块（100+ 条入边），是整张图的中心；`src/store/useGraph.ts` 是运行时状态的核心，拥有最高扇出。
 
 ## 数据流
 
@@ -54,6 +72,26 @@ flowchart LR
 | `scripts/import/` | 文档、网页和 Java 源码的确定性导入管线 |
 | `vite.config.js` | 本地数据 API、导入 API 和文件写入队列 |
 
+## 核心模块详述
+
+### `src/knowledge/` — 领域逻辑
+知识领域最密集的代码：状态（`state.ts`）、目录树绑定（`treeBinding.ts`、`treeUtils.ts`）、类型关系（`typeRelations.ts`）、解释索引（`explanationIndex.ts`、`explanationTree.ts`、`explanationTable.ts`）、投影（`projection.ts`、`physicalProjection.ts`）、超标签（`supertags.ts`）、导入（`documentImport.ts`、`linkImport.ts`）、持久化（`filePersistence.ts`、`persist.ts`）。
+
+### `src/store/useGraph.ts` — 全局状态
+单一 Zustand store，集中管理节点、边、树、时间线、题库与持久化，是运行时数据流的唯一出口；含数据加载防护（`blockedSlices` / `dataLoadReport`，失败切片禁止回写）与 `reloadFromFiles`。
+
+### `src/core/` — 可视化引擎
+`DimensionCanvas.tsx`（多维知识画布枢纽）、`ExplanationIndexView.tsx`（解释索引视图），以及六种布局渲染器（stack / grid / tree / chain / matrix / btree，位于 `sections/`）。
+
+### `src/mechanism/` — 机制视图
+把知识图谱投影为「机制」流程图/序列图：`core.ts`（领域类型）、`diagram.ts`（帧投影）、`lens.ts`（图/时间线/场景三种镜头）、`knowledgeProjection.ts`（图谱→机制模型）、`validation.ts`（结构校验），外加 InnoDB、Java 线程生命周期、MySQL UPDATE 等示例数据。
+
+### 知识演化时间线（时态索引）
+`knowledge/timelineEvolution.ts`（核心引擎，定义 `TimelineFacet` 语义面与 `KnowledgeTimelineEvent`，`buildKnowledgeTimeline` 聚合快照与标注）、`knowledge/timelineAnnotations.ts`（精选标注数据，如 Spring 4/5 演化）、`knowledge/indexEvolution.ts`（索引视图投影，累积揭示新增节点）、`core/TemporalIndexWorkspace.tsx`（时态索引工作区：同一张统一索引图叠加时间轴、事件抽屉与节点态切片，读历史时进入只读门禁）。
+
+### `src/panels/` 与 `src/layout/`
+`panels/` 承载各功能面板（解释卡片、题库、关系网络、系统连接图）；`layout/` 承载 `TopBar`、`UniverseTree`（知识宇宙树）、`RightSidePanel`。
+
 ## 状态所有权
 
 `PersistedAppState` 聚合目录树、节点池、关系边、问题、推理响应、时间线和视图配置。组件通过选择器读取状态，通过显式 action 请求修改，不允许跨组件直接变更数据。
@@ -80,7 +118,15 @@ flowchart LR
 
 ## 导入边界
 
-普通文档、网页和 Java 源码使用独立来源适配器（`scripts/import/`），经确定性解析与校验后直接原子写入数据真源。任何校验失败都必须发生在正式文件修改之前。
+普通文档、网页和 Java 源码使用独立来源适配器（`scripts/import/`，共享引擎在 `scripts/import/lib/`），经确定性解析与校验后直接原子写入数据真源。任何校验失败都必须发生在正式文件修改之前。
+
+导入流水线清单：
+
+- `document-importer.mjs` — 通用文档导入入口（自动 / 文章 / 题库三种结构）
+- `java-source-importer.mjs` + `JavaSourceIntrospector.java` — JDK Compiler Tree API 源码解析
+- `web-link-importer.mjs` + `link-import-api.mjs` — 网页 / GitHub / Wikipedia 导入
+- `mineru-ocr.mjs` — 扫描 PDF 的本地 OCR 导入
+- `lib/import-jdk-collections.mjs` / `lib/import-wikipedia.mjs` — JDK 集合与 Wikipedia 专用导入
 
 Markdown 是无损传输格式，不是知识模型。标题、段落、列表、表格和代码块只是解析证据。知识节点必须可独立寻址；`structure` 与 `classification` 关系可用于生成目录导航，因果、依赖、状态转换等关系不得被伪装成目录父子；目录树只是导航投影，不能反向定义知识关系。
 
