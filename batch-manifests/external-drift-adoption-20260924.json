@@ -5,7 +5,7 @@
   "baseRefNote": "本批起草时 HEAD。工作树相对 HEAD 漂移 15 小时（他会话执行 Spring Boot 批 + UI 编辑 Go 卡），Ancestor Gate 硬门下无法直接提交 go-design-split-fusion，按 29d66db 采纳批配方先落盘漂移。",
   "preBatchSnapshot": "data/backups/external-drift-adoption-20260924",
   "preBatchSnapshotNote": "★ 采纳批配方：快照 = git show HEAD:<f>（快照即祖先 ⇒ Ancestor Gate 必然 PASS）。",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
   "writeSet": [
     "data/node-pool.json",
     "data/tree-data.json",
@@ -80,5 +80,7 @@
     "knownRegression": "语言设计卡（k_goexplain_design）被部分压平（1711→1709，去空白逐字相等）= rootcontent-backfill-regression 活体。用户裁决不还原；后续 go-design-split-fusion 批将拆解该卡。"
   },
   "commitSubjectHint": "data: external-drift-adoption-20260924 — 采纳并发会话漂移（Spring Boot 核心设计思想 +1 · Go 卡编辑×3 · vault×3 · questions×4）",
-  "registeredAt": "2026-09-24T18:2x+08:00"
+  "registeredAt": "2026-09-24T18:2x+08:00",
+  "commitSha": "bbac1b7",
+  "committedAt": "2026-09-24T18:3x+08:00"
 }
