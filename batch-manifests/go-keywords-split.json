@@ -1,0 +1,197 @@
+{
+  "batchId": "go-keywords-split",
+  "title": "Go 域「关键字」卡拆分：25 个关键词各自拆为独立子节点（挂在「关键字」父节点下）+ 父卡正文名单改 Markdown 列表",
+  "baseRef": "4254a40",
+  "baseRefNote": "HEAD = go-domain-split-fusion 治理收口。本批起点经**人为干预**才取得干净基线：落盘前实测 data/tree-data.json 与 data/node-pool.json 已被第三方（非本会话）写回「上一批拆分融合之前」的旧态（≈ a223c43 态 + DONOR 改名），而 data/knowledge-edges.json 未随之回退 ⇒ 三文件**互不自洽**（DONOR 有树挂载有池实体、无 treebind 边）。经用户裁决执行 `git restore data/{tree-data,node-pool,knowledge-edges}.json` 回到 HEAD 真源，本批自干净基线（树 3240 / 池 3884 / 边 4174）起步。详见 provenance.preBatchIncident。",
+  "preBatchSnapshot": "data/backups/go-keywords-split-2026-09-25T17-00-26-079Z/",
+  "preBatchSnapshotNote": "apply 脚本落盘前自动拍摄的三文件快照（落盘前 == HEAD 真源，逐字节）。该目录不入库（.gitignore 覆盖 data/backups/）。verify 从此快照反推（**不 import apply**），本地可复跑。",
+  "commitSubjectHint": "data: go-keywords-split — Go 域「关键字」25 词各拆为子节点（树 3240→3265 · 池 3884→3909 · 边 4174→4199 · 父卡 173→223 字）（独立验证 26/26 · UI 探针 27/27 · 回归 test 68/68）",
+  "status": "READY_TO_COMMIT",
+  "provenance": {
+    "trigger": "用户指令「关键字也一个一个拆成节点，放在父节点下面。」—— 对 Go 域「关键字」卡（tree_1787723651777_57iok2 / k_1787723651360_r3tqg7）做**拆分**，是该域结构治理三件套「拆分/删除/融合」的延续。",
+    "preBatchIncident": "⛔ 落盘前盘面事故（本批最重要的一次外部干扰，单独建档）：本会话 2026-09-26 00:44 的项目日志明写「data/ 工作树干净」，而 data/tree-data.json（00:49:36）与 data/node-pool.json（00:49:37）在**其后**被一次原子写回退为「上一批拆分融合之前」的态（含 DONOR 泛型卡 k_1787731983101_tjcyzw + 树挂载 tree_1787731983672_nllsdb 回归、16 卡内容回退），data/knowledge-edges.json（00:38:39）**未同步回退** ⇒ 三文件不自洽（DONOR 无 treebind 边）。取证：a223c43 ↔ 盘面 = 池仅 2 行差、树仅 1 行差（差的是 DONOR label/title「使用参数化类型的泛型代码」→「泛型」），而 HEAD ↔ 盘面 = 池 38 增 25 删、树 8 增 1 删。既非备份还原（≠ data/backups/go-domain-restore-2026-09-26T00-35-13/ 字节）亦非任何提交态。处置：向用户报告并获裁决 ⇒ `git restore` 三文件回 HEAD，丢弃的唯一实质内容是那处 DONOR 改名（DONOR 在 HEAD 已删除、改名对象不存在 ⇒ 零实质损失）。★ 教训：多头写入下，**日志里的一句「工作树干净」不足以证明落盘时的基线**，落盘前必须重新实测三文件与 HEAD 的字节关系。",
+    "decisions": "两项用户裁决（AskingUserQuestion）：① **节点命名 = 裸词**（`break` / `case` / … / `go`，不加「（关键字）」后缀）——已向用户提示同名风险（Go 域根节点本体即名 `go`；`interface` / `select` 全库同名）后仍选裸词；② **父卡正文 = 引言句 + 名单（改成 Markdown 列表）**——保留引言行与 25 个词，只把裸名单改为 `- kw` 列表，内容零增删。⚠️ 这与同域先例 go-tools-to-subtree（父卡**清空**为纯容器，原则「同一知识不存两处」）**有意不同**：用户明确选择父卡保留名单作为枚举总览。",
+    "roles": "父树条目=tree_1787723651777_57iok2（关键字，children 0→25）· 父卡池实体=k_1787723651360_r3tqg7（rootContent 173→223 字；label/title/tags/tabs 未动）· 新增 25 个子节点 tree_go_keyword_<kw> / k_go_keyword_<kw> / treebind 边，kw ∈ {break case chan const continue default defer else fallthrough for func go goto if import interface map package range return select struct switch type var}（Go 语言规范 25 个关键字，顺序固定）。",
+    "method": "只读预检（查重、命名规范、containerHost 影响面、实体/边形状取证）→ dry-run（scripts/apply-go-keywords-split.mjs，默认 dry-run，25/25 ✅）→ 用户裁决两项 → 干净基线复跑 dry-run 25/25 → `--apply` 落盘（原子写 + EPERM 退化 + 自动预批备份 + 回读三文件校验）→ 独立验证（scripts/verify-go-keywords-split.mjs，**不 import apply**，从备份反推）→ 无头 Chromium CDP UI 探针 27/27 → 就绪门 → 本 manifest。",
+    "scopeBoundary": "本批只动 data/node-pool.json / data/tree-data.json / data/knowledge-edges.json；questions / evolution-events / version-chains / docs / src 零改动。零删除、零既有实体改写（唯一既有改动是父卡 rootContent）。",
+    "zeroFabrication": "零造数据（R-26）：Go 域内**不存在**任何逐关键字解释文本（源卡只有一份裸名单），故 25 个新节点一律建为**空壳**（删除 rootContent 键，非空串——全库空壳卡规范，实测 1744 缺键 / 仅 5 空串），不编造逐词解释。父卡新正文仅由「原引言行 + 原 25 词加 `- ` 前缀」构成，token 级零增零删（verify E 组断言）。",
+    "gaugeFixes": "⛔ UI 探针首跑 24/26，两条 FAIL **均为量具缺陷，非数据缺陷**，修量具后 27/27，**未改任何期望值**：\n ①「Go 子树内 name 无重名」——直接复用上一批判据，但在「用户裁决用裸词」前提下**必然为假且与本批任务无关**：Go 子树内 `go` 恰 2 个（域根节点本体 tree_1786618025853_3qn55e + 新增关键字节点 tree_go_keyword_go）。修法：量具对象收窄为「本批定位实际使用的 25 键 name→treeId **局部**映射无重名」，并把「两个 `go`」如实登记为**已知事实**断言（预期结果非缺陷），定位一律走 treeId。\n ②「右栏渲染 `- kw` 列表」——判据把 **Markdown 源文形态**当成了**渲染结果**，在 innerText 里找 `- ` 前缀；实测渲染为 `<ul><li>`，innerText 中自然无 `- `。修法：判据改打 DOM 结构（`.explanation-card` 内 1 个 `ul` 的 25 个 `li`，文本与顺序 === 关键字清单）。★ 通用教训：「Markdown 列表」的验收必须打渲染后的 DOM 结构，不可打 innerText 文本形态。",
+    "knownFactBareWord": "★ 裸词命名的后坐力（已登记）：`go` 与 Go 域根节点同名、`interface` / `select` / `map` / `type` / `for` / `if` / `return` 等与 Java/JS/Python 域广泛同名。全库「按 `.tree-node-label` 文本定位节点」的探针在本批**灾难性**，故探针强制：由 API 树内父节点 children 建局部 name→treeId 映射 + 点选后回读 DOM label + 零跨域泄漏负断言。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "scripts/apply-go-keywords-split.mjs",
+    "scripts/verify-go-keywords-split.mjs",
+    "scripts/probe-go-keywords-split.mjs",
+    "batch-manifests/go-keywords-split.json"
+  ],
+  "writeSetNote": "7 项：data 三件（本批全部实际改动）+ apply/verify/probe 三脚本（验收脚本一律入库）+ manifest 自身。⚠️ 一次性探索脚本（.tmp-diag-parent-card.mjs 等）已按 AGENTS.md 约定用后即删，不入库。",
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "governanceSetNote": "本批不提交治理文档。STATE.md 登记**仅为 Timeline Gate 分桶**（指纹快照 at=2026-09-23T19:08:10Z 里它是 M，文档收编批已删除落库 ⇒ 现为「gone」漂移）。⚠️ 就绪门 bucketOf 的 otherBatchSet 只取他批 `writeSet`，不含其 governanceSet/declaredExternalSet ⇒ 他批已登记者在本批仍会落 UNDECLARED，故须本批正面声明。",
+  "declaredExternalSet": [
+    "README.md",
+    "src/panels/explanation/MarkdownView.tsx",
+    "src/styles/main.css",
+    "src/panels/explanation/CodeBlock.tsx",
+    "src/panels/explanation/codeHighlight.ts",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json"
+  ],
+  "declaredExternalSetNote": "并发/历史在飞件（2026-09-26 取样，按 git status 逐文件登记）：①README.md 与两个已跟踪 src 文件（与 go-domain-restore / go-domain-split-fusion 同一取样口径；README 本批除治理台账外不提交）；②CodeBlock.tsx / codeHighlight.ts 为同批未跟踪新文件；③go-tools-to-subtree-snapshot 三个快照文件属 go-tools-to-subtree 批（其数据内容已随还原批 a223c43 落盘，batch manifest 尚缺 —— 见 openDebts），**本批不提交、不触碰**。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-go-keywords-split.json"
+  ],
+  "excludedSetNote": "精确排除（逐文件，非目录前缀）：本批**就绪门自身生成的核验报告**，生成物路径带 batchId，不入库也不 gitignore（治理规则）。⚠️ 首次跑门时它尚不存在，故**预登记**；登记后须重跑核验确认「无人认领」为 0。",
+  "expectedDelta": {
+    "note": "树 3240 → 3265（+25 子条目）· 池 3884 → 3909（+25 空壳实体，父卡正文改写）· 边 4174 → 4199（+25 treebind）。零删除。⚠️ 门（verify-phase1-commit-readiness.mjs:399-419）的 delta 判定只作用于 node-pool：modified 会被逐实体 JSON 比对、超出声明即判夹带；树的 modified 字段本批如实登记（父树条目 children 变了）但门不检查。",
+    "data/node-pool.json": {
+      "before": 3884,
+      "after": 3909,
+      "added": [
+        "k_go_keyword_break",
+        "k_go_keyword_case",
+        "k_go_keyword_chan",
+        "k_go_keyword_const",
+        "k_go_keyword_continue",
+        "k_go_keyword_default",
+        "k_go_keyword_defer",
+        "k_go_keyword_else",
+        "k_go_keyword_fallthrough",
+        "k_go_keyword_for",
+        "k_go_keyword_func",
+        "k_go_keyword_go",
+        "k_go_keyword_goto",
+        "k_go_keyword_if",
+        "k_go_keyword_import",
+        "k_go_keyword_interface",
+        "k_go_keyword_map",
+        "k_go_keyword_package",
+        "k_go_keyword_range",
+        "k_go_keyword_return",
+        "k_go_keyword_select",
+        "k_go_keyword_struct",
+        "k_go_keyword_switch",
+        "k_go_keyword_type",
+        "k_go_keyword_var"
+      ],
+      "removed": [],
+      "modified": [
+        "k_1787723651360_r3tqg7"
+      ]
+    },
+    "data/tree-data.json": {
+      "before": 3240,
+      "after": 3265,
+      "added": [
+        "tree_go_keyword_break",
+        "tree_go_keyword_case",
+        "tree_go_keyword_chan",
+        "tree_go_keyword_const",
+        "tree_go_keyword_continue",
+        "tree_go_keyword_default",
+        "tree_go_keyword_defer",
+        "tree_go_keyword_else",
+        "tree_go_keyword_fallthrough",
+        "tree_go_keyword_for",
+        "tree_go_keyword_func",
+        "tree_go_keyword_go",
+        "tree_go_keyword_goto",
+        "tree_go_keyword_if",
+        "tree_go_keyword_import",
+        "tree_go_keyword_interface",
+        "tree_go_keyword_map",
+        "tree_go_keyword_package",
+        "tree_go_keyword_range",
+        "tree_go_keyword_return",
+        "tree_go_keyword_select",
+        "tree_go_keyword_struct",
+        "tree_go_keyword_switch",
+        "tree_go_keyword_type",
+        "tree_go_keyword_var"
+      ],
+      "removed": [],
+      "modified": [
+        "tree_1787723651777_57iok2"
+      ]
+    },
+    "data/knowledge-edges.json": {
+      "before": 4174,
+      "after": 4199,
+      "added": [
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_break",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_case",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_chan",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_const",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_continue",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_default",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_defer",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_else",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_fallthrough",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_for",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_func",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_go",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_goto",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_if",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_import",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_interface",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_map",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_package",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_range",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_return",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_select",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_struct",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_switch",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_type",
+        "treebind:tree_1787723651777_57iok2:tree_go_keyword_var"
+      ],
+      "removed": [],
+      "modified": []
+    }
+  },
+  "testBaseline": {
+    "tracked": 68,
+    "peerAdded": 0,
+    "workingTreeTotal": 68,
+    "acceptanceUses": "tracked",
+    "note": "⚠️ 口径 = **测试项数**（门 verify-phase1-commit-readiness.mjs 检查 F 按项计数，不按文件数；首版误写 10 被门拦下并要求更正）。10 个已跟踪测试文件（scripts/*.test.mjs）→ 68 项全绿；未跟踪测试文件 0 个。纯 data 批次按验收成本分档不重跑 build（未改 src/ts），但 tsc --noEmit 与 npm test 均实跑：tsc 退出码 0、test 68/68。"
+  },
+  "gates": {
+    "independentVerification": {
+      "script": "scripts/verify-go-keywords-split.mjs",
+      "result": "26/26 全通过（退出码 0）：A 规模 Δ（+25×3，并断言关键字清单本身 25 项互异）· B 树（抹平父 children 后全树与落盘前**逐字节等价** + 25 子条目精确形状/键序 `id,name,count,nodeRef`/⛔ 无 children 键 + 顺序 === 清单 + 25 新 treeId 零碰撞）· C 池（删 25 新键 + 恢复父卡正文后全池逐字节等价 + 25 实体键序 `id,label,tags,card` / card `nodeId,title,tabs` / ⛔ 无 rootContent 键 + 零碰撞）· D 边（剔除 25 条新边后全边集逐字节等价 + 边 id 全局唯一 + 25 条 treebind 形状/键序（无 dimensions 键）+ 尾部追加顺序）· E 父卡正文（引言句逐字保留 + 25 项列表顺序一致 + token 级零增零删 + label/title/tags/tabs 未变）· F 五面交叉一致（树条目 ↔ nodeRef ↔ 池实体 ↔ treebind 边 ↔ 父池 id，25 组全闭合）。",
+      "discipline": "不 import apply —— 由 preBatchSnapshot 独立反推；判据 = 「把盘面按本批语义撤销后，必须与落盘前逐字节等价」。"
+    },
+    "uiProbe": {
+      "method": "vite preview 4192（/api/data 请求时直读 data/*.json）+ 无头 Chromium CDP 9353，屏蔽 fonts.googleapis.com。",
+      "result": "27/27 PASS（刷新复测含在内）：A 三计数 3265/3909/4199 + Go 子树 63 · A2 父节点 children=25 且顺序 === 清单 · B 25 空壳实体（无 rootContent 键）+ 25 条 treebind 精确 · C ① 渲染 id 集合 === tree-data.json（3265 项零增零减）② 25 关键字 treeId 全在 DOM ③/③a-③d 父行「关键字」下渲染 25 个子条目（**祖先链定位**、id 集合精确、DOM label 集合 === 关键字、全页仅渲染一次）· D ④ 点选 break/go/var 三节点 → DOM label 复核一致 + 右栏为空壳（不含父卡正文，防串卡）④x 零跨域泄漏 · ⑤ 点选父节点 → 右栏含引言句 + 全部 25 关键字（**读态未退化为容器**）⑤a 名单渲染为 1 个 `<ul>` 的 25 个 `<li>`，顺序一致 · E ⑥a/⑥b 刷新后复测 ①②③ 仍成立。",
+      "infoItems": "25 个关键字节点为空壳（无逐词解释可迁，R-26 零造数据），点选右栏「无内容」属**预期**；已用「右栏不含父卡正文」的正向负断言锁定，不串卡。",
+      "gaugeRework": "首跑 24/26，2 FAIL 全为量具缺陷（① 复用上一批「Go 子树 name 唯一」判据、② 把 Markdown 源文当渲染结果），修量具后 27/27，未改期望值 —— 详见 provenance.gaugeFixes。"
+    },
+    "regression": "npx tsc --noEmit 退出码 0（无输出）；npm test 68/68（10 个已跟踪测试文件，未跟踪 0）。纯 data 批次按验收成本分档不重跑 build。",
+    "ancestorPrognosis": "HEAD(4254a40):data 三文件 ↔ preBatchSnapshot 逐字节相等（因落盘前已 `git restore` 回 HEAD）⇒ Ancestor Gate 预期 PASS。",
+    "readinessGate": {
+      "script": "scripts/verify-phase1-commit-readiness.mjs --batch go-keywords-split",
+      "result": "READY —— 8/8 闸门 PASS（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate），blockers=[]。检查 A 三文件逐字节相等（11737321 / 1947212 / 1142162 B）→「提交 diff 即本批」成立；检查 B unexpectedDrift 0（允许漂移 3 写集 + 1 治理 + 3 外部）；检查 C 新增 25（声明 25）· 修改 1（声明合法修改 2，超出 0）· 删除 0 → Δ 恰好 = 声明；检查 D 正向认领 34 · 精确排除 16 · 仅前缀 0 · 无人认领 0；检查 F tracked 68/68。",
+      "report": "outputs/tree-violation-scan/readiness-go-keywords-split.json",
+      "pathspecInvariant": "commitPathspec ≡ writeSet 机检 ✅（staged 7 项 == writeSet 7 项，无多出无缺失；declaredExternalSet / governanceSet 均未混入 pathspec）",
+      "reworkNote": "★ 首次跑门 ancestorGate=BLOCK，诊断为「HEAD ≠ 落盘前基线（**内容差异 0 键**）」⇒ 非内容差异而是**行尾字节**：core.autocrlf=true 下 `git restore` 把 blob 的 LF smudge 成 CRLF 写进工作树，apply 的原样 `copyFileSync` 于是把 CRLF 固化成「落盘前基线」，而 HEAD blob 是 LF（knowledge-edges 因原本已达标未被 restore 重写，故侥幸相等、只有 tree/pool 报 BLOCK）。修法：按**真源口径**（blob = LF）把工作树与快照一并标准化为 LF（`\r\n`→`\n`，三文件孤立 CR 均为 0），复验三文件快照 sha256 与 `git cat-file blob HEAD:` **逐字节全等**后重跑 ⇒ ancestorGate PASS。★ 教训：`git restore` 在本仓（autocrlf=true）产出的工作树是 CRLF，与 blob 不同字节但 git 视作「干净」；任何「restore 后直接 apply」的流程都会在 Ancestor Gate 撞行尾墙，须显式标准化为 LF。",
+      "observation": "【观察项 · 旧值残留检测】1 项：k_1787723651360_r3tqg7（父卡，本批唯一 modified 实体）触发 `staleSignature=true · aliasRetained=true`（label / tags[0] / card.title 三者同为「关键字」）。检测器**不产出 action**（判定权在 ADR-0002 治理规则阶段），且门自证该形态为全省常态（label ≠ card.title 79 例、树 name ≠ 池 label 62 例，真正不变量 card.nodeId ≠ 池键 0 例）⇒ 对本批「实体名未变、只有正文变」的改写必然触发，属噪声，不构成缺陷。"
+    }
+  },
+  "openDebts": [
+    "25 个关键字节点为**空壳**（无 rootContent，读态「无内容」）：源卡只有裸名单、Go 域内无逐关键字解释可迁 ⇒ 依 R-26 零造数据未编内容。若需逐词解释，须引入外部语料另立批次。",
+    "裸词命名的后坐力：`go` 与 Go 域根节点本体同名，`interface`/`select`/`map`/`type`/`for`/`if`/`return` 等全库广泛同名。任何「按文本定位节点」的探针在本域均脆弱，已在本批探针中强制 treeId 定位；全库同类探针待统一加固。",
+    "读态空白债：全库 1644 张「tabs 非空但 rootContent 空」的卡（读态恒渲染 rootContent ⇒ 内容等于不存在），本批新增 25 张空壳属同类；建议单独立项。",
+    "concurrent-writer-unresolved（**本批实测复发且更重**）：另有会话在同一工作树活动，本轮实测其把 data/tree-data.json 与 data/node-pool.json 写回旧态而漏写 knowledge-edges.json ⇒ 三文件不自洽。多头写入下「落盘前基线」必须每次实测，不可信任历史日志结论。",
+    "go-tools-to-subtree 批仍无 manifest（其数据内容已随还原批 a223c43 落盘，脚本 scripts/go-tools-to-subtree/ 与产物 outputs/tree-violation-scan/go-tools-to-subtree-snapshot/ 未登记入库）。",
+    "STATE.md 为「gone」漂移（文档收编批已删除落库），仅用于 Timeline Gate 分桶。"
+  ],
+  "registeredAt": "2026-09-25T17:0xZ",
+  "commitSha": null,
+  "committedAt": null
+}
