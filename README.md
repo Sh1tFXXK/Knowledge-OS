@@ -1867,3 +1867,28 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 **▲ 审计脚本入库**：新增 `scripts/readme-audit.mjs`（结构 / 目录锚点 / 引用 / 逐行对账 / 卫生五维，P0 阻断）并内置 `--self-test` 负对照（7 个注入变体必须全被抓到，防「判据修哑」）。首跑结论：**P0/P1/P2 全 0，对账 0 丢失**；同时修掉一处真实结构缺陷——§14 内两个 ADR 的 Status/Context/Decision/Consequences 与 ADR 标题同级（看起来像并列节），已降为 ADR 的下一级（H4；ADR-0002 的纪律/规则/案例裁决随之降为 H5）。
 
 **▲ 判据自身两个坑（已修，记档防复发）**：① 「已删文件名」检查原先按「台账区豁免」实现，被**文件尾追加的注入行**绕过（负对照 M1 抓到）⇒ 改为全篇任意位置生效；② 对账判据原先只认 +1 级降级，而单一文档重建时 ADR 子节实际降了 **+2** 级 ⇒ 误报 11 处丢失，改为同时接受 +1/+2。
+
+### 11. go-domain-split-fusion（2026-09-26 收口）
+
+**▲ 前置事故：误读指令导致整域误删。** 用户指令「拆解，删除go语言，包括解释卡的内容」的原意是「对 Go 域做**拆分 / 删除 / 融合**」（项目结构治理三件套），被误执行为**整域删除**并落盘为 `1b1f712`。用户发现后澄清「我是让你拆分，删除，融合！！！！」⇒ 从 `data/backups/delete-golang-domain-20260925T225319` 原子写回三文件完成还原。
+⛔ **纪律（已入用户级记忆）**：破坏性操作前必须**复述意图并等确认**。「删除」在「删空壳节点」与「删掉整个域」两个语境里含义相反，不应自作解释。
+
+**▲ 还原批 `a223c43`（GO-DOMAIN-RESTORE，S 级）**。还原后 HEAD 与盘面错位（HEAD 无 Go 域、盘面有 Go 域），会令内容批的 Ancestor Gate 必然 BLOCK。按 `external-drift-adoption` 先例落**采纳批**：`preBatchSnapshot` 取 **HEAD 的 blob 自身**（就绪门即比对 `git show HEAD:` 与该快照，相等即证「本批 = HEAD → 目标盘面」无夹带）。就绪门 8/8 PASS · READY（ancestorGate 三文件逐字节相等 · deltaGate 39 键精确声明 · 检查 D 无人认领 0 · tests 68/68）。差集实测**恰为 +39 / −0 / 修改 0**，且 39 个 id **逐项等于 `delete-go.json` 声明的 removed 清单**（三文件排序后相等）——其中 13 个是误删时**本就在飞未提交**的 go-tools-to-subtree 批产出，被连坐删除，本批一并救回。
+
+⚠️ **两条口径发现（记档防复发）**：
+- 就绪门 `bucketOf` 的 `otherBatchSet` **只取他批 `writeSet`**（`verify-phase1-commit-readiness.mjs:341`），**不含**其 `governanceSet` / `declaredExternalSet` ⇒ 已被他批登记的漂移件在本批仍会落 `UNDECLARED`、报 Timeline BLOCK。**必须本批正面重申**（本批把 README.md、两个 src 文件、STATE.md 在他批已登记的前提下再次声明）。
+- **还原/采纳批必须做成「工作树 == 提交内容」的正常提交**：就绪门的检查 C 是拿「备份 ↔ **工作树**」比，而非「备份 ↔ 提交内容」。走纯 index 的 blob 级手法会让选择 C 与实际提交内容口径错位 ⇒ 正确做法是「置换工作树 → 跑门 → 正常提交 → 换回」，并用 sha256 双向校验置换无损。
+
+**▲ 内容批 `7f3ebfc`（S 级）**。结构治理三件套：
+- **拆分**：并发 `k_go_concurrency` 3821→2613（外迁 1141 字非并发内容）· 类型 `k_1787723924929_cc51xz` 1628→970（外迁 889 字到 6 张子卡）；迁入 基本数据类型 0→166 · 数组 0→52 · 切片 0→104 · 指针 0→161 · Map 0→162 · 复合数据类型 0→272 · 工具 0→491 · 历史 363→694 · 应用程序 803→938 · 语言设计 420→932 · 语法 405→394 · 接口 2110→2104 · go tool 99→81。
+- **删除**：DONOR `k_1787731983101_tjcyzw`（重复泛型卡「使用参数化类型的泛型代码」）——池实体 + 树挂载 `tree_1787731983672_nllsdb` + treebind 边三面一并删。
+- **融合**：DONOR 的 7 段**逐字包含**于 SURVIVOR `k_go_generic`（950→619，剥 CSS 残渣与时间线残段）。
+- 结构 Δ：树 3241→3240 · 池 3885→3884 · 边 4175→4174 · **16 卡字段级改写**（无新建、无删除实体）。
+- **四项用户裁决**：① 结构体 / 运算符 / 模块 / 控制流 四张空壳卡**保留空壳** ② 并发卡的「你好，世界」示例**迁到应用程序** ③ 「接口」卡**不拆** ④ 「版本策略」卡英文段落**不翻译**。
+- 证据链：precheck 只读逐卡判定（`outputs/go-domain-precheck.md`）→ dry-run 58 ✅ / 0 ❌（存档 `outputs/go-domain-split-fusion-dryrun.txt`）→ `--apply` → 独立验证 A–G 七组全通（**不 import apply**，由快照反推）→ UI 无头探针 **28/28** → 就绪门 **8/8 PASS · READY**。
+- **零造数据（R-26）**：每条迁出段以 `target.includes(seg) === true` 证真后才从源卡删除；空壳卡补总述只用域内既有语料拼接。守恒判据放弃「字数相等」改为**去空白逐字等价**（免疫空行规范化带来的字数漂移）。
+
+⛔ **量具缺陷首次入库：跨域同名节点陷阱。** 探针首版 **23/25**，两条 FAIL **均为 `byLabel()` 全页按 `.tree-node-label` 文本匹配撞上了 Java 域的同名节点**（Go「数组」↔ Java 数组卡、Go「Map」↔ `java.util.Map`）⇒ **量具缺陷被伪装成数据缺陷**。修法：改为「从 `/api/data` 的 Go 子树建 `name→treeId` 映射」定位，并新增 ④x「9 个目标 treeId 全部落在 Go 子树内（零跨域泄漏）」负断言 + ④ 行内复核 DOM label 文本一致；修量具后 28/28，**未改任何期望值**。全库存在大量跨域同名节点，「按文本定位目标节点」的探针对此普遍脆弱，已写入该脚本头注释。
+
+- 工作树残态：并发会话在飞的「代码高亮」特性（README.md · `src/panels/explanation/{MarkdownView.tsx,CodeBlock.tsx,codeHighlight.ts}` · `src/styles/main.css`）+ go-tools-to-subtree 批快照 + 本批 excludedSet 产物（`readiness-go-domain-{restore,split-fusion}.json`）。**本批完成。**
+- 登记债：① Go 域内容缺口（四张空壳卡，裁决保留）② 版本策略翻译债 ③ `delete-go.json` 补 `revertedBy` ④ go-tools-to-subtree 批补 manifest ⑤ 1644 张读态空白债（另案，不阻塞）。

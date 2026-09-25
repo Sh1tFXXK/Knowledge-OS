@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/go-split-fusion-20260926T002555/",
   "preBatchSnapshotNote": "apply 前六文件快照（apply 脚本落盘前自动拍摄）；此处引用其三。该目录不入库（.gitignore 覆盖 data/backups/）。verify 从此快照反推（**不 import apply**），本地可复跑。",
   "commitSubjectHint": "data: go-domain-split-fusion — Go 域拆分/删除/融合（树 3241→3240 · 池 3885→3884 · 边 4175→4174 · 16 卡改写；DONOR 重复泛型卡融合删除；并发/类型巨卡外迁 8 子卡；4 空壳卡补总述）（独立验证 A–G 全通 · UI 探针 28/28 · 回归 test 68/68）",
-  "status": "PENDING",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "用户指令「拆解，删除go语言，包括解释卡的内容」= 对 Go 域做**拆分 / 删除 / 融合**（项目结构治理三件套），非整域删除。前置误读已由还原批 a223c43 修正。本批的执行范围、逐卡动作与四项裁决均经用户逐条确认：① 结构体/运算符/模块/控制流四张空壳卡**保留空壳**（不补内容）；② 并发卡里的「你好，世界」示例**迁到「应用程序」**；③ 「接口」卡**不拆**；④ 「版本策略」卡内英文段落**不翻译**。",
     "roles": "SURVIVOR=k_go_generic（泛型，950→619，保留主体，剥 CSS/时间线残段）· DONOR=k_1787731983101_tjcyzw（重复泛型卡「使用参数化类型的泛型代码」，7 段逐字包含于 SURVIVOR ⇒ 融合删除，其树挂载 tree_1787731983672_nllsdb 一并删除）· 拆分源=k_go_concurrency（并发 3821→2613，外迁 1141 字非并发内容）· k_1787723924929_cc51xz（类型 1628→970，外迁 889 字到 6 张子卡）· 迁入：k_1787766911214_uud2jo（基本数据类型 0→166）· k_1787766796342_u5bioh（数组 0→52）· k_1787766807759_ukiucr（切片 0→104）· k_1787766833800_7n22lh（指针 0→161）· k_1787766817113_4tn276（Map 0→162）· k_1787766774971_dvs4k8（复合数据类型 0→272）· k_1787732744683_8upi39（工具 0→491，含 gofmt 段落）· k_1787722763547_no5htk（历史 363→694）· k_1787724113497_rnr836（应用程序 803→938，收「你好，世界」）· k_goexplain_design（语言设计 420→932）· k_goexplain_syntax（语法 405→394，清引注）· k_1787724045886_9ac7md（接口 2110→2104）· k_1790312788464_nw8omf（go tool 99→81）。",
@@ -106,7 +106,13 @@
       "gaugeRework": "首跑 23/25，2 FAIL 全为量具缺陷（跨域同名节点），修量具后 28/28，未改期望值 —— 详见 provenance.gaugeFixes。"
     },
     "regression": "npm test 68/68（10 个已跟踪测试文件，未跟踪 0）。⚠️ 纯 data 批次按验收成本分档**不重跑** tsc / build（未改 src、未改 ts 源码）。",
-    "ancestorPrognosis": "HEAD(a223c43):data 三文件 ↔ preBatchSnapshot 逐字节相等（Buffer.compare=0 ×3）⇒ Ancestor Gate 预期 PASS。"
+    "ancestorPrognosis": "HEAD(a223c43):data 三文件 ↔ preBatchSnapshot 逐字节相等（Buffer.compare=0 ×3）⇒ Ancestor Gate 预期 PASS。",
+    "readinessGate": {
+      "script": "scripts/verify-phase1-commit-readiness.mjs --batch go-domain-split-fusion",
+      "result": "READY —— 8/8 闸门 PASS · blockers=[]。检查 A 三文件逐字节相等（11738183 / 1947515 / 1142409）→ 「提交 diff 即本批」成立；检查 C 新增 0（声明 0）· 修改 16（声明的合法修改恰 16，超出 0）· 删除 1（= 声明的 k_1787731983101_tjcyzw）→ Δ 恰好 = 声明；检查 D 正向认领 36 · 精确排除 15 · 仅前缀 0 · 无人认领 0；tests 68/68。",
+      "report": "outputs/tree-violation-scan/readiness-go-domain-split-fusion.json",
+      "pathspecInvariant": "commitPathspec ≡ writeSet 机检 true（staged 9 项 == writeSet 9 项，无多出无缺失）"
+    }
   },
   "openDebts": [
     "Go 域内容缺口：结构体 / 运算符 / 模块 / 控制流 四张卡保持**空壳**（用户四项裁决之①），读态显示「无内容」——另有 1644 张同类读态空白债在案，建议单独立项。",
@@ -115,5 +121,7 @@
     "delete-go.json 的 data 改动已被 a223c43 逆掉，status 仍标 COMMITTED —— 待 chore(governance) 提交补 revertedBy 字段。",
     "concurrent-writer-unresolved：另有 Cline/Qoder 会话在同一工作树活动（src/panels/explanation/CodeBlock.tsx 等未跟踪新文件），其内存态若再写盘会重新引入漂移。"
   ],
-  "registeredAt": "2026-09-25T16:39:11.140Z"
+  "registeredAt": "2026-09-25T16:39:11.140Z",
+  "commitSha": "7f3ebfc",
+  "committedAt": "2026-09-26T00:5x+08:00"
 }

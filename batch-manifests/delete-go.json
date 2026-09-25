@@ -200,5 +200,7 @@
     }
   },
   "committedAt": "2026-09-25",
-  "commitSha": "1b1f712"
+  "commitSha": "1b1f712",
+  "revertedBy": "a223c43",
+  "revertedNote": "⛔ 本批的 data 改动已被还原批 a223c43（GO-DOMAIN-RESTORE）**全部逆掉**：该提交的意图源自一次指令误读（用户原意是「对 Go 域做拆分/删除/融合」，非整域删除），用户澄清后立即还原。本 manifest 保留为历史审计证据（其 removed 清单仍是精确的 39 个 id，还原批据此逐项核对通过），但 status=COMMITTED 仅指该提交在历史中存在，**不代表其数据状态是当前态**。当前态见 batch-manifests/go-domain-split-fusion.json。"
 }

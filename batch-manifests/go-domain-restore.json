@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/go-domain-restore-2026-09-26T00-35-13/",
   "preBatchSnapshotNote": "**基线快照 = HEAD 的 blob 自身**（沿用 external-drift-adoption 先例）：目录内三文件由 `git cat-file blob HEAD:data/<f>.json` 原样取出（tree-data 1936505 B · node-pool 11698391 B · knowledge-edges 1132714 B）。还原批没有「动手前状态」以外的历史，故快照即祖先 —— 就绪门 Ancestor Gate 比对 `git show HEAD:` 与该文件，相等即证「本批 = HEAD → 目标盘面」，无夹带。该目录不入库（.gitignore 覆盖 data/backups/）。",
   "commitSubjectHint": "data: GO-DOMAIN-RESTORE 撤销 1b1f712 误删 Go 域（树 3202→3241 · 池 3846→3885 · 边 4136→4175；纯基线推进，内容零新增零改写）",
-  "status": "PENDING",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "本批上游意图被误读：用户指令「拆解，删除go语言，包括解释卡的内容」原意是「对 Go 域做**拆分 / 删除 / 融合**三件套结构治理」，被误执行为「整域删除」并落盘为 1b1f712。用户发现后澄清「我是让你拆分，删除，融合！！！！」。遂从 data/backups/delete-golang-domain-20260925T225319 原子写回三文件完成还原，再执行真正的拆分/融合（apply）—— 于是工作树出现「HEAD 无 Go 域 / 盘面有 Go 域」的错位。",
     "finding": "实测（Buffer + 逻辑集合双口径）：HEAD:data 三文件 ⊂ 落盘前盘面，差集**恰为 +39 / −0 / 修改 0**（树 3202→3241、池 3846→3885、边 4136→4175），且这 39 个 id **逐项等于 batch-manifests/delete-go.json 声明的 removed 清单**（tree / pool / edge 三项 JSON 排序后相等，全 true）。⇒ 差集不含任何「其他会话在飞内容」，是 1b1f712 的精确逆，可由本批干净采纳。",
@@ -193,7 +193,7 @@
     "regression": "纯数据还原，未改 src、未改 scripts ⇒ 不重跑 tsc / build；npm test 属纯逻辑面，随内容批统一复核。",
     "readinessGate": {
       "command": "node scripts/verify-phase1-commit-readiness.mjs --batch go-domain-restore",
-      "result": "待跑",
+      "result": "READY —— 8/8 闸门 PASS（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate）。检查 A 逐字节相等 1936505/1936505 · 11698391/11698391 · 1132714/1132714；检查 C Δ 恰为声明的 39 键新增（无删除无改写）；检查 D 正向认领 33 · 精确排除 15 · 无人认领 0；tests 68/68。落地路径：置换工作树为「apply 前盘面」→ 跑门 → 正常提交 → 换回 refactor 后盘面（sha256 双向 OK）。",
       "report": "outputs/tree-violation-scan/readiness-go-domain-restore.json"
     }
   },
@@ -201,5 +201,7 @@
     "go-tools-to-subtree 批：其数据内容（12 个 go tool 叶子 + 模块）已随本还原批落盘，但该批的 manifest / 脚本 / 产物（scripts/go-tools-to-subtree/、outputs/tree-violation-scan/go-tools-to-subtree-snapshot/）仍未登记入库 —— 归属待补。",
     "delete-go.json 的 status 仍为 COMMITTED（commitSha 1b1f712），但该提交的 data 改动已被本还原批逆掉 —— 已在 chore(governance) 提交中为它补 revertedBy 字段。"
   ],
-  "registeredAt": "2026-09-25T16:35:55.615Z"
+  "registeredAt": "2026-09-25T16:35:55.615Z",
+  "commitSha": "a223c43",
+  "committedAt": "2026-09-26T00:4x+08:00"
 }
