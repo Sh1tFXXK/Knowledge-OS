@@ -45,7 +45,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import { execSync } from 'node:child_process'
+import { execSync, execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 
 const ROOT = process.cwd()
@@ -57,6 +57,30 @@ const MANIFEST_DIR = path.join(ROOT, 'batch-manifests')
 const argv = process.argv.slice(2)
 const argOf = (n) => { const i = argv.indexOf(n); return i >= 0 ? argv[i + 1] : null }
 const SKIP_TESTS = argv.includes('--skip-tests')
+
+// ── 分级治理（2026-09-25 起，细则见 batch-manifests/README.md）─────────────
+//   S = 完整 manifest（删除 >10 节点 / 跨会话漂移 / 结构重构 / 多类 writeSet）
+//   M = 轻量声明：不建 manifest 文件，声明写在 commit message trailer（闸门照跑）
+//   L = 免声明：不动 data、不改规范 ⇒ 直接 commit
+// ⚠️ 「M 级跳过 manifest 检查」= **不要求 manifest 文件**，不是跳过闸门；
+//    硬不变量（pathspec ≡ writeSet、writeSet ∩ external = ∅）在所有级别都机器断言。
+const LEVEL_ARG = (argOf('--level') ?? '').toUpperCase()
+const MSG_FILE = argOf('--commit-msg-file')
+const MSG_INLINE = argOf('--commit-msg')
+
+if (LEVEL_ARG === 'L') {
+  console.log('════ 批次提交就绪核验 · L 级（免声明）════')
+  console.log('  适用：不动 data/、不改治理规范的文档 typo / 脚本注释 / 纯 chore。')
+  try {
+    const st = execSync('git status --porcelain', { cwd: process.cwd(), encoding: 'utf8' }).split('\n').filter(Boolean)
+    console.log('  当前工作树改动 ' + st.length + ' 项：')
+    for (const s of st.slice(0, 20)) console.log('    ' + s)
+    const data = st.filter((s) => /data\/.*\.json$/.test(s.trim()))
+    if (data.length) console.log('  ⚠️ 检测到 data/*.json 改动 ' + data.length + ' 项 ⇒ 至少应升为 M 级（--level M）')
+  } catch { /* 非 git 环境跳过 */ }
+  console.log('  结论：L 级免核验，直接 commit。')
+  process.exit(0)
+}
 
 const rd = (p) => JSON.parse(fs.readFileSync(p, 'utf8'))
 const gitShowBuf = (rel) => execSync('git show HEAD:' + rel, { cwd: ROOT, encoding: 'buffer', maxBuffer: 1 << 28 })
@@ -104,10 +128,67 @@ const manifestBroken = []
 
 let manifest = null
 let manifestWarnings = []
+let LEVEL = ['S', 'M'].includes(LEVEL_ARG) ? LEVEL_ARG : null
+let declarationSource = null
+
+// ── M 级：从 commit message trailer 解析内联声明（替代 manifest 文件）────────
+// 格式（细则见 batch-manifests/README.md §3）：
+//   Batch-Id: <id> / Batch-Level: M / Batch-BaseRef: <sha> / Batch-Backup: <dir>
+//   Batch-WriteSet: a, b, c        （≡ writeSet，git add 的唯一来源）
+//   Batch-GovernanceSet / Batch-ExternalSet / Batch-ExcludedSet （可选）
+const INLINE_MAP = {
+  Id: 'batchId', Level: 'level', BaseRef: 'baseRef', Backup: 'preBatchSnapshot',
+  WriteSet: 'writeSet', GovernanceSet: 'governanceSet', ExternalSet: 'declaredExternalSet', ExcludedSet: 'excludedSet',
+}
+const LIST_KEYS = new Set(['writeSet', 'governanceSet', 'declaredExternalSet', 'excludedSet'])
+const parseInlineDeclaration = (msg) => {
+  if (!msg) return null
+  const out = { level: 'M' }
+  for (const raw of msg.split(/\r?\n/)) {
+    const m = /^Batch-([A-Za-z]+):[ \t]*(.*)$/.exec(raw.trim())
+    if (!m) continue
+    const key = INLINE_MAP[m[1]]
+    if (!key) continue
+    const val = m[2].trim()
+    out[key] = LIST_KEYS.has(key) ? val.split(',').map((s) => s.trim()).filter(Boolean) : val
+  }
+  if (!out.batchId || !Array.isArray(out.writeSet) || out.writeSet.length === 0) return null
+  if (out.level && String(out.level).toUpperCase() !== 'M') {
+    console.error('⛔ commit message 声明的 Batch-Level=' + out.level + '，与 --level M 不一致')
+    process.exit(1)
+  }
+  return out
+}
+const readCommitMsg = () => {
+  if (MSG_INLINE) return MSG_INLINE
+  if (MSG_FILE) {
+    const p = path.resolve(ROOT, MSG_FILE)
+    if (fs.existsSync(p)) return fs.readFileSync(p, 'utf8')
+    console.error('⛔ --commit-msg-file 不存在：' + MSG_FILE)
+    process.exit(1)
+  }
+  return execFileSync('git', ['log', '-1', '--format=%B'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 24 })
+}
+
 if (fs.existsSync(manifestPath)) {
   manifest = rd(manifestPath)
+  declarationSource = 'manifest'
+  if (!LEVEL) LEVEL = 'S'
+  if (LEVEL === 'M') manifestWarnings.push('⚠️ manifest 已存在却指定 --level M：以 manifest 为准（S 级）。降级声明不会关闭任何闸门。')
+} else if (LEVEL === 'M') {
+  const inline = parseInlineDeclaration(readCommitMsg())
+  if (!inline) {
+    console.error('⛔ M 级需要 commit message 内联声明，但未解析到 Batch-Id / Batch-WriteSet。')
+    console.error('   用法见 batch-manifests/README.md §3 或用 --commit-msg-file <path> 指定。')
+    process.exit(1)
+  }
+  manifest = inline
+  declarationSource = 'commit-message'
 } else {
-  manifestWarnings.push('⚠️ 未找到 manifest：' + path.relative(ROOT, manifestPath) + ' → 回落到脚本内置白名单（兼容模式）')
+  manifestWarnings.push('⚠️ 未找到 manifest：' + path.relative(ROOT, manifestPath) + ' → 回落到脚本内置白名单（兼容模式）' +
+    (LEVEL === null ? '；单文件改动可用 --level M 走轻量声明（见 batch-manifests/README.md）' : ''))
+  declarationSource = 'legacy-fallback'
+  if (!LEVEL) LEVEL = 'S'
 }
 
 const others = listManifests().filter((m) => m.batchId !== manifest?.batchId)
@@ -178,6 +259,8 @@ const report = {
   generatedAt: new Date().toISOString(),
   batchId: manifest?.batchId ?? batchId,
   baseRef: manifest?.baseRef ?? null,
+  level: LEVEL,                    // S = manifest 文件 · M = commit message 内联声明 · L = 免声明
+  declarationSource,               // manifest | commit-message | legacy-fallback
   manifestPath: fs.existsSync(manifestPath) ? path.relative(ROOT, manifestPath).replace(/\\/g, '/') : null,
   manifestWarnings,
   brokenManifests: manifestBroken,
@@ -196,8 +279,11 @@ const report = {
 const L = (s = '') => console.log(s)
 
 L('════ 批次提交就绪核验 ════')
-L('  批次：' + report.batchId + '  ·  baseRef：' + (report.baseRef ?? '(未声明)'))
-L('  manifest：' + (report.manifestPath ?? '（缺失，兼容模式）'))
+L('  批次：' + report.batchId + '  ·  级别：' + LEVEL + '（' + declarationSource + '）  ·  baseRef：' + (report.baseRef ?? '(未声明)'))
+if (LEVEL === 'M') L('  ℹ️ M 级：声明来自 commit message trailer，未使用 manifest 文件；闸门与硬不变量照旧。')
+L('  manifest：' + (declarationSource === 'commit-message'
+  ? '（M 级不使用 manifest 文件 —— 声明来源 = commit message trailer）'
+  : (report.manifestPath ?? '（缺失，兼容模式）')))
 for (const w of manifestWarnings) L('  ' + w)
 L('  写集 ' + WRITE_SET.length + ' 项 · 治理 ' + GOVERNANCE_SET.length + ' 项 · 外部声明 ' + EXTERNAL_SET.length + ' 项')
 L('  硬不变量 commitPathspec ≡ writeSet：' + ok(PATHSPEC_LEAK.length === 0) +
@@ -542,8 +628,11 @@ const ready = ancestorClean && timelineClean && deltaOk && missing.length === 0 
 report.verdict = ready ? 'READY' : 'NOT_READY'
 report.pathspecInvariant = { rule: 'commitPathspec ≡ writeSet', leak: PATHSPEC_LEAK, ok: PATHSPEC_LEAK.length === 0 }
 report.exclusionConflict = { rule: 'writeSet ∩ excludedSet = ∅', conflict: EXCLUSION_CONFLICT, ok: EXCLUSION_CONFLICT.length === 0 }
+// manifestGate：M 级以「内联声明解析成功」为准（不要求 manifest 文件）；
+// S 级要求 manifest 文件存在且可解析；兼容模式（legacy-fallback）按旧口径 BLOCK 显示。
+const declOk = declarationSource === 'commit-message' || (declarationSource === 'manifest' && !!manifest)
 report.gateSummary = {
-  manifestGate: manifestBroken.length === 0 && !!manifest ? 'PASS' : 'BLOCK',
+  manifestGate: manifestBroken.length === 0 && declOk ? 'PASS' : 'BLOCK',
   pathspecGate: PATHSPEC_LEAK.length === 0 ? 'PASS' : 'BLOCK',
   exclusionGate: EXCLUSION_CONFLICT.length === 0 ? 'PASS' : 'BLOCK',
   ancestorGate: ancestorClean ? 'PASS' : 'BLOCK',
