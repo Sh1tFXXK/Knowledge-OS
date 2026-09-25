@@ -949,6 +949,43 @@ Phase 1 的干净提交验收 = **42/42**。
    共用一个固定文件名 = 该文件永远无法归属任何批次。
 8. 新增/改名产物后**重跑核验**，确认检查 D 的「仅目录前缀排除⚠️」与「无人认领⛔」都是 0。
 
+
+### 8. 分级治理：不是每批都要建 manifest（2026-09-25 起）
+
+一刀切「每批一份 manifest」覆盖了最坏场景，也让单文件补录这类改动背上了写 JSON 的成本，
+结果是声明被事后补、甚至被绕过。改为三级：
+
+| 级别 | 触发条件（**命中任一即升到该级**） | 流程 | 产物 |
+|---|---|---|---|
+| **S**（完整 manifest） | ① 删除 > 10 节点 ② 跨会话漂移 ③ 结构重构（树/本体变动）④ writeSet 跨多类 | 完整 manifest + 就绪门全闸 | `batch-manifests/<id>.json` |
+| **M**（轻量声明） | 单文件数据改动 / 内容补录 / 标签修正 / 单卡编辑 | 备份 + verify 脚本 + **commit message 内联声明** | 无新文件 |
+| **L**（免声明） | 文档 typo / 脚本注释 / 纯 chore（不动 data、不改规范） | 直接 commit | 无 |
+
+判定口诀：**动 data ⇒ 至少 M；多文件或删除类 ⇒ S；不动 data ⇒ L。**
+⚠️ M 级开跑后若发现跨会话漂移、或改动范围扩大，**立即升为 S 级并补 manifest**。
+
+**M 级的内联声明**写在提交信息的 trailer 区（细则见 `batch-manifests/README.md` §3）：
+
+```text
+data: 单卡补录 —— xxx
+
+Batch-Id: <id>
+Batch-Level: M
+Batch-WriteSet: data/node-pool.json, scripts/apply-x.mjs
+Batch-GovernanceSet: README.md
+```
+
+字段口径与 S 级 manifest **完全一致**（`Batch-WriteSet` ≡ `writeSet`，是 `git add` 的唯一来源；
+另有 `Batch-BaseRef` / `Batch-Backup` / `Batch-ExternalSet` / `Batch-ExcludedSet`）。
+就绪门：`node scripts/verify-phase1-commit-readiness.mjs --level M [--commit-msg-file <p>]`。
+
+⛔ **「M 级跳过 manifest 检查」= 不要求 manifest 文件，不是跳过闸门。**
+Ancestor / Timeline / Delta / pathspec / exclusion / tests **六闸照跑**，
+硬不变量 `commitPathspec ≡ writeSet`、`writeSet ∩ (governanceSet ∪ declaredExternalSet ∪ excludedSet) = ∅`
+在**任何级别**都由机器断言 —— 分级减的是「写文件的成本」，不是「断言的强度」。
+
+**存量 36 份 manifest 归档保留、不迁不删**：它们是历史审计证据（含 `expectedDelta` 的 id 清单与 `testBaseline` 口径），
+结构化数据塞进 markdown 会不可解析，单文件 append 在并发会话下易冲突 —— 故维持原样。
 ## 12. 文档导入标准
 
 > 最新状态：2026-08-09
