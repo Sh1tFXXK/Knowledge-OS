@@ -6,7 +6,7 @@
   "preBatchSnapshot": "data/backups/go-keywords-split-2026-09-25T17-00-26-079Z/",
   "preBatchSnapshotNote": "apply 脚本落盘前自动拍摄的三文件快照（落盘前 == HEAD 真源，逐字节）。该目录不入库（.gitignore 覆盖 data/backups/）。verify 从此快照反推（**不 import apply**），本地可复跑。",
   "commitSubjectHint": "data: go-keywords-split — Go 域「关键字」25 词各拆为子节点（树 3240→3265 · 池 3884→3909 · 边 4174→4199 · 父卡 173→223 字）（独立验证 26/26 · UI 探针 27/27 · 回归 test 68/68）",
-  "status": "READY_TO_COMMIT",
+  "status": "COMMITTED",
   "provenance": {
     "trigger": "用户指令「关键字也一个一个拆成节点，放在父节点下面。」—— 对 Go 域「关键字」卡（tree_1787723651777_57iok2 / k_1787723651360_r3tqg7）做**拆分**，是该域结构治理三件套「拆分/删除/融合」的延续。",
     "preBatchIncident": "⛔ 落盘前盘面事故（本批最重要的一次外部干扰，单独建档）：本会话 2026-09-26 00:44 的项目日志明写「data/ 工作树干净」，而 data/tree-data.json（00:49:36）与 data/node-pool.json（00:49:37）在**其后**被一次原子写回退为「上一批拆分融合之前」的态（含 DONOR 泛型卡 k_1787731983101_tjcyzw + 树挂载 tree_1787731983672_nllsdb 回归、16 卡内容回退），data/knowledge-edges.json（00:38:39）**未同步回退** ⇒ 三文件不自洽（DONOR 无 treebind 边）。取证：a223c43 ↔ 盘面 = 池仅 2 行差、树仅 1 行差（差的是 DONOR label/title「使用参数化类型的泛型代码」→「泛型」），而 HEAD ↔ 盘面 = 池 38 增 25 删、树 8 增 1 删。既非备份还原（≠ data/backups/go-domain-restore-2026-09-26T00-35-13/ 字节）亦非任何提交态。处置：向用户报告并获裁决 ⇒ `git restore` 三文件回 HEAD，丢弃的唯一实质内容是那处 DONOR 改名（DONOR 在 HEAD 已删除、改名对象不存在 ⇒ 零实质损失）。★ 教训：多头写入下，**日志里的一句「工作树干净」不足以证明落盘时的基线**，落盘前必须重新实测三文件与 HEAD 的字节关系。",
@@ -191,7 +191,7 @@
     "go-tools-to-subtree 批仍无 manifest（其数据内容已随还原批 a223c43 落盘，脚本 scripts/go-tools-to-subtree/ 与产物 outputs/tree-violation-scan/go-tools-to-subtree-snapshot/ 未登记入库）。",
     "STATE.md 为「gone」漂移（文档收编批已删除落库），仅用于 Timeline Gate 分桶。"
   ],
-  "registeredAt": "2026-09-25T17:0xZ",
-  "commitSha": null,
-  "committedAt": null
+  "registeredAt": "2026-09-25T17:10:00Z",
+  "commitSha": "e5a8d31",
+  "committedAt": "2026-09-26T01:10:45+08:00"
 }

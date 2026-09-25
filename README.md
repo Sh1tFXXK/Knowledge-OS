@@ -1892,3 +1892,26 @@ B 类附带产物：问题库 +4 卡（762）；answerSteps 1→7；补建 4 个
 
 - 工作树残态：并发会话在飞的「代码高亮」特性（README.md · `src/panels/explanation/{MarkdownView.tsx,CodeBlock.tsx,codeHighlight.ts}` · `src/styles/main.css`）+ go-tools-to-subtree 批快照 + 本批 excludedSet 产物（`readiness-go-domain-{restore,split-fusion}.json`）。**本批完成。**
 - 登记债：① Go 域内容缺口（四张空壳卡，裁决保留）② 版本策略翻译债 ③ `delete-go.json` 补 `revertedBy` ④ go-tools-to-subtree 批补 manifest ⑤ 1644 张读态空白债（另案，不阻塞）。
+
+### 12. go-keywords-split（2026-09-26 收口）
+
+**▲ 前置事故：盘面被会话外写入回退，三文件不自洽。** 落盘前实测 `data/tree-data.json`（00:49:36）与 `data/node-pool.json`（00:49:37）被本会话之外的写入回退为「上一批拆分融合之前」的旧态（DONOR 泛型卡与其树挂载回归、16 卡内容回退），而 `data/knowledge-edges.json`（00:38:39）**未同步回退** ⇒ **DONOR 有树挂载、有池实体、无 treebind 边**，三文件互不自洽。取证：与 `a223c43` 比 = 池仅 2 行差、树仅 1 行差（差的是 DONOR 改名「使用参数化类型的泛型代码」→「泛型」）；与 HEAD 比 = 池 38 增 25 删、树 8 增 1 删。**既非备份还原（≠ `data/backups/go-domain-restore-2026-09-26T00-35-13/` 字节）亦非任何提交态。** 经用户裁决 `git restore` 三文件回 HEAD，丢弃的实质内容仅那处 DONOR 改名（该实体在 HEAD 已删除 ⇒ 零实质损失）。
+★ **教训**：多头写入下，「日志里写过工作树干净」**不能**作为落盘时基线的证据（本会话 00:44 的日志确实写着干净，5 分钟后即被改写）——落盘前必须**重新实测**三文件与 HEAD 的字节关系。
+
+**▲ 用户两项裁决**：① 25 个子节点用**裸词**命名（`break` … `go`，不加「（关键字）」限定）——已提示 Go 域根节点本体即名 `go` 仍选裸词；② 父卡正文 = **引言句 + 名单改 Markdown 列表**（保留引言行与 25 个词，只把裸名单改为 `- kw`，token 级零增删）。⚠️ 与同域先例 `go-tools-to-subtree`（父卡**清空**为纯容器，原则「同一知识不存两处」）**有意不同**：用户明确选择父卡保留名单作为枚举总览。
+
+**▲ 结构 Δ**：树 3240 → 3265（父节点 `tree_1787723651777_57iok2` children 0 → 25）· 池 3884 → 3909（25 个空壳实体 `k_go_keyword_<kw>`，**无 `rootContent` 键**）· 边 4174 → 4199（25 条 treebind）· 父卡 `k_1787723651360_r3tqg7` 正文 173 → 223 字。**零删除、零既有实体改名。** 零造数据（R-26）：Go 域内**不存在**任何逐关键字解释文本（源卡只有一份裸名单）⇒ 25 个节点一律建为空壳，不编造逐词解释。
+
+**证据链**：只读预检 → dry-run **25/25** → `--apply`（原子写 + EPERM 退化 + 自动预批备份 + 回读三文件校验）→ 独立验证 **26/26**（`scripts/verify-go-keywords-split.mjs`，**不 import apply**，由快照反推：把盘面按本批语义撤销后须与落盘前**逐字节等价** + 25 项精确形状与键序 + 五面交叉一致）→ UI 无头探针 **27/27** → 就绪门 **8/8 PASS · READY** → `npm test` 68/68 · `tsc --noEmit` 退出码 0。
+
+**⛔ 本批两条量具缺陷（均非数据缺陷；修量具后 27/27，未改任何期望值）**：
+- 「Go 子树内 name 无重名」—— 直接复用上一批判据，但在「用户裁决用裸词」的前提下**必然为假且与本批任务无关**：Go 子树内 `go` 恰 2 个（域根节点本体 `tree_1786618025853_3qn55e` + 新增关键字节点 `tree_go_keyword_go`）。修法：量具对象收窄为「本批定位实际使用的 25 键 `name→treeId` **局部**映射无重名」，并把「两个 `go`」如实登记为**已知事实**断言（预期结果，非缺陷），定位一律走 treeId。
+- 「右栏渲染 `- kw` 列表」—— 判据把 **Markdown 源文形态**当成了**渲染结果**，去 `innerText` 里找 `- ` 前缀；实测渲染为 `<ul><li>`，`innerText` 中自然无 `- `。修法：判据改打 **DOM 结构**（`.explanation-card` 内 1 个 `<ul>` 的 25 个 `<li>`，文本与顺序 === 关键字清单）。
+★ **通用教训**：「Markdown 列表」的验收必须打**渲染后的 DOM**，不可打 `innerText` 文本形态。
+
+**⛔ 本批新踩的坑：Ancestor Gate 的行尾墙（`core.autocrlf=true`）。** 首次跑门 `ancestorGate=BLOCK`，诊断写「HEAD ≠ 落盘前基线（**内容差异 0 键**）」⇒ 不是内容差异而是**行尾字节**：`git restore` 把 blob 的 LF **smudge 成 CRLF** 写进工作树，apply 的原样 `copyFileSync` 于是把 CRLF 固化为「落盘前基线」，而 HEAD blob 是 LF；`knowledge-edges` 因原本已达标未被 restore 重写而侥幸相等 ⇒ 只有 tree/pool 两个文件报 BLOCK。修法：按**真源口径**（blob = LF）把工作树与快照一并标准化为 LF（`\r\n`→`\n`；三文件孤立 CR 均为 0），复验快照 sha256 与 `git cat-file blob HEAD:` **逐字节全等**（11737321 / 1947212 / 1142162 B）后重跑 ⇒ PASS。★ **教训**：`git restore` 在本仓产出的工作树是 CRLF，与 blob 不同字节但 git 视作「干净」；任何「restore 后直接 apply」的流程都会撞这堵墙，须显式标准化为 LF（上一批的「置换工作树 → 换回」手工处理的正是同一件事）。
+
+**▲ 门的口径发现**：`testBaseline.tracked` 的语义是**测试项数（68）**而非**测试文件数（10）** —— 首版误写 10 被门拦下（`⚠️ 与 manifest 声明的 tracked=10 不符`），已按门口径更正（模板 `_template.json` 的示例值 42 亦为项数）。另门「旧值残留检测」对本批唯一 modified 实体（父卡：`label`/`tags[0]`/`card.title` 三者同为「关键字」）产出 1 项观察，检测器**不产出 action**（判定权在 ADR-0002 治理规则阶段），且门自证该形态为全省常态（`label ≠ card.title` 79 例、树 `name` ≠ 池 `label` 62 例，真正不变量 `card.nodeId` ≠ 池键 0 例）⇒ 属噪声。
+
+- 工作树残态：并发会话在飞的「代码高亮」特性（README.md · `src/panels/explanation/{MarkdownView.tsx,CodeBlock.tsx,codeHighlight.ts}` · `src/styles/main.css`）+ go-tools-to-subtree 批快照 + 本批 excludedSet 产物（`readiness-go-keywords-split.json`）。**本批完成。**
+- 登记债：① 25 个关键字节点为**空壳**（无逐词解释可迁，R-26 零造数据），若需逐词解释须引入外部语料另立批次 ② 裸词命名后坐力：`go` 与 Go 域根节点同名，`interface`/`select`/`map`/`type`/`for`/`if`/`return` 等全库广泛同名 ⇒ 任何「按文本定位节点」的探针在本域均脆弱，全库同类探针待统一加固 ③ `concurrent-writer-unresolved` **本批实测复发且更重**（回退三文件中的两个、漏掉第三个 ⇒ 不自洽）④ go-tools-to-subtree 批仍无 manifest ⑤ 1644 张读态空白债（另案，不阻塞）。
