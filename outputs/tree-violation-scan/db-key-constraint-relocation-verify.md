@@ -1,0 +1,22 @@
+# db-key-constraint-relocation · 独立验证
+
+- 生成时间：2026-09-16T15:38:48.456Z
+- 模式：**VERIFY_INDEPENDENT**（⛔ 不 import apply / plan）
+- 落盘前快照：`data/backups/db-key-constraint-relocation-2026-09-16T14-07-16-148Z`
+- 独立性：父链解析用**路径栈**（apply 用 Map 游走）· delta 口径**独立重写** · 带 **V10 量具负对照**
+- 判定：**PASS**（12/12）
+
+| 检查 | 说明 | 结果 | 读数 |
+|---|---|:--:|---|
+| `V0` | 格式复现：JSON.stringify(v,null,2)+"\n" 可字节级再生两个文件 | ✔ | tree=ok(1935616B) edges=ok(1138550B) |
+| `V1` | 容器 key_constraint 在位 · ref/名正确 · 父=chapter_db_03 · 6 孩顺序相符 · 为父末孩 | ✔ | parent=chapter_db_03 kids=6 ref=container:key_constraint |
+| `V2` | 6 项父节点现为 key_constraint · ref 相符 · demo_db.children 无残留 | ✔ | 父错 0 · 残留 0 · demo_db 子数 24（须 24） |
+| `V2b` | demo_db 子数 = 24 · chapter_db_03 子数 = 16 | ✔ | 24 / 16 |
+| `V3` | 6 条边：新 id 在位 · 旧 id 消失 · source=container:key_constraint · target/type/label/relationKind/dimensions 逐字保留 | ✔ | 6/6 ok |
+| `V4` | 边总数 4155 · 除 6 条改写外其余 4149 条逐条深比较不变（零夹带） | ✔ | cur=4155 bak=4155 rest=4149 drift=0 |
+| `V5` | data/node-pool.json 逐字节未变（本批零池写） | ✔ | 12589450B |
+| `V6` | 其余 data 文件逐字节未变（快照已收者） | ✔ | questions/evolution-events/version-chains 一致 |
+| `V7` | 负对照 6 项（主键/NULL/贮存/复制/备份/恢复）必须仍在 demo_db 名下且父链未变 | ✔ | 全部未动 |
+| `V8` | 全树：treeId 无重复 · 每节点有 nodeRef/name · 计数 = 3204 · 无孤儿 | ✔ | ids=3204 dup=false ref缺=0 name缺=0 计数=3204 |
+| `V9` | 树 delta = 仅 +1 容器 · 零自身字段改动 · 仅 demo_db/chapter_db_03 的 children 序列变化 | ✔ | add=[key_constraint] rm=0 ownChg=[] kidsChg=[demo_db,chapter_db_03] |
+| `V10` | 量具负对照：合成「改自身字段」与合成「移走一个孩子」必须都被本套判据检出 | ✔ | 基线无误报=true 自字段可检=true children可检=true 父链可检=true |

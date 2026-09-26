@@ -1,0 +1,1078 @@
+{
+  "generatedAt": "2026-09-15T16:00:15.017Z",
+  "batchId": "core-library-methods",
+  "baseRef": "c51d6b6",
+  "manifestPath": "batch-manifests/core-library-methods.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\core-library-methods-prebatch-2026-09-15",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/tree-data.json",
+    "scripts/plan-core-library-split.mjs",
+    "scripts/plan-core-library-split-2.mjs",
+    "scripts/plan-core-library-split-3.mjs",
+    "scripts/plan-core-library-rest.mjs",
+    "scripts/apply-core-library-string.mjs",
+    "scripts/apply-core-library-rest.mjs",
+    "scripts/apply-drop-commonlib-summary.mjs",
+    "scripts/verify-core-library-methods.mjs",
+    "scripts/check-supertag-counts.mjs",
+    "scripts/check-delete-commonlib-readiness.mjs",
+    "scripts/survey-commonlib-merge-candidates.mjs",
+    "scripts/shell-fusion/probe-core-library-string.mjs",
+    "scripts/shell-fusion/probe-core-library-rest.mjs",
+    "scripts/shell-fusion/probe-drop-commonlib-summary.mjs",
+    "batch-manifests/core-library-methods.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 12659052,
+        "baselineBytes": 12659052,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "8d48d4ab81e74cd077b0d4f5957a315b",
+        "md5Baseline": "8d48d4ab81e74cd077b0d4f5957a315b"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1140651,
+        "baselineBytes": 1140651,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "4f7f47f20e4cec749318e913d4734740",
+        "md5Baseline": "4f7f47f20e4cec749318e913d4734740"
+      },
+      "data/tree-data.json": {
+        "headBytes": 1938602,
+        "baselineBytes": 1938602,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "017b61fb00a2902a4f6b210eabf1ce94",
+        "md5Baseline": "017b61fb00a2902a4f6b210eabf1ce94"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/evolution-events.json",
+        "data/questions.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/tree-data.json"
+      ],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [],
+        "otherOwnBatch": [
+          "data/evolution-events.json",
+          "data/questions.json",
+          "docs/CONSTITUTION.md"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [],
+      "expectedNew": [],
+      "modified": [
+        "k_java_lang_string",
+        "k_java_util_scanner",
+        "k_java_nio_file_files",
+        "k_java_lang_enum"
+      ],
+      "expectedModified": [
+        "k_java_lang_string",
+        "k_java_util_scanner",
+        "k_java_nio_file_files",
+        "k_java_lang_enum"
+      ],
+      "unexpectedModified": [],
+      "removed": [
+        "k_vault_javajava_1b1w4s"
+      ],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "core-library-methods",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "core-library-methods",
+            "external-tag-sync",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "core-library-methods",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/时态索引-整页.png",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.html",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.md",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/evolution-v2-verification.md",
+          "by": [
+            "core-library-methods",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/apply-core-library-rest.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/apply-core-library-string.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/apply-drop-commonlib-summary.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/check-delete-commonlib-readiness.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/check-supertag-counts.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/plan-core-library-rest.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/plan-core-library-split-2.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/plan-core-library-split-3.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/plan-core-library-split.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/shell-fusion/probe-core-library-rest.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/shell-fusion/probe-core-library-string.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/shell-fusion/probe-drop-commonlib-summary.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/survey-commonlib-merge-candidates.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "scripts/verify-core-library-methods.mjs",
+          "by": [
+            "core-library-methods"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-core-library-methods.json",
+          "by": [
+            "core-library-methods"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-evolution-v2.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p1.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p2.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "core-library-methods",
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-versions-v1.json",
+          "by": [
+            "core-library-methods",
+            "versions-v1"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 8,
+        "tests": 60,
+        "pass": 60,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 62,
+      "declared": {
+        "workingTreeTotal": 62,
+        "trackedNote": "npm test 实测 62/62 全绿（本批三段落盘前与落盘后各跑一次，读数一致）。versions-v1 登记口径为 tracked 60（8 文件）+ peer 1（scripts/index-graph-layout.test.mjs，外部未跟踪）= 61；本批实测 62 —— 差额 1 项未追根因，按「不改期望值」纪律如实记录，不作为本批合格判据（判据 = pass 62 / fail 0）。",
+        "batchAddedTestFiles": [],
+        "acceptanceUses": "workingTree（pass 62 / fail 0）",
+        "tracked": 60,
+        "peerAdded": 2
+      },
+      "acceptanceUses": "workingTree（pass 62 / fail 0）",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 80,
+    "labelNeCardTitle_subset": 69,
+    "treeNameNePoolLabel": 67,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_java_lang_string",
+      "oldLabel": "java.lang.String",
+      "newLabel": "java.lang.String",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "java.lang.String",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "java.lang.String",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "java.lang.String",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_java_util_scanner",
+      "oldLabel": "java.util.Scanner",
+      "newLabel": "java.util.Scanner",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "java.util.Scanner",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "java.util.Scanner",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "java.util.Scanner",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_java_nio_file_files",
+      "oldLabel": "java.nio.file.Files",
+      "newLabel": "java.nio.file.Files",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "java.nio.file.Files",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "java.nio.file.Files",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "java.nio.file.Files",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_java_lang_enum",
+      "oldLabel": "java.lang.Enum",
+      "newLabel": "java.lang.Enum",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "java.lang.Enum",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "java.lang.Enum",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "java.lang.Enum",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

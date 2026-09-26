@@ -1,0 +1,17 @@
+「常见类」 root=0 tabs=[tab_1784939925436_cdza58:220, tab_1784939979225_gjbjms:139] 挂树=知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / java并发编程 / 常见类
+ 
+---
+「闭锁」 root=177 tabs=[] 挂树=知识宇宙 / 计算机科学 / 软件符号与工具 / 编程语言 / java / 锁 / 闭锁
+一种同步方法，可以延迟线程的进度直到线程到达某个终点状态。通俗的讲就是，一个闭锁相当于一扇大门，在大门打开之前所有线程都被阻断，一旦大门打开所有线程都将通过，但是一旦大门打开，所有线程都通过了，那么这个闭锁的状态就失效了，门的状态也就不能变了，只能是打开状态。也就是说闭锁的状态是一次性的，它确保在闭锁打开之前所有特定的活动都需要在闭锁打开之后才能完成。 
+---
+{
+ "id": "q_1784954488087_1nxeeg",
+ "text": "CyclicBarrier与CountDownLatch比较",
+ "answered": true,
+ "relatedNodeId": "k_1784939888323_m0ojte",
+ "createdAt": 1784954488087,
+ "updatedAt": 1784954497867,
+ "answer": "1）CountDownLatch:一个线程(或者多个)，等待另外N个线程完成某个事情之后才能执行；CyclicBarrier:N个线程相互等待，任何一个线程完成之前，所有的线程都必须等待。\n\n2）CountDownLatch:一次性的；CyclicBarrier:可以重复使用。\n\n3）CountDownLatch基于AQS；CyclicBarrier基于锁和Condition。本质上都是依赖于volatile和CAS实现的。",
+ "kind": "comparison",
+ "difficulty": "intermediate"
+}

@@ -1,0 +1,217 @@
+{
+  "batch": "t3-p0",
+  "title": "T3-P0 · 7 个伪语义祖先的「前置语义化」命名提案",
+  "generatedAt": "2026-09-14T18:30:00.000Z",
+  "status": "APPROVED_BY_HUMAN",
+  "adjudicatedAt": "2026-09-14T21:10:00+08:00",
+  "adjudicationSummary": "7 个名字**全部批准**（按提案原名，无一改名）；D1 选 B（带限定条件）；D2 采纳（带限定条件）。",
+  "what": "T3 的 133 项 asplit_* 里有 27 条 BLOCK（semanticAncestorGap > 3）。其中 24 条的根因不是它们自己没有语义，而是**它们的直接父节点自己还没被语义化**（父 id 形如 tree_<时间戳>_<hash>）。本批 = 只为这 7 个父节点定名。",
+  "whyIndependentBatch": "用户 2026-09-14 裁决（选 A）：这 7 个祖先必须先作为独立的『前置语义化』小批次完成 dry-run / review / apply，**不能由 T3 的子节点算法隐式把它们当成已经完成**。",
+  "scope": {
+    "inScope": "7 个非语义形态（tree_<时间戳>_<hash>）的 treeId，且它们是 27 条 BLOCK 中 24 条的最近伪语义祖先",
+    "outOfScope": [
+      "asplit_* 133 项本身（属 T3，不在本批改名）",
+      "另外 3 条 BLOCK（mysql_tool_backup / security / cluster）—— 它们的父链是 projection:* + colon 命名族（服务层 -> 结构 -> MySQL Server），不是伪语义 tree 祖先，属**另一类问题**（挂载点合法性），不在本批",
+      "其余约 1521 条非语义 treeId（含这些祖先的上级祖先、兄弟）—— 另开批次，本批不扩范围",
+      "池 id（形如 asplit_* 的池命名空间）、边 id、questions.json —— 本批一个字节都不改"
+    ],
+    "boundedPrerequisiteProof": "命名这 7 个之后，那 24 条的最近语义祖先**变成它们的父节点本身**，于是 semanticAncestorGap = 0 → 由 BLOCK 直接降为 HIGH（可自动接受）。这是有界前置，不是范围扩张。"
+  },
+  "namingRule": {
+    "form": "tree_<semantic-namespace>_<semantic-slug>",
+    "hardConstraints": [
+      "结果 id 里**不得带时间戳 / hash**（用户对 asplit_s132_base_theory 的裁决同源）",
+      "不得含 _s<N>_ 段位编号",
+      "必须与小写 a-z0-9_ 的 tree_ 形态一致",
+      "不得与既有 treeId / 池 id / 边 id 碰撞",
+      "批内不得重复"
+    ],
+    "nameSourcePriority": "宪法 v1.1：正文语义 > 既有关系（edges） > 名称 / tags > 挂载位置",
+    "namespacePolicy": "命名空间取「挂载路径上最近的**域**slug」，而不是祖先长 id 的机械拼接 —— 目的是预留后续「1521 非语义 id」批次，避免二次改名。"
+  },
+  "namespaceRegistry": [
+    {
+      "ns": "tree_java_lock_",
+      "covers": "java > 锁 子树",
+      "precedent": ["tree_java_thread_lock「synchronized 锁」", "tree_java_thread_monitor", "tree_java_thread_state_*"],
+      "mustNotConfuse": "tree_lock_*（tree_lock_taxonomy / tree_lock_by_grain …）是 **MySQL 锁分类**域，与 java 锁无关，不得复用"
+    },
+    {
+      "ns": "tree_java_jmm_",
+      "covers": "java > java并发编程 > 内存模型 子树",
+      "precedent": ["无 —— 新开 namespace"],
+      "rationale": "该子树讲的是 Java 内存模型（JMM）：主内存/本地内存/happens-before/同步/顺序一致性。用 tree_java_jmm_ 预留整支，而不是每个子节点各自拼一个长前缀。"
+    },
+    {
+      "ns": "tree_java_syntax_",
+      "covers": "java > Java syntax 子树",
+      "precedent": ["tree_java_syntax_zh_*（既有 28 条）", "tree_java_syntax_*（既有 40 条）"],
+      "note": "该容器节点本身（id = tree_1783867183132_g5tf12「Java syntax」）仍是 hash，但**其下已有大量 tree_java_syntax_* 语义命名**，说明这个 domain 已经事实存在，只是容器 id 没跟上。本批沿用既有 domain。"
+    },
+    {
+      "ns": "tree_redis_",
+      "covers": "NoSQL > Redis 子树",
+      "precedent": ["无 —— 新开 namespace（tree_concept_* 是 MySQL 域，不得复用）"],
+      "rationale": "Redis 子树下 zset / 缓存异常 / 持久化选项 等全是 hash 容器；用 tree_redis_ 预留整支。"
+    }
+  ],
+  "items": [
+    {
+      "seq": 1,
+      "oldTreeId": "tree_1786026688588_0mtvxh",
+      "oldName": "读写锁的实现分析",
+      "proposedTreeId": "tree_java_lock_rwlock_implementation",
+      "namespace": "tree_java_lock_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文（优先级 1 不适用）",
+        "edges": "出边 belongs-to -> asplit_rwlock_mechanism + asplit_rw_state_write_acquire / _write_held / _write_waiting / … （即一条读写锁状态机）；入边 belongs-to <- 父节点「读写锁」",
+        "nameTags": "name = tags = 「读写锁的实现分析」",
+        "mount": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析；兄弟「锁降级」"
+      },
+      "slugRationale": "取 name 主干 rwlock + 节点性质 implementation（=「实现分析」）。**刻意不用 mechanism**：它的子项里已有一条 asplit_rwlock_mechanism「读写锁实现机制」，两个 id 都以 mechanism 结尾会互相遮蔽。",
+      "alternatives": ["tree_java_lock_rwlock_mechanism", "tree_java_lock_readwrite_lock_impl"],
+      "childCoherenceHint": "子项名（读写锁实现机制 / 写锁申请 / 读锁等待 …）与父名共享「读写锁 / 写锁 / 读锁」词根 → 一致",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 2,
+      "oldTreeId": "tree_1786245817114_ds2keo",
+      "oldName": "RDB持久化",
+      "proposedTreeId": "tree_redis_rdb_persistence",
+      "namespace": "tree_redis_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文",
+        "edges": "出边 belongs-to -> asplit_rdb_save_cmd / asplit_rdb_state_fork / _child_write / _parent_serve / _replaced（即 RDB 落盘流程的状态机）；入边 belongs-to <- 父节点「持久化选项」",
+        "nameTags": "name = tags = 「RDB持久化」",
+        "mount": "知识宇宙 > … > NoSQL > Redis > 持久化选项 > RDB持久化；兄弟「快照持久化 / AOF持久化」"
+      },
+      "slugRationale": "name 拆为 RDB + 持久化。⚠️ **已预检到一个 id 形态问题**：子项 nodeRef 形如 asplit_rdb_save_cmd，其 slug 自带 rdb_ 前缀 → 若 T3 冻结映射表采用「父 id 全名 + slug」拼接，会得到 tree_redis_rdb_persistence_rdb_save_cmd（rdb 重复）。故本项与 alternative tree_redis_rdb 一起提交裁决（见 review 文档 §3 子项 id 形态预演）。",
+      "alternatives": ["tree_redis_rdb", "tree_redis_persistence"],
+      "childCoherenceHint": "子项名（SAVE/BGSAVE 命令到达 / fork 子进程 / 子进程写临时 RDB 文件 …）与父名无字面重叠，但语义上是 RDB 的流程状态 → 属「正文语义」层面的父子一致，非字面重叠",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 3,
+      "oldTreeId": "tree_1784367544335_zorevp",
+      "oldName": "同步",
+      "proposedTreeId": "tree_java_jmm_synchronization",
+      "namespace": "tree_java_jmm_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文",
+        "edges": "出边 belongs-to -> asplit_mutex_lock「互斥锁」 / asplit_sync_block「同步代码块」（+ ThreadLocal、两处 k_ 实体）；入边 belongs-to <- 父节点「内存模型」",
+        "nameTags": "name = tags = 「同步」",
+        "mount": "知识宇宙 > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步；兄弟 主内存 / 本地内存 / happens-before规则 / 内存间操作 / 顺序一致性 / 处理器的内存模型"
+      },
+      "slugRationale": "挂载位置（java并发编程 > 内存模型）+ 节点名「同步」→ namespace 用 tree_java_jmm_（Java Memory Model），slug 用 synchronization。**不用 tree_java_concurrency_**：父容器是「内存模型」而不是整个并发域，用 jmm 更精确，且为后续「内存模型」整支的语义化留了唯一命名空间。",
+      "alternatives": ["tree_java_concurrency_synchronization", "tree_java_jmm_sync"],
+      "childCoherenceHint": "子项「同步代码块」与父名「同步」共享词根 → 一致；「互斥锁」属 JMM 同步的实现形式，一致",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 4,
+      "oldTreeId": "tree_1783873515748_edsjp0",
+      "oldName": "Java泛型",
+      "proposedTreeId": "tree_java_syntax_generics",
+      "namespace": "tree_java_syntax_",
+      "evidencedBy": {
+        "body": "「泛型编程（泛型），或参数化类型，或参数多态性，是 J2SE 5.0 中引入的主要特性之一 …… 泛型的主要目的是确保类型安全 …… 类型擦除」—— **有正文**（优先级 1 命中）",
+        "edges": "出边 belongs-to -> asplit_generic_method / asplit_generic_constructor（+ 2 个 k_ 实体）；入边 belongs-to <- 父节点「引用类型」",
+        "nameTags": "name = 「Java泛型」；tags = [Java泛型, 泛型, Java面试突击]",
+        "mount": "知识宇宙 > … > java > Java syntax > 数据类型 > 引用类型 > Java泛型；兄弟 数组 / Java类 / 接口"
+      },
+      "slugRationale": "7 个里**唯一有正文**的节点，正文把语义锚定在「泛型 / 参数化类型 / 类型擦除」→ slug = generics。namespace 取挂载路径上的 Java syntax 域（既有 tree_java_syntax_* 40 条 + tree_java_syntax_zh_* 28 条先例）。",
+      "alternatives": ["tree_java_syntax_generic", "tree_java_generics"],
+      "childCoherenceHint": "子项「泛型方法 / 泛型构造函数」与父名共享「泛型」词根 → 一致",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 5,
+      "oldTreeId": "tree_1786235757428_osu8oj",
+      "oldName": "zset",
+      "proposedTreeId": "tree_redis_zset",
+      "namespace": "tree_redis_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文",
+        "edges": "出边 belongs-to -> asplit_zrank / asplit_zrange（Redis ZSET 的两个命令）；入边 belongs-to <- 父节点「数据类型」",
+        "nameTags": "name = tags = 「zset」",
+        "mount": "知识宇宙 > … > NoSQL > Redis > 数据类型 > zset；兄弟 String / Hash / List / Set"
+      },
+      "slugRationale": "name 即 slug。namespace 取 tree_redis_。与兄弟（String/Hash/List/Set）并列时形成 tree_redis_string / tree_redis_hash / tree_redis_list / tree_redis_set 的整齐序列 —— 这也让后续 1521 批次能无缝续接，不需二次改名。",
+      "alternatives": ["tree_redis_data_type_zset", "tree_redis_datatype_zset"],
+      "childCoherenceHint": "子项「ZRANK / ZRANGE」是 zset 的命令，语义一致（字面不重叠属正常）",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 6,
+      "oldTreeId": "tree_1786340438649_tbr6gs",
+      "oldName": "缓存异常",
+      "proposedTreeId": "tree_redis_cache_anomaly",
+      "namespace": "tree_redis_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文",
+        "edges": "出边 belongs-to -> k_1786340456749_kkjwb4 等 5 个 k_ 实体（其子项 asplit_hot_data/asplit_cold_data 由**池 ref** 指向）；入边 belongs-to <- demo_redis",
+        "nameTags": "name = tags = 「缓存异常」",
+        "mount": "知识宇宙 > … > NoSQL > Redis > 缓存异常；兄弟 数据结构 / 数据类型 / 持久化选项 / …（直接挂在 Redis 下）"
+      },
+      "slugRationale": "name 拆为 缓存 + 异常 → cache_anomaly。",
+      "alternatives": ["tree_redis_cache_exception", "tree_redis_cache_failure"],
+      "childCoherenceHint": "⚠️ **需人工看一眼**：子项是「热点数据 / 冷数据」，而节点名是「缓存异常」。热/冷数据本身不是异常，更像缓存失效/击穿的前置概念。本批**只负责给父节点定名**，子项归属是否错挂属**结构批次**（OOP/CS/DB/虚拟化结构批次）的问题，记入待办，不在本批处理。",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    },
+    {
+      "seq": 7,
+      "oldTreeId": "tree_1785862113590_a5v1ya",
+      "oldName": "顺序一致性",
+      "proposedTreeId": "tree_java_jmm_sequential_consistency",
+      "namespace": "tree_java_jmm_",
+      "evidencedBy": {
+        "body": "card.tabs 为空 —— 无正文",
+        "edges": "出边 belongs-to -> asplit_data_race「数据竞争」；入边 belongs-to <- 「内存模型」，另有 `违反` <- asplit_data_race（**唯一一条语义动词边**：数据竞争「违反」顺序一致性）",
+        "nameTags": "name = tags = 「顺序一致性」",
+        "mount": "知识宇宙 > … > java > java并发编程 > 内存模型 > 顺序一致性；与「同步」同父（内存模型）"
+      },
+      "slugRationale": "name 直译 sequential_consistency（并发理论标准译法）。与 #3 共用 tree_java_jmm_ namespace。",
+      "alternatives": ["tree_java_jmm_order_consistency", "tree_java_concurrency_sequential_consistency"],
+      "childCoherenceHint": "子项「数据竞争」与父名无字面重叠，但入边里有一条 `违反` 边（数据竞争违反顺序一致性）→ 语义关系明确，id 形态整洁",
+      "adjudication": "✅ 通过（2026-09-14 用户裁决：7 个祖先全部批准，按提案原名不改）"
+    }
+  ],
+  "openDecisions": [
+    {
+      "id": "D1",
+      "status": "DECIDED",
+      "decidedAt": "2026-09-14T21:10:00+08:00",
+      "verdict": "选 B",
+      "userWording": "选 B：semantic namespace + child slug，但只有结构容器末段属于纯容器语义时才去掉。",
+      "operationalization": {
+        "formula": "childTreeId = namespace(parent) + '_' + childSlug",
+        "namespaceRule": "namespace(parent) = parent.treeId 去掉末段，**当且仅当**该末段属「纯结构容器」词；否则保留父 id 全名。",
+        "pureContainerSegments": "(待确认词表) data_type / datatype / options / classification / taxonomy / category / subtypes / overview / summary / misc",
+        "appliedToThisBatch": "本批 7 个父节点的末段 —— implementation / persistence / synchronization / generics / zset / cache_anomaly / sequential_consistency —— **均属内容语义，不属纯容器** → 不剥离 → 24 个 gap=0 子项的形态落在 review §3 表的「选项 A」列（父全名 + slug）。",
+        "ambiguityFlag": "⚠️ 本条操作化是我对裁决原文的读法。若你的原意是「一律剥离父末段」（即 review §3 表的「选项 B」列），结论相反。两种读法**对本批 7 个祖先 id 毫无影响**（P0 只改祖先 id，不改子项 id），但会决定 T3 那 133 条里 gap=0 子项的最终 id。**T3 冻结映射表前必须以实际形态复核一次。**"
+      },
+      "optionA": "父 id 全名 + slug（层级拼接）→ 如 tree_java_lock_rwlock_implementation_rw_state_write_acquire",
+      "optionB": "父 id 去掉末段 + slug → 如 tree_java_lock_rwlock_rw_state_write_acquire",
+      "downstream": "T3 冻结映射表的拼接策略按上式实现；review §3 的子项 id 形态预演表即其逐条结果。"
+    },
+    {
+      "id": "D2",
+      "status": "DECIDED",
+      "decidedAt": "2026-09-14T21:10:00+08:00",
+      "verdict": "采纳",
+      "userWording": "采用 tree_<domain>_<semantic-slug> 作为统一 treeId 命名规范。",
+      "hardLimit": "**domain 只是 ID namespace，不是 ontology 判定。**",
+      "implications": [
+        "本批 4 组命名空间（tree_java_lock_ / tree_java_jmm_ / tree_java_syntax_ / tree_redis_）即为后续「1521 非语义 id」批次的统一规范 → 同一域内不再二次改名。",
+        "⛔ 禁止以 id 前缀推断本体归属：不得因为 id 形如 tree_redis_zset 就断言该节点 ontology 上属于 Redis 域。id 是命名空间，不是语义证明。",
+        "与宪法 §3.1「挂载位置不是身份证据」同源，并与 ADR-0002 身份与观察纪律一致 —— 前缀是**观察**，不是**身份**。",
+        "推论：跨域同名概念（如 java 锁 vs MySQL 锁）必须靠 domain 段区分，**不得**靠「谁更像本体」来判 —— 这正是 namespaceRegistry 里 `tree_java_lock_` 必须与 `tree_lock_*`(MySQL) 分开的原因。"
+      ]
+    }
+  ],
+  "downstreamGate": {
+    "note": "D1/D2 已裁定，解除「T3 不得冻结映射表」的封锁；但 D1 的操作化读法须在冻结前用实际 id 形态复核一次（见 D1.operationalization.ambiguityFlag）。",
+    "appliesNow": false,
+    "appliesTo": "T3 冻结映射表（133/133）"
+  }
+}

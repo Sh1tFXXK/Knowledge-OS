@@ -23,7 +23,7 @@ export interface GraphEdge {
   label: string;
 }
 
-export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags' | 'timeline';
+export type AppView = 'universe' | 'index' | 'mechanism' | 'database' | 'questions' | 'supertags';
 
 /** 挂在目录引用上的路径特化补充（如 MySQL / PostgreSQL 方言差异） */
 export interface TreeRefSupplement {
@@ -55,19 +55,6 @@ export enum KnowledgeNodeKind {
   Rule = 'rule',
   Mechanism = 'mechanism',
   Evidence = 'evidence',
-}
-
-export interface KnowledgeSourceSpan {
-  startLine: number;
-  endLine: number;
-}
-
-export interface KnowledgeProvenance {
-  sourceId: string;
-  sourceKind: string;
-  sourceTitle: string;
-  spanBasis?: 'normalized-markdown-body';
-  sourceSpans: KnowledgeSourceSpan[];
 }
 
 export type AtomAttrValue = string | number;
@@ -154,7 +141,6 @@ export interface KnowledgeNode {
   /** Source-independent semantic identity proposed by an importer. */
   canonicalKey?: string;
   aliases?: string[];
-  provenance?: KnowledgeProvenance[];
   mechanismSpec?: MechanismSpec;
   shared?: boolean;
   locked?: boolean;
@@ -185,7 +171,6 @@ export interface KnowledgeEdge {
   label: string;
   dimensions?: string[];
   relationKind?: KnowledgeRelationKind;
-  provenance?: KnowledgeProvenance[];
 }
 
 export interface MechanismSpec {
@@ -317,7 +302,7 @@ export enum ExplanationSelectionKind {
   Path = 'path',
 }
 
-export interface ExplanationRootSelection {
+interface ExplanationRootSelection {
   kind: ExplanationSelectionKind.Root;
   nodeId: string;
 }
@@ -329,7 +314,7 @@ export interface ExplanationContentSelection {
   pageId: string | null;
 }
 
-export interface ExplanationPathSelection {
+interface ExplanationPathSelection {
   kind: ExplanationSelectionKind.Path;
   nodeId: string;
   treeNodeId: string;
@@ -347,17 +332,24 @@ export interface NodeExplanation {
   rootContent?: string;
   rootTable?: ExplanationTable;
   tabs: ExplanationTab[];
-  /** Legacy storage for definition child pages; new pages live on their parent tab. */
-  definitionPages?: ExplanationPage[];
   notes?: string;
 }
 
 export interface QuestionAnswerStep {
+  /** 引用的知识节点 ID */
   nodeId: string;
+  /**
+   * 可选「结构定位」：只取该节点 viewDimensions 里某个维度下的某个 section。
+   * 两个都是**稳定 ID**（ViewDimension.id / ViewSection.id），不是数组下标，
+   * 所以结构增删 section 不会把已有的答案步骤指到别处去。
+   * 缺省时退化为"引用整个节点的第一个 tab 正文"。
+   */
+  dimensionId?: string;
+  sectionId?: string;
   note?: string;
 }
 
-export enum QuestionKind {
+enum QuestionKind {
   Definition = 'definition',
   Mechanism = 'mechanism',
   Comparison = 'comparison',
@@ -366,18 +358,18 @@ export enum QuestionKind {
   Recall = 'recall',
 }
 
-export enum QuestionDifficulty {
+enum QuestionDifficulty {
   Basic = 'basic',
   Intermediate = 'intermediate',
   Advanced = 'advanced',
 }
 
-export enum QuestionSourceKind {
+enum QuestionSourceKind {
   Document = 'document',
   Web = 'web',
 }
 
-export interface QuestionSource {
+interface QuestionSource {
   kind: QuestionSourceKind;
   /** 稳定来源标识：文档内容哈希或网页 URL。 */
   sourceId: string;

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge-OS 全景图 · 数据模型 / 派生管线 / 视图单元</title>
+<style>
+  :root{
+    --bg:#0a0a12; --bg2:#0f0f1a; --card:#15151f; --card2:#1b1b28;
+    --line:rgba(148,163,184,.16); --line2:rgba(148,163,184,.3);
+    --tx:#e8ecf4; --tx2:#a4aab6; --tx3:#767d8a;
+    --purple:#8b5cf6; --cyan:#06b6d4; --green:#10b981; --amber:#f59e0b; --blue:#60a5fa; --red:#ef4444;
+    --mono:ui-monospace,SFMono-Regular,"JetBrains Mono",Consolas,"Courier New",monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--tx);font-family:var(--sans);font-size:14px;line-height:1.6}
+  a{color:var(--cyan);text-decoration:none}
+  code,.mono{font-family:var(--mono);font-size:12.5px}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+
+  nav{position:sticky;top:0;z-index:20;background:rgba(10,10,18,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .inner{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  nav .brand{font-weight:500;letter-spacing:.02em;margin-right:6px}
+  nav .brand em{font-style:normal;color:var(--purple)}
+  nav a.chip{padding:3px 10px;border:1px solid var(--line);border-radius:999px;color:var(--tx2);font-size:12.5px}
+  nav a.chip:hover{border-color:var(--line2);color:var(--tx);background:var(--card2)}
+  nav .snap{margin-left:auto;color:var(--tx3);font-family:var(--mono);font-size:11.5px}
+
+  header.hero{padding:34px 0 18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+  h1{margin:0 0 6px;font-size:26px;font-weight:500;letter-spacing:.01em}
+  h1 small{font-size:14px;color:var(--tx3);font-weight:400;margin-left:8px}
+  .lede{color:var(--tx2);max-width:760px;margin:0}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:20px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px}
+  .kpi b{display:block;font-family:var(--mono);font-size:20px;font-weight:500;line-height:1.25}
+  .kpi span{color:var(--tx3);font-size:11.5px}
+
+  section{margin:0 0 40px;scroll-margin-top:64px}
+  h2{font-size:18px;font-weight:500;margin:0 0 4px;display:flex;align-items:center;gap:9px}
+  h2 .no{font-family:var(--mono);font-size:12px;color:var(--purple);border:1px solid rgba(139,92,246,.4);border-radius:4px;padding:1px 6px}
+  h2+ .sub{color:var(--tx3);font-size:12.5px;margin:0 0 16px}
+  h3{font-size:14px;font-weight:500;margin:22px 0 8px;color:var(--tx)}
+  h3 .path{font-family:var(--mono);font-size:12px;color:var(--tx3);font-weight:400}
+
+  .grid{display:grid;gap:12px}
+  .g2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+  .g3{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:13px 14px}
+  .card.p{border-left:2px solid var(--purple)}
+  .card.c{border-left:2px solid var(--cyan)}
+  .card.g{border-left:2px solid var(--green)}
+  .card.a{border-left:2px solid var(--amber)}
+  .card.b{border-left:2px solid var(--blue)}
+  .card h4{margin:0 0 6px;font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .card h4 .file{font-family:var(--mono);font-size:12px;color:var(--cyan);font-weight:400}
+  .card .meta{color:var(--tx3);font-size:11.5px;font-family:var(--mono)}
+  .card p{margin:6px 0 0;color:var(--tx2);font-size:12.5px}
+  ul.tight{margin:6px 0 0;padding-left:16px;color:var(--tx2);font-size:12.5px}
+  ul.tight li{margin:2px 0}
+  ul.tight code{color:var(--tx)}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--tx3);font-weight:500;font-size:11.5px;white-space:nowrap}
+  td.mono,td .mono{font-family:var(--mono)}
+  tbody tr:hover{background:rgba(139,92,246,.05)}
+  .num{font-family:var(--mono);text-align:right;white-space:nowrap}
+
+  .tag{display:inline-block;padding:1px 6px;border-radius:4px;font-size:11px;font-family:var(--mono);border:1px solid}
+  .t-src{border-color:rgba(6,182,212,.4);color:var(--cyan);background:rgba(6,182,212,.07)}
+  .t-logic{border-color:rgba(139,92,246,.4);color:#c4b5fd;background:rgba(139,92,246,.08)}
+  .t-view{border-color:rgba(16,185,129,.4);color:#6ee7b7;background:rgba(16,185,129,.07)}
+  .t-gov{border-color:rgba(245,158,11,.4);color:#fcd34d;background:rgba(245,158,11,.07)}
+  .t-dim{border-color:rgba(148,163,184,.32);color:var(--tx3);background:rgba(148,163,184,.05)}
+
+  .pipe{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;overflow:hidden;background:var(--bg2)}
+  .pipe>.head{padding:9px 13px;background:linear-gradient(180deg,rgba(139,92,246,.10),rgba(139,92,246,.02));border-bottom:1px solid var(--line);display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+  .pipe>.head b{font-weight:500;font-size:13.5px}
+  .pipe>.body{padding:11px 13px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px}
+  .step{border:1px solid var(--line);border-radius:6px;padding:5px 9px;background:var(--card);font-family:var(--mono);font-size:12px;color:var(--tx2)}
+  .step.src{border-color:rgba(6,182,212,.35);color:#a5f3fc}
+  .step.view{border-color:rgba(16,185,129,.35);color:#a7f3d0}
+  .arrow{color:var(--tx3);font-family:var(--mono);font-size:12px}
+  .pipe>.foot{padding:0 13px 10px;color:var(--tx3);font-size:12px}
+  .pipe>.foot em{font-style:normal;color:var(--tx2)}
+
+  .mock{border:1px solid var(--line2);border-radius:10px;overflow:hidden;background:#0d0d15}
+  .mock .mrow{display:grid;grid-template-columns:1.05fr 2.1fr 1.35fr;min-height:210px}
+  .mock .mcell{border-right:1px solid var(--line);padding:10px 11px}
+  .mock .mcell:last-child{border-right:0}
+  .mock .mtop{background:var(--card2);border-bottom:1px solid var(--line);padding:8px 11px;font-size:12.5px;color:var(--tx2);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .mock .mcell>b{display:block;font-size:12.5px;font-weight:500;margin-bottom:7px;color:var(--tx)}
+  .mock .mcell .item{font-family:var(--mono);font-size:11.5px;color:var(--tx2);padding:3px 0;border-bottom:1px dashed rgba(148,163,184,.13)}
+  .mock .mcell .item:last-child{border-bottom:0}
+  .mock .mcell .item em{font-style:normal;color:var(--tx3)}
+  .mock .mbar{border-top:1px solid var(--line);background:var(--card2);padding:6px 11px;font-size:11.5px;color:var(--tx3);display:flex;gap:14px;flex-wrap:wrap}
+
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx3);margin:10px 0 0}
+  .legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:middle}
+  footer{border-top:1px solid var(--line);padding-top:16px;color:var(--tx3);font-size:12px}
+  .warn{color:#fcd34d}
+  svg text{font-family:var(--sans)}
+  svg .mono{font-family:var(--mono)}
+</style>
+</head>
+<body>
+
+<nav><div class="inner">
+  <span class="brand">Knowledge-OS <em>全景图</em></span>
+  <a class="chip" href="#skeleton">应用骨架</a>
+  <a class="chip" href="#data">数据模型</a>
+  <a class="chip" href="#pipeline">派生管线</a>
+  <a class="chip" href="#views">视图单元</a>
+  <a class="chip" href="#code">代码结构</a>
+  <a class="chip" href="#gov">治理层</a>
+  <span class="snap">快照 2026-09-15 · HEAD 8cd8b79</span>
+</div></nav>
+
+<div class="wrap">
+
+<header class="hero">
+  <h1>知识宇宙 <small>单页知识库：目录树 + 本体池 + 关系边 → 多投影视图</small></h1>
+  <p class="lede">6 个真源 JSON 是唯一事实源；<code>src/knowledge</code>（30 个纯逻辑模块）把真源投影成派生模型；<code>src/core</code> / <code>components</code> / <code>panels</code> 消费派生模型渲染成 6 个主视图。UI 层不直接读 JSON 文件——除 <code>VersionChainRail</code> 一个例外。</p>
+  <div class="kpis">
+    <div class="kpi"><b>6</b><span>数据真源</span></div>
+    <div class="kpi"><b>3 858</b><span>池实体（本体节点）</span></div>
+    <div class="kpi"><b>3 215</b><span>宇宙树节点</span></div>
+    <div class="kpi"><b>4 163</b><span>关系边</span></div>
+    <div class="kpi"><b>783</b><span>问题（763 已答）</span></div>
+    <div class="kpi"><b>104</b><span>源文件（94 码 + 10 css）</span></div>
+  </div>
+</header>
+
+<!-- ═══════════════ 1 应用骨架 ═══════════════ -->
+<section id="skeleton">
+  <h2><span class="no">01</span>应用骨架：四区栅格 + 视图切换</h2>
+  <p class="sub">入口 <span class="mono">src/App.tsx</span>（267 行）。顶栏切视图，左栏树与右栏解释卡<strong>常驻</strong>，中栏是唯一随视图切换的区域，非默认视图走 <code>lazy()</code> 按需加载。</p>
+
+  <div class="mock">
+    <div class="mtop">
+      <strong>header</strong> · TopBar —— 视图切换 6 项：视图 / 时态索引 / 机制 / 节点库 / 问题库 / Tag库
+      <span class="tag t-dim">+ LinkImportDialog</span><span class="tag t-dim">+ DocumentImportDialog</span>
+    </div>
+    <div class="mrow">
+      <div class="mcell">
+        <b>左栏 · UniverseTree</b>
+        <div class="item">宇宙树 3 215 节点 / 13 层</div>
+        <div class="item">可折叠（42px）· 可拖宽 180–560</div>
+        <div class="item">虚拟渲染 useProgressiveRender</div>
+        <div class="item">选中 → selectTreeEntry</div>
+        <div class="item"><em>挂载导入对话框与问题角标</em></div>
+      </div>
+      <div class="mcell">
+        <b>中栏 · center-view（唯一切换区）</b>
+        <div class="item"><em>universe</em> → FocusStage</div>
+        <div class="item"><em>index</em> → TemporalIndexWorkspace</div>
+        <div class="item"><em>mechanism</em> → MechanismLensPanel</div>
+        <div class="item"><em>database</em> → NodeDatabase</div>
+        <div class="item"><em>questions</em> → QuestionDatabase</div>
+        <div class="item"><em>supertags</em> → SupertagLibrary</div>
+      </div>
+      <div class="mcell">
+        <b>右栏 · RightSidePanel</b>
+        <div class="item">① ExplanationCard 解释卡 <em>含 编辑/预览 切换</em></div>
+        <div class="item">② 问题区 .right-section <em>❓问题 + 计数</em></div>
+        <div class="item">　└ .right-question-card ×N <em>可拖拽</em></div>
+        <div class="item">③ SystemConnectionMap 关系网</div>
+        <div class="item"><em>宽 280–1200，可拖 · 错误边界按焦点节点重挂载</em></div>
+      </div>
+    </div>
+    <div class="mbar">
+      <span>DataLoadBanner · 装载报告（缺失/失败/警告）</span>
+      <span>ErrorBoundary · 按视图 key 重挂载</span>
+      <span>Suspense · 懒加载占位</span>
+      <span>Toast 通知层 · notifications</span>
+      <span>★ 跨区拖拽：把右栏问题卡拖到左树节点 = 转移问题归属（<code>QUESTION_DRAG_TYPE</code>）</span>
+    </div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--purple)"></i>常驻区域</span>
+    <span><i style="background:var(--green)"></i>视图切换区</span>
+    <span><i style="background:var(--amber)"></i>全局覆盖层</span>
+  </div>
+</section>
+
+<!-- ═══════════════ 2 数据模型 ═══════════════ -->
+<section id="data">
+  <h2><span class="no">02</span>数据模型：6 个真源与引用关系</h2>
+  <p class="sub">全部落在 <span class="mono">data/*.json</span>。前后端都按同一份白名单走：<span class="mono">vite.config.js</span> 的 <code>DATA_FILES</code> + <code>DATA_PAYLOAD_VALIDATORS</code>，<code>/api/data</code> 只放行这 6 个文件（未登记实测 403）。</p>
+
+  <svg viewBox="0 0 900 390" width="100%" role="img" aria-label="六个真源之间的引用关系">
+    <defs>
+      <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="#8892a4" stroke-width="1.4" stroke-linecap="round"/>
+      </marker>
+    </defs>
+    <rect x="40" y="40" width="220" height="76" rx="8" fill="#101a24" stroke="#0e7490" stroke-width="1"/>
+    <text x="150" y="66" fill="#a5f3fc" font-size="13.5" text-anchor="middle" class="mono">tree-data.json</text>
+    <text x="150" y="86" fill="#7c8798" font-size="12" text-anchor="middle">宇宙树 · 3 215 节点 / 13 层</text>
+    <text x="150" y="103" fill="#7c8798" font-size="12" text-anchor="middle">{ id, name, count, nodeRef, children }</text>
+
+    <rect x="340" y="150" width="220" height="90" rx="8" fill="#1b1526" stroke="#7c3aed" stroke-width="1.4"/>
+    <text x="450" y="180" fill="#ddd6fe" font-size="14" text-anchor="middle" class="mono">node-pool.json</text>
+    <text x="450" y="200" fill="#9d94b8" font-size="12" text-anchor="middle">本体池 · 3 858 实体</text>
+    <text x="450" y="218" fill="#9d94b8" font-size="12" text-anchor="middle">12.7 MB · 20 字段 · 全部带 tags</text>
+    <text x="450" y="234" fill="#6b6480" font-size="11.5" text-anchor="middle">Record&lt;id, KnowledgeNode&gt;</text>
+
+    <rect x="640" y="40" width="220" height="76" rx="8" fill="#101a24" stroke="#0e7490" stroke-width="1"/>
+    <text x="750" y="66" fill="#a5f3fc" font-size="13.5" text-anchor="middle" class="mono">knowledge-edges.json</text>
+    <text x="750" y="86" fill="#7c8798" font-size="12" text-anchor="middle">关系边 · 4 163 条 / 55 种 type</text>
+    <text x="750" y="103" fill="#7c8798" font-size="12" text-anchor="middle">{ source, target, type, relationKind }</text>
+
+    <rect x="40" y="258" width="220" height="76" rx="8" fill="#101a24" stroke="#0e7490" stroke-width="1"/>
+    <text x="150" y="284" fill="#a5f3fc" font-size="13.5" text-anchor="middle" class="mono">questions.json</text>
+    <text x="150" y="304" fill="#7c8798" font-size="12" text-anchor="middle">问题库 · 783 题 / 763 已答</text>
+    <text x="150" y="321" fill="#7c8798" font-size="12" text-anchor="middle">{ kind, difficulty, answer, relatedNodeId }</text>
+
+    <rect x="340" y="300" width="220" height="66" rx="8" fill="#101a24" stroke="#0e7490" stroke-width="1"/>
+    <text x="450" y="326" fill="#a5f3fc" font-size="13.5" text-anchor="middle" class="mono">evolution-events.json</text>
+    <text x="450" y="346" fill="#7c8798" font-size="12" text-anchor="middle">演化事件 · 2 条（release）</text>
+    <text x="450" y="362" fill="#7c8798" font-size="11.5" text-anchor="middle">append-only · 6 类 type 联合</text>
+
+    <rect x="640" y="258" width="220" height="76" rx="8" fill="#101a24" stroke="#0e7490" stroke-width="1"/>
+    <text x="750" y="284" fill="#a5f3fc" font-size="13.5" text-anchor="middle" class="mono">version-chains.json</text>
+    <text x="750" y="304" fill="#7c8798" font-size="12" text-anchor="middle">版本链 · 2 链 / 6 版本</text>
+    <text x="750" y="321" fill="#7c8798" font-size="12" text-anchor="middle">{ entityId, versions[{ previous }] }</text>
+
+    <path d="M260 78 L338 168" fill="none" stroke="#8892a4" stroke-width="1" marker-end="url(#ar)"/>
+    <text x="292" y="118" fill="#8892a4" font-size="11.5" class="mono">nodeRef</text>
+    <path d="M640 78 L562 168" fill="none" stroke="#8892a4" stroke-width="1" marker-end="url(#ar)"/>
+    <text x="596" y="118" fill="#8892a4" font-size="11.5" class="mono">source / target</text>
+    <path d="M260 296 L338 240" fill="none" stroke="#8892a4" stroke-width="1" marker-end="url(#ar)"/>
+    <text x="292" y="278" fill="#8892a4" font-size="11.5" class="mono">relatedNodeId</text>
+    <path d="M450 240 L450 300" fill="none" stroke="#8892a4" stroke-width="1" marker-end="url(#ar)"/>
+    <text x="458" y="276" fill="#8892a4" font-size="11.5" class="mono">scopeRootId</text>
+    <path d="M560 220 L640 272" fill="none" stroke="#8892a4" stroke-width="1" marker-end="url(#ar)"/>
+    <text x="588" y="252" fill="#8892a4" font-size="11.5" class="mono">entityId</text>
+  </svg>
+
+  <h3>字段级 schema（实测同名键并集）</h3>
+  <div class="grid g2">
+    <div class="card p">
+      <h4>KnowledgeNode <span class="file">node-pool 值</span></h4>
+      <p class="meta">20 个键并集 · 实体总数 3 858</p>
+      <ul class="tight">
+        <li><code>id</code> <code>label</code> <code>role?</code> <code>tags?</code> <code>aliases?</code> — 身份与标签（<strong>100% 带 tags</strong>）</li>
+        <li><code>card: { nodeId, title, rootContent, rootTable?, tabs[] }</code> — 解释卡正文；tab 键并集 <code>{id,label,content,tags,pages,tabs,weight}</code>（可递归嵌套）</li>
+        <li><code>dimensions?</code> — 分类维度（1 248 条有值）；<code>viewDimensions?</code> — 视图维度快照</li>
+        <li><code>mechanismSpec?</code> — 机制视图的参与方声明（机制投影的输入）</li>
+        <li><code>relationIndex?</code> <code>projection?</code> <code>parentId?</code> — 派生/挂载索引</li>
+        <li><code>locked?</code> <code>shared?</code> <code>status?</code> — 治理标记</li>
+        <li><code>redirectTo?</code> <code>canonicalNodeId?</code> <code>canonicalKey?</code> <code>kind?</code> <code>layoutHint?</code></li>
+      </ul>
+      <p><span class="warn">role 分布</span>：无 2 104 · plain 1 012 · subsystem 271 · concept 147 · mechanism 106 · reference 81 · conclusion 77 · axiom 35 · group 25</p>
+    </div>
+    <div class="card c">
+      <h4>TreeNode <span class="file">tree-data 递归</span></h4>
+      <p class="meta">{ id, name, count, nodeRef, children[] }</p>
+      <ul class="tight">
+        <li>3 215 节点，<strong>每一个都带 nodeRef（3 215 / 3 215）</strong></li>
+        <li>★ 解析债另计：全库 treebind 存量 2 665 条中有 18 条无法解析（父 treeId 含冒号），<code>treeBinding.ts</code> 与 <code>shell-fusion/lib.mjs</code> 两处运行时 <code>split(':')</code> 仍是错的，新写解析须用 <code>splitTreebind(id, knownIds)</code></li>
+        <li>最大深度 13；主体集中在第 6–10 层（507 / 782 / 469 / 368 / 401）</li>
+        <li>根 = <code>universe</code>「知识宇宙」；第 1 层 3 个，第 2 层 26 个</li>
+      </ul>
+      <h4 style="margin-top:14px">KnowledgeEdge <span class="file">edges 数组</span></h4>
+      <p class="meta">{ id, source, target, type, label, dimensions?, relationKind? }</p>
+      <ul class="tight">
+        <li>4 163 条；两端都在池内 4 134（29 条指向池外）</li>
+        <li>主关系 <code>belongs-to</code> 3 110（归属/包含）；其余 53 种为长尾语义（extends 258 · implements 243 · instance-of 253 · transitions-to 96 …）</li>
+        <li><strong>索引图只画 6 类</strong>（继承 / 实现 / 依赖 / 关联 / 包含（矩阵）/ 投影）；<code>requires</code> 属边表但不入图</li>
+      </ul>
+    </div>
+    <div class="card g">
+      <h4>Question <span class="file">questions 数组</span></h4>
+      <p class="meta">783 条 · 已答 763（97.4%）</p>
+      <ul class="tight">
+        <li>键并集：<code>id text answered kind? difficulty? answer? answerSteps? relatedNodeId? source? createdAt? updatedAt?</code></li>
+        <li>kind 分布：recall 321 · comparison 136 · application 136 · mechanism 84 · definition 64 · 无 25 · troubleshooting 14 · design 3</li>
+        <li>消费三处：① 右栏问题区（焦点节点的问题卡，<code>questionsForNode</code>）② 问题库视图（<code>.question-card</code> + <code>QuestionAnswerEditor</code>）③ 左树角标</li>
+        <li>归属可拖拽改写：<code>QUESTION_DRAG_TYPE</code> → <code>handleQuestionDropOnTree</code> → <code>moveQuestionToNode</code>，落到非树区走兜底提示</li>
+      </ul>
+    </div>
+    <div class="card a">
+      <h4>KnowledgeEvolutionEvent <span class="file">evolution-events 数组</span></h4>
+      <p class="meta">2 条 · 全部 <code>type: "release"</code> · append-only 事实源</p>
+      <ul class="tight">
+        <li>键：<code>id type scopeRootId occurredAt title summary sourceOnlyNodeIds[] introducedNodes[] changes[]</code></li>
+        <li><code>type</code> 是 6 值联合（release / introduce / deprecate / replace / split / merge），<strong>必填</strong>；非法规格被 normalize 严格丢弃</li>
+        <li>运行时只读：UI 只画事件，不写事件</li>
+      </ul>
+      <h4 style="margin-top:14px">VersionChain <span class="file">version-chains 数组</span></h4>
+      <p class="meta">{ entityId, versions[{ id, label, releasedAt, eolAt, previous, tags?, changes? }] }</p>
+      <ul class="tight">
+        <li>2 链 6 版本；锚 <code>k_java_fw_spring</code>、<code>k_1782746457581_30q8ao</code></li>
+        <li>版本 = 状态（名词）≠ 事件（动词）；<code>previous</code> 单指针成链</li>
+        <li>跨实体依赖走边表 <code>type:"requires"</code>（2 条），<strong>不存进 VersionNode</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ 3 派生管线 ═══════════════ -->
+<section id="pipeline">
+  <h2><span class="no">03</span>派生管线：真源 → 纯逻辑 → 视图</h2>
+  <p class="sub">所有投影都在 <span class="mono">src/knowledge</span>（30 模块·纯函数，单测只覆盖这一层）与 <span class="mono">src/mechanism</span>（6 模块）里算完，视图层只负责渲染。</p>
+
+  <div class="pipe">
+    <div class="head"><b>① 索引 / 类图管线</b><span class="tag t-src">tree + pool + edges</span><span class="tag t-logic">knowledge</span><span class="tag t-view">TemporalIndexWorkspace</span></div>
+    <div class="body">
+      <span class="step src">tree-data</span><span class="step src">node-pool</span><span class="step src">knowledge-edges</span>
+      <span class="arrow">→</span>
+      <span class="step">treeBinding</span><span class="step">treeSelection</span><span class="step">explanationIndex</span><span class="step">explanationTree</span><span class="step">containment</span><span class="step">typeRelations</span>
+      <span class="arrow">→</span>
+      <span class="step">indexGraphLayout<span style="color:#767d8a"> · 几何</span></span>
+      <span class="arrow">→</span>
+      <span class="step view">UnifiedIndexGraph</span><span class="step view">IndexCanvas</span>
+    </div>
+    <div class="foot"><em>indexGraphLayout</em> 算出全部坐标：容器框 <code>containmentFrames</code> + 节点矩形 + 分层；<em>edgeRouting</em> 供 3 档边路由（detail / compact / overview）；<em>IndexCanvas</em> 负责相机、框选、缩放档位；编辑动作经 <em>explanationIndexMutations</em> 回写。</div>
+  </div>
+
+  <div class="pipe">
+    <div class="head"><b>② 时态管线（双轨）</b><span class="tag t-src">events + chains</span><span class="tag t-logic">knowledge</span><span class="tag t-view">Rail / EventDrawer</span></div>
+    <div class="body">
+      <span class="step src">evolution-events</span><span class="arrow">→</span>
+      <span class="step">timelineEvolution<span style="color:#767d8a"> · normalize</span></span><span class="step">indexEvolution<span style="color:#767d8a"> · 投影/作用域</span></span><span class="step">temporalPreferences</span>
+      <span class="arrow">→</span><span class="step view">TemporalRail</span><span class="step view">EventDrawer</span>
+      <span class="arrow" style="margin-left:10px">‖</span>
+      <span class="step src">version-chains</span><span class="arrow">→</span><span class="step">versionChains<span style="color:#767d8a"> · normalize</span></span><span class="arrow">→</span><span class="step view">VersionChainRail</span>
+    </div>
+    <div class="foot"><em>事件轨</em>（发生了什么）+ <em>版本链轨</em>（变成了什么）由 <em>TemporalRail</em> 双轨合成；无事件时整段退回版本链轨。★ 唯一例外：<em>VersionChainRail</em> 自行 <code>fetch('/api/data')</code>，不经过 store 切片。</div>
+  </div>
+
+  <div class="pipe">
+    <div class="head"><b>③ 机制管线</b><span class="tag t-src">pool.mechanismSpec + edges</span><span class="tag t-logic">mechanism</span><span class="tag t-view">MechanismLensPanel</span></div>
+    <div class="body">
+      <span class="step src">node-pool<span style="color:#767d8a">.mechanismSpec</span></span><span class="step src">knowledge-edges</span><span class="arrow">→</span>
+      <span class="step">knowledgeProjection</span><span class="step">mechanism/core</span><span class="step">mechanism/diagram</span><span class="step">lens<span style="color:#767d8a"> · 帧/时间轴/场景</span></span><span class="step">validation</span>
+      <span class="arrow">→</span>
+      <span class="step view">MechanismLensPanel</span><span class="step view">FlowDiagram</span><span class="step view">SequenceDiagram</span><span class="step view">LogicDiagram</span>
+    </div>
+    <div class="foot">投影来源是 <em>focusNodeId ?? selectedNodeId</em> 的 <code>mechanismSpec</code>，<strong>参与方必须与「树后代」并列作候选来源</strong>——卸树留池的机制状态否则投影为空。读 <code>relationKind</code>，不读 <code>type</code>。</div>
+  </div>
+
+  <div class="pipe">
+    <div class="head"><b>④ 维度画布管线（默认视图）</b><span class="tag t-src">pool.viewDimensions + units</span><span class="tag t-logic">projection / physicalProjection</span><span class="tag t-view">FocusStage</span></div>
+    <div class="body">
+      <span class="step src">node-pool</span><span class="arrow">→</span>
+      <span class="step">projection</span><span class="step">physicalProjection</span><span class="step">migrateViewDimensions</span><span class="arrow">→</span>
+      <span class="step view">DimensionCanvas</span><span class="arrow">→</span><span class="step view">SectionRenderer</span>
+      <span class="arrow">→</span>
+      <span class="step view">Grid</span><span class="step view">Stack</span><span class="step view">Tree</span><span class="step view">Chain</span><span class="step view">Matrix</span><span class="step view">BPlusTree</span>
+      <span class="arrow">+</span><span class="step view">GroupOverlay</span><span class="step view">SemanticFieldView</span><span class="step view">OrthogonalMatrixView</span>
+    </div>
+    <div class="foot"><em>SectionRenderer</em> 按 section 形状分发到 6 种 section 渲染器；<em>useAtomRect</em> 做原子定位，<em>SubsystemStrip</em> 另起一条 <code>subsystemData</code> → 子系统卡片带。</div>
+  </div>
+
+  <div class="pipe">
+    <div class="head"><b>⑤ 关系网 / 问题库 / 解释卡</b><span class="tag t-logic">knowledge</span><span class="tag t-view">右侧栏 + 独立视图</span></div>
+    <div class="body">
+      <span class="step src">knowledge-edges</span><span class="arrow">→</span><span class="step">systemConnectionGraph</span><span class="arrow">→</span><span class="step view">SystemConnectionMap</span>
+    </div>
+    <div class="body">
+      <span class="step src">questions + pool</span><span class="arrow">→</span><span class="step">questionLink</span><span class="step">answerComposer</span><span class="arrow">→</span><span class="step view">QuestionDatabase</span><span class="step view">QuestionAnswerEditor</span>
+    </div>
+    <div class="body">
+      <span class="step src">pool.card</span><span class="arrow">→</span><span class="step">explanationTree</span><span class="step">explanationTable</span><span class="step">nodeReferences</span><span class="step">supertags</span><span class="step">supertagMaterials</span>
+      <span class="arrow">→</span>
+      <span class="step view">ExplanationCard</span><span class="arrow">→</span><span class="step view">MarkdownView</span><span class="step view">ExplanationTableSection</span><span class="step view">ProjectionReferences</span><span class="step view">SupertagPanel</span><span class="step view">MechanismSpecEditor</span>
+    </div>
+  </div>
+
+  <div class="pipe">
+    <div class="head"><b>⑥ 写入 / 持久化</b><span class="tag t-logic">store + knowledge</span><span class="tag t-gov">原子写 + 备份</span></div>
+    <div class="body">
+      <span class="step view">视图编辑动作</span><span class="arrow">→</span><span class="step">store/useGraph<span style="color:#767d8a"> · 单一 store</span></span><span class="arrow">→</span>
+      <span class="step">state</span><span class="step">persist</span><span class="step">filePersistence</span><span class="step">dataValidation</span><span class="arrow">→</span><span class="step src">data/*.json</span>
+    </div>
+    <div class="foot">写盘三铁律：先杀 dev server（内存回写会覆盖外部写入）· 一律原子写 + 先备份 <code>data/backups/</code> · 测试只打临时数据目录。读路径则相反：<code>vite preview</code> 的 <code>/api/data</code> 直读文件，改数据不必重新构建。</div>
+  </div>
+</section>
+
+<!-- ═══════════════ 4 视图单元 ═══════════════ -->
+<section id="views">
+  <h2><span class="no">04</span>视图单元清单</h2>
+  <p class="sub">6 个主视图（顶栏可切）+ 常驻单元 + 附属单元。全部 47 个 <code>.tsx</code> 中，除 <code>App</code> / <code>main</code> 两个入口外，其余 <strong>45 个都是可渲染组件</strong>；下表列的是「有独立职责的视图单元」，不是全部组件。</p>
+
+  <h3>主视图（中栏）</h3>
+  <table>
+    <thead><tr><th>视图 id</th><th>组件</th><th>组成单元</th><th>读数来源</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">universe</td><td class="mono">core/FocusStage.tsx</td><td class="mono">DimensionCanvas · SubsystemStrip</td><td>pool.viewDimensions + units</td></tr>
+      <tr><td class="mono">index</td><td class="mono">core/TemporalIndexWorkspace.tsx<span style="color:#767d8a"> 1 264 行</span></td><td class="mono">UnifiedIndexGraph(IndexCanvas) · TemporalRail(VersionChainRail) · EventDrawer · 内联编辑面板</td><td>tree + pool + edges + events + chains</td></tr>
+      <tr><td class="mono">mechanism</td><td class="mono">components/MechanismLensPanel.tsx</td><td class="mono">FlowDiagram · SequenceDiagram · LogicDiagram · 播放控件</td><td>pool.mechanismSpec + edges</td></tr>
+      <tr><td class="mono">database</td><td class="mono">components/NodeDatabase.tsx</td><td class="mono">表格 + 渐进渲染</td><td>pool（3 858 条）</td></tr>
+      <tr><td class="mono">questions</td><td class="mono">components/QuestionDatabase.tsx</td><td class="mono">QuestionAnswerEditor · questionLink 角标</td><td>questions（783 条）</td></tr>
+      <tr><td class="mono">supertags</td><td class="mono">components/SupertagLibrary.tsx</td><td class="mono">.supertag-index（左索引）· .supertag-detail（右详情）· MarkdownView（对比模式）</td><td>node + tab + page 三层 tags 倒排（5 511 组 / 9 681 材料）</td></tr>
+    </tbody>
+  </table>
+
+  <h3>index 视图的内部结构：类方框四层剖面 <span class="path">（逐类实测结果，非猜读）</span></h3>
+  <div class="grid g2">
+    <div class="card b">
+      <h4>四层深度 · 两处并行分支 <span class="file">UnifiedIndexGraph.tsx:1404 起</span></h4>
+      <ul class="tight">
+        <li><strong>L1</strong> <code>article.explanation-index-class-node</code>（:1404）—— <strong>唯一有完整 1px 边框的层</strong>；基线 index-diagram.css:634，角色覆写 :1407–1416</li>
+        <li><strong>L2a</strong> <code>.explanation-index-class-header</code>（:1431）· 88px · 下边 1px（:793 → :1426 覆写）→ 内部 <code>-header-main &gt; strong</code>（15px / clamp 4 行）+ <code>-timeline-badge</code>（:752）</li>
+        <li><strong>L2b</strong> <code>.explanation-index-class-members</code>（:1627）· bg <code>#303236</code> · 无边框 —— <strong>与 L2a 是兄弟，不是父子</strong></li>
+        <li><strong>L3</strong> <code>&gt; header</code>（:1629，28px「成员 N ｜ +M 更多」）+ <code>.explanation-index-class-member-list</code>（:1661）</li>
+        <li><strong>L4</strong> <code>.explanation-index-class-member</code>（:1675，min 32px，无边框，缩进 <code>8px + depth×13px</code>）+ 末端 <code>-member-more</code>（:1833「还有 M 项」）</li>
+        <li>行内图标 <code>.explanation-index-member-icon</code>（:1748 / :1355）：<strong>P 蓝</strong>（Page，<code>pageId !== null</code>）· <strong>T 橙</strong>（Tab）</li>
+        <li>硬上限 <code>MAX_VISIBLE_MEMBERS = 12</code>（indexGraphLayout.ts:152）⇒ 50 成员 = 12 行 + 「还有 38 项」，算得闭合</li>
+      </ul>
+    </div>
+    <div class="card a">
+      <h4>画布层的另一套机制 + 结构异常 <span class="file">未修，另立批次</span></h4>
+      <ul class="tight">
+        <li><strong>画布是几何嵌套</strong>：全部方框是绝对定位的扁平兄弟，父子靠 <code>indexGraphLayout</code> 算坐标；<code>.explanation-index-containment-matrix</code>（:585）是 z0 的跨节点描边框</li>
+        <li><code>.index-canvas-marquee</code>（IndexCanvas.tsx:500）<strong>零 CSS 规则</strong>（src + dist 双向核验）⇒ 左键框选时选框不可见</li>
+        <li><code>.explanation-index-group-frame</code>（:1343）容器<strong>无任何规则</strong>，仅 <code>-label{display:none}</code>（:1402）⇒ 非 matrix-host 的分组框是隐形命中区</li>
+        <li><code>components.css</code> 4774–5080 约 300 行<strong>死 CSS</strong>（<code>-unified-node</code> / <code>-node</code> / <code>-parent-surface</code> / <code>-title-surface</code> / <code>-leaf</code> / <code>-label</code> / <code>-edit-trigger</code> / <code>-tree</code>）—— tsx 引用数全为 0</li>
+        <li>3 个类在 <code>components.css</code> 与 <code>index-diagram.css</code> <strong>重复定义</strong>，靠加载序决胜（index-diagram 胜）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>supertags 视图（tag 库）的内部结构 <span class="path">SupertagLibrary.tsx · database.css:414–740</span></h3>
+  <div class="grid g2">
+    <div class="card b">
+      <h4>布局：左索引 + 右详情，只有两栏 <span class="file">.tsx:100 起</span></h4>
+      <ul class="tight">
+        <li>根 <code>.supertag-library</code>（:414）flex column · <strong>1px 边框 + r4</strong> —— 视图容器留框（与「纯内容容器去框」相反）</li>
+        <li>工具栏复用 <code>.database-toolbar</code>：左 <code>.supertag-library-search</code>（:424，宽 <code>min(320px,44vw)</code>）+ 右 <code>.supertag-library-count</code>（:429）「N 个 super tag · M 个材料」</li>
+        <li>主体 <code>.supertag-library-body</code>（:435）：<code>grid-template-columns: minmax(180px,240px) minmax(0,1fr)</code> —— <strong>左 tag 索引 / 右材料详情，没有第三栏</strong></li>
+        <li>左栏 <code>.supertag-index</code>（:443）带 <code>border-right</code>；条目 <code>.supertag-index-item</code>（:452）是按钮，grid「名字 + 计数」，边框透明，hover 转青、<code>.is-active</code> 青底 <code>rgba(6,182,212,.12)</code> 文字 <code>#67e8f9</code></li>
+        <li>空态 <code>.supertag-library-empty</code>（:733）「暂无 super tag」；搜索无命中时（:118）<strong>整块替换 body</strong>，不是局部置空</li>
+      </ul>
+    </div>
+    <div class="card b">
+      <h4>右栏两块：标题行 + 双模式 <span class="file">.tsx:139 / :144</span></h4>
+      <ul class="tight">
+        <li>标题行 <code>.supertag-detail-head</code>（:508）：<code>&lt;h3&gt;{tag}</code> + 「N 段材料 · M 个领域知识节点」；右侧挂模式开关</li>
+        <li><code>.supertag-mode-switch</code>（:529）<strong>恰好两枚</strong>：<code>材料</code> / <code>对比</code>（<code>SupertagLibraryMode</code> enum，默认 <code>Materials</code>）</li>
+        <li><strong>材料模式</strong>：<code>.supertag-material-grid</code>（:556）<code>auto-fill minmax(220px,1fr)</code>；卡 <code>.supertag-material-card</code>（:562）1px 边框 · r4 · min-height 110px，四行 = 节点名 + kind 角标（标题/子页/节点）· 材料路径 · 领域路径 · <strong>180 字预览</strong>（<code>compactText</code>）</li>
+        <li><strong>对比模式</strong>：<code>.supertag-comparison</code>（:632）<code>grid-auto-flow: column</code> 横向排（不是竖向堆叠）；列 <code>-column</code>（:642）三行网格 <code>auto auto minmax(0,1fr)</code>，正文用 <strong><code>MarkdownView</code> 全文渲染</strong>（材料模式只给预览）</li>
+        <li>一致度角标 <code>.is-shared</code> 绿 <code>#34d399</code>「N 段一致」/ <code>.is-distinct</code> 琥珀 <code>#fbbf24</code>「独有表述」；判据是 <code>supertagMaterialSignature</code> = 正文去空白 + 小写（supertagMaterials.ts:189），即 <strong>「一致」= 文本完全相同</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>数据管线：tag 不是一个字段，是三个层级的汇聚 <span class="path">supertagMaterials.ts:146</span></h3>
+  <div class="grid g2">
+    <div class="card a">
+      <h4>收集：node → tab → page，三层都算数</h4>
+      <ul class="tight">
+        <li>先遍历全池，每节点产出一条 <strong>node 材料</strong>（<code>node:&lt;id&gt;</code>）：正文取 <code>card.rootContent</code>，空则递归找第一个非空 tab/page（<code>firstNodeContent</code> :39）</li>
+        <li>再 <code>collectTabs</code>（:112）递归 tab → <code>collectPages</code>（:78）递归嵌套页，各产出一条材料，id 形如 <code>tab|page:&lt;nodeId&gt;:&lt;idPath&gt;</code></li>
+        <li>三层的 <code>tags</code> 都被 <code>appendMaterial</code>（:57）收进同一张倒排表 ⇒ <strong>同一个 tag 组里混着「整节点 / 某 tab / 某子页」三种粒度</strong>（<code>SupertagMaterialKind</code> = node / tab / page）</li>
+        <li>分组键 <code>supertagKey</code> = NFKC 归一 + 去前导 <code>#</code> + trim + 小写（supertags.ts:5）；<strong>同一材料内同 tag 只记一次</strong>（<code>seen</code> 去重）</li>
+        <li>排序：组内「节点名中文序 → 路径」，组间「材料数降序 → tag 中文序」（:175 / :182）</li>
+        <li>点材料 → <code>openCard(nodeId)</code> + <code>setActiveExplanationSelection(selection)</code>，把解释卡<strong>精确落到那个 tab / page</strong>（<code>Root</code> 或 <code>Content</code>）</li>
+        <li>「领域路径」栏 = <code>collectTreeReferencesByNodeRef(treeData, nodeId).path.slice(1,-1)</code>，即该节点在宇宙树的挂载点<strong>去掉根首段</strong>（:76）</li>
+      </ul>
+    </div>
+    <div class="card c">
+      <h4>实测基数 <span class="file">读 data/node-pool.json 现算</span></h4>
+      <p class="meta">池 3 858 节点（100% 带 tags）· 5 511 个 super tag · 29 323 条材料挂载（跨组）· 去重 9 681 条</p>
+      <ul class="tight">
+        <li>去重材料构成 = <strong>node 3 858</strong> + <strong>page 5 235</strong> + <strong>tab 588</strong> ⇒ <strong>54% 的材料是子页</strong></li>
+        <li>tag 原始条目来源：node <strong>11 136</strong> · tab <strong>2 364</strong> · page <strong>15 832</strong></li>
+        <li>材料数中位数 <strong>1</strong>；最大 <strong>4 624</strong>（<code>method</code>）</li>
+        <li>只有一条材料的 tag：<strong>4 369 / 5 511 = 79.3%</strong>；材料数 ≥ 10 的只有 <strong>100</strong> 个</li>
+        <li>单节点 tag 数跨度极大：<strong>1 638 个节点只有 1 个</strong>，同时有节点高达 <strong>179 个</strong></li>
+        <li>对比模式：跨节点「一致」<strong>2 104</strong> 条 · 「独有」<strong>27 219</strong> 条；空正文材料 <strong>230</strong> 条（显示「暂无正文」）</li>
+      </ul>
+      <p>以上由 <code>collectSupertagMaterialGroups(nodePool)</code> 本体现算，非估算。</p>
+    </div>
+  </div>
+
+  <h3>实测：tag 库头部被「源码导入标签」占据 <span class="path">（数据现状陈述，非缺陷断言）</span></h3>
+  <table>
+    <thead><tr><th>tag</th><th class="num">材料</th><th class="num">节点</th><th>粒度构成</th><th>性质</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">method</td><td class="num">4 624</td><td class="num">375</td><td class="mono">page 4 622 + node 2</td><td>Java 源码导入：方法</td></tr>
+      <tr><td class="mono">Java 源码</td><td class="num">3 902</td><td class="num">366</td><td class="mono">page 3 902</td><td>导入来源标</td></tr>
+      <tr><td class="mono">Public</td><td class="num">3 480</td><td class="num">322</td><td class="mono">page 3 479 + node 1</td><td>可见性修饰符</td></tr>
+      <tr><td class="mono">JDK API</td><td class="num">1 174</td><td class="num">45</td><td class="mono">page 1 168 + node 6</td><td>API 归属</td></tr>
+      <tr><td class="mono">java</td><td class="num">1 142</td><td class="num">715</td><td class="mono">node 715 + tab 427</td><td>语言 / 域（<strong>头部里唯一像概念标签的</strong>）</td></tr>
+      <tr><td class="mono">package-private</td><td class="num">823</td><td class="num">253</td><td class="mono">page 823</td><td>可见性修饰符</td></tr>
+      <tr><td class="mono">private</td><td class="num">649</td><td class="num">116</td><td class="mono">page 649</td><td>可见性修饰符</td></tr>
+      <tr><td class="mono">mysql</td><td class="num">564</td><td class="num">563</td><td class="mono">node 563 + tab 1</td><td>域</td></tr>
+      <tr><td class="mono">java.util.concurrent</td><td class="num">551</td><td class="num">276</td><td class="mono">node 276 + tab 275</td><td>包名</td></tr>
+      <tr><td class="mono">constructor</td><td class="num">450</td><td class="num">311</td><td class="mono">page 448 + node 2</td><td>Java 源码导入：构造器</td></tr>
+    </tbody>
+  </table>
+  <p class="sub">读法：<code>method</code> / <code>Public</code> / <code>private</code> / <code>package-private</code> / <code>constructor</code> / <code>JDK API</code> / <code>Java 源码</code> 均来自 <strong>Java 源码导入流水线</strong>（按方法名、可见性修饰符、包名打的 <em>page 级</em>标签），且几乎全是 <code>page</code> 粒度。它们排在最前，占据左栏头部；真正的<strong>概念标签</strong>（<code>java</code>、<code>mysql</code>、<code>glossary</code>、<code>ACM CCS 2012</code>、<code>计算机科学分类</code>）反而在其后。这不是 bug —— 是「<code>tags</code> 一个字段同时承担<strong>概念归类</strong>与<strong>导入溯源</strong>两种职责」的现状。若日后要按「概念」导航，需先决定是否拆分这两类（属独立治理批次，本图不预设结论）。</p>
+
+  <h3>常驻与附属单元</h3>
+  <div class="grid g3">
+    <div class="card b"><h4>TopBar <span class="file">layout/</span></h4><p>6 视图切换、路径面包屑、LinkImportDialog / DocumentImportDialog 入口。</p></div>
+    <div class="card b"><h4>UniverseTree <span class="file">layout/ 1 170 行</span></h4><p>左栏宇宙树：折叠、拖宽、问题角标、渐进渲染。</p></div>
+    <div class="card b"><h4>RightSidePanel <span class="file">layout/ · 302 行</span></h4><p>三块纵向堆叠：① ExplanationCard ② <strong>问题区 .right-section</strong> ③ SystemConnectionMap。错误边界按 <code>focus:&lt;节点&gt;</code> 重挂载——某节点数据缺字段不会卸掉整个应用。</p></div>
+    <div class="card c"><h4>右栏问题区 <span class="file">.right-questions-list</span></h4><p>取数 = <code>questionsForNode(questions, focusNodeId)</code>，即 <code>relatedNodeId === 当前焦点</code> 的问题（<strong>不是树的兄弟节点</strong>）。卡片 <code>.right-question-card</code> <strong>无边框</strong>（components.css:3893：<code>border:0 / r0 / transparent</code>，符合「纯内容容器去框」约定）；单击展开答案、双击重命名、拖到左树换归属。空态显示「暂无问题」。</p></div>
+    <div class="card c"><h4>问题库视图的问题卡 <span class="file">database.css:195</span></h4><p>另一种形态：<code>.question-card</code> <strong>有边界</strong>（1px <code>--border-secondary</code> · r4 · padding 6px 8px），变体 <code>-selected</code> / <code>-editing</code>；点选后由 <code>QuestionAnswerEditor</code> 作答。<br><strong>同名两形</strong>：右栏去框、问题库留框。</p></div>
+    <div class="card c"><h4>ExplanationCard <span class="file">panels/</span></h4><p>解释卡本体：tabs / pages 多级、表格、投影引用、supertag、机制声明编辑。</p></div>
+    <div class="card a"><h4>SupertagPanel <span class="file">panels/explanation/ · tag 库入口</span></h4><p>解释卡头部 <code>.explanation-card-supertag-inline</code>（ExplanationCard.tsx:286–288）里的横向 tag strip，每枚是 <code>.concept-supertag--link</code> 按钮（components.css:135）。<code>activeTags</code> = <strong>当前节点 tags + 当前选中 tab/page 的 tags</strong>（:150 <code>normalizeSupertags</code> 去重）⇒ 切 tab 时这排标签会变。点击 → <code>openSupertag(tag)</code>（useGraph.ts:1083）→ <code>set({ selectedSupertag: normalizeSupertag(tag), activeView: 'supertags' })</code>；<strong>只切视图 + 记住 tag，不动 <code>selectedNodeId</code></strong>，左树选中态保持。</p></div>
+    <div class="card c"><h4>MarkdownView <span class="file">panels/explanation/</span></h4><p>自研 markdown 渲染（非第三方库）：代码块 / 表格 / 标题 / 列表 / 行内代码 / 引用知识点 / Mermaid。</p></div>
+    <div class="card c"><h4>SystemConnectionMap <span class="file">panels/</span></h4><p>关系网：由边表派生，右侧栏常驻。</p></div>
+    <div class="card a"><h4>对话框族 <span class="file">components/</span></h4><p>DocumentImportDialog · LinkImportDialog · JavaSourceImportPanel · TreeDestinationPicker（共同决定导入落点）。</p></div>
+    <div class="card a"><h4>框架件 <span class="file">components/</span></h4><p>DataLoadBanner（装载报告）· ErrorBoundary（按视图 key）· useProgressiveRender（长列表渐进渲染）。</p></div>
+  </div>
+</section>
+
+<!-- ═══════════════ 5 代码结构 ═══════════════ -->
+<section id="code">
+  <h2><span class="no">05</span>代码结构：104 个文件的分层</h2>
+  <p class="sub">分层纪律：<span class="tag t-src">真源</span> → <span class="tag t-logic">纯逻辑（有单测）</span> → <span class="tag t-view">视图（不写单测，改完无头实测）</span></p>
+  <table>
+    <thead><tr><th>目录</th><th class="num">ts</th><th class="num">tsx</th><th class="num">css</th><th>职责</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">src/knowledge</td><td class="num">30</td><td class="num">0</td><td class="num">0</td><td>全部纯逻辑投影：索引/树绑定/包含/类型关系/机制转译/持久化/校验</td></tr>
+      <tr><td class="mono">src/mechanism</td><td class="num">6</td><td class="num">0</td><td class="num">0</td><td>机制模型与转译（core / diagram / lens / knowledgeProjection / validation / index）</td></tr>
+      <tr><td class="mono">src/core</td><td class="num">1</td><td class="num">4</td><td class="num">0</td><td>核心视图：FocusStage · DimensionCanvas · SubsystemStrip · TemporalIndexWorkspace</td></tr>
+      <tr><td class="mono">src/core/explanation-index</td><td class="num">4</td><td class="num">2</td><td class="num">0</td><td>索引图画布：布局 / 相机 / 边路由 / 切割手势 / 画布</td></tr>
+      <tr><td class="mono">src/core/sections</td><td class="num">1</td><td class="num">10</td><td class="num">0</td><td>维度画布的 6 种 section 渲染器 + 叠加层 + 原子定位</td></tr>
+      <tr><td class="mono">src/core/temporal</td><td class="num">0</td><td class="num">3</td><td class="num">0</td><td>时间轨 / 版本链轨 / 事件抽屉</td></tr>
+      <tr><td class="mono">src/components</td><td class="num">1</td><td class="num">11</td><td class="num">0</td><td>独立视图（节点库/问题库/Tag库/机制）+ 导入对话框 + 框架件</td></tr>
+      <tr><td class="mono">src/components/mechanism</td><td class="num">1</td><td class="num">3</td><td class="num">0</td><td>流程 / 时序 / 逻辑三种机制图 + 色调映射</td></tr>
+      <tr><td class="mono">src/panels</td><td class="num">0</td><td class="num">2</td><td class="num">0</td><td>解释卡本体 + 关系网</td></tr>
+      <tr><td class="mono">src/panels/explanation</td><td class="num">0</td><td class="num">7</td><td class="num">0</td><td>卡片内部件：markdown / 表格 / 引用 / supertag / 机制编辑 / mermaid</td></tr>
+      <tr><td class="mono">src/layout</td><td class="num">0</td><td class="num">3</td><td class="num">0</td><td>顶栏 / 左栏树 / 右栏面板</td></tr>
+      <tr><td class="mono">src/store</td><td class="num">1</td><td class="num">0</td><td class="num">0</td><td>单一 zustand store（useGraph）：全部状态与动作</td></tr>
+      <tr><td class="mono">src/styles</td><td class="num">0</td><td class="num">0</td><td class="num">10</td><td>main(tokens) · layout · components · index-diagram · timeline · database · mechanism-diagrams …</td></tr>
+      <tr><td class="mono">src（根）</td><td class="num">2</td><td class="num">2</td><td class="num">0</td><td>App / main / types（全局类型，410 行）/ env.d</td></tr>
+      <tr><td class="mono"><strong>合计</strong></td><td class="num"><strong>47</strong></td><td class="num"><strong>47</strong></td><td class="num"><strong>10</strong></td><td>—</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ═══════════════ 6 治理层 ═══════════════ -->
+<section id="gov">
+  <h2><span class="no">06</span>治理层：批次、门禁与台账</h2>
+  <p class="sub">除应用代码外，仓库还有一层「数据治理」基础设施——每个可提交批次都要过门。</p>
+  <div class="grid g3">
+    <div class="card a"><h4>batch-manifests/ <span class="file">13 个</span></h4><p>每批次三集合：<code>writeSet</code>（= git add 唯一来源）· <code>governanceSet</code> · <code>declaredExternalSet</code>。<br>硬不变量：<code>commitPathspec ≡ writeSet</code>，且与另两集合不相交。</p></div>
+    <div class="card a"><h4>scripts/ <span class="file">95 mjs + 4 java</span></h4><p>核验与迁移脚本：就绪门（6 检查 + 3 闸门）、外部漂移四方基线分类、改名证据引擎、树违规扫描、投影回归测试。</p></div>
+    <div class="card a"><h4>docs/ <span class="file">35 md</span></h4><p>宪法（§3.1 挂载位置不是身份证据 · §3.2 判据须附基数+反例）· ADR · 批次清单规范 · 架构与项目说明。</p></div>
+    <div class="card a"><h4>data/backups/ <span class="file">快照</span></h4><p>每次落盘前按语义名 + ISO 时间戳备份；就绪门的祖先闸门读 <code>git show HEAD:</code> 逐字节比对。</p></div>
+    <div class="card a"><h4>outputs/ <span class="file">台账</span></h4><p>只读取证产物：就绪门报告、违规扫描矩阵、验证报告。<strong>只入台账不入库</strong>（精确登记进批次排除集）。</p></div>
+    <div class="card a"><h4>验收三段 <span class="file">纪律</span></h4><p>纯逻辑：<code>npm test</code>（tracked 50 + peer 2）。视图：<code>tsc --noEmit</code> + build + 无头浏览器逐条实测 + 刷新复测。<br>数据：plan（只读多门）→ apply（默认 dry-run）→ verify（不 import apply）。</p></div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>计数方法</strong>：数据基数由 node 脚本 <code>JSON.parse</code> 实测（tree 递归遍历含深度分布；pool 取键并集；edges 按 <code>type</code> 归组）；源文件数按目录实际 <code>.ts/.tsx/.css</code> 统计。快照 = <code>8cd8b79</code>，2026-09-15。</p>
+  <p class="warn">注：工作区当时有 16 个 index 相关文件处于外部在飞修改状态（未提交），本图描述的是当时工作区的结构与基数，不是 HEAD 的字节快照。</p>
+</footer>
+
+</div>
+</body>
+</html>

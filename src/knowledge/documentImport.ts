@@ -1,5 +1,5 @@
-export const MAX_DOCUMENT_IMPORT_BYTES = 20 * 1024 * 1024;
-export const MAX_PDF_IMPORT_BYTES = 100 * 1024 * 1024;
+const MAX_DOCUMENT_IMPORT_BYTES = 20 * 1024 * 1024;
+const MAX_PDF_IMPORT_BYTES = 100 * 1024 * 1024;
 
 export enum DocumentKind {
   Pdf = 'pdf',
@@ -29,7 +29,7 @@ export enum DocumentOcrProvider {
   MinerU = 'mineru',
 }
 
-export interface DocumentImportStandardResult {
+interface DocumentImportStandardResult {
   characterCount: number;
   sectionCount: number;
   questionCount: number;
@@ -38,17 +38,12 @@ export interface DocumentImportStandardResult {
   relationCount: number;
 }
 
-export enum DocumentStructureMode {
-  Semantic = 'semantic',
+enum DocumentStructureMode {
   Outline = 'outline',
   QuestionBank = 'question-bank',
 }
 
 export interface DocumentImportCapabilities {
-  ai: {
-    configured: boolean;
-    model: string;
-  };
   maxBytes: number;
   maxPdfBytes: number;
   extensions: string[];
@@ -69,7 +64,6 @@ export interface DocumentImportRequest {
   file: File;
   parentTreeNodeId: string;
   translate: boolean;
-  useAi: boolean;
   profileMode: DocumentProfileMode;
 }
 
@@ -168,7 +162,6 @@ export async function importDocumentFile(
     fileName: request.file.name,
     parentTreeNodeId: request.parentTreeNodeId,
     translate: String(request.translate),
-    useAi: String(request.useAi),
     profileMode: request.profileMode,
   });
   const response = await fetch(`/api/import-document?${query}`, {

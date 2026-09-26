@@ -659,18 +659,6 @@ body.is-resizing-left-panel {
   padding: 6px 10px;
 }
 
-.relation-panel {
-  padding: 0 !important;
-}
-
-.relation-panel-canvas {
-  position: relative;
-  flex: 1;
-  min-height: 0;
-  width: 100%;
-  overflow: hidden;
-}
-
 .card-meta-details {
   margin-top: var(--space-sm);
   font-size: 10px;
@@ -1310,4 +1298,11 @@ body.is-resizing-right-panel {
   font-size: 9px;
   opacity: 0.7;
   margin-left: 3px;
+}
+
+/* 问题卡拖入目录树时的目标行高亮（与目录拖拽的 drop-target 区分色） */
+.tree-node-row.drop-target-question {
+  background: rgba(139, 92, 246, 0.14);
+  outline: 1px solid rgba(139, 92, 246, 0.45);
+  outline-offset: -1px;
 }

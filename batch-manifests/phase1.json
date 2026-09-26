@@ -1,0 +1,201 @@
+{
+  "batchId": "phase1",
+  "title": "阶段一 · OOP 类体系重组（数据落盘 + 实现 + 审计）",
+  "baseRef": "5a605e3",
+  "preBatchSnapshot": "data/backups/phase1-oop-os-2026-09-14T07-37-26-424Z",
+  "commitSubjectHint": "data: 阶段一 OOP 类体系重组落盘 — 树 3215→3219 · 池 3849→3855 · 边 4158→4166",
+
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+
+    "scripts/plan-phase1-relocation.mjs",
+    "scripts/normalize-phase1-blueprint.mjs",
+    "scripts/dryrun-phase1.mjs",
+    "scripts/apply-phase1.mjs",
+    "scripts/patch-phase1-evolution-event.mjs",
+    "scripts/metrics-phase1.mjs",
+    "scripts/reconcile-external-changes.mjs",
+    "scripts/export-tree-listing.mjs",
+    "scripts/verify-phase1-commit-readiness.mjs",
+
+    "outputs/tree-violation-scan/apply-baseline.json",
+    "outputs/tree-violation-scan/phase1-relocation-preflight.md",
+    "outputs/tree-violation-scan/phase1-normalized-blueprint.md",
+    "outputs/tree-violation-scan/phase1-operations.json",
+    "outputs/tree-violation-scan/phase1-dryrun-report.md",
+    "outputs/tree-violation-scan/phase1-dryrun-plan.json",
+    "outputs/tree-violation-scan/phase1-apply-preflight.md",
+    "outputs/tree-violation-scan/phase1-apply-report.md",
+    "outputs/tree-violation-scan/phase1-apply-plan.json",
+    "outputs/tree-violation-scan/phase1-metrics.json",
+    "outputs/tree-violation-scan/phase1-commit-candidateset.md",
+    "outputs/tree-violation-scan/evolution-event-prepatch.json",
+    "outputs/tree-violation-scan/nodepool-external-drift.json",
+    "outputs/tree-violation-scan/case-rename-field-coherence.md",
+    "outputs/tree-violation-scan/external-change-baseline.json",
+    "outputs/tree-violation-scan/external-change-baseline.md",
+    "outputs/tree-violation-scan/worktree-fingerprint.json",
+    "outputs/universe-tree-listing/",
+
+    "batch-manifests/phase1.json"
+  ],
+
+  "governanceSet": [
+    "docs/CONSTITUTION.md",
+    "docs/adr/0002-identity-and-observation-discipline.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "docs/BATCH_MANIFEST.md"
+  ],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "AGENTS.md",
+    "data/questions.json",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css"
+  ],
+
+  "excludedSet": [
+    "src/",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "README.md",
+    "CONTEXT.md",
+    "STATE.md",
+    "AGENTS.md",
+    ".gitignore",
+    "data/questions.json",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "outputs/tree-violation-scan/readiness-phase1.json"
+  ],
+
+  "excludedSetNote": "readiness-<batchId>.json 是 `verify-phase1-commit-readiness.mjs` 的**每次运行快照**（含时间戳与漂移计数，跑一次变一次）→ 刻意不入库，避免「每次核验都留一个 M」。旧实现固定写 `phase1-commit-readiness.json`，任何 `--batch X` 都会覆盖它 → 该文件无法归属任何批次（已改为按批次分文件）。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/phase1-relocation-preflight.md",
+    "outputs/tree-violation-scan/phase1-normalized-blueprint.md",
+    "outputs/tree-violation-scan/phase1-operations.json",
+    "outputs/tree-violation-scan/phase1-dryrun-report.md",
+    "outputs/tree-violation-scan/phase1-dryrun-plan.json",
+    "outputs/tree-violation-scan/phase1-apply-preflight.md",
+    "outputs/tree-violation-scan/phase1-apply-report.md",
+    "outputs/tree-violation-scan/phase1-apply-plan.json",
+    "outputs/tree-violation-scan/phase1-metrics.json",
+    "outputs/tree-violation-scan/phase1-commit-candidateset.md",
+    "outputs/tree-violation-scan/evolution-event-prepatch.json",
+    "outputs/tree-violation-scan/nodepool-external-drift.json",
+    "outputs/tree-violation-scan/case-rename-field-coherence.md",
+    "outputs/tree-violation-scan/apply-baseline.json",
+    "outputs/universe-tree-listing/"
+  ],
+
+  "expectedDelta": {
+    "data/node-pool.json": {
+      "before": 3849,
+      "after": 3855,
+      "added": [
+        "k_1789371087163_g81kcs",
+        "k_1789371087163_e9iafm",
+        "k_1789371436917_zo0k0j",
+        "k_1789371087163_g0db3p",
+        "k_1789371087163_25m6ob",
+        "k_1789371087163_b7qj6l"
+      ],
+      "modified": [
+        "k_class_programming_classification"
+      ],
+      "removed": [],
+      "note": "修改 1 项 = 簇 1 改名「分类 → 类的分类」的 label/tags 同步；超出此清单的改动即夹带。"
+    },
+    "data/tree-data.json": {
+      "entriesBefore": 3215,
+      "entriesAfter": 3219,
+      "added": 4,
+      "removed": 0,
+      "note": "4 个新容器/中间层条目。"
+    },
+    "data/knowledge-edges.json": {
+      "before": 4158,
+      "after": 4166,
+      "added": 13,
+      "removed": 5,
+      "modified": 5,
+      "note": "新增 = 3 条 impl:* + 10 条 treebind:*；删除 5 条 treebind（挂载点迁移）；修改 5 条 treebind（dimensions 并集同步）。"
+    },
+    "data/evolution-events.json": {
+      "before": 2,
+      "after": 3,
+      "added": [
+        "event:tree-refactor:phase1:1789371446647"
+      ],
+      "removed": 0,
+      "modified": 0
+    },
+    "data/questions.json": {
+      "note": "本批未写（备份 → 当前 0 差异）；HEAD 与基线的 1 处差异属外部批次。"
+    }
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "peerAddedFiles": [
+      "scripts/index-graph-layout.test.mjs"
+    ],
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "本批干净提交验收 = 42/42。peer 的 2 项随其自己的批次（含 indexGraphLayout.ts 源码）提交后，才形成新的全库基线 44/44。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "HEAD ↔ preBatchSnapshot 逐字节（Buffer.compare，单进程，禁 git show 管道）",
+      "mustBeEmpty": [
+        "data/tree-data.json",
+        "data/node-pool.json",
+        "data/knowledge-edges.json",
+        "data/evolution-events.json"
+      ],
+      "orthogonalTo": "timeline",
+      "note": "当前唯一阻塞项：node-pool 的 HEAD ≠ 基线（127 个既有实体的外部 tags/viewDimensions 改动）。等外部批次提交后复跑。"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅",
+      "probes": [
+        "data/questions.json"
+      ]
+    },
+    "delta": {
+      "definition": "preBatchSnapshot → 当前，逐文件核对 expectedDelta；removed 必须为 0，modified 不得超出声明"
+    },
+    "tests": {
+      "definition": "tracked 测试文件全绿（42/42）",
+      "informational": "peer-added（2）与工作树总数（44）仅记录，不作为本批验收"
+    }
+  },
+
+  "veto": {
+    "pathB": {
+      "name": "构造式提交（git hash-object -w + update-index --cacheinfo）",
+      "status": "REJECTED",
+      "reason": "用户 2026-09-14 裁决：走路径 A（等外部收敛），不做工作树不动的构造式提交。"
+    }
+  }
+}

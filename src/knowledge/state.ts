@@ -20,23 +20,16 @@ import type {
   Rule,
   TreeNode,
 } from '../types';
+import type { KnowledgeEvolutionEvent } from './timelineEvolution';
+import type { VersionChain } from './versionChains';
 
-export const APP_STATE_VERSION = 6 as const;
+export const APP_STATE_VERSION = 7 as const;
 
-export interface GraphSlice {
+interface GraphSlice {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
   conclusions: GraphNode[];
   edges: GraphEdge[];
-}
-
-export interface KnowledgePointSnapshot {
-  id: string;
-  knowledgeNodeId: string;
-  title: string;
-  capturedAt: number;
-  note?: string;
-  node: KnowledgeNode;
 }
 
 export interface PersistedAppState {
@@ -48,8 +41,9 @@ export interface PersistedAppState {
   questions: Question[];
   rules: Rule[];
   perspectives: Perspective[];
-  inferenceResponses: Record<string, string>;
-  timeline: KnowledgePointSnapshot[];
+  evolutionEvents: KnowledgeEvolutionEvent[];
+  /** 版本链（versions-v1.2 接线）：raw 数组，消费方经 normalizeVersionChains 严格校验 */
+  versionChains: VersionChain[];
 }
 
 /** 应用初始知识库（数据库知识体系 + 锁机制细粒度节点） */
@@ -74,7 +68,7 @@ export function createEmptyAppState(): PersistedAppState {
     questions: [],
     rules: [],
     perspectives: [],
-    inferenceResponses: {},
-    timeline: [],
+    evolutionEvents: [],
+    versionChains: [],
   };
 }

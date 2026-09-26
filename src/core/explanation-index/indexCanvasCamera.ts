@@ -17,8 +17,8 @@ export interface CameraState {
   scale: number;
 }
 
-export type CanvasOverviewLabelKind = 'group' | 'node';
-export type CanvasOverviewLabelPresentation = 'badge' | 'cell';
+type CanvasOverviewLabelKind = 'group' | 'node';
+type CanvasOverviewLabelPresentation = 'badge' | 'cell';
 
 export interface CanvasOverviewLabel {
   id: string;
@@ -66,9 +66,9 @@ const OVERVIEW_LABEL_INSET = 6;
 const OVERVIEW_CELL_MIN_FONT_SIZE = 3;
 const OVERVIEW_CELL_MAX_FONT_SIZE = 10;
 
-export const READABLE_SCALE = 0.84;
+const READABLE_SCALE = 0.84;
 
-export function clampCanvasScale(scale: number): number {
+function clampCanvasScale(scale: number): number {
   if (!Number.isFinite(scale)) return scale === Number.POSITIVE_INFINITY ? MAX_SCALE : MIN_SCALE;
   return Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale));
 }

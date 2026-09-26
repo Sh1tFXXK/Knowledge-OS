@@ -4,6 +4,7 @@ node_modules/
 
 # Build output
 dist/
+.vite/
 
 # IDE
 .idea/
@@ -22,6 +23,9 @@ npm-debug.log*
 .env.*
 !.env.example
 
+# Vercel 项目链接信息（本机产物，不入库）
+.vercel/
+
 # OS
 .DS_Store
 Thumbs.db
@@ -39,6 +43,19 @@ data/*.tmp-*
 .reasonix/
 .superpowers/
 .workbuddy/
-/after-drag.png
-/cdp-map-check.png
+.kimchi/
+.understand-anything/
+.tmp-*/
+.tmp_redis_pages/
+gui-test-screenshots/
+ocr-output/
 *.bak
+
+# Understand-Anything transient scratch dirs
+.understand-anything/.trash-*/
+
+# 验收/调试临时数据目录
+.tmp-p0-data/
+.tmp-p0-acceptance-data/
+.vercel
+.env*

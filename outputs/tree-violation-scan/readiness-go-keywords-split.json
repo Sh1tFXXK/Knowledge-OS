@@ -1,0 +1,727 @@
+{
+  "generatedAt": "2026-09-25T17:10:14.000Z",
+  "batchId": "go-keywords-split",
+  "baseRef": "4254a40",
+  "level": "S",
+  "declarationSource": "manifest",
+  "manifestPath": "batch-manifests/go-keywords-split.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\go-keywords-split-2026-09-25T17-00-26-079Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "scripts/apply-go-keywords-split.mjs",
+    "scripts/verify-go-keywords-split.mjs",
+    "scripts/probe-go-keywords-split.mjs",
+    "batch-manifests/go-keywords-split.json"
+  ],
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "declaredExternalSet": [
+    "README.md",
+    "src/panels/explanation/MarkdownView.tsx",
+    "src/styles/main.css",
+    "src/panels/explanation/CodeBlock.tsx",
+    "src/panels/explanation/codeHighlight.ts",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-go-keywords-split.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 11737321,
+        "baselineBytes": 11737321,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "16c8b24f6b2e8c8a6c850196a581e675",
+        "md5Baseline": "16c8b24f6b2e8c8a6c850196a581e675"
+      },
+      "data/tree-data.json": {
+        "headBytes": 1947212,
+        "baselineBytes": 1947212,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "dd84887c8d18bd0098cfe536a84a45ef",
+        "md5Baseline": "dd84887c8d18bd0098cfe536a84a45ef"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1142162,
+        "baselineBytes": 1142162,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "3526bfe87e484b3e2d1827bfe4b3331e",
+        "md5Baseline": "3526bfe87e484b3e2d1827bfe4b3331e"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-23T19:08:10.280Z",
+      "snapshotCount": 3,
+      "added": [
+        "README.md",
+        "data/knowledge-edges.json",
+        "data/tree-data.json",
+        "src/panels/explanation/MarkdownView.tsx",
+        "src/styles/main.css"
+      ],
+      "gone": [
+        "STATE.md",
+        "scripts/verify-phase1-commit-readiness.mjs"
+      ],
+      "changed": [
+        "data/node-pool.json"
+      ],
+      "driftTotal": 8,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/tree-data.json",
+          "data/node-pool.json"
+        ],
+        "governanceSet": [
+          "STATE.md"
+        ],
+        "declaredExternalSet": [
+          "README.md",
+          "src/panels/explanation/MarkdownView.tsx",
+          "src/styles/main.css"
+        ],
+        "otherOwnBatch": [
+          "scripts/verify-phase1-commit-readiness.mjs"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_go_keyword_break",
+        "k_go_keyword_case",
+        "k_go_keyword_chan",
+        "k_go_keyword_const",
+        "k_go_keyword_continue",
+        "k_go_keyword_default",
+        "k_go_keyword_defer",
+        "k_go_keyword_else",
+        "k_go_keyword_fallthrough",
+        "k_go_keyword_for",
+        "k_go_keyword_func",
+        "k_go_keyword_go",
+        "k_go_keyword_goto",
+        "k_go_keyword_if",
+        "k_go_keyword_import",
+        "k_go_keyword_interface",
+        "k_go_keyword_map",
+        "k_go_keyword_package",
+        "k_go_keyword_range",
+        "k_go_keyword_return",
+        "k_go_keyword_select",
+        "k_go_keyword_struct",
+        "k_go_keyword_switch",
+        "k_go_keyword_type",
+        "k_go_keyword_var"
+      ],
+      "expectedNew": [
+        "k_go_keyword_break",
+        "k_go_keyword_case",
+        "k_go_keyword_chan",
+        "k_go_keyword_const",
+        "k_go_keyword_continue",
+        "k_go_keyword_default",
+        "k_go_keyword_defer",
+        "k_go_keyword_else",
+        "k_go_keyword_fallthrough",
+        "k_go_keyword_for",
+        "k_go_keyword_func",
+        "k_go_keyword_go",
+        "k_go_keyword_goto",
+        "k_go_keyword_if",
+        "k_go_keyword_import",
+        "k_go_keyword_interface",
+        "k_go_keyword_map",
+        "k_go_keyword_package",
+        "k_go_keyword_range",
+        "k_go_keyword_return",
+        "k_go_keyword_select",
+        "k_go_keyword_struct",
+        "k_go_keyword_switch",
+        "k_go_keyword_type",
+        "k_go_keyword_var"
+      ],
+      "modified": [
+        "k_1787723651360_r3tqg7"
+      ],
+      "expectedModified": [
+        "k_1787723651360_r3tqg7",
+        "tree_1787723651777_57iok2"
+      ],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": "README.md",
+          "by": [
+            "go-keywords-split",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "evolution-v2",
+            "external-drift-adoption",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "go-keywords-split",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "go-keywords-split",
+            "core-library-methods",
+            "dedup-dual-copy-normalized",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "external-drift-adoption",
+            "external-tag-sync",
+            "go-design-split-fusion",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "go-keywords-split",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/MarkdownView.tsx",
+          "by": [
+            "go-keywords-split",
+            "delete-go",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/main.css",
+          "by": [
+            "go-keywords-split",
+            "delete-go",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+          "by": [
+            "go-keywords-split",
+            "go-domain-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+          "by": [
+            "go-keywords-split",
+            "go-domain-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json",
+          "by": [
+            "go-keywords-split",
+            "go-domain-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/apply-go-keywords-split.mjs",
+          "by": [
+            "go-keywords-split"
+          ]
+        },
+        {
+          "rel": "scripts/apply-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/apply-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/go-tools-to-subtree/apply.mjs",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "scripts/go-tools-to-subtree/verify.mjs",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/probe-go-keywords-split.mjs",
+          "by": [
+            "go-keywords-split"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/verify-go-keywords-split.mjs",
+          "by": [
+            "go-keywords-split"
+          ]
+        },
+        {
+          "rel": "scripts/verify-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/verify-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/CodeBlock.tsx",
+          "by": [
+            "go-keywords-split",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/codeHighlight.ts",
+          "by": [
+            "go-keywords-split",
+            "go-domain-restore",
+            "go-domain-split-fusion",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-delete-go.json",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-design-split-fusion.json",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-domain-restore.json",
+          "by": [
+            "go-domain-restore"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-domain-split-fusion.json",
+          "by": [
+            "go-domain-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-keywords-split.json",
+          "by": [
+            "go-keywords-split"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916",
+          "by": [
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 10,
+        "tests": 68,
+        "pass": 68,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [],
+        "tests": 0,
+        "pass": 0,
+        "fail": 0
+      },
+      "workingTreeTotal": 68,
+      "declared": {
+        "tracked": 68,
+        "peerAdded": 0,
+        "workingTreeTotal": 68,
+        "acceptanceUses": "tracked",
+        "note": "⚠️ 口径 = **测试项数**（门 verify-phase1-commit-readiness.mjs 检查 F 按项计数，不按文件数；首版误写 10 被门拦下并要求更正）。10 个已跟踪测试文件（scripts/*.test.mjs）→ 68 项全绿；未跟踪测试文件 0 个。纯 data 批次按验收成本分档不重跑 build（未改 src/ts），但 tsc --noEmit 与 npm test 均实跑：tsc 退出码 0、test 68/68。"
+      },
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_1787723651360_r3tqg7",
+      "oldLabel": "关键字",
+      "newLabel": "关键字",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "关键字",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "关键字",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "关键字",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

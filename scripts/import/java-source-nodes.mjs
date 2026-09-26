@@ -6,8 +6,8 @@ import {
   javadocTextToMarkdown,
   MEMBER_KIND,
   renderDocumentationSection,
-} from '../import-jdk-collections.mjs';
-import { javaTypeKnowledgeNodeId } from '../knowledge-identity.mjs';
+} from './lib/import-jdk-collections.mjs';
+import { javaTypeKnowledgeNodeId } from './lib/knowledge-identity.mjs';
 
 export const JAVA_SOURCE_API_TAB_PREFIX = 'java_source_api_';
 
@@ -201,7 +201,6 @@ export function createJavaSourceNodes({
       canonicalKey: `java:type:${type.className}`,
       kind: existing?.kind ?? 'entity',
       aliases: existing?.aliases,
-      provenance: existing?.provenance,
       tags: [...new Set([
         ...(existing?.tags ?? []),
         'Java',
@@ -252,7 +251,6 @@ export function createJavaSourceNodes({
           canonicalKey: `java:type:${className}`,
           kind: existing.kind ?? 'entity',
           aliases: existing.aliases,
-          provenance: existing.provenance,
           tags: [...new Set([...(existing.tags ?? []), 'Java', className])],
           relationIndex: { rootNodeId: nodeId },
         });

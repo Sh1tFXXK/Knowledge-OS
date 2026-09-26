@@ -1,0 +1,808 @@
+{
+  "generatedAt": "2026-09-15T04:53:56.299Z",
+  "batchId": "evolution-v2",
+  "baseRef": "9b45cf7",
+  "manifestPath": "batch-manifests/evolution-v2.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\evolution-v2-2026-09-15T04-27-05-000Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/evolution-events.json",
+    "src/knowledge/timelineEvolution.ts",
+    "src/knowledge/dataValidation.ts",
+    "src/core/temporal/TemporalRail.tsx",
+    "src/core/temporal/EventDrawer.tsx",
+    "src/styles/timeline.css",
+    "scripts/apply-evolution-v2.mjs",
+    "scripts/verify-evolution-v2.mjs",
+    "scripts/timeline-evolution.test.mjs",
+    "scripts/data-validation.test.mjs",
+    "scripts/index-evolution.test.mjs",
+    "outputs/tree-violation-scan/evolution-v2-apply-report.md",
+    "outputs/tree-violation-scan/evolution-v2-ui-probe.md",
+    "batch-manifests/evolution-v2.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/evolution-events.json": {
+        "headBytes": 96719,
+        "baselineBytes": 96719,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "f35b9a74eebac73e02ee7caa8cdd52f6",
+        "md5Baseline": "f35b9a74eebac73e02ee7caa8cdd52f6"
+      },
+      "data/questions.json": {
+        "headBytes": 1384385,
+        "baselineBytes": 1384385,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "91c39b6e9738f7290023265ac680aa5b",
+        "md5Baseline": "91c39b6e9738f7290023265ac680aa5b"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [
+        "scripts/data-validation.test.mjs",
+        "scripts/index-evolution.test.mjs",
+        "src/core/temporal/EventDrawer.tsx",
+        "src/core/temporal/TemporalRail.tsx",
+        "src/knowledge/dataValidation.ts",
+        "src/knowledge/timelineEvolution.ts",
+        "src/styles/timeline.css"
+      ],
+      "gone": [
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/questions.json",
+        "data/tree-data.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [
+        "data/evolution-events.json"
+      ],
+      "driftTotal": 13,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "scripts/data-validation.test.mjs",
+          "scripts/index-evolution.test.mjs",
+          "src/core/temporal/EventDrawer.tsx",
+          "src/core/temporal/TemporalRail.tsx",
+          "src/knowledge/dataValidation.ts",
+          "src/knowledge/timelineEvolution.ts",
+          "src/styles/timeline.css",
+          "data/evolution-events.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [],
+        "otherOwnBatch": [
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/questions.json",
+          "data/tree-data.json",
+          "docs/CONSTITUTION.md"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [],
+      "expectedNew": [],
+      "modified": [],
+      "expectedModified": [],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "data/evolution-events.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/data-validation.test.mjs",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "scripts/index-evolution.test.mjs",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/temporal/EventDrawer.tsx",
+          "by": [
+            "evolution-v2",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/temporal/TemporalRail.tsx",
+          "by": [
+            "evolution-v2",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/dataValidation.ts",
+          "by": [
+            "evolution-v2",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/timelineEvolution.ts",
+          "by": [
+            "evolution-v2",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/timeline.css",
+          "by": [
+            "evolution-v2",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/evolution-v2-apply-report.md",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/evolution-v2-ui-probe.md",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "scripts/apply-evolution-v2.mjs",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/timeline-evolution.test.mjs",
+          "by": [
+            "evolution-v2"
+          ]
+        },
+        {
+          "rel": "scripts/verify-evolution-v2.mjs",
+          "by": [
+            "evolution-v2"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "evolution-v2",
+            "governance-v1.1",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "evolution-v2",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p1.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p2.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "evolution-v2",
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 6,
+        "tests": 43,
+        "pass": 43,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs",
+          "scripts/timeline-evolution.test.mjs"
+        ],
+        "tests": 9,
+        "pass": 9,
+        "fail": 0
+      },
+      "workingTreeTotal": 52,
+      "declared": {
+        "tracked": 43,
+        "peerAdded": 9,
+        "peerAddedFiles": [
+          "scripts/index-graph-layout.test.mjs",
+          "scripts/timeline-evolution.test.mjs"
+        ],
+        "workingTreeTotal": 52,
+        "acceptanceUses": "tracked",
+        "note": "批前基线 = tracked 42（6 文件）+ peer 2（index-graph-layout）= 44。本批：data-validation.test.mjs +1 项（tracked → 43）；timeline-evolution.test.mjs 新增 7 项（未跟踪，暂入 peer 列，随本批提交后 tracked 基线将变为 50、peer 回落 2）。就绪门实跑读数：tracked 43/43 · peer 9/9 · 合计 52。"
+      },
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 80,
+    "labelNeCardTitle_subset": 69,
+    "treeNameNePoolLabel": 67,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

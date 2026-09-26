@@ -3,6 +3,105 @@
   background: #17191d;
 }
 
+.explanation-index-timeline-lens {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: minmax(130px, auto) minmax(260px, 1fr);
+  align-items: center;
+  gap: 7px 14px;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: #202329;
+}
+
+.explanation-index-timeline-state {
+  min-width: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.explanation-index-timeline-state span {
+  color: #8c929d;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.explanation-index-timeline-state strong {
+  overflow: hidden;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.explanation-index-timeline-stages {
+  min-width: 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 3px;
+  overflow-x: auto;
+}
+
+.explanation-index-timeline-stages button {
+  min-height: 25px;
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+  background: #2b2e34;
+  color: #aeb4bf;
+  font-size: 9px;
+  cursor: pointer;
+}
+
+.explanation-index-timeline-stages button:hover,
+.explanation-index-timeline-stages button:focus-visible {
+  border-color: rgba(196, 181, 253, 0.55);
+  color: #f5f3ff;
+  outline: none;
+}
+
+.explanation-index-timeline-stages button:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 1px;
+}
+
+.explanation-index-timeline-stages button.is-active {
+  border-color: rgba(167, 139, 250, 0.68);
+  background: rgba(139, 92, 246, 0.16);
+  color: #f5f3ff;
+  box-shadow: inset 0 2px var(--accent-purple, #8b5cf6);
+}
+
+.explanation-index-timeline-stages .explanation-index-timeline-play {
+  width: 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-color: rgba(167, 139, 250, 0.42);
+  color: #c4b5fd;
+}
+
+.explanation-index-timeline-stages .explanation-index-timeline-play:hover {
+  border-color: rgba(196, 181, 253, 0.7);
+  background: rgba(139, 92, 246, 0.12);
+}
+
+.explanation-index-timeline-lens p {
+  grid-column: 1 / -1;
+  margin: 0;
+  overflow: hidden;
+  color: #8c929d;
+  font-size: 9px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .explanation-index-count {
   width: auto;
   min-width: 0;
@@ -86,6 +185,13 @@
 
 .index-canvas.has-overview-labels .explanation-index-class-header-main strong {
   visibility: hidden;
+}
+
+/* 手势（平移/缩放）进行中：隐藏 overview 标签层，避免错位撕裂与逐帧重排卡顿。
+   手势静默/结束后恢复，标签一次性到位。 */
+.index-canvas.is-gesturing .index-canvas-overview-label {
+  opacity: 0;
+  transition: opacity 120ms ease-out;
 }
 
 .explanation-index-diagram-overlay {
@@ -593,6 +699,97 @@
   background: rgba(153, 27, 27, 0.78);
 }
 
+@keyframes index-timeline-appear {
+  0% {
+    opacity: 0;
+    filter: blur(9px) brightness(1.8);
+    box-shadow: 0 0 0 rgba(74, 222, 128, 0), 0 0 0 rgba(0, 0, 0, 0);
+  }
+  45% {
+    opacity: 1;
+    filter: blur(1px) brightness(1.3);
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25), 0 20px 42px rgba(0, 0, 0, 0.48);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    box-shadow: inset 3px 0 rgba(74, 222, 128, 0.75), 0 14px 30px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes index-timeline-change {
+  0%, 100% {
+    box-shadow: inset 3px 0 rgba(245, 158, 11, 0.72), 0 10px 24px rgba(0, 0, 0, 0.3);
+  }
+  45% {
+    box-shadow: inset 3px 0 rgba(245, 158, 11, 1), 0 0 0 3px rgba(245, 158, 11, 0.24), 0 18px 38px rgba(0, 0, 0, 0.46);
+  }
+}
+
+.explanation-index-class-node.is-timeline-appearing {
+  z-index: 7;
+  border-color: rgba(74, 222, 128, 0.92);
+  animation: index-timeline-appear 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.explanation-index-class-node.is-timeline-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.explanation-index-class-node.is-timeline-appearing .explanation-index-class-header {
+  background: linear-gradient(180deg, #365044, #304139);
+  border-bottom-color: rgba(134, 239, 172, 0.4);
+}
+
+.explanation-index-class-node.is-timeline-changed:not(.is-timeline-appearing) {
+  z-index: 6;
+  border-color: rgba(245, 158, 11, 0.94);
+  animation: index-timeline-change 900ms ease-out both;
+}
+
+.explanation-index-timeline-badge {
+  align-self: center;
+  margin-top: 5px;
+  padding: 2px 5px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.explanation-index-timeline-badge.is-new {
+  color: #86efac;
+}
+
+.explanation-index-timeline-badge.is-changed {
+  color: #fbbf24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .explanation-index-class-node.is-timeline-appearing,
+  .explanation-index-class-node.is-timeline-changed {
+    animation: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .explanation-index-timeline-lens {
+    grid-template-columns: 1fr;
+  }
+
+  .explanation-index-timeline-stages {
+    justify-content: flex-start;
+  }
+
+  .explanation-index-timeline-lens p {
+    grid-column: 1;
+  }
+}
+
 .explanation-index-class-header {
   position: relative;
   min-height: 64px;
@@ -890,10 +1087,32 @@
   transition: opacity 120ms ease;
 }
 
+/* 编辑态（点开"编辑"后）按钮常驻可见；平时 hover/focus/选中浮现，
+   避免大面积知识图上漂浮一排小按钮造成视觉噪音 */
+.explanation-index-unified-graph.is-editable .explanation-index-class-header-actions {
+  opacity: 0.9;
+  pointer-events: auto;
+}
+
 .explanation-index-class-node:hover .explanation-index-class-header-actions,
 .explanation-index-class-node:focus-within .explanation-index-class-header-actions,
 .explanation-index-class-node.is-active .explanation-index-class-header-actions {
   opacity: 1;
+  pointer-events: auto;
+}
+
+/* 远缩档位按钮小于可点击尺寸，隐藏避免噪点 */
+.index-canvas.is-compact .explanation-index-class-header-actions,
+.index-canvas.is-overview .explanation-index-class-header-actions {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 历史切片只读态下，删除是唯一还渲染的动作（其余编辑按钮都在 editable 之后）。
+   若沿用上面的规则，缩到 compact 档位时唯一入口也被一并抹掉，用户就彻底找不到删除了；
+   所以此处给出常驻入口。overview 档位图标确实小于可点击尺寸，仍按原设计隐藏。 */
+.index-canvas:not(.is-overview) .explanation-index-unified-graph.is-deletable:not(.is-editable) .explanation-index-class-header-actions {
+  opacity: 0.9;
   pointer-events: auto;
 }
 
@@ -932,6 +1151,14 @@
   color: #93c5fd;
   opacity: 1;
   outline: none;
+}
+
+/* 方框删除按钮：删除节点本体（目录保留），红色语义与成员删除一致 */
+.explanation-index-class-header-actions .explanation-index-class-node-delete:hover,
+.explanation-index-class-header-actions .explanation-index-class-node-delete:focus-visible {
+  border-color: rgba(239, 68, 68, 0.62);
+  background: #3a2226;
+  color: #fca5a5;
 }
 
 .explanation-index-class-members {
@@ -1279,3 +1506,113 @@
   font-size: 9px;
 }
 
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   时态工作台 — 时间轨「跟随」与事件抽屉（知识控制台语言：发丝分区 + 等宽注记）
+   ═══════════════════════════════════════════════════════════════════════════ */
+.explanation-index-timeline-follow {
+  min-height: 25px;
+  flex: 0 0 auto;
+  padding: 4px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+  background: #2b2e34;
+  color: #aeb4bf;
+  font-size: 9px;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s, color 0.15s;
+}
+
+.explanation-index-timeline-follow:hover {
+  border-color: rgba(196, 181, 253, 0.55);
+  color: #f5f3ff;
+}
+
+.explanation-index-timeline-follow.is-active {
+  border-color: rgba(167, 139, 250, 0.68);
+  background: rgba(139, 92, 246, 0.16);
+  color: #f5f3ff;
+}
+
+.explanation-index-timeline-follow:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: 1px;
+}
+
+/* ── 事件抽屉：画布下方的时态详情面板 ── */
+.event-drawer {
+  flex: 0 0 auto;
+  min-height: 0;
+  max-height: 46%;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(32, 35, 41, 0.72), rgba(27, 29, 33, 0.9));
+}
+
+.event-drawer-head {
+  flex: 0 0 auto;
+}
+
+.event-drawer-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary, #f8fafc);
+  cursor: pointer;
+  text-align: left;
+}
+
+.event-drawer-toggle:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.event-drawer-toggle:focus-visible {
+  outline: 2px solid rgba(139, 92, 246, 0.6);
+  outline-offset: -2px;
+}
+
+.event-drawer-toggle strong {
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.event-drawer-toggle small {
+  color: #8c929d;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.event-drawer-body {
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
+}
+
+.event-drawer-summary {
+  margin: 0 0 8px;
+  color: #a4a8b0;
+  font-size: 10.5px;
+  line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .event-drawer-body {
+    animation: event-drawer-enter 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes event-drawer-enter {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}

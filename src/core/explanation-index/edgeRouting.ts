@@ -5,19 +5,19 @@ import {
 } from './indexGraphLayout';
 
 export type EdgeRoutingMode = 'detail' | 'compact' | 'overview';
-export type NodeSide = 'top' | 'right' | 'bottom' | 'left';
+type NodeSide = 'top' | 'right' | 'bottom' | 'left';
 
-export interface EdgeRoutePoint {
+interface EdgeRoutePoint {
   x: number;
   y: number;
 }
 
-export interface EdgeRouteSegment {
+interface EdgeRouteSegment {
   start: EdgeRoutePoint;
   end: EdgeRoutePoint;
 }
 
-export interface EdgeRoute {
+interface EdgeRoute {
   edgeId: string;
   d: string;
   segments: readonly EdgeRouteSegment[];
@@ -27,14 +27,14 @@ export interface EdgeRoute {
   targetSide: NodeSide;
 }
 
-export interface EdgeBundleBranch {
+interface EdgeBundleBranch {
   edgeId: string;
   d: string;
   segments: readonly EdgeRouteSegment[];
   targetSide: NodeSide;
 }
 
-export interface EdgeBundleRoute {
+interface EdgeBundleRoute {
   id: string;
   kind: UnifiedIndexGraphEdge['kind'];
   edgeIds: readonly string[];

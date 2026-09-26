@@ -14,7 +14,7 @@ export enum MechanismDiagramType {
   Sequence = 'sequence',
 }
 
-export interface ProcessDiagramStep {
+interface ProcessDiagramStep {
   stepId: ProcessStepId;
   index: number;
   label: string;
@@ -28,12 +28,12 @@ export interface ProcessDiagram {
   steps: readonly ProcessDiagramStep[];
 }
 
-export interface SequenceParticipant {
+interface SequenceParticipant {
   entity: Entity;
   index: number;
 }
 
-export interface SequenceMessage extends ProcessDiagramStep {
+interface SequenceMessage extends ProcessDiagramStep {
   sourceParticipantIndex: number;
   targetParticipantIndex: number;
 }

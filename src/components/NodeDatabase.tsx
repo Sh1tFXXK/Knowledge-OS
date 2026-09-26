@@ -1,11 +1,42 @@
 import { useState, useMemo } from 'react';
 import { useGraphStore } from '../store/useGraph';
 import type { KnowledgeNode } from '../types';
+import { useDebouncedValue, useProgressiveRender } from './useProgressiveRender';
 
 type ViewMode = 'table' | 'cards';
 type SortBy = 'name' | 'role' | 'created' | 'dimensions';
 type SortOrder = 'asc' | 'desc';
 type GroupBy = 'none' | 'role' | 'dimension' | 'shared';
+
+/** 池内数据来自外部文件与导入脚本，字段类型不能假设，渲染前统一兜底。 */
+function labelOf(node: KnowledgeNode): string {
+  return typeof node?.label === 'string' ? node.label : '';
+}
+
+function tagsOf(node: KnowledgeNode): string[] {
+  return Array.isArray(node?.tags) ? node.tags.filter((t): t is string => typeof t === 'string') : [];
+}
+
+function dimensionsOf(node: KnowledgeNode): string[] {
+  return Array.isArray(node?.dimensions)
+    ? node.dimensions.filter((d): d is string => typeof d === 'string')
+    : [];
+}
+
+/**
+ * 取正文预览：优先首个 tab 的正文；无 tab（或首个 tab 无正文）时退回 rootContent。
+ * 读态只渲染 rootContent，故 rootContent-only 卡（含去重后 tabs 清空的卡）也必须能出预览。
+ * 缺 content / 空字符串一律安全返回，绝不抛错。
+ */
+function previewOf(node: KnowledgeNode): string {
+  const tabs = node?.card?.tabs;
+  if (Array.isArray(tabs) && tabs.length > 0) {
+    const content = tabs[0]?.content;
+    if (typeof content === 'string' && content !== '') return content;
+  }
+  const root = node?.card?.rootContent;
+  return typeof root === 'string' ? root : '';
+}
 
 export default function NodeDatabase() {
   const nodePool = useGraphStore((s) => s.nodePool);
@@ -26,29 +57,36 @@ export default function NodeDatabase() {
   // 收集所有存在的维度（动态从节点中提取）
   const allDimensions = useMemo(() => {
     const dims = new Set<string>();
-    Object.values(nodePool).forEach((n) => n.dimensions?.forEach((d) => dims.add(d)));
+    Object.values(nodePool).forEach((n) => {
+      if (!Array.isArray(n?.dimensions)) return;
+      n.dimensions.forEach((d) => {
+        if (typeof d === 'string') dims.add(d);
+      });
+    });
     return [...dims].sort();
   }, [nodePool]);
 
-  // 获取所有节点
-  const nodes = useMemo(() => {
-    return Object.entries(nodePool).map(([id, node]) => ({
-      ...node,
-      id,
-    }));
-  }, [nodePool]);
+  // 获取所有节点（node.id 与池键一致，直接引用池内对象，不整池拷贝）
+  const nodes = useMemo(() => Object.values(nodePool), [nodePool]);
+
+  // 搜索词防抖：全文匹配所有 tab 内容开销大，避免每次按键都重算
+  const debouncedSearch = useDebouncedValue(searchQuery);
 
   // 搜索和过滤
   const filteredNodes = useMemo(() => {
     let result = nodes;
 
     // 搜索
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
+    if (debouncedSearch.trim()) {
+      const query = debouncedSearch.toLowerCase();
+      // 池内数据由外部文件/导入脚本产生，字段类型不能假设。
+      // 历史上这里直接 tab.content.toLowerCase()，一条缺 content 的记录就会让整页白屏。
       result = result.filter((node) =>
-        node.label.toLowerCase().includes(query) ||
-        node.card?.title?.toLowerCase().includes(query) ||
-        node.card?.tabs?.some(tab => tab.content.toLowerCase().includes(query))
+        (typeof node.label === 'string' && node.label.toLowerCase().includes(query)) ||
+        (typeof node.card?.title === 'string' && node.card.title.toLowerCase().includes(query)) ||
+        (Array.isArray(node.card?.tabs) && node.card.tabs.some(
+          (tab) => typeof tab?.content === 'string' && tab.content.toLowerCase().includes(query),
+        ))
       );
     }
 
@@ -60,12 +98,12 @@ export default function NodeDatabase() {
     // 维度过滤
     if (filterDimension !== 'all') {
       result = result.filter((node) =>
-        node.dimensions?.includes(filterDimension)
+        Array.isArray(node.dimensions) && node.dimensions.includes(filterDimension)
       );
     }
 
     return result;
-  }, [nodes, searchQuery, filterRole, filterDimension]);
+  }, [nodes, debouncedSearch, filterRole, filterDimension]);
 
   // 排序
   const sortedNodes = useMemo(() => {
@@ -75,7 +113,7 @@ export default function NodeDatabase() {
 
       switch (sortBy) {
         case 'name':
-          compareValue = a.label.localeCompare(b.label, 'zh-CN');
+          compareValue = labelOf(a).localeCompare(labelOf(b), 'zh-CN');
           break;
         case 'role':
           compareValue = (a.role || '').localeCompare(b.role || '', 'zh-CN');
@@ -113,7 +151,7 @@ export default function NodeDatabase() {
             : '其他';
           break;
         case 'dimension':
-          const dims = node.dimensions || [];
+          const dims = dimensionsOf(node);
           groupKey = dims.length > 0 ? dims[0] : '无维度';
           break;
         case 'shared':
@@ -130,14 +168,30 @@ export default function NodeDatabase() {
     return groups;
   }, [sortedNodes, groupBy]);
 
+  // 渐进渲染：滚动接近底部自动扩容；搜索/过滤/排序变化时回到初始量
+  const { renderLimit, sentinelRef } = useProgressiveRender(
+    [debouncedSearch, filterRole, filterDimension, groupBy, sortBy, sortOrder].join('|'),
+    filteredNodes.length,
+  );
+
+  // 全局预算内逐组截取：无论怎么分组，实际渲染行数都不超过 renderLimit
+  const visibleGroups = useMemo(() => {
+    let remaining = renderLimit;
+    return Object.entries(groupedNodes).map(([groupName, groupNodes]) => {
+      const visible = groupNodes.slice(0, Math.max(remaining, 0));
+      remaining -= visible.length;
+      return { groupName, visible, total: groupNodes.length };
+    });
+  }, [groupedNodes, renderLimit]);
+  const visibleCount = visibleGroups.reduce((sum, g) => sum + g.visible.length, 0);
+
   const handleNodeClick = (nodeId: string) => {
     openCard(nodeId);
     addNotification('已定位到节点', 'success');
   };
 
   const handleDeleteNode = (nodeId: string, label: string) => {
-    if (window.confirm(`确定要删除节点"${label}"吗？这将同时删除所有引用。`)) {
-      removeKnowledgeNode(nodeId);
+    if (window.confirm(`确定要删除节点"${label}"吗？这将同时删除所有引用。`)) {      removeKnowledgeNode(nodeId);
       addNotification('节点已删除', 'success');
     }
   };
@@ -226,12 +280,14 @@ export default function NodeDatabase() {
 
       {/* 内容区域 */}
       <div className="database-content">
-        {Object.entries(groupedNodes).map(([groupName, groupNodes]) => (
+        {visibleGroups.map(({ groupName, visible, total }) => (
           <div key={groupName} className="database-group">
             {groupBy !== 'none' && (
               <div className="group-header">
                 <span className="group-name">{groupName}</span>
-                <span className="group-count">({groupNodes.length})</span>
+                <span className="group-count">
+                  {visible.length === total ? `(${total})` : `(${visible.length}/${total})`}
+                </span>
               </div>
             )}
 
@@ -253,12 +309,12 @@ export default function NodeDatabase() {
                   </tr>
                 </thead>
                 <tbody>
-                  {groupNodes.map((node) => (
+                  {visible.map((node) => (
                     <tr key={node.id} onClick={() => handleNodeClick(node.id)}>
                       <td>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                           {node.shared && <span title="共享节点">⟳</span>}
-                          <span>{node.label}</span>
+                          <span>{labelOf(node)}</span>
                         </div>
                       </td>
                       <td>
@@ -272,18 +328,20 @@ export default function NodeDatabase() {
                       </td>
                       <td>
                         <div className="dimension-tags">
-                          {node.dimensions?.map((dim) => (
-                            <span key={dim} className="dimension-tag">{dim}</span>
-                          )) || '-'}
+                          {dimensionsOf(node).length > 0
+                            ? dimensionsOf(node).map((dim) => (
+                              <span key={dim} className="dimension-tag">{dim}</span>
+                            ))
+                            : '-'}
                         </div>
                       </td>
                       <td>
-                        {node.tags?.length ? node.tags.join(', ') : '-'}
+                        {tagsOf(node).length ? tagsOf(node).join(', ') : '-'}
                       </td>
                       <td onClick={(e) => e.stopPropagation()}>
                         <button
                           className="btn-icon-sm"
-                          onClick={() => handleDeleteNode(node.id, node.label)}
+                          onClick={() => handleDeleteNode(node.id, labelOf(node))}
                           title="删除"
                           style={{ color: '#ef4444' }}
                         >
@@ -296,7 +354,7 @@ export default function NodeDatabase() {
               </table>
             ) : (
               <div className="database-cards">
-                {groupNodes.map((node) => (
+                {visible.map((node) => (
                   <div
                     key={node.id}
                     className="node-card"
@@ -305,13 +363,13 @@ export default function NodeDatabase() {
                     <div className="node-card-header">
                       <span className="node-card-title">
                         {node.shared && <span>⟳ </span>}
-                        {node.label}
+                        {labelOf(node)}
                       </span>
                       <button
                         className="btn-icon-sm"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleDeleteNode(node.id, node.label);
+                          handleDeleteNode(node.id, labelOf(node));
                         }}
                         title="删除"
                         style={{ color: '#ef4444' }}
@@ -329,17 +387,17 @@ export default function NodeDatabase() {
                             : '其他'}
                         </span>
                       </div>
-                      {node.dimensions && node.dimensions.length > 0 && (
+                      {dimensionsOf(node).length > 0 && (
                         <div className="dimension-tags">
-                          {node.dimensions.map((dim) => (
+                          {dimensionsOf(node).map((dim) => (
                             <span key={dim} className="dimension-tag">{dim}</span>
                           ))}
                         </div>
                       )}
-                      {node.card?.tabs?.[0] && (
+                      {previewOf(node) !== '' && (
                         <div className="node-card-preview">
-                          {node.card.tabs[0].content.substring(0, 100)}
-                          {node.card.tabs[0].content.length > 100 && '...'}
+                          {previewOf(node).substring(0, 100)}
+                          {previewOf(node).length > 100 && '...'}
                         </div>
                       )}
                     </div>
@@ -349,6 +407,14 @@ export default function NodeDatabase() {
             )}
           </div>
         ))}
+
+        {/* 渐进渲染哨兵：进入视口附近时自动扩容 */}
+        <div ref={sentinelRef} style={{ height: 1 }} aria-hidden="true" />
+        {visibleCount < filteredNodes.length && (
+          <div style={{ textAlign: 'center', fontSize: 11, color: 'var(--text-tertiary)', padding: '8px 0' }}>
+            已显示 {visibleCount} / 共 {filteredNodes.length} 个节点，滚动自动加载
+          </div>
+        )}
       </div>
     </div>
   );

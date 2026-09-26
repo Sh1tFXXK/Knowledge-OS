@@ -1,0 +1,650 @@
+{
+  "generatedAt": "2026-09-24T11:06:15.979Z",
+  "batchId": "go-design-split-fusion",
+  "baseRef": "33a5902",
+  "manifestPath": "batch-manifests/go-design-split-fusion.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\go-design-split-fusion-2026-09-24T10-40-55-308Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "scripts/apply-go-design-split-fusion.mjs",
+    "scripts/verify-go-design-split-fusion.mjs",
+    "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-apply-report.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-verification.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-ui-probe.md",
+    "batch-manifests/go-design-split-fusion.json"
+  ],
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "declaredExternalSet": [
+    "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+    "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+    "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+    "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+    "scripts/apply-p-web-cookie-session.mjs",
+    "scripts/apply-spring-ioc-refactor.mjs",
+    "scripts/jsp-mechanism-view/apply.mjs",
+    "scripts/jsp-mechanism-view/verify.mjs",
+    "scripts/txmgr-types-to-subtree/apply.mjs",
+    "scripts/txmgr-types-to-subtree/verify.mjs",
+    "scripts/verify-p-web-cookie-session.mjs",
+    "scripts/verify-spring-ioc-refactor.mjs"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+    "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+    "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+    "outputs/tree-violation-scan/readiness-go-design-split-fusion.json",
+    "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 11735022,
+        "baselineBytes": 11735022,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "956e9a4c8dd80ccd54f7b57acc291150",
+        "md5Baseline": "956e9a4c8dd80ccd54f7b57acc291150"
+      },
+      "data/tree-data.json": {
+        "headBytes": 1943794,
+        "baselineBytes": 1943794,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "cdb805a252c3ef1607e147357a12af2e",
+        "md5Baseline": "cdb805a252c3ef1607e147357a12af2e"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1138979,
+        "baselineBytes": 1138979,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "9fe088554a488fcf62e1506aa7124133",
+        "md5Baseline": "9fe088554a488fcf62e1506aa7124133"
+      },
+      "data/questions.json": {
+        "headBytes": 1403060,
+        "baselineBytes": 1403060,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "17382ff4cde7e80c0b66f46df1667ccf",
+        "md5Baseline": "17382ff4cde7e80c0b66f46df1667ccf"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-24T10:40:31.189Z",
+      "snapshotCount": 1,
+      "added": [
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/tree-data.json"
+      ],
+      "gone": [],
+      "changed": [],
+      "driftTotal": 3,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [],
+        "otherOwnBatch": []
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_go_versioning"
+      ],
+      "expectedNew": [
+        "k_go_versioning"
+      ],
+      "modified": [
+        "k_1787722763547_no5htk",
+        "k_goexplain_design",
+        "k_go_generic"
+      ],
+      "expectedModified": [
+        "k_1787722763547_no5htk",
+        "k_goexplain_design",
+        "k_go_generic"
+      ],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": "STATE.md",
+          "by": [
+            "go-design-split-fusion",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "dedup-dual-copy-normalized",
+            "evolution-v2",
+            "external-drift-adoption-20260924",
+            "external-drift-adoption",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "go-design-split-fusion",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "external-drift-adoption-20260924",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "go-design-split-fusion",
+            "core-library-methods",
+            "dedup-dual-copy-normalized",
+            "external-drift-adoption-20260924",
+            "external-drift-adoption",
+            "external-tag-sync",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "go-design-split-fusion",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "external-drift-adoption-20260924",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/worktree-fingerprint.json",
+          "by": [
+            "phase1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-design-split-fusion-apply-report.md",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+          "by": [
+            "go-design-split-fusion",
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-design-split-fusion-ui-probe.md",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-design-split-fusion-verification.md",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/apply-go-design-split-fusion.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "scripts/apply-p-web-cookie-session.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/apply-spring-ioc-refactor.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/apply.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/verify.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/apply.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/verify.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/verify-go-design-split-fusion.mjs",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/verify-p-web-cookie-session.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/verify-spring-ioc-refactor.mjs",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+          "by": [
+            "go-design-split-fusion",
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+          "by": [
+            "go-design-split-fusion",
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916",
+          "by": [
+            "go-design-split-fusion",
+            "external-drift-adoption-20260924"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 10,
+        "tests": 68,
+        "pass": 68,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [],
+        "tests": 0,
+        "pass": 0,
+        "fail": 0
+      },
+      "workingTreeTotal": 68,
+      "declared": null,
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_1787722763547_no5htk",
+      "oldLabel": "历史",
+      "newLabel": "历史",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "历史",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "历史",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "历史",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_goexplain_design",
+      "oldLabel": "语言设计",
+      "newLabel": "语言设计",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "语言设计",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "语言设计",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "语言设计",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_go_generic",
+      "oldLabel": "泛型",
+      "newLabel": "泛型",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "泛型",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "泛型",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "泛型",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

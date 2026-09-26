@@ -15,12 +15,12 @@ export const KnowledgeReferencePartKind = {
   Reference: 1,
 } as const;
 
-export interface KnowledgeReferenceTextPart {
+interface KnowledgeReferenceTextPart {
   kind: typeof KnowledgeReferencePartKind.Text;
   text: string;
 }
 
-export interface KnowledgeReferenceNodePart {
+interface KnowledgeReferenceNodePart {
   kind: typeof KnowledgeReferencePartKind.Reference;
   text: string;
   reference: KnowledgeReference;

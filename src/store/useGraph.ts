@@ -31,7 +31,6 @@ import {
 } from '../knowledge/defaults';
 import { extractSubgraph } from '../knowledge/extractSubgraph';
 import {
-  persistAppState,
   clearPersistedAppState,
   exportAppStateJson,
   parseImportedAppState,
@@ -39,14 +38,16 @@ import {
 import {
   createEmptyAppState,
   APP_STATE_VERSION,
-  type KnowledgePointSnapshot,
   type PersistedAppState,
 } from '../knowledge/state';
+import type { KnowledgeEvolutionEvent } from '../knowledge/timelineEvolution';
+import type { VersionChain } from '../knowledge/versionChains';
 import {
   appendTreeChild,
   cloneTree,
   cloneTreeWithNewIds,
   collectTreeNodes,
+  detachKnowledgeBinding,
   findTreeParent,
   findTreeNodeById,
   moveTreeNodes as moveTreeNodesInTree,
@@ -65,14 +66,31 @@ import {
   questionsForNode,
 } from '../knowledge/questionLink';
 import { normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
-import { loadCompleteStateFromFiles, saveStateToFiles } from '../knowledge/filePersistence';
+import { READ_ONLY_DEPLOYMENT } from '../knowledge/deploymentMode';
+import {
+  loadCompleteStateFromFiles,
+  dirtyPersistedSlices,
+  pickPersistedSlices,
+  savePersistedSlices,
+  sliceFile,
+  sliceLabel,
+  type LoadedAppState,
+  type PersistedSliceKey,
+  type PersistedSlices,
+  type SliceFailure,
+} from '../knowledge/filePersistence';
+import {
+  sliceKeyOfFile,
+  reloadSlicesFromFiles,
+  subscribeDataFileChanges,
+} from '../knowledge/dataFileSync';
 import { removeNodeRefsFromViewDimensions } from '../knowledge/projection';
 import {
   hasDirectTypeRelation,
   typeRelationLabel,
   wouldIntroduceTypeRelationCycle,
 } from '../knowledge/typeRelations';
-import { createKnowledgePointSnapshot } from '../knowledge/timeline';
+import { saveLastSelectedEvent, clearTemporalPreferences } from '../knowledge/temporalPreferences';
 import {
   CONTAINMENT_EDGE_LABEL,
   CONTAINMENT_EDGE_TYPE,
@@ -97,23 +115,20 @@ const DEFINITION_TAB_ID = 'def';
 
 function pagesForTab(card: NodeExplanation, tab: NodeExplanation['tabs'][number]): ExplanationPage[] {
   if (tab.pages?.length) return tab.pages;
-  const legacyPages = tab.id === DEFINITION_TAB_ID ? card.definitionPages : undefined;
-  return legacyPages?.length ? legacyPages : [];
+  return [];
 }
 
 function patchTabPages(
   card: NodeExplanation,
   tabId: string,
   pages: ExplanationPage[],
-): Partial<Pick<NodeExplanation, 'tabs' | 'definitionPages'>> {
+): Partial<Pick<NodeExplanation, 'tabs'>> {
   const tabs = mapTabRecursive(card.tabs, tabId, (tab) => ({
     ...tab,
     content: tab.content,
     pages: pages.length > 0 ? pages : undefined,
   }));
-  return tabId === DEFINITION_TAB_ID
-    ? { tabs, definitionPages: undefined }
-    : { tabs };
+  return { tabs };
 }
 
 // ===================== 递归树遍历工具 =====================
@@ -232,6 +247,25 @@ function appendChildTab(
   }));
 }
 
+/** 数据文件加载诊断。 */
+export interface DataLoadReport {
+  loadedAt: number;
+  /** 加载失败、已禁止回写的切片 */
+  failures: SliceFailure[];
+  /** 形状可容忍但需上报的问题 */
+  warnings: string[];
+  /** 文件不存在、按新文件处理的切片 */
+  missing: SliceFailure[];
+}
+
+/** 外部修改与本地未保存编辑冲突的切片条目 */
+export interface ExternalConflictItem {
+  key: PersistedSliceKey;
+  file: string;
+  label: string;
+  detectedAt: number;
+}
+
 interface GraphState {
   axioms: GraphNode[];
   mechanisms: GraphNode[];
@@ -241,7 +275,7 @@ interface GraphState {
   selectedTreeNodeId: string | null;
   focusNodeId: string | null;
   activeExplanationSelection: ExplanationSelection | null;
-  /** 鍙充晶闂璇︽儏闈㈡澘褰撳墠灞曠ず鐨勯棶棰?*/
+  /** 右侧问题详情面板当前展示的问题 */
   selectedQuestionId: string | null;
   hoveredNodeId: string | null;
 
@@ -250,23 +284,38 @@ interface GraphState {
   knowledgeEdges: KnowledgeEdge[];
 
   questions: Question[];
-  inferenceResponses: Record<string, string>;
   rules: Rule[];
   perspectives: Perspective[];
-  timeline: KnowledgePointSnapshot[];
+  evolutionEvents: KnowledgeEvolutionEvent[];
+  versionChains: VersionChain[];
 
   notifications: NotificationItem[];
   theme: ThemeType;
   currentPerspective: Perspective | null;
   activeView: AppView;
   selectedSupertag: string | null;
-  selectedTimelineSnapshotId: string | null;
+  activeEventId: string | null;
+  followSelection: boolean;
   history: Array<{ action: string; data: unknown }>;
 
+  /**
+   * 最近一次数据文件加载的诊断结果。`failures` 里的切片处于"禁止回写"状态：
+   * 加载没过校验，就绝不允许把当前内存态写回正式文件。
+   */
+  dataLoadReport: DataLoadReport | null;
+
+  /** 外部修改与本地未保存编辑冲突、等待用户裁决的切片 */
+  externalConflicts: ExternalConflictItem[];
+
   initialize: () => Promise<void>;
+  /** 重新从正式文件装载（加载失败后使用）；成功后解除禁止回写 */
+  reloadFromFiles: () => Promise<void>;
+  /** 冲突裁决：保留本地未保存编辑并立即落盘（有意覆盖外部改动） */
+  keepLocalChange: (key: PersistedSliceKey) => void;
+  /** 冲突裁决：丢弃本地未保存编辑，装载磁盘上的外部内容 */
+  loadExternalChange: (key: PersistedSliceKey) => void;
   save: () => void;
-  setSelectedNode: (id: string | null) => void;
-  /** 浠呮墦寮€鍙充晶瑙ｉ噴鍗★紝涓嶆敼鍙樹腑蹇冮暅澶寸劍鐐?*/
+  /** 仅打开右侧解释卡，不改变中心镜头焦点 */
   setSelectedNodeOnly: (id: string | null) => void;
   /** @alias setSelectedNodeOnly */
   openCard: (id: string | null) => void;
@@ -281,11 +330,7 @@ interface GraphState {
     tags: readonly string[],
   ) => boolean;
   selectTreeEntry: (treeNodeId: string) => void;
-  getTreeSupplement: () => TreeRefSupplement | null;
   getKnowledgeExplanation: () => NodeExplanation | null;
-  getActiveDimension: () => string;
-  extractView: (scope: ViewScope) => ViewDataPack;
-  setHoveredNode: (id: string | null) => void;
 
   addKnowledgeEdge: (
     source: string,
@@ -311,7 +356,6 @@ interface GraphState {
     id: string,
     relationKind: KnowledgeEdge['relationKind'],
   ) => void;
-  updateKnowledgeNodeLabel: (id: string, label: string) => void;
   updateKnowledgeViewDimensions: (
     id: string,
     viewDimensions: NonNullable<KnowledgeNode['viewDimensions']>,
@@ -319,34 +363,24 @@ interface GraphState {
 
   addNode: (node: GraphNode, zone: 'axiom' | 'mechanism' | 'conclusion') => void;
   removeNode: (id: string) => void;
-  updateNode: (id: string, updates: Partial<GraphNode>) => void;
   addEdge: (edge: GraphEdge) => void;
   removeEdge: (id: string) => void;
 
   addNotification: (message: string, type: NotificationItem['type']) => void;
   removeNotification: (id: string) => void;
-  setTheme: (theme: ThemeType) => void;
-  toggleTheme: () => void;
-  setCurrentPerspective: (p: Perspective | null) => void;
   setActiveView: (view: AppView) => void;
-  createKnowledgePointSnapshot: (
-    knowledgeNodeId: string,
-    title: string,
-    note?: string,
-  ) => string | null;
-  selectTimelineSnapshot: (id: string | null) => void;
-  removeTimelineSnapshot: (id: string) => void;
+  setActiveEvent: (id: string | null) => void;
+  setFollowSelection: (follow: boolean) => void;
   openSupertag: (tag: string) => void;
   undo: () => void;
-  getAllNodes: () => GraphNode[];
 
   toggleQuestion: (id: string) => void;
   addQuestion: (text: string, relatedNodeId?: string) => void;
   removeQuestion: (id: string) => void;
   updateQuestion: (id: string, text: string) => void;
   answerQuestion: (id: string, answer: string, answerSteps?: QuestionAnswerStep[]) => void;
-  linkQuestionToNode: (questionId: string, nodeId: string) => void;
-  addRule: (rule: Rule) => void;
+  /** 把问题移动到指定目录项/知识点下（targetId 可为目录项 ID 或节点池 ID），返回目标名称 */
+  moveQuestionToNode: (questionId: string, targetId: string) => string | null;
 
   exportKnowledgeJson: () => string;
   importKnowledgeJson: (json: string) => boolean;
@@ -357,26 +391,16 @@ interface GraphState {
   addKnowledgeNode: (label: string, shared?: boolean) => string;
   updateKnowledgeCard: (
     knowledgeId: string,
-    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'definitionPages' | 'notes'>>,
+    patch: Partial<Pick<NodeExplanation, 'title' | 'rootContent' | 'rootTable' | 'tabs' | 'notes'>>,
   ) => void;
   updateKnowledgeRootContent: (knowledgeId: string, content: string) => void;
   updateKnowledgeRootTable: (knowledgeId: string, table: ExplanationTable | undefined) => void;
-  addKnowledgeTab: (knowledgeId: string, label: string, parentTabId?: string | null) => string | null;
-  removeKnowledgeTab: (knowledgeId: string, tabId: string) => void;
   updateKnowledgeTab: (knowledgeId: string, tabId: string, content: string) => void;
   updateKnowledgeTabTable: (
     knowledgeId: string,
     tabId: string,
     table: ExplanationTable | undefined,
   ) => void;
-  renameKnowledgeTab: (knowledgeId: string, tabId: string, label: string) => void;
-  addKnowledgeTabPage: (
-    knowledgeId: string,
-    tabId: string,
-    label: string,
-    parentPageId?: string | null,
-  ) => string | null;
-  removeKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string) => void;
   updateKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, content: string) => void;
   updateKnowledgeTabPageTable: (
     knowledgeId: string,
@@ -384,7 +408,6 @@ interface GraphState {
     pageId: string,
     table: ExplanationTable | undefined,
   ) => void;
-  renameKnowledgeTabPage: (knowledgeId: string, tabId: string, pageId: string, label: string) => void;
   removeKnowledgeNode: (knowledgeId: string) => void;
   /** 删除知识节点并同步移除对应目录项（子目录上移保留） */
   removeKnowledgeNodeKeepTree: (knowledgeId: string) => void;
@@ -414,9 +437,6 @@ interface GraphState {
   copyTreeNode: (nodeId: string, nextParentId: string) => boolean;
   copyTreeNodes: (nodeIds: string[], nextParentId: string) => number;
   renameTreeNode: (nodeId: string, newLabel: string) => void;
-
-  /** @deprecated 璇风敤 createKnowledgeAndLink */
-  addChildNode: (parentId: string, label: string) => void;
 }
 
 function snapshotState(state: GraphState): PersistedAppState {
@@ -434,8 +454,8 @@ function snapshotState(state: GraphState): PersistedAppState {
     questions: state.questions,
     rules: state.rules,
     perspectives: state.perspectives,
-    inferenceResponses: state.inferenceResponses,
-    timeline: state.timeline,
+    evolutionEvents: state.evolutionEvents,
+    versionChains: state.versionChains,
   };
 }
 
@@ -457,13 +477,14 @@ function applyPersisted(set: SetGraphState, data: PersistedAppState) {
     questions: data.questions,
     rules: data.rules,
     perspectives: data.perspectives,
-    inferenceResponses: data.inferenceResponses,
-    timeline: data.timeline,
+    evolutionEvents: data.evolutionEvents,
+    versionChains: data.versionChains,
     selectedNodeId: null,
     selectedTreeNodeId: null,
     selectedQuestionId: null,
     activeExplanationSelection: null,
-    selectedTimelineSnapshotId: null,
+    activeEventId: null,
+    followSelection: true,
   });
 }
 
@@ -491,14 +512,201 @@ function tagsForRenamedKnowledgeNode(
 }
 
 export const useGraphStore = create<GraphState>((set, get) => {
-  const persist = () => {
-    const state = snapshotState(get());
-    persistAppState(state);
-    void saveStateToFiles(state).catch((error) => {
-      console.error('Failed to persist application data files', error);
-      get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
-    });
+  // ===== 持久化管道 =====
+  // 数据在装载（normalize/migrate）与变更（各 action）路径上均已规范化，保存时无需再整体克隆。
+  // 通过切片引用对比只回写真正变化的数据文件；突发编辑（如打字）合并为一次写入；
+  // 写入经串行队列排队，避免两次保存乱序覆盖数据文件。
+  const PERSIST_DEBOUNCE_MS = 500;
+  // 保存失败后的自动重试：服务端已扛过短占用（EPERM/EBUSY），这里扛长占用（同步盘/导入脚本），
+  // 15s 间隔、最多 5 次，成功或用户下次编辑时重置。避免"保存失败"后必须再改一下才能落盘。
+  const PERSIST_RETRY_DELAY_MS = 15_000;
+  const PERSIST_RETRY_MAX = 5;
+  let saveTimer: ReturnType<typeof setTimeout> | null = null;
+  let saveRetryTimer: ReturnType<typeof setTimeout> | null = null;
+  let saveRetryCount = 0;
+  let lastSavedSlices: Partial<PersistedSlices> | null = null;
+  let writeChain: Promise<void> = Promise.resolve();
+  // 已排队/在途的切片写入数：外部变更同步用它判断"本地还有未落盘的编辑"
+  let inflightWrites = 0;
+
+  // 加载没过校验的切片：禁止回写。
+  // 这是"加载失败 → 内存里是空状态 → 回写把正式文件清空"这条破坏性链路的唯一闸门。
+  const blockedSlices = new Set<PersistedSliceKey>();
+
+  /** 保存失败后排定一次延迟重试；重试耗尽则静默放弃（下次编辑仍会触发 persist）。 */
+  const schedulePersistRetry = () => {
+    if (saveRetryTimer !== null) clearTimeout(saveRetryTimer);
+    if (saveRetryCount >= PERSIST_RETRY_MAX) return;
+    saveRetryCount += 1;
+    saveRetryTimer = setTimeout(flushPersist, PERSIST_RETRY_DELAY_MS);
   };
+
+  const flushPersist = () => {
+    if (saveTimer !== null) {
+      clearTimeout(saveTimer);
+      saveTimer = null;
+    }
+    if (saveRetryTimer !== null) {
+      clearTimeout(saveRetryTimer);
+      saveRetryTimer = null;
+    }
+    // 只读部署（静态托管）：没有 PUT 处理器，排 PUT 只会拿到 404/405 并弹
+    // 「保存失败，请检查磁盘」。这里直接不排写——内存编辑照常，落盘一律不试。
+    if (READ_ONLY_DEPLOYMENT) return;
+    const slices = pickPersistedSlices(snapshotState(get()));
+    const dirty = dirtyPersistedSlices(slices, lastSavedSlices)
+      .filter((key) => !blockedSlices.has(key));
+    if (dirty.length === 0) return;
+    if (!lastSavedSlices) lastSavedSlices = {};
+    const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
+    for (const key of dirty) baseline[key] = slices[key];
+    const scheduled = dirty;
+    inflightWrites += scheduled.length;
+    writeChain = writeChain
+      .then(() => savePersistedSlices(slices, scheduled))
+      .then((failedKeys) => {
+        inflightWrites = Math.max(0, inflightWrites - scheduled.length);
+        if (failedKeys.length === 0) {
+          saveRetryCount = 0;
+          return;
+        }
+        // 失败的切片回滚基线，下一次 persist 会自动重试
+        for (const key of failedKeys) delete lastSavedSlices![key];
+        get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+        schedulePersistRetry();
+      })
+      .catch((error) => {
+        inflightWrites = Math.max(0, inflightWrites - scheduled.length);
+        console.error('Failed to persist application data files', error);
+        get().addNotification('数据文件保存失败，请检查磁盘或文件占用状态', 'error');
+        schedulePersistRetry();
+      });
+  };
+
+  const persist = () => {
+    if (saveTimer !== null) clearTimeout(saveTimer);
+    // 用户主动编辑了：放弃退避节奏，按正常防抖走，重试计数归零
+    if (saveRetryTimer !== null) {
+      clearTimeout(saveRetryTimer);
+      saveRetryTimer = null;
+    }
+    saveRetryCount = 0;
+    saveTimer = setTimeout(flushPersist, PERSIST_DEBOUNCE_MS);
+  };
+
+  /** 把加载诊断写进 store，并把失败切片登记为"禁止回写"。 */
+  const applyLoadReport = (loaded: LoadedAppState) => {
+    blockedSlices.clear();
+    for (const failure of loaded.failures) blockedSlices.add(failure.key);
+
+    set({
+      dataLoadReport: {
+        loadedAt: Date.now(),
+        failures: loaded.failures,
+        warnings: loaded.warnings,
+        missing: loaded.missing,
+      },
+    });
+
+    for (const failure of loaded.failures) {
+      get().addNotification(
+        `${failure.label}（${failure.file}）加载失败，已保留原状态并禁止自动保存该文件：${failure.reason}`,
+        'error',
+      );
+    }
+    for (const warning of loaded.warnings) {
+      get().addNotification(warning, 'warning');
+    }
+  };
+
+  // ===== 外部修改实时同步（data/*.json 被编辑器/脚本改动 → 自动装载）=====
+  // 本地无未落盘编辑：自动并入外部内容（只替换目标切片，保留选中状态）。
+  // 本地还有未落盘编辑：不抢写，登记冲突交由用户裁决，任何一边都不静默丢。
+  let externalSyncStarted = false;
+
+  const hasPendingLocalEdit = (): boolean => {
+    if (saveTimer !== null || inflightWrites > 0) return true;
+    if (!lastSavedSlices) return false;
+    return dirtyPersistedSlices(pickPersistedSlices(snapshotState(get())), lastSavedSlices).length > 0;
+  };
+
+  /** 把外部修改的切片并入 store：只替换目标切片，不重置用户当前选中状态。 */
+  const applyExternalPatches = (
+    patches: Partial<PersistedAppState>,
+    loadedKeys: readonly PersistedSliceKey[],
+  ) => {
+    set(() => {
+      const next: Record<string, unknown> = {};
+      for (const key of loadedKeys) next[key] = patches[key];
+      return next as Partial<GraphState>;
+    });
+    // 装载基线以外部内容为准，本端后续保存才不会把旧内容又盖回去；外部内容过校验即解除禁写
+    if (!lastSavedSlices) lastSavedSlices = {};
+    const baseline = lastSavedSlices as Record<PersistedSliceKey, unknown>;
+    const current = get() as unknown as Record<string, unknown>;
+    for (const key of loadedKeys) {
+      baseline[key] = current[key];
+      blockedSlices.delete(key);
+    }
+  };
+
+  // 编辑器一次保存常触发多次 watch 事件 → SSE 连发：按切片 150ms 合并，避免重复 GET 与重复通知
+  const externalReloadTimers = new Map<PersistedSliceKey, ReturnType<typeof setTimeout>>();
+
+  const handleExternalFileChange = (filename: string) => {
+    const key = sliceKeyOfFile(filename);
+    if (!key) return; // 未登记的文件不参与（versions-v1.2 起 version-chains.json 已入切片）
+    if (blockedSlices.has(key)) return; // 已禁写切片维持现状，避免来回横跳
+    if (get().externalConflicts.some((item) => item.key === key)) return; // 冲突待裁决，等用户
+
+    const existing = externalReloadTimers.get(key);
+    if (existing) clearTimeout(existing);
+    externalReloadTimers.set(key, setTimeout(() => {
+      externalReloadTimers.delete(key);
+      if (hasPendingLocalEdit()) {
+        if (!get().externalConflicts.some((item) => item.key === key)) {
+          const item: ExternalConflictItem = {
+            key,
+            file: filename,
+            label: sliceLabel(key),
+            detectedAt: Date.now(),
+          };
+          set((state) => ({ externalConflicts: [...state.externalConflicts, item] }));
+          get().addNotification(
+            `${sliceLabel(key)} 在外部被修改，且本地有未保存的编辑，请在横幅中选择保留哪一边`,
+            'warning',
+          );
+        }
+        return;
+      }
+      void (async () => {
+        const reloaded = await reloadSlicesFromFiles([key]);
+        for (const failure of reloaded.failures) {
+          blockedSlices.add(failure.key);
+          get().addNotification(
+            `外部修改的 ${sliceLabel(failure.key)} 校验失败，已保留原状态并禁止回写：${failure.reason}`,
+            'error',
+          );
+        }
+        if (reloaded.loadedKeys.length > 0) {
+          applyExternalPatches(reloaded.patches, reloaded.loadedKeys);
+          get().addNotification(`${sliceLabel(key)} 已从磁盘重新装载（外部修改）`, 'info');
+        }
+        for (const warning of reloaded.warnings) get().addNotification(warning, 'warning');
+      })();
+    }, 150));
+  };
+
+  const startExternalFileSync = () => {
+    if (externalSyncStarted) return;
+    externalSyncStarted = true;
+    subscribeDataFileChanges((message) => handleExternalFileChange(message.file));
+  };
+
+  // StrictMode 双调用 App 的挂载 effect 会让 initialize() 跑两次；
+  // 第二次 applyPersisted 会把用户刚选中的节点重置掉。这里做幂等：
+  // 进行中或已完成的初始化直接复用，失败则允许重试。
+  let initializePromise: Promise<void> | null = null;
 
   return {
     axioms: initialApp.graph.axioms,
@@ -515,38 +723,94 @@ export const useGraphStore = create<GraphState>((set, get) => {
     nodePool: initialApp.nodePool,
     knowledgeEdges: initialApp.knowledgeEdges,
     questions: initialApp.questions,
-    inferenceResponses: initialApp.inferenceResponses,
     rules: initialApp.rules,
     perspectives: initialApp.perspectives,
-    timeline: initialApp.timeline,
+    evolutionEvents: initialApp.evolutionEvents,
+    versionChains: initialApp.versionChains,
     notifications: [],
     theme: 'dark',
     currentPerspective: null,
     activeView: 'universe',
     selectedSupertag: null,
-    selectedTimelineSnapshotId: null,
+    activeEventId: null,
+    followSelection: true,
     history: [],
+    dataLoadReport: null,
+    externalConflicts: [],
 
     initialize: async () => {
-      const fileState = await loadCompleteStateFromFiles();
-      applyPersisted(set, fileState);
-      get().addNotification('Knowledge loaded from local files', 'info');
+      if (initializePromise) return initializePromise;
+      initializePromise = (async () => {
+        const loaded = await loadCompleteStateFromFiles();
+        applyPersisted(set, loaded.state);
+        // 记录装载基线：首次小幅编辑只回写对应的一个数据文件，而不是全量六文件。
+        // 加载失败的切片绝不进基线——否则第一次编辑就会把空状态写回正式文件。
+        const baseline = pickPersistedSlices(loaded.state);
+        for (const failure of loaded.failures) delete baseline[failure.key];
+        lastSavedSlices = baseline;
+        applyLoadReport(loaded);
+        if (loaded.failures.length === 0) {
+          get().addNotification('Knowledge loaded from local files', 'info');
+        }
+        startExternalFileSync();
+      })();
+      try {
+        return await initializePromise;
+      } catch (error) {
+        initializePromise = null;
+        throw error;
+      }
+    },
+
+    reloadFromFiles: async () => {
+      const loaded = await loadCompleteStateFromFiles();
+      applyPersisted(set, loaded.state);
+      const baseline = pickPersistedSlices(loaded.state);
+      for (const failure of loaded.failures) delete baseline[failure.key];
+      lastSavedSlices = baseline;
+      applyLoadReport(loaded);
+      if (loaded.failures.length === 0) {
+        get().addNotification('已重新从本地文件装载数据', 'success');
+      }
+      startExternalFileSync();
+    },
+
+    keepLocalChange: (key) => {
+      void (async () => {
+        // 先 GET 一次刷新服务端的 mtime 冲突基线，否则紧随其后的 PUT 会被 409 拦下。
+        // 这是用户明确选择"用本地覆盖外部"的裁决动作，不是旧内存态的盲目回写。
+        // 只读部署下 save() 不会排写，这次 GET 只作为读数基线（也不会有 409 冲突：
+        // 外部变更订阅在只读部署里是关闭的）。
+        await fetch(`/api/data?file=${sliceFile(key)}`, { cache: 'no-store' }).catch(() => {});
+        get().save();
+      })();
+      set((state) => ({ externalConflicts: state.externalConflicts.filter((item) => item.key !== key) }));
+    },
+
+    loadExternalChange: (key) => {
+      void (async () => {
+        const reloaded = await reloadSlicesFromFiles([key]);
+        for (const failure of reloaded.failures) {
+          blockedSlices.add(failure.key);
+          get().addNotification(
+            `外部修改的 ${sliceLabel(failure.key)} 校验失败，已保留原状态并禁止回写：${failure.reason}`,
+            'error',
+          );
+        }
+        if (reloaded.loadedKeys.length > 0) applyExternalPatches(reloaded.patches, reloaded.loadedKeys);
+        set((state) => ({ externalConflicts: state.externalConflicts.filter((item) => item.key !== key) }));
+        for (const warning of reloaded.warnings) get().addNotification(warning, 'warning');
+      })();
     },
 
     save: () => {
+      // 只读部署：PUT 没有落点，不能弹「已保存」这种谎报
+      if (READ_ONLY_DEPLOYMENT) {
+        get().addNotification('只读部署：编辑不会落盘。改数据请提交到仓库，由部署自动更新。', 'warning');
+        return;
+      }
       persist();
-      get().addNotification('宸蹭繚瀛樺埌鏈湴鏂囦欢', 'success');
-    },
-
-    setSelectedNode: (id) => {
-      const state = get();
-      set({
-        selectedNodeId: id,
-        focusNodeId: id,
-        selectedTreeNodeId: null,
-        selectedQuestionId: pickQuestionForFocus(state.questions, id),
-        activeExplanationSelection: null,
-      });
+      get().addNotification('已保存到本地文件', 'success');
     },
 
     setSelectedNodeOnly: (id) =>
@@ -714,12 +978,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       });
     },
 
-    getTreeSupplement: () => {
-      const state = get();
-      if (!state.selectedTreeNodeId) return null;
-      return findTreeNodeById(state.treeData, state.selectedTreeNodeId)?.supplement ?? null;
-    },
-
     getKnowledgeExplanation: () => {
       const state = get();
       const selectedTree = state.selectedTreeNodeId
@@ -728,10 +986,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       const id = state.selectedNodeId ?? selectedTree?.nodeRef ?? null;
       if (!id) return null;
       const directCard = state.nodePool[id]?.card ?? null;
-      const snapshot = [...state.timeline].reverse().find((item) =>
-        item.knowledgeNodeId === id || item.node?.id === id,
-      );
-      const base = directCard ?? snapshot?.node?.card ?? {
+      const base = directCard ?? {
         nodeId: id,
         title: state.nodePool[id]?.label ?? id,
         tabs: [],
@@ -774,19 +1029,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       }));
       return { ...base, nodeId: id, title: state.nodePool[id]?.label ?? treeNode.name, rootContent: String(base.rootContent ?? '').trim() || cardDefinition, tabs };
     },
-
-    getActiveDimension: () => get().currentPerspective?.id ?? 'all',
-
-    extractView: (scope) => {
-      const state = get();
-      return extractSubgraph(state.nodePool, state.knowledgeEdges, {
-        focus: state.focusNodeId,
-        scope,
-        dimension: state.currentPerspective?.id ?? 'all',
-      });
-    },
-
-    setHoveredNode: (id) => set({ hoveredNodeId: id }),
 
     addKnowledgeEdge: (source, target, type, label, dimensions) => {
       if (!get().nodePool[source] || !get().nodePool[target]) return;
@@ -915,30 +1157,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    updateKnowledgeNodeLabel: (id, label) => {
-      const trimmed = label.trim();
-      if (!trimmed) return;
-      const state = get();
-      const node = state.nodePool[id];
-      if (!node) return;
-      if (node.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const card = { ...node.card, title: trimmed };
-      const nodePool = {
-        ...state.nodePool,
-        [id]: {
-          ...node,
-          label: trimmed,
-          tags: tagsForRenamedKnowledgeNode(node, trimmed),
-          card,
-        },
-      };
-      set({ nodePool });
-      persist();
-    },
-
     updateKnowledgeViewDimensions: (id, viewDimensions) => {
       const state = get();
       const node = state.nodePool[id];
@@ -1009,18 +1227,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    updateNode: (id, updates) => {
-      const state = get();
-      const updateIn = (arr: GraphNode[]) =>
-        arr.map((n) => (n.id === id ? { ...n, ...updates } : n));
-      set({
-        axioms: updateIn(state.axioms),
-        mechanisms: updateIn(state.mechanisms),
-        conclusions: updateIn(state.conclusions),
-      });
-      persist();
-    },
-
     addEdge: (edge) => {
       const state = get();
       set({
@@ -1050,42 +1256,15 @@ export const useGraphStore = create<GraphState>((set, get) => {
     removeNotification: (id) =>
       set((s) => ({ notifications: s.notifications.filter((n) => n.id !== id) })),
 
-    setTheme: (theme) => set({ theme }),
-    toggleTheme: () => set((s) => ({ theme: s.theme === 'dark' ? 'light' : 'dark' })),
-    setCurrentPerspective: (p) => set({ currentPerspective: p }),
     setActiveView: (view) => set({ activeView: view }),
-    createKnowledgePointSnapshot: (knowledgeNodeId, title, note) => {
-      const state = get();
-      const node = state.nodePool[knowledgeNodeId];
-      if (!node) return null;
-      const snapshot = createKnowledgePointSnapshot(
-        node,
-        title,
-        note,
-        genId('snapshot'),
-      );
-      set({
-        timeline: [snapshot, ...state.timeline],
-        selectedTimelineSnapshotId: snapshot.id,
-      });
-      persist();
-      get().addNotification(`已保存知识点版本：${snapshot.title}`, 'success');
-      return snapshot.id;
+    setActiveEvent: (id) => {
+      if (id) {
+        const event = get().evolutionEvents.find((item) => item.id === id);
+        if (event) saveLastSelectedEvent(event.scopeRootId, id);
+      }
+      set({ activeEventId: id });
     },
-    selectTimelineSnapshot: (id) => {
-      if (id !== null && !get().timeline.some((snapshot) => snapshot.id === id)) return;
-      set({ selectedTimelineSnapshotId: id });
-    },
-    removeTimelineSnapshot: (id) => {
-      const state = get();
-      if (!state.timeline.some((snapshot) => snapshot.id === id)) return;
-      set({
-        timeline: state.timeline.filter((snapshot) => snapshot.id !== id),
-        selectedTimelineSnapshotId:
-          state.selectedTimelineSnapshotId === id ? null : state.selectedTimelineSnapshotId,
-      });
-      persist();
-    },
+    setFollowSelection: (follow) => set({ followSelection: follow }),
     openSupertag: (tag) => {
       const selectedSupertag = normalizeSupertag(tag);
       if (!selectedSupertag) return;
@@ -1121,11 +1300,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
           nodePool,
           knowledgeEdges,
           questions: (data.questions as Question[]) ?? get().questions,
-          timeline: (data.timeline as KnowledgePointSnapshot[]) ?? get().timeline,
           selectedNodeId: data.selectedNodeId as string | null,
           selectedTreeNodeId: data.selectedTreeNodeId as string | null,
           selectedQuestionId: data.selectedQuestionId as string | null,
-          selectedTimelineSnapshotId: data.selectedTimelineSnapshotId as string | null,
           focusNodeId: data.focusNodeId as string | null,
         });
         persist();
@@ -1133,11 +1310,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         set({ edges: data as unknown as GraphEdge[] });
       }
       set((s) => ({ history: s.history.slice(0, -1) }));
-    },
-
-    getAllNodes: () => {
-      const s = get();
-      return [...s.axioms, ...s.mechanisms, ...s.conclusions];
     },
 
     toggleQuestion: (id) => {
@@ -1230,22 +1402,29 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    linkQuestionToNode: (questionId, nodeId) => {
+    moveQuestionToNode: (questionId, targetId) => {
       const state = get();
-      // 妫€鏌ヨ妭鐐规槸鍚﹀瓨鍦?
-      if (!state.nodePool[nodeId]) return;
+      const question = state.questions.find((q) => q.id === questionId);
+      if (!question || !targetId) return null;
+
+      // targetId 可能是节点池 ID，也可能是目录项 ID：统一归一化为节点池 ID
+      const poolId = state.nodePool[targetId]
+        ? targetId
+        : resolvePoolIdFromTree(state.treeData, targetId);
+      if (!poolId || !state.nodePool[poolId]) return null;
+
+      const targetLabel = state.nodePool[poolId].label;
+      if (question.relatedNodeId === poolId) return targetLabel;
 
       set((s) => ({
         questions: s.questions.map((q) =>
-          q.id === questionId ? { ...q, relatedNodeId: nodeId, updatedAt: Date.now() } : q,
+          q.id === questionId ? { ...q, relatedNodeId: poolId, updatedAt: Date.now() } : q,
         ),
+        // 当前正展示这题时，同步右侧面板到新归属
+        selectedQuestionId: s.selectedQuestionId === questionId ? null : s.selectedQuestionId,
       }));
       persist();
-    },
-
-    addRule: (rule) => {
-      set((s) => ({ rules: [...s.rules, rule] }));
-      persist();
+      return targetLabel;
     },
 
     exportKnowledgeJson: () => exportAppStateJson(snapshotState(get())),
@@ -1253,23 +1432,31 @@ export const useGraphStore = create<GraphState>((set, get) => {
     importKnowledgeJson: (json) => {
       const data = parseImportedAppState(json);
       if (!data) return false;
+      clearTemporalPreferences();
       applyPersisted(set, data);
-      persistAppState(data);
+      persist();
       return true;
     },
 
     resetAllKnowledge: () => {
       clearPersistedAppState();
+      clearTemporalPreferences();
       const fresh = createEmptyAppState();
       applyPersisted(set, fresh);
-      persistAppState(fresh);
+      persist();
     },
 
     loadDemoData: async () => {
-      const fresh = await loadCompleteStateFromFiles();
-      applyPersisted(set, fresh);
-      persistAppState(fresh);
-      get().addNotification('Demo knowledge restored', 'success');
+      const loaded = await loadCompleteStateFromFiles();
+      applyPersisted(set, loaded.state);
+      const baseline = pickPersistedSlices(loaded.state);
+      for (const failure of loaded.failures) delete baseline[failure.key];
+      lastSavedSlices = baseline;
+      applyLoadReport(loaded);
+      persist();
+      if (loaded.failures.length === 0) {
+        get().addNotification('Demo knowledge restored', 'success');
+      }
     },
 
     addKnowledgeNode: (label, shared = false) => {
@@ -1301,60 +1488,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       };
       set({ nodePool });
       persist();
-    },
-
-    addKnowledgeTab: (knowledgeId, label, parentTabId = null) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || existing.locked || !trimmedLabel) return null;
-
-      const idPrefix = `${knowledgeId}-tab-`;
-      let tabId = `${idPrefix}${Date.now()}`;
-      let suffix = 1;
-      // ID 在整棵 Tab 树中保持唯一（包含子 Tab）
-      const allTabIds = new Set<string>();
-      const collectIds = (tabs: ExplanationTab[]) => {
-        for (const t of tabs) {
-          allTabIds.add(t.id);
-          if (t.tabs) collectIds(t.tabs);
-        }
-      };
-      collectIds(existing.card.tabs);
-      while (allTabIds.has(tabId)) {
-        tabId = `${idPrefix}${Date.now()}-${suffix}`;
-        suffix += 1;
-      }
-
-      const newTab: ExplanationTab = { id: tabId, label: trimmedLabel, content: '' };
-
-      if (parentTabId) {
-        // 加为子 Tab
-        const parentExists = findTabRecursive(existing.card.tabs, parentTabId);
-        if (!parentExists) return null;
-        const tabs = appendChildTab(existing.card.tabs, parentTabId, newTab);
-        get().updateKnowledgeCard(knowledgeId, { tabs });
-      } else {
-        // 加为顶层 Tab
-        get().updateKnowledgeCard(knowledgeId, {
-          tabs: [...existing.card.tabs, newTab],
-        });
-      }
-      return tabId;
-    },
-
-    removeKnowledgeTab: (knowledgeId, tabId) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked) return;
-      const isTopLevel = existing.card.tabs.some((t) => t.id === tabId);
-      if (tabId === DEFINITION_TAB_ID && !isTopLevel) return;
-      // 递归查找并删除（支持删子 Tab）
-      const before = JSON.stringify(existing.card.tabs);
-      const nextTabs = removeTabRecursive(existing.card.tabs, tabId);
-      const after = JSON.stringify(nextTabs);
-      if (before === after) return;
-      get().updateKnowledgeCard(knowledgeId, { tabs: nextTabs });
     },
 
     updateKnowledgeTab: (knowledgeId, tabId, content) => {
@@ -1403,81 +1536,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().updateKnowledgeCard(knowledgeId, { rootTable: table });
     },
 
-    renameKnowledgeTab: (knowledgeId, tabId, label) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || !trimmedLabel) return;
-      if (existing.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const tabs = mapTabRecursive(existing.card.tabs, tabId, (tab) => ({ ...tab, label: trimmedLabel }));
-      if (tabs.every((tab, index) => tab === existing.card.tabs[index])) return;
-      get().updateKnowledgeCard(knowledgeId, { tabs });
-    },
-
-    addKnowledgeTabPage: (knowledgeId, tabId, label, parentPageId = null) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || existing.locked || !trimmedLabel) return null;
-
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return null;
-      const pages = pagesForTab(existing.card, tab);
-
-      const pageIdPrefix = `${knowledgeId}-${tabId}-page-`;
-      let pageId = `${pageIdPrefix}${Date.now()}`;
-      let suffix = 1;
-      // ID 在整棵 Page 树中保持唯一
-      const allPageIds = new Set<string>();
-      const collectIds = (list: ExplanationPage[]) => {
-        for (const p of list) {
-          allPageIds.add(p.id);
-          if (p.pages) collectIds(p.pages);
-        }
-      };
-      collectIds(pages);
-      while (allPageIds.has(pageId)) {
-        pageId = `${pageIdPrefix}${Date.now()}-${suffix}`;
-        suffix += 1;
-      }
-
-      const newPage: ExplanationPage = { id: pageId, label: trimmedLabel, content: '' };
-
-      let nextPages: ExplanationPage[];
-      if (parentPageId) {
-        // 加为子 Page
-        const parentExists = findPageRecursive(pages, parentPageId);
-        if (!parentExists) return null;
-        nextPages = appendChildPage(pages, parentPageId, newPage);
-      } else {
-        // 加为顶层 Page（在该 Tab 下）
-        nextPages = [...pages, newPage];
-      }
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-      return pageId;
-    },
-
-    removeKnowledgeTabPage: (knowledgeId, tabId, pageId) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      if (!existing || existing.locked) return;
-
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      // 递归删除
-      const nextPages = removePageRecursive(pages, pageId);
-      const before = JSON.stringify(pages);
-      const after = JSON.stringify(nextPages);
-      if (before === after) return;
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-    },
-
     updateKnowledgeTabPage: (knowledgeId, tabId, pageId, content) => {
       const state = get();
       const existing = state.nodePool[knowledgeId];
@@ -1514,28 +1572,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
       get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
     },
 
-    renameKnowledgeTabPage: (knowledgeId, tabId, pageId, label) => {
-      const state = get();
-      const existing = state.nodePool[knowledgeId];
-      const trimmedLabel = label.trim();
-      if (!existing || !trimmedLabel) return;
-      if (existing.locked) {
-        get().addNotification('节点已锁定，不可编辑', 'warning');
-        return;
-      }
-      const tab = findTabRecursive(existing.card.tabs, tabId);
-      if (!tab) return;
-      const pages = pagesForTab(existing.card, tab);
-      const nextPages = mapPageRecursive(pages, pageId, (page) => ({ ...page, label: trimmedLabel }));
-      if (nextPages.every((page, index) => page === pages[index])) return;
-
-      get().updateKnowledgeCard(knowledgeId, patchTabPages(existing.card, tabId, nextPages));
-    },
-
     removeKnowledgeNode: (knowledgeId) => {
       const state = get();
 
-      // 1. 鍒犻櫎鑺傜偣锛屽苟绾ц仈娓呴櫎鎵€鏈夊叾瀹冭妭鐐?viewDimensions 涓寚鍚戣 nodeId 鐨勫紩鐢?
+      // 1. 删除节点，并级联清除所有其它节点 viewDimensions 中指向该 nodeId 的引用
       const { [knowledgeId]: _, ...rawNodePool } = state.nodePool;
       const removedIds = new Set([knowledgeId]);
       const nodePool = Object.entries(rawNodePool).reduce((acc, [id, node]) => {
@@ -1548,12 +1588,12 @@ export const useGraphStore = create<GraphState>((set, get) => {
         return acc;
       }, {} as Record<string, KnowledgeNode>);
 
-      // 2. 鍒犻櫎鐩稿叧鐨勮竟
+      // 2. 删除相关的边
       const knowledgeEdges = state.knowledgeEdges.filter(
         (e) => e.source !== knowledgeId && e.target !== knowledgeId,
       );
 
-      // 3. 绾ц仈鍒犻櫎鐩綍涓墍鏈夊紩鐢ㄦ鑺傜偣鐨勯」鍙婂叾瀛愭爲
+      // 3. 级联删除目录中所有引用该节点的项及其子树
       const cascadeRemoveRefs = (node: TreeNode): TreeNode | null => {
         if (node.nodeRef === knowledgeId) {
           return null;
@@ -1572,7 +1612,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
           ? state.selectedTreeNodeId
           : null;
 
-      // 4. 鍒犻櫎鎴栨竻闄ょ浉鍏抽棶棰樼殑鍏宠仈
+      // 4. 删除或清理相关问题的关联
       const questions = state.questions.map((q) => {
         const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);
         return {
@@ -1582,26 +1622,11 @@ export const useGraphStore = create<GraphState>((set, get) => {
         };
       });
 
-      // 5. 鍒犻櫎鐩稿叧鐨勬帹鐞嗗搷搴?
-      const deletedNode = state.nodePool[knowledgeId];
-      const inferenceResponses = { ...state.inferenceResponses };
-      if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
-        delete inferenceResponses[deletedNode.label];
-      }
-      const timeline = state.timeline.filter(
-        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
-      );
-
       set({
         nodePool,
         knowledgeEdges,
         treeData,
         questions,
-        inferenceResponses,
-        timeline,
-        selectedTimelineSnapshotId: timeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: state.selectedNodeId === knowledgeId ? null : state.selectedNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
         selectedTreeNodeId,
@@ -1629,24 +1654,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
       );
 
       // 同一个知识点的所有视图共享删除逻辑：对应目录项一并移除，子目录上移保留。
-      const replaceNodeWithChildren = (node: TreeNode, targetId: string): TreeNode => {
-        if (node.id === targetId) {
-          return {
-            ...node,
-            nodeRef: undefined,
-            children: node.children ?? undefined,
-          };
-        }
-        const children = (node.children ?? []).flatMap((child) => {
-          if (child.id === targetId) return child.children ?? [];
-          return [replaceNodeWithChildren(child, targetId)];
-        });
-        return {
-          ...node,
-          children: children.length > 0 ? children : undefined,
-        };
-      };
-      const treeData = replaceNodeWithChildren(cloneTree(state.treeData), knowledgeId);
+      const treeData = detachKnowledgeBinding(cloneTree(state.treeData), knowledgeId);
 
       const questions = state.questions.map((q) => {
         const answerSteps = q.answerSteps?.filter((step) => step.nodeId !== knowledgeId);
@@ -1656,15 +1664,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
           ...(answerSteps ? { answerSteps } : {}),
         };
       });
-
-      const deletedNode = state.nodePool[knowledgeId];
-      const inferenceResponses = { ...state.inferenceResponses };
-      if (deletedNode?.label && inferenceResponses[deletedNode.label]) {
-        delete inferenceResponses[deletedNode.label];
-      }
-      const timeline = state.timeline.filter(
-        (snapshot) => snapshot.knowledgeNodeId !== knowledgeId,
-      );
 
       const removedTreeNodes = collectTreeNodes(state.treeData)
         .filter((node) => node.nodeRef === knowledgeId);
@@ -1692,11 +1691,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
         knowledgeEdges,
         treeData,
         questions,
-        inferenceResponses,
-        timeline,
-        selectedTimelineSnapshotId: timeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         selectedNodeId: nextSelectedNodeId,
         selectedTreeNodeId: nextSelectedTreeNodeId,
         focusNodeId: state.focusNodeId === knowledgeId ? null : state.focusNodeId,
@@ -1800,10 +1794,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
       persist();
     },
 
-    addChildNode: (parentId, label) => {
-      get().createKnowledgeAndLink(parentId, label);
-    },
-
     removeTreeNode: (nodeId) => {
       const state = get();
       if (state.treeData.id === nodeId) return;
@@ -1879,10 +1869,6 @@ export const useGraphStore = create<GraphState>((set, get) => {
           );
           return { ...q, answerSteps: remainingSteps };
         });
-      const nextTimeline = state.timeline.filter(
-        (snapshot) => !knowledgeIdsToReallyDelete.has(snapshot.knowledgeNodeId),
-      );
-
       // 9. Handle selection and focus state cleanup
       let selectedTreeNodeId = state.selectedTreeNodeId;
       let selectedNodeId = state.selectedNodeId;
@@ -1908,14 +1894,10 @@ export const useGraphStore = create<GraphState>((set, get) => {
         nodePool,
         knowledgeEdges: nextEdges,
         questions: nextQuestions,
-        timeline: nextTimeline,
         selectedTreeNodeId,
         selectedNodeId,
         focusNodeId,
         selectedQuestionId,
-        selectedTimelineSnapshotId: nextTimeline.some(
-          (snapshot) => snapshot.id === state.selectedTimelineSnapshotId,
-        ) ? state.selectedTimelineSnapshotId : null,
         history: [
           ...state.history,
           {
@@ -1925,11 +1907,9 @@ export const useGraphStore = create<GraphState>((set, get) => {
               nodePool: state.nodePool,
               knowledgeEdges: state.knowledgeEdges,
               questions: state.questions,
-              timeline: state.timeline,
               selectedNodeId: state.selectedNodeId,
               selectedTreeNodeId: state.selectedTreeNodeId,
               selectedQuestionId: state.selectedQuestionId,
-              selectedTimelineSnapshotId: state.selectedTimelineSnapshotId,
               focusNodeId: state.focusNodeId,
             },
           },
@@ -2013,7 +1993,7 @@ export const useGraphStore = create<GraphState>((set, get) => {
 
     renameTreeNode: (nodeId, newLabel) => {
       const trimmed = newLabel.trim();
-      if (!trimmed) return;
+      if (!trimmed || nodeId == null) return;
       const state = get();
       const treeNode = findTreeNodeById(state.treeData, nodeId);
       if (!treeNode) return;

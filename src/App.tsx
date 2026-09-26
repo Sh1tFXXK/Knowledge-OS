@@ -1,4 +1,6 @@
 import {
+  lazy,
+  Suspense,
   useCallback,
   useEffect,
   useState,
@@ -15,14 +17,17 @@ import './styles/timeline.css';
 
 import TopBar from './layout/TopBar';
 import UniverseTree from './layout/UniverseTree';
-import ReasoningKernel from './core/ReasoningKernel';
+import FocusStage from './core/FocusStage';
 import RightSidePanel from './layout/RightSidePanel';
-import NodeDatabase from './components/NodeDatabase';
-import QuestionDatabase from './components/QuestionDatabase';
-import MechanismLensPanel from './components/MechanismLensPanel';
-import SupertagLibrary from './components/SupertagLibrary';
-import ExplanationIndexView from './core/ExplanationIndexView';
-import TimelineView from './components/TimelineView';
+import ErrorBoundary from './components/ErrorBoundary';
+import DataLoadBanner from './components/DataLoadBanner';
+
+// 非默认视图按需加载：只有切到对应视图才拉取对应代码块
+const TemporalIndexWorkspace = lazy(() => import('./core/TemporalIndexWorkspace'));
+const NodeDatabase = lazy(() => import('./components/NodeDatabase'));
+const QuestionDatabase = lazy(() => import('./components/QuestionDatabase'));
+const SupertagLibrary = lazy(() => import('./components/SupertagLibrary'));
+const MechanismLensPanel = lazy(() => import('./components/MechanismLensPanel'));
 
 const LEFT_PANEL_MIN_WIDTH = 180;
 const LEFT_PANEL_MAX_WIDTH = 560;
@@ -135,16 +140,31 @@ export default function App() {
 
       {/* ── 中间：主可视化区（永远是视图；问题也在此呈现） ── */}
       <main className="center-area" id="center-area">
+        <DataLoadBanner />
+        <ErrorBoundary key={activeView} scope="中间视图">
+        <Suspense
+          fallback={
+            <section
+              className="center-view"
+              id="center-view"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 13,
+                color: 'rgba(226,232,240,0.45)',
+              }}
+            >
+              正在加载视图…
+            </section>
+          }
+        >
         {activeView === 'index' ? (
           <section className="center-view" id="center-view">
-            <ExplanationIndexView
+            <TemporalIndexWorkspace
               isFocusMode={isIndexFocusActive}
               onToggleFocusMode={() => setIsIndexFocusMode((value) => !value)}
             />
-          </section>
-        ) : activeView === 'timeline' ? (
-          <section className="center-view" id="center-view">
-            <TimelineView />
           </section>
         ) : activeView === 'database' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
@@ -156,8 +176,8 @@ export default function App() {
           </section>
         ) : activeView === 'questions' ? (
           <section className="center-view" id="center-view" style={{ height: '100%', padding: 16 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-              <h2 style={{ margin: 0, fontSize: 15 }}>❓ 问题库</h2>
+            <div className="qdb-page-header">
+              <h2 className="qdb-page-title">❓ 问题库</h2>
               <button className="btn btn-sm" onClick={() => setActiveView('universe')}>← 返回视图</button>
             </div>
             <QuestionDatabase />
@@ -177,12 +197,14 @@ export default function App() {
         ) : (
           /* 默认：永远显示推理内核（核心视图） */
           <section className="center-view" id="center-view">
-            <ReasoningKernel />
+            <FocusStage />
           </section>
         )}
+        </Suspense>
+        </ErrorBoundary>
       </main>
 
-      {/* ── 右侧：详情解释卡 + 关系网 ── */}
+      {/* ── 右侧：详情解释卡 + 关系网（错误边界在面板内部，避免破坏栅格命名区域） ── */}
       <RightSidePanel onResizeStart={startRightPanelResize} />
 
       {/* ── 通知 Toast ── */}

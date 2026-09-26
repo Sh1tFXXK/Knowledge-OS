@@ -1,0 +1,467 @@
+================ Spring MVC 原理 [k_vault_javaspringspringmvcspringmvc_1932hl] ================
+## 工作流程
+
+1. **请求到达**：客户端发送请求到DispatcherServlet
+
+2. **处理器映射**：DispatcherServlet调用HandlerMapping，根据URL找到具体的Handler（Controller）
+
+3. **处理器适配**：DispatcherServlet根据Handler找到对应的HandlerAdapter
+
+4. **执行处理器**：HandlerAdapter调用Handler执行业务逻辑，返回ModelAndView
+
+5. **视图解析**：DispatcherServlet调用ViewResolver解析视图
+
+6. **渲染视图**：View根据Model数据进行渲染
+
+7. **返回响应**：将渲染后的视图返回给客户端
+
+## 核心组件
+
+| 组件 | 说明 |
+|------|------|
+| DispatcherServlet | 前端控制器，整个流程的中心 |
+| HandlerMapping | 根据URL找到Handler |
+| Controller | 处理业务逻辑 |
+| ViewResolver | 解析视图名称 |
+| View | 负责渲染视图 |
+
+## 常见配置
+
+### XML配置
+```xml
+<servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>/</url-pattern>
+</servlet-mapping>
+```
+
+### 注解配置
+Spring Boot中无需手动配置，@EnableWebMvc自动启用
+
+================ SpringMVC 请求链路 [k_vault_javaspring04springmvc_133lis] ================
+## Spring MVC 在做什么
+
+它把 Web 层从“原始 Servlet 编程”封装成“按路由、参数、返回值、视图协同工作”的请求处理框架。
+
+## 请求主线
+
+```mermaid
+flowchart LR
+    A[HTTP Request] --> B[DispatcherServlet]
+    B --> C[HandlerMapping]
+    C --> D[Controller]
+    D --> E[HandlerAdapter]
+    E --> F[ViewResolver / ResponseBody]
+    F --> G[HTTP Response]
+```
+
+## 核心对象
+
+- `DispatcherServlet`：前端控制器
+- `HandlerMapping`：请求到处理器的映射
+- `HandlerAdapter`：适配不同处理器执行方式
+- `Controller`：承载业务入口
+- `ViewResolver`：解析视图
+
+## 封装意义
+
+Spring MVC 把原本混杂在 Servlet 里的：
+
+- 路由分发
+- 参数绑定
+- 返回值处理
+- 视图解析
+
+拆成了稳定的职责链。
+
+## 并发理解
+
+Controller 默认常是单例，因此不要在成员变量里保存请求态数据。  
+请求相关状态应留在方法参数、局部变量或请求作用域对象中。
+
+================ Spring Boot [k_java_fw_spring_boot] ================
+## 什么是 Spring Boot？
+
+Spring Boot 是 Spring 开源组织下的子项目，是 Spring 组件一站式解决方案，主要是简化了使用 Spring 的难度，简省了繁重的配置，提供了各种启动器，开发者能快速上手。
+
+## Spring Boot 有哪些优点？
+
+1. 容易上手，提升开发效率，为 Spring 开发提供一个更快、更广泛的入门体验。
+2. 开箱即用，远离繁琐的配置。
+3. 提供了一系列大型项目通用的非业务性功能，例如：内嵌服务器，安全管理、运行数据监控、运行状况检查和外部化配置等。
+4. 没有代码生成，也不需要XML配置。
+5. 避免大量的 Maven 导入和各种版本冲突。
+
+## 核心注解
+
+启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：
+
+- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。
+- @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项。
+- @ComponentScan：Spring组件扫描。
+
+---
+
+## 相关链接
+
+- 原理 - Spring Boot 原理详解
+- 与Spring对比 - Spring Boot 与 Spring 的区别
+- Spring - 返回Spring主目录
+
+================ Spring Boot（维基） [k_java_fw_springboot_wiki_concept] ================
+Spring Boot扩展是Spring的约定优于配置解决方案，用于创建独立的、生产级的基于Spring的应用程序，您可以“直接运行”。它经过Spring团队的“意见化视图”的预配置，以实现Spring平台和第三方库的最佳配置和使用，从而使您可以最小化麻烦快速入手。大多数Spring Boot应用程序几乎不需要Spring配置。
+
+主要特性：
+
+创建独立的Spring应用程序
+直接嵌入Tomcat或Jetty（无需部署WAR文件）
+提供偏好的“入门”项目对象模型（POMs），以简化您的Maven/Gradle配置
+尽可能自动配置 Spring 
+提供生产就绪的功能，如 度量、 健康检查 和外部化配置
+绝对不需要代码生成，也不需要 XML 配置。
+平滑集成并支持所有企业集成模式。
+嵌入式 Tomcat、Jetty 或 Undertow Web 应用服务器。
+为构建工具提供意见化的“启动器” 项目对象模型 (POMs)。唯一支持的构建工具是 Maven 和 Gradle。
+Spring 应用程序的自动配置。
+提供生产就绪的 功能，例如 指标、 健康检查、和外部化配置。
+不需要 代码生成
+不需要 XML 配置。
+可选支持 Kotlin 和 Apache Groovy 以外的 Java
+Spring Boot 不需要手动配置 DispatcherServlet，因为它会根据检测到的配置自动配置应用程序
+Spring Boot 应用程序的配置属性可以在 application.properties 或 application.yml 文件中指定。 可以包含在该文件中的属性示例包括 server.port 和 spring.application.name 属性。
+@SpringBootApplication
+Spring Boot 有一个注解，@SpringBootApplication，它允许 Spring Boot 应用程序自动配置第三方库和检测到的功能，这些功能位于 classpath。例如，具有 @SpringBootApplication 注解的类可以扩展 SpringBootServerInitializer 类，如果应用程序被打包并作为 WAR 文件 部署。
+
+@SpringBootApplication 注解结合了三个 Spring 特定的注解： @SpringBootConfiguration、@EnableAutoConfiguration 和 @ComponentScan。
+
+@SpringBootConfiguration
+@SpringBootConfiguration 注解是 Spring 特定的 @Configuration 注解的专门化。 具有 @SpringBootConfiguration 的类被标记为 Spring Boot 应用程序的配置类。
+
+@EnableAutoConfiguration
+@EnableAutoConfiguration 注解是 Spring 特定的注解，用于启用 Spring Boot 的自动配置
+Spring Boot 执行器允许对 Spring Boot 应用程序进行监控和管理。 使用 Spring Boot 执行器的一个主要优势是，它实现了许多生产就绪的功能，而无需开发者自己构建实现。
+
+如果使用 Maven 作为构建工具，则可以在 pom.xml 配置文件中指定 spring-boot-starter-actuator 依赖
+Spring Boot有多个现有的Spring框架模块。
+默认情况下，Spring Boot 提供嵌入式的 web 服务器（如 Tomcat）开箱即用。 不过，Spring Boot 也可以作为 WAR 文件部署到独立的 WildFly 应用服务器上。
+
+如果使用Maven作为构建工具，有一个wildfly-maven-plugin Maven插件，可以实现生成的WAR文件的自动部署
+
+================ Spring Boot 原理 [k_vault_javaspringspringboot_lhipgq] ================
+Spring Boot 是由 Pivotal 团队提供的全新框架，其设计目的是用来简化新 Spring 应用的初始搭建以及开发过程。
+
+## 核心设计思想
+
+该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot 致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。
+
+## 主要特点
+
+1. **创建独立的 Spring 应用程序** - 可以独立运行
+2. **嵌入的 Tomcat** - 无需部署 WAR 文件，直接运行
+3. **简化 Maven 配置** - 自动管理依赖版本
+4. **自动配置 Spring** - 智能配置，减少手动配置
+5. **提供生产就绪型功能** - 如指标，健康检查和外部配置
+6. **没有代码生成** - 对 XML 没有要求配置
+
+## 自动配置原理
+
+Spring Boot 自动配置通过 `@EnableAutoConfiguration` 注解实现：
+- 扫描 classpath 下的配置文件
+- 根据条件注解决定配置是否生效
+- 自动配置 Bean
+
+---
+
+## 相关链接
+
+- 概述 - Spring Boot 概述
+- 与Spring对比 - Spring Boot 与 Spring 的区别
+- Spring - 返回Spring主目录
+
+================ Spring Boot 与 Spring 对比 [k_vault_javaspringspringbootspring_tdf3nn] ================
+## Spring Boot 相对于 Spring 的改进
+
+### 1. 独立应用
+
+Spring Boot可以建立独立的Spring应用程序；
+
+### 2. 内嵌容器
+
+内嵌了如Tomcat，Jetty和Undertow这样的容器，也就是说可以直接跑起来，用不着再做部署工作了；
+
+### 3. 简化配置
+
+无需再像Spring那样搞一堆繁琐的xml文件的配置；
+
+### 4. 自动配置
+
+可以自动配置Spring。SpringBoot将原有的XML配置改为Java配置，将bean注入改为使用注解注入的方式(@Autowire)，并将多个xml、properties配置浓缩在一个application.yml配置文件中。
+
+### 5. 便捷功能
+
+提供了一些现有的功能，如量度工具，表单数据验证以及一些外部配置这样的一些第三方功能；
+
+### 6. 简化依赖
+
+整合常用依赖（开发库，例如spring-webmvc、jackson-json、validation-api和tomcat 等），提供的POM可以简化Maven的配置。当我们引入核心依赖时，SpringBoot会自动引入其他依赖。
+
+---
+
+## 总结
+
+| 特性 | Spring | Spring Boot |
+|-----|--------|-------------|
+| 配置方式 | XML配置为主 | Java配置 + 自动配置 |
+| 依赖管理 | 手动管理 | 自动版本管理 |
+| 服务器部署 | 需要WAR包 | 内嵌服务器 |
+| 启动方式 | 部署到容器 | 直接运行 |
+| 开发效率 | 配置繁琐 | 快速入门 |
+
+---
+
+## 相关链接
+
+- 概述 - Spring Boot 概述
+- 原理 - Spring Boot 原理详解
+- Spring - 返回Spring主目录
+
+================ Spring Boot 安全 [k_vault_javaspringspringboot_yjdx1u] ================
+## 实现安全性
+
+为了实现 Spring Boot 的安全性，我们使用 spring-boot-starter-security 依赖项，并且必须添加安全配置。
+
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        // 配置安全策略
+    }
+}
+```
+
+## Spring Security vs Shiro
+
+### Spring Security
+
+- 重量级的安全管理框架
+- 概念复杂，配置繁琐
+- 功能强大
+
+### Apache Shiro
+
+- 轻量级的安全管理框架
+- 概念简单、配置简单
+- 功能简单
+
+**建议**：如果是Spring Boot项目，一般选择Spring Security。
+
+## 跨域问题解决
+
+通过实现WebMvcConfigurer接口然后重写addCorsMappings方法解决跨域问题：
+
+```java
+@Override
+public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**")
+            .allowedOrigins("*")
+            .allowedMethods("GET", "POST", "PUT", "DELETE");
+}
+```
+
+## CSRF攻击
+
+CSRF 代表跨站请求伪造。这是一种攻击，迫使最终用户在当前通过身份验证的 Web 应用程序上执行不需要的操作。
+
+---
+
+## 相关链接
+
+- 监视器 - Spring Boot 监视器
+- Spring - 返回Spring主目录
+
+================ Spring Boot 热加载 [k_vault_javaspringspringboot_1rp75f] ================
+## devtools 实现热部署
+
+Spring Boot 提供了 devtools 模块来实现热加载，修改代码后自动重启应用。
+
+### 添加依赖
+
+```xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-devtools</artifactId>
+    <optional>true</optional>
+</dependency>
+```
+
+## 触发重启条件
+
+当DevTools监视类路径资源时，修改类文件会触发重新启动。
+
+- Eclipse: 保存修改的文件
+- IntelliJ IDEA: 构建项目 (Build -> Make Project)
+
+## 自定义排除项
+
+配置不触发重启的路径：
+
+```properties
+spring.devtools.restart.exclude=static/,public/
+```
+
+## 禁用热加载
+
+```java
+public static void main(String[] args) {
+    System.setProperty("spring.devtools.restart.enabled", "false");
+    SpringApplication.run(MyApp.class, args);
+}
+```
+
+## 触发文件
+
+使用触发文件控制重启时机，避免频繁重启。
+
+---
+
+## 相关链接
+
+- 缓存 - Spring Boot 缓存
+- Spring - 返回Spring主目录
+
+================ Spring Boot 整合第三方 [k_vault_javaspringspringboot_g9wkoh] ================
+## Spring Data
+
+Spring Data 是 Spring 的一个子项目。用于简化数据库访问，支持NoSQL 和 关系数据存储。
+
+### 支持的NoSQL存储
+
+- MongoDB（文档数据库）
+- Neo4j（图形数据库）
+- Redis（键/值存储）
+- Hbase（列族数据库）
+
+### 支持的关系数据存储
+
+- JDBC
+- JPA
+
+## Spring Batch
+
+Spring Boot Batch 提供可重用的函数，用于处理大量记录：
+- 日志/跟踪
+- 事务管理
+- 作业处理统计信息
+- 作业重新启动
+- 跳过和资源管理
+
+## WebSockets
+
+WebSocket 是一种计算机通信协议，通过单个 TCP 连接提供全双工通信信道。
+
+特点：
+- 双向通信
+- 全双工
+- 单TCP连接
+- 轻量级数据交换
+
+## ActiveMQ
+
+对于集成 Spring Boot 和 ActiveMQ，使用 spring-boot-starter-activemq 依赖。
+
+## Apache Kafka
+
+Apache Kafka 是一个分布式发布 - 订阅消息系统。
+
+特点：
+- 可扩展
+- 容错
+- 适合离线和在线消息消费
+
+## Swagger
+
+Swagger 广泛用于可视化 API，使用 Swagger UI 为前端开发人员提供在线沙箱。
+
+前后端分离推荐使用Swagger维护接口文档。
+
+---
+
+## 相关链接
+
+- 其他 - Spring Boot 其他特性
+- Spring - 返回Spring主目录
+
+================ Spring Boot 其他核心功能 [k_vault_javaspringspringboot_1tusfd] ================
+## 运行方式
+
+1. 打包用命令或者放到容器中运行
+2. 用 Maven/Gradle 插件运行
+3. 直接执行 main 方法运行
+
+## Starter
+
+Spring Boot 中的 starter 到底是什么？
+
+首先它提供了一个自动化配置类，一般命名为 XXXAutoConfiguration，然后会提供一系列的默认配置。开发者只需引入依赖就可以直接使用。
+
+## parent 作用
+
+spring-boot-starter-parent 主要作用：
+
+1. 定义了 Java 编译版本为 1.8
+2. 使用 UTF-8 格式编码
+3. 继承自 spring-boot-dependencies，定义了依赖的版本
+4. 执行打包操作的配置
+5. 自动化的资源过滤
+6. 针对 application.properties 和 application.yml 的资源过滤
+
+## jar 区别
+
+Spring Boot 打成的 jar 和普通的 jar 的区别：
+
+- Spring Boot jar 是可执行 jar，可以通过 java jar 命令运行
+- 这种 jar 不可以作为普通的 jar 被其他项目依赖
+
+## 异常处理
+
+使用 @ControllerAdvice 处理异常：
+
+```java
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    // 处理异常
+}
+```
+
+## 分页和排序
+
+使用 Spring Data-JPA 实现分页非常简单：
+
+```java
+Page<User> findAll(Pageable pageable);
+```
+
+## 定时任务
+
+两种方式：
+
+1. 使用 @Scheduled 注解
+2. 使用第三方框架 Quartz
+
+## Session共享
+
+微服务中使用 Spring Session + Redis 来实现 session 共享。
+
+---
+
+## 相关链接
+
+- 整合第三方 - Spring Boot 整合第三方
+- Spring - 返回Spring主目录
+

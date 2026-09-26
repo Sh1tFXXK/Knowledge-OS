@@ -1,0 +1,333 @@
+{
+  "generatedAt": "2026-09-14T13:14:44.023Z",
+  "mode": "apply",
+  "wroteData": true,
+  "batch": "t3-p0-apply",
+  "gates": [
+    {
+      "id": "G1",
+      "name": "提案 7 条均已人工批准 ∧ D1/D2 已裁定",
+      "ok": true,
+      "detail": "proposal.status=APPROVED_BY_HUMAN · 未批准 0 条 · 未裁定决策 0 项"
+    },
+    {
+      "id": "G2",
+      "name": "数据文件 md5 与冻结基线一致（无人改过数据）",
+      "ok": true,
+      "detail": "5 个文件全部一致"
+    },
+    {
+      "id": "G3",
+      "name": "7 个 old treeId 存在且均为伪语义形态",
+      "ok": true,
+      "detail": "7 个全部命中"
+    },
+    {
+      "id": "G4",
+      "name": "7 个 new treeId 形态合法 ∧ 批内唯一 ∧ 无碰撞",
+      "ok": true,
+      "detail": "tree_java_lock_rwlock_implementation · tree_redis_rdb_persistence · tree_java_jmm_synchronization · tree_java_syntax_generics · tree_redis_zset · tree_redis_cache_anomaly · tree_java_jmm_sequential_consistency"
+    },
+    {
+      "id": "G5",
+      "name": "覆盖面**恰好** = BLOCK 的最近伪语义祖先集合",
+      "ok": true,
+      "detail": "提案 7 vs 期望 7 · 缺失 [] · 多余 [] · T3 项数 133（须 133）"
+    },
+    {
+      "id": "G6",
+      "name": "结构不变性：树逐节点 / 边逐条，除 id 外逐字节相同",
+      "ok": true,
+      "detail": "树 3219 节点、边 4166 条全部通过（仅 id 变动） · 改名节点 7/7 · treebind id 改写 46"
+    },
+    {
+      "id": "G7",
+      "name": "引用闭合：改名后全数据无旧 id 残留",
+      "ok": true,
+      "detail": "残留 0 · 节点数 3219 不变 · 边数 4166 不变"
+    },
+    {
+      "id": "G8",
+      "name": "本批目的达成：T3 133 项读数 = HIGH 92 / MEDIUM 38 / BLOCK 3",
+      "ok": true,
+      "detail": "HIGH 68→92 · MEDIUM 38→38 · BLOCK 27→3 · 分布 {\"0\":68,\"1\":11,\"2\":24,\"3\":3,\"4\":12,\"5\":4,\"6\":11} → {\"0\":92,\"1\":11,\"2\":24,\"3\":3,\"6\":3}"
+    },
+    {
+      "id": "G9",
+      "name": "dev server 不会静默覆盖本次写入",
+      "ok": true,
+      "detail": "5173 未监听"
+    }
+  ],
+  "pairs": [
+    {
+      "oldTreeId": "tree_1786026688588_0mtvxh",
+      "proposedTreeId": "tree_java_lock_rwlock_implementation"
+    },
+    {
+      "oldTreeId": "tree_1786245817114_ds2keo",
+      "proposedTreeId": "tree_redis_rdb_persistence"
+    },
+    {
+      "oldTreeId": "tree_1784367544335_zorevp",
+      "proposedTreeId": "tree_java_jmm_synchronization"
+    },
+    {
+      "oldTreeId": "tree_1783873515748_edsjp0",
+      "proposedTreeId": "tree_java_syntax_generics"
+    },
+    {
+      "oldTreeId": "tree_1786235757428_osu8oj",
+      "proposedTreeId": "tree_redis_zset"
+    },
+    {
+      "oldTreeId": "tree_1786340438649_tbr6gs",
+      "proposedTreeId": "tree_redis_cache_anomaly"
+    },
+    {
+      "oldTreeId": "tree_1785862113590_a5v1ya",
+      "proposedTreeId": "tree_java_jmm_sequential_consistency"
+    }
+  ],
+  "renamedNodes": 7,
+  "renamedEdgeIds": 46,
+  "edgeIdChanges": [
+    {
+      "from": "treebind:tree_1784367508734_hrswml:tree_1784367544335_zorevp",
+      "to": "treebind:tree_1784367508734_hrswml:tree_java_jmm_synchronization"
+    },
+    {
+      "from": "treebind:tree_1784367544335_zorevp:tree_1784367662898_k0rxcz",
+      "to": "treebind:tree_java_jmm_synchronization:tree_1784367662898_k0rxcz"
+    },
+    {
+      "from": "treebind:tree_1784367544335_zorevp:tree_1784367699494_y1g26s",
+      "to": "treebind:tree_java_jmm_synchronization:tree_1784367699494_y1g26s"
+    },
+    {
+      "from": "treebind:tree_1784367544335_zorevp:tree_1785820543100_i1zgfg",
+      "to": "treebind:tree_java_jmm_synchronization:tree_1785820543100_i1zgfg"
+    },
+    {
+      "from": "treebind:tree_1784367508734_hrswml:tree_1785862113590_a5v1ya",
+      "to": "treebind:tree_1784367508734_hrswml:tree_java_jmm_sequential_consistency"
+    },
+    {
+      "from": "treebind:tree_1785862113590_a5v1ya:tree_1785862311838_8gjb2e",
+      "to": "treebind:tree_java_jmm_sequential_consistency:tree_1785862311838_8gjb2e"
+    },
+    {
+      "from": "treebind:tree_1785862113590_a5v1ya:tree_1785923242922_h6fqry",
+      "to": "treebind:tree_java_jmm_sequential_consistency:tree_1785923242922_h6fqry"
+    },
+    {
+      "from": "treebind:tree_1785862113590_a5v1ya:tree_1785923313251_n1jobu",
+      "to": "treebind:tree_java_jmm_sequential_consistency:tree_1785923313251_n1jobu"
+    },
+    {
+      "from": "treebind:tree_1786017239718_fuvw86:tree_1786026688588_0mtvxh",
+      "to": "treebind:tree_1786017239718_fuvw86:tree_java_lock_rwlock_implementation"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:tree_1786026731195_6h7dn0",
+      "to": "treebind:tree_java_lock_rwlock_implementation:tree_1786026731195_6h7dn0"
+    },
+    {
+      "from": "treebind:tree_1784042843965_1l907w:tree_1783873515748_edsjp0",
+      "to": "treebind:tree_1784042843965_1l907w:tree_java_syntax_generics"
+    },
+    {
+      "from": "treebind:tree_1783873515748_edsjp0:tree_1783874843110_8teb7e",
+      "to": "treebind:tree_java_syntax_generics:tree_1783874843110_8teb7e"
+    },
+    {
+      "from": "treebind:tree_1783873515748_edsjp0:tree_1784302644439_1wds0d",
+      "to": "treebind:tree_java_syntax_generics:tree_1784302644439_1wds0d"
+    },
+    {
+      "from": "treebind:tree_1786232234666_2zcwva:tree_1786235757428_osu8oj",
+      "to": "treebind:tree_1786232234666_2zcwva:tree_redis_zset"
+    },
+    {
+      "from": "treebind:demo_tree_redis:tree_1786340438649_tbr6gs",
+      "to": "treebind:demo_tree_redis:tree_redis_cache_anomaly"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340457010_5jtoo8",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340457010_5jtoo8"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340490406_nh6kcm",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340490406_nh6kcm"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340543323_fn7slv",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340543323_fn7slv"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340565414_tb59hj",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340565414_tb59hj"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340595359_dmr45o",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340595359_dmr45o"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:tree_1786340652071_gudwro",
+      "to": "treebind:tree_redis_cache_anomaly:tree_1786340652071_gudwro"
+    },
+    {
+      "from": "treebind:tree_1786245246710_rw9q3v:tree_1786245817114_ds2keo",
+      "to": "treebind:tree_1786245246710_rw9q3v:tree_redis_rdb_persistence"
+    },
+    {
+      "from": "treebind:tree_1784367544335_zorevp:asplit_s1_asplit_mutex_lock",
+      "to": "treebind:tree_java_jmm_synchronization:asplit_s1_asplit_mutex_lock"
+    },
+    {
+      "from": "treebind:tree_1784367544335_zorevp:asplit_s1_asplit_sync_block",
+      "to": "treebind:tree_java_jmm_synchronization:asplit_s1_asplit_sync_block"
+    },
+    {
+      "from": "treebind:tree_1785862113590_a5v1ya:asplit_s1_asplit_data_race",
+      "to": "treebind:tree_java_jmm_sequential_consistency:asplit_s1_asplit_data_race"
+    },
+    {
+      "from": "treebind:tree_1783873515748_edsjp0:asplit_s1_asplit_generic_method",
+      "to": "treebind:tree_java_syntax_generics:asplit_s1_asplit_generic_method"
+    },
+    {
+      "from": "treebind:tree_1783873515748_edsjp0:asplit_s1_asplit_generic_constructor",
+      "to": "treebind:tree_java_syntax_generics:asplit_s1_asplit_generic_constructor"
+    },
+    {
+      "from": "treebind:tree_1786235757428_osu8oj:asplit_s1_asplit_zrank",
+      "to": "treebind:tree_redis_zset:asplit_s1_asplit_zrank"
+    },
+    {
+      "from": "treebind:tree_1786235757428_osu8oj:asplit_s1_asplit_zrange",
+      "to": "treebind:tree_redis_zset:asplit_s1_asplit_zrange"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:asplit_s1_asplit_hot_data",
+      "to": "treebind:tree_redis_cache_anomaly:asplit_s1_asplit_hot_data"
+    },
+    {
+      "from": "treebind:tree_1786340438649_tbr6gs:asplit_s1_asplit_cold_data",
+      "to": "treebind:tree_redis_cache_anomaly:asplit_s1_asplit_cold_data"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rwlock_mechanism",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rwlock_mechanism"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_write_acquire",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_acquire"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_write_held",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_held"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_write_waiting",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_waiting"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_write_released",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_write_released"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_read_acquire",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_acquire"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_read_held",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_held"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_read_waiting",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_waiting"
+    },
+    {
+      "from": "treebind:tree_1786026688588_0mtvxh:asplit_s2_asplit_rw_state_read_released",
+      "to": "treebind:tree_java_lock_rwlock_implementation:asplit_s2_asplit_rw_state_read_released"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_save_cmd",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_save_cmd"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_state_fork",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_fork"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_state_child_write",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_child_write"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_state_parent_serve",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_parent_serve"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_state_replaced",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_replaced"
+    },
+    {
+      "from": "treebind:tree_1786245817114_ds2keo:asplit_s2_asplit_rdb_state_loaded",
+      "to": "treebind:tree_redis_rdb_persistence:asplit_s2_asplit_rdb_state_loaded"
+    }
+  ],
+  "treeErrors": [],
+  "edgeErrors": [],
+  "endpointTouched": 0,
+  "residualOldIds": [],
+  "beforeTier": {
+    "high": 68,
+    "medium": 38,
+    "blocked": 27
+  },
+  "afterTier": {
+    "high": 92,
+    "medium": 38,
+    "blocked": 3
+  },
+  "gapDistBefore": {
+    "0": 68,
+    "1": 11,
+    "2": 24,
+    "3": 3,
+    "4": 12,
+    "5": 4,
+    "6": 11
+  },
+  "gapDistAfter": {
+    "0": 92,
+    "1": 11,
+    "2": 24,
+    "3": 3,
+    "6": 3
+  },
+  "stillBlocked": [
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_backup",
+      "name": "备份恢复工具"
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_security",
+      "name": "安全管理工具"
+    },
+    {
+      "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+      "name": "集群管理工具"
+    }
+  ],
+  "backupDir": "E:\\project\\Knowledge-OS\\data\\backups\\t3-p0-2026-09-14T13-14-43-612Z",
+  "realVerification": {
+    "renamedNodes": 7,
+    "renamedEdgeIds": 46,
+    "treeErrors": [],
+    "edgeErrors": [],
+    "residualOldIds": [],
+    "verdict": "REAL_APPLY_VERIFIED"
+  }
+}

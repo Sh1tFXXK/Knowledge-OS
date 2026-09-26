@@ -39,12 +39,7 @@ interface SupertagMaterialAccumulator {
 function firstNodeContent(node: KnowledgeNode): string {
   for (const tab of node.card.tabs) {
     if (tab.content.trim()) return tab.content;
-    const pages = tab.pages?.length
-      ? tab.pages
-      : tab.id === 'def'
-        ? node.card.definitionPages ?? []
-        : [];
-    const pageContent = firstPageContent(pages);
+    const pageContent = firstPageContent(tab.pages ?? []);
     if (pageContent) return pageContent;
   }
   return '';
@@ -143,12 +138,7 @@ function collectTabs(
       },
       tab.tags,
     );
-    const pages = tab.pages?.length
-      ? tab.pages
-      : tab.id === 'def'
-        ? node.card.definitionPages ?? []
-        : [];
-    collectPages(groups, node, tab.id, path, pages, nextIdPath);
+    collectPages(groups, node, tab.id, path, tab.pages ?? [], nextIdPath);
     collectTabs(groups, node, tab.tabs ?? [], path, nextIdPath);
   }
 }

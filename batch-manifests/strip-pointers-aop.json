@@ -1,0 +1,27 @@
+{
+  "batch": "strip-pointers-aop",
+  "date": "2026-09-23",
+  "trigger": "用户确立「知识独立性」新规后裁决（选项1）：回填剥除前两批注入的跨节点指针话术。本批 = 修正批 1/2（AOP 原理卡）。",
+  "principle": "知识独立性：卡内容零跨节点指针（/详见|见子节点|见「|参见|另见/ 硬校验）。内部逻辑写在知识点里，外部关联是系统（树）的职责。",
+  "target": {
+    "entity": "k_vault_javaspringaopaop_1gf9np",
+    "treeId": "tree_vault_javaspringaopaop_1gf9np",
+    "path": "知识宇宙>…>Spring>AOP>AOP 原理",
+    "violationOrigin": "9673e04（aop-split-fusion 批注入的导航话术）"
+  },
+  "stripped": {
+    "rootContent": "「代理方式详解见子节点「代理方式」；四阶段执行机制的播放视图见子节点「AOP 执行流程」。」（332→288 字）",
+    "tab_def": "「执行细节见子节点「AOP 执行流程」的四阶段机制视图。」（348→321 字）",
+    "tab_proxy": "「详解见子节点「代理方式」。」（187→172 字）",
+    "tab_flow": "「机制化细节与播放视图见子节点「AOP 执行流程」。」（331→304 字）",
+    "tab_impl": "零触碰（本就无指针）"
+  },
+  "surgery": "精确整句 replace，每句计数必须恰好=1；剥后各字段收束于知识句（root→反射调用目标方法+总结图×2 / def→Interceptor Chain → Target / proxy→CGLIB代理 / flow→反射调用目标方法）",
+  "gates": "前置 7（指针句定位+形态）→ 后置 8（零指针+守恒+收束+impl 不动+仅减不增）→ 回读逐字节 3",
+  "uiProbe": {
+    "method": "临时数据目录 + vite preview 4192 + 无头 Chromium CDP（复用 shell-fusion 原语）",
+    "result": "12/12 ALL PASS",
+    "assertions": "① 数据级零指针+知识守恒+图×2；② 读态卡片完整无指针残留、2 张总结图真实加载（naturalWidth>0）；③ 刷新复测全绿"
+  },
+  "artifacts": { "apply": "scripts/apply-strip-pointers-aop.mjs（dry-run 默认 + --apply，断言门，原子写）" }
+}

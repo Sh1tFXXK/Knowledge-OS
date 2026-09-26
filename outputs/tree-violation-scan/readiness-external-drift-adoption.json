@@ -1,0 +1,1414 @@
+{
+  "generatedAt": "2026-09-16T12:11:41.542Z",
+  "batchId": "external-drift-adoption",
+  "baseRef": "1832d61",
+  "manifestPath": "batch-manifests/external-drift-adoption.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\external-drift-adoption-2026-09-16T12-09-45-332Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "batch-manifests/external-drift-adoption.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "data/questions.json",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "AGENTS.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/java-class-vs-lib/report.json",
+    "outputs/java-class-vs-lib/report.md",
+    "outputs/mysql-anchor-forensics/report.json",
+    "outputs/mysql-anchor-forensics/report.md",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/strip-injected-artifacts/apply-report.json",
+    "outputs/strip-injected-artifacts/dryrun-report.json",
+    "outputs/strip-injected-artifacts/plan.json",
+    "outputs/strip-injected-artifacts/plan.md",
+    "outputs/strip-injected-artifacts/probe-result.json",
+    "outputs/strip-injected-artifacts/verify-report.json",
+    "outputs/strip-injected-artifacts/verify-report.md",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/db-key-constraints-preflight.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/tree-violation-scan/precheck-db-key-constraints.json",
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+    "outputs/tree-violation-scan/readiness-java-library-parallel.json",
+    "outputs/tree-violation-scan/readiness-nio-files-fusion.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-strip-injected-artifacts.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "scripts/apply-strip-injected-artifacts.mjs",
+    "scripts/forensics-mysql-anchor-reappearance.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/plan-strip-injected-artifacts.mjs",
+    "scripts/precheck-db-key-constraints.mjs",
+    "scripts/recon-java-class-vs-lib.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/shell-fusion/probe-strip-injected-artifacts.mjs",
+    "scripts/verify-strip-injected-artifacts.mjs"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-external-drift-adoption.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 12636981,
+        "baselineBytes": 12636981,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "7be8cad5350dd77171618f414d122744",
+        "md5Baseline": "7be8cad5350dd77171618f414d122744"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/evolution-events.json",
+        "data/knowledge-edges.json",
+        "data/tree-data.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [
+        "data/node-pool.json",
+        "data/questions.json"
+      ],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/node-pool.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [
+          "data/questions.json"
+        ],
+        "otherOwnBatch": [
+          "data/evolution-events.json",
+          "data/knowledge-edges.json",
+          "data/tree-data.json",
+          "docs/CONSTITUTION.md"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [],
+      "expectedNew": [],
+      "modified": [
+        "mysql_glossary_client_libraries_1l6z2y",
+        "mysql_glossary_file_format_199bjh",
+        "mysql_glossary_libmysqld_rpbwgq",
+        "k_1784340526295_skm8iw",
+        "k_1787756977195_m3axzg",
+        "k_java_util_scanner",
+        "k_vault_java_1vxm5o",
+        "k_vault_javajava8stream_rcy19a",
+        "k_vault_javajava_1xf3hv",
+        "asplit_java_nio_filesystem"
+      ],
+      "expectedModified": [
+        "mysql_glossary_client_libraries_1l6z2y",
+        "mysql_glossary_file_format_199bjh",
+        "mysql_glossary_libmysqld_rpbwgq",
+        "k_1784340526295_skm8iw",
+        "k_1787756977195_m3axzg",
+        "k_java_util_scanner",
+        "k_vault_java_1vxm5o",
+        "k_vault_javajava8stream_rcy19a",
+        "k_vault_javajava_1xf3hv",
+        "asplit_java_nio_filesystem"
+      ],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "external-tag-sync",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "data/questions.json",
+          "by": [
+            "external-drift-adoption",
+            "governance-v1.1",
+            "nodepool-tag-normalization",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/时态索引-整页.png",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/java-class-vs-lib/report.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/java-class-vs-lib/report.md",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/mysql-anchor-forensics/report.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/mysql-anchor-forensics/report.md",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.html",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/project-map-2026-09-15/knowledge-os-map.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/apply-report.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/dryrun-report.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/plan.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/plan.md",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/probe-result.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/verify-report.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/strip-injected-artifacts/verify-report.md",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/db-key-constraints-preflight.md",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/evolution-v2-verification.md",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "strip-injected-artifacts",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/precheck-db-key-constraints.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-core-library-methods.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-evolution-v2.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-java-library-parallel.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nio-files-fusion.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-strip-injected-artifacts.json",
+          "by": [
+            "external-drift-adoption"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p1.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p2.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-versions-v1.json",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/apply-strip-injected-artifacts.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/forensics-mysql-anchor-reappearance.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/plan-strip-injected-artifacts.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/precheck-db-key-constraints.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/recon-java-class-vs-lib.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "external-drift-adoption",
+            "core-library-methods",
+            "evolution-v2",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "scripts/shell-fusion/probe-strip-injected-artifacts.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "scripts/verify-strip-injected-artifacts.mjs",
+          "by": [
+            "external-drift-adoption",
+            "strip-injected-artifacts"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-external-drift-adoption.json",
+          "by": [
+            "external-drift-adoption"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 8,
+        "tests": 60,
+        "pass": 60,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 62,
+      "declared": null,
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 81,
+    "labelNeCardTitle_subset": 70,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "mysql_glossary_client_libraries_1l6z2y",
+      "oldLabel": "客户端库 / client libraries",
+      "newLabel": "客户端库 / client libraries",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "客户端库 / client libraries",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "客户端库 / client libraries",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "客户端库 / client libraries",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "mysql_glossary_file_format_199bjh",
+      "oldLabel": "文件格式 / file format",
+      "newLabel": "文件格式 / file format",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "文件格式 / file format",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "文件格式 / file format",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "文件格式 / file format",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "mysql_glossary_libmysqld_rpbwgq",
+      "oldLabel": "libmysqld",
+      "newLabel": "libmysqld",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "libmysqld",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "libmysqld",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "libmysqld",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_1784340526295_skm8iw",
+      "oldLabel": "Servlet",
+      "newLabel": "Servlet",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Servlet",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Servlet",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Servlet",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_1787756977195_m3axzg",
+      "oldLabel": "例子",
+      "newLabel": "例子",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "例子",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "例子",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "例子",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_java_util_scanner",
+      "oldLabel": "java.util.Scanner",
+      "newLabel": "java.util.Scanner",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "java.util.Scanner",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "java.util.Scanner",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "java.util.Scanner",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_java_1vxm5o",
+      "oldLabel": "常用关键字速记（static/final）",
+      "newLabel": "常用关键字速记（static/final）",
+      "staleSignature": true,
+      "aliasRetained": false,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "常用关键字速记（static/final）",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "常用关键字速记（static/final）",
+          "severity": "🟡",
+          "disposition": "needs-adjudication"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_javajava8stream_rcy19a",
+      "oldLabel": "Java 8 Stream",
+      "newLabel": "Java 8 Stream",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Java 8 Stream",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Java 8 Stream",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Java 8 Stream",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_javajava_1xf3hv",
+      "oldLabel": "Java 网络编程（Socket）",
+      "newLabel": "Java 网络编程（Socket）",
+      "staleSignature": true,
+      "aliasRetained": false,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Java 网络编程（Socket）",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Java 网络编程（Socket）",
+          "severity": "🟡",
+          "disposition": "needs-adjudication"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "asplit_java_nio_filesystem",
+      "oldLabel": "FileSystem",
+      "newLabel": "FileSystem",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "FileSystem",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "FileSystem",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "FileSystem",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

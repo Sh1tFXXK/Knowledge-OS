@@ -1,0 +1,205 @@
+{
+  "batchId": "core-library-methods",
+  "title": "CORE-LIBRARY-METHODS · 常用类库四类方法 tab 化（String/Scanner/Files/enum，+74 tab）· 删除汇总结点「常用类库整理」（树 −1 / 边 −1 / 池 −1）",
+  "baseRef": "c51d6b6",
+  "baseRefNote": "前序提交链：… → 42c9cc3 → 09d71f2（versions-v1 内容）→ 8cd8b79（versions-v1 登记）→ **c51d6b6（external-tag-sync 独立治理微提交）**。⚠️ c51d6b6 是就绪门 Ancestor Gate 真阳性 BLOCK 逼出的补救：本批写集文件 data/node-pool.json 在动手**之前**即带有 3 处外部会话遗留改动，使「提交该文件 = 提交本批操作」不成立。经用户裁决「独立治理微提交，先清后做」（照 nodepool-tag-normalization / 42c9cc3 先例）：把那 3 处采纳进一个独立提交（blob 级、工作树零改动），使 HEAD 追上工作树后，本批 Δ 收敛为「精确 1 处删除」。本批从 c51d6b6 出发。",
+  "preBatchSnapshot": "data/backups/core-library-methods-prebatch-2026-09-15",
+  "preBatchSnapshotNote": "**合并批前快照**（本批分三段执行，起始态分散在两份备份，而就绪门只接受单一目录）。tree-data.json / knowledge-edges.json = 与 HEAD 字节相等（md5 017b61fb… / 4f7f47f2…）；node-pool.json = 第一段写入之前的真实工作树态（md5 8d48d4ab…，含当时已存在的外部 tags 漂移 2 处）。逐文件来源与四方基线见该目录 journal.txt。",
+  "commitSubjectHint": "data: 常用类库方法 tab 化 + 删除「常用类库整理」汇总结点 — 四类 +74 tab（树 3215→3214 · 边 4163→4162 · 池 3858→3857）（独立验证 23/23 · UI 36/36 · 回归 62/62）",
+  "status": "COMMITTED",
+  "provenance": {
+    "trigger": "用户给出「常用类库整理」拆分蓝图（4 步：建骨架 → 建 4 个类节点 → 每类按方法名建 tab → 删原节点），并附源材料全文；明确指示「先做 String 一个类试手感，觉得合适再铺其余三个」。",
+    "userAdjudication": "2026-09-15 三轮裁决：① String 试做**过关**，铺满其余三个；② 成员区里 features/methods 两个非方法 tab **保留**（不改）；③ 治理等四类做完**一起提交**；④ Files/enum 成员区不可达 —— 选 **路 A（接受现状）**，路 B「改 role」已由代码证伪；⑤ 「常用类库整理」池实体 **连池一起删**（非惯例的「卸树留池」，用户明确担责）；⑥ 融合范围 = 连 5 个导入型总集一起规划，但**融合另起一批**，先把当前批提交掉。",
+    "blueprintVsReality": "只读预检查出蓝图 4 处与真实数据不符（照做会白干）：① 「常用类库整理」不在 Spring 下，在 java > 常用类库 下；② 蓝图要新建的「核心类库」已存在（= java > 常用类库，23 子）；③ 4 个目标类节点**全部已存在** ⇒ 任务性质从「新建」变「给既有节点补 tab」；④ 用户写 30 个 String 方法 tab，按「重载合并后按方法名计」实算 33。全部当场报告后才动手。",
+    "designDiscipline": "① tab 生成唯一依据 = 源材料的方法表行，一类一 tab、同名重载合并（id=lowerCamel / label=name() / content=一句话+反引号签名）；**不发明材料外内容**（材料正文提到 Files.walk 但方法表无此行 ⇒ 不建 tab，仅登记）。② 实体已有 rootContent 时**绝不覆盖**（k_java_lang_enum 的 871 字 OCR 文本原样保留，脚本里用 root:null 显式表达「不触碰」+ 自检「声明不触碰 ⇒ 长度不得变化」）。③ 保 card 键序：rootContent 只在原本没有时插到 title 之后；tabs 原位替换。",
+    "carriedExternalDrift": "✅ **已解除 —— 本批不再夹带任何外部改动**。原状况：data/node-pool.json 在本批动手前即带有 3 处外部会话遗留改动（四方基线 HEAD 3858 / 批前 3858 / 工作树 3857；A = HEAD→批前 = modified ×3；A ∩ B = ∅）。补救：用户裁决「独立治理微提交，先清后做」，该 3 处由 **c51d6b6**（manifest: batch-manifests/external-tag-sync.json）以 blob 级独立提交采纳 —— ① k_class_programming_classification tags [分类,类,面向对象,编程,类的分类] → [类的分类,分类,类,面向对象,编程]；② asplit_servlet_lifecycle tags [Servlet 生命周期] → [生命周期,Servlet 生命周期]；③ k_vault_javajava_1b1w4s card.rootContent 8916 字 → 9002 字（换行还原）。三处均为**修复性**：前两者使实体符合全库 3600/3858 的 tags[0] ≡ label 惯例（且正是 nodepool-tag-normalization 那批 127 键的同族残留）。提交后实测 git show HEAD:data/node-pool.json 的 md5 = 8d48d4ab… 与本批 preBatchSnapshot **逐字节相等** ⇒ Ancestor Gate 无条件成立，本批 diff 纯净。",
+    "scopeBoundary": "本批**只做内容 tab 化 + 一个汇总结点的删除**。以下一律不碰、不顺手修：① k_java_lang_enum 的 871 字 OCR rootContent 脏数据（含 U+FFFC 占位符、与三 tab 大面积重复）；② Files工具类（k_nio_files_util）与 java.nio.file.Files 的重复 —— 已量化（27/31 方法名交集，且工具类是**超集**，另有 walk/walkFileTree/属性/WatchService/选项枚举），归入「融合」下一批；③ java > 类库 与 java > 常用类库 两个平行库树（类库 > 常用 的 2801 字正文就是「Java 常用类库大全（全限定名称）」，与常用类库同义）—— 同归融合批；④ treeId 语义化 / T10 存量债。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/tree-data.json",
+    "scripts/plan-core-library-split.mjs",
+    "scripts/plan-core-library-split-2.mjs",
+    "scripts/plan-core-library-split-3.mjs",
+    "scripts/plan-core-library-rest.mjs",
+    "scripts/apply-core-library-string.mjs",
+    "scripts/apply-core-library-rest.mjs",
+    "scripts/apply-drop-commonlib-summary.mjs",
+    "scripts/verify-core-library-methods.mjs",
+    "scripts/check-supertag-counts.mjs",
+    "scripts/check-delete-commonlib-readiness.mjs",
+    "scripts/survey-commonlib-merge-candidates.mjs",
+    "scripts/shell-fusion/probe-core-library-string.mjs",
+    "scripts/shell-fusion/probe-core-library-rest.mjs",
+    "scripts/shell-fusion/probe-drop-commonlib-summary.mjs",
+    "batch-manifests/core-library-methods.json"
+  ],
+  "writeSetNote": "① 三个 data 文件：node-pool（4 实体补 tab + 删 1 实体）· tree-data（摘 1 节点，父 children 23→22）· knowledge-edges（清 1 条 treebind 边）。② 脚本 13 个：plan（只读预检 4 个）· apply（3 个，预检与实跑共用 buildPlan()，默认 dry-run）· verify（1 个，不 import apply，由快照反推）· check（2 个：tag 库基数、删除前置）· survey（1 个，只读融合候选量化）· probe（3 个无头浏览器探针）。③ 本批**零 src 改动、零样式改动**（纯数据批次）—— 这也是它能与外部在飞 src 改动完全隔离的原因。",
+  "writeSetPathspecNote": "git add 用本数组本身，由就绪门原样输出，不手写、不加通配。",
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md"
+  ],
+  "declaredExternalSetNote": "① 前 19 项与 versions-v1 登记的同一批外部会话在飞文件逐项一致（src/* 与 docs/* 仍在飞，本批零 src 改动、只**读**它们的既有函数）。② 后 11 项分两类：(a) t3-registration / t5-rename-evidence 及其产物属「已登记未执行」两个批次（status=REGISTERED_NOT_EXECUTED），允许漂移、不由本批提交；(b) **outputs/box-survey-2026-09-15/ 与 outputs/project-map-2026-09-15/** 是本会话更早的独立产出（方框分层截图 3 张 / 项目地图 HTML+MD），**刻意不随本批提交** —— 原因：地图里硬编码了树 3 215 · 池 3 858 · 边 4 163 · tag 库 5 511/9 681 等基数（HTML 各出现 3~6 处），而本批把树/池/边都改了，**地图数字已过期**，需单独刷新后再提交。⚠️ 这两项不是「别人的东西」，是本会话自己的在飞产物，登记在此仅为满足「每个未提交文件都必须被某个集合认领」。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "全部为**精确路径**（无目录前缀、无通配串）。第 1 项是本批自己跑就绪门产生的报告，生成物路径带 batchId；其余 14 项是历史批次的同类报告，沿 versions-v1 口径继续排除（它们不属任何在册写集，既不入库也不 gitignore）。",
+  "generatedArtifacts": [],
+  "expectedDelta": {
+    "note": "三段写入合并后的总 Δ（已扣除由 c51d6b6 独立提交的 3 处外部改动）。基准 = 本批 preBatchSnapshot（= HEAD c51d6b6）↔ 工作树；逐文件见下。",
+    "data/node-pool.json": {
+      "added": [],
+      "removed": [
+        "k_vault_javajava_1b1w4s"
+      ],
+      "modified": [
+        "k_java_lang_string",
+        "k_java_util_scanner",
+        "k_java_nio_file_files",
+        "k_java_lang_enum"
+      ],
+      "addedKindNote": "门（检查 C）读 added / removed / modified 三个**数组**。首跑曾误写为 addedEntities / removedEntityIds / modifiedEntityIds（门读不到 → deltaGate 假性 BLOCK），已改为门口径；声明内容一字未变。",
+      "before": 3858,
+      "after": 3857,
+      "perEntity": {
+        "k_java_lang_string": {
+          "rootContent": "0 → 32 字",
+          "tabs": "3 → 36（+33 方法 tab）"
+        },
+        "k_java_util_scanner": {
+          "rootContent": "0 → 63 字",
+          "tabs": "3 → 26（+23）"
+        },
+        "k_java_nio_file_files": {
+          "rootContent": "0 → 63 字",
+          "tabs": "2 → 31（+29）"
+        },
+        "k_java_lang_enum": {
+          "rootContent": "871 字（**未触碰**）",
+          "tabs": "3 → 9（+6）"
+        }
+      }
+    },
+    "data/tree-data.json": {
+      "before": 3215,
+      "after": 3214,
+      "removedNodes": 1,
+      "removedNodeIds": [
+        "tree_vault_javajava_1b1w4s"
+      ],
+      "modifiedNodes": [
+        "tree_java_common_libraries（children 23 → 22，仅摘除目标，顺序不变）"
+      ],
+      "addedNodes": 0
+    },
+    "data/knowledge-edges.json": {
+      "before": 4163,
+      "after": 4162,
+      "addedEdges": 0,
+      "removedEdges": 1,
+      "removedEdgeIds": [
+        "treebind:tree_java_common_libraries:tree_vault_javajava_1b1w4s"
+      ],
+      "removedEdgeShape": "{ source: k_java_common_libraries, target: k_vault_javajava_1b1w4s, type: 'belongs-to', label: 'contains', relationKind: 'structure' }",
+      "modifiedEdges": 0,
+      "note": "该边即「物理包含边」——也是让 java > 常用类库 自身成为 containerHost 的那条。漏删它正是本项目记载过的「卸父层漏删上游 treebind 边」缺陷类。"
+    },
+    "data/questions.json": "0 改动",
+    "data/evolution-events.json": "0 改动（事件表 append-only，本批不写事件）",
+    "data/version-chains.json": "0 改动",
+    "vite.config.js": "0 改动",
+    "src/**": "0 改动（本批纯数据批次）"
+  },
+  "testBaseline": {
+    "workingTreeTotal": 62,
+    "trackedNote": "npm test 实测 62/62 全绿（本批三段落盘前与落盘后各跑一次，读数一致）。versions-v1 登记口径为 tracked 60（8 文件）+ peer 1（scripts/index-graph-layout.test.mjs，外部未跟踪）= 61；本批实测 62 —— 差额 1 项未追根因，按「不改期望值」纪律如实记录，不作为本批合格判据（判据 = pass 62 / fail 0）。",
+    "batchAddedTestFiles": [],
+    "acceptanceUses": "workingTree（pass 62 / fail 0）",
+    "tracked": 60,
+    "peerAdded": 2
+  },
+  "gates": {
+    "readinessGate": {
+      "command": "node scripts/verify-phase1-commit-readiness.mjs --batch core-library-methods",
+      "result": "✅ READY —— 8 闸门全 PASS（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate）",
+      "blockedThenFixed": "首跑 ancestorGate=BLOCK + deltaGate=BLOCK，两者性质不同、均已查明处置：① deltaGate 是**本批 manifest 的字段口径 bug** —— 门（检查 C）读 added / removed / modified 三个**数组**，首稿误写为 addedEntities / removedEntityIds / modifiedEntityIds，门读不到 → 判「Δ 与声明不符」。已改为门口径，**声明内容一字未变**（不是改期望值过关，是量具原先读不到我的声明）。② ancestorGate 是**真阳性** —— data/node-pool.json 在本批动手前即带 3 处外部会话遗留改动。处置 = 用户裁决「独立治理微提交，先清后做」→ 产出 c51d6b6（manifest: batch-manifests/external-tag-sync.json）以 blob 级采纳那 3 处；提交后实测 git show HEAD:data/node-pool.json（md5 8d48d4ab…）与本批 preBatchSnapshot **逐字节相等** ⇒ 复跑 ancestorGate PASS。",
+      "checkA": "三文件均「提交 diff 即本批」（逐字节）：node-pool 12659052 / knowledge-edges 1140651 / tree-data 1938602。",
+      "checkB": "unexpectedDrift = 0。漂移 6 项 = 本批写集内 3 + 自有其他批次 3（data/evolution-events.json、data/questions.json、docs/CONSTITUTION.md，均已声明）。",
+      "checkC": "新增 0（声明 0）· 修改 4（声明的合法修改恰 4，超出 0）· 删除 1（= 声明的 k_vault_javajava_1b1w4s）→ ✅ Δ 恰好 = 声明。",
+      "checkD": "正向认领 45 件 · 精确排除 15 件 · 仅目录前缀排除 0 件 · 完全无人认领 0 件。",
+      "checkF": "已跟踪 8 文件 → 60/60 ✅；未跟踪 1 文件（他人批次）→ 2/2；工作树合计 62。已按门口径回填 testBaseline.tracked=60 / peerAdded=2（首稿字段名不符，门报 2 处 ⚠️，已修）。",
+      "reportArtifact": "outputs/tree-violation-scan/readiness-core-library-methods.json（登记进本批 excludedSet，不入库）"
+    },
+    "planStage": {
+      "blueprintPrecheck": "只读预检 4 轮（scripts/plan-core-library-split.mjs / -2 / -3 / -rest.mjs），对照用户蓝图核出 4 处不符（见 provenance.blueprintVsReality），全部先报告后动手。",
+      "tagLibraryCheck": "scripts/check-supertag-counts.mjs 走 vite ssrLoadModule 跑真实函数：组 5511 / 去重 9681 / node 3858 · tab 588 · page 5235 —— **五项与项目地图数字完全一致**。机理：新 tab 无 tags 字段 ⇒ supertagMaterials.ts:62 appendMaterial() 对空 tags 直接跳过 ⇒ 不进 tag 库。（量具自坑：首跑把「成员关系条数 29323」当「去重计数」比，正确口径是 dedup by kind。）"
+    },
+    "applyGate": {
+      "expected": "三段各自 dry-run 通过后 --apply；每段自检「差异精确实体集合」+「tabs 自洽」+「rootContent 未被写空 / 声明不触碰者长度不变」；删除段另有前置守卫「源材料 4 节方法名 ⊆ 目标类节点 tab id」。",
+      "result": "✅ 内容段：String diff 精确 1 实体；rest 段 diff 精确 3 实体；合计 +74 tab。删除段：守卫缺口 0（源材料抽出的方法名 33/23/29/6 **与四类新增 tab 数逐一吻合**，构成交叉验证）→ 计划树 −1 / 边 −1 / 池 −1 → 三文件各自备份 + 原子写 + 末尾换行保留。备份：core-library-string-2026-09-15T14-02-38-742Z / core-library-rest-2026-09-15T14-21-20-722Z / core-library-methods-2026-09-15T15-45-29-675Z。"
+    },
+    "independentVerification": {
+      "expected": "scripts/verify-core-library-methods.mjs 不 import apply，由批前快照 ↔ 工作树反推：树恰好少 1 节点且就是目标；父 children −1 且顺序 = 原顺序抽掉目标（无重排）；除父节点外所有节点非 children 字段逐字段不变（0 漂移）；边恰好少 1 条且就是那条 treebind；其余边逐条逐字段+顺序不变；池恰好少 1 实体；其余池实体 0 漂移；4 个类节点 tabs 数 = 36/26/31/9；三文件文本里已无源 id；末尾换行保留。",
+      "result": "✅ PASS 23/23（0 漂移）。"
+    },
+    "uiAcceptance": {
+      "expected": "两个探针：① probe-core-library-rest.mjs —— 按 containerHost 分支断言（叶子类断成员区 / 容器宿主断成员区按设计不渲染 + 负断言无导航入口），两轮（首访 + 刷新后）；② probe-drop-commonlib-summary.mjs —— 目标行消失（负）、树 3214 行、4 个类行仍在、全页文本再无「常用类库整理」、两轮。",
+      "result": "✅ 内容探针 68/68（两轮）；删除探针 18/18（两轮）；String 批前置探针 13/13。回归：npx tsc --noEmit exit 0 · npm run build ✓ · npm test 62/62。"
+    },
+    "specFinding": {
+      "title": "containerHost 会吃掉成员区（本批实测逼出的渲染契约，非本批引入）",
+      "mechanism": "indexGraphLayout.ts:342 layoutMosaicTree() 对 childrenByGraphId（由**物理包含边** containmentChildrenByGraphId 构建）非空的节点 containerNodeIds.add（:356）→ containerHost 落图节点（:1121）→ UnifiedIndexGraph.tsx:1627 判据 `!graphNode.containerHost && graphNode.members.length > 0` 抑制成员区；DOM 类名 is-matrix-host is-container-header。与 role 字段**无关**（grep 实证：rol 在 indexGraphLayout.ts 零出现）。",
+      "consequence": "成员区是该视图里**唯一**的方法 tab 导航入口（无 tab 栏组件；activeTabId 全库只有 ExplanationCard 读）。⇒ String/Scanner（0 树子）成员区正常；**Files（2 子：最佳实践/常见用法）、enum（1 子：用法）的 tabs 在 UI 上完全不可达**。",
+      "evidence": "三重证据：① 代码链（上）；② DOM dump：Files 方框 className=is-matrix-host is-container-header、成员区缺席、子方框 2 个；③ 入口穷举：Files 选中后浏览态 860 / 编辑态 856 个可点元素中，形如 xxx() 的 **0** 个、tab 类元素 **0** 个，全页文本含 readAllBytes **false**。",
+      "disposition": "用户裁决**路 A（接受现状）**，路 C（改 UI 让容器宿主也列成员）挂起。⚠️ 注意：路 A 的代价不是「少了快捷入口」，而是 **29+6 个方法 tab 在 UI 上彻底无入口** —— 此点已在回复中明确纠正过两次。"
+    }
+  },
+  "commitSha": "96a7925",
+  "commitShaNote": "内容提交 96a7925（父提交 = c51d6b6 external-tag-sync 微提交）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载。",
+  "registeredAt": "2026-09-15"
+}

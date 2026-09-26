@@ -1,0 +1,693 @@
+{
+  "generatedAt": "2026-09-25T16:37:13.849Z",
+  "batchId": "go-domain-restore",
+  "baseRef": "b8835a0",
+  "level": "S",
+  "declarationSource": "manifest",
+  "manifestPath": "batch-manifests/go-domain-restore.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\go-domain-restore-2026-09-26T00-35-13",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "batch-manifests/go-domain-restore.json"
+  ],
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "declaredExternalSet": [
+    "README.md",
+    "src/panels/explanation/MarkdownView.tsx",
+    "src/styles/main.css",
+    "src/panels/explanation/CodeBlock.tsx",
+    "src/panels/explanation/codeHighlight.ts"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-go-domain-restore.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 11698391,
+        "baselineBytes": 11698391,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "f1e4abef14d20c7ef894e3fc2be59cc4",
+        "md5Baseline": "f1e4abef14d20c7ef894e3fc2be59cc4"
+      },
+      "data/tree-data.json": {
+        "headBytes": 1936505,
+        "baselineBytes": 1936505,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "d83b23aab95bf2ebeb85fd25722d0533",
+        "md5Baseline": "d83b23aab95bf2ebeb85fd25722d0533"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1132714,
+        "baselineBytes": 1132714,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "c97de61e1982f2b2e313d80198ffce61",
+        "md5Baseline": "c97de61e1982f2b2e313d80198ffce61"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-23T19:08:10.280Z",
+      "snapshotCount": 3,
+      "added": [
+        "README.md",
+        "data/knowledge-edges.json",
+        "data/tree-data.json",
+        "src/panels/explanation/MarkdownView.tsx",
+        "src/styles/main.css"
+      ],
+      "gone": [
+        "STATE.md",
+        "scripts/verify-phase1-commit-readiness.mjs"
+      ],
+      "changed": [
+        "data/node-pool.json"
+      ],
+      "driftTotal": 8,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/tree-data.json",
+          "data/node-pool.json"
+        ],
+        "governanceSet": [
+          "STATE.md"
+        ],
+        "declaredExternalSet": [
+          "README.md",
+          "src/panels/explanation/MarkdownView.tsx",
+          "src/styles/main.css"
+        ],
+        "otherOwnBatch": [
+          "scripts/verify-phase1-commit-readiness.mjs"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_1786618025492_dmwekx",
+        "k_1787722763547_no5htk",
+        "k_1787723404548_tjn9xx",
+        "k_1787723651360_r3tqg7",
+        "k_1787723924929_cc51xz",
+        "k_1787724045886_9ac7md",
+        "k_1787724113497_rnr836",
+        "k_goexplain_design",
+        "k_goexplain_syntax",
+        "k_go_generic",
+        "k_go_concurrency",
+        "k_1787731983101_tjcyzw",
+        "k_1787732077681_fy1p3y",
+        "k_1787732124349_hzf0jj",
+        "k_1787732646225_8n6pjb",
+        "k_1787732744683_8upi39",
+        "k_1787766774971_dvs4k8",
+        "k_1787766796342_u5bioh",
+        "k_1787766807759_ukiucr",
+        "k_1787766817113_4tn276",
+        "k_1787766826791_61ckc5",
+        "k_1787766833800_7n22lh",
+        "k_1787766873920_vi1blv",
+        "k_1787766891829_wtb7jq",
+        "k_1787766911214_uud2jo",
+        "k_go_versioning",
+        "k_1790311630691_10xbjs",
+        "k_1790312788464_2hm2tn",
+        "k_1790312788464_dn2e88",
+        "k_1790312788464_vncpx3",
+        "k_1790312788464_wh0yqw",
+        "k_1790312788464_d7615k",
+        "k_1790312788464_ddsn6c",
+        "k_1790312788464_5d3vcu",
+        "k_1790312788464_vzxa07",
+        "k_1790312788464_7sm93s",
+        "k_1790312788464_nw8omf",
+        "k_1790312788464_2gtr99",
+        "k_1790312788464_eedrid"
+      ],
+      "expectedNew": [
+        "k_1786618025492_dmwekx",
+        "k_1787722763547_no5htk",
+        "k_1787723404548_tjn9xx",
+        "k_1787723651360_r3tqg7",
+        "k_1787723924929_cc51xz",
+        "k_1787724045886_9ac7md",
+        "k_1787724113497_rnr836",
+        "k_goexplain_design",
+        "k_goexplain_syntax",
+        "k_go_generic",
+        "k_go_concurrency",
+        "k_1787731983101_tjcyzw",
+        "k_1787732077681_fy1p3y",
+        "k_1787732124349_hzf0jj",
+        "k_1787732646225_8n6pjb",
+        "k_1787732744683_8upi39",
+        "k_1787766774971_dvs4k8",
+        "k_1787766796342_u5bioh",
+        "k_1787766807759_ukiucr",
+        "k_1787766817113_4tn276",
+        "k_1787766826791_61ckc5",
+        "k_1787766833800_7n22lh",
+        "k_1787766873920_vi1blv",
+        "k_1787766891829_wtb7jq",
+        "k_1787766911214_uud2jo",
+        "k_go_versioning",
+        "k_1790311630691_10xbjs",
+        "k_1790312788464_2hm2tn",
+        "k_1790312788464_dn2e88",
+        "k_1790312788464_vncpx3",
+        "k_1790312788464_wh0yqw",
+        "k_1790312788464_d7615k",
+        "k_1790312788464_ddsn6c",
+        "k_1790312788464_5d3vcu",
+        "k_1790312788464_vzxa07",
+        "k_1790312788464_7sm93s",
+        "k_1790312788464_nw8omf",
+        "k_1790312788464_2gtr99",
+        "k_1790312788464_eedrid"
+      ],
+      "modified": [],
+      "expectedModified": [],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": "README.md",
+          "by": [
+            "go-domain-restore",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "evolution-v2",
+            "external-drift-adoption",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "go-domain-restore",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "go-domain-restore",
+            "core-library-methods",
+            "dedup-dual-copy-normalized",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "external-drift-adoption",
+            "external-tag-sync",
+            "go-design-split-fusion",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "go-domain-restore",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "delete-go",
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/MarkdownView.tsx",
+          "by": [
+            "go-domain-restore",
+            "delete-go",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/main.css",
+          "by": [
+            "go-domain-restore",
+            "delete-go",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/apply-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/apply-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/go-tools-to-subtree/apply.mjs",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "scripts/go-tools-to-subtree/verify.mjs",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/verify-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "scripts/verify-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/CodeBlock.tsx",
+          "by": [
+            "go-domain-restore",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/panels/explanation/codeHighlight.ts",
+          "by": [
+            "go-domain-restore",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+          "by": [
+            "dedup-dual-copy-normalized",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-delete-go.json",
+          "by": [
+            "delete-go"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-design-split-fusion.json",
+          "by": [
+            "go-design-split-fusion"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-go-domain-restore.json",
+          "by": [
+            "go-domain-restore"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916",
+          "by": [
+            "external-drift-adoption-20260924",
+            "go-design-split-fusion"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": [
+        "outputs/go-domain-precheck.md",
+        "outputs/go-domain-split-fusion-dryrun.txt",
+        "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+        "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+        "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json",
+        "scripts/apply-go-domain-split-fusion.mjs",
+        "scripts/probe-go-domain-split-fusion.mjs",
+        "scripts/verify-go-domain-split-fusion.mjs"
+      ]
+    },
+    "otherSessionFiles": [
+      "outputs/go-domain-precheck.md",
+      "outputs/go-domain-split-fusion-dryrun.txt",
+      "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+      "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+      "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json",
+      "scripts/apply-go-domain-split-fusion.mjs",
+      "scripts/probe-go-domain-split-fusion.mjs",
+      "scripts/verify-go-domain-split-fusion.mjs"
+    ],
+    "undeclaredFiles": [
+      {
+        "rel": "outputs/go-domain-precheck.md",
+        "xy": "??"
+      },
+      {
+        "rel": "outputs/go-domain-split-fusion-dryrun.txt",
+        "xy": "??"
+      },
+      {
+        "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/knowledge-edges.json",
+        "xy": "??"
+      },
+      {
+        "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/node-pool.json",
+        "xy": "??"
+      },
+      {
+        "rel": "outputs/tree-violation-scan/go-tools-to-subtree-snapshot/tree-data.json",
+        "xy": "??"
+      },
+      {
+        "rel": "scripts/apply-go-domain-split-fusion.mjs",
+        "xy": "??"
+      },
+      {
+        "rel": "scripts/probe-go-domain-split-fusion.mjs",
+        "xy": "??"
+      },
+      {
+        "rel": "scripts/verify-go-domain-split-fusion.mjs",
+        "xy": "??"
+      }
+    ],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 10,
+        "tests": 68,
+        "pass": 68,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [],
+        "tests": 0,
+        "pass": 0,
+        "fail": 0
+      },
+      "workingTreeTotal": 68,
+      "declared": null,
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

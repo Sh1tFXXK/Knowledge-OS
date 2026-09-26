@@ -1,6 +1,11 @@
-import { useState, type ReactNode } from 'react';
+import { memo, useState, type ReactNode } from 'react';
 import type { KnowledgeReference } from '../../knowledge/nodeReferences';
 import KnowledgeReferenceText from './KnowledgeReferenceText';
+import MermaidDiagram from './MermaidDiagram';
+import CodeBlock from './CodeBlock';
+
+// 稳定的空引用：让 memo 对未传 references 的调用方也能生效
+const EMPTY_REFERENCES: readonly KnowledgeReference[] = [];
 
 function renderReferenceText(
   text: string,
@@ -18,8 +23,9 @@ function renderReferenceText(
   );
 }
 
-// 行内 token：**粗体**、`行内代码`、[链接](url)、$^{上标脚注}$
-const INLINE_TOKEN_REGEX = /(\*\*[^*]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)|\$\^\{[^}\n]*\}\$)/g;
+// 行内 token：![图片](url)、**粗体**、`行内代码`、[链接](url)、$^{上标脚注}$
+// 图片 alternative 必须在链接之前：![alt](src) 的 [alt](src) 部分会被链接规则抢先匹配
+const INLINE_TOKEN_REGEX = /(!\[[^\]\n]*\]\([^)\n]+\)|\*\*[^*]+\*\*|`[^`\n]+`|\[[^\]\n]+\]\([^)\n]+\)|\$\^\{[^}\n]*\}\$)/g;
 
 function renderInlineFormatting(
   text: string,
@@ -44,7 +50,17 @@ function renderInlineFormatting(
 
     const token = match[0];
 
-    if (token.startsWith('**')) {
+    if (token.startsWith('![')) {
+      const imgMatch = token.match(/^!\[([^\]\n]*)\]\(([^)\s]+)[^)]*\)$/);
+      const imgAlt = imgMatch?.[1] ?? '';
+      const imgSrc = imgMatch?.[2] ?? '';
+      // 仅放行 http(s) 与站内绝对路径；其余按原文本渲染（与链接分支同策略）
+      if (imgSrc && (/^https?:\/\//.test(imgSrc) || imgSrc.startsWith('/'))) {
+        parts.push(<SmartImage key={match.index} src={imgSrc} alt={imgAlt} />);
+      } else {
+        parts.push(renderReferenceText(token, references, onOpenReference, `img-${match.index}`));
+      }
+    } else if (token.startsWith('**')) {
       const innerText = token.slice(2, -2);
       parts.push(
         <strong key={match.index} style={{ color: 'var(--text-primary)', fontWeight: '600' }}>
@@ -279,9 +295,10 @@ const tableBodyCellStyle = {
   verticalAlign: 'top' as const,
 };
 
-export default function MarkdownView({
+// 纯展示组件：内容不变时不随父组件重渲染（Markdown 解析是每次渲染的主要开销）
+function MarkdownViewBase({
   content,
-  references = [],
+  references = EMPTY_REFERENCES,
   onOpenReference,
 }: {
   content: string;
@@ -298,7 +315,8 @@ export default function MarkdownView({
 
   const parts: Array<{ type: 'text' | 'code'; content: string; lang?: string }> = [];
   let currentIndex = 0;
-  const codeBlockRegex = /```(\w*)\n([\s\S]*?)\n```/g;
+  // 容忍围栏后缀后的空白与 CRLF 换行
+  const codeBlockRegex = /```(\w*)[ \t]*\r?\n([\s\S]*?)\r?\n[ \t]*```/g;
   let match;
 
   while ((match = codeBlockRegex.exec(content)) !== null) {
@@ -315,6 +333,9 @@ export default function MarkdownView({
     <div className="markdown-view" style={{ fontFamily: 'Inter, system-ui, sans-serif', color: 'var(--text-secondary)' }}>
       {parts.map((part, partIdx) => {
         if (part.type === 'code') {
+          if (part.lang?.toLowerCase() === 'mermaid') {
+            return <MermaidDiagram key={partIdx} code={part.content} />;
+          }
           return (
             <div key={partIdx} className="code-block-container" style={{ margin: '10px 0', position: 'relative' }}>
               {part.lang && (
@@ -336,22 +357,7 @@ export default function MarkdownView({
                   {part.lang}
                 </div>
               )}
-              <pre
-                style={{
-                  background: 'rgba(15,15,25,0.5)',
-                  border: '0',
-                  borderRadius: '6px',
-                  padding: '10px 12px',
-                  overflowX: 'auto',
-                  margin: 0,
-                  fontFamily: '"Fira Code", Consolas, "Courier New", Courier, monospace',
-                  fontSize: '12px',
-                  lineHeight: '1.6',
-                  color: '#e2e8f0',
-                }}
-              >
-                <code style={{ fontFamily: 'inherit', color: 'inherit' }}>{part.content}</code>
-              </pre>
+              <CodeBlock code={part.content} lang={part.lang} />
             </div>
           );
         }
@@ -501,3 +507,5 @@ export default function MarkdownView({
     </div>
   );
 }
+
+export default memo(MarkdownViewBase);

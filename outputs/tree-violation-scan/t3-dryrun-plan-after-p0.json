@@ -1,0 +1,285 @@
+{
+  "generatedAt": "2026-09-14T13:19:10.077Z",
+  "mode": "DRY_RUN_READ_ONLY",
+  "note": "只在内存克隆上执行改写；data/ 未被写入。",
+  "scope": {
+    "declared": 133,
+    "liveRecount": 133,
+    "matchesInventory": true
+  },
+  "naming": {
+    "rule": "tree_<命名空间>_<slug>；slug 取自 nodeRef（去 asplit 批次前缀）；命名空间取最近**可靠语义**祖先（允许跳级借用）",
+    "forbidden": [
+      "sed",
+      "全局 replace",
+      "regex 全局替换"
+    ],
+    "freezeGate": {
+      "rule": "semanticAncestorGap 不只是报告字段，而是**冻结闸门**（用户 2026-09-14 锁死）",
+      "thresholds": [
+        {
+          "gap": "= 0",
+          "tier": "HIGH",
+          "action": "可自动接受（freezeEligible）"
+        },
+        {
+          "gap": "1..3",
+          "tier": "MEDIUM",
+          "action": "必须逐条人工确认后才可冻结"
+        },
+        {
+          "gap": "> 3",
+          "tier": "LOW / BLOCK",
+          "action": "不允许自动生成最终 mapping（proposedTreeId 置空）"
+        }
+      ],
+      "rationale": "父节点可能只是 hash 型 mount identity，真正有语义的是更上层祖先 → 允许跳级借用；但跨越过长结构链时代码不能自己猜，否则会把错误语义向下继承。"
+    },
+    "predicateCorrection": {
+      "what": "⛔ 2026-09-14 修正：原「语义形态」判定会把 `tree_<时间戳>_<hash>` 误判成语义 id，于是拿它当命名空间来源 → gap 被低估、HIGH 被高估。",
+      "why": "与用户对 `asplit_s132_base_theory` 的裁决同源：**结果 id 里不得带时间戳/hash**。把时间戳 id 当祖先 = 产出伪语义化 id（换了前缀，本质仍是历史 ID）。",
+      "nowExcluded": [
+        "tree_<10+位数字>_*（时间戳前缀）",
+        "含 10+ 位数字段的 id（如内嵌 k_<ts>_）",
+        "_s<N>_ 段位编号"
+      ],
+      "affectedItems": 24,
+      "pseudoAncestorsThatWereUsed": [
+        {
+          "id": "tree_1783260209337_u6gsoz",
+          "name": "软件符号与工具"
+        },
+        {
+          "id": "tree_1783183396985_1hmv5z",
+          "name": "编程范式"
+        },
+        {
+          "id": "tree_1782834119007_8gxoi9",
+          "name": "面向对象"
+        },
+        {
+          "id": "tree_1783238652456_r0xift",
+          "name": "类（编程）"
+        },
+        {
+          "id": "tree_1782746457614_osttpr",
+          "name": "java"
+        },
+        {
+          "id": "tree_1782846767208_uw6zxc",
+          "name": "java并发编程"
+        },
+        {
+          "id": "tree_1784367508734_hrswml",
+          "name": "内存模型"
+        },
+        {
+          "id": "tree_1785934396723_afsojh",
+          "name": "线程的状态"
+        },
+        {
+          "id": "tree_1782928696623_almc5c",
+          "name": "锁"
+        },
+        {
+          "id": "tree_1786017239718_fuvw86",
+          "name": "读写锁"
+        },
+        {
+          "id": "tree_1783867183132_g5tf12",
+          "name": "Java syntax"
+        },
+        {
+          "id": "tree_1786333299620_7rfucv",
+          "name": "数据类型"
+        },
+        {
+          "id": "tree_1784042843965_1l907w",
+          "name": "引用类型"
+        },
+        {
+          "id": "tree_1784820871692_uel7rq",
+          "name": "编程语言理论"
+        },
+        {
+          "id": "tree_1784822169413_cpzi51",
+          "name": "执行"
+        },
+        {
+          "id": "tree_1785165721128_kan0tw",
+          "name": "Spring Beans"
+        },
+        {
+          "id": "tree_1785225243163_ypgo3y",
+          "name": "生命周期"
+        },
+        {
+          "id": "tree_1786232234666_2zcwva",
+          "name": "数据类型"
+        },
+        {
+          "id": "tree_1786245246710_rw9q3v",
+          "name": "持久化选项"
+        },
+        {
+          "id": "tree_1783263380057_57s6hh",
+          "name": "内存管理"
+        }
+      ],
+      "strictGapDist": {
+        "0": 92,
+        "1": 11,
+        "2": 24,
+        "3": 3,
+        "6": 3
+      },
+      "looseGapDist": {
+        "0": 116,
+        "1": 7,
+        "2": 6,
+        "3": 1,
+        "6": 3
+      },
+      "note": "两列差值 = 若不修正会被误判成「可自动接受」的条目数（宽松 HIGH 116 vs 严格 HIGH 92）。"
+    }
+  },
+  "mappingSummary": {
+    "total": 133,
+    "withProposal": 130,
+    "needsAdjudication": 0,
+    "byStatus": {
+      "pending": 92,
+      "needsReview": 38,
+      "blocked": 3,
+      "needsAdjudication": 0
+    },
+    "freezeReadiness": {
+      "autoAcceptable": 92,
+      "needsReview": 38,
+      "blocked": 3
+    },
+    "noSemanticAncestor": 0,
+    "collisions": 0,
+    "intraBatchDuplicate": 0,
+    "byConfidence": {
+      "high": 92,
+      "medium": 38,
+      "low": 3
+    },
+    "bySemanticAncestorGap": {
+      "0": 92,
+      "1": 11,
+      "2": 24,
+      "3": 3,
+      "6": 3
+    }
+  },
+  "structuralFindings": {
+    "totalTreeEntries": 3219,
+    "idFormDistribution": {
+      "业务/导入前缀 id（demo_/final_atomic_/theory_domain_/wiki_/universe 等）": 217,
+      "tree_<语义 slug>": 1416,
+      "projection:*（发现式投影）": 237,
+      "tree_<时间戳>_<hash>": 888,
+      "governance:*（治理锚点）": 37,
+      "asplit_*（本批）": 133,
+      "tree..._s<N>_ 段位编号": 291
+    },
+    "semanticIdCount": 1416,
+    "note": "「treeId 语义化」的同类问题总量远大于本批 133 项：asplit_* 仅 133 条，而携带 hash / 段位 / 导入前缀痕迹的 id 合计 1396 条。",
+    "implication": "若本批的命名规则不预留后续批次，可能出现二次改名。建议在冻结映射表前先确认命名约定的适用范围。"
+  },
+  "referenceClosure": {
+    "treeValueSites": 130,
+    "edgeIdParentSites": 15,
+    "edgeIdChildSites": 130,
+    "edgeEndpointSites": 0,
+    "note": "endpoint 落点必须为 0（无任何边以 treeId 直接作 source/target）；池 ref 形如 asplit_concrete_class 属**池 id 命名空间**，不在本批范围，不得改写。",
+    "poolAsplitRefsOutOfScope": 132
+  },
+  "expectedDiff": {
+    "tree-data.json": {
+      "entriesBefore": 3219,
+      "entriesAfter": 3219,
+      "delta": 0,
+      "idsRenamed": 130
+    },
+    "knowledge-edges.json": {
+      "edgesBefore": 4166,
+      "edgesAfter": 4166,
+      "delta": 0,
+      "edgeIdsRewritten": 145,
+      "endpointsTouched": 0
+    },
+    "node-pool.json": {
+      "entitiesBefore": 3855,
+      "delta": 0,
+      "note": "本批不改池"
+    },
+    "questions.json": {
+      "delta": 0
+    },
+    "asplit_* treeId": {
+      "before": 133,
+      "after": 3,
+      "note": "机器可给出的最大范围（含 38 条 MEDIUM 建议，不含 3 条 BLOCK）"
+    }
+  },
+  "freezeReadiness": {
+    "autoAcceptable": 92,
+    "needsReview": 38,
+    "blocked": 3,
+    "frozenMappingProducible": false,
+    "note": "frozenMappingProducible=false ⇒ **不得进入 apply**：G3（映射表无 pending 残留）不满足。"
+  },
+  "residualScenarios": {
+    "autoAcceptableOnly": {
+      "renamed": 92,
+      "residualAsplit": 41,
+      "note": "当前**零人工介入**就能冻结的部分（仅 gap=0）"
+    },
+    "afterReviewingMedium": {
+      "renamed": 130,
+      "residualAsplit": 3,
+      "note": "人工审完 38 条 MEDIUM 后仍残留的**覆盖缺口**（= 阻塞项数）"
+    },
+    "machineMax": {
+      "renamed": 130,
+      "residualAsplit": 3,
+      "note": "机器可给出的最大范围（含 MEDIUM 建议，不含阻塞项）"
+    },
+    "hypotheticalIfBlockedNamed": {
+      "renamed": 133,
+      "residualAsplit": 0,
+      "note": "⚠️ 假设：人工为阻塞项按其候选 A 定名 → 用于证明**闭包机制完备**，只差人工决策。**不代表本批可这样做**"
+    }
+  },
+  "closureAssertions": {
+    "basis": "对已映射的旧 id 做受控原文扫描（序列化后查子串）——若有枚举遗漏的落点，旧 id 会残留",
+    "mappedOldIdsChecked": 130,
+    "residualMappedOldIds": 0,
+    "residualMappedOldIdsList": [],
+    "endpointsTouched": 0,
+    "ok": true
+  },
+  "coverageGap": {
+    "unmappedOldIds": [
+      "asplit_s2_asplit_mysql_tool_backup",
+      "asplit_s2_asplit_mysql_tool_security",
+      "asplit_s2_asplit_mysql_tool_cluster"
+    ],
+    "count": 3,
+    "note": "这些项**没有任何映射**（status=blocked）→ 残留属预期，不是机制失败；但会导致 apply 后「asplit_* = 0」无法达成。"
+  },
+  "hardBlockers": [],
+  "applyBlockers": [
+    "冻结闸门 BLOCK：3 条 `semanticAncestorGap > 3` 不允许自动生成 mapping；另有 38 条 MEDIUM 须逐条人工确认",
+    "F 残留：即使人工审完全部 MEDIUM，仍有 3 条 asplit_* 无法命名 → apply 后不可能达成「asplit_* = 0」"
+  ],
+  "warnings": [
+    "41 条属**跳级借用**：MEDIUM 38（gap 1..3，须人工确认）· BLOCKED 3（gap > 3，不允许自动生成）（gap 分布：{\"0\":92,\"1\":11,\"2\":24,\"3\":3,\"6\":3}）",
+    "另有 132 个**池 id** 也以 asplit_ 开头（属池命名空间，本批不改）→ 见报告 §5"
+  ],
+  "freezeVerdict": "MAPPING_FREEZE_BLOCKED",
+  "verdict": "DRY_RUN_OK"
+}

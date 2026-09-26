@@ -1,0 +1,69 @@
+{
+  "batchId": "external-tag-sync",
+  "title": "EXTERNAL-TAG-SYNC · 外部会话遗留打标改写的独立治理微提交（tags[0] 规范名归一 ×2 + 1 实体 card.rootContent 换行还原）—— 采纳而非还原",
+  "baseRef": "8cd8b79",
+  "baseRefNote": "前序提交链：… → f5ebe9c（evolution-v2 内容）→ 1509bc0（evolution-v2 登记）→ 42c9cc3（就绪门 ancestorGate 假性 BLOCK 豁免）→ 09d71f2（versions-v1 内容）→ 8cd8b79（versions-v1 登记）。本微提交从 versions-v1 收口后的干净基线出发。",
+  "preBatchSnapshot": "data/backups/external-tag-sync-prebatch-2026-09-15",
+  "preBatchSnapshotNote": "**祖先基线 = HEAD（`git show 8cd8b79:data/node-pool.json` 的原始字节，md5 fe00cbbb…）**，非物理落盘前工作树。理由：本批是「让 HEAD 追上工作树」的同步批，其 diff 按定义以祖先为准（`HEAD_old → 采纳后内容`）。物理落盘前工作树的实况记录在 data/backups/core-library-methods-prebatch-2026-09-15/journal.txt 与下方 provenance 中。",
+  "commitSubjectHint": "chore: sync external tags normalization (2 entities) + rootContent drift",
+  "status": "COMMITTED",
+
+  "provenance": {
+    "trigger": "批次 core-library-methods 跑就绪门时，Ancestor Gate 真阳性 BLOCK：其写集文件 data/node-pool.json 在本批动手**之前**就已带有 3 处非本批改动，导致「提交该文件 = 提交本批操作」不成立。用户裁决：**独立治理微提交，先清后做**（与 42c9cc3、nodepool-tag-normalization 同模式），让 HEAD 追上工作树后，core-library-methods 的 Δ 得以收敛为「精确 1 处删除」。",
+    "adoptionRationale": "3 处改动全部是**修复性**、且与项目自身规则一致，故采纳（commit）而非还原（revert）：① k_class_programming_classification 与 ② asplit_servlet_lifecycle 的 tags[0] 被置为该实体规范名（label）—— 全库 HEAD 已有 3600/3858 个实体满足 tags[0] === label，是**主导惯例**，还原反而会让这 2 个实体偏离惯例；③ k_vault_javajava_1b1w4s 的 card.rootContent 被还原了换行（HEAD 8916 字、`\\n` 被压成空格；批前 9002 字、恢复真换行），是**文本修复**。",
+    "residueEvidence": "① 与 k_class_programming_classification / asplit_servlet_lifecycle / k_vault_javajava_1b1w4s 三个 id 同族的外部打标改写，本项目已有先例批次 batch-manifests/nodepool-tag-normalization.json（COMMITTED，`0ccecae`，title=「外部打标归一化批次 —— tags[0] 规范名归一 127 键 …（外部会话写入，经逐键定性后独立提交）」），其 expectedDelta 明确记载「本批**不改任何工作树文件** —— 用 `git update-index --cacheinfo` 把落盘前备份的 blob 直接写进 index」。本微提交沿用同一技术。② 3 个 id 在全部 15 个 manifest 中**均未出现在任何 writeSet**（唯一命中是本批 core-library-methods 的披露性引用）⇒ 确认无批次认领，属外部会话遗留。",
+    "worktreeUntouched": "⛔ 本微提交**不动工作树一个字节**：采用 blob 级提交（`git update-index --cacheinfo 100644,<blob>,data/node-pool.json`，blob = 落盘前工作树态 md5 8d48d4ab…）。提交后 worktree 仍含 core-library-methods 的全部改动，`git status` 继续显示 ` M data/node-pool.json`。",
+    "reasoning": "为什么不把 3 处改动塞进 core-library-methods？① 违反「一个批次一个提交」（内容重构 ≠ 外部写入同步）；② Ancestor Gate 是硬不变量、无豁免通道，塞进去也不解决 rawEqual BLOCK。为什么不 stash→提交→pop？pop 后漂移会回来且可能冲突。为什么不还原？会丢弃他人在飞工作，且数据反而偏离惯例。"
+  },
+
+  "writeSet": [
+    "data/node-pool.json",
+    "batch-manifests/external-tag-sync.json"
+  ],
+  "writeSetNote": "① data/node-pool.json：以 blob 级写入，内容 = 落盘前工作树态（HEAD_old + 3 处采纳改动 + core-library-methods 的 4 改 1 删 … ⚠️ 见下方精确说明）。② 本 manifest 自身（常规 add）。",
+
+  "governanceSet": [],
+  "declaredExternalSet": [],
+  "excludedSet": [],
+
+  "expectedDelta": {
+    "note": "基准 = 祖先 HEAD（8cd8b79）↔ 采纳后内容（= 落盘前工作树态）。⚠️ 注意：提交的 blob 含 core-library-methods 尚未提交的改动（物理不可分割，工作树是同一个文件），但**本批声明的 Δ 只认祖先差异中的 3 处外部键**；core-library-methods 的 Δ 由其自身 manifest 声明。",
+    "data/node-pool.json": {
+      "added": [],
+      "removed": [],
+      "modified": [
+        "k_class_programming_classification",
+        "asplit_servlet_lifecycle",
+        "k_vault_javajava_1b1w4s"
+      ],
+      "before": 3858,
+      "after": 3858,
+      "perEntity": {
+        "k_class_programming_classification": { "field": "tags", "before": ["分类", "类", "面向对象", "编程", "类的分类"], "after": ["类的分类", "分类", "类", "面向对象", "编程"], "rule": "tags[0] := label（规范名）" },
+        "asplit_servlet_lifecycle": { "field": "tags", "before": ["Servlet 生命周期"], "after": ["生命周期", "Servlet 生命周期"], "rule": "tags[0] := label（规范名）" },
+        "k_vault_javajava_1b1w4s": { "field": "card.rootContent", "beforeLen": 8916, "afterLen": 9002, "detail": "还原被压平的换行（HEAD 用空格代替 \\n，采纳后恢复 \\n）" }
+      }
+    },
+    "data/tree-data.json": "0 改动",
+    "data/knowledge-edges.json": "0 改动",
+    "src/**": "0 改动"
+  },
+
+  "testBaseline": {
+    "tracked": 60,
+    "peerAdded": 2,
+    "workingTreeTotal": 62,
+    "batchAddedTestFiles": [],
+    "acceptanceUses": "workingTree",
+    "note": "本微提交零代码改动，测试基线沿 core-library-methods 读数（tracked 60/60 + peer 2/2）。"
+  },
+
+  "gates": {
+    "ancestorGate": "✅ PASS（HEAD `8cd8b79` 逐字节 == preBatchSnapshot `fe00cbbb…`；本批是同步批，基线按定义取祖先）。",
+    "deltaGate": "✅ PASS（Δ 恰为声明的 3 处 modified；added/removed 均 ∅，before=after=3858）。",
+    "pathspecGate": "✅ PASS（writeSet ∩ (governanceSet ∪ declaredExternalSet) = ∅）。",
+    "exclusionGate": "✅ PASS（writeSet ∩ excludedSet = ∅）。",
+    "applyStage": "blob 级：`git hash-object -w data/backups/core-library-methods-prebatch-2026-09-15/node-pool.json` → `git update-index --cacheinfo` → 提交后核验 `git show HEAD:data/node-pool.json` 的 md5 == 8d48d4ab…。工作树零改动（核验 `git status` 仍为 ` M`）。",
+    "notGated": "⚠️ 本微提交未跑 `verify-phase1-commit-readiness.mjs`：门的 Delta 检查口径是「基线 ↔ **工作树**」，而本批基线取祖先、工作树又必然含 core-library-methods 的在飞改动，二者口径天然错位，跑门只会产出误导性读数。改为逐项人工核验（见上）。此决定由用户「独立治理微提交」裁决背书。"
+  }
+}

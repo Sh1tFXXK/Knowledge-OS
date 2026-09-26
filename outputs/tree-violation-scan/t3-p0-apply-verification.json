@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-09-14T13:15:46.548Z",
+  "verifier": "scripts/verify-t3-p0-apply.mjs",
+  "independence": "不复用 apply 脚本任何代码；比对对象 = 磁盘批前备份 vs 当前工作树；改名映射由数据位置对撞反推后与提案双向核对",
+  "backupDir": "data\\backups\\t3-p0-2026-09-14T13-14-43-612Z",
+  "verdict": "INDEPENDENT_VERIFY_PASS",
+  "checks": [
+    {
+      "name": "树：节点数不变",
+      "ok": true,
+      "detail": "3219 → 3219"
+    },
+    {
+      "name": "树：除 id 外所有字段逐字节不变",
+      "ok": true,
+      "detail": "3219 个节点全通过"
+    },
+    {
+      "name": "树：改名节点数 = 7",
+      "ok": true,
+      "detail": "实测 7 处：tree_1784367544335_zorevp → tree_java_jmm_synchronization · tree_1785862113590_a5v1ya → tree_java_jmm_sequential_consistency · tree_1786026688588_0mtvxh → tree_java_lock_rwlock_implementation · tree_1783873515748_edsjp0 → tree_java_syntax_generics · tree_1786235757428_osu8oj → tree_redis_zset · tree_1786340438649_tbr6gs → tree_redis_cache_anomaly · tree_1786245817114_ds2keo → tree_redis_rdb_persistence"
+    },
+    {
+      "name": "边：边数不变",
+      "ok": true,
+      "detail": "4166 → 4166"
+    },
+    {
+      "name": "边：除 id 外所有字段逐字节不变（含顺序）",
+      "ok": true,
+      "detail": "4166 条全通过"
+    },
+    {
+      "name": "边：source/target 零触碰",
+      "ok": true,
+      "detail": "被触碰 0 处（须 0）"
+    },
+    {
+      "name": "边：只有 treebind 的 id 变动",
+      "ok": true,
+      "detail": "46 条 id 变动，其中非 treebind 0 条"
+    },
+    {
+      "name": "改名映射：数据实测 ≡ 提案声明（7 对，双向）",
+      "ok": true,
+      "detail": "7 对完全一致"
+    },
+    {
+      "name": "引用闭合：身份承载数据（树/边/池/题库）旧 id 残留 0",
+      "ok": true,
+      "detail": "7 个旧 id 在 4 个身份承载文件中均已绝迹"
+    },
+    {
+      "name": "node-pool.json：本批零改动",
+      "ok": true,
+      "detail": "与批前快照逐字节相同"
+    },
+    {
+      "name": "questions.json：本批零改动",
+      "ok": true,
+      "detail": "与批前快照逐字节相同"
+    },
+    {
+      "name": "池节点数不变",
+      "ok": true,
+      "detail": "3855 → 3855"
+    },
+    {
+      "name": "evolution-events：恰好新增 1 条",
+      "ok": true,
+      "detail": "1 条：event:tree-refactor:t3-p0:1789391683976"
+    },
+    {
+      "name": "evolution-event：changes 覆盖全部 7 个改名节点",
+      "ok": true,
+      "detail": "changes 7 条 · 覆盖 7/7"
+    },
+    {
+      "name": "evolution-event：introducedNodes 为空（本批不新建实体）",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "引用闭合：历史事件中旧 id 残留 0（不含本批审计叙述）",
+      "ok": true,
+      "detail": "剔除本批事件后 3 条历史事件中零残留"
+    },
+    {
+      "name": "引用闭合：本批审计里的旧 id 仅出现在 before/after 叙述（按字段角色区分）",
+      "ok": true,
+      "detail": "7 处全部位于 `changes[].before / changes[].after`"
+    },
+    {
+      "name": "审计叙述完整性：7 条 changes 的 before 均含旧 treeId",
+      "ok": true,
+      "detail": "7/7"
+    },
+    {
+      "name": "T3 项数 = 133",
+      "ok": true,
+      "detail": "133 项"
+    },
+    {
+      "name": "T3 读数 = HIGH 92 / MEDIUM 38 / BLOCK 3",
+      "ok": true,
+      "detail": "HIGH 92 / MEDIUM 38 / BLOCK 3（本批前 HIGH 68 / MEDIUM 38 / BLOCK 27）"
+    },
+    {
+      "name": "剩余 BLOCK 恰为 3 条 projection 族（另案）",
+      "ok": true,
+      "detail": "备份恢复工具(gap=6) · 安全管理工具(gap=6) · 集群管理工具(gap=6)"
+    }
+  ],
+  "observedRenamePairs": [
+    {
+      "from": "tree_1784367544335_zorevp",
+      "to": "tree_java_jmm_synchronization",
+      "path": "$root > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 同步"
+    },
+    {
+      "from": "tree_1785862113590_a5v1ya",
+      "to": "tree_java_jmm_sequential_consistency",
+      "path": "$root > 计算机科学 > 软件符号与工具 > 编程语言 > java > java并发编程 > 内存模型 > 顺序一致性"
+    },
+    {
+      "from": "tree_1786026688588_0mtvxh",
+      "to": "tree_java_lock_rwlock_implementation",
+      "path": "$root > 计算机科学 > 软件符号与工具 > 编程语言 > java > 锁 > 读写锁 > 读写锁的实现分析"
+    },
+    {
+      "from": "tree_1783873515748_edsjp0",
+      "to": "tree_java_syntax_generics",
+      "path": "$root > 计算机科学 > 软件符号与工具 > 编程语言 > java > Java syntax > 数据类型 > 引用类型 > Java泛型"
+    },
+    {
+      "from": "tree_1786235757428_osu8oj",
+      "to": "tree_redis_zset",
+      "path": "$root > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 数据类型 > zset"
+    },
+    {
+      "from": "tree_1786340438649_tbr6gs",
+      "to": "tree_redis_cache_anomaly",
+      "path": "$root > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 缓存异常"
+    },
+    {
+      "from": "tree_1786245817114_ds2keo",
+      "to": "tree_redis_rdb_persistence",
+      "path": "$root > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据模型 > NoSQL > Redis > 持久化选项 > RDB持久化"
+    }
+  ],
+  "edgeIdChangeCount": 46,
+  "treeNodeCount": 3219,
+  "edgeCount": 4166,
+  "t3Recompute": {
+    "items": 133,
+    "before": {
+      "high": 68,
+      "medium": 38,
+      "blocked": 27
+    },
+    "after": {
+      "high": 92,
+      "medium": 38,
+      "blocked": 3
+    },
+    "gapDistAfter": {
+      "0": 92,
+      "1": 11,
+      "2": 24,
+      "3": 3,
+      "6": 3
+    },
+    "stillBlocked": [
+      {
+        "treeId": "asplit_s2_asplit_mysql_tool_backup",
+        "name": "备份恢复工具",
+        "gap": 6
+      },
+      {
+        "treeId": "asplit_s2_asplit_mysql_tool_security",
+        "name": "安全管理工具",
+        "gap": 6
+      },
+      {
+        "treeId": "asplit_s2_asplit_mysql_tool_cluster",
+        "name": "集群管理工具",
+        "gap": 6
+      }
+    ]
+  }
+}

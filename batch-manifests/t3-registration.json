@@ -1,0 +1,93 @@
+{
+  "batchId": "t3-registration",
+  "title": "T3 · asplit_* treeId 语义化批次登记（仅登记，未执行）",
+  "baseRef": "5a605e3",
+  "baseRefNote": "建议排在 phase1 提交之后。",
+  "preBatchSnapshot": null,
+  "commitSubjectHint": "chore(t3): asplit_* 语义化批次登记 — 133 项清单 + 引用矩阵 + 执行计划（REGISTERED / NOT EXECUTED）",
+  "status": "REGISTERED_NOT_EXECUTED",
+
+  "writeSet": [
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "batch-manifests/t3-registration.json"
+  ],
+
+  "governanceSet": [],
+  "declaredExternalSet": [
+    "AGENTS.md",
+    "data/questions.json",
+    "src/",
+    "docs/",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/tree-utils.test.mjs"
+  ],
+  "excludedSet": [
+    "data/",
+    "src/",
+    "batch-manifests/phase1.json",
+    "batch-manifests/governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json"
+  ],
+
+  "excludedSetNote": "⛔ 原含 `outputs/tree-violation-scan/phase1-*.md` / `phase1-*.json` 两条**通配串**（2026-09-14 修正）：匹配器只认「精确路径」与「尾斜杠前缀」，通配串永不命中 → 等于没写（静默失效的声明）。这些文件本就由 phase1.json 正向认领，无需在此排除。",
+
+  "generatedArtifacts": [
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/asplit-treeid-inventory.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json"
+  ],
+
+  "expectedDelta": {
+    "note": "**无数据变化** —— 本批只登记清单与计划，不执行任何 treeId 迁移。真正的数据迁移属 Commit D（t3-semanticization，执行时另立 manifest）。"
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "登记批次不改代码，验收 = tracked 42/42 保持全绿。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "不适用（本批不改任何既有文件）",
+      "mustBeEmpty": [],
+      "note": "登记件均为新文件（untracked），无祖先版本可比。"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "须为「零数据差异」—— 若本批提交的 diff 中出现 data/ 任何路径，即为越界。"
+    },
+    "tests": {
+      "definition": "tracked 42/42 保持全绿"
+    }
+  },
+
+  "scopeFreeze": {
+    "inScope": "asplit_* 恰好 133 项",
+    "outOfScope": [
+      "*_s1_*",
+      "*_s2_*",
+      "wiki chapter ids"
+    ],
+    "outOfScopeCount": 296,
+    "outOfScopeHandling": "作为邻接家族另立线程，不混入本批。",
+    "forbidden": [
+      "sed",
+      "全局 replace",
+      "regex 全局替换"
+    ],
+    "required": "每条 oldTreeId → newTreeId 必须附带 semanticPath 与 reason，能回答「为什么新的名字是这个」。"
+  },
+
+  "rationale": {
+    "whyRegistrationSeparate": "「未来计划」与「已发生的数据变化」不能混在一个提交里。登记件只回答「这批要做 133 项什么」，不产生任何数据变化；执行时另立 Commit D，使 Git 历史保持 A→B→C→D 可读。"
+  }
+}

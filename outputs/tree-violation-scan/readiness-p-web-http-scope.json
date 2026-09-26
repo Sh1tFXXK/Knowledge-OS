@@ -1,0 +1,868 @@
+{
+  "generatedAt": "2026-09-14T16:47:49.172Z",
+  "batchId": "p-web-http-scope",
+  "baseRef": "3a36b8b",
+  "manifestPath": "batch-manifests/p-web-http-scope.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\p-web-http-scope-2026-09-14T16-26-47-000Z",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/tree-data.json",
+    "data/node-pool.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json",
+    "scripts/plan-p-web-http-scope.mjs",
+    "scripts/apply-p-web-http-scope.mjs",
+    "scripts/verify-p-web-http-scope.mjs",
+    "outputs/tree-violation-scan/p-web-http-scope-plan.json",
+    "outputs/tree-violation-scan/p-web-http-scope-preflight.md",
+    "outputs/tree-violation-scan/p-web-http-scope-apply-report.md",
+    "outputs/tree-violation-scan/p-web-http-scope-verification.md",
+    "outputs/tree-violation-scan/p-web-http-scope-ui-probe.md",
+    "outputs/tree-violation-scan/governance-ledger.md",
+    "batch-manifests/p-web-http-scope.json"
+  ],
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/tree-data.json": {
+        "headBytes": 1939539,
+        "baselineBytes": 1939539,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "d01146a131eaf4c67695c1967d5a680e",
+        "md5Baseline": "d01146a131eaf4c67695c1967d5a680e"
+      },
+      "data/node-pool.json": {
+        "headBytes": 12651326,
+        "baselineBytes": 12651326,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "ff614d82ab6f0fa71ddfeaf4dad35384",
+        "md5Baseline": "ff614d82ab6f0fa71ddfeaf4dad35384"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1139897,
+        "baselineBytes": 1139897,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "f260b63411627b489e63c7efeaeb576a",
+        "md5Baseline": "f260b63411627b489e63c7efeaeb576a"
+      },
+      "data/evolution-events.json": {
+        "headBytes": 94553,
+        "baselineBytes": 94553,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "8f72f97706eb08a1b22efc4491db0c93",
+        "md5Baseline": "8f72f97706eb08a1b22efc4491db0c93"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-14T12:21:55.054Z",
+      "snapshotCount": 21,
+      "added": [],
+      "gone": [
+        "data/questions.json",
+        "docs/CONSTITUTION.md"
+      ],
+      "changed": [
+        "data/evolution-events.json",
+        "data/knowledge-edges.json",
+        "data/node-pool.json",
+        "data/tree-data.json"
+      ],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/evolution-events.json",
+          "data/knowledge-edges.json",
+          "data/node-pool.json",
+          "data/tree-data.json"
+        ],
+        "governanceSet": [],
+        "declaredExternalSet": [],
+        "otherOwnBatch": [
+          "data/questions.json",
+          "docs/CONSTITUTION.md"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "concept_http_request",
+        "concept_http_response",
+        "concept_http_servlet_request",
+        "concept_http_servlet_response"
+      ],
+      "expectedNew": [
+        "concept_http_request",
+        "concept_http_response",
+        "concept_http_servlet_request",
+        "concept_http_servlet_response"
+      ],
+      "modified": [
+        "k_1784340526295_skm8iw",
+        "asplit_servlet_lifecycle",
+        "asplit_web_attribute_scope"
+      ],
+      "expectedModified": [
+        "k_1784340526295_skm8iw",
+        "asplit_servlet_lifecycle",
+        "asplit_web_attribute_scope"
+      ],
+      "unexpectedModified": [],
+      "removed": [
+        "asplit_http_request_response"
+      ],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": ".gitignore",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "CONTEXT.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "README.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "STATE.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "data/evolution-events.json",
+          "by": [
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "p-web-http-scope",
+            "nodepool-tag-normalization",
+            "phase1"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "docs/ARCHITECTURE.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "docs/PROJECT_INTRODUCTION.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/governance-ledger.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "scripts/tree-utils.test.mjs",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/TemporalIndexWorkspace.tsx",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/UnifiedIndexGraph.tsx",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/core/explanation-index/indexGraphLayout.ts",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/explanationIndex.ts",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/knowledge/treeUtils.ts",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/store/useGraph.ts",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/components.css",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "src/styles/index-diagram.css",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "AGENTS.md",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/rename-evidence/case-rc01.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-http-scope-apply-report.md",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-http-scope-plan.json",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-http-scope-preflight.md",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-http-scope-ui-probe.md",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-http-scope-verification.md",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "scripts/apply-p-web-http-scope.mjs",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "scripts/index-graph-layout.test.mjs",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "phase1",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/plan-p-web-http-scope.mjs",
+          "by": [
+            "p-web-http-scope"
+          ]
+        },
+        {
+          "rel": "scripts/rename-evidence.mjs",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "scripts/scan-asplit-treeid-refs.mjs",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "scripts/verify-p-web-http-scope.mjs",
+          "by": [
+            "p-web-http-scope"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+          "by": [
+            "p-web-http-scope",
+            "governance-v1.1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+          "by": [
+            "p-web-http-scope",
+            "nodepool-tag-normalization",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-phase1.json",
+          "by": [
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-dryrun",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p0.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p0",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p1.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-p2.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t3-registration.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t3-registration"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-t5-rename-evidence.json",
+          "by": [
+            "p-web-http-scope",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "t5-rename-evidence"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 6,
+        "tests": 42,
+        "pass": 42,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "tests": 2,
+        "pass": 2,
+        "fail": 0
+      },
+      "workingTreeTotal": 44,
+      "declared": {
+        "tracked": 42,
+        "peerAdded": 2,
+        "peerAddedFiles": [
+          "scripts/index-graph-layout.test.mjs"
+        ],
+        "workingTreeTotal": 44,
+        "acceptanceUses": "tracked",
+        "note": "口径 = **测试项数**：已跟踪 6 个测试文件 → 42 项；未跟踪 1 个文件（T5 批次的 `index-graph-layout.test.mjs`）→ 2 项。本次实跑 `npm test` = **44/44 全绿**。`scripts/tree-utils.test.mjs` 被**外部会话**修改过（在 declaredExternalSet 里），故本批验收只以 tracked 为准做保守断言。本批**未新增/未修改任何测试文件**（UI 改动不写单测 —— AGENTS.md）。"
+      },
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 80,
+    "labelNeCardTitle_subset": 69,
+    "treeNameNePoolLabel": 67,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_1784340526295_skm8iw",
+      "oldLabel": "Servlet",
+      "newLabel": "Servlet",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Servlet",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Servlet",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Servlet",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "asplit_servlet_lifecycle",
+      "oldLabel": "Servlet 生命周期",
+      "newLabel": "生命周期",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Servlet 生命周期",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Servlet 生命周期",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "asplit_web_attribute_scope",
+      "oldLabel": "Web 属性作用域",
+      "newLabel": "Web 属性作用域",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Web 属性作用域",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Web 属性作用域",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Web 属性作用域",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}

@@ -1,0 +1,44 @@
+{
+  "id": "event:tree-refactor:phase1:1789371446647",
+  "scopeRootId": "k_class_programming_classification",
+  "occurredAt": 1789371446647,
+  "title": "阶段一：OOP 类的分类重组 + OS I/O 错位平移",
+  "summary": "按「实体语义优先于挂载路径」判据，把 4 个共享实体拆成 ontology/reference 两侧；把 管理程序/模拟器 迁入 虚拟化技术；在 操作系统 下新建 I/O 多路复用 与 系统调用与 I/O 两个中间层并迁入 select/epoll/零拷贝。新实体沿用 k_<ts>_<rand> 命名，批次信息只留本事件与报告。",
+  "sourceOnlyNodeIds": [],
+  "introducedNodes": [
+    {
+      "nodeId": "k_1789371087163_25m6ob",
+      "parentNodeId": "theory_domain_operating_systems"
+    },
+    {
+      "nodeId": "k_1789371087163_b7qj6l",
+      "parentNodeId": "theory_domain_operating_systems"
+    }
+  ],
+  "changes": [
+    {
+      "targetNodeId": "k_1784295376153_uiovkk",
+      "facet": "structure",
+      "before": "单个实体多挂载：{\"本体侧原ref\":\"(挂载点不存在)\",\"Java侧原ref\":\"k_1784295376153_uiovkk\",\"挂载数\":1}",
+      "after": "按语义角色 ontology 拆分：本体 k_1784295376153_uiovkk / 具象 k_1789371087163_g81kcs；正文留在 本体 侧。"
+    },
+    {
+      "targetNodeId": "k_1784044129424_ffqm4z",
+      "facet": "structure",
+      "before": "单个实体多挂载：{\"本体侧原ref\":\"(挂载点不存在)\",\"Java侧原ref\":\"k_1784044129424_ffqm4z\",\"挂载数\":2}",
+      "after": "按语义角色 reference 拆分：本体 k_1789371087163_e9iafm / 具象 k_1784044129424_ffqm4z；正文留在 具象 侧。"
+    },
+    {
+      "targetNodeId": "k_1784045589643_icc5oo",
+      "facet": "structure",
+      "before": "单个实体多挂载：{\"本体侧原ref\":\"k_1784045589643_icc5oo\",\"Java侧原ref\":\"k_1784045589643_icc5oo\",\"挂载数\":1}",
+      "after": "按语义角色 reference 拆分：本体 k_1789371436917_zo0k0j / 具象 k_1784045589643_icc5oo；正文留在 具象 侧。"
+    },
+    {
+      "targetNodeId": "k_1784044171635_8etz45",
+      "facet": "structure",
+      "before": "单个实体多挂载：{\"本体侧原ref\":\"k_1784044171635_8etz45\",\"Java侧原ref\":\"k_1784044171635_8etz45\",\"挂载数\":1}",
+      "after": "按语义角色 ontology 拆分：本体 k_1784044171635_8etz45 / 具象 k_1789371087163_g0db3p；正文留在 本体 侧。"
+    }
+  ]
+}

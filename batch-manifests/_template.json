@@ -1,0 +1,65 @@
+{
+  "batchId": "<替换：与文件名一致>",
+  "title": "<人类可读标题>",
+  "baseRef": "<批次开始时的 HEAD 短 sha>",
+  "preBatchSnapshot": "<落盘前备份目录，如 data/backups/<语义名>-<ISO>；无数据写则 null>",
+  "commitSubjectHint": "<建议的提交信息首行>",
+  "status": "DRAFT | READY_TO_COMMIT | REGISTERED_NOT_EXECUTED | BLOCKED",
+
+  "writeSet": [
+    "<本批能写、且要提交的路径 —— 这就是 git add 的全部内容>"
+  ],
+
+  "governanceSet": [
+    "<同期进行的治理/方法论文档：允许漂移，但不由本批提交（由 governance 批次提交）>"
+  ],
+
+  "declaredExternalSet": [
+    "<已确认属其他会话/其他批次的在飞文件：允许漂移，不提交>"
+  ],
+
+  "excludedSet": [
+    "<硬排除（可用 'src/' 这类前缀）。提交后反查不得出现这些路径>"
+  ],
+
+  "generatedArtifacts": [
+    "<本批产出的报告/台账；应为 writeSet 的子集>"
+  ],
+
+  "expectedDelta": {
+    "<data/xxx.json>": {
+      "before": 0,
+      "after": 0,
+      "added": [],
+      "modified": [],
+      "removed": []
+    }
+  },
+
+  "testBaseline": {
+    "tracked": 42,
+    "peerAdded": 2,
+    "workingTreeTotal": 44,
+    "acceptanceUses": "tracked",
+    "note": "规模变化时按 §6 口径重新三分，不要写单一 N/N。"
+  },
+
+  "gates": {
+    "ancestor": {
+      "definition": "HEAD ↔ preBatchSnapshot 逐字节（单进程 Buffer.compare，禁 git show 管道）",
+      "mustBeEmpty": [
+        "<必须逐字节相等的文件；不等即会夹带他人改动>"
+      ],
+      "orthogonalTo": "timeline"
+    },
+    "timeline": {
+      "definition": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅"
+    },
+    "delta": {
+      "definition": "preBatchSnapshot → 当前，逐文件核对 expectedDelta；removed 必须为 0，modified 不得超出声明"
+    },
+    "tests": {
+      "definition": "tracked 测试文件全绿"
+    }
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "batchId": "java-lib-overlap-b",
+  "title": "JAVA-LIB-OVERLAP-B · 卸树留池：摘掉 类/java.lang/Object 下 4 个重复挂载（String/StringBuilder/StringBuffer/Scanner）（树 3213→3209 · 池 3856 不变 · 边 4161 不变）",
+  "baseRef": "4bb3b84",
+  "baseRefNote": "前序提交链：… → c51d6b6（external-tag-sync）→ 96a7925+010796a（core-library-methods）→ **c3a314f+4bb3b84（java-lib-overlap-a）**。本批从 4bb3b84 出发；动手前实测 `git status --porcelain data/` 为空 ⇒ 写集数据文件批前态 == HEAD，Ancestor Gate 天然成立。",
+  "preBatchSnapshot": "data/backups/java-lib-overlap-b-2026-09-15T17-12-12-656Z",
+  "preBatchSnapshotNote": "三文件**逐字节等于 HEAD 4bb3b84**（tree-data b73ab965… / node-pool 8db49b12… / knowledge-edges 7bef3f60…，已用 `git show HEAD:<f>` 逐一比对）。⚠️ 快照最初只含本批写集文件（tree-data + knowledge-edges）；**事后补入 node-pool.json** 的理由：本批不写池，但 verify 需要「批前 ↔ 当前」的池零漂移断言来源，而该副本已实测与 HEAD 逐字节相等（`git status` 亦证明池未被修改）。journal.txt 记录 baseline / 计数 / 待卸 treeId / 原蓝图预期边（已证实不存在）。",
+  "commitSubjectHint": "data: JAVA-LIB-OVERLAP-B 卸树留池 — 摘掉「类/Object」下 4 个重复挂载（String/StringBuilder/StringBuffer/Scanner）（树 3213→3209 · 池 3856 不变 · 边 4161 不变）（独立验证 17/17 · UI 26/26 · 回归 62/62）",
+  "status": "COMMITTED",
+
+  "provenance": {
+    "trigger": "A 批收口后用户给出下一步：JAVA-LIB-OVERLAP-B —— 卸掉 `类/java.lang/Object` 下 4 个重复挂载，保留池实体与 `常用类库` 下的挂载。",
+    "userAdjudication": "2026-09-16 用户两次明确裁决：① **「按事实修正 Δ，意图不变」** —— 蓝图错在预设 treebind 边存在，事实是这 4 处挂载没有对应边；三重互证已把「哪 4 个该卸、哪 5 个该留」钉死，卸载动作正确，只是**代价面比原估计更小**（边表完全不动）。② 「651 的事挂起，不阻塞；本批只记录不动手」。",
+    "blueprintVsReality": {
+      "title": "★ 只读预检抓出蓝图与事实不符 1 处（这正是 plan 阶段的价值）",
+      "blueprintSaid": "预期「边 4161 → 4157（−4 treebind 边）」；并把「4 条 treebind 边的 id 需要精确锁定（不能误删其他边）」列为风险点之一。",
+      "measured": "**这 4 处挂载在 knowledge-edges.json 里出现 0 次**（逐条 treeId 在整个文件原始文本中做穷尽扫描，全部 0 命中）。⇒ **没有任何边可删**，Δ边 = 0。用户风险点之一因此自动消失。",
+      "tripleCorroboration": "Object 的 9 个子节点分成**干净的两组**，三重互证（下表即 plan 脚本原样输出）：",
+      "tripleTable": [
+        { "name": "Number", "edge": "✅有", "mounts": 1, "tags": "[Number]", "disposition": "保留" },
+        { "name": "Math", "edge": "✅有", "mounts": 1, "tags": "[Math]", "disposition": "保留" },
+        { "name": "类的构造函数", "edge": "✅有", "mounts": 1, "tags": "[类的构造函数]", "disposition": "保留" },
+        { "name": "方法", "edge": "✅有", "mounts": 1, "tags": "[方法]", "disposition": "保留" },
+        { "name": "Optional", "edge": "✅有", "mounts": 1, "tags": "[Optional·java8]", "disposition": "保留" },
+        { "name": "String", "edge": "⚪无", "mounts": 2, "tags": "[java.lang.String·java·jdk·常用类库]", "disposition": "待卸" },
+        { "name": "StringBuilder", "edge": "⚪无", "mounts": 2, "tags": "[java.lang.StringBuilder·java·jdk·常用类库]", "disposition": "待卸" },
+        { "name": "StringBuffer", "edge": "⚪无", "mounts": 2, "tags": "[java.lang.StringBuffer·java·jdk·常用类库]", "disposition": "待卸" },
+        { "name": "Scanner", "edge": "⚪无", "mounts": 2, "tags": "[java.util.Scanner·java·jdk·常用类库]", "disposition": "待卸" }
+      ],
+      "thirdEvidence": "第三重证据最有说服力：待卸的 4 个实体 **tags 里自己写着「常用类库」**，保留的 5 个没有 ⇒ 「谁属于 lang 家族、谁是外来重复挂载」由实体自述确认，**正面支持**用户意图。",
+      "correctionScope": "修正只影响 Δ 的一个数字（边 −4 → 0）与 writeSet 收窄（少一个文件）。**批次意图、卸载集合、保留集合全部不变。** 用户已确认「按事实修正 Δ，意图不变」。"
+    },
+    "scopeBoundary": "本批**只做 B**。一律不碰：① `类库` 平行库树（C 批）；② `Files工具类` 与 `java.nio.file.Files` 合并（D 批）；③ 全库 651 条无 treebind 边挂载（另立只读调查批次，见 openDebts）；④ 3 条 `edge_java_string_vs_*` 语义边与 5 条 `edge_*` 引用边（全部保留，见 KEPT_EDGES 断言）；⑤ treeId 语义化 / T10 存量债。",
+    "naturalExperiment": "本批是一次**天然的对照实验**，可反向确认 A 批的正确性：A 批删的 `类/Files` **有** treebind 边（`treebind:Object:tree_Files`，source=`k_java_syntax_java_lang_object_yk8ls4`），所以 A 必须删池实体 + 树节点 + 边三样；B 批这 4 个**没有**边，所以只删树节点。**同一个父节点下并存两种形态**，说明「挂载是否有边」不是父节点属性，而是**每个挂载各自的属性**。"
+  },
+
+  "writeSet": [
+    "data/tree-data.json",
+    "scripts/plan-java-lib-overlap-b.mjs",
+    "scripts/apply-java-lib-overlap-b.mjs",
+    "scripts/verify-java-lib-overlap-b.mjs",
+    "batch-manifests/java-lib-overlap-b.json"
+  ],
+  "writeSetNote": "① **只有 1 个数据文件**（tree-data.json）—— 这是本批与 A 批最大的结构差异：A 动树/池/边三样，B 只动树。② 池与边**连「重写一遍内容相同」都不做**，故「池 3856 / 边 4161 不变」不是自证，而是 `git status` 与逐字节比对可直接证明的事实。③ 脚本 3 个：plan（只读预检，import apply 的 buildPlan 作单一事实源）· apply（默认 dry-run）· verify（**不 import apply**，由批前快照 ↔ 工作树反推）。④ 本批**零 src 改动、零样式改动、零 vite.config.js 改动**。",
+  "writeSetPathspecNote": "git add 用本数组本身，由就绪门原样输出，不手写、不加通配。",
+  "governanceSet": [],
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "scripts/tree-utils.test.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "outputs/tree-violation-scan/evolution-v2-verification.md",
+    "outputs/box-survey-2026-09-15/抽屉-三层方框.png",
+    "outputs/box-survey-2026-09-15/时态索引-整页.png",
+    "outputs/box-survey-2026-09-15/画布-方框套方框.png",
+    "outputs/project-map-2026-09-15/knowledge-os-map.html",
+    "outputs/project-map-2026-09-15/knowledge-os-map.md"
+  ],
+  "declaredExternalSetNote": "与 core-library-methods / java-lib-overlap-a 登记的同一份清单**逐项一致**（前 19 项 = 外部会话在飞 src/docs 与 peer 测试；后 11 项 = 已登记未执行的两个批次产物 + 本会话更早的方框分层截图 / 项目地图）。本批零 src 改动、只**读**这些在飞文件的既有函数（`containment.ts` / `indexGraphLayout.ts` 用来确认包含结构是边驱动而非树驱动）。地图 HTML 里硬编码的基数已因本批再次过期，继续刻意不随本批提交。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json",
+    "outputs/tree-violation-scan/readiness-java-lib-overlap-a.json",
+    "outputs/tree-violation-scan/readiness-core-library-methods.json",
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "全部为**精确路径**（无目录前缀、无通配串）。第 1 项是本批自己跑就绪门产生的报告，生成物路径带 batchId；其余 16 项是历史批次的同类报告，沿既有口径继续排除。",
+  "generatedArtifacts": [],
+
+  "expectedDelta": {
+    "note": "基准 = 本批 preBatchSnapshot（= HEAD 4bb3b84）↔ 工作树。⚠️ 本批 writeSet 只含 1 个数据文件 ⇒ 就绪门的 IN_SCOPE_DATA 只有 tree-data.json，其**检查 C（pool Δ）会被整体跳过**。因此本批的池/边零改动**不靠门**，靠独立 verify 的逐字节断言（V2d/V2e）与 `git status`。",
+    "data/tree-data.json": {
+      "before": 3213,
+      "after": 3209,
+      "addedNodes": 0,
+      "removedNodes": 4,
+      "removedNodeIds": [
+        "tree_1785340521267_j7je9h",
+        "tree_1785378444842_wglz53",
+        "tree_1785378491125_qwcncm",
+        "tree_1785379879357_2xsrxd"
+      ],
+      "removedNodeNote": "4 个均为**叶子**（0 子节点）⇒ 摘除不可能孤儿化任何后代；verify V3 断「removed 恰 = 这 4 个且 added = ∅」，V5 断「除 Object 与其 4 个被摘子节点外，全树逐节点逐字段零漂移」（比对 3207 个节点，0 漂移）。",
+      "modifiedNodes": [
+        "tree_java_source_020f0cac60da5755_s_type_a6b9e05051861242（= java.lang/Object，children 9 → 5，仅摘除 4 项，**其余 5 项顺序原样保留**）"
+      ],
+      "countFieldNote": "树节点带 `count` 字段（3858 个实体中仅 17 个 > 0，会渲染徽标）。已实测**受影响路径（含父链）上无 count>0 节点**（Object / java.lang / 类 / java / 编程语言 … 全为 0）⇒ 摘除不会留下过期徽标。verify V9b 复核。",
+      "byteBefore": 1937933,
+      "byteAfter": 1936497
+    },
+    "data/node-pool.json": "0 改动（**逐字节不变**；不在 writeSet，apply 脚本不写它。verify V2d 做 Buffer 级比对）",
+    "data/knowledge-edges.json": "0 改动（**逐字节不变**；修正口径下 Δ边 = 0 —— 原蓝图预期的 4 条 treebind 边经穷尽扫描确认不存在。verify V2e 做 Buffer 级比对）",
+    "data/questions.json": "0 改动",
+    "data/evolution-events.json": "0 改动（事件表 append-only，本批不写事件）",
+    "data/version-chains.json": "0 改动",
+    "vite.config.js": "0 改动",
+    "src/**": "0 改动（本批纯数据批次）",
+    "styles/**": "0 改动"
+  },
+
+  "KEPT_EDGES": {
+    "note": "提到这 4 个 nodeRef 的 9 条边**全部保留**（4 个实体不删，只卸树挂载）。verify V7 逐条断言仍在。",
+    "ids": [
+      "edge_java_string_vs_stringbuilder",
+      "edge_java_string_vs_stringbuffer",
+      "edge_java_stringbuilder_vs_stringbuffer",
+      "treebind:tree_java_common_libraries:tree_java_lang_string",
+      "treebind:tree_java_common_libraries:tree_java_lang_stringbuilder",
+      "treebind:tree_java_common_libraries:tree_java_lang_stringbuffer",
+      "treebind:tree_java_common_libraries:tree_java_util_scanner",
+      "edge_java_scanner_reads_string",
+      "edge_io_nio_reads_string"
+    ]
+  },
+
+  "testBaseline": {
+    "tracked": 60,
+    "peerAdded": 2,
+    "workingTreeTotal": 62,
+    "acceptanceUses": "workingTree（pass 62 / fail 0）",
+    "trackedFiles": 8,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "note": "已跟踪测试文件 8 个 → 60 项；未跟踪 peer 文件 1 个 → 2 项；工作树合计 62/62 全绿。本批未新增测试文件。"
+  },
+
+  "gates": {
+    "planStage": {
+      "script": "node scripts/plan-java-lib-overlap-b.mjs（只读，import apply 的 buildPlan 作单一事实源）",
+      "result": "✅ 前置断言 0 条问题（**首跑即 FAIL 5 条，正是它抓出蓝图与事实不符**，见 provenance.blueprintVsReality；按事实修正口径后复跑全绿）",
+      "sections": "7 节读数：①基数 ②Object.children 现状（★ 标出 4 个待卸）③4 个目标的全树挂载全景（待卸 vs 保留，逐条打印路径 + 叶子确认）④★ 边表实测 + 两组对照表 ⑤count 字段检查 ⑥前置断言 ⑦Δ 预览。",
+      "referenceSurfaceFinding": "4 个目标在树上的挂载数**各恰为 2**（待卸 1 + 保留 1），保留侧路径**均含「常用类库」** ⇒ 「内容零损失」是机器断言，不是估计。"
+    },
+    "applyGate": {
+      "precondition": "写 data/*.json 前先确认无 dev server 占用（铁律①）：实测 5173 已空，无需杀。",
+      "result": "✅ dry-run 与 --apply 各一次；apply 自检 **14/14 全过**。",
+      "selfChecks": "✅ 树(含根)=before−4=3209 · 4 个挂载各自树上已无 · 池文件未被触碰 · Object.children = 原顺序抽掉 4 项 · Object.children 名称 = [Number,Math,类的构造函数,方法,Optional] · **4 个保留侧挂载仍在且路径含「常用类库」**（逐条）· **边表逐字节未被改动** · 其余边逐条不变（含顺序）。",
+      "backup": "data/backups/java-lib-overlap-b-2026-09-15T17-12-12-656Z/（tree-data + knowledge-edges + 事后补入的 node-pool + journal.txt；三文件已实测与 HEAD 逐字节相等 ⇒ 可作回滚点）",
+      "atomicWrite": "tmp + rename 原子写；保留末尾换行（往返序列化保真已前置断言）。",
+      "postApplyRollbackPath": "备份目录保留，可逐字节回滚（`cp data/backups/java-lib-overlap-b-2026-09-15T17-12-12-656Z/<f> data/<f>`）。⚠️ 禁用 `git checkout -- data/`（`core.autocrlf=true` 会把 LF 检出成 CRLF 污染文件）—— 这是 A 批已记载的坑。"
+    },
+    "independentVerification": {
+      "script": "scripts/verify-java-lib-overlap-b.mjs（**不 import apply**；由批前快照 ↔ 当前真源反推）",
+      "result": "✅ PASS **17/17**（0 失败，0 漂移）",
+      "coverage": "V1 快照可读 · V2a 树 3213→3209 · V2b 池 3856 不变 · V2c 边 4161 不变 · **V2d 池文件逐字节不变** · **V2e 边文件逐字节不变**（Δ边=0 的最强形式）· V3 树 removed 恰=4 目标且 added=∅ · V4a/b/c Object.children = 快照顺序抽掉 4 项（无重排）且名称符 · **V5 除 Object 与其 4 个子节点外全树 3207 个节点逐字段零漂移** · **V6 4 个实体保留侧挂载仍在（各恰 1 处、id 与路径均符）** · V7 保留侧 9 条边仍在 · V8 4 个目标 treeId 在 src/docs/data 全量 135 文件文本零出现 · V9a Object 父链完整（7 级）· V9b 路径上无 count>0 节点 · V10 treebind 无法解析数不增。"
+    },
+    "uiAcceptance": {
+      "script": "scripts/shell-fusion/probe-java-lib-overlap-b.mjs（一次性，测完即删）",
+      "result": "✅ **26/26**（两轮：首访 + 刷新后各 13 项），零 console error / 零未捕获异常。",
+      "environment": "npm run build 产物 + `vite preview --port 4192`，**KNOWLEDGE_OS_DATA_DIR 指向临时数据目录**（6 真源副本，md5 与真源逐一相等）⇒ 不打真数据（铁律③）；探针结束已停服务、删探针、删临时目录。",
+      "keyAssertions": "① 树渲染 id 集合 === tree-data.json 的 id 集合（**3209 项零增零减**）· ② 负断言：4 个被卸 treeId 均不在 DOM · ③ Object 行存在且子行 = [Number,Math,类的构造函数,方法,Optional] · ④ **卸树留池核心**：4 个实体在 常用类库 下的行仍在 DOM · ⑤ 保留侧 String 行可点击且右栏切到 java.lang.String（证明内容可达）· ⑥ /api/data：树 3209 / 池 3856 / 边 4161，且 4 个实体 tabs 数不变（String 36 / StringBuilder 3 / StringBuffer 3 / Scanner 26）。"
+    },
+    "regression": {
+      "tsc": "npx tsc --noEmit → exit 0",
+      "build": "npm run build → ✓（仅 chunk 体积提示，非错误）",
+      "test": "npm test → pass 62 / fail 0 / cancelled 0 / skipped 0（与批前读数一致）"
+    },
+    "readinessGate": {
+      "command": "node scripts/verify-phase1-commit-readiness.mjs --batch java-lib-overlap-b",
+      "result": "✅ READY —— 8 闸门全 PASS（manifestGate · pathspecGate · exclusionGate · ancestorGate · timelineGate · deltaGate · candidatesGate · testsGate），blockers = []，manifestWarnings = []，residuals = []。首跑即全绿，**无需任何补救提交**。",
+      "checkA": "data/tree-data.json 逐字节 rawEqual=true（headBytes = baselineBytes = 1937933，md5 双向 b73ab965…），contentDiffKeys / onlyHeadKeys / onlyBaselineKeys 全 0 ⇒ 「提交该文件 = 提交本批操作」成立。",
+      "checkB": "unexpectedDrift = 0。漂移 6 项 = 本批写集内 1（tree-data.json）+ 自有其他批次 5（data/evolution-events.json、data/knowledge-edges.json、data/node-pool.json、data/questions.json、docs/CONSTITUTION.md —— 后三项由 java-lib-overlap-a / versions-v1 等 manifest 认领）。⚠️ 注意 knowledge-edges 与 node-pool 出现在「自有其他批次」而非「未声明」—— 因为它们已被 A 批的 manifest 登记；本批对它们零改动（verify V2d/V2e 逐字节证明）。",
+      "checkC": "⚠️ **本检查被整体跳过**（输出 added/expectedNew/modified/removed 全空数组、ok=true）。原因：检查 C 有前置 `IN_SCOPE_DATA.includes('data/node-pool.json')`，而本批 writeSet 只含 1 个数据文件 tree-data.json ⇒ 池不在作用域。⇒ **本批的池/边零改动不靠门，靠独立 verify 的逐字节断言**（V2d/V2e）+ `git status`。这是「写集越窄、门覆盖越窄」的必然结果，已在 expectedDelta.note 显式记录。",
+      "checkD": "正向认领 32 件 · 精确排除 16 件 · 仅目录前缀排除 **0** 件 · 完全无人认领 **0** 件。⇒ 无 §3.1 的静默归属漏洞。",
+      "checkE": "候选件齐备 ✅",
+      "checkF": "已跟踪 8 文件 → 60/60 ✅；未跟踪 1 文件（他人批次）→ 2/2；工作树合计 62。",
+      "residualObservation": "本批 **residuals = []**（无「旧值残留」观察项）—— A 批那条误报（把 modified 当 renamed）未复现，因为本批对池**零改动**，池实体不进入 modifiedIds。反向印证了 A 批对该误报的根因判定。",
+      "reportArtifact": "outputs/tree-violation-scan/readiness-java-lib-overlap-b.json（登记进本批 excludedSet，不入库）"
+    }
+  },
+
+  "openDebts": [
+    {
+      "id": "edgeless-mounts",
+      "title": "★ 全库 651/3209（20.3%）树挂载无对应 treebind 边 —— 「树节点 ↔ 边 1:1」从来不是全库不变量",
+      "foundBy": "java-lib-overlap-b 的只读预检（量这四个目标的边时顺带量化）",
+      "quantified": "3209 个非根树挂载中 651 个（20.3%）在 knowledge-edges.json 里找不到 `treebind:<父 treeId>:<子 treeId>`。按深度：深度 6 有 189、深度 7 有 238（两档占 66%）。按父节点 Top：数据库类型（维基）38 / 数据库使用 21 / 数据库事务 20 / 索引 20 / 数据库 18 / 数据库系统 15 …——**集中在导入型子树**（`wiki_*` / `chapter_*` / `school_*` 等）。",
+      "significance": "本批的 4 个目标只是这 651 个的 4 个实例。⇒ 「卸树留池时必须同时删 treebind 边」**不是通用规则**，取决于该挂载是否真的有边。A 批的 `类/Files` 有边（必须删边），B 批这 4 个没有（无边可删）—— 同一父节点下两种形态并存。",
+      "proposedDisposition": "用户已裁决：**本批只记录不动手**；后续开**独立只读调查批次**，先分类再裁决。建议至少分三类：① 导入残留（深度 6-7，`chapter_*`/`wiki_*` 前缀）→ 批量补边 or 统一为无边形态；② 手工挂载（浅层，拖拽产生）→ 补 treebind 边；③ 有意无边（某些视图的虚拟分组）→ 标记 `virtual-mount` 并排除检查。调查批次只做只读分类 + 量化分布，产出一张分类表，由用户裁决。",
+      "notInThisBatch": true
+    },
+    {
+      "id": "verify-a-root-id-measurement",
+      "title": "java-lib-overlap-a 的 verify V15 存在量具口径偏差（已提交，勿顺手改）",
+      "detail": "A 的 scripts/verify-java-overlap-a.mjs 的 V15 报「treebind 无法解析 = 21」，而全库权威口径是 **18**（项目记忆 `2665 条 / 18 条无法解析`）。根因：A 脚本构造 known-id 集合时**漏了根节点 id**，使 3 条「父 treeId == 根 id」的边被误判为无法解析。B 的 verify V10 已含根 ⇒ 读数 18，与权威口径一致。",
+      "impact": "**不影响 A 批的判定**（V15 比的是「批前 21 → 现 21」，结论「不增」正确，只是绝对数偏离权威口径）。",
+      "disposition": "本批**不修**（改了会让已提交文件产生写集外漂移，违反「一个批次一个提交」）。建议后续用一个小微提交修 A 的 known-id 集合（含根），并把权威口径 18 写进脚本注释。"
+    }
+  ],
+
+  "registeredAt": "2026-09-16",
+  "commitSha": "d3a5878",
+  "commitShaNote": "内容提交 d3a5878（父提交 = 4bb3b84 java-lib-overlap-a 登记；分支 optimize/performance）。本 manifest 自身的「status → COMMITTED + commitSha」由紧随其后的登记提交承载。新基线：树 3209 / 池 3856 / 边 4161（evolution-events 2 / version-chains 2 链 6 节点不变）。"
+}

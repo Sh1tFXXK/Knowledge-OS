@@ -5,12 +5,13 @@ import type {
   TreeNode,
 } from '../types';
 
-export const TREE_BINDING_EDGE_PREFIX = 'treebind:';
-export const TREE_BINDING_EDGE_TYPE = 'belongs-to';
-export const TREE_BINDING_EDGE_LABEL = 'contains';
+const TREE_BINDING_EDGE_PREFIX = 'treebind:';
+const TREE_BINDING_EDGE_TYPE = 'belongs-to';
+const TREE_BINDING_EDGE_LABEL = 'contains';
 
 function findTreeNodeById(root: TreeNode, id: string): TreeNode | null {
-  if (root.id === id) return root;
+  if (id == null) return null;
+  if (root.id != null && root.id === id) return root;
   for (const child of root.children ?? []) {
     const found = findTreeNodeById(child, id);
     if (found) return found;
@@ -27,15 +28,6 @@ function mergeDimensions(
     ...(target?.dimensions ?? []),
   ]);
   return dimensions.size > 0 ? [...dimensions] : undefined;
-}
-
-export function resolveTreeBindingTarget(
-  tree: TreeNode,
-  treeNodeId: string,
-): string | null {
-  const node = findTreeNodeById(tree, treeNodeId);
-  if (!node) return null;
-  return node.nodeRef ?? null;
 }
 
 export function createTreeBindingEdge({
@@ -148,7 +140,7 @@ export function createTreeBindingEdgesForSubtree({
   return edges;
 }
 
-export function isTreeBindingEdgeForTreeIds(
+function isTreeBindingEdgeForTreeIds(
   edge: KnowledgeEdge,
   treeIds: Set<string>,
 ): boolean {

@@ -6,13 +6,13 @@ import {
   type ExplanationSelection,
   type ExplanationTab,
   type NodeExplanation,
-} from '../types';
-import { findPage, findTab } from './explanationTree';
+} from '../types.ts';
+import { findPage, findTab } from './explanationTree.ts';
 
 const DEFINITION_TAB_ID = 'def';
 const HIDDEN_LEGACY_TAB_IDS = new Set(['mech', 'bound', 'source']);
 
-export enum ExplanationIndexNodeKind {
+enum ExplanationIndexNodeKind {
   Root = 'root',
   Tab = 'tab',
   Page = 'page',
@@ -29,7 +29,7 @@ export interface ExplanationIndexNode {
   content?: string;
 }
 
-export function isVisibleExplanationTab(tab: ExplanationTab): boolean {
+function isVisibleExplanationTab(tab: ExplanationTab): boolean {
   return !HIDDEN_LEGACY_TAB_IDS.has(tab.id);
 }
 
@@ -38,8 +38,7 @@ export function explicitPagesForTab(
   tab: ExplanationTab,
 ): ExplanationPage[] {
   if (tab.pages?.length) return tab.pages;
-  if (tab.id !== DEFINITION_TAB_ID) return [];
-  return explanation.definitionPages?.length ? explanation.definitionPages : [];
+  return [];
 }
 
 function pageNode(nodeId: string, tabId: string, page: ExplanationPage): ExplanationIndexNode {
@@ -158,7 +157,7 @@ export function isExplanationContentSelectionValid(
   return Boolean(findPage(explicitPagesForTab(explanation, tab), selection.pageId));
 }
 
-export function countExplanationIndexNodes(node: ExplanationIndexNode): number {
+function countExplanationIndexNodes(node: ExplanationIndexNode): number {
   return node.children.reduce(
     (count, child) => count + countExplanationIndexNodes(child),
     node.kind === ExplanationIndexNodeKind.Root ? 0 : 1,

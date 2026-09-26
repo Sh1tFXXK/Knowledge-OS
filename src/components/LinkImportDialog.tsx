@@ -7,14 +7,11 @@ import {
   Languages,
   Link2,
   LoaderCircle,
-  Sparkles,
   X,
 } from 'lucide-react';
 import { useGraphStore } from '../store/useGraph';
 import {
-  getLinkImportCapabilities,
   importLink,
-  type LinkImportCapabilities,
   type LinkImportResult,
 } from '../knowledge/linkImport';
 import TreeDestinationPicker, {
@@ -68,8 +65,6 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
   const [url, setUrl] = useState('');
   const [parentTreeNodeId, setParentTreeNodeId] = useState(treeData.id);
   const [translate, setTranslate] = useState(true);
-  const [useAi, setUseAi] = useState(false);
-  const [capabilities, setCapabilities] = useState(null as LinkImportCapabilities | null);
   const [phase, setPhase] = useState(LinkImportPhase.Editing);
   const [error, setError] = useState(null as string | null);
   const [result, setResult] = useState(null as LinkImportResult | null);
@@ -95,23 +90,6 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
       input?.focus();
     }, 0);
   }, [destinations, isOpen, selectedTreeNodeId, treeData.id]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-    let active = true;
-    void getLinkImportCapabilities()
-      .then((nextCapabilities) => {
-        if (!active) return;
-        setCapabilities(nextCapabilities);
-        setUseAi(nextCapabilities.ai.configured);
-      })
-      .catch(() => {
-        if (!active) return;
-        setCapabilities({ ai: { configured: false, model: '' } });
-        setUseAi(false);
-      });
-    return () => { active = false; };
-  }, [isOpen]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -141,7 +119,7 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
     setError(null);
     setResult(null);
     try {
-      const imported = await importLink({ url: url.trim(), parentTreeNodeId, translate, useAi });
+      const imported = await importLink({ url: url.trim(), parentTreeNodeId, translate });
       await initialize();
       selectTreeEntry(imported.treeNodeId);
       setActiveView('index');
@@ -259,21 +237,6 @@ export default function LinkImportDialog({ isOpen, onClose }: LinkImportDialogPr
                 checked={translate}
                 disabled={isImporting}
                 onChange={(event: { target: { checked: boolean } }) => setTranslate(event.target.checked)}
-              />
-              <span className="link-import-switch" aria-hidden="true" />
-            </label>
-
-            <label className="link-import-translation">
-              <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>
-              <span className="link-import-translation-copy">
-                <strong>语义编译</strong>
-                <small>{capabilities?.ai.configured ? `${capabilities.ai.model} · 从内容关系生成知识图` : '未配置模型'}</small>
-              </span>
-              <input
-                type="checkbox"
-                checked={useAi}
-                disabled={isImporting || !capabilities?.ai.configured}
-                onChange={(event: { target: { checked: boolean } }) => setUseAi(event.target.checked)}
               />
               <span className="link-import-switch" aria-hidden="true" />
             </label>

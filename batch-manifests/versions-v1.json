@@ -1,0 +1,171 @@
+{
+  "batchId": "versions-v1",
+  "title": "VERSIONS-V1 · 版本链模型第一批（版本=状态/名词）：新真源 version-chains.json + requires 边 ×2 + 版本链 UI 双轨",
+  "baseRef": "1509bc0",
+  "baseRefNote": "前序提交链：… → f5ebe9c（evolution-v2 内容）→ 1509bc0（evolution-v2 登记）。本批从 evolution-v2 收口后的干净基线出发。",
+  "preBatchSnapshot": "data/backups/versions-v1-2026-09-15T07-14-24-000Z",
+  "preBatchSnapshotNote": "快照含 5 个既有 data 文件，与 HEAD(1509bc0) 逐字节相等（cmp 5/5 当场复核）。version-chains.json 是本批新建文件，批前不存在。独立验证不 import apply，由快照 ↔ 工作树反推。",
+  "commitSubjectHint": "data: VERSIONS-V1 版本链模型第一批 — 新真源 version-chains.json（Java 3 + Spring 3 线性链）· requires 边 ×2（4161→4163）· 版本链 UI 双轨（独立验证 30/30 · UI 18/18）",
+  "status": "COMMITTED",
+  "commitSha": "09d71f2",
+  "commitNote": "内容提交 09d71f2（写集 13 项，pathspec 由就绪门生成）；前置治理微提交 42c9cc3（就绪门 ancestorGate 对新建 data 文件的假性 BLOCK 豁免，独立提交避免数据批次夹带治理演进）。",
+
+  "provenance": {
+    "trigger": "用户提出版本链模型设计：EVOLUTION-V2 解决了「发生了什么变化」（动词），没解决「变成了什么」（名词）——版本是状态不是事件，需要可引用的版本实体。",
+    "userAdjudication": "2026-09-15 两轮裁决：① versions 存独立 version-chains.json（第 6 个切片），不碰池；② requires 跨实体版本依赖进 knowledge-edges.json（关系表 = 关系唯一事实源，双向可查，VersionNode 不存 requires 字段、UI 从边表派生）；③ 种子 = Java 3 + Spring 3，且 Spring 取 v4.0/v5.0/v6.0（与既有事件轨道 2013/2017 同实体对齐）；④ requires 边 2 条（v5→java-v8、v6→java-v17），额外覆盖多对一（java-v8 被两个版本依赖），4161→4163。",
+    "designDiscipline": "版本 id 全局唯一且严禁冒号（treebind 18 条坏债根因）；releasedAt 用 ISO 月精度字符串（版本时间精度是月，不对齐事件表的 epoch 毫秒）；previous 单指针 = 线性链（分叉 v1 不表达）；事件表 schema 不动（evolution-v2 刚收口）；版本不是树分类成员（树答「是什么」，链答「变成了什么」）。"
+  },
+
+  "writeSet": [
+    "data/version-chains.json",
+    "data/knowledge-edges.json",
+    "src/knowledge/versionChains.ts",
+    "src/core/temporal/TemporalRail.tsx",
+    "src/core/temporal/VersionChainRail.tsx",
+    "src/styles/timeline.css",
+    "vite.config.js",
+    "scripts/apply-versions-v1.mjs",
+    "scripts/verify-versions-v1.mjs",
+    "scripts/version-chains.test.mjs",
+    "outputs/tree-violation-scan/versions-v1-apply-report.md",
+    "outputs/tree-violation-scan/versions-v1-ui-probe.md",
+    "batch-manifests/versions-v1.json"
+  ],
+  "writeSetNote": "① data/version-chains.json 新建（2 链 6 节点）；knowledge-edges.json 4161→4163（+2 requires 边，端点是版本 id 不是池 id）。② versionChains.ts 新建（schema + normalize 严格校验 + orderVersions 线性排序，自包含不依赖 dataValidation）。③ UI：VersionChainRail 新建——**V1 运行时对版本链只读**（版本数据由批次脚本管理、UI 无编辑入口），因此不走 store 持久化管道，由组件自身 fetch('/api/data?file=version-chains.json') + normalizeVersionChains 装载；requires 标注从 store 的 knowledgeEdges filter type==='requires' 派生（store 已有该切片，零改动）；TemporalRail 重构为「事件段条件渲染 + VersionChainRail 恒渲染」，零新 props。④ timeline.css 承接样式（index-diagram.css 仍被外部占用，继续避让）。⑤ vite.config.js 最小改动：/api/data 中间件白名单（DATA_FILES/DATA_PAYLOAD_VALIDATORS）登记 version-chains.json——UI 直读该文件必经此路，实测缺登记返回 403 Access denied；该文件批前干净（git status 无 M、不在外部在飞清单）。⑥ 【plan 阶段裁决修订】原方案把第 6 切片接进 filePersistence/state/persist + useGraph——现场 git status 发现 **src/store/useGraph.ts 是外部在飞件（M，2+/18-）**，硬不变量 writeSet ∩ declaredExternalSet = ∅ 禁止触碰；而切片入 store 必须经 snapshotState/applyPersisted（useGraph 内）。故本批缩窄：filePersistence/state/persist/dataValidation **零改动**（store 不收切片，接了也是死代码），版本链入 store 的接线推迟到 useGraph.ts 空闲后的 versions-v1.2 续批。⑦ dataValidation 不加 inspectVersionChains：校验逻辑全部内聚在 versionChains.ts（normalize 严格丢弃 + 诊断数组），V1 无切片装载路径可用它。",
+  "writeSetPathspecNote": "git add 用本数组本身，由就绪门原样输出，不手写、不加通配。",
+
+  "governanceSet": [],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json",
+    "outputs/tree-violation-scan/evolution-v2-verification.md"
+  ],
+  "declaredExternalSetNote": "与 evolution-v2 登记逐项一致（同一批外部会话仍在飞）＋ 新增 1 项：evolution-v2-verification.md 是上批收口后补写的归档副本（刻意未随上批提交），本批声明不认领、不提交。⚠️ src/knowledge/treeUtils.ts 在外部在飞清单里，本批 UI 只**导入**它的既有函数（findTreeNodeById，HEAD 已存在），不写该文件——导入不构成认领。",
+
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-versions-v1.json",
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "全部精确路径。新增真实排除 = readiness-versions-v1.json；其余沿用。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/versions-v1-apply-report.md",
+    "outputs/tree-violation-scan/versions-v1-ui-probe.md"
+  ],
+
+  "expectedDelta": {
+    "note": "本批 data 写入 = 新建 version-chains.json + knowledge-edges.json +2 边；树/池/事件/题库逐字节零改动。",
+    "data/version-chains.json": {
+      "created": true,
+      "chains": 2,
+      "versionNodes": 6,
+      "seedIds": [
+        "java-v8", "java-v11", "java-v17",
+        "spring-framework-v4.0", "spring-framework-v5.0", "spring-framework-v6.0"
+      ],
+      "chainAnchors": {
+        "java": "k_1782746457581_30q8ao（池 label \"java\"，全库唯一）",
+        "spring": "k_java_fw_spring（既有事件轨道 scopeRootId 同源）"
+      }
+    },
+    "data/knowledge-edges.json": {
+      "before": 4161,
+      "after": 4163,
+      "addedEdges": 2,
+      "addedEdgeIds": [
+        "requires:spring-framework-v5.0:java-v8",
+        "requires:spring-framework-v6.0:java-v17"
+      ],
+      "addedEdgeShape": "{ id, source: <版本id>, target: <版本id>, type: 'requires', relationKind: 'dependency', label }",
+      "removedEdges": 0,
+      "modifiedEdges": 0,
+      "indexGraphIsolation": "requires 边端点（java-v8 等）不在池中 ⇒ 索引图按池节点 id 连边时无法解析端点，天然不渲染——但必须以 UI 探针负断言证明，不靠假设。"
+    },
+    "data/tree-data.json": "0 改动",
+    "data/node-pool.json": "0 改动",
+    "data/evolution-events.json": "0 改动（事件表 schema 与数据均不动）",
+    "data/questions.json": "0 改动"
+  },
+
+  "scopeRegistration": {
+    "inScope": "① version-chains.json 新真源 + normalize 严格校验（id 唯一/无冒号/previous 同链存在/无环/releasedAt 格式）；② requires 边 ×2；③ 版本链 UI（VersionChainRail 双轨，与事件流并列，/api/data 直读 + normalize，requires 从边表派生）；④ 纯逻辑测试",
+    "deferred_to_next_batch": [
+      "版本链入 store（PersistedAppState.versionChains + filePersistence 第 6 切片 + useGraph snapshotState/applyPersisted 接线）—— useGraph.ts 外部在飞，推到 versions-v1.2",
+      "inspectVersionChains 进 dataValidation/filePersistence 装载路径 —— 随切片接线一起做"
+    ],
+    "outOfScope_explicitly": [
+      "版本 diff 对比、跨实体依赖图可视化、版本 EOL 倒计时 UI —— 用户「不做」清单",
+      "从 evolution events 自动生成版本节点 —— 不做",
+      "事件锚定到版本节点（事件表 schema 不动）—— 不做",
+      "previous 分叉（多前驱）—— v1 线性链",
+      "replaces / conflicts 边 —— 只作类型预留，不落数据",
+      "实体内嵌 versions 字段 —— 已裁决走独立表，不做"
+    ]
+  },
+
+  "testBaseline": {
+    "tracked": 50,
+    "peerAdded": 1,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs"],
+    "batchAddedFiles": ["scripts/version-chains.test.mjs"],
+    "workingTreeTotalPreBatch": 51,
+    "workingTreeTotalPostBatch": 61,
+    "acceptanceUses": "tracked",
+    "note": "evolution-v2 提交后 tracked 基线 = 50（7 文件）。外部会话未跟踪测试 1 个（index-graph-layout）。本批新增 version-chains.test.mjs 10 项（纯逻辑）——就绪门运行时它尚未 git add，会落进「未跟踪（他人批次）」桶，属预期口径现象，验收基准仍 = tracked 50/50；提交后 tracked 变为 60（8 文件）。"
+  },
+
+  "gates": {
+    "planStage": {
+      "firstGate": "inspectKnowledgeEdges 词表风险已现场解除：该函数只查 id/source/target 必填（dataValidation.ts:216-234），无 type 白名单 ⇒ requires 边可落。",
+      "mountStrategy": "TemporalIndexWorkspace 与 useGraph 均为外部在飞件不可写 ⇒ VersionChainRail 挂在本批自有的 TemporalRail 内部（该组件被 TemporalIndexWorkspace 无条件渲染、空事件时自己返回 null），重构为「事件段条件渲染 + 版本链恒渲染」，零新 props、零 caller 改动。版本链数据由 VersionChainRail 自行 fetch('/api/data?file=version-chains.json') + normalize（V1 只读、不经 store）；requires 标注从 store 既有的 knowledgeEdges 切片 filter 派生。",
+      "anchorCheck": "种子锚点现场核实：Spring = k_java_fw_spring（池内存在）；Java = k_1782746457581_30q8ao（池 label \"java\" 全库唯一）。"
+    },
+    "applyGate": {
+      "expected": "预检：version-chains.json 不存在（新建）、edges=4161、无既有 requires 边、两个锚点在池、2 条新边 id 无冲突；落盘后：chains=2/节点=6、边=4163 且新增 id 恰为 2 条、既有边逐字节不动、normalize 通过自检",
+      "result": "✅ dry-run G1-G9 9/9 → --apply 落盘 → 自检 S1-S5 5/5（含既有 4161 条边逐条深比较不变）。报告：outputs/tree-violation-scan/versions-v1-apply-report.md"
+    },
+    "independentVerification": {
+      "expected": "快照 ↔ 工作树反推：edges 4161→4163 仅 +2 声明边、version-chains.json 新建且 6 节点、其余 data 逐字节零改动、normalize 负对照（构造含冒号 id/环/跨链 previous 的坏数据 → 丢弃）",
+      "result": "✅ PASS 30/30：V1 链形状 9 检（单链头+全链可达）、V2 边 Δ 6 检（零删零改+形状）、V3 其余 4 切片逐字节相等、V4 端点闭合+池无碰撞、V6 格式、V7 负对照 5 组全杀（冒号/悬空/纯环/跨链重复/假日期）、V8 正对照不误伤。npm test 62/62（既有 52 + 本批 10）。"
+    },
+    "uiAcceptance": {
+      "expected": "① 选 Spring → 事件轨 2 点 + 版本链 3 段（v4.0→v5.0→v6.0）+ requires 标注（v5.0→Java 8、v6.0→Java 17）；② 选 java → 版本链 3 段（v8→v11→v17）；③ 负断言：索引图 DOM 无版本 id 出现；④ 刷新复测",
+      "result": "✅ 18/18（探针 v2）。⚠️ 探针 v1 曾 12/18，复盘为量具缺陷非产品缺陷：①选实体后立即快照撞上 rail 重挂载+异步 fetch 瞬时窗口（dbg 日志证实 chainsLoaded 0→2）；②「未选中态」前提不成立——rail 由宿主在选中实体后才渲染（dbg2 证实首条日志出现于 Spring 选中后）。v2 改为轮询等待 + 无链实体空壳断言后全绿，两处修正已记录进报告。另：/api/data 白名单缺 version-chains.json 时实测 403，vite.config.js 随批登记。"
+    }
+  }
+}

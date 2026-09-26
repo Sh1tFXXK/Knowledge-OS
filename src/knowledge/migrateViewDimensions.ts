@@ -70,7 +70,8 @@ function isMigratedDimension(dim: LegacyViewDimension): dim is ViewDimension {
   return Array.isArray(dim.sections);
 }
 
-function stripLegacyExplanationTabs(node: KnowledgeNode): KnowledgeNode{
+function stripLegacyExplanationTabs(node: KnowledgeNode): KnowledgeNode {
+  if (!node.card?.tabs) return node;
   const tabs = node.card.tabs.filter((tab) =>
     !LEGACY_EXPLANATION_TAB_IDS.has(tab.id));
   const tags = normalizeSupertags([node.label, ...(node.tags ?? [])]);

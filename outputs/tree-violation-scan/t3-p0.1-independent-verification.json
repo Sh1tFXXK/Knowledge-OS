@@ -1,0 +1,145 @@
+{
+  "generatedAt": "2026-09-14T13:51:49.547Z",
+  "batch": "t3-p0.1",
+  "snapshot": "data/backups/t3-p0.1-2026-09-14T13-50-55-385Z",
+  "verdict": "INDEPENDENT_VERIFY_PASS",
+  "passed": 20,
+  "total": 20,
+  "reverseInferred": {
+    "removedTreeIds": [
+      "asplit_s2_asplit_mysql_tool_backup",
+      "asplit_s2_asplit_mysql_tool_security",
+      "asplit_s2_asplit_mysql_tool_cluster"
+    ],
+    "removedEdgeIds": [
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_backup",
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_security",
+      "treebind:projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4:asplit_s2_asplit_mysql_tool_cluster"
+    ],
+    "addedTreeIds": [],
+    "addedEdgeIds": [],
+    "method": "从快照 vs 工作树的**集合差**反推，不看 apply 脚本的声明。"
+  },
+  "checks": [
+    {
+      "id": "V1",
+      "name": "反推：树恰好移除 3 个节点 ∧ 0 新增",
+      "ok": true,
+      "detail": "移除 3 [asplit_s2_asplit_mysql_tool_backup, asplit_s2_asplit_mysql_tool_security, asplit_s2_asplit_mysql_tool_cluster] · 新增 0"
+    },
+    {
+      "id": "V2",
+      "name": "被卸的 3 个均为叶子 —— 无任何子节点被连带丢失",
+      "ok": true,
+      "detail": "0 个连带丢失"
+    },
+    {
+      "id": "V3",
+      "name": "引用闭合：被卸 treeId 在 池/题库/审计 中 0 残留（对象 id 除外，见 V3b）",
+      "ok": true,
+      "detail": "evolution-events.json:asplit_s2_asplit_mysql_tool_backup, evolution-events.json:asplit_s2_asplit_mysql_tool_security, evolution-events.json:asplit_s2_asplit_mysql_tool_cluster"
+    },
+    {
+      "id": "V3b",
+      "name": "审计叙事（evolution-events）中允许出现被卸 treeId（宪法 §3.6 字段角色）",
+      "ok": true,
+      "detail": "出现在审计中 3 个 —— 属叙事，允许"
+    },
+    {
+      "id": "V4",
+      "name": "反推：被删边恰 3 条 ∧ 均为 treebind ∧ 每条都指向某个被卸 treeId",
+      "ok": true,
+      "detail": "删 3 条（treebind=true · 指向被卸节点=true）· 新增 0"
+    },
+    {
+      "id": "V5",
+      "name": "被卸节点同属一个父 ∧ 该父子数 10→7",
+      "ok": true,
+      "detail": "父 = projection:mysql-concept:mysql-server-structure:k_1782032275682_61auc4 · 子数 10→7"
+    },
+    {
+      "id": "V6",
+      "name": "宿主剩余子顺序保持（= 原顺序去掉被卸者，逐项相等）",
+      "ok": true,
+      "detail": "after=7 项 · 期望=7 项 · 相等=true"
+    },
+    {
+      "id": "V7",
+      "name": "除被卸 3 个外：所有节点**自身字段**全等 ∧ 所有节点 children 列表 = 原列表减去被卸者（逐项按序）",
+      "ok": true,
+      "detail": "自身字段不一致 0 个 · children 不一致 0 个（3216 节点全查）"
+    },
+    {
+      "id": "V8",
+      "name": "除被删 3 条外，**所有边逐字节不变**",
+      "ok": true,
+      "detail": "0 条不一致（4163 边全等）"
+    },
+    {
+      "id": "V9",
+      "name": "**node-pool.json 逐字节零改动**（池实体保留）",
+      "ok": true,
+      "detail": "md5 相同 ff614d82ab6f"
+    },
+    {
+      "id": "V10",
+      "name": "questions.json 逐字节零改动",
+      "ok": true,
+      "detail": "md5 相同"
+    },
+    {
+      "id": "V11",
+      "name": "被卸节点的 3 个池实体均保留 ∧ 逐字节不变",
+      "ok": true,
+      "detail": "反查 refs=3 · 异常=0"
+    },
+    {
+      "id": "V12",
+      "name": "viewDimensions 网格：引用被卸 3 条的 atom **3/3 可解析** ∧ 同网格其余 atom 亦未被波及",
+      "ok": true,
+      "detail": "宿主 k_1782032275682_61auc4 · 本批 atom 3/3 · 同网格其它 atom 1/1 [k_1787326561953_xdo0fj]"
+    },
+    {
+      "id": "V13",
+      "name": "全库 viewDimensions atom 悬空 = 0",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "V14",
+      "name": "tree 节点 nodeRef 悬空 = 0",
+      "ok": true,
+      "detail": "0"
+    },
+    {
+      "id": "V15",
+      "name": "本批**未新增**未解析 treebind 边（既有债 18 条不归本批）",
+      "ok": true,
+      "detail": "前 18 → 后 18 · 新增 0"
+    },
+    {
+      "id": "V16",
+      "name": "数量：树 −3 · 边 −3 · 池 ±0",
+      "ok": true,
+      "detail": "树 3219→3216 · 边 4166→4163 · 池 3855→3855"
+    },
+    {
+      "id": "V17",
+      "name": "审计事件恰 +1 ∧ 覆盖全部 3 项 ∧ introducedNodes 为空",
+      "ok": true,
+      "detail": "事件数 4→5 · 覆盖3项=true · introducedNodes=[]"
+    },
+    {
+      "id": "V18",
+      "name": "五个文件的末尾换行状态均未漂移",
+      "ok": true,
+      "detail": "0 漂移"
+    },
+    {
+      "id": "V19",
+      "name": "**只动声明内的 3 个文件**（node-pool / questions 必须原样）",
+      "ok": true,
+      "detail": "实际变化：tree-data.json, knowledge-edges.json, evolution-events.json · 越界：0"
+    }
+  ]
+}

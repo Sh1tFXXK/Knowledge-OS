@@ -128,6 +128,7 @@ export function IndexCanvas({
   onBlankClick,
 }: Props) {
   const viewportRef = useRef(null) as { current: HTMLDivElement | null };
+  const worldRef = useRef(null) as { current: HTMLDivElement | null };
   const panGestureRef = useRef(null) as { current: PanGesture | null };
   const marqueeGestureRef = useRef(null) as { current: MarqueeGesture | null };
   const blankClickRef = useRef(null) as { current: BlankClickGesture | null };
@@ -135,6 +136,13 @@ export function IndexCanvas({
   const measuredViewportSizeRef = useRef(null) as { current: CanvasSize | null };
   const fittedViewportSizeRef = useRef(null) as { current: CanvasSize | null };
   const suppressClickRef = useRef(false) as { current: boolean };
+  // 相机手势（滚轮缩放 / 空白拖拽平移）期间绕过逐事件 React 状态：
+  // 世界内容可能有数万个 DOM 节点，每个事件都 setState 会整树 reconcile。
+  // 手势中只直写 transform（合成器路径），并隐藏 overview 标签层——
+  // 标签是视口坐标的独立 DOM，逐帧跟随会造成整层重排（卡顿/闪烁），
+  // 滞后 140ms 又会产生与世界的错位（撕裂）。折中：手势期间隐藏，静默后一次到位。
+  const cameraRef = useRef(null) as { current: CameraState | null };
+  const cameraSyncTimerRef = useRef(null) as { current: number | null };
   const [viewportSize, setViewportSize] = useState({ width: 0, height: 0 }) as [
     CanvasSize,
     StateSetter<CanvasSize>,
@@ -144,6 +152,7 @@ export function IndexCanvas({
     StateSetter<CameraState>,
   ];
   const [isPanning, setIsPanning] = useState(false) as [boolean, StateSetter<boolean>];
+  const [isGesturing, setIsGesturing] = useState(false) as [boolean, StateSetter<boolean>];
   const [marqueeRect, setMarqueeRect] = useState(null) as [
     { left: number; top: number; width: number; height: number } | null,
     StateSetter<{ left: number; top: number; width: number; height: number } | null>,
@@ -184,6 +193,38 @@ export function IndexCanvas({
     observer.observe(viewport);
     return () => observer.disconnect();
   }, [onViewportSizeChange]);
+
+  const applyCameraTransform = (next: CameraState) => {
+    cameraRef.current = next;
+    const world = worldRef.current;
+    if (world) {
+      world.style.transform = `translate3d(${next.offsetX}px, ${next.offsetY}px, 0) scale(${next.scale})`;
+    }
+    scheduleCameraStateSync();
+  };
+
+  // React 状态里的相机（按钮缩放、适配等）变化时同步直写 transform 与 ref；
+  // 状态若本就来自手势同步（与 cameraRef 同一对象）则跳过，避免空转。
+  useEffect(() => {
+    if (cameraRef.current === camera) return;
+    applyCameraTransform(camera);
+  }, [camera]);
+
+  useEffect(() => () => {
+    if (cameraSyncTimerRef.current !== null) window.clearTimeout(cameraSyncTimerRef.current);
+  }, []);
+
+  // 手势静默 140ms 后把直写的相机同步回 React 状态，并恢复 overview 标签层。
+  // 手势期间标签是隐藏的（is-gesturing），因此不存在可见错位；
+  // 同步只发生一次（静默或结束时），避免每帧重排标签层导致的卡顿与闪烁。
+  const scheduleCameraStateSync = () => {
+    if (cameraSyncTimerRef.current !== null) window.clearTimeout(cameraSyncTimerRef.current);
+    cameraSyncTimerRef.current = window.setTimeout(() => {
+      cameraSyncTimerRef.current = null;
+      setCamera(cameraRef.current ?? camera);
+      setIsGesturing(false);
+    }, 140);
+  };
 
   const fitOverview = () => {
     if (viewportSize.width <= 0 || viewportSize.height <= 0) return;
@@ -228,22 +269,25 @@ export function IndexCanvas({
     const rect = viewport.getBoundingClientRect();
     const pointX = event.clientX - rect.left;
     const pointY = event.clientY - rect.top;
-    const factor = Math.exp(-event.deltaY * 0.0014);
-    setCamera((current: CameraState) => zoomCanvasAtPoint(
+    const current = cameraRef.current ?? camera;
+    const next = zoomCanvasAtPoint(
       current,
       pointX,
       pointY,
-      current.scale * factor,
-    ));
+      current.scale * Math.exp(-event.deltaY * 0.0014),
+    );
+    setIsGesturing(true);
+    applyCameraTransform(next);
   };
 
   const clientToWorld = (clientX: number, clientY: number) => {
     const viewport = viewportRef.current;
     if (!viewport) return { x: 0, y: 0 };
     const rect = viewport.getBoundingClientRect();
+    const cam = cameraRef.current ?? camera;
     return {
-      x: (clientX - rect.left - camera.offsetX) / camera.scale,
-      y: (clientY - rect.top - camera.offsetY) / camera.scale,
+      x: (clientX - rect.left - cam.offsetX) / cam.scale,
+      y: (clientY - rect.top - cam.offsetY) / cam.scale,
     };
   };
 
@@ -270,16 +314,18 @@ export function IndexCanvas({
     event.preventDefault();
     viewportRef.current?.focus({ preventScroll: true });
     event.currentTarget.setPointerCapture(event.pointerId);
+    const startCamera = cameraRef.current ?? camera;
     panGestureRef.current = {
       pointerId: event.pointerId,
       button: event.button,
       startClientX: event.clientX,
       startClientY: event.clientY,
-      startOffsetX: camera.offsetX,
-      startOffsetY: camera.offsetY,
+      startOffsetX: startCamera.offsetX,
+      startOffsetY: startCamera.offsetY,
       moved: false,
     };
     setIsPanning(true);
+    setIsGesturing(true);
   };
 
   const handlePointerMove = (event: CanvasPointerEvent) => {
@@ -301,11 +347,11 @@ export function IndexCanvas({
     const deltaX = event.clientX - gesture.startClientX;
     const deltaY = event.clientY - gesture.startClientY;
     if (Math.abs(deltaX) + Math.abs(deltaY) > 4) gesture.moved = true;
-    setCamera((current: CameraState) => ({
-      ...current,
+    applyCameraTransform({
+      ...cameraRef.current!,
       offsetX: gesture.startOffsetX + deltaX,
       offsetY: gesture.startOffsetY + deltaY,
-    }));
+    });
   };
 
   const finishPan = (event: CanvasPointerEvent) => {
@@ -365,7 +411,10 @@ export function IndexCanvas({
       }, 0);
     }
     panGestureRef.current = null;
+    // 平移手势结束：把手势期间直写的相机同步回 React 状态（一次性渲染），并恢复标签层
+    setCamera(cameraRef.current!);
     setIsPanning(false);
+    setIsGesturing(false);
   };
 
   const handleKeyDown = (event: CanvasKeyboardEvent) => {
@@ -389,7 +438,7 @@ export function IndexCanvas({
   return (
     <div
       ref={viewportRef}
-      className={`index-canvas${detailClass}${showOverviewLabels ? ' has-overview-labels' : ''}${isPanning ? ' is-panning' : ''}`}
+      className={`index-canvas${detailClass}${showOverviewLabels ? ' has-overview-labels' : ''}${isPanning ? ' is-panning' : ''}${isGesturing ? ' is-gesturing' : ''}`}
       tabIndex={0}
       aria-label={ariaLabel}
       onWheel={handleWheel}
@@ -418,6 +467,7 @@ export function IndexCanvas({
       }}
     >
       <div
+        ref={worldRef}
         className="index-canvas-world"
         style={{
           width: contentSize.width,

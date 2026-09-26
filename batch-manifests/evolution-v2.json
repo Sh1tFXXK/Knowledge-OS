@@ -1,0 +1,203 @@
+{
+  "batchId": "evolution-v2",
+  "title": "EVOLUTION-V2 · Timeline 从「知识库操作日志」改为「实体演化图」（清退 6 条 tree-refactor 操作日志 + 事件 schema 类型化 + UI 类型徽标）",
+  "baseRef": "9b45cf7",
+  "baseRefNote": "前序提交链：… → 83a3543（P-WEB 内容）→ 9b45cf7（p-web 登记 COMMITTED）。本批从 P-WEB 收口后的干净基线出发。按「一个批次 / 一个 manifest / 一个 writeSet / 一个 dry-run / 一个 apply / 一个独立验证 / 一个 commit」范式执行。",
+  "preBatchSnapshot": "data/backups/evolution-v2-2026-09-15T04-27-05-000Z",
+  "preBatchSnapshotNote": "快照含 5 个 data 文件（tree / pool / edges / evolution-events / questions），与 HEAD(9b45cf7) 逐字节相等（cmp 5/5，建快照时当场复核）。独立验证脚本不 import apply，由该快照 ↔ 工作树逐结构比对反推 ⇒ 快照是本批唯一的祖先证据。",
+  "commitSubjectHint": "data: EVOLUTION-V2 Timeline 从操作日志改为实体演化图 — 事件 8→2（清退 6 条 tree-refactor 操作日志）· schema 增 type 六类演化 · UI 类型徽标（独立验证 10/10 · UI 10/10）",
+  "status": "COMMITTED",
+  "commit": "f5ebe9c",
+  "committedAt": "2026-09-15T12:54:26+08:00",
+  "commitAcceptance": {
+    "readinessGates": "8/8 PASS（node scripts/verify-phase1-commit-readiness.mjs --batch evolution-v2）→ READY。证据快照 outputs/tree-violation-scan/readiness-evolution-v2.json（刻意不入库，已在 excludedSet 精确登记）。",
+    "appliedPathspec": "14 项 = writeSet，由就绪门原样输出未手写；提交实际 14 files changed, 734 insertions(+), 1050 deletions(-)（-1050 主要是 6 条操作日志事件的内容删除）。",
+    "stagedDeltaAudit": "data/evolution-events.json 事件 8→2，除 Spring 4/5 各加一行 type 外其余逐字不动；src 5 文件均为小幅增量；树/池/边/题库不在暂存区。",
+    "testBaselineAfterCommit": "tracked 基线 42→50（timeline-evolution.test.mjs 7 项 + data-validation 新 1 项入库），peer 回落 2（index-graph-layout）。下一次批次验收以 50 为准。"
+  },
+
+  "provenance": {
+    "trigger": "用户给出 Timeline 改造设计定稿：去掉用户操作历史/知识库变更历史，只保留「知识实体自身的演化」（release/introduce/deprecate/replace/split/merge 六类知识事件）。",
+    "userAdjudication": "2026-09-15 三项裁决：① 6 条 event:tree-refactor:* 操作日志**直接删除**（git 提交 + batch-manifests 已完整留痕，仓库史不靠 evolution-events.json 承载）；② evolution 数据**平铺事件表加 type** —— 且用户补了关键纪律：**事件表 = 事实源（append-only 唯一写入口），实体上的 evolution 字段只能是派生读模型**（本批不建实体侧快照字段，将来事件量大再上投影器）；③ 本批范围 = **清退 + 类型化**，版本链模型（belongsTo/previous，如 java17→java11）另立项。",
+    "designNotes": "现状核查：架构已满足「Timeline 不属于 Node Tree」（事件平铺、scopeRootId 指池实体、时态索引独立投影、EventDrawer 已有点击详情）；运行时无任何自动写事件的逻辑（store 只读）—— 污染源唯一：历史批次脚本写入的叙事留痕。判例：P-WEB 的 HTTP Request/Response 拆分**不是**知识 split 事件（现实世界概念从未分裂，是建库纠错），按两分法归 Repository History，由 git 留痕 —— 已随本批删除。"
+  },
+
+  "writeSet": [
+    "data/evolution-events.json",
+    "src/knowledge/timelineEvolution.ts",
+    "src/knowledge/dataValidation.ts",
+    "src/core/temporal/TemporalRail.tsx",
+    "src/core/temporal/EventDrawer.tsx",
+    "src/styles/timeline.css",
+    "scripts/apply-evolution-v2.mjs",
+    "scripts/verify-evolution-v2.mjs",
+    "scripts/timeline-evolution.test.mjs",
+    "scripts/data-validation.test.mjs",
+    "scripts/index-evolution.test.mjs",
+    "outputs/tree-violation-scan/evolution-v2-apply-report.md",
+    "outputs/tree-violation-scan/evolution-v2-ui-probe.md",
+    "batch-manifests/evolution-v2.json"
+  ],
+  "writeSetNote": "① 唯一数据写入 = `data/evolution-events.json`（8→2：删 6 条操作日志；Spring 4/5 各补 type:\"release\"，其余字段逐字不动）。② schema/校验/UI 五个 src 文件：timelineEvolution.ts 增 EvolutionEventType 六值联合 + type 必填 + normalize 严格丢弃无/非法 type 条目（操作日志不得以「无类型」形态复活）；dataValidation.ts 对非法 type 上报警告；TemporalRail/EventDrawer 加类型徽标；timeline.css 放徽标样式（**刻意不放 index-diagram.css** —— 该文件有外部会话在飞改动，本批不混入）。③ 三个测试文件：timeline-evolution.test.mjs 新增（7 项纯逻辑）；data-validation.test.mjs 补 1 项 type 卫生断言 + fixture 补 type；index-evolution.test.mjs fixture 补 type（断言语义不变 —— 契约变更是本批裁决内容，随源码同闭包提交）。④ 本批**不向 evolution-events.json 追加任何「本批自己的事件」**—— 那正是被清退的行为；批次史由本 manifest + git 承载。⑤ ⚠️ 治理规则落点说明：BATCH_MANIFEST.md §7-5 明文「模板与规范随治理提交」，故「批次脚本不得写操作日志事件进 evolution-events.json」这条卫生规则**不入本批 writeSet 改 docs**，其规范载体 = timelineEvolution.ts 头注 + 本 manifest + 项目记忆，待下一个治理批次补写进 docs。",
+  "writeSetPathspecNote": "git add 用本数组本身，由就绪门原样输出，不手写、不加通配。硬不变量 commitPathspec ≡ writeSet（pathspecGate）。",
+
+  "governanceSet": [],
+
+  "declaredExternalSet": [
+    ".gitignore",
+    "AGENTS.md",
+    "CONTEXT.md",
+    "README.md",
+    "STATE.md",
+    "docs/ARCHITECTURE.md",
+    "docs/PROJECT_INTRODUCTION.md",
+    "scripts/tree-utils.test.mjs",
+    "scripts/index-graph-layout.test.mjs",
+    "scripts/rename-evidence.mjs",
+    "scripts/scan-asplit-treeid-refs.mjs",
+    "src/core/TemporalIndexWorkspace.tsx",
+    "src/core/explanation-index/UnifiedIndexGraph.tsx",
+    "src/core/explanation-index/indexGraphLayout.ts",
+    "src/knowledge/explanationIndex.ts",
+    "src/knowledge/treeUtils.ts",
+    "src/store/useGraph.ts",
+    "src/styles/components.css",
+    "src/styles/index-diagram.css",
+    "outputs/rename-evidence/case-rc01.json",
+    "outputs/tree-violation-scan/asplit-treeid-ref-matrix.json",
+    "outputs/tree-violation-scan/batch-asplit-treeid-semanticization-plan.md",
+    "batch-manifests/t3-registration.json",
+    "batch-manifests/t5-rename-evidence.json"
+  ],
+  "declaredExternalSetNote": "与 p-web-http-scope 的登记**逐项一致**（同一批外部会话仍在飞：索引图/类图 + T5 + 文档），本批不认领、不提交、不碰。特别地：index-diagram.css 的在飞改动与本批无关 —— 本批徽标样式已主动避让到 timeline.css。⚠️ scripts/tree-utils.test.mjs 被外部会话修改过 → 验收测试口径只认 tracked 基线。",
+
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-evolution-v2.json",
+    "outputs/tree-violation-scan/readiness-p-web-http-scope.json",
+    "outputs/tree-violation-scan/readiness-t3-p2.json",
+    "outputs/tree-violation-scan/readiness-t3-p1.json",
+    "outputs/tree-violation-scan/readiness-phase1.json",
+    "outputs/tree-violation-scan/readiness-governance-v1.1.json",
+    "outputs/tree-violation-scan/readiness-nodepool-tag-normalization.json",
+    "outputs/tree-violation-scan/readiness-t3-dryrun.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.json",
+    "outputs/tree-violation-scan/readiness-t3-p0-apply.json",
+    "outputs/tree-violation-scan/readiness-t3-p0.1.json",
+    "outputs/tree-violation-scan/readiness-t3-registration.json",
+    "outputs/tree-violation-scan/readiness-t5-rename-evidence.json"
+  ],
+  "excludedSetNote": "全部精确路径，不用目录前缀不用通配。本批新增的真实排除只有 readiness-evolution-v2.json（就绪门自身产物，每次运行快照，刻意不入库）；其余沿用前序批次登记。",
+
+  "generatedArtifacts": [
+    "outputs/tree-violation-scan/evolution-v2-apply-report.md",
+    "outputs/tree-violation-scan/evolution-v2-ui-probe.md"
+  ],
+  "generatedArtifactsNote": "apply 报告由 apply 脚本落盘（11 闸门读数）；ui-probe.md 是一次性探针（scripts/shell-fusion/probe-evolution-v2.mjs，用后即删）的断言留档。",
+
+  "expectedDelta": {
+    "note": "本批只动 evolution-events.json 一个 data 文件；树/池/边/题库逐字节零改动（独立验证 V7 以快照逐字节比对证明 4/4）。",
+    "data/evolution-events.json": {
+      "before": 8,
+      "after": 2,
+      "removedEvents": [
+        "event:tree-refactor:phase1:1789371446647",
+        "event:tree-refactor:t3-p0:1789391683976",
+        "event:tree-refactor:t3-p0.1:1789393855508",
+        "event:tree-refactor:t3-p1:1789396485052",
+        "event:tree-refactor:t3-p2:1789399635504",
+        "event:tree-refactor:p-web-http-scope:1789403714212"
+      ],
+      "removedNote": "全部是批次操作日志（Repository History）：5 条 occurredAt = 2026-09-14 批次运行时刻，1 条（p-web）连 occurredAt 都没有 —— apply 预检 A6 自证。仓库史由 git 提交 + 各 batch-manifests 承载，删除无信息损失。",
+      "modifiedEvents": [
+        { "id": "event:spring:4", "change": "新增 type:\"release\"（置于 id 之后），其余字段逐字不变" },
+        { "id": "event:spring:5", "change": "新增 type:\"release\"（置于 id 之后），其余字段逐字不变" }
+      ],
+      "addedEvents": 0
+    },
+    "data/tree-data.json": "0 改动（独立验证 V7 逐字节比对 = 快照）",
+    "data/node-pool.json": "0 改动（同上）",
+    "data/knowledge-edges.json": "0 改动（同上）",
+    "data/questions.json": "0 改动（同上）"
+  },
+
+  "scopeRegistration": {
+    "inScope": "① 清退 6 条操作日志事件；② 事件 schema 类型化（EvolutionEventType 六值联合 + type 必填 + 严格 normalize + 数据卫生警告）；③ UI 类型徽标（TemporalRail 轨道/状态头 + EventDrawer 标题行）；④ 纯逻辑测试补齐",
+    "outOfScope_explicitly": [
+      "版本链模型（belongsTo/previous，如 java17→java11）—— 用户裁决另立项（要新建实体和边，属结构批次）",
+      "实体内嵌 evolution 派生读模型 / 投影器 —— 当前 2 条事件无读放大问题，将来事件量大再建",
+      "docs/BATCH_MANIFEST.md 的卫生规则条文 —— 按 §7-5 归治理批次（本批以代码头注 + manifest 承载规范）",
+      "时态索引视图的其它交互改造 —— 现有 TemporalRail/EventDrawer 结构保留，本批只加徽标"
+    ]
+  },
+
+  "testBaseline": {
+    "tracked": 43,
+    "peerAdded": 9,
+    "peerAddedFiles": ["scripts/index-graph-layout.test.mjs", "scripts/timeline-evolution.test.mjs"],
+    "workingTreeTotal": 52,
+    "acceptanceUses": "tracked",
+    "note": "批前基线 = tracked 42（6 文件）+ peer 2（index-graph-layout）= 44。本批：data-validation.test.mjs +1 项（tracked → 43）；timeline-evolution.test.mjs 新增 7 项（未跟踪，暂入 peer 列，随本批提交后 tracked 基线将变为 50、peer 回落 2）。就绪门实跑读数：tracked 43/43 · peer 9/9 · 合计 52。"
+  },
+
+  "gates": {
+    "applyGate": {
+      "artifact": "outputs/tree-violation-scan/evolution-v2-apply-report.md",
+      "verdict": "11/11（dry-run 6 门 + --apply 后置 5 门，两阶段全 PASS）",
+      "gates": [
+        { "id": "A1-count", "name": "现状恰为 8 条事件", "result": "PASS" },
+        { "id": "A2-repo-ids", "name": "6 条操作日志 id 与声明逐一相符", "result": "PASS" },
+        { "id": "A3-keep-ids", "name": "保留事件恰为 Spring 4 / Spring 5", "result": "PASS" },
+        { "id": "A4-keep-no-type", "name": "保留事件当前均无 type（补 type 才有意义）", "result": "PASS" },
+        { "id": "A5-keep-historical-time", "name": "保留事件 occurredAt 是真实历史时间（2013-12-12 / 2017-09-28）", "result": "PASS" },
+        { "id": "A6-repo-time", "name": "被删事件无真实历史时间（5 条 2026-09-14 批次时刻 + 1 条缺失 → 操作日志自证）", "result": "PASS" },
+        { "id": "P1-count", "name": "落盘后恰为 2 条", "result": "PASS" },
+        { "id": "P2-ids", "name": "落盘后 id 集合恰为 Spring 4/5", "result": "PASS" },
+        { "id": "P3-type", "name": "两条事件均带 type:\"release\"", "result": "PASS" },
+        { "id": "P4-untouched", "name": "除新增 type 外逐字段与原文 deep-equal", "result": "PASS" },
+        { "id": "P5-residue", "name": "tree-refactor 残留为 0", "result": "PASS" }
+      ],
+      "safetyNote": "apply 默认 dry-run，--apply 才写；writeJsonAtomic（原子写 + Windows EPERM 退化原地写）+ 缩进探测保持 2 空格 + 尾换行。落盘前已杀 5173 dev server（PID 33252，铁律 #1）并复查端口释放；备份快照 5 文件与 HEAD 逐字节相等。"
+    },
+    "independentVerification": {
+      "verdict": "INDEPENDENT_VERIFY_PASS 10/10",
+      "method": "scripts/verify-evolution-v2.mjs 不 import apply —— 由批前快照 ↔ 工作树逐结构比对反推；V1 用单进程 execFileSync git show + Buffer.compare 证明快照 ≡ HEAD（祖先证据成立）",
+      "highlights": [
+        "V1 快照 ≡ HEAD 逐字节（96719B）",
+        "V2 事件 8→2",
+        "V3 被删 id 集合恰为声明的 6 条，无夹带",
+        "V4 保留事件除新增 type 外逐字段与快照一致",
+        "V5 tree-refactor 残留 0",
+        "V6 现存事件 occurredAt 均为真实历史时间（防批次时刻混入的判别器）",
+        "V7 tree/pool/edges/questions 逐字节零改动 4/4",
+        "V8 负对照：旧快照数据经新 normalize 产出 0 条（操作日志不可能以无类型形态复活）",
+        "V9 正向：新数据 normalize → 2 条 release · Spring 作用域可取 2 条",
+        "V10 落盘格式（尾换行 + 2 空格缩进）未漂移"
+      ],
+      "instrumentDefectFixed": "V10 首跑 FAIL 是**量具缺陷**：断言写成 /^\\s{2}\"/，但顶层行是 `  {` 而非 `  \"`，永不命中 —— 文件本身正确（od -c 复核尾字节 `]\\n`）。修的是断言（改 /^ {2}\\{/m），不是期望值（宪法 §3.2）。"
+    },
+    "uiAcceptance": {
+      "verdict": "UI_VERIFY_PASS 10/10（含刷新后复测）",
+      "artifact": "outputs/tree-violation-scan/evolution-v2-ui-probe.md",
+      "method": "npm run build → vite preview :4192（KNOWLEDGE_OS_DATA_DIR=.tmp-evov2-ui，真源逐字节副本）→ 无头 Chromium CDP；探针用后即删",
+      "highlights": [
+        "U1 树挂载 3215 行（等待条件 = 精确 3215，修复 T3-P2 弱等待缺陷）",
+        "U2 选中 Spring 本体（scope = k_java_fw_spring）",
+        "U4 演化轨恰 2 个事件 tab，均带「发布」徽标",
+        "U5 操作日志标题（T3-/阶段一/P-WEB/tree-refactor）零出现",
+        "U6 点 Spring 5 → EventDrawer 打开：标题 + 发布徽标 + 4 张变化卡",
+        "U7 刷新后复测 U4（数据来自文件，证明持久化）"
+      ],
+      "productDefectCaught": "首跑 6/10 逼出一个**真缺陷**：TemporalRail 轨道按钮的徽标编辑虽曾报成功但**落盘丢失**（源文件只剩状态头徽标，dist 仅 2 处类名）—— 重新应用 + 重建后 dist 3 处、探针 10/10。另修一处**仪器缺陷**：U1 等待条件 rows>0 首帧即满足（rows=1），改为等 === 3215。",
+      "cssPlacementNote": "徽标样式最终放在 src/styles/timeline.css（批前干净文件）—— index-diagram.css 有外部会话在飞改动，本批样式先入后撤，避免把他人改动混进提交。"
+    },
+    "regression": "npx tsc --noEmit 0 错误 · npm run build ~6-10s · npm test 52/52（tracked 43/43 + peer 9/9；tracked 里有 2 处 fixture 因 schema 契约变更随批更新，新增 1 项 type 卫生断言）"
+  },
+
+  "acceptanceDecision": {
+    "apply": "11/11 APPLY_OK",
+    "independentVerify": "10/10 INDEPENDENT_VERIFY_PASS",
+    "ui": "10/10 UI_VERIFY_PASS",
+    "regression": "tsc 0 · test 52/52 · build OK",
+    "verdict": "全部验收门通过，数据已落盘，待就绪门 + 提交。"
+  }
+}

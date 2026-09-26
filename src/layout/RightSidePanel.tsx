@@ -1,10 +1,15 @@
 import { useEffect, useMemo, useState, type MouseEvent as ReactMouseEvent } from 'react';
-import { Check, Pencil, X } from 'lucide-react';
+import { Check, Pencil, Trash2, X } from 'lucide-react';
 import { useGraphStore } from '../store/useGraph';
-import { questionsForNode } from '../knowledge/questionLink';
+import {
+  questionsForNode,
+  QUESTION_DRAG_TYPE,
+  handleQuestionDropOnTree,
+} from '../knowledge/questionLink';
 import ExplanationCard from '../panels/ExplanationCard';
 import MarkdownView from '../panels/explanation/MarkdownView';
 import SystemConnectionMap from '../panels/SystemConnectionMap';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { collectKnowledgeReferences } from '../knowledge/nodeReferences';
 
 /** 右侧面板：解释卡 → 问题 → 系统连接图 */
@@ -18,7 +23,10 @@ export default function RightSidePanel({
   const nodePool = useGraphStore((s) => s.nodePool);
   const openCard = useGraphStore((s) => s.openCard);
   const answerQuestion = useGraphStore((s) => s.answerQuestion);
+  const removeQuestion = useGraphStore((s) => s.removeQuestion);
+  const updateQuestion = useGraphStore((s) => s.updateQuestion);
   const addNotification = useGraphStore((s) => s.addNotification);
+  const moveQuestionToNode = useGraphStore((s) => s.moveQuestionToNode);
 
   const siblingQuestions = useMemo(
     () => (focusNodeId ? questionsForNode(questions, focusNodeId) : []),
@@ -33,12 +41,17 @@ export default function RightSidePanel({
   );
   const [openQuestionId, setOpenQuestionId] = useState<string | null>(null);
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
+  const [draggingQuestionId, setDraggingQuestionId] = useState<string | null>(null);
   const [answerDraft, setAnswerDraft] = useState('');
+  const [renamingQuestionId, setRenamingQuestionId] = useState<string | null>(null);
+  const [titleDraft, setTitleDraft] = useState('');
 
   useEffect(() => {
     setOpenQuestionId(null);
     setEditingQuestionId(null);
     setAnswerDraft('');
+    setRenamingQuestionId(null);
+    setTitleDraft('');
   }, [focusNodeId]);
 
   const startAnswerEdit = (questionId: string, answer: string | undefined) => {
@@ -64,14 +77,59 @@ export default function RightSidePanel({
     addNotification('答案已保存', 'success');
   };
 
+  const deleteQuestion = (questionId: string, text: string) => {
+    if (window.confirm(`确定要删除问题"${text}"吗？`)) {
+      if (editingQuestionId === questionId) cancelAnswerEdit();
+      removeQuestion(questionId);
+      addNotification('问题已删除', 'success');
+    }
+  };
+
+  const startTitleEdit = (questionId: string, text: string) => {
+    if (editingQuestionId) cancelAnswerEdit();
+    setRenamingQuestionId(questionId);
+    setTitleDraft(text);
+  };
+
+  const cancelTitleEdit = () => {
+    setRenamingQuestionId(null);
+    setTitleDraft('');
+  };
+
+  const submitTitleEdit = (questionId: string, currentText: string) => {
+    const trimmed = titleDraft.trim();
+    if (trimmed && trimmed !== currentText) {
+      updateQuestion(questionId, trimmed);
+      addNotification('问题已重命名', 'success');
+    }
+    setRenamingQuestionId(null);
+    setTitleDraft('');
+  };
+
   return (
-    <aside className="right-panel" id="right-panel">
+    <aside
+      className="right-panel"
+      id="right-panel"
+      onDragOver={(event) => {
+        // 不 preventDefault 的话 drop 事件不会触发；问题卡在面板内释放走兜底提示
+        if (event.dataTransfer.types.includes(QUESTION_DRAG_TYPE)) event.preventDefault();
+      }}
+      onDrop={(event) => {
+        if (!event.dataTransfer.types.includes(QUESTION_DRAG_TYPE)) return;
+        event.preventDefault();
+        if (handleQuestionDropOnTree(event, moveQuestionToNode, addNotification)) {
+          event.stopPropagation();
+        }
+      }}
+    >
       <div
         className="right-panel-resize-handle"
         onMouseDown={onResizeStart}
         title="拖动调整右栏宽度"
       />
       <div className="right-panel-body">
+        {/* 右侧内容整体隔离：某个节点数据缺字段不应把整个应用一起卸载 */}
+        <ErrorBoundary key={`right:${focusNodeId ?? 'none'}`} scope="右栏内容">
         <ExplanationCard />
 
         {/* ── 问题区（与目录焦点联动） ── */}
@@ -91,19 +149,75 @@ export default function RightSidePanel({
               siblingQuestions.map((q) => {
                 const isOpen = openQuestionId === q.id;
                 const isEditing = editingQuestionId === q.id;
+                const isRenaming = renamingQuestionId === q.id;
                 return (
                   <article
                     key={q.id}
-                    className={`right-question-card${isOpen ? ' is-open' : ''}`}
+                    className={`right-question-card${isOpen ? ' is-open' : ''}${draggingQuestionId === q.id ? ' is-dragging' : ''}`}
+                    draggable
+                    onDragStart={(event) => {
+                      event.dataTransfer.effectAllowed = 'move';
+                      event.dataTransfer.setData(QUESTION_DRAG_TYPE, q.id);
+                      event.dataTransfer.setData('text/plain', q.id);
+                      setDraggingQuestionId(q.id);
+                    }}
+                    onDragEnd={() => setDraggingQuestionId(null)}
                   >
-                    <button
-                      type="button"
-                      className="right-question-card-trigger"
-                      aria-expanded={isOpen}
-                      onClick={() => toggleQuestion(q.id)}
-                    >
-                      <span className="right-question-card-question">{q.text}</span>
-                    </button>
+                    <div className="right-question-card-head">
+                      {isRenaming ? (
+                        <input
+                          className="right-question-rename-input"
+                          value={titleDraft}
+                          onChange={(event) => setTitleDraft(event.target.value)}
+                          onBlur={() => submitTitleEdit(q.id, q.text)}
+                          onKeyDown={(event) => {
+                            if (event.key === 'Enter') {
+                              event.preventDefault();
+                              submitTitleEdit(q.id, q.text);
+                            }
+                            if (event.key === 'Escape') {
+                              event.preventDefault();
+                              cancelTitleEdit();
+                            }
+                          }}
+                          autoFocus
+                          aria-label="重命名问题"
+                        />
+                      ) : (
+                        <>
+                          <button
+                            type="button"
+                            className="right-question-card-trigger"
+                            aria-expanded={isOpen}
+                            onClick={() => toggleQuestion(q.id)}
+                            onDoubleClick={() => startTitleEdit(q.id, q.text)}
+                            title="单击展开/收起，双击重命名"
+                          >
+                            <span className="right-question-card-question">{q.text}</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="btn-icon-sm right-question-rename"
+                            onClick={() => startTitleEdit(q.id, q.text)}
+                            title="重命名问题"
+                            aria-label="重命名问题"
+                          >
+                            <Pencil size={13} aria-hidden="true" />
+                          </button>
+                        </>
+                      )}
+                      {renamingQuestionId !== q.id && (
+                        <button
+                          type="button"
+                          className="btn-icon-sm right-question-delete"
+                          onClick={() => deleteQuestion(q.id, q.text)}
+                          title="删除问题"
+                          aria-label="删除问题"
+                        >
+                          <Trash2 size={13} aria-hidden="true" />
+                        </button>
+                      )}
+                    </div>
                     {isOpen && (
                       <div className="right-question-card-answer">
                         {isEditing ? (
@@ -181,6 +295,7 @@ export default function RightSidePanel({
         </div>
 
         <SystemConnectionMap />
+        </ErrorBoundary>
       </div>
     </aside>
   );

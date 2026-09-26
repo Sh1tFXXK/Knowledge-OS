@@ -1,0 +1,1275 @@
+{
+  "batchId": "nio-files-fusion",
+  "generatedAt": "2026-09-15T20:04:30.066Z",
+  "problems": [],
+  "aborted": false,
+  "roles": {
+    "SURVIVOR": {
+      "ref": "k_java_nio_file_files",
+      "tree": "tree_java_nio_file_files",
+      "label": "java.nio.file.Files",
+      "tabs": 32,
+      "methodTabs": 29,
+      "otherTabs": [
+        "def/定义(278)",
+        "comparison/与传统IO对比(287)",
+        "bestPractices/最佳实践(291)"
+      ],
+      "rootContentLen": 63,
+      "rootContent": "java.nio.file 包下的静态文件工具类，所有方法均为静态方法，配合 Path 使用，统一抛 IOException。",
+      "tags": [
+        "java.nio.file.Files",
+        "java",
+        "jdk",
+        "常用类库"
+      ]
+    },
+    "DONOR": {
+      "ref": "k_nio_files_util",
+      "tree": "tree_nio_files_util",
+      "label": "Files工具类",
+      "tabId": "def",
+      "tabLabel": "Files工具类",
+      "defLen": 4539,
+      "rowCount": 61,
+      "distinctNames": 49,
+      "rootContentLen": 0,
+      "tags": [
+        "Files工具类",
+        "java",
+        "NIO",
+        "Files",
+        "工具类",
+        "文件操作",
+        "java.nio.file"
+      ]
+    },
+    "GUIDE": {
+      "ref": "k_1787916226907_9aq9u6",
+      "tree": "tree_1787916227408_nkaljw",
+      "label": "常见用法",
+      "rootContentLen": 2131,
+      "tabs": 0,
+      "tags": [
+        "常见用法"
+      ]
+    },
+    "BEST": {
+      "ref": "k_1787916124192_mow0sq",
+      "tree": "tree_1787916125075_qsrbco",
+      "label": "最佳实践",
+      "rootContentLen": 723,
+      "tabs": 0,
+      "hasCode": true
+    }
+  },
+  "countReconciliation": {
+    "donorDistinctNames": 49,
+    "maskedNames": [
+      "poll"
+    ],
+    "maskedCount": 1,
+    "adjustedTotal": 50,
+    "overlap": 27,
+    "novelByNameOnly": 22,
+    "novelAdjusted": 23,
+    "note": "机械口径（每行只取首个方法名）会漏掉同行第二个调用；`maskedNames` 即被漏掉的名单，必须显式报出而不是悄悄取一个。"
+  },
+  "overlapDiff": [
+    {
+      "name": "copy",
+      "survivorTabLabel": "copy()",
+      "survivorLen": 84,
+      "survivorContent": "将文件从源路径复制到目标路径。\n\n`static Path copy(Path source, Path target, CopyOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- copy(Path source, Path target, CopyOption... options)：复制文件",
+          "key": "copy(Path,Path,CopyOption...)",
+          "prose": "复制文件"
+        },
+        {
+          "raw": "- copy(InputStream in, Path target, CopyOption... options)：从输入流复制到文件",
+          "key": "copy(InputStream,Path,CopyOption...)",
+          "prose": "从输入流复制到文件"
+        },
+        {
+          "raw": "- copy(Path source, OutputStream out)：从文件复制到输出流",
+          "key": "copy(Path,OutputStream)",
+          "prose": "从文件复制到输出流"
+        }
+      ],
+      "donorRowCount": 3,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "copy(InputStream,Path,CopyOption...)",
+        "copy(Path,OutputStream)"
+      ],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "move",
+      "survivorTabLabel": "move()",
+      "survivorLen": 78,
+      "survivorContent": "移动或重命名文件。\n\n`static Path move(Path source, Path target, CopyOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- move(Path source, Path target, CopyOption... options)：移动/重命名文件",
+          "key": "move(Path,Path,CopyOption...)",
+          "prose": "移动/重命名文件"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "delete",
+      "survivorTabLabel": "delete()",
+      "survivorLen": 38,
+      "survivorContent": "删除文件。\n\n`static void delete(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- delete(Path path)：删除文件或空目录（不存在抛异常）",
+          "key": "delete(Path)",
+          "prose": "删除文件或空目录（不存在抛异常）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "不存在抛异常"
+      ],
+      "addNote": [
+        "不存在抛异常"
+      ],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": true,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "deleteIfExists",
+      "survivorTabLabel": "deleteIfExists()",
+      "survivorLen": 54,
+      "survivorContent": "如果文件存在则删除。\n\n`static boolean deleteIfExists(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- deleteIfExists(Path path)：删除（不存在返回 false，不抛异常）",
+          "key": "deleteIfExists(Path)",
+          "prose": "删除（不存在返回 false，不抛异常）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "不存在返回 false，不抛异常"
+      ],
+      "addNote": [
+        "不存在返回 false，不抛异常"
+      ],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": true,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "exists",
+      "survivorTabLabel": "exists()",
+      "survivorLen": 68,
+      "survivorContent": "检查文件是否存在。\n\n`static boolean exists(Path path, LinkOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- boolean exists(Path path, LinkOption... options)：文件是否存在",
+          "key": "exists(Path,LinkOption...)",
+          "prose": "文件是否存在"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "isDirectory",
+      "survivorTabLabel": "isDirectory()",
+      "survivorLen": 74,
+      "survivorContent": "检查路径是否为目录。\n\n`static boolean isDirectory(Path path, LinkOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- boolean isDirectory(Path path, LinkOption... options)：是否为目录",
+          "key": "isDirectory(Path,LinkOption...)",
+          "prose": "是否为目录"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "isRegularFile",
+      "survivorTabLabel": "isRegularFile()",
+      "survivorLen": 78,
+      "survivorContent": "检查路径是否为常规文件。\n\n`static boolean isRegularFile(Path path, LinkOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- boolean isRegularFile(Path path, LinkOption... options)：是否为普通文件",
+          "key": "isRegularFile(Path,LinkOption...)",
+          "prose": "是否为普通文件"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "isReadable",
+      "survivorTabLabel": "isReadable()",
+      "survivorLen": 49,
+      "survivorContent": "检查文件是否可读。\n\n`static boolean isReadable(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- isReadable(Path path)：是否可读",
+          "key": "isReadable(Path)",
+          "prose": "是否可读"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "isWritable",
+      "survivorTabLabel": "isWritable()",
+      "survivorLen": 49,
+      "survivorContent": "检查文件是否可写。\n\n`static boolean isWritable(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- isWritable(Path path)：是否可写",
+          "key": "isWritable(Path)",
+          "prose": "是否可写"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "isExecutable",
+      "survivorTabLabel": "isExecutable()",
+      "survivorLen": 52,
+      "survivorContent": "检查文件是否可执行。\n\n`static boolean isExecutable(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- isExecutable(Path path)：是否可执行",
+          "key": "isExecutable(Path)",
+          "prose": "是否可执行"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "size",
+      "survivorTabLabel": "size()",
+      "survivorLen": 42,
+      "survivorContent": "返回文件大小（字节）。\n\n`static long size(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- size(Path path)：返回文件大小（字节）",
+          "key": "size(Path)",
+          "prose": "返回文件大小（字节）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "字节"
+      ],
+      "addNote": [],
+      "survivorNotes": [
+        "字节"
+      ],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "getLastModifiedTime",
+      "survivorTabLabel": "getLastModifiedTime()",
+      "survivorLen": 84,
+      "survivorContent": "获取文件最后修改时间。\n\n`static FileTime getLastModifiedTime(Path path, LinkOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- getLastModifiedTime(Path path, LinkOption... options)：获取最后修改时间",
+          "key": "getLastModifiedTime(Path,LinkOption...)",
+          "prose": "获取最后修改时间"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "readAllBytes",
+      "survivorTabLabel": "readAllBytes()",
+      "survivorLen": 50,
+      "survivorContent": "读取文件所有字节。\n\n`static byte[] readAllBytes(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- readAllBytes(Path path)：读取文件全部字节（byte[]）",
+          "key": "readAllBytes(Path)",
+          "prose": "读取文件全部字节（byte[]）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "byte[]"
+      ],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "readAllLines",
+      "survivorTabLabel": "readAllLines()",
+      "survivorLen": 122,
+      "survivorContent": "读取文件所有行，可指定字符集。\n\n`static List<String> readAllLines(Path path)` ／ `static List<String> readAllLines(Path path, Charset cs)`",
+      "donorRows": [
+        {
+          "raw": "- readAllLines(Path path)：读取文件所有行（List<String>），默认 UTF-8",
+          "key": "readAllLines(Path)",
+          "prose": "读取文件所有行（List<String>），默认 UTF-8"
+        },
+        {
+          "raw": "- readAllLines(Path path, Charset cs)：指定编码读取所有行",
+          "key": "readAllLines(Path,Charset)",
+          "prose": "指定编码读取所有行"
+        }
+      ],
+      "donorRowCount": 2,
+      "survivorSigCount": 2,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "List<String>"
+      ],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "write",
+      "survivorTabLabel": "write()",
+      "survivorLen": 177,
+      "survivorContent": "将字节或文本行写入文件。\n\n`static Path write(Path path, byte[] bytes, OpenOption... options)` ／ `static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- write(Path path, byte[] bytes, OpenOption... options)：写入字节数组",
+          "key": "write(Path,byte[],OpenOption...)",
+          "prose": "写入字节数组"
+        },
+        {
+          "raw": "- write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)：写入行集合",
+          "key": "write(Path,Iterable<?extendsCharSequence>,OpenOption...)",
+          "prose": "写入行集合"
+        }
+      ],
+      "donorRowCount": 2,
+      "survivorSigCount": 2,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "list",
+      "survivorTabLabel": "list()",
+      "survivorLen": 47,
+      "survivorContent": "列出目录中的条目。\n\n`static Stream<Path> list(Path dir)`",
+      "donorRows": [
+        {
+          "raw": "- list(Path dir)：返回目录下直接条目的 Stream<Path>（不递归）",
+          "key": "list(Path)",
+          "prose": "返回目录下直接条目的 Stream<Path>（不递归）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "不递归"
+      ],
+      "addNote": [
+        "不递归"
+      ],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": true,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "newDirectoryStream",
+      "survivorTabLabel": "newDirectoryStream()",
+      "survivorLen": 67,
+      "survivorContent": "打开目录流。\n\n`static DirectoryStream<Path> newDirectoryStream(Path dir)`",
+      "donorRows": [
+        {
+          "raw": "- newDirectoryStream(Path dir)：打开目录流（DirectoryStream<Path>）",
+          "key": "newDirectoryStream(Path)",
+          "prose": "打开目录流（DirectoryStream<Path>）"
+        },
+        {
+          "raw": "- newDirectoryStream(Path dir, String glob)：按 glob 模式过滤",
+          "key": "newDirectoryStream(Path,String)",
+          "prose": "按 glob 模式过滤"
+        },
+        {
+          "raw": "- newDirectoryStream(Path dir, DirectoryStream.Filter<? super Path> filter)：自定义过滤",
+          "key": "newDirectoryStream(Path,DirectoryStream.Filter<?superPath>)",
+          "prose": "自定义过滤"
+        }
+      ],
+      "donorRowCount": 3,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "newDirectoryStream(Path,String)",
+        "newDirectoryStream(Path,DirectoryStream.Filter<?superPath>)"
+      ],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "DirectoryStream<Path>"
+      ],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "createDirectory",
+      "survivorTabLabel": "createDirectory()",
+      "survivorLen": 75,
+      "survivorContent": "创建单级目录。\n\n`static Path createDirectory(Path dir, FileAttribute<?>... attrs)`",
+      "donorRows": [
+        {
+          "raw": "- createDirectory(Path dir, FileAttribute<?>... attrs)：创建单级目录",
+          "key": "createDirectory(Path,FileAttribute<?>...)",
+          "prose": "创建单级目录"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "createDirectories",
+      "survivorTabLabel": "createDirectories()",
+      "survivorLen": 90,
+      "survivorContent": "创建多级目录（包括所有不存在的父目录）。\n\n`static Path createDirectories(Path dir, FileAttribute<?>... attrs)`",
+      "donorRows": [
+        {
+          "raw": "- createDirectories(Path dir, FileAttribute<?>... attrs)：创建多级目录（含父目录）",
+          "key": "createDirectories(Path,FileAttribute<?>...)",
+          "prose": "创建多级目录（含父目录）"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "含父目录"
+      ],
+      "addNote": [
+        "含父目录"
+      ],
+      "survivorNotes": [
+        "包括所有不存在的父目录"
+      ],
+      "noteVariant": [
+        "含父目录"
+      ],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": true,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "createTempFile",
+      "survivorTabLabel": "createTempFile()",
+      "survivorLen": 104,
+      "survivorContent": "创建临时文件。\n\n`static Path createTempFile(Path dir, String prefix, String suffix, FileAttribute<?>... attrs)`",
+      "donorRows": [
+        {
+          "raw": "- createTempFile(String prefix, String suffix, FileAttribute<?>... attrs)：创建临时文件",
+          "key": "createTempFile(String,String,FileAttribute<?>...)",
+          "prose": "创建临时文件"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "createTempFile(String,String,FileAttribute<?>...)"
+      ],
+      "survivorOnlySigs": [
+        "createTempFile(Path,String,String,FileAttribute<?>...)"
+      ],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": true
+      }
+    },
+    {
+      "name": "createTempDirectory",
+      "survivorTabLabel": "createTempDirectory()",
+      "survivorLen": 94,
+      "survivorContent": "创建临时目录。\n\n`static Path createTempDirectory(Path dir, String prefix, FileAttribute<?>... attrs)`",
+      "donorRows": [
+        {
+          "raw": "- createTempDirectory(String prefix, FileAttribute<?>... attrs)：创建临时目录",
+          "key": "createTempDirectory(String,FileAttribute<?>...)",
+          "prose": "创建临时目录"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "createTempDirectory(String,FileAttribute<?>...)"
+      ],
+      "survivorOnlySigs": [
+        "createTempDirectory(Path,String,FileAttribute<?>...)"
+      ],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": true
+      }
+    },
+    {
+      "name": "newInputStream",
+      "survivorTabLabel": "newInputStream()",
+      "survivorLen": 79,
+      "survivorContent": "打开文件输入流。\n\n`static InputStream newInputStream(Path path, OpenOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- newInputStream(Path path, OpenOption... options)：打开输入流",
+          "key": "newInputStream(Path,OpenOption...)",
+          "prose": "打开输入流"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "newOutputStream",
+      "survivorTabLabel": "newOutputStream()",
+      "survivorLen": 81,
+      "survivorContent": "打开文件输出流。\n\n`static OutputStream newOutputStream(Path path, OpenOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- newOutputStream(Path path, OpenOption... options)：打开输出流",
+          "key": "newOutputStream(Path,OpenOption...)",
+          "prose": "打开输出流"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "newBufferedReader",
+      "survivorTabLabel": "newBufferedReader()",
+      "survivorLen": 62,
+      "survivorContent": "打开缓冲读取器。\n\n`static BufferedReader newBufferedReader(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- newBufferedReader(Path path)：打开 BufferedReader（默认 UTF-8）",
+          "key": "newBufferedReader(Path)",
+          "prose": "打开 BufferedReader（默认 UTF-8）"
+        },
+        {
+          "raw": "- newBufferedReader(Path path, Charset cs)：指定编码打开 BufferedReader",
+          "key": "newBufferedReader(Path,Charset)",
+          "prose": "指定编码打开 BufferedReader"
+        }
+      ],
+      "donorRowCount": 2,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "newBufferedReader(Path,Charset)"
+      ],
+      "survivorOnlySigs": [],
+      "donorNotes": [
+        "默认 UTF-8"
+      ],
+      "addNote": [
+        "默认 UTF-8"
+      ],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": true,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "newBufferedWriter",
+      "survivorTabLabel": "newBufferedWriter()",
+      "survivorLen": 85,
+      "survivorContent": "打开缓冲写入器。\n\n`static BufferedWriter newBufferedWriter(Path path, OpenOption... options)`",
+      "donorRows": [
+        {
+          "raw": "- newBufferedWriter(Path path, OpenOption... options)：打开 BufferedWriter",
+          "key": "newBufferedWriter(Path,OpenOption...)",
+          "prose": "打开 BufferedWriter"
+        },
+        {
+          "raw": "- newBufferedWriter(Path path, Charset cs, OpenOption... options)：指定编码打开 BufferedWriter",
+          "key": "newBufferedWriter(Path,Charset,OpenOption...)",
+          "prose": "指定编码打开 BufferedWriter"
+        }
+      ],
+      "donorRowCount": 2,
+      "survivorSigCount": 1,
+      "missingSigs": [
+        "newBufferedWriter(Path,Charset,OpenOption...)"
+      ],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": true,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "createFile",
+      "survivorTabLabel": "createFile()",
+      "survivorLen": 70,
+      "survivorContent": "创建新文件。\n\n`static Path createFile(Path path, FileAttribute<?>... attrs)`",
+      "donorRows": [
+        {
+          "raw": "- createFile(Path path, FileAttribute<?>... attrs)：创建文件",
+          "key": "createFile(Path,FileAttribute<?>...)",
+          "prose": "创建文件"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    },
+    {
+      "name": "probeContentType",
+      "survivorTabLabel": "probeContentType()",
+      "survivorLen": 54,
+      "survivorContent": "探测文件内容类型。\n\n`static String probeContentType(Path path)`",
+      "donorRows": [
+        {
+          "raw": "- probeContentType(Path path)：探测文件 MIME 类型",
+          "key": "probeContentType(Path)",
+          "prose": "探测文件 MIME 类型"
+        }
+      ],
+      "donorRowCount": 1,
+      "survivorSigCount": 1,
+      "missingSigs": [],
+      "survivorOnlySigs": [],
+      "donorNotes": [],
+      "addNote": [],
+      "survivorNotes": [],
+      "noteVariant": [],
+      "precision": {
+        "MISSING_SIG": false,
+        "ADD_NOTE": false,
+        "NOTE_VARIANT": false,
+        "SURVIVOR_ONLY_SIG": false
+      }
+    }
+  ],
+  "verdictCounts": {
+    "missingSig": 6,
+    "addNote": 4,
+    "noteVariant": 1,
+    "survivorOnlySig": 2,
+    "cleanEquivalent": 17
+  },
+  "novelMethods": {
+    "all": [
+      "notExists",
+      "isSymbolicLink",
+      "isHidden",
+      "createSymbolicLink",
+      "createLink",
+      "readString",
+      "writeString",
+      "walk",
+      "walkFileTree",
+      "setLastModifiedTime",
+      "getOwner",
+      "setOwner",
+      "getAttribute",
+      "setAttribute",
+      "readAttributes",
+      "isSameFile",
+      "getFileStore",
+      "getPosixFilePermissions",
+      "setPosixFilePermissions",
+      "newWatchService",
+      "register",
+      "take",
+      "poll"
+    ],
+    "allByNameOnly": [
+      "notExists",
+      "isSymbolicLink",
+      "isHidden",
+      "createSymbolicLink",
+      "createLink",
+      "readString",
+      "writeString",
+      "walk",
+      "walkFileTree",
+      "setLastModifiedTime",
+      "getOwner",
+      "setOwner",
+      "getAttribute",
+      "setAttribute",
+      "readAttributes",
+      "isSameFile",
+      "getFileStore",
+      "getPosixFilePermissions",
+      "setPosixFilePermissions",
+      "newWatchService",
+      "register",
+      "take"
+    ],
+    "filesStatic": [
+      {
+        "name": "notExists",
+        "row": "- boolean notExists(Path path, LinkOption... options)：文件是否不存在"
+      },
+      {
+        "name": "isSymbolicLink",
+        "row": "- boolean isSymbolicLink(Path path)：是否为符号链接"
+      },
+      {
+        "name": "isHidden",
+        "row": "- boolean isHidden(Path path)：是否为隐藏文件"
+      },
+      {
+        "name": "createSymbolicLink",
+        "row": "- createSymbolicLink(Path link, Path target, FileAttribute<?>... attrs)：创建符号链接"
+      },
+      {
+        "name": "createLink",
+        "row": "- createLink(Path link, Path existing)：创建硬链接"
+      },
+      {
+        "name": "readString",
+        "row": "- readString(Path path)：读取文件为字符串（Java 11+）"
+      },
+      {
+        "name": "writeString",
+        "row": "- writeString(Path path, CharSequence csq, OpenOption... options)：写入字符串（Java 11+）"
+      },
+      {
+        "name": "walk",
+        "row": "- walk(Path start, FileVisitOption... options)：递归遍历目录树（Stream<Path>）"
+      },
+      {
+        "name": "walkFileTree",
+        "row": "- walkFileTree(Path start, FileVisitor<? super Path> visitor)：使用访问者模式遍历"
+      },
+      {
+        "name": "setLastModifiedTime",
+        "row": "- setLastModifiedTime(Path path, FileTime time)：设置最后修改时间"
+      },
+      {
+        "name": "getOwner",
+        "row": "- getOwner(Path path, LinkOption... options)：获取文件所有者"
+      },
+      {
+        "name": "setOwner",
+        "row": "- setOwner(Path path, UserPrincipal owner)：设置文件所有者"
+      },
+      {
+        "name": "getAttribute",
+        "row": "- getAttribute(Path path, String attribute, LinkOption... options)：获取指定属性"
+      },
+      {
+        "name": "setAttribute",
+        "row": "- setAttribute(Path path, String attribute, Object value, LinkOption... options)：设置属性"
+      },
+      {
+        "name": "readAttributes",
+        "row": "- readAttributes(Path path, Class<A> type, LinkOption... options)：读取属性视图"
+      },
+      {
+        "name": "isSameFile",
+        "row": "- isSameFile(Path path, Path path2)：判断两个路径是否指向同一文件"
+      },
+      {
+        "name": "getFileStore",
+        "row": "- getFileStore(Path path)：获取文件所在的 FileStore（磁盘分区）"
+      },
+      {
+        "name": "getPosixFilePermissions",
+        "row": "- getPosixFilePermissions(Path path, LinkOption... options)：获取 POSIX 权限（Unix）"
+      },
+      {
+        "name": "setPosixFilePermissions",
+        "row": "- setPosixFilePermissions(Path path, Set<PosixFilePermission> perms)：设置 POSIX 权限"
+      }
+    ],
+    "nonFiles": [
+      {
+        "name": "newWatchService",
+        "receiver": "FileSystem",
+        "row": "- FileSystem.newWatchService()：创建监听服务"
+      },
+      {
+        "name": "register",
+        "receiver": "Path",
+        "row": "- Path.register(WatchService watcher, WatchEvent.Kind<?>... events)：注册监听"
+      },
+      {
+        "name": "take",
+        "receiver": "watchService",
+        "row": "- 通过 watchService.take()/poll() 获取变更事件"
+      },
+      {
+        "name": "poll",
+        "receiver": "watchService",
+        "row": "- 通过 watchService.take()/poll() 获取变更事件"
+      }
+    ],
+    "maskedExtra": [
+      "poll"
+    ]
+  },
+  "donorAssets": {
+    "sections": [
+      "文件存在与类型判断",
+      "创建与删除",
+      "复制与移动",
+      "文件读写",
+      "目录遍历",
+      "文件属性",
+      "其他实用方法",
+      "WatchService（文件变更监听）"
+    ],
+    "sectionCount": 8,
+    "leadLines": [
+      "java.nio.file.Files 是 NIO.2 提供的文件操作工具类，包含大量静态方法，是 java.io.File 的增强替代。"
+    ],
+    "bareHeaders": [
+      "CopyOption：",
+      "OpenOption：",
+      "属性视图："
+    ],
+    "enumConstants": [
+      "StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标",
+      "StandardCopyOption.COPY_ATTRIBUTES：复制文件属性",
+      "StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）",
+      "LinkOption.NOFOLLOW_LINKS：不跟随符号链接",
+      "StandardOpenOption.READ：读模式",
+      "StandardOpenOption.WRITE：写模式",
+      "StandardOpenOption.APPEND：追加模式",
+      "StandardOpenOption.TRUNCATE_EXISTING：截断已有文件",
+      "StandardOpenOption.CREATE：不存在则创建",
+      "StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常",
+      "StandardOpenOption.DELETE_ON_CLOSE：关闭时删除"
+    ],
+    "viewRefs": [
+      "BasicFileAttributeView：基本属性（所有平台）",
+      "DosFileAttributeView：DOS 属性（Windows）",
+      "PosixFileAttributeView：POSIX 属性（Unix/Linux，含权限）",
+      "AclFileAttributeView：ACL 权限",
+      "FileOwnerAttributeView：所有者"
+    ],
+    "prose": [
+      "监听事件：ENTRY_CREATE、ENTRY_DELETE、ENTRY_MODIFY、OVERFLOW",
+      "可用于热部署、文件同步、配置变更监听等场景"
+    ],
+    "unclassified": [
+      "java.nio.file.Files 是 NIO.2 提供的文件操作工具类，包含大量静态方法，是 java.io.File 的增强替代。",
+      "CopyOption：",
+      "OpenOption：",
+      "属性视图："
+    ],
+    "enumConsumedBySurvivor": [
+      "StandardCopyOption.REPLACE_EXISTING：覆盖已存在的目标",
+      "StandardOpenOption.APPEND：追加模式"
+    ],
+    "enumUnconsumedBySurvivor": [
+      "StandardCopyOption.COPY_ATTRIBUTES：复制文件属性",
+      "StandardCopyOption.ATOMIC_MOVE：原子移动（move 专用）",
+      "LinkOption.NOFOLLOW_LINKS：不跟随符号链接",
+      "StandardOpenOption.READ：读模式",
+      "StandardOpenOption.WRITE：写模式",
+      "StandardOpenOption.TRUNCATE_EXISTING：截断已有文件",
+      "StandardOpenOption.CREATE：不存在则创建",
+      "StandardOpenOption.CREATE_NEW：不存在则创建，已存在抛异常",
+      "StandardOpenOption.DELETE_ON_CLOSE：关闭时删除"
+    ]
+  },
+  "guideAudit": {
+    "totalChars": 2131,
+    "lines": 38,
+    "sectionHeaders": 7,
+    "leadLines": 1,
+    "methodEntryLines": 30,
+    "methodEntryNames": 29,
+    "codeFragmentGate": {
+      "pass": true,
+      "count": 0,
+      "lines": [],
+      "note": "未发现 `Xxx.method(实参)` 调用、try/catch、语句分号 ⇒ 全部是「签名：一句话」声明式条目"
+    },
+    "landingGate": {
+      "pass": false,
+      "count": 5,
+      "lines": [
+        {
+          "line": "- static boolean isDirectory(Path path, LinkOption... options)：检查是否为目录",
+          "prose": "检查是否为目录"
+        },
+        {
+          "line": "- static boolean isRegularFile(Path path, LinkOption... options)：检查是否为常规文件",
+          "prose": "检查是否为常规文件"
+        },
+        {
+          "line": "- static Path write(Path path, byte[] bytes, OpenOption... options)：将字节写入文件",
+          "prose": "将字节写入文件"
+        },
+        {
+          "line": "- static Path write(Path path, Iterable<? extends CharSequence> lines, OpenOption... options)：将文本行写入文件",
+          "prose": "将文本行写入文件"
+        },
+        {
+          "line": "- static SeekableByteChannel newByteChannel(Path path, OpenOption... options)：打开可查找的字节通道",
+          "prose": "打开可查找的字节通道"
+        }
+      ],
+      "note": "5 条说明两侧语料均无逐字落点 ⇒ 须人工确认是否同义改写（同义改写不构成信息增量，但机械判据不能替你定性）"
+    },
+    "malformedLines": [
+      "-static Path copy(Path source, Path target, CopyOption... options)：复制文件"
+    ],
+    "deletable": false
+  },
+  "tagMerge": {
+    "survivor": [
+      "java.nio.file.Files",
+      "java",
+      "jdk",
+      "常用类库"
+    ],
+    "donor": [
+      "Files工具类",
+      "java",
+      "NIO",
+      "Files",
+      "工具类",
+      "文件操作",
+      "java.nio.file"
+    ],
+    "add": [
+      "Files工具类",
+      "NIO",
+      "Files",
+      "工具类",
+      "文件操作",
+      "java.nio.file"
+    ]
+  },
+  "refScan": [
+    {
+      "role": "Files工具类",
+      "ref": "k_nio_files_util",
+      "tree": "tree_nio_files_util",
+      "poolRefs": [],
+      "poolRefCount": 0,
+      "treeRefs": [],
+      "treeRefCount": 0,
+      "edgeRefs": [
+        "treebind:tree_java_common_libraries:tree_nio_files_util"
+      ],
+      "edgeRefCount": 1,
+      "ownParentEdgeId": "treebind:tree_java_common_libraries:tree_nio_files_util",
+      "safeToDelete": true
+    },
+    {
+      "role": "常见用法",
+      "ref": "k_1787916226907_9aq9u6",
+      "tree": "tree_1787916227408_nkaljw",
+      "poolRefs": [],
+      "poolRefCount": 0,
+      "treeRefs": [],
+      "treeRefCount": 0,
+      "edgeRefs": [
+        "treebind:tree_java_nio_file_files:tree_1787916227408_nkaljw"
+      ],
+      "edgeRefCount": 1,
+      "ownParentEdgeId": "treebind:tree_java_nio_file_files:tree_1787916227408_nkaljw",
+      "safeToDelete": true
+    }
+  ],
+  "projection": {
+    "survivorTabsNow": 32,
+    "survivorMethodTabsNow": 29,
+    "novelAll": 23,
+    "novelByNameOnly": 22,
+    "novelFilesStatic": 19,
+    "novelNonFiles": 4,
+    "maskedExtra": 1,
+    "plan1AllTabs": 55,
+    "plan1AllTabsWithAssets": 56,
+    "plan1StrictFilesTabs": 51,
+    "plan1StrictFilesTabsWithAssets": 52,
+    "plan1StrictFilesTabsWithAssetsAndWatcher": 53,
+    "globalMax": 36,
+    "globalSecond": 32,
+    "over32Now": 1
+  },
+  "delta": {
+    "tree": -2,
+    "pool": -2,
+    "edges": -2,
+    "reason": "删 DONOR（tree −1 / pool −1 / 其 treebind 父边 −1）+ 删 GUIDE（tree −1 / pool −1 / 其 treebind 父边 −1）",
+    "after": {
+      "tree": 3203,
+      "pool": 3850,
+      "edges": 4155
+    }
+  },
+  "residualDecisions": [
+    {
+      "id": "D7",
+      "q": "DONOR 的非方法资产落点（方案①未涉及）",
+      "detail": "枚常量 11 + 视图类引用 5 + 说明 2 + 保节 8 + 裸小标题 4"
+    },
+    {
+      "id": "D8",
+      "q": "DONOR 的 tags 是否并入 SURVIVOR",
+      "detail": "DONOR 独有 tag 6 个"
+    },
+    {
+      "id": "D9",
+      "q": "非 Files 归属的方法（WatchService 段落）如何处置",
+      "detail": "FileSystem.newWatchService / Path.register / watchService.take / watchService.poll"
+    }
+  ]
+}

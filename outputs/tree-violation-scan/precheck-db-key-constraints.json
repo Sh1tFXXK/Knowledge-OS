@@ -1,0 +1,2135 @@
+{
+  "generatedAt": "2026-09-16T12:44:22.762Z",
+  "mode": "READ_ONLY",
+  "batchCandidateId": "db-key-constraint-relocation",
+  "scope": {
+    "rootTreeId": "demo_db",
+    "rootRef": "n_u4va719e",
+    "rootPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库",
+    "level1Count": 30,
+    "subtreeNodes": 1040,
+    "chapterItems": [
+      {
+        "id": "chapter_db_01",
+        "name": "数据库系统",
+        "ref": "container:chapter_db_01"
+      },
+      {
+        "id": "chapter_db_02",
+        "name": "数据模型",
+        "ref": "container:chapter_db_02"
+      },
+      {
+        "id": "chapter_db_03",
+        "name": "数据库结构",
+        "ref": "container:chapter_db_03"
+      },
+      {
+        "id": "chapter_db_05",
+        "name": "数据库操作",
+        "ref": "container:chapter_db_05"
+      },
+      {
+        "id": "chapter_db_06",
+        "name": "查询系统",
+        "ref": "container:chapter_db_06"
+      },
+      {
+        "id": "chapter_db_07",
+        "name": "数据库事务",
+        "ref": "container:chapter_db_07"
+      },
+      {
+        "id": "chapter_db_08",
+        "name": "恢复系统",
+        "ref": "container:chapter_db_08"
+      },
+      {
+        "id": "chapter_db_09",
+        "name": "日志系统",
+        "ref": "container:chapter_db_09"
+      },
+      {
+        "id": "chapter_db_10",
+        "name": "存储系统",
+        "ref": "container:chapter_db_10"
+      },
+      {
+        "id": "chapter_db_11",
+        "name": "索引",
+        "ref": "container:chapter_db_11"
+      },
+      {
+        "id": "chapter_db_12",
+        "name": "数据表示",
+        "ref": "container:chapter_db_12"
+      },
+      {
+        "id": "chapter_db_13",
+        "name": "数据库设计",
+        "ref": "container:chapter_db_13"
+      },
+      {
+        "id": "chapter_db_14",
+        "name": "数据库分布与复制",
+        "ref": "container:chapter_db_14"
+      },
+      {
+        "id": "chapter_db_16",
+        "name": "数据库安全",
+        "ref": "container:chapter_db_16"
+      },
+      {
+        "id": "chapter_db_17",
+        "name": "数据库运维",
+        "ref": "container:chapter_db_17"
+      },
+      {
+        "id": "chapter_db_18",
+        "name": "数据库编程与接口",
+        "ref": "container:chapter_db_18"
+      },
+      {
+        "id": "chapter_db_19",
+        "name": "数据库产品",
+        "ref": "container:chapter_db_19"
+      },
+      {
+        "id": "chapter_db_20",
+        "name": "数据库文件与实现",
+        "ref": "container:chapter_db_20"
+      }
+    ]
+  },
+  "decisions": {
+    "a_primaryKey": "不融合：键与约束只挂 concept_primary_key；散装份先逐字段比对，有独有资产则迁入后删（本批只归位）",
+    "b_surrogateKeyWiki": "本批不摘维基重复挂载（L4 跨区级），登记为独立债"
+  },
+  "counts": {
+    "treeNodes": 3203,
+    "poolNodes": 3850,
+    "edges": 4155,
+    "treebindEdges": 2647,
+    "treeprojectionEdges": 0,
+    "danglingTreebindTargets": 17,
+    "belongsToContainsNonTreebind": 430,
+    "treebindPrefixAnomalies": 9,
+    "belongsToNonContainsLabel": 25,
+    "refLessTreeNodes": 0,
+    "pseudoRefCensus": {
+      "container": 20,
+      "n": 9,
+      "projection": 0,
+      "other": 3084
+    },
+    "demoDbLevel1": 30,
+    "chapterItems": 18,
+    "looseItems": 12,
+    "looseWithoutUpstreamTreebind": 0,
+    "keyFamilyWithoutUpstreamTreebind": 0
+  },
+  "items": [
+    {
+      "treeId": "tree_concept_surrogate_key",
+      "name": "代理键 / surrogate key",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 代理键 / surrogate key",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_surrogate_key",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "代理键 / surrogate key",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_mysql_instance_concept_surrogate_key_0",
+          "name": "MySQL 合成键 / MySQL synthetic key",
+          "ref": "mysql_glossary_synthetic_key_1drbjs"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_surrogate_key",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_surrogate_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_surrogate_key",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_surrogate_key:instance-of:mysql_glossary_synthetic_key_1drbjs",
+            "source": "mysql_glossary_synthetic_key_1drbjs",
+            "target": "concept_surrogate_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_natural_key",
+      "name": "自然键 / natural key",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 自然键 / natural key",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_natural_key",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "自然键 / natural key",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_mysql_instance_concept_natural_key_0",
+          "name": "MySQL 自然键 / MySQL natural key",
+          "ref": "mysql_glossary_natural_key_tddcrt"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_natural_key",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_natural_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_natural_key",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_natural_key:instance-of:mysql_glossary_natural_key_tddcrt",
+            "source": "mysql_glossary_natural_key_tddcrt",
+            "target": "concept_natural_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_unique_key",
+      "name": "唯一键 / unique key",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 唯一键 / unique key",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_unique_key",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "唯一键 / unique key",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_mysql_instance_concept_unique_key_1",
+          "name": "MySQL 唯一约束 / MySQL unique constraint",
+          "ref": "mysql_glossary_unique_constraint_cvzep"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_unique_key",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_unique_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_unique_key",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_unique_key:instance-of:mysql_glossary_unique_constraint_cvzep",
+            "source": "mysql_glossary_unique_constraint_cvzep",
+            "target": "concept_unique_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_foreign_key",
+      "name": "外键 / foreign key",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 外键 / foreign key",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_foreign_key",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "外键 / foreign key",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_mysql_instance_concept_foreign_key_0",
+          "name": "MySQL 外键 / MySQL foreign key",
+          "ref": "k_dict_lnpi0qrg"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_foreign_key",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_foreign_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_foreign_key",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_foreign_key:instance-of:k_dict_lnpi0qrg",
+            "source": "k_dict_lnpi0qrg",
+            "target": "concept_foreign_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_not_null_constraint",
+      "name": "NOT NULL 约束 / NOT NULL constraint",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > NOT NULL 约束 / NOT NULL constraint",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_not_null_constraint",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "NOT NULL 约束 / NOT NULL constraint",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_mysql_instance_concept_not_null_constraint_0",
+          "name": "MySQL NOT NULL 约束 / MySQL NOT NULL constraint",
+          "ref": "mysql_glossary_not_null_constraint_1op7sq"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_not_null_constraint",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_not_null_constraint"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_not_null_constraint",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_not_null_constraint:instance-of:mysql_glossary_not_null_constraint_1op7sq",
+            "source": "mysql_glossary_not_null_constraint_1op7sq",
+            "target": "concept_not_null_constraint",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [
+          {
+            "id": "q_sql_notes_4",
+            "kind": "related"
+          }
+        ],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_guid",
+      "name": "全局唯一标识符 / GUID",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 全局唯一标识符 / GUID",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "concept_guid",
+      "poolExists": true,
+      "poolKind": "Concept",
+      "poolLabel": "全局唯一标识符 / GUID",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "projection:mysql-term:mysql_glossary_guid_bmsoy4",
+          "name": "MySQL GUID",
+          "ref": "mysql_glossary_guid_bmsoy4"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_guid",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_guid"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_guid",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_guid:instance-of:mysql_glossary_guid_bmsoy4",
+            "source": "mysql_glossary_guid_bmsoy4",
+            "target": "concept_guid",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "projection:mysql-term:k_dict_fxoirizf",
+      "name": "NULL",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > NULL",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "k_dict_fxoirizf",
+      "poolExists": true,
+      "poolKind": null,
+      "poolLabel": "NULL",
+      "childCount": 0,
+      "children": [],
+      "upstreamEdge": "treebind:demo_db:projection:mysql-term:k_dict_fxoirizf",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 2,
+        "treeMountIds": [
+          "projection:mysql-term:k_dict_fxoirizf",
+          "mysql_term_three_valued_logic_null_plui03"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:theory_domain_three_valued_logic:mysql_term_three_valued_logic_null_plui03",
+            "source": "theory_domain_three_valued_logic"
+          },
+          {
+            "id": "treebind:demo_db:projection:mysql-term:k_dict_fxoirizf",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [],
+        "poolAtoms": [
+          {
+            "owner": "mysql_glossary_group_misc",
+            "dimId": "misc_terms",
+            "sectionId": "misc_primary_terms"
+          }
+        ],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": true
+    },
+    {
+      "treeId": "tree_1788179275561_216qli",
+      "name": "主键",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 主键",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "k_1788179275554_knwq7e",
+      "poolExists": true,
+      "poolKind": null,
+      "poolLabel": "主键",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_pk_choice",
+          "name": "主键类型选择：自增 vs UUID",
+          "ref": "pk_choice"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_1788179275561_216qli",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_1788179275561_216qli"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_1788179275561_216qli",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [],
+        "poolAtoms": [],
+        "questions": [
+          {
+            "id": "q_1788337298962_u11dl8",
+            "kind": "related"
+          }
+        ],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "atomic_atomic_database_backup",
+      "name": "数据库备份",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库备份",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "atomic_database_backup",
+      "poolExists": true,
+      "poolKind": "concept",
+      "poolLabel": "数据库备份",
+      "childCount": 0,
+      "children": [],
+      "upstreamEdge": "treebind:demo_db:atomic_atomic_database_backup",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "atomic_atomic_database_backup"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:atomic_atomic_database_backup",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "atomic:s4:restore-backup",
+            "source": "atomic_database_restore",
+            "target": "atomic_database_backup",
+            "type": "依赖",
+            "relationKind": "dependency"
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "atomic_atomic_database_restore",
+      "name": "数据库恢复",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库恢复",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "atomic_database_restore",
+      "poolExists": true,
+      "poolKind": "concept",
+      "poolLabel": "数据库恢复",
+      "childCount": 0,
+      "children": [],
+      "upstreamEdge": "treebind:demo_db:atomic_atomic_database_restore",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "atomic_atomic_database_restore"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:atomic_atomic_database_restore",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "atomic:s4:restore-backup",
+            "source": "atomic_database_restore",
+            "target": "atomic_database_backup",
+            "type": "依赖",
+            "relationKind": "dependency"
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_wiki_en_database_s16",
+      "name": "贮存",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 贮存",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": true
+      },
+      "ref": "k_wiki_en_database_s16",
+      "poolExists": true,
+      "poolKind": null,
+      "poolLabel": "贮存",
+      "childCount": 2,
+      "children": [
+        {
+          "id": "tree_wiki_en_database_s16_s18",
+          "name": "复制",
+          "ref": "k_wiki_en_database_s18"
+        },
+        {
+          "id": "tree_wiki_en_database_s16_s19",
+          "name": "虚拟化",
+          "ref": "k_wiki_en_database_s19"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_wiki_en_database_s16",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_wiki_en_database_s16"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_wiki_en_database_s16",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    },
+    {
+      "treeId": "tree_concept_replication",
+      "name": "复制 / replication",
+      "path": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 复制 / replication",
+      "depthFromDbRoot": 1,
+      "treeNodeFields": {
+        "hasSupplement": false,
+        "hasCount": false
+      },
+      "ref": "concept_replication",
+      "poolExists": true,
+      "poolKind": null,
+      "poolLabel": "复制 / replication",
+      "childCount": 1,
+      "children": [
+        {
+          "id": "tree_1787326496505_zi1nw7",
+          "name": "MySQL Replication",
+          "ref": "k_1787326496104_zbtx44"
+        }
+      ],
+      "upstreamEdge": "treebind:demo_db:tree_concept_replication",
+      "upstreamEdgeExists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_replication"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_replication",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_replication:instance-of:k_1787326496104_zbtx44",
+            "source": "k_1787326496104_zbtx44",
+            "target": "concept_replication",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "duplicateRefMount": false
+    }
+  ],
+  "primaryKeyDual": {
+    "question": "(a) 主键双身份：键与约束下只挂 concept_primary_key，散装份先比对再定处置",
+    "left": {
+      "ref": "k_1788179275554_knwq7e",
+      "exists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_1788179275561_216qli"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_1788179275561_216qli",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [],
+        "poolAtoms": [],
+        "questions": [
+          {
+            "id": "q_1788337298962_u11dl8",
+            "kind": "related"
+          }
+        ],
+        "evolutionEvents": []
+      },
+      "fp": {
+        "id": "k_1788179275554_knwq7e",
+        "label": "主键",
+        "kind": null,
+        "canonicalKey": null,
+        "aliases": null,
+        "tags": [
+          "主键"
+        ],
+        "dimensions": null,
+        "role": "plain",
+        "shared": null,
+        "locked": null,
+        "hasMechanismSpec": false,
+        "relationIndex": null,
+        "viewDimensions": [],
+        "card": {
+          "nodeId": "k_1788179275554_knwq7e",
+          "title": "主键",
+          "rootContentLen": 129,
+          "rootContentSha": "8ed23e9a7db7",
+          "hasRootTable": false,
+          "notesLen": 0,
+          "tabCount": 1,
+          "tabs": [
+            {
+              "id": "def",
+              "label": "定义",
+              "contentLen": 126,
+              "contentSha": "5a670f4a3980",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            }
+          ]
+        }
+      }
+    },
+    "right": {
+      "ref": "concept_primary_key",
+      "exists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_primary_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:chapter_db_11:tree_concept_primary_key",
+            "source": "container:chapter_db_11"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_primary_key:instance-of:k_dict_xxkp8lkc",
+            "source": "k_dict_xxkp8lkc",
+            "target": "concept_primary_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [
+          {
+            "id": "q_sql_notes_3",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_27",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_28",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_40",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_41",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_45",
+            "kind": "related"
+          },
+          {
+            "id": "q_sql_notes_46",
+            "kind": "related"
+          }
+        ],
+        "evolutionEvents": []
+      },
+      "fp": {
+        "id": "concept_primary_key",
+        "label": "主键索引",
+        "kind": "Concept",
+        "canonicalKey": null,
+        "aliases": null,
+        "tags": [
+          "主键索引",
+          "主键 / primary key",
+          "数据库建模",
+          "键",
+          "约束"
+        ],
+        "dimensions": [
+          "数据库建模",
+          "键",
+          "约束"
+        ],
+        "role": "plain",
+        "shared": null,
+        "locked": null,
+        "hasMechanismSpec": false,
+        "relationIndex": null,
+        "viewDimensions": [],
+        "card": {
+          "nodeId": "concept_primary_key",
+          "title": "主键索引",
+          "rootContentLen": 66,
+          "rootContentSha": "3dee457382a8",
+          "hasRootTable": false,
+          "notesLen": 0,
+          "tabCount": 2,
+          "tabs": [
+            {
+              "id": "def",
+              "label": "定义（本体）",
+              "contentLen": 226,
+              "contentSha": "a122da4e0319",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            },
+            {
+              "id": "example",
+              "label": "示例（跨域实例）",
+              "contentLen": 198,
+              "contentSha": "4c9bdab0602d",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            }
+          ]
+        }
+      }
+    },
+    "diff": {
+      "sameCount": 8,
+      "sameFields": [
+        "canonicalKey",
+        "aliases",
+        "role",
+        "shared",
+        "locked",
+        "hasMechanismSpec",
+        "relationIndex",
+        "viewDimensions"
+      ],
+      "diffCount": 6,
+      "diff": [
+        {
+          "field": "id",
+          "left": "k_1788179275554_knwq7e",
+          "right": "concept_primary_key"
+        },
+        {
+          "field": "label",
+          "left": "主键",
+          "right": "主键索引"
+        },
+        {
+          "field": "kind",
+          "left": null,
+          "right": "Concept"
+        },
+        {
+          "field": "tags",
+          "left": [
+            "主键"
+          ],
+          "right": [
+            "主键索引",
+            "主键 / primary key",
+            "数据库建模",
+            "键",
+            "约束"
+          ]
+        },
+        {
+          "field": "dimensions",
+          "left": null,
+          "right": [
+            "数据库建模",
+            "键",
+            "约束"
+          ]
+        },
+        {
+          "field": "card",
+          "left": {
+            "nodeId": "k_1788179275554_knwq7e",
+            "title": "主键",
+            "rootContentLen": 129,
+            "rootContentSha": "8ed23e9a7db7",
+            "hasRootTable": false,
+            "notesLen": 0,
+            "tabCount": 1,
+            "tabs": [
+              {
+                "id": "def",
+                "label": "定义",
+                "contentLen": 126,
+                "contentSha": "5a670f4a3980",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              }
+            ]
+          },
+          "right": {
+            "nodeId": "concept_primary_key",
+            "title": "主键索引",
+            "rootContentLen": 66,
+            "rootContentSha": "3dee457382a8",
+            "hasRootTable": false,
+            "notesLen": 0,
+            "tabCount": 2,
+            "tabs": [
+              {
+                "id": "def",
+                "label": "定义（本体）",
+                "contentLen": 226,
+                "contentSha": "a122da4e0319",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              },
+              {
+                "id": "example",
+                "label": "示例（跨域实例）",
+                "contentLen": 198,
+                "contentSha": "4c9bdab0602d",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "orphanAssets": {
+      "leftOnly": [
+        {
+          "where": "k_1788179275554_knwq7e.card.rootContent",
+          "len": 129,
+          "sha": "8ed23e9a7db7"
+        },
+        {
+          "where": "k_1788179275554_knwq7e.tab:def",
+          "len": 126,
+          "sha": "5a670f4a3980"
+        }
+      ],
+      "rightOnly": [
+        {
+          "where": "concept_primary_key.card.rootContent",
+          "len": 66,
+          "sha": "3dee457382a8"
+        },
+        {
+          "where": "concept_primary_key.tab:def",
+          "len": 226,
+          "sha": "a122da4e0319"
+        },
+        {
+          "where": "concept_primary_key.tab:example",
+          "len": 198,
+          "sha": "4c9bdab0602d"
+        }
+      ]
+    },
+    "verdict": "REVISIT_DECISION_A",
+    "findings": [
+      "左 k_1788179275554_knwq7e：label「主键」· rootContent 讲「表中唯一标识每一行的列（非空+唯一）+ InnoDB 聚簇索引」· 有子树「主键类型选择：自增 vs UUID」(6 孩) ⇒ 工程视角主键，带专属子树",
+      "右 concept_primary_key：label「主键索引」· card.title「主键索引」· 但 rootContent 与 tabs 全是**主键本体**（「主键 / primary key 一组列…」+ MySQL/PostgreSQL/SQL 标准 跨域实例）⇒ **label 与正文语义不一致（label 错名）**",
+      "右侧 tags=[主键索引, 主键 / primary key, 数据库建模, 键, 约束] · dimensions=[数据库建模, 键, 约束] ⇒ 按 键/约束 维度命名的概念，不是「索引种类」",
+      "⇒ 裁决 (a) 取到了两个身份的各一半：键与约束该收的是**本体**（右），而右的 label 现在写着「主键索引」。开批次前需重新裁决：先改右 label → 主键，本体份移入键与约束；或键与约束挂左（带子树），右登记为重复身份。"
+    ]
+  },
+  "surrogateKeyDual": {
+    "question": "(b) 代理键双挂载：本批不摘维基份，仅登记为独立债",
+    "left": {
+      "ref": "concept_surrogate_key",
+      "exists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_concept_surrogate_key"
+        ],
+        "treebindIncoming": [
+          {
+            "id": "treebind:demo_db:tree_concept_surrogate_key",
+            "source": "n_u4va719e"
+          }
+        ],
+        "treeprojectionIncoming": [],
+        "otherEdges": [
+          {
+            "id": "rel:concept_surrogate_key:instance-of:mysql_glossary_synthetic_key_1drbjs",
+            "source": "mysql_glossary_synthetic_key_1drbjs",
+            "target": "concept_surrogate_key",
+            "type": "instance-of",
+            "relationKind": null
+          }
+        ],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "fp": {
+        "id": "concept_surrogate_key",
+        "label": "代理键 / surrogate key",
+        "kind": "Concept",
+        "canonicalKey": null,
+        "aliases": null,
+        "tags": [
+          "代理键 / surrogate key",
+          "数据库建模",
+          "键"
+        ],
+        "dimensions": [
+          "数据库建模",
+          "键"
+        ],
+        "role": "plain",
+        "shared": null,
+        "locked": null,
+        "hasMechanismSpec": false,
+        "relationIndex": null,
+        "viewDimensions": [],
+        "card": {
+          "nodeId": "concept_surrogate_key",
+          "title": "代理键 / surrogate key",
+          "rootContentLen": 82,
+          "rootContentSha": "70e1b1d6a98e",
+          "hasRootTable": false,
+          "notesLen": 0,
+          "tabCount": 2,
+          "tabs": [
+            {
+              "id": "def",
+              "label": "定义（本体）",
+              "contentLen": 226,
+              "contentSha": "72bd6d2235ea",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            },
+            {
+              "id": "example",
+              "label": "示例（跨域实例）",
+              "contentLen": 166,
+              "contentSha": "055299a250f2",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            }
+          ]
+        }
+      }
+    },
+    "right": {
+      "ref": "k_wiki_en_outline_of_databases_s24_b4",
+      "exists": true,
+      "refs": {
+        "treeMounts": 1,
+        "treeMountIds": [
+          "tree_wiki_en_outline_of_databases_s20_s21_s24_b4"
+        ],
+        "treebindIncoming": [],
+        "treeprojectionIncoming": [],
+        "otherEdges": [],
+        "poolAtoms": [],
+        "questions": [],
+        "evolutionEvents": []
+      },
+      "fp": {
+        "id": "k_wiki_en_outline_of_databases_s24_b4",
+        "label": "代理键",
+        "kind": null,
+        "canonicalKey": null,
+        "aliases": null,
+        "tags": [
+          "代理键",
+          "wikipedia",
+          "wikipedia-import"
+        ],
+        "dimensions": null,
+        "role": null,
+        "shared": null,
+        "locked": null,
+        "hasMechanismSpec": false,
+        "relationIndex": null,
+        "viewDimensions": [],
+        "card": {
+          "nodeId": "k_wiki_en_outline_of_databases_s24_b4",
+          "title": "代理键",
+          "rootContentLen": 0,
+          "rootContentSha": null,
+          "hasRootTable": false,
+          "notesLen": 0,
+          "tabCount": 1,
+          "tabs": [
+            {
+              "id": "def",
+              "label": "定义",
+              "contentLen": 5,
+              "contentSha": "eacbe048cdab",
+              "tableRows": 0,
+              "pages": 0,
+              "tabs": 0,
+              "children": []
+            }
+          ]
+        }
+      }
+    },
+    "diff": {
+      "sameCount": 7,
+      "sameFields": [
+        "canonicalKey",
+        "aliases",
+        "shared",
+        "locked",
+        "hasMechanismSpec",
+        "relationIndex",
+        "viewDimensions"
+      ],
+      "diffCount": 7,
+      "diff": [
+        {
+          "field": "id",
+          "left": "concept_surrogate_key",
+          "right": "k_wiki_en_outline_of_databases_s24_b4"
+        },
+        {
+          "field": "label",
+          "left": "代理键 / surrogate key",
+          "right": "代理键"
+        },
+        {
+          "field": "kind",
+          "left": "Concept",
+          "right": null
+        },
+        {
+          "field": "tags",
+          "left": [
+            "代理键 / surrogate key",
+            "数据库建模",
+            "键"
+          ],
+          "right": [
+            "代理键",
+            "wikipedia",
+            "wikipedia-import"
+          ]
+        },
+        {
+          "field": "dimensions",
+          "left": [
+            "数据库建模",
+            "键"
+          ],
+          "right": null
+        },
+        {
+          "field": "role",
+          "left": "plain",
+          "right": null
+        },
+        {
+          "field": "card",
+          "left": {
+            "nodeId": "concept_surrogate_key",
+            "title": "代理键 / surrogate key",
+            "rootContentLen": 82,
+            "rootContentSha": "70e1b1d6a98e",
+            "hasRootTable": false,
+            "notesLen": 0,
+            "tabCount": 2,
+            "tabs": [
+              {
+                "id": "def",
+                "label": "定义（本体）",
+                "contentLen": 226,
+                "contentSha": "72bd6d2235ea",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              },
+              {
+                "id": "example",
+                "label": "示例（跨域实例）",
+                "contentLen": 166,
+                "contentSha": "055299a250f2",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              }
+            ]
+          },
+          "right": {
+            "nodeId": "k_wiki_en_outline_of_databases_s24_b4",
+            "title": "代理键",
+            "rootContentLen": 0,
+            "rootContentSha": null,
+            "hasRootTable": false,
+            "notesLen": 0,
+            "tabCount": 1,
+            "tabs": [
+              {
+                "id": "def",
+                "label": "定义",
+                "contentLen": 5,
+                "contentSha": "eacbe048cdab",
+                "tableRows": 0,
+                "pages": 0,
+                "tabs": 0,
+                "children": []
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "orphanAssets": {
+      "leftOnly": [
+        {
+          "where": "concept_surrogate_key.card.rootContent",
+          "len": 82,
+          "sha": "70e1b1d6a98e"
+        },
+        {
+          "where": "concept_surrogate_key.tab:def",
+          "len": 226,
+          "sha": "72bd6d2235ea"
+        },
+        {
+          "where": "concept_surrogate_key.tab:example",
+          "len": 166,
+          "sha": "055299a250f2"
+        }
+      ],
+      "rightOnly": [
+        {
+          "where": "k_wiki_en_outline_of_databases_s24_b4.tab:def",
+          "len": 5,
+          "sha": "eacbe048cdab"
+        }
+      ]
+    }
+  },
+  "proposal": [
+    {
+      "treeId": "tree_concept_surrogate_key",
+      "ref": "concept_surrogate_key",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE",
+      "why": "键族；维基份另计（裁决 b）",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 代理键 / surrogate key",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_natural_key",
+      "ref": "concept_natural_key",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE",
+      "why": "键族",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 自然键 / natural key",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_unique_key",
+      "ref": "concept_unique_key",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE",
+      "why": "键 + 约束族",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 唯一键 / unique key",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_foreign_key",
+      "ref": "concept_foreign_key",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE",
+      "why": "键族；语义邻居 参照完整性/子表/父级表 已在 chapter_db_03",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 外键 / foreign key",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_not_null_constraint",
+      "ref": "concept_not_null_constraint",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE",
+      "why": "约束族",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > NOT NULL 约束 / NOT NULL constraint",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_guid",
+      "ref": "concept_guid",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE_WITH_OPTION",
+      "why": "GUID 是代理键的一种实现 ⇒ 直挂 键与约束 or 挂到 代理键 下，需一句裁决",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 全局唯一标识符 / GUID",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_1788179275561_216qli",
+      "ref": "k_1788179275554_knwq7e",
+      "to": "chapter_db_03",
+      "via": "KEY",
+      "status": "MOVE_LIKELY",
+      "why": "它是**带子树的主键概念**（子树「主键类型选择：自增 vs UUID」6 孩）· 正文=工程视角主键",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 主键",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库结构 > 键与约束 / key & constraint",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_primary_key",
+      "ref": "concept_primary_key",
+      "to": null,
+      "via": null,
+      "status": "REVISIT_DECISION_A",
+      "why": "⚠️ 裁决前提翻转：实测 label=「主键索引」，但 rootContent/tabs 全是**主键本体**（通用定义 + 跨域实例）⇒ 本体身份其实是它。见 primaryKeyDual.verdict",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 索引 > 主键索引",
+      "toPath": null,
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": false,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "projection:mysql-term:k_dict_fxoirizf",
+      "ref": "k_dict_fxoirizf",
+      "to": null,
+      "via": null,
+      "status": "NEEDS_ADJUDICATION",
+      "why": "NULL 归属见 nullVerdict",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > NULL",
+      "toPath": null,
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": false,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_wiki_en_database_s16",
+      "ref": "k_wiki_en_database_s16",
+      "to": "chapter_db_10",
+      "via": null,
+      "status": "CANDIDATE",
+      "why": "贮存 与章节壳「存储系统」同义错位（同模式，同批可一并归位）",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 贮存",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 存储系统",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "tree_concept_replication",
+      "ref": "concept_replication",
+      "to": "chapter_db_14",
+      "via": null,
+      "status": "CANDIDATE",
+      "why": "复制 与章节壳「数据库分布与复制」同义错位",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 复制 / replication",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库分布与复制",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": []
+    },
+    {
+      "treeId": "atomic_atomic_database_backup",
+      "ref": "atomic_database_backup",
+      "to": "chapter_db_08",
+      "via": null,
+      "status": "DUPLICATE_PAIR",
+      "why": "⚠️ chapter_db_08「恢复系统」下**已有「备份 / backup」** ⇒ 不是搬进空位而是同名重复，需先比对再定融合/登记",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库备份",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 恢复系统",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": [
+        {
+          "id": "tree_concept_backup",
+          "name": "备份 / backup",
+          "ref": "concept_backup"
+        }
+      ]
+    },
+    {
+      "treeId": "atomic_atomic_database_restore",
+      "ref": "atomic_database_restore",
+      "to": "chapter_db_08",
+      "via": null,
+      "status": "DUPLICATE_PAIR",
+      "why": "⚠️ chapter_db_08「恢复系统」下**已有「恢复 / restore」** ⇒ 同上，同名重复",
+      "fromPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 数据库恢复",
+      "toPath": "知识宇宙 > 计算机科学 > 信息系统 > 数据库管理 > 数据库 > 恢复系统",
+      "treeNodeExists": true,
+      "poolNodeExists": true,
+      "targetParentExists": true,
+      "nameCollisions": [
+        {
+          "id": "tree_concept_restore",
+          "name": "恢复 / restore",
+          "ref": "concept_restore"
+        }
+      ]
+    }
+  ],
+  "candidateParents": [
+    {
+      "treeId": "chapter_db_03",
+      "name": "数据库结构",
+      "exists": true,
+      "ref": "container:chapter_db_03",
+      "children": [
+        {
+          "id": "tree_concept_schema",
+          "name": "模式 / schema",
+          "ref": "concept_schema"
+        },
+        {
+          "id": "tree_concept_stored_object",
+          "name": "存储对象 / stored object",
+          "ref": "concept_stored_object"
+        },
+        {
+          "id": "tree_concept_data_dictionary",
+          "name": "数据字典 / data dictionary",
+          "ref": "concept_data_dictionary"
+        },
+        {
+          "id": "tree_concept_table",
+          "name": "表 / table",
+          "ref": "concept_table"
+        },
+        {
+          "id": "tree_concept_column",
+          "name": "列 / column",
+          "ref": "concept_column"
+        },
+        {
+          "id": "tree_concept_row",
+          "name": "行 / row",
+          "ref": "concept_row"
+        },
+        {
+          "id": "tree_concept_generated_column",
+          "name": "生成列 / generated column",
+          "ref": "concept_generated_column"
+        },
+        {
+          "id": "tree_concept_temporary_table",
+          "name": "临时表 / temporary table",
+          "ref": "concept_temporary_table"
+        },
+        {
+          "id": "tree_concept_referential_integrity",
+          "name": "参照完整性 / referential integrity",
+          "ref": "concept_referential_integrity"
+        },
+        {
+          "id": "tree_concept_child_table",
+          "name": "子表 / child table",
+          "ref": "concept_child_table"
+        },
+        {
+          "id": "tree_concept_parent_table",
+          "name": "父级表 / parent table",
+          "ref": "concept_parent_table"
+        },
+        {
+          "id": "tree_concept_partitioning",
+          "name": "分区 / partitioning",
+          "ref": "concept_partitioning"
+        },
+        {
+          "id": "tree_concept_delimited_identifier",
+          "name": "分隔标识符 / delimited identifier",
+          "ref": "concept_delimited_identifier"
+        },
+        {
+          "id": "tree_1784714555221_9s0o64",
+          "name": "视图",
+          "ref": "k_1784714555181_hzcpf5"
+        },
+        {
+          "id": "tree_1783250411576_amv1j2",
+          "name": "架构（维基）",
+          "ref": "k_1783250411548_9x4h5g"
+        }
+      ],
+      "childrenWithoutRef": []
+    },
+    {
+      "treeId": "chapter_db_08",
+      "name": "恢复系统",
+      "exists": true,
+      "ref": "container:chapter_db_08",
+      "children": [
+        {
+          "id": "tree_concept_availability",
+          "name": "可用性 / availability",
+          "ref": "concept_availability"
+        },
+        {
+          "id": "tree_concept_checkpoint",
+          "name": "检查点 / checkpoint",
+          "ref": "concept_checkpoint"
+        },
+        {
+          "id": "tree_concept_dirty_page",
+          "name": "脏页 / dirty page",
+          "ref": "concept_dirty_page"
+        },
+        {
+          "id": "tree_concept_backup",
+          "name": "备份 / backup",
+          "ref": "concept_backup"
+        },
+        {
+          "id": "tree_concept_restore",
+          "name": "恢复 / restore",
+          "ref": "concept_restore"
+        },
+        {
+          "id": "tree_concept_point_in_time_recovery",
+          "name": "时间点恢复 / point-in-time recovery",
+          "ref": "concept_point_in_time_recovery"
+        },
+        {
+          "id": "tree_concept_crash_recovery",
+          "name": "崩溃恢复 / crash recovery",
+          "ref": "concept_crash_recovery"
+        },
+        {
+          "id": "tree_concept_crash",
+          "name": "崩溃 / crash",
+          "ref": "concept_crash"
+        },
+        {
+          "id": "tree_concept_startup",
+          "name": "启动 / startup",
+          "ref": "concept_startup"
+        },
+        {
+          "id": "tree_concept_quiesce",
+          "name": "静默 / quiesce",
+          "ref": "concept_quiesce"
+        }
+      ],
+      "childrenWithoutRef": []
+    },
+    {
+      "treeId": "chapter_db_10",
+      "name": "存储系统",
+      "exists": true,
+      "ref": "container:chapter_db_10",
+      "children": [
+        {
+          "id": "tree_concept_compression",
+          "name": "数据压缩 / data compression",
+          "ref": "concept_compression"
+        },
+        {
+          "id": "projection:mysql-term:demo_buffer",
+          "name": "缓冲池 / buffer pool",
+          "ref": "demo_buffer"
+        },
+        {
+          "id": "tree_concept_change_buffer",
+          "name": "变更缓冲 / change buffering",
+          "ref": "concept_change_buffer"
+        },
+        {
+          "id": "tree_concept_tablespace",
+          "name": "表空间 / tablespace",
+          "ref": "concept_tablespace"
+        },
+        {
+          "id": "tree_concept_segment",
+          "name": "段 / segment",
+          "ref": "concept_segment"
+        },
+        {
+          "id": "tree_concept_extent",
+          "name": "区段 / extent",
+          "ref": "concept_extent"
+        },
+        {
+          "id": "tree_concept_page",
+          "name": "页 / page",
+          "ref": "concept_page"
+        },
+        {
+          "id": "tree_concept_page_size",
+          "name": "页大小 / page size",
+          "ref": "concept_page_size"
+        },
+        {
+          "id": "tree_concept_rollback_segment",
+          "name": "回滚段 / rollback segment",
+          "ref": "concept_rollback_segment"
+        },
+        {
+          "id": "tree_concept_undo_log_segment",
+          "name": "撤销日志段 / undo log segment",
+          "ref": "concept_undo_log_segment"
+        },
+        {
+          "id": "projection:mysql-term:mysql_glossary_disk_based_15w8id",
+          "name": "基于磁盘 / disk-based",
+          "ref": "mysql_glossary_disk_based_15w8id"
+        }
+      ],
+      "childrenWithoutRef": []
+    },
+    {
+      "treeId": "chapter_db_12",
+      "name": "数据表示",
+      "exists": true,
+      "ref": "container:chapter_db_12",
+      "children": [
+        {
+          "id": "tree_concept_variable_length_type",
+          "name": "可变长度类型 / variable-length type",
+          "ref": "concept_variable_length_type"
+        },
+        {
+          "id": "tree_concept_blob",
+          "name": "BLOB / binary large object",
+          "ref": "concept_blob"
+        },
+        {
+          "id": "tree_concept_clob",
+          "name": "CLOB / character large object",
+          "ref": "concept_clob"
+        },
+        {
+          "id": "tree_concept_integer_type",
+          "name": "整数类型 / integer type",
+          "ref": "concept_integer_type"
+        },
+        {
+          "id": "tree_concept_real_type",
+          "name": "实数类型 / real type",
+          "ref": "concept_real_type"
+        },
+        {
+          "id": "tree_concept_string_type",
+          "name": "字符串类型 / string type",
+          "ref": "concept_string_type"
+        },
+        {
+          "id": "tree_concept_enum_type",
+          "name": "枚举类型 / enum type",
+          "ref": "concept_enum_type"
+        }
+      ],
+      "childrenWithoutRef": []
+    },
+    {
+      "treeId": "chapter_db_14",
+      "name": "数据库分布与复制",
+      "exists": true,
+      "ref": "container:chapter_db_14",
+      "children": [
+        {
+          "id": "tree_concept_connection",
+          "name": "连接 / connection",
+          "ref": "concept_connection"
+        },
+        {
+          "id": "tree_concept_connection_pool",
+          "name": "连接池 / connection pool",
+          "ref": "concept_connection_pool"
+        },
+        {
+          "id": "tree_sharding_overview",
+          "name": "MySQL 分库分表",
+          "ref": "sharding_overview"
+        }
+      ],
+      "childrenWithoutRef": []
+    },
+    {
+      "treeId": "chapter_db_17",
+      "name": "数据库运维",
+      "exists": true,
+      "ref": "container:chapter_db_17",
+      "children": [
+        {
+          "id": "tree_concept_bottleneck",
+          "name": "瓶颈 / bottleneck",
+          "ref": "concept_bottleneck"
+        },
+        {
+          "id": "tree_concept_workload",
+          "name": "工作负载 / workload",
+          "ref": "concept_workload"
+        },
+        {
+          "id": "tree_concept_cpu_bound",
+          "name": "CPU 密集型 / CPU-bound",
+          "ref": "concept_cpu_bound"
+        },
+        {
+          "id": "tree_concept_io_bound",
+          "name": "I/O 密集型 / I/O-bound",
+          "ref": "concept_io_bound"
+        },
+        {
+          "id": "tree_concept_wait",
+          "name": "等待 / wait",
+          "ref": "concept_wait"
+        },
+        {
+          "id": "tree_concept_counter",
+          "name": "计数器 / counter",
+          "ref": "concept_counter"
+        },
+        {
+          "id": "tree_concept_optimizer_statistics",
+          "name": "统计信息 / optimizer statistics",
+          "ref": "concept_optimizer_statistics"
+        },
+        {
+          "id": "tree_concept_cache_warmup",
+          "name": "预热 / cache warm-up",
+          "ref": "concept_cache_warmup"
+        },
+        {
+          "id": "tree_concept_hot",
+          "name": "热 / hot",
+          "ref": "concept_hot"
+        },
+        {
+          "id": "tree_concept_physical_vs_logical",
+          "name": "物理 / physical（相对逻辑而言）",
+          "ref": "concept_physical_vs_logical"
+        },
+        {
+          "id": "tree_concept_performance_schema",
+          "name": "性能模式 / performance schema",
+          "ref": "concept_performance_schema"
+        },
+        {
+          "id": "tree_concept_configuration_option",
+          "name": "配置选项 / configuration option",
+          "ref": "concept_configuration_option"
+        },
+        {
+          "id": "tree_wiki_en_database_s22",
+          "name": "迁移",
+          "ref": "k_wiki_en_database_s22"
+        }
+      ],
+      "childrenWithoutRef": []
+    }
+  ],
+  "nullVerdict": {
+    "ref": "k_dict_fxoirizf",
+    "exists": true,
+    "label": "NULL",
+    "tags": [
+      "NULL",
+      "mysql"
+    ],
+    "card": {
+      "title": "NULL",
+      "rootContentLen": 477,
+      "tabCount": 0,
+      "tabs": []
+    },
+    "preview": {
+      "rootContent": "在SQL中表示缺少数据的特殊值。任何涉及NULL值的算术运算或相等性测试都会产生NULL结果。（因此它类似于IEEE浮点数的NaN，即“不是一个数字”。）在进行聚合计算时，如AVG()，会忽略具有NULL值的行，以确定要除以多少行。唯一可以处理NULL值的测试是使用SQL习惯用法IS NULL或IS NOT NULL。\n\nNULL值在index操作中发挥作用，因为为了性能，数据库必须减少跟踪缺失数据值的开销。通常，NULL值不会存储在索引中，因为使用标准比较运算符测试索引列的查询永远无法匹配具有该列NULL值的行。出于同样的原因，唯一索引并不阻止NULL值；这些值在索引中根本不存在。对列声明NOT NULL约束提供了确认，确保没有行",
+      "tabs": []
+    },
+    "currentMount": [
+      "projection:mysql-term:k_dict_fxoirizf",
+      "mysql_term_three_valued_logic_null_plui03"
+    ],
+    "refs": {
+      "treeMounts": 2,
+      "treeMountIds": [
+        "projection:mysql-term:k_dict_fxoirizf",
+        "mysql_term_three_valued_logic_null_plui03"
+      ],
+      "treebindIncoming": [
+        {
+          "id": "treebind:theory_domain_three_valued_logic:mysql_term_three_valued_logic_null_plui03",
+          "source": "theory_domain_three_valued_logic"
+        },
+        {
+          "id": "treebind:demo_db:projection:mysql-term:k_dict_fxoirizf",
+          "source": "n_u4va719e"
+        }
+      ],
+      "treeprojectionIncoming": [],
+      "otherEdges": [],
+      "poolAtoms": [
+        {
+          "owner": "mysql_glossary_group_misc",
+          "dimId": "misc_terms",
+          "sectionId": "misc_primary_terms"
+        }
+      ],
+      "questions": [],
+      "evolutionEvents": []
+    },
+    "valueFamily": [
+      {
+        "id": "k_dict_fxoirizf",
+        "label": "NULL",
+        "kind": null,
+        "tags": [
+          "NULL",
+          "mysql"
+        ],
+        "treeMounts": [
+          "projection:mysql-term:k_dict_fxoirizf",
+          "mysql_term_three_valued_logic_null_plui03"
+        ],
+        "edgeCount": 2
+      },
+      {
+        "id": "k_dict_t4gobuxx",
+        "label": "NULL 排序",
+        "kind": null,
+        "tags": [
+          "NULL 排序"
+        ],
+        "treeMounts": [],
+        "edgeCount": 0
+      },
+      {
+        "id": "theory_domain_three_valued_logic",
+        "label": "三值逻辑",
+        "kind": null,
+        "tags": [
+          "三值逻辑",
+          "mysql",
+          "directory-taxonomy"
+        ],
+        "treeMounts": [
+          "theory_domain_three_valued_logic"
+        ],
+        "edgeCount": 2
+      }
+    ],
+    "neighborsInDataRepresentation": [
+      "可变长度类型 / variable-length type",
+      "BLOB / binary large object",
+      "CLOB / character large object",
+      "整数类型 / integer type",
+      "实数类型 / real type",
+      "字符串类型 / string type",
+      "枚举类型 / enum type"
+    ],
+    "criteria": [
+      "正文在讲「值域 / 未知值语义 / 三值逻辑」⇒ 数据表示（chapter_db_12）",
+      "正文在讲「列约束 / 默认值约束」⇒ 键与约束（与 NOT NULL 约束同族）",
+      "正文只讲 MySQL 方言用法 ⇒ 留投影态（该条目 id 已在 projection: mysql-term 命名空间）"
+    ]
+  },
+  "missingConcepts": [
+    {
+      "term": "候选键",
+      "inPool": [
+        {
+          "id": "k_wiki_en_outline_of_databases_s11_b5",
+          "label": "候选键"
+        },
+        {
+          "id": "k_sql_keys",
+          "label": "SQL 键辨析：超键、候选键、主键、外键"
+        }
+      ],
+      "inTree": []
+    },
+    {
+      "term": "复合键",
+      "inPool": [],
+      "inTree": []
+    },
+    {
+      "term": "超键",
+      "inPool": [
+        {
+          "id": "k_sql_keys",
+          "label": "SQL 键辨析：超键、候选键、主键、外键"
+        }
+      ],
+      "inTree": []
+    },
+    {
+      "term": "candidate key",
+      "inPool": [],
+      "inTree": []
+    },
+    {
+      "term": "composite key",
+      "inPool": [],
+      "inTree": []
+    },
+    {
+      "term": "superkey",
+      "inPool": [],
+      "inTree": []
+    }
+  ],
+  "newIdCheck": [
+    {
+      "id": "tree_concept_key_constraint",
+      "treeConflict": false,
+      "poolConflict": false,
+      "edgeMentions": 0
+    },
+    {
+      "id": "tree_key_constraint",
+      "treeConflict": false,
+      "poolConflict": false,
+      "edgeMentions": 0
+    },
+    {
+      "id": "tree_key_constraints",
+      "treeConflict": false,
+      "poolConflict": false,
+      "edgeMentions": 0
+    }
+  ],
+  "keyNameTreeHits": [],
+  "gateHints": {
+    "G7_colonSafe": {
+      "newParentTreeId": "chapter_db_03",
+      "newParentContainsColon": false,
+      "movedItemsWithColon": [
+        "projection:mysql-term:k_dict_fxoirizf"
+      ],
+      "note": "作用域内含冒号 treeId ⇒ 父子解析一律走 edge source/target，禁 id.split(\":\")"
+    },
+    "G8_containerRef": {
+      "containerRefsInScope": [
+        {
+          "id": "chapter_db_01",
+          "ref": "container:chapter_db_01"
+        },
+        {
+          "id": "chapter_db_02",
+          "ref": "container:chapter_db_02"
+        },
+        {
+          "id": "chapter_db_03",
+          "ref": "container:chapter_db_03"
+        },
+        {
+          "id": "chapter_db_05",
+          "ref": "container:chapter_db_05"
+        },
+        {
+          "id": "chapter_db_06",
+          "ref": "container:chapter_db_06"
+        },
+        {
+          "id": "chapter_db_07",
+          "ref": "container:chapter_db_07"
+        },
+        {
+          "id": "chapter_db_08",
+          "ref": "container:chapter_db_08"
+        },
+        {
+          "id": "chapter_db_09",
+          "ref": "container:chapter_db_09"
+        },
+        {
+          "id": "chapter_db_10",
+          "ref": "container:chapter_db_10"
+        },
+        {
+          "id": "chapter_db_11",
+          "ref": "container:chapter_db_11"
+        },
+        {
+          "id": "chapter_db_12",
+          "ref": "container:chapter_db_12"
+        },
+        {
+          "id": "chapter_db_13",
+          "ref": "container:chapter_db_13"
+        },
+        {
+          "id": "chapter_db_14",
+          "ref": "container:chapter_db_14"
+        },
+        {
+          "id": "chapter_db_16",
+          "ref": "container:chapter_db_16"
+        },
+        {
+          "id": "chapter_db_17",
+          "ref": "container:chapter_db_17"
+        },
+        {
+          "id": "chapter_db_18",
+          "ref": "container:chapter_db_18"
+        },
+        {
+          "id": "chapter_db_19",
+          "ref": "container:chapter_db_19"
+        },
+        {
+          "id": "chapter_db_20",
+          "ref": "container:chapter_db_20"
+        }
+      ],
+      "containerSourceEdges": 14,
+      "note": "⚠️ 实测：全库 0 个无 ref 树节点 ⇒ 新分组节点不能 ref=null。伪 ref 分布：container: 20 个 · n_ 9 个 · projection: 0 个。要么仿 chapter 壳用 container:key_constraint，要么新建并写正文的池实体"
+    },
+    "G9_edgeIdTrap": {
+      "belongsToContainsNonTreebind": 430,
+      "treebindPrefixAnomalies": 9,
+      "belongsToNonContainsLabel": 25,
+      "note": "⚠️「树包含边」不能只看 id 前缀或只看 type/label：① 430 条 java_source:* 边也是 belongs-to+contains（JDK 导入的类树，非目录树）；② 9 条 treebind: 前缀边用 type=structure/label=结构包含（p-web-http-scope 遗留口径漂移）；③ 25 条 belongs-to 用中文 label。本预检测「目录挂载边」的口径 = id 前缀 treebind: ∧ type=belongs-to ∧ label=contains ⇒ 会漏掉 ②，须在正式批次里逐条按目标 ref 复核。"
+    }
+  }
+}

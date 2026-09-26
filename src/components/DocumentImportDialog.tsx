@@ -16,7 +16,6 @@ import {
   ListChecks,
   LoaderCircle,
   ScanText,
-  Sparkles,
   X,
 } from 'lucide-react';
 import {
@@ -101,7 +100,6 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
   const [file, setFile] = useState(null as File | null);
   const [parentTreeNodeId, setParentTreeNodeId] = useState(treeData.id);
   const [translate, setTranslate] = useState(true);
-  const [useAi, setUseAi] = useState(false);
   const [profileMode, setProfileMode] = useState(DocumentProfileMode.Auto);
   const [isDragging, setIsDragging] = useState(false);
   const [capabilities, setCapabilities] = useState(null as DocumentImportCapabilities | null);
@@ -156,7 +154,6 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
     setParentTreeNodeId(preferredId);
     setFile(null);
     setTranslate(true);
-    setUseAi(false);
     setProfileMode(DocumentProfileMode.Auto);
     setIsDragging(false);
     setPhase(DocumentImportPhase.Editing);
@@ -174,13 +171,11 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
       .then((nextCapabilities) => {
         if (active) {
           setCapabilities(nextCapabilities);
-          setUseAi(nextCapabilities.ai.configured);
         }
       })
       .catch(() => {
         if (active) {
           setCapabilities({
-            ai: { configured: false, model: '' },
             maxBytes: 20 * 1024 * 1024,
             maxPdfBytes: 100 * 1024 * 1024,
             extensions: ['.pdf', '.md', '.markdown', '.txt', '.html', '.htm', '.docx'],
@@ -266,7 +261,6 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
         file,
         parentTreeNodeId,
         translate,
-        useAi,
         profileMode,
       });
       await initialize();
@@ -472,28 +466,13 @@ export default function DocumentImportDialog({ isOpen, onClose }: DocumentImport
               <span className="link-import-translation-icon" aria-hidden="true"><Languages size={16} /></span>
               <span className="link-import-translation-copy">
                 <strong>翻译为中文</strong>
-                <small>中文文件会直接保留原文</small>
+                <small>导入文档自动翻译为中文</small>
               </span>
               <input
                 type="checkbox"
                 checked={translate}
                 disabled={isImporting}
                 onChange={(event: { target: { checked: boolean } }) => setTranslate(event.target.checked)}
-              />
-              <span className="link-import-switch" aria-hidden="true" />
-            </label>
-
-            <label className="link-import-translation">
-              <span className="link-import-translation-icon" aria-hidden="true"><Sparkles size={16} /></span>
-              <span className="link-import-translation-copy">
-                <strong>语义编译</strong>
-                <small>{capabilities?.ai.configured ? `${capabilities.ai.model} · 从内容关系生成知识图` : '未配置模型'}</small>
-              </span>
-              <input
-                type="checkbox"
-                checked={useAi}
-                disabled={isImporting || !capabilities?.ai.configured}
-                onChange={(event: { target: { checked: boolean } }) => setUseAi(event.target.checked)}
               />
               <span className="link-import-switch" aria-hidden="true" />
             </label>

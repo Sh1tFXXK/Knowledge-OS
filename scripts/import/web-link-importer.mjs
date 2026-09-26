@@ -6,11 +6,8 @@ import ipaddr from 'ipaddr.js';
 import { JSDOM } from 'jsdom';
 import { Readability } from '@mozilla/readability';
 import TurndownService from 'turndown';
-import { applyImportAtTreeNode } from '../import-wikipedia.mjs';
+import { applyImportAtTreeNode } from './lib/import-wikipedia.mjs';
 import { createTranslationService } from './translation.mjs';
-import { createAiOrganizerFromEnv } from './ai-organizer.mjs';
-import { applySemanticImportAtTreeNode } from './semantic-persistence.mjs';
-import { projectSemanticDraft } from './semantic-projector.mjs';
 
 const MAX_REDIRECTS = 5;
 const MAX_RESPONSE_BYTES = 5 * 1024 * 1024;
@@ -783,62 +780,15 @@ export async function prepareWebImport(options) {
   let categories = [];
   let aiKeywords = [];
   let questions = extractQuestions(markdown);
-  let semanticDraft = null;
 
-  if (options.useAi) {
-    const organizer = options.aiOrganizer ?? createAiOrganizerFromEnv(options.aiEnv);
-    if (!organizer) {
-      throw new Error('AI 整理尚未配置，请设置 KNOWLEDGE_OS_LLM_API_KEY');
-    }
-    if (typeof organizer.compile === 'function') {
-      semanticDraft = await organizer.compile({
-        title,
-        markdown,
-        sourceLanguage: shouldTranslate ? 'zh' : extracted.language,
-      });
-      title = cleanKeyword(semanticDraft.title) || title;
-      categories = semanticDraft.categories;
-    } else {
-      const organized = await organizer.organize({
-        title,
-        markdown,
-        sourceLanguage: shouldTranslate ? 'zh' : extracted.language,
-      });
-      title = cleanKeyword(organized.title) || title;
-      markdown = polishArticleMarkdown(organized.markdown).contentMarkdown;
-      categories = organized.categories;
-      aiKeywords = organized.keywords;
-      questions = organized.questions.length > 0 ? organized.questions : questions;
-    }
-  }
-
-  let built;
-  let structureMode;
-  if (semanticDraft) {
-    built = projectSemanticDraft({
-      draft: semanticDraft,
-      sourceId: page.url,
-      sourceTitle: extracted.title,
-      sourceKind: IMPORT_SOURCE_KIND.Web,
-    });
-    built.articleIdPrefix = built.nodeId;
-    built.tags = [...new Set([
-      ...categories,
-      ...built.nodes.flatMap((node) => node.tags ?? []),
-    ])].slice(0, 80);
-    built.documentBody = polishArticleMarkdown(markdown).documentBody;
-    questions = built.questions;
-    structureMode = 'semantic';
-  } else {
-    built = buildWebNodes({
-      title,
-      markdown,
-      sourceUrl: page.url,
-      language: extracted.language,
-      extraKeywords: [...categories, ...aiKeywords],
-    });
-    structureMode = 'outline';
-  }
+  const built = buildWebNodes({
+    title,
+    markdown,
+    sourceUrl: page.url,
+    language: extracted.language,
+    extraKeywords: [...categories, ...aiKeywords],
+  });
+  const structureMode = 'outline';
   const date = (options.now ?? new Date()).toISOString().slice(0, 10);
   return {
     ...built,
@@ -976,24 +926,14 @@ export async function importWebLink(options) {
   if (!options.parentTreeNodeId) throw new Error('请选择要挂载的项目目录');
 
   const prepared = await prepareWebImport(options);
-  if (prepared.structureMode === 'semantic') {
-    applySemanticImportAtTreeNode({
-      pool,
-      tree,
-      edges,
-      projected: prepared,
-      parentTreeNodeId: options.parentTreeNodeId,
-    });
-  } else {
-    applyImportAtTreeNode(
-      pool,
-      tree,
-      prepared.nodes,
-      options.parentTreeNodeId,
-      prepared.articleIdPrefix,
-      prepared.tags,
-    );
-  }
+  applyImportAtTreeNode(
+    pool,
+    tree,
+    prepared.nodes,
+    options.parentTreeNodeId,
+    prepared.articleIdPrefix,
+    prepared.tags,
+  );
   const importedAt = Date.now();
   const questionCount = applyImportedQuestions(
     questions,
@@ -1028,7 +968,7 @@ export async function importWebLink(options) {
     nodeCount: prepared.nodes.length,
     rootCount: prepared.stats?.rootCount ?? 1,
     relationCount: prepared.edges?.length ?? 0,
-    sectionCount: prepared.structureMode === 'semantic' ? 0 : prepared.nodes.length - 1,
+    sectionCount: prepared.nodes.length - 1,
     questionCount,
     categories: prepared.categories,
     structureMode: prepared.structureMode,

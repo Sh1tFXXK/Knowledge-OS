@@ -1,5 +1,12 @@
 import { useMemo, useState } from 'react';
-import { composeQuestionAnswerDraft, normalizeQuestionAnswerSteps } from '../knowledge/answerComposer';
+import {
+  answerStepKey,
+  composeQuestionAnswerDraft,
+  formatAnswerStepTarget,
+  normalizeQuestionAnswerSteps,
+  resolveAnswerStepPlacement,
+} from '../knowledge/answerComposer';
+import { resolveSectionAtoms } from '../knowledge/projection';
 import type { KnowledgeNode, Question, QuestionAnswerStep } from '../types';
 
 interface Props {
@@ -29,7 +36,21 @@ export default function QuestionAnswerEditor({
       ? question.relatedNodeId
       : nodeOptions[0]?.id ?? '',
   );
+  const [structureKey, setStructureKey] = useState('');
   const [draftAnswer, setDraftAnswer] = useState(question.answer ?? '');
+
+  // 可选「结构定位」：只列该节点结构里真有成员的 section（维度 › section，按稳定 ID）
+  const structureOptions = useMemo(() => {
+    const node = selectedNodeId ? nodePool[selectedNodeId] : null;
+    return (node?.viewDimensions ?? []).flatMap((dimension) => dimension.sections
+      .filter((section) => resolveSectionAtoms(section, nodePool).length > 0)
+      .map((section) => ({
+        key: `${dimension.id}::${section.id}`,
+        dimensionId: dimension.id,
+        sectionId: section.id,
+        label: `${dimension.name} › ${section.title?.trim() || section.layout}`,
+      })));
+  }, [nodePool, selectedNodeId]);
 
   const composedDraft = useMemo(
     () => composeQuestionAnswerDraft({ ...question, answerSteps: steps }, nodePool),
@@ -38,8 +59,14 @@ export default function QuestionAnswerEditor({
 
   const addStep = () => {
     if (!selectedNodeId || !nodePool[selectedNodeId]) return;
-    if (steps.some((step) => step.nodeId === selectedNodeId)) return;
-    setSteps([...steps, { nodeId: selectedNodeId }]);
+
+    const option = structureOptions.find((item) => item.key === structureKey);
+    const nextStep: QuestionAnswerStep = option
+      ? { nodeId: selectedNodeId, dimensionId: option.dimensionId, sectionId: option.sectionId }
+      : { nodeId: selectedNodeId };
+
+    if (steps.some((step) => answerStepKey(step) === answerStepKey(nextStep))) return;
+    setSteps([...steps, nextStep]);
   };
 
   const removeStep = (index: number) => {
@@ -75,11 +102,27 @@ export default function QuestionAnswerEditor({
           <select
             className="input answer-node-select"
             value={selectedNodeId}
-            onChange={(e) => setSelectedNodeId(e.target.value)}
+            onChange={(e) => {
+              setSelectedNodeId(e.target.value);
+              setStructureKey('');
+            }}
           >
             {nodeOptions.map((node) => (
               <option key={node.id} value={node.id}>
                 {node.label}
+              </option>
+            ))}
+          </select>
+          <select
+            className="input answer-structure-select"
+            value={structureKey}
+            onChange={(e) => setStructureKey(e.target.value)}
+            title="可选：只引用该节点结构里的某一个 section"
+          >
+            <option value="">（整个节点）</option>
+            {structureOptions.map((option) => (
+              <option key={option.key} value={option.key}>
+                {option.label}
               </option>
             ))}
           </select>
@@ -95,11 +138,20 @@ export default function QuestionAnswerEditor({
             {steps.map((step, index) => {
               const node = nodePool[step.nodeId];
               if (!node) return null;
+              const placement = resolveAnswerStepPlacement(step, nodePool);
               return (
-                <div key={`${step.nodeId}-${index}`} className="answer-step-item">
+                <div key={`${answerStepKey(step)}-${index}`} className="answer-step-item">
                   <div className="answer-step-main">
                     <span className="answer-step-index">{index + 1}</span>
                     <span className="answer-step-label">{node.label}</span>
+                    {placement && (
+                      <span
+                        className="answer-step-locator"
+                        title={formatAnswerStepTarget(step, nodePool)}
+                      >
+                        {placement.dimension.name} › {placement.section.title?.trim() || placement.section.layout}
+                      </span>
+                    )}
                     <div className="answer-step-actions">
                       <button
                         type="button"

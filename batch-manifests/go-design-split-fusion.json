@@ -1,0 +1,129 @@
+{
+  "batchId": "go-design-split-fusion",
+  "title": "Go 语言设计解释卡拆分融合：DONOR k_goexplain_design（1709 字）按 P1..P5 五段切分 —— P1+P5 留 SURVIVOR（瘦身 420 字）、P2 并历史卡、P3 并泛型卡（剥 CSS 残渣）、P4 新建子节点「版本策略」挂 Go 树（Versioning 原文 577 字）",
+  "baseRef": "33a5902",
+  "baseRefNote": "起草 manifest 时的 HEAD（外部漂移采纳批 bbac1b7 落盘 + 登记 33a5902 之后）。已实测 HEAD:data/ 六文件与本批 apply 备份快照逐字节相等（Buffer.compare 6/6 IDENTICAL，node-pool 11735022 B · sha256 前 16 位 036fe47cb3ed15f2）⇒ Ancestor Gate 前景 PASS，本批从新 HEAD 干净起步、无外部漂移夹带。",
+  "preBatchSnapshot": "data/backups/go-design-split-fusion-2026-09-24T10-40-55-308Z/",
+  "preBatchSnapshotNote": "apply 前六文件快照（apply 脚本 G6 落盘前自动拍摄）：node-pool 11735022 B · tree-data 1943794 B · knowledge-edges 1138979 B · questions 1403060 B · evolution-events 3773 B · version-chains 2157 B。该目录**不入库**（.gitignore 覆盖 data/backups/，性质同前批快照）；verify 从此快照反推（不 import apply），本地可复跑。",
+  "commitSubjectHint": "data: go-design-split-fusion — Go 设计卡五段拆分融合（SURVIVOR 420 字 · HISTORY+89→363 · GENERICS+330→950 · 新建「版本策略」k_go_versioning 挂树 · 池 3871→3872 · go 子 15→16 · 边 4161→4162）（独立验证 14/14 · UI 7/7 · 回归 tsc 0 / test 68/68）",
+  "status": "COMMITTED",
+  "provenance": {
+    "trigger": "用户粘贴 Go 维基百科原文（无指令），AskUserQuestion 裁决：「这是go语言设计的解释卡，拆分融合」。前置处置：工作树发现 15 小时外部漂移（含本批涉及的 Go 卡编辑），用户裁决「全部采纳不还原」⇒ 先落采纳批 external-drift-adoption-20260924（bbac1b7/33a5902）推进 HEAD，本批从新 HEAD 干净起步。",
+    "roles": "SURVIVOR=k_goexplain_design（语言设计，留 P1 设计目标+P5 Pike 讲座）· HISTORY=k_1787722763547_no5htk（历史，旧 89 字 + P2 发布时间线）· GENERICS=k_go_generic（泛型，旧 620 字 + P3 泛型时间线）· NEW=k_go_versioning（版本策略，P4 Versioning 原文含标题行，全新节点）。",
+    "method": "plan（outputs/tree-violation-scan/go-design-split-fusion-plan.md，锚串切分 P1..P5）→ apply（scripts/apply-go-design-split-fusion.mjs，默认 dry-run，G1–G7 两轮全 PASS 后 --apply）→ verify（scripts/verify-go-design-split-fusion.mjs，不 import apply，从备份快照独立反推 14/14）→ 无头 Chromium CDP UI 探针 7/7 → manifest 登记。",
+    "orderRule": "融合顺序裁决：用户对「与现有用法正文的顺序」答复「？这个不是知识本身的属性」⇒ 按「先定义后演进」处理（SURVIVOR = 设计目标在前、Pike 讲座在后；时间线内容全部外迁出 SURVIVOR），已按此落盘。",
+    "scopeBoundary": "本批只动 data/node-pool.json（1 增 3 改）+ data/tree-data.json（+1 叶子）+ data/knowledge-edges.json（+1 treebind）；questions / evolution-events / version-chains / docs 零改动（verify V6b 摘新叶后整树与 before 逐字节等价；V6d 既有边零改动）。",
+    "knownItem1": "树上新叶子 id 为 **tree_go_versioning**（nodeRef=k_go_versioning，name=版本策略，挂 tree_1786618025853_3qn55e/go 下，go 子 15→16）；treebind 边 id = treebind:tree_1786618025853_3qn55e:tree_go_versioning（source=k_1786618025492_dmwekx · target=k_go_versioning · type=belongs-to · relationKind=structure）。",
+    "knownItem2": "P5 剥杂质「[failed verification – see discussion]」与 P3 剥 CSS 残渣「.mw-parser-output.monospaced{...}」均系维基转写残留；V4b 断言四张输出卡零残留，UI 探针 T3 复证 mw-parser-output=false。",
+    "gaugeFixes": "①apply G5 负对照首版误选「~int | ~float64」（本就在泛型卡既有代码例里）→ 换 ['goroutine 泄漏探测器','Go 2.0 规范','泛型即可协程']。②UI 探针 T1 锚串漏括号（原文「轻量级进程（goroutines），通道和select语句」）→ 修为含括号全串。③UI 探针 T4b 首版点树行展开（实际展开交互在 .tree-node-icon--folder，点行只是 onSelect）→ 修为自底向上点未展开 folder icon 4 个后 visible=true。三处均为量具缺陷修复，未改期望值。④取证脚本 findParent 的 DFS path 拼接笔误曾误报挂载点为 demo_cs，真挂载即 go 节点（V6b 逐字节等价早已证明），非数据问题。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "scripts/apply-go-design-split-fusion.mjs",
+    "scripts/verify-go-design-split-fusion.mjs",
+    "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-apply-report.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-verification.md",
+    "outputs/tree-violation-scan/go-design-split-fusion-ui-probe.md",
+    "batch-manifests/go-design-split-fusion.json"
+  ],
+  "writeSetNote": "10 项：data 三件（本批全部实际改动）+ apply/verify 两脚本 + plan/apply-report/verification/ui-probe 四报告 + manifest 自身。⚠️ 探针脚本 .tmp-uiprobe-gosplit.mjs 与临时数据目录属一次性产物，已按 AGENTS.md 约定删除，不入库。⚠️ STATE.md 的本批记录改入 governanceSet（见下），不夹进内容提交。",
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "governanceSetNote": "STATE.md 本批记录（M 状态，含前批 dedup 收口与采纳批登记的未提交治理改动），随后续 docs/governance 提交落库，不进本批内容提交。",
+  "declaredExternalSet": [
+    "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+    "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+    "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+    "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+    "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+    "scripts/apply-p-web-cookie-session.mjs",
+    "scripts/apply-spring-ioc-refactor.mjs",
+    "scripts/jsp-mechanism-view/apply.mjs",
+    "scripts/jsp-mechanism-view/verify.mjs",
+    "scripts/txmgr-types-to-subtree/apply.mjs",
+    "scripts/txmgr-types-to-subtree/verify.mjs",
+    "scripts/verify-p-web-cookie-session.mjs",
+    "scripts/verify-spring-ioc-refactor.mjs"
+  ],
+  "declaredExternalSetNote": "按 git status 实际在飞件逐文件登记（2026-09-24 取样）：p-web-cookie-session 与 spring-ioc-refactor 两批的脚本/报告/快照，及 jsp-mechanism-view、txmgr-types-to-subtree 两个未跟踪脚本目录 —— 均属其他会话在飞批次，本批不提交、不触碰。",
+  "excludedSet": [
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+    "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+    "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+    "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+    "outputs/tree-violation-scan/readiness-go-design-split-fusion.json",
+    "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916"
+  ],
+  "excludedSetNote": "全部逐文件精确路径（规范 §7.6：禁目录前缀、禁通配串）。①dedup 批遗留 9 件：dropped-tab-labels（用户裁决不入库的诊断件）+ 快照 7 文件 + readiness（批前基线性质，保留本地可复跑）。②readiness-external-drift-adoption-20260924.json = 采纳批就绪门运行快照遗留。③readiness-go-design-split-fusion.json = 本批就绪门运行快照，**首次跑它尚不存在，重跑才暴露** —— 已预登记，登记后须重跑核验确认「无人认领」为 0。④worktree-fingerprint.json.bak-20260916 = 指纹重拍时备份（c943c66 遗留）。⚠️ 本批 apply 快照在 data/backups/（.gitignore 覆盖），永不出现在 git status，无需登记。",
+  "expectedDelta": {
+    "note": "池 3871 → 3872（+1 新实体 k_go_versioning）；树 3227 → 3228（go 子 15→16）；边 4161 → 4162（+1 treebind）。工作树与 HEAD 的 data 三文件差异 = 且仅 = 下述 Δ（verify V5/V5b/V6/V6b/V6c/V6d 断言）。",
+    "data/node-pool.json": {
+      "before": 3871,
+      "after": 3872,
+      "added": ["k_go_versioning"],
+      "removed": [],
+      "modified": [
+        "k_1787722763547_no5htk",
+        "k_goexplain_design",
+        "k_go_generic"
+      ]
+    },
+    "data/tree-data.json": {
+      "before": 3227,
+      "after": 3228,
+      "added": ["tree_go_versioning"],
+      "removed": [],
+      "modified": []
+    },
+    "data/knowledge-edges.json": {
+      "before": 4161,
+      "after": 4162,
+      "added": ["treebind:tree_1786618025853_3qn55e:tree_go_versioning"],
+      "removed": [],
+      "modified": []
+    }
+  },
+  "gates": {
+    "independentVerification": {
+      "script": "scripts/verify-go-design-split-fusion.mjs",
+      "result": "14/14 PASS / 0 FAIL，退出码 0（2026-09-24 提交前复跑）。V1 五段独立重切拼回===DONOR（1709 字）· V3/V3b/V3c/V3d/V3e 逐实体结果 · V4 负对照 3 串不命中 · V4b 杂质零残留 · V5 池 Δ=+1/-0/3改 · V5b 3871→3872 · V6 go 子 15→16 · V6b 摘新叶后整树与 before 逐字节等价 · V6c 边 4161→4162 · V6d 既有边零改动。",
+      "report": "outputs/tree-violation-scan/go-design-split-fusion-verification.md"
+    },
+    "uiProbe": {
+      "method": "临时数据目录 .tmp-ui-data-gosplit（六文件，apply 后 data 复制）+ vite preview 4192（/api/data 复核：池 3872 · 四节点 rootContent len 420/363/950/577）+ 无头 Chromium CDP 9341，屏蔽 fonts.googleapis.com。",
+      "result": "7/7 PASS，pageExceptions 0 / consoleErrors 0（2026-09-24 实跑，刷新复测含在内）。T0 加载无异常 · T1 SURVIVOR 瘦身（len=420，P1/反C++/Pike讲座/goroutine 原语全命中）· T2 HISTORY 融合（len=363）· T3 GENERICS 融合（len=950，CSS 残渣 false）· T4 NEW 版本策略卡（len=577）· T4b 树上叶子 visible=true（展开 4 层 folder icon 后）· T5 刷新复现。",
+      "gaugeRework": "首跑 5/7，2 FAIL 均为量具缺陷（T1 锚串漏括号；T4b 点树行≠展开，须点 .tree-node-icon--folder），修量具后 7/7，未改期望值。",
+      "report": "outputs/tree-violation-scan/go-design-split-fusion-ui-probe.md"
+    },
+    "regression": "tsc --noEmit 退出码 0 · npm test 68/68（apply 后实测）。",
+    "ancestorPrognosis": "HEAD(33a5902):data/ 六文件 ↔ apply 备份快照逐字节相等（6/6 IDENTICAL，Buffer.compare）⇒ Ancestor Gate 预期 PASS。",
+    "readinessGate": {
+      "script": "scripts/verify-phase1-commit-readiness.mjs --batch go-design-split-fusion",
+      "result": "READY · blockers=[]（2026-09-24 实跑，报告 outputs/tree-violation-scan/readiness-go-design-split-fusion.json），就绪门同时生成本次 pathspec（与本 manifest writeSet 10 项机检一致）。",
+      "coverage": "git status 展开未跟踪目录后全部文件被四集合覆盖；writeSet ∩ (governance ∪ external ∪ excluded) = ∅ 机检 PASS。"
+    }
+  },
+  "openDebts": [
+    "「先定义后演进」融合顺序系用户含糊裁决（「这个不是知识本身的属性」）下的我方定案，如用户后续给出明确顺序偏好需另批调整 HISTORY/GENERICS 内段落次序（当前均为旧文在前、融合段在后）。",
+    "P4 原文含英文原句（Go 1 guarantees compatibility...），未翻译；与库内其他 wiki 卡中英混排惯例一致，未做归一。",
+    "读态空白债 1644 张（前批登记的独立 UX 债）与本批无关，不阻塞不顺手修。"
+  ],
+  "registeredAt": "2026-09-24T19:0x+08:00",
+  "commitSha": "90d8c55",
+  "committedAt": "2026-09-24T19:0x+08:00"
+}

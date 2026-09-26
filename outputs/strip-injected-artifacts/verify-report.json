@@ -1,0 +1,3027 @@
+{
+  "batchId": "strip-injected-artifacts",
+  "at": "2026-09-16T12:13:47.494Z",
+  "before": {
+    "dir": "data/backups/strip-injected-artifacts-2026-09-16T11-20-38-956Z",
+    "bytes": 12636729,
+    "md5": "77c3876022bb7445c5fdcabfead69439",
+    "entities": 3850
+  },
+  "after": {
+    "bytes": 12589450,
+    "md5": "3a0a2b453dc336b729c1433cd97b3002",
+    "entities": 3850
+  },
+  "changedEntities": 422,
+  "residual": {
+    "rootContent": 0,
+    "tabs": 301
+  },
+  "checks": [
+    {
+      "id": "V1",
+      "name": "正文面形态（无 `T **T**` 残留）",
+      "ok": true,
+      "detail": "违规 0（须 0）"
+    },
+    {
+      "id": "V2",
+      "name": "内容零丢失（多重集对账）",
+      "ok": true,
+      "detail": "422 个改动实体，非「仅少声明串」的 0（须 0）"
+    },
+    {
+      "id": "V3",
+      "name": "未改动实体逐字节不变",
+      "ok": true,
+      "detail": "3428 个未改动实体，漂移 0（须 0）"
+    },
+    {
+      "id": "V4",
+      "name": "其余 data 文件未被本批改动",
+      "ok": true,
+      "detail": "5 个文件逐字节一致"
+    },
+    {
+      "id": "V5",
+      "name": "负对照：含「来源」散文的实体未变",
+      "ok": true,
+      "detail": "3 个负对照实体（demo_secondary_index, k_1784733045365_qubtp0, k_1785909354346_oxtcgv），被误改 0（须 0）"
+    },
+    {
+      "id": "V6",
+      "name": "实体总数与顶层键序不变",
+      "ok": true,
+      "detail": "3850 → 3850"
+    },
+    {
+      "id": "V7",
+      "name": "声明性读数：tab 面残留（本批排除）",
+      "ok": true,
+      "detail": "301 处（另案，不算失败）"
+    },
+    {
+      "id": "V8",
+      "name": "全库正文面残留尾注总数 = 0",
+      "ok": true,
+      "detail": "正文面残留 0（须 0）"
+    }
+  ],
+  "verdict": "PASS",
+  "changeList": [
+    {
+      "id": "demo_undo",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 390,
+      "afterLen": 368
+    },
+    {
+      "id": "demo_snapshot",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 205,
+      "afterLen": 201
+    },
+    {
+      "id": "demo_lock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 214,
+      "afterLen": 204
+    },
+    {
+      "id": "demo_deadlock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 119,
+      "afterLen": 87
+    },
+    {
+      "id": "demo_table_lock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 41,
+      "afterLen": 31
+    },
+    {
+      "id": "demo_row_lock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 523,
+      "afterLen": 503
+    },
+    {
+      "id": "demo_shared_lock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 55,
+      "afterLen": 45
+    },
+    {
+      "id": "demo_exclusive_lock",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 51,
+      "afterLen": 41
+    },
+    {
+      "id": "demo_btree",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 173,
+      "afterLen": 161
+    },
+    {
+      "id": "demo_hash",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 244,
+      "afterLen": 220
+    },
+    {
+      "id": "demo_clustered_index",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 709,
+      "afterLen": 579
+    },
+    {
+      "id": "demo_composite_index",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 200,
+      "afterLen": 189
+    },
+    {
+      "id": "demo_innodb",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1287,
+      "afterLen": 1181
+    },
+    {
+      "id": "demo_myisam",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 616,
+      "afterLen": 603
+    },
+    {
+      "id": "demo_buffer",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1079,
+      "afterLen": 964
+    },
+    {
+      "id": "demo_join",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 184,
+      "afterLen": 170
+    },
+    {
+      "id": "demo_subquery",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 48,
+      "afterLen": 38
+    },
+    {
+      "id": "demo_redis",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 1236,
+      "afterLen": 1230
+    },
+    {
+      "id": "n_0xxb9cqy",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 398,
+      "afterLen": 389
+    },
+    {
+      "id": "n_ag24bbkc",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 2073,
+      "afterLen": 2064
+    },
+    {
+      "id": "k_1781002610469_nik1ek",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1140,
+      "afterLen": 1040
+    },
+    {
+      "id": "k_auto_va5371",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 56,
+      "afterLen": 45
+    },
+    {
+      "id": "k_auto_yb9yyu",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 270,
+      "afterLen": 259
+    },
+    {
+      "id": "k_auto_es1cgt",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 216,
+      "afterLen": 205
+    },
+    {
+      "id": "k_dict_4yz2io0y",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 471,
+      "afterLen": 437
+    },
+    {
+      "id": "k_dict_ij1x57s1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 471,
+      "afterLen": 377
+    },
+    {
+      "id": "k_dict_vg1hm4yv",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 350,
+      "afterLen": 332
+    },
+    {
+      "id": "k_dict_n9s627ij",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 467,
+      "afterLen": 444
+    },
+    {
+      "id": "k_dict_t52tzaq2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 294,
+      "afterLen": 175
+    },
+    {
+      "id": "k_dict_h20fqa9t",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 226,
+      "afterLen": 198
+    },
+    {
+      "id": "k_dict_1a3p1hdq",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 258,
+      "afterLen": 222
+    },
+    {
+      "id": "k_dict_nsqweksd",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 361,
+      "afterLen": 332
+    },
+    {
+      "id": "k_dict_o5254svl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 126,
+      "afterLen": 104
+    },
+    {
+      "id": "k_dict_lc7qrne8",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 193,
+      "afterLen": 172
+    },
+    {
+      "id": "k_dict_mq68vpwg",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 83,
+      "afterLen": 63
+    },
+    {
+      "id": "k_dict_qvf5c9q7",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 169,
+      "afterLen": 151
+    },
+    {
+      "id": "k_dict_rjl6lkaz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 646,
+      "afterLen": 528
+    },
+    {
+      "id": "k_dict_t83fdwoc",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 301,
+      "afterLen": 279
+    },
+    {
+      "id": "k_dict_t6m62us4",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 286,
+      "afterLen": 270
+    },
+    {
+      "id": "k_dict_p7los2aq",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 57,
+      "afterLen": 30
+    },
+    {
+      "id": "k_dict_mfu28h3v",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 223,
+      "afterLen": 113
+    },
+    {
+      "id": "k_dict_hcbepdud",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 381,
+      "afterLen": 261
+    },
+    {
+      "id": "k_dict_lnpi0qrg",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 698,
+      "afterLen": 571
+    },
+    {
+      "id": "k_dict_zsu3d9zk",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 135,
+      "afterLen": 132
+    },
+    {
+      "id": "k_dict_reul960o",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 516,
+      "afterLen": 384
+    },
+    {
+      "id": "k_dict_ggnkee68",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 360,
+      "afterLen": 242
+    },
+    {
+      "id": "k_dict_z9h14mh0",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 331,
+      "afterLen": 308
+    },
+    {
+      "id": "k_dict_muxlhpv2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 668,
+      "afterLen": 557
+    },
+    {
+      "id": "k_dict_qus727rl",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 492,
+      "afterLen": 362
+    },
+    {
+      "id": "k_dict_pzcms560",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 232,
+      "afterLen": 214
+    },
+    {
+      "id": "k_dict_12jqwwcl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 43,
+      "afterLen": 23
+    },
+    {
+      "id": "k_dict_kgntvds7",
+      "titleDeduped": false,
+      "footers": 1,
+      "beforeLen": 304,
+      "afterLen": 212
+    },
+    {
+      "id": "k_dict_wxe0al75",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 171,
+      "afterLen": 157
+    },
+    {
+      "id": "k_dict_wv1o918s",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 372,
+      "afterLen": 243
+    },
+    {
+      "id": "k_dict_88aa29dg",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 123,
+      "afterLen": 99
+    },
+    {
+      "id": "k_dict_lepgecnd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 412,
+      "afterLen": 303
+    },
+    {
+      "id": "k_dict_fncpbi74",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 131,
+      "afterLen": 127
+    },
+    {
+      "id": "k_dict_m5qakvks",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 240,
+      "afterLen": 114
+    },
+    {
+      "id": "k_dict_fwv3kkzy",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 327,
+      "afterLen": 231
+    },
+    {
+      "id": "k_dict_zu4iv9d4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 894,
+      "afterLen": 789
+    },
+    {
+      "id": "k_dict_4m05mgz6",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 314,
+      "afterLen": 288
+    },
+    {
+      "id": "k_dict_722bh2j6",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 120,
+      "afterLen": 93
+    },
+    {
+      "id": "k_dict_pqd2sd20",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 772,
+      "afterLen": 635
+    },
+    {
+      "id": "k_dict_zjinmyz3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 239,
+      "afterLen": 143
+    },
+    {
+      "id": "k_dict_yaz6f56l",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 104,
+      "afterLen": 92
+    },
+    {
+      "id": "k_dict_jan17ieo",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 190,
+      "afterLen": 161
+    },
+    {
+      "id": "k_dict_4zr5j9bz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1023,
+      "afterLen": 898
+    },
+    {
+      "id": "k_dict_sctomy1z",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 609,
+      "afterLen": 494
+    },
+    {
+      "id": "k_dict_lin6ue94",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 840,
+      "afterLen": 727
+    },
+    {
+      "id": "k_dict_rmz7dcm0",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 198,
+      "afterLen": 178
+    },
+    {
+      "id": "k_dict_2uq4y41u",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 188,
+      "afterLen": 174
+    },
+    {
+      "id": "k_dict_fb1f2eh2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 365,
+      "afterLen": 230
+    },
+    {
+      "id": "k_dict_tr918oc6",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 177,
+      "afterLen": 161
+    },
+    {
+      "id": "k_dict_8yoqxtuu",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 458,
+      "afterLen": 434
+    },
+    {
+      "id": "k_dict_i1g9hhj8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 851,
+      "afterLen": 732
+    },
+    {
+      "id": "k_dict_xhmtog57",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 403,
+      "afterLen": 297
+    },
+    {
+      "id": "k_dict_jwcd61u4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 699,
+      "afterLen": 590
+    },
+    {
+      "id": "k_dict_xbipt5q1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 559,
+      "afterLen": 450
+    },
+    {
+      "id": "k_dict_dedl7dno",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 97,
+      "afterLen": 79
+    },
+    {
+      "id": "k_dict_rkijwolw",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 522,
+      "afterLen": 498
+    },
+    {
+      "id": "k_dict_xb5t6pmm",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 93,
+      "afterLen": 61
+    },
+    {
+      "id": "k_dict_nqeoggvl",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 310,
+      "afterLen": 180
+    },
+    {
+      "id": "k_dict_7dvcv51p",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 867,
+      "afterLen": 851
+    },
+    {
+      "id": "k_dict_umbo5ime",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1849,
+      "afterLen": 1729
+    },
+    {
+      "id": "k_dict_6rxmba95",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 453,
+      "afterLen": 323
+    },
+    {
+      "id": "k_dict_n7rueozw",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 76,
+      "afterLen": 64
+    },
+    {
+      "id": "k_dict_ntqiff2s",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 374,
+      "afterLen": 354
+    },
+    {
+      "id": "k_dict_qbyc557y",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 581,
+      "afterLen": 453
+    },
+    {
+      "id": "k_dict_jmpy3jq2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 406,
+      "afterLen": 283
+    },
+    {
+      "id": "k_dict_rdm2280v",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 153,
+      "afterLen": 124
+    },
+    {
+      "id": "k_dict_lm90vzok",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 248,
+      "afterLen": 239
+    },
+    {
+      "id": "k_dict_7okhi5j5",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 241,
+      "afterLen": 119
+    },
+    {
+      "id": "k_dict_ee6jgxn1",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 420,
+      "afterLen": 401
+    },
+    {
+      "id": "k_dict_vd39b68k",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 145,
+      "afterLen": 123
+    },
+    {
+      "id": "k_dict_el0p7j55",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 267,
+      "afterLen": 249
+    },
+    {
+      "id": "k_dict_rukxx2as",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 105,
+      "afterLen": 100
+    },
+    {
+      "id": "k_1781901890734_vckmz5",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 946,
+      "afterLen": 819
+    },
+    {
+      "id": "k_1781901899060_670apc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 220,
+      "afterLen": 104
+    },
+    {
+      "id": "k_1781940147478_6d75y4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 2386,
+      "afterLen": 2256
+    },
+    {
+      "id": "k_1781957518600_aibqeg",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1156,
+      "afterLen": 1039
+    },
+    {
+      "id": "k_1781957944264_lxfajw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 557,
+      "afterLen": 403
+    },
+    {
+      "id": "k_1781957954400_w4s3ew",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 355,
+      "afterLen": 203
+    },
+    {
+      "id": "k_1781962829528_eqvypd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 265,
+      "afterLen": 146
+    },
+    {
+      "id": "k_1782008551222_xs2oyj",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 352,
+      "afterLen": 237
+    },
+    {
+      "id": "k_1782008637396_62wc7w",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 140,
+      "afterLen": 125
+    },
+    {
+      "id": "innodb_mvcc_purge",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 882,
+      "afterLen": 779
+    },
+    {
+      "id": "innodb_mvcc_db_trx_id",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 107,
+      "afterLen": 97
+    },
+    {
+      "id": "innodb_mvcc_db_roll_ptr",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 237,
+      "afterLen": 225
+    },
+    {
+      "id": "innodb_mvcc_db_row_id",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 123,
+      "afterLen": 113
+    },
+    {
+      "id": "k_1782027235624_gtvo1k",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 222,
+      "afterLen": 114
+    },
+    {
+      "id": "k_1782029505237_7y8fh8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 208,
+      "afterLen": 97
+    },
+    {
+      "id": "k_1782029546712_okgd59",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1004,
+      "afterLen": 873
+    },
+    {
+      "id": "k_1782029599317_nn6hzg",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 571,
+      "afterLen": 447
+    },
+    {
+      "id": "k_1782029618563_7rrguo",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 400,
+      "afterLen": 374
+    },
+    {
+      "id": "k_1782029643146_aumkky",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1114,
+      "afterLen": 1000
+    },
+    {
+      "id": "k_1782029674610_l6hlzo",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 287,
+      "afterLen": 173
+    },
+    {
+      "id": "mysql_file_myd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 282,
+      "afterLen": 167
+    },
+    {
+      "id": "mysql_file_myi",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 285,
+      "afterLen": 170
+    },
+    {
+      "id": "mysql_file_ibd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 613,
+      "afterLen": 498
+    },
+    {
+      "id": "mysql_file_ibdata",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 483,
+      "afterLen": 361
+    },
+    {
+      "id": "mysql_file_ibdata1",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 141,
+      "afterLen": 115
+    },
+    {
+      "id": "mysql_file_pid",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 124,
+      "afterLen": 106
+    },
+    {
+      "id": "mysql_file_socket",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 162,
+      "afterLen": 138
+    },
+    {
+      "id": "k_1782033245872_81floi",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 167,
+      "afterLen": 149
+    },
+    {
+      "id": "k_1782033508063_xspnmd",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 221,
+      "afterLen": 198
+    },
+    {
+      "id": "k_1782033743150_vbish8",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 122,
+      "afterLen": 99
+    },
+    {
+      "id": "mysql_glossary_arm_file_ufam2l",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 526,
+      "afterLen": 415
+    },
+    {
+      "id": "mysql_glossary_arz_file_1iyj60",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 519,
+      "afterLen": 408
+    },
+    {
+      "id": "mysql_glossary_adaptive_flushing_19588u",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 870,
+      "afterLen": 742
+    },
+    {
+      "id": "mysql_glossary_ado_net_ieyqc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 613,
+      "afterLen": 513
+    },
+    {
+      "id": "mysql_glossary_api_y14yjr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 893,
+      "afterLen": 795
+    },
+    {
+      "id": "mysql_glossary_application_programming_interface_api_73cc6c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 263,
+      "afterLen": 125
+    },
+    {
+      "id": "mysql_glossary_apply_a6xv7f",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 801,
+      "afterLen": 700
+    },
+    {
+      "id": "mysql_glossary_as_h5mr7x",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 82,
+      "afterLen": 66
+    },
+    {
+      "id": "mysql_glossary_asp_net_lyjnke",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 698,
+      "afterLen": 598
+    },
+    {
+      "id": "mysql_glossary_assembly_9y51lx",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 345,
+      "afterLen": 236
+    },
+    {
+      "id": "mysql_glossary_asynchronous_i_o_1c6jsd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 744,
+      "afterLen": 618
+    },
+    {
+      "id": "mysql_glossary_atomic_ddl_l48qcc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 773,
+      "afterLen": 652
+    },
+    {
+      "id": "mysql_glossary_atomic_instruction_xxdtb4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 230,
+      "afterLen": 94
+    },
+    {
+      "id": "mysql_glossary_authentication_server_1njohk",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 506,
+      "afterLen": 363
+    },
+    {
+      "id": "mysql_glossary_auto_increment_locking_lrps8v",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 877,
+      "afterLen": 734
+    },
+    {
+      "id": "mysql_glossary_backticks_5z2ws",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 519,
+      "afterLen": 402
+    },
+    {
+      "id": "mysql_glossary_base_column_jjprw2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 467,
+      "afterLen": 352
+    },
+    {
+      "id": "mysql_glossary_blind_query_expansion_17xip3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 462,
+      "afterLen": 319
+    },
+    {
+      "id": "mysql_glossary_blob_lhrk4q",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1053,
+      "afterLen": 952
+    },
+    {
+      "id": "mysql_glossary_bottleneck_ehdgmu",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 512,
+      "afterLen": 394
+    },
+    {
+      "id": "mysql_glossary_bounce_e9awxp",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 272,
+      "afterLen": 166
+    },
+    {
+      "id": "mysql_glossary_buffer_pool_instance_m5jqpe",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 685,
+      "afterLen": 550
+    },
+    {
+      "id": "mysql_glossary_cfg_file_1wfa77",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 370,
+      "afterLen": 256
+    },
+    {
+      "id": "mysql_glossary_c_api_1wuwxq",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 197,
+      "afterLen": 100
+    },
+    {
+      "id": "mysql_glossary_change_buffering_y1y18j",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 403,
+      "afterLen": 277
+    },
+    {
+      "id": "mysql_glossary_checksum_qnrmvm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 523,
+      "afterLen": 414
+    },
+    {
+      "id": "mysql_glossary_child_table_1l6dvq",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 252,
+      "afterLen": 229
+    },
+    {
+      "id": "mysql_glossary_client_side_prepared_statement_1czk27",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 507,
+      "afterLen": 337
+    },
+    {
+      "id": "mysql_glossary_clob_kn7shj",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 355,
+      "afterLen": 254
+    },
+    {
+      "id": "mysql_glossary_column_index_q4bbvv",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 202,
+      "afterLen": 79
+    },
+    {
+      "id": "mysql_glossary_column_prefix_15o687",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 426,
+      "afterLen": 301
+    },
+    {
+      "id": "mysql_glossary_command_interceptor_1f58ii",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 452,
+      "afterLen": 319
+    },
+    {
+      "id": "mysql_glossary_compact_row_format_16fa2a",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 475,
+      "afterLen": 344
+    },
+    {
+      "id": "mysql_glossary_composite_index_duhrko",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 214,
+      "afterLen": 84
+    },
+    {
+      "id": "mysql_glossary_compressed_backup_12f16e",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 472,
+      "afterLen": 338
+    },
+    {
+      "id": "mysql_glossary_compressed_row_format_11axki",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 771,
+      "afterLen": 642
+    },
+    {
+      "id": "mysql_glossary_compressed_table_zx6vsg",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 349,
+      "afterLen": 230
+    },
+    {
+      "id": "mysql_glossary_concatenated_index_zs31t2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 211,
+      "afterLen": 75
+    },
+    {
+      "id": "mysql_glossary_concurrency_uoyivs",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 148,
+      "afterLen": 125
+    },
+    {
+      "id": "mysql_glossary_connection_fqlzvd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 425,
+      "afterLen": 307
+    },
+    {
+      "id": "mysql_glossary_connection_string_1hyrot",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 397,
+      "afterLen": 262
+    },
+    {
+      "id": "mysql_glossary_connector_ijze9c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 313,
+      "afterLen": 196
+    },
+    {
+      "id": "mysql_glossary_connector_c_rs92y0",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 364,
+      "afterLen": 251
+    },
+    {
+      "id": "mysql_glossary_connector_j_avxtph",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 334,
+      "afterLen": 225
+    },
+    {
+      "id": "mysql_glossary_connector_net_1h05w3",
+      "titleDeduped": true,
+      "footers": 2,
+      "beforeLen": 431,
+      "afterLen": 227
+    },
+    {
+      "id": "mysql_glossary_connector_odbc_1qan6g",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 262,
+      "afterLen": 147
+    },
+    {
+      "id": "mysql_glossary_connector_php_1rej45",
+      "titleDeduped": true,
+      "footers": 2,
+      "beforeLen": 777,
+      "afterLen": 574
+    },
+    {
+      "id": "mysql_glossary_consistent_read_gsmmdj",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 675,
+      "afterLen": 544
+    },
+    {
+      "id": "mysql_glossary_counter_17gzh9",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 399,
+      "afterLen": 286
+    },
+    {
+      "id": "mysql_glossary_cpu_bound_1lxhya",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 257,
+      "afterLen": 137
+    },
+    {
+      "id": "mysql_glossary_crash_7aq2mw",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 251,
+      "afterLen": 234
+    },
+    {
+      "id": "mysql_glossary_crash_recovery_139bco",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 501,
+      "afterLen": 373
+    },
+    {
+      "id": "mysql_glossary_data_directory_zrepzq",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 463,
+      "afterLen": 341
+    },
+    {
+      "id": "mysql_glossary_delete_buffering_15389r",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 766,
+      "afterLen": 640
+    },
+    {
+      "id": "mysql_glossary_denormalized_y8sq0n",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 620,
+      "afterLen": 502
+    },
+    {
+      "id": "mysql_glossary_descending_index_1j7tn3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 307,
+      "afterLen": 175
+    },
+    {
+      "id": "mysql_glossary_dictionary_object_cache_1jwkoz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 595,
+      "afterLen": 453
+    },
+    {
+      "id": "mysql_glossary_disk_based_15w8id",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 574,
+      "afterLen": 460
+    },
+    {
+      "id": "mysql_glossary_disk_bound_1eazx6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 531,
+      "afterLen": 411
+    },
+    {
+      "id": "mysql_glossary_doublewrite_buffer_flioi3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 861,
+      "afterLen": 730
+    },
+    {
+      "id": "mysql_glossary_dynamic_cursor_u1pzzs",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 408,
+      "afterLen": 286
+    },
+    {
+      "id": "mysql_glossary_dynamic_row_format_1pdso5",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 866,
+      "afterLen": 735
+    },
+    {
+      "id": "mysql_glossary_dynamic_statement_1evhmv",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 417,
+      "afterLen": 283
+    },
+    {
+      "id": "mysql_glossary_early_adopter_518cax",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 202,
+      "afterLen": 81
+    },
+    {
+      "id": "mysql_glossary_eiffel_75vlru",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 237,
+      "afterLen": 132
+    },
+    {
+      "id": "mysql_glossary_eviction_1b3reo",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 291,
+      "afterLen": 183
+    },
+    {
+      "id": "mysql_glossary_exception_interceptor_nqrl4t",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 625,
+      "afterLen": 488
+    },
+    {
+      "id": "mysql_glossary_exclusive_lock_ksqz5a",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 442,
+      "afterLen": 415
+    },
+    {
+      "id": "mysql_glossary_extent_16v5kw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 516,
+      "afterLen": 406
+    },
+    {
+      "id": "mysql_glossary_file_per_table_c2gueo",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 700,
+      "afterLen": 575
+    },
+    {
+      "id": "mysql_glossary_fixed_row_format_ti21b0",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 405,
+      "afterLen": 277
+    },
+    {
+      "id": "mysql_glossary_foreign_key_constraint_p6gdbr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 439,
+      "afterLen": 288
+    },
+    {
+      "id": "mysql_glossary_fts_1x0dll",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 221,
+      "afterLen": 113
+    },
+    {
+      "id": "mysql_glossary_full_backup_1pi94c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 282,
+      "afterLen": 159
+    },
+    {
+      "id": "mysql_glossary_full_text_search_16dcha",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 172,
+      "afterLen": 142
+    },
+    {
+      "id": "mysql_glossary_fuzzy_checkpointing_1cxy9s",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 251,
+      "afterLen": 117
+    },
+    {
+      "id": "mysql_glossary_gac_1g5bbw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 343,
+      "afterLen": 249
+    },
+    {
+      "id": "mysql_glossary_gap_k039an",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 805,
+      "afterLen": 706
+    },
+    {
+      "id": "mysql_glossary_gap_lock_1gfoi1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 912,
+      "afterLen": 796
+    },
+    {
+      "id": "mysql_glossary_general_tablespace_300irr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1281,
+      "afterLen": 1143
+    },
+    {
+      "id": "mysql_glossary_generated_stored_column_1nr7fq",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 274,
+      "afterLen": 131
+    },
+    {
+      "id": "mysql_glossary_global_transaction_4i1f06",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 209,
+      "afterLen": 177
+    },
+    {
+      "id": "mysql_glossary_guid_bmsoy4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 412,
+      "afterLen": 310
+    },
+    {
+      "id": "mysql_glossary_hdd_eb2rxz",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 82,
+      "afterLen": 78
+    },
+    {
+      "id": "mysql_glossary_heartbeat_1aiai3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 285,
+      "afterLen": 168
+    },
+    {
+      "id": "mysql_glossary_high_water_mark_1g6jcp",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 222,
+      "afterLen": 97
+    },
+    {
+      "id": "mysql_glossary_history_list_16r63i",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 369,
+      "afterLen": 250
+    },
+    {
+      "id": "mysql_glossary_host_1ctymw",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 164,
+      "afterLen": 148
+    },
+    {
+      "id": "mysql_glossary_hot_1yorp3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 223,
+      "afterLen": 119
+    },
+    {
+      "id": "mysql_glossary_ibz_file_tz3hbm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 393,
+      "afterLen": 278
+    },
+    {
+      "id": "mysql_glossary_i_o_bound_9k72or",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 179,
+      "afterLen": 59
+    },
+    {
+      "id": "mysql_glossary_ib_file_set_18odgx",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 412,
+      "afterLen": 289
+    },
+    {
+      "id": "mysql_glossary_ibbackup_logfile_1vewn2",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 424,
+      "afterLen": 304
+    },
+    {
+      "id": "mysql_glossary_ibtmp_file_18e04h",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 390,
+      "afterLen": 271
+    },
+    {
+      "id": "mysql_glossary_ib_logfile_1p12fu",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 443,
+      "afterLen": 319
+    },
+    {
+      "id": "mysql_glossary_implicit_row_lock_ac6u2d",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 237,
+      "afterLen": 102
+    },
+    {
+      "id": "mysql_glossary_incremental_backup_3gko1n",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 473,
+      "afterLen": 336
+    },
+    {
+      "id": "mysql_glossary_index_condition_pushdown_tudely",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 351,
+      "afterLen": 221
+    },
+    {
+      "id": "mysql_glossary_index_hint_1nr0pl",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 293,
+      "afterLen": 172
+    },
+    {
+      "id": "mysql_glossary_index_statistics_1ge74j",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 202,
+      "afterLen": 69
+    },
+    {
+      "id": "mysql_glossary_infimum_record_1jiz41",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 372,
+      "afterLen": 243
+    },
+    {
+      "id": "mysql_glossary_innodb_autoinc_lock_mode_a8q16t",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 410,
+      "afterLen": 379
+    },
+    {
+      "id": "mysql_glossary_innodb_file_per_table_1w525y",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 559,
+      "afterLen": 429
+    },
+    {
+      "id": "mysql_glossary_innodb_lock_wait_timeout_1puppm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 366,
+      "afterLen": 224
+    },
+    {
+      "id": "mysql_glossary_insert_buffer_1xx0p8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 339,
+      "afterLen": 205
+    },
+    {
+      "id": "mysql_glossary_insert_buffering_m9lmge",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 458,
+      "afterLen": 319
+    },
+    {
+      "id": "mysql_glossary_insert_intention_lock_1pnwh6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 340,
+      "afterLen": 196
+    },
+    {
+      "id": "mysql_glossary_instrumentation_1v9bxz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 293,
+      "afterLen": 168
+    },
+    {
+      "id": "mysql_glossary_intention_exclusive_lock_1rd4p1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 238,
+      "afterLen": 88
+    },
+    {
+      "id": "mysql_glossary_intention_lock_1ejpzi",
+      "titleDeduped": false,
+      "footers": 1,
+      "beforeLen": 431,
+      "afterLen": 330
+    },
+    {
+      "id": "mysql_glossary_intention_shared_lock_4x8ciz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 226,
+      "afterLen": 82
+    },
+    {
+      "id": "mysql_glossary_intrinsic_temporary_table_1sl3hr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 231,
+      "afterLen": 85
+    },
+    {
+      "id": "mysql_glossary_inverted_index_spkkuc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 365,
+      "afterLen": 236
+    },
+    {
+      "id": "mysql_glossary_iops_1go6rk",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 237,
+      "afterLen": 141
+    },
+    {
+      "id": "mysql_glossary_jdbc_14hlls",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 253,
+      "afterLen": 157
+    },
+    {
+      "id": "mysql_glossary_key_distribution_center_fhraw7",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 261,
+      "afterLen": 132
+    },
+    {
+      "id": "mysql_glossary_keystore_1khbxb",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 45,
+      "afterLen": 24
+    },
+    {
+      "id": "mysql_glossary_key_block_size_u1i5bm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 349,
+      "afterLen": 233
+    },
+    {
+      "id": "mysql_glossary_libmysqlclient_1ofbnd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 274,
+      "afterLen": 158
+    },
+    {
+      "id": "mysql_glossary_list_3lo6m9",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 164,
+      "afterLen": 154
+    },
+    {
+      "id": "mysql_glossary_load_balancing_ee4rhm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 334,
+      "afterLen": 205
+    },
+    {
+      "id": "mysql_glossary_lock_mode_h31or1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 481,
+      "afterLen": 363
+    },
+    {
+      "id": "mysql_glossary_locking_read_16dto0",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 527,
+      "afterLen": 403
+    },
+    {
+      "id": "mysql_glossary_log_group_1a3bsl",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 217,
+      "afterLen": 105
+    },
+    {
+      "id": "mysql_glossary_low_water_mark_b3ceyk",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 204,
+      "afterLen": 81
+    },
+    {
+      "id": "mysql_glossary_lru_1mxcfz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 343,
+      "afterLen": 249
+    },
+    {
+      "id": "mysql_glossary_mrg_file_2synx7",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 260,
+      "afterLen": 145
+    },
+    {
+      "id": "mysql_glossary_master_thread_11thmi",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 369,
+      "afterLen": 249
+    },
+    {
+      "id": "mysql_glossary_mdl_braceg",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 72,
+      "afterLen": 62
+    },
+    {
+      "id": "mysql_glossary_medium_trust_113pv6",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 123,
+      "afterLen": 97
+    },
+    {
+      "id": "mysql_glossary_metadata_lock_qiqw4n",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 432,
+      "afterLen": 305
+    },
+    {
+      "id": "mysql_glossary_metrics_counter_1tynuw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 337,
+      "afterLen": 205
+    },
+    {
+      "id": "mysql_glossary_midpoint_insertion_strategy_a74b95",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 397,
+      "afterLen": 246
+    },
+    {
+      "id": "mysql_glossary_mini_transaction_ly3edv",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 380,
+      "afterLen": 247
+    },
+    {
+      "id": "mysql_glossary_mixed_mode_insert_1pvj4c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 539,
+      "afterLen": 402
+    },
+    {
+      "id": "mysql_glossary_mm_mysql_45ec9v",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 186,
+      "afterLen": 82
+    },
+    {
+      "id": "mysql_glossary_mono_oszvd6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 185,
+      "afterLen": 89
+    },
+    {
+      "id": "mysql_glossary_multi_core_1ks4nn",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 160,
+      "afterLen": 47
+    },
+    {
+      "id": "mysql_glossary_mutex_6ryres",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 347,
+      "afterLen": 237
+    },
+    {
+      "id": "mysql_glossary_my_cnf_v2use8",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 58,
+      "afterLen": 51
+    },
+    {
+      "id": "mysql_glossary_my_ini_1giw6m",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 164,
+      "afterLen": 64
+    },
+    {
+      "id": "mysql_glossary_myodbc_drivers_g6kz24",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 205,
+      "afterLen": 75
+    },
+    {
+      "id": "mysql_glossary_mysqlbackup_command_1gjf0a",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 337,
+      "afterLen": 194
+    },
+    {
+      "id": "mysql_glossary_mysqlclient_1fp9hd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 190,
+      "afterLen": 80
+    },
+    {
+      "id": "mysql_glossary_mysqld_q7qv17",
+      "titleDeduped": false,
+      "footers": 1,
+      "beforeLen": 391,
+      "afterLen": 298
+    },
+    {
+      "id": "mysql_glossary_mysqldb_1k0vb5",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 175,
+      "afterLen": 73
+    },
+    {
+      "id": "mysql_glossary_mysqldump_1p1msf",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 288,
+      "afterLen": 182
+    },
+    {
+      "id": "mysql_glossary_net_1q25ey",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 158,
+      "afterLen": 62
+    },
+    {
+      "id": "mysql_glossary_natural_key_tddcrt",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 589,
+      "afterLen": 461
+    },
+    {
+      "id": "mysql_glossary_neighbor_page_1t6aj7",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 385,
+      "afterLen": 260
+    },
+    {
+      "id": "mysql_glossary_non_locking_read_12iidl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 347,
+      "afterLen": 317
+    },
+    {
+      "id": "mysql_glossary_nonblocking_i_o_h65z9a",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 203,
+      "afterLen": 75
+    },
+    {
+      "id": "mysql_glossary_normalized_4n509k",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 565,
+      "afterLen": 451
+    },
+    {
+      "id": "mysql_glossary_not_null_constraint_1op7sq",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 384,
+      "afterLen": 232
+    },
+    {
+      "id": "mysql_glossary_opt_file_1w9809",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 419,
+      "afterLen": 304
+    },
+    {
+      "id": "mysql_glossary_off_page_column_i7tqi8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 792,
+      "afterLen": 668
+    },
+    {
+      "id": "mysql_glossary_online_13svqm",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 205,
+      "afterLen": 193
+    },
+    {
+      "id": "mysql_glossary_optimistic_1gdvw6",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 478,
+      "afterLen": 456
+    },
+    {
+      "id": "mysql_glossary_option_1sc73x",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 152,
+      "afterLen": 134
+    },
+    {
+      "id": "mysql_glossary_option_file_gsqytm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 543,
+      "afterLen": 426
+    },
+    {
+      "id": "mysql_glossary_overflow_page_1x8lkk",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 519,
+      "afterLen": 393
+    },
+    {
+      "id": "mysql_glossary_par_file_rzlrrm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 593,
+      "afterLen": 478
+    },
+    {
+      "id": "mysql_glossary_page_cleaner_20exxg",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 799,
+      "afterLen": 679
+    },
+    {
+      "id": "mysql_glossary_page_size_1tjy75",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1520,
+      "afterLen": 1402
+    },
+    {
+      "id": "mysql_glossary_parent_table_yqeba1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 492,
+      "afterLen": 368
+    },
+    {
+      "id": "mysql_glossary_partial_backup_bplu20",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 142,
+      "afterLen": 114
+    },
+    {
+      "id": "mysql_glossary_partial_trust_rcrlto",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 365,
+      "afterLen": 238
+    },
+    {
+      "id": "mysql_glossary_perl_6buxo8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 258,
+      "afterLen": 162
+    },
+    {
+      "id": "mysql_glossary_perl_api_knrawo",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 449,
+      "afterLen": 345
+    },
+    {
+      "id": "mysql_glossary_persistent_statistics_2n5ydn",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 872,
+      "afterLen": 727
+    },
+    {
+      "id": "mysql_glossary_pessimistic_l0bpvy",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 582,
+      "afterLen": 461
+    },
+    {
+      "id": "mysql_glossary_php_api_1ldhpf",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 497,
+      "afterLen": 389
+    },
+    {
+      "id": "mysql_glossary_physical_117gzf",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 144,
+      "afterLen": 124
+    },
+    {
+      "id": "mysql_glossary_physical_backup_1o7b7v",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 736,
+      "afterLen": 605
+    },
+    {
+      "id": "mysql_glossary_plan_stability_70vxat",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 393,
+      "afterLen": 269
+    },
+    {
+      "id": "mysql_glossary_prepared_statement_1tfqdw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 716,
+      "afterLen": 572
+    },
+    {
+      "id": "mysql_glossary_principal_1llz4f",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 72,
+      "afterLen": 51
+    },
+    {
+      "id": "mysql_glossary_pthreads_qfb7k4",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 143,
+      "afterLen": 128
+    },
+    {
+      "id": "mysql_glossary_purge_buffering_1ckv1x",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 768,
+      "afterLen": 643
+    },
+    {
+      "id": "mysql_glossary_purge_lag_1p6pyp",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 448,
+      "afterLen": 335
+    },
+    {
+      "id": "mysql_glossary_purge_thread_8xnck4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 492,
+      "afterLen": 373
+    },
+    {
+      "id": "mysql_glossary_python_api_2amn13",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 271,
+      "afterLen": 163
+    },
+    {
+      "id": "mysql_glossary_quiesce_1ujs11",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 752,
+      "afterLen": 639
+    },
+    {
+      "id": "mysql_glossary_r_tree_1w9375",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 173,
+      "afterLen": 67
+    },
+    {
+      "id": "mysql_glossary_random_dive_1sbv22",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 267,
+      "afterLen": 144
+    },
+    {
+      "id": "mysql_glossary_raw_backup_1s82jm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 934,
+      "afterLen": 813
+    },
+    {
+      "id": "mysql_glossary_read_phenomena_n0vs4m",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 164,
+      "afterLen": 137
+    },
+    {
+      "id": "mysql_glossary_read_ahead_1khyqr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 410,
+      "afterLen": 297
+    },
+    {
+      "id": "mysql_glossary_read_only_transaction_2kf2kq",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 293,
+      "afterLen": 258
+    },
+    {
+      "id": "mysql_glossary_record_lock_1pixn1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 329,
+      "afterLen": 207
+    },
+    {
+      "id": "mysql_glossary_redo_1vo98z",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 723,
+      "afterLen": 622
+    },
+    {
+      "id": "mysql_glossary_redo_log_archiving_1ugqxo",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 447,
+      "afterLen": 314
+    },
+    {
+      "id": "mysql_glossary_redundant_row_format_kd9bbp",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 863,
+      "afterLen": 727
+    },
+    {
+      "id": "mysql_glossary_relational_1yoaip",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 538,
+      "afterLen": 509
+    },
+    {
+      "id": "mysql_glossary_relevance_1schdd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 450,
+      "afterLen": 332
+    },
+    {
+      "id": "mysql_glossary_repertoire_jo0oic",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 296,
+      "afterLen": 180
+    },
+    {
+      "id": "mysql_glossary_rollback_segment_40xjnc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 682,
+      "afterLen": 550
+    },
+    {
+      "id": "mysql_glossary_ruby_17cue0",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 377,
+      "afterLen": 281
+    },
+    {
+      "id": "mysql_glossary_ruby_api_1c5kjx",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 467,
+      "afterLen": 363
+    },
+    {
+      "id": "mysql_glossary_rw_lock_1c4qu9",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 219,
+      "afterLen": 204
+    },
+    {
+      "id": "mysql_glossary_scalability_d5afjw",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 622,
+      "afterLen": 499
+    },
+    {
+      "id": "mysql_glossary_scale_out_1fhx7h",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 424,
+      "afterLen": 305
+    },
+    {
+      "id": "mysql_glossary_scale_up_1y6pkm",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 664,
+      "afterLen": 547
+    },
+    {
+      "id": "mysql_glossary_sdi_8vlmf5",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 250,
+      "afterLen": 150
+    },
+    {
+      "id": "mysql_glossary_search_index_18jlmz",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 494,
+      "afterLen": 369
+    },
+    {
+      "id": "mysql_glossary_segment_1vmvly",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 456,
+      "afterLen": 344
+    },
+    {
+      "id": "mysql_glossary_selectivity_4k9ksu",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 351,
+      "afterLen": 229
+    },
+    {
+      "id": "mysql_glossary_semi_consistent_read_luof7q",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 733,
+      "afterLen": 590
+    },
+    {
+      "id": "mysql_glossary_serialized_dictionary_information_sdi_1ee69u",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1125,
+      "afterLen": 943
+    },
+    {
+      "id": "mysql_glossary_server_side_prepared_statement_1g5uc6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 828,
+      "afterLen": 656
+    },
+    {
+      "id": "mysql_glossary_service_principal_name_4syyjd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 298,
+      "afterLen": 170
+    },
+    {
+      "id": "mysql_glossary_service_ticket_oqmgfc",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 232,
+      "afterLen": 103
+    },
+    {
+      "id": "mysql_glossary_shared_tablespace_1q68ln",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 506,
+      "afterLen": 370
+    },
+    {
+      "id": "mysql_glossary_sharp_checkpoint_1tnux9",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 590,
+      "afterLen": 462
+    },
+    {
+      "id": "mysql_glossary_slow_shutdown_1tqzdr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 652,
+      "afterLen": 531
+    },
+    {
+      "id": "mysql_glossary_sort_buffer_1x3j60",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 348,
+      "afterLen": 224
+    },
+    {
+      "id": "mysql_glossary_space_id_1kjxje",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1300,
+      "afterLen": 1182
+    },
+    {
+      "id": "mysql_glossary_spin_2ipmhl",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 536,
+      "afterLen": 429
+    },
+    {
+      "id": "mysql_glossary_spn_qxzu3s",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 238,
+      "afterLen": 131
+    },
+    {
+      "id": "mysql_glossary_ssd_gyazmt",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 129,
+      "afterLen": 125
+    },
+    {
+      "id": "mysql_glossary_startup_154aqa",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 405,
+      "afterLen": 292
+    },
+    {
+      "id": "mysql_glossary_statement_interceptor_1d641l",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1108,
+      "afterLen": 970
+    },
+    {
+      "id": "mysql_glossary_stemming_w8xwzt",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 468,
+      "afterLen": 351
+    },
+    {
+      "id": "mysql_glossary_stopword_ztgqhp",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 537,
+      "afterLen": 427
+    },
+    {
+      "id": "mysql_glossary_stored_generated_column_j7jiqj",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 543,
+      "afterLen": 401
+    },
+    {
+      "id": "mysql_glossary_stored_object_od8fkh",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 204,
+      "afterLen": 71
+    },
+    {
+      "id": "mysql_glossary_stored_program_mzfpca",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 215,
+      "afterLen": 86
+    },
+    {
+      "id": "mysql_glossary_stored_routine_kiddr6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 161,
+      "afterLen": 38
+    },
+    {
+      "id": "mysql_glossary_strict_mode_y6y4gv",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 908,
+      "afterLen": 791
+    },
+    {
+      "id": "mysql_glossary_sublist_12kt6o",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 504,
+      "afterLen": 396
+    },
+    {
+      "id": "mysql_glossary_supremum_record_1pbwmi",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 607,
+      "afterLen": 475
+    },
+    {
+      "id": "mysql_glossary_synthetic_key_1drbjs",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 826,
+      "afterLen": 694
+    },
+    {
+      "id": "mysql_glossary_table_lock_15y9vl",
+      "titleDeduped": false,
+      "footers": 1,
+      "beforeLen": 1042,
+      "afterLen": 945
+    },
+    {
+      "id": "mysql_glossary_table_statistics_1c30y8",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 278,
+      "afterLen": 144
+    },
+    {
+      "id": "mysql_glossary_tcl_1yc19t",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 369,
+      "afterLen": 275
+    },
+    {
+      "id": "mysql_glossary_ticket_granting_server_1cuy2c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 468,
+      "afterLen": 339
+    },
+    {
+      "id": "mysql_glossary_ticket_granting_ticket_14xqfb",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 334,
+      "afterLen": 206
+    },
+    {
+      "id": "mysql_glossary_torn_page_1kprbq",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 404,
+      "afterLen": 286
+    },
+    {
+      "id": "mysql_glossary_tps_ej1ya6",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 383,
+      "afterLen": 283
+    },
+    {
+      "id": "mysql_glossary_transaction_id_1aa5a7",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 157,
+      "afterLen": 128
+    },
+    {
+      "id": "mysql_glossary_transportable_tablespace_1685qd",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1387,
+      "afterLen": 1236
+    },
+    {
+      "id": "mysql_glossary_troubleshooting_1zw5wx",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 911,
+      "afterLen": 786
+    },
+    {
+      "id": "mysql_glossary_truststore_rgbyfy",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 241,
+      "afterLen": 121
+    },
+    {
+      "id": "mysql_glossary_undo_buffer_jg11o3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 220,
+      "afterLen": 102
+    },
+    {
+      "id": "mysql_glossary_undo_log_segment_pbdi2c",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 649,
+      "afterLen": 515
+    },
+    {
+      "id": "mysql_glossary_undo_tablespace_so71lf",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 1151,
+      "afterLen": 1019
+    },
+    {
+      "id": "mysql_glossary_unique_constraint_cvzep",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 580,
+      "afterLen": 439
+    },
+    {
+      "id": "mysql_glossary_user_principal_name_daz6wj",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 290,
+      "afterLen": 165
+    },
+    {
+      "id": "mysql_glossary_variable_length_type_1satcr",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 952,
+      "afterLen": 803
+    },
+    {
+      "id": "mysql_glossary_victim_18xqeg",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 180,
+      "afterLen": 161
+    },
+    {
+      "id": "mysql_glossary_virtual_generated_column_1smsm1",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 549,
+      "afterLen": 405
+    },
+    {
+      "id": "mysql_glossary_virtual_index_sm95n4",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 709,
+      "afterLen": 582
+    },
+    {
+      "id": "mysql_glossary_wait_1229eo",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 331,
+      "afterLen": 315
+    },
+    {
+      "id": "mysql_glossary_warm_backup_1sjsyn",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 136,
+      "afterLen": 112
+    },
+    {
+      "id": "mysql_glossary_write_combining_154ozi",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 496,
+      "afterLen": 371
+    },
+    {
+      "id": "mysql_glossary_young_ohocw3",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 670,
+      "afterLen": 560
+    },
+    {
+      "id": "mysql_glossary_insert_undo_log_1yrj7c",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 113,
+      "afterLen": 84
+    },
+    {
+      "id": "mysql_glossary_update_undo_log_yphxzo",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 143,
+      "afterLen": 114
+    },
+    {
+      "id": "mysql_glossary_point_in_time_recovery_eadx3e",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 503,
+      "afterLen": 357
+    },
+    {
+      "id": "mysql_tx_lifecycle",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 60,
+      "afterLen": 47
+    },
+    {
+      "id": "mysql_tx_read_phenomena",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 294,
+      "afterLen": 284
+    },
+    {
+      "id": "mysql_lock_intention",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 42,
+      "afterLen": 32
+    },
+    {
+      "id": "mysql_lock_auto_increment",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 42,
+      "afterLen": 32
+    },
+    {
+      "id": "mysql_lock_metadata",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 36,
+      "afterLen": 25
+    },
+    {
+      "id": "mysql_lock_latches",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 60,
+      "afterLen": 46
+    },
+    {
+      "id": "mysql_lock_modes",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 53,
+      "afterLen": 39
+    },
+    {
+      "id": "k_1782749047493_w36knu",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 25,
+      "afterLen": 14
+    },
+    {
+      "id": "k_1782749263813_199twh",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 25,
+      "afterLen": 14
+    },
+    {
+      "id": "k_1782749276682_qsjks8",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 27,
+      "afterLen": 15
+    },
+    {
+      "id": "k_1782749287355_2zl67c",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 25,
+      "afterLen": 14
+    },
+    {
+      "id": "k_1782928892375_1vgg04",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 56,
+      "afterLen": 45
+    },
+    {
+      "id": "k_1782930904543_kxi0uk",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 101,
+      "afterLen": 91
+    },
+    {
+      "id": "k_1782930954484_nwtfg7",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 138,
+      "afterLen": 127
+    },
+    {
+      "id": "k_1784456386575_b7hxoh",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 25,
+      "afterLen": 14
+    },
+    {
+      "id": "k_wiki_en_outline_of_databases_s4_b16",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 151,
+      "afterLen": 122
+    },
+    {
+      "id": "k_1785231764171_fxrfdh",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 331,
+      "afterLen": 317
+    },
+    {
+      "id": "k_1786353277269_msn0ma9ap",
+      "titleDeduped": true,
+      "footers": 2,
+      "beforeLen": 9556,
+      "afterLen": 9363
+    },
+    {
+      "id": "mysql:sql:dql",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 59,
+      "afterLen": 40
+    },
+    {
+      "id": "mysql:sql:dml",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 78,
+      "afterLen": 59
+    },
+    {
+      "id": "mysql:sql:ddl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 214,
+      "afterLen": 195
+    },
+    {
+      "id": "mysql:sql:dcl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 63,
+      "afterLen": 44
+    },
+    {
+      "id": "mysql:sql:tcl",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 91,
+      "afterLen": 72
+    },
+    {
+      "id": "mysql_glossary_java_uspy11",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 291,
+      "afterLen": 195
+    },
+    {
+      "id": "mysql_glossary_servlet_12jp4v",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 203,
+      "afterLen": 101
+    },
+    {
+      "id": "mysql_glossary_tomcat_10qwey",
+      "titleDeduped": true,
+      "footers": 1,
+      "beforeLen": 306,
+      "afterLen": 206
+    },
+    {
+      "id": "k_1787201710517_se61sz",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 25,
+      "afterLen": 14
+    },
+    {
+      "id": "k_1787234925180_aqltgu",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 27,
+      "afterLen": 15
+    },
+    {
+      "id": "k_1787235074473_zuqcq4",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 27,
+      "afterLen": 15
+    },
+    {
+      "id": "k_1787237097249_1ld0tb",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 194,
+      "afterLen": 171
+    },
+    {
+      "id": "k_1787326496104_zbtx44",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 39,
+      "afterLen": 21
+    },
+    {
+      "id": "k_1787326536038_77rvww",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 53,
+      "afterLen": 28
+    },
+    {
+      "id": "concept_clustered_index",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 265,
+      "afterLen": 242
+    },
+    {
+      "id": "concept_query_processing",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 282,
+      "afterLen": 258
+    },
+    {
+      "id": "concept_phantom_read",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 295,
+      "afterLen": 277
+    },
+    {
+      "id": "aop_term_proxy",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 157,
+      "afterLen": 145
+    },
+    {
+      "id": "aop_term_woven",
+      "titleDeduped": true,
+      "footers": 0,
+      "beforeLen": 156,
+      "afterLen": 139
+    }
+  ]
+}

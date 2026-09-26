@@ -1,0 +1,266 @@
+{
+  "batchId": "t3-p2",
+  "title": "T3-P2 · MyBatis 4 个插件点展示原子的卸树留池（只删 tree mount + treebind，池不动）",
+  "mode": "apply",
+  "generatedAt": "2026-09-14T15:27:15.285Z",
+  "host": {
+    "treeId": "tree_java_fw_mybatis",
+    "poolRef": "k_java_fw_mybatis",
+    "name": "Mybatis"
+  },
+  "targets": [
+    {
+      "treeId": "tree_java_fw_mybatis_executor",
+      "ref": "asplit_mybatis_executor",
+      "name": "Executor（插件点）"
+    },
+    {
+      "treeId": "tree_java_fw_mybatis_statement_handler",
+      "ref": "asplit_mybatis_statement_handler",
+      "name": "StatementHandler（插件点）"
+    },
+    {
+      "treeId": "tree_java_fw_mybatis_parameter_handler",
+      "ref": "asplit_mybatis_parameter_handler",
+      "name": "ParameterHandler（插件点）"
+    },
+    {
+      "treeId": "tree_java_fw_mybatis_resultset_handler",
+      "ref": "asplit_mybatis_resultset_handler",
+      "name": "ResultSetHandler（插件点）"
+    }
+  ],
+  "operation": {
+    "treeData": "detachChild ×4（保留其余 11 个子的原顺序）",
+    "knowledgeEdges": "按精确 id 删除 4 条 treebind 边",
+    "nodePool": "零改动",
+    "questions": "零改动",
+    "evolutionEvents": "+1 事件"
+  },
+  "baselines": {
+    "before": {
+      "treeNodes": 3216,
+      "edges": 4163,
+      "pool": 3855,
+      "tbTotal": 2665,
+      "tbUnresolved": 18,
+      "atomTotal": 248,
+      "atomDangling": 0,
+      "refDangling": 0
+    },
+    "after": {
+      "treeNodes": 3212,
+      "edges": 4159,
+      "pool": 3855,
+      "tbTotal": 2661,
+      "tbUnresolved": 18,
+      "atomTotal": 248,
+      "atomDangling": 0,
+      "refDangling": 0
+    }
+  },
+  "simulated": {
+    "hostChildrenBefore": [
+      "tree_vault_javamybatismybatis_14eqlq",
+      "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "tree_vault_javamybatis03mybatis_17ypok",
+      "tree_vault_javamybatis06mybatisspring_wq41yx",
+      "tree_vault_javamybatis07mybatis_leuyf9",
+      "tree_vault_javamybatisplus_1srs85",
+      "tree_vault_javamybatisplusmybatisplus_193zda",
+      "tree_vault_javamybatismybatis_1pkfbo",
+      "tree_vault_javamybatis_p3kuh0",
+      "tree_java_fw_mybatis_mapper",
+      "tree_java_fw_dynamic_sql",
+      "tree_java_fw_mybatis_executor",
+      "tree_java_fw_mybatis_statement_handler",
+      "tree_java_fw_mybatis_parameter_handler",
+      "tree_java_fw_mybatis_resultset_handler"
+    ],
+    "hostChildrenAfter": [
+      "tree_vault_javamybatismybatis_14eqlq",
+      "tree_vault_javamybatis02sqlsession_5c5wcf",
+      "tree_vault_javamybatis03mybatis_17ypok",
+      "tree_vault_javamybatis06mybatisspring_wq41yx",
+      "tree_vault_javamybatis07mybatis_leuyf9",
+      "tree_vault_javamybatisplus_1srs85",
+      "tree_vault_javamybatisplusmybatisplus_193zda",
+      "tree_vault_javamybatismybatis_1pkfbo",
+      "tree_vault_javamybatis_p3kuh0",
+      "tree_java_fw_mybatis_mapper",
+      "tree_java_fw_dynamic_sql"
+    ],
+    "droppedEdgeIds": [
+      "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_executor",
+      "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_statement_handler",
+      "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_parameter_handler",
+      "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_resultset_handler"
+    ],
+    "droppedEdgeRecords": [
+      {
+        "id": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_executor",
+        "source": "k_java_fw_mybatis",
+        "target": "asplit_mybatis_executor",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_statement_handler",
+        "source": "k_java_fw_mybatis",
+        "target": "asplit_mybatis_statement_handler",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_parameter_handler",
+        "source": "k_java_fw_mybatis",
+        "target": "asplit_mybatis_parameter_handler",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": [
+          "java"
+        ]
+      },
+      {
+        "id": "treebind:tree_java_fw_mybatis:tree_java_fw_mybatis_resultset_handler",
+        "source": "k_java_fw_mybatis",
+        "target": "asplit_mybatis_resultset_handler",
+        "type": "belongs-to",
+        "label": "contains",
+        "relationKind": "structure",
+        "dimensions": [
+          "java"
+        ]
+      }
+    ]
+  },
+  "dimensionCheck": {
+    "dimId": "mybatis_plugin",
+    "sectionId": "mybatis_plugin_grid",
+    "atoms": [
+      "asplit_mybatis_executor",
+      "asplit_mybatis_statement_handler",
+      "asplit_mybatis_parameter_handler",
+      "asplit_mybatis_resultset_handler"
+    ],
+    "resolvable": [
+      "asplit_mybatis_executor",
+      "asplit_mybatis_statement_handler",
+      "asplit_mybatis_parameter_handler",
+      "asplit_mybatis_resultset_handler"
+    ],
+    "note": "本网格 4/4 全为本批目标（P0.1 另有 1 个非本批 atom）"
+  },
+  "gates": [
+    {
+      "id": "G1",
+      "name": "4 个目标存在 ∧ 均为宿主直接子 ∧ 均为叶子（childCount=0 ⇒ 无需提级）",
+      "result": "PASS",
+      "detail": "直接子=true · 均叶子=true"
+    },
+    {
+      "id": "G2",
+      "name": "宿主子数恰为 15",
+      "result": "PASS",
+      "detail": "实测 15 个：tree_vault_javamybatismybatis_14eqlq, tree_vault_javamybatis02sqlsession_5c5wcf, tree_vault_javamybatis03mybatis_17ypok, tree_vault_javamybatis06mybatisspring_wq41yx, tree_vault_javamybatis07mybatis_leuyf9, tree_vault_javamybatisplus_1srs85, tree_vault_javamybatisplusmybatisplus_193zda, tree_vault_javamybatismybatis_1pkfbo, tree_vault_javamybatis_p3kuh0, tree_java_fw_mybatis_mapper, tree_java_fw_dynamic_sql, tree_java_fw_mybatis_executor, tree_java_fw_mybatis_statement_handler, tree_java_fw_mybatis_parameter_handler, tree_java_fw_mybatis_resultset_handler"
+    },
+    {
+      "id": "G3",
+      "name": "4 条 treebind 边按精确 id 各命中 1 条 ∧ 端点均在池",
+      "result": "PASS",
+      "detail": "命中 4/4 · 端点均在池=true"
+    },
+    {
+      "id": "G4",
+      "name": "⚠️ 口径登记：宿主 treeId 不含冒号 ⇒ split(':') helper 对本批**恰好有效**（删除 4 条）",
+      "result": "PASS",
+      "detail": "helper 报告删除 4 条（P0.1 时任宿主 id 含冒号 ⇒ 报 0）· 本脚本仍用精确 id 匹配（同一 idiom + 不依赖已知有缺陷的 helper）· 全库 id 分段>2 的 treebind 边仍为 2665 条，对 helper 一律失效"
+    },
+    {
+      "id": "G5",
+      "name": "4 个池实体保留 ∧ 网格 mybatis_plugin_grid atom 4/4 可解析 ∧ 4 个目标 atom 全在",
+      "result": "PASS",
+      "detail": "实体保留=true · 网格 atom=4（P0.1 为 4 含 1 非本批；本批 4/4 全为本批目标）· 可解析 4 · 目标全在=true"
+    },
+    {
+      "id": "G6",
+      "name": "引用闭合：池/题库 0 残留 ∧ 审计**叙述外**0 残留 ∧ 边侧命中恰为将删的 4 条 ∧ 端点引用 0",
+      "result": "PASS",
+      "detail": "池/题库残留=0 · 审计叙述外残留=0 · 叙述内命中（§3.6 容许、计入不判负）=4 · 边侧命中 4 条且均在删除清单=true · source/target 引用=0"
+    },
+    {
+      "id": "G7",
+      "name": "宿主剩余 11 个子顺序保持 ∧ 其余边逐字节不变 ∧ count 全树不变",
+      "result": "PASS",
+      "detail": "顺序=true · 其余边逐字节=true · count=true"
+    },
+    {
+      "id": "G8",
+      "name": "node-pool 与 questions **零改动**（池实体保留 = 本批不改池）",
+      "result": "PASS",
+      "detail": "pool 克隆后完全相等=true · questions 不在写集内"
+    },
+    {
+      "id": "G9",
+      "name": "预期 diff：树 3216→3212 · 边 4163→4159 · 池不变 3855",
+      "result": "PASS",
+      "detail": "实测 树 3212 · 边 4159 · 池 3855"
+    },
+    {
+      "id": "G10",
+      "name": "4 个 treeId 在树中 0 残留",
+      "result": "PASS",
+      "detail": "实测残留 0 个"
+    },
+    {
+      "id": "G11",
+      "name": "tree 节点 nodeRef 悬空 = 0（本批前 0 → 后 0）",
+      "result": "PASS",
+      "detail": "实测 0"
+    },
+    {
+      "id": "G12",
+      "name": "本批引入的新未解析 treebind 边 = 0（既有债 18 条不归本批）",
+      "result": "PASS",
+      "detail": "前 18 → 后 18 · 新增 0"
+    },
+    {
+      "id": "G13",
+      "name": "全库 viewDimensions atom 悬空 = 0（248 个 atom）",
+      "result": "PASS",
+      "detail": "前 0 → 后 0 · atom 总数 248"
+    },
+    {
+      "id": "G14",
+      "name": "三个待写文件的末尾换行状态延续",
+      "result": "PASS",
+      "detail": "{\"tree\":false,\"edges\":false,\"evo\":false}"
+    },
+    {
+      "id": "G15",
+      "name": "dev server / preview 未在写数据端口监听（防内存态回写覆盖）",
+      "result": "PASS",
+      "detail": "已探测，未发现 5173/4192 监听"
+    }
+  ],
+  "allGatesPass": true,
+  "writeSetHint": [
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/evolution-events.json"
+  ],
+  "excludedFromWriteSet": [
+    "data/node-pool.json",
+    "data/questions.json"
+  ],
+  "note": "node-pool / questions 明确排除在写集外 —— 本批的语义前提就是「池实体保留」。"
+}

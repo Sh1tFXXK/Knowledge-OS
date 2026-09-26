@@ -1,10 +1,10 @@
-import { explicitPagesForTab, type ExplanationIndexNode } from '../../knowledge/explanationIndex';
-import { findPage, findTab } from '../../knowledge/explanationTree';
+import { explicitPagesForTab, type ExplanationIndexNode } from '../../knowledge/explanationIndex.ts';
+import { findPage, findTab } from '../../knowledge/explanationTree.ts';
 import {
   collectDirectContainmentRelations,
   CONTAINMENT_EDGE_TYPE,
-} from '../../knowledge/containment';
-import type { TypeRelationGraph } from '../../knowledge/typeRelations';
+} from '../../knowledge/containment.ts';
+import type { TypeRelationGraph } from '../../knowledge/typeRelations.ts';
 import {
   TypeRelationKind,
   type ExplanationSelectionKind,
@@ -12,15 +12,15 @@ import {
   type KnowledgeEdge,
   type KnowledgeNode,
   type NodeExplanation,
-} from '../../types';
+} from '../../types.ts';
 
 const ROOT_SELECTION_KIND = 'root' as ExplanationSelectionKind.Root;
 
-export const UnifiedIndexNodeKind = {
+const UnifiedIndexNodeKind = {
   Knowledge: 'knowledge',
 } as const;
 
-export type UnifiedIndexNodeKind = typeof UnifiedIndexNodeKind[keyof typeof UnifiedIndexNodeKind];
+type UnifiedIndexNodeKind = typeof UnifiedIndexNodeKind[keyof typeof UnifiedIndexNodeKind];
 
 export const UnifiedIndexMemberKind = {
   Tab: 'tab',
@@ -38,17 +38,17 @@ export const UnifiedIndexEdgeKind = {
 
 export type UnifiedIndexEdgeKind = typeof UnifiedIndexEdgeKind[keyof typeof UnifiedIndexEdgeKind];
 
-export interface UnifiedIndexNodePosition {
+interface UnifiedIndexNodePosition {
   x: number;
   y: number;
 }
 
-export interface UnifiedIndexNodeSize {
+interface UnifiedIndexNodeSize {
   width: number;
   height: number;
 }
 
-export interface UnifiedIndexMember {
+interface UnifiedIndexMember {
   id: string;
   kind: UnifiedIndexMemberKind;
   label: string;
@@ -86,7 +86,7 @@ export interface UnifiedIndexGraphEdge {
   kind: TypeRelationKind | UnifiedIndexEdgeKind;
 }
 
-export interface UnifiedIndexContainmentFrame {
+interface UnifiedIndexContainmentFrame {
   id: string;
   nodeId: string;
   knowledgeNodeId: string;
@@ -114,6 +114,7 @@ interface BuildUnifiedIndexGraphParams {
   relationGraph: TypeRelationGraph;
   knowledgeEdges: readonly KnowledgeEdge[];
   containmentEdges?: readonly KnowledgeEdge[];
+  excludedKnowledgeNodeIds?: ReadonlySet<string>;
   nodePool: Record<string, KnowledgeNode>;
   collapsedNodeIds?: ReadonlySet<string>;
   targetAspectRatio?: number;
@@ -500,7 +501,7 @@ function tagsForSelection(
   return findPage(explicitPagesForTab(explanation, tab), selection.pageId)?.tags ?? [];
 }
 
-export function collectIndexMembers(
+function collectIndexMembers(
   index: ExplanationIndexNode,
   explanation?: NodeExplanation,
 ): UnifiedIndexMember[] {
@@ -885,15 +886,23 @@ export function buildUnifiedIndexGraph({
   relationGraph,
   knowledgeEdges,
   containmentEdges,
+  excludedKnowledgeNodeIds = new Set(),
   nodePool,
   collapsedNodeIds = new Set(),
   targetAspectRatio,
 }: BuildUnifiedIndexGraphParams): UnifiedIndexGraphLayout {
-  const physicalContainmentEdges = containmentEdges ?? knowledgeEdges;
+  const visibleKnowledgeEdges = knowledgeEdges.filter(
+    (edge) => !excludedKnowledgeNodeIds.has(edge.source) && !excludedKnowledgeNodeIds.has(edge.target),
+  );
+  const physicalContainmentEdges = (containmentEdges ?? visibleKnowledgeEdges).filter(
+    (edge) => !excludedKnowledgeNodeIds.has(edge.source) && !excludedKnowledgeNodeIds.has(edge.target),
+  );
   const splitRoots = ownerId !== relationRootId;
   const drafts = new Map<string, KnowledgeDraft>();
   const relationDepths = new Map(
-    relationGraph.nodes.map((node) => [node.nodeId, node.depth]),
+    relationGraph.nodes
+      .filter((node) => !excludedKnowledgeNodeIds.has(node.nodeId))
+      .map((node) => [node.nodeId, node.depth]),
   );
   if (!relationDepths.has(relationRootId)) relationDepths.set(relationRootId, 0);
 
@@ -966,7 +975,7 @@ export function buildUnifiedIndexGraph({
     }
   }
 
-  for (const edge of knowledgeEdges) {
+  for (const edge of visibleKnowledgeEdges) {
     if (edge.source !== ownerId || edge.target === ownerId) continue;
     const kind = logicalRelationKind(edge);
     if (!kind) continue;
@@ -988,17 +997,27 @@ export function buildUnifiedIndexGraph({
     }
   }
 
+  // 幽灵方框防线：绑定还在、本体已不在节点池里的引用（目录解绑残留、事件声明悬空）
+  // 不再画框。宿主框例外——它由卡片自身撑起整张画布。
+  for (const [draftId, draft] of drafts) {
+    if (!draft.owner && !nodePool[draft.knowledgeNodeId]) drafts.delete(draftId);
+  }
+
   const knowledgeNodeIds = new Set(
     [...drafts.values()].map((draft) => draft.knowledgeNodeId),
   );
-  const edges: UnifiedIndexGraphEdge[] = relationGraph.edges.map((edge) => ({
-    id: edge.edgeId,
-    sourceId: graphIdForKnowledge(edge.sourceId, ownerId, splitRoots),
-    targetId: graphIdForKnowledge(edge.targetId, ownerId, splitRoots),
-    kind: edge.kind,
-  }));
+  const edges: UnifiedIndexGraphEdge[] = relationGraph.edges
+    .filter(
+      (edge) => !excludedKnowledgeNodeIds.has(edge.sourceId) && !excludedKnowledgeNodeIds.has(edge.targetId),
+    )
+    .map((edge) => ({
+      id: edge.edgeId,
+      sourceId: graphIdForKnowledge(edge.sourceId, ownerId, splitRoots),
+      targetId: graphIdForKnowledge(edge.targetId, ownerId, splitRoots),
+      kind: edge.kind,
+    }));
   const edgeIds = new Set(edges.map((edge) => edge.id));
-  for (const edge of collectTypeEdgesForNodes(knowledgeNodeIds, knowledgeEdges)) {
+  for (const edge of collectTypeEdgesForNodes(knowledgeNodeIds, visibleKnowledgeEdges)) {
     if (edgeIds.has(edge.id)) continue;
     edgeIds.add(edge.id);
     edges.push({
@@ -1008,7 +1027,7 @@ export function buildUnifiedIndexGraph({
     });
   }
 
-  for (const edge of knowledgeEdges) {
+  for (const edge of visibleKnowledgeEdges) {
     if (edge.source !== ownerId || edge.target === ownerId) continue;
     const kind = logicalRelationKind(edge);
     if (!kind) continue;
@@ -1104,9 +1123,10 @@ export function buildUnifiedIndexGraph({
     }];
   });
 
+  const liveGraphIds = new Set(sizedDrafts.map((draft) => draft.id));
   return {
     nodes,
-    edges,
+    edges: edges.filter((edge) => liveGraphIds.has(edge.sourceId) && liveGraphIds.has(edge.targetId)),
     containmentFrames,
     width,
     height,

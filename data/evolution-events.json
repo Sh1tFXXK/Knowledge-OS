@@ -1,0 +1,85 @@
+[
+  {
+    "id": "event:spring:4",
+    "type": "release",
+    "scopeRootId": "k_java_fw_spring",
+    "occurredAt": 1386806400000,
+    "title": "Spring 4",
+    "summary": "Spring 4 保留原有容器和 MVC 职责，同时扩展类型安全、Web 表达、验证与日期处理。",
+    "sourceOnlyNodeIds": [
+      "k_vault_javaspringspring4_bn9s51",
+      "k_vault_javaspringweb_dxr6ot"
+    ],
+    "introducedNodes": [
+      {
+        "nodeId": "k_vault_javaspringjsr310api_17qbfx",
+        "parentNodeId": "k_vault_javaspring04springmvc_133lis"
+      },
+      {
+        "nodeId": "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
+        "parentNodeId": "k_vault_javaspring04springmvc_133lis"
+      }
+    ],
+    "changes": [
+      {
+        "targetNodeId": "k_vault_javaspring04springmvc_133lis",
+        "facet": "content",
+        "before": "DispatcherServlet 组织路由、参数绑定和响应处理。",
+        "after": "@RestController、Servlet 3.1、异步 REST 和不可变对象绑定扩展了同一条请求链路。"
+      },
+      {
+        "targetNodeId": "k_vault_javaspring_1antjp",
+        "facet": "structure",
+        "before": "XML、注解和 Java Config 表达 BeanDefinition。",
+        "after": "继续保留声明式配置，同时增加 Groovy Bean DSL、脚本和更灵活的注册入口。"
+      }
+    ]
+  },
+  {
+    "id": "event:spring:5",
+    "type": "release",
+    "scopeRootId": "k_java_fw_spring",
+    "occurredAt": 1506556800000,
+    "title": "Spring 5",
+    "summary": "Spring 5 没有推翻原知识骨架，而是把运行基线升级到 Java 8，并为 Web 增加响应式路径。",
+    "sourceOnlyNodeIds": [
+      "k_vault_javaspringspring5_qbo2d2"
+    ],
+    "introducedNodes": [
+      {
+        "nodeId": "k_1784462055382_w4thg2",
+        "parentNodeId": "k_vault_javaspring04springmvc_133lis"
+      },
+      {
+        "nodeId": "k_1788694446334_9jflri",
+        "parentNodeId": "k_vault_javaspringspring_7b4q3y"
+      }
+    ],
+    "changes": [
+      {
+        "targetNodeId": "k_vault_javaspring04springmvc_133lis",
+        "facet": "content",
+        "before": "Spring Web 主要沿用阻塞式 MVC 请求模型。",
+        "after": "新增 WebFlux，在同一 Spring Web 领域提供 reactive、异步非阻塞和 event-loop 路径。"
+      },
+      {
+        "targetNodeId": "k_vault_javaspring_1antjp",
+        "facet": "metadata",
+        "before": "配置驱动模型与具体日志实现耦合较多。",
+        "after": "spring-jcl 等基础设施提供更统一的日志抽象，应用模型保持不变。"
+      },
+      {
+        "targetNodeId": "k_vault_javaspringspring_7b4q3y",
+        "facet": "structure",
+        "before": "注解清单覆盖 @Required、@Autowired、@Qualifier、@RequestMapping、@Import。",
+        "after": "注解清单继续扩展：新增 @Indexed，编译期生成 spring.components 索引，提升 @ComponentScan 的启动性能。"
+      },
+      {
+        "targetNodeId": "k_vault_javaspringspring_7b4q3y",
+        "facet": "content",
+        "before": "注解清单说明中不含 @Indexed；@ComponentScan 启动时需遍历目录扫描所有 Class，项目越大启动损耗越高。",
+        "after": "@Indexed注解是Spring5.0提供\nIndexed注解解决的问题：是随着项目越来越复杂那么@ComponentScan需要扫描加载的Class会越来越多。在系统启动的时候会造成性能损耗。所以Indexed注解的作用其实就是提升系统启动的性能。\n在系统编译的时候那么会收集所有被@Indexed注解标识的Java类。然后记录在META-\nINF/spring.components文件中。那么系统启动的时候就只需要读取一个该文件中的内容就不用在遍历所有的目录了。提升的效率"
+      }
+    ]
+  }
+]

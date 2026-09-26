@@ -126,13 +126,17 @@ function buildOrderedAtoms(
   const seen = new Set<string>();
 
   for (const dimension of dimensions) {
-    const section = primarySection(dimension);
-    if (!section) continue;
-
-    for (const atom of resolveSectionAtoms(section, nodePool)) {
-      if (seen.has(atom.nodeId)) continue;
-      seen.add(atom.nodeId);
-      atoms.push(atom);
+    // 分类矩阵的列 = 这个作用域里"可被分类"的全集。每个维度下的**所有** section
+    // 都得贡献原子，不能只取 primarySection：只取主 section 时，副 section 因为成员
+    // 根本不在列里，会被 buildSectionCategories 整个过滤掉，于是副 section 的分类
+    // 标准从矩阵里彻底消失（demo_lock 的 5 个 section 之前只剩 2 个就是这个问题）。
+    // 单 section 的维度不变（primary 就是它本身），零回归。
+    for (const section of dimension.sections) {
+      for (const atom of resolveSectionAtoms(section, nodePool)) {
+        if (seen.has(atom.nodeId)) continue;
+        seen.add(atom.nodeId);
+        atoms.push(atom);
+      }
     }
   }
 
@@ -227,6 +231,45 @@ function buildContiguousSegments(
       atoms: run.map((position) => orderedAtoms[position]),
     };
   });
+}
+
+/**
+ * 同一行内两个分类若覆盖同一批原子 [start, start+span)，gridColumn 会算出
+ * 完全相同的轨道，第二个会整块盖在第一个上面（demo_lock 的「按锁粒度」就是
+ * 这样被「锁粒度对比」盖住、看起来消失的）。这里给互相重叠的分类分配不同的
+ * 轨道，让它们在行内纵向错开。
+ *
+ * 排序规则：跨度大的先占 0 号轨道（视觉上长条在上、短条在下，更稳）。
+ */
+function assignCategoryLanes(segments: ClassificationBandSegment[]): {
+  laneOf: Map<string, number>;
+  laneCount: number;
+} {
+  const laneOf = new Map<string, number>();
+  const occupied: Array<Array<[number, number]>> = [];
+
+  const ordered = [...segments].sort(
+    (left, right) => right.span - left.span
+      || left.start - right.start
+      || left.id.localeCompare(right.id),
+  );
+
+  for (const segment of ordered) {
+    const range: [number, number] = [segment.start, segment.start + segment.span];
+    let lane = 0;
+    for (;;) {
+      const busy = occupied[lane];
+      const free = !busy || busy.every(([s, e]) => range[1] <= s || range[0] >= e);
+      if (free) {
+        (occupied[lane] ??= []).push(range);
+        laneOf.set(segment.id, lane);
+        break;
+      }
+      lane += 1;
+    }
+  }
+
+  return { laneOf, laneCount: Math.max(1, occupied.length) };
 }
 
 function buildClassificationBandRows(
@@ -667,6 +710,7 @@ function BandScopeView({
 
         {scope.rows.map((row) => {
           const covered = coveredIndexes(row);
+          const { laneOf, laneCount } = assignCategoryLanes(row.segments);
           return (
             <div key={row.id} className="dc-band-row">
               <div
@@ -689,7 +733,10 @@ function BandScopeView({
                   </button>
                 </div>
               </div>
-              <div className="dc-band-track" style={gridStyle}>
+              <div
+                className="dc-band-track"
+                style={{ ...gridStyle, '--band-lane-count': laneCount } as any}
+              >
                 {hasAtomColumns ? (
                   scope.orderedAtoms.map((atom, index) => (
                     <button
@@ -724,6 +771,7 @@ function BandScopeView({
                     onEdit={(nodeId) => openBandEditor(row, segment, nodeId)}
                     onCategoryEdit={onCategoryEdit}
                     onAdd={() => openBandEditor(row, segment)}
+                    lane={laneOf.get(segment.id) ?? 0}
                   />
                 ))}
               </div>
@@ -802,6 +850,7 @@ function ClassificationBandBlock({
   onEdit,
   onCategoryEdit,
   onAdd,
+  lane,
 }: {
   row: ClassificationBandRow;
   segment: ClassificationBandSegment;
@@ -812,6 +861,8 @@ function ClassificationBandBlock({
   onEdit: (nodeId?: string) => void;
   onCategoryEdit: (target: OrthogonalCategoryEditTarget) => void;
   onAdd: () => void;
+  /** 行内纵向轨道号。覆盖同一批原子的分类必须分到不同 lane，否则会完全重叠。 */
+  lane: number;
 }) {
   const firstAtom = segment.atoms[0];
   const memberLabels = segment.memberIds
@@ -824,6 +875,7 @@ function ClassificationBandBlock({
       style={{
         '--band-color': segment.group.color,
         gridColumn: `${segment.start + 1} / span ${segment.span}`,
+        gridRow: `${lane + 1}`,
       } as any}
       title={`${segment.group.label}: ${memberLabels}`}
     >

@@ -22,11 +22,6 @@ export interface SpanConfig {
 const DEFAULT_POSITION_KEY = 'offset';
 const DEFAULT_EXTENT_KEY = 'size';
 
-export const SPAN_DEFAULTS = {
-  positionKey: DEFAULT_POSITION_KEY,
-  extentKey: DEFAULT_EXTENT_KEY,
-};
-
 /** Human label for a span key, falling back to the key itself. */
 export function spanKeyLabel(key: string | undefined, fallback: string): string {
   if (!key || key === DEFAULT_POSITION_KEY) return 'Offset';
@@ -48,7 +43,7 @@ export function readSpanConfig(section: ViewSection): SpanConfig {
 }
 
 /** Read a single numeric atom attribute under a projection key. */
-export function numericAttr(atom: AtomBinding, key: string): number | null {
+function numericAttr(atom: AtomBinding, key: string): number | null {
   const value = atom.attrs?.[key];
   if (typeof value === 'number' && Number.isFinite(value)) return value;
   if (typeof value === 'string' && value.trim()) {
@@ -66,12 +61,4 @@ export function readPosition(atom: AtomBinding, config: SpanConfig): number | nu
 /** Read the projected extent of an atom under a span config. */
 export function readExtent(atom: AtomBinding, config: SpanConfig): number | null {
   return numericAttr(atom, config.extentKey);
-}
-
-/** True when at least one atom carries a projected position or extent. */
-export function hasSpanAttrs(atoms: AtomBinding[], config: SpanConfig): boolean {
-  if (config.total === null) return false;
-  return atoms.some(
-    (atom) => readPosition(atom, config) !== null || readExtent(atom, config) !== null,
-  );
 }

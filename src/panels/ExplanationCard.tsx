@@ -19,7 +19,6 @@ import MarkdownView from './explanation/MarkdownView';
 import ExplanationTableSection from './explanation/ExplanationTableSection';
 import ProjectionReferences from './explanation/ProjectionReferences';
 import SupertagPanel from './explanation/SupertagPanel';
-import KnowledgePointTimeline from '../components/KnowledgePointTimeline';
 import MechanismSpecEditor from './explanation/MechanismSpecEditor';
 import { collectKnowledgeReferences } from '../knowledge/nodeReferences';
 import { normalizeSupertags } from '../knowledge/supertags';
@@ -289,7 +288,6 @@ export default function ExplanationCard() {
           </div>
 
           <div className="explanation-card-header-actions">
-            <KnowledgePointTimeline />
             <button
               type="button"
               className={`btn btn-sm explanation-edit-toggle${isEditing ? ' is-active' : ''}`}

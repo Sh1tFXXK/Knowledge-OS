@@ -1,0 +1,78 @@
+{
+  "at": "2026-09-16T11:38:24.858Z",
+  "base": "http://127.0.0.1:4196/",
+  "pass": 14,
+  "total": 14,
+  "results": [
+    {
+      "ok": true,
+      "desc": "① 渲染 id 集合 === tree-data id 集合（3203 项零增零减）",
+      "detail": "dom=3203 exp=3203 missing= extra="
+    },
+    {
+      "ok": true,
+      "desc": "②③ 目标树行存在且可选中（mysql_functional_ref_demo_clustered_index）",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "desc": "②③ 读态卡片不含「官方锚点」/「来源：原始行」",
+      "detail": "\"MySQL 聚簇索引 / clustered index\\n聚簇索引 / clustered index\\nmysql\\n编辑\\n\\nMySQL 聚簇索引 / clustered index InnoDB术语指的是primary key索引。InnoDB表存储是基于主键列的值进行组织的，以加速涉及主键列的查询和排序。为了获得最佳\""
+    },
+    {
+      "ok": true,
+      "desc": "②③ 读态卡片开头无「标题+标题」重复",
+      "detail": "\"MySQL 聚簇索引 / clustered index\\n聚簇索引 / clustered index\\nmysql\\n编辑\\n\\nMySQL 聚簇索引 / clustered index InnoDB术语指的是primary key索引。Inno\""
+    },
+    {
+      "ok": true,
+      "desc": "②③ 卡片有内容（未落到『无内容』）",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "desc": "④ 目标树行存在且可选中（demo_tree_innodb）",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "desc": "④ 读态卡片不含「官方锚点」/「来源：原始行」",
+      "detail": "\"MySQL InnoDB\\nInnoDB\\nmysql\\nglossary\\nmysql-glossary\\n编辑\\n\\nMySQL InnoDB 一个MySQL组件，结合了高性能和transactional能力，实现可靠性、健壮性和并发访问。它体现了ACID设计哲学。 表示为一个storage engine；它处理使用ENGINE\""
+    },
+    {
+      "ok": true,
+      "desc": "④ 读态卡片开头无「标题+标题」重复",
+      "detail": "\"MySQL InnoDB\\nInnoDB\\nmysql\\nglossary\\nmysql-glossary\\n编辑\\n\\nMySQL InnoDB 一个MySQL组件，结合了高性能和transactional能力，实现可靠性、健壮性和并发访问。它体现了A\""
+    },
+    {
+      "ok": true,
+      "desc": "④ 卡片有内容（未落到『无内容』）",
+      "detail": ""
+    },
+    {
+      "ok": true,
+      "desc": "⑤ 负对照 N1 的合法散文「已有补充：来源」仍在卡片里",
+      "detail": "\"MySQL 二级索引 / secondary index\\n二级索引 / secondary index\\nmysql\\n编辑\\n\\nMySQL 二级索引 / secondary index 二级索引是 InnoDB 索引的一种类型，表示表中部分列的索引。一个 InnoDB 表可以没有二级索引，也可以有一个或多个二级索引。它与 \""
+    },
+    {
+      "ok": true,
+      "desc": "⑥ 正对照：T1 的 tabs 仍含尾注（tab 面本批声明不动，未被误伤）",
+      "detail": "tab 命中 1"
+    },
+    {
+      "ok": true,
+      "desc": "⑦ 全库正文面残留尾注 = 0",
+      "detail": "实际 0"
+    },
+    {
+      "ok": true,
+      "desc": "⑦ 全库 tab 面残留 = 301（声明排除项）",
+      "detail": "实际 301"
+    },
+    {
+      "ok": true,
+      "desc": "⑧ 刷新后复测：T1 卡片仍无尾注、无标题重复",
+      "detail": "\"MySQL 聚簇索引 / clustered index\\n聚簇索引 / clustered index\\nmysql\\n编辑\\n\\nMySQL 聚簇索引 / clustered index InnoDB术语指的是primary key索引。InnoDB表存储是基于主键列的值进行组织的，以加速涉及主键列的查询和排序。为了获得最佳\""
+    }
+  ]
+}
