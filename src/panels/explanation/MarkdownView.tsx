@@ -2,6 +2,7 @@ import { memo, useState, type ReactNode } from 'react';
 import type { KnowledgeReference } from '../../knowledge/nodeReferences';
 import KnowledgeReferenceText from './KnowledgeReferenceText';
 import MermaidDiagram from './MermaidDiagram';
+import CodeBlock from './CodeBlock';
 
 // 稳定的空引用：让 memo 对未传 references 的调用方也能生效
 const EMPTY_REFERENCES: readonly KnowledgeReference[] = [];
@@ -356,22 +357,7 @@ function MarkdownViewBase({
                   {part.lang}
                 </div>
               )}
-              <pre
-                style={{
-                  background: 'rgba(15,15,25,0.5)',
-                  border: '0',
-                  borderRadius: '6px',
-                  padding: '10px 12px',
-                  overflowX: 'auto',
-                  margin: 0,
-                  fontFamily: '"Fira Code", Consolas, "Courier New", Courier, monospace',
-                  fontSize: '12px',
-                  lineHeight: '1.6',
-                  color: '#e2e8f0',
-                }}
-              >
-                <code style={{ fontFamily: 'inherit', color: 'inherit' }}>{part.content}</code>
-              </pre>
+              <CodeBlock code={part.content} lang={part.lang} />
             </div>
           );
         }

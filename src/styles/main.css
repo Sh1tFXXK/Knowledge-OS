@@ -283,3 +283,35 @@ html, body {
 .tooltip:hover::after {
   opacity: 1;
 }
+
+/* 解释卡代码块语法高亮（零依赖 tokenizer，配合 CodeBlock.tsx）
+============================================ */
+.code-tok-keyword {
+  color: var(--accent-purple);
+  font-weight: 600;
+}
+
+.code-tok-string {
+  color: var(--accent-green);
+}
+
+.code-tok-comment {
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+.code-tok-number {
+  color: var(--accent-amber);
+}
+
+.code-tok-annot {
+  color: var(--accent-pink);
+}
+
+.code-tok-xmltag {
+  color: var(--accent-blue);
+}
+
+.code-tok-yamlkey {
+  color: var(--accent-blue);
+}

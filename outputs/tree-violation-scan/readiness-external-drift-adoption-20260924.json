@@ -1,0 +1,698 @@
+{
+  "generatedAt": "2026-09-24T10:39:12.355Z",
+  "batchId": "external-drift-adoption-20260924",
+  "baseRef": "c943c66",
+  "manifestPath": "batch-manifests/external-drift-adoption-20260924.json",
+  "manifestWarnings": [],
+  "brokenManifests": [],
+  "backupDir": "data\\backups\\external-drift-adoption-20260924",
+  "discipline": {
+    "ancestralDiff": "HEAD 与「落盘前基线」是否逐字节相同（决定「提交 = 本批」是否成立）—— Ancestor Gate",
+    "temporalDrift": "unexpectedDrift = trackedDrift − (writeSet ∪ governanceSet ∪ declaredExternalSet) == ∅ —— Timeline Gate",
+    "warning": "两闸正交：时间线无漂移 ≠ HEAD 是干净基线。必须同时验证，**绝不能合并**。"
+  },
+  "writeSet": [
+    "data/node-pool.json",
+    "data/tree-data.json",
+    "data/knowledge-edges.json",
+    "data/questions.json",
+    "batch-manifests/external-drift-adoption-20260924.json"
+  ],
+  "governanceSet": [
+    "STATE.md"
+  ],
+  "declaredExternalSet": [
+    "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+    "scripts/apply-go-design-split-fusion.mjs"
+  ],
+  "excludedSet": [
+    "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+    "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916"
+  ],
+  "checks": {
+    "ancestral": {
+      "data/node-pool.json": {
+        "headBytes": 11734824,
+        "baselineBytes": 11734824,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "6b6a95559286fc72af5052adbec95148",
+        "md5Baseline": "6b6a95559286fc72af5052adbec95148"
+      },
+      "data/tree-data.json": {
+        "headBytes": 1943524,
+        "baselineBytes": 1943524,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "4abb81ffebfde7994c9f9ea4bb636abd",
+        "md5Baseline": "4abb81ffebfde7994c9f9ea4bb636abd"
+      },
+      "data/knowledge-edges.json": {
+        "headBytes": 1138695,
+        "baselineBytes": 1138695,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "1d928eacad3c56ff36e91dc3871360ef",
+        "md5Baseline": "1d928eacad3c56ff36e91dc3871360ef"
+      },
+      "data/questions.json": {
+        "headBytes": 1403138,
+        "baselineBytes": 1403138,
+        "rawEqual": true,
+        "normalizedEqual": true,
+        "contentDiffKeys": 0,
+        "onlyHeadKeys": 0,
+        "onlyBaselineKeys": 0,
+        "md5Head": "89c887c7494aca3d9e054896638ad3ac",
+        "md5Baseline": "89c887c7494aca3d9e054896638ad3ac"
+      }
+    },
+    "temporal": {
+      "available": true,
+      "snapshotAt": "2026-09-23T19:08:10.280Z",
+      "snapshotCount": 3,
+      "added": [
+        "data/knowledge-edges.json",
+        "data/questions.json",
+        "data/tree-data.json"
+      ],
+      "gone": [
+        "scripts/verify-phase1-commit-readiness.mjs"
+      ],
+      "changed": [
+        "STATE.md",
+        "data/node-pool.json"
+      ],
+      "driftTotal": 6,
+      "allowedDrift": {
+        "batchWriteSet": [
+          "data/knowledge-edges.json",
+          "data/questions.json",
+          "data/tree-data.json",
+          "data/node-pool.json"
+        ],
+        "governanceSet": [
+          "STATE.md"
+        ],
+        "declaredExternalSet": [],
+        "otherOwnBatch": [
+          "scripts/verify-phase1-commit-readiness.mjs"
+        ]
+      },
+      "unexpectedDrift": [],
+      "ignoredByRule": [
+        "/^outputs\\//"
+      ]
+    },
+    "phase1Delta": {
+      "added": [
+        "k_1790219617523_fkb2sw"
+      ],
+      "expectedNew": [
+        "k_1790219617523_fkb2sw"
+      ],
+      "modified": [
+        "k_1787723404548_tjn9xx",
+        "k_1787723651360_r3tqg7",
+        "k_goexplain_design",
+        "k_vault_javaspringspringboot_lhipgq",
+        "k_vault_javaspringspringboot_1rp75f",
+        "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
+        "k_1790017845551_esmxat"
+      ],
+      "expectedModified": [
+        "k_1787723404548_tjn9xx",
+        "k_1787723651360_r3tqg7",
+        "k_goexplain_design",
+        "k_vault_javaspringspringboot_lhipgq",
+        "k_vault_javaspringspringboot_1rp75f",
+        "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
+        "k_1790017845551_esmxat",
+        "q_1785165619545_m1fia9",
+        "q_1788755986932_4q2g8n",
+        "q_mvc_param_binding",
+        "q_1790015847781_5x1e2w"
+      ],
+      "unexpectedModified": [],
+      "removed": [],
+      "ok": true
+    },
+    "ownership": {
+      "owned": [
+        {
+          "rel": "STATE.md",
+          "by": [
+            "external-drift-adoption-20260924",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "dedup-dual-copy-normalized",
+            "evolution-v2",
+            "external-drift-adoption",
+            "governance-v1.1",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/knowledge-edges.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2",
+            "versions-v1"
+          ]
+        },
+        {
+          "rel": "data/node-pool.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "core-library-methods",
+            "dedup-dual-copy-normalized",
+            "external-drift-adoption",
+            "external-tag-sync",
+            "java-lib-overlap-a",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "nodepool-tag-normalization",
+            "p-web-http-scope",
+            "phase1",
+            "strip-injected-artifacts"
+          ]
+        },
+        {
+          "rel": "data/questions.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "db-key-constraint-relocation",
+            "external-drift-adoption",
+            "governance-v1.1",
+            "nodepool-tag-normalization",
+            "phase1",
+            "strip-injected-artifacts",
+            "t3-dryrun",
+            "t3-p0",
+            "t3-registration",
+            "t5-rename-evidence"
+          ]
+        },
+        {
+          "rel": "data/tree-data.json",
+          "by": [
+            "external-drift-adoption-20260924",
+            "core-library-methods",
+            "db-key-constraint-relocation",
+            "java-lib-overlap-a",
+            "java-lib-overlap-b",
+            "java-library-parallel",
+            "nio-files-fusion",
+            "p-web-http-scope",
+            "phase1",
+            "t3-p0-apply",
+            "t3-p0.1",
+            "t3-p1",
+            "t3-p2"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/go-design-split-fusion-plan.md",
+          "by": [
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/p-web-cookie-session-verification.md",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-apply-report.md",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/spring-ioc-refactor-ui-probe.md",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/apply-go-design-split-fusion.mjs",
+          "by": [
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "scripts/apply-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/apply-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/jsp-mechanism-view/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/apply.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/txmgr-types-to-subtree/verify.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/verify-p-web-cookie-session.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "scripts/verify-spring-ioc-refactor.mjs",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        }
+      ],
+      "excludedExact": [
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-dropped-tab-labels.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/evolution-events.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/knowledge-edges.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/manifest.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/node-pool.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/questions.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/tree-data.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/dedup-dual-copy-normalized-snapshot/version-chains.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-dedup-dual-copy-normalized.json",
+          "by": [
+            "dedup-dual-copy-normalized"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/readiness-external-drift-adoption-20260924.json",
+          "by": [
+            "external-drift-adoption-20260924"
+          ]
+        },
+        {
+          "rel": "outputs/tree-violation-scan/worktree-fingerprint.json.bak-20260916",
+          "by": [
+            "external-drift-adoption-20260924"
+          ]
+        }
+      ],
+      "excludedByPrefixOnly": [],
+      "unowned": []
+    },
+    "otherSessionFiles": [],
+    "undeclaredFiles": [],
+    "missingCandidates": [],
+    "testBaseline": {
+      "available": true,
+      "tracked": {
+        "files": 10,
+        "tests": 68,
+        "pass": 68,
+        "fail": 0
+      },
+      "peerAdded": {
+        "files": [],
+        "tests": 0,
+        "pass": 0,
+        "fail": 0
+      },
+      "workingTreeTotal": 68,
+      "declared": null,
+      "acceptanceUses": "tracked",
+      "ok": true
+    }
+  },
+  "fieldCoherenceContext": {
+    "labelNeCardTitle": 79,
+    "labelNeCardTitle_subset": 68,
+    "treeNameNePoolLabel": 62,
+    "cardNodeIdMismatch": 0,
+    "invariant": "card.nodeId ≡ 池键（唯一真正的不变量，当前违例 0）"
+  },
+  "detectorContract": {
+    "stage": "evidence-only",
+    "outputs": [
+      "staleSignature",
+      "severity",
+      "disposition"
+    ],
+    "neverOutputs": [
+      "action",
+      "autoFix"
+    ],
+    "dispositions": [
+      "intentional-alias",
+      "defect-candidate",
+      "needs-adjudication",
+      "display-enrichment"
+    ]
+  },
+  "residuals": [
+    {
+      "nodeId": "k_1787723404548_tjn9xx",
+      "oldLabel": "测试",
+      "newLabel": "测试",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "测试",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "测试",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "测试",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_1787723651360_r3tqg7",
+      "oldLabel": "关键字",
+      "newLabel": "关键字",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "关键字",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "关键字",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "关键字",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_goexplain_design",
+      "oldLabel": "语言设计",
+      "newLabel": "语言设计",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "语言设计",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "语言设计",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "语言设计",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_javaspringspringboot_lhipgq",
+      "oldLabel": "Spring Boot 原理",
+      "newLabel": "Spring Boot 原理",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Spring Boot 原理",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Spring Boot 原理",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Spring Boot 原理",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_javaspringspringboot_1rp75f",
+      "oldLabel": "Spring Boot 热加载",
+      "newLabel": "Spring Boot 热加载",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "Spring Boot 热加载",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "Spring Boot 热加载",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "Spring Boot 热加载",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_vault_javaspringbeanvalidation11springmvc_1b3bqh",
+      "oldLabel": "集成 Bean Validation 1.1 到 SpringMVC",
+      "newLabel": "集成 Bean Validation 1.1 到 SpringMVC",
+      "staleSignature": true,
+      "aliasRetained": true,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "集成 Bean Validation 1.1 到 SpringMVC",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "tags[0]",
+          "oldValue": "集成 Bean Validation 1.1 到 SpringMVC",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "集成 Bean Validation 1.1 到 SpringMVC",
+          "severity": "🟡",
+          "disposition": "intentional-alias"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    },
+    {
+      "nodeId": "k_1790017845551_esmxat",
+      "oldLabel": "常用的Java conﬁg",
+      "newLabel": "常用的Java conﬁg",
+      "staleSignature": true,
+      "aliasRetained": false,
+      "staleHits": [
+        {
+          "fieldPath": "label",
+          "oldValue": "常用的Java conﬁg",
+          "severity": "🔴",
+          "disposition": "defect-candidate"
+        },
+        {
+          "fieldPath": "card.title",
+          "oldValue": "常用的Java conﬁg",
+          "severity": "🟡",
+          "disposition": "needs-adjudication"
+        }
+      ],
+      "note": "仅发现证据；是否修改由治理规则裁决（ADR-0002）。检测器不自动修正。"
+    }
+  ],
+  "verdict": "READY",
+  "pathspecInvariant": {
+    "rule": "commitPathspec ≡ writeSet",
+    "leak": [],
+    "ok": true
+  },
+  "exclusionConflict": {
+    "rule": "writeSet ∩ excludedSet = ∅",
+    "conflict": [],
+    "ok": true
+  },
+  "gateSummary": {
+    "manifestGate": "PASS",
+    "pathspecGate": "PASS",
+    "exclusionGate": "PASS",
+    "ancestorGate": "PASS",
+    "timelineGate": "PASS",
+    "deltaGate": "PASS",
+    "candidatesGate": "PASS",
+    "testsGate": "PASS"
+  },
+  "blockers": []
+}
